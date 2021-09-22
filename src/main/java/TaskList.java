@@ -1,3 +1,7 @@
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
 import java.util.ArrayList;
 
 /**
@@ -25,7 +29,7 @@ public class TaskList {
      * Marks a task from a task list as done based on the task number entered.
      *
      * @param tasks Array list of tasks.
-     * @param taskNumber Task number of the task to be marked as done.
+     * @param taskNumber task.Task number of the task to be marked as done.
      */
     public static void markAsDone(ArrayList<Task> tasks, int taskNumber) {
         try{
@@ -42,7 +46,7 @@ public class TaskList {
      * Deletes a task from a task list based on the task number entered.
      *
      * @param tasks Array list of tasks.
-     * @param taskNumber Task number of the task to be deleted.
+     * @param taskNumber task.Task number of the task to be deleted.
      */
     public static void deleteTask(ArrayList<Task> tasks, int taskNumber) {
         try{
@@ -88,7 +92,7 @@ public class TaskList {
      * Adds a new task to a task list.
      *
      * @param tasks Array list of tasks.
-     * @param newTask Task to be added to the task list.
+     * @param newTask task.Task to be added to the task list.
      */
     public static void addTask(ArrayList<Task> tasks, Task newTask) {
         tasks.add(newTask);

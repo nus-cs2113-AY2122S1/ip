@@ -1,7 +1,8 @@
 /**
  * Represents all possible Duke errors.
+ * Deals with printing error messages to the user.
  */
-public class DukeException {
+public class DukeException extends Exception {
 
     /**
      * Prints an error message when there is a space error in the user's input
@@ -32,6 +33,14 @@ public class DukeException {
      */
     public static void printCommandError() {
         String message = "☹ OOPS!!! Sorry, I don't know what that means! :-(\n";
+        Ui.printMessage(message);
+    }
+
+    /**
+     * Prints an error message when a required file does not exist.
+     */
+    public static void printFileError() {
+        String message = "☹ OOPS!!! Please check your working directory again! :-)\n";
         Ui.printMessage(message);
     }
 

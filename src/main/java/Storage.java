@@ -1,3 +1,4 @@
+import task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -58,7 +59,7 @@ public class Storage {
         try {
             file.createNewFile();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            DukeException.printFileError();
         }
     }
 
@@ -126,14 +127,14 @@ public class Storage {
             fileWriter.write("\r\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            DukeException.printFileError();
         }
     }
 
     /**
      * Gets the new storage contents after updating a task's done status in storage file format.
      *
-     * @param taskNumber Task number of the task to be updated.
+     * @param taskNumber task.Task number of the task to be updated.
      * @return Storage contents with the updated task in String format.
      * @throws FileNotFoundException If the storage file does not exist.
      */
@@ -158,7 +159,7 @@ public class Storage {
     /**
      * Updates a task's done status in the storage file.
      *
-     * @param taskNumber Task number of the task to be updated.
+     * @param taskNumber task.Task number of the task to be updated.
      */
     public static void updateDoneTaskInFile(int taskNumber) {
         try{
@@ -167,14 +168,14 @@ public class Storage {
             fileWriter.write(updatedFile);
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            DukeException.printFileError();
         }
     }
 
     /**
      * Gets the new storage contents after deleting a task.
      *
-     * @param taskNumber Task number of the task to be deleted.
+     * @param taskNumber task.Task number of the task to be deleted.
      * @return Storage contents without the deleted task.
      * @throws FileNotFoundException If the storage file does not exist.
      */
@@ -197,7 +198,7 @@ public class Storage {
     /**
      * Deletes a task in the storage file.
      *
-     * @param taskNumber Task number of the task to be deleted.
+     * @param taskNumber task.Task number of the task to be deleted.
      */
     public static void updateDeleteTaskInFile(int taskNumber) {
         try{
@@ -206,7 +207,7 @@ public class Storage {
             fileWriter.write(updatedFile);
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            DukeException.printFileError();
         }
     }
 

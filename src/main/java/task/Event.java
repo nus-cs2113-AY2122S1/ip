@@ -1,5 +1,7 @@
+package task;
+
 /**
- * An extension of the Task class.
+ * An extension of the task.Task class.
  * Contains a description of the event as well as the details of when the event takes place.
  */
 public class Event extends Task {
@@ -7,7 +9,7 @@ public class Event extends Task {
     protected String at;
 
     /**
-     * Constructs an instance of Event.
+     * Constructs an instance of task.Event.
      *
      * @param description Description of the event.
      * @param at Details of when the event takes place.

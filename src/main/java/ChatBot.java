@@ -1,3 +1,4 @@
+import task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -55,13 +56,13 @@ public class ChatBot {
         String userInput;
         while (isRunning) {
             userInput = in.nextLine();
-            boolean hasSpaceError = Parser.spaceErrorChecker(userInput);
-            if (hasSpaceError) {
-                DukeException.printSpaceError();
-            } else {
+            try {
+                Parser.spaceErrorChecker(userInput);
                 String[] parsedUserInput = Parser.parseUserInput(userInput);
                 String command = parsedUserInput[0];
                 executeCommand(tasks, parsedUserInput, command);
+            } catch (DukeException d) {
+                DukeException.printSpaceError();
             }
         }
     }

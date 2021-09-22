@@ -1,3 +1,5 @@
+package task;
+
 /**
  * Represents a user's task. Contains a description of the task.
  */
@@ -8,7 +10,7 @@ public class Task {
     protected String category;
 
     /**
-     * Constructs an instance of Task.
+     * Constructs an instance of task.Task.
      *
      * @param description Description of the task.
      */

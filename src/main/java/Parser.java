@@ -40,15 +40,13 @@ public class Parser {
      * Checks whether there is a space error in the user's input.
      *
      * @param userInput User's input.
-     * @return Boolean representing whether there is a space error in a user's input.
+     * @throws DukeException If there is a space error in the user's input.
      */
-    public static boolean spaceErrorChecker(String userInput) {
+    public static void spaceErrorChecker(String userInput) throws DukeException {
         boolean lastCharacterIsSpace = lastCharacterSpaceChecker(userInput);
         boolean hasMultipleSpaces = multipleSpacesChecker(userInput);
         if (lastCharacterIsSpace || hasMultipleSpaces) {
-            return true;
-        } else {
-            return false;
+            throw new DukeException();
         }
     }
 
@@ -58,14 +56,12 @@ public class Parser {
      * @param userInput User's input.
      * @return Boolean representing whether the format of the user's list/bye command input is correct.
      */
-    public static boolean listOrByeFormatChecker(String userInput) {
+    public static void listOrByeFormatChecker(String userInput) throws DukeException {
         String[] splitUserInput = userInput.split(" ");
         int userInputLength = splitUserInput.length;
         if (userInputLength > 1) {
-            DukeException.printFormatError();
-            return false;
+            throw new DukeException();
         }
-        return true;
     }
 
     /**
@@ -74,21 +70,18 @@ public class Parser {
      * @param userInput User's input.
      * @return Boolean representing whether the format of the user's done/delete command input is correct.
      */
-    public static boolean doneOrDeleteFormatChecker(String userInput) {
+    public static void doneOrDeleteFormatChecker(String userInput) throws DukeException {
         String[] splitUserInput = userInput.split(" ");
         int userInputLength = splitUserInput.length;
         if (userInputLength != 2) {
-            DukeException.printFormatError();
-            return false;
+            throw new DukeException();
         } else {
             try {
                 Integer.parseInt(splitUserInput[1]);
             } catch (NumberFormatException e) {
-                DukeException.printIndexError();
-                return false;
+                throw new DukeException();
             }
         }
-        return true;
     }
 
     /**
@@ -97,14 +90,12 @@ public class Parser {
      * @param userInput User's input.
      * @return Boolean representing whether the format of the user's todo command input is correct.
      */
-    public static boolean todoFormatChecker(String userInput) {
+    public static void todoFormatChecker(String userInput) throws DukeException {
         String[] splitUserInput = userInput.split(" ");
         int userInputLength = splitUserInput.length;
         if (userInputLength < 2) {
-            DukeException.printFormatError();
-            return false;
+            throw new DukeException();
         }
-        return true;
     }
 
     /**
@@ -113,24 +104,20 @@ public class Parser {
      * @param userInput User's input.
      * @return Boolean representing whether the format of the user's deadline command input is correct.
      */
-    public static boolean deadlineFormatChecker(String userInput) {
+    public static void deadlineFormatChecker(String userInput) throws DukeException {
         String[] splitUserInput = userInput.split(" ");
         int userInputLength = splitUserInput.length;
         if (userInputLength < 4) {
-            DukeException.printFormatError();
-            return false;
+            throw new DukeException();
         } else if (!userInput.contains("/by")) {
-            DukeException.printFormatError();
-            return false;
+            throw new DukeException();
         } else {
             int spaceIndex = userInput.indexOf(" ");
             int slashIndex = userInput.indexOf("/");
             if (spaceIndex + 1 == slashIndex) {
-                DukeException.printFormatError();
-                return false;
+                throw new DukeException();
             }
         }
-        return true;
     }
 
     /**
@@ -139,24 +126,20 @@ public class Parser {
      * @param userInput User's input.
      * @return Boolean representing whether the format of the user's event command input is correct.
      */
-    public static boolean eventFormatChecker(String userInput) {
+    public static void eventFormatChecker(String userInput) throws DukeException {
         String[] splitUserInput = userInput.split(" ");
         int userInputLength = splitUserInput.length;
         if (userInputLength < 4) {
-            DukeException.printFormatError();
-            return false;
+            throw new DukeException();
         } else if (!userInput.contains("/at")) {
-            DukeException.printFormatError();
-            return false;
+            throw new DukeException();
         } else {
             int spaceIndex = userInput.indexOf(" ");
             int slashIndex = userInput.indexOf("/");
             if (spaceIndex + 1 == slashIndex) {
-                DukeException.printFormatError();
-                return false;
+                throw new DukeException();
             }
         }
-        return true;
     }
 
     /**
@@ -165,14 +148,12 @@ public class Parser {
      * @param userInput User's input.
      * @return Boolean representing whether the format of the user's find command input is correct.
      */
-    public static boolean findFormatChecker(String userInput) {
+    public static void findFormatChecker(String userInput) throws DukeException {
         String[] splitUserInput = userInput.split(" ");
         int userInputLength = splitUserInput.length;
         if (userInputLength != 2) {
-            DukeException.printFormatError();
-            return false;
+            throw new DukeException();
         }
-        return true;
     }
 
     /**
@@ -188,39 +169,42 @@ public class Parser {
         switch (command) {
         case "list":
         case "bye":
-            boolean correctListOrByeFormat = listOrByeFormatChecker(userInput);
-            if (correctListOrByeFormat) {
+            try {
+                listOrByeFormatChecker(userInput);
                 parsedUserInput[0] = command;
-            } else {
+            } catch (DukeException d) {
                 parsedUserInput[0] = "error";
+                DukeException.printFormatError();
             }
             break;
         case "done":
         case "delete":
-            boolean correctDoneOrDeleteFormat = doneOrDeleteFormatChecker(userInput);
-            if (correctDoneOrDeleteFormat) {
+            try {
+                doneOrDeleteFormatChecker(userInput);
                 int doneSpaceIndex = userInput.indexOf(" ");
                 String doneDetail = userInput.substring(doneSpaceIndex + 1);
                 parsedUserInput[0] = command;
                 parsedUserInput[1] = doneDetail;
-            } else {
+            } catch (DukeException d) {
                 parsedUserInput[0] = "error";
+                DukeException.printFormatError();
             }
             break;
         case "todo":
-            boolean correctTodoFormat = todoFormatChecker(userInput);
-            if (correctTodoFormat) {
+            try {
+                todoFormatChecker(userInput);
                 int spaceIndex = userInput.indexOf(" ");
                 String detail = userInput.substring(spaceIndex + 1);
                 parsedUserInput[0] = command;
                 parsedUserInput[1] = detail;
-            } else {
+            } catch (DukeException d) {
                 parsedUserInput[0] = "error";
+                DukeException.printFormatError();
             }
             break;
         case "deadline":
-            boolean correctDeadlineFormat = deadlineFormatChecker(userInput);
-            if (correctDeadlineFormat) {
+            try {
+                deadlineFormatChecker(userInput);
                 int spaceIndex = userInput.indexOf(" ");
                 int slashIndex = userInput.indexOf("/");
                 String detail = userInput.substring(spaceIndex + 1, slashIndex - 1);
@@ -228,13 +212,14 @@ public class Parser {
                 parsedUserInput[0] = command;
                 parsedUserInput[1] = detail;
                 parsedUserInput[2] = deadlineBy;
-            } else {
+            } catch (DukeException d) {
                 parsedUserInput[0] = "error";
+                DukeException.printFormatError();
             }
             break;
         case "event":
-            boolean correctEventFormat = eventFormatChecker(userInput);
-            if (correctEventFormat) {
+            try {
+                eventFormatChecker(userInput);
                 int spaceIndex = userInput.indexOf(" ");
                 int slashIndex = userInput.indexOf("/");
                 String detail = userInput.substring(spaceIndex + 1, slashIndex - 1);
@@ -242,19 +227,21 @@ public class Parser {
                 parsedUserInput[0] = command;
                 parsedUserInput[1] = detail;
                 parsedUserInput[2] = eventAt;
-            } else {
+            } catch (DukeException d) {
                 parsedUserInput[0] = "error";
+                DukeException.printFormatError();
             }
             break;
         case "find":
-            boolean correctFindFormat = findFormatChecker(userInput);
-            if (correctFindFormat) {
+            try {
+                findFormatChecker(userInput);
                 int doneSpaceIndex = userInput.indexOf(" ");
                 String keyword = userInput.substring(doneSpaceIndex + 1);
                 parsedUserInput[0] = command;
                 parsedUserInput[1] = keyword;
-            } else {
+            } catch (DukeException d) {
                 parsedUserInput[0] = "error";
+                DukeException.printFormatError();
             }
             break;
         default:
