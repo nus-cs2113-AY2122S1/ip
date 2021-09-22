@@ -24,6 +24,11 @@ public class DukeException extends Exception {
             + Ui.SPACE_PREFIX + "Excuse you? The description for todo can NEVER be empty!" + Ui.LINE_BREAK
             + Ui.CONSOLE_LINE_PREFIX;
 
+    /**
+     * Class constructor with specified error message.
+     *
+     * @param errorMessage The error message of the encountered error/exception
+     */
     public DukeException(String errorMessage) {
         super(errorMessage);
     }
