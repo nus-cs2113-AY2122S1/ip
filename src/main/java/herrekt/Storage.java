@@ -1,9 +1,7 @@
 package herrekt;
 
-import herrekt.taskmanager.Deadline;
-import herrekt.taskmanager.Event;
-import herrekt.taskmanager.Task;
-import herrekt.taskmanager.Todo;
+import herrekt.taskmanager.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -30,7 +28,8 @@ public class Storage {
 
     public List<Task> load() throws FileNotFoundException {
         List<String> stringList = loadSaveAsStringList(filePath);
-        return convertStringListToTaskList(stringList);
+        List<Task> tasks = convertStringListToTaskList(stringList);
+        return tasks;
     }
 
     public void save(TaskList tasks) {

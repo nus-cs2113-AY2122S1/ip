@@ -8,7 +8,6 @@ public class Todo extends Task {
 
     @Override
     public String toSave() {
-
         int done = 0;
         if (this.isDone) {
             done = 1;

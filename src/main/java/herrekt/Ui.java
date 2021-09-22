@@ -1,5 +1,7 @@
 package herrekt;
 
+import herrekt.taskmanager.TaskList;
+
 public class Ui {
 
     void printWelcomeMessage() {
@@ -29,6 +31,11 @@ public class Ui {
         System.out.println("  " + tasks.getTask(taskNumber - 1).toString());
     }
 
+    void printTaskAlreadyMarkedAsDone(int taskNumber, TaskList tasks) {
+        System.out.println("Task has already been marked as done.");
+        System.out.println("Task in question: " + tasks.getTask(taskNumber - 1).toString());
+    }
+
     void printTaskList(TaskList tasks) {
         if (tasks.getSize() == 0) {
             System.out.println("You have no outstanding tasks. Good Job!");
@@ -47,7 +54,7 @@ public class Ui {
 
     void printTaskDeleted(int taskNumber, TaskList tasks) {
         int index = taskNumber - 1;
-        System.out.println("Aite. I've removed this task: "
+        System.out.println("Alright. I've removed this task: "
                 + "\n" + "  " + tasks.getTask(index).toString());
         System.out.println("Now you have "
                 + (tasks.getSize() - 1)
@@ -69,7 +76,7 @@ public class Ui {
         System.out.println("Your input: " + phrase);
     }
 
-    void printNoTaskError(String phrase) {
+    void printInvalidTaskError(String phrase) {
         System.out.println("ERROR! What is the task?");
         System.out.println("Your input: " + phrase);
     }
@@ -83,6 +90,11 @@ public class Ui {
     void printInvalidDateError(String phrase) {
         System.out.println("ERROR! The deadline date appears to be invalid.");
         System.out.println("Please use the YYYY-MM-DD format.");
+        System.out.println("Your input: " + phrase);
+    }
+
+    public void printNoNumericInputError(String phrase) {
+        System.out.println("ERROR! Please input an acceptable number after done/delete command");
         System.out.println("Your input: " + phrase);
     }
 }

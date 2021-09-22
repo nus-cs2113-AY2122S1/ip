@@ -1,3 +1,2 @@
 E / 1 / sleep / 3am
 D / 1 / finish parser / 2am
-D / 1 / go back to hall / 2021-09-19

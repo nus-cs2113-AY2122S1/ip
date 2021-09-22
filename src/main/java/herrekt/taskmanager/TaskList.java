@@ -1,18 +1,16 @@
-package herrekt;
+package herrekt.taskmanager;
 
-import herrekt.taskmanager.Task;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
     private List<Task> tasks;
 
-    TaskList(List<Task> tasks) {
+    public TaskList(List<Task> tasks) {
         this.tasks = tasks;
-
     }
 
-    TaskList() {
+    public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
@@ -41,9 +39,15 @@ public class TaskList {
         this.tasks.remove(index);
     }
 
-    public void markAsDone(int taskNumber) {
+    public boolean markAsDone(int taskNumber) {
         int index = taskNumber - 1;
-        this.getTask(index).setDone();
+        Task toMark = this.getTask(index);
+        if (toMark.isDone()) {
+            return false;
+        } else {
+            toMark.setDone();
+            return true;
+        }
     }
 
     public StringBuilder convertTaskListToSaveFormat() {

@@ -1,23 +1,26 @@
 package herrekt;
 
 import herrekt.exceptions.InvalidInputException;
-import herrekt.exceptions.NoTaskException;
-import herrekt.taskmanager.Task;
+import herrekt.exceptions.InvalidTaskException;
+import herrekt.taskmanager.TaskList;
+
 import java.io.FileNotFoundException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 
 public class Herrekt {
-
+    private final static String NAME_OF_FILE = "save.txt";
     private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
     private final Parser parser;
+    private final Command command;
 
     public Herrekt(String filePath) {
         this.parser = new Parser();
         this.ui = new Ui();
+        this.command = new Command();
         this.storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(this.storage.load());
@@ -28,40 +31,37 @@ public class Herrekt {
     }
 
     public void run() {
-        this.ui.printWelcomeMessage();
+        ui.printWelcomeMessage();
         Scanner sc = new Scanner(System.in);
 
         String phrase = sc.nextLine();
 
         while (!phrase.equals("bye")) {
             try {
+                command.isInputValid(phrase);
                 if (phrase.equals("list")) {
                     ui.printTaskList(tasks);
-                } else if (phrase.contains("done")) {
-                    int taskNumber = parser.parseDoneInputToInt(phrase);
-                    tasks.markAsDone(taskNumber);
-                    ui.printMarkTaskAsDone(taskNumber, tasks);
-                } else if (phrase.contains("delete")) {
-                    int taskNumber = parser.parseDeleteInputToInt(phrase);
-                    ui.printTaskDeleted(taskNumber, tasks);
-                    tasks.delete(taskNumber);
-                } else if (phrase.contains("find")) {
-                    String phraseToSearch = parser.parseSearchInputToString(phrase);
-                    ui.printMatchingTaskList(new TaskList(tasks.search(phraseToSearch)));
+                } else if (phrase.startsWith("done")) {
+                    command.runDoneCommand(phrase, tasks);
+                } else if (phrase.startsWith("delete")) {
+                    command.runDeleteCommand(phrase, tasks);
+                } else if (phrase.startsWith("find")) {
+                    command.runFindCommand(phrase, tasks);
                 } else {
-                    isInputValid(phrase);
-                    Task task = parser.parsePhraseToTask(phrase);
-                    tasks.add(task);
-                    ui.printNumberOfTasks(tasks);
+                    command.runTaskCommand(phrase, tasks);
                 }
-            } catch (ArrayIndexOutOfBoundsException e13) {
+            } catch (ArrayIndexOutOfBoundsException e1) {
                 ui.printIncorrectFormatError(phrase);
+            } catch(NumberFormatException | StringIndexOutOfBoundsException e2) {
+                ui.printNoNumericInputError(phrase);
             } catch (IndexOutOfBoundsException e2) {
                 ui.printInputBiggerThanTaskList(tasks);
             } catch (InvalidInputException e3) {
                 ui.printInvalidInputError(phrase);
-            } catch (NoTaskException e4) {
-                ui.printNoTaskError(phrase);
+                e3.printStackTrace();
+            } catch (InvalidTaskException e4) {
+                ui.printInvalidTaskError(phrase);
+                e4.printStackTrace();
             } catch (DateTimeParseException e5) {
                 ui.printInvalidDateError(phrase);
             }
@@ -73,22 +73,6 @@ public class Herrekt {
     }
 
     public static void main(String[] args) {
-        new Herrekt("save.txt").run();
-
-    }
-
-    static void isInputValid(String phrase) throws InvalidInputException, NoTaskException {
-        if (!(phrase.contains("todo")
-                || phrase.contains("deadline")
-                || phrase.contains("event"))
-            || !(phrase.split(" ")[0].equals("todo")
-                || phrase.split(" ")[0].equals("deadline")
-                || phrase.split(" ")[0].equals("event"))) {
-            throw new InvalidInputException("ERROR! Please follow format in README.md" + "\n"
-                    + "Your input: " + phrase);
-        } else if (phrase.split(" ").length == 1) {
-            throw new NoTaskException("ERROR! What is the task?" + "\n"
-                    + "Your input: " + phrase);
-        }
+        new Herrekt(NAME_OF_FILE).run();
     }
 }
