@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
+/**
+ * Contains all Tasks given by user.
+ * Tasks are stored in an ArrayList.
+ * Contains methods that work on Tasks such as searching and adding.
+ */
 public class TaskManager {
     private static final int TASK_DESCRIPTION_INDEX = 0;
     private static final int BY_OR_AT_INDEX = 1;
@@ -25,7 +30,7 @@ public class TaskManager {
     public static Task getTask(int num) {
         return tasks.get(getIndexForArray(num));
     }
-    
+
     public static int getNumOfTasks() {
         return numOfTasks;
     }
@@ -52,14 +57,10 @@ public class TaskManager {
         return tasks.iterator();
     }
 
-    private static String[] splitDescription(String description, String splitBy) {
-        return description.split(splitBy, 2);
-    }
-
     /**
      * Prints out all Task, separated by new line into standard output.
      */
-    public static void printList() {
+    public static void printTaskList() {
         if (numOfTasks == 0) {
             System.out.println("List is empty!");
             return;
@@ -124,7 +125,7 @@ public class TaskManager {
     }
 
     private static void addEvent(String description) throws DukeBlankDescriptionsException {
-        String[] descriptions = splitDescription(description, " /at ");
+        String[] descriptions = Parser.splitDescription(description, " /at ");
         if (hasBlankEntry(descriptions)) {
             throw new DukeBlankDescriptionsException();
         }
@@ -134,7 +135,7 @@ public class TaskManager {
     }
 
     private static void addDeadline(String description) throws DukeBlankDescriptionsException {
-        String[] descriptions = splitDescription(description, " /by ");
+        String[] descriptions = Parser.splitDescription(description, " /by ");
         if (hasBlankEntry(descriptions)) {
             throw new DukeBlankDescriptionsException();
         }
@@ -148,14 +149,12 @@ public class TaskManager {
 
     /**
      * Prints out a list of all Tasks that contains the term given by user.
-     * 
+     *
      * @param term The search term given by user to find related Task.
      */
     public static void printRelatedTask(String term) {
-        UserInterface.printLine();
         if (term.isBlank()) {
             System.out.println("No search term given!");
-            UserInterface.printLine();
             return;
         }
 
@@ -171,9 +170,8 @@ public class TaskManager {
                 System.out.println(i + 1 + "." + relatedTasks.get(i));
             }
         }
-        UserInterface.printLine();
     }
-    
+
     private static int getIndexForArray(int index) {
         return index - 1;
     }
