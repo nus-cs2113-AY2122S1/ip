@@ -14,7 +14,7 @@ public class DeadlineCommand extends Command {
     public Ui ui = new Ui();
 
     /**
-     * Function deletes the task - from the list of tasks - specified by the user
+     * Function adds a Deadline into the list of task
      * @param taskList the list of tasks
      * @param line the input line from the user
      * @throws DeadlineException when the input line is invalid

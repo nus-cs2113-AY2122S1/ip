@@ -14,10 +14,10 @@ public class DoneCommand extends Command {
     public Ui ui = new Ui();
 
     /**
-     *
-     * @param taskList
-     * @param line
-     * @throws DoneException
+     * Function sets the isDone attribute of task in the task list to true
+     * @param taskList the list of tasks
+     * @param line the input line from the user
+     * @throws DoneException when the input line is invalid
      */
     public void execute(TaskList taskList, String line) throws DoneException {
         if (line.length() == TASK_DATE_DIVIDER) {

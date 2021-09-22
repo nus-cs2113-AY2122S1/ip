@@ -13,8 +13,14 @@ public class EventCommand extends Command {
     private static final Integer ZERO = 0;
     private static final Integer TASK_DATE_DIVIDER = 4;
 
-
     public Ui ui = new Ui();
+
+    /**
+     * Function adds an Event task into the task list
+     * @param taskList the list of tasks
+     * @param line the input line from the user
+     * @throws EventException when the input line is invalid
+     */
     public void execute(TaskList taskList, String line) throws EventException {
         if (!line.contains(EVENT_KEYWORD)) {
             throw new EventException("Event Request Does Not Contain /at");
