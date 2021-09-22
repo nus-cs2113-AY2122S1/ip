@@ -75,7 +75,7 @@ public class choose {
         StringBuilder outputString = new StringBuilder();
         for (int j = 0; j <listSize; j++) {
             outputString.append(List[j].toOutput());
-            outputString.append(System.lineSeparator());
+            outputString.append(System.lineSeparator()); //for newline
         }
         file_writer.write(outputString.toString());
         file_writer.close();
