@@ -6,6 +6,8 @@ import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.Event;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -15,6 +17,7 @@ public class Parser {
     private static final int INDEX_AFTER_TODO = 4;
     private static final int INDEX_AFTER_DEADLINE = 8;
     private static final int INDEX_AFTER_EVENT = 5;
+    protected static LocalDate dueTime;
 
     /**
      * Extracts the description, creates a todo Task object
@@ -57,7 +60,9 @@ public class Parser {
         String deadlineDescription = input.substring(INDEX_AFTER_DEADLINE, endIndex).trim();
         String deadlineDate = getDateFromCommand(input);
 
-        Task deadline = new Deadline(deadlineDescription, deadlineDate);
+        dueTime = LocalDate.parse(deadlineDate);
+
+        Task deadline = new Deadline(deadlineDescription, dueTime);
 
         return deadline;
     }
@@ -125,5 +130,13 @@ public class Parser {
      */
     public static String getFirstWordFromCommand(String input) {
         return input.toLowerCase().split(" ")[0];
+    }
+
+    /**
+     * @param input is the command given by the user
+     * @return the lowercase form of the keyword present in the command
+     */
+    public static String getKeywordFromCommand(String input) {
+        return input.toLowerCase().split(" ")[1];
     }
 }

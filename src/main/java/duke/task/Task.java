@@ -1,6 +1,10 @@
 package duke.task;
 
 public class Task {
+    public String getDescription() {
+        return description;
+    }
+
     protected String description;
     protected boolean isDone;
 

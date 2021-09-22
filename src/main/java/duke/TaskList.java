@@ -58,8 +58,20 @@ public class TaskList {
      * Prints all the tasks present in the list
      */
     public void listTasks() {
-        Ui.printLineSeparator();
         Ui.printTaskList();
-        Ui.printLineSeparator();
     }
+
+    /**
+     * Searches and prints the task based on the keyword provided
+     *
+     * @param keyword is the word that needs to be searched for
+     */
+    public void findTask(String keyword) {
+        if (list.isEmpty()) {
+            Ui.printEmptyListMessage();
+        }
+
+        Ui.printMatchingTasks(keyword);
+    }
+
 }
