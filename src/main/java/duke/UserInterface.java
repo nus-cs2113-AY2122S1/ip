@@ -61,7 +61,9 @@ public class UserInterface {
     }
 
     private static void findTask() {
+        printLine();
         TaskManager.printRelatedTask(userInputs[REMAINING_USER_INPUT_INDEX]);
+        printLine();
     }
 
     private static void deleteTask() {
@@ -128,10 +130,7 @@ public class UserInterface {
         }
     }
 
-    /**
-     * Prints a horizontal line to standard output that acts as a separator.
-     */
-    public static void printLine() {
+    private static void printLine() {
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -209,6 +208,15 @@ public class UserInterface {
      */
     public static void showSaveError() {
         System.out.println("Error saving data. Some or all data maybe lost.");
+    }
+
+    /**
+     * Prints "Error saving data. Some or all data maybe lost." to standard output.
+     * A line will be printed to act as a separator.
+     */
+    public static void showSaveErrorWithLine() {
+        System.out.println("Error saving data. Some or all data maybe lost.");
+        printLine();
     }
 
     /**

@@ -153,10 +153,8 @@ public class TaskManager {
      * @param term The search term given by user to find related Task.
      */
     public static void printRelatedTask(String term) {
-        UserInterface.printLine();
         if (term.isBlank()) {
             System.out.println("No search term given!");
-            UserInterface.printLine();
             return;
         }
 
@@ -172,7 +170,6 @@ public class TaskManager {
                 System.out.println(i + 1 + "." + relatedTasks.get(i));
             }
         }
-        UserInterface.printLine();
     }
 
     private static int getIndexForArray(int index) {

@@ -110,7 +110,7 @@ public class DataManager {
     /**
      * Transfers all current Tasks in TaskManager (in their toString() format) into DukeData.txt.
      * Successful saves are silent.
-     * User will be notified if save was noy successful.
+     * User will be notified if save was not successful.
      */
     public static void saveWithoutSuccessMessage() {
         FileWriter writer;
@@ -124,8 +124,7 @@ public class DataManager {
             }
             buffer.close();
         } catch (IOException e) {
-            UserInterface.showSaveError();
-            UserInterface.printLine();
+            UserInterface.showSaveErrorWithLine();
         }
     }
 }
