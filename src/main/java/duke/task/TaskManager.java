@@ -1,13 +1,6 @@
 package duke.task;
 
-import duke.exception.ToDoFormatException;
-import duke.exception.DeadlineFormatException;
-import duke.exception.EventFormatException;
-import duke.exception.EmptyTasklistException;
-import duke.exception.DoneFormatException;
-import duke.exception.InvalidTaskIdException;
-import duke.exception.TaskAlreadyDoneException;
-import duke.exception.DeleteFormatException;
+import duke.exception.*;
 
 import java.util.ArrayList;
 
@@ -133,7 +126,7 @@ public class TaskManager {
 
     }
 
-    public String findTask (String keyword) {
+    public String findTask (String keyword) throws NoTaskFoundException {
 
         String matchedTasks = "";
         int numMatched = 0;
@@ -143,6 +136,10 @@ public class TaskManager {
                 matchedTasks += taskID + 1 + "." + tasks.get(taskID).getTaskDescription() + "\n";
                 numMatched++;
             }
+        }
+
+        if (numMatched == 0) {
+            throw new NoTaskFoundException();
         }
 
         return getFindTaskMessage(matchedTasks, numMatched);
