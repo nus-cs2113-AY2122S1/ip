@@ -7,7 +7,6 @@ Hello from
 
 Hello! I'm Duke
 I am currently able to help you keep track of tasks
-scheduled to receive a personality soon, exciting!
 Type "help" to find out what I can do for you.
 ========================================================================
 I currently support 3 types of tasks: todo, deadline and event

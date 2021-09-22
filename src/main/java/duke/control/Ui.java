@@ -48,7 +48,6 @@ public class Ui {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Duke");
         System.out.println("I am currently able to help you keep track of tasks");
-        System.out.println("scheduled to receive a personality soon, exciting!");
         System.out.println("Type \"help\" to find out what I can do for you.");
         printResponseSeparator();
     }
