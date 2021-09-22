@@ -15,12 +15,14 @@ import java.util.Scanner;
  */
 public class Duke {
     private static final String LINE = "____________________________________________________________";
-    private static final String ADD_TASK_MSG = "Got it. I've added this duke.task: ";
+    private static final String ADD_TASK_MSG = "Got it. I've added this task: ";
     private static final String ERROR_MSG = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
     private static final String TODO_ERROR = "The description of a todo cannot be empty.";
     private static final String DEADLINE_ERROR = "The description of a deadline cannot be empty and must have a '/by'.";
     private static final String EVENT_ERROR = "The description of an event cannot be empty and must have a '/at'.";
     private static final String SEARCH_ERROR = "Cannot find such a thing, please try again!";
+    private static final String DELETE_ERROR = "Cannot delete something that doesn't exists!";
+    private static final String DONE_ERROR = "Cannot mark a non-existing task as done!";
     private static final String FILE_PATH = "tasks.txt";
     private static ArrayList<Task> tasks;
     private static Storage storage;
@@ -56,28 +58,17 @@ public class Duke {
         text = in.nextLine();
         while (!text.equals("bye")) {
             System.out.println(LINE);
-            String[] words = text.split(" ");
-            int numOfTasks = tasks.size();
+            String[] userInput = text.split(" ");
             try {
-                switch (words[0]) {
+                switch (userInput[0]) {
                 case "list":
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < numOfTasks; i++) {
-                        System.out.println((i + 1) + "." + tasks.get(i).toString());
-                    }
+                    displayTasks();
                     break;
                 case "done":
-                    int taskNum = Integer.parseInt(words[words.length - 1]);
-                    Task taskToSetDone = tasks.get(taskNum - 1);
-                    taskToSetDone.setDone();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(taskToSetDone.getStatusIcon() + taskToSetDone.getDescription());
+                    markTask(userInput);
                     break;
                 case "delete":
-                    int taskNumToDelete = Integer.parseInt(words[words.length - 1]);
-                    Task taskToDelete = tasks.remove(taskNumToDelete - 1);
-                    System.out.println("Noted. I've removed this task: ");
-                    System.out.println(taskToDelete.getStatusIcon() + taskToDelete.getDescription());
+                    deleteTask(userInput);
                     System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     break;
                 case "todo":
@@ -114,7 +105,58 @@ public class Duke {
     }
 
     /**
-     * A functionality method used to add todos as one of the tasks.
+     * A helper method used to display all the tasks in the list.
+     */
+    private static void displayTasks() {
+        if (tasks.size() == 0) {
+            System.out.println("You do not have any tasks! Go and add some now!");
+            return;
+        }
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i).toString());
+        }
+    }
+
+    /**
+     * A helper method used to mark tasks as done.
+     * @param userInput The task number to mark.
+     * @throws DukeException If there are no numbers given to mark or the number is invalid.
+     */
+    private static void markTask(String[] userInput) throws DukeException {
+        if (userInput.length < 2) {
+            throw new DukeException(DONE_ERROR);
+        }
+        int taskNum = Integer.parseInt(userInput[userInput.length - 1]);
+        if (taskNum > tasks.size() || taskNum <= 0) {
+            throw new DukeException(DONE_ERROR);
+        }
+        Task taskToSetDone = tasks.get(taskNum - 1);
+        taskToSetDone.setDone();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(taskToSetDone.getStatusIcon() + taskToSetDone.getDescription());
+    }
+
+    /**
+     * A helper method used to delete tasks.
+     * @param userInput The task number to delete.
+     * @throws DukeException If there are no numbers given to delete or the number is invalid.
+     */
+    private static void deleteTask(String[] userInput) throws DukeException {
+        if (userInput.length < 2) {
+            throw new DukeException(DELETE_ERROR);
+        }
+        int taskNumToDelete = Integer.parseInt(userInput[userInput.length - 1]);
+        if (taskNumToDelete > tasks.size() || taskNumToDelete <= 0) {
+            throw new DukeException(DONE_ERROR);
+        }
+        Task taskToDelete = tasks.remove(taskNumToDelete - 1);
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(taskToDelete.getStatusIcon() + taskToDelete.getDescription());
+    }
+
+    /**
+     * A helper method used to add todos as one of the tasks.
      * @param text The user's input including the word "todo"
      *             and the subsequent todo description.
      * @throws DukeException If there are errors associated with the todo description.
@@ -127,10 +169,11 @@ public class Duke {
         Task newTodo = new Todo(todoTaskInfo[0], false);
         tasks.add(newTodo);
         System.out.println(ADD_TASK_MSG);
+        System.out.println("\t" + newTodo);
     }
 
     /**
-     * A functionality method used to add deadlines as one of the tasks.
+     * A helper method used to add deadlines as one of the tasks.
      * @param text The user's input including the word "deadline"
      *             and the subsequent deadline description.
      * @throws DukeException If there are errors associated with the deadline
@@ -148,10 +191,11 @@ public class Duke {
         Task newDeadline = new Deadline(deadlineTaskInfo[0], deadlineTaskInfo[1], false);
         tasks.add(newDeadline);
         System.out.println(ADD_TASK_MSG);
+        System.out.println("\t" + newDeadline);
     }
 
     /**
-     * A functionality method used to add event as one of the tasks.
+     * A helper method used to add event as one of the tasks.
      * @param text The user's input including the word "event"
      *             and the subsequent event description.
      * @throws DukeException If there are errors associated with the event
@@ -169,13 +213,14 @@ public class Duke {
         Task newEvent = new Event(eventTaskInfo[0], eventTaskInfo[1], false);
         tasks.add(newEvent);
         System.out.println(ADD_TASK_MSG);
+        System.out.println("\t" + newEvent);
     }
 
     /**
-     * A functionality method used to search for a task by keyword.
+     * A helper method used to search for a task by keyword.
      * @param text The user's input including the word "find"
      *             and the subsequent keyword.
-     * @throws DukeException
+     * @throws DukeException if there are errors in the keyword
      */
     private static void findTask(String text) throws DukeException {
         if (text.length() <= "find".length()) {
@@ -193,9 +238,41 @@ public class Duke {
             return;
         }
         System.out.println("Here are the matching tasks in your list:");
-        for (int i = 0; i < tasksFound.size(); i++) {
-            System.out.println((i + 1) + "." + tasksFound.get(i).toString());
+        for (Task task : tasksFound) {
+            System.out.println("* " + task.toString());
         }
+    }
+
+    /**
+     * A helper method used to extract the task info from the user input.
+     * The method is also able to extract the dates for the tasks that need them.
+     * @param taskString The user input which contains the task word eg. "todo"
+     *             and the task description.
+     * @param taskType The task type to extract the info from.
+     *             eg. "todo", "event", "deadline"
+     * @return taskInfo array of size 2, where the taskInfo[0] is the task description
+     *             and taskInfo[1] is an optional date/time info.
+     */
+    private static String[] extractInfo(String taskString, String taskType) {
+        String[] taskInfo = new String[2];
+        int slashPos = taskString.indexOf('/');
+        switch (taskType) {
+        case "todo":
+        case "find":
+            taskInfo[0] = taskString.substring("find".length() + 1);
+            break;
+        case "deadline":
+            taskInfo[0] = taskString.substring("deadline".length() + 1, slashPos - 1);
+            taskInfo[1] = taskString.substring(slashPos + "/by".length() + 1);
+            break;
+        case "event":
+            taskInfo[0] = taskString.substring("event".length() + 1, slashPos - 1);
+            taskInfo[1] = taskString.substring(slashPos + "/at".length() + 1);
+            break;
+        default:
+            break;
+        }
+        return taskInfo;
     }
 
     private static void showByeGreeting() {
@@ -214,38 +291,6 @@ public class Duke {
         System.out.println(" Hello! I'm Duke\n" +
                 " What can I do for you?");
         System.out.println(LINE);
-    }
-
-    /**
-     * Helper method used to extract the task info from the user input.
-     * The method is also able to extract the dates for the tasks that need them.
-     * @param taskString The user input which contains the task word eg. "todo"
-     *             and the task description.
-     * @param taskType The task type to extract the info from.
-     *             eg. "todo", "event", "deadline"
-     * @return taskInfo array of size 2, where the taskInfo[0] is the task description
-     *             and taskInfo[1] is an optional date/time info.
-     */
-    private static String[] extractInfo(String taskString, String taskType) {
-        String[] taskInfo = new String[2];
-        int slashPos = taskString.indexOf('/');
-        switch (taskType) {
-        case "todo":
-        case "find":
-            taskInfo[0] = taskString.substring(5);
-            break;
-        case "deadline":
-            taskInfo[0] = taskString.substring(9, slashPos - 1);
-            taskInfo[1] = taskString.substring(slashPos + 4);
-            break;
-        case "event":
-            taskInfo[0] = taskString.substring(6, slashPos - 1);
-            taskInfo[1] = taskString.substring(slashPos + 4);
-            break;
-        default:
-            break;
-        }
-        return taskInfo;
     }
 
     private static void showErrorMessage() throws DukeException {
