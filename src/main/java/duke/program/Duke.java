@@ -6,15 +6,30 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
+    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FOLDER_PATH = "./data";
 
+    private Storage storage;
+    private TaskList tasks;
+    private LizUi ui;
+    private Parser parser;
+
+    public Duke(String filePath, String folderPath) {
+        storage = new Storage(filePath, folderPath);
+        ui = new LizUi();
+        parser = new Parser();
+        try {
+            tasks = new TaskList(storage.loadFile(ui));
+        } catch (IOException e) {
+            ui.printFileErrorMessage();
+        }
+    }
     public static void main(String[] args) {
-        run();
+        new Duke(FILE_PATH, FOLDER_PATH).run();
     }
 
-    public static void run() {
-        LizUi ui = new LizUi();
-        TaskList tasks = new TaskList();
-        Parser parser = new Parser();
+    public void run() {
+
         Scanner in = new Scanner(System.in);
 
         ui.printGreetingMessage();
@@ -27,6 +42,7 @@ public class Duke {
                 Command c = parser.parseUserInput(line);
                 c.executeCommand(tasks, ui);
                 isExit = c.isExit();
+                storage.saveFile(tasks.getTaskList(), ui);
             } catch (IOException e) {
                 ui.printFileErrorMessage();
             } finally {

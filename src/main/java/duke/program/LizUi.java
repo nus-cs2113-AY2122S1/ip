@@ -92,7 +92,9 @@ public class LizUi {
         }
     }
 
+    ///////////////////////////////
     //ALL ERROR MESSAGES GO BELOW//
+    ///////////////////////////////
 
     public static void printFileErrorMessage() {
         System.out.println("Hey bud, something went wrong with the file :/");
