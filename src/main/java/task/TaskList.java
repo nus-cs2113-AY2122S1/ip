@@ -7,11 +7,12 @@ import ui.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
-    private final ArrayList<Task> tasks;
-    private final Ui ui;
-    private final Storage storage;
+    private static ArrayList<Task> tasks;
+    private Ui ui;
+    private Storage storage;
 
     public TaskList(Ui uiObject) {
         ui = uiObject;
@@ -122,5 +123,12 @@ public class TaskList {
             savedTask = new Todo(taskName, isDone);
         }
         return savedTask;
+    }
+
+    public static ArrayList<Task> getAllTasksByName(String keyword) {
+        ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getTaskName().contains(keyword))
+                .collect(Collectors.toList());
+        return filteredTasks;
     }
 }

@@ -4,6 +4,7 @@ import task.Task;
 import task.TaskList;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -122,6 +123,20 @@ public class Ui {
             System.out.println(SPACE_PREFIX + "EEEEEOOOOOO~ ALL RIGHT~ Oops was jamming away in my virtual garage, here's your PLAN/S...");
             for (int i = 0; i < tasks.getSize(); i++) {
                 System.out.println(SPACE_PREFIX + (i + 1) + "." + SPACE_PREFIX + tasks.getTaskAtIndex(i));
+            }
+            System.out.println(CONSOLE_LINE_PREFIX);
+        }
+    }
+
+    public void printFilteredTasks(ArrayList<Task> filteredTasks, String keyword) {
+        if (filteredTasks.size() == 0) {
+            System.out.println(CONSOLE_LINE_PREFIX + LINE_BREAK + SPACE_PREFIX
+                    + "Hi there! I can't seem to find any tasks with the given keyword - " + keyword
+                    + LINE_BREAK + CONSOLE_LINE_PREFIX);
+        }else {
+            System.out.println(SPACE_PREFIX + "ALL RIGHTTTT~ I found these using the keyword you have given :D");
+            for (int i = 0; i < filteredTasks.size(); i++) {
+                System.out.println(SPACE_PREFIX + (i + 1) + "." + SPACE_PREFIX + filteredTasks.get(i));
             }
             System.out.println(CONSOLE_LINE_PREFIX);
         }

@@ -5,13 +5,17 @@ import task.Task;
 import task.TaskList;
 import ui.Ui;
 
+import java.util.ArrayList;
+
 public class Parser {
-    private Ui ui;
+    private final Ui ui;
 
     // Command Prefixes for checking type of command
     private static final String COMMAND_BYE = "Bye";
     private static final String COMMAND_DONE = "Done";
     private static final String COMMAND_LIST = "List";
+    private static final String COMMAND_DELETE = "Delete";
+    private static final String COMMAND_FIND = "Find";
 
     // Prefixes meant for processing data parameters for Task
     private static final String BY_WHEN_PREFIX = "/by";
@@ -19,7 +23,6 @@ public class Parser {
     private static final String TASK_TODO_PREFIX = "Todo";
     private static final String TASK_DEADLINE_PREFIX = "Deadline";
     private static final String TASK_EVENT_PREFIX = "Event";
-    private static final String COMMAND_DELETE = "Delete";
     private static final String EMPTY_VALUE = "";
 
     public Parser(Ui uiObject) {
@@ -27,12 +30,12 @@ public class Parser {
     }
 
     public String getCommandType(String userInput) {
-        String[] userParams = userInput.split(ui.SPACE_PREFIX);
+        String[] userParams = userInput.split(Ui.SPACE_PREFIX);
         return userParams[0];
     }
 
     public int getIndex(String userInput) {
-        String[] userParams = userInput.split(ui.SPACE_PREFIX);
+        String[] userParams = userInput.split(Ui.SPACE_PREFIX);
         return Integer.parseInt(userParams[1]);
     }
 
@@ -44,7 +47,6 @@ public class Parser {
         }
         if (commandType.equalsIgnoreCase(COMMAND_LIST) || userInput.equals(EMPTY_VALUE)) {
             ui.printTasks(tasks);
-            return;
         } else if (commandType.equalsIgnoreCase(COMMAND_DONE)) {
             try {
                 int index = getIndex(userInput);
@@ -55,9 +57,22 @@ public class Parser {
         } else if (commandType.equalsIgnoreCase(COMMAND_DELETE)) {
             int index = getIndex(userInput);
             tasks.removeTaskAtIndex(index - 1);
+        } else if (commandType.equalsIgnoreCase(COMMAND_FIND)) {
+            parseFindCommand(userInput);
         } else {
             parseTaskCommands(userInput, tasks);
         }
+
+    }
+
+    public String getKeyword(String userInput) {
+        return userInput.split(ui.SPACE_PREFIX)[1];
+    }
+
+    public void parseFindCommand(String userInput) {
+        String keyword = getKeyword(userInput);
+        ArrayList<Task> filteredTasks = TaskList.getAllTasksByName(keyword);
+        ui.printFilteredTasks(filteredTasks, keyword);
     }
 
     public void parseTaskCommands(String userInput, TaskList tasks) {
@@ -65,7 +80,6 @@ public class Parser {
         // Remove the Type of Task from the user input
         String taskName = userInput.replace(taskType, EMPTY_VALUE).trim();
         try {
-            Task newTask;
             if (taskType.equalsIgnoreCase(TASK_TODO_PREFIX)) {
                 parseNewToDo(taskName, tasks);
             } else if (taskType.equalsIgnoreCase(TASK_DEADLINE_PREFIX)) {
@@ -74,7 +88,6 @@ public class Parser {
                 parseNewEvent(taskName, tasks);
             } else {
                 System.out.println(DukeException.UNKNOWN_COMMAND_MESSAGE);
-                return;
             }
         } catch (DukeException err) {
             ui.printErrorMessage(err.getMessage());
