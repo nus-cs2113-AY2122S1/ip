@@ -5,7 +5,6 @@ import Type.Event;
 import Type.Task;
 import Type.Todo;
 import duke.command.*;
-import duke.exception.InputCheckAndPrint;
 
 public class Parser {
     public static final String EVENT_DIVIDER = "/at";
@@ -45,16 +44,6 @@ public class Parser {
         return userInput.toLowerCase().contains(EVENT_DIVIDER);
     }
 
-    private static boolean isIncorrectFormat(InputCheckAndPrint deadlineCheck, String input) {
-        if (input.startsWith("stop")) {
-            return true;
-        }
-        if (!input.contains("/")) {
-            deadlineCheck.printDeadlineFormatIssue();
-            return true;
-        }
-        return false;
-    }
 
     public static Command parse(String fullCommand) {
         String stringToRead = fullCommand.trim().toLowerCase();

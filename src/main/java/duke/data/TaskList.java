@@ -3,7 +3,7 @@ package duke.data;
 import Type.Deadline;
 import Type.Event;
 import Type.Task;
-import duke.exception.InputCheckAndPrint;
+import duke.exceptionhandler.InputCheckAndPrint;
 import duke.startup.Parser;
 
 import java.util.ArrayList;

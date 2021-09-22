@@ -1,6 +1,7 @@
 package duke.data;
 
 import Type.Task;
+import Type.task.Divider;
 import duke.startup.Parser;
 
 import java.io.File;
@@ -12,17 +13,17 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class Storage{
     private static String filePath;
-
+    private static String folderName = "/data";
+    private static String fileName = "list.txt";
     public Storage(String filePathToInput) {
         filePath = filePathToInput;
     }
 
     //print a task array list in easy to wrangle data format
     //format:
-    //separated by lines, [TYPE] [deadline] [DESC] [ISDONE]
+    //separated by lines, [TYPE] [DESC] -[DEADLINE]- [DONE]
     //within a function
     public static String printTaskAsString(Task t) {
         return t.toString() + '\n';
@@ -30,13 +31,13 @@ public class Storage{
 
     public static void saveList(TaskList taskList) throws IOException {
         checkAndAddDirectory();
-        File newList = new File("data/list.txt");
-        FileWriter fw = new FileWriter("data/list.txt");
+        File newList = new File(folderName + fileName);
+        FileWriter fw = new FileWriter(folderName + fileName);
         for (Task t : taskList.getTaskList()) {
+
             fw.write(printTaskAsString(t));
         }
         fw.close();
-        System.out.println("successfully saved with directory :" + newList.getAbsolutePath());
     }
 
     //returns an array list, given a text file
@@ -73,46 +74,39 @@ public class Storage{
         markTaskIfDone(readLine, taskToAdd);
         taskListToSave.add(taskToAdd);
     }
-
     private static void markTaskIfDone(String readLine, Task taskToAdd) {
         if (readLine.endsWith("true")) {
             taskToAdd.setDone(true);
         }
     }
+
     //assume that data is saved in the following manner:
     // [TYPE] | [DESC] |  [BY/AT] | [DONE], where 3rd field can be null if its just a 'todo'
     private static String savedDataToCommandFormat(String readLine) {
         String[] separateData = readLine.split("\\|");
         switch (separateData[0]) {
         case ("D") :
-            return separateData[1] + "/by" + separateData[2];
+            return separateData[1] + '/' + Divider.by + separateData[2];
         case ("E") :
-            return separateData[1] + "/at" + separateData[2];
+            return separateData[1] + '/' + Divider.at + separateData[2];
         default:    //is a todo only
             return separateData[1];
         }
     }
-
-//    private void writeNewFile() throws IOException {
-//        checkAndAddDirectory();
-//        try {
-//            FileWriter fw = new FileWriter(filePath);
-//            fw.write("");
-//            fw.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
+    
     private static void checkAndAddDirectory() throws IOException {
         String home = new File("").getAbsolutePath();
-        File dirCheck = new File(home + "/data");
+        File dirCheck = new File(home + folderName);
         if (dirCheck.isDirectory()) {
             return;
         }
-        System.out.println("Hey, I didn't find directory /data");
-        System.out.println("adding /data into repository...");
-        Files.createDirectories(Paths.get(home + "/data"));
+        System.out.println("Hey, I didn't find directory " + folderName);
+        System.out.println("adding " + folderName + " into repository...");
+        Files.createDirectories(Paths.get(home + folderName));
+    }
+
+    public static String getFolderName() {
+        return folderName;
     }
 
 }

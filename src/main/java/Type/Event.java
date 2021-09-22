@@ -17,6 +17,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return this.getType() + '|' + this.description + '|' + this.atWhen + '|' + this.isDone();
+        return Character.toString(this.getType()) + '|'
+                + this.description + '|'
+                + this.atWhen + '|'
+                + this.isDone();
     }
 }
