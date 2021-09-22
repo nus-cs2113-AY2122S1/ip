@@ -2,9 +2,8 @@ package duke;
 
 import duke.command.*;
 import duke.exception.*;
-import duke.task.Todo;
 
-import java.io.IOException;
+import java.time.LocalDate;
 
 public class Parser {
     public Parser() {
@@ -45,7 +44,8 @@ public class Parser {
 
     public Command parseDeadlineCommand(String input) throws DukeException {
         int indexOfBy = input.indexOf("/by");
-        String by;
+        String byString;
+        LocalDate by;
         String description;
 
         if (indexOfBy == -1) {
@@ -59,7 +59,8 @@ public class Parser {
         }
 
         try {
-            by = input.substring(indexOfBy + 4);
+            byString = input.substring(indexOfBy + 4);
+            by = LocalDate.parse(byString);
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException("missing timing");
         }
@@ -69,7 +70,8 @@ public class Parser {
 
     public Command parseEventCommand(String input) throws DukeException {
         int indexOfAt = input.indexOf("/at");
-        String at;
+        String atString;
+        LocalDate at;
         String description;
 
         if (indexOfAt == -1) {
@@ -83,7 +85,8 @@ public class Parser {
         }
 
         try {
-            at = input.substring(indexOfAt + 4);
+            atString = input.substring(indexOfAt + 4);
+            at = LocalDate.parse(atString);
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException("missing timing");
         }
