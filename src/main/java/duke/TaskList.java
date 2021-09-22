@@ -101,12 +101,16 @@ public class TaskList {
                 continue;
             }
             try {
-                // TODO: Check whether the given task is already done and throw an exception if it is already done
                 Task currTask = list.get(taskNumber - 1);
+                if (currTask.isDone()) {
+                    throw new DukeException("TASK IS ALREADY DONE. STOP TOYING WITH ME...");
+                }
                 currTask.markAsDone();
                 System.out.println("[X] " + currTask.getDescription());
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Dude you've given be an invalid task number... Skipping...");
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
         }
         System.out.print("All done!\n" + Ui.getHorizontalLine());
