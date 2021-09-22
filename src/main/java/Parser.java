@@ -35,6 +35,8 @@ public class Parser {
             tasks.addEvent(tasks, inputs);
         } else if (Verifier.isDelete(inputs[0])) {
             tasks.deleteTask(tasks, inputs[1]);
+        } else if (Verifier.isFind(inputs[0])) {
+            tasks.findTask(inputs[1],tasks);
         } else {
             System.out.println(INVALID_MESSAGE);
         }
