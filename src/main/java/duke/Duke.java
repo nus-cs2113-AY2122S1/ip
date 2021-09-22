@@ -4,7 +4,6 @@ import duke.tasklist.Task;
 import duke.parser.Parser;
 import duke.storage.DataManager;
 import duke.ui.Ui;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 

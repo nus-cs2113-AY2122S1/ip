@@ -1,8 +1,6 @@
 package duke.ui;
 
 import duke.tasklist.Task;
-
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 /** UI of Duke that deals with interactions with the user */
