@@ -2,7 +2,7 @@ package duke.text;
 
 public class Text { // Class file to store all constant String used.
 
-    public static final String LINE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    public static final String LINE = "=======================================================================================================\n";
     public static final String NEW_LINE = "\n";
     public static final String GOODBYE_MESSAGE = "GoodBye! Please finish up your task!\n";
     public static final String HELLO_MESSAGE = "Hey there! I am Chai!\n" + "What are you doing today?\n";
@@ -37,6 +37,10 @@ public class Text { // Class file to store all constant String used.
     public static final String DATE = "date";
     public static final String BYE = "bye";
     public static final String SPACE = " ";
+    public static final String TASK_FOUND = "Listing task found:\n";
+    public static final String TASK_NOT_FOUND = "No such task in task list. Try another keyword!\n";
+    public static final String TASK_ON_DATE = "Listing task associated to this date:\n";
+    public static final String TASK_NOT_ON_DATE = "No task associated to this date. Try another date!\n";
     public static final String ADDED_MESSAGE = "Alright! Added to the list:";
     public static final String CURRENT_MESSAGE = "You currently have ";
     public static final String TASK_RECORDED_MESSAGE = " task recorded in your list.";

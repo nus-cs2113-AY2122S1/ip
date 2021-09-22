@@ -28,12 +28,15 @@ public class FindTaskOfDateCommand extends Command {
     @Override
     public void execute() throws DukeException {
         int taskNumber = 1;
-        String tasksWithSameDate = "";
+        String tasksWithSameDate = TASK_ON_DATE;
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.getTask(i).getDate().equals(inputDate)){
                 tasksWithSameDate = tasksWithSameDate.concat(taskNumber + "."+ taskList.getTask(i).toString() + NEW_LINE);
                 taskNumber++;
             }
+        }
+        if (tasksWithSameDate.equals(TASK_ON_DATE)) {
+            tasksWithSameDate = TASK_NOT_ON_DATE;
         }
         Ui.printWithLine(tasksWithSameDate);
     }

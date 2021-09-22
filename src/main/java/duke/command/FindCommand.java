@@ -27,12 +27,15 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute() throws DukeException {
-        String tasksToPrint = "";
+        String tasksToPrint = TASK_FOUND;
         int taskNumber = 1;
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.getTask(i).toString().contains(inputKeyword)) {
                 tasksToPrint = tasksToPrint.concat(taskNumber + "." + taskList.getTask(i).toString() + NEW_LINE);
             }
+        }
+        if (tasksToPrint.equals(TASK_FOUND)) {
+            tasksToPrint = TASK_NOT_FOUND;
         }
         Ui.printWithLine(tasksToPrint);
     }

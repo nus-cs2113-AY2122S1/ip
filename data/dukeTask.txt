@@ -1,3 +1,0 @@
-T|0|run
-D|0|run|2021-09-22
-E|0|run|night
