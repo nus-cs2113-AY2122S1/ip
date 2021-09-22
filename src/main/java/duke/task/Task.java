@@ -23,7 +23,7 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     public void setDone() {
@@ -32,12 +32,8 @@ public abstract class Task {
 
     public abstract String getTaskType();
 
-    public String getAdditionalDescription() {
-        return "N/A";
-    }
-
     public String toStorageString() {
-        return String.format("%s//%s//%s//%s", getTaskType(),getDescription(),getAdditionalDescription(),getStatusIcon());
+        return String.format("%s//%s//    //%s", getTaskType(),getDescription(),getStatusIcon());
     }
 
     @Override

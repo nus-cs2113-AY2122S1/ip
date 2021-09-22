@@ -1,18 +1,10 @@
 package duke.task;
 
-public class Event extends Task {
+import java.time.format.DateTimeFormatter;
 
-
-    protected String at;
-
+public class Event extends TimedTask {
     public Event(String description, String at) {
-        super(description);
-        this.at = at;
-    }
-
-    @Override
-    public String getAdditionalDescription() {
-        return at;
+        super(description, at);
     }
 
     @Override
@@ -22,6 +14,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" (at: %s)", getAdditionalDescription());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
+        String eventTime = getDateTime().format(formatter);
+        return super.toString() + String.format(" (at: %s)", eventTime);
     }
 }

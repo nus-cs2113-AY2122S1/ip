@@ -14,14 +14,14 @@ import java.util.Scanner;
 
 public class DukeStorage {
     private static final String filePath = "data/data.txt";
-    private File file = new File(filePath);
+    private final File file = new File(filePath);
 
     public DukeStorage() {
         try {
             file.getParentFile().mkdirs();
             file.createNewFile();
         } catch (IOException e) {
-
+            System.out.println("Can't create a new save, try to load existing save now");
         }
     }
 
@@ -68,6 +68,7 @@ public class DukeStorage {
                 task = new Event(words[1], words[2]);
             }
             if (words[3].equals("X")) {
+                assert task != null;
                 task.setDone();
             }
         } catch (IndexOutOfBoundsException e) {

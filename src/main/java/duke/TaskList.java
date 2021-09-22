@@ -7,11 +7,11 @@ import duke.task.*;
 
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
     private DukeStorage storage = new DukeStorage();
 
-    public TaskManager() {
+    public TaskList() {
         storage.loadData(tasks);
     }
 
