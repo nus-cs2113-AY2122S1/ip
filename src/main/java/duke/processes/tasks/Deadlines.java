@@ -1,11 +1,11 @@
-package duke.tasks;
+package duke.processes.tasks;
 
-import duke.Task;
+import duke.processes.Task;
 
-public class Event extends Task {
+public class Deadlines extends Task {
     protected String date;
 
-    public Event(String description, String date) {
+    public Deadlines(String description, String date) {
         super(description);
         this.date = date;
     }
@@ -15,11 +15,11 @@ public class Event extends Task {
     }
 
     public String getTaskType() {
-        return "event";
+        return "deadline";
     }
 
     public String getTaskID() {
-        return "E";
+        return "D";
     }
 
     public String getDate() {

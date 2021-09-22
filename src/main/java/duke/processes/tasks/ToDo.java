@@ -1,6 +1,6 @@
-package duke.tasks;
+package duke.processes.tasks;
 
-import duke.Task;
+import duke.processes.Task;
 
 public class ToDo extends Task {
 
