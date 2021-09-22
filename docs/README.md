@@ -1,4 +1,5 @@
 # User Guide
+___
 
 ## Duke
 Duke is a simple task management software which utilises the Command Line Interface **(CLI)**, to store and find tasks.
@@ -33,18 +34,6 @@ Input command:
     * `bye`
 5. Refer to feature list below for full details of available commands.
 
-
-## Command Summary
-Feature | Command Format
------------- | -------------
-Add  | `todo <task name>` or `deadline <task name> </by> <date: yyyy-mm-dd>` or `event <task name> </at> <date: yyyy-mm-dd>`
-Done| `done <task number>`
-Delete| `delete <task number>`
-Find| `find <keyword>`
-Date| `date <date: yyyy-mm-dd>`
-List| `list`
-Help| `help`
-Bye| `bye`
 
 ## Feature List
 ### Adding a task
