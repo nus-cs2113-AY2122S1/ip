@@ -36,7 +36,7 @@ public class Ui {
     }
 
     public void printFileNotFound(String e) {
-        out.println(e + FILE_NOT_FOUND + LS + SEPARATOR);
+        out.printf(SEPARATOR + LS + FILE_NOT_FOUND + LS, e);
     }
 
     public void printError(String e) {

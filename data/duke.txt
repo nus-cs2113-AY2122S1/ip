@@ -1,5 +1,0 @@
-D--1--eat--morning
-T--0--wakeup2
-D--0--eat2--morning
-E--0--sleep--night
-T--0--more sleep

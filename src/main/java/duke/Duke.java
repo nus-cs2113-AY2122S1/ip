@@ -1,33 +1,28 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class Duke {
-    private static ArrayList<Task> userInputs = new ArrayList<>();
-    private static int userInputsCount = 0;
-
     private Ui ui;
+    private TaskList taskList;
 
     public Duke() {
         this.ui = new Ui();
+        this.taskList = new TaskList();
     }
 
     public void initiateDuke() {
         ui.printWelcome();
 
         try {
-            loadSave();
+            load();
         } catch (FileNotFoundException e) {
             ui.printFileNotFound(e.toString());
         }
@@ -35,7 +30,7 @@ public class Duke {
         promptInput();
     }
 
-    public void loadSave() throws FileNotFoundException {
+    public void load() throws FileNotFoundException {
         final String LOAD_DELIMITER = "--";
         final int TASK_INDEX = 0;
         final int DONE_INDEX = 1;
@@ -60,17 +55,16 @@ public class Duke {
             String[] lineData = line.split(LOAD_DELIMITER);
 
             if (lineData[TASK_INDEX].equals(TODO_CODE)) {
-                userInputs.add(new Todo(lineData[DESCRIPTION_INDEX]));
+                taskList.addTodo(lineData[DESCRIPTION_INDEX]);
             } else if (lineData[TASK_INDEX].equals(DEADLINE_CODE)) {
-                userInputs.add(new Deadline(lineData[DESCRIPTION_INDEX], lineData[BY_AT_INDEX]));
+                taskList.addDeadline(lineData[DESCRIPTION_INDEX], lineData[BY_AT_INDEX]);
             } else if (lineData[TASK_INDEX].equals(EVENT_CODE)) {
-                userInputs.add(new Event(lineData[DESCRIPTION_INDEX], lineData[BY_AT_INDEX]));
+                taskList.addEvent(lineData[DESCRIPTION_INDEX], lineData[BY_AT_INDEX]);
             }
 
             if (lineData[DONE_INDEX].equals("1")) {
-                userInputs.get(userInputsCount).markAsDone();
+                taskList.markDone(taskList.getListSize() - 1);
             }
-            userInputsCount++;
         }
     }
 
@@ -117,6 +111,7 @@ public class Duke {
     public void exit() throws IOException{
         final String DELIMITER = "--";
         FileWriter beginWrite = new FileWriter("data/duke.txt");
+        int userInputsCount = taskList.getListSize();
 
         beginWrite.write("");
         beginWrite.close();
@@ -124,19 +119,19 @@ public class Duke {
         FileWriter fw = new FileWriter("data/duke.txt", true);
 
         for (int i = 0; i < userInputsCount; i++) {
-            if (userInputs.get(i).getCode().equals("T")) {
-                String lineToAppend = userInputs.get(i).getCode() + DELIMITER + userInputs.get(i).getDoneValue() +
-                        DELIMITER + userInputs.get(i).getDescription();
+            if (taskList.getTask(i).getCode().equals("T")) {
+                String lineToAppend = taskList.getTask(i).getCode() + DELIMITER + taskList.getTask(i).getDoneValue() +
+                        DELIMITER + taskList.getTask(i).getDescription();
                 fw.write(lineToAppend);
                 fw.write(System.lineSeparator());
-            } else if (userInputs.get(i).getCode().equals("D")) {
-                String lineToAppend = userInputs.get(i).getCode() + DELIMITER + userInputs.get(i).getDoneValue() +
-                        DELIMITER + userInputs.get(i).getDescription() + DELIMITER + userInputs.get(i).getBy();
+            } else if (taskList.getTask(i).getCode().equals("D")) {
+                String lineToAppend = taskList.getTask(i).getCode() + DELIMITER + taskList.getTask(i).getDoneValue() +
+                        DELIMITER + taskList.getTask(i).getDescription() + DELIMITER + taskList.getTask(i).getBy();
                 fw.write(lineToAppend);
                 fw.write(System.lineSeparator());
-            } else if (userInputs.get(i).getCode().equals("E")) {
-                String lineToAppend = userInputs.get(i).getCode() + DELIMITER + userInputs.get(i).getDoneValue() +
-                        DELIMITER + userInputs.get(i).getDescription() + DELIMITER + userInputs.get(i).getAt();
+            } else if (taskList.getTask(i).getCode().equals("E")) {
+                String lineToAppend = taskList.getTask(i).getCode() + DELIMITER + taskList.getTask(i).getDoneValue() +
+                        DELIMITER + taskList.getTask(i).getDescription() + DELIMITER + taskList.getTask(i).getAt();
                 fw.write(lineToAppend);
                 fw.write(System.lineSeparator());
             }
@@ -148,6 +143,8 @@ public class Duke {
     }
 
     public void listTasks(String line) throws DukeException {
+        int userInputsCount = taskList.getListSize();
+
         if (!line.equals("list")) {
             throw new DukeException("command list does not take additional parameters");
         }
@@ -155,7 +152,7 @@ public class Duke {
         ui.printListTask();
 
         for (int i = 1; i <= userInputsCount; i++) {
-            ui.printToUser("    ", Integer.toString(i), ".", userInputs.get(i - 1).toString());
+            ui.printToUser("    ", Integer.toString(i), ".", taskList.getTask(i - 1).toString());
         }
     }
 
@@ -169,74 +166,72 @@ public class Duke {
         final int INDEX_DONE = 1;
         int taskIndexDone = Integer.parseInt(taskInputs[INDEX_DONE]) - 1;
 
-        userInputs.get(taskIndexDone).markAsDone();
+        taskList.getTask(taskIndexDone).markAsDone();
 
         ui.printFinishedTask();
-        ui.printToUser("        ", userInputs.get(taskIndexDone).toString());
+        ui.printToUser("        ", taskList.getTask(taskIndexDone).toString());
     }
 
     public void addTodo(String line) throws DukeException {
         final int START_INDEX = 5;
+        int index = taskList.getListSize();
         String[] todoInputs = line.split(" ");
 
         if (todoInputs.length == 1) {
             throw new DukeException("command todo description missing");
         }
 
-        userInputs.add(new Todo(line.substring(START_INDEX)));
+        taskList.addTodo(line.substring(START_INDEX));
 
-        ui.printToUser("    ", "added: ", userInputs.get(userInputsCount).toString());
-        userInputsCount++;
+        ui.printToUser("    ", "added: ", taskList.getTask(index).toString());
     }
 
     public void addDeadline(String line) throws DukeException {
-        if (!line.contains("/by")) {
-            throw new DukeException("wrong input format for command deadline");
-        }
-
+        int index = taskList.getListSize();
         final int DESCRIPTION_INDEX = 0;
         final int BY_INDEX = 1;
         final int START_INDEX = 9;
 
-        String[] deadlineInputs = line.substring(START_INDEX).split("/by");
-        userInputs.add(new Deadline(deadlineInputs[DESCRIPTION_INDEX].trim(),
-                deadlineInputs[BY_INDEX].trim()));
+        if (!line.contains("/by")) {
+            throw new DukeException("wrong input format for command deadline");
+        }
 
-        ui.printToUser("    ", "added: ", userInputs.get(userInputsCount).toString());
-        userInputsCount++;
+        String[] deadlineInputs = line.substring(START_INDEX).split("/by");
+        taskList.addDeadline(deadlineInputs[DESCRIPTION_INDEX].trim(),
+                deadlineInputs[BY_INDEX].trim());
+
+        ui.printToUser("    ", "added: ", taskList.getTask(index).toString());
     }
 
     public void addEvent(String line) throws DukeException {
-        if (!line.contains("/at")) {
-            throw new DukeException("wrong input format for command event");
-        }
-
+        int index = taskList.getListSize();
         final int DESCRIPTION_INDEX = 0;
         final int AT_INDEX = 1;
         final int START_INDEX = 6;
 
-        String[] eventInputs = line.substring(START_INDEX).split("/at");
-        userInputs.add(new Event(eventInputs[DESCRIPTION_INDEX].trim(),
-                eventInputs[AT_INDEX].trim()));
+        if (!line.contains("/at")) {
+            throw new DukeException("wrong input format for command event");
+        }
 
-        ui.printToUser("    ", "added: ", userInputs.get(userInputsCount).toString());
-        userInputsCount++;
+        String[] eventInputs = line.substring(START_INDEX).split("/at");
+        taskList.addEvent(eventInputs[DESCRIPTION_INDEX].trim(),
+                eventInputs[AT_INDEX].trim());
+
+        ui.printToUser("    ", "added: ", taskList.getTask(index).toString());
     }
 
     public void deleteTask(String line) throws DukeException {
         String[] inputs = line.split(" ");
+        final int INDEX_DELETE = 1;
+        int taskIndexDelete = Integer.parseInt(inputs[INDEX_DELETE]) - 1;
 
         if (inputs.length != 2) {
             throw new DukeException("incorrect number of parameters for command delete");
         }
 
-        final int INDEX_DELETE = 1;
-        int taskIndexDelete = Integer.parseInt(inputs[INDEX_DELETE]) - 1;
-
         ui.printDeletedTask();
-        ui.printToUser("    ", "deleted: ", userInputs.get(taskIndexDelete).toString());
-        userInputs.remove(taskIndexDelete);
-        userInputsCount--;
+        ui.printToUser("        ", "deleted: ", taskList.getTask(taskIndexDelete).toString());
+        taskList.deleteTask(taskIndexDelete);
     }
 
     public void handleInvalid() throws DukeException {
