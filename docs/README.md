@@ -58,6 +58,8 @@ worry about losing data from the task list when exiting the program.
 
 List of all the commands available in Duke.
 
+<br/>
+
 
 ### **`todo` - Add Todo task**
 
@@ -86,7 +88,9 @@ You now have 1 task(s)
 ----------------------------------------------------------------------------------------------------
 ```
 `[T]` shows that the task added is a Todo task. There are 
-other types of tasks, namely Deadline and Event tasks.
+other types of tasks, namely Deadline and Event tasks.  
+  
+<br/>
 
 ### **`deadline` - Add Deadline task**
 
@@ -118,6 +122,7 @@ You now have 2 task(s)
 `[D]` shows that the task added is a Deadline task. There are
 other types of tasks, namely Todo and Event tasks.
 
+<br/>
 
 ### **`event` - Add Event task**
 
@@ -149,6 +154,7 @@ You now have 3 task(s)
 `[E]` shows that the task added is an Event task. There are
 other types of tasks, namely Todo and Deadline tasks.
 
+<br/>
 
 ### **`list` - List all tasks available**
 
@@ -182,6 +188,7 @@ The second `[]` represents whether the task is done:
 
 For example, task 1 `CS2113 Lecture Quiz` is a todo task that has been marked as done
 
+<br/>
 
 ### **`done` - Mark task as done**
 
@@ -208,6 +215,7 @@ The following task has been marked as done:
 ```
 `[X]` represents that the task has been marked as done
 
+<br/>
 
 ### **`delete` - Delete a task**
 
@@ -233,6 +241,7 @@ The following task has been deleted:
 ----------------------------------------------------------------------------------------------------
 ```
 
+<br/>
 
 ### **`find` - Find tasks**
 
@@ -259,6 +268,7 @@ Here are all the matching tasks
 ----------------------------------------------------------------------------------------------------
 ```
 
+<br/>
 
 ### **`save` - Save tasks**
 
@@ -284,6 +294,7 @@ You task list has been saved successfully
 ----------------------------------------------------------------------------------------------------
 ```
 
+<br/>
 
 ### **`bye` - Exit program**
 
