@@ -122,8 +122,8 @@ public class Command {
                 Ui.printEmptyListMessage();
             } else {
                 Ui.printDivider();
-                for (Task task : foundTasks) {
-                    System.out.println(task);
+                for (int i = 0; i < foundTasks.size(); i++) {
+                    System.out.println(i + 1 + "." + foundTasks.get(i));
                 }
                 Ui.printDivider();
             }
