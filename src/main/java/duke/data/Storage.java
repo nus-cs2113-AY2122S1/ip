@@ -14,6 +14,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A storage class used to handle all functionalities related to saving
+ * and retrieving data from the local storage file.
+ * @author Mohamed Irfan
+ */
 public class Storage {
     private final File data;
     private final String[] dataReadWriteErrorMsg = {
@@ -22,6 +27,11 @@ public class Storage {
             "Tasks cannot be saved to local file."
     };
 
+    /**
+     * Constructor method that creates a new tasks file if one does not exist.
+     * @param pathToFile The path to the file including the file name and extension (eg. tasks.txt)
+     * @throws DukeException
+     */
     public Storage(String pathToFile) throws DukeException {
         try {
             File data = new File(pathToFile);
@@ -36,6 +46,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Method to load tasks from the local storage file. Once it reads the data
+     * from the file, it does the necessary processing of the data to convert
+     * it into Task objects for use by the application.
+     * @return tasks - A list of task objects loaded and parsed from local storage file.
+     * @throws DukeException
+     */
     public ArrayList<Task> loadTasksFromFile() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -71,6 +88,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Method to save tasks to the local storage file
+     * @param tasks
+     * @throws DukeException
+     */
     public void saveTasksToFile(ArrayList<Task> tasks) throws DukeException {
         try {
             PrintWriter writer = new PrintWriter(new FileWriter(data));

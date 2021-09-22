@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * Deadline class used to add deadline as a type of task.
+ * @author Mohamed Irfan
+ */
 public class Deadline extends Task {
 
     protected String dueDate;
