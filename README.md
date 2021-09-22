@@ -74,7 +74,7 @@ Displays all tasks.
 Format: `list`
 
 Example:
-![List Image](C:/Users/ASUS/Desktop/list.png)
+![List Image](https://github.com/kengjit/ip/blob/master/data/list.PNG?raw=true)
 
 ### Finding tasks matching specific keyword: `find`
 Lists out all tasks that matches the keyword provided.
