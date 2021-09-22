@@ -19,15 +19,18 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static final Ui ui = new Ui();
-    private static final Storage storage = new Storage();
-    private static final Parser parser = new Parser();
-    private static TaskList taskList = new TaskList();
+    private final Ui ui = new Ui();
+    private final Storage storage = new Storage();
+    private final Parser parser = new Parser();
+    private TaskList taskList = new TaskList();
+
+    public Duke() {
+    }
 
     /**
      * Load task list from file.
      */
-    private static void loadTaskList() {
+    private void loadTaskList() {
         try {
             taskList = storage.loadTaskList();
             ui.printSaveFileFound();
@@ -40,8 +43,10 @@ public class Duke {
         }
     }
 
-
-    public static void main(String[] args) {
+    /**
+     * Run duke
+     */
+    public void run() {
         ui.printGreet();
         loadTaskList();
 
@@ -78,5 +83,9 @@ public class Duke {
                 ui.printTimeSpecifierNotFoundError(timeSpecifier);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Duke().run();
     }
 }
