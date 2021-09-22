@@ -18,7 +18,7 @@ public class FailedCommand extends Command {
         case NUMBER_FORMAT:
             TextUi.invalidIndexMessage();
             break;
-        case INVALID_DATE:
+        case MISSING_DATE:
             TextUi.invalidDateMessage();
             break;
         case EMPTY_DESCRIPTION:

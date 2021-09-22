@@ -8,7 +8,7 @@ import alfred.command.ExitAppCommand;
 import alfred.command.FailedCommand;
 import alfred.command.ListTasksCommand;
 import alfred.exception.EmptyDescriptionException;
-import alfred.exception.InvalidDateException;
+import alfred.exception.MissingDateException;
 
 public class Parser {
     private final String EXIT_COMMAND = "bye";
@@ -104,8 +104,8 @@ public class Parser {
             return command;
         } catch (EmptyDescriptionException e) {
             return new FailedCommand(FailedCommandType.EMPTY_DESCRIPTION);
-        } catch (InvalidDateException e) {
-            return new FailedCommand(FailedCommandType.INVALID_DATE);
+        } catch (MissingDateException e) {
+            return new FailedCommand(FailedCommandType.MISSING_DATE);
         }
     }
 
@@ -117,26 +117,26 @@ public class Parser {
         return new AddTaskCommand(TODO_TYPE, todoDescription, EMPTY);
     }
 
-    private Command parseEvent(String[] inputs) throws EmptyDescriptionException, InvalidDateException {
+    private Command parseEvent(String[] inputs) throws EmptyDescriptionException, MissingDateException {
         if (inputs.length < 2) {
             throw new EmptyDescriptionException();
         }
         String[] splitTaskDescription = inputs[TASK_FULL_DESCRIPTION_INDEX].split(AT_IDENTIFIER, 2);
         if (splitTaskDescription.length < 2) {
-            throw new InvalidDateException();
+            throw new MissingDateException();
         }
         String eventDescription = splitTaskDescription[SPLIT_TASK_DESCRIPTION_INDEX];
         String eventDate = splitTaskDescription[SPLIT_TASK_DATE_INDEX];
         return new AddTaskCommand(EVENT_TYPE, eventDescription, eventDate);
     }
 
-    private Command parseDeadline(String[] inputs) throws EmptyDescriptionException, InvalidDateException {
+    private Command parseDeadline(String[] inputs) throws EmptyDescriptionException, MissingDateException {
         if (inputs.length < 2) {
             throw new EmptyDescriptionException();
         }
         String[] splitTaskDescription = inputs[TASK_FULL_DESCRIPTION_INDEX].split(BY_IDENTIFIER, 2);
         if (splitTaskDescription.length < 2) {
-            throw new InvalidDateException();
+            throw new MissingDateException();
         }
         String deadlineDescription = splitTaskDescription[SPLIT_TASK_DESCRIPTION_INDEX];
         String deadlineDate = splitTaskDescription[SPLIT_TASK_DATE_INDEX];
