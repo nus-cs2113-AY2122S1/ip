@@ -28,9 +28,6 @@ Format: `todo TASK_NAME`
 Usage example: `todo clean the dishes`
 
 By following the format above, a new todo task would be added and an acknowledgement message shown below would appear.
-
-Expected outcome:
-
 Following the usage example above we would see the following message:
 ```
 ******************************************************
@@ -53,9 +50,6 @@ Usage example: `deadline submit essay/2021-10-10 23:59`
 
 By following the format above, a new deadline task would be added and an acknowledgement message shown
 below would appear.
-
-Expected outcome:
-
 Following the usage example above we would see the following message:
 ```
 ******************************************************
@@ -78,9 +72,6 @@ Usage example: `event music concert/2021-10-10 23:59`
 
 By following the format above, a new event task would be added and an acknowledgement message shown
 below would appear.
-
-Expected outcome:
-
 Following the usage example above we would see the following message:
 ```
 ******************************************************
@@ -103,9 +94,6 @@ Usage example: `done 1`
 
 By following the format above, the task specified would be marked as completed and an acknowledgement message shown
 below would appear.
-
-Expected outcome:
-
 Following the usage example above we would see the following message:
 ```
 Nice! Marking clean the dishes as done!
@@ -124,9 +112,6 @@ Format: `find KEYWORD`
 Usage example: `find clean`
 
 By following the format above, tasks which contains the keyword in its name would appear as shown below.
-
-Expected outcome:
-
 Following the usage example above we would see the following message:
 ```
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -148,9 +133,6 @@ Format: `list`
 Usage example: `list`
 
 By following the format above, all the tasks you have would appear as shown below.
-
-Expected outcome:
-
 Following the usage example above we would see the following message:
 ```
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -175,9 +157,6 @@ Usage example: `delete 1`
 
 By following the format above, the task specified would be removed and an acknowledgement message shown
 below would appear.
-
-Expected outcome:
-
 Following the usage example above we would see the following message:
 ```
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -199,9 +178,6 @@ Format: `bye`
 Usage example: `bye`
 
 By following the format above, this would terminate the program.
-
-Expected outcome:
-
 Following the usage example above we would see the following message:
 ```
 ------------------------------------------------------
