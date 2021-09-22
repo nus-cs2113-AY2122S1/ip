@@ -42,9 +42,13 @@ public class StorageManager {
      * 
      * @param input task stored in text file.
      * @return the type of the task.
+     * @throws DukeInvalidTaskInFileException if task stored contains invalid type.
      */
-    private String getTaskType(String input) {
+    private String getTaskType(String input) throws DukeInvalidTaskInFileException {
         String[] words = input.split("--");
+        if (!(words[0].equals("T") || words[0].equals("D") || words[0].equals("E"))) {
+            throw new DukeInvalidTaskInFileException();
+        }
         return words[0];
     }
 
@@ -53,9 +57,13 @@ public class StorageManager {
      * 
      * @param input task stored in text file.
      * @return the description of the task.
+     * @throws DukeInvalidTaskInFileException if task stored doesn't contain necessary information.
      */
-    private String getTaskDescription(String input) {
+    private String getTaskDescription(String input) throws DukeInvalidTaskInFileException {
         String[] words = input.split("--");
+        if (words.length < 3) {
+            throw new DukeInvalidTaskInFileException();
+        }
         return words[2];
     }
     
@@ -98,11 +106,13 @@ public class StorageManager {
      * @return the task created from the input description.
      */
     private Task getTask(String input) {
-        String taskType = getTaskType(input);
-        String taskDescription = getTaskDescription(input);
+        String taskType;
+        String taskDescription;
         Task task = null;
         
         try {
+            taskType = getTaskType(input);
+            taskDescription = getTaskDescription(input);
             switch (taskType) {
             case TASK_TODO:
                 task = new Todo(taskDescription);
@@ -120,7 +130,7 @@ public class StorageManager {
                 break;
             }
         } catch (DukeInvalidAddTaskException | DukeInvalidTaskInFileException e) {
-            System.out.println("INVALID TASK FOUND IN FILE");
+            return null;
         }
         
         if (!isNullTask(task) && isMarkedDoneTask(input)) {
@@ -144,6 +154,10 @@ public class StorageManager {
         String inputTask;
         while (input.hasNext()) {
             inputTask = input.nextLine();
+            Task task = getTask(inputTask);
+            if (isNullTask(task)) {
+                continue;
+            }
             tasks.add(getTask(inputTask));
         }
         return tasks;
