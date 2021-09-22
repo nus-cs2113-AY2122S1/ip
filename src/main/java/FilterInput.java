@@ -79,6 +79,14 @@ public class FilterInput {
         }
     }
 
+    /**
+     * To parse commands and the inputs into necessary strings
+     * Commands that output 1 string: done,delete,todo,sort,find
+     * Commands that output 2 strings: deadline,event
+     * @param words are inputs that are split by ' '. Used to retrieve command word
+     * @param input are texts that are written by the user
+     * @return an array of 2 strings
+     */
     private static String[] descriptionInput(String[] words, String input) {
         String[] output = new String[DESCRIPTION_PARAMETERS];
         output[0] = "";

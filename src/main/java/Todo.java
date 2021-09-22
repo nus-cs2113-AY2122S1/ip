@@ -1,3 +1,6 @@
+/**
+ * A type of task that stores a description of the task
+ */
 public class Todo extends Task {
     public static final char TASK_TYPE_TODO = 'T';
 

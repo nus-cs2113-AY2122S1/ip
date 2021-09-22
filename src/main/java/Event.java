@@ -1,3 +1,6 @@
+/**
+ * An inheritance from task that requires a range of time for additional input
+ */
 public class Event extends Task {
     private String eventDate;
     public static final char TASK_TYPE_EVENT = 'E';

@@ -1,3 +1,8 @@
+/**
+ * A Class that is a parent of Todo, Deadline, Event
+ * Created so that different classes of similar functionalities(Task)
+ * could be placed together
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

@@ -76,6 +76,10 @@ public class Greet {
         printLineOnConsole();
     }
 
+    /**
+     * Print the task that was added into the list of task
+     * @param newTask most recent task added
+     */
     public static void printAddNewTask(Task newTask) {
         printLineOnConsole();
         System.out.println("     " + newTask);
@@ -85,6 +89,10 @@ public class Greet {
 
     }
 
+    /**
+     * Print out the task that is going to delete
+     * @param taskNumber an integer with reference to the task index
+     */
     public static void deleteTask(int taskNumber) {
         int taskIndex = taskNumber - indexFix;
         Task task = list.remove(taskIndex);

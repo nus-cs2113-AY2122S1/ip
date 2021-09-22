@@ -1,3 +1,6 @@
+/**
+ * List of error messages
+ */
 public class ErrorMessage {
     public static final String EXCEPTION_MISSING_DESCRIPTION_TODO =
             "     ☹ OOPS!!! The description of a todo cannot be empty.";

@@ -1,3 +1,6 @@
+/**
+ * Custom exception to deal with incorrect input format from user
+ */
 public class DukeException extends Exception {
     private String message;
 
