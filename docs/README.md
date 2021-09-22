@@ -1,4 +1,6 @@
-# User Guide
+# Duke User Guide
+
+## Introduction
 
 ## Features 
 
