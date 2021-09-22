@@ -86,6 +86,20 @@ public class choose {
         listSize++;
     }
 
+    public static void deleteTask(int deleteNo) {
+        int noTasksBefore = listSize;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(List[listSize-1]);
+
+        for (int i=deleteNo-1; i<noTasksBefore; i++)
+        {
+            List[i]=List[i+1];
+        }
+        List[noTasksBefore]=null;
+        listSize=listSize-1;
+        System.out.println("Now you have " + listSize + " tasks in the list.");
+    }
+
     public static void list() {
         for (int i = 0; i < listSize; i++) {
             System.out.println(i + 1 + "." + List[i]);

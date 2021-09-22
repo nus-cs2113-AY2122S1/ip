@@ -60,7 +60,15 @@ public class Duke {
                 } catch (Exception DukeException) {
                     System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                 }
+            } else if ((line.split(" ")[0].equals("delete"))) {
+                try {
+                    int deleteNumber = Integer.parseInt((line.split(" ")[1]));
+                    choose.deleteTask(deleteNumber);
+                } catch (Exception DukeException) {
+                    System.out.println("Oops please give number to delete");
+                }
             }
+
             else{
                 if(!(line.split(" ")[0].equals("bye"))){
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");}
