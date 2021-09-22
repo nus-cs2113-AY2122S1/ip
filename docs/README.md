@@ -111,6 +111,12 @@ Duke is a Personal Assistant Chatbot that helps a person keep track of various t
 
 **Format of command:** `list`
 
+**Examples:**
+
+**Command** | **Expected Output**
+------------|----------------------
+`list`| 1. [T][X] laundry <br> 2. [D][ ] cg2027 (by:03 Sep 2021 12:00 AM) <br> 3. [E][ ] conference (at:09 Apr 2021 08:00 AM)
+
 ### Feature: Search for tasks in the to do list
 **Description of the feature:** Search through tasks on the task list.
 
@@ -118,7 +124,33 @@ Duke is a Personal Assistant Chatbot that helps a person keep track of various t
 
 * `keywords` can be any string of characters.
 
+**Examples:**
+
+**Command** | **Expected Output**
+------------|----------------------
+`find cg2027`| Search found! <br> 1.[D][ ] cg2027 (by:03 Sep 2021 12:00 AM)
+`find conf`| Search found! <br> 1.[E][ ] conference (at:09 Apr 2021 08:00 AM)
+
 ### Feature: End programme
 **Format of command:** `bye`
 
 **Description of the feature:** Terminate Duke.
+
+**Examples:**
+
+**Command** | **Expected Output**
+------------|----------------------
+`bye`| Bye! Hope to see you again soon!
+
+## Summary of Commands 
+
+**Command** | **Examples**
+------------|----------------------
+`to do [task]`| `to do run` <br> `to do laundry`
+`deadline [deadlineName] /by [date]` | `deadline assignment /by 02 06 2021 14:02` <br> `deadline cg2027 /by 03 09 2021 00:00`
+`event [eventName] /at [date]` | `event 24km run /at 19 02 2021 06:00` <br> `event conference /at 09 04 2021 08:00`|
+`done [taskNumber]` | `done 1 2` <br> `done 6`
+`delete [taskNumber]` |`delete 3 5` <br> `delete 1`|
+`list` | `list`
+`find [keywords]` | `find cg2027` <br> `find conf`
+`bye` | `bye`
