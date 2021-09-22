@@ -19,9 +19,9 @@ import tasks.TaskType;
 public class TaskSafe {
 
     /*------------ PUBLIC STATIC VARIABLES --------- */
-    private static final String DATA_PATH = "../data/duke.txt";
-//    private static final String rootPath = new File(".").getAbsolutePath();
-    private static final String fullPath = DATA_PATH;
+    private static final String DIRECTORY_PATH = "../data/";
+    private static final String FILE_NAME = "duke.txt";
+    private static final String fullPath = DIRECTORY_PATH + FILE_NAME;
 
     /*-------------- SAVE ------------ */
 
@@ -72,6 +72,10 @@ public class TaskSafe {
     public static void loadFromFile( TaskManager taskManager) {
         File file = new File(fullPath);
         try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNext()) {
                 parseTask(fileScanner.nextLine(),taskManager);
