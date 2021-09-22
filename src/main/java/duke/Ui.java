@@ -54,8 +54,8 @@ public class Ui {
     }
 
     public static void printWrongTaskType(String firstWord, String remainingWords) {
-        System.out.println(INDENT + "Look what you typed:\n"
-                + INDENT + firstWord + remainingWords + "\n" + INDENT);
+        System.out.println(INDENT + "Look what you typed:\n" + INDENT + firstWord + remainingWords);
+        System.out.println(INDENT);
         System.out.println(INDENT + "Please don't embarrass yourself any further.\n"
                 + INDENT + "Use the right commands. Type \"help\" if you don't know.");
         System.out.println(INDENT + "~\"help\" command still under development.~");
@@ -66,7 +66,7 @@ public class Ui {
     }
 
     public static void printNumberExpected() {
-        System.out.println(INDENT + "Does that look like a number to you? Retype. A. Number.");
+        System.out.println(INDENT + "Does that look like a number to you? Type. A. Number.");
     }
 
     public static void printAddedTask(ArrayList<Task> tasks, String isPlural, int taskPending) {
@@ -84,10 +84,18 @@ public class Ui {
         System.out.println(INDENT + "Dude... you've done the task already.");
     }
 
-    public static void printTaskMarkedAsDone(ArrayList<Task> tasks, int taskNumber) {
+    public static void printTaskDone(ArrayList<Task> tasks, int taskNumber) {
         System.out.println(INDENT + "About time. I've mark that task as done:");
         System.out.println(INDENT + "[" + tasks.get(taskNumber).getStatusIcon() + "]"
                 + tasks.get(taskNumber).getTaskName());
+    }
+
+    public static void printTaskDeleted(ArrayList<Task> tasks, int taskNumber) {
+        System.out.println(INDENT + "Lazy eh? Gotcha fam, removed the task:");
+        System.out.println(INDENT + "[" + tasks.get(taskNumber).getStatusIcon() + "]"
+                + tasks.get(taskNumber).getTaskName());
+        System.out.println(INDENT + "You left " + (tasks.size() - 1) + " tasks in the list.");
+
     }
 
     /**
@@ -153,5 +161,6 @@ public class Ui {
         printGoodbye();
         printBottomLine();
     }
+
 
 }
