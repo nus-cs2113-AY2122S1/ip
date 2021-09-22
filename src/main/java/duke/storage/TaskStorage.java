@@ -18,6 +18,10 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDos;
 
+/**
+ * This class is responsible for reading/writing tasks into the memory
+ *
+ */
 public class TaskStorage {
     static final String DATA_FILE_PATH = "./data/tasks.txt";
     static final String SPACE_SEPARATOR = "\\|";
@@ -26,6 +30,11 @@ public class TaskStorage {
 
     private File dataFile;
 
+    /**
+     * Constructor method for <code>TaskStorage</code>
+     *
+     * @throws IOException if the file in the memory cannot be opened
+     */
     public TaskStorage() throws IOException {
         File dataFile = new File(DATA_FILE_PATH);
         File dataDir = new File(dataFile.getParent());
@@ -41,6 +50,12 @@ public class TaskStorage {
         this.dataFile = dataFile;
     }
 
+    /**
+     * Writes the array of tasks into the memory
+     *
+     * @param tasks the array of tasks to be written into the memory
+     * @throws IOException if the tasks cannot be written into the memory file
+     */
     public void writeTasksToMemory(ArrayList<Task> tasks) throws IOException {
         String data = "";
         FileWriter fw = new FileWriter(DATA_FILE_PATH);
@@ -53,6 +68,11 @@ public class TaskStorage {
         fw.close();
     }
 
+    /**
+     * Reads the list of tasks currently in the memory file, and pass it as a <code>ArrayList</code>
+     *
+     * @return the list of tasks in the memory as an array
+     */
     public ArrayList<Task> readTasksFromMemory() {
         ArrayList<Task> extractedTasks = new ArrayList<>();
 
