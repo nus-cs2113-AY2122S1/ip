@@ -6,19 +6,19 @@ Hello there! This is Duke, your personal **Command Line Interface (CLI) chatbot 
 2. Download the latest version of ```Duke.jar``` here.
 3. Copy the file over to the **home folder** you intend to use for your bot.
 4. Navigate to the home folder specified previously using any terminal interface.
-5. Execute the command ```java -har Duke.jar``` and the bot will start running. You should be seeing something similar to the example given below.
+5. Execute the command ```java -har Duke.jar``` and the bot will start running. You should be seeing something similar to the example given below.  
 ```
-Hello from
+Hello from  
  ____        _        
 |  _ \ _   _| | _____ 
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+|____/ \__,_|_|\_\___|  
 
-------------------------------------
-Hello! I'm duke.Duke
-What can I do for you?
-------------------------------------
+------------------------------------  
+Hello! I'm Duke.  
+What can I do for you?  
+------------------------------------  
 ```
 
 ## Features 
@@ -29,13 +29,12 @@ Todo tasks should only contain a task description.
 Format: ```todo <description>```  
 Example: 
 ```
-$todo study for CS2113T
-------------------------------------
-Got it! I've added the following task:
-[T][ ]study for CS2113T
-Now you have 1 tasks in your list
-------------------------------------
-
+$todo study for CS2113T  
+------------------------------------  
+Got it! I've added the following task:  
+[T][ ]study for CS2113T  
+Now you have 1 tasks in your list  
+------------------------------------  
 ```
 
 ### Adding a Deadline: ```deadline```
@@ -44,13 +43,12 @@ Deadlines should contain the task description and date.
 Format: ```deadline <description>/by <date>```  
 Example: 
 ```
-$deadline submit CS2101 reflection /by 21 Sept
+$deadline submit CS2101 reflection /by 21 Sept  
+------------------------------------  
+Got it! I've added the following task:  
+[D][ ]submit CS2101 reflection(by: 21 Sept)  
+Now you have 2 tasks in your list  
 ------------------------------------
-Got it! I've added the following task:
-[D][ ]submit CS2101 reflection(by: 21 Sept)
-Now you have 2 tasks in your list
-------------------------------------
-
 ```
 
 ### Adding an Event: ```event```
@@ -59,12 +57,12 @@ Events should contain the task description and event time.
 Format: ```event <description>/at <time>```  
 Example:
 ```
-$event attend online career fair /at Sunday 2-4pm
-------------------------------------
-Got it! I've added the following task:
-[E][ ]attend online career fair(at: Sunday 2-4pm)
-Now you have 3 tasks in your list
-------------------------------------
+$event attend online career fair /at Sunday 2-4pm  
+------------------------------------  
+Got it! I've added the following task:  
+[E][ ]attend online career fair(at: Sunday 2-4pm)  
+Now you have 3 tasks in your list  
+------------------------------------  
 ```
 
 ### Listing all tasks: ```list```
@@ -74,12 +72,12 @@ Format: ```list```
 Example:
 ```
 $list
-------------------------------------
-Here are all the tasks in your list:
-1.[T][ ]study for CS2113T
-2.[D][ ]submit CS2101 reflection(by: 21 Sept)
-3.[E][ ]attend online career fair(at: Sunday 2-4pm)
-------------------------------------
+------------------------------------  
+Here are all the tasks in your list:  
+1.[T][ ]study for CS2113T  
+2.[D][ ]submit CS2101 reflection(by: 21 Sept)  
+3.[E][ ]attend online career fair(at: Sunday 2-4pm)  
+------------------------------------  
 ```
 
 ### Marking a task as completed: ```done```  
@@ -88,12 +86,11 @@ Index from the user should be a valid value in the list of tasks.
 Format: ```done <taskIndex>```  
 Example: 
 ```
-$done 1
-------------------------------------
-Nice! I have marked this task as done:
-[T][X]study for CS2113T
-------------------------------------
-
+$done 1  
+------------------------------------  
+Nice! I have marked this task as done:  
+[T][X]study for CS2113T  
+------------------------------------  
 ```
 
 ### Removing a task: ```delete```
@@ -102,12 +99,12 @@ Index from the user should be a valid value in the list.
 Format: ```delete <taskIndex>```  
 Example:
 ```
-$delete 2
-------------------------------------
-Noted. I've removed this task:
-[D][ ]submit CS2101 reflection(by: 21 Sept)
-Now you have 2 tasks in your list
-------------------------------------
+$delete 2  
+------------------------------------  
+Noted. I've removed this task:  
+[D][ ]submit CS2101 reflection(by: 21 Sept)  
+Now you have 2 tasks in your list  
+------------------------------------  
 ```
 
 ### Searching for a task: ```find```
@@ -115,11 +112,11 @@ Looks for a ```keyword``` input by the user among all tasks.
 Format: ```find <keyword>```  
 Example: 
 ```
-$find study
-------------------------------------
-Here are the matching tasks in your list:
-1.[T][X]study for CS2113T
-------------------------------------
+$find study  
+------------------------------------  
+Here are the matching tasks in your list:  
+1.[T][X]study for CS2113T  
+------------------------------------  
 ```
 
 ### Exiting the program: ```bye```
@@ -127,10 +124,10 @@ Terminates the bot.
 Format: ```bye```  
 Example:
 ```
-$bye
-------------------------------------
-Bye. Hope to see you again soon!
-------------------------------------
+$bye  
+------------------------------------  
+Bye. Hope to see you again soon!  
+------------------------------------  
 ```
 
 ### Saving data locally
