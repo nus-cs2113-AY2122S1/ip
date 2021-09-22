@@ -14,6 +14,22 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString() + " (at: " +
+                (isDate(at)? date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) : at ) + ")";
+    }
+
+    private boolean isDate(String args) {
+        if (!args.contains("-")) {
+            return false;
+        } else {
+            String[] dateArray = args.split("-");
+            if (dateArray.length < 3) {
+                return false;
+            }
+            if (!(dateArray[0].length() == 2 && dateArray[1].length() == 2 && dateArray[2].length() == 4)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
