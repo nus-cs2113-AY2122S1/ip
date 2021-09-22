@@ -1,9 +1,16 @@
 package duke.security;
 
+import java.util.Scanner;
+
 public class AccountDetail {
     private static String username = "John Doe";
     private static String password = "password";
     private static int points = 0;
+
+    public AccountDetail() {
+        Scanner in = new Scanner(System.in);
+        setupUsernamePassword(in);
+    }
 
     public static String getUsername() {
         return username;
@@ -35,5 +42,13 @@ public class AccountDetail {
 
     public static void setPoints(int points) {
         AccountDetail.points = points;
+    }
+
+    private static void setupUsernamePassword(Scanner in) {
+        AccountDetail user = new AccountDetail();
+        System.out.print("Username [dukeBot]: ");
+        AccountDetail.setUsername(in.nextLine());
+        System.out.print("Password [bukeDot]: ");
+        AccountDetail.setPassword(in.nextLine());
     }
 }

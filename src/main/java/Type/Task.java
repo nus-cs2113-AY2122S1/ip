@@ -1,4 +1,4 @@
-package Type.task;
+package Type;
 
 public abstract class Task implements Serializable{
     protected String description;

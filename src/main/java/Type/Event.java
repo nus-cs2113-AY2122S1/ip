@@ -1,4 +1,4 @@
-package Type.task;
+package Type;
 
 public class Event extends Task {
     String atWhen;

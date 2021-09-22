@@ -1,4 +1,4 @@
-package Type.task;
+package Type;
 
 public class Mascot {
     private static final String name = "John Doe";

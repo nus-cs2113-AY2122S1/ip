@@ -1,4 +1,4 @@
-package Type.task;
+package Type;
 
 public class Todo extends Task{
     public Todo(String description) {

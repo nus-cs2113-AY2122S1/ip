@@ -1,6 +1,7 @@
-package duke.command;
+package duke.data;
 
-import Type.task.Task;
+import Type.Task;
+import duke.startup.Parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,8 +12,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//brute force save
-public class StoreData extends Duke{
+
+public class Storage{
+    protected static String filePath;
+    public Storage(String filePath) {
+        Storage.filePath = filePath;
+    }
+
     //print a task array list in easy to wrangle data format
     //format:
     //separated by lines, [TYPE] [deadline] [DESC] [ISDONE]
@@ -33,7 +39,7 @@ public class StoreData extends Duke{
     }
     //returns an array list, given a text file
     //format per LINE : [TASK_TYPE]|[DEADLINE]|[DESC]|[DONE]
-    public static ArrayList<Task> readList(String filePath) throws IOException {
+    public static ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasksToRead = new ArrayList<>();
         try {
             checkAndAddDirectory();
@@ -60,7 +66,7 @@ public class StoreData extends Duke{
 
     private static void addTaskToArray(ArrayList<Task> toReadList, String readLine) {
         String toCommand = savedDataToCommandFormat(readLine);
-        Task taskToAdd = parseInputAsTask(toCommand);
+        Task taskToAdd = Parser.parseInputAsTask(toCommand);
         toReadList.add(taskToAdd);
     }
 
@@ -78,7 +84,7 @@ public class StoreData extends Duke{
         }
     }
 
-    public static void writeNewFile(String filePath) throws IOException {
+    public static void writeNewFile() throws IOException {
         checkAndAddDirectory();
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -99,4 +105,5 @@ public class StoreData extends Duke{
         System.out.println("adding /data into repository...");
         Files.createDirectories(Paths.get(home + "/data"));
     }
+
 }

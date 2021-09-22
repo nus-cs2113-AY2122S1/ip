@@ -1,4 +1,4 @@
-package Type.task;
+package Type;
 
 public class Deadline extends Task{
     private String byWhen;
