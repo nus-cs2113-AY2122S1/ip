@@ -10,6 +10,10 @@ import alfred.command.ListTasksCommand;
 import alfred.exception.EmptyDescriptionException;
 import alfred.exception.MissingDateException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     private final String EXIT_COMMAND = "bye";
     private final String LIST_COMMAND = "list";
@@ -22,7 +26,9 @@ public class Parser {
     private final String TODO_TYPE = "T";
     private final String EVENT_TYPE = "E";
     private final String DEADLINE_TYPE = "D";
-    private final String EMPTY = "";
+    private final LocalDate EMPTY_DATE = null;
+    public static final DateTimeFormatter SG_DATE_FORMAT =
+            DateTimeFormatter.ofPattern("[dd/MM/yyyy][dd-MM-yyyy][ddMMyyyy]");
     private final String AT_IDENTIFIER = " /at ";
     private final String BY_IDENTIFIER = " /by ";
 
@@ -106,6 +112,8 @@ public class Parser {
             return new FailedCommand(FailedCommandType.EMPTY_DESCRIPTION);
         } catch (MissingDateException e) {
             return new FailedCommand(FailedCommandType.MISSING_DATE);
+        } catch (DateTimeParseException e) {
+            return new FailedCommand(FailedCommandType.INVALID_DATE);
         }
     }
 
@@ -114,10 +122,12 @@ public class Parser {
             throw new EmptyDescriptionException();
         }
         String todoDescription = inputs[TASK_FULL_DESCRIPTION_INDEX];
-        return new AddTaskCommand(TODO_TYPE, todoDescription, EMPTY);
+        return new AddTaskCommand(TODO_TYPE, todoDescription, EMPTY_DATE);
     }
 
-    private Command parseEvent(String[] inputs) throws EmptyDescriptionException, MissingDateException {
+    private Command parseEvent(String[] inputs) throws EmptyDescriptionException, MissingDateException,
+            DateTimeParseException {
+
         if (inputs.length < 2) {
             throw new EmptyDescriptionException();
         }
@@ -126,11 +136,14 @@ public class Parser {
             throw new MissingDateException();
         }
         String eventDescription = splitTaskDescription[SPLIT_TASK_DESCRIPTION_INDEX];
-        String eventDate = splitTaskDescription[SPLIT_TASK_DATE_INDEX];
+        String eventDateString = splitTaskDescription[SPLIT_TASK_DATE_INDEX];
+        LocalDate eventDate = LocalDate.parse(eventDateString, SG_DATE_FORMAT);
         return new AddTaskCommand(EVENT_TYPE, eventDescription, eventDate);
     }
 
-    private Command parseDeadline(String[] inputs) throws EmptyDescriptionException, MissingDateException {
+    private Command parseDeadline(String[] inputs) throws EmptyDescriptionException, MissingDateException,
+            DateTimeParseException {
+
         if (inputs.length < 2) {
             throw new EmptyDescriptionException();
         }
@@ -139,7 +152,8 @@ public class Parser {
             throw new MissingDateException();
         }
         String deadlineDescription = splitTaskDescription[SPLIT_TASK_DESCRIPTION_INDEX];
-        String deadlineDate = splitTaskDescription[SPLIT_TASK_DATE_INDEX];
+        String deadlineDateString = splitTaskDescription[SPLIT_TASK_DATE_INDEX];
+        LocalDate deadlineDate = LocalDate.parse(deadlineDateString, SG_DATE_FORMAT);
         return new AddTaskCommand(DEADLINE_TYPE, deadlineDescription, deadlineDate);
     }
 
