@@ -5,13 +5,27 @@ import duke.storage.TaskList;
 
 import java.io.IOException;
 
+/**
+ * The command to add a new task into the list
+ * This class implements the <code>Command</code> interface
+ */
 public class AddCommand implements Command {
     private Task task;
 
+    /**
+     * Constructor method for <code>AddCommand</code>
+     * @param t the task to add
+     */
     public AddCommand(Task t) {
         this.task = t;
     }
 
+    /**
+     * Executes the command
+     *
+     * @return result message if success
+     * @throws DukeException if the task cannot be added into the memory
+     */
     public String run() throws DukeException {
         try {
             TaskList.getInstance().add(this.task);
