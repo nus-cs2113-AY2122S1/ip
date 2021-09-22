@@ -28,7 +28,7 @@ public class Storage {
     /**
      * Load task list from save file.
      *
-     * @return Returns a new task list generated from the save file.
+     * @return A new task list generated from the save file.
      * @throws FileNotFoundException     Task file does not exist.
      * @throws TaskListEmptyException    Task list is empty.
      * @throws InvalidTaskIndexException Task index provided is not within task list size.

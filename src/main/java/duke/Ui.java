@@ -1,13 +1,13 @@
 package duke;
 
-import static duke.Duke.COMMAND_BYE;
-import static duke.Duke.COMMAND_DEADLINE;
-import static duke.Duke.COMMAND_DELETE;
-import static duke.Duke.COMMAND_DONE;
-import static duke.Duke.COMMAND_EVENT;
-import static duke.Duke.COMMAND_HELP;
-import static duke.Duke.COMMAND_LIST;
-import static duke.Duke.COMMAND_TODO;
+import static duke.Parser.COMMAND_BYE;
+import static duke.Parser.COMMAND_DEADLINE;
+import static duke.Parser.COMMAND_DELETE;
+import static duke.Parser.COMMAND_DONE;
+import static duke.Parser.COMMAND_EVENT;
+import static duke.Parser.COMMAND_HELP;
+import static duke.Parser.COMMAND_LIST;
+import static duke.Parser.COMMAND_TODO;
 
 import duke.task.Task;
 import duke.task.TaskList;
@@ -84,7 +84,7 @@ public class Ui {
     /**
      * Print message for the newly added task.
      *
-     * @param newTask Newly added task.
+     * @param newTask    Newly added task.
      * @param totalTasks Total number of tasks in the task list.
      */
     public void printAddNewTask(Task newTask, int totalTasks) {
@@ -107,7 +107,7 @@ public class Ui {
      * Print message for deleted task.
      *
      * @param deletedTask The task that has been deleted.
-     * @param totalTasks Number of total tasks in the task list.
+     * @param totalTasks  Number of total tasks in the task list.
      */
     public void printDeletedTask(Task deletedTask, int totalTasks) {
         blockPrint(new String[]{"Affirmative. I have removed this task:",
@@ -140,7 +140,7 @@ public class Ui {
      * Print unknown command error message.
      */
     public void printUnknownCommandError() {
-        blockPrint(new String[]{"Unknown command received.", HELP_MESSAGE});
+        blockPrint(new String[]{"Unknown command received."});
     }
 
     /**
