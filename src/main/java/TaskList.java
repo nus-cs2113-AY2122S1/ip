@@ -1,7 +1,16 @@
 import java.util.ArrayList;
 
+/**
+ * Contains all task list related methods.
+ * Deals the user's input commands.
+ */
 public class TaskList {
 
+    /**
+     * Prints a task list.
+     *
+     * @param tasks Array list of tasks.
+     */
     public static void printTaskList(ArrayList<Task> tasks) {
         String message = " Here are the tasks in your list:\n";
         int taskIndex = 1;
@@ -12,6 +21,12 @@ public class TaskList {
         Ui.printMessage(message);
     }
 
+    /**
+     * Marks a task from a task list as done based on the task number entered.
+     *
+     * @param tasks Array list of tasks.
+     * @param taskNumber Task number of the task to be marked as done.
+     */
     public static void markAsDone(ArrayList<Task> tasks, int taskNumber) {
         try{
             tasks.get(taskNumber).setDone();
@@ -23,6 +38,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from a task list based on the task number entered.
+     *
+     * @param tasks Array list of tasks.
+     * @param taskNumber Task number of the task to be deleted.
+     */
     public static void deleteTask(ArrayList<Task> tasks, int taskNumber) {
         try{
             Task deletedTask = tasks.get(taskNumber);
@@ -36,6 +57,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Creates a new task based on the user's input.
+     *
+     * @param parsedUserInput Parsed user input.
+     * @return New task.
+     */
     public static Task createTask(String[] parsedUserInput) {
         String category = parsedUserInput[0];
         String description = parsedUserInput[1];
@@ -57,11 +84,17 @@ public class TaskList {
         return newTask;
     }
 
-    public static void addTask(ArrayList<Task> taskList, Task newTask) {
-        taskList.add(newTask);
+    /**
+     * Adds a new task to a task list.
+     *
+     * @param tasks Array list of tasks.
+     * @param newTask Task to be added to the task list.
+     */
+    public static void addTask(ArrayList<Task> tasks, Task newTask) {
+        tasks.add(newTask);
         String message = " Got it. I've added this task:\n"
                 + "  " + newTask + "\n"
-                + " Now you have " + taskList.size() + " tasks in the list.\n";
+                + " Now you have " + tasks.size() + " tasks in the list.\n";
         Ui.printMessage(message);
     }
 

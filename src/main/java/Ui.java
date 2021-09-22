@@ -1,3 +1,7 @@
+/**
+ * Contains all UI related methods.
+ * Deals the visuals of Duke.
+ */
 public class Ui {
 
     public static final String LINE = "____________________________________________________________\n";
@@ -7,10 +11,18 @@ public class Ui {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
+    /**
+     * Prints a message to the user.
+     *
+     * @param message Message to be printed.
+     */
     public static void printMessage(String message) {
         System.out.println(LINE + message + LINE);
     }
 
+    /**
+     * Prints a greeting message to the user.
+     */
     public static void printGreeting() {
         System.out.println("Hello from\n"
                 + LOGO);
@@ -19,6 +31,9 @@ public class Ui {
         printMessage(message);
     }
 
+    /**
+     * Prints a farewell message to the user.
+     */
     public static void printFarewell() {
         String message = " Bye. Hope to see you again soon!\n";
         printMessage(message);
