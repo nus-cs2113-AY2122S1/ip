@@ -31,31 +31,40 @@ public class IO {
      */
     public static void initData(String filePath) throws KittyException {
         try {
-            File f = new File(filePath);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String rawData = s.nextLine();
-                String type = IOParser.getDataType(rawData);
-                String status = IOParser.getDataStatus(rawData);
-                String task = IOParser.getDataTask(rawData);
+            File dataDir = new File("data");
+            File dataFile = new File(filePath);
+            // Create new data set if it does not exist
+            if (!dataDir.exists()) {
+                dataDir.mkdir();
+                FileWriter fw = new FileWriter(dataFile.getAbsoluteFile());
+            } else {
+                Scanner s = new Scanner(dataFile);
+                while (s.hasNext()) {
+                    String rawData = s.nextLine();
+                    String type = IOParser.getDataType(rawData);
+                    String status = IOParser.getDataStatus(rawData);
+                    String task = IOParser.getDataTask(rawData);
 
-                // Add Tasks
-                switch (type) {
-                case "T":
-                    addTodoFromRawData(status, task);
-                    break;
-                case "D":
-                    addDeadlineFromRawData(status, task);
-                    break;
-                case "E":
-                    addEventFromRawData(status, task);
-                    break;
-                default:
-                    throw new KittyException("Invalid Raw Data!");
+                    // Add Tasks
+                    switch (type) {
+                    case "T":
+                        addTodoFromRawData(status, task);
+                        break;
+                    case "D":
+                        addDeadlineFromRawData(status, task);
+                        break;
+                    case "E":
+                        addEventFromRawData(status, task);
+                        break;
+                    default:
+                        throw new KittyException("Invalid Raw Data!");
+                    }
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new KittyException("File not found!");
+            throw new KittyException("Could not find existing data file!");
+        } catch (IOException e) {
+            throw new KittyException("Unable to create new data set!");
         }
     }
 
