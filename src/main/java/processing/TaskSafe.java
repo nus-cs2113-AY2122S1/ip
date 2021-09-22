@@ -9,6 +9,7 @@ import java.util.regex.PatternSyntaxException;
 
 /*------- Local imports --------*/
 import exceptions.DukeException;
+import exceptions.SafeException;
 import org.jetbrains.annotations.NotNull;
 import tasks.Deadline;
 import tasks.Event;
@@ -18,9 +19,9 @@ import tasks.TaskType;
 public class TaskSafe {
 
     /*------------ PUBLIC STATIC VARIABLES --------- */
-    private static final String DATA_PATH = "/data/duke.txt";
-    private static final String rootPath = new File(".").getAbsolutePath();
-    private static final String fullPath = rootPath + DATA_PATH;
+    private static final String DIRECTORY_PATH = "../data/";
+    private static final String FILE_NAME = "duke.txt";
+    private static final String fullPath = DIRECTORY_PATH + FILE_NAME;
 
     /*-------------- SAVE ------------ */
 
@@ -39,7 +40,7 @@ public class TaskSafe {
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
-            throw new DukeException("Failed to save following task: \n" + task);
+            throw new SafeException(SafeException.SAVE_FAILED + task);
         }
     }
 
@@ -71,6 +72,10 @@ public class TaskSafe {
     public static void loadFromFile( TaskManager taskManager) {
         File file = new File(fullPath);
         try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNext()) {
                 parseTask(fileScanner.nextLine(),taskManager);
@@ -121,7 +126,7 @@ public class TaskSafe {
             taskManager.addTask(command,t,isDone,false);
         } catch (PatternSyntaxException | DukeException e) {
             System.out.println(e);
-            throw new DukeException("Corrupted task syntax from file, unable to parse");
+            throw new SafeException(SafeException.LOAD_FAILED);
         }
     }
 }

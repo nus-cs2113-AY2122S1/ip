@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.List;
 
 /*---------LOCAL IMPORT--------*/
+import exceptions.CommandSyntaxException;
 import org.jetbrains.annotations.NotNull;
 import tasks.TaskType;
 import tasks.Deadline;
@@ -137,7 +138,7 @@ public class TaskManager {
             UI.showDeleteTask(t, taskSize);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             listTasks();
-            throw new DukeException("Please enter a valid task number to delete.");
+            throw new CommandSyntaxException("Please enter a valid task number to delete.");
         }
     }
 
@@ -157,7 +158,7 @@ public class TaskManager {
             System.out.println(DONE_TASK);
             printTask(idx);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new DukeException("Please enter a valid task number to be marked as done!");
+            throw new CommandSyntaxException("Please enter a valid task number to be marked as done!");
         } finally {
             listTasks();
         }
@@ -198,21 +199,33 @@ public class TaskManager {
         listTasks(sortTasks());
     }
 
-
+    /**
+     * Updates a registered task to be set as done or otherwise
+     * @param idx the index of the task on the list to be updated
+     * @param isDone True if task is done, False otherwise
+     */
     public void updateTask(int idx, boolean isDone) {
         Task t = sortTasks().get(idx);
         int taskIdx = tasks.indexOf(t);
         tasks.get(taskIdx).setDone(isDone);
     }
 
-    public void printTask(int idx) {
+    private void printTask(int idx) {
         System.out.println(sortTasks().get(idx));
     }
 
+    /**
+     * Gets the list of tasks currently registered
+     * @return List of tasks
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Getter for the number of tasks in the list
+     * @return the number of tasks in the list
+     */
     public int getTaskSize() {
         return taskSize;
     }

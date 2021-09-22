@@ -3,6 +3,8 @@ package processing;
 
 import Duke.Duke;
 import exceptions.DukeException;
+import exceptions.TaskSyntaxException;
+import org.jetbrains.annotations.NotNull;
 import tasks.TaskType;
 
 /**
@@ -40,10 +42,7 @@ public class CommandHandler {
      * @param input User input that is to be parsed into a command
      * @throws DukeException throws an exception when the input is empty
      */
-    public CommandHandler(String input) throws DukeException {
-        if (input.isBlank()) {
-            throw new DukeException("Invalid Task Input");
-        }
+    public CommandHandler(@NotNull String input) {
         // padding extra space to circumvent indexOutOfBounds
         this.input = input + " ";
         this.command = input.split(" ")[0];
@@ -62,22 +61,22 @@ public class CommandHandler {
      * @param startIndex          The index at which the 'Before Clause' should begin
      * @param isBeforeClauseEmpty If false (default), will throw DukeException if 'Before Clause'
      *                            is empty after splitting. Otherwise, empty before clause is allowed
-     * @throws DukeException Throws Exception when After Clause is empty, or when Before Clause
+     * @throws TaskSyntaxException Throws Exception when After Clause is empty, or when Before Clause
      *                       is empty if <b>isBeforeClauseEmpty</b> is set to false
-     * @see DukeException
+     * @see TaskSyntaxException
      */
     public void splitByClause(String clause, int startIndex, boolean isBeforeClauseEmpty) throws DukeException {
         int idxOfClause = input.indexOf(clause);
         // Throw exception if ID string missing (e.g. "/by" missing from deadline command)
         if (idxOfClause == -1) {
-            throw new DukeException("Command is missing required clause : " + clause);
+            throw new TaskSyntaxException(TaskSyntaxException.MISSING_CLAUSE + clause);
         }
         String descriptorAfterClause = input.substring(idxOfClause + clause.length() + 1).trim();
         String descriptorBeforeClause = input.substring(startIndex, idxOfClause).trim();
         if (descriptorAfterClause.equals("")) {
-            throw new DukeException("Description cannot be empty after " + clause);
+            throw new TaskSyntaxException(TaskSyntaxException.EMPTY_AFTER + clause);
         } else if (!isBeforeClauseEmpty && descriptorBeforeClause.equals("")) {
-            throw new DukeException("Description cannot be empty before " + clause);
+            throw new TaskSyntaxException(TaskSyntaxException.EMPTY_BEFORE + clause);
         }
         this.descriptorBeforeClause = descriptorBeforeClause;
         this.descriptorAfterClause = descriptorAfterClause;

@@ -1,5 +1,6 @@
 package processing;
 import exceptions.DukeException;
+import exceptions.QuerySyntaxException;
 import org.jetbrains.annotations.NotNull;
 import tasks.Task;
 import tasks.TaskType;
@@ -39,7 +40,7 @@ public class QueryHandler {
         if (taskType == TaskType.ANY) {
             return true;
         } else {
-            return task.getTaskType() == taskType;
+            return task.getTaskType().equals(taskType);
         }
     };
 
@@ -61,7 +62,7 @@ public class QueryHandler {
             queryLimit = Integer.parseInt(kw);
             isLimitFlag = false;
         } catch (NumberFormatException e) {
-            throw new DukeException(LIMIT_EXCEPTION + kw + LIMIT_EXAMPLE);
+            throw new QuerySyntaxException(LIMIT_EXCEPTION + kw + LIMIT_EXAMPLE);
         }
     }
 
@@ -83,7 +84,7 @@ public class QueryHandler {
             taskType = TaskType.EVENT;
             break;
         default:
-            throw new DukeException(TYPE_EXCEPTION + kw + TYPE_EXAMPLE);
+            throw new QuerySyntaxException(TYPE_EXCEPTION + kw + TYPE_EXAMPLE);
         }
         isTypeFlag = false;
     }

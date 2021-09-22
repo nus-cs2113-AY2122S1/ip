@@ -1,4 +1,5 @@
 package processing;
+import exceptions.DateFormatException;
 import exceptions.DukeException;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +23,6 @@ public class DateParser {
     private static final String DATE_FORMAT2 = "MMM d yy";
     private static final String DATE_FORMAT3 = "dd/M/yyyy";
     private static final String DATE_FORMAT4 = "dd/M/yy";
-    private static final String DATE_FORMAT5 = "EEE";
 
     public static final String[] DATETIME_FORMATS = {
         DATETIME_FORMAT1,
@@ -33,8 +33,6 @@ public class DateParser {
         DATE_FORMAT3 + " " + TIME_FORMAT2,
         DATE_FORMAT4 + " " + TIME_FORMAT1,
         DATE_FORMAT4 + " " + TIME_FORMAT2,
-        DATE_FORMAT5 + " " + TIME_FORMAT1,
-        DATE_FORMAT5 + " " + TIME_FORMAT2,
     };
 
     public static final String[] DATE_FORMATS = {
@@ -42,7 +40,6 @@ public class DateParser {
             DATE_FORMAT2,
             DATE_FORMAT3,
             DATE_FORMAT4,
-            DATE_FORMAT5
     };
 
     public static final String[] TIME_FORMATS = {
@@ -87,7 +84,7 @@ public class DateParser {
                 continue;
             }
         }
-        throw new DukeException("Sorry! Unable to parse date!");
+        throw new DateFormatException();
     }
 
     /**
@@ -106,7 +103,7 @@ public class DateParser {
                 continue;
             }
         }
-        throw new DukeException("Sorry! Unable to parse DateTime");
+        throw new DateFormatException();
 
     }
 
@@ -155,6 +152,13 @@ public class DateParser {
         return date.format(DateTimeFormatter.ofPattern(DATETIME_FORMAT1));
     }
 
+    /**
+     * Formats a String representation of a date into 'MMM d yyyy HH:mm'
+     * e.g. 20/10/15 1800 -> Oct 20 2015 18:00
+     * @param date String representation of a date
+     * @return formatted date
+     * @throws DukeException if the datetime format fails
+     */
     public static @NotNull String formatDate(String date) throws DukeException {
         LocalDateTime localDT = parseDate(date);
         return formatDate(localDT);
