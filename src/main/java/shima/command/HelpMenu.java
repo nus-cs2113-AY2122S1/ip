@@ -1,4 +1,6 @@
-package shima.design;
+package shima.command;
+
+import shima.design.Default;
 
 import java.util.ArrayList;
 

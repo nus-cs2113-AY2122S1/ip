@@ -10,12 +10,13 @@ public class Deadline extends Task {
     }
 
     public Deadline(String task, String endTime) {
-        super(task);
+        this.task = task;
+        this.isDone = false;
         this.endTime = endTime;
     }
 
     public String getClassType() {
-        return "D";
+        return TaskType.D.toString();
     }
 
     public String getTime() {

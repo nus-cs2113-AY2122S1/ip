@@ -10,19 +10,13 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public Task(String task) {
-        this.task = task;
-        this.isDone = false;
-    }
+    public abstract String getTime();
+    public abstract String getClassType();
 
     //getters and setters
     public String getTask() {
         return task;
     }
-
-    public abstract String getTime();
-
-    public abstract String getClassType();
 
     public Boolean getDone() {
         return isDone;

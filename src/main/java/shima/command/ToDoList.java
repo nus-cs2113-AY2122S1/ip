@@ -1,4 +1,4 @@
-package shima.design;
+package shima.command;
 
 import shima.task.Task;
 

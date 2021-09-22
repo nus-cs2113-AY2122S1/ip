@@ -9,12 +9,13 @@ public class Event extends Task {
     }
 
     public Event(String task, String period) {
-        super(task);
+        this.task = task;
+        this.isDone = false;
         this.period = period;
     }
 
     public String getClassType() {
-        return "E";
+        return TaskType.E.toString();
     }
 
     public String getTime() {

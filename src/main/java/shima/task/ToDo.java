@@ -7,11 +7,12 @@ public class ToDo extends Task {
     }
 
     public ToDo(String task) {
-        super(task);
+        this.task = task;
+        this.isDone = false;
     }
 
     public String getClassType() {
-        return "T";
+        return TaskType.T.toString();
     }
 
     public String getTime() {
