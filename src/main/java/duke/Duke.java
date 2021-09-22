@@ -38,6 +38,23 @@ public class Duke {
         return input;
     }
 
+    public CommandResult runCommand(Command userCommand) {
+        CommandResult commandResult = null;
+        try {
+            commandResult = userCommand.executeCommand();
+        } catch (Exception e) {
+            commandResult = new CommandResult(e.toString(), false, false);
+        }
+        return commandResult;
+    }
+
+    public void saveTaskListChangesIfAny (CommandResult commandResult) {
+        if (commandResult.getIsModified() == true) {
+            taskManager = commandResult.getTaskManager();
+            dataManager.writeToFile(taskManager.getTasks());
+        }
+    }
+
     public void startDuke() {
 
         dukeUi.printWelcomeMessage();
@@ -46,22 +63,18 @@ public class Duke {
         CommandResult commandResult = null;
 
         do {
+
             String userInput = readInput();
+
             userCommand = parser.parseCommand(taskManager, userInput);
 
-            try {
-                commandResult = userCommand.executeCommand();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+            commandResult = runCommand(userCommand);
 
-            if(commandResult.getIsModified() == true) {
-                taskManager = commandResult.getTaskManager();
-                dataManager.writeToFile(taskManager.getTasks());
-            }
+            saveTaskListChangesIfAny(commandResult);
 
             dukeUi.printDukeMessage(commandResult.getDukeMessage());
-        } while(commandResult.getIsExited() != true);
+
+        } while (commandResult.getIsExited() != true);
 
     }
 
