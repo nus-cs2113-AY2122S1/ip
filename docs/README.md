@@ -7,7 +7,6 @@ This user guide will teach you how to use Duke.
 2. Go to the folder on your computer that contains the Jar file
 3. Run the command `java -jar -IP.jar`
 
-
 # Features 
 ### Summary
 Below is a list of the features Duke offers:
