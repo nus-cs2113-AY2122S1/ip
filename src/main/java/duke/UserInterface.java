@@ -12,13 +12,11 @@ import java.util.Scanner;
  */
 public class UserInterface {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final String LOGO = "\n" +
-            "______  ___ ________  ___ ___  _   _ \n" +
-            "| ___ \\/ _ |_   _|  \\/  |/ _ \\| \\ | |\n" +
-            "| |_/ / /_\\ \\| | | .  . / /_\\ |  \\| |\n" +
-            "| ___ |  _  || | | |\\/| |  _  | . ` |\n" +
-            "| |_/ | | | || | | |  | | | | | |\\  |\n" +
-            "\\____/\\_| |_/\\_/ \\_|  |_\\_| |_\\_| \\_/";
+    private static final String LOGO = " ____        _        \n"
+            + "|  _ \\ _   _| | _____ \n"
+            + "| | | | | | | |/ / _ \\\n"
+            + "| |_| | |_| |   <  __/\n"
+            + "|____/ \\__,_|_|\\_\\___|";
     private static final int USER_COMMAND_INDEX = 0;
     private static final int REMAINING_USER_INPUT_INDEX = 1;
     private static final Scanner sc = new Scanner(System.in);
@@ -140,7 +138,7 @@ public class UserInterface {
     public static void showGreet() {
         System.out.println("Greetings from\n" + LOGO);
         printLine();
-        System.out.print("Hello! I'm BATMAN\n" + "What can I do for you?\n");
+        System.out.print("Hello! I'm DUKE\n" + "What can I do for you?\n");
         printLine();
     }
 
