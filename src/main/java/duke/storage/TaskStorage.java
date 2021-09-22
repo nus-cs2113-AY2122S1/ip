@@ -5,8 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import duke.DukeException;
 import duke.task.Deadline;
@@ -17,6 +21,8 @@ import duke.task.ToDos;
 public class TaskStorage {
     static final String DATA_FILE_PATH = "./data/tasks.txt";
     static final String SPACE_SEPARATOR = "\\|";
+    static final String DATE_TIME_FORMAT = "dd MMM yyyy HH:mm";
+    static private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
 
     private File dataFile;
 
@@ -89,10 +95,20 @@ public class TaskStorage {
 
         switch (detail[0]) {
         case "event":
-            return new Event(detail[1], detail[2], Boolean.parseBoolean(detail[3]));
+            try {
+                LocalDateTime date = LocalDateTime.parse(detail[2], dateTimeFormat);
+                return new Event(detail[1], date, Boolean.parseBoolean(detail[3]));
+            } catch (DateTimeParseException e) {
+                throw new DukeException("Not the right format. Not sure I can read that.");
+            }
 
         case "deadline":
-            return new Deadline(detail[1],detail[2], Boolean.parseBoolean(detail[3]));
+            try {
+                LocalDateTime deadline = LocalDateTime.parse(detail[2], dateTimeFormat);
+                return new Deadline(detail[1], deadline, Boolean.parseBoolean(detail[3]));
+            } catch (DateTimeParseException e) {
+                throw new DukeException("Not the right format. Not sure I can read that.");
+            }
 
         case "todo":
             return new ToDos(detail[1], Boolean.parseBoolean(detail[2]));

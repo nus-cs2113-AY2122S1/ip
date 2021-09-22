@@ -1,8 +1,12 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     protected String taskDescription;
     protected boolean isDone;
+    protected final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
     public Task(String description, boolean isDone) {
         this.taskDescription = description;
