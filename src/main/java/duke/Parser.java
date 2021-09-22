@@ -93,7 +93,9 @@ public class Parser {
         // TODO: Tweak implementation such that all extra '0's at the end are not included in the final return
         // If there are no numbers, throw an exception and alert the user
         if (arrayOfStringInts[0].equals("")) {
-            throw new DukeException("Monster... You have tricked me and given me NO VALID TASKS!");
+            throw new DukeException(Ui.getHorizontalLine() +
+                    "Monster... You have tricked me and given me NO VALID TASKS!\n" +
+                    Ui.getHorizontalLine());
         } else {
             for (int i = 0; i < arrayOfStringInts.length; i++) {
                 extractedInts[i] = Integer.parseInt(arrayOfStringInts[i]);

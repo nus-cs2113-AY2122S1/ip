@@ -67,7 +67,7 @@ public class Ui {
     }
 
     public static void printTaskAddedMessage(Task task) {
-        System.out.print(HORIZONTAL_LINE + "Got it! I've added this task:\n" +
+        System.out.print(HORIZONTAL_LINE + "I've added this task:\n" +
                 task + System.lineSeparator() + HORIZONTAL_LINE);
     }
 
@@ -80,7 +80,7 @@ public class Ui {
     }
 
     public static void printDeletedTaskMessage(Task task) {
-        System.out.print("Deleted: " + task);
+        System.out.println("Deleted: " + task);
     }
 
     public static void printFoundTasksMessage(ArrayList<Task> list) {

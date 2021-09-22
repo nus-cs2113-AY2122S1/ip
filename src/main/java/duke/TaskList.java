@@ -47,7 +47,8 @@ public class TaskList {
             taskList.add(newDeadline);
             Ui.printTaskAddedMessage(newDeadline);
         } catch (DateTimeParseException e) {
-            System.out.println("DISGUSTING FORMAT YOU INSECT. USE dd/MM/yyyy [HH:mm]");
+            System.out.print("DISGUSTING FORMAT YOU INSECT. USE dd/MM/yyyy [HH:mm]\n" +
+                    Ui.getHorizontalLine());
         }
     }
 
