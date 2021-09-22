@@ -1,10 +1,8 @@
+package TypeOfTasks;
+
 import DukeUtility.OwlException;
 import DukeUtility.Ui;
-import TypeOfTasks.Deadline;
-import TypeOfTasks.Event;
-import TypeOfTasks.Task;
-import TypeOfTasks.Todo;
-
+import DukeUtility.Verifier;
 
 import java.util.ArrayList;
 
