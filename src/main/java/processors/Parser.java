@@ -1,6 +1,14 @@
 package processors;
 
-import commands.*;
+import commands.DeleteCommand;
+import commands.EventCommand;
+import commands.TodoCommand;
+import commands.DeadlineCommand;
+import commands.DoneCommand;
+import commands.ListCommand;
+import commands.InvalidCommand;
+import commands.SavedCommand;
+import commands.Command;
 
 public class Parser {
     private static final String BYE = "bye";
@@ -10,8 +18,6 @@ public class Parser {
     private static final String DELETE = "delete";
     private static final String DONE = "done";
     private static final String TODO = "todo";
-
-    public static Ui ui = new Ui();
 
     public DeadlineCommand deadlineCommand = new DeadlineCommand();
     public EventCommand eventCommand = new EventCommand();

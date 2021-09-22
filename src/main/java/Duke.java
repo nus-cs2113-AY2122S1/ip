@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
-import processors.*;
+import processors.TaskList;
+import processors.Ui;
+import processors.ProcessManager;
+import processors.Storage;
+import processors.Parser;
 import commands.Command;
 
 public class Duke {
