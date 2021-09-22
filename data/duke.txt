@@ -1,8 +1,9 @@
 T||true||time to do cs2113t
-D||true||cs2113t iP||1
+D||false||cs2113t iP||2021-09-22
 E||false||surf www||5-3
 E||true||you are the apex champion||5-8pm
 T||false||take you time
 T||true||fine I will do it myself
 E||false||testing last time||4-5pm
-D||false||OS lab 2||next week
+D||false||OS lab 2||2021-09-30
+D||false||testing123||2021-10-10
