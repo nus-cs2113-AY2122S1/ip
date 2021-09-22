@@ -1,17 +1,17 @@
 package duke.task;
 
 public class Task {
-    protected final String name;
+    protected final String description;
     protected boolean isDone;
     protected char type = 'T';
 
     public Task(String name) {
-        this.name = name;
+        this.description = name;
         this.isDone = false;
     }
 
     public Task(String name, boolean isDone) {
-        this.name = name;
+        this.description = name;
         this.isDone = isDone;
     }
 
@@ -22,10 +22,14 @@ public class Task {
     @Override
     public String toString() {
         String done = isDone ? "X" : " " ;
-        return "[" + type + "]"+ "["+ done +"] " + name;
+        return "[" + type + "]"+ "["+ done +"] " + description;
     }
 
     public String formatData() {
-        return type + "|" + isDone + "|" + name;
+        return type + "|" + isDone + "|" + description;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 }

@@ -15,6 +15,6 @@ public class Event extends Deadline {
     @Override
     public String toString() {
         String done = isDone ? "X" : " " ;
-        return "[" + type + "]" + "[" + done + "] " + name + " (at: " + dueTime + ")";
+        return "[" + type + "]" + "[" + done + "] " + description + " (at: " + dueTime + ")";
     }
 }
