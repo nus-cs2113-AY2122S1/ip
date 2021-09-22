@@ -1,6 +1,9 @@
-package duke;
+package duke.taskmanager;
 
+import duke.ui.Ui;
 import duke.exception.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
 import duke.task.*;
 
 import java.time.LocalDateTime;

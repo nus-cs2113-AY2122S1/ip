@@ -1,7 +1,6 @@
-package duke;
+package duke.ui;
 
 import duke.task.Task;
-import org.w3c.dom.html.HTMLObjectElement;
 
 import java.util.ArrayList;
 import java.util.List;

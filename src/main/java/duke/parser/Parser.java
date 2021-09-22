@@ -1,5 +1,7 @@
-package duke;
+package duke.parser;
 
+import duke.taskmanager.Command;
+import duke.ui.Ui;
 import duke.exception.DukeException;
 import duke.task.TaskType;
 

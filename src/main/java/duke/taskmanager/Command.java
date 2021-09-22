@@ -1,4 +1,4 @@
-package duke;
+package duke.taskmanager;
 
 public enum Command {
     BYE,
