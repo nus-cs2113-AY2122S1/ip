@@ -174,4 +174,9 @@ public class Ui {
         System.out.println("I am your very own schedule assistant here to enhance your everyday life");
         System.out.println("Type help to see what i can do!");
     }
+
+    public void printSavedMessage() {
+        String output = LINE_DIVIDER + GAP + "Your tasks has been saved\n" + LINE_DIVIDER;
+        System.out.println(output);
+    }
 }

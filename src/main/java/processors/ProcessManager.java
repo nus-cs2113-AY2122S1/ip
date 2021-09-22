@@ -1,15 +1,6 @@
 package processors;
 
-import commands.DeleteCommand;
-import commands.EventCommand;
-import commands.TodoCommand;
-import commands.DeadlineCommand;
-import commands.DoneCommand;
-import commands.ListCommand;
-import commands.InvalidCommand;
-import commands.FindCommand;
-import commands.SavedCommand;
-import commands.Command;
+import commands.*;
 import exceptions.EventException;
 import exceptions.TodoException;
 import exceptions.DoneException;
@@ -29,9 +20,17 @@ public class ProcessManager {
     public InvalidCommand invalidCommand = new InvalidCommand();
     public SavedCommand savedCommand = new SavedCommand();
     public FindCommand findCommand = new FindCommand();
+    public ByeCommand byeCommand = new ByeCommand();
 
     public Ui ui = new Ui();
 
+    /**
+     * Function takes in a specific command and executes that Command
+     * @param command the input Command that will be executed
+     * @param taskList the current list of tasks in the programme
+     * @param line the input string used to pass into the command that will be executed
+     * @return true if the command is not a ByeCommand, otherwise it returns true
+     */
     public Boolean executeCommand(Command command, TaskList taskList, String line) {
         if (command instanceof DeadlineCommand) {
             try {
@@ -77,9 +76,16 @@ public class ProcessManager {
             } catch (IOException e) {
                 ui.printIOException(e);
             }
-            return false;
+            return true;
         } else if (command instanceof FindCommand) {
             findCommand.execute(taskList, line);
+        } else if (command instanceof ByeCommand) {
+            try {
+                byeCommand.execute(taskList);
+            } catch (IOException e) {
+                ui.printIOException(e);
+            }
+            return false;
         }
         return true;
     }

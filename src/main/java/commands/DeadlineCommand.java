@@ -13,6 +13,12 @@ public class DeadlineCommand extends Command {
 
     public Ui ui = new Ui();
 
+    /**
+     * Function deletes the task - from the list of tasks - specified by the user
+     * @param taskList the list of tasks
+     * @param line the input line from the user
+     * @throws DeadlineException when the input line is invalid
+     */
     public void execute(TaskList taskList, String line) throws DeadlineException {
         if (!line.contains(DEADLINE_KEYWORD)) {
             throw new DeadlineException("Deadline Request Does Not Contain /by");

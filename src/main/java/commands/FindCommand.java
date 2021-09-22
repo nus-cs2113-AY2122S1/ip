@@ -9,6 +9,7 @@ public class FindCommand extends Command{
     private static final Integer FIND_DIVIDER = 5;
     public Ui ui = new Ui();
 
+
     public void execute(TaskList taskList, String line) {
         String search = line.substring(FIND_DIVIDER);
         ArrayList<Task> result = new ArrayList<>();

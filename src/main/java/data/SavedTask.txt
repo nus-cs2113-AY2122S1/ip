@@ -1,1 +1,3 @@
 D | Sleep | mon | false
+T | Eat | null | false
+T | Read | null | false

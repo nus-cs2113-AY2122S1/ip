@@ -12,6 +12,12 @@ public class DeleteCommand extends Command {
 
     public Ui ui = new Ui();
 
+    /**
+     * Function deletes the task - from the list of tasks - specified by the user
+     * @param taskList the list of tasks
+     * @param line the input line from the user
+     * @throws DeleteException when the input line is invalid
+     */
     public void execute(TaskList taskList, String line) throws DeleteException {
         if (line.length() == TASK_DATE_DIVIDER) {
             throw new DeleteException("Request Does Not Contain A Number");

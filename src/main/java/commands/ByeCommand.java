@@ -1,12 +1,12 @@
 package commands;
 
 import processors.Storage;
-import processors.Ui;
 import processors.TaskList;
+import processors.Ui;
 
 import java.io.IOException;
 
-public class SavedCommand extends Command {
+public class ByeCommand extends Command{
     public Ui ui = new Ui();
     public Storage storage = new Storage();
 
@@ -16,6 +16,6 @@ public class SavedCommand extends Command {
         } catch (IOException e) {
             throw new IOException(e);
         }
-        ui.printSavedMessage();
+        ui.goodbyeMessage();
     }
 }

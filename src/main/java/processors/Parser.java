@@ -1,15 +1,6 @@
 package processors;
 
-import commands.DeleteCommand;
-import commands.EventCommand;
-import commands.TodoCommand;
-import commands.DeadlineCommand;
-import commands.DoneCommand;
-import commands.ListCommand;
-import commands.InvalidCommand;
-import commands.FindCommand;
-import commands.SavedCommand;
-import commands.Command;
+import commands.*;
 
 public class Parser {
     private static final String BYE = "bye";
@@ -20,6 +11,7 @@ public class Parser {
     private static final String DONE = "done";
     private static final String TODO = "todo";
     private static final String FIND = "find";
+    private static final String SAVE = "save";
 
     public DeadlineCommand deadlineCommand = new DeadlineCommand();
     public EventCommand eventCommand = new EventCommand();
@@ -30,10 +22,17 @@ public class Parser {
     public InvalidCommand invalidCommand = new InvalidCommand();
     public SavedCommand savedCommand = new SavedCommand();
     public FindCommand findCommand = new FindCommand();
+    public ByeCommand byeCommand = new ByeCommand();
 
+    /**
+     * Function takes the input line and identify the type of Command it is
+     * before returning the specific Command class
+     * @param line the input line from the user
+     * @return the Command class that the user wants
+     */
     public Command decipher(String line) {
         if (line.equals(BYE)) {
-            return savedCommand;
+            return byeCommand;
         } else if (line.equals(LIST)) {
             return listCommand;
         } else if (line.startsWith(DELETE)) {
@@ -48,6 +47,8 @@ public class Parser {
             return eventCommand;
         } else if (line.startsWith(FIND)) {
             return findCommand;
+        } else if (line.startsWith(SAVE)) {
+            return savedCommand;
         } else {
             return invalidCommand;
         }
