@@ -13,8 +13,8 @@ Duke is able to manage your various tasks faster than traditional GUI applicatio
   - [Viewing all tasks: `list`](#list---list-all-tasks)
   - [Creating a todo: `todo`](#todo---creates-a-todo-list)
   - [Viewing tasks by date: `whatson`](#whats-on---list-tasks-on-a-day)
-  - [Saving the data:](#saving-the-data)
-  - [Editing the data file:](#editing-the-data-file)
+  - [Saving the data](#saving-the-data)
+  - [Editing the data file](#editing-the-data-file)
 - [Command Summary](#command-summary)
 
 ## Quick Start
