@@ -7,6 +7,18 @@ tasks and get more done during the day!
 
 - [QuickStart](#quick-start)
 - [Features](#features)
+  - [Adding a Todo: `todo`](#adding-a-todo-todo)
+  - [Adding a Deadline: `deadline`](#adding-a-deadline-deadline)
+  - [Adding a Event: `event`](#adding-a-event-event)
+  - [Listing all tasks: `list`](#listing-all-tasks-list)
+  - [Marking a task as done: `done`](#marking-a-task-as-done-done)
+  - [Deleting a task: `delete`](#deleting-a-task-delete)
+  - [Searching for a task: `find`](#searching-for-a-task-find)
+  - [Exiting the program: `bye`](#exiting-the-program-bye)
+  - [Save data to file](#save-data-to-file)
+- [FAQ](#faq)
+- [Command Summary](#command-summary)
+
 ___
 
 ## Quick Start
