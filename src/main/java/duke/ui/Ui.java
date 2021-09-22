@@ -20,6 +20,7 @@ public class Ui {
     private final static String ILLEGAL_COMMAND_MESSAGE = "That's not a known command format!";
     private final static String IOEXCEPTION_MESSAGE = "Something went wrong while creating/loading your data: ";
     private final static String INDEX_OUT_OF_BOUNDS_MESSAGE = "That's not a valid task number!";
+    private static final String DATE_TIME_PARSE_MESSAGE = "That date and/or time was in the wrong format!";
 
     public static void printDivider() {
         System.out.println(DIVIDER);
@@ -97,6 +98,12 @@ public class Ui {
     public static void printIndexOutOfBoundsMessage() {
         printDivider();
         System.out.println(INDEX_OUT_OF_BOUNDS_MESSAGE);
+        printDivider();
+    }
+
+    public static void printDateTimeParseMessage() {
+        printDivider();
+        System.out.println(DATE_TIME_PARSE_MESSAGE);
         printDivider();
     }
 }

@@ -1,6 +1,5 @@
 package duke;
 
-import duke.command.Command;
 import duke.exception.EmptyCommandException;
 import duke.exception.IllegalCommandException;
 import duke.parser.Parser;
@@ -22,7 +21,7 @@ public class Duke {
         String line = in.nextLine();
         while (!line.equals("bye")) {
             try {
-                Parser.parseAndExecuteCommand(line);
+                Parser.handleCommand(line);
             } catch (EmptyCommandException e) {
                 Ui.printEmptyCommandMessage();
             } catch (IllegalCommandException e) {
