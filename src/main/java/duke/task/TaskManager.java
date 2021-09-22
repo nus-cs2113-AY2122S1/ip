@@ -136,14 +136,16 @@ public class TaskManager {
     public String findTask (String keyword) {
 
         String matchedTasks = "";
+        int numMatched = 0;
 
         for (int taskID = 0; taskID < tasks.size(); taskID++) {
             if (tasks.get(taskID).getTaskDescription().contains(keyword)) {
                 matchedTasks += taskID + 1 + "." + tasks.get(taskID).getTaskDescription() + "\n";
+                numMatched++;
             }
         }
 
-        return getFindTaskMessage(matchedTasks);
+        return getFindTaskMessage(matchedTasks, numMatched);
 
     }
 
@@ -175,14 +177,8 @@ public class TaskManager {
         return DELETE_TASK_MSG + "\n   <" + tasks.get(idOfTaskDeleted).getTaskDescription() + ">\n";
     }
 
-    public String getFindTaskMessage(String matchedTasks) {
-
-        if (matchedTasks.equals("")) {
-            return "Sorry but there are no matching tasks, please try another keyword...";
-        } else {
-            return FIND_TASK_MSG + "\n" + matchedTasks;
-        }
-
+    public String getFindTaskMessage(String matchedTasks, int numMatched) {
+        return FIND_TASK_MSG + "\n" + matchedTasks + "=> It has successfully returned " + numMatched + " result/s.";
     }
 
     public String getListMessage(String taskList) {
