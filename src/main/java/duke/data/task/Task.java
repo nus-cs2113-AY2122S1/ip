@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data.task;
 
 public class Task {
 
@@ -60,11 +60,24 @@ public class Task {
     }
 
     /**
+     * Gets the deadline of the task.
+     *
+     * @return deadline of the task, returns null if no deadline
+     */
+    public String getDeadline() {
+        return null;
+    }
+
+    /**
      * Formats details of the Task to a printable string.
      *
      * @return Formatted string of a task.
      */
     public String toFormattedString() {
-        return String.format("[%c][%c] %s", this.getType(), isDone ? 'X' : ' ', this.getDescription());
+        String taskType = String.format("[%c]", this.getType());
+        String taskDone = String.format("[%c]", isDone ? 'X' : ' ');
+        String taskDesc = this.getDescription();
+
+        return taskType + taskDone + " " + taskDesc;
     }
 }

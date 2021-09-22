@@ -1,8 +1,11 @@
-package duke.task;
+package duke.data.task;
 
-public class Event extends Task implements TaskHelper {
+public class Deadline extends Task {
 
-    protected String deadline;
+    /* Task type indicator */
+    public static final char TASK_TYPE = 'D';
+
+    private final String deadline;
 
     /**
      * Constructor for Task of type Event
@@ -10,8 +13,8 @@ public class Event extends Task implements TaskHelper {
      * @param description Description of the task to add.
      * @param deadline    Deadline of task
      */
-    public Event(String description, String deadline) {
-        super(description, TaskType.EVENT);
+    public Deadline(String description, String deadline) {
+        super(description, TASK_TYPE);
         this.deadline = deadline;
     }
 
@@ -20,6 +23,7 @@ public class Event extends Task implements TaskHelper {
      *
      * @return deadline of the task.
      */
+    @Override
     public String getDeadline() {
         return deadline;
     }
