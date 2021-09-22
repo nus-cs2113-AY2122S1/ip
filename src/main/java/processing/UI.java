@@ -33,21 +33,35 @@ public class UI {
     }
 
     /*----------- PUBLIC FUNCTIONS --------------- */
+
+    /**
+     * Greets the user on startup
+     */
     public static void greetPartOne() {
         System.out.println("Hello from\n" + LOGO);
         System.out.println(GREETING);
 
     }
 
+    /**
+     * Wraps up the greeting and prompts for user input
+     */
     public static void greetPartTwo() {
         printDivider();
         System.out.println(BEGIN_STR);
     }
 
+    /**
+     * Prints a divider line to prettify the UI
+     */
     public static void printDivider() {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Prints the exception if an error occurred
+     * @param e Exception that occurred
+     */
     public static void showError(@NotNull Exception e) {
         e.printStackTrace();
         try {
@@ -57,16 +71,30 @@ public class UI {
         }
     }
 
+    /**
+     * Print the added task
+     * @param t Task that has been added
+     * @param taskSize Number of tasks now on the list
+     */
     public static void showAddTask (Task t, int taskSize) {
         System.out.println(ADD_TASK);
         showNumTasks(t, taskSize);
     }
 
+    /**
+     * Prints the deleted task
+     * @param t Task that has been deleted
+     * @param taskSize Number of tasks left on the list
+     */
     public static void showDeleteTask(Task t, int taskSize) {
         System.out.println(DELETE_TASK);
         showNumTasks(t, taskSize);
     }
 
+    /**
+     * Takes in a user input
+     * @return String representation of user input
+     */
     public static @NotNull String getCommand() {
         System.out.println("");
         String input = myScan.nextLine();
@@ -76,11 +104,17 @@ public class UI {
         return input;
     }
 
+    /**
+     * Prints the closing statement before exiting application
+     */
     public static void close() {
         System.out.println(FAREWELL_STR);
         myScan.close();
     }
 
+    /**
+     * List all the valid Date Time Formats
+     */
     public static void listDTFormats() {
         System.out.println(DTFORMAT_HEADER);
         for (String format : DateParser.DATETIME_FORMATS) {
@@ -91,6 +125,9 @@ public class UI {
         }
     }
 
+    /**
+     * Lists all the commands accepted by DUKE
+     */
     public static void listCommands() {
         System.out.println(LIST_COMMANDS);
         for (String command : CommandHandler.commands) {
