@@ -13,8 +13,8 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toText() {
-        return type + " | " + super.toText() + " | " + by;
+    public String toStorageString() {
+        return type + " | " + super.toStorageString() + " | " + by;
     }
 
     @Override

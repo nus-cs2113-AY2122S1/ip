@@ -29,7 +29,7 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public String toText() {
+    public String toStorageString() {
         return getStatusIcon() + "| " + this.description;
     }
 

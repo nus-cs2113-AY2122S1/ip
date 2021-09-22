@@ -6,6 +6,7 @@ import duke.exception.IllegalCommandException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.Task;
+import duke.ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,15 +24,15 @@ public class Duke {
             try {
                 Parser.parseAndExecuteCommand(line);
             } catch (EmptyCommandException e) {
-                System.out.println("Sorry, you didn't give me a fitting description for your task.");
+                Ui.printEmptyCommandMessage();
             } catch (IllegalCommandException e) {
-                System.out.println("That's not a known command format!");
+                Ui.printIllegalCommandMessage();
             } catch (IOException e) {
-                System.out.println("Something went wrong reading/writing to your data file.");
+                Ui.printIOExceptionMessage(e);
             }
             line = in.nextLine();
         }
-        Command.printByeMessage();
+        Ui.printByeMessage();
     }
 
     public static void main(String[] args) {

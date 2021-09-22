@@ -4,6 +4,7 @@ import duke.Duke;
 import duke.command.Command;
 import duke.parser.Parser;
 import duke.task.Task;
+import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -23,14 +24,13 @@ public class Storage {
             if (Files.notExists(Paths.get(FILE_PATH))) {
                 Files.createDirectories(Paths.get(FILE_PATH).getParent());
                 Files.createFile(Paths.get(FILE_PATH));
-                System.out.println("Hi! I'm Duke. I've created your data file for you, what would you like me to do?");
+                Ui.printNewHello();
             } else {
                 loadData();
-                System.out.println("Welcome back!");
-                Command.listTasks();
+                Ui.printReturningHello();
             }
         } catch (IOException e) {
-            System.out.println("Something went wrong while creating/loading your data: " + e.getCause());
+            Ui.printIOExceptionMessage(e);
         }
     }
 
@@ -45,7 +45,7 @@ public class Storage {
     public static void saveData() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         for (Task task : Duke.tasks) {
-            fw.write(task.toText() + "\n");
+            fw.write(task.toStorageString() + "\n");
         }
         fw.close();
     }

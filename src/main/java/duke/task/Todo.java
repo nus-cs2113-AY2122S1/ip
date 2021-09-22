@@ -11,8 +11,8 @@ public class Todo extends Task {
     }
 
     @Override
-    public String toText() {
-        return type + " | " + super.toText();
+    public String toStorageString() {
+        return type + " | " + super.toStorageString();
     }
 
     @Override

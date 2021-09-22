@@ -13,8 +13,8 @@ public class Event extends Task {
     }
 
     @Override
-    public String toText() {
-        return type + " | " + super.toText() + " | " + at;
+    public String toStorageString() {
+        return type + " | " + super.toStorageString() + " | " + at;
     }
 
     @Override

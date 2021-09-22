@@ -1,5 +1,6 @@
 package duke.parser;
 
+import duke.Duke;
 import duke.command.Command;
 import duke.exception.EmptyCommandException;
 import duke.exception.IllegalCommandException;
@@ -7,6 +8,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.ui.Ui;
 
 import java.io.IOException;
 
@@ -15,7 +17,7 @@ public class Parser {
     private final static String DEADLINE_ICON = "[D]";
     private final static String EVENT_ICON = "[E]";
     private final static String TODO_ICON = "[T]";
-    private final static String DONE_ICON = " [X]";
+    private final static String DONE_ICON = "[X]";
 
     private final static String DATA_SEP = "\\|";
     private final static String COMMAND_SEP = " ";
@@ -54,7 +56,8 @@ public class Parser {
             throw new IOException();
         }
 
-        if (parsedData[1].equals(DONE_ICON)) {
+        String parsedDoneIcon = parsedData[1].strip();
+        if (parsedDoneIcon.equals(DONE_ICON)) {
             newTask.setDone(true);
         }
         return newTask;
@@ -64,6 +67,9 @@ public class Parser {
         String[] parsedCommand = fullCommand.split(COMMAND_SEP);
 
         switch (parsedCommand[0].toUpperCase()) {
+        case "LIST":
+            Ui.printList();
+            break;
         case "TODO":
             parseAndAddTodo(fullCommand);
             break;
@@ -72,9 +78,6 @@ public class Parser {
             break;
         case "EVENT":
             parseAndAddEvent(fullCommand);
-            break;
-        case "LIST":
-            Command.listTasks();
             break;
         case "DONE":
             parseAndExecuteDone(parsedCommand);
