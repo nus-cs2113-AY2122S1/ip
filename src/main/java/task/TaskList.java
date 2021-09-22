@@ -5,14 +5,13 @@ import storage.Storage;
 import ui.Ui;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class TaskList {
     private static ArrayList<Task> tasks;
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private final Storage storage;
 
     /**
      * Class constructor taking in an Ui Object.

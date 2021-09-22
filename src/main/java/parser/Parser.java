@@ -52,9 +52,15 @@ public class Parser {
      * @param userInput The read-in user input
      * @return The index specified by user input
      */
-    public int getIndex(String userInput) {
+    public int getIndex(String userInput) throws DukeException {
+        int index;
         String[] userParams = userInput.split(Ui.SPACE_PREFIX);
-        return Integer.parseInt(userParams[1]);
+        try {
+            index = Integer.parseInt(userParams[1]);
+        } catch (ArrayIndexOutOfBoundsException arrError) {
+            throw new DukeException(DukeException.MISSING_INDEX_MESSAGE);
+        }
+        return index;
     }
 
     /**
@@ -79,18 +85,21 @@ public class Parser {
                 ui.printErrorMessage(err.getMessage());
             }
         } else if (commandType.equalsIgnoreCase(COMMAND_DELETE)) {
-            int index = getIndex(userInput);
-            tasks.removeTaskAtIndex(index - 1);
+            try {
+                int index = getIndex(userInput);
+                tasks.removeTaskAtIndex(index - 1);
+            } catch (DukeException err) {
+                ui.printErrorMessage(err.getMessage());
+            }
         } else if (commandType.equalsIgnoreCase(COMMAND_FIND)) {
             parseFindCommand(userInput);
         } else {
             parseTaskCommands(userInput, tasks);
         }
-
     }
 
     public String getKeyword(String userInput) {
-        return userInput.split(ui.SPACE_PREFIX)[1];
+        return userInput.split(Ui.SPACE_PREFIX)[1];
     }
 
     public void parseFindCommand(String userInput) {
