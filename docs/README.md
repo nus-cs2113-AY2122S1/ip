@@ -23,10 +23,40 @@ What can I do for you?
 ----------------------------------------------------------------------------------------------------
 ```
 
+---
 
-## Usage 
+## Key Features
 
-### `todo` - Add Todo task
+A brief summary of available features in Duke. For more detailed instructions, go to the `Commands` section.
+
+### Manage tasks
+Add/Delete 3 different types of tasks to your task list, namely:
+* Todo 
+* Deadline
+* Event
+
+### List tasks
+List all current tasks to keep track of tasks that need to be done
+
+### Mark tasks
+Mark tasks when you are done with them to better keep track of your existing tasks.
+
+### Find tasks
+Search for tasks from your existing list of tasks by using keywords.
+
+### Auto-save feature
+All changes made to the task list are saved automatically, so the user does not have to
+worry about losing data from the task list when exiting the program.
+
+
+
+
+
+
+---
+## Commands 
+
+### **`todo` - Add Todo task**
 
 Adds a Todo task to your task list with a description of the task. If no description is given, 
 it will return an error message and the task will not be added.
@@ -55,7 +85,7 @@ You now have 1 task(s)
 `[T]` shows that the task added is a Todo task. There are 
 other types of tasks, namely Deadline and Event tasks.
 
-### `deadline` - Add Deadline task
+### **`deadline` - Add Deadline task**
 
 Adds a Deadline task to your task list with a description and deadline for the task. If no description or deadline
 is given, it will return an error message and the task will not be added.
@@ -85,7 +115,7 @@ You now have 2 task(s)
 `[D]` shows that the task added is a Deadline task. There are
 other types of tasks, namely Todo and Event tasks.
 
-### `event` - Add Event task
+### **`event` - Add Event task**
 
 Adds an Event task to your task list with a description and time for the task. If no description or time
 is given, it will return an error message and the task will not be added.
@@ -116,7 +146,7 @@ You now have 3 task(s)
 other types of tasks, namely Todo and Deadline tasks.
 
 
-### `list` - List all tasks available
+### **`list` - List all tasks available**
 
 Lists all tasks that have been added to your task list. If there are no tasks, simply shows that no tasks are available.
 
@@ -148,7 +178,7 @@ The second `[]` represents whether the task is done:
 
 For example, task 1 `CS2113 Lecture Quiz` is a todo task that has been marked as done
 
-### `done` - Mark task as done
+### **`done` - Mark task as done**
 
 Marks a previously added task as done. If an invalid task number is provided, it will return an error
 and the command is stopped.
@@ -173,7 +203,7 @@ The following task has been marked as done:
 ```
 `[X]` represents that the task has been marked as done
 
-### `delete` - Delete a task
+### **`delete` - Delete a task**
 
 Deletes a previously added task from your task list. If an invalid task number is provided, it will return an error
 and the command is stopped.
@@ -196,7 +226,7 @@ The following task has been deleted:
 	[T][X] CS2113 Lecture Quiz
 ----------------------------------------------------------------------------------------------------
 ```
-### `find` - Find tasks 
+### **`find` - Find tasks**
 
 Search for tasks from text provided. Returns all tasks with description containing the text provided. For example, if a task has a description 'Assignment', 
 results from a query 'Assign' will contain that task in the results. Take note to use the correct letter-case when searching for tasks,
@@ -221,7 +251,7 @@ Here are all the matching tasks
 ----------------------------------------------------------------------------------------------------
 ```
 
-### `save` - Save tasks
+### **`save` - Save tasks**
 
 Saves your task list so that you will still be able to view the tasks the next time you
 use the program. 
@@ -245,7 +275,7 @@ You task list has been saved successfully
 ----------------------------------------------------------------------------------------------------
 ```
 
-### `bye` - Exit program
+### **`bye` - Exit program**
 
 Exits and terminates the program.
 
