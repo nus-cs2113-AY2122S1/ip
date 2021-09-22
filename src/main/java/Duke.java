@@ -1,9 +1,9 @@
 
-import java.awt.desktop.SystemEventListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
@@ -15,18 +15,22 @@ public class Duke {
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+                + "|____/ \\__,_|_|\\_\\___|\n"
+                + "There are too many students changing this logo away.\n"
+                + "Let's keep it this way to show the contribution Duke has done to\n"
+                + "thousands of students.\n"
+                + "F";
 
         String input;
         System.out.println("Hello from\n" + logo);
-        Greet.printWelcomeMessage();
+        Ui.printWelcomeMessage();
         // load data into arraylist
         File f = new File(filePath);
         f.createNewFile();
         // and scanner input
         try {
             Scanner in = new Scanner(f);
-            Storage.loadData(f, in);
+            Storage.loadData(in);
             in.close();
         } catch (FileNotFoundException e) {
             System.out.println("file not found");
@@ -38,7 +42,7 @@ public class Duke {
             String[] words = input.split(" ");
             parseInputFromUser(input, words);
             saveTaskIntoFile(f);
-            isConversation = !words[0].equals(Command.COMMAND_BYE);
+            isConversation = !words[0].equals(Parser.COMMAND_BYE);
         } while (isConversation);
     }
 
@@ -68,7 +72,7 @@ public class Duke {
      */
     private static void parseInputFromUser(String input, String[] words) {
         try {
-            FilterInput.checkCommand(words, input);
+            Parser.checkCommand(words, input);
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         } catch (NumberFormatException e) {
@@ -79,6 +83,12 @@ public class Duke {
             System.out.println("Invalid Number.");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Number keyed in is invalid");
+        } catch (IncorrectTimeFormatException e) {
+            System.out.println("Date keyed in is of invalid format");
+        } catch ( DateTimeParseException e) {
+            System.out.println("invalid datetime format");
+        } catch ( Exception e) {
+            System.out.println("invalid command, please try other commands/inputs");
         }
     }
 }

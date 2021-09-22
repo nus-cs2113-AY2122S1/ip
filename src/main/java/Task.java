@@ -44,10 +44,10 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
-        Greet.printLineOnConsole();
-        System.out.println(GreetMessage.TASK_CHECK_DONE);
+        Ui.printLineOnConsole();
+        System.out.println(Ui.TASK_CHECK_DONE);
         System.out.println("     " + "[" + this.taskType + "][X] " + this.description);
-        Greet.printLineOnConsole();
+        Ui.printLineOnConsole();
     }
 
     /**
@@ -63,7 +63,4 @@ public class Task {
         return taskType;
     }
 
-    public boolean isDone() {
-        return isDone;
-    }
 }

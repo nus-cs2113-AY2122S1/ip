@@ -1,27 +1,36 @@
+
+
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  * An inheritance from task that requires a range of time for additional input
  */
-public class Event extends Task {
-    private String eventDate;
+public class Event extends TimedTask {
+    private LocalDateTime endDate;
+
     public static final char TASK_TYPE_EVENT = 'E';
 
-    public Event(String description, String eventDate) {
-        super(description, TASK_TYPE_EVENT);
-        this.eventDate = eventDate;
+    public Event(String description, LocalDateTime[] date) {
+        super(description, TASK_TYPE_EVENT, date[0]);
+        endDate = date[1];
     }
 
-    public Event(String description, boolean isDone, String eventDate) {
-        super(description, TASK_TYPE_EVENT, isDone);
-        this.eventDate = eventDate;
+    public Event(String description, boolean isDone, LocalDateTime[] date) {
+        super(description, TASK_TYPE_EVENT, isDone , date[0]);
+        endDate = date[1];
     }
 
     @Override
     public String toString() {
         return "[" + taskType + "][" + getStatusIcon() + "] "
-                + description + " (at: " + eventDate + ")";
+                + description + " (at: " + getDate() + ")";
     }
 
     public String getDate() {
-        return eventDate;
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        String formatStartDateTime = getStartDate().format(format);
+        String formatEndDateTime = endDate.format(format);
+        return formatStartDateTime + " to " + formatEndDateTime;
     }
 }

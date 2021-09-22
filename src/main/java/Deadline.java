@@ -1,25 +1,28 @@
-public class Deadline extends Task {
-    private String dueDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Deadline extends TimedTask {
     public static final char TASK_TYPE_DEADLINE = 'D';
 
-    public Deadline(String description, String dueDate) {
-        super(description, TASK_TYPE_DEADLINE);
-        this.dueDate = dueDate;
+    public Deadline(String description, LocalDateTime date) {
+        super(description, TASK_TYPE_DEADLINE, date);
     }
 
-    public Deadline(String description, boolean isDone, String dueDate) {
-        super(description, TASK_TYPE_DEADLINE, isDone);
-        this.dueDate = dueDate;
+    public Deadline(String description, boolean isDone, LocalDateTime date) {
+        super(description, TASK_TYPE_DEADLINE, isDone, date);
     }
 
     @Override
     public String toString() {
-        String statusIcon = getStatusIcon();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        String formatDateTime = getStartDate().format(format);
         return "[" + taskType + "][" + getStatusIcon() + "] "
-                + description + " (by: " + dueDate + ")";
+                + description + " (by: " + formatDateTime + ")";
     }
 
     public String getDate() {
-        return dueDate;
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        String formatDateTime = getStartDate().format(format);
+        return formatDateTime;
     }
 }

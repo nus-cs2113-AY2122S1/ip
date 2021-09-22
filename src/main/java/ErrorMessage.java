@@ -14,7 +14,7 @@ public class ErrorMessage {
             "     ☹ OOPS!!! I'm sorry, but I don't know what is the timeframe of this task :-(";
     public static final String EXCEPTION_MESSAGE_MISSING_PARAMETERS_AFTER_COMMAND =
             "     OOPS! The command requires a parameter e.g. done 2\n" +
-                    " The number \'2\' will be the parameter for the command done";
+                    " The number '2' will be the parameter for the command done";
     public static final String EXCEPTION_MESSAGE_INPUT_NOT_INT =
             "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
                     "     Please input a string so that I can understand.";

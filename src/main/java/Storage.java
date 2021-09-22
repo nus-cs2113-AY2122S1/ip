@@ -1,6 +1,7 @@
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,7 +21,7 @@ public class Storage {
      *
      * @param readFile file targeted for read operation
      */
-    public static void loadData(File f, Scanner readFile) {
+    public static void loadData(Scanner readFile) {
         while (readFile.hasNext()) {
             String information = readFile.nextLine();
             parseInformation(information);
@@ -51,17 +52,17 @@ public class Storage {
         case "T":
             newTask = new Todo(result[RESULT_DESCRIPTION],
                     strToBoolean(result[RESULT_IS_DONE]));
-            Greet.reloadTask(newTask);
+            TaskList.reloadTask(newTask);
             break;
-        case "D":
+        case "D":// need to edit this
             newTask = new Deadline(result[RESULT_DESCRIPTION],
-                    strToBoolean(result[RESULT_IS_DONE]), result[RESULT_TIME]);
-            Greet.reloadTask(newTask);
+                    strToBoolean(result[RESULT_IS_DONE]), parseDeadline(result[RESULT_TIME]));
+            TaskList.reloadTask(newTask);
             break;
-        case "E":
+        case "E":// need to edit this
             newTask = new Event(result[RESULT_DESCRIPTION],
-                    strToBoolean(result[RESULT_IS_DONE]), result[RESULT_TIME]);
-            Greet.reloadTask(newTask);
+                    strToBoolean(result[RESULT_IS_DONE]), parseEvent(result[RESULT_TIME]));
+            TaskList.reloadTask(newTask);
             break;
         default:
             break;
@@ -79,7 +80,7 @@ public class Storage {
      * @throws IOException when file could not be read or if user deletes file while using the program
      */
     public static void storeData(FileWriter fileWrite) throws IOException {
-        ArrayList<Task> list = Greet.getList();
+        ArrayList<Task> list = TaskList.getList();
         for (Task task : list) {
             fileWrite.write(parseTask(task) + lineSeparator());
         }
@@ -107,6 +108,20 @@ public class Storage {
             newString = newString + " | " + deadline.getDate();
         }
         return newString;
+    }
+
+    public static LocalDateTime parseDeadline (String result) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        LocalDateTime date = LocalDateTime.parse(result, formatter);
+        return date;
+    }
+    public static LocalDateTime[] parseEvent (String result) {
+        String[] results = result.split(" to ");
+        LocalDateTime[] dates =  new LocalDateTime[2];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        dates[0] = LocalDateTime.parse(results[0], formatter);
+        dates[1] = LocalDateTime.parse(results[1], formatter);
+        return dates;
     }
 
     private static int booleanInt(boolean isDone) {
