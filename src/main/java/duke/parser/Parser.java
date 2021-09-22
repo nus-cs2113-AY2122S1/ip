@@ -37,7 +37,7 @@ public class Parser {
         case "find":
             return Command.FIND;
         default:
-            return Command.UNKNOWN;
+            throw new DukeException();
         }
     }
 

@@ -120,7 +120,7 @@ public class TaskList {
         System.out.print("All done!\n" + Ui.getHorizontalLine());
     }
 
-    static void executeCommand(String userInput, ArrayList<Task> list, Command command) {
+    public static void executeCommand(String userInput, ArrayList<Task> list, Command command) {
         try {
             switch (command) {
             case LIST:
@@ -153,11 +153,8 @@ public class TaskList {
                 String findDescription = Parser.extractDescription(userInput);
                 findTask(findDescription, list);
                 break;
-            case UNKNOWN:
-                Ui.printHelpMessage();
             default:
-                throw new DukeException("Give me a VALID COMMAND!\n" +
-                        Ui.getHorizontalLine());
+                throw new DukeException("ERROR: Unknown command passed into executeCommand() in TaskList.java\n");
             }
         } catch (DukeException | IndexOutOfBoundsException | DateTimeParseException e) {
             System.out.print(e.getMessage());

@@ -24,13 +24,18 @@ public class Duke {
 
         while (true) {
             userInput = in.nextLine().trim();
-            Command command = Parser.parseUserCommand(userInput);
-            if (command.equals(Command.BYE)) {
-                Ui.printGoodbyeMessage();
-                Storage.saveToFile(list);
-                break;
+            try {
+                Command command = Parser.parseUserCommand(userInput);
+                if (command.equals(Command.BYE)) {
+                    Ui.printGoodbyeMessage();
+                    Storage.saveToFile(list);
+                    break;
+                }
+                TaskList.executeCommand(userInput, list, command);
+            } catch (DukeException e) {
+                System.out.print(Ui.getHorizontalLine() + "Give me a VALID COMMAND, INSECT!\n");
+                Ui.printHelpMessage();
             }
-            TaskList.executeCommand(userInput, list, command);
         }
     }
 }
