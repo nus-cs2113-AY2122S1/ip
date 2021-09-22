@@ -27,6 +27,10 @@ public class ChatBot {
             TaskList.addTask(tasks, newTask);
             Storage.saveTaskInFile(parsedUserInput);
             break;
+        case "find":
+            String keyword = parsedUserInput[1];
+            TaskList.findTask(tasks, keyword);
+            break;
         case "bye":
             isRunning = false;
         default:
