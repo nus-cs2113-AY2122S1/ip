@@ -1,12 +1,8 @@
 package duke.command;
 
-import Type.Task;
 import duke.data.Storage;
 import duke.data.TaskList;
 import duke.startup.Ui;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class FindCommand extends Command{
     public FindCommand() {
