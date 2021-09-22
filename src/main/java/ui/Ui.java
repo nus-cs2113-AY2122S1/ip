@@ -24,7 +24,7 @@ public class Ui {
     }
 
     /**
-     * Prints the program logo.
+     * Prints the Duke program logo.
      *
      * Credits
      * ASCII Art Logo generated using
@@ -65,6 +65,11 @@ public class Ui {
         System.out.println(farewell);
     }
 
+    /**
+     * Prints out the respective error messages.
+     *
+     * @param errorMessage Error Message of the encountered error/exception
+     */
     public void printErrorMessage(String errorMessage) {
         System.out.println(errorMessage);
     }
@@ -72,7 +77,7 @@ public class Ui {
     /**
      * Returns the user input from I/O
      *
-     * @return User Input
+     * @return User input
      */
     public String getUserInput() {
         String userInput;
@@ -95,16 +100,27 @@ public class Ui {
                 + CONSOLE_LINE_PREFIX);
     }
 
-    public void printDeletedTaskMessage(Task deletedTaskName, int taskCounter) {
+    /**
+     * Print deleted Task message.
+     *
+     * @param deletedTask The deleted task
+     * @param taskCounter The number of remaining tasks left
+     */
+    public void printDeletedTaskMessage(Task deletedTask, int taskCounter) {
         System.out.println(CONSOLE_LINE_PREFIX + LINE_BREAK
                 + SPACE_PREFIX + "Roger that! I am Thanos and I have snapped away : " + LINE_BREAK
-                + SPACE_PREFIX + deletedTaskName
+                + SPACE_PREFIX + deletedTask
                 + LINE_BREAK
                 + SPACE_PREFIX + "Now you have " + taskCounter + " tasks left!"
                 + LINE_BREAK
                 + CONSOLE_LINE_PREFIX);
     }
 
+    /**
+     * Print "Task has been marked" message.
+     *
+     * @param doneTask The task that has been marked as done
+     */
     public void printMarkedTaskDoneMessage(Task doneTask) {
         System.out.println(SPACE_PREFIX + "Great! You didn't forget to do it! I have marked it as done!" + LINE_BREAK
                 + SPACE_PREFIX + doneTask + LINE_BREAK
