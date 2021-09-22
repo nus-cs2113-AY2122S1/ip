@@ -17,6 +17,8 @@ public class DukeException extends Exception {
             return "Patchi: You need to add a task description... Œ(ˊnˋ)B";
         case "missing timing":
             return "Patchi: You need to add a timing for this kind of task! Œ(ˊnˋ)B";
+        case "missing search term":
+            return "Patchi: You need to add a search term! Œ(ˊnˋ)B";
         case "invalid command":
             return "I'm sorry, I don't understand what that means... Œ(ˊnˋ)B";
         default:

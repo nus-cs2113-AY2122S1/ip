@@ -33,7 +33,7 @@ public class Ui {
         println("Patchi: Got it! I have added " + tasksArrList.get((tasksArrList.size() - 1)).toString() +
                 " to your task list! Œ(ˆOˆ)B");
         println("Patchi: You have " + tasksArrList.size() + " tasks now" +
-                "... Too much work... Œ(ˊnˋ)B");
+                "! Too much work... Œ(ˊnˋ)B");
     }
 
     /** Prints message if task marked as done successfully. */

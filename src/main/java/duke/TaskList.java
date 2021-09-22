@@ -6,7 +6,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -32,7 +32,18 @@ public class TaskList {
         }
     }
 
-    /** Adds a new Task of class Todo.
+    public void listTasksFromSearch(ArrayList<Task> matchingTasks) {
+        if (matchingTasks.size() > 0) {
+            ui.println("Patchi: Here is the list of tasks that match your search! Did you find what you were looking for? Œ(˙O˙)B");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                ui.println((i + 1) + ". " + matchingTasks.get(i).toString());
+            }
+        } else {
+            ui.println("Patchi: You have no tasks that match that search term! Sorry~ Œ(ˊoˋ)B");
+        }
+    }
+
+   /** Adds a new Task of class Todo.
      * @param description Description of task.
      * */
     public void addTodo(String description) {
@@ -51,7 +62,7 @@ public class TaskList {
      * @param description Description of task.
      * @param at Timing of task.
      * */
-    public void addEvent(String description, String at) {
+    public void addEvent(String description, LocalDate at) {
         tasks.add(new Event(description, at));
     }
 
@@ -79,5 +90,17 @@ public class TaskList {
         } else {
             throw new DukeException("task doesn't exist");
         }
+    }
+
+    public void findTasks(String searchTerm) throws DukeException {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for(Task task : tasks) {
+            if(task.getDescription().indexOf(searchTerm) != -1) {
+                matchingTasks.add(task);
+            }
+        }
+
+        listTasksFromSearch(matchingTasks);
     }
 }

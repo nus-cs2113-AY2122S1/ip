@@ -4,12 +4,14 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+import java.time.LocalDate;
+
 public class AddDeadlineCommand extends AddTaskCommand{
     private String description;
-    private String by;
+    private LocalDate by;
     private String input;
 
-    public AddDeadlineCommand(String description, String by, String input) {
+    public AddDeadlineCommand(String description, LocalDate by, String input) {
         this.description = description;
         this.by = by;
         this.input = input;
