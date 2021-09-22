@@ -110,10 +110,6 @@ public class TaskList {
     static void executeCommand(String userInput, ArrayList<Task> list, Command command) {
         try {
             switch (command) {
-            case BYE:
-                Ui.printGoodbyeMessage();
-                Storage.saveToFile(list);
-                break;
             case LIST:
                 Ui.printList(list);
                 break;
