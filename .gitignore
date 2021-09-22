@@ -20,3 +20,8 @@ src/main/java/tags
 tags
 
 DukeData/
+
+src/main/java/META-INF/
+text-ui-test/inputs/done.txt
+
+temp

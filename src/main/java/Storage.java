@@ -6,15 +6,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class FileManager {
+public class Storage {
     private static final Path dukeDirPath = Paths.get("DukeData");
     private static final File dukeDir = new File(dukeDirPath.toString());
     private static final Path dataPath = Paths.get("DukeData/data.txt");
     private static final File data = new File(dataPath.toString());
 
     public static void initializeFile() throws IOException {
-        //dukeDir directory did not exist
-        //create Duke directory
+        //dukeDir directory does not exist  && creates Duke directory if so
         if (dukeDir.mkdir()) {
             data.createNewFile();
 
@@ -27,7 +26,7 @@ public class FileManager {
                 } catch (FileNotFoundException e) {
                     System.out.println("/Duke/data.txt not found!!!");
                 }
-                Duke.taskManager.listTasks();
+                Parser.taskList.listTasks();
             }
         }
     }
@@ -57,20 +56,20 @@ public class FileManager {
 
         switch (taskLetter) {
         case "T":
-            Duke.taskManager.addTodo(description, isDone);
+            Parser.taskList.addTodo(description, isDone);
             break;
 
         case "D":
             date = taskDetails[3];
             String[] deadlineDetails = {description, date};
 
-            Duke.taskManager.addDeadline(deadlineDetails, isDone);
+            Parser.taskList.addDeadline(deadlineDetails, isDone);
             break;
 
         case "E":
             date = taskDetails[3];
             String[] eventDetails = {description, date};
-            Duke.taskManager.addEvent(eventDetails, isDone);
+            Parser.taskList.addEvent(eventDetails, isDone);
             break;
         }
     }
@@ -78,7 +77,7 @@ public class FileManager {
     //rewrite entire data.txt file with latest version of tasks list
     public static void writeToFile() throws IOException {
         FileWriter fw = new FileWriter(data);
-        fw.write(Duke.taskManager.getTasksDataStorageString());
+        fw.write(Parser.taskList.getTasksDataStorageString());
         fw.close();
     }
 
