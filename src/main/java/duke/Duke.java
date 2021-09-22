@@ -8,10 +8,15 @@ import duke.task.Todo;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Duke {
 
     private static int taskCount = 0; //todo how to do away with taskCount and taskCompleted?
     private static int taskCompleted = 0;
+    private static final String TODO = "T";
+    private static final String DEADLINE = "D";
+    private static final String EVENT = "E";
+
     protected static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -28,18 +33,18 @@ public class Duke {
      * @param taskType Type of task from user.
      * @param taskDetails Time/date of event/deadline.
      */
-    public static void addTask(String taskName, String taskType, String taskDetails) {
+    public static void addTask(String taskType, String taskName, String taskDetails) {
 
         try {
             switch (taskType) {
-            case "todo":
-                addTodo(taskName);
+            case TODO:
+                addTodo(false, taskName);
                 break;
-            case "deadline":
-                addDeadline(taskName, taskDetails);
+            case DEADLINE:
+                addDeadline(false, taskName, taskDetails);
                 break;
-            case "event":
-                addEvent(taskName, taskDetails);
+            case EVENT:
+                addEvent(false, taskName, taskDetails);
                 break;
             default:
                 return;
@@ -49,24 +54,56 @@ public class Duke {
             Ui.printMissingTextError();
         }
     }
-    public static void addTodo(String taskName) throws DukeException {
+
+    public static void addTaskFromFile(String taskType, String taskIsDone, String taskName, String taskDetails) {
+        boolean isDone = false;
+        if (taskIsDone.equals("1")) {
+            isDone = true;
+        } else if (taskIsDone.equals("0")) {
+            isDone = false;
+        } else {
+            //todo throw exception
+        }
+
+        try {
+            switch (taskType) {
+            case TODO:
+                addTodo(isDone, taskName);
+                break;
+            case DEADLINE:
+                addDeadline(isDone, taskName, taskDetails);
+                break;
+            case EVENT:
+                addEvent(isDone, taskName, taskDetails);
+                break;
+            default:
+                return;
+            }
+            System.out.println("Tasks added from save file.");
+            //replace addTaskConfirmation() with something else
+        } catch (DukeException e) {
+            Ui.printMissingTextError();
+        }
+    }
+
+    public static void addTodo(boolean isDone, String taskName) throws DukeException {
         if (isEmpty(taskName)) {
             throw new DukeException("todo name missing.");
         }
-        tasks.add(new Todo(taskName));
+        tasks.add(new Todo(isDone, taskName));
     }
-    public static void addDeadline(String taskName, String taskDetails) throws DukeException {
+    public static void addDeadline(boolean isDone, String taskName, String taskDetails) throws DukeException {
         if (isEmpty(taskName)) {
             throw new DukeException("deadline name missing.");
         }
-        tasks.add(new Deadline(taskName, taskDetails));
+        tasks.add(new Deadline(isDone, taskName, taskDetails));
 
     }
-    public static void addEvent(String taskName, String taskDetails) throws DukeException {
+    public static void addEvent(boolean isDone, String taskName, String taskDetails) throws DukeException {
         if (isEmpty(taskName)) {
             throw new DukeException("event name missing.");
         }
-        tasks.add(new Event(taskName, taskDetails));
+        tasks.add(new Event(isDone, taskName, taskDetails));
 
     }
 
@@ -133,6 +170,7 @@ public class Duke {
     public static void engageUser() {
         Scanner text = new Scanner(System.in);
         String taskType;
+        String taskIsDone = "0";
         String taskName;
         String taskDetails = "";
 
@@ -145,6 +183,7 @@ public class Duke {
 
             switch (taskType) {
             case "bye":
+                FileManager.saveTaskToFile(tasks);
                 isExit = true;
                 break;
             case "hello":
@@ -166,22 +205,24 @@ public class Duke {
                 }
                 break;
             case "todo":
-                taskName = text.nextLine();
-                addTask(taskName, taskType, taskDetails);
+                taskName = text.nextLine().substring(1); //.substring(1) to remove whitespace before taskName
+                taskType = TODO;
+                addTask(taskType, taskName, taskDetails);
                 break;
             case "deadline":
             case "event":
-                userInput = text.nextLine();
+                userInput = text.nextLine().substring(1);
 
                 if (taskType.equals("deadline")) {
                     words = userInput.split(" /by ");
+                    taskType = DEADLINE;
                 } else if (taskType.equals("event")) {
                     words = userInput.split(" /at ");
+                    taskType = EVENT;
                 }
-
                 taskName = words[0];
                 taskDetails = words[1];
-                addTask(taskName, taskType, taskDetails);
+                addTask(taskType, taskName, taskDetails);
                 break;
             default:
                 userInput = text.nextLine();
