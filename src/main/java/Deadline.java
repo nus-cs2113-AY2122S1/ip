@@ -17,7 +17,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String wantedDate = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH));
-        String wantedTime = byTime.format(DateTimeFormatter.ofPattern("ha", Locale.ENGLISH));
+        String wantedTime = byTime.format(DateTimeFormatter.ofPattern(" h:mma", Locale.ENGLISH));
         return "[D]" + "[" + getStatusIcon() + "] "
                 + description + " (by: " +  wantedDate + " " + wantedTime + ")";
     }
@@ -25,7 +25,7 @@ public class Deadline extends Task {
     @Override
     public String getStoredDataString() {
         String checkDone = isDone ? "1" : "0";
-        return "deadline " + description + " /by " + byDate + " | " + checkDone + System.lineSeparator();
+        return "deadline " + description + " /by " + byDate + " " + byTime + " | " + checkDone + System.lineSeparator();
     }
 
 }
