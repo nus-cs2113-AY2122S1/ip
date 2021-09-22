@@ -227,6 +227,7 @@ public class Duke {
     public static final void findTask(String input, ArrayList<Task> tasks) {
         boolean found = false;
         ArrayList<Task> foundTasks = new ArrayList<Task>();
+        
         for (Task task : tasks) {
             String target = input.substring(5);
             if (task.getDescription().contains(target) == true) {
