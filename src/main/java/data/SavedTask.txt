@@ -1,3 +1,1 @@
 D | Sleep | mon | false
-E | Eat | Tuesd
-D | Readfalse
