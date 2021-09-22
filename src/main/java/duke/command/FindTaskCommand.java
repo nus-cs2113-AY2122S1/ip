@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.exception.NoTaskFoundException;
 import duke.task.TaskManager;
 
 public class FindTaskCommand extends Command {
@@ -15,7 +16,7 @@ public class FindTaskCommand extends Command {
 
         try {
             dukeMessage = taskManager.findTask(commandArguments);
-        } catch (Exception e) {
+        } catch (NoTaskFoundException e) {
             dukeMessage = e.toString();
         }
 
