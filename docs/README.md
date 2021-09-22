@@ -21,6 +21,7 @@ This is a user guide designed to help newer users who are unfamiliar with the co
     * Mark a task as done : `done`
     * Find a task using a keyword : `find`
     * Terminate the program : `bye`
+* Command Summary
 
 ###Adding a todo
 
@@ -54,7 +55,6 @@ Take not user can add in date in the form of YYYY-MM-DD as due date to
 to get automatically converted into nice date formats!
 ```
 
-
 Format: `deadline TASK_DESCRIPTION /by DUE_DATE`  
 Examples:
 - `deadline this assignment /by tomorrow 9am`
@@ -82,7 +82,6 @@ Adds a event type of task to the Owl
 Take not user can add in date in the form of YYYY-MM-DD as event timeframe to
 to get automatically converted into nice date formats!
 ```
-
 
 Format: `event TASK_DESCRIPTION /at TIMEFRAME`  
 Examples:
@@ -255,6 +254,18 @@ SQUAWK! See you next time! :)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 ````
 
+###Command Summary
+
+Action | Example Input with format
+------------ | -------------
+Add todo | `todo TASK_DESCRIPTION` <br> e.g `todo swim in the ocean`
+Add deadline | `deadline TASK_DESCRIPTION /by DUE_DATE` <br> e.g `deadline this assignment /by tomorrow 9am`
+Add event | `event TASK_DESCRIPTION /at TIMEFRAME` <br> e.g `event basketball match /at tomorrow 8-9am`
+Delete task | `delete INDEX` <br> e.g `delete 4`
+List | `list` 
+Done | `done INDEX` <br> e.g `done 4`
+Find | `find KEYWORD` <br> e.g `find basketball`
+Terminate | `bye`
 
 
 
