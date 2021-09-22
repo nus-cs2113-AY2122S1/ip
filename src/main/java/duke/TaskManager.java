@@ -16,7 +16,7 @@ public class TaskManager {
     }
 
     public void displayTaskList() {
-        DukeUI.printTaskList(tasks);
+        DukeUI.printTaskList(tasks,false);
     }
 
     public void addTask(String input, Action taskType) {
@@ -53,6 +53,16 @@ public class TaskManager {
         tasks.get(realIndex).setDone();
         storage.saveData(tasks);
         DukeUI.printMarkTaskDone(tasks.get(realIndex));
+    }
+
+    public void findTask(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task: tasks) {
+            if(task.getDescription().contains(keyword)){
+                foundTasks.add(task);
+            }
+        }
+        DukeUI.printTaskList(foundTasks,true);
     }
 
 

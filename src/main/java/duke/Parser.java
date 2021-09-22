@@ -17,6 +17,10 @@ public class Parser {
         return Integer.parseInt(command.split(" ")[1]);
     }
 
+    public static String parseKeyword(String command) {
+        return command.substring(command.indexOf("find") + 5);
+    }
+
 
     public static String[] parseTask(String command, Action taskType) throws EmptyDescriptionException, MissingParameterException {
         String[] parameters = new String[2];
@@ -69,6 +73,8 @@ public class Parser {
             return Action.EVENT;
         } else if (normalizedCommand.equals("delete")) {
             return Action.DELETE;
+        }else if (normalizedCommand.equals("find")) {
+            return Action.FIND;
         } else {
             throw new WrongCommandException();
         }

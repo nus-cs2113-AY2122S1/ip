@@ -47,6 +47,8 @@ public class Duke {
             case DELETE:
                 taskManager.deleteTask(parseNumber(parseInput(input)));
                 break;
+            case FIND:
+                taskManager.findTask(parseKeyword(input));
             default:
                 taskManager.addTask(input, action);
             }
