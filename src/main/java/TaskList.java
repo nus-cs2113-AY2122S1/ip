@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toCollection;
+import static java.util.stream.Collectors.toList;
 
 public class TaskList {
     private static final int INDEX_FIX = 1;
@@ -47,4 +51,13 @@ public class TaskList {
     public static int getArraySize() { return list.size();}
 
     public static Task getTask(int index) { return list.get(index); }
+
+    public static ArrayList<Task> findTask(String input){
+        //create new array to store correct results
+        ArrayList<Task> filteredList = (ArrayList<Task>) list.stream()
+                .filter(task -> {
+            return task.getDescription().contains(input);
+        }).collect(Collectors.toList());
+        return filteredList;
+    }
 }
