@@ -1,21 +1,19 @@
 package duke.task;
 
-/**
- * The Task class represents a task with a description
- * and a status (whether it's done or not).
- *
- * @author richwill28
- */
-public class Task {
-    /** Description of the task */
-    protected String description;
+import duke.exception.DukeException;
+import duke.ui.Message;
 
-    /** Status of the task (whether it's done or not) */
+public abstract class Task {
+    protected static final String TODO = "T";
+    protected static final String DEADLINE = "D";
+    protected static final String EVENT = "E";
+
+    protected String description;
     protected boolean isDone;
 
     /**
-     * The constructor method. Initialize task description
-     * and set the initial status to "not done".
+     * Initializes task description and sets the initial
+     * status to "not done".
      *
      * @param description Task description.
      */
@@ -25,9 +23,8 @@ public class Task {
     }
 
     /**
-     * The constructor method. Initialize task description
-     * and set the initial status according to the given
-     * parameter.
+     * Initializes task description and sets the initial
+     * status according to the given parameter.
      *
      * @param description Task description.
      * @param isDone Initial status.
@@ -37,12 +34,6 @@ public class Task {
         this.isDone = isDone;
     }
 
-    /**
-     * Returns the status of the task, whether it's done
-     * or not.
-     *
-     * @return "X" if task is done, otherwise returns " ".
-     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -52,7 +43,7 @@ public class Task {
     }
 
     /**
-     * Serialize task data;
+     * Serializes task data.
      *
      * @return Serialied task data.
      */
@@ -61,17 +52,20 @@ public class Task {
     }
 
     /**
-     * Deserialize a line of string and match to suitable
-     * task format.
+     * Deserializes a line of string and match it to
+     * the suitable task format.
      *
      * @param line A line of string.
      * @return The new task after deserialization.
+     * @throws DukeException If string is in invalid format.
      */
-    public static Task deserialize(String line) throws IllegalArgumentException {
+    public static Task deserialize(String line) throws DukeException {
         try {
             String[] params = line.split("\\s*[|]\\s*");
             String taskType = params[0];
+            String description = params[2];
             boolean isDone;
+
             switch(params[1]) {
             case "0":
                 isDone = false;
@@ -80,23 +74,23 @@ public class Task {
                 isDone = true;
                 break;
             default:
-                throw new IllegalArgumentException("Error: Invalid format. Unable to deserialize string.");
+                throw new DukeException(Message.ERROR_DESERIALIZING_DATA);
             }
-            String description = params[2];
+
             switch (taskType) {
-            case "T":
+            case TODO:
                 return new Todo(description, isDone);
-            case "D":
+            case DEADLINE:
                 String by = params[3];
                 return new Deadline(description, by, isDone);
-            case "E":
+            case EVENT:
                 String at = params[3];
                 return new Event(description, at, isDone);
             default:
-                throw new IllegalArgumentException("Error: Invalid format. Unable to deserialize string.");
+                throw new DukeException(Message.ERROR_DESERIALIZING_DATA);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Error: Invalid format. Unable to deserialize string.");
+            throw new DukeException(Message.ERROR_DESERIALIZING_DATA);
         }
     }
 

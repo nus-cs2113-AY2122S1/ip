@@ -9,6 +9,6 @@ public class DukeException extends Exception {
 
     @Override
     public String toString() {
-        return Ui.LINE + Ui.PADDING + "☹ OOPS!!! " + getMessage() + "\n" + Ui.LINE;
+        return Ui.LINE + Ui.PADDING + getMessage() + System.lineSeparator() + Ui.LINE;
     }
 }

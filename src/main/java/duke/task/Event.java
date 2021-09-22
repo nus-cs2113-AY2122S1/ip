@@ -1,18 +1,12 @@
 package duke.task;
 
-/**
- * The Event class is a subclass of Task. It
- * provides an additional parameter, time period.
- *
- * @author richwill28
- */
 public class Event extends Task {
-    /** Time period of the task */
+    /** Time period of the task. */
     protected String at;
 
     /**
-     * The constructor method. Initialize task description,
-     * status to "not done", and time period.
+     * Initializes the task description and deadline, and
+     * sets initial status to "not done".
      *
      * @param description Task description.
      * @param at Time period of the task.
@@ -23,8 +17,8 @@ public class Event extends Task {
     }
 
     /**
-     * The constructor method. Initialize task description,
-     * status according to the given parameter, and deadline.
+     * Initializes the task description and deadline, and
+     * sets initial status according to the given parameter.
      *
      * @param description Task description.
      * @param at Time period of the task.
@@ -42,6 +36,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[" + EVENT + "]" + super.toString() + " (at: " + at + ")";
     }
 }
