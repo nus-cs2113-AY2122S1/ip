@@ -8,8 +8,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Duke {
+    // ArrayList to store all tasks
     private static ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Prints display message on program startup.
+     */
     private static void displayGreetingMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -25,6 +29,11 @@ public class Duke {
         System.out.println(greet);
     }
 
+    /**
+     * Beautify output by printing it along with a custom border.
+     *
+     * @param output Output to print
+     */
     private static void printOutput(String output) {
         String niceOutput = "____________________________________________________________\n"
                 + output
@@ -32,6 +41,13 @@ public class Duke {
         System.out.println(niceOutput);
     }
 
+    /**
+     * Used when adding Event & Deadline Tasks to split command using specified delimiter.
+     *
+     * @param delimiter Delimiter to look for to split.
+     * @param arguments Arguments of the command in execution.
+     * @return Array of the split values for easier processing.
+     */
     private static String[] splitByDelimiter(String delimiter, String arguments) {
         String[] splitValues = new String[2];
         int indexOfDelimiter = arguments.indexOf(delimiter);
@@ -40,6 +56,12 @@ public class Duke {
         return splitValues;
     }
 
+    /**
+     * Adds a Todo Task.
+     * If no arguments provided by user, prints error message.
+     *
+     * @param arguments Arguments of the command in execution.
+     */
     private static void addTodoTask(String arguments) {
         if (arguments.equals("")) {
             String output = " ☹ OOPS!!! The description of a todo cannot be empty.\n";
@@ -51,6 +73,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Adds a Deadline Task
+     * If no arguments provided by user, then error message is printed.
+     * Calls splitByDelimiter to process command and arguments.
+     *
+     * @param arguments Arguments of the command in execution.
+     */
     private static void addDeadlineTask(String arguments) {
         if (arguments.equals("")) {
             String output = " ☹ OOPS!!! The description of a deadline cannot be empty.\n";
@@ -71,6 +100,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Adds an Event Task
+     * If no arguments provided by user, then error message is printed.
+     * Calls splitByDelimiter to process command and arguments.
+     *
+     * @param arguments Arguments of the command in execution.
+     */
     private static void addEventTask(String arguments) {
         if (arguments.equals("")) {
             String output = " ☹ OOPS!!! The description of an event cannot be empty.\n";
@@ -91,6 +127,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Deletes Task based on given user input of task number.
+     * Removal of Task from ArrayList tasks.
+     * Out of bounds error handling is implemented.
+     *
+     * @param arguments taskNumber
+     */
     private static void deleteTask(String arguments) {
         int taskNumber = Integer.parseInt(arguments);
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
@@ -103,6 +146,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Display all Tasks in ArrayList tasks
+     */
     private static void listTasks() {
         String output = " Here are the tasks in your list:\n";
         for (int i = 1; i < tasks.size() + 1; i++) {
@@ -111,6 +157,11 @@ public class Duke {
         printOutput(output);
     }
 
+    /**
+     * Mark specified task as done.
+     *
+     * @param arguments taskNumber
+     */
     private static void markDone(String arguments) {
         int taskNumber = Integer.parseInt(arguments);
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
@@ -162,6 +213,13 @@ public class Duke {
         printOutput(unknownCommandResponse);
     }
 
+    /**
+     * Execute the command based on user input
+     *
+     * @param command Command entered by user
+     * @param arguments Arguments entered along with command by user
+     * @throws DukeException Invalid command
+     */
     private static void executeCommand(String command, String arguments) throws DukeException {
         switch (command) {
         case "list":
@@ -191,12 +249,21 @@ public class Duke {
         }
     }
 
+    /**
+     * Write data into file data/duke.txt
+     * @param data
+     * @throws IOException
+     */
     private static void writeToFile(String data) throws IOException {
         FileWriter fw = new FileWriter("data/duke.txt");
         fw.write(data);
         fw.close();
     }
 
+    /**
+     * Saves all task details into data/duke.txt
+     * Creates directory or file if it does not exist
+     */
     private static void saveData() {
         String data = "";
         for (Task task : tasks) {
@@ -218,6 +285,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Read and process tasks details from file data/duke.txt to replicate task state in program
+     *
+     * @param myFile File object of data/duke.txt
+     * @throws FileNotFoundException If file is not found
+     */
     private static void readFromFile(File myFile) throws FileNotFoundException {
         Scanner sc = new Scanner(myFile);
         while (sc.hasNext()) {
@@ -263,6 +336,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Load saved data from data/duke.txt into program
+     */
     private static void loadData() {
         File myFile = new File("data/duke.txt");
         if (myFile.exists()) {
