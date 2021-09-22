@@ -16,7 +16,7 @@ public class Duke {
     private static final String TODO_ERROR = "The description of a todo cannot be empty.";
     private static final String DEADLINE_ERROR = "The description of a deadline cannot be empty and must have a '/by'.";
     private static final String EVENT_ERROR = "The description of an event cannot be empty and must have a '/at'.";
-    private static final String[] taskTypes = {"todo", "deadline", "event"};
+    private static final String SEARCH_ERROR = "Cannot find such a thing, please try again!";
     private static final String FILE_PATH = "tasks.txt";
     private static ArrayList<Task> tasks;
     private static Storage storage;
@@ -79,12 +79,15 @@ public class Duke {
                     addEvent(text);
                     System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
                     break;
+                case "find":
+                    findTask(text);
+                    break;
                 default:
                     showErrorMessage();
                     break;
                 }
             } catch (DukeException error) {
-                System.out.println("☹ OOPS!!! " + error.getMessage());
+                System.out.println(error.getMessage());
             }
             System.out.println(LINE);
             text = in.nextLine();
@@ -98,7 +101,7 @@ public class Duke {
     }
 
     private static void addTodo(String text) throws DukeException {
-        if (text.length() <= taskTypes[0].length()) {
+        if (text.length() <= "todo".length()) {
             throw new DukeException(TODO_ERROR);
         }
         String[] todoTaskInfo = extractInfo(text, "todo");
@@ -108,7 +111,7 @@ public class Duke {
     }
 
     private static void addDeadline(String text) throws DukeException {
-        if (text.length() <= taskTypes[1].length()) {
+        if (text.length() <= "deadline".length()) {
             throw new DukeException(DEADLINE_ERROR);
         }
 
@@ -122,7 +125,7 @@ public class Duke {
     }
 
     private static void addEvent(String text) throws DukeException {
-        if (text.length() <= taskTypes[2].length()) {
+        if (text.length() <= "event".length()) {
             throw new DukeException(EVENT_ERROR);
         }
 
@@ -133,6 +136,27 @@ public class Duke {
         Task newEvent = new Event(eventTaskInfo[0], eventTaskInfo[1], false);
         tasks.add(newEvent);
         System.out.println(ADD_TASK_MSG);
+    }
+
+    private static void findTask(String text) throws DukeException {
+        if (text.length() <= "find".length()) {
+            throw new DukeException(SEARCH_ERROR);
+        }
+        ArrayList<Task> tasksFound = new ArrayList<>();
+        String[] taskToFind = extractInfo(text, "find");
+        for (Task task : tasks) {
+            if (task.getDescription().contains(taskToFind[0])) {
+                tasksFound.add(task);
+            }
+        }
+        if (tasksFound.size() == 0) {
+            System.out.println(SEARCH_ERROR);
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasksFound.size(); i++) {
+            System.out.println((i + 1) + "." + tasksFound.get(i).toString());
+        }
     }
 
     private static void showByeGreeting() {
@@ -158,6 +182,7 @@ public class Duke {
         int slashPos = taskString.indexOf('/');
         switch (taskType) {
         case "todo":
+        case "find":
             taskInfo[0] = taskString.substring(5);
             break;
         case "deadline":
