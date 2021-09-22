@@ -4,6 +4,10 @@ import TypeOfTasks.Deadline;
 import TypeOfTasks.Event;
 import TypeOfTasks.Task;
 import TypeOfTasks.Todo;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 
 import java.util.ArrayList;
 
@@ -79,17 +83,20 @@ public class TaskList {
         if (inputs[1].contains(" /at ") && !inputsAt[1].isEmpty()) {
             Event newEvent = new Event(inputsAt[0], inputsAt[1]);
             tasks.addTask(newEvent);
-            addTask(tasks.getTaskCount(), ("[E] " + inputsAt[0] + "(at: " + inputsAt[1]) + ")");
+            addTask(tasks.getTaskCount(), "[E] " + inputsAt[0] + "(at: " + newEvent.getInfo() + ")");
+            return;
         }
         throw new OwlException("Did not specify /at");
     }
 
     public void addDeadline(TaskList tasks, String[] inputs) throws OwlException {
         String[] inputsBy = inputs[1].split(" /by ", 2);
+        
         if (inputs[1].contains(" /by ") && !inputsBy[1].isEmpty()) {
-            Deadline newDeadline = new Deadline(inputsBy[0], inputsBy[1]);
+            Deadline newDeadline = new Deadline(inputsBy[0],inputsBy[1]);
             tasks.addTask(newDeadline);
-            addTask(tasks.getTaskCount(), ("[D] " + inputsBy[0] + "(by: " + inputsBy[1]) + ")");
+            addTask(tasks.getTaskCount(), "[D] " + inputsBy[0] + "(by: " + newDeadline.getInfo() + ")");
+            return;
         }
         throw new OwlException("Did not specify /by");
     }
