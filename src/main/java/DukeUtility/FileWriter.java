@@ -5,14 +5,15 @@ import TypeOfTasks.Event;
 import TypeOfTasks.Task;
 import TypeOfTasks.Todo;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * The System that writes and read from a storage file in the user's pc everytime changes has been made and booted.
+ */
 public class FileWriter {
 
     public static final String FULL_RELATIVE_MEMORY_PATH = "data/owlmemory";
@@ -24,21 +25,31 @@ public class FileWriter {
 
     protected String filePath;
 
+    /**
+     * Initialises the FileWriter with a given filepath.
+     * 
+     * @param filePath The storage file's pathing in the user's pc.
+     */
     public FileWriter(String filePath) {
         this.filePath = filePath;
     }
     
-    public static void writeToFile(String filePath, String textToAdd) throws IOException {
+    private static void writeToFile(String filePath) throws IOException {
         java.io.FileWriter fw = new java.io.FileWriter(filePath);
-        fw.write(textToAdd);
+        fw.write(FileWriter.NO_DATA);
         fw.close();
     }
-    public static void appendToFile(String filePath, String textToAppend) throws IOException {
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
         java.io.FileWriter fw = new java.io.FileWriter(filePath, true); // create a FileWriter in append mode
         fw.write(textToAppend);
         fw.close();
     }
-    
+
+    /**
+     * Update the storage file according to the changes made to the TaskList by going through the entire ArrayList.
+     * 
+     * @param tasks A list of different types of task with a counter that keep tracks of how many tasks there are.
+     */
     public void updateFile(ArrayList<Task> tasks) {
         String dataPath = FULL_RELATIVE_MEMORY_PATH;
         try {
@@ -76,7 +87,7 @@ public class FileWriter {
     }
     
     private static void wipeData(String dataPath) throws IOException {
-        FileWriter.writeToFile(dataPath, NO_DATA);
+        FileWriter.writeToFile(dataPath);
     }
 
     private static void appendEventDeadlineData(String dataPath, Task task) throws IOException {
@@ -107,7 +118,11 @@ public class FileWriter {
         FileWriter.appendToFile(dataPath, System.lineSeparator());
     }
 
-
+    /**
+     * Returns an ArrayList consisting of all the different Tasks saved in the storage file.
+     * 
+     * @return An ArrayList consisting of Task objects read from the file.
+     */
     public ArrayList<Task> readFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {

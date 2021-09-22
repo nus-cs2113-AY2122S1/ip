@@ -2,6 +2,9 @@ import DukeUtility.FileWriter;
 import DukeUtility.OwlException;
 import DukeUtility.Ui;
 
+/**
+ * OwlBot a smart tasklist tracker that allows you to manipulate and track deadlines,events,todos. 
+ */
 public class Owl {
     public static final String INVALID_MESSAGE = "The command doesnt exist.....";
     public static final String FULL_RELATIVE_MEMORY_PATH = "data/owlmemory";
@@ -10,14 +13,22 @@ public class Owl {
     private FileWriter fileWriter;
     private Ui ui;
     private Verifier verifier;
-    
+
+    /**
+     * Initialises Owl's TaskList with the saved details in the storage file and set up user interface and verification system.
+     * 
+     * @param filePath The storage file's pathing in the user's pc.
+     */
     public Owl(String filePath) {
         ui = new Ui();
         verifier = new Verifier();
         fileWriter = new FileWriter(filePath);
         tasks = new TaskList(fileWriter.readFile());
     }
-    
+
+    /**
+     * Start the OwlBot program by starting to take user inputs.
+     */
     public void run() {
         ui.printWelcome();
         String command = ui.readCommand();
