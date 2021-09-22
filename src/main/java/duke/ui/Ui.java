@@ -69,7 +69,7 @@ public class Ui {
         try {
             return new Command(words[0].toLowerCase(), words[1]);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return new Command(words[0].toLowerCase(), CommandResult.BLANK_DESCRIPTION);
+            return new Command(words[0].toLowerCase(), Command.BLANK_DESCRIPTION);
         }
     }
 
@@ -107,6 +107,12 @@ public class Ui {
         int taskNumber = Integer.parseInt(result.getCommand().getCommandDescription());
         System.out.println(BORDER_LINE + System.lineSeparator()
                 + "    Task " + taskNumber + " has already been marked as done!" + System.lineSeparator()
+                + BORDER_LINE);
+    }
+    
+    private void printInvalidKeywordMessage() {
+        System.out.println(BORDER_LINE + System.lineSeparator()
+                + "    INVALID KEYWORD PROVIDED" + System.lineSeparator()
                 + BORDER_LINE);
     }
 
@@ -246,13 +252,16 @@ public class Ui {
                 break;
             }
             break;
-        case Command.COMMAND_DELETE:
-            printInvalidTaskNotExistedMessage();
-            break;
         case Command.COMMAND_ADD_TODO:
         case Command.COMMAND_ADD_DEADLINE:
         case Command.COMMAND_ADD_EVENT:
             printInvalidAddTaskMessage(result);
+            break;
+        case Command.COMMAND_DELETE:
+            printInvalidTaskNotExistedMessage();
+            break;
+        case Command.COMMAND_FIND:
+            printInvalidKeywordMessage();
             break;
         default:
             printInvalidCommandMessage();

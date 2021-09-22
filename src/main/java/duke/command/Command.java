@@ -14,6 +14,7 @@ public class Command {
     public static final String COMMAND_FIND = "find";
     public static final String COMMAND_HELP = "help";
     
+    public static final String BLANK_DESCRIPTION = "";    
     
     private String commandType;
     private String commandDescription;

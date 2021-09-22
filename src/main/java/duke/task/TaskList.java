@@ -73,7 +73,7 @@ public class TaskList {
     private CommandResult executeAddCommand(Command userCommand) {
         switch (userCommand.getCommandType()) {
         case Command.COMMAND_ADD_TODO:
-            if (userCommand.getCommandDescription().equals(CommandResult.BLANK_DESCRIPTION)) {
+            if (userCommand.getCommandDescription().equals(Command.BLANK_DESCRIPTION)) {
                 return new CommandResult(userCommand, CommandResult.EXECUTION_FAIL, CommandResult.INVALID_TODO);
             }
             try {
@@ -126,7 +126,7 @@ public class TaskList {
 
     /**
      * Return success result for the tasks containing the keyword to be shown
-     * to the user.
+     * to the user, return fail result instead if no keyword is provided.
      *
      * @param userCommand input command from user containing the keyword
      *                    for the tasks.
@@ -134,6 +134,9 @@ public class TaskList {
      */
     private CommandResult executeFindCommand(Command userCommand) {
         String keyword = userCommand.getCommandDescription();
+        if (userCommand.getCommandDescription().equals(Command.BLANK_DESCRIPTION)) {
+            return new CommandResult(userCommand, CommandResult.EXECUTION_FAIL, keyword);
+        }
         return new CommandResult(userCommand, CommandResult.EXECUTION_SUCCESS, keyword);
     }
 
