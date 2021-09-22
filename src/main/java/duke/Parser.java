@@ -1,55 +1,55 @@
-package task;
+package duke;
 
-import error.exception.DukeEmptyTaskDescriptionException;
-import error.exception.DukeInvalidDescriptionFormatException;
-import task.subtask.Task;
-import task.subtask.Todo;
-import task.subtask.Deadline;
-import task.subtask.Event;
+import duke.exception.DukeException;
+import duke.task.Task;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
 
 import java.util.Scanner;
 
-public class TaskManager extends Duke {
+/**
+ * To make sense of user commands by extracting keywords, descriptions and time/date
+ */
+public class Parser {
     private static final int INDEX_AFTER_TODO = 4;
     private static final int INDEX_AFTER_DEADLINE = 8;
     private static final int INDEX_AFTER_EVENT = 5;
 
     /**
-     * Extracts the description, creates a todo Task object and stores the task in the list
+     * Extracts the description, creates a todo Task object
      *
      * @param input is the command given by the user
      * @return the todo object created under Task
-     * @throws DukeEmptyTaskDescriptionException if no description is present after todo command
+     * @throws DukeException if no description is present after the todo command
      */
-    public static Task getTodoDetails(String input) throws DukeEmptyTaskDescriptionException {
+    public static Task getTodoDetails(String input) throws DukeException {
         if (input.substring(INDEX_AFTER_TODO).isBlank()) {
-            throw new DukeEmptyTaskDescriptionException();
+            throw new DukeException("Task description is missing");
         }
 
+        // To extract the description after the four-letter word "todo"
         String todoDescription = input.substring(INDEX_AFTER_TODO).trim();
 
         Task todo = new Todo(todoDescription);
-        list.add(count, todo);
-        count++;
 
         return todo;
     }
 
     /**
-     * Extracts the description and day/date, creates a deadline Task object and stores the task in the list
+     * Extracts the description and day/date, creates a deadline Task object
      *
      * @param input is the command given by the user
      * @return the deadline object created under Task
-     * @throws DukeInvalidDescriptionFormatException if /by is not present in the command
-     * @throws DukeEmptyTaskDescriptionException     if no description is present after deadline command
+     * @throws DukeException if /by is not present in the command or if no description is present after the deadline command
      */
-    public static Task getDeadlineDetails(String input) throws DukeInvalidDescriptionFormatException, DukeEmptyTaskDescriptionException {
+    public static Task getDeadlineDetails(String input) throws DukeException {
         if (input.substring(INDEX_AFTER_DEADLINE).isBlank()) {
-            throw new DukeEmptyTaskDescriptionException();
+            throw new DukeException("Task description is missing");
         }
 
         if (!input.contains("/by")) {
-            throw new DukeInvalidDescriptionFormatException();
+            throw new DukeException("DEADLINE task description is missing \"/by\" [Format: deadline task description /by deadline time/day/date]");
         }
 
         // To extract description between the eight-letter word "deadline" and "/by"
@@ -58,27 +58,24 @@ public class TaskManager extends Duke {
         String deadlineDate = getDateFromCommand(input);
 
         Task deadline = new Deadline(deadlineDescription, deadlineDate);
-        list.add(count, deadline);
-        count++;
 
         return deadline;
     }
 
     /**
-     * Extracts the description and the time, creates an event Task object and stores the task in the list
+     * Extracts the description and the time, creates an event Task object
      *
      * @param input is the command given by the user
      * @return the event object created under Task
-     * @throws DukeInvalidDescriptionFormatException if /at is not present in the command
-     * @throws DukeEmptyTaskDescriptionException     if no description is present after event command
+     * @throws DukeException if /at is not present in the command or if no description is present after the event command
      */
-    public static Task getEventDetails(String input) throws DukeInvalidDescriptionFormatException, DukeEmptyTaskDescriptionException {
+    public static Task getEventDetails(String input) throws DukeException {
         if (input.substring(INDEX_AFTER_EVENT).isBlank()) {
-            throw new DukeEmptyTaskDescriptionException();
+            throw new DukeException("Task description is missing");
         }
 
         if (!input.contains("/at")) {
-            throw new DukeInvalidDescriptionFormatException();
+            throw new DukeException("EVENT task description is missing \"/at\" [Format: event task description /at event time/day/place]");
         }
 
         // To extract description between the five-letter word "event" and "/at"
@@ -87,8 +84,6 @@ public class TaskManager extends Duke {
         String eventDate = getDateFromCommand(input);
 
         Task event = new Event(eventDescription, eventDate);
-        list.add(count, event);
-        count++;
 
         return event;
     }
@@ -111,7 +106,7 @@ public class TaskManager extends Duke {
     }
 
     /**
-     * Extracts the index from the done command
+     * Extracts the index from the done/delete command
      *
      * @param input is the command given by the user
      * @return the index of the task present in the task list
@@ -125,8 +120,6 @@ public class TaskManager extends Duke {
     }
 
     /**
-     * Extracts the first word present in the command
-     *
      * @param input is the command given by the user
      * @return the lowercase form of the first word present in the command
      */

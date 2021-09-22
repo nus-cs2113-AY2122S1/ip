@@ -1,56 +1,55 @@
-package task;
+package duke;
 
-import task.subtask.Deadline;
-import task.subtask.Event;
-import task.subtask.Task;
-import task.subtask.Todo;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import error.Error;
-
-import static task.Duke.count;
-import static task.Duke.list;
-
+/**
+ * To deal with loading tasks from the file and saving tasks in the file
+ */
 public class Storage {
     private final File file = new File("data/tasks.txt");
 
-    public Storage() {
+    public Storage() throws DukeException {
         try {
             file.getParentFile().mkdirs();
             file.createNewFile();
         } catch (IOException e) {
-            Error.showUnableToLoadError();
+            throw new DukeException("Unable to load data!");
         }
     }
 
     /**
      * Adds data from the task list to the text file
      *
-     * @param list contains the tasks stored
+     * @throws DukeException if IO operations fails
      */
-    public void saveData(ArrayList<Task> list) {
+    public void saveData() throws DukeException {
         try {
             FileWriter fw = new FileWriter("data/tasks.txt");
-            for (Task task : list) {
+            for (Task task : TaskList.list) {
                 fw.write("" + task.getStoreDataString() + System.lineSeparator());
             }
             fw.close();
         } catch (IOException e) {
-            Error.showUnableToSaveError();
+            throw new DukeException("Unable to save data!");
         }
     }
 
     /**
      * Loads data from the text file to the task list
+     *
+     * @throws DukeException if file not found
      */
-    public void loadData() {
+    public void loadData() throws DukeException {
         try {
             Scanner load = new Scanner(file);
             while (load.hasNext()) {
@@ -58,7 +57,7 @@ public class Storage {
                 addData(sentence);
             }
         } catch (FileNotFoundException e) {
-            Error.showUnableToLoadError();
+            throw new DukeException("Unable to load data!");
         }
     }
 
@@ -66,8 +65,9 @@ public class Storage {
      * Creates task from txt file and stores them in Task objects respectively
      *
      * @param taskWords data present in the txt file
+     * @throws DukeException if the lines in the txt file do not start with T/D/E or if negative/unwanted array index is being accessed
      */
-    public void addData(String taskWords) {
+    public void addData(String taskWords) throws DukeException {
         try {
             String[] word = taskWords.split(" \\| ");
 
@@ -77,30 +77,30 @@ public class Storage {
                 if (word[1].equals("1")) {
                     todo.markAsDone();
                 }
-                list.add(count, todo);
-                count++;
+                TaskList.list.add(TaskList.count, todo);
+                TaskList.count++;
                 break;
             case "D":
                 Task deadline = new Deadline(word[2], word[3]);
                 if (word[1].equals("1")) {
                     deadline.markAsDone();
                 }
-                list.add(count, deadline);
-                count++;
+                TaskList.list.add(TaskList.count, deadline);
+                TaskList.count++;
                 break;
             case "E":
                 Task event = new Event(word[2], word[3]);
                 if (word[1].equals("1")) {
                     event.markAsDone();
                 }
-                list.add(count, event);
-                count++;
+                TaskList.list.add(TaskList.count, event);
+                TaskList.count++;
                 break;
             default:
-                Error.showUnableToParseError();
+                throw new DukeException("Unable to parse data!");
             }
         } catch (IndexOutOfBoundsException e) {
-            Error.showUnableToParseError();
+            throw new DukeException("Unable to parse data!");
         }
     }
 }
