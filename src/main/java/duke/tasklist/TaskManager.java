@@ -1,7 +1,7 @@
 package duke.tasklist;
 
 import duke.Time;
-import duke.generalmethods.GeneralMethods;
+import duke.utilities.Utilities;
 import duke.exceptions.DukeException;
 import duke.ui.Ui;
 
@@ -109,7 +109,7 @@ public class TaskManager extends Ui {
         boolean numberExists = false;
         String[] splitTask = userInput.replaceAll("[\\p{Alpha}, [\\p{Punct}&&[^-]]+]", " ").trim().split(" ");
         for (String word : splitTask) {
-            if (GeneralMethods.isValidNumber(word)) {
+            if (Utilities.isValidNumber(word)) {
                 numberExists = true;
                 int finalWordIndex = initialWordIndex - updateWordIndex;
                 int taskNumber = (Integer.parseInt(splitTask[finalWordIndex])) - 1;
@@ -141,7 +141,7 @@ public class TaskManager extends Ui {
         boolean numberExists = false;
         String[] splitTask = userInput.replaceAll("[\\p{Alpha}, [\\p{Punct}&&[^-]]+]", " ").trim().split(" ");
         for (String word : splitTask) {
-            if (GeneralMethods.isValidNumber(word)) {
+            if (Utilities.isValidNumber(word)) {
                 numberExists = true;
                 int taskNumber = (Integer.parseInt(splitTask[wordIndex])) - 1;
                 try {

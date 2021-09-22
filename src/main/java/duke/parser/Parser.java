@@ -8,6 +8,16 @@ import java.util.Scanner;
 
 public class Parser extends TaskManager {
 
+    public static final String STRING_BYE = "bye";
+    public static final String STRING_HELP = "help";
+    public static final String STRING_TO_DO = "to do ";
+    public static final String STRING_DEADLINE = "deadline ";
+    public static final String STRING_EVENT = "event ";
+    public static final String STRING_LIST = "list";
+    public static final String STRING_DELETE = "delete";
+    public static final String STRING_DONE = "done ";
+    public static final String STRING_FIND = "find ";
+
     /**
      * Parses user input into the different task list actions for execution.
      *
@@ -16,26 +26,26 @@ public class Parser extends TaskManager {
      * @param userInput full user input string
      */
     public static void parseCommand(Scanner in, ArrayList<Task> taskList, String userInput) {
-        while (!userInput.startsWith("bye")) {
+        while (!userInput.startsWith(STRING_BYE)) {
             userInput = in.nextLine().toLowerCase();
             try {
-                if (userInput.contains("help")) {
+                if (userInput.contains(STRING_HELP)) {
                     printHelpList();
-                } else if (userInput.startsWith("to do ")) {
+                } else if (userInput.startsWith(STRING_TO_DO)) {
                     addTaskAsToDo(taskList, userInput, false);
-                } else if (userInput.startsWith("deadline ")) {
+                } else if (userInput.startsWith(STRING_DEADLINE)) {
                     addTaskAsDeadline(taskList, userInput, false);
-                } else if (userInput.startsWith("event ")) {
+                } else if (userInput.startsWith(STRING_EVENT)) {
                     addTaskAsEvent(taskList, userInput, false);
-                } else if (userInput.startsWith("list")) {
+                } else if (userInput.startsWith(STRING_LIST)) {
                     printTaskList(taskList);
-                } else if (userInput.startsWith("delete")) {
+                } else if (userInput.startsWith(STRING_DELETE)) {
                     deleteTaskFromToDo(taskList, userInput);
-                } else if (userInput.startsWith("done ")) {
+                } else if (userInput.startsWith(STRING_DONE)) {
                     markTaskAsDone(taskList, userInput);
-                } else if (userInput.startsWith("bye")) {
+                } else if (userInput.startsWith(STRING_BYE)) {
                     break;
-                } else if (userInput.startsWith("find ")) {
+                } else if (userInput.startsWith(STRING_FIND)) {
                     find(taskList,userInput);
                 } else {
                     printErrorForInvalidCommand(userInput);

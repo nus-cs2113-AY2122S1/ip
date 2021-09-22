@@ -1,6 +1,6 @@
-package duke.generalmethods;
+package duke.utilities;
 
-public class GeneralMethods {
+public class Utilities {
     /**
      * Checks if word entered in user input is a valid number
      *

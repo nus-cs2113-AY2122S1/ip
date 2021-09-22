@@ -22,7 +22,7 @@ public class Duke {
         ArrayList<Task> taskList = new ArrayList<>();
         String userInput = "";
         start();
-        runCommandLoopUntilExitCommand(in, taskList, userInput);
+        parseCommandsToDuke(in, taskList, userInput);
         end();
     }
 
@@ -38,7 +38,7 @@ public class Duke {
      * @param taskList Task type arraylist to store all the tasks entered by the user
      * @param userInput takes input from the keyboard
      */
-    private static void runCommandLoopUntilExitCommand(Scanner in, ArrayList<Task> taskList, String userInput) {
+    private static void parseCommandsToDuke(Scanner in, ArrayList<Task> taskList, String userInput) {
         DataManager.printPreviousFileContents(FILE_PATH, taskList);
         Parser.parseCommand(in, taskList, userInput);
         DataManager.storeCurrentList(FILE_PATH, taskList);

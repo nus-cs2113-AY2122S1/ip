@@ -28,7 +28,7 @@ public class Time {
     }
 
     /**
-     * Checks if user has entered a valid format of date/time
+     * Validates the entered date
      *
      * @param time date/time entered by the user
      * @return true if date/time is valid and entered in the correct format
