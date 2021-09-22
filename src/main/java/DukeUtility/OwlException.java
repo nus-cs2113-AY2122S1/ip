@@ -1,6 +1,5 @@
 package DukeUtility;
 
-import java.sql.SQLOutput;
 
 public class OwlException extends Exception{
     public OwlException(String description) {
