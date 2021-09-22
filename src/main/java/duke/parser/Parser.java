@@ -1,9 +1,18 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.AddDeadlineCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddToDoCommand;
+import duke.command.Command;
+import duke.command.DeleteTaskCommand;
+import duke.command.FindTaskCommand;
+import duke.command.HelpCommand;
+import duke.command.InvalidCommand;
+import duke.command.ListCommand;
+import duke.command.SetTaskDoneCommand;
+import duke.command.TerminateCommand;
 
 import duke.task.TaskManager;
-
 
 public class Parser {
 
