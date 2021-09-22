@@ -81,6 +81,7 @@ public class TasksFile {
             task = TaskFactory.createToDoTask(taskComponents[2]);
             break;
         case "D":
+            System.out.println(taskComponents[2]);
             task = TaskFactory.createDeadlineTask(taskComponents[2]);
             break;
         case "E":

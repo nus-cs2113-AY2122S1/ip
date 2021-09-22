@@ -8,12 +8,12 @@ import unker.ui.UI;
 /**
  * Command to add a new {@link Deadline} into the task manager Unker. 
  *
- * Usage in UI: deadline description /by time 
+ * Usage in UI: deadline description /by YYYY-MM-DD HH:mm 
  */
 public class DeadlineCommand extends CreateTaskCommand {
 
     public DeadlineCommand() {
-        super("deadline", "deadline <description> /by <time>");
+        super("deadline", "deadline <description> /by YYYY-MM-DD HH:mm");
     }
     
     @Override
