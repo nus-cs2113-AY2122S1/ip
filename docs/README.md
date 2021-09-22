@@ -14,7 +14,7 @@ Hello everyone! Thank you for using Duke which is a simply based Command Line In
 
 ## **Quick Start**
  1. Firstly, make sure you have installed Java 11 on your computer.
- 2. Secondly, download the latest release of Duke.jar [here](https://github.com/Cesare4869/ip/tree/master/docs).
+ 2. Secondly, download the latest release of Duke.jar [here](https://github.com/Cesare4869/ip/releases).
  3. Thirdly, place the file to a location you like.
  4. Fourthly, go to the directory where you place the file using Command Line Interface
  5. Lastly, enter the command `java -jar Duke.jar` to start!
