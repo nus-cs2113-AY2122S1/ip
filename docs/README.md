@@ -1,29 +1,63 @@
-# User Guide
+# Billy User Guide
+Billy is task management application for managing regular tasks, deadlines and events. Billy interacts with the user using a CLI (Command Line Interface).
 
-## Features 
+Prerequisites: JDK 11.
 
-### Feature-ABC
+## For First-time Users:
+1. Download `Billy.jar` into your desired directory.
+2. Run `java -jar IP.jar` within the directory where `Billy.jar` is located to launch the program.
+3. When the program runs, a new folder `data` containing `BillyData.txt` will be created.
 
-Description of the feature.
+## Using Billy:
+Upon startup, the user will be greeted with the following message.
+   ```
+   Hello from
+ ______    _   __   __            
+|_   _ \  (_) [  | [  |           
+  | |_) | __   | |  | |   _   __  
+  |  __'.[  |  | |  | |  [ \ [  ] 
+ _| |__) || |  | |  | |  \ '/  /  
+|_______/[___][___][___][\_: /   
+                           \__.'    
+____________________________________________________________
+Hello! I'm Billy
+____________________________________________________________
+   ```
+Following which, the user can use the CLI to make use of Billy's respective features.
 
-### Feature-XYZ
+> **Notes about the command format:**
+> - Words in `<UPPER_CASE>` surrounded by angle brackets are **required** parameters to be supplied by the user
+> - Items in square brackets `[ ]` are **optional**.
 
-Description of the feature.
 
-## Usage
+### `todo` - Add a to-do task
+Format: `todo <DESCRIPTION>`
 
-### `Keyword` - Describe action
+### `deadline` - Add a deadline
+Format: `deadline  <DESCRIPTION> /by <DATE> [TIME]`
+> - Date is to be input in the following format:  `dd/MM/yyyy`
+>
+> - Time is to be input in the following format: `HH:mm`
 
-Describe the action and its outcome.
+### `event` - Add an event
+Format: `event  <DESCRIPTION> /at <DATE> [TIME]`
+> - Date is to be input in the following format:  `dd/MM/yyyy`
+>
+> - Time is to be input in the following format: `HH:mm`
 
-Example of usage: 
+### `list` - Display the current list of tasks with their respective IDs
+Format: `list`
 
-`keyword (optional arguments)`
+### `done` - Mark tasks as done
+Format: `done <TASK_IDs>`
+> - Multiple tasks can be marked as done with a single command as long as the task IDs are separated by any character.
 
-Expected outcome:
+### `find` - Find a task with a given description
+Format: `find <DESCRIPTION>`
 
-Description of the outcome.
+### `delete` - Delete tasks
+Format: `delete <TASK_IDs>`
+> - Multiple tasks can be marked as done with a single command as long as the task IDs are separated by any character.
 
-```
-expected output
-```
+### `bye`- Terminate the program
+Format: `bye`
