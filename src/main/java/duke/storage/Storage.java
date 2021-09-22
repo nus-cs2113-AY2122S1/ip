@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String FILE_PATH = "data/dukeTask.txt";
+    private static final String FILE_PATH = "data/BillyData.txt";
     private static final String DIRECTORY = "data";
 
     /**
