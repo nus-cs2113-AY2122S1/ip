@@ -5,6 +5,7 @@ import TypeOfTasks.Event;
 import TypeOfTasks.Task;
 import TypeOfTasks.Todo;
 
+
 import java.util.ArrayList;
 
 
@@ -34,17 +35,42 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
-    
+
+    /**
+     * Prints out the entire list of tasks containing the keyword the user is searching for.
+     * 
+     * @param keyword Keyword that matches any part of the task's description, user input to find task.
+     * @param tasks A list of different types of task with a counter that keep tracks of how many tasks there are.
+     */
+    public void findTask(String keyword, TaskList tasks) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for(Task task: tasks.getTasks()) {
+            if(task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
+            }
+
+            boolean isFoundInDeadlineOrEvent = task.getInfo() != null && task.getInfo().contains(keyword);
+            if(isFoundInDeadlineOrEvent) {
+                foundTasks.add(task);
+            }
+            
+        }
+        try {
+            listTask(new TaskList(foundTasks));
+        } catch (OwlException owlException) {
+            System.out.println("No task was found that matches!!");
+        }
+    }
+
     /**
      * Set the completion of a task in the TaskList as done and prints a completion message to show that the process
      * has been achieved.
-     * 
+     *
      * @param tasks A list of different types of task with a counter that keep tracks of how many tasks there are.
      * @param taskNumberAsString The task number as a string given as an input by the user.
      * @throws OwlException If taskNumber input is out of range,not a number or when the task is already marked as done.
      */
-    public void markCompletionOfTask(TaskList tasks, String taskNumberAsString) throws OwlException {
-        try {
+    public void markCompletionOfTask(TaskList tasks, String taskNumberAsString) throws OwlException {        try {
             int taskNumber = Integer.parseInt(taskNumberAsString);
             int taskIndex = taskNumber - 1;
             if (Verifier.isInvalidTaskCount(tasks.taskCount, taskNumber)) {
@@ -94,7 +120,7 @@ public class TaskList {
         if (inputs[1].contains(" /at ") && !inputsAt[1].isEmpty()) {
             Event newEvent = new Event(inputsAt[0], inputsAt[1]);
             tasks.addTask(newEvent);
-            addTask(tasks.getTaskCount(), ("[E] " + inputsAt[0] + "(at: " + inputsAt[1]) + ")");
+            addTask(tasks.getTaskCount(), "[E] " + inputsAt[0] + "(at: " + newEvent.getInfo() + ")");
             return;
         }
         throw new OwlException("Did not specify /at");
@@ -109,10 +135,11 @@ public class TaskList {
      */
     public void addDeadline(TaskList tasks, String[] inputs) throws OwlException {
         String[] inputsBy = inputs[1].split(" /by ", 2);
+        
         if (inputs[1].contains(" /by ") && !inputsBy[1].isEmpty()) {
-            Deadline newDeadline = new Deadline(inputsBy[0], inputsBy[1]);
+            Deadline newDeadline = new Deadline(inputsBy[0],inputsBy[1]);
             tasks.addTask(newDeadline);
-            addTask(tasks.getTaskCount(), ("[D] " + inputsBy[0] + "(by: " + inputsBy[1]) + ")");
+            addTask(tasks.getTaskCount(), "[D] " + inputsBy[0] + "(by: " + newDeadline.getInfo() + ")");
             return;
         }
         throw new OwlException("Did not specify /by");

@@ -1,21 +1,34 @@
 package TypeOfTasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * A type of task with description, checkbox and an at timeframe.
  */
 public class Event extends Task {
     protected String at;
     protected String tag = "E";
-
+    protected LocalDate localdate;
     /**
      * Initialises Event object with its description and at description.
      * 
      * @param description The event description.
      * @param at The time frame when event is happening.
      */
+
+    
+    
     public Event(String description,String at) {
         super(description);
         this.at = at;
+        try {
+            this.localdate = LocalDate.parse(at);
+            this.at = localdate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } catch (DateTimeParseException dateTimeParseException) {
+            this.at = at;
+        }
     }
 
     /**

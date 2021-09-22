@@ -77,7 +77,7 @@ public class Ui {
     
     public static void printListingMsg() {
         Ui.printLine();
-        System.out.println("This are all the things I've remembered for you:");
+        System.out.println("Squawkkk this is everything you have!!!");
         Ui.printLine();
     }
     

@@ -13,25 +13,31 @@ public class Verifier {
     /**
      * List of commands that have two parts to it.
      */
-    public static final List<String> TWO_PART_COMMAND = Arrays.asList("todo", "done", "deadline", "event", "delete");
+    public static final List<String> TWO_PART_COMMAND = Arrays.asList("todo", "done", "deadline",
+            "event", "delete", "find");
     
     
-    public boolean isDelete(String input) {
+    public static boolean isDelete(String input) {
         return input.equals("delete");
+    }
+
+
+    public static boolean isFind(String input) {
+        return input.equals("find");
     }
 
     /**
      * Returns true if it is an invalid one part command.
-     * 
+     *
      * @param inputs An array representing the different parts of the user input.
      * @param commandLength Number of parts of user input.
      * @return True if it is a one part command with more than one part in the input else return false.
      */
-    public boolean isInvalidOnePartCmd(String[] inputs, int commandLength) {
+    public static boolean isInvalidOnePartCmd(String[] inputs, int commandLength) {
         return commandLength > 1 && isOnePartCmd(inputs[0]);
     }
 
-    public boolean isNotBye(String command) {
+    public static boolean isNotBye(String command) {
         return !command.equals("bye");
     }
 
@@ -42,15 +48,15 @@ public class Verifier {
      * @param commandLength Number of parts of user input.
      * @return True if it is a two part command with one part in the input else return false.
      */
-    public boolean isInvalidTwoPartCmd(String[] inputs, int commandLength) {
+    public static boolean isInvalidTwoPartCmd(String[] inputs, int commandLength) {
         return commandLength == 1 && isTwoPartCmd(inputs[0]);
     }
     
-    public boolean isOnePartCmd(String s) {
+    public static boolean isOnePartCmd(String s) {
         return ONE_PART_COMMAND.contains(s);
     }
 
-    public boolean isTwoPartCmd(String s) {
+    public static boolean isTwoPartCmd(String s) {
         return TWO_PART_COMMAND.contains(s);
     }
 
@@ -65,23 +71,23 @@ public class Verifier {
         return taskNumber <= 0 || taskNumber > taskCount;
     }
     
-    public boolean isDone(String s) {
+    public static boolean isDone(String s) {
         return s.equals("done");
     }
 
-    public boolean isEvent(String s) {
+    public static boolean isEvent(String s) {
         return s.equals("event");
     }
 
-    public boolean isDeadline(String s) {
+    public static boolean isDeadline(String s) {
         return s.equals("deadline");
     }
 
-    public boolean isTodo(String s) {
+    public static boolean isTodo(String s) {
         return s.equals("todo");
     }
 
-    public boolean isList(String s) {
+    public static boolean isList(String s) {
         return s.equals("list");
     }
     

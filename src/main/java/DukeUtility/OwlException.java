@@ -1,5 +1,6 @@
 package DukeUtility;
 
+
 public class OwlException extends Exception{
     public OwlException(String description) {
         super(description);
@@ -26,6 +27,8 @@ public class OwlException extends Exception{
             throw new OwlException("The description of todo cannot be empty!");
         } else if(inputs[0].equals("done")) {
             throw new OwlException("The description of done cannot be empty!");
+        } else if(inputs[0].equals("find")) {
+            throw new OwlException("The description of find cannot be empty!");
         } else if(inputs[0].equals("event")) {
             throw new OwlException("The description of event cannot be empty!");
         } else if(inputs[0].equals("deadline")) {

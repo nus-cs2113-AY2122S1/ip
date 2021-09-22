@@ -1,12 +1,17 @@
 package TypeOfTasks;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 /**
  * A type of task with description, checkbox and a by deadline description.
  */
 public class Deadline extends Task{
-    protected String by;
     protected String tag = "D";
-
+    protected String by;
+    protected LocalDate localdate;
+    
     /**
      * Initialises Deadline object with its description and by description.
      *
@@ -15,9 +20,13 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        try {
+            this.localdate = LocalDate.parse(by);
+            this.by = localdate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } catch (DateTimeParseException dateTimeParseException) {
+            this.by = by;
+        }
     }
-    
     
     /**
      * Returns either a by or at description depending on task type
@@ -28,8 +37,11 @@ public class Deadline extends Task{
     public String getInfo() {
         return by;
     }
-    
-    
+
+    public LocalDate getLocaldate() {
+        return localdate;
+    }
+
     /**
      * Returns the task's tag to identify type of task
      * If the task is a Todo,Deadline,Event it returns T,D and E accordingly
