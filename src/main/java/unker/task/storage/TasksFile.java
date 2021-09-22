@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 import unker.task.Deadline;
 import unker.task.Event;
 import unker.task.Task;
+import unker.task.TaskFactory;
 import unker.task.ToDo;
 import unker.util.StringUtil;
 
@@ -72,32 +73,28 @@ public class TasksFile {
         if (taskComponents.length < FILE_LINE_COMPONENTS) {
             return null;
         }
-        boolean isDone = !taskComponents[1].equals("0");
+        
+        Task task;
+        
         switch(taskComponents[0].toUpperCase()) {
         case "T":
-            ToDo toDo = new ToDo(taskComponents[2]);
-            toDo.setDone(isDone);
-            return toDo;
+            task = TaskFactory.createToDoTask(taskComponents[2]);
+            break;
         case "D":
-            Matcher deadlineMatcher = StringUtil.parseUserInput(Deadline.DEADLINE_DATA_PATTERN, taskComponents[2]);
-            if (deadlineMatcher != null) {
-                Deadline deadline = new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2));
-                deadline.setDone(isDone);
-                return deadline;
-            } else {
-                return null;
-            }
+            task = TaskFactory.createDeadlineTask(taskComponents[2]);
+            break;
         case "E":
-            Matcher eventMatcher = StringUtil.parseUserInput(Event.EVENT_DATA_PATTERN, taskComponents[2]);
-            if (eventMatcher != null) {
-                Event event = new Event(eventMatcher.group(1), eventMatcher.group(2));
-                event.setDone(isDone);
-                return event;
-            } else {
-                return null;
-            }
+            task = TaskFactory.createEventTask(taskComponents[2]);
+            break;
+        default:
+            task = null;
         }
-
-        return null;
+        
+        if (task != null) {
+            boolean isDone = !taskComponents[1].equals("0");
+            task.setDone(isDone);
+        }
+        
+        return task;
     }
 }
