@@ -28,10 +28,10 @@ public class DataManager {
     private final String DEADLINE_TYPE = "D";
     private final String EVENT_TYPE = "E";
 
-    private final String FILE_NOT_FOUND_MSG = "[!] File does not exist! Trying to create duke.txt...";
-    private final String FILE_CREATION_SUCCESS_MSG = "[!] duke.txt created successfully...";
-    private final String FILE_CREATION_ERROR_MSG = "[!] File cannot be created!";
-    private final String FILE_WRITE_ERROR_MSG = "[!] File cannot be written to!]";
+    private final String FILE_NOT_FOUND_MSG = "\n[!] File does not exist! Trying to create duke.txt...";
+    private final String FILE_CREATION_SUCCESS_MSG = "\n[!] duke.txt created successfully...";
+    private final String FILE_CREATION_ERROR_MSG = "\n[!] File cannot be created!";
+    private final String FILE_WRITE_ERROR_MSG = "\n[!] File cannot be written to!";
 
     public DataManager(String filePath) {
         this.filePath = filePath;
@@ -65,7 +65,7 @@ public class DataManager {
         dataFile.createNewFile();
     }
 
-    public ArrayList<Task> loadDataIntoTaskList() throws FileNotFoundException{
+    public ArrayList<Task> loadDataIntoTaskList() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner in = new Scanner(dataFile);
 

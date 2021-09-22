@@ -40,13 +40,13 @@ public class TaskManager {
         this.tasks = tasks;
     }
 
-    public String addToDo(String todoInfo) throws ToDoFormatException {
+    public String addToDo(String toDoInfo) throws ToDoFormatException {
 
-        if (todoInfo.equals(TODO_FORMAT_REGEX)) {
+        if (toDoInfo.equals(TODO_FORMAT_REGEX)) {
             throw new ToDoFormatException();
         }
 
-        Task newToDo = new ToDo(todoInfo.trim());
+        Task newToDo = new ToDo(toDoInfo.trim());
         this.tasks.add(newToDo);
 
         int idOfTaskAdded = tasks.size() - 1;

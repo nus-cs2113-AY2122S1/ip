@@ -28,6 +28,7 @@ public class Duke {
         parser = new Parser();
 
         dukeUi.printLogo();
+        taskManager.setTasks(dataManager.getLoadedTaskList());
     }
 
     public String readInput() {
@@ -39,15 +40,12 @@ public class Duke {
 
     public void startDuke() {
 
-        taskManager.setTasks(dataManager.getLoadedTaskList());
-
         dukeUi.printWelcomeMessage();
 
         Command userCommand;
         CommandResult commandResult = null;
 
         do {
-
             String userInput = readInput();
             userCommand = parser.parseCommand(taskManager, userInput);
 
@@ -63,7 +61,6 @@ public class Duke {
             }
 
             dukeUi.printDukeMessage(commandResult.getDukeMessage());
-
         } while(commandResult.getIsExited() != true);
 
     }
