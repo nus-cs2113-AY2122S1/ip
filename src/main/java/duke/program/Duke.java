@@ -1,50 +1,38 @@
 package duke.program;
 
-import java.io.FileNotFoundException;
+import duke.command.Command;
+
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Duke {
-    private static final int LINE_LENGTH = 40;
-
-    public static void printGreetingMessage(LizTextBanner liz) {
-        System.out.println("Howdy! It's\n" + liz.getLizText() + liz.getLizLogo());
-        printLine();
-        System.out.println("Hey! I'm Lizzy the Lizard!");
-        System.out.println("What can I do for you?");
-        System.out.println("");
-    }
-
-    public static void printExitMessage() {
-        printLine();
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    public static void printFileErrorMessage() {
-        System.out.println("Hey bud, something went wrong with the file :/");
-    }
-
-    public static void printLine() {
-        for (int i = 0; i < LINE_LENGTH; i++) {
-            System.out.print("_");
-        }
-        System.out.println("");
-    }
-
-    public static void readInputs(TaskManager manager) throws IOException {
-        manager.parseUserInput();
-    }
 
     public static void main(String[] args) {
-
-        LizTextBanner liz = new LizTextBanner();
-        TaskManager manager = new TaskManager();
-
-        printGreetingMessage(liz);
-        try {
-            readInputs(manager);
-        } catch (IOException e) {
-            printFileErrorMessage();
-        }
-        printExitMessage();
+        run();
     }
+
+    public static void run() {
+        LizUi ui = new LizUi();
+        TaskList tasks = new TaskList();
+        Parser parser = new Parser();
+        Scanner in = new Scanner(System.in);
+
+        ui.printGreetingMessage();
+        boolean isExit = false;
+
+        while (!isExit) {
+            try {
+                String line = ui.readCommand(in);
+                ui.printLine();
+                Command c = parser.parseUserInput(line);
+                c.executeCommand(tasks, ui);
+                isExit = c.isExit();
+            } catch (IOException e) {
+                ui.printFileErrorMessage();
+            } finally {
+                ui.printLine();
+            }
+        }
+    }
+
 }
