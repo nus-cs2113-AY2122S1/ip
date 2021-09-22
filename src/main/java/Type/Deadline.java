@@ -18,8 +18,8 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         return Character.toString(this.getType()) + '|'
-                + this.description + '|'
-                + this.byWhen + '|'
+                + this.description.trim() + '|'
+                + this.byWhen.trim() + '|'
                 + this.isDone();
     }
 }

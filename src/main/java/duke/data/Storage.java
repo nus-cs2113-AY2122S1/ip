@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class Storage{
     private static String filePath;
-    private static String folderName = "/data";
+    private static String folderName = "data/";
     private static String fileName = "list.txt";
     public Storage(String filePathToInput) {
         filePath = filePathToInput;
@@ -34,7 +34,6 @@ public class Storage{
         File newList = new File(folderName + fileName);
         FileWriter fw = new FileWriter(folderName + fileName);
         for (Task t : taskList.getTaskList()) {
-
             fw.write(printTaskAsString(t));
         }
         fw.close();
@@ -93,7 +92,7 @@ public class Storage{
             return separateData[1];
         }
     }
-    
+
     private static void checkAndAddDirectory() throws IOException {
         String home = new File("").getAbsolutePath();
         File dirCheck = new File(home + folderName);

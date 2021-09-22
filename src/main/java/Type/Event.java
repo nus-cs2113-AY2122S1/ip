@@ -18,8 +18,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return Character.toString(this.getType()) + '|'
-                + this.description + '|'
-                + this.atWhen + '|'
+                + this.description.trim() + '|'
+                + this.atWhen.trim() + '|'
                 + this.isDone();
     }
 }

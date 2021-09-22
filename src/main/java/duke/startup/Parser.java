@@ -63,6 +63,8 @@ public class Parser {
             return new ListCommand();
         } else if (stringToRead.startsWith("mascot")) {
             return new MascotCommand();
+        } else if (stringToRead.startsWith("find")) {
+            return new FindCommand();
         } else {
             Ui.printWrongCommand();
             return new OopsieCommand();

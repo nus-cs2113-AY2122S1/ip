@@ -11,7 +11,7 @@ public class Todo extends Task{
     @Override
     public String toString() {
         return Character.toString(this.getType()) + '|'
-                + this.description + '|'
+                + this.description.trim() + '|'
                 + this.isDone();
     }
 }
