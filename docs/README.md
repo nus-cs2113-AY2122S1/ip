@@ -10,6 +10,7 @@ If you can type fast and want to manage your tasks, then this is the App for you
 * Copy the file to your desired folder. This folder will act as the home folder for the JAR file.
 * Then, open your terminal in the folder storing the JAR file, and run the following command `java -jar iP.jar` You should be able to see a welcome message
 like this:
+
 ```
 Hello from
  ____        _        
@@ -32,14 +33,14 @@ it will return an error message and the task will not be added.
 
 If the command is successful, the task will be printed out together with the total number of tasks currently in the task list
 
-####Command format:
+**Command format:**
 
 `todo [description]`
 
 Parameters:
 * `[description]` - Description of the Todo task, can include spaces
 
-####Example:
+**Example:**
 
 `todo CS2113 Lecture Quiz`
 
@@ -61,7 +62,7 @@ is given, it will return an error message and the task will not be added.
 
 If the command is successful, the task will be printed out together with the total number of tasks currently in the task list
 
-####Command format:
+**Command format:**
 
 `deadline [description] \by [deadline]`
 
@@ -69,7 +70,7 @@ Parameters:
 * `[description]` - Description of the task, can include spaces
 * `[deadline]` - Deadline of the task, needs to be in the format `yyyy-mm-dd HH:mm`
 
-####Example:
+**Example:**
 
 `deadline CG2027 Assignment 3 /by 2021-09-22 13:00`
 
@@ -91,7 +92,7 @@ is given, it will return an error message and the task will not be added.
 
 If the command is successful, the task will be printed out together with the total number of tasks currently in the task list
 
-####Command format:
+**Command format:**
 
 `event [description] \at [time]`
 
@@ -99,7 +100,7 @@ Parameters:
 * `[description]` - Description of the task, can include spaces
 * `[time]` - Time of the event, needs to be in the format `yyyy-mm-dd HH:mm`
 
-####Example:
+**Example:**
 
 `event CS2113 Lecture /at 2021-09-30 16:00`
 
@@ -119,11 +120,11 @@ other types of tasks, namely Todo and Deadline tasks.
 
 Lists all tasks that have been added to your task list. If there are no tasks, simply shows that no tasks are available.
 
-####Command format:
+**Command format:**
 
 `list`
 
-####Example:
+**Example:**
 
 `list`
 
@@ -152,14 +153,14 @@ For example, task 1 `CS2113 Lecture Quiz` is a todo task that has been marked as
 Marks a previously added task as done. If an invalid task number is provided, it will return an error
 and the command is stopped.
 
-####Command format:
+**Command format:**
 
 `done [task number]`
 
 Parameters:
 * `[task number]` - Number representing the task to mark. A list of available tasks and their corresponding task number can be found by using the command `list`
 
-####Example:
+**Example:**
 
 `done 1`
 
@@ -177,14 +178,14 @@ The following task has been marked as done:
 Deletes a previously added task from your task list. If an invalid task number is provided, it will return an error
 and the command is stopped.
 
-####Command format:
+**Command format:**
 
 `delete [task number]`
 
 Parameters:
 * `[task number]` - Number representing the task to delete. A list of available tasks and their corresponding task number can be found by using the command `list`
 
-####Example:
+**Example:**
 
 `delete 1`
 
@@ -201,13 +202,13 @@ Search for tasks from text provided. Returns all tasks with description containi
 results from a query 'Assign' will contain that task in the results. Take note to use the correct letter-case when searching for tasks,
 as the search is case-sensitive.
 
-####Command format:
+**Command format:**
 
 `list [query]`
 
 * `[query]` - Text to query for
 
-####Example:
+**Example:**
 
 `find CG`
 
@@ -228,12 +229,12 @@ use the program.
 This feature acts as a safeguard, as there is already an auto-save feature which activates every time your task list is modified.
 Users can use this feature in case there is an error with the auto-save feature.
 
-####Command format:
+**Command format:**
 
 `save`
 
 
-####Example:
+**Example:**
 
 `save`
 
@@ -248,12 +249,12 @@ You task list has been saved successfully
 
 Exits and terminates the program.
 
-####Command format:
+**Command format:**
 
 `bye`
 
 
-####Example:
+**Example:**
 
 `bye`
 
