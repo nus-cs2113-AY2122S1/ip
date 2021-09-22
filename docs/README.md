@@ -207,7 +207,8 @@ the execution of every command. Advanced users are welcome to update data direct
 that `duke.txt`
 
 > ❗ **Caution**: if the save file is detected to be corrupted
-> or does not conform to ShellRPG's saved file format, ShellRPG will not run.
+> or does not conform to ShellRPG's saved file format, ShellRPG will not run.  
+
 ___
 
 ## FAQ
@@ -219,7 +220,8 @@ be sure to check the above document for the correct formats of dates.
 
 **Question:** How do I transfer my data to another Computer?  
 **Answer:** Install the application in another computer 
-and overwrite the empty data file after running the program at least once.
+and overwrite the empty data file after running the program at least once.  
+
 ___
 
 ## Command Summary
