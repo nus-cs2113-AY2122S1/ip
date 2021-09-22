@@ -7,6 +7,7 @@ import commands.DeadlineCommand;
 import commands.DoneCommand;
 import commands.ListCommand;
 import commands.InvalidCommand;
+import commands.FindCommand;
 import commands.SavedCommand;
 import commands.Command;
 import exceptions.EventException;
@@ -27,6 +28,7 @@ public class ProcessManager {
     public ListCommand listCommand = new ListCommand();
     public InvalidCommand invalidCommand = new InvalidCommand();
     public SavedCommand savedCommand = new SavedCommand();
+    public FindCommand findCommand = new FindCommand();
 
     public Ui ui = new Ui();
 
@@ -37,35 +39,30 @@ public class ProcessManager {
             } catch (DeadlineException e) {
                 ui.printDeadlineException(e);
             }
-            return true;
         } else if (command instanceof EventCommand) {
             try {
                 eventCommand.execute(taskList, line);
             } catch (EventException e) {
                 ui.printEventException(e);
             }
-            return true;
         } else if (command instanceof TodoCommand) {
             try {
                 todoCommand.execute(taskList, line);
             } catch (TodoException e) {
                 ui.printTodoException(e);
             }
-            return true;
         } else if (command instanceof DeleteCommand) {
             try {
                 deleteCommand.execute(taskList, line);
             } catch (DeleteException e) {
                 ui.printDeleteException(e);
             }
-            return true;
         } else if (command instanceof DoneCommand) {
             try {
                 doneCommand.execute(taskList, line);
             } catch (DoneException e) {
                 ui.printDoneException(e);
             }
-            return true;
         } else if (command instanceof ListCommand) {
             listCommand.execute(taskList);
         } else if (command instanceof InvalidCommand) {
@@ -74,7 +71,6 @@ public class ProcessManager {
             } catch (DukeException e) {
                 ui.printDukeException(e);
             }
-            return true;
         } else if (command instanceof SavedCommand) {
             try {
                 savedCommand.execute(taskList);
@@ -82,6 +78,8 @@ public class ProcessManager {
                 ui.printIOException(e);
             }
             return false;
+        } else if (command instanceof FindCommand) {
+            findCommand.execute(taskList, line);
         }
         return true;
     }
