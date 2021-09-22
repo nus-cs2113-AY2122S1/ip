@@ -131,4 +131,12 @@ public class Parser {
     public static String getFirstWordFromCommand(String input) {
         return input.toLowerCase().split(" ")[0];
     }
+
+    /**
+     * @param input is the command given by the user
+     * @return the lowercase form of the keyword present in the command
+     */
+    public static String getKeywordFromCommand(String input) {
+        return input.toLowerCase().split(" ")[1];
+    }
 }
