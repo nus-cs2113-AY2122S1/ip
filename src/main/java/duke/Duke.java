@@ -2,9 +2,12 @@ package duke;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
     //declarations
@@ -61,7 +64,7 @@ public class Duke {
         while(scan.hasNext())                                                                                           //todo hello | 1
         {                                                                                                               //deadline hello /by Sunday | 1
             String data = scan.nextLine();                                                                              //event project meeting /at Mon 2-4pm | 0
-            String[] arrayString = data.split(" \\| ");
+            String[] arrayString = data.split(" \\| ");                                                           //deadline koo /by Oct 15 2019 | 0
             String[] arrayString2 = arrayString[0].split(" ");
             taskType = arrayString2[0];
             s = Integer.toString(taskNumber);
@@ -109,20 +112,15 @@ public class Duke {
     }
 
     //Lists out all tasks stored and their statuses
-    public static void sayList(String input) throws DukeException{                                                      //list
-        if (input.length() == 4) {
-            if (taskCount > 0) {
-                System.out.println(line);
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + t.get(i).toString() + "\n");
-                }
-                System.out.println(line);
-            }
-            else {
-                throw new DukeException("Hold your horses, we haven't even started listing yet!");                      //list when taskCount = 0
-            }
+    public static void sayList() throws DukeException{                                                                  //list
+        if (taskCount == 0) {
+            throw new DukeException("Hold your horses, you didn't even tell me about your wishes yet!");
         } else {
-            throw new DukeException("Invalid input! Ask me nicely to list!");                                           //list 7
+            System.out.println(line);
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println((i + 1) + ". " + t.get(i).toString() + "\n");
+            }
+            System.out.println(line);
         }
     }
 
@@ -167,12 +165,14 @@ public class Duke {
         } else if (!input.contains("/")) {
             System.out.println(line + "\nAre you kidding me? You forgot to tell me your deadline again?\n" + line);     //deadline return book
         } else {
-            int endIndex = input.lastIndexOf("/");
+            int endIndex = input.indexOf("/");
             String taskName = input.substring(9, endIndex);
             int endIndex2 = input.length();
             String by = input.substring(endIndex + 4, endIndex2);
+            LocalDate dateTime = LocalDate.parse(by);
             t.add(taskCount, new Deadline(taskName, by));
             System.out.println(line + "\n");
+            System.out.println("Deadline Entered: " + dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n");
             System.out.println("Got it. I've added this task:\n");                                                      //deadline return book /by Sunday
             System.out.println(t.get(taskCount).toString());
             taskCount++;
@@ -188,7 +188,7 @@ public class Duke {
         } else if (!input.contains("/")) {
             System.out.println(line + "\nAre you kidding me? You forgot to tell me your event timing again?\n" + line); //event project meeting
         } else {
-            int endIndex = input.lastIndexOf("/");
+            int endIndex = input.indexOf("/");
             String taskName = input.substring(6, endIndex);
             int endIndex2 = input.length();
             String at = input.substring(endIndex + 4, endIndex2);
@@ -223,8 +223,8 @@ public class Duke {
 
     //Creates scanner, takes in user input & filters it to different methods
     public static void inputSort() throws DukeException {
-        System.out.println("Enter your wish: " + "\n" + line);
         while (quitFlag == 0) {
+            System.out.println("Enter your wish: " + "\n" + line);
             Scanner scan = new Scanner(System.in);
             String input = scan.nextLine();
             String actionWord = input.split(" ")[0];
@@ -233,7 +233,11 @@ public class Duke {
                 sayBye(input);
                 break;
             case "list":
-                sayList(input);
+                try {
+                    sayList();
+                } catch (DukeException e) {
+                    System.out.println("Hold your horses, you didn't even tell me about your wishes yet!");
+                }
                 break;
             case "done":
                 sayDone(input);
@@ -244,8 +248,12 @@ public class Duke {
                 saveData(t);
                 break;
             case "deadline":
-                sayDeadline(input);
-                saveData(t);
+                try {
+                    sayDeadline(input);
+                    saveData(t);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Please enter in the format: deadline (desc) /by yyyy-mm-dd");
+                }
                 break;
             case "event":
                 sayEvent(input);
