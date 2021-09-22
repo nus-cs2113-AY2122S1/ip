@@ -1,16 +1,12 @@
 package duke;
 
 import duke.command.AddTaskCommand;
-import duke.command.Command;
 import duke.exception.DukeException;
-import duke.exception.InvalidCommandException;
-import duke.task.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
@@ -19,6 +15,13 @@ public class Storage {
     public Storage() {
     }
 
+    /**
+     * Loads data into tasks in Tasklist from data file.
+     *
+     * @param tasks   Tasklist to be used.
+     * @param ui      Ui to be used.
+     * @param storage Storage to be used.
+     */
     public void loadData(TaskList tasks, Ui ui, Storage storage) {
         Parser parser = new Parser();
 
@@ -32,8 +35,8 @@ public class Storage {
                 try {
                     AddTaskCommand c = (AddTaskCommand) parser.parseCommand(input);
                     c.addTask(tasks);
-                    if(isDone) {
-                        tasks.markTaskAsDone(tasks.getTasks().size()-1);
+                    if (isDone) {
+                        tasks.markTaskAsDone(tasks.getTasks().size() - 1);
                     }
                 } catch (DukeException e) {
                 }
@@ -43,6 +46,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds a task to data file.
+     *
+     * @param input Input string used to create the task.
+     */
     public void storeTask(String input) {
         try {
             appendToFile(patchiDataPath, input + ",f" + System.lineSeparator());
@@ -50,6 +58,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Marks a task in the data file as done.
+     *
+     * @param taskIndex Index of task.
+     */
     public void alterTaskDone(Integer taskIndex) {
         String line;
         try {
@@ -60,17 +73,23 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a task from the data file.
+     *
+     * @param taskIndex Index of task.
+     */
     public void deleteTask(Integer taskIndex) {
         deleteLine(taskIndex);
     }
 
-    public void appendToFile(String filePath, String textToAdd) throws IOException {
+
+    private void appendToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAdd);
         fw.close();
     }
 
-    public String getLine(Integer lineIndex) throws IOException {
+    private String getLine(Integer lineIndex) throws IOException {
         File patchiData = new File(patchiDataPath);
         Scanner s = new Scanner(patchiData);
         Integer i = 0;
@@ -85,7 +104,7 @@ public class Storage {
         return null;
     }
 
-    public void deleteLine(Integer lineIndex) {
+    private void deleteLine(Integer lineIndex) {
         try {
             File patchiData = new File(patchiDataPath);
             Scanner s = new Scanner(patchiData);
@@ -105,7 +124,7 @@ public class Storage {
         }
     }
 
-    public void overwriteLine(Integer lineIndex, String newLine) throws IOException {
+    private void overwriteLine(Integer lineIndex, String newLine) throws IOException {
         File patchiData = new File(patchiDataPath);
         Scanner s = new Scanner(patchiData);
         String newFileData = "";
