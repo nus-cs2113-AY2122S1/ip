@@ -1,4 +1,4 @@
-# User Guide
+# About
 Duke is a CLI (Command Line Interface) task manager that assists in managing your tasks.
 This user guide will teach you how to use Duke.
 
@@ -21,13 +21,13 @@ Below is a list of the features Duke offers:
 8. [Exiting Duke](#exiting-duke)
 
 ### Adding tasks
-There are 3 types of tasks you can add, todo,event,deadline.
+There are 3 types of tasks you can add: todo,event,deadline.
 * todo - tasks that you need to do; only requires task description
   * Format: `todo <task description>`
   * e.g `todo finish homework`
 * event - tasks that you need to attend; need event description and date of event in 
 format `/at yyyy-mm-dd`
-  * Format: `event <event description/> /at <yyyy-mm-dd/>` 
+  * Format: `event <event description> /at <yyyy-mm-dd/>` 
   * e.g `event interview /at 2021-09-16`
 * deadline - tasks that you need to finish at a certain date; need deadline 
 description and date of deadline in format `/by yyyy-mm-dd`
