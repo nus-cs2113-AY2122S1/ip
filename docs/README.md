@@ -4,12 +4,13 @@ Duke is an application designed for task management via Command Line Interface.
 
 ## Launching Duke Application
 
-1. Download `ip.jar` file from [**here**](https://github.com/NonRNP/ip/releases).
-2. Copy `ip.jar` to an empty folder.
-3. Launch command window.
-4. Navigate to the folder where `ip.jar` is stored.
-5. Enter command `java -jar ip.jar`.
-6. The output below will be shown.
+1. Ensure you have Java 11 installed.
+2. Download `ip.jar` file from [**here**](https://github.com/NonRNP/ip/releases).
+3. Copy `ip.jar` to an empty folder.
+4. Launch command window.
+5. Navigate to the folder where `ip.jar` is stored.
+6. Enter command `java -jar ip.jar`.
+7. The output below will be shown.
 
 ```
     ____        _
@@ -42,7 +43,7 @@ Command | Format | Description
 
 ## Commands Usage
 
-### **`Help`:** Show all commands
+### `Help`: Show all commands
 
 Show all available commands from Duke.
 
@@ -66,7 +67,7 @@ help
 ------------------------------------------------
 ```
 
-### **`List`:** List all tasks
+### `List`: List all tasks
 
 Show all tasks stored by Duke.
 
@@ -84,11 +85,11 @@ list
 ------------------------------------------------
 ```
 
-### **`Find`:** List tasks containing the keyword
+### `Find`: List tasks containing the keyword
 
 Show all tasks which contain a specific keyword.
 
-Command format: `find *keyword*`
+Command format: `find <keyword>`
 
 Example:
 
@@ -101,11 +102,11 @@ find assignment
 ------------------------------------------------
 ```
 
-### **`Todo`:** Add task
+### `Todo`: Add task
 
 Add task to Duke.
 
-Command format: `todo *task description*`
+Command format: `todo <task description>`
 
 Example:
 
@@ -118,11 +119,11 @@ todo prepare for final
 ------------------------------------------------
 ```
 
-### **`Deadline`:** Add task with deadline
+### `Deadline`: Add task with deadline
 
 Add task with a specific deadline to Duke.
 
-Command format: `deadline *task description* /at *deadline date`
+Command format: `deadline <task description> /at <deadline date>`
 
 Example:
 
@@ -140,11 +141,11 @@ Note: Date must be in form of yyyy-mm-dd where:
 * mm is a two digits month
 * dd is a two digits date
 
-### **`Event`:** Add event at specific date
+### `Event`: Add event at specific date
 
 Add event happening on a specific date to Duke.
 
-Command format: `event *event description* /at *event date`
+Command format: `event <event description> /at <event date>`
 
 Example:
 
@@ -162,11 +163,11 @@ Note: Date must be in form of yyyy-mm-dd where:
 * mm is a two digits month
 * dd is a two digits date
 
-### **`Done`:** Mark task as done
+### `Done`: Mark task as done
 
 Mark a task in Duke as done.
 
-Command format: `done *task number*`
+Command format: `done <task number>`
 
 Example:
 
@@ -178,11 +179,11 @@ done 2
 ------------------------------------------------
 ```
 
-### **`Delete`:** Delete task
+### `Delete`: Delete task
 
 Remove a task from Duke.
 
-Command format: `delete *task number*`
+Command format: `delete <task number>`
 
 Example:
 
@@ -195,7 +196,7 @@ delete 4
 ------------------------------------------------
 ```
 
-### **`Bye`:** Exit Duke
+### `Bye`: Exit Duke
 
 Exit the program.
 
