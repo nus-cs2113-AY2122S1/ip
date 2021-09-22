@@ -1,16 +1,11 @@
 package duke.task;
 
-public class Deadline extends Task {
-    protected String by;
+import java.time.format.DateTimeFormatter;
+
+public class Deadline extends TimedTask {
 
     public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-    }
-
-    @Override
-    public String getAdditionalDescription() {
-        return by;
+        super(description,by);
     }
 
     @Override
@@ -20,6 +15,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" (by: %s)", getAdditionalDescription());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
+        String deadlineTime = getDateTime().format(formatter);
+        return super.toString() + String.format(" (by: %s)", deadlineTime);
     }
 }

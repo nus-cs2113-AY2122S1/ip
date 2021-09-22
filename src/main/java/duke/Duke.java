@@ -6,10 +6,12 @@ import duke.exception.WrongCommandException;
 
 import java.util.Scanner;
 
-import static duke.Parser.*;
+import static duke.Parser.parseInput;
+import static duke.Parser.translateAction;
+import static duke.Parser.parseNumber;
 
 public class Duke {
-    private static TaskManager taskManager = new TaskManager();
+    private static TaskList taskList = new TaskList();
     private static boolean isProgramFinished = false;
 
     public static void readAndExecuteCommand() {
@@ -28,27 +30,26 @@ public class Duke {
 
     public static String readCommand(Scanner in) {
         System.out.print(">>");
-        String input = in.nextLine();
-        return input;
+        return in.nextLine();
     }
 
     private static void executeCommand(String input, Action action) {
         try {
             switch (action) {
             case MARK_DONE:
-                taskManager.markTaskDone(parseNumber(parseInput(input)));
+                taskList.markTaskDone(parseNumber(parseInput(input)));
                 break;
             case QUIT:
                 isProgramFinished = true;
                 break;
             case LIST:
-                taskManager.displayTaskList();
+                taskList.displayTaskList();
                 break;
             case DELETE:
-                taskManager.deleteTask(parseNumber(parseInput(input)));
+                taskList.deleteTask(parseNumber(parseInput(input)));
                 break;
             default:
-                taskManager.addTask(input, action);
+                taskList.addTask(input, action);
             }
         } catch (TaskNotFoundException | EmptyDescriptionException | NumberFormatException e) {
             DukeUI.printError(e);
