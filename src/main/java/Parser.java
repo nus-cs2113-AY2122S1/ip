@@ -159,6 +159,12 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Checks the format of the user's find command input.
+     *
+     * @param userInput User's input.
+     * @return Boolean representing whether the format of the user's find command input is correct.
+     */
     public static boolean findFormatChecker(String userInput) {
         String[] splitUserInput = userInput.split(" ");
         int userInputLength = splitUserInput.length;

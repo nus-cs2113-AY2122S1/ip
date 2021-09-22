@@ -98,6 +98,13 @@ public class TaskList {
         Ui.printMessage(message);
     }
 
+    /**
+     * Checks whether a keyword is in a task's string format.
+     *
+     * @param wordsInTask List of words of a task's string format.
+     * @param keyword Word that is used to check.
+     * @return Boolean representing whether a keyword is in a task's string format.
+     */
     public static boolean keywordChecker(String[] wordsInTask, String keyword) {
         for (String word : wordsInTask) {
             if (word.equals(keyword)) {
@@ -107,6 +114,11 @@ public class TaskList {
         return false;
     }
 
+    /**
+     * Prints a matching tasks list.
+     *
+     * @param tasks Array list of tasks.
+     */
     public static void printMatchingTasksList(ArrayList<Task> tasks) {
         String message = " Here are the matching tasks in your list:\n";
         int taskIndex = 1;
@@ -117,6 +129,12 @@ public class TaskList {
         Ui.printMessage(message);
     }
 
+    /**
+     * Finds all tasks with descriptions that contain the keyword.
+     *
+     * @param tasks Array list of tasks.
+     * @param keyword Word that is used to find matching tasks.
+     */
     public static void findTask(ArrayList<Task> tasks, String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
