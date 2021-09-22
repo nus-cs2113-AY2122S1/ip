@@ -1,9 +1,9 @@
 # User Guide
-####_____________________________________________________
+
 ## Duke
 Duke is a simple task management software which utilises the Command Line Interface **(CLI)**, to store and find tasks.
 Through consistent effort, the management of tasks will be more efficient.
-####_____________________________________________________
+
 ## Getting Started
 Ensure that Java 11 and latest edition of IP.jar is installed.
 
@@ -32,7 +32,7 @@ Input command:
     * `done 1`
     * `bye`
 5. Refer to feature list below for full details of available commands.
-####_____________________________________________________
+
 
 ## Command Summary
 Feature | Command Format
@@ -45,7 +45,7 @@ Date| `date <date: yyyy-mm-dd>`
 List| `list`
 Help| `help`
 Bye| `bye`
-####_____________________________________________________
+
 ## Feature List
 ### Adding a task
 There are a total of 3 different task type, *Todo*, *Deadline* and *Event*.
@@ -162,7 +162,7 @@ Input command: bye
 GoodBye! Please finish up your task!
 =======================================================================================================
 ````
-####_____________________________________________________
+
 ## Things To Note
 1. Input commands are not case-sensitive.
 2. All tasks and task status are directly stored in the directory data then dukeTask.txt file.
