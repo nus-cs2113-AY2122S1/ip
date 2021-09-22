@@ -1,7 +1,7 @@
 # Duke User Guide
 
 ## Introduction
-Duke is a Personal Assistant Chatbot that helps a person keep track of various things,
+Duke is a Personal Assistant Chatbot that helps a person keep track of various things!
 
 ## Features 
 
