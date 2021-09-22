@@ -84,8 +84,12 @@ public class Ui {
                                             + BAR_LINE + "\n"
                                             + "Todo: todo **INSERT TASK HERE**\n"
                                             + "Deadline: deadline **INSERT TASK HERE** /by DD/MM/YYYY\n"
-                                            + "Event: event **INSERT TASK HERE** /at **INSERT EVENT DATE HERE**\n"
+                                            + "Event: event **INSERT TASK HERE** /at DD/MM/YYYY\n"
                                             + "Find: find **INSERT KEYWORD HERE**\n"
+                                            + "List out tasks: list\n"
+                                            + "Mark as done: done **INSERT TASK NUMBER HERE**\n"
+                                            + "Delete task: delete **INSERT TASK NUMBER HERE**\n"
+                                            + "Exit application: bye\n"
                                             + BAR_LINE + "\n"
                                             + CAT_4;
     public static final String EXIT_MESSAGE = "\n" + "Nap time!! Yawn...\n"
