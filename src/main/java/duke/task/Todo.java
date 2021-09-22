@@ -1,15 +1,9 @@
 package duke.task;
 
-/**
- * The Todo class is a subclass of Task which
- * implements its functionality.
- *
- * @author richwill28
- */
 public class Todo extends Task {
     /**
-     * The constructor method. Initialize task description
-     * and set the initial status to "not done".
+     * Initializes task description and set the initial
+     * status to "not done".
      *
      * @param description Task description.
      */
@@ -18,9 +12,8 @@ public class Todo extends Task {
     }
 
     /**
-     * The constructor method. Initialize task description
-     * and set the initial status according to the given
-     * parameter.
+     * Initializes task description and sets the initial
+     * status according to the given parameter.
      *
      * @param description Task description.
      * @param isDone Initial status.
@@ -36,6 +29,6 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[" + TODO + "]" + super.toString();
     }
 }

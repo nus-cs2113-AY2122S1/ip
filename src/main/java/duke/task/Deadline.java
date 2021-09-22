@@ -1,18 +1,12 @@
 package duke.task;
 
-/**
- * The Deadline class is a subclass of Task. It
- * provides an additional parameter, deadline.
- *
- * @author richwill28
- */
 public class Deadline extends Task {
-    /** Task deadline */
+    /** Task deadline. */
     protected String by;
 
     /**
-     * The constructor method. Initialize task description,
-     * status to "not done", and deadline.
+     * Initializes the task description and deadline, and
+     * sets initial status to "not done".
      *
      * @param description Task description.
      * @param by Task deadline.
@@ -23,8 +17,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * The constructor method. Initialize task description,
-     * status according to the given parameter, and deadline.
+     * Initializes the task description and deadline, and
+     * sets initial status according to the given parameter.
      *
      * @param description Task description.
      * @param by Task deadline.
@@ -42,6 +36,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[" + DEADLINE + "]" + super.toString() + " (by: " + by + ")";
     }
 }

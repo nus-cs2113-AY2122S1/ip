@@ -3,60 +3,33 @@ package duke.task;
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.exception.DukeException;
 import duke.ui.Ui;
 
-/**
- * This class manages the list of tasks.
- *
- * @author richwill28
- */
 public class TaskList {
-    /** The list of tasks */
     private List<Task> taskList;
 
-    /**
-     * The constructor method. Initializes the
-     * list of tasks.
-     */
     public TaskList() {
         taskList = new ArrayList<>();
     }
 
-    /**
-     * Adds new task to the list.
-     *
-     * @param task New task.
-     */
+    public TaskList(List<String> data) throws DukeException {
+        taskList = deserialize(data);
+    }
+
     public void addTask(Task task) {
         taskList.add(task);
     }
 
-    /**
-     * Returns the current size of the list.
-     *
-     * @return Size of the list.
-     */
     public int getSize() {
         return taskList.size();
     }
 
-    /**
-     * Returns the task object at a particular
-     * index.
-     *
-     * @param index Index of the task.
-     * @return Task object.
-     */
     public Task getTask(int index) {
         return taskList.get(index);
     }
 
-    /**
-     * Marks a task at a particular index as done.
-     *
-     * @param index Index of the task.
-     */
-    public void markAsDone(int index) {
+    public void markTaskAsDone(int index) {
         taskList.get(index).markAsDone();
     }
 
@@ -65,39 +38,40 @@ public class TaskList {
     }
 
     /**
-     * Serialize task data;
+     * Serializes task data.
      *
      * @return Serialied task data.
      */
     public String serialize() {
-        String serializedData = "";
+        StringBuilder serializedData = new StringBuilder();
         for (Task task : taskList) {
-            serializedData += task.serialize() + System.lineSeparator();
+            serializedData.append(task.serialize()).append(System.lineSeparator());
         }
-        return serializedData;
+        return serializedData.toString();
     }
 
     /**
-     * Deserialize stored data and return a new list.
+     * Deserializes stored data and returns a new list.
      *
      * @param data Stored data.
      * @return The new task list after deserialization.
+     * @throws DukeException If data is in invalid format.
      */
-    public static TaskList deserialize(List<String> data) throws IllegalArgumentException {
-        TaskList taskList = new TaskList();
+    public static List<Task> deserialize(List<String> data) throws DukeException {
+        List<Task> taskList = new ArrayList<>();
         for (String line : data) {
-            taskList.addTask(Task.deserialize(line));
+            taskList.add(Task.deserialize(line));
         }
         return taskList;
     }
 
     @Override
     public String toString() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
-            s += Ui.PADDING + (i + 1) + "." + task + System.lineSeparator();
+            s.append(Ui.PADDING).append(i + 1).append(". ").append(task).append(System.lineSeparator());
         }
-        return s;
+        return s.toString();
     }
 }
