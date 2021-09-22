@@ -7,7 +7,7 @@ public class Todo extends Task {
      *
      * @param description Description stores the description of the task.
      */
-    Todo(String description) {
+    public Todo(String description) {
         super(description);
         this.taskType = TaskType.TODO;
     }

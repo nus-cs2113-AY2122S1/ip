@@ -5,7 +5,7 @@ public class Event extends Task {
     /**
      * Stores the event time of the task
      */
-    protected String at;
+    public String at;
 
     /**
      * Constructor to initialize task description and event time.
@@ -13,7 +13,7 @@ public class Event extends Task {
      * @param description Description stores the description of the task.
      * @param at          At stores the event time of the task.
      */
-    Event(String description, String at) {
+    public Event(String description, String at) {
         super(description);
         this.at = at;
         this.taskType = TaskType.EVENT;

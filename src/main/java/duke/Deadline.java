@@ -4,7 +4,7 @@ public class Deadline extends Task {
     /**
      * Stores the deadline of the task
      */
-    protected String by;
+    public String by;
 
     /**
      * Constructor to initialize task description and deadline.
@@ -12,7 +12,7 @@ public class Deadline extends Task {
      * @param description Description stores the description of the task.
      * @param by          By stores the deadline of the task.
      */
-    Deadline(String description, String by) {
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
         this.taskType = TaskType.DEADLINE;
