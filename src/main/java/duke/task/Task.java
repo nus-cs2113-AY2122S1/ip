@@ -44,7 +44,7 @@ public abstract class Task extends Text {
     @Override
     public String toString() {
         if (isDone()) {
-            return "[✓] " + taskName;
+            return "[*] " + taskName;
         }
         else {
             return "[ ] " + taskName;
