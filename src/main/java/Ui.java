@@ -65,16 +65,37 @@ public class Ui {
     }
 
     public static void printDeleteTask(int size, Task task) {
+        printLineOnConsole();
         System.out.println(DELETE_MESSAGE);
         System.out.println("     " + task);
         System.out.println(TASK_MESSAGE_START + size
                 + TASK_MESSAGE_END);
+        printLineOnConsole();
     }
 
     public static void printSortedDateTimedTask() {
+        boolean isEmpty = true;
+        printLineOnConsole();
         for(TimedTask task: TimedTaskList.getSortedList()) {
             System.out.println("     " + task);
+            isEmpty = false;
         }
+        if(isEmpty){
+            System.out.println("     There are no deadlines or events to sort");
+        }
+        printLineOnConsole();
+    }
+    public static void printFilteredDateTimedTask(String input) {
+        boolean isEmpty = true;
+        printLineOnConsole();
+        for(Task task: TaskList.findTask(input)) {
+            System.out.println("     " + task);
+            isEmpty = false;
+        }
+        if (isEmpty) {
+            System.out.println("     There are no results with the substring \"" + input + "\"");
+        }
+        printLineOnConsole();
     }
 
 }

@@ -61,6 +61,8 @@ public class Duke {
                 System.out.println("Date keyed in is of invalid format");
             } catch ( DateTimeParseException e) {
                 System.out.println("invalid datetime format");
+            } catch ( Exception e) {
+                System.out.println("invalid command, please try other commands/inputs");
             }
             try {
                 FileWriter fileWrite = new FileWriter(filePath);

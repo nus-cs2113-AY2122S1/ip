@@ -15,6 +15,7 @@ public class Parser {
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_SORT = "sort";
+    public static final String COMMAND_FIND = "find";
 
     /**
      * Returns lateral location of the specified position.
@@ -66,6 +67,10 @@ public class Parser {
             checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             sortRequiredList(descriptionInput[FIRST_ARRAY_PARAMETER]);
             break;
+        case COMMAND_FIND:
+            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
+            Ui.printFilteredDateTimedTask(descriptionInput[FIRST_ARRAY_PARAMETER]);
+            break;
         default:
             throw new UnknownCommandException();
         }
@@ -113,7 +118,6 @@ public class Parser {
         }
         String[] newWord = input.split(" ", 2);
         if (words[0].equals("deadline") && newWord[1].contains("/by")) {
-            // need to try new outliers
             output = newWord[1].split(" /by ", 2);
         } else if (words[0].equals("event") && newWord[1].contains(" /at ")) {
             output = newWord[1].split(" /at ", 2);
