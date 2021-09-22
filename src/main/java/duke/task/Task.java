@@ -1,11 +1,15 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * An abstract class represents a task
  */
 public abstract class Task {
     protected String taskDescription;
     protected boolean isDone;
+    protected final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
     /**
      * Constructor method for <code>Task</code>
