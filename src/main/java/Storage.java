@@ -109,13 +109,25 @@ public class Storage {
         }
         return newString;
     }
-
-    public static LocalDateTime parseDeadline (String result) {
+    /**
+     * Takes the string stored inside the file and convert it into a datetime object for creation
+     * of task to store into arraylist upon the start of program
+     * @param result
+     * @return datetime object
+     */
+    private static LocalDateTime parseDeadline (String result) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         LocalDateTime date = LocalDateTime.parse(result, formatter);
         return date;
     }
-    public static LocalDateTime[] parseEvent (String result) {
+
+    /**
+     * Takes the string stored inside the file and convert it into a datetime object for creation
+     * of task to store into arraylist upon the start of program
+     * @param result
+     * @return datetime object
+     */
+    private static LocalDateTime[] parseEvent (String result) {
         String[] results = result.split(" to ");
         LocalDateTime[] dates =  new LocalDateTime[2];
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");

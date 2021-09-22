@@ -3,7 +3,7 @@
  * Created so that different classes of similar functionalities(Task)
  * could be placed together
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
     protected char taskType;
@@ -42,6 +42,9 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Change isDone to true and print out the task on console
+     */
     public void markAsDone() {
         this.isDone = true;
         Ui.printLineOnConsole();
@@ -59,6 +62,11 @@ public class Task {
         return description;
     }
 
+    /**
+     * Returns character based on their task type
+     * T:todo D:deadline E:event
+     * @return necessary taskType as above
+     */
     public char getTaskType() {
         return taskType;
     }

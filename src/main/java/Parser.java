@@ -16,66 +16,118 @@ public class Parser {
     public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_SORT = "sort";
     public static final String COMMAND_FIND = "find";
+    public static final String COMMAND_HELP = "help";
 
     /**
-     * Returns lateral location of the specified position.
+     * Execute commands based on the command word given
      *
      * @param words String input by user.
      */
     public static void checkCommand(String[] words, String input) throws
             UnknownCommandException, DukeException, IncorrectTimeFormatException {
-        //all the items at the bottom must be factorised
         String[] descriptionInput = parseInput(words, input);
         switch (words[FIRST_ARRAY_PARAMETER]) {
         case COMMAND_BYE:
-            Ui.printGoodbyeMessage();
-            break;
+            executeCommandBye();
         case COMMAND_LIST:
-            Ui.printList();
+            executeCommandList();
             break;
         case COMMAND_DONE:
-            int taskNumber;
-            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
-            taskNumber = Integer.parseInt(words[SECOND_ARRAY_PARAMETER]);
-            TaskList.checkDoneTask(taskNumber);
+            executeCommandDone(words, descriptionInput);
             break;
         case COMMAND_DELETE:
-            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
-            taskNumber = Integer.parseInt(words[SECOND_ARRAY_PARAMETER]);
-            TaskList.deleteTask(taskNumber);
+            executeCommandDelete(words, descriptionInput);
             break;
         case COMMAND_TODO:
-            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
-            Todo todo = new Todo(descriptionInput[FIRST_ARRAY_PARAMETER]);
-            TaskList.addTask(todo);
+            executeCommandTodo(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             break;
         case COMMAND_DEADLINE:
-            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
-            checkTimeframe(descriptionInput);
-            Deadline deadline = new Deadline(descriptionInput[FIRST_ARRAY_PARAMETER],
-                    parseDeadlineDate(descriptionInput[SECOND_ARRAY_PARAMETER]));
-            TaskList.addTask(deadline);
+            executeCommandDeadline(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             break;
         case COMMAND_EVENT:
-            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
-            checkTimeframe(descriptionInput);
-            Event event = new Event(descriptionInput[FIRST_ARRAY_PARAMETER],
-                    parseEventDate(descriptionInput[SECOND_ARRAY_PARAMETER]));
-            TaskList.addTask(event);
+            executeCommandEvent(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             break;
         case COMMAND_SORT:
-            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
-            sortRequiredList(descriptionInput[FIRST_ARRAY_PARAMETER]);
+            executeCommandSort(words[FIRST_ARRAY_PARAMETER], descriptionInput);
             break;
         case COMMAND_FIND:
-            checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
-            Ui.printFilteredDateTimedTask(descriptionInput[FIRST_ARRAY_PARAMETER]);
+            executeCommandFind(words[FIRST_ARRAY_PARAMETER], descriptionInput);
+            break;
+        case COMMAND_HELP:
+            Ui.printHelp();
             break;
         default:
             throw new UnknownCommandException();
         }
     }
 
+    private static void executeCommandFind(String word, String[] descriptionInput)
+            throws DukeException {
+        checkDescription(word, descriptionInput);
+        Ui.printFilteredDateTimedTask(descriptionInput[FIRST_ARRAY_PARAMETER]);
+    }
+
+    private static void executeCommandSort(String word, String[] descriptionInput)
+            throws DukeException {
+        checkDescription(word, descriptionInput);
+        sortRequiredList(descriptionInput[FIRST_ARRAY_PARAMETER]);
+    }
+
+    private static void executeCommandEvent(String word, String[] descriptionInput)
+            throws DukeException, IncorrectTimeFormatException {
+        checkDescription(word, descriptionInput);
+        checkTimeframe(descriptionInput);
+        Event event = new Event(descriptionInput[FIRST_ARRAY_PARAMETER],
+                parseEventDate(descriptionInput[SECOND_ARRAY_PARAMETER]));
+        TaskList.addTask(event);
+    }
+
+    private static void executeCommandDeadline(String word, String[] descriptionInput)
+            throws DukeException, IncorrectTimeFormatException {
+        checkDescription(word, descriptionInput);
+        checkTimeframe(descriptionInput);
+        Deadline deadline = new Deadline(descriptionInput[FIRST_ARRAY_PARAMETER],
+                parseDeadlineDate(descriptionInput[SECOND_ARRAY_PARAMETER]));
+        TaskList.addTask(deadline);
+    }
+
+    private static void executeCommandTodo(String word, String[] descriptionInput)
+            throws DukeException {
+        checkDescription(word, descriptionInput);
+        Todo todo = new Todo(descriptionInput[FIRST_ARRAY_PARAMETER]);
+        TaskList.addTask(todo);
+    }
+
+    private static void executeCommandDelete(String[] words, String[] descriptionInput)
+            throws DukeException {
+        int taskNumber;
+        checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
+        taskNumber = Integer.parseInt(words[SECOND_ARRAY_PARAMETER]);
+        TaskList.deleteTask(taskNumber);
+    }
+
+    private static void executeCommandDone(String[] words, String[] descriptionInput)
+            throws DukeException {
+        checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);
+        int taskNumber = Integer.parseInt(words[SECOND_ARRAY_PARAMETER]);
+        TaskList.checkDoneTask(taskNumber);
+    }
+
+    private static void executeCommandList() {
+        Ui.printList();
+    }
+
+    private static void executeCommandBye() {
+        Ui.printGoodbyeMessage();
+    }
+
+    /**
+     * Check if the keyword given by the user is correct
+     * Format: sort 'keyword'
+     * e.g. sort time
+     * @param keyword
+     * @throws DukeException when the keyword is incompatible
+     */
     private static void sortRequiredList(String keyword) throws DukeException {
         if (keyword.equals("time")) {
             Ui.printSortedDateTimedTask();
@@ -84,10 +136,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Throws different exception based on the command type
+     * @param command is the first word of user input
+     * @param descriptionInput is the string that followed after the command
+     * @throws DukeException if the subsequent words after the command is empty
+     */
     private static void checkDescription(String command, String[] descriptionInput) throws DukeException {
-
-        if (descriptionInput[FIRST_ARRAY_PARAMETER].equals("") ||
-                descriptionInput[FIRST_ARRAY_PARAMETER].equals(" ")) {
+        if (descriptionInput[FIRST_ARRAY_PARAMETER].equals("")) {
             switch (command) {
             case COMMAND_TODO:
                 throw new DukeException(ErrorMessage.EXCEPTION_MISSING_DESCRIPTION_TODO);
@@ -101,10 +157,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Throws input if necessary commands requires additional input
+     * @param descriptionInput, line of text after the command word
+     * @throws DukeException
+     */
     private static void checkTimeframe(String[] descriptionInput) throws DukeException {
         boolean emptyInput = descriptionInput[SECOND_ARRAY_PARAMETER].equals("");
-        boolean singleSpaceInput = descriptionInput[SECOND_ARRAY_PARAMETER].equals(" ");
-        if (emptyInput || singleSpaceInput) {
+        if (emptyInput) {
             throw new DukeException(ErrorMessage.EXCEPTION_MESSAGE_MISSING_PARAMETERS_AFTER_KEYWORD);
         }
     }
@@ -126,7 +186,16 @@ public class Parser {
         }
         return output;
     }
-    public static LocalDateTime parseDeadlineDate (String parser) throws IncorrectTimeFormatException {
+
+    /**
+     * Change datetime string into datetime object for deadline
+     * if parser is YYYY-MM-DD, time will automatically be 0000
+     * else if parser YYYY-MM-DD HHMM, time will follow based on user input
+     * @param parser is the datetime part of input
+     * @return datetime object
+     * @throws IncorrectTimeFormatException if input format of time is incorrect or invalid numbers for time
+     */
+    private static LocalDateTime parseDeadlineDate (String parser) throws IncorrectTimeFormatException {
         String[] stringDate = parser.split(" ");
         LocalDateTime date;
         DateTimeFormatter formatter;
@@ -143,8 +212,17 @@ public class Parser {
         }
         return date;
     }
-
-    public static LocalDateTime[] parseEventDate (String parser) throws IncorrectTimeFormatException {
+    /**
+     * Change datetime string into datetime object for event
+     * if parser is YYYY-MM-DD to YYYY-MM-DD, time will be set to 0000
+     * if parser is YYYY-MM-DD HHMM to HHMM, the second time will follow the date given,
+     * assuming that the event start and end on the same day
+     * if parser is YYYY-MM-DD to YYYY-MM-DD HHMM, the time will be based on user input
+     * @param parser is the datetime part of input
+     * @return datetime object
+     * @throws IncorrectTimeFormatException if input format of time is incorrect
+     */
+    private static LocalDateTime[] parseEventDate (String parser) throws IncorrectTimeFormatException {
         String[] stringDates = parser.split(" ");
         LocalDateTime[] dates = new LocalDateTime[2];
         DateTimeFormatter formatter;
