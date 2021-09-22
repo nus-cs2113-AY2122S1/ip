@@ -6,6 +6,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 
@@ -57,6 +58,8 @@ public class Command {
             Ui.printAddTaskMessage();
         } catch (IndexOutOfBoundsException e) {
             Ui.printParameterErrorMessage();
+        } catch (DateTimeParseException ex) {
+            Ui.printTimeParseErrorMessage();
         }
     }
 
