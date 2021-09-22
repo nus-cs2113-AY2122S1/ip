@@ -24,9 +24,13 @@ public class Duke {
             command = inputWords[0];
             switch (command) {
             case "todo":
+                TaskManager.addToDo(input, inputWords);
+                break;
             case "deadline":
+                TaskManager.addDeadline(input, inputWords);
+                break;
             case "event":
-                TaskManager.addTask(input, inputWords, command);
+                TaskManager.addEvent(input, inputWords);
                 break;
             case "done":
                 TaskManager.crossOff(inputWords);

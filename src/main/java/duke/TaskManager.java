@@ -10,9 +10,12 @@ import duke.validation.Validation;
 import java.util.ArrayList;
 
 public class TaskManager {
-    public static final int TODO_DESCRIPTION_BEGIN_INDEX = 5;
-    public static final int DEADLINE_DESCRIPTION_BEGIN_INDEX = 9;
-    public static final int EVENT_DESCRIPTION_BEGIN_INDEX = 6;
+    private static final int TODO_DESCRIPTION_BEGIN_INDEX = 5;
+    private static final int DEADLINE_DESCRIPTION_BEGIN_INDEX = 9;
+    private static final int EVENT_DESCRIPTION_BEGIN_INDEX = 6;
+    private static final String DEADLINE_KEYWORD = "/by";
+    private static final String EVENT_KEYWORD = "/at";
+
     protected static ArrayList<Task> tasks = new ArrayList<>();
     protected static int taskCount = 0;
 
@@ -58,55 +61,49 @@ public class TaskManager {
         UI.printDeleteMessage(current, taskCount);
         tasks.remove(taskIndex);
     }
-
-    public static void addTask(String input, String[] inputWords, String command) {
-        String description;
-        switch (command) {
-        case "todo":
-            if (!Validation.isValidTodo(inputWords)) {
-                DukeException.invalidTodoException();
-                return;
-            }
-            description = input.substring(TODO_DESCRIPTION_BEGIN_INDEX);
-            Task newToDo = new ToDo(description);
-            tasks.add(newToDo);
-            break;
-        case "deadline":
-            if (!Validation.isValidDeadline(input, inputWords)) {
-                DukeException.invalidDeadlineException();
-                return;
-            } else if (!Validation.isValidEndDate(input)) {
-                DukeException.invalidEndDateException();
-                return;
-            }
-            String endDate;
-            description = input.substring(DEADLINE_DESCRIPTION_BEGIN_INDEX, input.indexOf("/by") - 1);
-            int endDateBeginIndex = input.indexOf("/by") + 4;
-            endDate = input.substring(endDateBeginIndex);
-            Task newDeadline = new Deadline(description, endDate);
-            tasks.add(newDeadline);
-            break;
-        case "event":
-            if (!Validation.isValidEvent(input, inputWords)) {
-                DukeException.invalidEventException();
-                return;
-            } else if (!Validation.isValidDuration(input)) {
-                DukeException.invalidDurationException();
-                return;
-            }
-            String duration;
-            description = input.substring(EVENT_DESCRIPTION_BEGIN_INDEX, input.indexOf("/at") - 1);
-            int durationBeginIndex = input.indexOf("/at") + 4;
-            duration = input.substring(durationBeginIndex);
-            Task newEvent = new Event(description, duration);
-            tasks.add(newEvent);
-            break;
-        default:
-            break;
+    public static void addToDo(String input, String[] inputWords) {
+        if (!Validation.isValidTodo(inputWords)) {
+            DukeException.invalidTodoException();
+            return;
         }
+        String description = input.substring(TODO_DESCRIPTION_BEGIN_INDEX);
+        Task newToDo = new ToDo(description);
+        tasks.add(newToDo);
         taskCount = taskCount + 1;
-        Task current = tasks.get(taskCount - 1);
-        UI.printAdditionMessage(current, taskCount);
+        UI.printAdditionMessage(newToDo, taskCount);
     }
 
+    public static void addDeadline(String input, String[] inputWords) {
+        if (!Validation.isValidDeadline(input, inputWords)) {
+            DukeException.invalidDeadlineException();
+            return;
+        } else if (!Validation.isValidEndDate(input)) {
+            DukeException.invalidEndDateException();
+            return;
+        }
+        String description = input.substring(DEADLINE_DESCRIPTION_BEGIN_INDEX, input.indexOf("/by") - 1);
+        int endDateBeginIndex = input.indexOf(DEADLINE_KEYWORD) + 4;
+        String endDate = input.substring(endDateBeginIndex);
+        Task newDeadline = new Deadline(description, endDate);
+        tasks.add(newDeadline);
+        taskCount = taskCount + 1;
+        UI.printAdditionMessage(newDeadline, taskCount);
+    }
+
+    public static void addEvent(String input, String[] inputWords) {
+        if (!Validation.isValidEvent(input, inputWords)) {
+            DukeException.invalidEventException();
+            return;
+        } else if (!Validation.isValidDuration(input)) {
+            DukeException.invalidDurationException();
+            return;
+        }
+        String description = input.substring(EVENT_DESCRIPTION_BEGIN_INDEX, input.indexOf("/at") - 1);
+        int durationBeginIndex = input.indexOf(EVENT_KEYWORD) + 4;
+        String duration = input.substring(durationBeginIndex);
+        Task newEvent = new Event(description, duration);
+        tasks.add(newEvent);
+        taskCount = taskCount + 1;
+        UI.printAdditionMessage(newEvent, taskCount);
+    }
 }
