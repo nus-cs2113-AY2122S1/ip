@@ -85,7 +85,7 @@ list
 ------------------------------------------------
 ```
 
-### `Find`: List tasks containing the keyword
+### `Find`: List tasks containing specific keyword
 
 Show all tasks which contain a specific keyword.
 
