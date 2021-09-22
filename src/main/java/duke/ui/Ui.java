@@ -64,7 +64,7 @@ public class Ui {
         int listIndex = 1;
         System.out.println(HORIZONTAL_LINE);
         for (Task task : taskList) {
-            task.printTaskList(listIndex);
+            task.printIndividualTask(listIndex);
             listIndex++;
         }
         System.out.println(HORIZONTAL_LINE);
@@ -78,7 +78,7 @@ public class Ui {
     public static void printSearchList(ArrayList<Task> searchList) {
         int listIndex = 1;
         for (Task task : searchList) {
-            task.printTaskList(listIndex);
+            task.printIndividualTask(listIndex);
             listIndex++;
         }
         System.out.println(HORIZONTAL_LINE);

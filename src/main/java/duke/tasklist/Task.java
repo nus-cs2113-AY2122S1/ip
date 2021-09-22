@@ -72,7 +72,7 @@ public class Task {
      *
      * @param listIndex position of the task that is being printed in the task list.
      */
-    public void printTaskList(int listIndex) {
+    public void printIndividualTask(int listIndex) {
         System.out.println(listIndex + ".[" + getTaskType() + "]"
             + "[" + getStatusIcon() + "] " + description);
     }

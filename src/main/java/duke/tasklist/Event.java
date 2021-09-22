@@ -65,7 +65,7 @@ public class Event extends Task {
      * @param listIndex position of the Event that is being printed in the task list.
      */
     @Override
-    public void printTaskList(int listIndex) {
+    public void printIndividualTask(int listIndex) {
         System.out.println(listIndex + ".[" + getTaskType() + "]"
             + "[" + getStatusIcon() + "] " + description + " (at:" + convertDeadline() + ")");
     }
