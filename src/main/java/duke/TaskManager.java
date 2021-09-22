@@ -1,10 +1,6 @@
 package duke;
 
-import duke.command.AddCommand;
-import duke.command.ExitCommand;
-import duke.command.DeleteCommand;
-import duke.command.DoneCommand;
-import duke.command.ListCommand;
+import duke.command.*;
 
 import duke.exception.DukeException;
 import duke.task.Task;
@@ -17,10 +13,10 @@ public class TaskManager {
     /**
      * Processes the extracted user command
      *
-     * @param command is the extracted first word of the user input
-     * @param input is the command given by the user
+     * @param command  is the extracted first word of the user input
+     * @param input    is the command given by the user
      * @param taskList is a TaskList object
-     * @param storage is a Storage object
+     * @param storage  is a Storage object
      * @throws DukeException if delete/done command is not provided with an index or an invalid command is given
      */
     public static void parseUserCommand(String command, String input, TaskList taskList, Storage storage) throws DukeException {
@@ -32,6 +28,16 @@ public class TaskManager {
         case "list":
             // Passes the current list of tasks in the txt file to show all the tasks
             new ListCommand().executeUserCommand(taskList, storage);
+            break;
+        case "find":
+            try {
+                String keyword = Parser.getKeywordFromCommand(input);
+
+                // Passes the current list of tasks in the txt file to find a task
+                new FindCommand(keyword).executeUserCommand(taskList, storage);
+            } catch (IndexOutOfBoundsException | DukeException e) {
+                throw new DukeException("I do not know which task you want me to FIND. Give the task keyword my friend");
+            }
             break;
         case "delete":
             try {

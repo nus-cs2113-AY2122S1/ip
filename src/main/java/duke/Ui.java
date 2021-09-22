@@ -67,11 +67,32 @@ public class Ui {
     }
 
     public static void printTaskList() {
+        Ui.printLineSeparator();
         System.out.println("Here are the tasks in your list:");
 
         //Lists down all the tasks added along with its status
         for (int i = 0; i < list.size(); i++) {
             System.out.println((i + 1) + ". " + list.get(i));
         }
+        Ui.printLineSeparator();
+    }
+
+    public static void printMatchingTasks(String keyword) {
+        Ui.printLineSeparator();
+        System.out.println("Here are the matching tasks in your list:");
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getDescription().contains(keyword)) {
+                System.out.println((i + 1) + ". " + list.get(i));
+            }
+        }
+
+        Ui.printLineSeparator();
+    }
+
+    public static void printEmptyListMessage() {
+        Ui.printLineSeparator();
+        System.out.println("There are no more tasks!");
+        Ui.printLineSeparator();
     }
 }
