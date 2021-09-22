@@ -1,43 +1,40 @@
 package duke;
 
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import duke.task.*;
 
 public class Duke {
-    private static final String LOGO =
-            " _______  __   __  ______   _______  _______  _______  __   __  _______\n" +
-            "|       ||  | |  ||      | |       ||       ||   _   ||  |_|  ||   _   |\n" +
-            "|    ___||  | |  ||  _    ||    ___||_     _||  |_|  ||       ||  |_|  |\n" +
-            "|   | __ |  |_|  || | |   ||   |___   |   |  |       ||       ||       |\n" +
-            "|   ||  ||       || |_|   ||    ___|  |   |  |       ||       ||       |\n" +
-            "|   |_| ||       ||       ||   |___   |   |  |   _   || ||_|| ||   _   |\n" +
-            "|_______||_______||______| |_______|  |___|  |__| |__||_|   |_||__| |__|\n";
-    private static final String SEPARATOR = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n";
-    private static final int MAX_TASK = 100;
     private static ArrayList<Task> userInputs = new ArrayList<>();
     private static int userInputsCount = 0;
 
-    /**
-     * Initiate the program and print the various messages
-     */
-    public static void initiateDuke() {
-        System.out.println(SEPARATOR + "Hi... from GUDETAMA... so sleepy\n" + LOGO);
-        System.out.println("Give me five more minutes..... What can I do for you?\n" + SEPARATOR);
+    private Ui ui;
+
+    public Duke() {
+        this.ui = new Ui();
+    }
+
+    public void initiateDuke() {
+        ui.printWelcome();
 
         try {
             loadSave();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found" + System.lineSeparator() + "Empty file created");
-            System.out.println(SEPARATOR);
+            ui.printFileNotFound(e.toString());
         }
+
+        promptInput();
     }
 
-    public static void loadSave() throws FileNotFoundException {
+    public void loadSave() throws FileNotFoundException {
         final String LOAD_DELIMITER = "--";
         final int TASK_INDEX = 0;
         final int DONE_INDEX = 1;
@@ -51,6 +48,7 @@ public class Duke {
 
         if (!dir.exists()) {
             dir.mkdir();
+            throw new FileNotFoundException();
         }
 
         File f = new File("data/duke.txt");
@@ -75,31 +73,23 @@ public class Duke {
         }
     }
 
-    /**
-     * Prompt for user inputs
-     */
-    public static void promptInput() {
+    public void promptInput() {
         String line;
-        Scanner in = new Scanner(System.in);
-        line = in.nextLine();
+        line = ui.getUserInput();
 
         while (!line.equals("bye")) {
             processInput(line);
-            line = in.nextLine();
+            line = ui.getUserInput();
         }
 
         try {
-            printEnd();
+            exit();
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e);
+            ui.printError(e.toString());
         }
     }
 
-    /**
-     * Process user input
-     * @param input the user input
-     */
-    public static void processInput(String input) {
+    public void processInput(String input) {
         input = input.trim();
 
         try {
@@ -119,17 +109,12 @@ public class Duke {
                 handleInvalid();
             }
         } catch (DukeException e) {
-            System.out.println(e);
-            System.out.println(SEPARATOR);
+            ui.printDukeException(e.toString());
         }
     }
 
-    /**
-     * Prints the ending messages before ending the program
-     */
-    public static void printEnd() throws IOException{
+    public void exit() throws IOException{
         final String DELIMITER = "--";
-        int doneValue;
         FileWriter beginWrite = new FileWriter("data/duke.txt");
 
         beginWrite.write("");
@@ -157,33 +142,23 @@ public class Duke {
         }
         fw.close();
 
-        System.out.println(SEPARATOR + "\nBye. I'm going back to sleep... zzz");
+        ui.printBye();
+        System.exit(0);
     }
 
-    /**
-     * List out the tasks in the array userInputs with numbering
-     * @param line the user input
-     * @throws DukeException command list is invalid
-     */
-    public static void listTasks(String line) throws DukeException {
+    public void listTasks(String line) throws DukeException {
         if (!line.equals("list")) {
             throw new DukeException("command list does not take additional parameters");
         }
 
-        System.out.println(SEPARATOR + "\n\tTasks to do... so lazy:");
+        ui.printListTask();
 
         for (int i = 1; i <= userInputsCount; i++) {
-            System.out.println("\t" + i + "." + userInputs.get(i - 1));
+            ui.printToUser("    ", Integer.toString(i), ".", userInputs.get(i - 1).toString());
         }
-        System.out.println(SEPARATOR);
     }
 
-    /**
-     * Marks a particular task in userInputs as done
-     * @param line the user input
-     * @throws DukeException command done has invalid parameters
-     */
-    public static void markDone(String line) throws DukeException {
+    public void markDone(String line) throws DukeException {
         String[] taskInputs = line.split(" ");
 
         if (taskInputs.length != 2) {
@@ -195,18 +170,11 @@ public class Duke {
 
         userInputs.get(taskIndexDone).markAsDone();
 
-        System.out.println(
-                SEPARATOR + "\n\tfinished this task... I need a break:\n\t\t" +
-                userInputs.get(taskIndexDone));
-        System.out.println(SEPARATOR);
+        ui.printFinishedTask();
+        ui.printToUser("        ", userInputs.get(taskIndexDone).toString());
     }
 
-    /**
-     * Adds a task todo into userInputs and increase the counter
-     * @param line the user input
-     * @throws DukeException when description is missing
-     */
-    public static void addTodo(String line) throws DukeException {
+    public void addTodo(String line) throws DukeException {
         final int START_INDEX = 5;
         String[] todoInputs = line.split(" ");
 
@@ -216,16 +184,11 @@ public class Duke {
 
         userInputs.add(new Todo(line.substring(START_INDEX)));
 
-        System.out.println(SEPARATOR + "\n\tadded: " + userInputs.get(userInputsCount) + "\n" + SEPARATOR);
+        ui.printToUser("    ", "added: ", userInputs.get(userInputsCount).toString());
         userInputsCount++;
     }
 
-    /**
-     * Adds a task with deadline into userInputs and increase the counter
-     * @param line the user input
-     * @throws DukeException when deadline is missing
-     */
-    public static void addDeadline(String line) throws DukeException {
+    public void addDeadline(String line) throws DukeException {
         if (!line.contains("/by")) {
             throw new DukeException("wrong input format for command deadline");
         }
@@ -238,16 +201,11 @@ public class Duke {
         userInputs.add(new Deadline(deadlineInputs[DESCRIPTION_INDEX].trim(),
                 deadlineInputs[BY_INDEX].trim()));
 
-        System.out.println(SEPARATOR + "\n\tadded: " + userInputs.get(userInputsCount) + "\n" + SEPARATOR);
+        ui.printToUser("    ", "added: ", userInputs.get(userInputsCount).toString());
         userInputsCount++;
     }
 
-    /**
-     * dds an event with a specific start and end time into userInputs and increase the counter
-     * @param line the user input
-     * @throws DukeException when start and end time is missing
-     */
-    public static void addEvent(String line) throws DukeException {
+    public void addEvent(String line) throws DukeException {
         if (!line.contains("/at")) {
             throw new DukeException("wrong input format for command event");
         }
@@ -260,11 +218,11 @@ public class Duke {
         userInputs.add(new Event(eventInputs[DESCRIPTION_INDEX].trim(),
                 eventInputs[AT_INDEX].trim()));
 
-        System.out.println(SEPARATOR + "\n\tadded: " + userInputs.get(userInputsCount) + "\n" + SEPARATOR);
+        ui.printToUser("    ", "added: ", userInputs.get(userInputsCount).toString());
         userInputsCount++;
     }
 
-    public static void deleteTask(String line) throws DukeException {
+    public void deleteTask(String line) throws DukeException {
         String[] inputs = line.split(" ");
 
         if (inputs.length != 2) {
@@ -274,23 +232,17 @@ public class Duke {
         final int INDEX_DELETE = 1;
         int taskIndexDelete = Integer.parseInt(inputs[INDEX_DELETE]) - 1;
 
-        System.out.println(SEPARATOR + "\n\tdeleted this task... less things to do:\n\t\t" +
-                userInputs.get(taskIndexDelete));
+        ui.printDeletedTask();
+        ui.printToUser("    ", "deleted: ", userInputs.get(taskIndexDelete).toString());
         userInputs.remove(taskIndexDelete);
         userInputsCount--;
-        System.out.println(SEPARATOR);
     }
 
-    /**
-     * handle invalid user input
-     * @throws DukeException when input command does not exist
-     */
-    public static void handleInvalid() throws DukeException {
+    public void handleInvalid() throws DukeException {
         throw new DukeException("invalid command");
     }
 
     public static void main(String[] args) {
-        initiateDuke();
-        promptInput();
+        new Duke().initiateDuke();
     }
 }
