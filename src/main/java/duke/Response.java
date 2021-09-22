@@ -4,6 +4,7 @@ public class Response {
     public static final String EMPTY = "There is no data in your list master!";
     public static final String UNSPECIFIED_DONE = "Oh no master, I am not quite sure which task you would like me to mark as done!";
     public static final String UNSPECIFIED_DELETE = "Oh no master, I am not quite sure which task you would like me to delete!";
+    public static final String UNSPECIFIED_DATE = "Oh no master, please specify the date for which you would like me to print the respective tasks!";
     public static final String INVALID = "Please type in a valid number master! Type \"list\" to check the index number of your list data";
     public static final String DEADLINE_ERROR = ("Sorry Master! I don't think you have properly keyed in the parameters.\n" +
                                                  "Please enter \"deadline\", followed by the task, followed by \"/by\", \n" +

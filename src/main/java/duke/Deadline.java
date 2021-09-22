@@ -6,13 +6,13 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    //protected String by;
+    protected String by;
     protected LocalDate byDate;
     protected LocalTime byTime;
 
     public Deadline(String description, String by) {
         super(description);
-        //this.by = by;
+        this.by = by;
         String[] dateAndTime = by.split(" ");
         this.byDate = LocalDate.parse(dateAndTime[0]);
         this.byTime = LocalTime.parse(dateAndTime[1]);
