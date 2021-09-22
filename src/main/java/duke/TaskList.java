@@ -1,4 +1,6 @@
 package duke;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -26,20 +28,15 @@ public class TaskList {
     }
 
     //Lists out all tasks stored and their statuses
-    public static void sayList(String input) throws DukeException{                                                      //list
-        if (input.length() == 4) {
-            if (taskCount > 0) {
-                System.out.println(line);
-                for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + t.get(i).toString() + "\n");
-                }
-                System.out.println(line);
-            }
-            else {
-                throw new DukeException("Hold your horses, we haven't even started listing yet!");                      //list when taskCount = 0
-            }
+    public static void sayList() throws DukeException{                                                                  //list
+        if (taskCount == 0) {
+            throw new DukeException("Hold your horses, you didn't even tell me about your wishes yet!");
         } else {
-            throw new DukeException("Invalid input! Ask me nicely to list!");                                           //list 7
+            System.out.println(line);
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println((i + 1) + ". " + t.get(i).toString() + "\n");
+            }
+            System.out.println(line);
         }
     }
 
@@ -77,25 +74,28 @@ public class TaskList {
     }
 
     //Adds a new deadline task and prints it
-    public static void sayDeadline(String input) {                                                                      //deadline return book /by Sunday
+    public static void sayDeadline(String input) {                                                                      //deadline return books /by Sunday
         if (input.length() == 8) {
             System.out.println(line + "\nAre you kidding me? You didn't even tell me what you were supposed to do!\n"); //deadline
             System.out.println(line);
         } else if (!input.contains("/")) {
             System.out.println(line + "\nAre you kidding me? You forgot to tell me your deadline again?\n" + line);     //deadline return book
         } else {
-            int endIndex = input.lastIndexOf("/");
+            int endIndex = input.indexOf("/");
             String taskName = input.substring(9, endIndex);
             int endIndex2 = input.length();
             String by = input.substring(endIndex + 4, endIndex2);
+            LocalDate dateTime = LocalDate.parse(by);
             t.add(taskCount, new Deadline(taskName, by));
             System.out.println(line + "\n");
+            System.out.println("Deadline Entered: " + dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n");
             System.out.println("Got it. I've added this task:\n");                                                      //deadline return book /by Sunday
             System.out.println(t.get(taskCount).toString());
             taskCount++;
             System.out.println("\nNow you have " + taskCount + " tasks in the list.\n" + line);
         }
     }
+
 
     //Adds a new event task and prints it
     public static void sayEvent(String input) {                                                                         //event project meeting /at Mon 2-4pm

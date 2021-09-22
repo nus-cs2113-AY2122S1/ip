@@ -1,4 +1,5 @@
 package duke;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import static duke.Storage.saveData;
 import static duke.TaskList.*;
@@ -7,8 +8,8 @@ public class Parser {
 
     //Creates scanner, takes in user input & filters it to different methods
     public static void inputSort() throws DukeException {
-        System.out.println("Enter your wish: " + "\n" + line);
         while (quitFlag == 0) {
+            System.out.println("Enter your wish: " + "\n" + line);
             Scanner scan = new Scanner(System.in);
             String input = scan.nextLine();
             String actionWord = input.split(" ")[0];
@@ -17,7 +18,11 @@ public class Parser {
                 sayBye(input);
                 break;
             case "list":
-                sayList(input);
+                try {
+                    sayList();
+                } catch (DukeException e) {
+                    System.out.println("Hold your horses, you didn't even tell me about your wishes yet!");
+                }
                 break;
             case "done":
                 sayDone(input);
@@ -28,8 +33,12 @@ public class Parser {
                 saveData(t);
                 break;
             case "deadline":
-                sayDeadline(input);
-                saveData(t);
+                try {
+                    sayDeadline(input);
+                    saveData(t);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Please enter in the format: deadline (desc) /by yyyy-mm-dd");
+                }
                 break;
             case "event":
                 sayEvent(input);
