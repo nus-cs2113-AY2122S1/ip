@@ -11,4 +11,6 @@
 
 [ ] `engageUser()` to handle parsing then commands, separately
 
+[ ] If load file is blank, no message on whether file was loaded successfully or not
+
 [Google](https://www.google.com)  

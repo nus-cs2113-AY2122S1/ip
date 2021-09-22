@@ -37,13 +37,12 @@ public class Task {
         isDone = true;
     }
 
-    public String toSaveFile(String DELIMITER) {
-        return DELIMITER + (isDone? 1 : 0) + DELIMITER + taskName;
-    }
-
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + taskName;
     }
 
+    public String toSaveFile(String DELIMITER) {
+        return DELIMITER + (isDone? 1 : 0) + DELIMITER + taskName;
+    }
 }

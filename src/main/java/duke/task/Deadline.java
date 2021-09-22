@@ -4,7 +4,7 @@ public class Deadline extends Task {
     protected String by;
     protected String type;
 
-    public Deadline(boolean isDone,String taskName, String by) {
+    public Deadline(boolean isDone, String taskName, String by) {
         super(taskName);
         this.isDone = isDone;
         this.by = by;

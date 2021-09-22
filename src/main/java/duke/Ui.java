@@ -1,8 +1,6 @@
 package duke;
 
 import duke.task.Task;
-
-import java.io.File;
 import java.util.ArrayList;
 
 public class Ui {
@@ -63,10 +61,6 @@ public class Ui {
         System.out.println(INDENT + "~\"help\" command still under development.~");
     }
 
-    public static void printUnidentifiedTaskType() {
-        //todo(?)
-    }
-
     public static void printMissingText() {
         System.out.println(INDENT + "And?? Retype and complete your sentence like a grown adult. Please.");
     }
@@ -80,6 +74,15 @@ public class Ui {
         System.out.println(INDENT + "   " + tasks.get(tasks.size() - 1));
         System.out.println(INDENT + " You have " + taskPending + " pending task"
                 + isPlural + ". tHaT's aWeSoMe!!!!!1!!");
+    }
+
+    public static void printTaskLoadedSuccessfully() {
+        System.out.println(INDENT + "Loaded previously saved file.                                      │");
+    }
+
+    public static void printLoadFileNotFound() {
+        System.out.println(INDENT+ "Load file: not found.                                              │\n"
+                + INDENT + "Tasks added in this session will be automatically saved upon exit. │");
     }
 
     public static void printTaskDoesNotExist() {
@@ -96,6 +99,10 @@ public class Ui {
                 + tasks.get(taskNumber).getTaskName());
     }
 
+    public static void printDeleteDoneTask() {
+        System.out.println(INDENT + "But I'll delete for you, cus' I'm nice. :)");
+    }
+
     public static void printTaskDeleted(ArrayList<Task> tasks, int taskNumber) {
         System.out.println(INDENT + "Lazy eh? Gotcha fam, removed the task:");
         System.out.println(INDENT + "[" + tasks.get(taskNumber).getStatusIcon() + "]"
@@ -109,9 +116,14 @@ public class Ui {
      */
     public static void printList(ArrayList<Task> tasks) {
         printTopLine();
-        System.out.println(INDENT + "Here are your tasks, oRgAnIc iTeLlIgEnCe:");
-        for (Task t : tasks) {
-            System.out.println(INDENT + (tasks.indexOf(t) + 1) + "." + t.toString());
+        if (!tasks.isEmpty()) {
+            System.out.println(INDENT + "Here are your tasks, oRgAnIc iTeLlIgEnCe:");
+            for (Task t : tasks) {
+                System.out.println(INDENT + (tasks.indexOf(t) + 1) + "." + t.toString());
+            }
+        } else {
+            System.out.println(INDENT + "Why are you asking for a list???                                   │\n"
+                    + INDENT + "It's empty, like something I know.                                 │");
         }
         printBottomLine();
     }
@@ -140,15 +152,28 @@ public class Ui {
         printBottomLine();
     }
 
+    public static void printTaskLoadedSuccessMessage() {
+        printTopLine();
+        printTaskLoadedSuccessfully();
+        printBottomLine();
+    }
+
+    public static void printLoadFileNotFoundMessage() {
+        printTopLine();
+        printLoadFileNotFound();
+        printBottomLine();
+    }
+
     /**
      * Prints greeting message to user when code is ran.
      */
     public static void greetUser() {
+        FileManager.loadFile();
+
         printLogo();
         printTopLine();
         printGreeting();
         printBottomLine();
-        FileManager.loadFile();
     }
 
     /**
@@ -168,6 +193,4 @@ public class Ui {
         printGoodbye();
         printBottomLine();
     }
-
-
 }

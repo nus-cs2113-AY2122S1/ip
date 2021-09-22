@@ -1,13 +1,11 @@
 package duke;
 
-import duke.task.Event;
 import duke.task.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,8 +14,6 @@ public class FileManager {
     private static final String TODO = "T";
     private static final String DEADLINE = "D";
     private static final String EVENT = "E";
-//    private static ArrayList<Task> tasks = new ArrayList<>(); //Try something other than global variable
-
 
     public static void loadFile() {
         File directory = new File("data");
@@ -29,11 +25,12 @@ public class FileManager {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 parseText(s.nextLine());
+                if (!s.hasNext()) {
+                    Ui.printTaskLoadedSuccessMessage();
+                }
             }
         } catch (FileNotFoundException e) {
-            //Todo proper Ui boxing, ask user if want to save (y/n)
-            System.out.println("File not found. Load failed.");
-            System.out.println("New file created.");
+            Ui.printLoadFileNotFoundMessage();
         } catch (DukeException e) {
             e.printStackTrace();
         }
@@ -48,19 +45,18 @@ public class FileManager {
         String taskType = words[0];
         String taskIsDone = words[1];
         String taskName= words[2];
-        String taskDetails = "Hello there.";
+        String taskDetails = "Hello there. Welcome to my FileManager.java!";
         if (taskType.equals(DEADLINE) || taskType.equals(EVENT)) {
             taskDetails = words[3];
         }
 
         if (taskType.equals(TODO) || taskType.equals(DEADLINE) || taskType.equals(EVENT)) {
-            Duke.addTaskFromFile(taskType, taskIsDone, taskName, taskDetails);
+            TaskManager.addTaskFromFile(taskType, taskIsDone, taskName, taskDetails);
         } else {
             throw new DukeException("Unidentified task type.");
         }
     }
 
-    //todo printing format to duke.txt not as desired
     public static void saveTaskToFile(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter("data/duke.txt");
@@ -73,8 +69,6 @@ public class FileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public static String getTaskForSaving(ArrayList<Task> tasks, int taskIndex) throws IOException {
