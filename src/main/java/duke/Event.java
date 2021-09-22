@@ -2,7 +2,7 @@ package duke;
 
 public class Event extends Task{
 
-    protected String duration;
+    private String duration;
 
     public Event(String description, String duration) {
         super(description);

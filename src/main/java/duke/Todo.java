@@ -2,7 +2,7 @@ package duke;
 
 public class Todo extends Task {
 
-    protected String description;
+    private String description;
 
     public Todo(String description) {
         super(description);
