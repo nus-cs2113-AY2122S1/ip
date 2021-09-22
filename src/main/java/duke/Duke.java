@@ -2,6 +2,7 @@ package duke;
 
 import duke.exception.DukeException;
 import duke.task.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,8 +26,6 @@ public class Duke {
                 break;
             }
             TaskList.executeCommand(userInput, list, command);
-
         }
     }
-
 }

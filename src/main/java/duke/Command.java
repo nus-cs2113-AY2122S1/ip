@@ -9,5 +9,5 @@ public enum Command {
     ADD_EVENT,
     DELETE,
     FIND,
-    UNKNOWN;
+    UNKNOWN
 }

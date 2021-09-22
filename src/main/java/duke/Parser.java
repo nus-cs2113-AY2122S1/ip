@@ -33,7 +33,7 @@ public class Parser {
         case "delete":
             return Command.DELETE;
         case "find":
-            return Command.FIND; 
+            return Command.FIND;
         default:
             return Command.UNKNOWN;
         }
@@ -132,7 +132,7 @@ public class Parser {
             }
         } catch (DukeException e) {
             System.out.println(Ui.getHorizontalLine() + e.getMessage());
-            dateTime = ((LocalDate)temporalAccessor).atStartOfDay();
+            dateTime = ((LocalDate) temporalAccessor).atStartOfDay();
         }
         return dateTime;
     }

@@ -7,12 +7,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String FILE_PATH = "duke.txt";
+    private static final String FILE_PATH = "data/dukeTask.txt";
+    private static final String DIRECTORY = "data";
 
     /**
      * Stores tasks in the provided list of tasks to duke.txt save file by rewriting it.
@@ -35,8 +38,8 @@ public class Storage {
         try {
             File saveFile = new File(FILE_PATH);
             if (!saveFile.exists()) {
-                saveFile.createNewFile();
-
+                Files.createDirectory(Path.of(DIRECTORY));
+                Files.createFile(Path.of(FILE_PATH));
             }
             storeTaskData(saveFile, taskList);
         } catch (IOException e) {
