@@ -1,1 +1,4 @@
-
+todo hello | 0
+todo good | 1
+event ko /at 4-7pm | 0
+deadline owkow /by sunday | 1
