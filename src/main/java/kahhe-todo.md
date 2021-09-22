@@ -9,4 +9,6 @@
 
 [ ] `todo` + empty space generates task with whitespace as taskName
 
+[ ] `engageUser()` to handle parsing then commands, separately
+
 [Google](https://www.google.com)  

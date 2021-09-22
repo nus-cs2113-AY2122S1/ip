@@ -4,6 +4,7 @@ public class Task {
 
     protected String taskName;
     protected boolean isDone;
+    protected static final String DELIMITER = " * ";
 
     /**
      * Constructor for Task, generates name and status of task.
@@ -36,8 +37,13 @@ public class Task {
         isDone = true;
     }
 
+    public String toSaveFile(String DELIMITER) {
+        return DELIMITER + (isDone? 1 : 0) + DELIMITER + taskName;
+    }
+
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "]" + taskName;
+        return "[" + getStatusIcon() + "] " + taskName;
     }
+
 }

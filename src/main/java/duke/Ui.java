@@ -1,6 +1,8 @@
 package duke;
 
 import duke.task.Task;
+
+import java.io.File;
 import java.util.ArrayList;
 
 public class Ui {
@@ -59,6 +61,10 @@ public class Ui {
         System.out.println(INDENT + "Please don't embarrass yourself any further.\n"
                 + INDENT + "Use the right commands. Type \"help\" if you don't know.");
         System.out.println(INDENT + "~\"help\" command still under development.~");
+    }
+
+    public static void printUnidentifiedTaskType() {
+        //todo(?)
     }
 
     public static void printMissingText() {
@@ -142,6 +148,7 @@ public class Ui {
         printTopLine();
         printGreeting();
         printBottomLine();
+        FileManager.loadFile();
     }
 
     /**
