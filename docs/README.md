@@ -161,7 +161,7 @@ Input command: bye
 GoodBye! Please finish up your task!
 =======================================================================================================
 ````
-
+___
 ## Things To Note
 1. Input commands are not case-sensitive.
 2. All tasks and task status are directly stored in the directory data then dukeTask.txt file.
