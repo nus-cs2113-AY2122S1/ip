@@ -14,11 +14,18 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Modify task string into txt file format
+     *
+     * @return format of data
+     */
     public String getStoreDataString() {
         return "";
     }
 
-    // mark done task with X
+    /**
+     * Marks done task with X
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
