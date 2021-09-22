@@ -21,12 +21,12 @@ public class DataManager {
      * @throws IOException if the file does not exist
      */
     public static void appendToFile(String filePath, ArrayList<Task> taskList) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
+        FileWriter fileWriter = new FileWriter(filePath, true);
         // Format of duke.txt file: D|run|2pm|
         for (Task task : taskList) {
-            fw.write(task.getTaskType() + "|" + task.getDescription() + "|" + task.getDeadline() + "|" + task.getStatusIcon() + System.lineSeparator());
+            fileWriter.write(task.getTaskType() + "|" + task.getDescription() + "|" + task.getDeadline() + "|" + task.getStatusIcon() + System.lineSeparator());
         }
-        fw.close();
+        fileWriter.close();
     }
 
     /**
@@ -38,12 +38,12 @@ public class DataManager {
      * @throws DukeException if the task cannot be added into the task list due to formatting issues
      */
     public static void readFileContents(String filePath, ArrayList<Task> taskList) throws FileNotFoundException, DukeException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        File dukeTaskList = new File(filePath); // create a File for the given file path
+        Scanner scanner = new Scanner(dukeTaskList); // create a Scanner using the File as the source
         int currentIndex = 0;
-        while (s.hasNext()) {
-            String line = s.nextLine();
-            String[] params = line.split("\\|");
+        while (scanner.hasNext()) {
+            String fieldsInTextFile = scanner.nextLine();
+            String[] params = fieldsInTextFile.split("\\|");
             switch (params[0]) {
             case "T":
                 TaskManager.addTaskAsToDo(taskList, params[1], true);
@@ -87,10 +87,10 @@ public class DataManager {
      */
     public static void storeCurrentList(String filePath, ArrayList<Task> taskList) {
         try {
-            PrintWriter pw = new PrintWriter(filePath);
-            pw.write("");
-            pw.flush();
-            pw.close();
+            PrintWriter printWriter = new PrintWriter(filePath);
+            printWriter.write("");
+            printWriter.flush();
+            printWriter.close();
             DataManager.appendToFile(filePath, taskList);
         } catch (IOException e) {
             e.printStackTrace();

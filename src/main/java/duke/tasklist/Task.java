@@ -62,7 +62,9 @@ public class Task {
      * @param taskNumber index of which the task has been marked as done in the task list
      */
     public void printMarkAsDoneMessage(int taskNumber) {
-        System.out.println("Nice! I've marked this task as done:\n" + (taskNumber + 1) + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description);
+        System.out.println("Nice! I've marked this task as done:\n"
+            + (taskNumber + 1) + ".[" + getTaskType() + "]"
+            + "[" + getStatusIcon() + "] " + description);
     }
 
     /**
@@ -71,7 +73,8 @@ public class Task {
      * @param listIndex position of the task that is being printed in the task list.
      */
     public void printTaskList(int listIndex) {
-        System.out.println(listIndex + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description);
+        System.out.println(listIndex + ".[" + getTaskType() + "]"
+            + "[" + getStatusIcon() + "] " + description);
     }
 
     /** Prints a message to allow the user to know that a task has been successfully added to the task list. */
@@ -86,7 +89,9 @@ public class Task {
      * @param taskNumber index of the task which has been deleted from the task list
      */
     public void printTaskDeletedMessage(int taskNumber) {
-        System.out.println("I got you! I've deleted this task:\n" + (taskNumber + 1) + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description);
+        System.out.println("I got you! I've deleted this task:\n"
+            + (taskNumber + 1) + ".[" + getTaskType() + "]"
+            + "[" + getStatusIcon() + "] " + description);
     }
 
     /**

@@ -54,7 +54,9 @@ public class Event extends Task {
      */
     @Override
     public void printMarkAsDoneMessage(int taskNumber) {
-        System.out.println("Nice! I've marked this task as done:\n" + (taskNumber + 1) + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description + " (at:" + convertDeadline() + ")");
+        System.out.println("Nice! I've marked this task as done:\n"
+            + (taskNumber + 1) + ".[" + getTaskType() + "]"
+            + "[" + getStatusIcon() + "] " + description + " (at:" + convertDeadline() + ")");
     }
 
     /**
@@ -64,6 +66,7 @@ public class Event extends Task {
      */
     @Override
     public void printTaskList(int listIndex) {
-        System.out.println(listIndex + ".[" + getTaskType() + "]" + "[" + getStatusIcon() + "] " + description + " (at:" + convertDeadline() + ")");
+        System.out.println(listIndex + ".[" + getTaskType() + "]"
+            + "[" + getStatusIcon() + "] " + description + " (at:" + convertDeadline() + ")");
     }
 }
