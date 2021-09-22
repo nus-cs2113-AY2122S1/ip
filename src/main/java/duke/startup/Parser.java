@@ -65,6 +65,8 @@ public class Parser {
             return new MascotCommand();
         } else if (stringToRead.startsWith("find")) {
             return new FindCommand();
+        } else if (stringToRead.startsWith("date")) {
+            return new DateCommand();
         } else {
             Ui.printWrongCommand();
             return new OopsieCommand();

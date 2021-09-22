@@ -121,10 +121,20 @@ public class TaskList {
     public boolean userStopAdd(String userInput) {
         if (!userInput.equals("stop")) {
             Task taskToAdd = Parser.parseInputAsTask(userInput);
+            taskToAdd.setTime(userInput);
             taskList.add(taskToAdd);
         } else {
             return true;
         }
         return false;
+    }
+
+    public void printTasksWithValidDate() {
+        for (Task t : taskList) {
+            if (t.hasTime()) {
+                System.out.print(t.getDescription() + " | ");
+                t.printTime();
+            }
+        }
     }
 }
