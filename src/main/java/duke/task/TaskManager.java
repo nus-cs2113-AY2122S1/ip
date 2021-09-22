@@ -1,13 +1,6 @@
 package duke.task;
 
-import duke.exception.ToDoFormatException;
-import duke.exception.DeadlineFormatException;
-import duke.exception.EventFormatException;
-import duke.exception.EmptyTasklistException;
-import duke.exception.DoneFormatException;
-import duke.exception.InvalidTaskIdException;
-import duke.exception.TaskAlreadyDoneException;
-import duke.exception.DeleteFormatException;
+import duke.exception.*;
 
 import java.util.ArrayList;
 
@@ -18,6 +11,7 @@ public class TaskManager {
     private final String ADD_TASK_MSG = "Chomp-chomp! I've added this new task [\uD83D\uDCDD]:";
     private final String SET_TASK_COMPLETE_MSG = "Burrrp! I've marked this task as done [\u2705]:";
     private final String DELETE_TASK_MSG = "Blaargh! I've deleted this task from the list [\uD83D\uDCDD]:";
+    private final String FIND_TASK_MSG = "Ahh! Here are the matching tasks in your list [\uD83D\uDD0E]:";
     private final String PRINT_TASKLIST_MSG = "Ahh! Here are the tasks in your list [\uD83D\uDCC5]:";
 
     private final String TODO_FORMAT_REGEX = "";
@@ -132,6 +126,26 @@ public class TaskManager {
 
     }
 
+    public String findTask (String keyword) throws NoTaskFoundException {
+
+        String matchedTasks = "";
+        int numMatched = 0;
+
+        for (int taskID = 0; taskID < tasks.size(); taskID++) {
+            if (tasks.get(taskID).getTaskDescription().contains(keyword)) {
+                matchedTasks += taskID + 1 + "." + tasks.get(taskID).getTaskDescription() + "\n";
+                numMatched++;
+            }
+        }
+
+        if (numMatched == 0) {
+            throw new NoTaskFoundException();
+        }
+
+        return getFindTaskMessage(matchedTasks, numMatched);
+
+    }
+
     public String getTasklist() throws EmptyTasklistException {
 
         String taskList = "";
@@ -158,6 +172,10 @@ public class TaskManager {
 
     public String getDeleteTaskMessage(int idOfTaskDeleted) {
         return DELETE_TASK_MSG + "\n   <" + tasks.get(idOfTaskDeleted).getTaskDescription() + ">\n";
+    }
+
+    public String getFindTaskMessage(String matchedTasks, int numMatched) {
+        return FIND_TASK_MSG + "\n" + matchedTasks + "=> It has successfully returned " + numMatched + " result/s.";
     }
 
     public String getListMessage(String taskList) {

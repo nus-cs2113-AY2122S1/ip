@@ -1,15 +1,6 @@
 package duke.parser;
 
-import duke.command.Command;
-import duke.command.TerminateCommand;
-import duke.command.HelpCommand;
-import duke.command.ListCommand;
-import duke.command.AddToDoCommand;
-import duke.command.AddDeadlineCommand;
-import duke.command.AddEventCommand;
-import duke.command.SetTaskDoneCommand;
-import duke.command.DeleteTaskCommand;
-import duke.command.InvalidCommand;
+import duke.command.*;
 
 import duke.task.TaskManager;
 
@@ -24,9 +15,9 @@ public class Parser {
     private final String ADD_EVENT_CMD = "event";
     private final String SET_TASK_DONE_CMD = "done";
     private final String DELETE_TASK_CMD = "delete";
+    private final String FIND_TASK_CMD = "find";
 
     public Command parseCommand(TaskManager taskManager, String userInput) {
-
         String[] inputArguments = userInput.split("\\s+", 2);
         String command = inputArguments[0];
         String commandArguments = "";
@@ -52,6 +43,8 @@ public class Parser {
             return new SetTaskDoneCommand(taskManager, commandArguments);
         case DELETE_TASK_CMD:
             return new DeleteTaskCommand(taskManager, commandArguments);
+        case FIND_TASK_CMD:
+            return new FindTaskCommand(taskManager, commandArguments);
         default:
             return new InvalidCommand();
         }
