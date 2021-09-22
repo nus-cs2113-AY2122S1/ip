@@ -5,6 +5,13 @@ public class ChatBot {
 
     public static boolean isRunning = true;
 
+    /**
+     * Executes the command given.
+     *
+     * @param tasks Array list of tasks.
+     * @param parsedUserInput Parsed user input.
+     * @param command Input command.
+     */
     public static void executeCommand (ArrayList<Task> tasks, String[] parsedUserInput, String command) {
         switch (command) {
         case "list":
@@ -34,6 +41,11 @@ public class ChatBot {
         }
     }
 
+    /**
+     * Runs the Chatbot.
+     *
+     * @param tasks Array list of tasks.
+     */
     public static void run(ArrayList<Task> tasks) {
         Scanner in = new Scanner(System.in);
         String userInput;

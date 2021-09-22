@@ -1,5 +1,15 @@
+/**
+ * Contains all String parsing related methods.
+ * Deals with user inputs and Duke's storage file.
+ */
 public class Parser {
 
+    /**
+     * Checks whether the last character of the user's input is a space.
+     *
+     * @param userInput User's input.
+     * @return Boolean representing whether the last character of a user's input is a space.
+     */
     public static boolean lastCharacterSpaceChecker(String userInput) {
         int lastCharacterIndex = userInput.length() - 1;
         String lastCharacter = userInput.substring(lastCharacterIndex);
@@ -10,6 +20,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks whether there are consecutive spaces in the user's input.
+     *
+     * @param userInput User's input.
+     * @return Boolean representing whether there are consecutive spaces in a user's input.
+     */
     public static boolean multipleSpacesChecker(String userInput) {
         String[] splitUserInput = userInput.split(" ");
         for (String word : splitUserInput) {
@@ -20,6 +36,12 @@ public class Parser {
         return false;
     }
 
+    /**
+     * Checks whether there is a space error in the user's input.
+     *
+     * @param userInput User's input.
+     * @return Boolean representing whether there is a space error in a user's input.
+     */
     public static boolean spaceErrorChecker(String userInput) {
         boolean lastCharacterIsSpace = lastCharacterSpaceChecker(userInput);
         boolean hasMultipleSpaces = multipleSpacesChecker(userInput);
@@ -30,6 +52,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks the format of the user's list/bye command input.
+     *
+     * @param userInput User's input.
+     * @return Boolean representing whether the format of the user's list/bye command input is correct.
+     */
     public static boolean listOrByeFormatChecker(String userInput) {
         String[] splitUserInput = userInput.split(" ");
         int userInputLength = splitUserInput.length;
@@ -40,6 +68,12 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Checks the format of the user's done/delete command input.
+     *
+     * @param userInput User's input.
+     * @return Boolean representing whether the format of the user's done/delete command input is correct.
+     */
     public static boolean doneOrDeleteFormatChecker(String userInput) {
         String[] splitUserInput = userInput.split(" ");
         int userInputLength = splitUserInput.length;
@@ -57,6 +91,12 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Checks the format of the user's todo command input.
+     *
+     * @param userInput User's input.
+     * @return Boolean representing whether the format of the user's todo command input is correct.
+     */
     public static boolean todoFormatChecker(String userInput) {
         String[] splitUserInput = userInput.split(" ");
         int userInputLength = splitUserInput.length;
@@ -67,6 +107,12 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Checks the format of the user's deadline command input.
+     *
+     * @param userInput User's input.
+     * @return Boolean representing whether the format of the user's deadline command input is correct.
+     */
     public static boolean deadlineFormatChecker(String userInput) {
         String[] splitUserInput = userInput.split(" ");
         int userInputLength = splitUserInput.length;
@@ -87,6 +133,12 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Checks the format of the user's event command input.
+     *
+     * @param userInput User's input.
+     * @return Boolean representing whether the format of the user's event command input is correct.
+     */
     public static boolean eventFormatChecker(String userInput) {
         String[] splitUserInput = userInput.split(" ");
         int userInputLength = splitUserInput.length;
@@ -107,6 +159,12 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Extracts important information from the user's input.
+     *
+     * @param userInput User's input.
+     * @return List containing the user's command, task description and task details.
+     */
     public static String[] parseUserInput(String userInput) {
         String[] parsedUserInput = new String[3];
         String[] splitUserInput = userInput.split(" ");
@@ -180,6 +238,12 @@ public class Parser {
         return parsedUserInput;
     }
 
+    /**
+     * Converts a line in the storage file to parsedUserInput's format.
+     *
+     * @param fileLine Line in the storage file to be parsed.
+     * @return List containing the user's command, task description and task details.
+     */
     public static String[] parseFileLine(String fileLine) {
         String[] splitFileLine = fileLine.split(" ");
         String[] parsedFileLine = new String[3];
