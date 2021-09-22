@@ -1,28 +1,28 @@
 package duke;
 
+import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import java.util.Scanner;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class Duke {
     private Ui ui;
     private TaskList taskList;
+    private Storage storage;
 
     public Duke() {
         this.ui = new Ui();
         this.taskList = new TaskList();
+        this.storage = new Storage();
     }
 
     public void initiateDuke() {
         ui.printWelcome();
 
         try {
-            load();
+            taskList.setTaskList(storage.load());
         } catch (FileNotFoundException e) {
             ui.printFileNotFound(e.toString());
         }
@@ -30,47 +30,8 @@ public class Duke {
         promptInput();
     }
 
-    public void load() throws FileNotFoundException {
-        final String LOAD_DELIMITER = "--";
-        final int TASK_INDEX = 0;
-        final int DONE_INDEX = 1;
-        final int DESCRIPTION_INDEX = 2;
-        final int BY_AT_INDEX = 3;
-        final String TODO_CODE = "T";
-        final String DEADLINE_CODE = "D";
-        final String EVENT_CODE = "E";
-        String line;
-        File dir = new File("data");
-
-        if (!dir.exists()) {
-            dir.mkdir();
-            throw new FileNotFoundException();
-        }
-
-        File f = new File("data/duke.txt");
-        Scanner s = new Scanner(f);
-
-        while (s.hasNext()) {
-            line = s.nextLine();
-            String[] lineData = line.split(LOAD_DELIMITER);
-
-            if (lineData[TASK_INDEX].equals(TODO_CODE)) {
-                taskList.addTodo(lineData[DESCRIPTION_INDEX]);
-            } else if (lineData[TASK_INDEX].equals(DEADLINE_CODE)) {
-                taskList.addDeadline(lineData[DESCRIPTION_INDEX], lineData[BY_AT_INDEX]);
-            } else if (lineData[TASK_INDEX].equals(EVENT_CODE)) {
-                taskList.addEvent(lineData[DESCRIPTION_INDEX], lineData[BY_AT_INDEX]);
-            }
-
-            if (lineData[DONE_INDEX].equals("1")) {
-                taskList.markDone(taskList.getListSize() - 1);
-            }
-        }
-    }
-
     public void promptInput() {
-        String line;
-        line = ui.getUserInput();
+        String line = ui.getUserInput();
 
         while (!line.equals("bye")) {
             processInput(line);
@@ -78,9 +39,11 @@ public class Duke {
         }
 
         try {
-            exit();
+            storage.save(taskList.getTaskList());
         } catch (IOException e) {
             ui.printError(e.toString());
+        } finally {
+            exit();
         }
     }
 
@@ -108,36 +71,7 @@ public class Duke {
         }
     }
 
-    public void exit() throws IOException{
-        final String DELIMITER = "--";
-        FileWriter beginWrite = new FileWriter("data/duke.txt");
-        int userInputsCount = taskList.getListSize();
-
-        beginWrite.write("");
-        beginWrite.close();
-
-        FileWriter fw = new FileWriter("data/duke.txt", true);
-
-        for (int i = 0; i < userInputsCount; i++) {
-            if (taskList.getTask(i).getCode().equals("T")) {
-                String lineToAppend = taskList.getTask(i).getCode() + DELIMITER + taskList.getTask(i).getDoneValue() +
-                        DELIMITER + taskList.getTask(i).getDescription();
-                fw.write(lineToAppend);
-                fw.write(System.lineSeparator());
-            } else if (taskList.getTask(i).getCode().equals("D")) {
-                String lineToAppend = taskList.getTask(i).getCode() + DELIMITER + taskList.getTask(i).getDoneValue() +
-                        DELIMITER + taskList.getTask(i).getDescription() + DELIMITER + taskList.getTask(i).getBy();
-                fw.write(lineToAppend);
-                fw.write(System.lineSeparator());
-            } else if (taskList.getTask(i).getCode().equals("E")) {
-                String lineToAppend = taskList.getTask(i).getCode() + DELIMITER + taskList.getTask(i).getDoneValue() +
-                        DELIMITER + taskList.getTask(i).getDescription() + DELIMITER + taskList.getTask(i).getAt();
-                fw.write(lineToAppend);
-                fw.write(System.lineSeparator());
-            }
-        }
-        fw.close();
-
+    public void exit() {
         ui.printBye();
         System.exit(0);
     }

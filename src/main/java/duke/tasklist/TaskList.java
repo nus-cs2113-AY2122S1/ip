@@ -1,6 +1,5 @@
 package duke.tasklist;
 
-import duke.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -17,6 +16,14 @@ public class TaskList {
 
     public Task getTask(int index) {
         return taskList.get(index);
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
     }
 
     public void addTodo(String description) {
