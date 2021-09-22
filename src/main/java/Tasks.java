@@ -1,7 +1,7 @@
-public class Task {
+public class Tasks {
     protected String done, type, description;
 
-    public Task(String description) {
+    public Tasks(String description) {
         this.done = " ";
         this.type = " ";
         this.description = description;
@@ -18,5 +18,9 @@ public class Task {
 
     public String toString() {
         return "[" + this.type + "]" + "[" + this.done + "] " + this.description;
+    }
+
+    public String toOutput(){
+        return "_"+ this.done+"_"+this.description;
     }
 }

@@ -1,14 +1,30 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         choose.printHorizontalLine();
         String line = "";
         Scanner in = new Scanner(System.in);
+
+        try {  // Initialize ./data/duke.txt to store tasks
+            choose.initDataStore();
+        } catch (IOException e) {
+            System.out.println("\t☹ Directory does not exist, error in loading data store.\n" +
+                    "Please check if ./data/duke.txt exists.");
+        }
+        try {  // Load all tasks stored in ./data/duke.txt
+            choose.loadTasks();
+        } catch (FileNotFoundException e) {
+            System.out.println("\t☹ File is not found.");
+        } catch (duke.DukeException e) {
+            System.out.println("\t☹ Invalid file type in data store.");
+        }
 
         while (!(line.equals("bye") || line.equals("Bye"))) {
             line = in.nextLine();
@@ -46,13 +62,15 @@ public class Duke {
                 }
             }
             else{
-                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                if(!(line.split(" ")[0].equals("bye"))){
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");}
             }
 
             choose.printHorizontalLine();
         }
 
         System.out.println("Bye. Hope to see you again soon!");
+        choose.saveTasks();
         System.out.println();
         choose.printHorizontalLine();
 
