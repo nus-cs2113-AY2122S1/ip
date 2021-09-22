@@ -1,29 +1,24 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDate dueTime;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate dueTime) {
         super(description);
-        this.by = by;
-    }
-
-    public String getBy() {
-        return by;
-    }
-
-    public void setBy(String by) {
-        this.by = by;
+        this.dueTime = dueTime;
     }
 
     @Override
     public String toString() {
-        return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+        return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + dueTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
     @Override
     public String getStoreDataString() {
         String checkDone = isDone ? "1" : "0";
-        return "D | " + checkDone + " | " + description + " | " + by;
+        return "D | " + checkDone + " | " + description + " | " + dueTime;
     }
 }

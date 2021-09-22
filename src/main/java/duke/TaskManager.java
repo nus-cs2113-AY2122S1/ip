@@ -17,10 +17,10 @@ public class TaskManager {
     /**
      * Processes the extracted user command
      *
-     * @param command is the extracted first word of the user input
-     * @param input is the command given by the user
+     * @param command  is the extracted first word of the user input
+     * @param input    is the command given by the user
      * @param taskList is a TaskList object
-     * @param storage is a Storage object
+     * @param storage  is a Storage object
      * @throws DukeException if delete/done command is not provided with an index or an invalid command is given
      */
     public static void parseUserCommand(String command, String input, TaskList taskList, Storage storage) throws DukeException {
@@ -57,19 +57,23 @@ public class TaskManager {
         case "todo":
             Task todo = Parser.getTodoDetails(input);
 
-            // Passes pointer to task object and adds task to the list
+            // Initialize task object and adds task to the list
             new AddCommand(todo).executeUserCommand(taskList, storage);
             break;
         case "deadline":
-            Task deadline = Parser.getDeadlineDetails(input);
+            try {
+                Task deadline = Parser.getDeadlineDetails(input);
 
-            // Passes pointer to deadline object and adds task to the list
-            new AddCommand(deadline).executeUserCommand(taskList, storage);
+                // Initialize deadline object and adds task to the list
+                new AddCommand(deadline).executeUserCommand(taskList, storage);
+            } catch (DukeException e) {
+                throw new DukeException("Use the correct date time format, my friend");
+            }
             break;
         case "event":
             Task event = Parser.getEventDetails(input);
 
-            // Passes pointer to event object and adds task to the list
+            // Initialize event object and adds task to the list
             new AddCommand(event).executeUserCommand(taskList, storage);
             break;
         default:
