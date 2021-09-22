@@ -1,4 +1,4 @@
-package shima.task.action;
+package shima.command;
 
 import shima.design.Default;
 import shima.storage.Storage;
@@ -7,7 +7,7 @@ import shima.task.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TaskDone {
+public class DoneTask {
     /**
      * Marks the given tasks as done, and handles the possible errors if the input task number is not valid
      *

@@ -1,4 +1,4 @@
-package shima.task.action;
+package shima.command;
 
 import shima.design.Default;
 import shima.storage.Storage;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DeleteTasks {
+public class DeleteTask {
     /**
      * Deletes the task(s) according to the task index/indices provided
      *

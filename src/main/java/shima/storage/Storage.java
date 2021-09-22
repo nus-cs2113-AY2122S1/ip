@@ -1,7 +1,7 @@
 package shima.storage;
 
 import shima.Shima;
-import shima.design.ToDoList;
+import shima.command.ToDoList;
 import shima.design.Default;
 import shima.exception.ShimaException;
 import shima.task.Deadline;
@@ -53,7 +53,7 @@ public class Storage {
                 } else {
                     //Starts reading data
                     String[] tasksData = sc.nextLine().split(DELIMITER);
-                    readData(tasks, sc, tasksData);
+                    readData(tasks, tasksData);
                 }
             }
             //Displays the to-do list if it is not empty
@@ -71,10 +71,9 @@ public class Storage {
      * Reads data from the file if the file exists and contains lines
      *
      * @param tasks The array list that stores all the tasks
-     * @param sc The scanner which scans the file
-     * @throws ShimaException.StorageException
+     * @throws ShimaException.StorageException Throws StorageException if the data stored is incorrect
      */
-    private static void readData(ArrayList<Task> tasks, Scanner sc, String[] tasksData) throws ShimaException.StorageException {
+    private static void readData(ArrayList<Task> tasks, String[] tasksData) throws ShimaException.StorageException {
         Task currentTask;
         switch (tasksData[0]) {
         case "T":
@@ -179,7 +178,6 @@ public class Storage {
      * @throws IOException Throws this exception when error occurs during the write file process
      */
     public static void saveTaskToFile(ArrayList<Task> tasks) throws IOException {
-        //append mode
         FileWriter fw = new FileWriter(file, true);
         Task currentTask = tasks.get(tasks.size() - 1);
         if (currentTask instanceof Deadline || currentTask instanceof Event) {
