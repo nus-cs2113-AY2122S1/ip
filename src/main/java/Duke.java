@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -30,6 +31,14 @@ public class Duke {
             loadFile();
         } catch (FileNotFoundException e22) {
             System.out.println("File not found! Continue entering commands for automatic file creation!");
+        } catch (DateTimeParseException e24){
+            System.out.println(System.lineSeparator() + "Duke.txt failed to load" + System.lineSeparator() +
+                    "Kindly check if your Duke.txt existing entries follows new deadline conventions! (eg.YYYY-MM-DD HH:MM:SS)"
+                    + System.lineSeparator() + "Loading main home screen message..." + System.lineSeparator());
+        } catch (ArrayIndexOutOfBoundsException e25){
+            System.out.println(System.lineSeparator() + "Duke.txt failed to load" + System.lineSeparator() +
+                    "Kindly check if your Duke.txt existing entries follows new deadline conventions! (eg.YYYY-MM-DD HH:MM:SS)"
+                    + System.lineSeparator() + "Loading main home screen message..." + System.lineSeparator());
         }
 
         String input;
@@ -299,9 +308,13 @@ public class Duke {
     public static Task getDeadlineMethod(String input) {
         String[] deadlineSplitter = input.substring(9).split(" /by ");
         String deadlineDescription = deadlineSplitter[0]; //before /by
-        String deadlineBy = deadlineSplitter[1]; // after /by
+        String[] dateTimeSplitter = deadlineSplitter[1].split(" ");
+        String date = dateTimeSplitter[0];
+        String time = dateTimeSplitter[1];
+        String deadlineBy = date; // after /by
+        String deadlineBy1 = time;
 
-        Task description = new Deadline(deadlineDescription, deadlineBy);
+        Task description = new Deadline(deadlineDescription, deadlineBy, deadlineBy1);
         tasks.add(description);
         inputCount++;
 
