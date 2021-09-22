@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Ui {
-    /* ---- CONSTANTS ---- */
     private static final Integer ZERO = 0;
     private static final Integer ARRAY_INDEX_FINDER = 1;
 
@@ -25,7 +24,6 @@ public class Ui {
     private static final String EMPTY_LIST = "Nothing Has Been Added To The List Yet\n";
     private static final String FIND_LIST_RESULT = "     Here are the matching tasks in your list:\n";
     private static final String FIND_LIST_NO_RESULT = "     No relevant results found :(\n";
-    /* ---- --------- ---- */
 
     public void printTaskMessage(Task task, Integer index) {
         String output = LINE_DIVIDER + ADD_TASK_REPLY
