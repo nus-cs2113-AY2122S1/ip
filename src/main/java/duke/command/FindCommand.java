@@ -7,13 +7,28 @@ import duke.task.Task;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * The command to find a task contains a given keyword
+ * This class implements the <code>Command</code> interface
+ */
 public class FindCommand implements Command {
     private String keyword;
 
+    /**
+     * Constructor method for <code>FindCommand</code>
+     *
+     * @param keyword the keyword to look for a task in the task list
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * Executes the find command
+     *
+     * @return the list of tasks as string that have the given keyword
+     * @throws DukeException if tasks cannot be loaded from memory
+     */
     public String run() throws DukeException {
         int i;
         String resultMsg;
