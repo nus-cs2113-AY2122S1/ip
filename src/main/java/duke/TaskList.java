@@ -6,7 +6,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -35,11 +35,11 @@ public class TaskList {
         tasks.add(new Todo(description));
     }
 
-    public void addDeadline(String description, String by){
+    public void addDeadline(String description, LocalDate by){
         tasks.add(new Deadline(description, by));
     }
 
-    public void addEvent(String description, String at) {
+    public void addEvent(String description, LocalDate at) {
         tasks.add(new Event(description, at));
     }
 
