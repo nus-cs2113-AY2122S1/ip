@@ -1,37 +1,39 @@
 # User Guide
 
-Duke is an app for **managing Tasks, Deadlines and Events via a Command Line Interface (CLI)**.
+Duke is an app for **managing Tasks, Deadlines and Events via a Command Line Interface (CLI)**. If you can type fast, Duke is able to manage your various tasks faster than traditional GUI applications.
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Qutting the program: `bye`](#bye---quits-the-program)
+  - [Adding a deadline: `deadline`](#deadline---creates-a-task-with-deadline)
+  - [Deleting a task: `delete`](#delete---deletes-a-task)
+  - [Creating an event: `event`](#event---creates-an-event)
+  - [Seaching for tasks: `find`](#find---search-for-tasks)
+  - [Viewing help: `help`](#help---displays-the-help-message)
+  - [Viewing all tasks: `list`](#list---list-all-tasks)
+  - [Creating a todo: `todo`](#todo---creates-a-todo-list)
+  - [Viewing tasks by date: `whatson`](#whats-on---list-tasks-on-a-day)
+- [Command Summary](#command-summary)
 
-## Features 
-  
-### Feature-Deadline
-
-Stores a task with deadline in the task list.
-
-### Feature-Event
-
-Stores an Event with date and time in the task list.
-
-### Feature-Find
-
-Find all task with description matching the user's input.
-
-### Feature-Todo
-
-Creates a reminder in the task list.
-
-### Feature-What's on
-
-Lists all tasks occurring on the date provided by the user.
+## Quick Start
+1. Ensure you have Java `11` installed in your computer.
+2. Download the latest `duke.jar` from [here](https://github.com/alvintan01/ip/releases/tag/A-Jar).
+3. Copy the file to the folder you want to use as the home folder for your task list.
+4. Run the application using the command `java -jar duke.jar`.
 
 
-## Usage
+## Features
+**Notes about the commands format**
+- All dates and times must be in `dd/MM/yyyy HHmm` format. For example `20/09/2021 1600` represents the `20 September 2021 4pm`. 
+- Parameters must be given in the format specified.
+---
 
 ### `Bye` - Quits the program.
 
 Expected outcome:
 
 The program ends and saves the data.
+
+Format: `bye`
 
 ```
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -42,6 +44,8 @@ Bye. Hope to see you again soon!
 ### `Deadline` - Creates a task with deadline.
 
 Creates a task with a deadline and adds it to the task list.
+
+Format: `deadline <name> /by <date in dd/MM/yyyy HHmm>`
 
 Example of usage: 
 
@@ -63,6 +67,8 @@ Now you have 1 tasks in the list.
 
 Deletes a specified task.
 
+Format: `delete <task id>`
+
 Example of usage: 
 
 `delete 1`
@@ -82,6 +88,8 @@ Now you have 0 tasks in the list.
 
 Marks a specified task as completed.
 
+Format: `done <task id>`
+
 Example of usage: 
 
 `done 1`
@@ -100,6 +108,8 @@ Nice! I've marked this task as done:
 ### `Event` - Creates an Event.
 
 Creates an event in the task list.
+
+Format: `event <event name> /at <date in dd/MM/yyyy HHmm>`
 
 Example of usage: 
 
@@ -121,6 +131,8 @@ Now you have 2 tasks in the list.
 
 Finds all tasks with the specified word.
 
+Format: `find <string to search>`
+
 Example of usage: 
 
 `find open`
@@ -140,6 +152,8 @@ Here are the tasks in your list:
 
 Shows the description and syntax of all commands.
 
+Format: `help`
+
 Expected outcome:
 
 The description and syntax of the commands are returned.
@@ -148,21 +162,23 @@ The description and syntax of the commands are returned.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Welcome to the help page.
 Bye: Exits the program.
-Deadline: Adds a task with deadline. Command Syntax: deadline <name> /by <date in dd/MM/YYYY HHmm>
+Deadline: Adds a task with deadline. Command Syntax: deadline <name> /by <date in dd/MM/yyyy HHmm>
 Delete: Deletes a task. Command Syntax: delete <task id>
 Done: Marks a task as completed. Command Syntax: done <task id>
-Event: Creates an event. Command Syntax: event <event name> /at <date in dd/MM/YYYY HHmm>
+Event: Creates an event. Command Syntax: event <event name> /at <date in dd/MM/yyyy HHmm>
 Find: Finds all tasks with the specified word. Command Syntax: find <string to search>
 Help: Displays the help message.
 List: Lists all tasks.
 Todo: Creates a Todo task. Command Syntax: todo <task name>
-What's On: Lists all tasks occurring on the specified day. Command Syntax: whatson <date in dd/MM/YYYY>
+What's On: Lists all tasks occurring on the specified day. Command Syntax: whatson <date in dd/MM/yyyy>
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ```
 
 ### `List` - List all tasks.
 
 List all tasks in the task list.
+
+Format: `list`
 
 Expected outcome:
 
@@ -179,6 +195,8 @@ Here are the tasks in your list:
 ### `Todo` - Creates a Todo list.
 
 Creates a Todo in the task list.
+
+Format: `todo <task name>`
 
 Example of usage: 
 
@@ -200,13 +218,14 @@ Now you have 3 tasks in the list.
 
 Lists all tasks occurring on the specified date.
 
+Format: `whatson <date in dd/MM/yyyy`
 Example of usage: 
 
 `whatson 15/10/2021`
 
 Expected outcome:
 
-The event open house is returned.
+All tasks on the specific date is returned.
 
 ```
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -214,3 +233,17 @@ Here are the tasks in your list:
 1.[E][ ] open house (at: Oct 15 2021 0900)
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ```
+
+## Command Summary
+| Action | Command Parameters |
+| --- | --- |
+| `bye` | - |
+| `deadline` | `deadline <name> /by <date in dd/MM/yyyy HHmm>` |
+| `delete` | `delete <task id>` |
+| `done` | `done <task id>`|
+| `event` | `event <event name> /at <date in dd/MM/yyyy HHmm>` |
+| `find` | `find <string to search>` |
+| `help` | - |
+| `list` | - |
+| `todo` | `todo <task name>` |
+| `whatson` | `whatson <date in dd/MM/yyyy>` |

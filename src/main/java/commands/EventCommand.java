@@ -17,7 +17,7 @@ import java.util.Date;
 public class EventCommand extends Command {
     private static final String atNotProvided = "I could not find '/at dd/MM/YYYY HHmm' in your command!";
     private static final String eventTitleNotProvided = "I could not find the title of your event!";
-    public static final String commandSyntax = "Command Syntax: event <event name> /at <date in dd/MM/YYYY HHmm>";
+    public static final String commandSyntax = "Command Syntax: event <event name> /at <date in dd/MM/yyyy HHmm>";
 
     public String eventName;
     public String at;

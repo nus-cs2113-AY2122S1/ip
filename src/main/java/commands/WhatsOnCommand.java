@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 
 public class WhatsOnCommand extends Command {
-    public static final String commandSyntax = "Command Syntax: whatson <date in dd/MM/YYYY>";
+    public static final String commandSyntax = "Command Syntax: whatson <date in dd/MM/yyyy>";
     String date;
 
     public WhatsOnCommand(String command, String date) {

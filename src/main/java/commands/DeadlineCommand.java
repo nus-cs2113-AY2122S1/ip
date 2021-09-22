@@ -17,7 +17,7 @@ import java.util.Date;
 public class DeadlineCommand extends Command {
     private static final String byNotProvided = "I could not find '/by dd/MM/YYYY HHmm' in your command!";
     private static final String deadlineTitleNotProvided = "I could not find the title of your deadline!";
-    public static final String commandSyntax = "Command Syntax: deadline <name> /by <date in dd/MM/YYYY HHmm>";
+    public static final String commandSyntax = "Command Syntax: deadline <name> /by <date in dd/MM/yyyy HHmm>";
 
     public String description;
     public String date;
