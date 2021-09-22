@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -9,14 +10,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 
 public class Duke {
 
     private static int byeFlag = 0;
     private static int loadFlag = 0;
     private static int positionCheck = 0;
-
-    //private static final String filePath = "./Tasks.txt";
 
     private static ArrayList<Task> commands = new ArrayList<>();
 
@@ -33,9 +33,11 @@ public class Duke {
             } catch (NumberFormatException e) {
                 System.out.println(Response.NUMBER_FORMAT_EXCEPTION);
             } catch (DukeException e) {
-                System.out.print("");
+                //Catching DukeException errors
             } catch (IOException e) {
-                System.out.print("");
+                System.out.print("There is an error in your input master! Please check it out!");
+            } catch (DateTimeParseException e) {
+                System.out.println("Correct date format please!");
             }
         }
     }
@@ -59,10 +61,13 @@ public class Duke {
                 throw new DukeException(Response.UNSPECIFIED_DONE);
             case "delete":
                 throw new DukeException(Response.UNSPECIFIED_DELETE);
+            case "date":
+                throw new DukeException(Response.UNSPECIFIED_DATE);
             default:
                 throw new DukeException(Response.UNSPECIFIED_TASK);
             }
         } else {
+            String keyword = input[1];
             switch (firstWord) {
             case "done":
             case "delete":
@@ -79,6 +84,9 @@ public class Duke {
                     deleteTask(taskIndex);
                     break;
                 }
+            case "date":
+                printListForFindingDate(keyword);
+                break;
             default:
                 checkTypeOfTask(line);
                 break;
@@ -90,7 +98,7 @@ public class Duke {
         System.out.println(Response.ENDING_MESSAGE + Response.LINE);
     }
 
-    public static void addDeadline(String[] input, int length) throws DukeException, IOException {
+    public static void addDeadline(String[] input, int length) throws DukeException, IOException, DateTimeParseException {
         String description;
         String by;
         for (int i = 1 ; i < length ; i++) {
@@ -103,7 +111,7 @@ public class Duke {
                 for (int k = i+2 ; k < length ; k++) {
                     by += (" " + input[k]);
                 }
-                commands.add( new Deadline(description,by) );
+                commands.add(new Deadline(description,by));
                 if (loadFlag == 1) {
                     System.out.println("Added to Galactic database:" );
                     System.out.println(commands.get(positionCheck));
@@ -116,7 +124,7 @@ public class Duke {
         throw new DukeException(Response.DEADLINE_ERROR);
     }
 
-    public static void addEvent(String[] input, int length) throws DukeException, IOException {
+    public static void addEvent(String[] input, int length) throws DukeException, IOException, DateTimeParseException {
         String description;
         String at;
         for (int i = 1 ; i < length ; i++) {
@@ -185,6 +193,30 @@ public class Duke {
         for (Task num : commands) {
             System.out.println(i + ". " + num);
             i += 1;
+        }
+    }
+
+    private static void printListForFindingDate(String keyword) {
+
+        System.out.println("Accessing archives...");
+        System.out.println("Generating all the tasks that contain \"" + keyword + "\"...");
+        int i = 1;
+        LocalDate date = LocalDate.parse(keyword);
+        for (Task num : commands) {
+            if (num instanceof Event) {
+                if (((Event) num).at.contains(keyword)) {
+                    System.out.println(i + ". " + num);
+                    i += 1;
+                }
+            } else if (num instanceof Deadline) {
+                if (((Deadline) num).by.contains(keyword)) {
+                    System.out.println(i + ". " + num);
+                    i += 1;
+                }
+            }
+        }
+        if (i == 1) {
+            System.out.println("There are no tasks that occur on \"" + keyword + "\" master. My apologies!");
         }
     }
 
