@@ -11,6 +11,12 @@ public class TodoCommand extends Command {
 
     public static Ui ui = new Ui();
 
+    /**
+     * Function saves a task into the list of tasks
+     * @param taskList the list of tasks
+     * @param line the input string from the user
+     * @throws TodoException when the input string is invalid
+     */
     public void execute(TaskList taskList, String line) throws TodoException{
         if (line.length() == TASK_DATE_DIVIDER) {
             throw new TodoException("Todo Request Does Not Contain A Description");
