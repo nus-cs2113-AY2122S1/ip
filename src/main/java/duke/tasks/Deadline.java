@@ -1,11 +1,18 @@
 package duke.tasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
     protected String by;
+    protected LocalDate date;
 
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+        if (isDate(by)) {
+            date = LocalDate.parse(by, DateTimeFormatter.ofPattern("d-MM-yyyy"));
+        }
     }
 
     public String getBy() {

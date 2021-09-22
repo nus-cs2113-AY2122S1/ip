@@ -1,11 +1,18 @@
 package duke.tasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     protected String at;
+    protected LocalDate date;
 
     public Event(String description, String at) {
         super(description);
         this.at = at;
+        if (isDate(at)) {
+            date = LocalDate.parse(at, DateTimeFormatter.ofPattern("d-MM-yyyy"));
+        }
     }
 
     public String getAt() {
