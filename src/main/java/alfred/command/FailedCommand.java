@@ -19,13 +19,16 @@ public class FailedCommand extends Command {
             TextUi.invalidIndexMessage();
             break;
         case MISSING_DATE:
-            TextUi.invalidDateMessage();
+            TextUi.missingDateMessage();
             break;
         case EMPTY_DESCRIPTION:
             TextUi.emptyDescriptionMessage();
             break;
         case NO_INDEX_SPECIFIED:
             TextUi.missingIndexMessage();
+            break;
+        case INVALID_DATE:
+            TextUi.invalidDateMessage();
             break;
         default:
             return;
