@@ -26,16 +26,18 @@ public class Ui {
             "|_______/[___][___][___][\\_:  /   \n" +
             "                         \\__.'    \n";
     private static final String HELP_MESSAGE = "Here's some tips on how to use me!\n\n" +
-            "todo [input]\n" +
+            "todo <description>\n" +
             "\t - Add a todo task to the list\n\n" +
-            "deadline [input] /by [input]\n" +
+            "deadline <description> /by <dd/MM/yyyy> [HH:mm]\n" +
             "\t - Add a deadline task by the given deadline\n\n" +
-            "event [input] /at [input]\n" +
+            "event [input] /at <dd/MM/yyyy> [HH:mm]\n" +
             "\t - Add an event task at the given time\n\n" +
             "list\n" +
             "\t - List out all the current tasks\n\n" +
-            "done [task_numbers]\n" +
+            "done <task_numbers>\n" +
             "\t - Marks the given tasks as done\n\n" +
+            "find <description>\n" +
+            "\t - Finds a task based on the given task description" +
             "bye\n" +
             "\t - Terminates me :(\n";
 
