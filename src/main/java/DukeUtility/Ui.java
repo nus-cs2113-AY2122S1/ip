@@ -3,6 +3,10 @@ package DukeUtility;
 import TypeOfTasks.Task;
 import java.util.Scanner;
 
+/**
+ * User interface, a system that allows for printing of response to the command line system.
+ * 
+ */
 public class Ui {
     public static final String GREETING_MESSAGE = "SQUAWK! See you next time! :)";
     public static final String LOGO = " ______   _       _   _\n"
@@ -10,7 +14,12 @@ public class Ui {
             + "| |  | | | |/   \\| | | | \n"
             + "| |__| | |   / \\   | | |____\n"
             + "|______| |__/   \\__| |______|\n";
-    
+
+    /**
+     * Reads inputs from user and removes the extra spaces at the back if any.
+     * 
+     * @return The command keyed into as input by user.
+     */
     public String readCommand() {
         Scanner in = new Scanner(System.in);
         return in.nextLine().trim();        
@@ -51,14 +60,14 @@ public class Ui {
         Ui.printLine();
     }
     
-    public static void printTaskCount(int taskCount, String command) {
+    public static void printAddedMsg(int taskCount, String description) {
         Ui.printLine();
-        echoMessage(command);
+        addMessage(description);
         System.out.println("There are currently " + taskCount + " task now!");
         Ui.printLine();
     }
     
-    public static void echoMessage(String line) {
+    public static void addMessage(String line) {
         System.out.println("Owl: I've added that!\nOwl: You added this: " + line);
     }
     

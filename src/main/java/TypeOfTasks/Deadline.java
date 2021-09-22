@@ -4,11 +4,20 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 
+/**
+ * A type of task with description, checkbox and a by deadline description.
+ */
 public class Deadline extends Task{
     protected String tag = "D";
     protected String by;
     protected LocalDate localdate;
-
+    
+    /**
+     * Initialises Deadline object with its description and by description.
+     *
+     * @param description The deadline description.
+     * @param by The description of when the task is due.
+     */
     public Deadline(String description, String by) {
         super(description);
         try {
@@ -42,7 +51,14 @@ public class Deadline extends Task{
     public String getTag() {
         return tag;
     }
-    public void printList(Task theTask, int index) {
-        System.out.println(index + ".[D][" + (theTask.getStatus()) + "] "+ theTask.getDescription() + "(by: " + by + ")");
+
+    /**
+     * Prints all the details of the Deadline.
+     *
+     * @param task The specific task in the entire tasklist.
+     * @param index The index of the task getting printed, Base 1.
+     */
+    public void printTaskDetails(Task task, int index) {
+        System.out.println(index + ".[D][" + (task.getStatus()) + "] "+ task.getDescription() + "(by: " + by + ")");
     }
 }
