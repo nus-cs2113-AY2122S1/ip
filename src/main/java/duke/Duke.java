@@ -171,6 +171,12 @@ public class Duke {
         System.out.println(ADD_TASK_MSG);
     }
 
+    /**
+     * A functionality method used to search for a task by keyword.
+     * @param text The user's input including the word "find"
+     *             and the subsequent keyword.
+     * @throws DukeException
+     */
     private static void findTask(String text) throws DukeException {
         if (text.length() <= "find".length()) {
             throw new DukeException(SEARCH_ERROR);
