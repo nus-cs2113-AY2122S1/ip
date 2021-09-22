@@ -23,7 +23,7 @@ This is a user guide designed to help newer users who are unfamiliar with the co
     * Terminate the program : `bye`
 * Command Summary
 
-###Adding a todo
+### Adding a todo
 
 Adds a Todo type of task to the Owl
 
@@ -47,7 +47,7 @@ Owl: You added this: [T] swim in the ocean
 There are currently 2 task now!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 ````
-###Adding a deadline
+### Adding a deadline
 
 Adds a deadline type of task to the Owl
 ```
@@ -75,7 +75,7 @@ Owl: You added this: [D] MidTerms(by: Aug 19 2020)
 There are currently 2 task now!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 ````
-###Adding an event
+### Adding an event
 
 Adds a event type of task to the Owl
 ```
@@ -104,7 +104,7 @@ There are currently 2 task now!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 ````
 
-###Deleting a task
+### Deleting a task
 
 Deletes task from the list remembered by OWL
 ```
@@ -144,7 +144,7 @@ Squawkkk this is everything you have!!!
 2.[T][ ] chiwawa
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 ````
-###List all the tasks
+### List all the tasks
 
 List all the task remembered by OWL including Todos, Deadlines and Events
 
@@ -163,7 +163,7 @@ Squawkkk this is everything you have!!!
 4.[E][X] you can do it(at: 9am)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 ````
-###Done (Mark Completion of a task)
+### Done (Mark Completion of a task)
 
 Owl will mark the task as completed
 
@@ -199,7 +199,7 @@ Squawkkk this is everything you have!!!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 
 ````
-###Finding a task using a keyword
+### Finding a task using a keyword
 
 Based on an input keyword, Owl will find the task with similar details
 
@@ -236,7 +236,7 @@ Squawkkk this is everything you have!!!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 
 ````
-###Bye
+### Bye
 
 Terminates the Owl program and saves the file
 ```
@@ -254,7 +254,7 @@ SQUAWK! See you next time! :)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 ````
 
-###Command Summary
+### Command Summary
 
 Action | Example Input with format
 ------------ | -------------
