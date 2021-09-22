@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Command {
     public static void executeList() {
         ArrayList<Task> taskList = TaskList.getTaskList();
-        if(taskList.size() == 0) {
+        if (taskList.size() == 0) {
             Ui.printEmptyListMessage();
         } else {
             Ui.printDivider();
@@ -43,16 +43,17 @@ public class Command {
         ArrayList<Task> taskList = TaskList.getTaskList();
         try {
             switch (arguments.get(0)) {
-                case "todo":
-                    taskList.add(new ToDo(arguments.get(1)));
-                    break;
-                case "deadline":
-                    taskList.add(new Deadline(arguments.get(1), arguments.get(2)));
-                    break;
-                case "event":
-                    taskList.add(new Event(arguments.get(1), arguments.get(2)));
-                    break;
-                default:
+            case "todo":
+                taskList.add(new ToDo(arguments.get(1)));
+                break;
+            case "deadline":
+                taskList.add(new Deadline(arguments.get(1), arguments.get(2)));
+                break;
+            case "event":
+                taskList.add(new Event(arguments.get(1), arguments.get(2)));
+                break;
+            default:
+                break;
             }
             Ui.printAddTaskMessage();
         } catch (IndexOutOfBoundsException e) {
@@ -64,28 +65,28 @@ public class Command {
         String[] arguments = input.split("\\|");
         ArrayList<Task> taskList = TaskList.getTaskList();
         switch (arguments[0]) {
-            case "T":
-                if(arguments[1].equals("false")) {
-                    taskList.add(new ToDo(arguments[2]));
-                } else {
-                    taskList.add(new ToDo(arguments[2], true));
-                }
-                break;
-            case "D":
-                if(arguments[1].equals("false")) {
-                    taskList.add(new Deadline(arguments[2], arguments[3]));
-                } else {
-                    taskList.add(new Deadline(arguments[2], arguments[3], true));
-                }
-                break;
-            case "E":
-                if(arguments[1].equals("false")) {
-                    taskList.add(new Event(arguments[2], arguments[3]));
-                } else {
-                    taskList.add(new Event(arguments[2], arguments[3], true));
-                }
-                break;
-            default:
+        case "T":
+            if (arguments[1].equals("false")) {
+                taskList.add(new ToDo(arguments[2]));
+            } else {
+                taskList.add(new ToDo(arguments[2], true));
+            }
+            break;
+        case "D":
+            if (arguments[1].equals("false")) {
+                taskList.add(new Deadline(arguments[2], arguments[3]));
+            } else {
+                taskList.add(new Deadline(arguments[2], arguments[3], true));
+            }
+            break;
+        case "E":
+            if (arguments[1].equals("false")) {
+                taskList.add(new Event(arguments[2], arguments[3]));
+            } else {
+                taskList.add(new Event(arguments[2], arguments[3], true));
+            }
+            break;
+        default:
         }
 
     }

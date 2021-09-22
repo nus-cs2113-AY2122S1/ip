@@ -6,7 +6,11 @@ import duke.exception.DukeCommandException;
 import java.util.ArrayList;
 
 public class Parser {
-
+    /**
+     * This function takes in the user input and returns the input broken into its constituent parameters
+     * @param input (the user input)
+     * @return the input broken up into the command and the parameters
+     */
     public static ArrayList<String> parseInput(String input) {
         String trimmedInput = input.trim();
         ArrayList<String> arguments = new ArrayList<>();
