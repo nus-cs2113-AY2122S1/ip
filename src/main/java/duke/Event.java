@@ -5,7 +5,7 @@ public class Event extends Task {
     /**
      * Stores the event time of the task
      */
-    public String at;
+    protected String at;
 
     /**
      * Constructor to initialize task description and event time.

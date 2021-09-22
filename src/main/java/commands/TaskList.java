@@ -1,16 +1,15 @@
-package duke;
+package commands;
 
+import duke.*;
 import exception.DukeException;
 import exception.EmptyTaskDescriptionException;
 import exception.NoTaskFoundException;
-import storage.Storage;
 import ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TaskManager {
-
+public class TaskList {
 
     public static final String DELIMITER_SPACE = " ";
     public static final String DELIMITER_FORWARD_SLASH = "/";
@@ -35,10 +34,29 @@ public class TaskManager {
 
     public static ArrayList<Task> scheduledTasks;
 
-    public TaskManager() {
+    public TaskList() {
         scheduledTasks = new ArrayList<Task>();
     }
 
+
+    /**
+     * Updates the status of the task by marking it as done in the task list.
+     *
+     * @param taskNumberCompleted TaskNumberCompleted stores the task number which has been completed by the user.
+     */
+    public static void markTaskAsDone(String userInput) throws NoTaskFoundException {
+        Ui.printLine();
+        int taskNumberCompleted = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
+
+        if ((taskNumberCompleted <= scheduledTasks.size()) && (taskNumberCompleted > 0)) {
+            scheduledTasks.get(taskNumberCompleted - 1).markAsDone();
+            System.out.println(MESSAGE_TASK_MARKED_DONE);
+            System.out.println(scheduledTasks.get(taskNumberCompleted - 1));
+            Storage.callSaveTaskToList(scheduledTasks);
+        } else {
+            throw new NoTaskFoundException(ERROR_INVALID_TASK_NUMBER);
+        }
+    }
 
     /**
      * Adds the task to the task list if it is a valid task creation statement given by the user.
@@ -113,25 +131,6 @@ public class TaskManager {
         }
     }
 
-    /**
-     * Updates the status of the task by marking it as done in the task list.
-     *
-     * @param taskNumberCompleted TaskNumberCompleted stores the task number which has been completed by the user.
-     */
-    public static void markTaskAsDone(String userInput) throws NoTaskFoundException {
-        Ui.printLine();
-        int taskNumberCompleted = Integer.parseInt(userInput.substring(userInput.indexOf(" ") + 1));
-
-        if ((taskNumberCompleted <= scheduledTasks.size()) && (taskNumberCompleted > 0)) {
-            scheduledTasks.get(taskNumberCompleted - 1).markAsDone();
-            System.out.println(MESSAGE_TASK_MARKED_DONE);
-            System.out.println(scheduledTasks.get(taskNumberCompleted - 1));
-            Storage.callSaveTaskToList(scheduledTasks);
-        } else {
-            throw new NoTaskFoundException(ERROR_INVALID_TASK_NUMBER);
-        }
-    }
-
 
     /**
      * Deletes the task from the task list.
@@ -149,12 +148,11 @@ public class TaskManager {
             );
             scheduledTasks.remove(deleteTask - 1);
             System.out.println("Now you have " + scheduledTasks.size() + " tasks in the list.");
-            Storage.saveTaskToDisk(scheduledTasks);
+            Storage.callSaveTaskToList(scheduledTasks);
         } else {
             throw new NoTaskFoundException(ERROR_INVALID_TASK_NUMBER);
         }
     }
-
 
     /**
      * Lists all the tasks in the task list along with their task completion status.

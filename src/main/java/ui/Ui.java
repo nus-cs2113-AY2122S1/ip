@@ -8,7 +8,7 @@ public class Ui {
     public static final String EXIT_MESSAGE = " Bye. Hope to see you again soon!";
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
 
-    private static Scanner in = new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in);
 
     /**
      * Greets the user by printing some introductory messages
@@ -25,6 +25,7 @@ public class Ui {
     public static void greetBye() {
         System.out.println(EXIT_MESSAGE);
         printLine();
+        System.exit(0);
     }
 
 
@@ -35,8 +36,11 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * @return userInput userInput
+     */
     public static String getCommand() {
-        String userInput = in.nextLine();
+        String userInput = sc.nextLine();
         if (userInput.isBlank()) {
             return getCommand();
         }

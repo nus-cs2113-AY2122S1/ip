@@ -1,6 +1,6 @@
 package duke;
 
-import storage.Storage;
+import commands.TaskList;
 import ui.Ui;
 
 public class Duke {
@@ -8,14 +8,14 @@ public class Duke {
      * Task type Array list to store the tasks the user will create
      */
 
-    public static final TaskManager taskManager = new TaskManager();
+    public static final TaskList TASK_LIST = new TaskList();
     private static boolean isWorking = true;
 
     /**
      * This is the main function responsible for the execution of this program
      */
     public static void main(String[] args) {
-        Storage.loadData(Duke.taskManager);
+        Storage.loadData(Duke.TASK_LIST);
         Ui.greet();
         runDuke();
         Ui.greetBye();

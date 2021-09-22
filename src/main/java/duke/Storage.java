@@ -1,6 +1,6 @@
-package storage;
+package duke;
 
-import duke.*;
+import commands.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,9 +25,9 @@ public class Storage {
 
     private static final String FILE_PATH = "duke.txt";
 
-    public static void loadData(TaskManager taskManager) {
+    public static void loadData(TaskList taskList) {
         try {
-            loadPreviousData(taskManager);
+            loadPreviousData(taskList);
         } catch (FileNotFoundException e) {
             File file = new File(FILE_PATH);
             try {
@@ -38,16 +38,16 @@ public class Storage {
         }
     }
 
-    public static void loadPreviousData(TaskManager taskManager) throws FileNotFoundException {
+    public static void loadPreviousData(TaskList taskList) throws FileNotFoundException {
         File file = new File(FILE_PATH);
         Scanner sc = new Scanner(file);
 
         while (sc.hasNext()) {
-            loadSavedTasksToList(sc.nextLine(), taskManager);
+            loadSavedTasksToList(sc.nextLine(), taskList);
         }
     }
 
-    public static void loadSavedTasksToList(String input, TaskManager taskManager) {
+    public static void loadSavedTasksToList(String input, TaskList taskList) {
         String[] splitInput = input.split(DELIMITER_ARROW);
         String taskType = splitInput[0].trim();
         String taskStatus = splitInput[1].trim();
@@ -55,21 +55,21 @@ public class Storage {
 
         switch (taskType) {
         case INITIAL_TODO:
-            taskManager.scheduledTasks.add(new Todo(taskDescription));
+            taskList.scheduledTasks.add(new Todo(taskDescription));
             break;
         case INITIAL_DEADLINE:
             String timeDueBy = splitInput[3];
-            taskManager.scheduledTasks.add(new Deadline(taskDescription, timeDueBy));
+            taskList.scheduledTasks.add(new Deadline(taskDescription, timeDueBy));
             break;
         case INITIAL_EVENT:
             String timeDueAt = splitInput[3];
-            taskManager.scheduledTasks.add(new Event(taskDescription, timeDueAt));
+            taskList.scheduledTasks.add(new Event(taskDescription, timeDueAt));
             break;
         default:
         }
 
         if (taskStatus.equals(TASK_COMPLETED)) {
-            taskManager.scheduledTasks.get(taskManager.scheduledTasks.size() - 1).markAsDone();
+            taskList.scheduledTasks.get(TaskList.scheduledTasks.size() - 1).markAsDone();
         }
 
     }

@@ -4,8 +4,8 @@ public class Task {
     /**
      * Stores the task description.
      */
-    public String description;
-    public TaskType taskType;
+    protected String description;
+    protected TaskType taskType;
 
     /**
      * Stores true if task is done and false otherwise.

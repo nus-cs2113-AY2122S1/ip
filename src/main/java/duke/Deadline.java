@@ -4,7 +4,7 @@ public class Deadline extends Task {
     /**
      * Stores the deadline of the task
      */
-    public String by;
+    protected String by;
 
     /**
      * Constructor to initialize task description and deadline.

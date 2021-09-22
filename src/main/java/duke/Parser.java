@@ -1,5 +1,6 @@
 package duke;
 
+import commands.TaskList;
 import exception.DukeException;
 import exception.EmptyTaskDescriptionException;
 import exception.NoTaskFoundException;
@@ -19,16 +20,16 @@ public class Parser {
             if (userInput.equalsIgnoreCase(COMMAND_BYE)) {
                 return false;
             } else if (userInput.equalsIgnoreCase(COMMAND_LIST)) {
-                TaskManager.list();
+                TaskList.list();
                 return true;
             } else if (userInput.startsWith(COMMAND_DONE)) {
-                TaskManager.markTaskAsDone(userInput);
+                TaskList.markTaskAsDone(userInput);
                 return true;
             } else if (userInput.startsWith(COMMAND_DELETE)) {
-                TaskManager.deleteTask(userInput);
+                TaskList.deleteTask(userInput);
                 return true;
             } else {
-                TaskManager.addTaskToList(userInput);
+                TaskList.addTaskToList(userInput);
                 return true;
             }
         } catch (DukeException e) {
