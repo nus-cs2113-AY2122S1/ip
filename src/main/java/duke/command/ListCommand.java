@@ -2,7 +2,16 @@ package duke.command;
 import duke.DukeException;
 import duke.storage.TaskList;
 
+/**
+ * The command to list all the tasks in the list
+ * This class implements the <code>Command</code> interface
+ */
 public class ListCommand implements Command {
+    /**
+     * Executes the command
+     * @return result message if success
+     * @throws DukeException if the tasks cannot be load from memory
+     */
     public String run() throws DukeException {
         String resultMsg = "";
         int i;
