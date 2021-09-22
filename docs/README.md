@@ -65,14 +65,14 @@ Task added will automatically be saved to a storage text file named dukeTask.txt
 
 ### Marking task as completed
 To mark a task as completed, you will need to know the task number associated with the specific task.
-The format to mark task as done is : `done <task number>`. A tick will appear if task is done when list is printed out.
+The format to mark task as done is : `done <task number>`. An asterisk will appear if task is done when list is printed out.
 
 Sample output after marking a task:
 ````
 Input command: done 1
 =======================================================================================================
 Well done! Task marked:
-  [T][✓] exercise
+  [T][*] exercise
 =======================================================================================================
 ````
 
