@@ -1,6 +1,7 @@
 package duke.tasks;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 public class TaskManager {
@@ -147,5 +148,12 @@ public class TaskManager {
             return true;
         }
         return false;
+    }
+
+    public static ArrayList<Task> findTask(String keyword) {
+        ArrayList<Task> filteredList = (ArrayList<Task>) taskList.stream()
+                .filter((t) -> t.getDescription().contains(keyword))
+                .collect((Collectors.toList()));
+        return filteredList;
     }
 }
