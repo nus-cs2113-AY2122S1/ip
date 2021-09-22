@@ -1,22 +1,30 @@
 package duke.command;
 
 import Type.Mascot;
-
-import java.util.Scanner;
+import duke.data.Storage;
+import duke.data.TaskList;
+import duke.startup.Ui;
 
 public class MascotCommand extends Command{
     public MascotCommand() {
-        super("mascot");
+        super(CommandPrefix.mascot);
     }
+
     @Override
-    public void printDone() {
-        super.printDone();
+    public void saveListAndPrintDone(TaskList tasks) {
+        super.saveListAndPrintDone(tasks);
         System.out.println("saying stuff!");
     }
-    private static void mascotSay(Scanner in) {
+
+    private static void mascotSay() {
         Mascot jim = new Mascot();
-        String text = in.nextLine();
+        String text = Ui.readCommand();
         Mascot.penguinSay(text);
     }
 
+    @Override
+    public void execute (TaskList tasks, Ui ui, Storage storage) {
+        mascotSay();
+        saveListAndPrintDone(tasks);
+    }
 }

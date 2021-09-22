@@ -7,8 +7,6 @@ import Type.Todo;
 import duke.command.*;
 import duke.exception.InputCheckAndPrint;
 
-import java.util.Locale;
-
 public class Parser {
     public static final String EVENT_DIVIDER = "/at";
     public static final String DEADLINE_DIVIDER = "/by";
@@ -78,6 +76,7 @@ public class Parser {
             return new MascotCommand();
         } else {
             Ui.printWrongCommand();
+            return new OopsieCommand();
         }
     }
 }

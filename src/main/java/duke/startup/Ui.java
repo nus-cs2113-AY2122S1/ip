@@ -28,7 +28,7 @@ public class Ui {
         System.out.println("Loading Error");
     }
 
-    public String readCommand() {
+    public static String readCommand() {
         Scanner in = new Scanner(System.in);
         return  in.nextLine();
     }

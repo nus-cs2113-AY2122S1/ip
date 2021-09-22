@@ -10,6 +10,6 @@ public class Todo extends Task{
 
     @Override
     public String toString() {
-        return this.getType() + '|' + this.description + '|';
+        return String.valueOf(this.getType()) + '|' + this.description + '|' + this.isDone();
     }
 }

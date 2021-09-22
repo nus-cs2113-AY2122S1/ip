@@ -5,7 +5,6 @@ import Type.Event;
 import Type.Task;
 import duke.exception.InputCheckAndPrint;
 import duke.startup.Parser;
-import duke.startup.Ui;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +19,10 @@ public class TaskList {
 
     public TaskList() {
         taskList = new ArrayList<Task>();
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
     }
 
     public static String printTask(Task item) {
@@ -44,55 +47,40 @@ public class TaskList {
         System.out.println(" /          / ");
     }
 
-    private void deleteTasks() {
+    public void deleteTasks() {
         Scanner in = new Scanner(System.in);
         //1. collect data
+        int lastIndex = 0;
         List<Integer> toDeleteList = new ArrayList<Integer>();
         String input = in.nextLine();
         String[] inputData = input.split(" ");
-        for (String s : inputData) {
-            if (InputCheckAndPrint.startsWithSpace(s)) {
-                InputCheckAndPrint.inputFailMessage();
-                InputCheckAndPrint.printDoneFormat();
-                return;
+        try {
+            for (String s : inputData) {
+                toDeleteList.add(Integer.parseInt(s) - 1);
             }
-            else if (InputCheckAndPrint.isEmpty(s)) {
-                InputCheckAndPrint.inputFailMessage();
-                InputCheckAndPrint.printNoNull();
-                return;
+            //2. sort in decreasing order
+            Collections.sort(toDeleteList, Collections.reverseOrder());
+            //3. remove from list
+            for (int i : toDeleteList) {
+                System.out.println("remove " + (i + 1) + ": " + taskList.get(i).getDescription());
+                lastIndex = i;
+                taskList.remove(i);
             }
-            else if (!InputCheckAndPrint.isIntegerInput(s)) {
-                InputCheckAndPrint.printIntegerOnly();
-                return;
-            }
-            int sData = Integer.parseInt(s) - 1;
-            toDeleteList.add(sData);
-        }
-        //2. sort in decreasing order
-        Collections.sort(toDeleteList, Collections.reverseOrder());
-        //3. remove from list
-        for (int i : toDeleteList) {
-            System.out.println("remove " + (i + 1) + ": " + taskList.get(i).getDescription());
-            taskList.remove(i);
+        } catch (NullPointerException e) {
+            InputCheckAndPrint.printNotInRange(lastIndex);
+        } catch (NumberFormatException e) {
+            InputCheckAndPrint.printIntegerOnly();
+        } catch (IndexOutOfBoundsException e) {
+            InputCheckAndPrint.printNotInRange(lastIndex);
         }
     }
 
-    protected void markTasksAsDone() {
+    public void markTasksAsDone() {
         Scanner in = new Scanner(System.in);
-        InputCheckAndPrint doneCheck = new InputCheckAndPrint("doneCheck");
         try {
             String userInputString = null;
             do {
                 userInputString = in.nextLine();
-                if (InputCheckAndPrint.startsWithSpace(userInputString)) {
-                    InputCheckAndPrint.inputFailMessage();
-                    InputCheckAndPrint.printDoneFormat();
-                } else if (InputCheckAndPrint.isEmpty(userInputString)) {
-                    InputCheckAndPrint.inputFailMessage();
-                    InputCheckAndPrint.printNoNull();
-                } else if (!InputCheckAndPrint.isIntegerInput(userInputString)) {
-                    InputCheckAndPrint.printIntegerOnly();
-                }
             } while (InputCheckAndPrint.startsWithSpace(userInputString)
                     || InputCheckAndPrint.isEmpty(userInputString)
                     || !InputCheckAndPrint.isIntegerInput(userInputString)
@@ -117,11 +105,12 @@ public class TaskList {
         }
     }
 
-    private static void clearTaskList(ArrayList<Task> taskList) {
+    public void clearTaskList() {
         taskList.clear();
     }
 
-    protected void readLineToTask(Scanner in, ArrayList<Task> taskList) {
+    public void addTasksToList() {
+        Scanner in = new Scanner(System.in);
         String userInput;
         do {
             userInput = in.nextLine();

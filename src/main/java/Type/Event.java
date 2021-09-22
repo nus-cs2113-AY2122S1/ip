@@ -17,6 +17,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return this.getType() + '|' + this.description + '|' + this.atWhen;
+        return this.getType() + '|' + this.description + '|' + this.atWhen + '|' + this.isDone();
     }
 }
