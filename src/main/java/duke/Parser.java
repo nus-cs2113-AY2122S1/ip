@@ -24,6 +24,8 @@ public class Parser {
             return parseDeadlineCommand(input);
         } else if (input.startsWith("event")) {
             return parseEventCommand(input);
+        } else if (input.startsWith("find")) {
+            return parseFindCommand(input);
         } else {
             return new InvalidCommand();
         }
@@ -112,5 +114,15 @@ public class Parser {
         }
 
         return new DeleteCommand(taskIndex);
+    }
+
+    public Command parseFindCommand(String input) throws DukeException {
+        String searchTerm;
+        try {
+            searchTerm = input.substring(5);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException("missing search term");
+        }
+        return new FindCommand(searchTerm);
     }
 }
