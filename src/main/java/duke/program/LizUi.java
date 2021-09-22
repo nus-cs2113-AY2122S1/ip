@@ -65,8 +65,12 @@ public class LizUi {
         return in.nextLine();
     }
 
-    public static void printTaskList(int taskCount, ArrayList<Task> tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public static void printTaskList(int taskCount, ArrayList<Task> tasks, boolean isFind) {
+        if (isFind) {
+            System.out.println("Here are the matching tasks in your list:");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+        }
         for (int i = 0; i < taskCount; i++) {
 
             String taskType = tasks.get(i).getType();
@@ -90,54 +94,6 @@ public class LizUi {
         } else {
             printGenericErrorMessage();
         }
-    }
-
-    ///////////////////////////////
-    //ALL ERROR MESSAGES GO BELOW//
-    ///////////////////////////////
-
-    public static void printFileErrorMessage() {
-        System.out.println("Hey bud, something went wrong with the file :/");
-    }
-
-    public static void printIndexOutOfBoundsMessage() {
-        System.out.println("Sorry bud, you can't check off/delete what is not yet there :/");
-    }
-
-    public static void printInvalidDoneOrDeleteMessage() {
-        System.out.println("Sorry bud, that's not a valid task number to check off/delete!");
-    }
-
-    public static void printAlreadyDoneMessage() {
-        System.out.println("Slow down there bud! You've already completed this task!");
-    }
-
-    public static void printEmptyIndexAfterDoneMessage() {
-        System.out.println("Hey bud, the format for marking off a task is :done [index]");
-    }
-
-    public static void printEmptyIndexAfterDeleteMessage() {
-        System.out.println("Hey bud, the format for marking off a task is :delete [index]");
-    }
-
-    public static void printEmptyDescriptionMessage(String command) {
-        System.out.println("Sorry bud! The description after " + command + " can't be blank!");
-    }
-
-    public static void printInvalidCommandMessage() {
-        System.out.println("Sorry bud, but that command is gibberish to me. I can only read 7 words!");
-        System.out.println("The seven words are:");
-        System.out.printf("list%ndone%ndelete%ntodo%ndeadline%nevent%nbye%n");
-    }
-
-    public static void printInvalidFormatMessage(String command) {
-        String timeIndicatorCommand = (command.equals(COMMAND_DEADLINE)) ? "by" : "at";
-        System.out.println("Sorry bud, but your formatting is gibberish to me. Here is how it should be formatted: ");
-        System.out.println(command + " {description} /" + timeIndicatorCommand + " {timing}");
-    }
-
-    public static void printGenericErrorMessage() {
-        System.out.println("Oops! Something went wrong :(");
     }
 
     public void printMarkAsDoneMessage(Task task) {
@@ -179,4 +135,51 @@ public class LizUi {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
+    ///////////////////////////////
+    //ALL ERROR MESSAGES GO BELOW//
+    ///////////////////////////////
+
+    public static void printFileErrorMessage() {
+        System.out.println("Hey bud, something went wrong with the file :/");
+    }
+
+    public static void printIndexOutOfBoundsMessage() {
+        System.out.println("Sorry bud, you can't check off/delete what is not yet there :/");
+    }
+
+    public static void printInvalidDoneOrDeleteMessage() {
+        System.out.println("Sorry bud, that's not a valid task number to check off/delete!");
+    }
+
+    public static void printAlreadyDoneMessage() {
+        System.out.println("Slow down there bud! You've already completed this task!");
+    }
+
+    public static void printEmptyIndexAfterDoneMessage() {
+        System.out.println("Hey bud, the format for marking off a task is :done [index]");
+    }
+
+    public static void printEmptyIndexAfterDeleteMessage() {
+        System.out.println("Hey bud, the format for marking off a task is :delete [index]");
+    }
+
+    public static void printEmptyDescriptionMessage(String command) {
+        System.out.println("Sorry bud! The description after " + command + " can't be blank!");
+    }
+
+    public static void printInvalidCommandMessage() {
+        System.out.println("Sorry bud, but that command is gibberish to me. I can only read 8 words!");
+        System.out.println("The seven words are:");
+        System.out.printf("list%ndone%ndelete%nfind%ntodo%ndeadline%nevent%nbye%n");
+    }
+
+    public static void printInvalidFormatMessage(String command) {
+        String timeIndicatorCommand = (command.equals(COMMAND_DEADLINE)) ? "by" : "at";
+        System.out.println("Sorry bud, but your formatting is gibberish to me. Here is how it should be formatted: ");
+        System.out.println(command + " {description} /" + timeIndicatorCommand + " {timing}");
+    }
+
+    public static void printGenericErrorMessage() {
+        System.out.println("Oops! Something went wrong :(");
+    }
 }

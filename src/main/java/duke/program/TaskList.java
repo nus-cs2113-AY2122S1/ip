@@ -123,4 +123,18 @@ public class TaskList {
 
         taskCount--;
     }
+
+    public ArrayList<Task> findMatchingTasks(TaskList tasks, String[] lineArgs, LizUi ui)
+            throws EmptyDescriptionException {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        String keyword = lineArgs[1];
+
+        for (Task task : tasks.getTaskList()) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
+    }
 }
