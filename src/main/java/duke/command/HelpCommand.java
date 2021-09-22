@@ -10,7 +10,8 @@ public class HelpCommand extends Command {
             + "5. Add Deadlines             -> {deadline <task description> /by <task date&time>}\n"
             + "6. Add Events                -> {event <task description> /at <task date&time>}\n"
             + "7. Set Task as Done          -> {done <task ID>}\n"
-            + "8. Delete Task               -> {delete <task ID>}";
+            + "8. Delete Task               -> {delete <task ID>}\n"
+            + "9. Find Task                 -> {find <keyword>}";
 
     @Override
     public CommandResult executeCommand() {
