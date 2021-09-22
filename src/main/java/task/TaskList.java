@@ -104,6 +104,7 @@ public class TaskList {
      * Mark the task as done and calls Ui to print out marked as done message.
      *
      * @param index The index of the Task that the user wants to mark as done in the list
+     * @throws DukeException If tasks is empty, or the index given is out of bounds
      */
     public void markTaskAsDone(int index) throws DukeException {
         try {

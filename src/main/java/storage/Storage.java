@@ -13,11 +13,23 @@ import ui.Ui;
 
 
 public class Storage {
+    /**
+     * Variables used for loading/saving to the default save filepath.
+     */
     private final String DEFAULT_SAVE_DIRECTORY = "data";
     private final String DEFAULT_SAVE_FILE = "duke.txt";
 
+    /**
+     * Default class constructor.
+     */
     public Storage() {}
 
+    /**
+     * Saves the list of tasks to default save file.
+     * Default save file can be found at ./data/duke.txt
+     *
+     * @param tasks The list of tasks
+     */
     public void saveTasksToFile(TaskList tasks) {
         ArrayList<String> stringFormattedTasks;
         File saveDir = new File(DEFAULT_SAVE_DIRECTORY);
@@ -37,6 +49,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads a list of tasks from default save file, if it exists.
+     * Default save file can be found at ./data/duke.txt
+     *
+     * @param tasks The list of tasks
+     */
     public void instantiateTasksFromFile(TaskList tasks) {
         File saveDir = new File(DEFAULT_SAVE_DIRECTORY);
         saveDir.mkdir();

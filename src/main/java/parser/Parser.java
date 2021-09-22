@@ -12,6 +12,7 @@ public class Parser {
     private static final String COMMAND_BYE = "Bye";
     private static final String COMMAND_DONE = "Done";
     private static final String COMMAND_LIST = "List";
+    private static final String COMMAND_DELETE = "Delete";
 
     // Prefixes meant for processing data parameters for Task
     private static final String BY_WHEN_PREFIX = "/by";
@@ -19,23 +20,46 @@ public class Parser {
     private static final String TASK_TODO_PREFIX = "Todo";
     private static final String TASK_DEADLINE_PREFIX = "Deadline";
     private static final String TASK_EVENT_PREFIX = "Event";
-    private static final String COMMAND_DELETE = "Delete";
     private static final String EMPTY_VALUE = "";
 
+
+    /**
+     * Class constructor with specified Ui Object.
+     *
+     * @param uiObject Ui Object
+     */
     public Parser(Ui uiObject) {
         ui = uiObject;
     }
 
+    /**
+     * Returns the type of command from user input.
+     *
+     * @param userInput The read-in user input.
+     * @return The type of command
+     */
     public String getCommandType(String userInput) {
         String[] userParams = userInput.split(ui.SPACE_PREFIX);
         return userParams[0];
     }
 
+    /**
+     * Returns the extracted index from user input.
+     *
+     * @param userInput The read-in user input
+     * @return The index specified by user input
+     */
     public int getIndex(String userInput) {
         String[] userParams = userInput.split(ui.SPACE_PREFIX);
         return Integer.parseInt(userParams[1]);
     }
 
+    /**
+     * Parses the user input and runs the respective user command functionalities.
+     *
+     * @param userInput The read-in user input
+     * @param tasks The list of tasks
+     */
     public void parseUserCommand(String userInput, TaskList tasks) {
         String commandType = getCommandType(userInput);
         if (commandType.equalsIgnoreCase(COMMAND_BYE)) {
@@ -60,6 +84,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input and run Task-related commands.
+     *
+     * @param userInput The read-in user input
+     * @param tasks The list of tasks
+     */
     public void parseTaskCommands(String userInput, TaskList tasks) {
         String taskType = userInput.split(Ui.SPACE_PREFIX)[0];
         // Remove the Type of Task from the user input
@@ -82,11 +112,12 @@ public class Parser {
     }
 
     /**
-     * Creates a TodoObject from task name given by the user
-     * and returns it to be added to Tasks
+     * Parses and validates the task name to create a Todo
+     * and adds it to the list of tasks.
      *
-     * @param taskName name of the Todo_Task to be created
-     * @return TodoObject
+     * @param taskName The name of the TodoObject to be created
+     * @param tasks The list of tasks
+     * @throws DukeException If the task name is empty.
      */
     private void parseNewToDo(String taskName, TaskList tasks) throws DukeException {
         if (taskName.equals(EMPTY_VALUE)) {
@@ -95,6 +126,14 @@ public class Parser {
         tasks.addNewTodoObject(taskName);
     }
 
+    /**
+     * Returns an array of details containing task name and "by when".
+     * Index 0 contains the task name.
+     * Index 1 contains the "by when" date and time.
+     *
+     * @param unprocessedTaskName The unprocessed task name containing the prefixes and "by when" value.
+     * @return An array containing task name and "by when" value.
+     */
     private String[] getTaskNameAndByWhen(String unprocessedTaskName) {
         String[] taskNameAndByWhen = new String[2];
         String byWhen = unprocessedTaskName.split(BY_WHEN_PREFIX)[1].trim();
@@ -105,12 +144,11 @@ public class Parser {
     }
 
     /**
-     * Processes the unprocessed task name given by user, to get the actual task name
-     * and the date to be completed ("byWhen").
-     * Lastly, creates a Deadline Object before returning it to be added to Tasks
+     * Parses and validates the unprocessed task name to create a Deadline
+     * and adds it to the list of tasks.
      *
-     * @param unprocessedTaskName task name given by user before removing non-taskName relevant info
-     * @return DeadlineObject
+     * @param unprocessedTaskName The unprocessed task name before extracting out non-taskName relevant info
+     * @throws DukeException If the given input does not contain any "/by" prefix or deadline name is missing
      */
     private void parseNewDeadline(String unprocessedTaskName, TaskList tasks) throws DukeException {
         if (!unprocessedTaskName.contains(BY_WHEN_PREFIX)) {
@@ -124,6 +162,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns an array of details containing task name and "at when".
+     * Index 0 contains the task name.
+     * Index 1 contains the "at when" date and time.
+     *
+     * @param unprocessedTaskName The unprocessed task name containing the prefixes and "by when" value.
+     * @return An array containing task name and "at when" value.
+     */
     private String[] getTaskNameAndAtWhen(String unprocessedTaskName) {
         String[] taskNameAndAtWhen = new String[2];
         String atWhen = unprocessedTaskName.split(AT_WHEN_PREFIX)[1].trim();
@@ -134,12 +180,11 @@ public class Parser {
     }
 
     /**
-     * Processes the unprocessed task name given by user, to get the actual task name
-     * and the date of the event ("atWhen").
-     * Lastly, creates an Event Object before returning it to be added to Tasks
+     * Parses and validates the unprocessed task name to create an Event
+     * and adds it to the list of tasks.
      *
-     * @param unprocessedTaskName task name given by user before removing non-taskName relevant info
-     * @return EventObject
+     * @param unprocessedTaskName The unprocessed task name before extracting out non-taskName relevant info
+     * @throws DukeException If the given input does not contain the "/at" prefix or deadline name is missing
      */
     private void parseNewEvent(String unprocessedTaskName, TaskList tasks) throws DukeException {
         if (!unprocessedTaskName.contains(AT_WHEN_PREFIX)) {
