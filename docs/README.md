@@ -45,8 +45,7 @@ Refer to the Features below for details of each command.
 ------------------------
 ## Features
 
-|Words in UPPER_CASE are the parameters to be supplied by the user. (e.g. in `todo TASK_DESCRIPTION`, `TASK_DESCRIPTION` is a parameter which can be used as `todo Task`.)| 
-|---------------------------------------------------------------------------------------------------------------------------------------------------|
+**Words in UPPER_CASE are the parameters to be supplied by the user. (e.g. in `todo TASK_DESCRIPTION`, `TASK_DESCRIPTION` is a parameter which can be used as `todo Task`.)**
 
 ### Adding a Todo task: `todo`
 Adds a Todo task to total tasks.
@@ -60,8 +59,8 @@ Adds a Deadline task to total tasks.
 
 Format: `deadline TASK_DESCRIPTION /by DEADLINE_DATE`
 
-Example: `deadline buy gift for Mother's Day /by 8/5/2022
-`
+Example: `deadline buy gift for Mother's Day /by 8/5/2022`
+
 ### Adding an Event task: `event`
 Adds an Event task to total tasks.
 
