@@ -1,1 +1,3 @@
 T--1--wakeup
+D--0--eat--morning
+E--0--sleep--night

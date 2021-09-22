@@ -26,16 +26,8 @@ public class TaskList {
         this.taskList = taskList;
     }
 
-    public void addTodo(String description) {
-        taskList.add(new Todo(description));
-    }
-
-    public void addDeadline(String description, String by) {
-        taskList.add(new Deadline(description, by));
-    }
-
-    public void addEvent(String description, String at) {
-        taskList.add(new Event(description, at));
+    public void add(Task task) {
+        taskList.add(task);
     }
 
     public void markDone(int index) {
