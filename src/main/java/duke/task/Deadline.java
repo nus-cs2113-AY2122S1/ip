@@ -1,7 +1,7 @@
 package duke.task;
 
 public class Deadline extends Task {
-    private String dueTime;
+    protected String dueTime;
 
     public Deadline(String name, String dueTime) {
         super(name);
@@ -18,7 +18,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String done = isDone ? "X" : " " ;
-        return "[" + type + "]"+ "["+ done +"] " + name + " (" + dueTime + ")";
+        return "[" + type + "]" + "[" + done + "] " + name + " (by: " + dueTime + ")";
     }
 
     @Override

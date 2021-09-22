@@ -15,14 +15,6 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public boolean getDone() {
-        return isDone;
-    }
-
     public void setDone() {
         this.isDone = true;
     }
@@ -34,7 +26,6 @@ public class Task {
     }
 
     public String formatData() {
-        String formattedOutput = type + "|" + isDone + "|" + name;
-        return formattedOutput;
+        return type + "|" + isDone + "|" + name;
     }
 }

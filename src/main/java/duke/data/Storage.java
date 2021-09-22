@@ -1,5 +1,7 @@
-package duke;
+package duke.data;
 
+import duke.Command;
+import duke.Ui;
 import duke.task.Task;
 
 import java.io.File;
@@ -8,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class DataFile {
+public class Storage {
     private static final String DIRECTORY_NAME = "data";
     private static final String FILE_NAME = "tasks.txt";
 
@@ -20,14 +22,14 @@ public class DataFile {
                 newDirectory.mkdirs();
             }
             FileWriter writer = new FileWriter(DIRECTORY_NAME + File.separator + FILE_NAME);
-            for(Task task : TaskCollection.getTaskList()) {
+            for(Task task : TaskList.getTaskList()) {
                 writer.write(task.formatData() + "\n");
             }
             writer.close();
         } catch (IOException e) {
-            Messages.printDivider();
+            Ui.printDivider();
             System.out.println("Unable to access file");
-            Messages.printDivider();
+            Ui.printDivider();
         }
     }
 
@@ -42,16 +44,16 @@ public class DataFile {
             Scanner s = new Scanner(fileToRead);
             while (s.hasNext()) {
                 String in = s.nextLine();
-                Command.executeAdd(in);
+                Command.executeLoad(in);
             }
         } catch (FileNotFoundException e) {
             try {
                 System.out.println("Creating " + FILE_NAME);
                 fileToRead.createNewFile();
             } catch (IOException ex) {
-                Messages.printDivider();
+                Ui.printDivider();
                 System.out.println("Unable to create file");
-                Messages.printDivider();
+                Ui.printDivider();
             }
         }
     }

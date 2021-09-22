@@ -1,5 +1,6 @@
 package duke;
 
+import duke.data.TaskList;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -10,37 +11,36 @@ import java.util.ArrayList;
 
 public class Command {
     public static void executeList() {
-        ArrayList<Task> taskList = TaskCollection.getTaskList();
-        Messages.printDivider();
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(i + 1 + "." + taskList.get(i));
+        ArrayList<Task> taskList = TaskList.getTaskList();
+        if(taskList.size() == 0) {
+            Ui.printEmptyListMessage();
+        } else {
+            Ui.printDivider();
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.println(i + 1 + "." + taskList.get(i));
+            }
+            Ui.printDivider();
         }
-        Messages.printDivider();
     }
 
     public static void executeDone(ArrayList<String> arguments) {
         try {
-            ArrayList<Task> taskList = TaskCollection.getTaskList();
+            ArrayList<Task> taskList = TaskList.getTaskList();
             int taskIndex = Integer.parseInt(arguments.get(1)) - 1;
             taskList.get(taskIndex).setDone();
-            Messages.printDivider();
+            Ui.printDivider();
             System.out.println("Nice I've marked this task as done:");
             System.out.println(taskList.get(taskIndex));
-            Messages.printDivider();
+            Ui.printDivider();
         } catch (IndexOutOfBoundsException e) {
-            Messages.printDivider();
-            System.out.println("No such task exists");
-            Messages.printDivider();
+            Ui.printInvalidTaskMessage();
         } catch (NumberFormatException e) {
-            Messages.printDivider();
-            System.out.println("Invalid command");
-            System.out.println("For information on how to use me try using the help command!");
-            Messages.printDivider();
+            Ui.printInvalidArgumentMessage();
         }
     }
 
     public static void executeAdd(ArrayList<String> arguments) {
-        ArrayList<Task> taskList = TaskCollection.getTaskList();
+        ArrayList<Task> taskList = TaskList.getTaskList();
         try {
             switch (arguments.get(0)) {
                 case "todo":
@@ -54,24 +54,15 @@ public class Command {
                     break;
                 default:
             }
-            int taskCount = taskList.size();
-            Messages.printDivider();
-            System.out.println("Got it. I've added this task: ");
-            System.out.println(taskList.get(taskCount - 1));
-            System.out.println("You now have " + taskCount + " items in the list.");
-            Messages.printDivider();
-
+            Ui.printAddTaskMessage();
         } catch (IndexOutOfBoundsException e) {
-            Messages.printDivider();
-            System.out.println("Missing parameters");
-            System.out.println("For information on how to use me try using the help command!");
-            Messages.printDivider();
+            Ui.printParameterErrorMessage();
         }
     }
 
-    public static void executeAdd(String input) {
+    public static void executeLoad(String input) {
         String[] arguments = input.split("\\|");
-        ArrayList<Task> taskList = TaskCollection.getTaskList();
+        ArrayList<Task> taskList = TaskList.getTaskList();
         switch (arguments[0]) {
             case "T":
                 if(arguments[1].equals("false")) {
@@ -101,24 +92,19 @@ public class Command {
 
     public static void executeDelete(ArrayList<String> arguments) {
         try {
-            ArrayList<Task> taskList = TaskCollection.getTaskList();
+            ArrayList<Task> taskList = TaskList.getTaskList();
             int taskIndex = Integer.parseInt(arguments.get(1)) - 1;
-            taskList.get(taskIndex); //Throw exception early
-            Messages.printDivider();
+            taskList.get(taskIndex);
+            Ui.printDivider();
             System.out.println("Noted. I've removed this task: ");
             System.out.println(taskList.get(taskIndex));
             taskList.remove(taskIndex);
             System.out.println("You now have " + taskList.size() + " items in the list.");
-            Messages.printDivider();
+            Ui.printDivider();
         } catch (IndexOutOfBoundsException e) {
-            Messages.printDivider();
-            System.out.println("No such task exists");
-            Messages.printDivider();
+            Ui.printInvalidTaskMessage();
         } catch (NumberFormatException e) {
-            Messages.printDivider();
-            System.out.println("Invalid command");
-            System.out.println("For information on how to use me try using the help command!");
-            Messages.printDivider();
+            Ui.printInvalidArgumentMessage();
         }
     }
 

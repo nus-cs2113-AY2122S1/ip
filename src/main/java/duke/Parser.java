@@ -1,23 +1,31 @@
 package duke;
 
+import duke.data.Storage;
 import duke.exception.DukeCommandException;
 
 import java.util.ArrayList;
 
-public class InputParser {
+public class Parser {
 
     public static ArrayList<String> parseInput(String input) {
+        String trimmedInput = input.trim();
         ArrayList<String> arguments = new ArrayList<>();
-        String command = input.split(" ")[0];
+        String command = trimmedInput.split(" ")[0];
         arguments.add(command);
-        String parameters = input.replaceFirst(command, "");
+        String parameters = trimmedInput.replaceFirst(command, "");
         int separatorIndex = parameters.indexOf('/');
         if(separatorIndex != -1 && separatorIndex != parameters.length() - 1) {
-            arguments.add(parameters.split("/")[0].trim());
-            arguments.add(parameters.split("/")[1].trim());
+            String[] splitParams = parameters.split("/",2);
+            if(!splitParams[0].isBlank() && !splitParams[1].isBlank()) {
+                arguments.add(splitParams[0].trim());
+                arguments.add(splitParams[1].trim());
+            } else {
+                Ui.printParameterErrorMessage();
+            }
         } else {
-            if(!parameters.isBlank())
+            if(!parameters.isBlank()) {
                 arguments.add(parameters.trim());
+            }
         }
         return arguments;
     }
@@ -25,17 +33,17 @@ public class InputParser {
     public static void handleInput(ArrayList<String> arguments) throws DukeCommandException {
         switch (arguments.get(0)) {
         case "help":
-            Messages.helpMessage();
+            Ui.printHelpMessage();
             break;
 
         case "delete":
             Command.executeDelete(arguments);
-            DataFile.write();
+            Storage.write();
             break;
 
         case "done":
             Command.executeDone(arguments);
-            DataFile.write();
+            Storage.write();
             break;
 
         case "list":
@@ -46,7 +54,7 @@ public class InputParser {
         case "deadline":
         case "event":
             Command.executeAdd(arguments);
-            DataFile.write();
+            Storage.write();
             break;
         default:
             throw new DukeCommandException();
