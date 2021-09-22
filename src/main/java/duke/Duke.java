@@ -61,13 +61,15 @@ public class Duke {
                 throw new DukeException(Response.UNSPECIFIED_DONE);
             case "delete":
                 throw new DukeException(Response.UNSPECIFIED_DELETE);
+            case "find":
+                throw new DukeException(Response.UNSPECIFIED_FIND);
             case "date":
                 throw new DukeException(Response.UNSPECIFIED_DATE);
             default:
                 throw new DukeException(Response.UNSPECIFIED_TASK);
             }
         } else {
-            String keyword = input[1];
+            String secondWord = input[1];
             switch (firstWord) {
             case "done":
             case "delete":
@@ -84,8 +86,15 @@ public class Duke {
                     deleteTask(taskIndex);
                     break;
                 }
+            case "find":
+                String keyword = secondWord;
+                for (int i = 2 ; i < input.length ; i++ ) {
+                    keyword += " " + input[i];
+                }
+                printListForFindingTask(keyword);
+                break;
             case "date":
-                printListForFindingDate(keyword);
+                printListForFindingDate(secondWord);
                 break;
             default:
                 checkTypeOfTask(line);
@@ -231,7 +240,7 @@ public class Duke {
             }
         }
         if (i == 1) {
-            System.out.println("There are no tasks that contain \"" + keyword + "\" master. My apologies!");
+            System.out.println("Unfortunately, there are no tasks that contain \"" + keyword + "\" master. My apologies!");
         }
     }
 
