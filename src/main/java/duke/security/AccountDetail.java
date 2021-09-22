@@ -3,52 +3,38 @@ package duke.security;
 import java.util.Scanner;
 
 public class AccountDetail {
-    private static String username = "John Doe";
-    private static String password = "password";
-    private static int points = 0;
+    private String username = "John Doe";
+    private String password = "password";
 
     public AccountDetail() {
         Scanner in = new Scanner(System.in);
         setupUsernamePassword(in);
     }
 
-    public static String getUsername() {
-        return username;
-    }
-
-    public static void setUsername(String username) {
+    public void setUsername(String usernameToInput) {
         if (username.isBlank()) {
-            AccountDetail.username = "dukeBot";
+            username = "dukeBot";
         } else {
-            AccountDetail.username = username;
+            username = usernameToInput;
         }
     }
 
-    public static String getPassword() {
-        return password;
-    }
-
-    public static void setPassword(String password) {
-        if (password.isBlank()) {
-            AccountDetail.password = "bukeDot";
+    public void setPassword(String passwordToInput) {
+        if (passwordToInput.isBlank()) {
+            password = "bukeDot";
         } else {
-            AccountDetail.password = password;
+            password = passwordToInput;
         }
     }
 
-    public static int getPoints() {
-        return points;
-    }
-
-    public static void setPoints(int points) {
-        AccountDetail.points = points;
-    }
-
-    private static void setupUsernamePassword(Scanner in) {
-        AccountDetail user = new AccountDetail();
+    private void setupUsernamePassword(Scanner in) {
         System.out.print("Username [dukeBot]: ");
-        AccountDetail.setUsername(in.nextLine());
+        setUsername(in.nextLine());
         System.out.print("Password [bukeDot]: ");
-        AccountDetail.setPassword(in.nextLine());
+        setPassword(in.nextLine());
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

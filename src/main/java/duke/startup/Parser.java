@@ -4,7 +4,10 @@ import Type.Deadline;
 import Type.Event;
 import Type.Task;
 import Type.Todo;
+import duke.command.*;
 import duke.exception.InputCheckAndPrint;
+
+import java.util.Locale;
 
 public class Parser {
     public static final String EVENT_DIVIDER = "/at";
@@ -53,5 +56,28 @@ public class Parser {
             return true;
         }
         return false;
+    }
+
+    public static Command parse(String fullCommand) {
+        String stringToRead = fullCommand.trim().toLowerCase();
+        if (stringToRead.startsWith("add")) {
+            return new AddCommand();
+        } else if (stringToRead.startsWith("bye")) {
+            return new ByeCommand();
+        } else if (stringToRead.startsWith("clear")) {
+            return new ClearCommand();
+        } else if (stringToRead.startsWith("delete")) {
+            return new DeleteCommand();
+        } else if (stringToRead.startsWith("done")) {
+            return new DoneCommand();
+        } else if (stringToRead.startsWith("echo")) {
+            return new EchoCommand();
+        } else if (stringToRead.startsWith("list")) {
+            return new ListCommand();
+        } else if (stringToRead.startsWith("mascot")) {
+            return new MascotCommand();
+        } else {
+            Ui.printWrongCommand();
+        }
     }
 }

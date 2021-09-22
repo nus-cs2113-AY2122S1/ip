@@ -4,6 +4,7 @@ import Type.Deadline;
 import Type.Event;
 import Type.Task;
 import duke.exception.InputCheckAndPrint;
+import duke.startup.Parser;
 import duke.startup.Ui;
 
 import java.util.ArrayList;
@@ -13,8 +14,12 @@ import java.util.Scanner;
 
 public class TaskList {
     private ArrayList<Task> taskList;
+    public TaskList(ArrayList<Task> loadedTaskList) {
+        taskList = loadedTaskList;
+    }
+
     public TaskList() {
-        ArrayList<Task> taskList = new ArrayList<>();
+        taskList = new ArrayList<Task>();
     }
 
     public static String printTask(Task item) {
@@ -25,6 +30,7 @@ public class TaskList {
         }
         return "";
     }
+
     public void listTasks() {
         int in = 1;
         System.out.println(" /          / ");
@@ -115,11 +121,21 @@ public class TaskList {
         taskList.clear();
     }
 
-    protected static void addTaskToList(Scanner in, ArrayList<Task> taskList) {
+    protected void readLineToTask(Scanner in, ArrayList<Task> taskList) {
         String userInput;
         do {
             userInput = in.nextLine();
-        } while (!Ui.userStopAdd(taskList, userInput));
+        } while (!userStopAdd(userInput));
         System.out.println("Finished adding tasks!");
+    }
+
+    public boolean userStopAdd(String userInput) {
+        if (!userInput.equals("stop")) {
+            Task taskToAdd = Parser.parseInputAsTask(userInput);
+            taskList.add(taskToAdd);
+        } else {
+            return true;
+        }
+        return false;
     }
 }

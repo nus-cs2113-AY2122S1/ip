@@ -14,9 +14,10 @@ import java.util.Scanner;
 
 
 public class Storage{
-    protected static String filePath;
-    public Storage(String filePath) {
-        Storage.filePath = filePath;
+    private static String filePath;
+
+    public Storage(String filePathToInput) {
+        filePath = filePathToInput;
     }
 
     //print a task array list in easy to wrangle data format
@@ -27,11 +28,11 @@ public class Storage{
         return t.toString() + '\n';
     }
 
-    public static void saveList(ArrayList<Task> taskArrayList) throws IOException {
+    public static void saveList(ArrayList<Task> taskList) throws IOException {
         checkAndAddDirectory();
         File newList = new File("data/list.txt");
         FileWriter fw = new FileWriter("data/list.txt");
-        for (Task t : taskArrayList) {
+        for (Task t : taskList) {
             fw.write(printTaskAsString(t));
         }
         fw.close();
@@ -50,7 +51,7 @@ public class Storage{
                 if (readLine.equals("")) {
                     break;
                 }
-                addTaskToArray(tasksToRead, readLine);
+                addTaskToArray(readLine, tasksToRead);
             }
             return tasksToRead;
         } catch (FileNotFoundException e) {
@@ -58,16 +59,18 @@ public class Storage{
             File f = new File(filePath);
             System.out.println("Hey, I didn't find list.txt in /data!");
             System.out.println("creating new file...");
-            return tasksToRead;
         } catch (NullPointerException e) {
+        } catch (IOException e) {
+            System.out.println("Hey, Input/ Output exception, returning empty list...");
+        } finally {
             return tasksToRead;
         }
     }
 
-    private static void addTaskToArray(ArrayList<Task> toReadList, String readLine) {
+    private static void addTaskToArray(String readLine, ArrayList<Task> taskListToSave) {
         String toCommand = savedDataToCommandFormat(readLine);
         Task taskToAdd = Parser.parseInputAsTask(toCommand);
-        toReadList.add(taskToAdd);
+        taskListToSave.add(taskToAdd);
     }
 
     //assume that data is saved in the following manner:
@@ -84,7 +87,7 @@ public class Storage{
         }
     }
 
-    public static void writeNewFile() throws IOException {
+    private void writeNewFile() throws IOException {
         checkAndAddDirectory();
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -95,7 +98,7 @@ public class Storage{
         }
     }
 
-    public static void checkAndAddDirectory() throws IOException {
+    private static void checkAndAddDirectory() throws IOException {
         String home = new File("").getAbsolutePath();
         File dirCheck = new File(home + "/data");
         if (dirCheck.isDirectory()) {
