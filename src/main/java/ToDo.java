@@ -2,7 +2,7 @@ public class ToDo extends Task {
 
     public ToDo(String description) {
         super(description);
-        category = "T";
+        this.category = "T";
     }
 
     @Override
