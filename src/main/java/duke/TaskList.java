@@ -137,4 +137,27 @@ public class TaskList {
             throw new DukeException("Calm down, we don't even have tasks yet!");                                        //delete 1 when taskCount = 0
         }
     }
+
+    //Give users a way to find a task by searching for a keyword
+    public static void sayFind(String input){                                                                            //find book
+        String[] arrayString = input.split(" ", 2);
+        String keyWord = arrayString[1];
+        int matchCount = 0;
+
+        ArrayList<String> filteredList = new ArrayList<>();
+        for (Task task : t) {
+            if (task.toString().contains(keyWord)) {
+                filteredList.add(task.toString());
+                matchCount++;
+            }
+        }
+        if (matchCount != 0) {
+            System.out.println("\n" + "Lucky for you, i'm really good at digging through your mess:" + "\n" + line);
+            for (int i = 0; i < filteredList.size(); i++) {
+                System.out.println((i + 1) + ". " + filteredList.get(i) + "\n");
+            }
+        } else {
+            System.out.println("Too bad i couldn't find anything similar. Let's not get too ambitious and just stick to the tasks on hand shall we?" + "\n");
+        }
+    }
 }

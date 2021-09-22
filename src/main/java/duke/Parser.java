@@ -39,6 +39,9 @@ public class Parser {
                 sayDelete(input);
                 saveData(t);
                 break;
+            case "find":
+                sayFind(input);
+                break;
             default:
                 System.out.println(line + "\n☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + line);
             }

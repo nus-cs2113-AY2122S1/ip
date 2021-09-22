@@ -1,4 +1,4 @@
-todo hello | 0
-todo good | 1
-event ko /at 4-7pm | 0
-deadline owkow /by sunday | 1
+todo vishal | 0
+todo edward | 0
+todo sleep | 0
+todo sleep again | 0
