@@ -29,32 +29,34 @@ What can I do for you?
 
 A brief summary of available features in Duke. For more detailed instructions, go to the `Commands` section.
 
-### Manage tasks
+
+### **Manage tasks**
 Add/Delete 3 different types of tasks to your task list, namely:
 * Todo 
 * Deadline
-* Event
+* Event  
 
-### List tasks
+### **List tasks**
 List all current tasks to keep track of tasks that need to be done
 
-### Mark tasks
+### **Mark tasks**
 Mark tasks when you are done with them to better keep track of your existing tasks.
 
-### Find tasks
+
+### **Find tasks**
 Search for tasks from your existing list of tasks by using keywords.
 
-### Auto-save feature
+
+### **Auto-save feature**
 All changes made to the task list are saved automatically, so the user does not have to
 worry about losing data from the task list when exiting the program.
 
 
-
-
-
-
 ---
 ## Commands 
+
+List of all the commands available in Duke.
+
 
 ### **`todo` - Add Todo task**
 
@@ -114,6 +116,7 @@ You now have 2 task(s)
 ```
 `[D]` shows that the task added is a Deadline task. There are
 other types of tasks, namely Todo and Event tasks.
+
 
 ### **`event` - Add Event task**
 
@@ -178,6 +181,7 @@ The second `[]` represents whether the task is done:
 
 For example, task 1 `CS2113 Lecture Quiz` is a todo task that has been marked as done
 
+
 ### **`done` - Mark task as done**
 
 Marks a previously added task as done. If an invalid task number is provided, it will return an error
@@ -203,6 +207,7 @@ The following task has been marked as done:
 ```
 `[X]` represents that the task has been marked as done
 
+
 ### **`delete` - Delete a task**
 
 Deletes a previously added task from your task list. If an invalid task number is provided, it will return an error
@@ -226,6 +231,8 @@ The following task has been deleted:
 	[T][X] CS2113 Lecture Quiz
 ----------------------------------------------------------------------------------------------------
 ```
+
+
 ### **`find` - Find tasks**
 
 Search for tasks from text provided. Returns all tasks with description containing the text provided. For example, if a task has a description 'Assignment', 
@@ -251,6 +258,7 @@ Here are all the matching tasks
 ----------------------------------------------------------------------------------------------------
 ```
 
+
 ### **`save` - Save tasks**
 
 Saves your task list so that you will still be able to view the tasks the next time you
@@ -274,6 +282,7 @@ Expected output:
 You task list has been saved successfully
 ----------------------------------------------------------------------------------------------------
 ```
+
 
 ### **`bye` - Exit program**
 
