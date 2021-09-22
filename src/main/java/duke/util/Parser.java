@@ -7,6 +7,7 @@ import duke.command.AddCommand;
 import duke.command.DeleteCommand;
 import duke.command.ListCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 
 import duke.task.Deadline;
 import duke.task.Event;
@@ -23,6 +24,7 @@ public class Parser {
     static private final String COMMAND_DEADLINE = "deadline";
     static private final String COMMAND_DONE = "done";
     static private final String COMMAND_DELETE = "delete";
+    static private final String COMMAND_FIND = "find";
     static private final String COMMAND_EXIT = "bye";
 
     static private final String INVALID_COMMAND = "Yo check your typing man. I don't get it.";
@@ -61,12 +63,14 @@ public class Parser {
             return parseDeleteCommand(command);
         case COMMAND_EXIT:
             return parseExitCommand();
+        case COMMAND_FIND:
+            return parseFindCommand(command);
         default:
             throw new DukeException(INVALID_COMMAND);
         }
     }
 
-    private static Command parseDeleteCommand(String command) throws DukeException{
+    private static Command parseDeleteCommand(String command) throws DukeException {
         String detail = command.substring(COMMAND_DELETE.length()).trim();
 
         if (detail.length() <= 0) {
@@ -81,7 +85,14 @@ public class Parser {
         }
     }
 
+    private static Command parseFindCommand(String command) throws DukeException {
+        String detail = command.substring(COMMAND_FIND.length()).trim();
 
+        if (detail.length() <= 0) {
+            throw new DukeException("Nothing to find!");
+        }
+        return new FindCommand(detail);
+    }
 
     private static Command parseExitCommand() {
         return new ExitCommand();

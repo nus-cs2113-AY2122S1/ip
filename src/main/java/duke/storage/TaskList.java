@@ -57,4 +57,8 @@ public class TaskList {
             throw new DukeException("Task number not exist!");
         }
     }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
 }
