@@ -21,23 +21,20 @@ public class Duke {
     public static String getCommand(String userInput) throws InvalidTaskDescriptionException {
         String[] input = userInput.trim().toLowerCase().split(" ");
         String command = input[0];
-        if (isValidTaskType(userInput)) {
-            if (!isValidTaskDescription(userInput)) {
-                throw new InvalidTaskDescriptionException("Task description of " + command + " is invalid!");
-            } else if (isDeadlineOrEvent(userInput) && !isValidDeadlineOrEventDescription(userInput)) {
-                throw new InvalidTaskDescriptionException("Invalid or missing task detail!");
-            }
-        }
         return command;
     }
 
-    public static boolean isValidTaskDescription(String input) {
+    public static void isValidTaskDescription(String input) throws InvalidTaskDescriptionException {
         String[] description = input.trim().split(" ");
-        return description.length > 1;
+        if (description.length <= 1) {
+            throw new InvalidTaskDescriptionException("Task description is invalid!");
+        }
     }
 
-    public static boolean isDeadlineOrEvent(String input) {
-        return input.equalsIgnoreCase("deadline") || input.equalsIgnoreCase("event");
+    public static void isDeadlineOrEvent(String input) throws InvalidTaskDescriptionException {
+        if (!input.equalsIgnoreCase("deadline") && !input.equalsIgnoreCase("event")) {
+            throw new InvalidTaskDescriptionException("Invalid or missing task detail!");
+        }
     }
 
     public static boolean isValidDeadlineFormat(String input) {
@@ -48,17 +45,16 @@ public class Duke {
         return input.contains("/at");
     }
 
-    public static boolean isValidDeadlineOrEventDescription(String input) {
+    public static void isValidDeadlineOrEventDescription(String input) throws InvalidTaskDescriptionException {
         if (!isValidDeadlineFormat(input) || !isValidEventFormat(input)) {
-            return false;
+            throw new InvalidTaskDescriptionException("Invalid or missing task detail!");
         }
 
         String description = getDeadlineOrEventTaskName(input);
         String deadlineOrEventDuration = getDeadlineOrEventDuration(input);
         if (description.isEmpty() || deadlineOrEventDuration.isEmpty()) {
-            return false;
+            throw new InvalidTaskDescriptionException("Invalid or missing task detail!");
         }
-        return true;
     }
 
     public static void inputManager() {
@@ -71,6 +67,9 @@ public class Duke {
             String command;
             try {
                 command = getCommand(line);
+                isValidTaskDescription(line);
+                isDeadlineOrEvent(command);
+                isValidDeadlineOrEventDescription(line);
             } catch (InvalidTaskDescriptionException e) {
                 printHorizontalLine();
                 System.out.println(e.getMessage());
