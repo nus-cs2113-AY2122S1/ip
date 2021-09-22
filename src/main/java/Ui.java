@@ -5,124 +5,13 @@ import java.util.Arrays;
 import java.io.File;
 import java.io.FileWriter;
 
-public class Duke {
+public class Ui {
 
-    /**
-     * Array of tasks
-     */
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final String LINE_SEPARATOR = ("_____________________________________________________");
 
-    /**
-     * Long line separator
-     */
-    private static final String lineSeparator = ("_____________________________________________________");
+    protected static ArrayList<Task> tasks;
 
     private static final String FILEPATH = "./list.txt";
-
-    public static void printSeparator() {
-        System.out.println(lineSeparator);
-    }
-
-    public static void printGreeting() {
-        printSeparator();
-        System.out.println("Hello! I'm Duke the Dancing Dragon.");
-        System.out.println("Anything I can help you with, young Padawan?");
-        printSeparator();
-    }
-
-    public static void printGoodbyeMessage() {
-        System.out.println("It's over Anakin... I can finally eat my lun-");
-        System.out.println(lineSeparator);
-    }
-
-    public static void printDone(Task task) {
-        System.out.println("You have marked item " + task.description + " as done:");
-        System.out.println(task.getStatusIcon() + " " + task.description);
-    }
-
-    public static void printDeletedMessage(Task task) {
-        System.out.println("You have deleted the item: " + "\n" + task);
-    }
-
-    /**
-     * Returns the list number which is assigned to the task.
-     *
-     * @param arg user input that contains word [done].
-     * @return task number.
-     */
-    public static int getTaskNum(String arg) {
-        String[] words = arg.trim().split("[\\s]+");
-        return Integer.parseInt(words[1]);
-    }
-
-    /**
-     * Returns the number or unchecked tasks.
-     *
-     * @param tasks ArrayList<Task> for Tasks.
-     * @return int for number of uncompleted tasks.
-     */
-    public static int getNumOfUncompletedTasks(ArrayList<Task> tasks) {
-        int numOfUncompletedTasks = 0;
-        for (Task task : tasks) {
-            if (!task.isDone) {
-                numOfUncompletedTasks++;
-            }
-        }
-        return numOfUncompletedTasks;
-    }
-
-    /**
-     * Returns the description of the task only, without the date or the keyword.
-     *
-     * @param query user raw data input.
-     * @return description of task.
-     */
-    public static String getQueryDescription(String query) {
-        String[] words = query.trim().split("[\\s]+");
-        String[] allButFirstWord = Arrays.copyOfRange(words, 1, words.length);
-        StringBuilder sentenceAfterDeletion = new StringBuilder();
-        for (String word : allButFirstWord) {
-            if (word.contains("/")) {
-                break;
-            } else {
-                sentenceAfterDeletion.append(word).append(" ");
-            }
-        }
-        return sentenceAfterDeletion.toString();
-    }
-
-    /**
-     * Returns date value for tasks which need a date input field. If user does not have proper date formatting, (i.e.
-     * '/by' or '/at') this function returns an empty string.
-     *
-     * @param query user raw data input.
-     * @return date value.
-     */
-    public static String getDate(String query) {
-        int slashPosition = query.indexOf("/");
-        if (slashPosition == -1) {
-            return "";
-        } else {
-            int datePosition = slashPosition + 3;
-            return query.substring(datePosition).trim();
-        }
-    }
-
-    /**
-     * Return void. Function is responsible for printing out the whole task list of the user.
-     *
-     * @param tasks list of tasks input by user.
-     */
-    public static void printList(ArrayList<Task> tasks) {
-        int count = 0;
-        System.out.println("Here is your list:");
-        for (Task item : tasks) {
-            if (tasks.get(count) != null) {
-                count++;
-                System.out.println(count + ". " + item);
-            }
-        }
-    }
 
     public static boolean hasListKeyword(String arg) {
         return arg.trim().matches("^list$");
@@ -146,6 +35,122 @@ public class Duke {
 
     public static boolean hasDeleteKeyword(String arg) {
         return arg.trim().toLowerCase().contains("delete");
+    }
+
+    /**
+     * Return void. Function is responsible for printing out the whole task list of the user.
+     *
+     * @param tasks list of tasks input by user.
+     */
+    public static void printList(ArrayList<Task> tasks) {
+        int count = 0;
+        System.out.println("Here is your list:");
+        for (Task item : tasks) {
+            if (tasks.get(count) != null) {
+                count++;
+                System.out.println(count + ". " + item);
+            }
+        }
+    }
+
+    public static void printDone(Task task) {
+        System.out.println("You have marked item " + task.description + " as done:");
+        System.out.println(task.getStatusIcon() + " " + task.description);
+    }
+
+    public static void printDeletedMessage(Task task) {
+        System.out.println("You have deleted the item: " + "\n" + task);
+    }
+
+    public static void printSeparator() {
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    public static void printGreeting() {
+        String FACE = "⣿⣿⡇⠄⣼⣿⣿⠿⣿⣿⣿⣦⠘⣿⣿⣿⣿⣿⠏⣰⣿⡿⠟⢻⣿⣿⣷⡀⠸⣿\n"
+                + "⣿⣿⡇⠰⣿⣿⠁⠄⠄⠄⣿⣿⠆⢹⣿⣿⣿⣿⠄⣿⣿⠁⠄⠄⠄⣿⣿⡇⠄⣿\n"
+                + "⣿⣿⡇⠄⢿⣿⣷⣤⣤⣼⣿⡟⢀⣿⣿⣿⣿⣿⡄⠻⣿⣷⣤⣤⣾⣿⡿⠁⠄⣿\n"
+                + "⣿⣿⠃⢸⣦⡙⠛⠿⠟⠛⠉⣠⣾⣿⣿⣿⣿⣿⣿⣆⡈⠛⠻⠿⠛⢋⣴⡇⢸⣿\n"
+                + "⣿⣿⡀⠈⢿⣿⣷⣶⣶⣶⣿⣿⣿⣿⠛⣿⡋⣿⣿⣿⣿⣷⣶⣶⣾⣿⡿⠄⢸⣿\n"
+                + "⣿⣿⡇⠄⠈⢿⣿⣯⡻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣽⣿⡟⠄⠄⣮⣿\n"
+                + "⣿⣿⣷⠄⠄⠄⠹⣿⣷⣌⠙⢿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢁⣾⣿⠋⠄⠄⠄⢹⣿\n"
+                + "⣿⣿⣏⠄⠄⠄⠄⠘⢿⣿⣦⡀⠈⠛⢿⣿⡿⠟⠉⢀⣴⣿⠟⠁⠄⠄⠄⢠⢸⣿\n"
+                + "⣿⣿⣿⠄⠄⠄⠄⠄⠄⠙⢿⣿⣦⡀⠄⠄⠄⢀⣴⣿⠟⠃⠄⠄⠄⠄⠄⠄⣸⣿\n"
+                + "⣿⣿⣿⡄⠄⠄⠄⠄⠄⠄⢠⠉⠻⢿⣷⣶⣾⡿⠛⠁⡀⠄⠄⠄⠄⠄⠄⠄⣿⣿\n";
+
+            System.out.println(FACE);
+            System.out.println("Hello! I'm Duke the Dancing Dragon.");
+            System.out.println("Anything I can help you with, young Padawan?");
+            printSeparator();
+    }
+
+    public static void printGoodbyeMessage() {
+        System.out.println("It's over Anakin... I can finally eat my lun-");
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    /**
+     * Returns the list number which is assigned to the task.
+     *
+     * @param arg user input that contains word [done].
+     * @return task number.
+     */
+    public static int getTaskNum(String arg) {
+        String[] words = arg.trim().split("[\\s]+");
+        return Integer.parseInt(words[1]);
+    }
+
+    /**
+     * Returns date value for tasks which need a date input field. If user does not have proper date formatting, (i.e.
+     * '/by' or '/at') this function returns an empty string.
+     *
+     * @param query user raw data input.
+     * @return date value.
+     */
+    public static String getDate(String query) {
+        int slashPosition = query.indexOf("/");
+        if (slashPosition == -1) {
+            return "";
+        } else {
+            int datePosition = slashPosition + 3;
+            return query.substring(datePosition).trim();
+        }
+    }
+
+    /**
+     * Returns the description of the task only, without the date or the keyword.
+     *
+     * @param query user raw data input.
+     * @return description of task.
+     */
+    public static String getQueryDescription(String query) {
+        String[] words = query.trim().split("[\\s]+");
+        String[] allButFirstWord = Arrays.copyOfRange(words, 1, words.length);
+        StringBuilder sentenceAfterDeletion = new StringBuilder();
+        for (String word : allButFirstWord) {
+            if (word.contains("/")) {
+                break;
+            } else {
+                sentenceAfterDeletion.append(word).append(" ");
+            }
+        }
+        return sentenceAfterDeletion.toString();
+    }
+
+    /**
+     * Returns the number or unchecked tasks.
+     *
+     * @param tasks ArrayList<Task> for Tasks.
+     * @return int for number of uncompleted tasks.
+     */
+    public static int getNumOfUncompletedTasks(ArrayList<Task> tasks) {
+        int numOfUncompletedTasks = 0;
+        for (Task task : tasks) {
+            if (!task.isDone) {
+                numOfUncompletedTasks++;
+            }
+        }
+        return numOfUncompletedTasks;
     }
 
     /**
@@ -307,26 +312,5 @@ public class Duke {
             printGoodbyeMessage();
             break;
         }
-    }
-
-    /**
-     * Main function
-     */
-    public static void main(String[] args) {
-        String face = "⣿⣿⡇⠄⣼⣿⣿⠿⣿⣿⣿⣦⠘⣿⣿⣿⣿⣿⠏⣰⣿⡿⠟⢻⣿⣿⣷⡀⠸⣿\n"
-                + "⣿⣿⡇⠰⣿⣿⠁⠄⠄⠄⣿⣿⠆⢹⣿⣿⣿⣿⠄⣿⣿⠁⠄⠄⠄⣿⣿⡇⠄⣿\n"
-                + "⣿⣿⡇⠄⢿⣿⣷⣤⣤⣼⣿⡟⢀⣿⣿⣿⣿⣿⡄⠻⣿⣷⣤⣤⣾⣿⡿⠁⠄⣿\n"
-                + "⣿⣿⠃⢸⣦⡙⠛⠿⠟⠛⠉⣠⣾⣿⣿⣿⣿⣿⣿⣆⡈⠛⠻⠿⠛⢋⣴⡇⢸⣿\n"
-                + "⣿⣿⡀⠈⢿⣿⣷⣶⣶⣶⣿⣿⣿⣿⠛⣿⡋⣿⣿⣿⣿⣷⣶⣶⣾⣿⡿⠄⢸⣿\n"
-                + "⣿⣿⡇⠄⠈⢿⣿⣯⡻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣽⣿⡟⠄⠄⣮⣿\n"
-                + "⣿⣿⣷⠄⠄⠄⠹⣿⣷⣌⠙⢿⣿⣿⣿⣿⣿⣿⣿⡿⠟⢁⣾⣿⠋⠄⠄⠄⢹⣿\n"
-                + "⣿⣿⣏⠄⠄⠄⠄⠘⢿⣿⣦⡀⠈⠛⢿⣿⡿⠟⠉⢀⣴⣿⠟⠁⠄⠄⠄⢠⢸⣿\n"
-                + "⣿⣿⣿⠄⠄⠄⠄⠄⠄⠙⢿⣿⣦⡀⠄⠄⠄⢀⣴⣿⠟⠃⠄⠄⠄⠄⠄⠄⣸⣿\n"
-                + "⣿⣿⣿⡄⠄⠄⠄⠄⠄⠄⢠⠉⠻⢿⣷⣶⣾⡿⠛⠁⡀⠄⠄⠄⠄⠄⠄⠄⣿⣿\n";
-        System.out.println(face);
-
-        // print greeting message after logo
-        printGreeting();
-        waitForQuery();
     }
 }
