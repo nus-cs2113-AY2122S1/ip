@@ -82,4 +82,10 @@ public class Ui {
         System.out.println("Try again after adding some tasks!");
         printDivider();
     }
+
+    public static void printTimeParseErrorMessage() {
+        printDivider();
+        System.out.println("Time is in an incorrect format. Pls follow the given format <>");
+        printDivider();
+    }
 }
