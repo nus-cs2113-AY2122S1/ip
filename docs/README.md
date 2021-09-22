@@ -3,8 +3,9 @@
 Duke is a **desktop app for managing tasks meant for use via a Command Line Interface**.
 If you can type fast and want to manage your tasks, then this is the App for you. 
 
+---
 
-## Quick Start
+## **Quick Start**
 * Ensure you have `Java 11` installed in your computer
 * Download the JAR file from https://github.com/naijie2108/ip/releases
 * Copy the file to your desired folder. This folder will act as the home folder for the JAR file.
@@ -25,7 +26,7 @@ What can I do for you?
 
 ---
 
-## Key Features
+## **Key Features**
 
 A brief summary of available features in Duke. For more detailed instructions, go to the `Commands` section.
 
@@ -53,7 +54,7 @@ worry about losing data from the task list when exiting the program.
 
 
 ---
-## Commands 
+## **Commands**
 
 List of all the commands available in Duke.
 
