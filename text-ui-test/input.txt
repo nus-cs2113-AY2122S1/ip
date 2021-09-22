@@ -14,6 +14,8 @@ done 2
 list
 done 1
 list
+find asdf
+find project
 delete 1
 list
 delete 3
