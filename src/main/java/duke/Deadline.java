@@ -2,19 +2,19 @@ package duke;
 
 public class Deadline extends Task{
 
-    private String by;
+    private String deadline;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String deadline) {
         super(description);
-        this.by = by;
+        this.deadline = deadline;
     }
 
-    public String getBy() {
-        return by;
+    public String getDeadline() {
+        return deadline;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + by + ")";
+        return "[D]" + super.toString() + "(by:" + deadline + ")";
     }
 }
