@@ -1,3 +1,8 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Duke {
 
     private Storage storage;
@@ -19,7 +24,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("./src/Duke.txt").run();
+        new Duke("Duke.txt").run();
     }
 
     /** Run the Duke */

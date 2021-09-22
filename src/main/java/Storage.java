@@ -33,7 +33,7 @@ public class Storage {
         final TaskList taskLists = new TaskList();
         File file = new File(path);
         if (!file.exists()) {
-            return null;
+            return new TaskList();
         }
         try {
             Scanner fileReader = new Scanner(file);
