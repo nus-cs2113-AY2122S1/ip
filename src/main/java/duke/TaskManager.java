@@ -8,6 +8,7 @@ import duke.validation.DukeException;
 import duke.validation.Validation;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskManager {
     public static final int TODO_DESCRIPTION_BEGIN_INDEX = 5;
@@ -109,4 +110,15 @@ public class TaskManager {
         UI.printAdditionMessage(current, taskCount);
     }
 
+    public static void findTask(String input) {
+        String filterString = input.replaceFirst("find ", ""); //removes 'find' to find keyword
+        ArrayList<Task> specificTasks = (ArrayList<Task>) tasks.stream()
+                .filter((task) -> task.getDescription()
+                .contains(filterString)).collect(Collectors.toList());
+        if (specificTasks.isEmpty()) {
+            UI.printEmptyListMessage(filterString);
+        } else {
+            UI.printList(specificTasks, filterString);
+        }
+    }
 }

@@ -76,11 +76,32 @@ public class UI{
         System.out.println(BUFFER_LINE);
     }
 
+    public static void printList(ArrayList<Task> tasks, String filterString) {
+        System.out.println(BUFFER_LINE);
+        System.out.println(" Here are the tasks in your list containing '" + filterString + "' :");
+        int i = 1;
+        for (Task task : tasks) {
+            if (task == null) {
+                break;
+            }
+            System.out.println(" " + i + ". " + task.listTask());
+            i = i + 1;
+        }
+        System.out.println(BUFFER_LINE);
+    }
+
     public static void printEmptyListMessage() {
         String emptyListMessage = BUFFER_LINE
                 + "You have 0 tasks in your list!\n"
                 + BUFFER_LINE;
         System.out.println(emptyListMessage);
+    }
+
+    public static void printEmptyListMessage(String filterString) {
+        String noMatchingTasksMessage = BUFFER_LINE
+                + "You have 0 tasks containing '" + filterString + "' !\n"
+                + BUFFER_LINE;
+        System.out.println(noMatchingTasksMessage);
     }
 
     public static void printInvalidTodoMessage() {
