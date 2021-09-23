@@ -55,11 +55,27 @@ public class TextUi {
             System.out.println(" Your schedule is clear, Master Wayne.");
         } else {
             System.out.println(" Your tasks, sir:");
-            for (int i = 0; i < numberOfTasks; i++) {
-                System.out.println(" " + (i + 1) + "." + taskList.getTask(i).toString());
-            }
+            printEnumeratedTasks(taskList, numberOfTasks);
         }
         System.out.println(LINE);
+    }
+
+    public static void printFoundTasks(TaskList filteredList) {
+        int numberOfTasks = filteredList.getSize();
+        System.out.print(LINE);
+        if (numberOfTasks == 0) {
+            System.out.println(" There appears to be no task by that query sir.");
+        } else {
+            System.out.println(" I've procured the following tasks based on that query, sir:");
+            printEnumeratedTasks(filteredList, numberOfTasks);
+        }
+        System.out.println(LINE);
+    }
+
+    private static void printEnumeratedTasks(TaskList taskList, int numberOfTasks) {
+        for (int i = 0; i < numberOfTasks; i++) {
+            System.out.println(" " + (i + 1) + "." + taskList.getTask(i).toString());
+        }
     }
 
     public static void addTaskMessage(Task t, int numberOfTasks) {
@@ -118,6 +134,11 @@ public class TextUi {
 
     public static void missingDateMessage() {
         printMessageTemplate(" Is there not a date for your so-called deadline or event, sir?\n");
+    }
+
+    public static void missingQueryMessage() {
+        printMessageTemplate(" Master Wayne, if you don't specify a task to find, \n" +
+                " I'm afraid I cannot help you.\n");
     }
 
     public static void invalidDateMessage() {
