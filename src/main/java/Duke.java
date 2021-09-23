@@ -1,3 +1,11 @@
+import Exceptions.DeadlineException;
+import Exceptions.EventException;
+import Exceptions.JimException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -101,35 +109,43 @@ public class Duke {
             if (input.toLowerCase().startsWith("todo")) {
                 addTodo(input);
                 int indexOfAddedTask = tasks.size() - 1;
-                appendDatabase("T", tasks.get(indexOfAddedTask).description, "0");
+                appendDatabase("T", tasks.get(indexOfAddedTask).getDescription(), "0");
             } else if (input.toLowerCase().startsWith("deadline")) {
                 addDeadline(input);
                 int indexOfAddedTask = tasks.size() - 1;
                 Deadline addedDeadline = (Deadline) tasks.get(indexOfAddedTask);
-                String deadlineInput = addedDeadline.description + "/by" + addedDeadline.by;
+                String deadlineInput = addedDeadline.getDescription() + "/by" + addedDeadline.getDeadline();
                 appendDatabase("D", deadlineInput, "0");
             } else if (input.toLowerCase().startsWith("event")){
                 addEvent(input);
                 int indexOfAddedTask = tasks.size() - 1;
                 Event addedEvent = (Event) tasks.get(indexOfAddedTask);
-                String eventInput = addedEvent.description + "/at" + addedEvent.from;
+                String eventInput = addedEvent.getDescription() + "/at" + addedEvent.getTimeRange();
                 appendDatabase("E", eventInput, "0");
             }
+        } catch (StringIndexOutOfBoundsException e){
+            messages.showMissingTaskDescriptionMessage();
+        } catch (DeadlineException e){
+            messages.showMissingTaskOrDeadlineMessage();
+        } catch (EventException e){
+            messages.showMissingTaskOrTimeRangeMessage();
         } catch (IndexOutOfBoundsException e) {
-            //find out how motherfkin catch works
+            System.out.println("yo");
         }
     }
-    private static void addTodo(String input) {
-        try {
+    private static void addTodo(String input) throws StringIndexOutOfBoundsException{
+        if (input.trim().length() <= 4) {
+            throw new StringIndexOutOfBoundsException();
+        } else {
             tasks.add(new Todo(input.trim().substring(5)));
             int taskIndex = tasks.size() - 1;
             printTaskAcknowledgement(tasks.get(taskIndex));
-        } catch (StringIndexOutOfBoundsException e){
-            messages.showMissingTaskDescriptionMessage();
         }
     }
-    private static void addDeadline(String input) {
-        try {
+    private static void addDeadline(String input) throws DeadlineException {
+        if (input.trim().length() <= 8) {
+            throw new DeadlineException();
+        } else {
             int slashIndex = input.indexOf("/by");
             String task = input.substring(9, slashIndex).trim();
             String dueDate = input.substring(slashIndex + 3).trim();
@@ -144,12 +160,12 @@ public class Duke {
                 int taskIndex = tasks.size() - 1;
                 printTaskAcknowledgement(tasks.get(taskIndex));
             }
-        } catch (StringIndexOutOfBoundsException e) {
-            messages.showMissingTaskOrDeadlineMessage();
         }
     }
-    private static void addEvent(String input) {
-        try {
+    private static void addEvent(String input) throws EventException {
+        if (input.trim().length() <= 5) {
+            throw new EventException();
+        } else {
             int slashIndex = input.indexOf("/at");
             String task = input.substring(6, slashIndex).trim();
             String timeRange = input.substring(slashIndex + 3).trim();
@@ -164,10 +180,9 @@ public class Duke {
                 int taskIndex = tasks.size() - 1;
                 printTaskAcknowledgement(tasks.get(taskIndex));
             }
-        } catch (StringIndexOutOfBoundsException e) {
-            messages.showMissingTaskOrTimeRangeMessage();
         }
     }
+
     private static void printTaskAcknowledgement(Task task) {
         messages.showTaskAddedMessage(task, tasks.size());
     }
@@ -214,16 +229,16 @@ public class Duke {
         //clear file then append from list
         clearDatabase();
         for (Task task: tasks) {
-            String isDone = task.isDone? "1" : "0";
+            String isDone = task.getIsDone()? "1" : "0";
             if (task instanceof Todo) {
-                appendDatabase("T", task.description, isDone);
+                appendDatabase("T", task.getDescription(), isDone);
             } else if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
-                String input = deadline.description + "/by" + deadline.getDeadline();
+                String input = deadline.getDescription() + "/by" + deadline.getDeadline();
                 appendDatabase("D", input , isDone);
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                String input = event.description + "/at" + event.getDeadline();
+                String input = event.getDescription() + "/at" + event.getTimeRange();
                 appendDatabase("E", input , isDone);
             }
         }
@@ -266,8 +281,8 @@ public class Duke {
             File file = new File(FILE_PATH);
             File folder = new File(FOLDER_PATH);
             messages = new Messages();
-            folderChecker(folder);
-            databaseChecker(file);
+            Storage.folderChecker(folder);
+            Storage.databaseChecker(file);
             Scanner s = new Scanner(file);
             initList(s);
         } catch (JimException e) {
@@ -276,31 +291,6 @@ public class Duke {
             messages.showNoDatabaseFileMessage();
         }
     }
-
-    public static void folderChecker(File folder) {
-        boolean result = folder.mkdir();
-        messages.showCheckFolderMessage();
-        if (result) {
-            messages.showCreateMissingFolderMessage();
-        } else {
-            messages.showFolderFoundMessage();
-        }
-    }
-
-    public static void databaseChecker(File file) {
-        try {
-            boolean result = file.createNewFile();
-            messages.showCheckDatabaseFileMessage();
-            if (result) {
-                 messages.showCreateMissingDatabaseFileMessage();
-            } else {
-                messages.showDatabaseFileFoundMessage();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public static String getUserInput() {
         messages.showUserInputMessage();

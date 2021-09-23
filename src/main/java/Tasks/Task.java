@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -13,6 +15,10 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 
     public String getDescription() {

@@ -1,4 +1,8 @@
-public class Todo extends Task{
+package Tasks;
+
+import Tasks.Task;
+
+public class Todo extends Task {
     protected boolean isDone;
 
     public Todo(String description) {

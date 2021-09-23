@@ -1,3 +1,7 @@
+package Tasks;
+
+import Tasks.Task;
+
 public class Event extends Task {
     protected String from;
 
@@ -10,7 +14,7 @@ public class Event extends Task {
         this.from = from;
     }
 
-    public String getDeadline() {
+    public String getTimeRange() {
         return from;
     }
 
