@@ -18,8 +18,8 @@ public class FailedCommand extends Command {
         case NUMBER_FORMAT:
             TextUi.invalidIndexMessage();
             break;
-        case INVALID_DATE:
-            TextUi.invalidDateMessage();
+        case MISSING_DATE:
+            TextUi.missingDateMessage();
             break;
         case EMPTY_DESCRIPTION:
             TextUi.emptyDescriptionMessage();
@@ -29,6 +29,9 @@ public class FailedCommand extends Command {
             break;
         case NO_QUERY_SPECIFIED:
             TextUi.missingQueryMessage();
+            break;
+        case INVALID_DATE:
+            TextUi.invalidDateMessage();
             break;
         default:
             return;

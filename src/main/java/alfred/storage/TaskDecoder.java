@@ -8,6 +8,7 @@ import alfred.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import static alfred.storage.Storage.SEPARATOR;
@@ -34,17 +35,20 @@ public class TaskDecoder {
         String taskType = destructuredInputs[0];
         String taskStatus = destructuredInputs[1];
         String taskDescription = destructuredInputs[2];
-        String taskDate;
+        String taskDateString;
+        LocalDate taskDate;
         switch (taskType) {
         case "T":
             taskList.addTask(new Todo(taskDescription));
             break;
         case "E":
-            taskDate = destructuredInputs[3];
+            taskDateString = destructuredInputs[3];
+            taskDate = LocalDate.parse(taskDateString);
             taskList.addTask(new Event(taskDescription, taskDate));
             break;
         case "D":
-            taskDate = destructuredInputs[3];
+            taskDateString = destructuredInputs[3];
+            taskDate = LocalDate.parse(taskDateString);
             taskList.addTask(new Deadline(taskDescription, taskDate));
             break;
         default:
