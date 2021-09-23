@@ -7,7 +7,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-import duke.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -75,7 +74,7 @@ public class Parser {
 
         switch (parsedCommand[0].toUpperCase()) {
         case "LIST":
-            Ui.printList();
+            Command.executeList();
             break;
         case "TODO":
             parseAndAddTodo(fullCommand);
@@ -91,6 +90,9 @@ public class Parser {
             break;
         case "DELETE":
             parseAndExecuteDelete(parsedCommand);
+            break;
+        case "FIND":
+            parseAndExecuteFind(fullCommand);
             break;
         default:
             throw new IllegalCommandException();
@@ -160,5 +162,11 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new IllegalCommandException();
         }
+    }
+
+    private static void parseAndExecuteFind(String fullCommand) {
+        String keywords = fullCommand.replace("find", "").trim();
+        String[] keywordsArr = keywords.split(" ");
+        Command.findTask(keywordsArr);
     }
 }

@@ -23,6 +23,10 @@ public class Task {
         return (isDone ? "[X] " : "[ ] ");
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public static int getTaskCount() {
         return taskCount;
     }

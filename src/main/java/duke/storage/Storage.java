@@ -1,6 +1,6 @@
 package duke.storage;
 
-import duke.Duke;
+import duke.command.Command;
 import duke.parser.Parser;
 import duke.task.Task;
 import duke.ui.Ui;
@@ -26,7 +26,7 @@ public class Storage {
                 Ui.printNewHello();
             } else {
                 loadData();
-                Ui.printReturningHello();
+                Ui.printReturningHello(Command.tasks);
             }
         } catch (IOException e) {
             Ui.printIOExceptionMessage(e);
@@ -37,13 +37,13 @@ public class Storage {
         File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
-            Duke.tasks.add(Parser.parseTaskFromData(s.nextLine()));
+            Command.tasks.add(Parser.parseTaskFromData(s.nextLine()));
         }
     }
 
     public static void saveData() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
-        for (Task task : Duke.tasks) {
+        for (Task task : Command.tasks) {
             fw.write(task.toStorageString() + "\n");
         }
         fw.close();
