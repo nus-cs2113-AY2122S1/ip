@@ -14,7 +14,8 @@ public class Messages {
     public static final String LOAD_DELIMITER = "--";
     public static final String WELCOME = "Hi... from GUDETAMA... so sleepy\n" +
             "Give me five more minutes..... What can I do for you?";
-    public static final String HELP = "Get help:\n" +
+    public static final String HELP = "Do not include the angle brackets <>\n" +
+            "Get help:\n" +
             "    help\n" +
             "List tasks:\n" +
             "    list\n" +
@@ -29,7 +30,7 @@ public class Messages {
             "Delete task:\n" +
             "    delete <task_number: int>\n" +
             "Find task:\n" +
-            "    find <keyword>" +
+            "    find <keyword>\n" +
             "Save and exit program:\n" +
             "    bye";
     public static final String LIST_TASK = "    Tasks to do... so lazy:";
