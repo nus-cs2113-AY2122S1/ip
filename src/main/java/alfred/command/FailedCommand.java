@@ -27,6 +27,9 @@ public class FailedCommand extends Command {
         case NO_INDEX_SPECIFIED:
             TextUi.missingIndexMessage();
             break;
+        case NO_QUERY_SPECIFIED:
+            TextUi.missingQueryMessage();
+            break;
         default:
             return;
         }

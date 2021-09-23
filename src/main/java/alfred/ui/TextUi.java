@@ -120,6 +120,11 @@ public class TextUi {
         printMessageTemplate(" Is there not a date for your so-called deadline or event, sir?\n");
     }
 
+    public static void missingQueryMessage() {
+        printMessageTemplate(" Master Wayne, if you don't specify a task to find, \n" +
+                " I'm afraid I cannot help you.\n");
+    }
+
     public static void createNewFileMessage() {
         printMessageTemplate(" A new file has been created for Alfred, by Alfred.\n");
     }
