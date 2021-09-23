@@ -77,7 +77,22 @@ public class UI {
                 System.out.println(" " + (i + 1) + ". " + tasks.get(i).toString());
             }
         } else {
+            // taskCount == 0
             System.out.println(" there are no tasks on your list :)");
+        }
+        System.out.println(line);
+    }
+
+    public void printMatchingTasks(ArrayList<Task> matchingTasks, int taskCount) {
+        System.out.println(line);
+        if (taskCount > 0) {
+            System.out.println(" here are the the matching tasks in your list");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println(" " + (i + 1) + ". " + matchingTasks.get(i).toString());
+            }
+        } else {
+            // taskCount == 0
+            System.out.println(" there were no matching tasks in your list :(");
         }
         System.out.println(line);
     }

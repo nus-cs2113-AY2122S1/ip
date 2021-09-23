@@ -12,6 +12,7 @@ public class Parser {
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_EXIT = "bye";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
     private static final int DATE_BUFFER = 3;
     public static final String PREFIX_BY = "/by";
     public static final String PREFIX_AT = "/at";
@@ -43,6 +44,9 @@ public class Parser {
         case COMMAND_DELETE:
             int deleteIndex = Integer.parseInt(userInput.substring(positionOfSpace + 1)) - 1;
             return new DeleteCommand(deleteIndex);
+        case COMMAND_FIND:
+            String keyword = userInput.substring(positionOfSpace + 1);
+            return new FindCommand(keyword);
         case COMMAND_EXIT:
             return new ExitCommand();
         default:
