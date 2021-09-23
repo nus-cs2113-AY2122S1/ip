@@ -1,22 +1,27 @@
 package tasks;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class DeadlineTasks extends Tasks {
-    String Deadline;
+    LocalDateTime Deadline;
+    String strDeadline;
 
     protected DeadlineTasks(String name, String deadline){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy HHmm");
         this.name = name;
-        this.Deadline = deadline;
+        this.strDeadline = deadline;
+        this.Deadline = LocalDateTime.parse(deadline.substring(deadline.indexOf(" ") + 1), formatter);
         this.isCompleted = false;
     }
 
     @Override
     protected String getName() {
-        return "[D][" + getComplete() + "] " + name + "(" + Deadline.substring(0,Deadline.indexOf(" ")) + ": "
-                + Deadline.substring(Deadline.indexOf(" ") + 1) + ")";
+        return "[D][" + getComplete() + "] " + name + "(" + strDeadline.substring(0,strDeadline.indexOf(" ")) + ": "
+                + Deadline.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mm a")) + ")";
     }
 
     @Override
     protected String getTaskData(){
-        return "D," + isCompleted + "," + name + "," + Deadline;
+        return "D," + isCompleted + "," + name + "," + strDeadline;
     }
 }
