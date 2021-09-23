@@ -12,11 +12,16 @@ import java.util.Scanner;
 
 public class Duke {
 
+    private final static String EXIT_COMMAND = "bye";
+
+    /**
+     * The main method that initialises and runs Duke until the user exits the program.
+     */
     public static void runDuke() {
         Storage.startDuke();
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
-        while (!line.equals("bye")) {
+        while (!line.equals(EXIT_COMMAND)) {
             try {
                 Parser.handleCommand(line);
             } catch (EmptyCommandException e) {
