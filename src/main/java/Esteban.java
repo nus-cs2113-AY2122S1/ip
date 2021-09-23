@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Esteban {
     public static void main(String[] args) {
-        Headers.printBanner();
+        Header.printBanner();
 
         ArrayList<Task> tasks = new ArrayList<Task>();
         try {
@@ -29,15 +29,15 @@ public class Esteban {
             Command cmd = getCommand(line);
             switch(cmd) {
             case BYE:
-                Headers.printExit();
+                Header.printExit();
                 isContinue = false;
                 break;
             case LIST:
-                Headers.printSeparator();
+                Header.printSeparator();
                 for (int i = 0; i < tasks.size(); i++) {
                     System.out.println((i+1) + ". " + tasks.get(i).toString());
                 }
-                Headers.printSeparator();
+                Header.printSeparator();
                 break;
             case TODO:
                 try {
