@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import ui.TextUI;
+
 public class Esteban {
     public static void main(String[] args) {
-        Header.printBanner();
+        TextUI ui = new TextUI();
 
         ArrayList<Task> tasks = new ArrayList<Task>();
         try {
@@ -24,8 +26,7 @@ public class Esteban {
         Scanner in = new Scanner(System.in);
 
         while (isContinue) {
-            System.out.print("> ");
-            line = in.nextLine();
+            line = ui.getCommand();
             Command cmd = getCommand(line);
             switch(cmd) {
             case BYE:
