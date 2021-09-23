@@ -1,22 +1,21 @@
 package shima.command;
 
-import shima.storage.Storage;
-import shima.task.*;
+import shima.task.TaskList;
 
 import java.io.IOException;
 
-public class AddCommand extends Command{
+public class AddCommand extends Command {
 
     private final TaskList tasks;
     private final String command;
     private final String[] words;
 
     /**
-     * @param tasks The list that stores all the tasks
+     * @param tasks   The list that stores all the tasks
      * @param command The user input command
-     * @param words The array of words that compose the command
+     * @param words   The array of words that compose the command
      */
-    public AddCommand(TaskList tasks, String command, String[] words){
+    public AddCommand(TaskList tasks, String command, String[] words) {
         this.tasks = tasks;
         this.command = command;
         this.words = words;
@@ -24,7 +23,8 @@ public class AddCommand extends Command{
 
     /**
      * Runs the add task command
-     * @throws IOException
+     *
+     * @throws IOException Throws this exception when there is error occurs during accessing storage file
      */
     @Override
     public void runCommand() throws IOException {

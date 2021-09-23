@@ -1,11 +1,11 @@
 package shima.command;
 
-import shima.design.Default;
+import shima.design.UserInterface;
 
 import java.util.ArrayList;
 
 public class HelpCommand extends Command {
-    public void runCommand(){
+    public void runCommand() {
         printHelpMenu();
     }
 
@@ -15,7 +15,7 @@ public class HelpCommand extends Command {
     public static void printHelpMenu() {
         ArrayList<String> helpLists = createHelpMenu();
         System.out.println("************************************************************************************************************************************************************************");
-        System.out.println("Help Menu " + Default.CURR_VERSION + "\n");
+        System.out.println("Help Menu " + UserInterface.CURR_VERSION + "\n");
         for (int i = 0; i < helpLists.size(); i++) {
             System.out.println("\t" + (i + 1) + ". " + helpLists.get(i));
         }

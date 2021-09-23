@@ -2,13 +2,13 @@ package shima.design;
 
 import java.util.ArrayList;
 
-public class Default {
+public class UserInterface {
     public static final String CURR_VERSION = "Version 7.0";
 
     /**
      * Displays all the welcome screens and designs when the program starts
      */
-    public Default(){
+    public UserInterface() {
         printLogo();
         printWelcomeMessage();
         printVersionDescription();
@@ -99,19 +99,31 @@ public class Default {
     }
 
     /**
-     * Shows the formatted message string
+     * Shows the message string with a message box
      *
-     * @param message The message to print
+     * @param message The message to print, multiple message strings are accepted
      */
-    public static void showMessage(String message) {
-        System.out.print("\t@");
-        for (int i = 0; i < message.length() + 4; i++) {
-            System.out.print("-");
+    public void showMessage(String... message) {
+        int longestMessageLength = 0;
+        for (String msg : message) {
+            longestMessageLength = Math.max(msg.length(), longestMessageLength);
         }
-        System.out.println("@");
-        System.out.println("\t   " + message);
+        longestMessageLength += 4; //Adds 4 more spaces for each message box
+        drawMessageBoxFrame(longestMessageLength);
+        for (String msg : message) {
+            System.out.println("\t   " + msg);
+        }
+        drawMessageBoxFrame(longestMessageLength);
+    }
+
+    /**
+     * Draws the frame for the message box display
+     *
+     * @param longestMessageLength The string length of the longest message
+     */
+    private void drawMessageBoxFrame(int longestMessageLength) {
         System.out.print("\t@");
-        for (int i = 0; i < message.length() + 4; i++) {
+        for (int i = 0; i < longestMessageLength; i++) {
             System.out.print("-");
         }
         System.out.println("@");

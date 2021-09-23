@@ -3,15 +3,15 @@ package shima.command;
 import shima.design.Profile;
 
 
-public class ViewPersonalityCommand extends Command{
+public class ViewPersonalityCommand extends Command {
     protected Profile profile;
 
-    public ViewPersonalityCommand(){
+    public ViewPersonalityCommand() {
         profile = new Profile();
     }
 
     @Override
-    public void runCommand(){
+    public void runCommand() {
         profile.printPersonality();
     }
 }

@@ -1,7 +1,7 @@
 package shima.task;
 
 import shima.command.ListCommand;
-import shima.design.Default;
+import shima.design.UserInterface;
 import shima.storage.Storage;
 
 import java.io.IOException;
@@ -19,10 +19,12 @@ public class TaskList {
     public static int longestTaskDescription = 0; //The length of the longest task description
     private ArrayList<Task> tasks;
     private final Storage storage;
+    private final UserInterface ui;
 
-    public TaskList(Storage storage) {
+    public TaskList(Storage storage, UserInterface ui) {
         tasks = new ArrayList<>();
         this.storage = storage;
+        this.ui = ui;
     }
 
     public ArrayList<Task> getTasks() {
@@ -133,7 +135,7 @@ public class TaskList {
         }
         storage.saveTaskToFile(this);
         Task currentTask = tasks.get(tasks.size() - 1);
-        Default.showMessage(" Class type [" + currentTask.getClassType() + "] \"" + currentTask + "\" has been added to the list!" +
+        ui.showMessage(" Class type [" + currentTask.getClassType() + "] \"" + currentTask + "\" has been added to the list!" +
                 "(" + tasks.size() + " tasks in total)");
     }
 
@@ -151,7 +153,7 @@ public class TaskList {
         }
         storage.saveTaskToFile(this);
         Task currentTask = tasks.get(tasks.size() - 1);
-        Default.showMessage(" Class type [" + currentTask.getClassType() + "] \"" + currentTask + "\" has been added to the list!" +
+        ui.showMessage(" Class type [" + currentTask.getClassType() + "] \"" + currentTask + "\" has been added to the list!" +
                 "(" + tasks.size() + " tasks in total)");
     }
 
@@ -169,7 +171,7 @@ public class TaskList {
         }
         storage.saveTaskToFile(this);
         Task currentTask = tasks.get(tasks.size() - 1);
-        Default.showMessage(" Class type [" + currentTask.getClassType() + "] \"" + currentTask + "\" has been added to the list!" +
+        ui.showMessage(" Class type [" + currentTask.getClassType() + "] \"" + currentTask + "\" has been added to the list!" +
                 "(" + tasks.size() + " tasks in total)");
     }
 
@@ -195,7 +197,7 @@ public class TaskList {
             createEvent(taskName, time);
             break;
         default:
-            Default.showMessage("An unexpected error has occured when I try to add task :(");
+            ui.showMessage("An unexpected error has occured when I try to add task :(");
         }
     }
 
@@ -207,7 +209,7 @@ public class TaskList {
     public void deleteTasks(String[] words) {
         switch (words.length) {
         case 1:
-            Default.showMessage("Sorry, the input task index to delete is missing!");
+            ui.showMessage("Sorry, the input task index to delete is missing!");
             break;
         case 2:
             if (words[1].equalsIgnoreCase(("all"))) {
@@ -222,7 +224,7 @@ public class TaskList {
         try {
             storage.updateStorage(this);
         } catch (IOException ioException) {
-            Default.showMessage("An unexpected error occurs when I try to update the file");
+            ui.showMessage("An unexpected error occurs when I try to update the file");
             System.out.print("\t");
             ioException.printStackTrace();
         }
@@ -235,7 +237,7 @@ public class TaskList {
      */
     private void deleteAllTasks(ArrayList<Task> tasks) {
         tasks.clear();
-        Default.showMessage("All tasks have been removed! Time to chill?");
+        ui.showMessage("All tasks have been removed! Time to chill?");
     }
 
     /**
@@ -251,7 +253,7 @@ public class TaskList {
             index = Integer.parseInt(word);
             try {
                 String doneIcon = (tasks.get(index - 1).getDone()) ? "[X] " : "[ ] ";
-                Default.showMessage("I have removed this task: [" + tasks.get(index - 1).getClassType() + "]" + doneIcon
+                ui.showMessage("I have removed this task: [" + tasks.get(index - 1).getClassType() + "]" + doneIcon
                         + tasks.get(index - 1));
                 tasks.remove(index - 1);
                 if (tasks.size() > 0) {
@@ -260,10 +262,10 @@ public class TaskList {
                     System.out.println(TASK_FINISHED_MSG);
                 }
             } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-                Default.showMessage(INDEX_OUT_OF_BOUND_MSG);
+                ui.showMessage(INDEX_OUT_OF_BOUND_MSG);
             }
         } catch (NumberFormatException numberFormatException) {
-            Default.showMessage(INVALID_TASK_INDEX_MSG);
+            ui.showMessage(INVALID_TASK_INDEX_MSG);
         }
     }
 
@@ -285,7 +287,7 @@ public class TaskList {
                 taskIndices.sort(Collections.reverseOrder());
                 for (Integer i : taskIndices) {
                     String doneIcon = (tasks.get(i - 1).getDone()) ? "[X] " : "[ ] ";
-                    Default.showMessage("I have removed this task: [" + tasks.get(i - 1).getClassType() + "]" + doneIcon
+                    ui.showMessage("I have removed this task: [" + tasks.get(i - 1).getClassType() + "]" + doneIcon
                             + tasks.get(i - 1));
                     tasks.remove((int) i);
                 }
@@ -296,10 +298,10 @@ public class TaskList {
                     System.out.println(TASK_FINISHED_MSG);
                 }
             } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-                Default.showMessage(INDEX_OUT_OF_BOUND_MSG);
+                ui.showMessage(INDEX_OUT_OF_BOUND_MSG);
             }
         } catch (NumberFormatException numberFormatException) {
-            Default.showMessage(INVALID_TASK_INDEX_MSG);
+            ui.showMessage(INVALID_TASK_INDEX_MSG);
         }
     }
 
@@ -318,11 +320,11 @@ public class TaskList {
             }
             storage.updateStorage(tasks);
         } catch (NumberFormatException numberFormatException) {
-            Default.showMessage(INVALID_TASK_INDEX_MSG);
+            ui.showMessage(INVALID_TASK_INDEX_MSG);
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-            Default.showMessage(INDEX_OUT_OF_BOUND_MSG);
+            ui.showMessage(INDEX_OUT_OF_BOUND_MSG);
         } catch (IOException ioException) {
-            Default.showMessage(UNEXPECTED_ERROR_MSG);
+            ui.showMessage(UNEXPECTED_ERROR_MSG);
             System.out.print("\t");
             ioException.printStackTrace();
         }
