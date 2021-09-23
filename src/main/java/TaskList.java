@@ -4,15 +4,13 @@ import java.util.ArrayList;
 public class TaskList {
 
     public static final int TASK_DESCRIPTION_INDEX = 0;
-    public static final int DONE_NUMBER_INDEX = 4;
-    public static final int DELETE_NUMBER_INDEX = 6;
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     //only for adding tasks when program is already runnning
     //not for adding the tasks when loaded into the system
-    public void addTaskPlusException(TaskEnum taskType, String userInput) {
+    public void addTaskPlusException(CommandEnum taskType, String userInput) {
         try {
-            String userInputWithoutTaskCommand = Parser.stripTaskCommand(taskType, userInput);
+            String userInputWithoutTaskCommand = Parser.stripCommandWord(taskType, userInput);
             addTask(taskType, userInputWithoutTaskCommand, false);
 
         } catch (BlankDescriptionException e) {
@@ -21,7 +19,7 @@ public class TaskList {
         }
     }
 
-    private void addTask(TaskEnum taskType, String userInputWithoutTaskCommand, boolean isDone) {
+    private void addTask(CommandEnum taskType, String userInputWithoutTaskCommand, boolean isDone) {
 
         try {
             String[] taskDetails; //array that should be of length 2 if strippedUserInput is valid
@@ -30,11 +28,11 @@ public class TaskList {
                 addTodo(userInputWithoutTaskCommand, isDone);
                 break;
             case DEADLINE:
-                taskDetails = Parser.getTaskDetails(TaskEnum.DEADLINE, userInputWithoutTaskCommand);
+                taskDetails = Parser.getTaskDetails(CommandEnum.DEADLINE, userInputWithoutTaskCommand);
                 addDeadline(taskDetails, isDone);
                 break;
             case EVENT:
-                taskDetails = Parser.getTaskDetails(TaskEnum.EVENT, userInputWithoutTaskCommand);
+                taskDetails = Parser.getTaskDetails(CommandEnum.EVENT, userInputWithoutTaskCommand);
                 addEvent(taskDetails, isDone);
             }
             addTaskSuccess();
@@ -69,7 +67,7 @@ public class TaskList {
     }
 
     public void deleteTask(String userInput) throws BlankDescriptionException, ExceedTotalTasksException {
-        String taskNumberStr = userInput.substring(DELETE_NUMBER_INDEX).strip();
+        String taskNumberStr = Parser.stripCommandWord(CommandEnum.DELETE, userInput);
         if (taskNumberStr.isBlank()) {
             throw new BlankDescriptionException();
         }
@@ -95,7 +93,7 @@ public class TaskList {
     }
 
     private void doneTask(String userInput) throws BlankDescriptionException, ExceedTotalTasksException {
-        String taskNumberStr = userInput.substring(DONE_NUMBER_INDEX).strip();
+        String taskNumberStr = Parser.stripCommandWord(CommandEnum.DONE, userInput);
         if (taskNumberStr.isBlank()) {
             throw new BlankDescriptionException();
         }

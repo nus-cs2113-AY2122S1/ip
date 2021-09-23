@@ -6,6 +6,8 @@ public class Parser {
     private static final int TODO_START_INDEX = 4;
     private static final int EVENT_START_INDEX = 5;
     private static final int DEADLINE_START_INDEX = 8;
+    private static final int DONE_NUMBER_INDEX = 4;
+    private static final int DELETE_NUMBER_INDEX = 6;
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_LIST = "list";
@@ -33,13 +35,13 @@ public class Parser {
                 Duke.taskList.listTasks();
 
             } else if (userInput.startsWith(COMMAND_TODO)) {
-                Duke.taskList.addTaskPlusException(TaskEnum.TODO, userInput);
+                Duke.taskList.addTaskPlusException(CommandEnum.TODO, userInput);
 
             } else if (userInput.startsWith(COMMAND_DEADLINE)) {
-                Duke.taskList.addTaskPlusException(TaskEnum.DEADLINE, userInput);
+                Duke.taskList.addTaskPlusException(CommandEnum.DEADLINE, userInput);
 
             } else if (userInput.startsWith(COMMAND_EVENT)) {
-                Duke.taskList.addTaskPlusException(TaskEnum.EVENT, userInput);
+                Duke.taskList.addTaskPlusException(CommandEnum.EVENT, userInput);
 
             } else if (userInput.startsWith(COMMAND_DONE)) {
                 Duke.taskList.doneOrDeleteTaskPlusException(userInput, COMMAND_DONE);
@@ -79,10 +81,10 @@ public class Parser {
 
 
     //command keyword removed eg. "todo clean room"  -> "clean room"
-    public static String stripTaskCommand(TaskEnum taskType, String userInput) throws BlankDescriptionException {
+    public static String stripCommandWord(CommandEnum commandType, String userInput) throws BlankDescriptionException {
         String strippedUserInput = "";
 
-        switch (taskType) {
+        switch (commandType) {
         case TODO:
             strippedUserInput = userInput.substring(TODO_START_INDEX).strip(); // remove "todo" from userInput
             break;
@@ -92,18 +94,24 @@ public class Parser {
         case EVENT:
             strippedUserInput = userInput.substring(EVENT_START_INDEX).strip(); // remove event
             break;
+        case DONE:
+            strippedUserInput = userInput.substring(DONE_NUMBER_INDEX).strip();
+            break;
+        case DELETE:
+            strippedUserInput = userInput.substring(DELETE_NUMBER_INDEX).strip();
+            break;
         }
 
-        if (strippedUserInput.isEmpty()) {
+        if (strippedUserInput.isBlank()) {
             throw new BlankDescriptionException();
         }
         return strippedUserInput;
     }
 
-    public static String[] getTaskDetails(TaskEnum taskType, String userInputWithoutTaskCommand) throws IncompleteInformationException {
+    public static String[] getTaskDetails(CommandEnum taskType, String userInputWithoutTaskCommand) throws IncompleteInformationException {
         String[] taskDetails;
         //strip userInputWithoutTaskCommand prevents empty description / dates
-        if (taskType == TaskEnum.DEADLINE) {
+        if (taskType == CommandEnum.DEADLINE) {
             taskDetails = userInputWithoutTaskCommand.strip().split("/by");
         } else { //if EVENT
             taskDetails = userInputWithoutTaskCommand.strip().split("/at");
