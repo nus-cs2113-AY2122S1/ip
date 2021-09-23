@@ -4,7 +4,7 @@
 
 # User Guide
 
-**Duke**is a productivity desktop app that is used through a **Command Line Interface (CLI)**. It is a fast and simple way to keep track of your schedule and tasks on the go.
+**Duke** is a productivity desktop app that is used through a **Command Line Interface (CLI)**. It is a fast and simple way to keep track of your schedule and tasks on the go.
 
 ## Table of Content
 
