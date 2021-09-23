@@ -1,7 +1,5 @@
 package shima.storage;
 
-import shima.Shima;
-import shima.command.ToDoList;
 import shima.design.Default;
 import shima.exception.ShimaException;
 import shima.task.*;
@@ -10,19 +8,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private String filePath;
+    public String filePath;
     private static final String DELIMITER = "Ø";
     private File file;
     private static final String STORAGE_MESSAGE = "Welcome to my storage :P, this is how I memorize all your tasks!\n" +
             "Alert! Please do not delete anything inside this file, else I will get memory loss :(\n";
 
-    public Storage(String filepath) {
-        this.file = new File(filepath);
-        this.filePath = filepath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
+        this.file = new File(this.filePath);
     }
 
     /**
@@ -61,7 +58,7 @@ public class Storage {
             //Displays the to-do list if it is not empty
             if (tasks.size() > 0) {
                 System.out.println("\nHello user! I have helped you written down the to-do list from my previous record!");
-                ToDoList.printToDoList(tasks, Shima.longestTaskDescription);
+                tasks.printToDoList();
             }
         } catch (FileNotFoundException ex) {
             //Creates a file called shimaStorage.txt if the file is not found
@@ -94,7 +91,7 @@ public class Storage {
         for (Task t : tasks.getTasks()) {
             String taskToSave = "";
             String symbolForDone = (t.getDone()) ? "Y" : "N";
-            boolean doNotSave = false;
+            boolean doSave = true;
             if (t instanceof Deadline) {
                 taskToSave = t.getClassType() + DELIMITER + symbolForDone + DELIMITER + t.getTask() + DELIMITER + t.getTime() + System.lineSeparator();
             } else if (t instanceof Event) {
@@ -103,9 +100,9 @@ public class Storage {
                 taskToSave = t.getClassType() + DELIMITER + symbolForDone + DELIMITER + t.getTask() + System.lineSeparator();
             } else {
                 Default.showMessage("An unexpected error occurs when I try to know the type of the task " + t);
-                doNotSave = true;
+                doSave = false;
             }
-            if (!doNotSave) {
+            if (!doSave) {
                 editor.write(taskToSave);
             }
         }
@@ -146,20 +143,20 @@ public class Storage {
             tasks.add(new ToDo(tasksData[2]));
             currentTask = tasks.get(tasks.size() - 1);
             //Updates the longestTaskDescription to ensure that the frames for to-do list can be printed correctly
-            Shima.longestTaskDescription = Math.max(currentTask.getTask().length(), Shima.longestTaskDescription);
+            TaskList.longestTaskDescription = Math.max(currentTask.getTask().length(), TaskList.longestTaskDescription);
             break;
         case "D":
             tasks.add(new Deadline(tasksData[2], tasksData[3]));
             currentTask = tasks.get(tasks.size() - 1);
 
-            Shima.longestTaskDescription = Math.max(currentTask.getTask().length() + "(by: )".length() + currentTask.getTime().length(),
-                    Shima.longestTaskDescription);
+            TaskList.longestTaskDescription = Math.max(currentTask.getTask().length() + "(by: )".length() + currentTask.getTime().length(),
+                    TaskList.longestTaskDescription);
             break;
         case "E":
             tasks.add(new Event(tasksData[2], tasksData[3]));
             currentTask = tasks.get(tasks.size() - 1);
-            Shima.longestTaskDescription = Math.max(currentTask.getTask().length() + "(at: )".length() + currentTask.getTime().length(),
-                    Shima.longestTaskDescription);
+            TaskList.longestTaskDescription = Math.max(currentTask.getTask().length() + "(at: )".length() + currentTask.getTime().length(),
+                    TaskList.longestTaskDescription);
             break;
         default:
             throw new ShimaException.StorageException();
@@ -176,7 +173,7 @@ public class Storage {
      * @param tasks     The array list that stores all the tasks
      * @param readInput The scanner for input
      */
-    private void readUserInput(ArrayList<Task> tasks, Scanner readInput) {
+    private void readUserInput(TaskList tasks, Scanner readInput) {
         System.out.print("\nDo you wish to continue by clearing all the previous data stored in the storage file? (Y/N) ");
         String answer = readInput.nextLine();
         if (answer.equalsIgnoreCase("Y")) {

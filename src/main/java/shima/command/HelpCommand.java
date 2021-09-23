@@ -4,7 +4,10 @@ import shima.design.Default;
 
 import java.util.ArrayList;
 
-public class HelpMenu {
+public class HelpCommand extends Command {
+    public void runCommand(){
+        printHelpMenu();
+    }
 
     /**
      * Prints the help menu to the console

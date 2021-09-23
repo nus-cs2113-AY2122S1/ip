@@ -3,6 +3,7 @@ package shima.command;
 import shima.design.Default;
 import shima.storage.Storage;
 import shima.task.Task;
+import shima.task.TaskList;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class DoneTask {
      * @param tasks The array list that contains all the tasks stored inside the to-do list
      * @param words The array of words that compose the input command
      */
-    public static void handleTaskDone(ArrayList<Task> tasks, String[] words) {
+    public static void handleTaskDone(TaskList tasks, String[] words, Storage storage) {
         try {
             if (words.length == 1) {
                 Default.showMessage("Sorry, the input task number is missing, please try again! :(");
@@ -24,7 +25,7 @@ public class DoneTask {
                 int taskIndex = Integer.parseInt(words[i]);
                 showTaskDoneMessage(tasks, taskIndex);
             }
-            Storage.updateStorage(tasks);
+            storage.updateStorage(tasks);
         } catch (NumberFormatException |
                 IndexOutOfBoundsException ex) {
             Default.showMessage("Sorry, the input task number is invalid, please try again! :(");
@@ -41,7 +42,7 @@ public class DoneTask {
      * @param tasks      The array list which stores all the tasks
      * @param taskNumber The given task number to mark as done
      */
-    private static void showTaskDoneMessage(ArrayList<Task> tasks, int taskNumber) {
+    private static void showTaskDoneMessage(TaskList tasks, int taskNumber) {
         if (!tasks.get(taskNumber - 1).getDone()) {
             tasks.get(taskNumber - 1).setDone();
             System.out.println("\tHooray! Task number " + taskNumber + " has been marked completed!");

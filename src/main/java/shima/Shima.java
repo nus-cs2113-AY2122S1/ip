@@ -1,29 +1,28 @@
 package shima;
 
+import shima.command.Command;
 import shima.design.Default;
 import shima.exception.ShimaException;
 import shima.parser.Parser;
 import shima.storage.Storage;
-import shima.task.Task;
 import shima.task.TaskList;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Shima {
-    public static int longestTaskDescription = 0; //The length of the longest task description
     private TaskList tasks;
     private Storage storage;
 
     public Shima(String filePath) {
         Default ui = new Default();
-        Storage storage = new Storage(filePath);
-        TaskList tasks = new TaskList();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage);
         initiateToDoList(tasks);
     }
 
     public static void main(String[] args) {
-        new Shima("./shimaStorage.txt").runProgram();
+        Shima shima = new Shima("./shimaStorage.txt");
+        shima.runProgram();
     }
 
     /**
@@ -35,7 +34,8 @@ public class Shima {
         System.out.println("\nLet's start input your command:");
         while (true) {
             try {
-                Parser.readCommand(tasks, storage);
+                Command command = Parser.readCommand(tasks, storage);
+                command.runCommand();
             } catch (IOException ioException) {
                 Default.showMessage("An unexpected error occurs when I was accessing the storage file :(");
                 ioException.printStackTrace();
@@ -50,6 +50,7 @@ public class Shima {
      */
     private void initiateToDoList(TaskList tasks) {
         try {
+            //why storage is null here?
             storage.readFromStorage(tasks);
         } catch (IOException ioException) {
             System.out.println();
