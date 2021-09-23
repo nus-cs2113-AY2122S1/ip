@@ -13,6 +13,7 @@ public class Parser {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
     private static final String COMMAND_BYE = "bye";
     private static final String INVALID_COMMAND = "invalid command";
     private static final int COMMAND_INDEX = 0;
@@ -33,6 +34,8 @@ public class Parser {
             return parseDoneCommand(line, words);
         case (COMMAND_DELETE):
             return parseDeleteCommand(line, words);
+        case (COMMAND_FIND):
+            return parseFindCommand(line);
         case (COMMAND_BYE):
             return parseByeCommand(line, words);
         default:
@@ -175,6 +178,19 @@ public class Parser {
         }
 
         return new DeleteCommand(index);
+    }
+
+    public static Command parseFindCommand(String line) throws DukeException {
+        final String FIND_ERROR = "missing keyword to find";
+        final int START_INDEX = 5;
+
+        if (line.equals(COMMAND_FIND)) {
+            throw new DukeException(FIND_ERROR);
+        }
+
+        String toFind = line.substring(START_INDEX).trim();
+
+        return new FindCommand(toFind);
     }
 
     public static Command parseByeCommand(String line, String[] words) throws DukeException {
