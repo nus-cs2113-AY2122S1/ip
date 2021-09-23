@@ -301,7 +301,7 @@ Output:
     
    **A:** Yes, all the tasks will be saved in the duke.txt file in the folder that you have run your command.
       Make sure you run the duke.jar in the same folder everytime you start the application, so that you can
-      access to all the last saved file.
+      access to all the tasks in last saved file.
 
       If you want to shift the application to other computer, be sure to copy the duke.jar and duke.txt file
       to the new computer. Losing the duke.txt file means that all saved tasks would be gone.
@@ -309,7 +309,7 @@ Output:
 
 2. **Q:** Is there a way to edit tasks without CLI?
 
-   **A:** Yes, you cna edit the tasks before you start or after you end the application. There will be a text file
+   **A:** Yes, you can edit the tasks before you start or after you end the application. There will be a text file
       that stores all the files in certain format. However, please ensure that all tasks are in the correct format,
       or you might have the risk of the task list being corrupted.
 
@@ -317,8 +317,8 @@ Output:
 3. **Q:** There is a file called duke.txt being generated. Should I treat it as an unwanted file and delete it?
    
    **A:** The file is used to store all the tasks you have recorded down in the application. Deleting the file means that
-      all the tasks saved by the program will be deleted. Unless you want a clean task list, it is not advisable to perform
-      that action.
+      all the tasks saved by the program will be deleted. Unless you want a clean task list upon restarting your program, 
+      it is not advisable to perform the action.
 
 ## Command Summary
 
