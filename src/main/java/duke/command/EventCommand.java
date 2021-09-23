@@ -25,6 +25,6 @@ public class EventCommand extends Command {
      */
     @Override
     public void execute() {
-        taskManager.createEventTask(arguments[0], arguments[1]);
+        taskManager.createEventTask(arguments[0], arguments[1].trim());
     }
 }

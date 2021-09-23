@@ -1,14 +1,22 @@
 package duke.task;
 
+import duke.common.CommonFormat;
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
 
     final private static String FLAG_TYPE = "[D]";
 
-    private String dueDate;
+    private LocalDateTime dueDate;
 
     public Deadline(String description, String dueDate) {
         super(description);
-        this.dueDate = dueDate.trim();
+        this.dueDate = convertToLocalDateTime(dueDate);
+    }
+
+    @Override
+    public String getDate() {
+        return dueDate.format(CommonFormat.formatterDateOnly);
     }
 
     @Override
@@ -23,11 +31,11 @@ public class Deadline extends Task {
      */
     @Override
     public String getTaskInfo() {
-        return getDescription() + " (by: " + dueDate + ")";
+        return getDescription() + " (by: " + dueDate.format(CommonFormat.formatterPrint) + ")";
     }
 
     @Override
     public String toString() {
-        return FLAG_TYPE + " | " + getDoneStatus() + " | " + this.getDescription() + " | " + dueDate;
+        return FLAG_TYPE + " | " + getDoneStatus() + " | " + this.getDescription() + " | " + dueDate.format(CommonFormat.formatter);
     }
 }

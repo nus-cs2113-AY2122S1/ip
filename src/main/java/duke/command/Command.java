@@ -38,4 +38,5 @@ public class Command {
     public boolean hasDataChange() {
         return hasDataChange;
     }
+
 }

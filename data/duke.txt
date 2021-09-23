@@ -1,5 +1,4 @@
 [T] | 1 | read book
-[D] | 1 | network assignment | 22 sept
-[E] | 0 | exam cs2106 | 29 sept 2.15pm-3.15pm
 [T] | 1 | return book
-[E] | 1 | exam cs2105 | 4th oct 2-4pm
+[D] | 0 | good job | 2001-09-11 10:00
+[E] | 1 | bad job | 2001-09-11 12:12
