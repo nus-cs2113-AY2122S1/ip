@@ -122,3 +122,44 @@ public class Ui {
         System.out.println(LINE);
     }
 }
+
+    /**
+     * Displays to user the filtered task list that occurs
+     * at the specified date.
+     *
+     * @param taskList the initial task list
+     * @param date the specified date
+     */
+    public void printTaskWithDate(TaskList taskList, String date) {
+        TaskList filteredTaskList = taskList.filterDate(date);
+
+        System.out.print(LINE);
+        if (filteredTaskList.isEmpty()) {
+            System.out.println(PADDING + "You have no task on " + date + ".");
+        } else {
+            System.out.println(PADDING + "Here are the tasks on " + date + ":");
+            System.out.print(filteredTaskList);
+        }
+        System.out.println(LINE);
+    }
+
+    /**
+     * Displays to user the filtered task list based
+     * on the specified keyword.
+     *
+     * @param taskList the initial task list
+     * @param keyword the specified keyword
+     */
+    public void printTaskWithKeyword(TaskList taskList, String keyword) {
+        TaskList filteredTaskList = taskList.filterTaskByKeyword(keyword);
+
+        System.out.print(LINE);
+        if (filteredTaskList.isEmpty()) {
+            System.out.println(PADDING + "There is no matching task in your list.");
+        } else {
+            System.out.println(PADDING + "Here are the matching tasks in your list:");
+            System.out.println(filteredTaskList);
+        }
+        System.out.println(LINE);
+    }
+}

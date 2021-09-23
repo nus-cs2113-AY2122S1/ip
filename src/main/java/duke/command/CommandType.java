@@ -1,11 +1,13 @@
 package duke.command;
 
 public enum CommandType {
+    DATE,
     DEADLINE,
     DELETE,
     DONE,
     EVENT,
     EXIT,
+    FIND,
     INVALID,
     LIST,
     TODO;
