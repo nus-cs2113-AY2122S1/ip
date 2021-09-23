@@ -2,8 +2,10 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
+/**
+ * The deadline subclass
+ */
 public class Deadline extends Task {
     protected LocalDate deadline;
 

@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Prints the interface and error messages
+ */
 public class Ui {
     public static void startup(){
         System.out.println("Hello! I'm Duke");

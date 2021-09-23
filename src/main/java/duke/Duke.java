@@ -3,9 +3,17 @@ package duke;
 import java.util.Scanner;
 import java.io.IOException;
 
+/**
+ * This program helps you keep track of your tasks and manage them
+ *
+ * @author  Peng Yanjia
+ * @version 1.0
+ * @since   2021-09-01
+ */
 public class Duke {
     protected Scanner in;
 
+    /** Initialises the program */
     public void run() {
         Ui.startup();
         in = new Scanner(System.in);
