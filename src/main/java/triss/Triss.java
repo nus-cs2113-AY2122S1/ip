@@ -15,15 +15,9 @@ import java.io.IOException;
 
 public class Triss {
 
-    /** Logo shown during startup */
-    private static final String LOGO = "████████ ██████  ██ ███████ ███████ \n" +
-            "   ██    ██   ██ ██ ██      ██      \n" +
-            "   ██    ██████  ██ ███████ ███████ \n" +
-            "   ██    ██   ██ ██      ██      ██ \n" +
-            "   ██    ██   ██ ██ ███████ ███████ \n";
 
-    /** String of underscores to separate user input and Triss output */
-    public static final String SEPARATOR_LINE = "____________________________________________________________";
+
+
 
     /** Boolean to track if user has said "bye" */
     private static boolean hasUserSaidBye = false;
@@ -37,6 +31,8 @@ public class Triss {
     public static final int END_INDEX_OF_WORD_DEADLINE = 8;
     /** Length of the word "event" */
     public static final int END_INDEX_OF_WORD_EVENT = 5;
+    /** User interface to receive input and give output */
+    private static Ui ui = new Ui();
 
     /**
      * Loops Triss into receiving user input and giving output messages.
@@ -45,10 +41,7 @@ public class Triss {
      */
     public static void main(String[] args) {
         // Print LOGO and welcome text
-        printWelcomeMessage();
-
-        // Initialise user input reader
-        Scanner in = createNewInputReader();
+        ui.printWelcomeMessage();
 
         // Check for any stored data
         try {
@@ -63,36 +56,37 @@ public class Triss {
         while (!hasUserSaidBye) {
 
             // Get the next line of input, and parse it to find the user's command (first word in input)
-            String userInput = getUserInput(in);
-            String userCommand = parseUserInput(userInput, 0);
-            printLine(SEPARATOR_LINE);
+            ui.readUserInput();
+            String userCommand = parseUserInput(ui.getUserInput(), 0);
+            ui.printSeparatorLine();
 
             // Perform actions based on user's command
             switch (userCommand) {
             case "bye":
                 saveTasks();
-                printShutdownMessage();
+                hasUserSaidBye = true;
+                ui.printShutdownMessage();
                 break;
             case "list":
                 printAllTasks();
                 break;
             case "done":
-                handleUserMarkingTaskAsDone(userInput);
+                handleUserMarkingTaskAsDone(ui.getUserInput());
                 break;
             case "delete":
-                handleUserDeletingTask(userInput);
+                handleUserDeletingTask(ui.getUserInput());
                 break;
             default:
                 try {
-                    handleUserCreatingTask(userInput);
+                    handleUserCreatingTask(ui.getUserInput());
                 } catch (TrissException exception) {
-                    printLine(exception.getMessage());
+                    ui.printLine(exception.getMessage());
                 }
                 break;
             }
 
             saveTasks();
-            printLine(SEPARATOR_LINE);
+            ui.printSeparatorLine();
 
         }
     }
@@ -105,14 +99,14 @@ public class Triss {
         try {
             indexOfRemovableTask = Integer.parseInt(parseUserInput(userInput, 1)) - 1;
         } catch (Exception e) {
-            printLine("Ach, nee! That task does not exist.");
+            ui.printLine("Ach, nee! That task does not exist.");
             return;
         }
 
 
         // If task does not exist, do not delete any task
         if (indexOfRemovableTask >= tasks.size() || indexOfRemovableTask < 0) {
-            printLine("Apologies! That task does not exist.");
+            ui.printLine("Apologies! That task does not exist.");
             return;
         }
 
@@ -121,10 +115,10 @@ public class Triss {
 
         // Remove task from tasks
         tasks.remove(chosenTask);
-        printLine("Wunderbar! This task has been deleted:");
+        ui.printLine("Wunderbar! This task has been deleted:");
 
         // Print out the task in the following format: "    [X] Task"
-        printLine("    " + chosenTask.printTask());
+        ui.printLine("    " + chosenTask.printTask());
     }
 
     private static void initialiseDataStorage() throws IOException, TrissException {
@@ -176,21 +170,7 @@ public class Triss {
 
     }
 
-    /**
-     * Create a new Scanner to read user input.
-     * @return A new Scanner.
-     */
-    private static Scanner createNewInputReader() {
-        return new Scanner(System.in);
-    }
 
-    /**
-     * Print a string, then terminates the line.
-     * @param s The string to be printed.
-     */
-    private static void printLine(String s) {
-        System.out.println(s);
-    }
 
     /**
      * Parse the user input and return the word in the index the user wants.
@@ -202,23 +182,7 @@ public class Triss {
         return userInput.split(" ")[i];
     }
 
-    /**
-     * Read the next line of user input.
-     * If the user input is blank, asks user for input again.
-     * @param in The InputReader (Scanner) that will be used to read the next line.
-     * @return Valid user input.
-     */
-    private static String getUserInput(Scanner in) {
-        /* String variable to store user input */
-        String userInput = in.nextLine();
 
-        while (userInput.isBlank()) {
-            printLine("Stop with the silent treatment! Say something?");
-            printLine(SEPARATOR_LINE);
-            userInput = in.nextLine();
-        }
-        return userInput;
-    }
 
     /**
      * Creates new task depending on first word in user input.
@@ -265,7 +229,7 @@ public class Triss {
 
         // Then, echo the task if not silent
         if (!isSilent) {
-            printLine("I've added: " + newTodo.printTask());
+            ui.printLine("I've added: " + newTodo.printTask());
         }
     }
 
@@ -308,7 +272,7 @@ public class Triss {
 
         // Then, echo the task if not silent
         if (!isSilent) {
-            printLine("I've added: " + newEvent.printTask());
+            ui.printLine("I've added: " + newEvent.printTask());
         }
     }
 
@@ -350,7 +314,7 @@ public class Triss {
 
         // Then, echo the task if not silent
         if (!isSilent) {
-            printLine("I've added: " + newDeadline.printTask());
+            ui.printLine("I've added: " + newDeadline.printTask());
         }
     }
 
@@ -368,14 +332,14 @@ public class Triss {
         try {
             indexOfCompletedTask = Integer.parseInt(parseUserInput(userInput, 1)) - 1;
         } catch (Exception e) {
-            printLine("Ach, nee! That task does not exist.");
+            ui.printLine("Ach, nee! That task does not exist.");
             return;
         }
 
 
         // If task does not exist, do not delete any task
         if (indexOfCompletedTask >= tasks.size() || indexOfCompletedTask < 0) {
-            printLine("Apologies! That task does not exist.");
+            ui.printLine("Apologies! That task does not exist.");
             return;
         }
 
@@ -384,18 +348,18 @@ public class Triss {
 
         // If task was already done, let user know
         if (chosenTask.isDone()) {
-            printLine("Oh! This task was already marked as done:");
+            ui.printLine("Oh! This task was already marked as done:");
             // Print out the task in the following format: "    [X] Task"
-            printLine("    " + chosenTask.printTask());
+            ui.printLine("    " + chosenTask.printTask());
             return;
         }
 
         // If task exists, and is not done, mark it as done
         chosenTask.setDone(true);
-        printLine("Wunderbar! This task has been marked as done:");
+        ui.printLine("Wunderbar! This task has been marked as done:");
 
         // Print out the task in the following format: "    [X] Task"
-        printLine("    " + chosenTask.printTask());
+        ui.printLine("    " + chosenTask.printTask());
     }
 
     /**
@@ -404,27 +368,11 @@ public class Triss {
     private static void printAllTasks() {
         // If user said "list", print a list of all saved tasks
         for (Task task:tasks) {
-            printLine(tasks.indexOf(task) + 1 + "." + task.printTask());
+            ui.printLine(tasks.indexOf(task) + 1 + "." + task.printTask());
         }
     }
 
-    /**
-     * Prints shutdown message.
-     */
-    private static void printShutdownMessage() {
-        // If user said "bye", update hasUserSaidBye and print closing phrase
-        hasUserSaidBye = true;
-        printLine("Thanks for coming. Auf wiedersehen!");
-    }
 
-    /**
-     * Prints welcome message.
-     */
-    private static void printWelcomeMessage() {
-        printLine("Hello from\n" + LOGO);
-        printLine(SEPARATOR_LINE);
-        printLine("Hello! I'm Triss :)");
-        printLine("What can I do for you?");
-        printLine(SEPARATOR_LINE);
-    }
+
+
 }
