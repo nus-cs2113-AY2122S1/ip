@@ -38,7 +38,7 @@ public class Ui {
         return sc.nextLine().strip();
     }
 
-    /** Displays logo and greet user */
+    /** Displays logo and greet user. */
     public void printGreeting() {
         System.out.print(LINE);
         System.out.println(LOGO);
@@ -59,9 +59,9 @@ public class Ui {
     }
 
     /**
-     * Displays Message to user.
+     * Displays message to user.
      *
-     * @param message Message.
+     * @param message message
      */
     public void printMessage(String message) {
         System.out.print(LINE);
@@ -72,8 +72,8 @@ public class Ui {
     /**
      * Displays to user the task added.
      *
-     * @param task The task added.
-     * @param size The size of the task list.
+     * @param task the task added
+     * @param size the size of the task list
      */
     public void printTaskAdded(Task task, int size) {
         System.out.print(LINE);
@@ -86,8 +86,8 @@ public class Ui {
     /**
      * Displays to user the task deleted.
      *
-     * @param task The task deleted.
-     * @param size The size of the task list.
+     * @param task the task deleted
+     * @param size the size of the task list
      */
     public void printTaskDeleted(Task task, int size) {
         System.out.print(LINE);
@@ -100,8 +100,8 @@ public class Ui {
     /**
      * Displays to user the task marked as done.
      *
-     * @param task The task marked as done.
-     * @param size The size of the task list.
+     * @param task the task marked as done
+     * @param size the size of the task list
      */
     public void printTaskMarkedAsDone(Task task, int size) {
         System.out.print(LINE);
@@ -113,7 +113,7 @@ public class Ui {
     /**
      * Displays to user the task list.
      *
-     * @param taskList The task list.
+     * @param taskList the task list
      */
     public void printTaskList(TaskList taskList) {
         System.out.print(LINE);

@@ -8,8 +8,8 @@ public class Event extends Task {
      * Initializes the task description and deadline, and
      * sets initial status to "not done".
      *
-     * @param description Task description.
-     * @param at Time period of the task.
+     * @param description task description
+     * @param at time period of the task
      */
     public Event(String description, String at) {
         super(description);
@@ -20,9 +20,9 @@ public class Event extends Task {
      * Initializes the task description and deadline, and
      * sets initial status according to the given parameter.
      *
-     * @param description Task description.
-     * @param at Time period of the task.
-     * @param isDone Initial status.
+     * @param description task description
+     * @param at time period of the task
+     * @param isDone initial status
      */
     public Event(String description, String at, boolean isDone) {
         super(description, isDone);

@@ -15,7 +15,7 @@ public abstract class Task {
      * Initializes task description and sets the initial
      * status to "not done".
      *
-     * @param description Task description.
+     * @param description task description
      */
     public Task(String description) {
         this.description = description;
@@ -26,8 +26,8 @@ public abstract class Task {
      * Initializes task description and sets the initial
      * status according to the given parameter.
      *
-     * @param description Task description.
-     * @param isDone Initial status.
+     * @param description task description
+     * @param isDone initial status
      */
     public Task(String description, boolean isDone) {
         this.description = description;
@@ -45,7 +45,7 @@ public abstract class Task {
     /**
      * Serializes task data.
      *
-     * @return Serialied task data.
+     * @return serialied task data
      */
     public String serialize() {
         return description;
@@ -55,9 +55,9 @@ public abstract class Task {
      * Deserializes a line of string and match it to
      * the suitable task format.
      *
-     * @param line A line of string.
-     * @return The new task after deserialization.
-     * @throws DukeException If string is in invalid format.
+     * @param line a line of string
+     * @return the new task after deserialization
+     * @throws DukeException if string is in invalid format
      */
     public static Task deserialize(String line) throws DukeException {
         try {

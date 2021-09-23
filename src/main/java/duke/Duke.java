@@ -14,7 +14,7 @@ public class Duke {
     private Ui ui;
     private Storage storage;
 
-    /** Initializes scanner, storage, task list, and UI. */
+    /** Initializes UI, storage, and task list. */
     public Duke() {
         ui = new Ui();
         storage = new Storage();
@@ -52,7 +52,7 @@ public class Duke {
     /**
      * Starts an instance of Duke.
      *
-     * @param args Command line arguments.
+     * @param args command line arguments
      */
     public static void main(String[] args) {
         Duke duke = new Duke();
