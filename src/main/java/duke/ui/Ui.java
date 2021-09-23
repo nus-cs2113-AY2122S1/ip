@@ -5,6 +5,11 @@ import java.util.ArrayList;
 
 public class Ui {
     
+    /**
+     *
+     */
+    private static final String NO_TASK_FOUND_MESSAGE = "There are no tasks containing that keyword!";
+    private static final String FOUND_MATCHING_TASK_MESSAGE = "Here are the matching tasks in your list:";
     public static final String LINE = "____________________________________________________________";
     public static final String LINE_SEPARATOR = System.lineSeparator();
     public static final String INVALID_FILE_INPUT_MESSAGE = "Input format within file is wrong!";
@@ -36,6 +41,22 @@ public class Ui {
 
     public String readCommand() {
         return in.nextLine();
+    }
+
+    public void printLine() {
+        System.out.println(LINE);
+    }
+
+    public void printFoundTaskMessage() {
+        System.out.println(LINE + LINE_SEPARATOR + FOUND_MATCHING_TASK_MESSAGE);
+    }
+
+    public void printNoTaskFoundMessage() {
+        System.out.println(LINE + LINE_SEPARATOR + NO_TASK_FOUND_MESSAGE + LINE_SEPARATOR + LINE);
+    }
+
+    public void printTask(Task task, int index) {
+        System.out.println(index + ". " + task);
     }
 
     public void printRemoveTaskMessge(Task task, int numTasks) {
