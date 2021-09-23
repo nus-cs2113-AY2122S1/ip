@@ -20,3 +20,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 data/duke.txt
 iptest/ip.jar
 src/main/java/META-INF/MANIFEST.MF
+data/atlasData.txt
