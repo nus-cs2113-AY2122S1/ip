@@ -1,5 +1,6 @@
 package tasks;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -54,6 +55,8 @@ public class TaskList {
             System.out.println("Please use '/' followed by a date and/or time");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Number does not exist in list, please try again.");
+        } catch (DateTimeParseException e){
+            System.out.println("Please insert date in ddmmyyyy and time in 24hr format");
         }
         Storage.saveTasks(tasksAL);
     }

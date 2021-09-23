@@ -39,7 +39,9 @@ public class Parser {
             Storage.loadSaves(tasksAL);
             while (true) {
                 System.out.println("To view your list, enter 'list'. " +
-                        "To add to your list type 'todo', 'event' or 'deadline' then your task.");
+                        "To add to your list type 'todo', 'event' or 'deadline' then your task."
+                            + System.lineSeparator() + "Date and time format: ddmmyyyy time(in 24hr), " +
+                                "e.g. 02122021 1231");
                 String userInput = scannerObj.nextLine();
                 if (userInput.equalsIgnoreCase("bye")) {
                     isContinue = false;
