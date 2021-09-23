@@ -7,6 +7,7 @@ import java.util.Scanner;
  * A class containing messages to print when valid
  */
 public class Ui {
+
     public Scanner readUserInput;
     public String userInput;
 
@@ -26,7 +27,7 @@ public class Ui {
 
     /**
      * Message to print upon program start
-     * */
+     */
     public void printStart() {
         System.out.println("Hello! I'm DAHNAM, your friendly human (not a bot!)! What can I do for you?\n");
     }
@@ -44,13 +45,14 @@ public class Ui {
     public void showListOfCommands() {
         System.out.println("Unfortunately, my definitely human brain is unable to understand what you mean.\nThe list "
                 + "of sentences I understand are: \n todo [Description] \n event [Description] /at [Time] \n "
-                + "deadline [Description] /by [Time] \n list \n done [Task Number] \n bye \n bot?\n find "
+                + "deadline [Description] /by [Time] \n list \n done [Task Number] \n bye\n find "
                 + "[Description]");
     }
 
     /**
      * Echoes the details of the Task that user input into TaskList, and the total number of current tasks
-     * @param t Task that user input into TaskList
+     *
+     * @param t       Task that user input into TaskList
      * @param taskNum Total number of tasks currently
      */
     public void echoUserInput(Task t, int taskNum) {

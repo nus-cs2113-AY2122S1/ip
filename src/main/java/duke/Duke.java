@@ -8,6 +8,7 @@ import java.io.File;
  * Main class that is called upon program execution
  */
 public class Duke {
+
     public static final int COMMAND_INDEX = 0;
     public static final File myFile = new File("tasks.txt");
     private static Ui ui;
@@ -17,8 +18,9 @@ public class Duke {
 
 
     /**
-     * Initialises Ui, Storage and TaskList. If there is a user file provided, the TaskList will copy all tasks
-     * stored in the user file
+     * Initialises Ui, Storage and TaskList. If there is a user file provided, the TaskList will copy all tasks stored
+     * in the user file
+     *
      * @param myFile File containing tasks
      */
     public Duke(File myFile) {
@@ -28,8 +30,7 @@ public class Duke {
 
         if (!storage.newFileCreated) {
             tasks = new TaskList(storage.load());
-        }
-        else {
+        } else {
             tasks = new TaskList();
         }
 

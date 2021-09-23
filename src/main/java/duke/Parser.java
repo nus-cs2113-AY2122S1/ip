@@ -30,9 +30,10 @@ public class Parser {
 
     /**
      * Assigns TaskList, Ui and Storage to be used
-     * @param taskList TaskList containing list of Tasks
+     *
+     * @param taskList      TaskList containing list of Tasks
      * @param userInterface Ui to print out relevant messages
-     * @param storageSpace Storage to write/read data
+     * @param storageSpace  Storage to write/read data
      */
     public Parser(TaskList taskList, Ui userInterface, Storage storageSpace) {
         this.tasks = taskList;
@@ -41,15 +42,12 @@ public class Parser {
     }
 
     /**
-     * Parses user input into commands. The list of supported commands are:
-     * "done ~index~" : Marks the Task at index as done
-     * "bot?" : Ask DAHNAM whether he's a bot
-     * "list" : Displays all current tasks in TaskList
-     * "todo ~desc~" : Creates a ToDo with desc
-     * "event ~desc~ /at ~time~" : Creates an Event with desc and time. The /at is used to separate desc and time
-     * "deadline ~desc~ /by ~time~" : Creates a Deadline with desc and time. The /by is used to separate desc and time
-     * "delete ~index~" : Deletes the Task stored at the given index in TaskList
-     * "find ~desc~" : Enumerates through all current Tasks in TaskList and print all tasks with ~desc~
+     * Parses user input into commands. The list of supported commands are: "done ~index~" : Marks the Task at index as
+     * done "list" : Displays all current tasks in TaskList "todo ~desc~" : Creates a ToDo with desc "event ~desc~ /at
+     * ~time~" : Creates an Event with desc and time. The /at is used to separate desc and time "deadline ~desc~ /by
+     * ~time~" : Creates a Deadline with desc and time. The /by is used to separate desc and time "delete ~index~" :
+     * Deletes the Task stored at the given index in TaskList "find ~desc~" : Enumerates through all current Tasks in
+     * TaskList and print all tasks with ~desc~
      *
      * @param userInput String user input
      */
@@ -61,10 +59,6 @@ public class Parser {
         switch (identifier) {
         case "done":
             completeTask();
-            return;
-
-        case "bot?":
-            denyBotNature();
             return;
 
         case "list":
@@ -121,17 +115,6 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             ui.printIndexOOBException();
         }
-        System.out.println(LINEBAR);
-    }
-
-    /**
-     * Prints a message denying any and all allegations of DAHNAM being a bot when prompted with 'bot?'
-     */
-    public void denyBotNature() {
-        String denyBotNature = "No, I am definitely not a bot. Why do you ask?\n";
-
-        System.out.println(LINEBAR);
-        System.out.println(denyBotNature);
         System.out.println(LINEBAR);
     }
 
@@ -265,7 +248,7 @@ public class Parser {
 
         int matching = 0;
 
-        for (Task t: tasks.TaskList) {
+        for (Task t : tasks.TaskList) {
             String currDesc = t.taskDescription;
 
             if (currDesc.contains(targetDesc)) {
