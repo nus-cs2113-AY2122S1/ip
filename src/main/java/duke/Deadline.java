@@ -1,16 +1,20 @@
 package duke;
 
-public class Deadline extends Task {
-    protected String deadline;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Deadline(String description, int index, String deadline) {
+public class Deadline extends Task {
+    protected LocalDate deadline;
+
+    public Deadline(String description, int index, String deadline) throws DateTimeParseException {
         super(description, index);
-        this.type = "D";
-        this.deadline = deadline;
+        this.type = Type.D;
+        this.deadline = LocalDate.parse(deadline);
     }
     public void printTask(){
         System.out.println(index + ". [" + type + "] [" + getStatusIcon()
-                + "] " + description + " (by: " + deadline + ")");
+                + "] " + description + " (by: " + deadline.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")");
     }
 
     public String fileFormat() {

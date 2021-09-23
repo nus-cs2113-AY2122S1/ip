@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -12,15 +13,23 @@ public class TaskList {
     }
 
     public void addEvent (String description, String time, int count) {
-        Event event = new Event(description, count, time);
-        event.printAdded(count);
-        list.add(event);
+        try {
+            Event event = new Event(description, count, time);
+            event.printAdded(count);
+            list.add(event);
+        } catch (DateTimeParseException e) {
+            Ui.dateFormatError();
+        }
     }
 
     public void addDeadline (String description, String time, int count) {
-        Deadline deadline = new Deadline(description, count, time);
-        deadline.printAdded(count);
-        list.add(deadline);
+        try {
+            Deadline deadline = new Deadline(description, count, time);
+            deadline.printAdded(count);
+            list.add(deadline);
+        } catch (DateTimeParseException e) {
+            Ui.dateFormatError();
+        }
     }
 
     public void delete (String description, int count) {

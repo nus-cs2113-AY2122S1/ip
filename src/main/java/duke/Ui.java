@@ -41,4 +41,8 @@ public class Ui {
     public static void unknownError() {
         System.out.println("☹ OOPS!!! There is an unknown error.");
     }
+
+    public static void dateFormatError() {
+        System.out.println("☹ OOPS!!! I don't recognise the date format.");
+    }
 }

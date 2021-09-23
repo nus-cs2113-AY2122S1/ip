@@ -1,14 +1,12 @@
 package duke;
 
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     protected String command;
     protected String description;
     protected String time;
     protected int count = 0;
-
-    public Parser(String input, TaskList tasklist) {
-        parseCommand(input);
-    }
 
     public void errorCatch(DukeException e) {
         switch (e.error) {
@@ -37,7 +35,7 @@ public class Parser {
     }
 
     /** Converts the string into its individual arguments */
-    public void parseCommand(String input) {
+    public void parseCommand(String input) throws StringIndexOutOfBoundsException {
         String temp;
         if (input.contains(" ")) {
             this.command = input.substring(0, input.indexOf(" "));
@@ -66,6 +64,8 @@ public class Parser {
             Ui.noIndexError();
         } catch (IndexOutOfBoundsException e) {
             Ui.noItemError();
+        } catch (DateTimeParseException e) {
+            Ui.dateFormatError();
         }
         return 0;
     }
