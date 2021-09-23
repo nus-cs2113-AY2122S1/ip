@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.io.File;
 import java.util.Scanner;
 
 public class Parser {
@@ -29,6 +28,10 @@ public class Parser {
         return arg.trim().toLowerCase().contains("delete");
     }
 
+    public static boolean hasFindKeyword(String arg) {
+        return arg.trim().toLowerCase().contains("find");
+    }
+
     /**
      * Returns the required value for keyword which is the first word keyed in by user.
      *
@@ -46,11 +49,13 @@ public class Parser {
         } else if (hasEventKeyword(query)) {
             keyword = Keyword.EVENT_TASK;
         } else if (hasListKeyword(query)) {
-            keyword = Keyword.LIST_ITEMS;
+            keyword = Keyword.LIST_KEYWORD;
         } else if (query.trim().equals("bye")) {
             keyword = Keyword.GOODBYE_KEYWORD;
         } else if (hasDeleteKeyword(query)) {
             keyword = Keyword.DELETE_KEYWORD;
+        } else if (hasFindKeyword(query)) {
+            keyword = Keyword.FIND_KEYWORD;
         } else {
             keyword = Keyword.NO_KEYWORD;
         }
@@ -113,11 +118,92 @@ public class Parser {
      */
     public static String getDate(String query) {
         int slashPosition = query.indexOf("/");
+        int shiftIndex = 3;
         if (slashPosition == -1) {
             return "";
         } else {
-            int datePosition = slashPosition + 3;
+            int datePosition = slashPosition + shiftIndex;
             return query.substring(datePosition).trim();
+        }
+    }
+
+    public static void doDoneTask(ArrayList<Task> tasks, String query) {
+        try {
+            int taskNumber = Parser.getTaskNum(query) - 1;
+            Task referencedTask = tasks.get(taskNumber);
+            referencedTask.markAsDone();
+            Ui.printDone(referencedTask);
+            System.out.println("Total unchecked items in your list: " + Parser.getNumOfUncompletedTasks(tasks));
+        } catch (IndexOutOfBoundsException exception) {
+            System.out.println("There is no such task number...");
+        }
+    }
+
+    public static void makeTodoTask(ArrayList<Task> tasks, String query) {
+        tasks.add(new Todo(Parser.getQueryDescription(query)));
+        System.out.println("Added a Todo Task: " + Parser.getQueryDescription(query));
+        System.out.println("Total unchecked items in your list: " + Parser.getNumOfUncompletedTasks(tasks));
+    }
+
+    public static void makeEventTask(ArrayList<Task> tasks, String query) {
+        try {
+            if (Parser.getDate(query).equals("")) {
+                throw new InvalidInputsException.InvalidDateFormatting("Wrong format of date "
+                        + "has been entered");
+            }
+            tasks.add(new Event(Parser.getQueryDescription(query), Parser.getDate(query)));
+            System.out.println("Added an Event Task: " + Parser.getQueryDescription(query));
+            System.out.println("Total unchecked items in your list: " + Parser.getNumOfUncompletedTasks(tasks));
+        } catch (InvalidInputsException.InvalidDateFormatting exception) {
+            exception.printStackTrace();
+            System.out.println("Did you forget to add in the '/by' again?");
+        }
+    }
+
+    public static void makeDeadlineTask(ArrayList<Task> tasks, String query) {
+        try {
+            if (Parser.getDate(query).equals("")) {
+                throw new InvalidInputsException.InvalidDateFormatting("Wrong format of date "
+                        + "has been entered");
+            }
+            tasks.add(new Deadline(Parser.getQueryDescription(query), Parser.getDate(query)));
+            System.out.println("Added a Deadline Task: " + Parser.getQueryDescription(query));
+            System.out.println("Total unchecked items in your list: " + Parser.getNumOfUncompletedTasks(tasks));
+        } catch (InvalidInputsException.InvalidDateFormatting exception) {
+            exception.printStackTrace();
+            System.out.println("Did you forget to add in the '/by' again?");
+        }
+    }
+
+    public static void findMatching(ArrayList<Task> tasks, String query) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(Parser.getQueryDescription(query))) {
+                matchingTasks.add(task);
+            }
+        }
+        Ui.printMatchingList(matchingTasks, query);
+    }
+
+    public static void deleteItem(ArrayList<Task> tasks, String query) {
+        try {
+            int taskNumber = Parser.getTaskNum(query) - 1;
+            Task referencedTask = tasks.get(taskNumber);
+            tasks.remove(taskNumber);
+            Ui.printDeletedMessage(referencedTask);
+            System.out.println("Total unchecked items in your list: " + getNumOfUncompletedTasks(tasks));
+        } catch (IndexOutOfBoundsException exception) {
+            System.out.println("There is no such task number...");
+        }
+    }
+
+    public static void wrongInputTypeMessage() {
+        try {
+            throw new InvalidInputsException.MissingKeyword("You have to input <todo>, <deadline> or"
+                    + " <event> first!");
+        } catch (InvalidInputsException.MissingKeyword exception) {
+            exception.printStackTrace();
+            System.out.println("Invalid keyword!!!");
         }
     }
 
