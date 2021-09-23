@@ -44,8 +44,8 @@ public class TaskList {
     /**
      * Filters the task list according to the specified date.
      *
-     * @param date The specified date.
-     * @return Filtered task list.
+     * @param date the specified date
+     * @return the filtered task list
      */
     public TaskList filterDate(String date) {
         TaskList filteredTaskList = new TaskList();
@@ -60,6 +60,22 @@ public class TaskList {
                 if (event.getTaskPeriod().equals(date)) {
                     filteredTaskList.addTask(event);
                 }
+            }
+        }
+        return filteredTaskList;
+    }
+
+    /**
+     * Filters the task list according to the specified keyword.
+     *
+     * @param keyword the specified keyword
+     * @return the filtered task list
+     */
+    public TaskList filterTaskByKeyword(String keyword) {
+        TaskList filteredTaskList = new TaskList();
+        for (Task task : taskList) {
+            if (task.getDescription().toLowerCase().contains(keyword)) {
+                filteredTaskList.addTask(task);
             }
         }
         return filteredTaskList;
