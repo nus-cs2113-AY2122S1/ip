@@ -9,12 +9,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class deals with loading tasks from a saved file and saving current tasks into the file
+ */
 public class Storage {
 
     File directory;
     File file;
 
-    //constructor
+    /**
+     * The Constructor method for Storage class
+     * It check if there is a file to read data from.
+     * If there is no such file, it creates a file in that location
+     */
     public Storage() {
         //create directory if directory does not exist
         directory = new File("data");
@@ -34,6 +41,10 @@ public class Storage {
 
 
     //methods
+    /**
+     * This method reads the txt file and loads that data into an ArrayList
+     * @return tasks It is an ArrayList consisting of all the tasks in the txt file and their details
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         // create a Scanner using the File object as the source
@@ -49,7 +60,11 @@ public class Storage {
         return tasks;
     }
 
-
+    /**
+     * This method converts a boolean to an integer
+     * @param bool Takes in a boolean (true/false)
+     * @return An integer representation of that boolean (1/0)
+     */
     public int getDoneNumber( boolean bool) {
         if(bool == true) {
             return 1;
@@ -58,7 +73,12 @@ public class Storage {
         }
     }
 
-
+    /**
+     * This method writes details of all objects stored in list of Tasks to the txt file
+     * @param filePath The location of where the txt file is located
+     * @param tasks The list storing the different Tasks the user input
+     * @throws IOException If there was a problem writing to the txt file
+     */
     public void writeToFile(String filePath, ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for( int i = 0 ; i < tasks.size(); i ++ ) {
@@ -77,13 +97,17 @@ public class Storage {
             }
 
             fw.write(textDescription +  System.lineSeparator());
-            //do not create a string variable by itself with System.lineSeparator()
             System.lineSeparator();
         }
         fw.close();
     }
 
-
+    /**
+     * This method parses a line stored in the txt file and creates the corresponding Todos, Event or Deadline object
+     * to be stored in the program's Task ArrayList.
+     * @param command A single line from the txt file
+     * @param list The list containing the different tasks
+     */
     public void distinguishText(String command , ArrayList<Task> list) {
         //split into word array
         String[] sections = command.split("[|]");

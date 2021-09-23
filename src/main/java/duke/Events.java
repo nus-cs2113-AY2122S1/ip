@@ -1,5 +1,9 @@
 package duke;
 
+/**
+ * Represents an activity occurring at a certain time
+ * A Event object stores 3 characteristics: a description, the time of the event, and whether it is completed
+ */
 public class Events extends Task {
 
     //variables
@@ -12,6 +16,9 @@ public class Events extends Task {
     }
 
     //methods
+    /**
+     * @return String representation of the Event in the format [E][ ] description (at:  )
+     */
     @Override
     public String toString() {
         return("[E]" + super.toString() + " (at: " + timeAllocation + ")");
