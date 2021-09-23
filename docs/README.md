@@ -4,10 +4,25 @@
 
 # User Guide
 
-    
-is a productivity desktop app that is used through a **Command Line Interface (CLI)** . It is a fast and simple way to keep track of all your schedule and tasks on the go.
+**Duke**is a productivity desktop app that is used through a **Command Line Interface (CLI)**. It is a fast and simple way to keep track of your schedule and tasks on the go.
 
-## Features 
+## Table of Content
+
+- [Quick Start](#quick-start)
+- [Features](#features)
+    * [Viewing help](#viewing-help--help)
+    * [Listing tasks](#listing-tasks-list)
+    * [Add a Task](#Add-a-task)
+        * [Adding a Todo Task](#Adding-a-todo)
+        * [Adding a Deadline](#adding-a-deadline)
+        * [Adding an Event](#adding-an-event)
+    * [List valid DateTime Formats](#list-valid-datetime-formats-dates)
+    * [Removing a task](#removing-a-task-delete-idx)
+    * [Marking a task as done](#marking-a-task-as-done-done-idx)
+    * [Exit](#exit-the-application--bye)
+    * [Local Save](#local-save)
+- [FAQ](#faq)
+- [Command Summary]()
 
 ### Feature-ABC
 
