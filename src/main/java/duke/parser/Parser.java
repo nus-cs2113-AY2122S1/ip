@@ -1,5 +1,9 @@
 package duke.parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.CommandType;
@@ -52,7 +56,7 @@ public class Parser {
     }
 
     private static Command parseDeadlineCommand(String userResponse) throws DukeException {
-        String[] params = userResponse.replace("deadline", "").split("/by");
+        String[] params = userResponse.replaceFirst("deadline", "").split("/by");
         if (params.length != 2) {
             throw new DukeException(Message.ERROR_INVALID_COMMAND);
         }
@@ -62,16 +66,22 @@ public class Parser {
             throw new DukeException(Message.ERROR_INVALID_COMMAND);
         }
 
-        String by = params[1].strip();
-        if (by.isBlank()) {
+        String dateOrTime = params[1].strip();
+        if (dateOrTime.isBlank()) {
             throw new DukeException(Message.ERROR_INVALID_COMMAND);
         }
 
-        return new AddCommand(new Deadline(description, by));
+        try {
+            LocalDate date = LocalDate.parse(dateOrTime);
+            return new AddCommand(new Deadline(description,
+                    date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
+        } catch (DateTimeParseException e) {
+            return new AddCommand(new Deadline(description, dateOrTime));
+        }
     }
 
     private static Command parseDeleteCommand(String userResponse) throws DukeException {
-        String description = userResponse.replace("delete", "").strip();
+        String description = userResponse.replaceFirst("delete", "").strip();
 
         try {
             int taskNumber = Integer.parseInt(description);
@@ -82,7 +92,7 @@ public class Parser {
     }
 
     private static Command parseDoneCommand(String userResponse) throws DukeException {
-        String description = userResponse.replace("done", "").strip();
+        String description = userResponse.replaceFirst("done", "").strip();
 
         try {
             int taskNumber = Integer.parseInt(description);
@@ -93,7 +103,7 @@ public class Parser {
     }
 
     private static Command parseEventCommand(String userResponse) throws DukeException {
-        String[] params = userResponse.replace("event", "").split("/at");
+        String[] params = userResponse.replaceFirst("event", "").split("/at");
         if (params.length != 2) {
             throw new DukeException(Message.ERROR_INVALID_COMMAND);
         }
@@ -103,12 +113,18 @@ public class Parser {
             throw new DukeException(Message.ERROR_INVALID_COMMAND);
         }
 
-        String by = params[1].strip();
-        if (by.isBlank()) {
+        String dateOrTime = params[1].strip();
+        if (dateOrTime.isBlank()) {
             throw new DukeException(Message.ERROR_INVALID_COMMAND);
         }
 
-        return new AddCommand(new Event(description, by));
+        try {
+            LocalDate date = LocalDate.parse(dateOrTime);
+            return new AddCommand(new Event(description,
+                    date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
+        } catch (DateTimeParseException e) {
+            return new AddCommand(new Event(description, dateOrTime));
+        }
     }
 
     private static Command parseExitCommand(String userResponse) throws DukeException {

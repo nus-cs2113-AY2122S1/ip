@@ -24,7 +24,7 @@ public class Todo extends Task {
 
     @Override
     public String serialize() {
-        return "T" + " | " + (isDone ? "1" : "0") + " | " + description;
+        return TODO + " | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     @Override

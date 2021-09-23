@@ -42,10 +42,8 @@ public class Ui {
     public void printGreeting() {
         System.out.print(LINE);
         System.out.println(LOGO);
-        System.out.println(PADDING
-                + "Konnichiwa! I'm your personal maid. Call me Maid-chan! "
-                + Message.EXPRESSION_BLUSH);
-        System.out.println(PADDING + "What can I do for you?");
+        System.out.println(PADDING + "Konnichiwa! I'm your personal maid. Call me Maid-chan!");
+        System.out.println(PADDING + "What can I do for you? " + Message.EXPRESSION_BLUSH);
         System.out.println(LINE);
     }
 
