@@ -28,6 +28,8 @@ public class Messages {
             "    done <task_number: int>\n" +
             "Delete task:\n" +
             "    delete <task_number: int>\n" +
+            "Find task:\n" +
+            "    find <keyword>" +
             "Save and exit program:\n" +
             "    bye";
     public static final String LIST_TASK = "    Tasks to do... so lazy:";
