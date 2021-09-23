@@ -1,8 +1,13 @@
 package duke.program;
 
-import duke.command.*;
-
-import java.io.IOException;
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.InvalidCommand;
+import duke.command.ListCommand;
 
 public class Parser {
 
@@ -21,7 +26,12 @@ public class Parser {
 
     private static final String SEPARATOR_SPACE = " ";
 
-    public Command parseUserInput(String line) throws IOException {
+    /**
+     * Parses user input into a command for execution.
+     * @param line full user input string.
+     * @return command based on given user input.
+     */
+    public Command parseUserInput(String line) {
 
         String[] lineArgs = line.split(SEPARATOR_SPACE);
         String command = lineArgs[0];
