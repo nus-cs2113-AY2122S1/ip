@@ -1,10 +1,12 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 public class Event extends Task{
     public static final String EVENT_ICON = "[E]";
-    private String duration;
+    private LocalDate duration;
 
-    public Event(String taskName, String duration) {
+    public Event(String taskName, LocalDate duration) {
         super(taskName);
         this.duration = duration;
     }

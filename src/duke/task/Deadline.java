@@ -1,10 +1,13 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
     public static final String DEADLINE_ICON = "[D]";
-    private String dueDate;
+    private LocalDate dueDate;
 
-    public Deadline(String taskName, String dueDate) {
+    public Deadline(String taskName, LocalDate dueDate) {
         super(taskName);
         this.dueDate = dueDate;
     }
