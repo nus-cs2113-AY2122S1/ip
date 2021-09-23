@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents Todo tasks specifically
+ */
 public class TodoTasks extends Tasks{
 
     protected TodoTasks(String input) {

@@ -2,9 +2,17 @@ package tasks;
 
 import java.util.ArrayList;
 
+/**
+ * Handles all the functions to help alter the tasks
+ */
 public class TaskList {
 
-
+    /**
+     * Manages the input by the user and alters the contents of the ArrayList tasksAL according to the user's input
+     * @param input is the user input, which can be any of the following:
+     *              list, done, delete, todo, event, deadline, find, bye or change
+     * @param tasksAL is the ArrayList container that stores all the tasks that the user enters
+     */
     public static void manageTasks(String input, ArrayList<Tasks> tasksAL) {
         try {
             if (input.equalsIgnoreCase("list")) {

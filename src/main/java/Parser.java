@@ -5,6 +5,9 @@ import tasks.Tasks;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the processing and understanding of the user's input
+ */
 public class Parser {
     static boolean isContinue = true;
 
@@ -12,6 +15,13 @@ public class Parser {
         return isContinue;
     }
 
+    /**
+     * Checks if the user input is valid then executes the commands based on what the user has entered.
+     * To exit the current program the user is in, they can either key in 'bye' to complete exit the application or
+     * 'change' to select between echo and tasks again.
+     * @param userChoice is the commands entered by the user which can be either: echo or tasks
+     * @param tasksAL is the ArrayList container that stores all the tasks that the user enters
+     */
     public static void executeUserChoice(String userChoice, ArrayList<Tasks> tasksAL) {
         Scanner scannerObj = new Scanner(System.in);
         while (!checkValidInput(userChoice)) {
@@ -56,6 +66,7 @@ public class Parser {
             break;
         }
     }
+
 
     private static boolean checkValidInput(String input){
         String[] validInputs = {"echo", "tasks"};

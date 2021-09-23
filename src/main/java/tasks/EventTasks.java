@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents event tasks specifically
+ */
 public class EventTasks extends Tasks {
     String Date;
 

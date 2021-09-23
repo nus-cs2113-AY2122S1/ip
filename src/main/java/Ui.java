@@ -3,6 +3,10 @@ import tasks.Tasks;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ * Handles the user interface, including the printing of the start and exit messages.
+ */
 public class Ui {
 
     public static void showStartMessage() {
@@ -21,6 +25,7 @@ public class Ui {
         System.out.println("Hello! I'm Sierra!" + System.lineSeparator() + "What can I do for you?");
         System.out.println(line);
     }
+
 
     public static void executeTillExit() {
         Scanner scannerObj = new Scanner(System.in);
