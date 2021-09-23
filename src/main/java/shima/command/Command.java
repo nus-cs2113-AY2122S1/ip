@@ -5,6 +5,8 @@ import shima.task.TaskList;
 
 import java.io.IOException;
 
-public abstract class Command {
-    public abstract void runCommand() throws IOException;
+public class Command {
+    public void runCommand() throws IOException {
+
+    }
 }

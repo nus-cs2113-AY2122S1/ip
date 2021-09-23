@@ -9,13 +9,15 @@ public class Default {
      * Displays all the welcome screens and designs when the program starts
      */
     public Default(){
-
+        printLogo();
+        printWelcomeMessage();
+        printVersionDescription();
     }
 
     /**
      * Print the logo and greeting message
      */
-    public static void printLogo() {
+    private void printLogo() {
         //print the logo when the program starts
         System.out.println("\t              ##*                                 ");
         System.out.println("\t   .      . .&####%                               ");
@@ -42,7 +44,7 @@ public class Default {
     /**
      * Print the welcome message and the ASCII art when the program starts
      */
-    public static void printWelcomeMessage() {
+    private void printWelcomeMessage() {
         System.out.println("   __          ________ _      _____ ____  __  __ ______    ");
         System.out.println("   \\ \\        / /  ____| |    / ____/ __ \\|  \\/  |  ____|  ");
         System.out.println("    \\ \\  /\\  / /| |__  | |   | |   | |  | | \\  / | |__     ");
@@ -61,7 +63,7 @@ public class Default {
     /**
      * Show the current version's functionality of the bot
      */
-    public static void printVersionDescription() {
+    private void printVersionDescription() {
         //Uses list to store all the version information
         ArrayList<String> versionDescriptions = new ArrayList<>();
         int maxDescriptionsLength = 0;

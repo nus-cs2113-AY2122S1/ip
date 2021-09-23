@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
+    public static final String LIST_ALERT_MSG = "\nHello user! I have helped you written down the to-do list from my previous record!";
+    public static final String STORAGE_ERROR_MSG = "There is an error occurs when I try to read data from the shimaStorage.txt file, please help me fix it :(";
+    public static final String UNEXPECTED_ERROR_MSG = "An unexpected error occurs when I try to know the type of the task ";
+    public static final String CLASS_TYPE_MISMATCH_MSG = "An unexpected error occurs when I try to append the storage file... Class Type Mismatch!";
+    public static final String WRONG_REPLY_MSG = "I do not understand your reply, please try again :(";
+    public static final String IOEXCEPTION_MSG = "Unfortunately somethings have messed up, I have received this information";
     public String filePath;
     private static final String DELIMITER = "Ø";
     private File file;
@@ -44,20 +50,17 @@ public class Storage {
         try {
             Scanner sc = new Scanner(file);
             //Skips the first two lines of storage descriptions in the file
-            int skipTwoLines = 0;
+            sc.nextLine();
+            sc.nextLine();
             while (sc.hasNext()) {
-                if (skipTwoLines < 2) {
-                    sc.nextLine();
-                    skipTwoLines++;
-                } else {
-                    //Starts reading data
-                    String[] tasksData = sc.nextLine().split(DELIMITER);
-                    readData(tasks, tasksData);
-                }
+                //Starts reading data
+                String[] tasksData = sc.nextLine().split(DELIMITER);
+                readData(tasks, tasksData);
+
             }
             //Displays the to-do list if it is not empty
             if (tasks.size() > 0) {
-                System.out.println("\nHello user! I have helped you written down the to-do list from my previous record!");
+                System.out.println(LIST_ALERT_MSG);
                 tasks.printToDoList();
             }
         } catch (FileNotFoundException ex) {
@@ -75,7 +78,7 @@ public class Storage {
         Scanner readInput = new Scanner(System.in);
         System.out.println();
         System.out.println("Take Note:");
-        Default.showMessage("There is an error occurs when I try to read data from the shimaStorage.txt file, please help me fix it :(");
+        Default.showMessage(STORAGE_ERROR_MSG);
         readUserInput(tasks, readInput);
     }
 
@@ -99,10 +102,10 @@ public class Storage {
             } else if (t instanceof ToDo) {
                 taskToSave = t.getClassType() + DELIMITER + symbolForDone + DELIMITER + t.getTask() + System.lineSeparator();
             } else {
-                Default.showMessage("An unexpected error occurs when I try to know the type of the task " + t);
+                Default.showMessage(UNEXPECTED_ERROR_MSG + t);
                 doSave = false;
             }
-            if (!doSave) {
+            if (doSave) {
                 editor.write(taskToSave);
             }
         }
@@ -125,7 +128,7 @@ public class Storage {
             String taskToSave = currentTask.getClassType() + DELIMITER + "N" + DELIMITER + currentTask.getTask() + System.lineSeparator();
             fw.write(taskToSave);
         } else {
-            Default.showMessage("An unexpected error occurs when I try to append the storage file... Class Type Mismatch!");
+            Default.showMessage(CLASS_TYPE_MISMATCH_MSG);
         }
         fw.close();
     }
@@ -180,13 +183,13 @@ public class Storage {
             try {
                 updateStorage(tasks);
             } catch (IOException e) {
-                Default.showMessage("Unfortunately somethings have messed up, I have received this information:");
+                Default.showMessage(IOEXCEPTION_MSG);
                 e.printStackTrace();
             }
         } else if (answer.equalsIgnoreCase("N")) {
             System.exit(1);
         } else {
-            Default.showMessage("I do not understand your reply, please try again :(");
+            Default.showMessage(WRONG_REPLY_MSG);
             readUserInput(tasks, readInput);
         }
     }

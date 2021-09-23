@@ -10,11 +10,12 @@ import shima.task.TaskList;
 import java.io.IOException;
 
 public class Shima {
+    private Default ui;
     private TaskList tasks;
     private Storage storage;
 
     public Shima(String filePath) {
-        Default ui = new Default();
+        ui = new Default();
         storage = new Storage(filePath);
         tasks = new TaskList(storage);
         initiateToDoList(tasks);
@@ -30,7 +31,6 @@ public class Shima {
      */
     @SuppressWarnings("InfiniteLoopStatement")
     private void runProgram() {
-        showWelcomeScreen();
         System.out.println("\nLet's start input your command:");
         while (true) {
             try {
@@ -50,7 +50,6 @@ public class Shima {
      */
     private void initiateToDoList(TaskList tasks) {
         try {
-            //why storage is null here?
             storage.readFromStorage(tasks);
         } catch (IOException ioException) {
             System.out.println();
@@ -60,14 +59,4 @@ public class Shima {
             storage.handleStorageError(tasks);
         }
     }
-
-    /**
-     * Displays all the welcome screens and designs when the program starts
-     */
-    private void showWelcomeScreen() {
-        Default.printLogo();
-        Default.printWelcomeMessage();
-        Default.printVersionDescription();
-    }
-
 }

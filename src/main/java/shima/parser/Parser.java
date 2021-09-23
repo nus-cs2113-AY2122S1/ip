@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Parser {
-    public static final String EMPTY = "";
     public static final String PROFILE = "profile";
     public static final String BYE = "bye";
     public static final String EXIT = "exit";
@@ -22,11 +21,20 @@ public class Parser {
     public static final String DONE = "done";
     public static final String INVALID_COMMAND_MSG = "Sorry, the command is invalid, I cant understand... " +
             "To seek for help, you can type the command \"help\" or \"view -h\"";
+    public static final String EMPTY_TASK_MSG = "Sorry, the task is empty! I don't know how to record it :(";
+    public static final String SLASH_MISSING_MSG = "Sorry, fail to create an Event, the time specific character '/' is missing";
+    public static final String DASH_MISSING_MSG = "Sorry, fail to create an Event, the period specific character '-' is missing";
+    public static final String EMPTY_TASK_INDEX_MSG = "Sorry, the input task number is missing, please try again! :(";
+    public static String name = "";
+    public static final String EMPTY_DEADLINE_MSG = "Sorry, the deadline for the task \"" + name + "\" is missing!";
+    public static final String EMPTY_PERIOD_MSG = "Sorry, the date and period for the task \"" + name + "\" is missing!";
 
     /**
-     * Reads the input command entered by the user and handles each command
-     *
-     * @param tasks The array to store all the tasks required
+     * Reads the input command entered by the user and handle each command
+     * @param tasks The list class object that stores all the tasks
+     * @param storage The storage class object that used to save data
+     * @return Returns the respective command to each input accordingly
+     * @throws IOException Throws this exception when there is error occurs when accessing external file
      */
     public static Command readCommand(TaskList tasks, Storage storage) throws IOException {
         Scanner in = new Scanner(System.in);
@@ -45,36 +53,35 @@ public class Parser {
         case DELETE:
             return new DeleteCommand(tasks, words);
         case TODO:
-            return parseToDo(tasks, storage, command, words);
+            return parseToDo(tasks, command, words);
         case EVENT:
-            return parseEvent(tasks, storage, command, words);
+            return parseEvent(tasks, command, words);
         case DEADLINE:
-            return parseDeadline(tasks, storage, command, words);
+            return parseDeadline(tasks, command, words);
         case DONE:
-            DoneTask.handleTaskDone(tasks, words, storage);
-            break;
+            return parseDoneCommand(tasks, storage, words);
         default:
             Default.showMessage(INVALID_COMMAND_MSG);
+            return new Command();
         }
-        return new ExitCommand(tasks, storage);
     }
 
     /**
-     * Checks the syntax for the command to create a new task, and add to the to-do list if the syntax is correct
+     * Checks the syntax for the command to create a new task
      *
      * @param words The array of words that compose the input command
      * @return Returns true if an instance of the subclass is created and successfully stored in the to-do list
      */
     private static boolean isCorrectToDo(String[] words) {
         if (words.length == 1) {
-            Default.showMessage(AddCommand.EMPTY_TASK_MSG);
+            Default.showMessage(EMPTY_TASK_MSG);
             return false;
         }
         return true;
     }
 
     /**
-     * Checks the syntax for the command to create an 'Event' instance, and add to the to-do list if the syntax is correct
+     * Checks the syntax for the command to create an 'Event' instance
      *
      * @param command The input command typed by the user
      * @param words   The array of words that compose the input command
@@ -88,27 +95,27 @@ public class Parser {
             time = time.replaceFirst("(?i)at", "").trim();
         }
         if (words.length == 1 || taskName.isEmpty()) {
-            Default.showMessage(AddCommand.EMPTY_TASK_MSG);
+            Default.showMessage(EMPTY_TASK_MSG);
             return false;
         }
         if (time.isEmpty()) {
-            AddCommand.name = taskName;
-            Default.showMessage(AddCommand.EMPTY_PERIOD_MSG);
+            name = taskName;
+            Default.showMessage(EMPTY_PERIOD_MSG);
             return false;
         }
         if (!command.contains("/")) {
-            Default.showMessage(AddCommand.SLASH_MISSING_MSG);
+            Default.showMessage(SLASH_MISSING_MSG);
             return false;
         }
         if (!command.contains("-")) {
-            Default.showMessage(AddCommand.DASH_MISSING_MSG);
+            Default.showMessage(DASH_MISSING_MSG);
             return false;
         }
         return true;
     }
 
     /**
-     * Checks the syntax for the command to create an 'Deadline' instance, and add to the to-do list if the syntax is correct
+     * Checks the syntax for the command to create an 'Deadline' instance
      *
      * @param command The input command typed by the user
      * @param words   The array of words that compose the input command
@@ -122,39 +129,68 @@ public class Parser {
             time = time.replaceFirst("(?i)by", "").trim();
         }
         if (words.length == 1 || taskName.isEmpty()) {
-            Default.showMessage(AddCommand.EMPTY_TASK_MSG);
+            Default.showMessage(EMPTY_TASK_MSG);
             return false;
         }
         if (time.isEmpty()) {
-            AddCommand.name = taskName;
-            Default.showMessage(AddCommand.EMPTY_DEADLINE_MSG);
+            name = taskName;
+            Default.showMessage(EMPTY_DEADLINE_MSG);
             return false;
         }
         if (!command.contains("/")) {
-            Default.showMessage(AddCommand.SLASH_MISSING_MSG);
+            Default.showMessage(SLASH_MISSING_MSG);
             return false;
         }
         return true;
     }
 
-    public static Command parseToDo(TaskList tasks, Storage storage, String command, String[] words) {
+    /**
+     * Checks if the to-do command is correct and creates a new add command to execute
+     * @param tasks The list class object that stores all the tasks
+     * @param command The user input command
+     * @param words The array of words that compose the command
+     * @return Returns the add command object if the input command is valid, returns empty command object otherwise
+     */
+    private static Command parseToDo(TaskList tasks, String command, String[] words) {
         if (isCorrectToDo(words)){
-            return new AddCommand(tasks, storage, command, words);
+            return new AddCommand(tasks, command, words);
         }
-        return new EmptyCommand();
+        return new Command();
     }
 
-    public static Command parseDeadline(TaskList tasks, Storage storage, String command, String[] words) {
+    /**
+     * Checks if the deadline command is correct and creates a new add command to execute
+     * @param tasks The list class object that stores all the tasks
+     * @param command The user input command
+     * @param words The array of words that compose the command
+     * @return Returns the add command object if the input command is valid, returns empty command object otherwise
+     */
+    private static Command parseDeadline(TaskList tasks, String command, String[] words) {
         if (isCorrectDeadline(command, words)) {
-            return new AddCommand(tasks, storage, command, words);
+            return new AddCommand(tasks, command, words);
         }
-        return new EmptyCommand();
+        return new Command();
     }
 
-    public static Command parseEvent(TaskList tasks, Storage storage, String command, String[] words) {
+    /**
+     * Checks if the event command is correct and creates a new add command to execute
+     * @param tasks The list class object that stores all the tasks
+     * @param command The user input command
+     * @param words The array of words that compose the command
+     * @return Returns the add command object if the input command is valid, returns empty command object otherwise
+     */
+    private static Command parseEvent(TaskList tasks, String command, String[] words) {
         if (isCorrectEvent(command, words)){
-            return new AddCommand(tasks, storage, command, words);
+            return new AddCommand(tasks, command, words);
         }
-        return new EmptyCommand();
+        return new Command();
+    }
+
+    private static Command parseDoneCommand(TaskList tasks, Storage storage, String[] words){
+        if (words.length == 1) {
+            Default.showMessage(EMPTY_TASK_INDEX_MSG);
+            return new Command();
+        }
+        return new DoneCommand(tasks, storage, words);
     }
 }

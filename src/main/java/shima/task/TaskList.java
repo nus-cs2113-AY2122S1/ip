@@ -1,19 +1,24 @@
 package shima.task;
 
-import shima.command.CommandLibrary;
 import shima.command.ListCommand;
 import shima.design.Default;
-import shima.parser.Parser;
 import shima.storage.Storage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * The task list class that contains an array list and several methods such as print, delete and add
+ */
 public class TaskList {
+    public static final String INVALID_TASK_INDEX_MSG = "Sorry, the input task number is invalid, please try again! :(";
+    public static final String INDEX_OUT_OF_BOUND_MSG = "Sorry, the input task number is out of the bound, please try again! :(";
+    public static final String UNEXPECTED_ERROR_MSG = "An unexpected error occurs when I try to update the file";
+    public static final String TASK_FINISHED_MSG = "\tNice! You have finished all tasks! Time to chill~";
     public static int longestTaskDescription = 0; //The length of the longest task description
     private ArrayList<Task> tasks;
-    private Storage storage;
+    private final Storage storage;
 
     public TaskList(Storage storage) {
         tasks = new ArrayList<>();
@@ -22,6 +27,11 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    @Override
+    public String toString() {
+        return tasks.toString();
     }
 
     public int size() {
@@ -42,14 +52,6 @@ public class TaskList {
 
     public void add(Event task) {
         tasks.add(task);
-    }
-
-    public void remove(int index) {
-        tasks.remove(index);
-    }
-
-    public void clear() {
-        tasks.clear();
     }
 
     /**
@@ -136,13 +138,13 @@ public class TaskList {
     }
 
     /**
-     * Adds an event to the list if there is no error
+     * Creates an event to the list
      *
-     * @param command The user input command
-     * @param words   The array of words that compose the command
-     * @throws IOException Throws this exception if there is error occurs during saving
+     * @param taskName The name of the task
+     * @param time     The given event period
+     * @throws IOException Throws this exception if there is error occurs during saving data
      */
-    public void createEvent(String command, String[] words, String taskName, String time) throws IOException {
+    public void createEvent(String taskName, String time) throws IOException {
         tasks.add(new Event(taskName, time));
         if (longestTaskDescription < taskName.length() + time.length()) {
             longestTaskDescription = taskName.length() + "(at: )".length() + time.length();
@@ -154,13 +156,13 @@ public class TaskList {
     }
 
     /**
-     * Adds a deadline to the list if there is no error
+     * Creates a deadline to the list
      *
-     * @param command The user input command
-     * @param words   The array of words that compose the command
-     * @throws IOException Throws this exception if there is error occurs during saving
+     * @param taskName The name of the task
+     * @param time     The given deadline
+     * @throws IOException Throws this exception if there is error occurs during saving data
      */
-    public void createDeadline(String command, String[] words, String taskName, String time) throws IOException {
+    public void createDeadline(String taskName, String time) throws IOException {
         tasks.add(new Deadline(taskName, time));
         if (longestTaskDescription < taskName.length() + time.length()) {
             longestTaskDescription = taskName.length() + "(by: )".length() + time.length();
@@ -173,12 +175,12 @@ public class TaskList {
 
     /**
      * Create task according to its type to the array list
+     *
      * @param command The input command entered by the user
-     * @param words The array of words that compose the command
-     * @param storage The storage class which stores all the data
-     * @throws IOException
+     * @param words   The array of words that compose the command
+     * @throws IOException Throws this exception when there is error during saving data
      */
-    public void addTask(String command, String[] words, Storage storage) throws IOException {
+    public void addTask(String command, String[] words) throws IOException {
         command = command.replaceFirst(words[0], "").trim();
         String time = command.substring(command.indexOf('/') + 1).trim();
         String taskName = command.split("/", 2)[0].trim();
@@ -187,10 +189,10 @@ public class TaskList {
             createToDo(command, words);
             break;
         case "deadline":
-            createDeadline(command, words, taskName, time);
+            createDeadline(taskName, time);
             break;
         case "event":
-            createEvent(command, words, taskName, time);
+            createEvent(taskName, time);
             break;
         default:
             Default.showMessage("An unexpected error has occured when I try to add task :(");
@@ -208,7 +210,7 @@ public class TaskList {
             Default.showMessage("Sorry, the input task index to delete is missing!");
             break;
         case 2:
-            if (CommandLibrary.isCommandDeleteAll(words[1])) {
+            if (words[1].equalsIgnoreCase(("all"))) {
                 deleteAllTasks(tasks);
             } else {
                 deleteSingleTask(tasks, words[1]);
@@ -248,22 +250,20 @@ public class TaskList {
             //Compiler throws NumberFormatException if word is not a digit character
             index = Integer.parseInt(word);
             try {
-                if (tasks.get(index - 1).getDone()) {
-                    Default.showMessage("I have removed this task: [" + tasks.get(index - 1).getClassType() + "][X] " + tasks.get(index - 1));
-                } else {
-                    Default.showMessage("I have removed this task: [" + tasks.get(index - 1).getClassType() + "][ ] " + tasks.get(index - 1));
-                }
+                String doneIcon = (tasks.get(index - 1).getDone()) ? "[X] " : "[ ] ";
+                Default.showMessage("I have removed this task: [" + tasks.get(index - 1).getClassType() + "]" + doneIcon
+                        + tasks.get(index - 1));
                 tasks.remove(index - 1);
                 if (tasks.size() > 0) {
                     System.out.println("You have left " + tasks.size() + " tasks to do!");
                 } else {
-                    System.out.println("\tNice! You have finished all tasks! Time to chill~");
+                    System.out.println(TASK_FINISHED_MSG);
                 }
             } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-                Default.showMessage("Sorry, the input task index to delete is invalid!");
+                Default.showMessage(INDEX_OUT_OF_BOUND_MSG);
             }
         } catch (NumberFormatException numberFormatException) {
-            Default.showMessage("Sorry, the input task index to delete is invalid!");
+            Default.showMessage(INVALID_TASK_INDEX_MSG);
         }
     }
 
@@ -284,21 +284,63 @@ public class TaskList {
                 //Deletes the task with the largest task index first
                 taskIndices.sort(Collections.reverseOrder());
                 for (Integer i : taskIndices) {
-                    String doneSymbol = (tasks.get(i).getDone()) ? "X" : " ";
-                    Default.showMessage("I have removed this task: [" + tasks.get(i).getClassType() + "][" + doneSymbol + "] " + tasks.get(i));
+                    String doneIcon = (tasks.get(i - 1).getDone()) ? "[X] " : "[ ] ";
+                    Default.showMessage("I have removed this task: [" + tasks.get(i - 1).getClassType() + "]" + doneIcon
+                            + tasks.get(i - 1));
                     tasks.remove((int) i);
                 }
                 //Prints the message according to tasks left
                 if (tasks.size() > 0) {
                     System.out.println("You have left " + tasks.size() + " tasks to do!");
                 } else {
-                    System.out.println("\tNice! You have finished all tasks! Time to chill~");
+                    System.out.println(TASK_FINISHED_MSG);
                 }
             } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-                Default.showMessage("Sorry, there are task indices which are not in 1 to " + tasks.size() + ", I do not know how to handle :(");
+                Default.showMessage(INDEX_OUT_OF_BOUND_MSG);
             }
         } catch (NumberFormatException numberFormatException) {
-            Default.showMessage("Sorry, there are some task indices which are invalid, I do not know how to handle :(");
+            Default.showMessage(INVALID_TASK_INDEX_MSG);
+        }
+    }
+
+    /**
+     * Marks the given tasks as done, and handles the possible errors if the input task number is not valid
+     *
+     * @param tasks The array list that contains all the tasks stored inside the to-do list
+     * @param words The array of words that compose the input command
+     */
+    public void markAsDone(TaskList tasks, String[] words, Storage storage) {
+        try {
+            for (int i = 1; i < words.length; i++) {
+                //check if the input character after the word "done" is integer value
+                int taskIndex = Integer.parseInt(words[i]);
+                showTaskDoneMessage(tasks, taskIndex);
+            }
+            storage.updateStorage(tasks);
+        } catch (NumberFormatException numberFormatException) {
+            Default.showMessage(INVALID_TASK_INDEX_MSG);
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            Default.showMessage(INDEX_OUT_OF_BOUND_MSG);
+        } catch (IOException ioException) {
+            Default.showMessage(UNEXPECTED_ERROR_MSG);
+            System.out.print("\t");
+            ioException.printStackTrace();
+        }
+    }
+
+    /**
+     * Shows the message to indicate that the task is marked as done
+     *
+     * @param tasks      The array list which stores all the tasks
+     * @param taskNumber The given task number to mark as done
+     */
+    private static void showTaskDoneMessage(TaskList tasks, int taskNumber) {
+        if (!tasks.get(taskNumber - 1).getDone()) {
+            tasks.get(taskNumber - 1).setDone();
+            System.out.println("\tHooray! Task number " + taskNumber + " has been marked completed!");
+            System.out.println("\t[✔] " + tasks.get(taskNumber - 1).getTask());
+        } else {
+            System.out.println("\tThe task number " + taskNumber + " - \"" + tasks.get(taskNumber - 1).getTask() + "\" has already been done!");
         }
     }
 }
