@@ -198,5 +198,21 @@ public class TaskManager {
         System.out.printf("Error: Invalid input \"%s\"\n", s);
     }
 
+    public void findTask(String keyword) {
+        if (keyword == null || keyword.isBlank()) {
+            System.out.println("Error: keyword is non existent.");
+            return;
+        }
+        for (int i = 0; i < totalNumberOfTasks; i++) {
+            if(isKeywordInside(taskList.get(i).getDescription(),keyword)){
+                printTask(i);
+            }
+        }
+    }
+
+    private boolean isKeywordInside(String description, String keyword){
+        return description.contains(keyword);
+    }
+
 }
 

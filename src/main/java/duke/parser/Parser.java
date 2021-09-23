@@ -6,6 +6,7 @@ import duke.command.DeadlineCommand;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.EventCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.TodoCommand;
 
@@ -52,6 +53,9 @@ public class Parser {
             break;
         case EventCommand.COMMAND_WORD:
             command = executeEventCommand(userInput);
+            break;
+        case FindCommand.COMMAND_WORD:
+            command = new FindCommand(getCommandData(userInput));
             break;
         default:
             throw new ParserException(MESSAGE_INVALID_COMMAND);
