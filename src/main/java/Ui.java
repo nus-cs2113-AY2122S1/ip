@@ -8,6 +8,12 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Function prints only the list of matching tasks from the user's FIND query.
+     *
+     * @param tasks ArrayList of tasks
+     * @param query user input
+     */
     public static void printMatchingList(ArrayList<Task> tasks, String query) {
         int count = 0;
         if (tasks.size() == 0) {
