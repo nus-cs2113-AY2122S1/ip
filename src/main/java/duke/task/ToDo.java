@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.task.Task;
-
 /**
  * Represents an item that the user has to do at a later point in time.
  * Inherits Task class.

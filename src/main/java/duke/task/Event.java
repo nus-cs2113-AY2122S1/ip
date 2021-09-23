@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.task.Task;
-
 /**
  * Represents an Event input by the user. Identified by 'event' header and '\at'.
  * Inherits Task class.

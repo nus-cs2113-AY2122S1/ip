@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.task.Task;
-
 /**
  * Represents a Deadline input by user. Identified by 'deadline' header and '\by'.
  * Inherits Task class.
