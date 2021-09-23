@@ -150,6 +150,12 @@ public class TaskManager {
         return false;
     }
 
+    /**
+     * Finds the tasks in the arraylist that contains the keyword
+     *
+     * @param keyword the keyword to filter the tasks by
+     * @return returns the filtered list of the tasks containing the keyword
+     */
     public static ArrayList<Task> findTask(String keyword) {
         ArrayList<Task> filteredList = (ArrayList<Task>) taskList.stream()
                 .filter((t) -> t.getDescription().contains(keyword))
