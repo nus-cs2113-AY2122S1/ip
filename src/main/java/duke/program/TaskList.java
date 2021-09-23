@@ -25,6 +25,10 @@ public class TaskList {
         this.taskCount = tasks.size();
     }
 
+    /**
+     * Gets the latest task on the list.
+     * @return the latest task object.
+     */
     public Task getLatestTask() {
         return tasks.get(taskCount-1);
     }
@@ -37,6 +41,11 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Adds a new todo task to the task list.
+     * @param rawDescription String containing the task description.
+     * @throws EmptyDescriptionException when description is left empty.
+     */
     public void addNewTodo(String rawDescription)
             throws EmptyDescriptionException {
         String description = rawDescription.trim();
@@ -47,6 +56,12 @@ public class TaskList {
         taskCount++;
     }
 
+    /**
+     * Adds a new deadline task to the task list.
+     * @param descriptionAndTime String containing the task description and the due date/time.
+     * @throws EmptyDescriptionException when description is left empty.
+     * @throws InvalidFormatException when due date/time is not written in the specified format.
+     */
     public void addNewDeadline(String descriptionAndTime)
             throws EmptyDescriptionException, InvalidFormatException {
         String[] descriptionAndByTimeArray = descriptionAndTime.split(SEPARATOR_BY);
@@ -65,6 +80,12 @@ public class TaskList {
         taskCount++;
     }
 
+    /**
+     * Adds a new event task to the task list.
+     * @param descriptionAndTime String containing the task description, the start date/time and end date/time.
+     * @throws EmptyDescriptionException when description is left empty.
+     * @throws InvalidFormatException when due date/time is not written in the specified format.
+     */
     public void addNewEvent(String descriptionAndTime)
             throws EmptyDescriptionException, InvalidFormatException {
         String[] descriptionAndAtTimeArray = descriptionAndTime.split(SEPARATOR_AT);
@@ -83,6 +104,14 @@ public class TaskList {
         taskCount++;
     }
 
+    /**
+     * Marks a task as done on the task list.
+     * @param tasks ArrayList of task objects in current task list.
+     * @param lineArgs parsed array of line arguments. Contains done command and done index number.
+     * @param ui ui object to print the marked as done notice message.
+     * @throws InvalidIndexException when 2nd line argument cannot be parsed as integer.
+     * @throws TaskIndexOutOfBoundsException when task index provided is out of range of the task list.
+     */
     public void markAsDone(ArrayList<Task> tasks, String[] lineArgs, LizUi ui)
             throws InvalidIndexException, TaskIndexOutOfBoundsException {
         if (lineArgs.length > 2) {
@@ -98,11 +127,19 @@ public class TaskList {
                 ui.printAlreadyDoneMessage();
             } else {
                 tasks.get(doneIndex).setDone();
-                ui.printMarkAsDoneMessage(tasks.get(doneIndex));
+                ui.printMarkAsDoneMessage(tasks.get(doneIndex), taskCount);
             }
         }
     }
 
+    /**
+     * removes a task off the task list.
+     * @param tasks ArrayList of task objects in current task list.
+     * @param lineArgs parsed array of line arguments. Contains delete command and delete index number.
+     * @param ui ui object to print the deleted task notice message.
+     * @throws InvalidIndexException when 2nd line argument cannot be parsed as integer.
+     * @throws TaskIndexOutOfBoundsException when task index provided is out of range of the task list.
+     */
     public void deleteTask(ArrayList<Task> tasks, String[] lineArgs, LizUi ui)
             throws InvalidIndexException, TaskIndexOutOfBoundsException {
         if (lineArgs.length > 2) {
@@ -124,7 +161,15 @@ public class TaskList {
         taskCount--;
     }
 
-    public ArrayList<Task> findMatchingTasks(TaskList tasks, String[] lineArgs, LizUi ui)
+    /**
+     * Finds all tasks in the task list that contain the given keyword, and outputs an array containing
+     * all matching tasks.
+     * @param tasks ArrayList of task objects in current task list.
+     * @param lineArgs parsed array of line arguments. Contains find command and keyword string.
+     * @return ArrayList of tasks that match the keyword.
+     * @throws EmptyDescriptionException when no keyword is entered after find command.
+     */
+    public ArrayList<Task> findMatchingTasks(TaskList tasks, String[] lineArgs)
             throws EmptyDescriptionException {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         String keyword = lineArgs[1];

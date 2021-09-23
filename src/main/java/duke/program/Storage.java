@@ -28,6 +28,12 @@ public class Storage {
         this.folderPath = folderPath;
     }
 
+    /**
+     * Loads tasks from file into memory when Duke is run.
+     * @param ui ui object to print error messages when invalid task type is encountered.
+     * @return the ArrayList of task objects.
+     * @throws IOException if there is an error when loading the file.
+     */
     public ArrayList<Task> loadFile(LizUi ui) throws IOException {
         File f = new File(filePath);
         File folder = new File(folderPath);
@@ -62,6 +68,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current task list into the specified file.
+     * @param tasks ArrayList of task objects in current task list.
+     * @param ui ui object to print error messages when invalid task type is encountered.
+     * @throws IOException if there is an error when writing to the file.
+     */
     public void saveFile(ArrayList<Task> tasks, LizUi ui) throws IOException {
         FileWriter fw = new FileWriter(filePath);
 
