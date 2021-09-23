@@ -2,6 +2,9 @@ package duke.task;
 
 import static duke.message.Messages.LOAD_DELIMITER;
 
+/**
+ * Event task that has a date and duration
+ */
 public class Event extends Task {
     protected String date;
     protected String startTime;
@@ -26,10 +29,18 @@ public class Event extends Task {
         return this.endTime;
     }
 
+    /**
+     * Returns the char that represents event tasks
+     * @return char for identifying events
+     */
     public String getCode() {
         return "E";
     }
 
+    /**
+     * To print event task in a certain format
+     * @return String that shows the information and status of event task
+     */
     @Override
     public String toString() {
         return "[E]" + super.getStatusIcon() + " " + super.getDescription() +

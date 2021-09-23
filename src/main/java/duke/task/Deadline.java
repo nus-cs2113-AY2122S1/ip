@@ -2,6 +2,9 @@ package duke.task;
 
 import static duke.message.Messages.LOAD_DELIMITER;
 
+/**
+ * Deadline task that has a due date/time
+ */
 public class Deadline extends Task {
     protected String date;
     protected String time;
@@ -20,10 +23,18 @@ public class Deadline extends Task {
         return this.time;
     }
 
+    /**
+     * Returns the char that represents deadlines tasks
+     * @return char for identifying deadlines
+     */
     public String getCode() {
         return "D";
     }
 
+    /**
+     * To print deadline task in a certain format
+     * @return String that shows the information and status of deadline task
+     */
     @Override
     public String toString() {
         return "[D]" + super.getStatusIcon() + " " + super.getDescription() +
