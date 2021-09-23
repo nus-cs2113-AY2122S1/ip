@@ -7,7 +7,16 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static duke.message.Messages.*;
+import static duke.message.Messages.BYE;
+import static duke.message.Messages.DELETED_TASK;
+import static duke.message.Messages.ERROR;
+import static duke.message.Messages.FILE_NOT_FOUND;
+import static duke.message.Messages.FINISHED_TASK;
+import static duke.message.Messages.FOUND_TASK;
+import static duke.message.Messages.HELP;
+import static duke.message.Messages.LIST_TASK;
+import static duke.message.Messages.LOGO;
+import static duke.message.Messages.WELCOME;
 
 public class Ui {
     private static final String SEPARATOR = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
@@ -41,6 +50,10 @@ public class Ui {
 
     public void printDukeException(String e) {
         out.println(e);
+    }
+
+    public void printHelp() {
+        out.println(SEPARATOR + LS + HELP);
     }
 
     public void printListTask() {
