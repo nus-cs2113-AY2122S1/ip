@@ -38,7 +38,7 @@ public class Task {
     }
 
     // get formatted description to print out for list and task commands, eg "return book (by: Sunday)"
-    public String getFormattedDescription(){
+    public String getFormattedDescription() {
         return this.fullTaskDescription;
     }
 
