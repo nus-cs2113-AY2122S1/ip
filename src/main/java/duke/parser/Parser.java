@@ -27,6 +27,10 @@ public class Parser {
             taskIndex = Integer.parseInt(inputWords[1]) - 1;
             c = new TaskDoneCommand(taskIndex);
             break;
+        case "find":
+            String keyword = inputWords[1];
+            c = new FindCommand(keyword);
+            break;
         case "delete":
             taskIndex = Integer.parseInt(inputWords[1]) - 1;
             c = new DeleteCommand(taskIndex);
