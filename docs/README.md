@@ -208,7 +208,7 @@ find create a
      [D][X] create a deadline task (by: 01-10-2021 1159)
     _________________________________________________________________
 ```
-###`sort time` - Sort tasks based on date
+### `sort time` - Sort tasks based on date
 Description: Sort tasks with time in ascending order. Tasks without time will be ignored.
 > Format: `sort time`
 
@@ -220,29 +220,20 @@ sort time
      [D][X] create a deadline task (by: 01-10-2021 1159)
     _________________________________________________________________
 ```
-### Feature-XYZ
+### Frequently Asked Questions(FAQ)
 
-Description of the feature.
+1. Q: Is it possible to save all the task and access the tasks again? 
+   A: Yep all the tasks will be saved in the duke.txt file in the folder that you have run your command.
+      Make sure you run the duke.jar in the same folder everytime you start the application, so that you can
+      access to all the last saved file.
 
-## Usage
+      If you want to shift the application to other computer, be sure to copy the duke.jar and duke.txt file
+      to the new computer. Losing the duke.txt file means that all saved tasks would be gone.
 
-### `Keyword` - Describe action
 
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
 
 ##Command Summary
+
 |  Commands   |                      Description                       |
 |-------------|--------------------------------------------------------|
 bye| Exits the program
