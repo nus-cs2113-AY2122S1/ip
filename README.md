@@ -8,12 +8,11 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 
 1. `Todo <taskname_here>` This creates a simple Todo task.
 2. `Deadline <taskname_here> /by <date_here>` This creates a Deadline task.
-   1.Example:
-   1.Example:
-   1.`deadline math assignment /by 12 october, 2019`
+    -Example:
+    -`deadline math assignment /by 12 october, 2019`
 3. `Event <taskname_here> /at <date_here>` This creates an Event task.
-   1.Example:
-   1.`event Christmas Dinner /at 25 December, 2022
+    -Example:
+    -`event Christmas Dinner /at 25 December, 2022
 4. `find <search_query_here>` This prints out any task that contains `<search_query_here>`
 5. `done <task_number>` This marks the task as done.
 6. `delete <task_number>` This deletes the task from the task list.
