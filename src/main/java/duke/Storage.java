@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -15,6 +17,12 @@ public class Storage {
     public static final int RESULT_DESCRIPTION = 2;
     public static final int RESULT_TIME = 3;
 
+    /**
+     * Read all the lines in the file line by line
+     * and convert it to task type after reading each line
+     *
+     * @param readFile file targeted for read operation
+     */
     public static void loadData(Scanner readFile) {
         while (readFile.hasNext()) {
             String information = readFile.nextLine();
@@ -22,11 +30,24 @@ public class Storage {
         }
     }
 
+    /**
+     * Split lines read based on " | " into array
+     *
+     * @param information string extracted from File
+     */
     private static void parseInformation(String information) {
         String[] result = information.split(" \\| ");
         checkTaskType(result);
     }
 
+    /**
+     * To take in the letter and check if letters fit the task types
+     * T: Todo
+     * D: Deadline
+     * E: Event
+     *
+     * @param result an array of string that is being parsed by " | "
+     */
     private static void checkTaskType(String[] result) {
         Task newTask;
         switch (result[RESULT_TASK_TYPE]) {
@@ -45,6 +66,8 @@ public class Storage {
                     strToBoolean(result[RESULT_IS_DONE]), parseEvent(result[RESULT_TIME]));
             TaskList.reloadTask(newTask);
             break;
+        default:
+            break;
         }
     }
 
@@ -53,7 +76,11 @@ public class Storage {
         return !s.equals("0");
     }
 
-
+    /**
+     * Saves data on file after every CRUD operation
+     * @param fileWrite File given to be written on
+     * @throws IOException when file could not be read or if user deletes file while using the program
+     */
     public static void storeData(FileWriter fileWrite) throws IOException {
         ArrayList<Task> list = TaskList.getList();
         for (Task task : list) {
@@ -62,6 +89,15 @@ public class Storage {
         fileWrite.close();
     }
 
+    /**
+     * Stores task in a given format below.
+     * Todo:        T | 0 | description
+     * Deadline:    D | 0 | description | DD-MM-YYYY HHMM
+     * Event:       E | 0 | description | DD-MM-YYYY HHMM to DD-MM-YYYY HHMM
+     *
+     * @param task task stored in ArrayList<Task>
+     * @return newString to store as text in file
+     */
     private static String parseTask(Task task) {
         String newString;
         newString = task.getTaskType() + " | " + booleanInt(task.isDone) +
@@ -75,13 +111,24 @@ public class Storage {
         }
         return newString;
     }
-
-    public static LocalDateTime parseDeadline (String result) {
+    /**
+     * Takes the string stored inside the file and convert it into a datetime object for creation
+     * of task to store into arraylist upon the start of program
+     * @param result input of string date to be parsed
+     * @return datetime object
+     */
+    private static LocalDateTime parseDeadline (String result) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-        LocalDateTime date = LocalDateTime.parse(result, formatter);
-        return date;
+        return LocalDateTime.parse(result, formatter);
     }
-    public static LocalDateTime[] parseEvent (String result) {
+
+    /**
+     * Takes the string stored inside the file and convert it into a datetime object for creation
+     * of task to store into arraylist upon the start of program
+     * @param result input of string date to be parsed
+     * @return datetime object
+     */
+    private static LocalDateTime[] parseEvent (String result) {
         String[] results = result.split(" to ");
         LocalDateTime[] dates =  new LocalDateTime[2];
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");

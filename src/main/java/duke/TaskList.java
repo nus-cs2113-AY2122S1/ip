@@ -1,8 +1,7 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toCollection;
-import static java.util.stream.Collectors.toList;
 
 public class TaskList {
     private static final int INDEX_FIX = 1;
@@ -44,14 +43,33 @@ public class TaskList {
         Ui.printDeleteTask(list.size(), task);
     }
 
+    /**
+     * Getter for Task array list
+     * @return ArrayList<Task>
+     */
     public static ArrayList<Task> getList() {
         return list;
     }
 
+    /**
+     * Returns the number of task in the task array list
+     * @return an integer for the number of task in the task array list
+     */
     public static int getArraySize() { return list.size();}
 
+    /**
+     * Get the task based on its index
+     * @param index number of the task in the task array list
+     * @return repective task
+     */
     public static Task getTask(int index) { return list.get(index); }
 
+    /**
+     * Returns the task array list that contains input
+     *
+     * @param input the string user wants to find in the task description
+     * @return the task array list that contains input in description
+     */
     public static ArrayList<Task> findTask(String input){
         //create new array to store correct results
         ArrayList<Task> filteredList = (ArrayList<Task>) list.stream()
