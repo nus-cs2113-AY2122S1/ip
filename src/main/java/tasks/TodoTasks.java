@@ -2,18 +2,18 @@ package tasks;
 
 public class TodoTasks extends Tasks{
 
-    public TodoTasks(String input) {
+    protected TodoTasks(String input) {
         isCompleted = false;
         name = input;
     }
 
     @Override
-    public String getName() {
+    protected String getName() {
         return "[T][" + getComplete() + "] " + name;
     }
 
     @Override
-    public String getTaskData(){
+    protected String getTaskData(){
         return "T," + isCompleted + "," + name;
     }
 }
