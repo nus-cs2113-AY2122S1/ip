@@ -11,8 +11,9 @@ public class Storage {
 
     private static final String FILE_PATH = "data/atlasData.txt";
 
-    public static void writeToFile(String filePath, ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+
+    public static void writeToFile(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
 
         // Solution below adapted from @@NonRNP
         for (Task task : tasks) {
@@ -41,9 +42,9 @@ public class Storage {
         fw.close();
     }
 
-    public static void checkDirectoryExists(String filePath) {
+    public static void checkDirectoryExists() {
         try {
-            File directory = new File(filePath);
+            File directory = new File(FILE_PATH);
             if (!directory.exists()) {
                 directory.getParentFile().mkdirs();
                 directory.createNewFile();
@@ -53,10 +54,10 @@ public class Storage {
         }
     }
 
-    public static void saveTaskFile(String filePath, ArrayList<Task> tasks) {
-        checkDirectoryExists(filePath);
+    public static void saveTaskFile(ArrayList<Task> tasks) {
+        checkDirectoryExists();
         try {
-            writeToFile(filePath, tasks);
+            writeToFile(tasks);
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
@@ -91,8 +92,8 @@ public class Storage {
     }
 
 
-    public static void readTaskFile(String filePath, ArrayList<Task> tasks) throws FileNotFoundException {
-        File taskFile = new File(filePath);
+    public static void readTaskFile(ArrayList<Task> tasks) throws FileNotFoundException {
+        File taskFile = new File(FILE_PATH);
         Scanner scan = new Scanner(taskFile);
         while (scan.hasNext()) {
             String taskToAdd = scan.nextLine();
@@ -100,9 +101,9 @@ public class Storage {
         }
     }
 
-    public static void loadTaskFile(String filePath, ArrayList<Task> tasks) {
+    public static void loadTaskFile(ArrayList<Task> tasks) {
         try {
-            readTaskFile(filePath, tasks);
+            readTaskFile(tasks);
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
