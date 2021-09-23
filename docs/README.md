@@ -6,17 +6,17 @@ Duke is a java application to manage tasks via command line interface (CLI). Thi
 - [Quick start](#user-content-quick-start)
 - Features
   1. [`help` - View help](#user-content-help---view-help)
-  2. `bye` - Exit program
-  3. `list` - List all the tasks created
-  4. `todo` - Create a todo task
-  5. `deadline` - Create a deadline task
-  6. `event` - Create an event task
-  7. `done` - Check corresponding task as done
-  8. `delete` - Delete corresponding task from list
-  9. `find` - Find description tasks with the given input
-  10. `sort time` - Sort tasks based on date
-- Frequently Asked Questions(FAQ)
-- Command Summary
+  2. [`bye` - Exit program](#user-content-bye---exit-program)
+  3. [`list` - List all the tasks created](#user-content-list---list-all-the-tasks-created)
+  4. [`todo` - Create a todo task](#user-content-todo---create-a-todo-task)
+  5. [`deadline` - Create a deadline task](#user-content-deadline---create-a-deadline-task)
+  6. [`event` - Create an event task](#user-content-event---create-an-event-task)
+  7. [`done` - Check corresponding task as done](#user-content-done---check-corresponding-task-as-done)
+  8. [`delete` - Delete corresponding task from list](#user-content-delete---delete-corresponding-task-from-list)
+  9. [`find` - Find description tasks with the given input](#user-content-find---find-description-tasks-with-the-given-input)
+  10. [`sort time` - Sort tasks based on date](#user-content-find---sort-tasks-based-on-data)
+- [Frequently Asked Questions(FAQ)](#frequently-asked-questionsfaq)
+- [Command Summary](#command-summary)
 ---
 
 ## Quick Start
@@ -145,7 +145,8 @@ deadline create a deadline task /by 2021-10-01 1159
 Description: Event is a type of task that takes in a description and 2 time.
 Create a deadline by following the format below:
 >Format: `event` &lt;description&gt; /at &lt;time1> to &lt;time2>
-:grey_exclamation: Note: if &lt;time1> is later than &lt;time2>, the time will switch around
+
+>:grey_exclamation: Note: if &lt;time1> is later than &lt;time2>, the time will switch around
 
 Example: 
 ```text
@@ -159,6 +160,7 @@ event this is what happens when time1 is later than time2 /at 2021-10-02 1300 to
 ### `done` - Check corresponding task as done
 Description: will mark a particular task as done, by showing an X on the second square bracket [ ].
 >Format: `done` &lt;number>
+
 > :grey_exclamation: Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
 
 Example: 
@@ -172,6 +174,7 @@ done 2
 ### `delete` - Delete corresponding task from list
 Description: Delete a task with that has the corresponding number
 >Format: `delete` <number>
+
 > :grey_exclamation: Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
 
 Example:
