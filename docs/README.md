@@ -37,7 +37,12 @@ Graphical Line Interface (currently not available, but coming soon...).
 7. <a href="#delete-task">Delete task</a>
 8. <a href="#exit">Exit</a>
 
-
+> Notes:
+> - words in <> are required parameters from users
+> - words in [] are optional parameters from users
+    > e.g. for `deadline <task description> /<YYYY-MM-DD> [HH:MM]`, \<task desscription\>, and \<YYYY-MM-DD\> are two required
+    > parameters, while \[HH:MM\] can be omitted. For example, `deadline cs2113 ip /2021-09-28`
+    > and `deadline cs2113 ip /2021-09-28 18:00` are both valid.
 
 ### <span id="help">Get help</span>
 List all the commands format if users forget them
@@ -46,12 +51,6 @@ List all the commands format if users forget them
 
 <br/>
 
-> Notes:
-> - words in <> are required parameters from users
-> - words in [] are optional parameters from users
-> e.g. for `deadline <task description> /<YYYY-MM-DD> [HH:MM]`, \<task desscription\>, and \<YYYY-MM-DD\> are two required
-> parameters, while \[HH:MM\] can be omitted. For example, `deadline cs2113 ip /2021-09-28`
-> and `deadline cs2113 ip /2021-09-28 18:00` are both valid.
 ### <span id="add-task">Add task</span>
 There are three possible task types that can be added.
 * `todo`: A task without time constraint
@@ -78,8 +77,7 @@ Show a list of all tasks.
 User can set a task at specific index after he/she has completed it.
 #### format: `done <task index>`
 - The index refers to the index number in the list.
-- The index must be a positive number, and should not exceed the total number of tasks inside the list.  
-  Otherwise, Duke may throw a warning.
+- The index must be a positive number, and should not exceed the total number of tasks inside the list. Otherwise, Duke may throw a warning.
 ![img](done.png)
 
 <br/>  
