@@ -1,27 +1,23 @@
 package duke.task;
 
+import static duke.message.Messages.LOAD_DELIMITER;
+
 public class Deadline extends Task {
-    protected String by;
+    protected String date;
+    protected String time;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String date, String time) {
         super(description);
-        this.by = by;
+        this.date = date;
+        this.time = time;
     }
 
-    /**
-     * Get the string, by, that determines the deadline of the task
-     * @return String by
-     */
-    public String getBy() {
-        return this.by;
+    public String getDate() {
+        return this.date;
     }
 
-    /**
-     * Set the string, by
-     * @param by the deadline of task
-     */
-    public void setBy(String by) {
-        this.by = by;
+    public String getTime() {
+        return this.time;
     }
 
     public String getCode() {
@@ -30,7 +26,20 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D][" + super.getStatusIcon() + "] " + super.getDescription() +
-                " (by: " + this.getBy() + ")";
+        return "[D]" + super.getStatusIcon() + " " + super.getDescription() +
+                " (by: " + this.getDate() + " " + this.getTime() + ")";
+    }
+
+    @Override
+    public String toSave() {
+        return this.getCode() +
+                LOAD_DELIMITER +
+                super.getDoneValue() +
+                LOAD_DELIMITER +
+                super.getDescription() +
+                LOAD_DELIMITER +
+                this.getDate() +
+                LOAD_DELIMITER +
+                this.getTime();
     }
 }
