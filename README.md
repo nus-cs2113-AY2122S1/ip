@@ -9,6 +9,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 1. `Todo <taskname_here>` This creates a simple Todo task.
 2. `Deadline <taskname_here> /by <date_here>` This creates a Deadline task.
    1.Example:
+   1.Example:
    1.`deadline math assignment /by 12 october, 2019`
 3. `Event <taskname_here> /at <date_here>` This creates an Event task.
    1.Example:
