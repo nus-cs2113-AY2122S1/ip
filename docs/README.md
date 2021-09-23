@@ -12,7 +12,9 @@ Keep track of todo items, events and deadlines using simple commands.
 **Event** tasks have a description and a date at which they occur
 
 #### Task representation by taro:
-All tasks stored by taro are displayed using the following representation: `[TASK_TYPE][COMPLETION_STATUS] TASK_DESCRIPTION [DATE]`
+All tasks stored by taro are displayed using the following representation:
+
+`[TASK_TYPE][COMPLETION_STATUS] TASK_DESCRIPTION [DATE]`
 - `TASK_TYPE`: either `T`, `D` or `E`, indicating if the task is a Todo, Deadline or Event task respectively
 - `COMPLETION_STATUS`: either blank or `X` where a blank space represents an incomplete task and an `X` represents a completed task
 - `TASK_DESCRIPTION`: the description of the task specified when adding the task
