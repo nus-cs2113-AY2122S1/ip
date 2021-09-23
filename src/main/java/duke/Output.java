@@ -84,6 +84,23 @@ public class Output {
         return deleteTaskMessage;
     }
 
+
+    /**
+     * Gets a message listing out all the Tasks whose names contain the keyword, together with their information.
+     *
+     * @param tasks   ArrayList containing the Tasks that matched the keyword
+     * @param keyword String that was searched for in TaskList
+     * @return String containing the message listing out all Tasks and their information
+     */
+    public static String getSearchedTaskListMessage(ArrayList<Task> tasks, String keyword) {
+        String taskListMessage = SPACER + "Here are your tasks that contain the keyword \"" + keyword + "\":" + System.lineSeparator();
+        for (int i = 0; i < tasks.size(); i++) {
+            taskListMessage += SPACER + SPACER + (i + 1) + "." + tasks.get(i) + System.lineSeparator();
+        }
+        return taskListMessage;
+    }
+
+
     /**
      * Gets a message listing out all the Tasks and their information.
      *

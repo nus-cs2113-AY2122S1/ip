@@ -14,6 +14,7 @@ import duke.task.Task;
 import duke.task.ToDo;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
     private static final String COMMAND_EXIT = "bye";
@@ -193,6 +194,8 @@ public class Parser {
             return new Deadline(deadlineName, deadlineDate);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Please provide a deadline in the format \"deadline [task name] /by [date]\".");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Please provide the date in the format \"dd mm yyyy\", eg. \"12 02 2021\".");
         }
     }
 

@@ -114,6 +114,6 @@ public class TaskList {
      */
     public String getSearchedTasksMessage(String keyword) {
         ArrayList<Task> filteredTasks = searchTasks(keyword);
-        return Output.getTaskListMessage(filteredTasks);
+        return Output.getSearchedTaskListMessage(filteredTasks, keyword);
     }
 }

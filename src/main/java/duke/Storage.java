@@ -70,34 +70,64 @@ public class Storage {
     /**
      * Creates a Task containing the information specified in string.
      *
-     * @param string String to be read from storage to be parsed into a Task.
+     * @param storageLine String corresponding to a line that was read from storage file to be parsed into a Task.
      * @return Task containing the information stored in string.
      * @throws DukeException if information in data.txt is in the incorrect format.
      */
-    private Task readTask(String string) throws DukeException {
+    private Task readTask(String storageLine) throws DukeException {
         try {
-            Task task = null;
-            String[] words = string.split(" \\| ");
-            switch (words[0]) {
-            case "T":
-                task = new ToDo(words[2]);
-                break;
-            case "E":
-                task = new Event(words[2], words[3]);
-                break;
-            case "D":
-                LocalDate byDate = LocalDate.ofEpochDay(Long.parseLong(words[3]));
-                task = new Deadline(words[2], byDate);
-                break;
-            default:
-                throw new DukeException("Error: Unable to parse data file.");
-            }
-            if (words[1].equals("1")) {
-                task.setCompleted();
-            }
+            String[] words = splitWords(storageLine);
+            Task task = parseTask(words);
+            markCompleted(words, task);
             return task;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Error: Unable to parse data file.");
+        }
+    }
+
+    /**
+     * Splits the given string using on the | character as a separator
+     *
+     * @param storageLine line that was read from storage file to be parsed into a Task
+     * @return Array of Strings after storageLine was split
+     */
+    private static String[] splitWords(String storageLine) {
+        String[] words = storageLine.split(" \\| ");
+        return words;
+    }
+
+    /**
+     * Returns a Task corresponding to the values stored in words.
+     *
+     * @param words String array containing the information of the Task
+     * @return Task corresponding to the information in words
+     * @throws DukeException             if words contains invalid values
+     * @throws IndexOutOfBoundsException if words is missing some Task information
+     */
+    private static Task parseTask(String[] words) throws DukeException, IndexOutOfBoundsException {
+        switch (words[0]) {
+        case "T":
+            return new ToDo(words[2]);
+        case "E":
+            return new Event(words[2], words[3]);
+        case "D":
+            LocalDate byDate = LocalDate.ofEpochDay(Long.parseLong(words[3]));
+            return new Deadline(words[2], byDate);
+        default:
+            throw new DukeException("Error: Unable to parse data file.");
+        }
+    }
+
+    /**
+     * Sets the given Task as completed based on the values stored in words.
+     *
+     * @param words String array containing the information of the Task
+     * @param task  Task to be marked as read if indicated in words
+     * @throws IndexOutOfBoundsException if words is missing some Task information
+     */
+    private static void markCompleted(String[] words, Task task) throws IndexOutOfBoundsException {
+        if (words[1].equals("1")) {
+            task.setCompleted();
         }
     }
 }

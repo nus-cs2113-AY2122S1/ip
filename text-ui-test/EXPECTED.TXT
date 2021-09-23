@@ -3,46 +3,59 @@
   How may I assist you
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
-  Please specify a do by date by using the " /by " separator.
+  Please use the " /by " separator to separate the deadline name and date.
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
-  Please specify a do by date by using the " /by " separator.
+  Please use the " /by " separator to separate the deadline name and date.
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
-  Please specify a do by date.
+  Please use the " /by " separator to separate the deadline name and date.
+  ────────────────────────────────────────────────
+  ────────────────────────────────────────────────
+  Please provide the date in the format "dd mm yyyy", eg. "12 02 2021".
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
   Ok! I've added this task:
-    [D][ ] submit report (by: Tuesday 23:59)
+    [D][ ] submit report (by: 21-Sep-21)
   Now you have 1 tasks.
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
+  Please provide the date in the format "dd mm yyyy", eg. "12 02 2021".
+  ────────────────────────────────────────────────
+  ────────────────────────────────────────────────
+  Ok! I've added this task:
+    [D][ ] return book (by: 25-Oct-21)
+  Now you have 2 tasks.
+  ────────────────────────────────────────────────
+  ────────────────────────────────────────────────
   Here are your tasks:
-    1.[D][ ] submit report (by: Tuesday 23:59)
+    1.[D][ ] submit report (by: 21-Sep-21)
+    2.[D][ ] return book (by: 25-Oct-21)
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
   Please specify the index of the task.
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
   Ok! I've marked this task as done:
-    [D][X] submit report (by: Tuesday 23:59)
+    [D][X] submit report (by: 21-Sep-21)
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
-  Please specify a task name in the format "todo [task name]".
+  Please provide a todo in the format "todo [task name]".
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
-  Task does not exist.
+  Ok! I've marked this task as done:
+    [D][X] return book (by: 25-Oct-21)
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
   Ok! I've added this task:
     [T][ ] buy groceries
-  Now you have 2 tasks.
+  Now you have 3 tasks.
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
-  Please specify a task name in the format "event [task name] /at [date]".
+  Please provide an in the format "event [task name] /at [date]".
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
-  Please specify an event date by using the " /at " separator.
+  Please use the " /at " separator to separate the event name and date.
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
   Please specify an event name.
@@ -53,51 +66,55 @@
   ────────────────────────────────────────────────
   Ok! I've added this task:
     [E][ ] lunch (at: Thursday noon)
-  Now you have 3 tasks.
+  Now you have 4 tasks.
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
   Here are your tasks:
-    1.[D][X] submit report (by: Tuesday 23:59)
-    2.[T][ ] buy groceries
-    3.[E][ ] lunch (at: Thursday noon)
+    1.[D][X] submit report (by: 21-Sep-21)
+    2.[D][X] return book (by: 25-Oct-21)
+    3.[T][ ] buy groceries
+    4.[E][ ] lunch (at: Thursday noon)
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
   Please provide a valid number.
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
-  Task does not exist.
+  Ok! I've marked this task as done:
+    [E][X] lunch (at: Thursday noon)
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
   Ok! I've added this task:
     [E][ ] dinner (at: Friday 6pm)
-  Now you have 4 tasks.
-  ────────────────────────────────────────────────
-  ────────────────────────────────────────────────
-  Ok! I've marked this task as done:
-    [E][X] dinner (at: Friday 6pm)
-  ────────────────────────────────────────────────
-  ────────────────────────────────────────────────
-  Ok! I've deleted this task:
-    [E][X] dinner (at: Friday 6pm)
-  Now you have 3 tasks.
-  ────────────────────────────────────────────────
-  ────────────────────────────────────────────────
-  Task does not exist.
-  ────────────────────────────────────────────────
-  ────────────────────────────────────────────────
-  Here are your tasks:
-    1.[D][X] submit report (by: Tuesday 23:59)
-    2.[T][ ] buy groceries
-    3.[E][ ] lunch (at: Thursday noon)
-  ────────────────────────────────────────────────
-  ────────────────────────────────────────────────
-  Ok! I've deleted this task:
-    [D][X] submit report (by: Tuesday 23:59)
-  Now you have 2 tasks.
+  Now you have 5 tasks.
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
   Ok! I've marked this task as done:
     [E][X] lunch (at: Thursday noon)
+  ────────────────────────────────────────────────
+  ────────────────────────────────────────────────
+  Ok! I've deleted this task:
+    [E][X] lunch (at: Thursday noon)
+  Now you have 4 tasks.
+  ────────────────────────────────────────────────
+  ────────────────────────────────────────────────
+  Ok! I've deleted this task:
+    [E][ ] dinner (at: Friday 6pm)
+  Now you have 3 tasks.
+  ────────────────────────────────────────────────
+  ────────────────────────────────────────────────
+  Here are your tasks:
+    1.[D][X] submit report (by: 21-Sep-21)
+    2.[D][X] return book (by: 25-Oct-21)
+    3.[T][ ] buy groceries
+  ────────────────────────────────────────────────
+  ────────────────────────────────────────────────
+  Ok! I've deleted this task:
+    [D][X] submit report (by: 21-Sep-21)
+  Now you have 2 tasks.
+  ────────────────────────────────────────────────
+  ────────────────────────────────────────────────
+  Ok! I've marked this task as done:
+    [T][X] buy groceries
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
   Ok! I've added this task:
@@ -106,9 +123,22 @@
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
   Here are your tasks:
-    1.[T][ ] buy groceries
-    2.[E][X] lunch (at: Thursday noon)
+    1.[D][X] return book (by: 25-Oct-21)
+    2.[T][X] buy groceries
     3.[T][ ] read book
+  ────────────────────────────────────────────────
+  ────────────────────────────────────────────────
+  Here are your tasks that contain the keyword "book":
+    1.[D][X] return book (by: 25-Oct-21)
+    2.[T][ ] read book
+  ────────────────────────────────────────────────
+  ────────────────────────────────────────────────
+  Please specify a keyword to search for.
+  ────────────────────────────────────────────────
+  ────────────────────────────────────────────────
+  Here are your tasks that contain the keyword "re":
+    1.[D][X] return book (by: 25-Oct-21)
+    2.[T][ ] read book
   ────────────────────────────────────────────────
   ────────────────────────────────────────────────
   Sorry, I do not understand your command.
