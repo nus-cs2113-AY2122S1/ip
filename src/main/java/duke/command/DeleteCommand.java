@@ -4,9 +4,6 @@ import duke.exception.InvalidIndexException;
 import duke.exception.TaskIndexOutOfBoundsException;
 import duke.program.LizUi;
 import duke.program.TaskList;
-import duke.task.Task;
-
-import java.util.ArrayList;
 
 public class DeleteCommand extends Command {
 
@@ -16,11 +13,23 @@ public class DeleteCommand extends Command {
         this.lineArgs = lineArgs;
     }
 
+    /**
+     * Executes command that deletes a task off the task list.
+     * @param tasks TaskList of all tasks.
+     * @param ui ui object of Duke.
+     */
     @Override
     public void executeCommand(TaskList tasks, LizUi ui) {
         deleteTaskWithExceptionHandling(lineArgs, tasks, ui);
     }
 
+    /**
+     * Deletes a specified task with corresponding exception handling. Checked exceptions when caught, print
+     * a corresponding error message.
+     * @param lineArgs parsed array of line arguments. Contains delete command and delete index number.
+     * @param tasks TaskList of all tasks.
+     * @param ui ui object of Duke.
+     */
     private void deleteTaskWithExceptionHandling(String[] lineArgs, TaskList tasks, LizUi ui) {
         try {
             tasks.deleteTask(tasks.getTaskList(), lineArgs, ui);

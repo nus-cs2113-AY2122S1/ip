@@ -24,6 +24,11 @@ public class AddCommand extends Command {
         this.taskType = taskType;
     }
 
+    /**+
+     * Executes command to add a task to the TaskList.
+     * @param tasks TaskList of all tasks.
+     * @param ui ui object of Duke.
+     */
     @Override
     public void executeCommand(TaskList tasks, LizUi ui) {
         switch (taskType) {
@@ -39,6 +44,13 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds a new event task with corresponding exception handling. Checked exceptions when caught, print
+     * a corresponding error message.
+     * @param line string containing user input.
+     * @param tasks TaskList of all tasks.
+     * @param ui ui object of Duke.
+     */
     private void addNewEventWithExceptionHandling(String line, TaskList tasks, LizUi ui) {
         try {
             tasks.addNewEvent(line.substring(EVENT_DESCRIPTION_START_INDEX));
@@ -52,6 +64,13 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds a new deadline task with corresponding exception handling. Checked exceptions when caught, print
+     * a corresponding error message.
+     * @param line string containing user input.
+     * @param tasks TaskList of all tasks.
+     * @param ui ui object of Duke.
+     */
     private void addNewDeadlineWithExceptionHandling(String line, TaskList tasks, LizUi ui) {
         try {
             tasks.addNewDeadline(line.substring(DEADLINE_DESCRIPTION_START_INDEX));
@@ -65,6 +84,13 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds a new todo task with corresponding exception handling. Checked exceptions when caught, print
+     * a corresponding error message.
+     * @param line string containing user input.
+     * @param tasks TaskList of all tasks.
+     * @param ui ui object of Duke.
+     */
     private void addNewTodoWithExceptionHandling(String line, TaskList tasks, LizUi ui) {
         try {
             tasks.addNewTodo(line.substring(TODO_DESCRIPTION_START_INDEX));

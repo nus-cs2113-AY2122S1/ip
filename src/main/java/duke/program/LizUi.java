@@ -45,6 +45,9 @@ public class LizUi {
             "          .'  `.    .'  `.\n" +
             "          |/\\/\\|    |/\\/\\|";
 
+    /**
+     * Helper function that prints a horizontal line between outputs for better readability.
+     */
     public static void printLine() {
         for (int i = 0; i < LINE_LENGTH; i++) {
             System.out.print("_");
@@ -52,6 +55,9 @@ public class LizUi {
         System.out.println("");
     }
 
+    /**
+     * Prints a greeting message.
+     */
     public static void printGreetingMessage() {
         System.out.println("Howdy! It's\n" + LIZTEXT + LIZLOGO);
         printLine();
@@ -60,14 +66,29 @@ public class LizUi {
         System.out.println("");
     }
 
+    /**
+     * Prints an exit message.
+     */
     public static void printExitMessage() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Helper function that helps read user input and returns it as a string.
+     * @param in Scanner object to read user input.
+     * @return user input as a string.
+     */
     public static String readCommand(Scanner in) {
         return in.nextLine();
     }
 
+    /**
+     * Prints out either the entire task list if list command is called, or only
+     * matching tasks in the task list if the find command is called.
+     * @param taskCount total number of tasks to be printed.
+     * @param tasks array list of tasks to be printed.
+     * @param isFind boolean that determines whether method call was from a find command or not.
+     */
     public static void printTaskList(int taskCount, ArrayList<Task> tasks, boolean isFind) {
         if (isFind) {
             System.out.println("Here are the matching tasks in your list:");
@@ -85,6 +106,13 @@ public class LizUi {
         }
     }
 
+    /**
+     * Helper function that prints out an individual task in the specified format.
+     * @param task individual task object.
+     * @param taskType type of task (todo, deadline or event).
+     * @param taskStatus string character representing whether task is done. "X" is done, " " is not done.
+     * @param taskDescription string description of the task.
+     */
     private static void printIndividualTask(Task task, String taskType, String taskStatus, String taskDescription) {
         if (taskType.equals(TASK_TYPE_ICON_TODO)) {
             System.out.printf("[%s][%s] %s%n", taskType, taskStatus, taskDescription);
@@ -104,15 +132,26 @@ public class LizUi {
         }
     }
 
-    public void printMarkAsDoneMessage(Task task) {
+    /**
+     * Prints a notice message after marking a task as done.
+     * @param task task to be marked as done.
+     * @param taskCount number of tasks currently in the list.
+     */
+    public void printMarkAsDoneMessage(Task task, int taskCount) {
         String taskType = task.getType();
         String taskStatus = task.getStatusIcon();
         String taskDescription = task.getDescription();
 
         System.out.println("Nice! I've marked this task as done:");
         printIndividualTask(task, taskType, taskStatus, taskDescription);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
+    /**
+     * Prints a notice message after deleting a task.
+     * @param task task to be deleted.
+     * @param taskCount number of tasks in the list after deletion.
+     */
     public void printDeletedTaskMessage(Task task, int taskCount) {
         String taskType = task.getType();
         String taskStatus = task.getStatusIcon();
@@ -123,6 +162,11 @@ public class LizUi {
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
+    /**
+     * Prints a notice message after adding a new task.
+     * @param task task to be added.
+     * @param taskCount number of tasks in the list after adding.
+     */
     public void printAddedTaskMessage(Task task, int taskCount) {
         String taskType = task.getType();
         String taskDescription = task.getDescription();
@@ -182,7 +226,7 @@ public class LizUi {
 
     public static void printInvalidCommandMessage() {
         System.out.println("Sorry bud, but that command is gibberish to me. I can only read 8 words!");
-        System.out.println("The seven words are:");
+        System.out.println("The eight words are:");
         System.out.printf("list%ndone%ndelete%nfind%ntodo%ndeadline%nevent%nbye%n");
     }
 
