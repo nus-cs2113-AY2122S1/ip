@@ -1,24 +1,28 @@
 # Duke User Guide
 
 # Quick Start
-1. Ensure that you have Java ```11``` installed in your computer. 
-2. Download the latest ```ip.jar``` from [here](https://github.com/theodorekwok/ip/releases/tag/A-Release). 
-3. Copy the jar file to a folder that you want to run Duke from. 
-4. At the folder where you copied the jar file run the command ```java -jar ip.jar``` in terminal. 
-5. If Duke starts successfully, you should see the following output:
-   ```
-   Hello from
-   ____        _
-   |  _ \ _   _| | _____
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   
-   ------------------------------------------------------
-   Hello! I'm Duke
-   What can I do for you?
-   ```
-6. Refer the list of commands below under [Features](https://theodorekwok.github.io/ip/#features) for more details
+Ensure that you have Java ```11``` installed in your computer. 
+
+Download the latest ```ip.jar``` from [here](https://github.com/theodorekwok/ip/releases/tag/A-Release).
+
+Copy the jar file to a folder that you want to run Duke from. 
+
+At the folder where you copied the jar file run the command ```java -jar ip.jar``` in terminal. 
+
+If Duke starts successfully, you should see the following output:
+```
+Hello from
+____        _
+|  _ \ _   _| | _____
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
+------------------------------------------------------
+Hello! I'm Duke
+What can I do for you?
+```
+Refer the list of commands below under [Features](https://theodorekwok.github.io/ip/#features) for more details
 on how to use Duke.
 
 # Features
