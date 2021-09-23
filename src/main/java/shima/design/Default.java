@@ -4,6 +4,14 @@ import java.util.ArrayList;
 
 public class Default {
     public static final String CURR_VERSION = "Version 7.0";
+
+    /**
+     * Displays all the welcome screens and designs when the program starts
+     */
+    public Default(){
+
+    }
+
     /**
      * Print the logo and greeting message
      */
