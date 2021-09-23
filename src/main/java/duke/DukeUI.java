@@ -46,6 +46,12 @@ public class DukeUI {
         System.out.println();
     }
 
+    /**
+     * Print out a list of task found using the 'list' or 'find' command
+     *
+     * @param tasks The task list to be printed
+     * @param isSearchedList determined if this is a list specify by 'list' or 'find' command
+     */
     public static void printTaskList(ArrayList<Task> tasks, boolean isSearchedList) {
         drawHorizontalLine();
         String status;
@@ -66,6 +72,8 @@ public class DukeUI {
     }
 
     /**
+     * Print the announcement that the task has been added successfully
+     *
      * @param task the newly added task
      * @param taskListSize the size of the list after the addition of the new task
      */
@@ -78,6 +86,8 @@ public class DukeUI {
     }
 
     /**
+     * Print the announcement that the task has been marked done successfully
+     *
      * @param task the completed task
      */
     public static void printMarkTaskDone(Task task) {
@@ -87,6 +97,8 @@ public class DukeUI {
     }
 
     /**
+     * Print the announcement that the task has been deleted successfully
+     *
      * @param task The deleted task
      * @param taskListSize the size of the task list after the deletion
      */
@@ -106,6 +118,7 @@ public class DukeUI {
     }
 
     /**
+     * Print out the run-time error for the user
      * @param e the given error
      */
     public static void printError(Exception e) {

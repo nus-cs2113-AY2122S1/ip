@@ -19,10 +19,21 @@ public abstract class TimedTask extends Task{
         }
     }
 
+    /**
+     * Get the date data of the current task
+     *
+     * @return The date data of the task
+     */
     public LocalDateTime getDateTime() {
         return dateTime;
     }
 
+    /**
+     * Parse the task data into a string to store in a text file
+     * with addition date-time information
+     *
+     * @return The string to store in the text file
+     */
     @Override
     public String toStorageString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

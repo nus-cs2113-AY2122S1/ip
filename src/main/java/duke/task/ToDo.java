@@ -5,6 +5,10 @@ public class ToDo extends Task {
         super(description);
     }
 
+    /**
+     * The type of the current task: ToDo
+     * @return the String represent the type
+     */
     @Override
     public String getTaskType() {
         return "T";

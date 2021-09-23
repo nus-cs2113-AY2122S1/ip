@@ -15,6 +15,8 @@ public class Parser {
     }
 
     /**
+     * Parse a number in the command given by the user
+     *
      * @param command the command given by the user
      * @return the task number that user specified
      * @throws EmptyDescriptionException when the command is of the wrong format
@@ -33,6 +35,8 @@ public class Parser {
 
 
     /**
+     * Parse the task from the command to the recognized format
+     *
      * @param command the command given by the user
      * @param taskType the type of task that the parser recognized this command belong to
      * @return the descriptions of the given task
@@ -75,6 +79,8 @@ public class Parser {
     }
 
     /**
+     * Get the intended action from the user's command
+     *
      * @param command The command given by the user
      * @return the action that this command specified
      * @throws WrongCommandException when the command is not recognizable

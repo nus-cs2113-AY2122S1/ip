@@ -9,6 +9,7 @@ import java.util.Scanner;
 import static duke.Parser.parseInput;
 import static duke.Parser.translateAction;
 import static duke.Parser.parseNumber;
+import static duke.Parser.parseKeyword;
 
 public class Duke {
     private static TaskList taskList = new TaskList();
@@ -33,6 +34,8 @@ public class Duke {
 
 
     /**
+     * Prompt an input command from the user
+     *
      * @param in The given Scanner object
      * @return the string given by the user
      */
@@ -42,6 +45,8 @@ public class Duke {
     }
 
     /**
+     * Execute the command given by the user
+     *
      * @param input the whole command given by the user
      * @param action the action determined by the Parser
      */
@@ -61,7 +66,7 @@ public class Duke {
                 taskList.deleteTask(parseNumber(parseInput(input)));
                 break;
             case FIND:
-                taskManager.findTask(parseKeyword(input));
+                taskList.findTask(parseKeyword(input));
             default:
                 taskList.addTask(input, action);
             }
