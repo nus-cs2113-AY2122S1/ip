@@ -1,9 +1,11 @@
 import java.util.Scanner;
 
 public class Parser {
-    public static final TaskList taskList = new TaskList();
     public static final String COMMAND_DONE = "done";
-    private static final Scanner in = new Scanner(System.in);
+    public static final int TASK_DATE_INDEX = 1;
+    private static final int TODO_START_INDEX = 4;
+    private static final int EVENT_START_INDEX = 5;
+    private static final int DEADLINE_START_INDEX = 8;
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_LIST = "list";
@@ -13,6 +15,7 @@ public class Parser {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_HELP_SHORT = "h";
+    private static final Scanner in = new Scanner(System.in);
     private static String userInput;
 
     private static void setUserInput() {
@@ -20,29 +23,29 @@ public class Parser {
     }
 
 
-    public static void executeCommand() {
+    public static void parseAndExecuteCommand() {
         boolean isExit = false;
         do {
             setUserInput();
             Ui.printDivider();
 
             if (userInput.equals(COMMAND_LIST_SHORT) || userInput.equals(COMMAND_LIST)) {
-                taskList.listTasks();
+                Duke.taskList.listTasks();
 
             } else if (userInput.startsWith(COMMAND_TODO)) {
-                taskList.addTaskPlusException(TaskEnum.TODO, userInput);
+                Duke.taskList.addTaskPlusException(TaskEnum.TODO, userInput);
 
             } else if (userInput.startsWith(COMMAND_DEADLINE)) {
-                taskList.addTaskPlusException(TaskEnum.DEADLINE, userInput);
+                Duke.taskList.addTaskPlusException(TaskEnum.DEADLINE, userInput);
 
             } else if (userInput.startsWith(COMMAND_EVENT)) {
-                taskList.addTaskPlusException(TaskEnum.EVENT, userInput);
+                Duke.taskList.addTaskPlusException(TaskEnum.EVENT, userInput);
 
             } else if (userInput.startsWith(COMMAND_DONE)) {
-                taskList.doneOrDeleteTaskPlusException(userInput, COMMAND_DONE);
+                Duke.taskList.doneOrDeleteTaskPlusException(userInput, COMMAND_DONE);
 
             } else if (userInput.startsWith(COMMAND_DELETE)) {
-                taskList.doneOrDeleteTaskPlusException(userInput, COMMAND_DELETE);
+                Duke.taskList.doneOrDeleteTaskPlusException(userInput, COMMAND_DELETE);
 
             } else if (userInput.equals(COMMAND_BYE)) {
                 Ui.printlnTab("Bye. Hope to see you again soon!");
@@ -75,4 +78,90 @@ public class Parser {
     }
 
 
+    //command keyword removed eg. "todo clean room"  -> "clean room"
+    public static String stripTaskCommand(TaskEnum taskType, String userInput) throws BlankDescriptionException {
+        String strippedUserInput = "";
+
+        switch (taskType) {
+        case TODO:
+            strippedUserInput = userInput.substring(TODO_START_INDEX).strip(); // remove "todo" from userInput
+            break;
+        case DEADLINE:
+            strippedUserInput = userInput.substring(DEADLINE_START_INDEX).strip(); // remove "deadline" from userInput
+            break;
+        case EVENT:
+            strippedUserInput = userInput.substring(EVENT_START_INDEX).strip(); // remove event
+            break;
+        }
+
+        if (strippedUserInput.isEmpty()) {
+            throw new BlankDescriptionException();
+        }
+        return strippedUserInput;
+    }
+
+    public static String[] getTaskDetails(TaskEnum taskType, String userInputWithoutTaskCommand) throws IncompleteInformationException {
+        String[] taskDetails;
+        //strip userInputWithoutTaskCommand prevents empty description / dates
+        if (taskType == TaskEnum.DEADLINE) {
+            taskDetails = userInputWithoutTaskCommand.strip().split("/by");
+        } else { //if EVENT
+            taskDetails = userInputWithoutTaskCommand.strip().split("/at");
+        }
+
+        // taskDetails[] should have length of 2
+        //containing Task description (index 0) and Task date (index 1)
+        //special case of length 2 when "/by timing" which is still invalid
+        //is checked by .isBlank()
+        if (taskDetails.length != 2
+                || taskDetails[TaskList.TASK_DESCRIPTION_INDEX].isBlank()
+                || taskDetails[TASK_DATE_INDEX].isBlank()) {
+            throw new IncompleteInformationException();
+        }
+
+        for (int i = 0; i < 2; i++) {
+            taskDetails[i] = taskDetails[i].strip();
+        }
+        return taskDetails;
+    }
+
+    static void parseStorageData(String line) throws InvalidIntegerException {
+        if (line.isBlank()) {
+            return;
+        }
+        String[] taskDetails = line.split(" \\| ");
+
+        String taskLetter = taskDetails[0];
+
+        String isDoneString = taskDetails[1];
+        int isDoneInt = Integer.parseInt(isDoneString);
+        if (isDoneInt != Integer.parseInt("1") && isDoneInt != Integer.parseInt("0")) {
+            throw new InvalidIntegerException();
+        }
+        boolean isDone = (isDoneInt == 1);
+
+        String description = taskDetails[2];
+        String date;
+
+        switch (taskLetter) {
+        case "T":
+            Duke.taskList.addTodo(description, isDone);
+            break;
+
+        case "D":
+            date = taskDetails[3];
+            String[] deadlineDetails = {description, date};
+
+            Duke.taskList.addDeadline(deadlineDetails, isDone);
+            break;
+
+        case "E":
+            date = taskDetails[3];
+            String[] eventDetails = {description, date};
+            Duke.taskList.addEvent(eventDetails, isDone);
+            break;
+        default:
+            throw new IllegalStateException();
+        }
+    }
 }

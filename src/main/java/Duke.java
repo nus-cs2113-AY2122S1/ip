@@ -2,6 +2,8 @@ import java.io.IOException;
 
 public class Duke {
 
+    public static final TaskList taskList = new TaskList();
+
     public Duke() {
         Ui.welcomeMessage();
         try {
@@ -14,7 +16,7 @@ public class Duke {
         }
         //TODO: Further testing to see if this try block is necessary
 //        try {
-        Parser.executeCommand();
+        Parser.parseAndExecuteCommand();
 //        } catch (NoSuchElementException e) {
 //            Ui.printlnTab("Bye. Hope to see you again soon!");
 //            Ui.printDivider();
