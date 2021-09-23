@@ -1,8 +1,14 @@
 package duke;
 
-import duke.task.*;
+import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
 import duke.task.TaskList;
 
+/**
+ * Receives a String user input and parses it, performing any valid commands
+ */
 public class Parser {
 
     public static final int DESCRIPTION = 0;
@@ -22,12 +28,31 @@ public class Parser {
     Ui ui;
     Storage storage;
 
+    /**
+     * Assigns TaskList, Ui and Storage to be used
+     * @param taskList TaskList containing list of Tasks
+     * @param userInterface Ui to print out relevant messages
+     * @param storageSpace Storage to write/read data
+     */
     public Parser(TaskList taskList, Ui userInterface, Storage storageSpace) {
         this.tasks = taskList;
         this.ui = userInterface;
         this.storage = storageSpace;
     }
 
+    /**
+     * Parses user input into commands. The list of supported commands are:
+     * "done ~index~" : Marks the Task at index as done
+     * "bot?" : Ask DAHNAM whether he's a bot
+     * "list" : Displays all current tasks in TaskList
+     * "todo ~desc~" : Creates a ToDo with desc
+     * "event ~desc~ /at ~time~" : Creates an Event with desc and time. The /at is used to separate desc and time
+     * "deadline ~desc~ /by ~time~" : Creates a Deadline with desc and time. The /by is used to separate desc and time
+     * "delete ~index~" : Deletes the Task stored at the given index in TaskList
+     * "find ~desc~" : Enumerates through all current Tasks in TaskList and print all tasks with ~desc~
+     *
+     * @param userInput String user input
+     */
     public void parseInput(String userInput) {
         this.userIn = userInput;
 
@@ -84,7 +109,6 @@ public class Parser {
         try {
             int taskNumber = Integer.parseInt(userIn.split(" ")[TASK_NUMBER]);
 
-            //Navigate to the given index and change the sign
             int taskIndex = taskNumber - 1;
 
             tasks.get(taskIndex).markAsDone();
@@ -200,13 +224,19 @@ public class Parser {
         System.out.println(LINEBAR);
     }
 
-    public void deleteTask() {
+    /**
+     * Deletes the task stored at index provided in user input
+     *
+     * @throws NumberFormatException     Thrown when the input is not a valid positive integer e.g. an alphabet
+     * @throws NullPointerException      Thrown when the value inserted exceeds the number of tasks
+     * @throws IndexOutOfBoundsException Thrown when input is a negative value, or does not include a value
+     */
+    public void deleteTask() throws NumberFormatException, NullPointerException, IndexOutOfBoundsException {
         System.out.println(LINEBAR);
 
         try {
             int taskNumber = Integer.parseInt(userIn.split(" ")[TASK_NUMBER]);
 
-            //Navigate to the given index and change the sign
             int taskIndex = taskNumber - 1;
 
             Task toBeDeleted = tasks.get(taskIndex);
@@ -226,6 +256,9 @@ public class Parser {
 
     }
 
+    /**
+     * Enumerates through all tasks in TaskList, and prints out all tasks which contains the descriptor provided
+     */
     public void findTask() {
         System.out.println(LINEBAR);
         System.out.println("Below are a list of tasks matching your description\n");
