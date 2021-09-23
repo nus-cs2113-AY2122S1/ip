@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * The superclass of a task object
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
