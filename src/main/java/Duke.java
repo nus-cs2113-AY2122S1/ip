@@ -2,51 +2,58 @@
 import todo.*;
 
 import java.util.ArrayList;
+
+
 /**
- * Check if valid command (Done, List, Bye, Action)
- * If done, mark as done
- * If action, check what action is it
- * If there is a date, what is the date
- *
+ * The Duke class implements an application that runs the Duke program
+ * which takes in simple commands to add, remove and save a set of tasks.
  */
-
-
 public class Duke {
     protected static ArrayList<Task> tasks = new ArrayList<>();
     protected static ArrayList<String> commands = new ArrayList<>();
     protected static String filePath;
+
     public static void main(String[] args) {
-        new Duke("data.txt").run();
+        new Duke("duke.txt").run();
     }
 
+    /**
+     * Starts running the whole program by showing the welcome screen,
+     * adding commands available and reading any file inputs.
+     */
     protected static void run() {
         Ui.showWelcomeScreen();
         addCommands();
         Storage.readFile();
-        String line = "";
-        Parser.readInput(line);
-        return;
+        Parser.readInput();
     }
 
+    /**
+     * Constructs an instance of the Duke class
+     *
+     * @param filePath path to save to
+     */
     public Duke(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Adds all valid commands for the program.
+     */
     protected static void addCommands() {
         String[] commandsToAdd = new String[]{"done", "todo", "event",
                     "deadline", "delete", "list", "save", "bye", "find"};
-        for(int i = 0; i < commandsToAdd.length; i++) {
-            commands.add(commandsToAdd[i]);
+        for (String s : commandsToAdd) {
+            commands.add(s);
         }
     }
 
-
-    public final static void printMessage(String text) {
+    public static void printMessage(String text) {
         System.out.println(text);
         printDivider();
     }
 
-    public final static void printDivider() {
+    protected static void printDivider() {
         System.out.println("____________________________________________________________\n");
     }
 
