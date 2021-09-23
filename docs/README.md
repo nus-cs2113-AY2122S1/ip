@@ -56,12 +56,18 @@ F
 3. All time input &lt;time> will require YYYY-MM-DD or YYYY-MM-DD HHMM as input.
 
 ### `help` - View help
-
 Description: `help` function will print out all available commands and the command format
 
+>Format: `help`
+
 Example:
+
+Input:
 ```text
 help
+```
+Output:
+```
      Hi user. Great to meet you.
      Let me show you all the commands we have.
      1. help -- helps you to list down all the commands available like now
@@ -83,11 +89,17 @@ help
 ### `list` - List all the tasks created
 Description: This command will show all the tasks in the list
 
+>Format: `list`
 Example: 
 
-if there is no tasks in the list
+if there is no tasks in the list:
+
+Input:
 ```text
 list
+```
+Output:
+```
     _________________________________________________________________
      You have no tasks in the list at the moment.
      Please add a new task to begin.
@@ -142,6 +154,7 @@ deadline create a deadline task /by 2021-10-01 1159
 ### `event` - Create an event task
 Description: Event is a type of task that takes in a description and 2 time.
 Create a deadline by following the format below:
+
 >Format: `event` &lt;description&gt; /at &lt;time1> to &lt;time2>
 
 >:grey_exclamation: Note: if &lt;time1> is later than &lt;time2>, the time will switch around
@@ -149,6 +162,8 @@ Create a deadline by following the format below:
 Example: 
 ```
 event this is what happens when time1 is later than time2 /at 2021-10-02 1300 to 2021-10-01 0300
+```
+```
     _________________________________________________________________
      [E][ ] this is what happens when time1 is later than time2 (at: 01-10-2021 0300 to 02-10-2021 1300)
      Now you have 4 tasks in the list.
@@ -157,6 +172,7 @@ event this is what happens when time1 is later than time2 /at 2021-10-02 1300 to
 
 ### `done` - Check corresponding task as done
 Description: will mark a particular task as done, by showing an X on the second square bracket [ ].
+
 >Format: `done` &lt;number>
 
 > :grey_exclamation: Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
@@ -172,6 +188,7 @@ done 3
 
 ### `delete` - Delete corresponding task from list
 Description: Delete a task with that has the corresponding number
+
 >Format: `delete` <number>
 
 > :grey_exclamation: Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
@@ -189,6 +206,9 @@ delete 2
 
 ### `find` - Find description tasks with the given input
 Description: Returns all the list that contains the following text
+
+>Format: `find`
+
 Example:
 ```text
 find create a
@@ -200,6 +220,7 @@ find create a
 
 ### `sort time` - Sort tasks based on date
 Description: Sort tasks with time in ascending order. Tasks without time will be ignored.
+
 > Format: `sort time`
 
 Example:
@@ -214,6 +235,8 @@ sort time
 ### `bye` - Exit program
 
 Description: Exits the program
+
+>Format: `bye'
 
 Example:
 ```text
