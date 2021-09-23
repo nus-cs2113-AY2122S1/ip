@@ -14,8 +14,8 @@ public class Parser extends Duke {
     }
 
     protected static void readInput(String line) {
-        while (!line.contains("bye")) {
-            Scanner in = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
+        while (!line.contains("bye") || in.hasNextLine()) {
             line = in.nextLine();
             assert line != null;
             String[] words = line.split(" ", 2);
