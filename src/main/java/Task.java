@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -11,7 +11,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void setDone() {
+    public void setAsDone() {
         this.isDone = true;
         this.description = this.description.replace("[ ]", "[" + this.getStatusIcon()+"]");
     }

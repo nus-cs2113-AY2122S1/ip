@@ -14,8 +14,9 @@ public class Duke {
         handleUserInput(userLineInput, taskItems, taskCounter, in);
     }
 
-    private static void handleUserInput(String userLineInput, Task[] taskItems, int taskCounter, Scanner in) {
+    private static void handleUserInput(String userLineInput, Task[] taskItems, int taskCounter, Scanner in) throws DukeException {
         while (!userLineInput.equals("bye")) {
+            boolean isTask = true;
             userLineInput = in.nextLine(); //user input
             String[] userWords = userLineInput.split(" ");
 
@@ -56,6 +57,8 @@ public class Duke {
                 break;
 
             default:
+                isTask = false;
+                //throw new DukeException("Tasks are either: \ntodo\ndeadline or \nevent");
             }
         }
     }
@@ -125,7 +128,7 @@ public class Duke {
         System.out.println("Nice! I've marked this task as done:");
         for (int i = 0; i < taskCounter; i++) {
             if (i == (doneInteger - 1)) {
-                taskItems[i].setDone();
+                taskItems[i].setAsDone();
                 System.out.println(doneInteger + "." + taskItems[i].description);
                 break;
             }
