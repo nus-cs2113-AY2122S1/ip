@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.printDeletedTask();
-        ui.printToUser("        ", "deleted: ", taskList.getTask(deleteIndex).toString());
-        taskList.deleteTask(deleteIndex);
+        ui.printToUser("        ", "deleted: ", taskList.getTask(this.deleteIndex).toString());
+        taskList.deleteTask(this.deleteIndex);
     }
 }

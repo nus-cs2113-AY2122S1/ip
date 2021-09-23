@@ -25,7 +25,7 @@ public class AddCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         int index = taskList.getListSize();
 
-        taskList.add(task);
+        taskList.add(this.task);
         ui.printToUser("    ", "added: ", taskList.getTask(index).toString());
     }
 }
