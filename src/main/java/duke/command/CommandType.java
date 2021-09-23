@@ -1,6 +1,7 @@
 package duke.command;
 
 public enum CommandType {
+    DATE,
     DEADLINE,
     DELETE,
     DONE,

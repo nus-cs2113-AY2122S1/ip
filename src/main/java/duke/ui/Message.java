@@ -16,6 +16,9 @@ public abstract class Message {
     public static final String ERROR_INVALID_COMMAND =
             EXPRESSION_SORRY + " I don't understand your command.";
 
+    public static final String ERROR_INVALID_DATE =
+            EXPRESSION_SORRY + " The date is in invalid format.";
+
     public static final String ERROR_NOT_NUMBER =
             EXPRESSION_SORRY + " I can't convert it to a number.";
 

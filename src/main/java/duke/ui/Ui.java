@@ -1,5 +1,6 @@
 package duke.ui;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 import duke.task.Task;
@@ -42,10 +43,8 @@ public class Ui {
     public void printGreeting() {
         System.out.print(LINE);
         System.out.println(LOGO);
-        System.out.println(PADDING
-                + "Konnichiwa! I'm your personal maid. Call me Maid-chan! "
-                + Message.EXPRESSION_BLUSH);
-        System.out.println(PADDING + "What can I do for you?");
+        System.out.println(PADDING + "Konnichiwa! I'm your personal maid. Call me Maid-chan!");
+        System.out.println(PADDING + "What can I do for you? " + Message.EXPRESSION_BLUSH);
         System.out.println(LINE);
     }
 
@@ -123,11 +122,32 @@ public class Ui {
     }
 
     /**
+     * Displays to user the filtered task list that occurs
+     * at the specified date.
+     *
+     * @param taskList the initial task list
+     * @param date the specified date
+     */
+    public void printTaskWithDate(TaskList taskList, String date) {
+        TaskList filteredTaskList = taskList.filterDate(date);
+
+        System.out.print(LINE);
+        if (filteredTaskList.isEmpty()) {
+            System.out.println(PADDING + "You have no task on " + date + ".");
+        } else {
+            System.out.println(PADDING + "Here are the tasks on " + date + ":");
+            System.out.print(filteredTaskList);
+        }
+        System.out.println(LINE);
+    }
+}
+
+    /**
      * Displays to user the filtered task list based
      * on the specified keyword.
      *
-     * @param taskList The initial task list.
-     * @param keyword The specified keyword.
+     * @param taskList the initial task list
+     * @param keyword the specified keyword
      */
     public void printTaskWithKeyword(TaskList taskList, String keyword) {
         TaskList filteredTaskList = taskList.filterTaskByKeyword(keyword);
@@ -137,8 +157,7 @@ public class Ui {
             System.out.println(PADDING + "There is no matching task in your list.");
         } else {
             System.out.println(PADDING + "Here are the matching tasks in your list:");
-            System.out.print(filteredTaskList);
+            System.out.println(filteredTaskList);
         }
         System.out.println(LINE);
     }
-}

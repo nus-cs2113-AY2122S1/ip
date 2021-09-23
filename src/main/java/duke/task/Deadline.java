@@ -1,19 +1,18 @@
 package duke.task;
 
 public class Deadline extends Task {
-    /** Task deadline. */
-    protected String by;
+    private final String taskDeadline;
 
     /**
      * Initializes the task description and deadline, and
      * sets initial status to "not done".
      *
      * @param description Task description.
-     * @param by Task deadline.
+     * @param taskDeadline Task deadline.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String taskDeadline) {
         super(description);
-        this.by = by;
+        this.taskDeadline = taskDeadline;
     }
 
     /**
@@ -21,21 +20,25 @@ public class Deadline extends Task {
      * sets initial status according to the given parameter.
      *
      * @param description Task description.
-     * @param by Task deadline.
+     * @param taskDeadline Task deadline.
      * @param isDone Initial status.
      */
-    public Deadline(String description, String by, boolean isDone) {
+    public Deadline(String description, String taskDeadline, boolean isDone) {
         super(description, isDone);
-        this.by = by;
+        this.taskDeadline = taskDeadline;
+    }
+
+    public String getTaskDeadline() {
+        return taskDeadline;
     }
 
     @Override
     public String serialize() {
-        return "D" + " | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+        return DEADLINE + " | " + (isDone ? "1" : "0") + " | " + description + " | " + taskDeadline;
     }
 
     @Override
     public String toString() {
-        return "[" + DEADLINE + "]" + super.toString() + " (by: " + by + ")";
+        return "[" + DEADLINE + "]" + super.toString() + " (by: " + taskDeadline + ")";
     }
 }

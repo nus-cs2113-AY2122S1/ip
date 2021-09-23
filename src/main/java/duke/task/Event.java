@@ -2,18 +2,18 @@ package duke.task;
 
 public class Event extends Task {
     /** Time period of the task. */
-    protected String at;
+    private final String taskPeriod;
 
     /**
      * Initializes the task description and deadline, and
      * sets initial status to "not done".
      *
      * @param description Task description.
-     * @param at Time period of the task.
+     * @param taskPeriod Time period of the task.
      */
-    public Event(String description, String at) {
+    public Event(String description, String taskPeriod) {
         super(description);
-        this.at = at;
+        this.taskPeriod = taskPeriod;
     }
 
     /**
@@ -21,21 +21,25 @@ public class Event extends Task {
      * sets initial status according to the given parameter.
      *
      * @param description Task description.
-     * @param at Time period of the task.
+     * @param taskPeriod Time period of the task.
      * @param isDone Initial status.
      */
-    public Event(String description, String at, boolean isDone) {
+    public Event(String description, String taskPeriod, boolean isDone) {
         super(description, isDone);
-        this.at = at;
+        this.taskPeriod = taskPeriod;
+    }
+
+    public String getTaskPeriod() {
+        return taskPeriod;
     }
 
     @Override
     public String serialize() {
-        return "E" + " | " + (isDone ? "1" : "0") + " | " + description + " | " + at;
+        return EVENT + " | " + (isDone ? "1" : "0") + " | " + description + " | " + taskPeriod;
     }
 
     @Override
     public String toString() {
-        return "[" + EVENT + "]" + super.toString() + " (at: " + at + ")";
+        return "[" + EVENT + "]" + super.toString() + " (at: " + taskPeriod + ")";
     }
 }
