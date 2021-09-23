@@ -5,11 +5,14 @@ import duke.functions.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Contains methods for input/output operations with the user
+ */
 public class Ui {
 
     public void printIntro() {
         System.out.println(
-                "                              _     _\n" +
+                        "                              _     _\n" +
                         "                             ( \\---/ )\n" +
                         "                              ) . . (\n" +
                         "________________________,--._(___Y___)_,--._______________________ \n" +
@@ -67,6 +70,11 @@ public class Ui {
         System.out.println("\tNo such task!");
     }
 
+    /**
+     * Prints error message telling the uder no task number is provided for [done] or [delete] command
+     *
+     * @param isDoneVersion toggles error message between [done] and [delete] commands, true for [done] version
+     */
     public void noTaskNumberProvided(Boolean isDoneVersion) {
         if (isDoneVersion) {
             System.out.println("\tWhich task is done?");
@@ -79,6 +87,11 @@ public class Ui {
         System.out.println("\tDescription for " + item + " cannot be empty!");
     }
 
+    /**
+     * Prints an error message telling the user the input format for [deadline] or [event] command is wrong
+     *
+     * @param item Error message version, either "deadline" or "event"
+     */
     public void wrongDeadlineOrEventFormat(String item) {
         String specifier = item.equals("deadline") ? "/by" : "/at";
         System.out.println("\tWrong format! Try \"" + item + " [description] " + specifier + " [due date]\"");
