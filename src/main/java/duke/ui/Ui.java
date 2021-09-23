@@ -11,6 +11,7 @@ import static duke.message.Messages.FOUND_TASK;
 import static duke.message.Messages.HELP;
 import static duke.message.Messages.LIST_TASK;
 import static duke.message.Messages.LOGO;
+import static duke.message.Messages.NUMBER_FOUND_TASK;
 import static duke.message.Messages.NUMBER_LIST_TASK;
 import static duke.message.Messages.WELCOME;
 
@@ -64,6 +65,10 @@ public class Ui {
         out.println(SEPARATOR + LS + LIST_TASK);
     }
 
+    /**
+     * Prints the number of tasks listed
+     * @param size number of tasks in list
+     */
     public void printListSize(int size) {
         out.println(LS + size + NUMBER_LIST_TASK);
     }
@@ -98,6 +103,14 @@ public class Ui {
      */
     public void printFound() {
         out.println(SEPARATOR + LS + FOUND_TASK);
+    }
+
+    /**
+     * Prints the number of tasks found
+     * @param size number of tasks found
+     */
+    public void printFoundSize(int size) {
+        out.println(LS + size + NUMBER_FOUND_TASK);
     }
 
     /**

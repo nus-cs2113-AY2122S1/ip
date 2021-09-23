@@ -34,9 +34,10 @@ public class Messages {
             "Save and exit program:\n" +
             "    bye";
     public static final String LIST_TASK = "    Tasks to do... so lazy:";
-    public static final String NUMBER_LIST_TASK = " tasks in list";
+    public static final String NUMBER_LIST_TASK = " task(s) in list";
     public static final String FINISHED_TASK = "    Finished this task... I need a break:";
     public static final String DELETED_TASK = "    Deleted this task... less things to do:";
     public static final String FOUND_TASK = "    Task(s) found:";
+    public static final String NUMBER_FOUND_TASK = " task(s) found";
     public static final String BYE = "Bye. I'm going back to sleep... zzz";
 }

@@ -30,5 +30,7 @@ public class FindCommand extends Command {
         for (int i = 0; i < size; i++) {
             ui.printToUser("    ", Integer.toString(i + 1), ".", tasksFound.get(i).toString());
         }
+
+        ui.printFoundSize(size);
     }
 }
