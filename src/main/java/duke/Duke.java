@@ -10,12 +10,11 @@ import java.util.ArrayList;
 
 public class Duke {
     public static ArrayList<Task> taskList = new ArrayList<>();
-    //public static Manager manager = new Manager(taskList);
 
     public static void main(String[] args) {
         Interface.introductoryMessage();
         ProcessFiles.LoadTasks();
-        Duke.runIkaros();
+        runIkaros();
         ProcessFiles.SaveTasks();
         Interface.goodbyeMessage();
     }
