@@ -1,5 +1,5 @@
 # DAHNAM User Guide
-DAHNAM is your ~robot~human friend who is here to help you keep track of your upcoming tasks and get your life in ~order~better shape!
+DAHNAM is your ~~robot~~human friend who is here to help you keep track of your upcoming tasks and get your life in ~~order~~better shape!
 
 ## Features
 What can DAHNAM do for you?
@@ -7,8 +7,11 @@ What can DAHNAM do for you?
 ### Creating and Storing Tasks
 
 DAHNAM can help you to keep track of any tasks you may have, and can split them into 3 sub-categories!
+
 **ToDo** : ToDo tasks are any tasks that do not have a deadline to meet
+
 **Event** : Events are upcoming tasks that take place at a specific time
+
 **Deadline** : Deadlines are tasks that must be done by a certain timing
 
 *Tasks are saved on your disk as `tasks.txt`*
@@ -24,6 +27,7 @@ Give DAHNAM a keyword and it will sift through your tasks and find them for you.
 ### Delete
 
 Keep your tasks list tidy by deleting tasks you no longer have to worry about.
+
 _____________________________________________________________________________________________________________________________________________
 ## Usage
 
@@ -145,6 +149,7 @@ Format: `find <KEYWORD>`
 Example:
 
 `find lecture`
+
 `find Lecture`
 
 Expected output:
