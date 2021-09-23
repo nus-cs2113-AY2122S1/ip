@@ -6,8 +6,8 @@ public class CommandBye extends Command{
      * Prints goodbye message upon exit
      */
     public void run(){
-        Ui.printLineOnConsole();
+        System.out.println(Ui.DASH_LINE);
         System.out.println(BYE_MESSAGE);
-        Ui.printLineOnConsole();
+        System.out.println(Ui.DASH_LINE);
     }
 }

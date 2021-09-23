@@ -1,5 +1,5 @@
 public class Ui {
-    public static final String DASH_LINE = "    ____________________________________________________________";
+    public static final String DASH_LINE = "    _________________________________________________________________";
     public static final String WELCOME_MESSAGE = "     Hello! I'm Duke\n" +
             "     What can I do for you?";
 
@@ -19,7 +19,7 @@ public class Ui {
             "8. todo <description> -- creates a todo task with description\n" +
             "9. deadline <description> /by <time> where <time> is YYYY-MM-DD or YYYY-MM-DD HHMM\n" +
             "-- creates a deadline task with description as task name and the date as deadline\n" +
-            "10. event <description> /at <time1> to <time2> where <time1> could be YYYY-MM-DD \n" +
+            "10. event <description> /at <time1> to <time2> where <time1> could be YYYY-MM-DD\n" +
             "or YYYY-MM-DD HHMM while <time2> could be YYYY-MM-DD or YYYY-MM-DD HHMM or even HHMM\n" +
             ". If <time2> is HHMM, it will inherit YYYY-MM-DD from <time1>\n" +
             "-- creates an event task with the description given and store 2 time given by the input\n";
@@ -33,19 +33,14 @@ public class Ui {
             + "thousands of students. (No matter positive or negative)\n"
             + "F";
 
-    public static void printLineOnConsole() {
-        System.out.println(DASH_LINE);
-    }
-
-
 
     /**
      * Prints welcome message
      */
     public static void printWelcomeMessage() {
-        printLineOnConsole();
+        System.out.println(DASH_LINE);
         System.out.println(WELCOME_MESSAGE);
-        printLineOnConsole();
+        System.out.println(DASH_LINE);
     }
 
     /**
@@ -53,11 +48,11 @@ public class Ui {
      * @param newTask the task that was added to the task array list
      */
     public static void printAddNewTask(Task newTask) {
-        printLineOnConsole();
+        System.out.println(DASH_LINE);
         System.out.println("     " + newTask);
         System.out.println(TASK_MESSAGE_START +
                 TaskList.getArraySize() + TASK_MESSAGE_END);
-        printLineOnConsole();
+        System.out.println(DASH_LINE);
 
     }
 
@@ -67,12 +62,12 @@ public class Ui {
      * @param task is the task that was deleted
      */
     public static void printDeleteTask(int size, Task task) {
-        printLineOnConsole();
+        System.out.println(DASH_LINE);
         System.out.println(DELETE_MESSAGE);
         System.out.println("     " + task);
         System.out.println(TASK_MESSAGE_START + size
                 + TASK_MESSAGE_END);
-        printLineOnConsole();
+        System.out.println(DASH_LINE);
     }
 
     /**
@@ -81,7 +76,7 @@ public class Ui {
      */
     public static void printSortedDateTimedTask() {
         boolean isEmpty = true;
-        printLineOnConsole();
+        System.out.println(DASH_LINE);
         for(TimedTask task: TimedTaskList.getSortedList()) {
             System.out.println("     " + task);
             isEmpty = false;
@@ -89,7 +84,7 @@ public class Ui {
         if(isEmpty){
             System.out.println("     There are no deadlines or events to sort");
         }
-        printLineOnConsole();
+        System.out.println(DASH_LINE);
     }
 
     /**
@@ -98,7 +93,7 @@ public class Ui {
      */
     public static void printFilteredDateTimedTask(String input) {
         boolean isEmpty = true;
-        printLineOnConsole();
+        System.out.println(DASH_LINE);
         for(Task task: TaskList.findTask(input)) {
             System.out.println("     " + task);
             isEmpty = false;
@@ -106,7 +101,7 @@ public class Ui {
         if (isEmpty) {
             System.out.println("     There are no results with the substring \"" + input + "\"");
         }
-        printLineOnConsole();
+        System.out.println(DASH_LINE);
     }
 
     public static void printHelp() {

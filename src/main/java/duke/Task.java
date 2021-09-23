@@ -47,10 +47,10 @@ public abstract class Task {
      */
     public void markAsDone() {
         this.isDone = true;
-        Ui.printLineOnConsole();
+        System.out.println(Ui.DASH_LINE);
         System.out.println(Ui.TASK_CHECK_DONE);
         System.out.println("     " + "[" + this.taskType + "][X] " + this.description);
-        Ui.printLineOnConsole();
+        System.out.println(Ui.DASH_LINE);
     }
 
     /**

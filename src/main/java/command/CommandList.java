@@ -11,7 +11,7 @@ public class CommandList extends Command {
      * Print all the tasks in the list array
      */
     public void run() {
-        Ui.printLineOnConsole();
+        System.out.println(Ui.DASH_LINE);
         int size = TaskList.getArraySize();
         if (size != 0) {
             System.out.println(LIST_HEADER);
@@ -22,6 +22,6 @@ public class CommandList extends Command {
         } else {
             System.out.println(LIST_NO_TASK);
         }
-        Ui.printLineOnConsole();
+        System.out.println(Ui.DASH_LINE);
     }
 }
