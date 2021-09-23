@@ -1,9 +1,9 @@
-package bobby.manager;
+package karen.manager;
 
-import bobby.exception.IncorrectDescriptionFormatException;
-import bobby.exception.NoDescriptionException;
-import bobby.task.Task;
-import bobby.command.Command;
+import karen.exception.IncorrectDescriptionFormatException;
+import karen.exception.NoDescriptionException;
+import karen.task.Task;
+import karen.command.Command;
 
 import java.util.ArrayList;
 import java.io.IOException;

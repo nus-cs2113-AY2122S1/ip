@@ -1,8 +1,8 @@
-package bobby.manager;
-import bobby.task.Deadline;
-import bobby.task.Event;
-import bobby.task.Task;
-import bobby.task.ToDo;
+package karen.manager;
+import karen.task.Deadline;
+import karen.task.Event;
+import karen.task.Task;
+import karen.task.ToDo;
 
 import java.io.File;
 import java.util.ArrayList;

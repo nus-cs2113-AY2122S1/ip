@@ -1,10 +1,10 @@
-package bobby;
+package karen;
 
-import bobby.manager.FileManager;
-import bobby.manager.ResponseManager;
-import bobby.manager.TaskManager;
+import karen.manager.FileManager;
+import karen.manager.ResponseManager;
+import karen.manager.TaskManager;
 
-public class Bobby {
+public class Karen {
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
         FileManager.bootUpData(taskManager);

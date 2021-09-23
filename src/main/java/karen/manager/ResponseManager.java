@@ -1,39 +1,45 @@
-package bobby.manager;
+package karen.manager;
 
-import bobby.task.Task;
+import karen.task.Task;
 
 import java.util.ArrayList;
 
 public abstract class ResponseManager {
     public static final String LINE = "    _____________________________________________________________________________\n\n";
-    public static final String WELCOME_MESSAGE = " \n" +
-            "                        .-\"\"\"-.\n" +
-            "                       / .//\". \\\n" +
-            "                       \\/ o o \\/\n" +
-            "                       ( \\___/ )\n" +
-            "          ________oooo__\\_____/_____________\n" +
-            "         /                                  \\\n" +
-            "        |         Hello! I'm Bobby :)        |\n" +
-            "        |     What can I can do for you?     |\n" +
-            "         \\______________________oooo________/\n" ;
+    public static final String KAREN_LOGO =
+            "\n" +
+                    "            ______________________\n" +
+                    "         _~`o--------------------o: \n" +
+                    "        /- ||                    ||\n" +
+                    "      -!|. ||          /\\        ||\n" +
+                    "     ! ||. ||___ /\\   /  \\  /\\___||\n" +
+                    "     | |!. ||   V  \\ /    \\/     ||\n" +
+                    "      -!!__!|       V            ||\n" +
+                    "       `\\. ||____________________||\n" +
+                    "         `~!o======='---'======= o!\n" +
+                    "                     | |\n" +
+                    "                     !_!\n" +
+                    "                     | |\n" +
+                    "                     !_!\n" +
+                    "                    .! !.\n" +
+                    "                   /___'_\\\n" +
+                    "              ____!----'--!____\n" +
+                    "             /    |    '  |    \\\n" +
+                    "            /  - - \\- _'_/ - -  \\      \n" +
+                    "           /. _________________ .\\\n" +
+                    "          [(_____________________)]\n" +
+                    "             0                 0 \n" ;
+    public static final String WELCOME_MESSAGE = "    Hello there Plankton, what can I can do for you?\n";
 
-    public static final String WELCOME_BACK_MESSAGE = " \n" +
-            "                        .-\"\"\"-.\n" +
-            "                       / .//\". \\\n" +
-            "                       \\/ o o \\/\n" +
-            "                       ( \\___/ )\n" +
-            "          ________oooo__\\_____/_____________\n" +
-            "         /                                  \\\n" +
-            "        |         Hello! Welcome back!       |\n" +
-            "        |     What can I can do for you?     |\n" +
-            "         \\______________________oooo________/\n" ;
+    public static final String WELCOME_BACK_MESSAGE = "    Welcome back Plankton, anything else I can do for you?\n";
 
 
     public static void printWelcomeMessage(boolean isFirstRun) {
+        System.out.println(KAREN_LOGO);
         if (isFirstRun) {
-            System.out.println(WELCOME_MESSAGE);
+            printFormattedMessage(WELCOME_MESSAGE);
         } else {
-            System.out.println(WELCOME_BACK_MESSAGE);
+            printFormattedMessage(WELCOME_BACK_MESSAGE);
         }
     }
 
@@ -87,7 +93,7 @@ public abstract class ResponseManager {
 
 
     public static void printGoodByeMessage() {
-        String message = "    Bye, my friend :( \n";
+        String message = "    Bye, Plankton :( \n";
         printFormattedMessage(message);
     }
 
@@ -125,6 +131,5 @@ public abstract class ResponseManager {
         String message = "    Error creating file :(\n";
         printFormattedMessage(message);
     }
-
 
 }

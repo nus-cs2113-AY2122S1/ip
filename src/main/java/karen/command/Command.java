@@ -1,14 +1,14 @@
-package bobby.command;
+package karen.command;
 
-import bobby.manager.FileManager;
-import bobby.exception.IncorrectDescriptionFormatException;
-import bobby.exception.NoDescriptionException;
-import bobby.manager.ResponseManager;
-import bobby.manager.TaskManager;
-import bobby.task.Deadline;
-import bobby.task.Event;
-import bobby.task.Task;
-import bobby.task.ToDo;
+import karen.manager.FileManager;
+import karen.exception.IncorrectDescriptionFormatException;
+import karen.exception.NoDescriptionException;
+import karen.manager.ResponseManager;
+import karen.manager.TaskManager;
+import karen.task.Deadline;
+import karen.task.Event;
+import karen.task.Task;
+import karen.task.ToDo;
 
 import java.io.IOException;
 import java.util.ArrayList;
