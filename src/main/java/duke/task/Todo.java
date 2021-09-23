@@ -24,9 +24,16 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.getStatusIcon() + " " + super.getDescription();
+        return "[T]" +
+                super.getStatusIcon() +
+                " " +
+                super.getDescription();
     }
 
+    /**
+     * Get the information and status of todo task in a certain format for saving
+     * @return String that is formatted and ready to save todo
+     */
     public String toSave() {
         return this.getCode() +
                 LOAD_DELIMITER +

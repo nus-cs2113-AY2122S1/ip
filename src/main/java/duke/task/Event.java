@@ -17,14 +17,26 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Get event date
+     * @return event date
+     */
     public String getDate() {
         return this.date;
     }
 
+    /**
+     * Get start time of event
+     * @return start time
+     */
     public String getStartTime() {
         return this.startTime;
     }
 
+    /**
+     * get end time of event
+     * @return end time
+     */
     public String getEndTime() {
         return this.endTime;
     }
@@ -43,11 +55,23 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.getStatusIcon() + " " + super.getDescription() +
-                " (at: " + this.getDate() + " " + this.getStartTime() +
-                " - " + this.getEndTime() + ")";
+        return "[E]" +
+                super.getStatusIcon() +
+                " " +
+                super.getDescription() +
+                " (at: " +
+                this.getDate() +
+                " " +
+                this.getStartTime() +
+                " - " +
+                this.getEndTime() +
+                ")";
     }
 
+    /**
+     * Get the information and status of event task in a certain format for saving
+     * @return String that is formatted and ready to save event
+     */
     public String toSave() {
         return this.getCode() +
                 LOAD_DELIMITER +

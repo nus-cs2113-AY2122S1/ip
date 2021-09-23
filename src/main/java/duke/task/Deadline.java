@@ -15,10 +15,18 @@ public class Deadline extends Task {
         this.time = time;
     }
 
+    /**
+     * Get due date of deadline task
+     * @return due date
+     */
     public String getDate() {
         return this.date;
     }
 
+    /**
+     * Get due time of deadline task
+     * @return due time
+     */
     public String getTime() {
         return this.time;
     }
@@ -37,10 +45,21 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.getStatusIcon() + " " + super.getDescription() +
-                " (by: " + this.getDate() + " " + this.getTime() + ")";
+        return "[D]" +
+                super.getStatusIcon() +
+                " " +
+                super.getDescription() +
+                " (by: " +
+                this.getDate() +
+                " " +
+                this.getTime() +
+                ")";
     }
 
+    /**
+     * Get the information and status of deadline task in a certain format for saving
+     * @return String that is formatted and ready to save deadline
+     */
     @Override
     public String toSave() {
         return this.getCode() +
