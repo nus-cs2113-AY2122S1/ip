@@ -1,11 +1,12 @@
 package duke;
 
-import duke.exception.EmptyTaskException;
-import duke.exception.InvalidException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.common.Messages;
+import duke.data.exception.EmptyTaskException;
+import duke.data.exception.InvalidException;
+import duke.data.task.Deadline;
+import duke.data.task.Event;
+import duke.data.task.Task;
+import duke.data.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +15,6 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Duke {
 
@@ -24,8 +24,6 @@ public class Duke {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|";
-    private static final String MESSAGE_WELCOME = " Hello! I'm Duke! Tell me what to do! Available commands: todo, deadline, event, list, delete, bye";
-    public static final String MESSAGE_GOODBYE = " Bye! Do visit next time! More upgrades coming soon :-)";
 
     public static final String COMMAND_LIST_WORD = "list";
     public static final String COMMAND_COMPLETED_WORD = "done";
@@ -41,7 +39,45 @@ public class Duke {
 
     public static final String NUMBER_DONE = "1";
 
+
     private static ArrayList<Task> tasks;
+
+//    private Storage storage;
+//    private TaskList tasks;
+//    private Ui ui;
+//
+//    public Duke(String filePath) {
+//        ui = new Ui();
+//        storage = new Storage(filePath);
+//        try {
+//            tasks = new TaskList(storage.load());
+//        } catch (DukeException e) {
+//            ui.showLoadingError();
+//            tasks = new TaskList();
+//        }
+//    }
+//
+//    public void run() {
+//        ui.showWelcome();
+//        boolean isExit = false;
+//        while (!isExit) {
+//            try {
+//                String fullCommand = ui.readCommand();
+//                ui.showLine(); // show the divider line ("_______")
+//                Command c = Parser.parse(fullCommand);
+//                c.execute(tasks, ui, storage);
+//                isExit = c.isExit();
+//            } catch (DukeException e) {
+//                ui.showError(e.getMessage());
+//            } finally {
+//                ui.showLine();
+//            }
+//        }
+//    }
+//
+//    public static void main(String[] args) {
+//        new Duke("data/tasks.txt").run();
+//    }
 
     public static void main(String[] args) {
         showWelcomeMessage();
@@ -146,11 +182,11 @@ public class Duke {
                 throw new InvalidException();
             }
         } catch (InvalidException e) {
-            System.out.println("Sorry I didn't understand that :( Please try again");
+            System.out.println(Messages.MESSAGE_INVALID_COMMAND);
         } catch (EmptyTaskException e) {
-            System.out.println("Oops! Your task description cannot be empty D:");
+            System.out.println(Messages.MESSAGE_EMPTY_TASK_DESCRIPTION);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Oops! The task index doesn't exist! Pls try again");
+            System.out.println(Messages.MESSAGE_INVALID_TASK_INDEX);
         }
     }
 
@@ -174,7 +210,7 @@ public class Duke {
     }
 
     private static void executeExitProgram() {
-        showToUser(DASHES, MESSAGE_GOODBYE, DASHES);
+        showToUser(DASHES, Messages.MESSAGE_GOODBYE, DASHES);
         System.exit(0);
     }
 
@@ -234,7 +270,7 @@ public class Duke {
 
     private static void appendDeadlineToFile(String description, String by) {
         try {
-            writeToFile("E",description,by,false);
+            writeToFile("D",description,by,false);
         } catch (IOException e) {
             System.out.println("IO error!");
         }
@@ -346,15 +382,15 @@ public class Duke {
         } catch (FileNotFoundException e) {
             File f = new File("./data/");
             if (f.mkdir()) {
-                System.out.println("No saved task lists found! Created a new one for you :-)" + System.lineSeparator());
+                System.out.println(Messages.MESSAGE_INIT_NEW_STORAGE_FILE + System.lineSeparator());
             } else {
-                System.out.println("Error! Failed to create data folder...");
+                System.out.println(Messages.MESSAGE_INIT_FAILED);
             }
         }
     }
 
     private static void showWelcomeMessage() {
-        showToUser(DASHES, LOGO, DASHES, MESSAGE_WELCOME, DASHES);
+        showToUser(DASHES, LOGO, DASHES, Messages.MESSAGE_WELCOME, DASHES);
     }
 
     private static void showToUser(String... message) {

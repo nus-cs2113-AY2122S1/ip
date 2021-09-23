@@ -1,4 +1,4 @@
-package duke.exception;
+package duke.data.exception;
 
 public class InvalidException extends Exception{
 }
