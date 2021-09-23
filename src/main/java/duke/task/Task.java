@@ -1,5 +1,9 @@
 package duke.task;
 
+import duke.common.CommonFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class Task {
 
     /**
@@ -58,6 +62,18 @@ public class Task {
     @Override
     public String toString() {
         return " " + " | " + getDoneStatus() + " | " + description;
+    }
+
+    public LocalDateTime convertToLocalDateTime(String s) throws DateTimeParseException {
+        try{
+            return LocalDateTime.parse(s, CommonFormat.formatter);
+        }catch(DateTimeParseException e){
+            throw e;
+        }
+    }
+
+    public String getDate(){
+        return null;
     }
 
 }

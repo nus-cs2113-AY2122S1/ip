@@ -3,6 +3,8 @@ package duke.task;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -134,9 +136,28 @@ public class TaskManager {
     }
 
     public void processContentsFromFile(ArrayList<String> contents) {
+        PrintStream originalStream = System.out;
+        PrintStream noOutputStream = new PrintStream(new OutputStream() {
+            public void write(int b) {
+                // NO-OP
+            }
+        });
+        System.setOut(noOutputStream);
         for (String s : contents) {
-            addTaskFromContent(s);
+            System.out.println(s);
+            try{
+                addTaskFromContent(s);
+            }catch(DateTimeParseException e){
+                System.setOut(originalStream);
+                System.out.printf("Error: Invalid date detected.\n%s\n",s);
+                System.setOut(noOutputStream);
+            }catch(TaskManagerException e){
+                System.setOut(originalStream);
+                System.out.println(e);
+                System.setOut(noOutputStream);
+            }
         }
+        System.setOut(originalStream);
     }
 
     /**
@@ -144,49 +165,37 @@ public class TaskManager {
      *
      * @param contents A task information given by a file input.
      */
-    private void addTaskFromContent(String contents) {
+    private void addTaskFromContent(String contents) throws DateTimeParseException, TaskManagerException {
         String[] contentArray = contents.split("\\|");
-        PrintStream originalStream = System.out;
-        PrintStream noOutputStream = new PrintStream(new OutputStream() {
-            public void write(int b) {
-                // NO-OP
-            }
-        });
-        boolean hasError = false;
-        System.setOut(noOutputStream);
         switch (contentArray[0].trim()) {
         case "[T]":
             if (contentArray.length < 3) {
-                hasError = true;
+                throw new TaskManagerException(getInvalidFileInputMessage(contents));
             }
             createToDoTask(contentArray[2].trim());
             break;
         case "[D]":
             if (contentArray.length < 4) {
-                hasError = true;
+                throw new TaskManagerException(getInvalidFileInputMessage(contents));
             }
             createDeadlineTask(contentArray[2].trim(), contentArray[3].trim());
             break;
         case "[E]":
             if (contentArray.length < 4) {
-                hasError = true;
+                throw new TaskManagerException(getInvalidFileInputMessage(contents));
             }
             createEventTask(contentArray[2].trim(), contentArray[3].trim());
             break;
         default:
-            hasError = true;
-            break;
+            throw new TaskManagerException(getInvalidFileInputMessage(contents));
         }
-        System.setOut(originalStream);
-        if (hasError) {
-            printInvalidFileInput(contents);
-        } else {
-            boolean isDone = false;
-            if (contentArray[1].trim().equals("1")) {
-                isDone = true;
-            }
-            taskList.get(totalNumberOfTasks - 1).setDone(isDone);
+
+        boolean isDone = false;
+        if (contentArray[1].trim().equals("1")) {
+            isDone = true;
         }
+        taskList.get(totalNumberOfTasks - 1).setDone(isDone);
+
     }
 
     /**
@@ -194,8 +203,22 @@ public class TaskManager {
      *
      * @param s The input that trigger the error.
      */
-    private void printInvalidFileInput(String s) {
-        System.out.printf("Error: Invalid input \"%s\"\n", s);
+    private String getInvalidFileInputMessage(String s) {
+        return String.format("Error: Invalid input \"%s\"\n", s);
+    }
+
+    public void printTaskOnDate(String date){
+        for (int i = 0; i < totalNumberOfTasks; i++) {
+            if(doesTaskHasDate(taskList.get(i))){
+                if(taskList.get(i).getDate().equals(date)){
+                    printTask(i);
+                }
+            }
+        }
+    }
+
+    private boolean doesTaskHasDate(Task t){
+        return t instanceof Event || t instanceof Deadline;
     }
 
     public void findTask(String keyword) {
