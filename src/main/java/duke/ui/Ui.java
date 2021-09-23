@@ -1,5 +1,6 @@
 package duke.ui;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 import duke.task.Task;
@@ -117,6 +118,26 @@ public class Ui {
         System.out.print(LINE);
         System.out.println(PADDING + "Here are the tasks in your list:");
         System.out.print(taskList);
+        System.out.println(LINE);
+    }
+
+    /**
+     * Displays to user the task list that occurs at
+     * the specified date.
+     *
+     * @param taskList The initial task list.
+     * @param date The specified date.
+     */
+    public void printTaskWithDate(TaskList taskList, String date) {
+        TaskList filteredTaskList = taskList.filterDate(date);
+
+        System.out.print(LINE);
+        if (filteredTaskList.isEmpty()) {
+            System.out.println(PADDING + "You have no task on " + date + ".");
+        } else {
+            System.out.println(PADDING + "Here are the tasks on " + date + ":");
+            System.out.print(filteredTaskList);
+        }
         System.out.println(LINE);
     }
 }

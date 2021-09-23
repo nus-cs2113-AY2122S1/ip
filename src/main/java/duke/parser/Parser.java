@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.CommandType;
+import duke.command.DateCommand;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.ExitCommand;
@@ -34,6 +35,8 @@ public class Parser {
         CommandType commandType = getCommandType(userResponse);
 
         switch (commandType) {
+        case DATE:
+            return parseDateCommand(userResponse);
         case DEADLINE:
             return parseDeadlineCommand(userResponse);
         case DELETE:
@@ -55,6 +58,17 @@ public class Parser {
         }
     }
 
+    private static Command parseDateCommand(String userResponse) throws DukeException {
+        String param = userResponse.replaceFirst("date", "").strip();
+
+        try {
+            LocalDate date = LocalDate.parse(param);
+            return new DateCommand(date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        } catch (DateTimeParseException e) {
+            throw new DukeException(Message.ERROR_INVALID_DATE);
+        }
+    }
+
     private static Command parseDeadlineCommand(String userResponse) throws DukeException {
         String[] params = userResponse.replaceFirst("deadline", "").split("/by");
         if (params.length != 2) {
@@ -66,17 +80,17 @@ public class Parser {
             throw new DukeException(Message.ERROR_INVALID_COMMAND);
         }
 
-        String dateOrTime = params[1].strip();
-        if (dateOrTime.isBlank()) {
+        String taskDeadline = params[1].strip();
+        if (taskDeadline.isBlank()) {
             throw new DukeException(Message.ERROR_INVALID_COMMAND);
         }
 
         try {
-            LocalDate date = LocalDate.parse(dateOrTime);
+            LocalDate date = LocalDate.parse(taskDeadline);
             return new AddCommand(new Deadline(description,
                     date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
         } catch (DateTimeParseException e) {
-            return new AddCommand(new Deadline(description, dateOrTime));
+            return new AddCommand(new Deadline(description, taskDeadline));
         }
     }
 
@@ -113,17 +127,17 @@ public class Parser {
             throw new DukeException(Message.ERROR_INVALID_COMMAND);
         }
 
-        String dateOrTime = params[1].strip();
-        if (dateOrTime.isBlank()) {
+        String taskPeriod = params[1].strip();
+        if (taskPeriod.isBlank()) {
             throw new DukeException(Message.ERROR_INVALID_COMMAND);
         }
 
         try {
-            LocalDate date = LocalDate.parse(dateOrTime);
+            LocalDate date = LocalDate.parse(taskPeriod);
             return new AddCommand(new Event(description,
                     date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
         } catch (DateTimeParseException e) {
-            return new AddCommand(new Event(description, dateOrTime));
+            return new AddCommand(new Event(description, taskPeriod));
         }
     }
 
