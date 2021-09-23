@@ -20,12 +20,15 @@ import java.util.Scanner;
 public class Assistant {
     public static final String SEPARATOR_SLASH = "/";
 
+    private Storage storage;
     private ArrayList<Task> tasks;
     public static final String FILE_NAME = "duke/data/duke.txt";
     public static final String DIRECTORY_NAME = "duke/data/";
 
+
     public Assistant() {
         tasks = new ArrayList<>();
+        storage = new Storage(FILE_NAME);
     }
 
     public void listTasks() {
@@ -81,7 +84,7 @@ public class Assistant {
             return;
         }
         ArrayList<Task> searchResults = new ArrayList<>();
-        for(Task t : tasks) {
+        for (Task t : tasks) {
             if (t.getTaskName().contains(input.trim())) {
                 searchResults.add(t);
             }
@@ -92,72 +95,17 @@ public class Assistant {
         else {
             System.out.println("Tasks containing " + input.trim() + ":");
             for (int i = 0; i < searchResults.size(); i++) {
-                System.out.println((i + 1) + ". " +  searchResults.get(i).toString());
+                System.out.println((i + 1) + ". " + searchResults.get(i).toString());
             }
         }
     }
 
     public void loadFile() {
-        File saveDataFile = new File(FILE_NAME);
-        File saveDataDirectory = new File(DIRECTORY_NAME);
-        //if save file does not exist, create new file
-        //otherwise, read and load duke.data
-        try {
-            if (!saveDataDirectory.exists()) {
-                saveDataFile.getParentFile().mkdirs();
-            }
-            if (!saveDataFile.exists()) {
-                saveDataFile.createNewFile();
-                System.out.println("No existing save duke.data\nNew file created");
-            }
-            else {
-                Scanner in = new Scanner(saveDataFile);
-                while (in.hasNext()) {
-                    String nextLine = in.nextLine();
-                    String[] inputs = nextLine.split("\\|");
-                    switch (inputs[0]) {
-                    case "T":
-                        addToDo(inputs[2]);
-                        break;
-                    case "E":
-                        String event = inputs[2] + "/" + inputs[3];
-                        addEvent(event);
-                        break;
-                    case "D":
-                        String deadline = inputs[2] + "/" + inputs[3];
-                        addDeadline(deadline);
-                        break;
-                    default:
-                        throw new MissingInputException();
-                    }
-                    if (inputs[1].equals("[X]")) {
-                        tasks.get(tasks.size() - 1).finishTask();
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error loading save file");
-        } catch (MissingInputException e) {
-            System.out.println(e + " contains invalid duke.data");
-        } catch (DateTimeParseException e) {
-            System.out.println("Please enter a valid date");
-            System.out.println("Date should be in the form DDMMYYYY or DD/MM/YYYY or DD-MM-YYYY");
-        }
+        storage.loadData();
     }
 
     public void saveFile() {
-        try {
-            FileWriter fileWriter = new FileWriter(FILE_NAME, false);
-            for (Task task : tasks) {
-                String data = task.exportTask();
-                fileWriter.write(data);
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error writing to save file");
-        }
+        storage.saveFile(tasks);
     }
 
     private LocalDate parseDate(String date) throws DateTimeParseException {
