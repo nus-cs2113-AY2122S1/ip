@@ -47,22 +47,6 @@ public class Ui {
     }
 
     /**
-     * Print error message when file not found
-     * @param e the error message for file not found
-     */
-    public void printFileNotFound(String e) {
-        out.printf(SEPARATOR + LS + FILE_NOT_FOUND + LS, e);
-    }
-
-    /**
-     * Prints error for IOException
-     * @param e the error message for io error
-     */
-    public void printError(String e) {
-        out.println(ERROR + e);
-    }
-
-    /**
      * Prints error for DukeException
      * @param e the error message for duke exception
      */

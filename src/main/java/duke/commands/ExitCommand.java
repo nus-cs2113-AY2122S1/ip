@@ -21,7 +21,7 @@ public class ExitCommand extends Command {
         try {
             storage.save(taskList.getTaskList());
         } catch (IOException e) {
-            ui.printError(e.toString());
+            ui.printDukeException(e.toString());
         }
     }
 

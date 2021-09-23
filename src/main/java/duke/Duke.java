@@ -31,8 +31,8 @@ public class Duke {
 
         try {
             taskList.setTaskList(storage.load());
-        } catch (FileNotFoundException e) {
-            ui.printFileNotFound(e.toString());
+        } catch (DukeException e) {
+            ui.printDukeException(e.toString());
         }
 
         run();
