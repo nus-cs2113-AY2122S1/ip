@@ -68,8 +68,12 @@ public class LizUi {
         return in.nextLine();
     }
 
-    public static void printTaskList(int taskCount, ArrayList<Task> tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public static void printTaskList(int taskCount, ArrayList<Task> tasks, boolean isFind) {
+        if (isFind) {
+            System.out.println("Here are the matching tasks in your list:");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+        }
         for (int i = 0; i < taskCount; i++) {
 
             String taskType = tasks.get(i).getType();
@@ -177,9 +181,9 @@ public class LizUi {
     }
 
     public static void printInvalidCommandMessage() {
-        System.out.println("Sorry bud, but that command is gibberish to me. I can only read 7 words!");
+        System.out.println("Sorry bud, but that command is gibberish to me. I can only read 8 words!");
         System.out.println("The seven words are:");
-        System.out.printf("list%ndone%ndelete%ntodo%ndeadline%nevent%nbye%n");
+        System.out.printf("list%ndone%ndelete%nfind%ntodo%ndeadline%nevent%nbye%n");
     }
 
     public static void printInvalidFormatMessage(String command) {

@@ -13,6 +13,7 @@ public class Parser {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
 
     private static final String TASK_TYPE_ICON_TODO = "T";
     private static final String TASK_TYPE_ICON_DEADLINE = "D";
@@ -39,6 +40,8 @@ public class Parser {
                 return new AddCommand(line, TASK_TYPE_ICON_DEADLINE);
             } else if (command.equals(COMMAND_EVENT)) {
                 return new AddCommand(line, TASK_TYPE_ICON_EVENT);
+            } else if (command.equals(COMMAND_FIND)) {
+                return new FindCommand(lineArgs);
             } else {
                 return new InvalidCommand();
             }
