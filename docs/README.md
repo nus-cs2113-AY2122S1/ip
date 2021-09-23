@@ -1,11 +1,11 @@
 # User Guide
 
-Duke is a java application to manage tasks via command line interface (CLI). This app is expecially beneficial to users who can type fast.
+Duke is a java application to manage tasks via command line interface (CLI). This app is especially beneficial to users who can type fast.
 
 ## Contents of User Guide
-- Quick start
+- [Quick start](#user-content-quick-start)
 - Features
-  1. `help` - View help
+  1. [`help` - View help](#userr-content-help---view-help)
   2. `bye` - Exit program
   3. `list` - List all the tasks created
   4. `todo` - Create a todo task
@@ -21,10 +21,10 @@ Duke is a java application to manage tasks via command line interface (CLI). Thi
 
 ## Quick Start
 1. Ensure that you have java 11 installed in your computer.
-2. Download duke.jar from A-Release tag
+2. Download duke.jar from A-Release tag and store it into a folder.
 3. Store duke.jar file to the file that you would want to store
-4. -- something else --
-5. All time input &lt;time> will require YYYY-MM-DD or YYYY-MM-DD HHMM as input.
+4. Open command prompt(for windows) or terminal(for mac and linux) and change directory to the file 
+5. Run command ```java -jar duke.jar```
 6. Upon start, if you manage to see the message below in your console, you have successfully installed and run duke.jar
 ```text
 Hello from
@@ -51,6 +51,8 @@ F
 
 2. Some commands require additional keywords to ensure correct input. Without those additional keywords, the command will be deemed as invalid.
    - Example of commands that require additional keywords are `deadline` and `event`
+   
+3. All time input &lt;time> will require YYYY-MM-DD or YYYY-MM-DD HHMM as input.
 
 ### `help` - View help
 
@@ -222,14 +224,25 @@ sort time
 ### Frequently Asked Questions(FAQ)
 
 1. Q: Is it possible to save all the task and access the tasks again? 
-   A: Yep all the tasks will be saved in the duke.txt file in the folder that you have run your command.
+    
+   A: Yes, all the tasks will be saved in the duke.txt file in the folder that you have run your command.
       Make sure you run the duke.jar in the same folder everytime you start the application, so that you can
       access to all the last saved file.
 
       If you want to shift the application to other computer, be sure to copy the duke.jar and duke.txt file
       to the new computer. Losing the duke.txt file means that all saved tasks would be gone.
 
+3. Q: Is there a way to edit tasks without CLI?
 
+   A: Yes, you cna edit the tasks before you start or after you end the application. There will be a text file
+      that stores all the files in certain format. However, please ensure that all tasks are in the correct format,
+      or you might have the risk of the task list being corrupted.
+
+4. Q: There is a file called duke.txt being generated. Should I treat it as an unwanted file and delete it?
+   
+   A: The file is used to store all the tasks you have recorded down in the application. Deleting the file means that
+      all the tasks saved by the program will be deleted. Unless you want a clean task list, it is not advisable to perform
+      that action.
 
 ## Command Summary
 
