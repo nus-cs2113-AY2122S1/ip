@@ -10,6 +10,9 @@ public class FailedCommand extends Command {
         this.type = type;
     }
 
+    /**
+     * This method responds with the appropriate error message for any FailedCommands.
+     */
     public void execute() {
         switch (type) {
         case GENERAL:

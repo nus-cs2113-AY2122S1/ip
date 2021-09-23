@@ -41,6 +41,11 @@ public class Parser {
     private final int SPLIT_TASK_DESCRIPTION_INDEX = 0;
     private final int SPLIT_TASK_DATE_INDEX = 1;
 
+    /**
+     * This method parses the user's input and deciphers which command should be executed.
+     * @param userInput User's input to be parsed
+     * @return Command This returns a command to be executed by Alfred
+     */
     public Command parseCommand(String userInput) {
         String commandType = getCommandType(userInput);
         Command command;
@@ -71,15 +76,31 @@ public class Parser {
         return command;
     }
 
+    /**
+     * This method converts user's index input into the actual TaskList index.
+     * @param inputIndex User's index input
+     * @return int The actual Task index in TaskList
+     */
     private int parseInputIndex(int inputIndex) {
         return inputIndex - 1;
     }
 
+    /**
+     * This method destructures the user's input to obtain command type for parsing.
+     * @param userInput User's complete input
+     * @return String Type of command to be parsed
+     */
     private String getCommandType(String userInput) {
         String[] destructuredInputs = userInput.split(" ");
         return destructuredInputs[COMMAND_TYPE_INDEX];
     }
 
+    /**
+     * This method destructures the user's input to obtain the Task's index to mark as complete. It will return a
+     * CompleteTaskCommand if the given userInput is not erroneous, and will return a FailedCommand if it is.
+     * @param userInput User's complete input
+     * @return Command Type of command to be executed
+     */
     private Command parseCompleteCommand(String userInput) {
         String[] destructuredInputs = userInput.split(" ");
         int taskIndex;
@@ -94,6 +115,12 @@ public class Parser {
         return new CompleteTaskCommand(taskIndex);
     }
 
+    /**
+     * This method destructures the user's input to decipher what Task to add to the TaskList. It will further parse
+     * the input based on the Task type, and if input is erroneous, it will return a FailedCommand.
+     * @param userInput User's complete input
+     * @return Command Type of command to execute for adding Task
+     */
     private Command parseAddTaskCommand(String userInput) {
         String commandType = getCommandType(userInput);
         String[] destructuredInputs = userInput.split(" ", 2);
@@ -122,6 +149,12 @@ public class Parser {
         }
     }
 
+    /**
+     * This method parses the User's input into a Todo Task to be used as arguments for the AddTaskCommand.
+     * @param inputs Destructured user's inputs
+     * @return Command This returns AddTaskCommand
+     * @throws EmptyDescriptionException If task description is empty
+     */
     private Command parseTodo(String[] inputs) throws EmptyDescriptionException {
         if (inputs.length < 2) {
             throw new EmptyDescriptionException();
@@ -130,6 +163,14 @@ public class Parser {
         return new AddTaskCommand(TODO_TYPE, todoDescription, EMPTY_DATE);
     }
 
+    /**
+     * This method parses the User's input into an Event Task to be used as arguments for the AddTaskCommand.
+     * @param inputs Destructured user's inputs
+     * @return Command This returns AddTaskCommand
+     * @throws EmptyDescriptionException If task description is empty
+     * @throws MissingDateException If date provided is provided
+     * @throws DateTimeParseException If date provided is not formatted correctly
+     */
     private Command parseEvent(String[] inputs) throws EmptyDescriptionException, MissingDateException,
             DateTimeParseException {
 
@@ -146,6 +187,14 @@ public class Parser {
         return new AddTaskCommand(EVENT_TYPE, eventDescription, eventDate);
     }
 
+    /**
+     * This method parses the User's input into a Deadline Task to be used as arguments for the AddTaskCommand.
+     * @param inputs Destructured user's inputs
+     * @return Command This returns AddTaskCommand
+     * @throws EmptyDescriptionException If task description is empty
+     * @throws MissingDateException If date provided is not formatted correctly
+     * @throws DateTimeParseException If date provided is not formatted correctly
+     */
     private Command parseDeadline(String[] inputs) throws EmptyDescriptionException, MissingDateException,
             DateTimeParseException {
 
@@ -162,6 +211,11 @@ public class Parser {
         return new AddTaskCommand(DEADLINE_TYPE, deadlineDescription, deadlineDate);
     }
 
+    /**
+     * This method parses the User's input to obtain the Task index for DeleteTaskCommand
+     * @param userInput User's complete input
+     * @return Command Type of command to be executed
+     */
     private Command parseDeleteCommand(String userInput) {
         String[] destructuredInputs = userInput.split(" ");
         int taskIndex;
@@ -176,6 +230,11 @@ public class Parser {
         return new DeleteTaskCommand(taskIndex);
     }
 
+    /**
+     * This method destructures user's input to perform a find query based on the query term.
+     * @param userInput User's complete input
+     * @return Command Type of command to be executed
+     */
     private Command parseFindCommand(String userInput) {
         String[] destructuredInputs = userInput.split(" ", 2);
         String query;

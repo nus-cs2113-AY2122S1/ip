@@ -19,6 +19,9 @@ public class AddTaskCommand extends Command {
         this.taskDate = taskDate;
     }
 
+    /**
+     * This method adds a Task to the TaskList based on the given command.
+     */
     public void execute() {
         Task addedTask;
         switch (taskType) {

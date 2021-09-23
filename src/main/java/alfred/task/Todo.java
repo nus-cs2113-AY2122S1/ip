@@ -11,6 +11,11 @@ public class Todo extends Task {
         return "T";
     }
 
+    /**
+     * This method retrieves the date specified for Todo.
+     * However, as Todos have no date, it only returns a null LocalDate object.
+     * @return LocalDate Returns null LocalDate object
+     */
     public LocalDate getDate() {
         return null;
     }

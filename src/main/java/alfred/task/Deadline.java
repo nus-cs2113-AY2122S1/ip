@@ -11,6 +11,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * This method retrieves the date specified for Deadline.
+     * @return LocalDate This returns LocalDate deadline date
+     */
     public LocalDate getDate() {
         return by;
     }

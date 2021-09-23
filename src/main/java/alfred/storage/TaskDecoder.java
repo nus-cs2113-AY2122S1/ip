@@ -14,6 +14,13 @@ import java.util.Scanner;
 import static alfred.storage.Storage.SEPARATOR;
 
 public class TaskDecoder {
+    /**
+     * This method scans the entire given taskFile and compiles the found Tasks in a format which is compatible with
+     * the chat-bot.
+     * @param taskFile The File to be scanned
+     * @return TaskList This returns a TaskList with all the pre-existing Tasks
+     * @throws FileErrorException If there are errors reading from local file
+     */
     public static TaskList scanTasks(File taskFile) throws FileErrorException {
         TaskList scannedTaskList = new TaskList();
         int taskIndex = 0;
@@ -30,6 +37,12 @@ public class TaskDecoder {
         return scannedTaskList;
     }
 
+    /**
+     * This method constructs the chat-bot compatible TaskList from lines of input provided saved.
+     * @param taskList TaskList object to construct upon
+     * @param input Saved input line to be deciphered
+     * @param taskIndex Index of Task in TaskList for marking Task as done
+     */
     private static void decodeAndLoadTask(TaskList taskList, String input, int taskIndex) {
         String[] destructuredInputs = input.split(SEPARATOR);
         String taskType = destructuredInputs[0];

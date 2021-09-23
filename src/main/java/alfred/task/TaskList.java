@@ -13,6 +13,11 @@ public class TaskList {
         tasks.add(task);
     }
 
+    /**
+     * This method removes a Task from the TaskList given an index.
+     * @param index The index of the Task to be removed
+     * @return Task The Task removed is returned
+     */
     public Task removeTask(int index) {
         Task removedTask = tasks.get(index);
         tasks.remove(index);
@@ -27,6 +32,11 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * This method allows the user to set a Task as done via the TaskList
+     * by specifying the index.
+     * @param index The index of Task to be marked as done
+     */
     public void setTaskDoneInList(int index) {
         tasks.get(index).setTaskDone();
     }

@@ -13,6 +13,12 @@ public class Alfred {
     private String filePath;
     private TaskList taskList;
 
+    /**
+     * This constructor is used to set up the Alfred chat-bot by instantiating a new
+     * TextUi, Storage (with the specified filePath), and Parser. It will attempt to
+     * either load an existing storage file, or create a new one.
+     * @param filePath This is the filePath specified for Storage creation
+     */
     public Alfred(String filePath) {
         this.textUi = new TextUi();
         this.storage = new Storage(filePath);
@@ -25,6 +31,10 @@ public class Alfred {
         }
     }
 
+    /**
+     * This method retrieves user input via the TextUi class, parses it, and executes
+     * the deciphered command. This method can be exited using the "bye" exit command.
+     */
     private void run() {
         Command command;
         do {
@@ -34,6 +44,12 @@ public class Alfred {
         } while (!command.isExit());
     }
 
+    /**
+     * This method sets the TaskList context for commands to execute in before executing
+     * them. It will also save the TaskList locally using the initial filePath after
+     * every command execution.
+     * @param command The parsed command to be executed
+     */
     private void runCommandProcedure(Command command) {
         try {
             command.setTaskList(taskList);

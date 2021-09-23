@@ -6,6 +6,11 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * This constructor instantiates a new Task with a description provided, and a
+     * default false for its isDone status.
+     * @param description The Task description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -32,6 +37,9 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * This method sets the Task as done/completed.
+     */
     public void setTaskDone() {
         this.isDone = true;
     }

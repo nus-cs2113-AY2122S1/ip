@@ -10,6 +10,9 @@ public class DeleteTaskCommand extends Command {
         taskIndex = index;
     }
 
+    /**
+     * This method deletes a Task from TaskList given an index.
+     */
     public void execute() {
         try {
             Task removedTask = taskList.removeTask(taskIndex);

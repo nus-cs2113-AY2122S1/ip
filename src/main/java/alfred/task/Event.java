@@ -11,6 +11,10 @@ public class Event extends Task {
         this.at = at;
     }
 
+    /**
+     * This method retrieves the date specified for Event.
+     * @return This returns LocalDate event date
+     */
     public LocalDate getDate() {
         return at;
     }

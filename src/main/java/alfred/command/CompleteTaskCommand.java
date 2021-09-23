@@ -1,5 +1,6 @@
 package alfred.command;
 
+import alfred.task.Task;
 import alfred.ui.TextUi;
 
 public class CompleteTaskCommand extends Command {
@@ -9,11 +10,14 @@ public class CompleteTaskCommand extends Command {
         taskIndex = index;
     }
 
+    /**
+     * This method sets a Task as done based on its given index.
+     */
     public void execute() {
         try {
             taskList.setTaskDoneInList(taskIndex);
-            String completedTaskDescription = taskList.getTask(taskIndex).getDescription();
-            TextUi.completeTaskMessage(taskIndex, completedTaskDescription);
+            Task completedTask = taskList.getTask(taskIndex);
+            TextUi.completeTaskMessage(taskIndex, completedTask);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             TextUi.uninitialisedTaskIndexMessage(taskList.getSize());
         }
