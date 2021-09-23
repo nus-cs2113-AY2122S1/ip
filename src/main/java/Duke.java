@@ -32,6 +32,7 @@ public class Duke {
     protected static void addCommands() {
         commands.add("done");
         commands.add("todo");
+        commands.add("event");
         commands.add("deadline");
         commands.add("delete");
         commands.add("list");
