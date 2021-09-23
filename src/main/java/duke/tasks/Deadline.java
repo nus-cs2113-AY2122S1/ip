@@ -68,47 +68,4 @@ public class Deadline extends Task {
         }
         return false;
     }
-
-    /**
-    private boolean isDate(String args) {
-        if (!args.contains("-")) {
-            return false;
-        } else {
-            String[] dateArray = args.split("-");
-            if (dateArray.length < 3) {
-                return false;
-            }
-            if (!(dateArray[0].length() == 2 && dateArray[1].length() == 2 && dateArray[2].length() == 4)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean isTime(String args) {
-        char[] chars = args.toCharArray();
-        if (chars.length == 4) {
-            for (char c : chars) {
-                if (Character.isDigit(c)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean isDateTime(String args) {
-        if (!(args.length() == 2)) {
-            return false;
-        } else {
-            String[] dateTimeArray = args.split(" ");
-            String dateString = dateTimeArray[0];
-            String timeString = dateTimeArray[1];
-            if (!(isDate(dateString)) || !(isTime(timeString))) {
-                return false;
-            }
-        }
-        return true;
-    }
-     **/
 }
