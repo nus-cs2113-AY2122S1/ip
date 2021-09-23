@@ -1,6 +1,7 @@
 public class Parser {
     private final static String TASK_TYPE_DONE = "done";
     private final static String TASK_TYPE_DELETE = "delete";
+    private final static String TASK_TYPE_FIND = "find";
 
     private final static String TASK_EXIT = "bye";
     private final static String TASK_LIST = "list";
@@ -26,7 +27,7 @@ public class Parser {
         if (taskType.equals(TASK_TYPE_DEADLINE) || taskType.equals(TASK_TYPE_TODO) ||
                 taskType.equals(TASK_TYPE_EVENT) || taskType.equals(TASK_EXIT) ||
                 taskType.equals(TASK_LIST) || taskType.equals(TASK_TYPE_DONE)
-                || taskType.equals(TASK_TYPE_DELETE)) {
+                || taskType.equals(TASK_TYPE_DELETE) || taskType.equals(TASK_TYPE_FIND)) {
             return taskType;
         } else {
             throw new InvalidTaskTypeException();
@@ -85,7 +86,12 @@ public class Parser {
         return taskNumber;
     }
 
-    public Command parseUserInput(String userInput) throws InvalidTaskTypeException {
+    private String getTaskToFind(String userInput) throws EmptyDescriptionException {
+        String taskToFind = getTask(userInput);
+        return taskToFind;
+    }
+
+    public Command parseUserInput(String userInput) throws InvalidTaskTypeException, EmptyDescriptionException {
         String taskType = getTaskTypeFromUserInput(userInput);
         switch (taskType) {
             case TASK_TYPE_TODO:
@@ -104,6 +110,9 @@ public class Parser {
             case TASK_TYPE_DELETE:
                 int deleteTaskNumber = getTaskNumber(userInput);
                 return new DeleteCommand(deleteTaskNumber);
+            case TASK_TYPE_FIND:
+                String taskToFind = getTaskToFind(userInput);
+                return new FindCommand(taskToFind);
             default:
                 throw new InvalidTaskTypeException();
         }

@@ -20,10 +20,13 @@ public class Duke {
                 String userInput = ui.readUserInput();
                 Command userCommand = parser.parseUserInput(userInput);
                 userCommand.execute(taskList, ui, dukeStorage);
-                ui.printNextLine();
                 userExit = userCommand.exit();
             } catch (InvalidTaskTypeException e) {
                 e.printExceptionMessage();
+            } catch (EmptyDescriptionException e) {
+                e.printExceptionMessage();
+            } finally {
+                ui.printNextLine();
             }
         }
     }
