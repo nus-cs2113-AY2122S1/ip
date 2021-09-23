@@ -9,6 +9,7 @@ import duke.task.Todo;
 import duke.ui.Ui;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class Command {
 
@@ -18,13 +19,13 @@ public class Command {
         Storage.saveData();
     }
 
-    public static void addDeadline(String description, String by) throws IOException {
+    public static void addDeadline(String description, LocalDateTime by) throws IOException {
         Duke.tasks.add(Task.getTaskCount(), new Deadline(description, by));
         Ui.printAddMessage();
         Storage.saveData();
     }
 
-    public static void addEvent(String description, String at) throws IOException {
+    public static void addEvent(String description, LocalDateTime at) throws IOException {
         Duke.tasks.add(Task.getTaskCount(), new Event(description, at));
         Ui.printAddMessage();
         Storage.saveData();
