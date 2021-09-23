@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Duke project
+=======
+# Duke project 
+>>>>>>> 0bd3660e054074bd76f1ac8d14d6f67db33bf796
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
@@ -8,11 +12,19 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 
 1. `Todo <taskname_here>` This creates a simple Todo task.
 2. `Deadline <taskname_here> /by <date_here>` This creates a Deadline task.
+<<<<<<< HEAD
    - Example:
    - `deadline math assignment /by 12 october, 2019`
 3. `Event <taskname_here> /at <date_here>` This creates an Event task.
    - Example:
    - `event Christmas Dinner /at 25 December, 2022`
+=======
+    - Example:
+    - `deadline math assignment /by 12 october, 2019`
+3. `Event <taskname_here> /at <date_here>` This creates an Event task.
+    - Example:
+    - `event Christmas Dinner /at 25 December, 2022`
+>>>>>>> 0bd3660e054074bd76f1ac8d14d6f67db33bf796
 4. `find <search_query_here>` This prints out any task that contains `<search_query_here>`
 5. `done <task_number>` This marks the task as done.
 6. `delete <task_number>` This deletes the task from the task list.
