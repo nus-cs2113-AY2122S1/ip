@@ -4,8 +4,7 @@ import duke.exception.*;
 import java.util.ArrayList;
 
 
-public class TaskManager {
-    public static final String MESSAGE_DIVIDER = "____________________________________________________________";
+public class Parser {
     boolean valid;
     public final ArrayList<Task> tasks;
     int[] taskDone = new int[100]; //this array stores 1 or 0 - task done or not
@@ -21,7 +20,7 @@ public class TaskManager {
     };
 
 
-    public TaskManager(ArrayList<Task> tasks) {
+    public Parser(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -65,14 +64,8 @@ public class TaskManager {
                 String deadlineDescription = secondSplit[0];
                 String deadlineDate = secondSplit[1];
                 Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
-                tasks.add(newDeadline);
-
-                System.out.println(MESSAGE_DIVIDER);
-                System.out.println("[DUKE:]");
-                System.out.println("...understood.");
-                System.out.println("============= TASK ACQUIRED: " + newDeadline + "=============");
-                System.out.println("current execution total: " + tasks.size());
-                System.out.println(MESSAGE_DIVIDER);
+                TaskList.addTask(newDeadline,tasks);
+                Ui.printTaskAcquired(newDeadline, tasks);
 
             } else if (line.startsWith("todo")) {
                 String[] todoSplit = line.split(" ", 2);
@@ -81,14 +74,8 @@ public class TaskManager {
                 }
                 String todoDescription = todoSplit[1];
                 ToDo newToDo = new ToDo(todoDescription);
-                tasks.add(newToDo);
-
-                System.out.println(MESSAGE_DIVIDER);
-                System.out.println("[DUKE:]");
-                System.out.println("...understood.");
-                System.out.println("============= TASK ACQUIRED: " + newToDo + "=============");
-                System.out.println("current execution total: " + tasks.size());
-                System.out.println(MESSAGE_DIVIDER);
+                TaskList.addTask(newToDo,tasks);
+                Ui.printTaskAcquired(newToDo, tasks);
 
             } else if (line.startsWith("event")) {
                 String[] firstSplit = line.split(" ", 2);
@@ -102,26 +89,16 @@ public class TaskManager {
                 String eventDescription = secondSplit[0];
                 String eventDate = secondSplit[1];
                 Event newEvent = new Event(eventDescription, eventDate);
-                tasks.add(newEvent);
-
-                System.out.println(MESSAGE_DIVIDER);
-                System.out.println("[DUKE:]");
-                System.out.println("...understood.");
-                System.out.println("============= TASK ACQUIRED: " + newEvent + "=============");
-                System.out.println("current execution total: " + tasks.size());
-                System.out.println(MESSAGE_DIVIDER);
+                TaskList.addTask(newEvent,tasks);
+                Ui.printTaskAcquired(newEvent, tasks);
             }
 
             if (line.startsWith("print commands")) {
-                System.out.println("VALID COMMANDS ARE:");
-                for (int i = 1; i < validCommands.length; i++) {
-                    System.out.print(validCommands[i] +" ");
-                }
-                System.out.print("\n");
+                Ui.printCommands(validCommands);
             }
 
             if (line.contains("list")) {
-                printList(tasks); //print the current list
+                Ui.printList(tasks); //print the current list
 
             } else if (line.startsWith("done")) {
                 String[] number = line.split(" ");
@@ -130,7 +107,7 @@ public class TaskManager {
                 }
                 int taskNumber = Integer.parseInt(number[1]);
                 if (taskNumber <= tasks.size()) {
-                    taskDone[doneTask(taskNumber, tasks)] = 1; //mark task as done in memory
+                    taskDone[TaskList.doneTask(taskNumber, tasks)] = 1; //mark task as done in memory
                 } else {
                     throw new NoSuchTaskException();
                 }
@@ -141,15 +118,12 @@ public class TaskManager {
                 }
                 int taskNumber = Integer.parseInt(number[1]);
                 if (taskNumber <= tasks.size()) {
-                    deleteTask(taskNumber, tasks); //mark task as done in memory
+                    TaskList.deleteTask(taskNumber, tasks); //mark task as done in memory
                 } else {
                     throw new NoSuchTaskException();
                 }
-            } else if (!line.startsWith("bye")) {
-                System.out.println(MESSAGE_DIVIDER);
-                System.out.println("[The Templar:]");
-                System.out.println("What further assistance do you require?");
-                System.out.println(MESSAGE_DIVIDER);
+            } if (!line.startsWith("bye")) {
+                Ui.printService();
             }
 
         }
@@ -171,46 +145,6 @@ public class TaskManager {
         catch (NoSuchTaskException noSuchTaskException) {
             noSuchTaskException.printNoSuchTaskException();
         }
-    }
-
-    /*
-    method returns which task (in tasks array) has been completed and also prints the result
-    *
-    @params taskNumber the input string
-    @params tasks the array of tasks
-    *
-    @return the task (in tasks array) that has been marked done
-     */
-    public static int doneTask(int taskNumber, ArrayList<Task> tasks) {
-        tasks.get(taskNumber - 1).setDone(true); //mark task as done
-        System.out.println("TARGET NEUTRALISED: " + taskNumber + ". " + tasks.get(taskNumber - 1));
-        return taskNumber - 1;
-
-    }
-
-
-    public static void deleteTask(int taskNumber, ArrayList<Task> tasks) {
-        System.out.println("TARGET REMOVED: " + taskNumber + ". " + tasks.get(taskNumber - 1));
-        tasks.remove(taskNumber-1);
-    }
-
-
-
-    /*
-    method prints the current updated task list when called
-    *
-    @params tasks the array of tasks
-     */
-    public static void printList(ArrayList<Task> tasks) {
-        System.out.println(MESSAGE_DIVIDER);
-        System.out.println("PENDING HIT LIST:");
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.size() != 0) {
-                System.out.println(i + 1 + "." + tasks.get(i));
-            }
-        }
-        System.out.println(MESSAGE_DIVIDER);
-
     }
 
     public static boolean isNumerical(String input) {

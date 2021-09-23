@@ -11,13 +11,12 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DataManager {
+public class Storage {
 
-    public static final String MESSAGE_DIVIDER = "____________________________________________________________";
     private final File saveFile;
     private final String filePath;
 
-    public DataManager(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
         this.saveFile = new File(filePath);
     }
@@ -29,9 +28,9 @@ public class DataManager {
 
     }
 
-    public TaskManager loadSave (ArrayList<Task> tasks) throws FileNotFoundException {
+    public Parser loadSave (ArrayList<Task> tasks) throws FileNotFoundException {
 
-        TaskManager TM = new TaskManager(tasks);
+        Parser TM = new Parser(tasks);
         try {
             Scanner in = new Scanner(saveFile);
 
@@ -68,23 +67,17 @@ public class DataManager {
 
         }
         catch (FileNotFoundException fileNotFoundException) {
-            System.out.println(MESSAGE_DIVIDER);
-            System.out.println("[Templar:] ");
-            System.out.println("It appears your file cannot be found, Hero. Lets create one, shall we?");
-            System.out.println(MESSAGE_DIVIDER);
+            Ui.printFileNotFoundExceptionMsg();
             try {
                 createFile();
             } catch (IOException ioException) {
-                System.out.println(MESSAGE_DIVIDER);
-                System.out.println("[Templar:] ");
-                System.out.println("Your file failed to create, Hero.");
-                System.out.println(MESSAGE_DIVIDER);
+                Ui.printCreateFailMsg();
             }
         }
         return TM;
     }
 
-    public void writeSave(TaskManager TM) throws IOException {
+    public void writeSave(Parser TM) throws IOException {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
 
@@ -93,10 +86,7 @@ public class DataManager {
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println(MESSAGE_DIVIDER);
-            System.out.println("[Templar:] ");
-            System.out.println("Your file failed to write, Hero.");
-            System.out.println(MESSAGE_DIVIDER);
+            Ui.printWriteFailMsg();
         }
     }
 

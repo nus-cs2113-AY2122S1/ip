@@ -1,2 +1,5 @@
-[T][ ] pee  
-[D][x] poo (by: tmr) 
+[T][ ] pee       
+[T][x] kill keaton     
+[D][ ] play halo (by: tmr) 
+[T][ ] chicken rice    
+[E][ ] AAG MTA (at: 9.30am tmr) 
