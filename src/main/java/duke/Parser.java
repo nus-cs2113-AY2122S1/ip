@@ -13,6 +13,7 @@ public class Parser {
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
 
     public static boolean processCommand(String userInput) {
         try {
@@ -26,6 +27,9 @@ public class Parser {
                 return true;
             } else if (userInput.startsWith(COMMAND_DELETE)) {
                 TaskList.deleteTask(userInput);
+                return true;
+            } else if (userInput.startsWith(COMMAND_FIND)) {
+                TaskList.callFindTasks(userInput);
                 return true;
             } else {
                 TaskList.addTaskToList(userInput);
