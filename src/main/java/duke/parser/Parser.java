@@ -64,6 +64,7 @@ public class Parser {
             break;
         case FindCommand.COMMAND_WORD:
             command = new FindCommand(getCommandData(userInput));
+            break;
         case DateCommand.COMMAND_WORD:
             command = executeDateCommand(userInput);
             break;
