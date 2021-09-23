@@ -46,15 +46,21 @@ public class DukeUI {
         System.out.println();
     }
 
-    public static void printTaskList(ArrayList<Task> tasks) {
+    public static void printTaskList(ArrayList<Task> tasks, boolean isSearchedList) {
         drawHorizontalLine();
-        if (tasks.size() == 0) {
-            System.out.println("No task added yet!");
+        String status;
+        if (isSearchedList && tasks.size() == 0) {
+            status = "Sorry, I can't found any related task :(((((";
+        } else if (!isSearchedList && tasks.size() == 0) {
+            status = "No task added yet!";
+        } else if (!isSearchedList && tasks.size() != 0) {
+            status = "Here is your list at the moment:";
         } else {
-            System.out.println("Here is your list at the moment:");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.printf("%d. %s" + LINEBREAK, i + 1, tasks.get(i).toString());
-            }
+            status = "Here is the list of task with matching keywords";
+        }
+        System.out.println(status);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf("%d. %s" + LINEBREAK, i + 1, tasks.get(i).toString());
         }
         drawHorizontalLine();
     }
