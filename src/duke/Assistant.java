@@ -75,6 +75,28 @@ public class Assistant {
         tasks.remove(index);
     }
 
+    public void findTask(String input) {
+        if (input.trim().isEmpty()) {
+            System.out.println("Please enter a valid input");
+            return;
+        }
+        ArrayList<Task> searchResults = new ArrayList<>();
+        for(Task t : tasks) {
+            if (t.getTaskName().contains(input.trim())) {
+                searchResults.add(t);
+            }
+        }
+        if (searchResults.isEmpty()) {
+            System.out.println("No results found");
+        }
+        else {
+            System.out.println("Tasks containing " + input.trim() + ":");
+            for (int i = 0; i < searchResults.size(); i++) {
+                System.out.println((i + 1) + ". " +  searchResults.get(i).toString());
+            }
+        }
+    }
+
     public void loadFile() {
         File saveDataFile = new File(FILE_NAME);
         File saveDataDirectory = new File(DIRECTORY_NAME);
@@ -127,8 +149,8 @@ public class Assistant {
     public void saveFile() {
         try {
             FileWriter fileWriter = new FileWriter(FILE_NAME, false);
-            for (int i = 0; i < tasks.size(); i++) {
-                String data = tasks.get(i).exportTask();
+            for (Task task : tasks) {
+                String data = task.exportTask();
                 fileWriter.write(data);
             }
             fileWriter.close();
