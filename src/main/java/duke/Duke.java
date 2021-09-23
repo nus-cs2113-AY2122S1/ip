@@ -14,12 +14,15 @@ import java.time.LocalDate;
 
 public class Duke {
 
+    private static Storage storage;
+
     private static int byeFlag = 0;
     private static int loadFlag = 0;
     private static int positionCheck = 0;
 
     private static ArrayList<Task> commands = new ArrayList<>();
 
+    private static String filePath = "Tasks.txt";
     private static void sendCommand() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -42,7 +45,7 @@ public class Duke {
         }
     }
 
-    private static void checkCommand(String line) throws DukeException, IOException {
+    public static void checkCommand(String line) throws DukeException, IOException {
         String[] input = line.split(" ");
         String firstWord = input[0];
         if (input.length == 1) {
@@ -124,7 +127,7 @@ public class Duke {
                 if (loadFlag == 1) {
                     System.out.println("Added to Galactic database:" );
                     System.out.println(commands.get(positionCheck));
-                    saveNewTask(input);
+                    storage.saveNewTask(input);
                 }
                 positionCheck += 1;
                 return;
@@ -150,7 +153,7 @@ public class Duke {
                 if (loadFlag == 1) {
                     System.out.println("Added to Galactic database:");
                     System.out.println(commands.get(positionCheck));
-                    saveNewTask(input);
+                    storage.saveNewTask(input);
                 }
                 positionCheck += 1;
                 return;
@@ -171,7 +174,7 @@ public class Duke {
             if (loadFlag == 1) {
                 System.out.println("Added to Galactic database:");
                 System.out.println(commands.get(positionCheck));
-                saveNewTask(input);
+                storage.saveNewTask(input);
             }
             positionCheck += 1;
         }
@@ -249,7 +252,7 @@ public class Duke {
         if (loadFlag == 1) {
             System.out.println("The following task has been marked as done Master!");
             System.out.println((doneTaskNumber + 1) + ". " + commands.get(doneTaskNumber));
-            saveAllTasks();
+            storage.saveAllTasks(commands);
         }
     }
 
@@ -259,13 +262,14 @@ public class Duke {
         commands.remove(commands.get(doneTaskNumber));
         positionCheck -= 1;
         System.out.println("Goodbye Task, may the force be with you. You have " + positionCheck + " task(s) left Master");
-        saveAllTasks();
+        storage.saveAllTasks(commands);
     }
 
     public static void greetUser() {
         System.out.println(Response.GREETINGS);
     }
 
+    /*
     public static void saveNewTask(String[] input) throws IOException {
         String filePath = new File("Tasks.txt").getAbsolutePath();
         FileWriter fw = new FileWriter(filePath, true);
@@ -300,6 +304,7 @@ public class Duke {
             Files.write(Paths.get(filePath), fullTaskAsString.getBytes(), StandardOpenOption.APPEND);
         }
     }
+     */
 
     public static void loadTasks() throws DukeException, IOException {
         String filePath = new File("Tasks.txt").getAbsolutePath();
@@ -334,6 +339,7 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException, IOException {
+        storage = new Storage(filePath);
         try {
             loadTasks();
         } catch (FileNotFoundException e) {
