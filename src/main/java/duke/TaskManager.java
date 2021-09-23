@@ -164,7 +164,7 @@ public class TaskManager {
         }
 
         ArrayList<Task> relatedTasks = (ArrayList<Task>) tasks.stream()
-                .filter((t) -> t.getDescription().contains(term))
+                .filter((t) -> t.getDescription().toLowerCase().contains(term))
                 .collect(Collectors.toList());
 
         if (relatedTasks.isEmpty()) {
