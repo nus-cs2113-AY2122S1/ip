@@ -90,14 +90,14 @@ public class FileManager {
             }
             break;
         case ("D"):
-            String taskDeadline = taskItem[3];
+            String taskDeadline = taskItem[3].trim();
             taskManager.addDeadlineTaskToList(taskName + "/by " + taskDeadline);
             if (statusIcon.contains("X")) {
                 taskManager.markTaskAsDone("done " + taskNumber);
             }
             break;
         case ("E"):
-            String taskTime = taskItem[3];
+            String taskTime = taskItem[3].trim();
             taskManager.addEventTaskToList(taskName + "/at " + taskTime);
             if (statusIcon.contains("X")) {
                 taskManager.markTaskAsDone("done " + taskNumber);

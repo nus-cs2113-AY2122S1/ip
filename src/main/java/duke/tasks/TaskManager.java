@@ -33,9 +33,6 @@ public class TaskManager {
     public static void printTaskList() {
         System.out.println(LINE_SEPARATOR);
         for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.size() == 0) {
-                break;
-            }
             System.out.print((i + 1) + ". ");
             System.out.println(taskList.get(i).toString());
         }
@@ -97,7 +94,7 @@ public class TaskManager {
      **/
     public static void addDeadlineTaskToList(String args) {
         String description = args.substring(0, args.indexOf(BY_DIVIDER)).trim();
-        String time = args.substring(args.indexOf(BY_DIVIDER) + 4);
+        String time = args.substring(args.indexOf(BY_DIVIDER) + 4).trim();
         Deadline t = new Deadline(description, time);
         taskList.add(t);
         numberOfTasksUndone++;
@@ -113,7 +110,7 @@ public class TaskManager {
      **/
     public static void addEventTaskToList(String args) {
         String description = args.substring(0, args.indexOf(AT_DIVIDER)).trim();
-        String time = args.substring(args.indexOf(AT_DIVIDER) + 4);
+        String time = args.substring(args.indexOf(AT_DIVIDER) + 4).trim();
         Event t = new Event(description, time);
         taskList.add(t);
         numberOfTasksUndone++;
