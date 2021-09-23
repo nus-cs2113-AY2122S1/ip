@@ -118,7 +118,6 @@ public class TaskList {
         do {
             userInput = Ui.readCommand();
         } while (!stopAddTasksCheckDate(userInput));
-        System.out.println("Finished adding tasks!");
     }
 
     /**

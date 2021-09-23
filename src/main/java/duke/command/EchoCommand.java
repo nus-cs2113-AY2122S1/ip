@@ -5,7 +5,7 @@ import duke.startup.Ui;
 
 /**
  * Command to echo user input.
- *  * A <code>Echo</code> command can be called with the prefix 'echo' in Duke.
+ *  A <code>Echo</code> command can be called with the prefix 'echo' in Duke.
  */
 public class EchoCommand extends Command{
     public EchoCommand() {

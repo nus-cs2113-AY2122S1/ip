@@ -17,12 +17,9 @@ public class DateCommand extends Command{
         System.out.println("getting date!");
     }
 
-    //assume date is given, if not don't print
-
     /**
      * Prints tasks with a valid date
      * @param tasks TaskList to be read
-     *
      */
     @Override
     public void execute(TaskList tasks) {
