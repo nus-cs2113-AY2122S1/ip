@@ -1,5 +1,8 @@
 package duke.data.task;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Task {
 
     private String description;
@@ -69,6 +72,24 @@ public class Task {
     }
 
     /**
+     * Gets the deadlineDate of the task.
+     *
+     * @return deadlineDate of the task, returns null if no deadline.
+     */
+    public LocalDate getDeadlineDate() {
+        return null;
+    }
+
+    /**
+     * Gets the deadlineTime of the task.
+     *
+     * @return deadlineTime of the task, returns null if no deadline.
+     */
+    public LocalTime getDeadlineTime() {
+        return null;
+    }
+
+    /**
      * Formats details of the Task to a printable string.
      *
      * @return Formatted string of a task.
@@ -80,4 +101,5 @@ public class Task {
 
         return taskType + taskDone + " " + taskDesc;
     }
+
 }

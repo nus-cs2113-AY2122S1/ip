@@ -1,7 +1,9 @@
-T | 0 | borrow book
-D | 1 | return book | June 6th
-E | 1 | project meeting | Mon 2-4pm
-T | 1 | eat
-T | 1 | sleep
-T | 0 | rave
-T | 0 | repeat
+D | 0 | return book | 02/12/2019
+D | 0 | return book | 02/12/2019 18:00:00
+D | 0 | repeat | 02/12/2019
+D | 0 | repeat | 02/12/2019
+D | 0 | repeat | 02/12/2019
+D | 0 | repeat | 02/12/2019
+D | 0 | repeat | 02/12/2019
+E | 0 | repeat | 02/12/2019
+E | 0 | repeat | 02/12/2019 12:20:00

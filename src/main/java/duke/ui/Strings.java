@@ -40,6 +40,14 @@ public class Strings {
     public static final String MESSAGE_GOODBYE = "My favourite feeling is schadenfreude. I also like hiraeth. "
             + "It's the Welsh concept of longing for home.";
 
+    /* Date-time format strings */
+
+    public static final String FORMAT_DATE_OUT = "MMM dd yyyy";
+    public static final String FORMAT_TIME_OUT = "hh:mm:ss a";
+
+    public static final String FORMAT_DATE_SAVE = "dd/MM/yyyy";
+    public static final String FORMAT_TIME_SAVE = "HH:mm:ss";
+
     /* Task related strings */
 
     public static final String MESSAGE_LIST_EMPTY = "The list, just like your head, is empty.";
