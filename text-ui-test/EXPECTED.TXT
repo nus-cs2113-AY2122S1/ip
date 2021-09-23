@@ -22,7 +22,7 @@ Task description is missing
 ________________________________________________________
 ________________________________________________________
 Got it. I've added this task:
-[T][ ] read book
+[T][ ] read project guidelines
 Now you have 1 tasks in the list.
 ________________________________________________________
 ________________________________________________________
@@ -32,8 +32,11 @@ ________________________________________________________
 DEADLINE task description is missing "/by" [Format: deadline task description /by deadline time/day/date]
 ________________________________________________________
 ________________________________________________________
+Use the correct date time format, my friend
+________________________________________________________
+________________________________________________________
 Got it. I've added this task:
-[D][ ] return book (by: Sunday)
+[D][ ] return project materials (by: Sep 27 2021)
 Now you have 2 tasks in the list.
 ________________________________________________________
 ________________________________________________________
@@ -44,24 +47,24 @@ EVENT task description is missing "/at" [Format: event task description /at even
 ________________________________________________________
 ________________________________________________________
 Got it. I've added this task:
-[E][ ] project meeting (at: Mon 2-4pm)
+[E][ ] Project Meeting (at: Mon 2-4pm)
 Now you have 3 tasks in the list.
 ________________________________________________________
 ________________________________________________________
 Here are the tasks in your list:
-1. [T][ ] read book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (at: Mon 2-4pm)
+1. [T][ ] read project guidelines
+2. [D][ ] return project materials (by: Sep 27 2021)
+3. [E][ ] Project Meeting (at: Mon 2-4pm)
 ________________________________________________________
 ________________________________________________________
 Nice! I've marked this task as done:
-[D][X] return book (by: Sunday)
+[T][X] read project guidelines
 ________________________________________________________
 ________________________________________________________
 Here are the tasks in your list:
-1. [T][ ] read book
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting (at: Mon 2-4pm)
+1. [T][X] read project guidelines
+2. [D][ ] return project materials (by: Sep 27 2021)
+3. [E][ ] Project Meeting (at: Mon 2-4pm)
 ________________________________________________________
 ________________________________________________________
 I do not know which task you want me to MARK. Give the task number my friend
@@ -70,27 +73,32 @@ ________________________________________________________
 I do not know which task you want me to MARK. Give the task number my friend
 ________________________________________________________
 ________________________________________________________
-Here are the tasks in your list:
-1. [T][ ] read book
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting (at: Mon 2-4pm)
+I do not know which task you want me to FIND. Give the task keyword my friend
 ________________________________________________________
 ________________________________________________________
+Here are the matching tasks in your list:
+1. [T][X] read project guidelines
+2. [D][ ] return project materials (by: Sep 27 2021)
+3. [E][ ] Project Meeting (at: Mon 2-4pm)
 ________________________________________________________
-I do not know which task you want me to DELETE. Give the task number my friend
+________________________________________________________
+Task index does not exist!
+________________________________________________________
+________________________________________________________
+Task index must be larger than 0
 ________________________________________________________
 ________________________________________________________
 I do not know which task you want me to DELETE. Give the task number my friend
 ________________________________________________________
 ________________________________________________________
 Noted. I've deleted this task:
-[T][ ] read book
+[T][X] read project guidelines
 Now you have 2 tasks in the list.
 ________________________________________________________
 ________________________________________________________
 Here are the tasks in your list:
-1. [D][X] return book (by: Sunday)
-2. [E][ ] project meeting (at: Mon 2-4pm)
+1. [D][ ] return project materials (by: Sep 27 2021)
+2. [E][ ] Project Meeting (at: Mon 2-4pm)
 ________________________________________________________
 ________________________________________________________
 Farewell. Come back when you need more help

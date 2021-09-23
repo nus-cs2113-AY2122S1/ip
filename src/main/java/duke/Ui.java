@@ -77,14 +77,22 @@ public class Ui {
         Ui.printLineSeparator();
     }
 
-    public static void printMatchingTasks(String keyword) {
+    public static void printMatchingTasks(String keyword) throws DukeException {
+        int numOfTasksFound = 0;
+
         Ui.printLineSeparator();
         System.out.println("Here are the matching tasks in your list:");
 
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getDescription().contains(keyword)) {
+            String taskDescription = list.get(i).getDescription().toLowerCase();
+            if (taskDescription.contains(keyword)) {
                 System.out.println((i + 1) + ". " + list.get(i));
+                numOfTasksFound++;
             }
+        }
+
+        if (numOfTasksFound == 0) {
+            throw new DukeException("No matching tasks found, try another keyword");
         }
 
         Ui.printLineSeparator();
@@ -92,7 +100,7 @@ public class Ui {
 
     public static void printEmptyListMessage() {
         Ui.printLineSeparator();
-        System.out.println("There are no more tasks!");
+        System.out.println("There are no more tasks in the list!");
         Ui.printLineSeparator();
     }
 }

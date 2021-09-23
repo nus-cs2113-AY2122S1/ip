@@ -8,6 +8,7 @@ import duke.task.Event;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalField;
 import java.util.Scanner;
 
 /**
@@ -44,14 +45,12 @@ public class Parser {
      *
      * @param input is the command given by the user
      * @return the deadline object created under Task
-     * @throws DukeException if /by is not present in the command or if no description is present after the deadline command
+     * @throws DukeException if /by is not present in the command or if no description is present after the deadline command or wrong date/time format is written
      */
     public static Task getDeadlineDetails(String input) throws DukeException {
         if (input.substring(INDEX_AFTER_DEADLINE).isBlank()) {
             throw new DukeException("Task description is missing");
-        }
-
-        if (!input.contains("/by")) {
+        } else if (!input.contains("/by")) {
             throw new DukeException("DEADLINE task description is missing \"/by\" [Format: deadline task description /by deadline time/day/date]");
         }
 
@@ -77,9 +76,7 @@ public class Parser {
     public static Task getEventDetails(String input) throws DukeException {
         if (input.substring(INDEX_AFTER_EVENT).isBlank()) {
             throw new DukeException("Task description is missing");
-        }
-
-        if (!input.contains("/at")) {
+        } else if (!input.contains("/at")) {
             throw new DukeException("EVENT task description is missing \"/at\" [Format: event task description /at event time/day/place]");
         }
 

@@ -58,20 +58,28 @@ public class TaskList {
      * Prints all the tasks present in the list
      */
     public void listTasks() {
-        Ui.printTaskList();
+        if (list.isEmpty()) {
+            Ui.printEmptyListMessage();
+        } else {
+            Ui.printTaskList();
+        }
     }
 
     /**
-     * Searches and prints the task based on the keyword provided
+     * Searches and prints the task based on the keyword provided. Catches exception if there are no matching tasks
      *
      * @param keyword is the word that needs to be searched for
      */
     public void findTask(String keyword) {
         if (list.isEmpty()) {
             Ui.printEmptyListMessage();
+        } else {
+            try {
+                Ui.printMatchingTasks(keyword);
+            } catch (DukeException e) {
+                Ui.printErrorMessage(e);
+            }
         }
-
-        Ui.printMatchingTasks(keyword);
     }
 
 }

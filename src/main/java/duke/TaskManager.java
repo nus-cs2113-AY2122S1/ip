@@ -5,6 +5,8 @@ import duke.command.*;
 import duke.exception.DukeException;
 import duke.task.Task;
 
+import java.time.format.DateTimeParseException;
+
 /**
  * To execute task actions based on keywords used in user command
  */
@@ -73,6 +75,8 @@ public class TaskManager {
                 // Initialize deadline object and adds task to the list
                 new AddCommand(deadline).executeUserCommand(taskList, storage);
             } catch (DukeException e) {
+                Ui.printErrorMessage(e);
+            } catch (DateTimeParseException e) {
                 throw new DukeException("Use the correct date time format, my friend");
             }
             break;
