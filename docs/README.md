@@ -56,10 +56,13 @@ There are three possible task types that can be added.
 * `event`: A task needs to be complete **at certain time**.
 #### format:
 1. add a `todo` task: `todo <task description>`
+##### example:
 ![img](todo.png)
 2. add a `deadline` task: `deadline <task description> /<YYYY-MM-DD> [HH:MM]`
+##### example:
 ![img](deadline.png)
 3. add a `event` task: `event <task description> /<YYYY-MM-DD> \<HH:MM\>`
+##### example:
 ![img](event.png)
 
 <br/>  
@@ -73,11 +76,10 @@ Show a list of all tasks.
 
 ### <span id="complete-task">Complete a task</span>
 User can set a task at specific index after he/she has completed it.
-<span>
 #### format: `done <task index>`
 - The index refers to the index number in the list.
-- The index must be a positive number, and should not exceed the total number of tasks inside the list. Otherwise, Duke may throw a warning. </a>
-</span>
+- The index must be a positive number, and should not exceed the total number of tasks inside the list. Otherwise, Duke may throw a warning.
+#### example:
 ![img](done.png)
 
 <br/>  
@@ -85,6 +87,7 @@ User can set a task at specific index after he/she has completed it.
 ### <span id="find-task">Find some task(s)</span>
 A user can search some task(s) containing certain keywords
 #### format: `find <keyword>`
+#### example:
 ![img](find.png)
 
 <br/>  
@@ -92,16 +95,16 @@ A user can search some task(s) containing certain keywords
 ### <span id="sort-task">Sort tasks</span>
 Tasks can be sorted based on emergency. Tasks have closer deadline will be put in front.
 #### format: `sort`
+#### example:
 ![img](sort.png)
 
 
 ### <span id="delete-task">Delete tasks</span>
 delete a task at specific index.
-<span>
 #### format: `delete <task index>`
 - The index refers to the index number in the list.
 - The index must be a positive number, and should not exceed the total number of tasks inside the list. Otherwise, Duke may throw a warning.
-</span>
+#### example:
 ![img](delete.png)
 
   
@@ -110,7 +113,8 @@ delete a task at specific index.
 ### <span id="exit">Exit</span>
 Exit the program and automatically save all the tasks.
 #### format: `bye`
-![img](exit.png)
+#### example:
+[img](exit.png)
 
 <br/>  
 
