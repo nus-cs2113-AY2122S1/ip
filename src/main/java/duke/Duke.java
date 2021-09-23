@@ -6,8 +6,6 @@ import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import java.io.FileNotFoundException;
-
 /**
  * Initiate the program with welcome message and loading of saved data
  * Starts user interaction
@@ -59,7 +57,7 @@ public class Duke {
     }
 
     /**
-     * Prints bye message and end program
+     * Prints bye message and ends program
      */
     public void exit() {
         ui.printBye();

@@ -14,9 +14,6 @@ public class Messages {
     public static final String LOAD_DELIMITER = "--";
     public static final String WELCOME = "Hi... from GUDETAMA... so sleepy\n" +
             "Give me five more minutes..... What can I do for you?";
-    public static final String FILE_NOT_FOUND = "File not found: %s\n" +
-            "Empty file created";
-    public static final String ERROR = "Something went wrong: ";
     public static final String HELP = "Get help:\n" +
             "    help\n" +
             "List tasks:\n" +

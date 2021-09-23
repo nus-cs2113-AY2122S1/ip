@@ -1,16 +1,11 @@
 package duke.ui;
 
-import duke.task.Task;
-
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static duke.message.Messages.BYE;
 import static duke.message.Messages.DELETED_TASK;
-import static duke.message.Messages.ERROR;
-import static duke.message.Messages.FILE_NOT_FOUND;
 import static duke.message.Messages.FINISHED_TASK;
 import static duke.message.Messages.FOUND_TASK;
 import static duke.message.Messages.HELP;
@@ -19,7 +14,7 @@ import static duke.message.Messages.LOGO;
 import static duke.message.Messages.WELCOME;
 
 /**
- * Interacts with user includes printing messages to user and taking user input
+ * Interact with user includes printing messages to user and taking user input
  */
 public class Ui {
     private static final String SEPARATOR = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
@@ -54,6 +49,9 @@ public class Ui {
         out.println(e);
     }
 
+    /**
+     * Prints help menu
+     */
     public void printHelp() {
         out.println(SEPARATOR + LS + HELP);
     }
@@ -67,7 +65,7 @@ public class Ui {
 
     /**
      * Prints multiple Strings in a single line
-     * @param message
+     * @param message the Strings to print
      */
     public void printToUser(String... message) {
         for (String m : message) {
@@ -90,6 +88,9 @@ public class Ui {
         out.println(SEPARATOR + LS + DELETED_TASK);
     }
 
+    /**
+     * Prints message for tasks found by keyword
+     */
     public void printFound() {
         out.println(SEPARATOR + LS + FOUND_TASK);
     }
