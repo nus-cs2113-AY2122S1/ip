@@ -24,7 +24,7 @@ public class Duke {
     /**
      * Show welcome message
      */
-    public void initiateDuke() {
+    private void initiateDuke() {
         ui.printWelcome();
 
         try {
@@ -39,7 +39,7 @@ public class Duke {
     /**
      * Interact with user and takes user input until user chooses to exit
      */
-    public void run() {
+    private void run() {
         boolean isExit = false;
 
         while (!isExit) {
@@ -59,7 +59,7 @@ public class Duke {
     /**
      * Prints bye message and ends program
      */
-    public void exit() {
+    private void exit() {
         ui.printBye();
         System.exit(0);
     }

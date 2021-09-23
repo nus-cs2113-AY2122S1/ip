@@ -19,7 +19,7 @@ public class Deadline extends Task {
      * Get due date of deadline task
      * @return due date
      */
-    public String getDate() {
+    private String getDate() {
         return this.date;
     }
 
@@ -27,7 +27,7 @@ public class Deadline extends Task {
      * Get due time of deadline task
      * @return due time
      */
-    public String getTime() {
+    private String getTime() {
         return this.time;
     }
 
@@ -35,7 +35,7 @@ public class Deadline extends Task {
      * Returns the char that represents deadlines tasks
      * @return char for identifying deadlines
      */
-    public String getCode() {
+    private String getCode() {
         return "D";
     }
 

@@ -14,7 +14,7 @@ public class Todo extends Task {
      * Return the char that represents the todo task
      * @return char for identifying todo
      */
-    public String getCode() {
+    private String getCode() {
         return "T";
     }
 

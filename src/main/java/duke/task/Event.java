@@ -21,7 +21,7 @@ public class Event extends Task {
      * Get event date
      * @return event date
      */
-    public String getDate() {
+    private String getDate() {
         return this.date;
     }
 
@@ -29,7 +29,7 @@ public class Event extends Task {
      * Get start time of event
      * @return start time
      */
-    public String getStartTime() {
+    private String getStartTime() {
         return this.startTime;
     }
 
@@ -37,7 +37,7 @@ public class Event extends Task {
      * get end time of event
      * @return end time
      */
-    public String getEndTime() {
+    private String getEndTime() {
         return this.endTime;
     }
 
@@ -45,7 +45,7 @@ public class Event extends Task {
      * Returns the char that represents event tasks
      * @return char for identifying events
      */
-    public String getCode() {
+    private String getCode() {
         return "E";
     }
 

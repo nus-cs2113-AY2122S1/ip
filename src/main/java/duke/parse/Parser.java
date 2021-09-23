@@ -77,7 +77,7 @@ public class Parser {
      * @return Command that prints help menu
      * @throws DukeException when help input has incorrect format
      */
-    public static Command parseHelpCommand(String line) throws DukeException {
+    private static Command parseHelpCommand(String line) throws DukeException {
         final String HELP_ERROR = "help does not take in additional parameters";
 
         if (!line.equals(COMMAND_HELP)) {
@@ -93,7 +93,7 @@ public class Parser {
      * @return Command that executes list
      * @throws DukeException when list input has incorrect format
      */
-    public static Command parseListCommand(String line) throws DukeException {
+    private static Command parseListCommand(String line) throws DukeException {
         final String LIST_ERROR = "list does not take in additional parameters";
 
         if (!line.equals(COMMAND_LIST)) {
@@ -109,7 +109,7 @@ public class Parser {
      * @return Command that adds todo task
      * @throws DukeException when todo command has missing parameters
      */
-    public static Command parseTodoCommand(String line) throws DukeException {
+    private static Command parseTodoCommand(String line) throws DukeException {
         final String TODO_ERROR = "todo description missing";
         final int START_INDEX = 5;
 
@@ -129,7 +129,7 @@ public class Parser {
      * @return Command to add deadline task
      * @throws DukeException when there are errors in user input
      */
-    public static Command parseDeadlineCommand(String line, String[] words) throws DukeException {
+    private static Command parseDeadlineCommand(String line, String[] words) throws DukeException {
         final String BY_DELIMITER = "/by";
         final String DEADLINE_ERROR_1 = "specify task and date/time";
         final String DEADLINE_ERROR_2 = "deadlines need to contain \"/by\"";
@@ -203,7 +203,7 @@ public class Parser {
      * @return Command to add event task
      * @throws DukeException when there are errors in user input
      */
-    public static Command parseEventCommand(String line, String[] words) throws DukeException {
+    private static Command parseEventCommand(String line, String[] words) throws DukeException {
         final String AT_DELIMITER = "/at";
         final String EVENT_ERROR_1 = "specify task and date/time";
         final String EVENT_ERROR_2 = "events need to contain \"/at\"";
@@ -283,7 +283,7 @@ public class Parser {
      * @return Command to mark task done by index
      * @throws DukeException when there are errors in user input
      */
-    public static Command parseDoneCommand(String line, String[] words, TaskList taskList) throws DukeException {
+    private static Command parseDoneCommand(String line, String[] words, TaskList taskList) throws DukeException {
         final String DONE_ERROR_1 = "missing index of task done";
         final String DONE_ERROR_2 = "extra parameters found";
         final String DONE_ERROR_3 = "non-integer value for index of task done";
@@ -323,7 +323,7 @@ public class Parser {
      * @return Command to delete task by index
      * @throws DukeException when there are errors in user input
      */
-    public static Command parseDeleteCommand(String line, String[] words, TaskList taskList) throws DukeException {
+    private static Command parseDeleteCommand(String line, String[] words, TaskList taskList) throws DukeException {
         final String DELETE_ERROR_1 = "missing index of task to delete";
         final String DELETE_ERROR_2 = "extra parameters found";
         final String DELETE_ERROR_3 = "non-integer value for index of task to delete";
@@ -355,7 +355,7 @@ public class Parser {
         return new DeleteCommand(index);
     }
 
-    public static Command parseFindCommand(String line) throws DukeException {
+    private static Command parseFindCommand(String line) throws DukeException {
         final String FIND_ERROR = "missing keyword to find";
         final int START_INDEX = 5;
 
@@ -376,7 +376,7 @@ public class Parser {
      * @return Command to save before exit program
      * @throws DukeException when there are additional parameters for bye
      */
-    public static Command parseByeCommand(String line) throws DukeException {
+    private static Command parseByeCommand(String line) throws DukeException {
         final String BYE_ERROR = "bye does not take in additional parameters";
 
         if (!line.equals(COMMAND_BYE)) {
