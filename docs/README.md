@@ -6,31 +6,28 @@ Duke is a java application to manage tasks via command line interface (CLI). Thi
 - [Quick start](#user-content-quick-start)
 - [Features](#features)
   1. [`help` - View help](#user-content-help---view-help)
-  2. [`bye` - Exit program](#user-content-bye---exit-program)
-  3. [`list` - List all the tasks created](#user-content-list---list-all-the-tasks-created)
-  4. [`todo` - Create a todo task](#user-content-todo---create-a-todo-task)
-  5. [`deadline` - Create a deadline task](#user-content-deadline---create-a-deadline-task)
-  6. [`event` - Create an event task](#user-content-event---create-an-event-task)
-  7. [`done` - Check corresponding task as done](#user-content-done---check-corresponding-task-as-done)
-  8. [`delete` - Delete corresponding task from list](#user-content-delete---delete-corresponding-task-from-list)
-  9. [`find` - Find description tasks with the given input](#user-content-find---find-description-tasks-with-the-given-input)
-  10. [`sort time` - Sort tasks based on date](#sort-time---sort-tasks-based-on-date)
+  2. [`list` - List all the tasks created](#user-content-list---list-all-the-tasks-created)
+  3. [`todo` - Create a todo task](#user-content-todo---create-a-todo-task)
+  4. [`deadline` - Create a deadline task](#user-content-deadline---create-a-deadline-task)
+  5. [`event` - Create an event task](#user-content-event---create-an-event-task)
+  6. [`done` - Check corresponding task as done](#user-content-done---check-corresponding-task-as-done)
+  7. [`delete` - Delete corresponding task from list](#user-content-delete---delete-corresponding-task-from-list)
+  8. [`find` - Find description tasks with the given input](#user-content-find---find-description-tasks-with-the-given-input)
+  9. [`sort time` - Sort tasks based on date](#sort-time---sort-tasks-based-on-date)
+  10. [`bye` - Exit program](#user-content-bye---exit-program)
 - [Frequently Asked Questions(FAQ)](#frequently-asked-questionsfaq)
 - [Command Summary](#command-summary)
 ---
 
 ## Quick Start
-1. Ensure that you have java 11 installed in your computer.
+1. Ensure that you have [java](https://aws.amazon.com/corretto/) (version 11 and above) installed in your computer.
 2. Download duke.jar from A-Release tag and store it into a folder.
 3. Store duke.jar file to the file that you would want to store
 4. Open command prompt(for windows) or terminal(for mac and linux) and change directory to the folder .jar file is stored
 5. Run command ```java -jar duke.jar```
 6. Upon start, if you manage to see the message below in your console, you have successfully installed and run duke.jar
 
-
-
-
-```a
+```
 Hello from
  ____        _        
 |  _ \ _   _| | _____ 
@@ -45,7 +42,7 @@ F
      Hello! I'm Duke
      What can I do for you?
     _________________________________________________________________
-```</span>
+```
 ## Features 
 
 1. Words in anchor tags <> are parameters required to be provided by the user.
@@ -83,22 +80,6 @@ help
      -- creates an event task with the description given and store 2 time given by the input
 ```
 
-
-### `bye` - Exit program
-
-Description: Exits the program
-<span style="color:red">
-Example:
-```text
-<span style="color:blue">
-bye
-    _________________________________________________________________
-     Bye. Hope to see you again soon!
-    _________________________________________________________________
-</span>
-```
-</span>
-
 ### `list` - List all the tasks created
 Description: This command will show all the tasks in the list
 
@@ -119,10 +100,10 @@ list
      Here are the tasks in your list:
      1. [T][ ] create a task
      2. [D][X] create a deadline task (by: 01-10-2021 1159)
-     3. [E][ ] this iw what happens when time1 is later than time2 (at: 01-10-2021 0300 to 02-10-2021 1300)
-     4. [E][ ] this is what happens when time1 is later than time2 (at: 01-10-2021 0300 to 02-10-2021 1300)
+     3. [E][ ] this is what happens when time1 is later than time2 (at: 01-10-2021 0300 to 02-10-2021 1300)
     _________________________________________________________________
 ```
+
 ### `todo` - Create a todo task
 Description: Todo is a type of task that store only description.
 Create a todo by following the format below:
@@ -143,6 +124,7 @@ todo create another task
      Now you have 2 tasks in the list.
     _________________________________________________________________
 ```
+
 ### `deadline` - Create a deadline task
 Description: Deadline is a type of task that takes in a description and time. 
 Create a deadline by following the format below:
@@ -187,6 +169,7 @@ done 3
      [D][X] create a deadline task
     _________________________________________________________________
 ```
+
 ### `delete` - Delete corresponding task from list
 Description: Delete a task with that has the corresponding number
 >Format: `delete` <number>
@@ -214,6 +197,7 @@ find create a
      [D][X] create a deadline task (by: 01-10-2021 1159)
     _________________________________________________________________
 ```
+
 ### `sort time` - Sort tasks based on date
 Description: Sort tasks with time in ascending order. Tasks without time will be ignored.
 > Format: `sort time`
@@ -226,26 +210,40 @@ sort time
      [D][X] create a deadline task (by: 01-10-2021 1159)
     _________________________________________________________________
 ```
+
+### `bye` - Exit program
+
+Description: Exits the program
+
+Example:
+```text
+bye
+    _________________________________________________________________
+     Bye. Hope to see you again soon!
+    _________________________________________________________________
+
+```
+
 ### Frequently Asked Questions(FAQ)
 
-1. Q: Is it possible to save all the task and access the tasks again? 
+1. **Q:** Is it possible to save all the task and access the tasks again? 
     
-   A: Yes, all the tasks will be saved in the duke.txt file in the folder that you have run your command.
+   **A:** Yes, all the tasks will be saved in the duke.txt file in the folder that you have run your command.
       Make sure you run the duke.jar in the same folder everytime you start the application, so that you can
       access to all the last saved file.
 
       If you want to shift the application to other computer, be sure to copy the duke.jar and duke.txt file
       to the new computer. Losing the duke.txt file means that all saved tasks would be gone.
 
-3. Q: Is there a way to edit tasks without CLI?
+3. **Q:** Is there a way to edit tasks without CLI?
 
-   A: Yes, you cna edit the tasks before you start or after you end the application. There will be a text file
+   **A:** Yes, you cna edit the tasks before you start or after you end the application. There will be a text file
       that stores all the files in certain format. However, please ensure that all tasks are in the correct format,
       or you might have the risk of the task list being corrupted.
 
-4. Q: There is a file called duke.txt being generated. Should I treat it as an unwanted file and delete it?
+4. **Q:** There is a file called duke.txt being generated. Should I treat it as an unwanted file and delete it?
    
-   A: The file is used to store all the tasks you have recorded down in the application. Deleting the file means that
+   **A:** The file is used to store all the tasks you have recorded down in the application. Deleting the file means that
       all the tasks saved by the program will be deleted. Unless you want a clean task list, it is not advisable to perform
       that action.
 
