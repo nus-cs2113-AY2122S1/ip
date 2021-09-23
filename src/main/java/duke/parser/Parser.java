@@ -1,5 +1,10 @@
-package duke;
+package duke.parser;
 
+
+import duke.tasklist.TaskList;
+import duke.ui.Ui;
+import duke.exception.InvalidTaskDescriptionException;
+import duke.task.Task;
 
 import java.util.ArrayList;
 

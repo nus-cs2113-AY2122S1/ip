@@ -1,4 +1,13 @@
-package duke;
+package duke.tasklist;
+
+import duke.ui.Ui;
+import duke.exception.InvalidDoOrUndoException;
+import duke.exception.InvalidTaskDescriptionException;
+import duke.parser.Parser;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 import java.util.ArrayList;
 
@@ -37,7 +46,7 @@ public class TaskList {
     public static void inputDone(String input, ArrayList<Task> tasks) throws InvalidDoOrUndoException {
         int taskNumber = Parser.getTaskNumber(input);
         Task t = tasks.get(taskNumber);
-        if (t.isDone) {
+        if (t.isDone()) {
             Ui.printHorizontalLine();
             throw new InvalidDoOrUndoException("This task has already been done, complete something else!");
         }
@@ -48,7 +57,7 @@ public class TaskList {
     public static void undoDone(String input, ArrayList<Task> tasks) throws InvalidDoOrUndoException {
         int taskNumber = Parser.getTaskNumber(input);
         Task t = tasks.get(taskNumber);
-        if (!t.isDone) {
+        if (!t.isDone()) {
             Ui.printHorizontalLine();
             throw new InvalidDoOrUndoException("This task has not been done yet!");
         }

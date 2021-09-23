@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 public class Deadline extends Task{
 
@@ -12,6 +12,8 @@ public class Deadline extends Task{
     public String getDeadline() {
         return deadline;
     }
+
+
 
     @Override
     public String toString() {

@@ -1,4 +1,9 @@
-package duke;
+package duke.storage;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,19 +24,19 @@ public class Storage {
         for (Task task : tasks) {
             String taskAsString = String.valueOf(task);
             String taskType = taskAsString.substring(1, 2);
-            String taskStatus = task.isDone ? "1" : "0";
+            String taskStatus = task.isDone() ? "1" : "0";
 
             switch (taskType) {
             case ("T"):
-                fw.write("T | " + taskStatus + " |" + task.description);
+                fw.write("T | " + taskStatus + " |" + task.getDescription());
                 break;
             case ("D"):
                 Deadline deadlineTask = (Deadline) task;
-                fw.write("D | " + taskStatus + " |" + task.description + "|" + deadlineTask.getDeadline());
+                fw.write("D | " + taskStatus + " |" + task.getDescription() + "|" + deadlineTask.getDeadline());
                 break;
             case ("E"):
                 Event eventTask = (Event) task;
-                fw.write("E | " + taskStatus + " |" + task.description + "|" + eventTask.getDuration());
+                fw.write("E | " + taskStatus + " |" + task.getDescription() + "|" + eventTask.getDuration());
                 break;
             default:
                 System.out.println("Something went wrong!");
@@ -67,26 +72,26 @@ public class Storage {
     public static void fillArrayListFromFile(String input, ArrayList<Task> tasks) {
         String[] taskContent = input.split( "\\|");
         String taskType = taskContent[0].trim();
-        String ifDone = taskContent[1].trim();
-        String taskName = taskContent[2];
+        String isDone = taskContent[1].trim();
+        String description = taskContent[2];
 
         switch (taskType) {
         case ("T"):
-            tasks.add(new Todo(taskName));
+            tasks.add(new Todo(description));
             break;
         case ("D"):
             String taskDeadline = taskContent[3];
-            tasks.add(new Deadline(taskName, taskDeadline));
+            tasks.add(new Deadline(description, taskDeadline));
             break;
         case ("E"):
             String taskDuration = taskContent[3];
-            tasks.add(new Event(taskName, taskDuration));
+            tasks.add(new Event(description, taskDuration));
             break;
         default:
             System.out.println("Something went wrong!");
             break;
         }
-        if (ifDone.equals("1")) {
+        if (isDone.equals("1")) {
             tasks.get(tasks.size() - 1).markAsDone();
         }
     }
