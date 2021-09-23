@@ -12,7 +12,7 @@
 - [Features](#features)
     * [Help](#help---Show-All-Valid-Commands)
     * [List](#list---List-Down-All-Current-Tasks)
-    * [Add a Task](#Add---Add-a-Task-to-Your-List)
+    * [Add Task](#Add---Add-a-Task-to-Your-List)
         * [Todo](#Adding---A-Todo)
         * [Deadline](#Adding---A-deadline)
         * [Event](#Adding---An-event)
