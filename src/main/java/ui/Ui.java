@@ -26,6 +26,8 @@ public class Ui {
             + "___________________SHUTTING DOWN______________________";
     private final String ACTIVATED_MESSAGE =
             "___________________COMMAND ACTIVATED__________________";
+    private final String EXCEPTION_DIVIDER =
+            "______________________________________________________";
     private final String COMPLETION_MESSAGE =
             "___________________COMMAND EXECUTED___________________\n"
             + "Anything else?\n"
@@ -42,6 +44,12 @@ public class Ui {
             "Noted. I have successfully added this task:";
     private static final String ACKNOWLEDGE_CLEAR_MESSAGE =
             "All the tasks are cleared from the list.";
+    private static final String DATE_TIME_PARSE_EXCEPTION_MESSAGE_WHILE_LOADING = "We are unable to parse the date and " +
+            "time details. So, a new list will be created.\nSorry for your inconvenience.";
+
+    public Ui() {
+        printWelcomeMessage();
+    }
 
     /**
      * Prints welcome message along with the logo.
@@ -75,6 +83,10 @@ public class Ui {
         } else {
             printCompletionMessage();
         }
+    }
+
+    public void printExceptionDivider() {
+        System.out.println(EXCEPTION_DIVIDER);
     }
 
     /**
@@ -115,6 +127,19 @@ public class Ui {
      */
     public void showMissingTaskIndexError() {
         System.out.println("Oops. You have missed out on the task index.");
+    }
+
+    /**
+     * Prints an exception message when the date and time parsing fails while extracting the details
+     * in the file.
+     */
+    public void showDateTimeParseExceptionErrorWhileLoading() {
+        System.out.println(DATE_TIME_PARSE_EXCEPTION_MESSAGE_WHILE_LOADING);
+    }
+
+    public void showDateTimeParseExceptionError() {
+        System.out.println("Oops. The date and time given are in the wrong format.\n"
+                + "Please follow the correct format (d/m/yyyy hhmm).");
     }
 
     /**

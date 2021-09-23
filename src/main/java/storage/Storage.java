@@ -5,6 +5,7 @@ import task.Task;
 import task.Todo;
 import task.Event;
 import task.Deadline;
+import ui.Ui;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,6 +13,8 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,7 +48,8 @@ public class Storage {
      * @throws IOException If there is a problem in opening or
      * creating the file
      */
-    public ArrayList<Task> load() throws IOException {
+    public ArrayList<Task> load() throws IOException,
+            DateTimeParseException {
         return addTasksFromFile();
     }
 
@@ -55,7 +59,8 @@ public class Storage {
      * @throws IOException If there is a problem in opening or
      * creating the file
      */
-    private ArrayList<Task> addTasksFromFile() throws IOException {
+    private ArrayList<Task> addTasksFromFile() throws IOException,
+            DateTimeParseException {
         File file = loadFile();
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(file);
@@ -67,10 +72,10 @@ public class Storage {
                 tasks.add(new Todo(details[2]));
                 break;
             case "D":
-                tasks.add(new Deadline(details[2], details[3]));
+                tasks.add(new Deadline(details[2], LocalDateTime.parse(details[3])));
                 break;
             case "E":
-                tasks.add(new Event(details[2], details[3]));
+                tasks.add(new Event(details[2], LocalDateTime.parse(details[3])));
                 break;
             default:
                 break;
@@ -92,17 +97,6 @@ public class Storage {
         for (int i = 0; i < taskList.tasksCount(); i++) {
             fw.write(taskList.getTaskItemInFileFormat(i));
         }
-        fw.close();
-    }
-
-    /**
-     * Adds the specific task to the end of the text file.
-     * @param textToAdd New task added to the file for storage
-     * @throws IOException If there is an error while accessing the text file
-     */
-    public void appendToFile(String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH, true);
-        fw.write(textToAdd);
         fw.close();
     }
 

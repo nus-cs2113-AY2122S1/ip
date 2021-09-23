@@ -6,13 +6,14 @@ import task.TaskList;
 import ui.Ui;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class AddDeadlineTaskCommand extends Command {
     public static final String COMMAND_KEYWORD = "deadline";
     private String description;
-    private String by;
+    private LocalDateTime by;
 
-    public AddDeadlineTaskCommand(String description, String by) {
+    public AddDeadlineTaskCommand(String description, LocalDateTime by) {
         this.description = description;
         this.by = by;
     }
@@ -20,8 +21,7 @@ public class AddDeadlineTaskCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AustinException, IOException {
         tasks.addDeadlineTask(description, by);
-        storage.appendToFile(tasks.getTaskItemInFileFormat
-                (tasks.tasksCount() - 1));
+        storage.updateFile(tasks);
         ui.acknowledgeAdd();
     }
 }

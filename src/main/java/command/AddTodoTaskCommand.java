@@ -17,8 +17,7 @@ public class AddTodoTaskCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         tasks.addTodoTask(description);
-        storage.appendToFile(tasks.getTaskItemInFileFormat
-                (tasks.tasksCount() - 1));
+        storage.updateFile(tasks);
         ui.acknowledgeAdd();
     }
 }

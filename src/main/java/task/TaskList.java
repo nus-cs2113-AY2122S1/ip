@@ -6,6 +6,8 @@ import exception.AustinTaskAlreadyCompletedException;
 import exception.AustinTaskAlreadyNotCompletedException;
 import ui.Ui;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -133,18 +135,17 @@ public class TaskList {
      * @param description Description of the task
      * @param at Event date and time
      */
-    public void addEventTask(String description, String at)  {
+    public void addEventTask(String description, LocalDateTime at)  {
         Event newEvent = new Event(description, at);
         tasks.add(newEvent);
     }
 
     /**
      * Adds the deadline task into the list.
-     *
-     * @param description Description of the task
+     *  @param description Description of the task
      * @param by Deadline date and time
      */
-    public void addDeadlineTask(String description, String by) {
+    public void addDeadlineTask(String description, LocalDateTime by) {
         Deadline newDeadline = new Deadline(description, by);
         tasks.add(newDeadline);
     }
