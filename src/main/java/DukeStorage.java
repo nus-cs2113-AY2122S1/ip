@@ -34,6 +34,9 @@ public class DukeStorage {
         }
     }
 
+    /**
+     * @return We return the list of all tasks from duke text file
+     * */
     public ArrayList<Task> loadTaskList() {
         return this.tasks;
     }
@@ -112,6 +115,11 @@ public class DukeStorage {
         return taskStringToSave;
     }
 
+    /**
+     * @param taskList The tasklist to update duke text file
+     * We update the duke text file in ../data/duke.txt everytime
+     * the tasklist is updated.
+     * */
     public void updateStorage(TaskList taskList) {
         try {
             FileWriter dukeTextFile = new FileWriter("../data/duke.txt");

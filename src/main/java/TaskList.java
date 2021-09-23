@@ -6,67 +6,94 @@ public class TaskList {
     private final static String TASK_TYPE_TODO = "todo";
     private final static String TASK_TYPE_EVENT = "event";
     private final static String TASK_TYPE_DEADLINE = "deadline";
-    private ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
-        this.taskList = tasks;
+        this.tasks = tasks;
     }
 
+    /**
+     * @return The number of tasks given by the user thus far
+     * */
     public int getNumberOfTask() {
-        return this.taskList.size();
+        return this.tasks.size();
     }
 
+    /**
+     * @param index The index of the task in tasks
+     * @return The task based on the index of tasks
+     * */
     public Task getTaskFromIndex(int index) {
-        return this.taskList.get(index);
+        return this.tasks.get(index);
     }
 
+    /**
+     * We print out the all the tasks in the list of tasks
+     * */
     public void getAllTask() {
         int taskNumber;
-        for (int i = 0; i < this.taskList.size(); i ++) {
-            Task currentTask = this.taskList.get(i);
+        for (int i = 0; i < this.tasks.size(); i ++) {
+            Task currentTask = this.tasks.get(i);
             taskNumber = i + 1;
             System.out.println(taskNumber + "." + currentTask.toString());
         }
     }
 
+    /**
+     * @param deleteTaskNumber The index of the task to delete
+     * @return The task to delete
+     * */
     public Task deleteTask(int deleteTaskNumber) {
-        Task taskToDelete = this.taskList.get(deleteTaskNumber);
-        this.taskList.remove(deleteTaskNumber);
+        Task taskToDelete = this.tasks.get(deleteTaskNumber);
+        this.tasks.remove(deleteTaskNumber);
         return taskToDelete;
     }
 
+    /**
+     * @param doneTaskNumber The index of the tasks in tasks
+     * @return The task to mark as done
+     * */
     public Task markTask(int doneTaskNumber) {
-        Task taskMark = this.taskList.get(doneTaskNumber);
+        Task taskMark = this.tasks.get(doneTaskNumber);
         taskMark.setTaskAsDone();
         return taskMark;
     }
 
+    /**
+     * @param taskType The type of task to add to tasks
+     * @param mainTask The task description
+     * @param taskDate The date of the task
+     * */
     public void addTask(String taskType, String mainTask, String taskDate){
         switch (taskType) {
             case TASK_TYPE_TODO:
                 Todo todo = new Todo(mainTask);
-                this.taskList.add(todo);
+                this.tasks.add(todo);
                 todo.printAddTaskMessage();
                 break;
             case TASK_TYPE_DEADLINE:
                 Deadline deadline = new Deadline(mainTask, taskDate);
-                this.taskList.add(deadline);
+                this.tasks.add(deadline);
                 deadline.printAddTaskMessage();
                 break;
             case TASK_TYPE_EVENT:
                 Event event = new Event(mainTask, taskDate);
-                this.taskList.add(event);
+                this.tasks.add(event);
                 event.printAddTaskMessage();
                 break;
         }
     }
 
+    /**
+     * @param taskToFind The task to find
+     * We print out a list of all the tasks found based on the user input
+     * */
     public void findTask(String taskToFind) {
         String patternToFind = "\\b" + taskToFind + "\\b";
         Pattern pattern = Pattern.compile(patternToFind);
         int taskNumber = 0;
-        for (int i = 0; i < this.taskList.size(); i ++) {
-            Task currentTask = this.taskList.get(i);
+        for (int i = 0; i < this.tasks.size(); i ++) {
+            Task currentTask = this.tasks.get(i);
             String taskDescription = currentTask.getTaskDescription();
             Matcher matcher = pattern.matcher(taskDescription);
             boolean taskFound = matcher.find();

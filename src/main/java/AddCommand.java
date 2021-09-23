@@ -3,11 +3,22 @@ public class AddCommand extends Command {
     private String mainTask;
     private String taskDate = null;
 
+    /**
+     * We use this constructor for Todo task
+     * @param taskType The task type, which should be Todo
+     * @param mainTask The task description
+     * */
     public AddCommand(String taskType, String mainTask) {
         this.taskType = taskType;
         this.mainTask = mainTask;
     }
 
+    /**
+     * We use this constructor for either Event or Deadline task
+     * @param taskType The task type, which should be either Event or Deadline
+     * @param mainTask The task description
+     * @param taskDate The event or deadline date
+     * */
     public AddCommand(String taskType, String mainTask, String taskDate) {
         this.taskType = taskType;
         this.mainTask = mainTask;

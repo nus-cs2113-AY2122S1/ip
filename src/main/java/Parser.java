@@ -20,6 +20,12 @@ public class Parser {
 
     }
 
+    /**
+     * @param userInput The input given by the user
+     * @return The task type extracted from the user input
+     * @throws InvalidTaskTypeException
+     * We throw this exception when the task type has not been defined in duke
+     * */
     private String getTaskTypeFromUserInput(String userInput)
             throws InvalidTaskTypeException {
         String[] userInputSplit = userInput.split(USER_INPUT_SPLITTER);
@@ -34,6 +40,12 @@ public class Parser {
         }
     }
 
+    /**
+     * @param userInput The input given by the user
+     * @return The task given by the user
+     * @throws EmptyDescriptionException
+     * We throw this exception when the task given by the user is empty
+     * */
     private String getTask(String userInput)
             throws EmptyDescriptionException {
         String[] userInputSplitArray = userInput.split(USER_INPUT_SPLITTER);
@@ -53,6 +65,13 @@ public class Parser {
         }
     }
 
+    /**
+     * @param task The task given by the user
+     * @param dateIndicator The seperator to get the date out from the task
+     * @return The task given by the user without date
+     * @throws InvalidDateIndicatorException
+     * We throw this exception when the not date indicator is given by the user
+     * */
     private String getMainTaskFromTask(String task, String dateIndicator)
             throws InvalidDateIndicatorException {
         String[] taskDescriptionSplitByDate = task.split(dateIndicator);
@@ -68,6 +87,13 @@ public class Parser {
         }
     }
 
+    /**
+     * @param task The task given by the user
+     * @param dateIndicator The seperator to get the date out from the task
+     * @return The date given by the user
+     * @throws InvalidDateIndicatorException
+     * We throw this exception when the not date indicator is given by the user
+     * */
     private String getDateFromTask(String task, String dateIndicator)
             throws InvalidDateIndicatorException {
         String[] taskDescriptionSplitByDate = task.split(dateIndicator);
@@ -79,6 +105,10 @@ public class Parser {
         }
     }
 
+    /**
+     * @param userInput The input given by the user
+     * @return The task number given by the user
+     * */
     private int getTaskNumber(String userInput) {
         String[] userInputArray = userInput.split(USER_INPUT_SPLITTER);
         int taskNumber = Integer.parseInt(userInputArray[1]);
@@ -86,20 +116,34 @@ public class Parser {
         return taskNumber;
     }
 
-    private String getTaskToFind(String userInput) throws EmptyDescriptionException {
+    /**
+     * @param userInput The input given by the user
+     * @return The task to find given by the user
+     * */
+    private String getTaskToFind(String userInput)
+            throws EmptyDescriptionException {
         String taskToFind = getTask(userInput);
         return taskToFind;
     }
 
-    public Command parseUserInput(String userInput) throws InvalidTaskTypeException, EmptyDescriptionException {
+    /**
+     * @param userInput The input given by the user
+     * @return The command based on the task type
+     * @throws InvalidTaskTypeException
+     * We throw this exception when the task type has not been defined in duke
+     * @throws EmptyDescriptionException
+     * We throw this exception when the task description is empty
+     * */
+    public Command parseUserInput(String userInput)
+            throws InvalidTaskTypeException, EmptyDescriptionException {
         String taskType = getTaskTypeFromUserInput(userInput);
         switch (taskType) {
             case TASK_TYPE_TODO:
-                return generateCommand(taskType, userInput);
+                return generateTaskCommand(taskType, userInput);
             case TASK_TYPE_DEADLINE:
-                return generateCommand(taskType, userInput);
+                return generateTaskCommand(taskType, userInput);
             case TASK_TYPE_EVENT:
-                return generateCommand(taskType, userInput);
+                return generateTaskCommand(taskType, userInput);
             case TASK_EXIT:
                 return new ByeCommand();
             case TASK_LIST:
@@ -118,7 +162,14 @@ public class Parser {
         }
     }
 
-    private Command generateCommand(String taskType, String userInput)
+    /**
+     * @param taskType The task type given by the user
+     * @param userInput The input given by the user
+     * @return The command based on the task type
+     * @throws InvalidTaskTypeException
+     * We throw this exception when the task type has not been defined in duke
+     * */
+    private Command generateTaskCommand(String taskType, String userInput)
             throws InvalidTaskTypeException {
         switch (taskType) {
             case TASK_TYPE_TODO:

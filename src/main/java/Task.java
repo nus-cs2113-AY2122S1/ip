@@ -28,6 +28,10 @@ public class Task {
         System.out.println("  " + this.toString());
     }
 
+    /**
+     * @return The formatted task string.
+     * taskCompleted == 'X' if task is completed else it is just " "
+     * */
     @Override
     public String toString() {
         String taskCompleted = "";
