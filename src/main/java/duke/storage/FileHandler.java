@@ -1,4 +1,4 @@
-package duke.file;
+package duke.storage;
 
 import duke.DukeException;
 import java.io.File;

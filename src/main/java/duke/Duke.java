@@ -3,7 +3,7 @@ package duke;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.CommandException;
-import duke.file.FileHandler;
+import duke.storage.FileHandler;
 import duke.parser.Parser;
 import duke.parser.ParserException;
 import duke.task.TaskManager;
