@@ -1,5 +1,6 @@
 package duke.parser;
 
+import duke.CommonFormat;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeadlineCommand;
@@ -9,11 +10,17 @@ import duke.command.EventCommand;
 import duke.command.ListCommand;
 import duke.command.TodoCommand;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
 
     final static String MESSAGE_INVALID_FORMAT = "Error: Incorrect format detected.\n%s";
     final static String MESSAGE_INVALID_TASK_NUMBER = "Error: Invalid Task Number.";
     final static String MESSAGE_INVALID_COMMAND = "Error: Command not found.";
+    final static String MESSAGE_INVALID_DATE = "Error: Incorrect date time format. Format: "
+            + CommonFormat.FORMAT_DATETIME;
 
 
     public Parser() {
@@ -30,7 +37,7 @@ public class Parser {
      * @throws ParserException Error regarding the validness of existing commands
      */
     public Command parseCommand(String userInput) throws ParserException {
-        Command command;
+        Command command = null;
         switch (getCommonCommand(userInput)) {
         case ListCommand.COMMAND_WORD:
             command = new ListCommand();
@@ -148,6 +155,8 @@ public class Parser {
             throw new ParserException(errorMessage);
         } else if (isAnyStringEmpty(argumentArray)) {
             throw new ParserException(errorMessage);
+        } else if (!isValidTimeFormat(argumentArray[1])) {
+            throw new ParserException(MESSAGE_INVALID_DATE);
         }
         return new DeadlineCommand(argumentArray);
     }
@@ -170,7 +179,20 @@ public class Parser {
             throw new ParserException(errorMessage);
         } else if (isAnyStringEmpty(argumentArray)) {
             throw new ParserException(errorMessage);
+        } else if (!isValidTimeFormat(argumentArray[1])) {
+            throw new ParserException(MESSAGE_INVALID_DATE);
         }
         return new EventCommand(argumentArray);
+    }
+
+    private boolean isValidTimeFormat(String s) {
+        boolean isValid = true;
+        s = s.trim();
+        try {
+            LocalDateTime date = LocalDateTime.parse(s, CommonFormat.formatter);
+        } catch (DateTimeParseException e) {
+            isValid = false;
+        }
+        return isValid;
     }
 }
