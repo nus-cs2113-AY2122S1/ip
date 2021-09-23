@@ -1,20 +1,15 @@
 package duke;
 
-import duke.command.Command;
 import duke.exception.EmptyCommandException;
 import duke.exception.IllegalCommandException;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.task.Task;
 import duke.ui.Ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-
-    public static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void runDuke() {
         Storage.startDuke();

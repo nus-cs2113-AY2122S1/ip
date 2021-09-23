@@ -1,6 +1,5 @@
 package duke.parser;
 
-import duke.Duke;
 import duke.command.Command;
 import duke.exception.EmptyCommandException;
 import duke.exception.IllegalCommandException;
@@ -8,7 +7,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-import duke.ui.Ui;
 
 import java.io.IOException;
 
@@ -63,12 +61,13 @@ public class Parser {
         return newTask;
     }
 
-    public static void parseAndExecuteCommand(String fullCommand) throws EmptyCommandException, IllegalCommandException, IOException {
+    public static void parseAndExecuteCommand(String fullCommand) throws EmptyCommandException, IllegalCommandException,
+            IOException {
         String[] parsedCommand = fullCommand.split(COMMAND_SEP);
 
         switch (parsedCommand[0].toUpperCase()) {
         case "LIST":
-            Ui.printList();
+            Command.executeList();
             break;
         case "TODO":
             parseAndAddTodo(fullCommand);
@@ -84,6 +83,9 @@ public class Parser {
             break;
         case "DELETE":
             parseAndExecuteDelete(parsedCommand);
+            break;
+        case "FIND":
+            parseAndExecuteFind(fullCommand);
             break;
         default:
             throw new IllegalCommandException();
@@ -137,5 +139,11 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new IllegalCommandException();
         }
+    }
+
+    private static void parseAndExecuteFind(String fullCommand) {
+        String keywords = fullCommand.replace("find", "").trim();
+        String[] keywordsArr = keywords.split(" ");
+        Command.findTask(keywordsArr);
     }
 }
