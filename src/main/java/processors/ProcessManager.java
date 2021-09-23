@@ -21,6 +21,7 @@ public class ProcessManager {
     public SavedCommand savedCommand = new SavedCommand();
     public FindCommand findCommand = new FindCommand();
     public ByeCommand byeCommand = new ByeCommand();
+    public HelpCommand helpCommand = new HelpCommand();
 
     public Ui ui = new Ui();
 
@@ -86,6 +87,8 @@ public class ProcessManager {
                 ui.printIOException(e);
             }
             return false;
+        } else if (command instanceof HelpCommand) {
+            helpCommand.execute();
         }
         return true;
     }

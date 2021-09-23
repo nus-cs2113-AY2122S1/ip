@@ -12,6 +12,7 @@ public class Parser {
     private static final String TODO = "todo";
     private static final String FIND = "find";
     private static final String SAVE = "save";
+    private static final String HELP = "help";
 
     public DeadlineCommand deadlineCommand = new DeadlineCommand();
     public EventCommand eventCommand = new EventCommand();
@@ -23,6 +24,7 @@ public class Parser {
     public SavedCommand savedCommand = new SavedCommand();
     public FindCommand findCommand = new FindCommand();
     public ByeCommand byeCommand = new ByeCommand();
+    public HelpCommand helpCommand = new HelpCommand();
 
     /**
      * Function takes the input line and identify the type of Command it is
@@ -35,6 +37,8 @@ public class Parser {
             return byeCommand;
         } else if (line.equals(LIST)) {
             return listCommand;
+        } else if (line.equals(HELP)) {
+            return helpCommand;
         } else if (line.startsWith(DELETE)) {
             return deleteCommand;
         } else if (line.startsWith(DONE)) {

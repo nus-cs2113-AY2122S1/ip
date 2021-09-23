@@ -34,8 +34,13 @@ public class Storage {
         } catch (SecurityException e) {
             ui.printSecurityException(e);
         }
+
         if (isFirstTime) {
             ui.printGreetings();
+        } else {
+            ui.printLoadMessage();
+            ui.printLoadMessageComplete();
+            ui.printListMessage(taskList);
         }
     }
 
@@ -50,7 +55,6 @@ public class Storage {
         File file = new File(FILEPATH);
         try {
             if (file.exists()) {
-                ui.printLoadMessage();
                 Scanner fileScan = new Scanner(file);
                 while (fileScan.hasNext()) {
                     try {
@@ -61,7 +65,6 @@ public class Storage {
                         return file.createNewFile();
                     }
                 }
-                ui.printLoadMessageComplete();
                 return false;
             } else {
                 return file.getParentFile().mkdirs();

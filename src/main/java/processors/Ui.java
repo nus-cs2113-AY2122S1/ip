@@ -39,7 +39,7 @@ public class Ui {
     }
 
     public void printListMessage(ArrayList<Task> list) {
-        String output = LINE_DIVIDER;
+        String output = "These are the list of tasks you have\n" + LINE_DIVIDER;
         for (int i = 0; list.size() > i; i++) {
             String record = GAP + (i + ARRAY_INDEX_FINDER) + "." + list.get(i).toString() + "\n";
             output = output.concat(record);
