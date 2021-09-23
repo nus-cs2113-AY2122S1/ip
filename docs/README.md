@@ -106,21 +106,3 @@ Format: `bye`
 The list of task is stored in the hard disk automatically before exiting the program.
 
 The list will be stored at a relative file path, `data/duke.txt`.
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
