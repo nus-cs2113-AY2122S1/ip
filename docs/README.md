@@ -73,9 +73,11 @@ Show a list of all tasks.
 
 ### <span id="complete-task">Complete a task</span>
 User can set a task at specific index after he/she has completed it.
+<span>
 #### format: `done <task index>`
 - The index refers to the index number in the list.
 - The index must be a positive number, and should not exceed the total number of tasks inside the list. Otherwise, Duke may throw a warning. </a>
+</span>
 ![img](done.png)
 
 <br/>  
@@ -95,13 +97,14 @@ Tasks can be sorted based on emergency. Tasks have closer deadline will be put i
 
 ### <span id="delete-task">Delete tasks</span>
 delete a task at specific index.
+<span>
 #### format: `delete <task index>`
 - The index refers to the index number in the list.
-- The index must be a positive number, and should not exceed the total number of tasks inside the list. Otherwise, Duke may throw a warning. </a>
+- The index must be a positive number, and should not exceed the total number of tasks inside the list. Otherwise, Duke may throw a warning.
+</span>
 ![img](delete.png)
 
-
-
+  
 <br/>  
 
 ### <span id="exit">Exit</span>
