@@ -105,13 +105,14 @@ public class Parser {
     }
 
     /**
-     * Returns a String Array of size 2, containing the description and
+     * Splits the description and timing information. Then, returns
+     * a String Array of length 2, containing the description and
      * timing information for Event and Deadline tasks.
      *
      * @param rawDescription The entire description (excluding the command).
      * @param command        The command (command word) from the user.
      * @param indexSplit     The index of "/at" or "/by"
-     * @return A String Array of size 2, containing the description (task name)
+     * @return A String Array of length 2, containing the description (task name)
      * and timing information.
      * @throws DukeException If the description format provided is invalid.
      */
