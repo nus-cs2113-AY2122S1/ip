@@ -23,10 +23,15 @@ Duke is a java application to manage tasks via command line interface (CLI). Thi
 1. Ensure that you have java 11 installed in your computer.
 2. Download duke.jar from A-Release tag and store it into a folder.
 3. Store duke.jar file to the file that you would want to store
-4. Open command prompt(for windows) or terminal(for mac and linux) and change directory to the file 
+4. Open command prompt(for windows) or terminal(for mac and linux) and change directory to the folder ----
 5. Run command ```java -jar duke.jar```
 6. Upon start, if you manage to see the message below in your console, you have successfully installed and run duke.jar
-```text
+
+
+<style> .p1-c1 {color: red} </style>
+
+
+```
 Hello from
  ____        _        
 |  _ \ _   _| | _____ 
@@ -41,7 +46,7 @@ F
      Hello! I'm Duke
      What can I do for you?
     _________________________________________________________________
-```
+```</span>
 ## Features 
 
 1. Words in anchor tags <> are parameters required to be provided by the user.
@@ -78,6 +83,8 @@ help
      If <time2> is HHMM, it will inherit YYYY-MM-DD from <time1>
      -- creates an event task with the description given and store 2 time given by the input
 ```
+
+
 ### `bye` - Exit program
 
 Description: Exits the program
@@ -127,6 +134,13 @@ todo create a task
      Now you have 1 tasks in the list.
     _________________________________________________________________
 ```
+```text
+todo create another task
+    _________________________________________________________________
+     [T][ ] create another task
+     Now you have 2 tasks in the list.
+    _________________________________________________________________
+```
 ### `deadline` - Create a deadline task
 Description: Deadline is a type of task that takes in a description and time. 
 Create a deadline by following the format below:
@@ -137,7 +151,7 @@ Example:
 deadline create a deadline task /by 2021-10-01 1159
     _________________________________________________________________
      [D][ ] create a deadline task (by: 01-10-2021 1159)
-     Now you have 2 tasks in the list.
+     Now you have 3 tasks in the list.
     _________________________________________________________________
 ```
 
@@ -165,7 +179,7 @@ Description: will mark a particular task as done, by showing an X on the second 
 
 Example: 
 ```text
-done 2
+done 3
     _________________________________________________________________
      Nice! I've marked this task as done:
      [D][X] create a deadline task
@@ -179,26 +193,12 @@ Description: Delete a task with that has the corresponding number
 
 Example:
 ```text
-list
-    _________________________________________________________________
-     Here are the tasks in your list:
-     1. [T][ ] create a task
-     2. [D][X] create a deadline task (by: 01-10-2021 1159)
-     3. [E][ ] this iw what happens when time1 is later than time2 (at: 01-10-2021 0300 to 02-10-2021 1300)
-     4. [E][ ] this is what happens when time1 is later than time2 (at: 01-10-2021 0300 to 02-10-2021 1300)
-    _________________________________________________________________
-delete 3
+
+delete 2
     _________________________________________________________________
      Noted. I've removed this task:
-     [E][ ] this iw what happens when time1 is later than time2 (at: 01-10-2021 0300 to 02-10-2021 1300)
+     [T][ ] create another task
      Now you have 3 tasks in the list.
-    _________________________________________________________________
-list
-    _________________________________________________________________
-     Here are the tasks in your list:
-     1. [T][ ] create a task
-     2. [D][X] create a deadline task (by: 01-10-2021 1159)
-     3. [E][ ] this is what happens when time1 is later than time2 (at: 01-10-2021 0300 to 02-10-2021 1300)
     _________________________________________________________________
 ```
 
