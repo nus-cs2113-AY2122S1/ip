@@ -1,7 +1,7 @@
-package austin;
+package task;
 
 public class Event extends Task {
-    /** Event date and time*/
+    /** Event date and time */
     protected String at;
 
     public Event(String description, String at) {
@@ -13,12 +13,13 @@ public class Event extends Task {
         this.at = at;
     }
 
+    @Override
     public String toFileFormat() {
-        return "E | " + (isDone ? "1" : "0") + " # " + description + " @ " + at + "\n";
+        return "E # " + (isDone ? "1" : "0") + " # " + description + " # " + at + "\n";
     }
 
     @Override
     public String toString() {
-        return"[D] [" + getStatus() + "] " + getDescription() + " (at:" + at + ")";
+        return "[E] [" + getStatus() + "] " + getDescription() + " (at: " + at + ")";
     }
 }

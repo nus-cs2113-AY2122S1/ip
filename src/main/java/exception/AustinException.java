@@ -1,5 +1,9 @@
-package austin;
+package exception;
 
+/**
+ * Exception class created for this chatbot to handle errors not detected by default
+ * exception classes.
+ */
 public class AustinException extends Exception {
     protected String message;
 

@@ -1,4 +1,4 @@
-package austin;
+package task;
 
 public class Todo extends Task {
     public Todo(String description) {
@@ -6,7 +6,7 @@ public class Todo extends Task {
     }
 
     public String toFileFormat() {
-        return "T | " + (isDone ? "1" : "0") + " # " + description + "\n";
+        return "T # " + (isDone ? "1" : "0") + " # " + description + "\n";
     }
 
     @Override

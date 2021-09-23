@@ -1,4 +1,4 @@
-package austin;
+package task;
 
 public class Deadline extends Task {
     /** Deadline date and time */
@@ -13,12 +13,13 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    @Override
     public String toFileFormat() {
-        return "D | " + (isDone? "1" : "0") + " # " + description + " / " + by + "\n";
+        return "D # " + (isDone? "1" : "0") + " # " + description + " # " + by + "\n";
     }
 
     @Override
     public String toString() {
-        return "[D] [" + getStatus() + "] " + getDescription() + " (by:" + by + ")";
+        return "[D] [" + getStatus() + "] " + getDescription() + " (by: " + by + ")";
     }
 }

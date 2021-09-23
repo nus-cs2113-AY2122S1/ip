@@ -1,4 +1,4 @@
-package austin;
+package task;
 
 public abstract class Task {
     /** Description of the task */
@@ -8,16 +8,16 @@ public abstract class Task {
     protected boolean isDone;
 
     public Task(String description) {
-        setDescription(description);
-        setDone(false);
+        this.description = description;
+        this.isDone = false;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public void setDone(boolean done) {
@@ -29,13 +29,18 @@ public abstract class Task {
      * @return Status icon.
      */
     public String getStatus() {
-        //returns the icon to indicate whether the task is completed
         if (isDone) {
             return "X";
         }
         return " ";
     }
 
+
+    /**
+     * Abstract method used to convert Task type to a string format used to
+     * store it in the text file.
+     * @return String containing all the details of the task
+     */
     public abstract String toFileFormat();
 
     @Override
