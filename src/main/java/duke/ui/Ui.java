@@ -121,4 +121,24 @@ public class Ui {
         System.out.print(taskList);
         System.out.println(LINE);
     }
+
+    /**
+     * Displays to user the filtered task list based
+     * on the specified keyword.
+     *
+     * @param taskList The initial task list.
+     * @param keyword The specified keyword.
+     */
+    public void printTaskWithKeyword(TaskList taskList, String keyword) {
+        TaskList filteredTaskList = taskList.filterTaskByKeyword(keyword);
+
+        System.out.print(LINE);
+        if (filteredTaskList.isEmpty()) {
+            System.out.println(PADDING + "There is no matching task in your list.");
+        } else {
+            System.out.println(PADDING + "Here are the matching tasks in your list:");
+            System.out.print(filteredTaskList);
+        }
+        System.out.println(LINE);
+    }
 }

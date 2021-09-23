@@ -6,6 +6,7 @@ import duke.command.CommandType;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.exception.DukeException;
 import duke.task.Deadline;
@@ -40,6 +41,8 @@ public class Parser {
             return parseEventCommand(userResponse);
         case EXIT:
             return parseExitCommand(userResponse);
+        case FIND:
+            return parseFindCommand(userResponse);
         case LIST:
             return parseListCommand(userResponse);
         case TODO:
@@ -118,6 +121,15 @@ public class Parser {
         }
 
         return new ExitCommand();
+    }
+
+    private static Command parseFindCommand(String userResponse) throws DukeException {
+        String keyword = userResponse.replaceFirst("find", "").strip().toLowerCase();
+        if (keyword.isBlank()) {
+            throw new DukeException(Message.ERROR_INVALID_COMMAND);
+        }
+
+        return new FindCommand(keyword);
     }
 
     private static Command parseListCommand(String userResponse) throws DukeException {

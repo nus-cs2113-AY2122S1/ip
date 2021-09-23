@@ -37,6 +37,26 @@ public class TaskList {
         taskList.remove(index);
     }
 
+    public boolean isEmpty() {
+        return taskList.isEmpty();
+    }
+
+    /**
+     * Filters the task list according to the specified keyword.
+     *
+     * @param keyword The keyword.
+     * @return The filtered task list.
+     */
+    public TaskList filterTaskByKeyword(String keyword) {
+        TaskList filteredTaskList = new TaskList();
+        for (Task task : taskList) {
+            if (task.getDescription().toLowerCase().contains(keyword)) {
+                filteredTaskList.addTask(task);
+            }
+        }
+        return filteredTaskList;
+    }
+
     /**
      * Serializes task data.
      *
