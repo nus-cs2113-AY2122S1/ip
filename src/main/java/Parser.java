@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Parser {
@@ -26,6 +27,9 @@ public class Parser {
                     int deleteIndex = Integer.parseInt(words[1]) - 1;
                     TaskList.deleteTask(deleteIndex);
                     break;
+                case "filter":
+                    TaskList.filterDates(line);
+                    break;
                 default:
                     TaskList.printInvalid();
                     break;
@@ -35,6 +39,13 @@ public class Parser {
             } catch (NumberFormatException e) {
                 Duke.printLine();
                 System.out.println("\tThe index has to be an integer.");
+                Duke.printLine();
+            } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+                Duke.printLine();
+                System.out.println("\tThis is not a valid date and time. " +
+                        "Deadline and Event tasks require" + System.lineSeparator() +
+                        "\tdate and time (24hr format) in the following format: ");
+                System.out.println("\tyyyy/mm/dd hhmm");
                 Duke.printLine();
             }
             line = Ui.getLine(in);
