@@ -1,6 +1,7 @@
 package command;
 
-import task.TaskManager;
+import storage.Storage;
+import task.TaskList;
 import ui.UI;
 
 public class ListCommand extends Command {
@@ -8,11 +9,12 @@ public class ListCommand extends Command {
     /**
      * Uses the UI object to print a list of all tasks stored by taro
      *
-     * @param taskManager the TaskManager type object used to handle internal task related operations
+     * @param taskList the TaskList type object used to handle internal task related operations
      * @param ui the UI type object used to handle i/o for taro
+     * @param storage the object used for handling read/write operations to the taro.txt data file
      */
     @Override
-    public void execute(TaskManager taskManager, UI ui) {
-        ui.printTasksList(taskManager.getTasks(), taskManager.getTaskCount());
+    public void execute(TaskList taskList, UI ui, Storage storage) {
+        ui.printTasksList(taskList.getTasks(), taskList.getTaskCount());
     }
 }

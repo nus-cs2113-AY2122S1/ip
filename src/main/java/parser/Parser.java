@@ -1,7 +1,7 @@
 package parser;
+
 import command.*;
 import exceptions.DukeException;
-import ui.UI;
 
 public class Parser {
 
