@@ -140,7 +140,6 @@ public class Ui {
         }
         System.out.println(LINE);
     }
-}
 
     /**
      * Displays to user the filtered task list based
@@ -161,3 +160,4 @@ public class Ui {
         }
         System.out.println(LINE);
     }
+}
