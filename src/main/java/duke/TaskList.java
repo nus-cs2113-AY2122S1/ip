@@ -13,23 +13,15 @@ public class TaskList {
     }
 
     public void addEvent (String description, String time, int count) {
-        try {
-            Event event = new Event(description, count, time);
-            event.printAdded(count);
-            list.add(event);
-        } catch (DateTimeParseException e) {
-            Ui.dateFormatError();
-        }
+        Event event = new Event(description, count, time);
+        event.printAdded(count);
+        list.add(event);
     }
 
     public void addDeadline (String description, String time, int count) {
-        try {
-            Deadline deadline = new Deadline(description, count, time);
-            deadline.printAdded(count);
-            list.add(deadline);
-        } catch (DateTimeParseException e) {
-            Ui.dateFormatError();
-        }
+        Deadline deadline = new Deadline(description, count, time);
+        deadline.printAdded(count);
+        list.add(deadline);
     }
 
     public void delete (String description, int count) {
@@ -55,5 +47,16 @@ public class TaskList {
         list.get(index).printMarkAsDone();
     }
 
+    public void find (String description) {
+        if (list.isEmpty()) {
+            throw new NullPointerException();
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for(Task task: list){
+            if (task.description.contains(description)) {
+                task.printTask();
+            }
+        }
+    }
 
 }
