@@ -7,49 +7,67 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Storage {
+    public static final Path dataPath = Paths.get("DukeData/data.txt");
     private static final Path dukeDirPath = Paths.get("DukeData");
     private static final File dukeDir = new File(dukeDirPath.toString());
-    private static final Path dataPath = Paths.get("DukeData/data.txt");
-    private static final File data = new File(dataPath.toString());
+    private static final File dataFile = new File(dataPath.toString());
 
-    public static void initializeFile() throws IOException {
-        //dukeDir directory does not exist  && creates Duke directory if so
+    public static void initializeStorage() throws IOException {
         if (dukeDir.mkdir()) {
-            data.createNewFile();
+            Ui.printlnTab("Created " + dukeDirPath + " directory!");
+        }
+        if (dataFile.createNewFile()) {
+            Ui.printlnTab("Created " + dataPath + " storage file!");
+        }
 
-        } else { //dukeDir directory exists
-            //create Duke/data.txt if does not exist
-            // run the if statement if Duke/data.txt exists already
-            if (!data.createNewFile()) {
-                try {
-                    readFile();
-                } catch (FileNotFoundException e) {
-                    System.out.println("/Duke/data.txt not found!!!");
-                }
-                Parser.taskList.listTasks();
-            }
+        try {
+            readFile();
+        } catch (FileNotFoundException e) {
+            Ui.printlnTab(dataPath + " not found!");
+            Ui.printDivider();
         }
     }
 
     private static void readFile() throws FileNotFoundException {
-        Scanner s = new Scanner(data); // create a Scanner using the File as the source
+        Ui.printlnTab("Reading " + dataPath + " file...");
+        Ui.printlnTab("");
+
+        boolean hasError = false;
+        Scanner s = new Scanner(dataFile);
+        int lineNumber = 1;
         while (s.hasNext()) {
-            parseData(s.nextLine());
+            try {
+                parseData(s.nextLine());
+
+            } catch (Exception e) {
+                Ui.printlnTab("☹ OOPS!!! Line " + lineNumber + " is invalid! Skipping to next line...");
+                hasError = true;
+            }
+
+            lineNumber++;
         }
-        // TODO exception for failing to read a particular line?????/
+        Ui.printDivider();
+        if (hasError) {
+            Ui.printlnTab("1. Enter 'bye' to exit program to correct data file " + dataPath);
+            Ui.printlnTab("2. add, do or delete tasks to OVERWRITE all invalid data!");
+            Ui.printDivider();
+        }
     }
 
-
-    private static void parseData(String line) {
-        String[] taskDetails = line.split(" \\| "); //TODO if userInput includes '|', might need to reject..?
-        // need to escape pipe operator as it is a metacharacter in regex
+    private static void parseData(String line) throws InvalidIntegerException {
+        if (line.isBlank()) {
+            return;
+        }
+        String[] taskDetails = line.split(" \\| ");
 
         String taskLetter = taskDetails[0];
 
         String isDoneString = taskDetails[1];
         int isDoneInt = Integer.parseInt(isDoneString);
-        boolean isDone = (isDoneInt == 1); //TODO how to account for errors in textfile... beside 1, 0
-        //TODO EXCEPTIONS: skip lines with error, and notify user that these lines have error
+        if (isDoneInt != Integer.parseInt("1") && isDoneInt != Integer.parseInt("0")) {
+            throw new InvalidIntegerException();
+        }
+        boolean isDone = (isDoneInt == 1);
 
         String description = taskDetails[2];
         String date;
@@ -71,12 +89,14 @@ public class Storage {
             String[] eventDetails = {description, date};
             Parser.taskList.addEvent(eventDetails, isDone);
             break;
+        default:
+            throw new IllegalStateException();
         }
     }
 
     //rewrite entire data.txt file with latest version of tasks list
     public static void writeToFile() throws IOException {
-        FileWriter fw = new FileWriter(data);
+        FileWriter fw = new FileWriter(dataFile);
         fw.write(Parser.taskList.getTasksDataStorageString());
         fw.close();
     }

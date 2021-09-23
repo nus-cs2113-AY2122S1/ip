@@ -4,7 +4,7 @@ public class Ui {
     }
 
     public static void printDivider() {
-        System.out.println("\t____________________________________________________________");
+        System.out.println("\t______________________________________________________________________");
         System.out.println();
     }
 
