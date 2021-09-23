@@ -16,14 +16,11 @@ import java.io.IOException;
 public class Triss {
 
 
-
-
-
     /** Boolean to track if user has said "bye" */
     private static boolean hasUserSaidBye = false;
 
     /** Array to keep track of user's tasks */
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    protected static final ArrayList<Task> tasks = new ArrayList<>();
 
     /** Length of the word "todo" */
     public static final int END_INDEX_OF_WORD_TODO = 4;
@@ -33,6 +30,8 @@ public class Triss {
     public static final int END_INDEX_OF_WORD_EVENT = 5;
     /** User interface to receive input and give output */
     private static Ui ui = new Ui();
+    /** Storage where tasks can be retrieved and stored */
+    private static Storage storage = new Storage();
 
     /**
      * Loops Triss into receiving user input and giving output messages.
@@ -42,15 +41,6 @@ public class Triss {
     public static void main(String[] args) {
         // Print LOGO and welcome text
         ui.printWelcomeMessage();
-
-        // Check for any stored data
-        try {
-            initialiseDataStorage();
-        } catch (TrissException error) {
-            System.out.println(error.getMessage());
-        } catch (IOException error) {
-            System.out.println("Tasks storage has been corrupted! Try restarting.");
-        }
 
         // While user has not said "bye", check for next line of input
         while (!hasUserSaidBye) {
@@ -63,7 +53,7 @@ public class Triss {
             // Perform actions based on user's command
             switch (userCommand) {
             case "bye":
-                saveTasks();
+                storage.saveTasks();
                 hasUserSaidBye = true;
                 ui.printShutdownMessage();
                 break;
@@ -85,12 +75,11 @@ public class Triss {
                 break;
             }
 
-            saveTasks();
+            storage.saveTasks();
             ui.printSeparatorLine();
 
         }
     }
-
 
     private static void handleUserDeletingTask(String userInput) {
         // Get number of task after the term "done"
@@ -121,57 +110,6 @@ public class Triss {
         ui.printLine("    " + chosenTask.printTask());
     }
 
-    private static void initialiseDataStorage() throws IOException, TrissException {
-        File dataDirectory = new File("data");
-        File storedTasks = new File("data/storedtasks.txt");
-        if (dataDirectory.exists()) {
-            Scanner fileReader = new Scanner(storedTasks);
-            while (fileReader.hasNext()) {
-                String lineInFile = fileReader.nextLine();
-                String[] taskDetails = lineInFile.split(",");
-                switch (taskDetails[0]) {
-                case "[T]":
-                    createNewTodo("todo " + taskDetails[2], true);
-                    break;
-                case "[E]":
-                    createNewEvent("event " + taskDetails[2] + " /" + taskDetails[3], true);
-                    break;
-                case "[D]":
-                    createNewDeadline("deadline " + taskDetails[2] + " /" + taskDetails[3], true);
-                    break;
-                default:
-                    throw new TrissException("Tasks storage has been corrupted! Try restarting.");
-                }
-
-                if (taskDetails[1].equals("[X]")) {
-                    tasks.get(tasks.size() - 1).setDone(true);
-                }
-
-            }
-        } else {
-            dataDirectory.mkdir();
-            FileWriter fw = new FileWriter(storedTasks.getAbsoluteFile());
-            fw.close();
-        }
-    }
-
-    private static void saveTasks() {
-
-        try {
-            FileWriter fw = new FileWriter("data/storedtasks.txt");
-
-            for (Task task:tasks) {
-                fw.write(task.printTaskForStoring() + System.lineSeparator());
-            }
-            fw.close();
-        } catch (IOException error) {
-            System.out.println("Tasks storage has been corrupted! Try restarting.");
-        }
-
-    }
-
-
-
     /**
      * Parse the user input and return the word in the index the user wants.
      * @param userInput The user input to be parsed.
@@ -181,8 +119,6 @@ public class Triss {
     private static String parseUserInput(String userInput, int i) {
         return userInput.split(" ")[i];
     }
-
-
 
     /**
      * Creates new task depending on first word in user input.
@@ -213,7 +149,7 @@ public class Triss {
      * If user did not type in this format: "todo Eat with Friends", it asks the user to try again.
      * @param userInput Any user input starting with the words "todo"
      */
-    private static void createNewTodo(String userInput, boolean isSilent) throws TrissException {
+    public static void createNewTodo(String userInput, boolean isSilent) throws TrissException {
         String taskName;
         taskName = userInput.substring(END_INDEX_OF_WORD_TODO).trim();
 
@@ -239,7 +175,7 @@ public class Triss {
      * If the user types incorrectly, it asks the user to try again.
      * @param userInput Any user input starting with the word "event".
      */
-    private static void createNewEvent(String userInput, boolean isSilent) throws TrissException {
+    public static void createNewEvent(String userInput, boolean isSilent) throws TrissException {
         String taskName;
         String eventTiming;
 
@@ -282,7 +218,7 @@ public class Triss {
      * If the user types incorrectly, it asks the user to try again.
      * @param userInput Any user input starting with the word "deadline".
      */
-    private static void createNewDeadline(String userInput, boolean isSilent) throws TrissException {
+    public static void createNewDeadline(String userInput, boolean isSilent) throws TrissException {
         String deadlineDate;
         String taskName;
 
