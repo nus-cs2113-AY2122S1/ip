@@ -7,6 +7,7 @@ import ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
@@ -46,6 +47,7 @@ public class TaskList {
 
 
     public static ArrayList<Task> scheduledTasks;
+    public static ArrayList<Task> filteredList;
 
     public TaskList() {
         scheduledTasks = new ArrayList<Task>();
@@ -70,6 +72,29 @@ public class TaskList {
             throw new NoTaskFoundException(ERROR_INVALID_TASK_NUMBER);
         }
     }
+
+    public static void callFindTasks(String userInput) {
+        int indexOfSpace = userInput.indexOf(DELIMITER_SPACE);
+        String filterString = userInput.substring(indexOfSpace + 1);
+        ArrayList<Task> filteredList = findTasks(filterString);
+        filteredList.stream()
+                .forEach(System.out::println);
+
+    }
+
+    public static ArrayList<Task> findTasks(String filterString) {
+        int counter = 0;
+        filteredList = (ArrayList<Task>) scheduledTasks.stream()
+                .filter((t) -> t.description.contains(filterString))
+                .collect(Collectors.toList());
+
+        counter = filteredList.size();
+        if (counter <= 0) {
+            System.out.println("☹ OOPS!!! I'm sorry, but no tasks match your search.");
+        }
+        return filteredList;
+    }
+
 
     /**
      * Adds the task to the task list if it is a valid task creation statement given by the user.
@@ -218,4 +243,6 @@ public class TaskList {
             }
         }
     }
+
 }
+
