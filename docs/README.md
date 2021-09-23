@@ -40,9 +40,7 @@ Graphical Line Interface (currently not available, but coming soon...).
 > Notes:
 > - words in <> are required parameters from users
 > - words in [] are optional parameters from users
-    > e.g. for `deadline <task description> /<YYYY-MM-DD> [HH:MM]`, \<task desscription\>, and \<YYYY-MM-DD\> are two required
-    > parameters, while \[HH:MM\] can be omitted. For example, `deadline cs2113 ip /2021-09-28`
-    > and `deadline cs2113 ip /2021-09-28 18:00` are both valid.
+<br/> e.g. for `deadline <task description> /<YYYY-MM-DD> [HH:MM]`, \<task description\>, and \<YYYY-MM-DD\> are two required parameters, while \[HH:MM\] can be omitted. For example, `deadline cs2113 ip /2021-09-28` and `deadline cs2113 ip /2021-09-28 18:00` are both valid.
 
 ### <span id="help">Get help</span>
 List all the commands format if users forget them
