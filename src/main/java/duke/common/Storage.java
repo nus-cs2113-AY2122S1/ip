@@ -2,6 +2,7 @@ package duke.common;
 
 import duke.parser.Parser;
 import duke.task.Task;
+import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileWriter;

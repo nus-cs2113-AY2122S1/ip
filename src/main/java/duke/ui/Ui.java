@@ -1,4 +1,4 @@
-package duke.common;
+package duke.ui;
 
 import duke.task.Task;
 
@@ -73,7 +73,7 @@ public class Ui {
         printDivider();
     }
 
-    public static void printResults(List<Task> searchResults, String keyword) {
+    public static void printResults(ArrayList<Task> tasks, List<Task> searchResults, String keyword) {
         printDivider();
         if (searchResults.isEmpty()) {
             println(NO_RESULTS_MESSAGE_START + keyword + NO_RESULTS_MESSAGE_END);
@@ -81,29 +81,29 @@ public class Ui {
         }
         println(FIND_MESSAGE_START + keyword + FIND_MESSAGE_END);
         for (Task result : searchResults) {
-            print((Command.tasks.indexOf(result) + 1) + ". ");
+            print((tasks.indexOf(result) + 1) + ". ");
             println(result);
         }
     }
 
-    public static void printAddMessage() {
+    public static void printAddMessage(ArrayList<Task> tasks) {
         printDivider();
         println(ADD_MESSAGE);
-        println(Command.tasks.get(Task.getTaskCount() - 1));
+        println(tasks.get(Task.getTaskCount() - 1));
         printDivider();
     }
 
-    public static void printDoneMessage() {
+    public static void printDoneMessage(ArrayList<Task> tasks) {
         printDivider();
         println(DONE_MESSAGE);
-        println(Command.tasks.get(Task.getTaskCount() - 1));
+        println(tasks.get(Task.getTaskCount() - 1));
         printDivider();
     }
 
-    public static void printDeleteMessage(int taskIndex) {
+    public static void printDeleteMessage(int taskIndex, ArrayList<Task> tasks) {
         printDivider();
         println(DELETE_MESSAGE);
-        println(Command.tasks.get(taskIndex - 1));
+        println(tasks.get(taskIndex - 1));
         printDivider();
     }
 

@@ -4,6 +4,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -21,26 +22,26 @@ public class Command {
 
     public static void addTodo(String description) throws IOException {
         tasks.add(Task.getTaskCount(), new Todo(description));
-        Ui.printAddMessage();
+        Ui.printAddMessage(tasks);
         Storage.saveData();
     }
 
     public static void addDeadline(String description, LocalDateTime by) throws IOException {
         tasks.add(Task.getTaskCount(), new Deadline(description, by));
-        Ui.printAddMessage();
+        Ui.printAddMessage(tasks);
         Storage.saveData();
     }
 
     public static void addEvent(String description, LocalDateTime at) throws IOException {
         tasks.add(Task.getTaskCount(), new Event(description, at));
-        Ui.printAddMessage();
+        Ui.printAddMessage(tasks);
         Storage.saveData();
     }
 
     public static void doneTask(int taskIndex) throws IOException {
         try {
             tasks.get(taskIndex - 1).setDone(true);
-            Ui.printDoneMessage();
+            Ui.printDoneMessage(tasks);
             Storage.saveData();
         } catch (IndexOutOfBoundsException e) {
             Ui.printIndexOutOfBoundsMessage();
@@ -49,7 +50,7 @@ public class Command {
 
     public static void deleteTask(int taskIndex) throws IOException {
         try {
-            Ui.printDeleteMessage(taskIndex);
+            Ui.printDeleteMessage(taskIndex, tasks);
             tasks.remove(taskIndex - 1);
             Storage.saveData();
         } catch (IndexOutOfBoundsException e) {
@@ -60,7 +61,7 @@ public class Command {
     public static void findTask(String ... keywords) {
         for (String keyword : keywords) {
             List<Task> searchResults = tasks.stream().filter(task->task.getDescription().contains(keyword)).collect(Collectors.toList());
-            Ui.printResults(searchResults, keyword);
+            Ui.printResults(tasks, searchResults, keyword);
         }
         Ui.printDivider();
     }

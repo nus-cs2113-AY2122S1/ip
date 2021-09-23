@@ -1,7 +1,7 @@
 package duke;
 
 import duke.common.Storage;
-import duke.common.Ui;
+import duke.ui.Ui;
 import duke.exception.EmptyCommandException;
 import duke.exception.IllegalCommandException;
 import duke.parser.Parser;
