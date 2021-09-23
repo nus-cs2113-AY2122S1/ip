@@ -10,8 +10,6 @@ public class Parser {
         return input[0];
     }
 
-    // parse user input into command for execution
-    // huge try catch block here
     public static void parseCommand(String userInput, ArrayList<Task> tasks) {
         try {
             String command = getCommand(userInput);
@@ -79,7 +77,7 @@ public class Parser {
 
     public static int getTaskNumber(String userInput) {
         int taskNumberPosition = userInput.trim().indexOf(" ");
-        return Integer.parseInt(userInput.trim().substring(taskNumberPosition + 1));
+        return Integer.parseInt(userInput.trim().substring(taskNumberPosition + 1)) - 1;
     }
 
     public static boolean isValidTaskDescription(String userInput) {
@@ -88,7 +86,7 @@ public class Parser {
     }
 
     public static boolean isValidDeadlineOrEventDescription(String userInput, String description, String time) {
-        if (!isValidDeadlineFormat(userInput) || !isValidEventFormat(userInput)) {
+        if (!isValidDeadlineFormat(userInput) && !isValidEventFormat(userInput)) {
             return false;
         } else if (description.isEmpty() || time.isEmpty()) {
             return false;

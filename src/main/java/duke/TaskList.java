@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    // getting task names, deadline, duration etc should be done in Parser
-
     public static void addTodo(String input, ArrayList<Task> tasks) throws InvalidTaskDescriptionException {
         if (!Parser.isValidTaskDescription(input)) {
             throw new InvalidTaskDescriptionException("Task description is invalid!");

@@ -28,7 +28,7 @@ public class Ui {
     public static void printAddedTaskMessage(Task task, ArrayList<Task> tasks) {
         System.out.print(HORIZONTAL_LINE + "Understood. I've added this task: " + System.lineSeparator()
                 + task + System.lineSeparator() + "Now you have " + tasks.size()
-                + " tasks in the list." + HORIZONTAL_LINE);
+                + " tasks in the list." + System.lineSeparator() + HORIZONTAL_LINE);
     }
 
 

@@ -105,7 +105,7 @@ public class Storage {
         try {
             readTaskFile(tasks);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            System.out.println("File not yet created, I'll create one for you now!");
         }
     }
 }
