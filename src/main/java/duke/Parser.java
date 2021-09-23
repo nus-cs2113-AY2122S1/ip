@@ -1,17 +1,18 @@
 package duke;
 
-import static duke.Duke.tasks;
+
+import java.util.ArrayList;
 
 public class Parser {
 
-    private static String getCommand(String userInput) {
+    public static String getCommand(String userInput) {
         String[] input = userInput.trim().toLowerCase().split(" ");
         return input[0];
     }
 
     // parse user input into command for execution
     // huge try catch block here
-    public static void parseCommand(String userInput) {
+    public static void parseCommand(String userInput, ArrayList<Task> tasks) {
         try {
             String command = getCommand(userInput);
             switch (command) {
