@@ -1,18 +1,21 @@
 package alfred.task;
 
-public class Event extends Task {
-    protected String at;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String at) {
+public class Event extends Task {
+    protected LocalDate at;
+
+    public Event(String description, LocalDate at) {
         super(description);
         this.at = at;
     }
 
     /**
      * This method retrieves the date specified for Event.
-     * @return String Date string to be returned
+     * @return This returns LocalDate event date
      */
-    public String getDate() {
+    public LocalDate getDate() {
         return at;
     }
 
@@ -22,6 +25,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString() + " (at: " + at.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

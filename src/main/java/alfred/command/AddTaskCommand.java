@@ -6,12 +6,14 @@ import alfred.task.Task;
 import alfred.task.Todo;
 import alfred.ui.TextUi;
 
+import java.time.LocalDate;
+
 public class AddTaskCommand extends Command {
     private final String taskType;
     private final String taskDescription;
-    private final String taskDate;
+    private final LocalDate taskDate;
 
-    public AddTaskCommand(String taskType, String taskDescription, String taskDate) {
+    public AddTaskCommand(String taskType, String taskDescription, LocalDate taskDate) {
         this.taskType = taskType;
         this.taskDescription = taskDescription;
         this.taskDate = taskDate;

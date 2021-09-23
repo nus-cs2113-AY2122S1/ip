@@ -64,12 +64,12 @@ public class TextUi {
     /**
      * This method prints the Task completion message along with its index in the list and description.
      * @param index Index in the TaskList (not displayed list)
-     * @param taskDescription Description of completed Task
+     * @param task Completed Task
      */
-    public static void completeTaskMessage(int index, String taskDescription) {
+    public static void completeTaskMessage(int index, Task task) {
         int listIndex = index + 1;
         String messageString =
-                "Duly noted on completion of task, sir.\n" + "    " + listIndex + "." + taskDescription + "\n";
+                "Duly noted on completion of task, sir.\n" + "    " + listIndex + "." + task.toString() + "\n";
         printMessageTemplate(messageString);
     }
 
@@ -85,11 +85,37 @@ public class TextUi {
             System.out.println(" Your schedule is clear, Master Wayne.");
         } else {
             System.out.println(" Your tasks, sir:");
-            for (int i = 0; i < numberOfTasks; i++) {
-                System.out.println(" " + (i + 1) + "." + taskList.getTask(i).toString());
-            }
+            printEnumeratedTasks(taskList, numberOfTasks);
         }
         System.out.println(LINE);
+    }
+
+    /**
+     * This method prints out all tasks that match the find query, with enumeration. If not, it will inform user
+     * about the failed query.
+     * @param filteredList The filtered TaskList to be printed
+     */
+    public static void printFoundTasks(TaskList filteredList) {
+        int numberOfTasks = filteredList.getSize();
+        System.out.print(LINE);
+        if (numberOfTasks == 0) {
+            System.out.println(" There appears to be no task by that query sir.");
+        } else {
+            System.out.println(" I've procured the following tasks based on that query, sir:");
+            printEnumeratedTasks(filteredList, numberOfTasks);
+        }
+        System.out.println(LINE);
+    }
+
+    /**
+     * This method iterates through the TaskList, enumerates the Tasks and prints them out.
+     * @param taskList TaskList to be enumerated and printed
+     * @param numberOfTasks Number of Tasks in the TaskList for iteration
+     */
+    private static void printEnumeratedTasks(TaskList taskList, int numberOfTasks) {
+        for (int i = 0; i < numberOfTasks; i++) {
+            System.out.println(" " + (i + 1) + "." + taskList.getTask(i).toString());
+        }
     }
 
     /**
@@ -182,8 +208,26 @@ public class TextUi {
     /**
      * This method prints a message denoting that a date is missing for Event/Deadline.
      */
-    public static void invalidDateMessage() {
+    public static void missingDateMessage() {
         printMessageTemplate(" Is there not a date for your so-called deadline or event, sir?\n");
+    }
+
+    /**
+     * This method prints a message when user does not specify a query term.
+     */
+    public static void missingQueryMessage() {
+        printMessageTemplate(" Master Wayne, if you don't specify a task to find, \n" +
+                " I'm afraid I cannot help you.\n");
+    }
+
+    /**
+     * This method prints a message to inform user to format date properly.
+     */
+    public static void invalidDateMessage() {
+        String messageString = " Master Wayne, to which planet does this date belong to?\n" +
+                " Please let me know soonest in the following forms:\n" +
+                " [DD-MM-YYYY] or [DD/MM/YYYY] or [DDMMYYYY]\n";
+        printMessageTemplate(messageString);
     }
 
     /**

@@ -1,5 +1,7 @@
 package alfred.task;
 
+import java.time.LocalDate;
+
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -11,11 +13,11 @@ public class Todo extends Task {
 
     /**
      * This method retrieves the date specified for Todo.
-     * However, as Todos have no date, it only returns an empty string.
-     * @return String Empty string to be returned
+     * However, as Todos have no date, it only returns a null LocalDate object.
+     * @return LocalDate Returns null LocalDate object
      */
-    public String getDate() {
-        return "";
+    public LocalDate getDate() {
+        return null;
     }
 
     @Override
