@@ -8,6 +8,8 @@ import duke.data.task.Task;
 import duke.storage.Storage;
 import duke.ui.TextUi;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class DeadlineCommand extends Command {
 
@@ -20,6 +22,10 @@ public class DeadlineCommand extends Command {
 
     public DeadlineCommand(String description, String deadline) {
         this.toAdd = new Deadline(description, deadline);
+    }
+
+    public DeadlineCommand(String description, LocalDate deadlineDate, LocalTime deadlineTime) {
+        this.toAdd = new Deadline(description, deadlineDate, deadlineTime);
     }
 
     @Override

@@ -10,7 +10,7 @@ REM delete saved file from previous run
 if exist data rmdir /S /Q data
 
 REM compile the code into the bin folder
-javac -encoding UTF-8 -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\duke\*.java ..\src\main\java\duke\commands\*.java ..\src\main\java\duke\parser\*.java ..\src\main\java\duke\storage\*.java ..\src\main\java\duke\ui\*.java ..\src\main\java\duke\data\exception\*.java ..\src\main\java\duke\data\task\*.java
+javac -encoding UTF-8 -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\duke\*.java ..\src\main\java\duke\commands\*.java ..\src\main\java\duke\parser\*.java ..\src\main\java\duke\storage\*.java ..\src\main\java\duke\ui\*.java ..\src\main\java\duke\data\exception\*.java ..\src\main\java\duke\data\task\*.java ..\src\main\java\duke\data\util\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1

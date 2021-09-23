@@ -5,10 +5,10 @@ event project meeting /at Mon 2-4pm
 list
 done 2
 done 3
-todo eat
-todo sleep
-todo rave
-todo repeat
+deadline eat /by 2/12/2019
+deadline sleep /by 2/12/2019 1800
+event rave /at 1998/08/05
+event repeat /at 2/12/2019 12:20
 list
 done 5
 done 6
