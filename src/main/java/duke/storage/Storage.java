@@ -14,11 +14,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static duke.message.Messages.LOAD_DELIMITER;
+
 /**
  * Loads and saves list of tasks data from a local text file
  */
 public class Storage {
     private static final String DEFAULT_STORAGE_FILEPATH = "data/duke.txt";
+    private static final String TODO_CODE = "T";
+    private static final String DEADLINE_CODE = "D";
+    private static final String EVENT_CODE = "E";
     private final Path path;
 
     public Storage() {
@@ -31,14 +36,12 @@ public class Storage {
      * @throws FileNotFoundException when the data file does not exist
      */
     public ArrayList<Task> load() throws FileNotFoundException {
-        final String LOAD_DELIMITER = "--";
         final int TASK_INDEX = 0;
         final int DONE_INDEX = 1;
         final int DESCRIPTION_INDEX = 2;
-        final int BY_AT_INDEX = 3;
-        final String TODO_CODE = "T";
-        final String DEADLINE_CODE = "D";
-        final String EVENT_CODE = "E";
+        final int DATE_INDEX = 3;
+        final int TIME_INDEX_1 = 4;
+        final int TIME_INDEX_2 = 5;
 
         ArrayList<Task> loadList = new ArrayList<>();
         String line;
@@ -55,12 +58,22 @@ public class Storage {
             line = s.nextLine();
             String[] lineData = line.split(LOAD_DELIMITER);
 
-            if (lineData[TASK_INDEX].equals(TODO_CODE)) {
+            switch (lineData[TASK_INDEX]) {
+            case TODO_CODE:
                 loadList.add(new Todo(lineData[DESCRIPTION_INDEX]));
-            } else if (lineData[TASK_INDEX].equals(DEADLINE_CODE)) {
-                loadList.add(new Deadline(lineData[DESCRIPTION_INDEX], lineData[BY_AT_INDEX]));
-            } else if (lineData[TASK_INDEX].equals(EVENT_CODE)) {
-                loadList.add(new Event(lineData[DESCRIPTION_INDEX], lineData[BY_AT_INDEX]));
+                break;
+            case DEADLINE_CODE:
+
+                loadList.add(new Deadline(lineData[DESCRIPTION_INDEX],
+                        lineData[DATE_INDEX],
+                        lineData[TIME_INDEX_1]));
+                break;
+            case EVENT_CODE:
+                loadList.add(new Event(lineData[DESCRIPTION_INDEX],
+                        lineData[DATE_INDEX],
+                        lineData[TIME_INDEX_1],
+                        lineData[TIME_INDEX_2]));
+                break;
             }
 
             if (lineData[DONE_INDEX].equals("1")) {
@@ -77,33 +90,18 @@ public class Storage {
      * @throws IOException when there is a problem writing to the file
      */
     public void save(ArrayList<Task> tasks) throws IOException {
-        final String DELIMITER = "--";
         FileWriter beginWrite = new FileWriter("data/duke.txt");
-        int userInputsCount = tasks.size();
 
         beginWrite.write("");
         beginWrite.close();
 
         FileWriter fw = new FileWriter("data/duke.txt", true);
 
-        for (int i = 0; i < userInputsCount; i++) {
-            if (tasks.get(i).getCode().equals("T")) {
-                String lineToAppend = tasks.get(i).getCode() + DELIMITER + tasks.get(i).getDoneValue() +
-                        DELIMITER + tasks.get(i).getDescription();
-                fw.write(lineToAppend);
-                fw.write(System.lineSeparator());
-            } else if (tasks.get(i).getCode().equals("D")) {
-                String lineToAppend = tasks.get(i).getCode() + DELIMITER + tasks.get(i).getDoneValue() +
-                        DELIMITER + tasks.get(i).getDescription() + DELIMITER + tasks.get(i).getBy();
-                fw.write(lineToAppend);
-                fw.write(System.lineSeparator());
-            } else if (tasks.get(i).getCode().equals("E")) {
-                String lineToAppend = tasks.get(i).getCode() + DELIMITER + tasks.get(i).getDoneValue() +
-                        DELIMITER + tasks.get(i).getDescription() + DELIMITER + tasks.get(i).getAt();
-                fw.write(lineToAppend);
-                fw.write(System.lineSeparator());
-            }
+        for (Task task : tasks) {
+            fw.write(task.toSave());
+            fw.write(System.lineSeparator());
         }
+
         fw.close();
     }
 }

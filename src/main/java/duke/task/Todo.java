@@ -1,5 +1,7 @@
 package duke.task;
 
+import static duke.message.Messages.LOAD_DELIMITER;
+
 /**
  * Todo task that has a description of task
  */
@@ -22,6 +24,14 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T][" + super.getStatusIcon() + "] " + super.getDescription();
+        return "[T]" + super.getStatusIcon() + " " + super.getDescription();
+    }
+
+    public String toSave() {
+        return this.getCode() +
+                LOAD_DELIMITER +
+                super.getDoneValue() +
+                LOAD_DELIMITER +
+                super.getDescription();
     }
 }
