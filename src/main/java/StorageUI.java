@@ -13,8 +13,12 @@ public class StorageUI {
      * listed information in Duke.txt is stored with incorrect formats, especially the date
      * and time of the deadline task descriptions.
      *
-     * @param nil
      * @return nil, this is a void method
+     * @throws FileNotFoundException if there is no pre-existing Duke.txt file
+     * @throws DateTimeParseException if the contents of the existing Duke.txt file does not
+     * follow conventions
+     * @throws ArrayIndexOutOfBoundsException if the contents of the existing Duke.txt file does not
+     * follow conventions
      */
     public static void storageWelcomeMessage(){
         try {
