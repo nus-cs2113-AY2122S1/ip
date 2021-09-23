@@ -5,7 +5,7 @@ Duke is a java application to manage tasks via command line interface (CLI). Thi
 ## Contents of User Guide
 - [Quick start](#user-content-quick-start)
 - Features
-  1. [`help` - View help](#userr-content-help---view-help)
+  1. [`help` - View help](#user-content-help---view-help)
   2. `bye` - Exit program
   3. `list` - List all the tasks created
   4. `todo` - Create a todo task
