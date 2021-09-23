@@ -17,7 +17,7 @@ public class Duke {
         String line = in.nextLine();
         while (!line.equals("bye")) {
             try {
-                Parser.parseAndExecuteCommand(line);
+                Parser.handleCommand(line);
             } catch (EmptyCommandException e) {
                 Ui.printEmptyCommandMessage();
             } catch (IllegalCommandException e) {
