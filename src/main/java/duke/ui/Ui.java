@@ -9,6 +9,7 @@ import static duke.message.Messages.DELETED_TASK;
 import static duke.message.Messages.ERROR;
 import static duke.message.Messages.FILE_NOT_FOUND;
 import static duke.message.Messages.FINISHED_TASK;
+import static duke.message.Messages.HELP;
 import static duke.message.Messages.LIST_TASK;
 import static duke.message.Messages.LOGO;
 import static duke.message.Messages.WELCOME;
@@ -45,6 +46,10 @@ public class Ui {
 
     public void printDukeException(String e) {
         out.println(e);
+    }
+
+    public void printHelp() {
+        out.println(SEPARATOR + LS + HELP);
     }
 
     public void printListTask() {

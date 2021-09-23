@@ -18,35 +18,15 @@ public class Task {
     }
 
     /**
-     * Set the description of the task
-     * @param description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * Get the icon to display 'X' if task is done, and display nothing if not done
+     * Get the icon to display '[X]' if task is done, and display '[ ]' if not done
      * @return String icon to display
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (isDone ? "[X]" : "[ ]");
     }
 
     public int getDoneValue() {
         return (isDone ? 1 : 0);
-    }
-
-    public String getCode() {
-        return " ";
-    }
-
-    public String getBy() {
-        return " ";
-    }
-
-    public String getAt() {
-        return " ";
     }
 
     /**
@@ -54,5 +34,9 @@ public class Task {
      */
     public void markAsDone() {
         this.isDone = true;
+    }
+
+    public String toSave() {
+        return " ";
     }
 }
