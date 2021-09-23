@@ -76,6 +76,7 @@ User can set a task at specific index after he/she has completed it.
 #### format: `done <task index>`
 - The index refers to the index number in the list.
 - The index must be a positive number, and should not exceed the total number of tasks inside the list. Otherwise, Duke may throw a warning.
+<br/>
 ![img](done.png)
 
 <br/>  
@@ -97,9 +98,8 @@ Tasks can be sorted based on emergency. Tasks have closer deadline will be put i
 delete a task at specific index.
 #### format: `delete <task index>`
 - The index refers to the index number in the list.
-- The index must be a positive number, and should not exceed the total number of tasks inside the list.  
-  Otherwise, Duke may throw a warning.
-  ![img](delete.png)
+- The index must be a positive number, and should not exceed the total number of tasks inside the list.Otherwise, Duke may throw a warning.
+![img](delete.png)
 
 
 
