@@ -8,6 +8,10 @@ public class Event extends Task {
         this.at = at;
     }
 
+    /**
+     * This method retrieves the date specified for Event.
+     * @return String Date string to be returned
+     */
     public String getDate() {
         return at;
     }

@@ -8,6 +8,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * This method retrieves the date specified for Deadline.
+     * @return String Date string to be returned
+     */
     public String getDate() {
         return by;
     }
