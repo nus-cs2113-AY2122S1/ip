@@ -1,19 +1,19 @@
 package karen;
 
-import karen.manager.FileManager;
-import karen.manager.ResponseManager;
-import karen.manager.TaskManager;
+import karen.program.ProgramManager;
 
 public class Karen {
     public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
-        FileManager.bootUpData(taskManager);
-        ResponseManager.printWelcomeMessage(taskManager.getIsFirstRun());
-
-        do {
-            String rawUserInput = taskManager.getUserInput();
-            taskManager.processInput(rawUserInput);
-        } while (taskManager.getIsRunning());
+//        TaskList taskList = new TaskList();
+//        Parser parser = new Parser(taskList);
+//        FileManager.bootUpData(parser, taskList);
+//        Ui.printWelcomeMessage(parser.getIsFirstRun());
+        ProgramManager programManager = new ProgramManager();
+        programManager.startProgram();
+//        do {
+//            String rawUserInput = Ui.getUserInput();
+//            parser.processInput(rawUserInput);
+//        } while (parser.getIsRunning());
     }
 }
 

@@ -1,4 +1,4 @@
-package karen.task;
+package karen.tasklist.task;
 
 public class Deadline extends Task{
     private String by;

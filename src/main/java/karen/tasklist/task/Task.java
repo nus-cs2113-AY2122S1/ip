@@ -1,4 +1,4 @@
-package karen.task;
+package karen.tasklist.task;
 
 public class Task {
     protected String fullTaskDescription;

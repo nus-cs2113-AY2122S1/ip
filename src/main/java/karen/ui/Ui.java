@@ -1,10 +1,11 @@
-package karen.manager;
+package karen.ui;
 
-import karen.task.Task;
+import karen.tasklist.task.Task;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public abstract class ResponseManager {
+public abstract class Ui {
     public static final String LINE = "    _____________________________________________________________________________\n\n";
     public static final String KAREN_LOGO =
             "\n" +
@@ -33,6 +34,12 @@ public abstract class ResponseManager {
 
     public static final String WELCOME_BACK_MESSAGE = "    Welcome back Plankton, anything else I can do for you?\n";
 
+    public static String getUserInput() {
+        System.out.print(" > ");
+        Scanner in = new Scanner(System.in);
+        String rawUserInput = in.nextLine().trim();
+        return rawUserInput;
+    }
 
     public static void printWelcomeMessage(boolean isFirstRun) {
         System.out.println(KAREN_LOGO);

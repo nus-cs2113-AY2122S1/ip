@@ -1,27 +1,32 @@
 package karen.command;
 
-import karen.manager.FileManager;
+import karen.program.ProgramManager;
+import karen.storage.Storage;
 import karen.exception.IncorrectDescriptionFormatException;
 import karen.exception.NoDescriptionException;
-import karen.manager.ResponseManager;
-import karen.manager.TaskManager;
-import karen.task.Deadline;
-import karen.task.Event;
-import karen.task.Task;
-import karen.task.ToDo;
+import karen.tasklist.TaskList;
+import karen.ui.Ui;
+import karen.tasklist.task.Deadline;
+import karen.tasklist.task.Event;
+import karen.tasklist.task.Task;
+import karen.tasklist.task.ToDo;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Command {
     private String command;
-    private TaskManager taskManager;
-    private ArrayList<Task> taskList;
+//    private Parser parser;
+    private TaskList taskList;
+    private ArrayList<Task> tasks;
+    private ProgramManager programManager;
 
-    public Command(String command, TaskManager taskManager) {
+    public Command(String command, ProgramManager programManager, TaskList taskList) {
         this.command = command;
-        this.taskManager = taskManager;
-        this.taskList = taskManager.getTaskList();
+//        this.parser = parser;
+        this.taskList = taskList;
+        this.tasks = taskList.getTaskList();
+        this.programManager = programManager;
     }
 
     public String getCommand() {
@@ -44,17 +49,17 @@ public class Command {
         int doneIndex = Integer.parseInt(inputWords[1]) - 1;
 
         // task has not been marked as done and needs to be marked as done
-        if (!taskList.get(doneIndex).getIsDone()) {
-            taskList.get(doneIndex).markAsDone();
-            ResponseManager.printTaskDoneMessage(taskList.get(doneIndex));
+        if (!tasks.get(doneIndex).getIsDone()) {
+            tasks.get(doneIndex).markAsDone();
+            Ui.printTaskDoneMessage(tasks.get(doneIndex));
         } else{
-            ResponseManager.printTaskAlreadyDoneMessage();
+            Ui.printTaskAlreadyDoneMessage();
         }
 
-        FileManager.writeToFile(taskList);
+        Storage.writeToFile(taskList);
     }
 
-    public void executeDeleteCommand(ArrayList<Task> taskList, String rawUserInput)
+    public void executeDeleteCommand(String rawUserInput)
             throws NoDescriptionException, IncorrectDescriptionFormatException,
             NumberFormatException, IndexOutOfBoundsException, IOException {
 
@@ -68,38 +73,38 @@ public class Command {
 
         //find the index of the task to delete and the task itself
         int deleteIndex = Integer.parseInt(inputWords[1]) - 1;
-        Task taskToDelete = taskList.get(deleteIndex);
-        taskList.remove(deleteIndex);
+        Task taskToDelete = tasks.get(deleteIndex);
+        taskList.removeTask(deleteIndex);
 
         //number of tasks after deleting
-        int totalTasks = taskList.size();
-        ResponseManager.printTaskDeletedMessage(taskToDelete, totalTasks);
+        int totalTasks = tasks.size();
+        Ui.printTaskDeletedMessage(taskToDelete, totalTasks);
 
-        FileManager.writeToFile(taskList);
+        Storage.writeToFile(taskList);
     }
 
-    public void executeListCommand(ArrayList<Task> taskList) {
-        ResponseManager.printTaskList(taskList);
+    public void executeListCommand() {
+        Ui.printTaskList(tasks);
     }
 
-    public void executeToDoCommand(String rawUserInput) throws NoDescriptionException, IOException {
+    public void executeToDoCommand(String rawUserInput, String fullTaskDescription) throws NoDescriptionException, IOException {
         String[] inputWords = rawUserInput.split(" ");
-        String fullTaskDescription = taskManager.getFullTaskDescription(rawUserInput);
+//        String fullTaskDescription = parser.getFullTaskDescription(rawUserInput);
 
         if (inputWords.length == 1) {
             throw new NoDescriptionException();
         }
 
         ToDo task = new ToDo(fullTaskDescription);
-        taskManager.addTask(task);
+        taskList.addTask(task);
 
-        int totalTasks = taskList.size();
-        ResponseManager.printTaskAddedMessage(task, totalTasks);
+        int totalTasks = taskList.getSize();
+        Ui.printTaskAddedMessage(task, totalTasks);
 
-        FileManager.writeToFile(taskList);
+        Storage.writeToFile(taskList);
     }
 
-    public void executeDeadlineCommand(String rawUserInput)
+    public void executeDeadlineCommand(String rawUserInput, String fullTaskDescription)
             throws NoDescriptionException, IncorrectDescriptionFormatException, IOException {
 
         String[] inputWords = rawUserInput.split(" ");
@@ -109,7 +114,7 @@ public class Command {
         }
 
         String[] separatedDescription = rawUserInput.split(" /by ", 2);
-        String fullTaskDescription = taskManager.getFullTaskDescription(rawUserInput);
+//        String fullTaskDescription = parser.getFullTaskDescription(rawUserInput);
 
         if (separatedDescription.length == 1) {
             throw new IncorrectDescriptionFormatException();
@@ -120,15 +125,15 @@ public class Command {
         }
 
         Deadline task = new Deadline(fullTaskDescription);
-        taskManager.addTask(task);
+        taskList.addTask(task);
 
-        int totalTasks = taskList.size();
-        ResponseManager.printTaskAddedMessage(task, totalTasks);
+        int totalTasks = taskList.getSize();
+        Ui.printTaskAddedMessage(task, totalTasks);
 
-        FileManager.writeToFile(taskList);
+        Storage.writeToFile(taskList);
     }
 
-    public void executeEventCommand(String rawUserInput)
+    public void executeEventCommand(String rawUserInput, String fullTaskDescription)
             throws NoDescriptionException, IncorrectDescriptionFormatException, IOException {
         String[] inputWords = rawUserInput.split(" ");
 
@@ -137,7 +142,7 @@ public class Command {
         }
         // for checking if valid
         String[] separatedDescription = rawUserInput.split(" /at ", 2);
-        String fullTaskDescription = taskManager.getFullTaskDescription(rawUserInput);
+//        String fullTaskDescription = parser.getFullTaskDescription(rawUserInput);
 
         if (separatedDescription.length == 1) {
             throw new IncorrectDescriptionFormatException();
@@ -148,12 +153,12 @@ public class Command {
         }
 
         Event task = new Event(fullTaskDescription);
-        taskManager.addTask(task);
+        taskList.addTask(task);
 
-        int totalTasks = taskList.size();
-        ResponseManager.printTaskAddedMessage(task, totalTasks);
+        int totalTasks = taskList.getSize();
+        Ui.printTaskAddedMessage(task, totalTasks);
 
-        FileManager.writeToFile(taskList);
+        Storage.writeToFile(taskList);
     }
 
     public void executeByeCommand(String rawUserInput) throws IncorrectDescriptionFormatException{
@@ -162,8 +167,8 @@ public class Command {
             throw new IncorrectDescriptionFormatException();
         }
 
-        ResponseManager.printGoodByeMessage();
-        taskManager.setIsRunningOff();
+        Ui.printGoodByeMessage();
+        programManager.setIsRunningOff();
     }
 
 }

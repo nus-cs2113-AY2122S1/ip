@@ -1,16 +1,18 @@
-package karen.manager;
-import karen.task.Deadline;
-import karen.task.Event;
-import karen.task.Task;
-import karen.task.ToDo;
+package karen.storage;
+import karen.program.ProgramManager;
+import karen.tasklist.TaskList;
+import karen.tasklist.task.Deadline;
+import karen.tasklist.task.Event;
+import karen.tasklist.task.Task;
+import karen.tasklist.task.ToDo;
+import karen.ui.Ui;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public abstract class FileManager {
+public abstract class Storage {
     private static final String FILE_PATH = "data/bobby.txt";
     private static final String TASK_DONE_STATUS = "X";
     private static final String TODO_COMMAND = "todo";
@@ -24,8 +26,12 @@ public abstract class FileManager {
             }
             dataFile.createNewFile();
         } catch (IOException e) {
-            ResponseManager.printCreateFileErrorMessage();
+            Ui.printCreateFileErrorMessage();
         }
+    }
+
+    public static String getFilePath() {
+        return FILE_PATH;
     }
 
     public static Task parseData(String[] splitData) {
@@ -51,7 +57,7 @@ public abstract class FileManager {
             task = new Event(fullTaskDescription);
             break;
         default:
-            ResponseManager.printIOExceptionMessage();
+            Ui.printIOExceptionMessage();
             break;
         }
 
@@ -62,37 +68,35 @@ public abstract class FileManager {
         return task;
     }
 
-    public static void bootUpData(TaskManager taskManager) {
+    public static void bootUpData(ProgramManager programManager, TaskList taskList) {
         File dataFile = new File(FILE_PATH);
         try {
-            if (dataFile.exists()) {
-                taskManager.setIsFirstRunFalse();
-            } else {
+            if (!dataFile.exists()) {
                 createFile(dataFile);
             }
             //parse saved data into taskList
-            readFile(taskManager, dataFile);
+            readFile(taskList, dataFile);
         } catch (IOException e) {
-            ResponseManager.printIOExceptionMessage();
+            Ui.printIOExceptionMessage();
         }
     }
 
-    public static void readFile(TaskManager taskManager, File dataFile) throws IOException{
+    public static void readFile(TaskList taskList, File dataFile) throws IOException{
         Scanner s = new Scanner(dataFile);
         while (s.hasNext()) {
             //check type of task
             String splitData[] = s.nextLine().split(",");
             Task task = parseData(splitData);
-            taskManager.addTask(task);
+            taskList.addTask(task);
         }
     }
 
-    public static void writeToFile(ArrayList<Task> taskList) throws IOException {
+    public static void writeToFile(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
-        int totalTasks = taskList.size();
+        int totalTasks = taskList.getTaskList().size();
         String textToAdd = "";
         for (int i = 0; i < totalTasks; i ++){
-            Task currentTask = taskList.get(i);
+            Task currentTask = taskList.getTaskList().get(i);
             textToAdd += currentTask.getFormattedFileDescription();
             textToAdd += "\n";
         }

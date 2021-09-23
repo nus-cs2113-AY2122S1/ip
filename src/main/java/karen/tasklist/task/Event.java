@@ -1,4 +1,4 @@
-package karen.task;
+package karen.tasklist.task;
 
 public class Event extends Task{
     private String at;
