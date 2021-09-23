@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TaskManager {
 
-    private ArrayList<Task> tasksList = new ArrayList<>();
+    private ArrayList<Task> taskList = new ArrayList<>();
 
     private int totalNumberOfTasks = 0;
 
@@ -53,7 +53,7 @@ public class TaskManager {
      * @param task Task to be added into tasks list.
      */
     public void addTask(Task task) {
-        tasksList.add(task);
+        taskList.add(task);
         totalNumberOfTasks++;
         System.out.println("Got it. I've added this task:");
         printTask(totalNumberOfTasks - 1);
@@ -80,8 +80,8 @@ public class TaskManager {
      */
     public void printTask(int taskIndex) {
         System.out.printf("%s %s" + System.lineSeparator(),
-                tasksList.get(taskIndex).getStatusIcon(),
-                tasksList.get(taskIndex).getTaskInfo()
+                taskList.get(taskIndex).getStatusIcon(),
+                taskList.get(taskIndex).getTaskInfo()
         );
     }
 
@@ -96,7 +96,7 @@ public class TaskManager {
             return;
         }
         int taskIndex = taskNumber - 1;
-        tasksList.get(taskIndex).setDone(true);
+        taskList.get(taskIndex).setDone(true);
         System.out.println("Nice! I've marked this task as done:");
         printTask(taskIndex);
     }
@@ -113,8 +113,8 @@ public class TaskManager {
         }
         int taskIndex = taskNumber - 1;
         String taskDescription =
-                tasksList.get(taskIndex).getStatusIcon() + " " + tasksList.get(taskIndex).getTaskInfo();
-        tasksList.remove(taskIndex);
+                taskList.get(taskIndex).getStatusIcon() + " " + taskList.get(taskIndex).getTaskInfo();
+        taskList.remove(taskIndex);
         totalNumberOfTasks -= 1;
         System.out.println("Noted. I've removed this task:");
         System.out.println(taskDescription);
@@ -128,9 +128,15 @@ public class TaskManager {
         String data = "";
         String separator = " | ";
         for (int i = 0; i < totalNumberOfTasks; i++) {
-            data += tasksList.get(i) + System.lineSeparator();
+            data += taskList.get(i) + System.lineSeparator();
         }
         return data;
+    }
+
+    public void processContentsFromFile(ArrayList<String> contents){
+        for(String s:contents){
+            addTaskFromContent(s);
+        }
     }
 
     /**
@@ -138,7 +144,7 @@ public class TaskManager {
      *
      * @param contents A task information given by a file input.
      */
-    public void addTaskFromFile(String contents) {
+    private void addTaskFromContent(String contents) {
         String[] contentArray = contents.split("\\|");
         PrintStream originalStream = System.out;
         PrintStream noOutputStream = new PrintStream(new OutputStream() {
@@ -179,12 +185,12 @@ public class TaskManager {
             if (contentArray[1].trim().equals("1")) {
                 isDone = true;
             }
-            tasksList.get(totalNumberOfTasks - 1).setDone(isDone);
+            taskList.get(totalNumberOfTasks - 1).setDone(isDone);
         }
     }
 
     /**
-     * Method to print the content in which causes the invalid error when inputing data from text file.
+     * Method to print the content in which causes the invalid error when placing data from text file.
      *
      * @param s The input that trigger the error.
      */

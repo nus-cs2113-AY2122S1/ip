@@ -1,5 +1,5 @@
 [T] | 1 | read book
-[D] | 0 | network assignment | 22 sept
+[D] | 1 | network assignment | 22 sept
 [E] | 0 | exam cs2106 | 29 sept 2.15pm-3.15pm
 [T] | 1 | return book
-[E] | 0 | exam cs2105 | 4th oct 2-4pm
+[E] | 1 | exam cs2105 | 4th oct 2-4pm
