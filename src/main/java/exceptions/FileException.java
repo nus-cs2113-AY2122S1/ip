@@ -1,5 +1,10 @@
 package exceptions;
 
+
+/**
+ * Thrown to indicate that the file stored previous tasks is crashed, and cannot be restored.
+ *
+ */
 public class FileException extends DukeException{
     @Override
     public String toString() {

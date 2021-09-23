@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 
 /**
- * <h1>The <b>Deadline</b> type {@link Task} from users</h1>
+ * <h1>The <b>Deadline</b> typex from users</h1>
  */
 public class Deadline extends Task {
 

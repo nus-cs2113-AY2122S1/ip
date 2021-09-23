@@ -22,7 +22,7 @@ public class FileSaver {
 
     /**
      * Saves the user's tasks into a <em>txt</em> file under <b><em>UserStatus</em></b> directory.
-     * @param {@link TaskList} a TaskList object stores all the remaining tasks of a user.
+     * @param tasks A TaskList object stores all the remaining tasks of a user.
      * @return void.
      */
     public void save (TaskList tasks) {

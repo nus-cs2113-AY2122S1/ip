@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 
 /**
- * <h1>The <b>Event</b> type {@link Task} from users</h1>
+ * <h1>The <b>Event</b> type from users</h1>
  */
 public class Event extends Task {
 
