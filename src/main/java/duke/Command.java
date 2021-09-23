@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 
 public class Command {
+    /**
+     * This function prints the list of tasks present. If empty, shows a prompt saying no tasks to list
+     */
     public static void executeList() {
         ArrayList<Task> taskList = TaskList.getTaskList();
         if (taskList.size() == 0) {
@@ -23,6 +26,11 @@ public class Command {
         }
     }
 
+    /**
+     * Sets a given task as done based on the task index in the list.
+     * If the index doesn't exist or invalid inputs are given shows error message
+     * @param arguments an arrayList containing the user input string broken into its components
+     */
     public static void executeDone(ArrayList<String> arguments) {
         try {
             ArrayList<Task> taskList = TaskList.getTaskList();
@@ -39,6 +47,10 @@ public class Command {
         }
     }
 
+    /**
+     * Adds a given task to the task list. If the input is missing parameters shows an error message
+     * @param arguments an arrayList containing the user input string broken into its components
+     */
     public static void executeAdd(ArrayList<String> arguments) {
         ArrayList<Task> taskList = TaskList.getTaskList();
         try {
@@ -61,8 +73,12 @@ public class Command {
         }
     }
 
-    public static void executeLoad(String input) {
-        String[] arguments = input.split("\\|");
+    /**
+     * Gets text input from file, parses it into appropriate task and adds to the task list
+     * @param inputFromFile the text input from the file
+     */
+    public static void executeLoad(String inputFromFile) {
+        String[] arguments = inputFromFile.split("\\|");
         ArrayList<Task> taskList = TaskList.getTaskList();
         switch (arguments[0]) {
         case "T":
@@ -91,6 +107,11 @@ public class Command {
 
     }
 
+    /**
+     * Deletes a given task as done based on the task index in the list.
+     * If the index doesn't exist or invalid inputs are given shows error message
+     * @param arguments an arrayList containing the user input string broken into its components
+     */
     public static void executeDelete(ArrayList<String> arguments) {
         try {
             ArrayList<Task> taskList = TaskList.getTaskList();
