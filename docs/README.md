@@ -53,14 +53,14 @@ F
 2. Some commands require additional keywords to ensure correct input. Without those additional keywords, the command will be deemed as invalid.
    - Example of commands that require additional keywords are `deadline` and `event`
    
-3. All time input &lt;time> will require YYYY-MM-DD or YYYY-MM-DD HHMM as input.
+3. All time input &lt;time> will require YYYY-MM-DD or YYYY-MM-DD HHMM.
 
 ### `help` - View help
 Description: `help` function will print out all available commands and the command format
 
 >Format: `help`
 
-Example:
+__Example:__
 
 Input:
 ```text
@@ -91,9 +91,9 @@ Description: This command will show all the tasks in the list
 
 >Format: `list`
 
-Example: 
+__Example:__
 
-if there is no tasks in the list:
+__if there is no tasks in the list:__
 
 Input:
 ```text
@@ -106,7 +106,7 @@ Output:
      Please add a new task to begin.
     _________________________________________________________________
 ```
-if there are tasks in the list:
+__if there are tasks in the list:__
 
 Input:
 ```text
@@ -127,7 +127,7 @@ Description: Todo is a type of task that store only description.
 Create a todo by following the format below:
 >Format: `todo` &lt;description&gt;
 
-Example:
+__Example:__
 
 Input:
 ```text
@@ -158,7 +158,7 @@ Time format is either in YYYY-MM-DD or YYYY-MM-DD HHMM.
 Create a deadline by following the format below:
 >Format: `deadline` &lt;description&gt; /by &lt;time>
 
-Example:
+__Example:__
 
 Input:
 ```text
@@ -181,7 +181,7 @@ Create a deadline by following the format below:
 
 >:grey_exclamation: Note: if &lt;time1> is later than &lt;time2>, the time will switch around
 
-Example: 
+__Example:__
 
 Input:
 ```
@@ -202,7 +202,7 @@ Description: will mark a particular task as done, by showing an X on the second 
 
 > :grey_exclamation: Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
 
-Example: 
+__Example:__
 
 Input:
 ```text
@@ -223,7 +223,7 @@ Description: Delete a task with that has the corresponding number
 
 > :grey_exclamation: Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
 
-Example:
+__Example:__
 
 Input:
 ```text
@@ -243,7 +243,9 @@ Description: Returns all the list that contains the following text
 
 >Format: `find` &lt;text>
 
-Example:
+__Example:__
+
+Input:
 ```text
 find create a
 ```
@@ -260,7 +262,7 @@ Description: Sort tasks with time in ascending order. Tasks without time will be
 
 > Format: `sort time`
 
-Example:
+__Example:__
 
 Input
 ```text
@@ -280,7 +282,7 @@ Description: Exits the program
 
 >Format: `bye`
 
-Example:
+__Example:__
 
 Input
 ```text
@@ -322,13 +324,13 @@ Output:
 
 |  Commands   |                      Description                       |
 |-------------|--------------------------------------------------------|
-bye| Exits the program
-deadline| Create a deadline task
-delete| Delete corresponding task from list
-done| Check corresponding task as done
-event| Create an event task
-find| Find tasks that contains the relevant keyword
-help | Shows all available commands for the program
-list| show all the tasks in the list
-sort| sort all tasks with date and time based on date and time ascending
-todo| create a todo task
+[bye](#user-content-bye---exit-program)| Exits the program
+[deadline](#user-content-deadline---create-a-deadline-task)| Create a deadline task
+[delete](#user-content-delete---delete-corresponding-task-from-list)| Delete corresponding task from list
+[done](#user-content-done---check-corresponding-task-as-done)| Check corresponding task as done
+[event](#user-content-event---create-an-event-task)| Create an event task
+[find](#user-content-find---find-description-tasks-with-the-given-input)| Find tasks that contains the relevant keyword
+[help](#user-content-help---view-help) | Shows all available commands for the program
+[list](#user-content-list---list-all-the-tasks-created)| show all the tasks in the list
+[sort time](#sort-time---sort-tasks-based-on-date)| sort all tasks with date and time based on date and time ascending
+[todo](#user-content-todo---create-a-todo-task)| create a todo task
