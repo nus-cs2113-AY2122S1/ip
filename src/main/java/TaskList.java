@@ -14,6 +14,9 @@ public class TaskList {
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0;
 
+    /**
+     * Prints an error message when an invalid command has been entered.
+     */
     public static void printInvalid() {
         Duke.printLine();
         System.out.println("\tHey bud, the command you printed is invalid.");
@@ -24,6 +27,13 @@ public class TaskList {
         Duke.printLine();
     }
 
+    /**
+     * Trims the entered command to get the description of the todo task, adds the todo task to
+     * the list of tasks and prints a message informing the user that the todo task has been
+     * added.
+     * @param description the line of input given by the parser
+     * @throws IOException
+     */
     public static void prepareToAddTodo(String description) throws IOException {
         try {
             String todoDescription = trimTodoDescription(description);
@@ -39,7 +49,7 @@ public class TaskList {
 
     }
 
-    public static String trimTodoDescription(String description) throws EmptyTodoException {
+    private static String trimTodoDescription(String description) throws EmptyTodoException {
         String todoDescription = description.substring(4).trim();
         if (todoDescription.isEmpty()) {
             throw new EmptyTodoException();
@@ -55,11 +65,21 @@ public class TaskList {
         Duke.printLine();
     }
 
+    /**
+     * Adds a todo task with the description todoDescription to the list of tasks.
+     * @param todoDescription the description of the todo task.
+     */
     public static void addTodo(String todoDescription) {
         tasks.add(new Todo(todoDescription));
         taskCount += 1;
     }
 
+    /**
+     * Trims the entered command to get the description and date/time of the deadline task, adds the
+     * deadline task to the list of tasks and prints a message informing
+     * the user that the deadline task has been added.
+     * @param description the line of input given by the parser.
+     */
     public static void prepareToAddDeadline(String description) {
         try {
             String[] deadline = trimDeadlineDescription(description);
@@ -84,7 +104,7 @@ public class TaskList {
         }
     }
 
-    public static String[] trimDeadlineDescription(String description) throws NoSlashDeadlineException,
+    private static String[] trimDeadlineDescription(String description) throws NoSlashDeadlineException,
             DeadlineEmptyException {
         int slashIndex = description.indexOf('/');
         String[] deadline = new String[2];
@@ -108,11 +128,23 @@ public class TaskList {
         Duke.printLine();
     }
 
+    /**
+     * Adds a deadline task with the description deadlineDescription
+     * and the deadline deadlineBy to the list of tasks.
+     * @param deadlineDescription the description of the deadline task
+     * @param deadlineBy the date/time when the deadline must be completed
+     */
     public static void addDeadline(String deadlineDescription, String deadlineBy) {
         tasks.add(new Deadline(deadlineDescription, deadlineBy));
         taskCount += 1;
     }
 
+    /**
+     * Trims the entered command to get the description and date/time of the event task, adds the
+     * event task to the list of tasks and prints a message informing
+     * the user that the event task has been added.
+     * @param description the line of input given by the parser
+     */
     public static void prepareToAddEvent(String description) {
         try {
             String[] event = trimEventDescription(description);
@@ -160,11 +192,20 @@ public class TaskList {
         Duke.printLine();
     }
 
+    /**
+     * Adds an event task with the description eventDescription
+     * and the event date/time eventAt to the list of tasks.
+     * @param eventDescription the description of the event task
+     * @param eventAt the date/time at which the event happens
+     */
     public static void addEvent(String eventDescription, String eventAt) {
         tasks.add(new Event(eventDescription, eventAt));
         taskCount += 1;
     }
 
+    /**
+     * Lists all the tasks currently available.
+     */
     public static void listTasks() {
         Duke.printLine();
         if (taskCount > 0) {
@@ -182,6 +223,11 @@ public class TaskList {
         Duke.printLine();
     }
 
+    /**
+     * Marks the task of index index as done and prints a message informing the user that
+     * the task has been marked as done
+     * @param index index of the task to be marked done
+     */
     public static void markAsDone(int index) {
         try {
             printMarkedTask(index);
@@ -190,7 +236,7 @@ public class TaskList {
         }
     }
 
-    public static void printMarkedTask(int index) throws IOException {
+    private static void printMarkedTask(int index) throws IOException {
         String taskDescription = tasks.get(index).getDescription();
         markTaskAsDone(index);
         Storage.markEntryDone(index);
@@ -204,6 +250,11 @@ public class TaskList {
         tasks.get(index).setAsDone();
     }
 
+    /**
+     * Deletes the task of index index, and prints a message to inform the user that
+     * the task has been deleted.
+     * @param index index of the task to be deleted
+     */
     public static void deleteTask(int index) {
         try {
             printDeleteTask(index);
@@ -218,7 +269,7 @@ public class TaskList {
         Duke.printLine();
     }
 
-    public static void printDeleteTask(int index) throws IOException {
+    private static void printDeleteTask(int index) throws IOException {
         String taskDescription = tasks.get(index).toString();
         Duke.printLine();
         System.out.println("\tSeems like you didn't want this task:");

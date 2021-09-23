@@ -2,6 +2,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Parser {
+    /**
+     * Calls the appropriate command based on the input by the user.
+     * @param in scanner that takes in the input
+     * @param line the line of input given by the user
+     * @param words the array consisting of the words in the line of input
+     */
     static void programLogic(Scanner in, String line, String[] words) {
         while (!words[0].equals("bye")) {
             try {
