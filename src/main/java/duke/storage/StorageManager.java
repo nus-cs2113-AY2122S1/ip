@@ -143,6 +143,7 @@ public class StorageManager {
     /**
      * Get the tasks stored in the text file, keep reading the stored tasks and
      * adding each of them to the task list until the last line in the text file.
+     * Skip any invalid task found in the file.
      * 
      * @return list of tasks stored in the file
      * @throws FileNotFoundException if the text file doesn't exist.
@@ -158,7 +159,7 @@ public class StorageManager {
             if (isNullTask(task)) {
                 continue;
             }
-            tasks.add(getTask(inputTask));
+            tasks.add(task);
         }
         return tasks;
     }
