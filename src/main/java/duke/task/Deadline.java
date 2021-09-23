@@ -30,7 +30,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String done = isDone ? "X" : " " ;
-        return "[" + type + "]" + "[" + done + "] " + name + " (by: " + dueTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[" + type + "]" + "[" + done + "] " + description + " (by: " + dueTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
     @Override

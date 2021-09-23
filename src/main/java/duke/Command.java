@@ -133,4 +133,28 @@ public class Command {
         }
     }
 
+    public static void executeFind(ArrayList<String> arguments) {
+        ArrayList<Task> taskList = TaskList.getTaskList();
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        try {
+            String pattern = arguments.get(1);
+            for (Task task : taskList) {
+                if (task.getDescription().contains(pattern)) {
+                    foundTasks.add(task);
+                }
+            }
+            if(foundTasks.isEmpty()) {
+                Ui.printEmptyListMessage();
+            } else {
+                Ui.printDivider();
+                for (int i = 0; i < foundTasks.size(); i++) {
+                    System.out.println(i + 1 + "." + foundTasks.get(i));
+                }
+                Ui.printDivider();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printParameterErrorMessage();
+        }
+    }
+
 }

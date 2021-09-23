@@ -14,6 +14,7 @@ public class Parser {
     public static final String TODO = "todo";
     public static final String DEADLINE = "deadline";
     public static final String EVENT = "event";
+    public static final String FIND = "find";
 
     /**
      * This function takes in the user input and returns the input broken into its constituent parameters
@@ -28,16 +29,16 @@ public class Parser {
         arguments.add(command);
         String parameters = trimmedInput.replaceFirst(command, "");
         int separatorIndex = parameters.indexOf('/');
-        if(separatorIndex != -1 && separatorIndex != parameters.length() - 1) {
-            String[] splitParams = parameters.split("/",2);
-            if(!splitParams[0].isBlank() && !splitParams[1].isBlank()) {
+        if (separatorIndex != -1 && separatorIndex != parameters.length() - 1) {
+            String[] splitParams = parameters.split("/", 2);
+            if (!splitParams[0].isBlank() && !splitParams[1].isBlank()) {
                 arguments.add(splitParams[0].trim());
                 arguments.add(splitParams[1].trim());
             } else {
                 Ui.printParameterErrorMessage();
             }
         } else {
-            if(!parameters.isBlank()) {
+            if (!parameters.isBlank()) {
                 arguments.add(parameters.trim());
             }
         }
@@ -54,6 +55,10 @@ public class Parser {
         switch (arguments.get(0)) {
         case HELP:
             Ui.printHelpMessage();
+            break;
+
+        case FIND:
+            Command.executeFind(arguments);
             break;
 
         case DELETE:
