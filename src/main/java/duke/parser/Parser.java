@@ -45,11 +45,12 @@ public class Parser {
 
         switch (parsedData[0].strip()) {
         case DEADLINE_ICON:
-            LocalDateTime parsedBy = parseByFromData(parsedData[3].strip());
+            LocalDateTime parsedBy = parseDateTimeFromData(parsedData[3].strip());
             newTask = new Deadline(parsedData[2].strip(), parsedBy);
             break;
         case EVENT_ICON:
-            newTask = new Event(parsedData[2].strip(), parsedData[3].strip());
+            LocalDateTime parsedAt = parseDateTimeFromData(parsedData[3].strip());
+            newTask = new Event(parsedData[2].strip(), parsedAt);
             break;
         case TODO_ICON:
             newTask = new Todo(parsedData[2].strip());
@@ -65,8 +66,8 @@ public class Parser {
         return newTask;
     }
 
-    public static LocalDateTime parseByFromData(String byFromData) {
-        return LocalDateTime.parse(byFromData, Deadline.byFormat);
+    public static LocalDateTime parseDateTimeFromData(String stringFromData) {
+        return LocalDateTime.parse(stringFromData, Task.dataFormat);
     }
 
     public static void handleCommand(String fullCommand) throws EmptyCommandException, IllegalCommandException, IOException {
@@ -108,32 +109,39 @@ public class Parser {
             throw new IllegalCommandException();
         }
         String trimmedDesc = descWithBy[0].strip();
-        String trimmedBy = descWithBy[1].strip();
-        LocalDateTime byAsDateTime = parseByFromCommand(trimmedBy);
+        LocalDateTime byAsDateTime = parseByFromCommand(descWithBy[1].strip());
         Command.addDeadline(trimmedDesc, byAsDateTime);
     }
 
     private static LocalDateTime parseByFromCommand(String trimmedBy) throws IllegalCommandException {
         LocalDateTime byAsDateTime;
         try {
-             byAsDateTime = LocalDateTime.parse(trimmedBy, Deadline.byFormat);
+             byAsDateTime = LocalDateTime.parse(trimmedBy, Task.dataFormat);
         } catch (DateTimeParseException e) {
             throw new IllegalCommandException();
         }
         return byAsDateTime;
     }
 
-    public static void parseAndAddEvent(String fullCommand) throws IOException, EmptyCommandException {
+    public static void parseAndAddEvent(String fullCommand) throws IOException, IllegalCommandException {
         String commandDescription = fullCommand.substring(EVENT_LENGTH).strip();
         String[] descWithAt = commandDescription.split(EVENT_SEP);
-        if (descWithAt.length < 2) {
-            throw new EmptyCommandException();
+        if (descWithAt.length != 2) {
+            throw new IllegalCommandException();
         }
-        String[] trimmedDescWithAt = new String[descWithAt.length];
-        for (int i = 0; i < descWithAt.length; i++) {
-            trimmedDescWithAt[i] = descWithAt[i].strip();
+        String trimmedDesc = descWithAt[0].strip();
+        LocalDateTime atAsDateTime = parseAtFromCommand(descWithAt[1].strip());
+        Command.addEvent(trimmedDesc, atAsDateTime);
+    }
+
+    private static LocalDateTime parseAtFromCommand(String trimmedAt) throws IllegalCommandException {
+        LocalDateTime atAsDateTime;
+        try {
+            atAsDateTime = LocalDateTime.parse(trimmedAt, Task.dataFormat);
+        } catch (DateTimeParseException e) {
+            throw new IllegalCommandException();
         }
-        Command.addEvent(trimmedDescWithAt[0], trimmedDescWithAt[1]);
+        return atAsDateTime;
     }
 
     public static void parseAndExecuteDone(String[] parsedCommand) throws IllegalCommandException, IOException {

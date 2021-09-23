@@ -25,7 +25,7 @@ public class Command {
         Storage.saveData();
     }
 
-    public static void addEvent(String description, String at) throws IOException {
+    public static void addEvent(String description, LocalDateTime at) throws IOException {
         Duke.tasks.add(Task.getTaskCount(), new Event(description, at));
         Ui.printAddMessage();
         Storage.saveData();

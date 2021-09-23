@@ -1,24 +1,24 @@
 package duke.task;
 
-import duke.task.Task;
+import java.time.LocalDateTime;
 
 public class Event extends Task {
 
     protected String type = "[E]";
-    protected String at;
+    protected LocalDateTime at;
 
-    public Event(String desc, String at) {
+    public Event(String desc, LocalDateTime at) {
         super(desc);
         this.at = at;
     }
 
     @Override
     public String toStorageString() {
-        return type + " | " + super.toStorageString() + " | " + at;
+        return type + " | " + super.toStorageString() + " | " + at.format(dataFormat);
     }
 
     @Override
     public String toString() {
-        return type + super.toString() + " (at: " + at + ")";
+        return type + super.toString() + " (at: " + at.format(uiFormat) + ")";
     }
 }
