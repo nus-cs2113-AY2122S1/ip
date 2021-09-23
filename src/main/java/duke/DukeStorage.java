@@ -25,6 +25,9 @@ public class DukeStorage {
         }
     }
 
+    /**
+     * @param tasks the list to save the data from
+     */
     public void saveData(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -39,6 +42,9 @@ public class DukeStorage {
         }
     }
 
+    /**
+     * @param tasks the list to load the data into
+     */
     public void loadData(ArrayList<Task> tasks) {
         try {
             Scanner scanner = new Scanner(file);
@@ -53,6 +59,10 @@ public class DukeStorage {
         }
     }
 
+    /**
+     * @param savedTask the string represents the saved task
+     * @return the saved task decode from the string
+     */
     public Task readTaskData(String savedTask) {
         Task task = null;
         try {

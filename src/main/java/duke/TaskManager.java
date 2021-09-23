@@ -15,10 +15,17 @@ public class TaskManager {
         storage.loadData(tasks);
     }
 
+    /**
+     * Print all current tasks in the list
+     */
     public void displayTaskList() {
         DukeUI.printTaskList(tasks);
     }
 
+    /**
+     * @param input the command given by the user
+     * @param taskType the Type of this additional task
+     */
     public void addTask(String input, Action taskType) {
         try {
             String[] parameters = Parser.parseTask(input, taskType);
@@ -44,6 +51,10 @@ public class TaskManager {
         }
     }
 
+    /**
+     * @param taskNumber the task to mark done
+     * @throws TaskNotFoundException when the specified task is not found
+     */
     public void markTaskDone(int taskNumber) throws TaskNotFoundException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new TaskNotFoundException();
@@ -56,6 +67,10 @@ public class TaskManager {
     }
 
 
+    /**
+     * @param taskNumber the task to delete
+     * @throws TaskNotFoundException when the specified task is not found
+     */
     public void deleteTask(int taskNumber) throws TaskNotFoundException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new TaskNotFoundException();

@@ -10,6 +10,12 @@ public class Parser {
         return command.toLowerCase().trim();
     }
 
+    /**
+     * @param command the command given by the user
+     * @return the task number that user specified
+     * @throws EmptyDescriptionException when the command is of the wrong format
+     * @throws NumberFormatException when no number is found in the command
+     */
     public static int parseNumber(String command) throws EmptyDescriptionException, NumberFormatException {
         if (command.split(" ").length < 2) {
             throw new EmptyDescriptionException();
@@ -18,6 +24,13 @@ public class Parser {
     }
 
 
+    /**
+     * @param command the command given by the user
+     * @param taskType the type of task that the parser recognized this command belong to
+     * @return the descriptions of the given task
+     * @throws EmptyDescriptionException when the command is empty or of wrong format
+     * @throws MissingParameterException when some needed part of the description is missing
+     */
     public static String[] parseTask(String command, Action taskType) throws EmptyDescriptionException, MissingParameterException {
         String[] parameters = new String[2];
         //Check if the description for is empty
@@ -53,6 +66,11 @@ public class Parser {
         return parameters;
     }
 
+    /**
+     * @param command The command given by the user
+     * @return the action that this command specified
+     * @throws WrongCommandException when the command is not recognizable
+     */
     public static Action translateAction(String command) throws WrongCommandException {
         String normalizedCommand = parseInput(command).split(" ")[0];
         if (normalizedCommand.equals("list")) {
