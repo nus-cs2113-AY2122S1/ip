@@ -2,41 +2,41 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Parser {
-    public static final String INPUT_BYE = "bye";
-    public static final String INPUT_LIST = "list";
-    public static final String INPUT_DONE = "done";
-    public static final String INPUT_DELETE = "delete";
-    public static final String INPUT_TODO = "todo";
-    public static final String INPUT_DEADLINE = "deadline";
-    public static final String INPUT_EVENT = "event";
-    public static final String INPUT_FIND = "find";
 
-    public static void mainLogic() {
+
+    /**
+     * This method is called in the main method to check the command the user inputs.
+     * It checks to see if the String input which is scanned in by scanner contains the
+     * command keywords stored in Keywords class
+     *
+     * @return nil, this is a void method
+     */
+    public static void commandChecker() {
         String input;
         Scanner in = new Scanner(System.in);
         input = in.nextLine();
 
-        while (!(input.equals(INPUT_BYE))) {
+        while (!(input.equals(Keywords.INPUT_BYE))) {
 
-            if (input.equals(INPUT_LIST)) {
+            if (input.equals(Keywords.INPUT_LIST)) {
                 input = TaskList.printList(in);
 
-            } else if (input.contains(INPUT_DONE)) {
+            } else if (input.contains(Keywords.INPUT_DONE)) {
                 input = doneInputCommand(input, in);
 
-            } else if (input.contains(INPUT_TODO)) {
+            } else if (input.contains(Keywords.INPUT_TODO)) {
                 input = todoInputCommand(input, in);
 
-            } else if (input.contains(INPUT_DEADLINE)) {
+            } else if (input.contains(Keywords.INPUT_DEADLINE)) {
                 input = deadlineInputCommand(input, in);
 
-            } else if (input.contains(INPUT_EVENT)) {
+            } else if (input.contains(Keywords.INPUT_EVENT)) {
                 input = eventInputCommand(input, in);
 
-            } else if (input.contains(INPUT_DELETE)) {
+            } else if (input.contains(Keywords.INPUT_DELETE)) {
                 input = deleteInputCommand(input, in);
 
-            } else if (input.contains(INPUT_FIND)) {
+            } else if (input.contains(Keywords.INPUT_FIND)) {
                 TaskList.findList(input);
                 input = in.nextLine();
 
@@ -50,6 +50,19 @@ public class Parser {
 
     }
 
+    /**
+     * This method is called when the user inputs "delete ..."
+     * it calls the testDeleteTask method in TaskList class and the
+     * replaceAllTasks method in Storage class.
+     *
+     * @param in scanner input
+     * @param input user's command
+     * @return nil, this is a void method
+     * @throws NumberFormatException if delete command does not contain a valid index number of
+     * task to be deleted
+     * @throws ArrayIndexOutOfBoundsException if there is no number typed in after delete command
+     * @throws IOException if there is incorrect input or output
+     */
     private static String deleteInputCommand(String input, Scanner in) {
         try {
             input = TaskList.testDeleteTask(input, in);
@@ -70,6 +83,17 @@ public class Parser {
         return input;
     }
 
+    /**
+     * This method is called when the user inputs "event ..."
+     * it calls the getEventMethod method in TaskList class and the
+     * appendEvent method in Storage class.
+     *
+     * @param in scanner input
+     * @param input user's command
+     * @return input, containing the user's next commands
+     * @throws StringIndexOutOfBoundsException if the user has a typo while typing event
+     * @throws ArrayIndexOutOfBoundsException if the user's input does not have the "/at"
+     */
     private static String eventInputCommand(String input, Scanner in) {
         try {
             Storage.appendEvent(input); //add new entry to duke.txt
@@ -90,6 +114,17 @@ public class Parser {
         return input;
     }
 
+    /**
+     * This method is called when the user inputs "deadline ..."
+     * it calls the getDeadlineMethod method in TaskList class and the
+     * appendDeadline method in Storage class.
+     *
+     * @param in scanner input
+     * @param input user's command
+     * @return input, containing the user's next commands
+     * @throws StringIndexOutOfBoundsException if the user has a typo while typing event
+     * @throws ArrayIndexOutOfBoundsException if the user's input does not have the "/by"
+     */
     private static String deadlineInputCommand(String input, Scanner in) {
         try {
             Storage.appendDeadline(input); //add new entry to duke.txt
@@ -109,7 +144,16 @@ public class Parser {
         }
         return input;
     }
-
+    /**
+     * This method is called when the user inputs "todo ..."
+     * it calls the testInput method in TaskList class and the
+     * appendTodo method in Storage class.
+     *
+     * @param in scanner input
+     * @param input user's command
+     * @return input, containing the user's next commands
+     * @throws DukeExceptions if description following todo keyword is empty
+     */
     private static String todoInputCommand(String input, Scanner in) {
         try {
             TaskList.testInput(input); // test todo input
@@ -128,6 +172,19 @@ public class Parser {
         return input;
     }
 
+    /**
+     * This method is called when the user inputs "done..."
+     * it calls the testTaskDone method in TaskList class and the
+     * replaceAllTasks method in Storage class.
+     *
+     * @param in scanner input
+     * @param input user's command
+     * @return input, containing the user's next commands
+     * @throws NumberFormatException if delete command does not contain a valid index number of
+     * task to be deleted
+     * @throws ArrayIndexOutOfBoundsException if there is no number typed in after delete command
+     * @throws IOException if there is incorrect input or output
+     */
     private static String doneInputCommand(String input, Scanner in) {
         try {
             input = TaskList.testTaskDone(input, in);

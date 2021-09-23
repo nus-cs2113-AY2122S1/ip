@@ -3,6 +3,19 @@ import java.time.format.DateTimeParseException;
 
 public class StorageUI {
     public static Integer phase = 0;
+
+    /**
+     * The method calls loadFile method stored in Storage class. Also sets the flag "phase" to
+     * integer value 1 only if loadFile can be called so that the welcomeMessage in UI
+     * will only prompt the user to load memory if there are no errors in the file
+     *
+     * It will print the same message when the file Duke.txt has not been created or when the
+     * listed information in Duke.txt is stored with incorrect formats, especially the date
+     * and time of the deadline task descriptions.
+     *
+     * @param nil
+     * @return nil, this is a void method
+     */
     public static void storageWelcomeMessage(){
         try {
             Storage.loadFile();
