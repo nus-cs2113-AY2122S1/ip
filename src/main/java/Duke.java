@@ -2,11 +2,14 @@
 import todo.*;
 
 import java.util.ArrayList;
+/**
+ * Check if valid command (Done, List, Bye, Action)
+ * If done, mark as done
+ * If action, check what action is it
+ * If there is a date, what is the date
+ *
+ */
 
-//Check if valid command (Done, List, Bye, Action)
-//If done, mark as done
-//If action, check what action is it
-//If there is a date, what is the date
 
 public class Duke {
     protected static ArrayList<Task> tasks = new ArrayList<>();
@@ -30,19 +33,20 @@ public class Duke {
     }
 
     protected static void addCommands() {
-        commands.add("done");
-        commands.add("todo");
-        commands.add("event");
-        commands.add("deadline");
-        commands.add("delete");
-        commands.add("list");
-        commands.add("save");
-        commands.add("bye");
+        String[] commandsToAdd = new String[]{"done", "todo", "event",
+                    "deadline", "delete", "list", "save", "bye", "find"};
+        for(int i = 0; i < commandsToAdd.length; i++) {
+            commands.add(commandsToAdd[i]);
+        }
     }
 
 
     public final static void printMessage(String text) {
         System.out.println(text);
+        printDivider();
+    }
+
+    public final static void printDivider() {
         System.out.println("____________________________________________________________\n");
     }
 
