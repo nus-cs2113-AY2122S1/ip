@@ -116,8 +116,15 @@ public class TextUi {
         }
     }
 
-    public static void invalidDateMessage() {
+    public static void missingDateMessage() {
         printMessageTemplate(" Is there not a date for your so-called deadline or event, sir?\n");
+    }
+
+    public static void invalidDateMessage() {
+        String messageString = " Master Wayne, to which planet does this date belong to?\n" +
+                " Please let me know soonest in the following forms:\n" +
+                "[DD-MM-YYYY] or [DD/MM/YYYY] or [DDMMYYYY]\n";
+        printMessageTemplate(messageString);
     }
 
     public static void createNewFileMessage() {

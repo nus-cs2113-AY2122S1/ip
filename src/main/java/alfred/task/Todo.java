@@ -1,5 +1,7 @@
 package alfred.task;
 
+import java.time.LocalDate;
+
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -9,8 +11,8 @@ public class Todo extends Task {
         return "T";
     }
 
-    public String getDate() {
-        return "";
+    public LocalDate getDate() {
+        return null;
     }
 
     @Override
