@@ -27,6 +27,8 @@ public class Parser {
                     int deleteIndex = Integer.parseInt(words[1]) - 1;
                     TaskList.deleteTask(deleteIndex);
                     break;
+                case "find":
+                    TaskList.findTasks(line.substring(4));
                 case "filter":
                     TaskList.filterDates(line);
                     break;

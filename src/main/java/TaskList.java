@@ -3,9 +3,10 @@ import tasks.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.stream.Collectors;
 import java.util.Comparator;
 import java.util.stream.Collectors;
-
 
 
 public class TaskList {
@@ -172,17 +173,21 @@ public class TaskList {
         Duke.printLine();
         if (taskCount > 0) {
             System.out.println("\t Here are the tasks in your list:");
-            int i = 1;
-            for (Task t : tasks) {
-                System.out.print('\t');
-                System.out.print(i + ". ");
-                System.out.print(t.toString() + System.lineSeparator());
-                i += 1;
-            }
+            printTasks(tasks);
         } else {
             System.out.println("\tYou have no tasks.");
         }
         Duke.printLine();
+    }
+
+    private static void printTasks(ArrayList<Task> tasks) {
+        int i = 1;
+        for (Task t : tasks) {
+            System.out.print('\t');
+            System.out.print(i + ". ");
+            System.out.print(t.toString() + System.lineSeparator());
+            i += 1;
+        }
     }
 
     public static void markAsDone(int index) {
@@ -232,6 +237,22 @@ public class TaskList {
         taskCount -= 1;
     }
 
+    public static void findTasks(String keyword) {
+        ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+        if (!filteredList.isEmpty()) {
+            Duke.printLine();
+            System.out.println("\tHere are the matching tasks in your list: ");
+            printTasks(filteredList);
+            Duke.printLine();
+        } else {
+            Duke.printLine();
+            System.out.println("\t That keyword did not turn up any searches.");
+            Duke.printLine();
+        }
+    }
+  
     public static void filterDates(String content) {
         String dateString = content.substring(7);
         LocalDate ld = TimeHandler.getDate(dateString);
@@ -254,5 +275,4 @@ public class TaskList {
         }
         Duke.printLine();
     }
-
 }
