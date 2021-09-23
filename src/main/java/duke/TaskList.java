@@ -1,6 +1,5 @@
-package commands;
+package duke;
 
-import duke.*;
 import exception.DukeException;
 import exception.EmptyTaskDescriptionException;
 import exception.NoTaskFoundException;
