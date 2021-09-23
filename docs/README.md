@@ -1,6 +1,5 @@
 # User Guide
-Duke is a **desktop app for users to quickly manage their to-do list** via Command Line Interface(CLI) and  
-Graphical Line Interface (currently not available, but coming soon...).
+Duke is a **desktop app for users to quickly manage their to-do list** via Command Line Interface(CLI) and Graphical Line Interface (currently not available, but coming soon...).
 
 - <a href="#quick-start"> Quick Start </a>
 - <a href="#features"> Features </a>
@@ -11,10 +10,8 @@ Graphical Line Interface (currently not available, but coming soon...).
 1. Ensure `Java 11` are installed in your computer.
 2. Download the latest `ip.jar` from here.
 3. Copy the file to the folder you want to use as the home folder for Duke.
-4. Type the following command in your terminal to run this program:   
-   java -jar ip.jar (You should change directory to where the ip.jar file is located or provide the absolute path of ip.jar).
-5. Duke will ask for your name. If you are a new user, Duke will initialize an empty task list for you.  
-   If you have run Duke before, it will restore your saved tasks for you.
+4. Type the following command in your terminal to run this program: java -jar ip.jar (You should change directory to where the ip.jar file is located or provide the absolute path of ip.jar).
+5. Duke will ask for your name. If you are a new user, Duke will initialize an empty task list for you. If you have run Duke before, it will restore your saved tasks for you.
 6. After Duke starts serving, type the command in the command box and press Enter to execute it.   
    e.g. typing `help` and pressing Enter will open the help window. <br/>  
    Some example commands you can try:
@@ -122,7 +119,7 @@ Exit the program and automatically save all the tasks.
 Tasks data are saved as a `txt` file `[JAR File location]/UserStatus/[Username].txt`.  
 Advanced users are welcome to update data directly by editing that data file.
 
-> :exclamation:**Caution**  
+> ❕**Caution**  
 If your changes to the data file makes its format invalid, Duke will discard all data and start with an empty task list.
 
 
