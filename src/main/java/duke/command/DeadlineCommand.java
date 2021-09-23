@@ -1,5 +1,7 @@
 package duke.command;
 
+import java.time.LocalDateTime;
+
 public class DeadlineCommand extends Command {
 
     final public static String COMMAND_WORD = "deadline";
@@ -25,6 +27,7 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute() {
-        taskManager.createDeadlineTask(arguments[0], arguments[1]);
+        taskManager.createDeadlineTask(arguments[0], arguments[1].trim());
     }
+
 }

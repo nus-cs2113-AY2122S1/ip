@@ -1,5 +1,7 @@
 package duke.parser;
 
+import duke.command.DateCommand;
+import duke.common.CommonFormat;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeadlineCommand;
@@ -9,11 +11,17 @@ import duke.command.EventCommand;
 import duke.command.ListCommand;
 import duke.command.TodoCommand;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
 
     final static String MESSAGE_INVALID_FORMAT = "Error: Incorrect format detected.\n%s";
     final static String MESSAGE_INVALID_TASK_NUMBER = "Error: Invalid Task Number.";
     final static String MESSAGE_INVALID_COMMAND = "Error: Command not found.";
+    final static String MESSAGE_INVALID_DATE = "Error: Incorrect date time format. Format: "
+            + CommonFormat.FORMAT_DATETIME;
 
 
     public Parser() {
@@ -30,7 +38,7 @@ public class Parser {
      * @throws ParserException Error regarding the validness of existing commands
      */
     public Command parseCommand(String userInput) throws ParserException {
-        Command command;
+        Command command = null;
         switch (getCommonCommand(userInput)) {
         case ListCommand.COMMAND_WORD:
             command = new ListCommand();
@@ -52,6 +60,9 @@ public class Parser {
             break;
         case EventCommand.COMMAND_WORD:
             command = executeEventCommand(userInput);
+            break;
+        case DateCommand.COMMAND_WORD:
+            command = executeDateCommand(userInput);
             break;
         default:
             throw new ParserException(MESSAGE_INVALID_COMMAND);
@@ -148,6 +159,8 @@ public class Parser {
             throw new ParserException(errorMessage);
         } else if (isAnyStringEmpty(argumentArray)) {
             throw new ParserException(errorMessage);
+        } else if (!isValidDateTimeFormat(argumentArray[1])) {
+            throw new ParserException(MESSAGE_INVALID_DATE);
         }
         return new DeadlineCommand(argumentArray);
     }
@@ -170,7 +183,42 @@ public class Parser {
             throw new ParserException(errorMessage);
         } else if (isAnyStringEmpty(argumentArray)) {
             throw new ParserException(errorMessage);
+        } else if (!isValidDateTimeFormat(argumentArray[1])) {
+            throw new ParserException(MESSAGE_INVALID_DATE);
         }
         return new EventCommand(argumentArray);
+    }
+
+    private Command executeDateCommand(String userInput) throws ParserException {
+        String errorMessage = String.format(MESSAGE_INVALID_FORMAT, DateCommand.MESSAGE_FORMAT);
+        String arguments = getCommandData(userInput);
+        if (isStringEmpty(arguments)) {
+            throw new ParserException(errorMessage);
+        }else if(!isValidDateFormat(arguments)){
+            throw new ParserException(errorMessage);
+        }
+        return new DateCommand(LocalDate.parse(arguments, CommonFormat.formatterDateOnly));
+    }
+
+    private boolean isValidDateTimeFormat(String s) {
+        boolean isValid = true;
+        s = s.trim();
+        try {
+            LocalDateTime.parse(s, CommonFormat.formatter);
+        } catch (DateTimeParseException e) {
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    private boolean isValidDateFormat(String s) {
+        boolean isValid = true;
+        s = s.trim();
+        try {
+            LocalDate.parse(s, CommonFormat.formatterDateOnly);
+        } catch (DateTimeParseException e) {
+            isValid = false;
+        }
+        return isValid;
     }
 }
