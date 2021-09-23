@@ -2,287 +2,136 @@ package duke.functions;
 
 import duke.exceptions.EmptyArgException;
 import duke.exceptions.WrongFormatException;
+import duke.utility.Parser;
+import duke.utility.Storage;
+import duke.utility.Tasklist;
+import duke.utility.Ui;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class Duke {
 
-    private static Boolean isFinished = false;
-    private static final String filepath = "SAVEDLIST.txt";
+    private static final Ui ui = new Ui();
+    private static final Tasklist tasklist = new Tasklist();
+    private static final Parser parser = new Parser();
+    private static final Storage storage = new Storage("SAVEDLIST.txt");
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Task> items = new ArrayList<>();
-
-        printIntro();
+        ui.printIntro();
 
         try {
-            readSavedList(items);
+            storage.readSavedList(tasklist.items);
         } catch (IOException e) {
-            System.out.println("Error creating/reading task list");
+            storage.readSavedListError();
         }
 
-        while (!isFinished) {
-            String userInput = sc.nextLine();
-            String command = userInput.split(" ")[0];
+        boolean isFinished = false;
 
-            switch (command) {
+        while (!isFinished) {
+            String userInput = ui.readCommand();
+            parser.setUserInput(userInput);
+
+            switch (parser.getCommand()) {
             case "bye":
                 isFinished = true;
                 break;
             case "list":
-                printTaskList(items);
+                ui.printTaskList(tasklist.items);
                 break;
             case "done": {
                 try {
-                    handleDone(items, userInput);
+                    handleDone(parser.getTaskNum());
                 } catch (NumberFormatException e) {
-                    System.out.println("\tInvalid argument, please enter a valid task number!");
+                    ui.taskNumNotInt();
                 } catch (NullPointerException | IndexOutOfBoundsException e) {
-                    System.out.println("\tNo such task!");
+                    ui.taskNumberOutOfBounds();
                 } catch (EmptyArgException e) {
-                    System.out.println("\tWhich task is done?");
-                }
-                try {
-                    writeToFile(items);
-                } catch (IOException e) {
-                    System.out.println("\tError writing to file");
+                    ui.noTaskNumberProvided(true);
                 }
                 break;
             }
             case "delete": {
                 try {
-                    handleDelete(items, userInput);
-                    printTaskList(items);
+                    handleDelete(parser.getTaskNum());
+                    ui.printTaskList(tasklist.items);
                 } catch (NumberFormatException e) {
-                    System.out.println("\tInvalid argument, please enter a valid task number!");
+                    ui.taskNumNotInt();
                 } catch (NullPointerException | IndexOutOfBoundsException e) {
-                    System.out.println("\tNo such task!");
+                    ui.taskNumberOutOfBounds();
                 } catch (EmptyArgException e) {
-                    System.out.println("\tWhich task to delete?");
-                }
-                try {
-                    writeToFile(items);
-                } catch (IOException e) {
-                    System.out.println("\tError writing to file");
+                    ui.noTaskNumberProvided(false);
                 }
                 break;
             }
             case "todo": {
                 try {
-                    handleTodo(items, userInput);
+                    handleTodo(parser.getTaskDescription());
                 } catch (EmptyArgException e) {
-                    System.out.println("\tDescription of todo cannot be empty!");
-                }
-                try {
-                    writeToFile(items);
-                } catch (IOException e) {
-                    System.out.println("\tError writing to file");
+                    ui.emptyDescription("todo");
                 }
                 break;
             }
             case "deadline": {
                 try {
-                    handleDeadline(items, userInput);
+                    handleDeadline(parser.getDeadlineOrEventArgs());
                 } catch (EmptyArgException e) {
-                    System.out.println("\tDescription for deadline cannot be empty!");
+                    ui.emptyDescription("deadline");
                 } catch (WrongFormatException e) {
-                    System.out.println("\tWrong format! Try \"Deadline [description] \\by [due date]\"");
-                }
-                try {
-                    writeToFile(items);
-                } catch (IOException e) {
-                    System.out.println("\tError writing to file");
+                    ui.wrongDeadlineOrEventFormat("deadline");
                 }
                 break;
             }
             case "event": {
                 try {
-                    handleEvent(items, userInput);
+                    handleEvent(parser.getDeadlineOrEventArgs());
                 } catch (EmptyArgException e) {
-                    System.out.println("\tDescription for deadline cannot be empty!");
+                    ui.emptyDescription("event");
                 } catch (WrongFormatException e) {
-                    System.out.println("\tWrong format! Try \"Event [description] \\by [due date]\"");
-                }
-                try {
-                    writeToFile(items);
-                } catch (IOException e) {
-                    System.out.println("\tError writing to file");
+                    ui.wrongDeadlineOrEventFormat("event");
                 }
                 break;
             }
             default:
-                System.out.println("\tI don't know what that means");
+                ui.invalidCommandMessage();
                 break;
             }
-        }
 
-        printBye();
-    }
-
-    private static void writeToFile(ArrayList<Task> items) throws IOException {
-        FileWriter fw = new FileWriter(filepath);
-        for (Task i : items) {
-            if (i instanceof Todo) {
-                fw.write("T" + "--" + i.getStatusIcon() + "--" + i.description);
-                fw.write(System.lineSeparator());
-            } else if (i instanceof Deadline) {
-                fw.write("D" + "--" + i.getStatusIcon() + "--" + i.description + "--" + ((Deadline) i).getBy());
-                fw.write(System.lineSeparator());
-
-            } else if (i instanceof Event) {
-                fw.write("E" + "--" + i.getStatusIcon() + "--" + i.description + "--" + ((Event) i).getAt());
-                fw.write(System.lineSeparator());
+            try {
+                storage.writeToFile(tasklist.items);
+            } catch (IOException e) {
+                storage.writeToFileError();
             }
         }
-        if (items.isEmpty()){
-            fw.write("");
-        }
-        fw.close();
+
+        ui.printBye();
     }
 
-    private static void readSavedList(ArrayList<Task> items) throws IOException {
-        File f = new File(filepath);
-        if (f.createNewFile()) {
-            drawLine();
-            System.out.println("\tNo saved task list, new file created");
-            drawLine();
-        } else {
-            Scanner fs = new Scanner(f);
-            while (fs.hasNext()) {
-                String[] feed = fs.nextLine().split("--");
-
-                switch (feed[0]) {
-                case "T":
-                    items.add(new Todo(feed[2]));
-                    break;
-                case "D":
-                    items.add(new Deadline(feed[2], feed[3]));
-                    break;
-                case "E":
-                    items.add(new Event(feed[2], feed[3]));
-                    break;
-                default:
-                    break;
-                }
-
-                if (feed[1].equals("X")) {
-                    items.get(items.size() - 1).markAsDone();
-                }
-            }
-            printTaskList(items);
-        }
+    private static void handleDelete(int taskNum) throws EmptyArgException {
+        int indexToDelete = taskNum - 1;
+        Task removedItem = tasklist.get(indexToDelete);
+        tasklist.remove(indexToDelete);
+        ui.printRemovedItem(removedItem);
     }
 
-    private static void handleDelete(ArrayList<Task> items, String userInput) throws EmptyArgException {
-        String[] arg = userInput.split(" ");
-        if (arg.length < 2) {
-            throw new EmptyArgException();
-        }
-        int indexToDelete = Integer.parseInt(arg[1]) - 1;
-        Task removedItem = items.get(indexToDelete);
-        items.remove(indexToDelete);
-        System.out.println("\tItem deleted:");
-        System.out.println("\t\t" + removedItem);
+    private static void handleDone(int taskNum) {
+        int indexToMark = taskNum - 1;
+        tasklist.get(indexToMark).markAsDone();
+        ui.printMarkAsDone(tasklist.items, indexToMark);
     }
 
-    private static void handleDone(ArrayList<Task> items, String userInput) throws EmptyArgException {
-        String[] arg = userInput.split(" ");
-        if (arg.length < 2) {
-            throw new EmptyArgException();
-        }
-        int indexToMark = Integer.parseInt(arg[1]) - 1;
-        items.get(indexToMark).markAsDone();
-        System.out.println("\tNice! I have marked this task as done:");
-        System.out.println("\t\t" + items.get(indexToMark));
+    private static void handleEvent(String[] eventArgs) throws EmptyArgException, WrongFormatException {
+        tasklist.add(new Event(eventArgs[0],eventArgs[1]));
+        ui.printTaskAdded(tasklist.items);
     }
 
-    private static void handleEvent(ArrayList<Task> items, String userInput) throws EmptyArgException, WrongFormatException {
-        String[] arg = userInput.split(" ", 2);
-        if (arg.length < 2) {
-            throw new EmptyArgException();
-        }
-        String[] splitArg = arg[1].split("/", 2);
-        if (splitArg.length < 2) {
-            throw new WrongFormatException();
-        }
-        String description = splitArg[0].trim();
-        String at = splitArg[1].substring(3);
-
-        items.add(new Event(description, at));
-        printTaskAdded(items);
+    private static void handleDeadline(String[] deadlineArgs) throws EmptyArgException, WrongFormatException {
+        tasklist.add(new Deadline(deadlineArgs[0], deadlineArgs[1]));
+        ui.printTaskAdded(tasklist.items);
     }
 
-    private static void handleDeadline(ArrayList<Task> items, String userInput) throws EmptyArgException, WrongFormatException {
-        String[] arg = userInput.split(" ", 2);
-        if (arg.length < 2) {
-            throw new EmptyArgException();
-        }
-        String[] splitArg = arg[1].split("/", 2);
-        if (splitArg.length < 2) {
-            throw new WrongFormatException();
-        }
-        String description = splitArg[0].trim();
-        String by = splitArg[1].substring(3);
-
-        items.add(new Deadline(description, by));
-        printTaskAdded(items);
+    private static void handleTodo(String taskDescription) throws EmptyArgException {
+        tasklist.add(new Todo(taskDescription));
+        ui.printTaskAdded(tasklist.items);
     }
 
-    private static void handleTodo(ArrayList<Task> items, String userInput) throws EmptyArgException {
-        String[] arg = userInput.split(" ", 2);
-        if (arg.length < 2) {
-            throw new EmptyArgException();
-        }
-        items.add(new Todo(arg[1]));
-        printTaskAdded(items);
-    }
-
-    private static void printTaskList(ArrayList<Task> items) {
-        drawLine();
-        if (!items.isEmpty()) {
-            System.out.println("\tHere is your task list:");
-            for (int i = 0; i < items.size(); i++) {
-                System.out.print("\t\t" + (i + 1) + ". ");
-                System.out.println(items.get(i));
-            }
-        } else {
-            System.out.println("\tYou have no tasks");
-        }
-        drawLine();
-    }
-
-    private static void printTaskAdded(ArrayList<Task> items) {
-        int indexOfLastItem = items.size() - 1;
-        System.out.println("\tTask Added:");
-        System.out.println("\t\t" + items.get(indexOfLastItem));
-        System.out.println("\tYou now have " + items.size() + " tasks");
-    }
-
-    private static void printIntro() {
-        System.out.println(
-                "                              _     _\n" +
-                        "                             ( \\---/ )\n" +
-                        "                              ) . . (\n" +
-                        "________________________,--._(___Y___)_,--._______________________ \n" +
-                        "                        `--'           `--'");
-        System.out.println("Hello I'm Duke");
-        System.out.println("What can I do for you?");
-    }
-
-    private static void printBye() {
-        drawLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        drawLine();
-    }
-
-    public static void drawLine() {
-        System.out.println("____________________________________________________________");
-    }
 }
