@@ -1,21 +1,19 @@
-package duke.command;
+package duke.common;
 
-import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-import duke.ui.Ui;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.time.LocalDateTime;
 
 public class Command {
 
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    protected static final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void executeList() {
         Ui.printList(tasks);

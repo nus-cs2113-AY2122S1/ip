@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Event extends Task {
 
-    protected String type = "[E]";
+    protected String type = EVENT_ICON;
     protected LocalDateTime at;
 
     public Event(String desc, LocalDateTime at) {
@@ -14,7 +14,7 @@ public class Event extends Task {
 
     @Override
     public String toStorageString() {
-        return type + " | " + super.toStorageString() + " | " + at.format(dataFormat);
+        return type + PADDED_DATA_SEP + super.toStorageString() + PADDED_DATA_SEP + at.format(dataFormat);
     }
 
     @Override

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Deadline extends Task {
 
-    protected String type = "[D]";
+    protected String type = DEADLINE_ICON;
     protected LocalDateTime by;
 
     public Deadline(String desc, LocalDateTime by) {

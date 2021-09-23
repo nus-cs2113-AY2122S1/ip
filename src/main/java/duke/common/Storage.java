@@ -1,9 +1,7 @@
-package duke.storage;
+package duke.common;
 
-import duke.command.Command;
 import duke.parser.Parser;
 import duke.task.Task;
-import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileWriter;

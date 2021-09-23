@@ -1,6 +1,5 @@
-package duke.ui;
+package duke.common;
 
-import duke.command.Command;
 import duke.task.Task;
 
 import java.util.ArrayList;
@@ -10,9 +9,9 @@ public class Ui {
 
     private final static String DIVIDER = "-----------------------------------------------------";
 
-
-    private final static String NEW_HELLO = "Hi! I'm Duke. I've created your data file for you, what would you like me to do?";
+    private final static String NEW_HELLO = "Hi! I'm Duke. I've created your data file for you!";
     private final static String RETURNING_HELLO = "Welcome back! Here are your current tasks and their status:";
+    private final static String PROMPT_COMMAND =  "What would you like me to do?";
 
     private final static String LIST_MESSAGE = "Here are your current tasks and their status:";
     private final static String ADD_MESSAGE = "Okay, I've added that task to your list:";
@@ -22,11 +21,13 @@ public class Ui {
     private final static String FIND_MESSAGE_END = "\":";
     private static final String BYE_MESSAGE = "Bye! I hope to see you again soon :)";
 
-    private final static String EMPTY_COMMAND_MESSAGE = "Sorry, you didn't give me a fitting description for your task.";
+    private final static String EMPTY_COMMAND_MESSAGE = "That command was incomplete!";
     private final static String ILLEGAL_COMMAND_MESSAGE = "That's not a known command format!";
     private final static String IOEXCEPTION_MESSAGE = "Something went wrong while creating/loading your data: ";
     private final static String INDEX_OUT_OF_BOUNDS_MESSAGE = "That's not a valid task number!";
     private static final String DATE_TIME_PARSE_MESSAGE = "That date and/or time was in the wrong format!";
+    private static final String NO_RESULTS_MESSAGE_START = "I could not find any results for \"";
+    private static final String NO_RESULTS_MESSAGE_END = "\"!";
 
     public static <T> void print(T line) {
         System.out.print(line);
@@ -43,6 +44,7 @@ public class Ui {
     public static void printNewHello() {
         printDivider();
         println(NEW_HELLO);
+        println(PROMPT_COMMAND);
         printDivider();
     }
 
@@ -52,6 +54,7 @@ public class Ui {
         for (Task task : tasks) {
             println((tasks.indexOf(task) + 1) + ". " + task);
         }
+        println(PROMPT_COMMAND);
         printDivider();
     }
 
@@ -72,6 +75,10 @@ public class Ui {
 
     public static void printResults(List<Task> searchResults, String keyword) {
         printDivider();
+        if (searchResults.isEmpty()) {
+            println(NO_RESULTS_MESSAGE_START + keyword + NO_RESULTS_MESSAGE_END);
+            return;
+        }
         println(FIND_MESSAGE_START + keyword + FIND_MESSAGE_END);
         for (Task result : searchResults) {
             print((Command.tasks.indexOf(result) + 1) + ". ");

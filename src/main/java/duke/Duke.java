@@ -1,12 +1,13 @@
 package duke;
 
+import duke.common.Storage;
+import duke.common.Ui;
 import duke.exception.EmptyCommandException;
 import duke.exception.IllegalCommandException;
 import duke.parser.Parser;
-import duke.storage.Storage;
-import duke.ui.Ui;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
@@ -24,6 +25,8 @@ public class Duke {
                 Ui.printIllegalCommandMessage();
             } catch (IOException e) {
                 Ui.printIOExceptionMessage(e);
+            } catch (DateTimeParseException e) {
+                Ui.printDateTimeParseMessage();
             }
             line = in.nextLine();
         }

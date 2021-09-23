@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.command.Command;
+import duke.common.Command;
 import duke.exception.EmptyCommandException;
 import duke.exception.IllegalCommandException;
 import duke.task.Deadline;
@@ -12,14 +12,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+
+
 public class Parser {
 
-    private final static String DEADLINE_ICON = "[D]";
-    private final static String EVENT_ICON = "[E]";
-    private final static String TODO_ICON = "[T]";
-    private final static String DONE_ICON = "[X]";
-
-    private final static String DATA_SEP = "\\|";
     private final static String COMMAND_SEP = " ";
 
     private final static int TODO_LENGTH = 4;
@@ -39,19 +35,19 @@ public class Parser {
      * @throws IOException If an invalid line is found in the data file
      */
     public static Task parseTaskFromData(String taskInfo) throws IOException {
-        String[] parsedData = taskInfo.split(DATA_SEP);
+        String[] parsedData = taskInfo.split(Task.DATA_SEP);
         Task newTask;
 
         switch (parsedData[0].strip()) {
-        case DEADLINE_ICON:
+        case Task.DEADLINE_ICON:
             LocalDateTime parsedBy = parseDateTimeFromData(parsedData[3].strip());
             newTask = new Deadline(parsedData[2].strip(), parsedBy);
             break;
-        case EVENT_ICON:
+        case Task.EVENT_ICON:
             LocalDateTime parsedAt = parseDateTimeFromData(parsedData[3].strip());
             newTask = new Event(parsedData[2].strip(), parsedAt);
             break;
-        case TODO_ICON:
+        case Task.TODO_ICON:
             newTask = new Todo(parsedData[2].strip());
             break;
         default:
@@ -59,7 +55,7 @@ public class Parser {
         }
 
         String parsedDoneIcon = parsedData[1].strip();
-        if (parsedDoneIcon.equals(DONE_ICON)) {
+        if (parsedDoneIcon.equals(Task.DONE_ICON)) {
             newTask.setDone(true);
         }
         return newTask;
@@ -69,7 +65,8 @@ public class Parser {
         return LocalDateTime.parse(stringFromData, Task.dataFormat);
     }
 
-    public static void handleCommand(String fullCommand) throws EmptyCommandException, IllegalCommandException, IOException {
+    public static void handleCommand(String fullCommand) throws EmptyCommandException, IllegalCommandException,
+            IOException {
         String[] parsedCommand = fullCommand.split(COMMAND_SEP);
 
         switch (parsedCommand[0].toUpperCase()) {
@@ -104,10 +101,13 @@ public class Parser {
         Command.addTodo(description);
     }
 
-    public static void parseAndAddDeadline(String fullCommand) throws IOException, IllegalCommandException {
+    public static void parseAndAddDeadline(String fullCommand) throws IOException, IllegalCommandException,
+            EmptyCommandException {
         String commandDescription = fullCommand.substring(DEADLINE_LENGTH).strip();
         String[] descWithBy = commandDescription.split(DEADLINE_SEP);
-        if (descWithBy.length != 2) {
+        if (descWithBy.length < 2) {
+            throw new EmptyCommandException();
+        } else if (descWithBy.length > 2) {
             throw new IllegalCommandException();
         }
         String trimmedDesc = descWithBy[0].strip();
@@ -115,20 +115,17 @@ public class Parser {
         Command.addDeadline(trimmedDesc, byAsDateTime);
     }
 
-    private static LocalDateTime parseByFromCommand(String trimmedBy) throws IllegalCommandException {
-        LocalDateTime byAsDateTime;
-        try {
-             byAsDateTime = LocalDateTime.parse(trimmedBy, Task.dataFormat);
-        } catch (DateTimeParseException e) {
-            throw new IllegalCommandException();
-        }
-        return byAsDateTime;
+    private static LocalDateTime parseByFromCommand(String trimmedBy) throws DateTimeParseException {
+        return LocalDateTime.parse(trimmedBy, Task.dataFormat);
     }
 
-    public static void parseAndAddEvent(String fullCommand) throws IOException, IllegalCommandException {
+    public static void parseAndAddEvent(String fullCommand) throws IOException, IllegalCommandException,
+            EmptyCommandException {
         String commandDescription = fullCommand.substring(EVENT_LENGTH).strip();
         String[] descWithAt = commandDescription.split(EVENT_SEP);
-        if (descWithAt.length != 2) {
+        if (descWithAt.length < 2) {
+            throw new EmptyCommandException();
+        } else if (descWithAt.length > 2) {
             throw new IllegalCommandException();
         }
         String trimmedDesc = descWithAt[0].strip();
@@ -136,14 +133,8 @@ public class Parser {
         Command.addEvent(trimmedDesc, atAsDateTime);
     }
 
-    private static LocalDateTime parseAtFromCommand(String trimmedAt) throws IllegalCommandException {
-        LocalDateTime atAsDateTime;
-        try {
-            atAsDateTime = LocalDateTime.parse(trimmedAt, Task.dataFormat);
-        } catch (DateTimeParseException e) {
-            throw new IllegalCommandException();
-        }
-        return atAsDateTime;
+    private static LocalDateTime parseAtFromCommand(String trimmedAt) throws DateTimeParseException {
+        return LocalDateTime.parse(trimmedAt, Task.dataFormat);
     }
 
     public static void parseAndExecuteDone(String[] parsedCommand) throws IllegalCommandException, IOException {
@@ -164,8 +155,11 @@ public class Parser {
         }
     }
 
-    private static void parseAndExecuteFind(String fullCommand) {
+    private static void parseAndExecuteFind(String fullCommand) throws EmptyCommandException {
         String keywords = fullCommand.replace("find", "").trim();
+        if (keywords.isEmpty()) {
+            throw new EmptyCommandException();
+        }
         String[] keywordsArr = keywords.split(" ");
         Command.findTask(keywordsArr);
     }
