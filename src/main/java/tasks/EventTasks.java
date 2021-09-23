@@ -2,6 +2,9 @@ package tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents event tasks specifically
+ */
 public class EventTasks extends Tasks {
     LocalDateTime Date;
     String strDate;

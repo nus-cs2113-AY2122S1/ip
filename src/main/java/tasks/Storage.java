@@ -7,8 +7,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ * Handles the saving and loading of tasks that is input by the user
+ */
 public class Storage {
     final public static String saveFilesDir = System.getProperty("user.dir") + File.separator + "saveFiles.txt";
+
+    /**
+     * Saves the tasks that were keyed in by the user everytime the ArrayList tasksAL is updated
+     * @param tasksAL is the ArrayList container that stores all the tasks that the user enters
+     */
     protected static void saveTasks(ArrayList<Tasks> tasksAL) {
         try {
             FileWriter myWriter = new FileWriter(saveFilesDir); //directory
@@ -22,6 +31,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks that were stored in the saveFiles.txt file
+     * @param tasksAL is the ArrayList container that stores all the tasks that the user enters
+     */
     public static void loadSaves(ArrayList<Tasks> tasksAL) {
         try {
             File file = new File(saveFilesDir);

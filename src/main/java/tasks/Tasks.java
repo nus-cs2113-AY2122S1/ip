@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents tasks as an object
+ */
 public abstract class Tasks {
     boolean isCompleted;
     String name;

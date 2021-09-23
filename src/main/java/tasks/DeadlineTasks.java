@@ -2,6 +2,9 @@ package tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents deadline tasks specifically
+ */
 public class DeadlineTasks extends Tasks {
     LocalDateTime Deadline;
     String strDeadline;
