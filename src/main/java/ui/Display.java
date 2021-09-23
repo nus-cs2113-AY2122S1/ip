@@ -22,6 +22,10 @@ public class Display {
     /** A task type label to indicate the task is an 'event' type. */
     public static final String CHECKBOX_EVENT_TASK_TYPE = "E";
 
+    public static final String SPACE = " ";
+    public static final String OPEN_DATE_BRACKET = " (";
+    public static final String CLOSE_DATE_BRACKET = ")";
+
     public static final String TASK_NAME_TODO = "TODO";
     public static final String TASK_NAME_DEADLINE = "DEADLINE";
     public static final String TASK_NAME_EVENT = "EVENT";
@@ -41,13 +45,19 @@ public class Display {
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
     }
 
-    /** Creates a demarcation line for non-user specific displays. */
+    /** Creates a demarcation line for non-task specific displays. */
     public static void printSeparatingLine() {
         System.out.println("------------------------------------------------------");
     }
 
     /** Greets the user when the program starts. */
     public static void displayGreetings() {
+        String logo = " ____        _\n"
+                + "|  _ \\ _   _| | _____\n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
         printSeparatingLine();
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?\n");
@@ -143,7 +153,7 @@ public class Display {
      */
     public static void displayTaskCompleted(String taskName) {
         System.out.println("Nice! Marking " + taskName + " as done!");
-        System.out.println(createCheckboxDisplay(Display.CHECKBOX_TASK_COMPLETE) + " " + taskName);
+        System.out.println(createCheckboxDisplay(Display.CHECKBOX_TASK_COMPLETE) + SPACE + taskName);
     }
 
     /** Displays to the user the instructions for executing a 'todo' command. */

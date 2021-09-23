@@ -49,6 +49,11 @@ public class Error {
         System.out.println(ERROR_MESSAGE_TASK_NAME_NONEXISTENT);
     }
 
+    /** Displays error when the date information provided is in the wrong format. */
+    public static void displayDateFormatError() {
+        System.out.println(ERROR_MESSAGE_DATE_FORMAT);
+    }
+
     /** Displays error when the storage file data fail to load on program startup. */
     public static void displayFileLoadError() {
         System.out.println(ERROR_MESSAGE_FILE_LOAD_FAIL);
@@ -77,10 +82,5 @@ public class Error {
     /** Displays error when the datetime information provided is in the wrong format. */
     public static void displayFileSavedDateFormatError() {
         System.out.println(ERROR_MESSAGE_FILE_DATE_FORMAT);
-    }
-
-    /** Displays error when the date information provided is in the wrong format. */
-    public static void displayDateFormatError() {
-        System.out.println(ERROR_MESSAGE_DATE_FORMAT);
     }
 }

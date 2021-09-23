@@ -1,7 +1,26 @@
 # Duke User Guide
 
-# Features
+# Quick Start
+1. Ensure that you have Java ```11``` installed in your computer.
+2. Download the latest ip.jar from [here](https://github.com/theodorekwok/ip/releases/tag/A-Jar)
+3. Copy the jar file to a folder that you want to run Duke from.
+4. At the folder where you copied the jar file run the command ```java -jar ip.jar``` in terminal.
+5. If Duke starts successfully, you should see the following output:
+```Hello from
+ ____        _
+|  _ \ _   _| | _____
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
 
+------------------------------------------------------
+Hello! I'm Duke
+What can I do for you?
+```
+6. Refer the list of commands below under [Features](https://theodorekwok.github.io/ip/#features) for more details
+on how to use Duke.
+
+# Features
 
 ## Notes about command format
 * Words in ```UPPER_CASE``` represent the parameters to be supplied by user. Below we have a list of parameters
@@ -17,7 +36,7 @@ that we would be referring to throughout this user guide.
   * For example the command ```bye 123```
   would be interpreted as ```bye```.
 
-## **Adding a Todo task**
+## Adding a Todo task
 
 Adds a Todo task into your list of tasks. Todo tasks generally fall under the category of non-urgent items to complete
 which may not have a deadline associated to it. Examples may include organising your work desk, sending the car to the
@@ -145,11 +164,6 @@ Following the usage example above we would see the following message:
 ## Deleting a task
 
 Deletes a task in the list. This feature is used whenever you want to remove a task from your list.
-
-The task number indicates the index value of a task. The index number is assigned
-to a task upon its creation and its value would correspond to its position in the task list.
-For example the first task in the list would have an index value of 1 while the 3rd task in the list would have a
-value of 3.
 
 Format: `delete INDEX`
 

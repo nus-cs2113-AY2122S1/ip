@@ -17,8 +17,8 @@ public class TaskDecoder {
     /** Index position of the checkboxes pair */
     public static final int TASK_CHECKBOXES_INDEX = 0;
 
-    public static final int CHECKBOX_STATUS_INDEX = 4;
     public static final int CHECKBOX_TASK_TYPE_INDEX = 1;
+    public static final int CHECKBOX_STATUS_INDEX = 4;
 
     /**
      * Returns a single character representation of the different task types
@@ -87,7 +87,7 @@ public class TaskDecoder {
                         } catch (IndexOutOfBoundsException e) {
                             Error.displayFileSavedTaskFormatError();
                         } catch (DukeTaskNameEmptyException e) {
-                            Error.displayTaskNameEmptyError();
+                            Error.displayFileSavedTaskNameEmptyError();
                         } catch (DateTimeParseException e) {
                             Error.displayFileSavedDateFormatError();
                         }

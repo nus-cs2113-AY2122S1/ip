@@ -29,6 +29,6 @@ public class Event extends Deadline {
     @Override
     public String toString() {
         return Display.getTwoCheckboxDisplay(Display.CHECKBOX_EVENT_TASK_TYPE, getIsCompleted())
-                + " " + getTask() + " (" + getTime() + ")";
+                + Display.SPACE + getTask() + Display.OPEN_DATE_BRACKET + getDatetime() + Display.CLOSE_DATE_BRACKET;
     }
 }

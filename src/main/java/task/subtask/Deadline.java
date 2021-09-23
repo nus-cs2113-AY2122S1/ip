@@ -33,7 +33,7 @@ public class Deadline extends Task {
      *
      * @return Formatted string of the dateTime detail.
      */
-    public String getTime() {
+    public String getDatetime() {
         return datetime.format(DateTimeFormatter.ofPattern(DATE_TIME_REGEX));
     }
 
@@ -45,6 +45,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return Display.getTwoCheckboxDisplay(Display.CHECKBOX_DEADLINE_TASK_TYPE, getIsCompleted())
-                + " " + super.toString() + " (" + getTime() + ")";
+                + Display.SPACE + getTask() + Display.OPEN_DATE_BRACKET + getDatetime() + Display.CLOSE_DATE_BRACKET;
     }
 }
