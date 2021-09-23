@@ -3,7 +3,6 @@ package duke.program;
 import duke.command.*;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Parser {
 

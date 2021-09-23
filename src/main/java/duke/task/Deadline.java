@@ -1,23 +1,25 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
-    private String byDateTime;
+    private LocalDateTime byDateTime;
     private String type;
 
-    public Deadline(String description, String byDateTime) {
+    public Deadline(String description, LocalDateTime byDateTime) {
         super(description);
         this.byDateTime = byDateTime;
         this.type = "D";
     }
 
-    public Deadline(String description, String byDateTime, boolean isDone) {
+    public Deadline(String description, LocalDateTime byDateTime, boolean isDone) {
         super(description, isDone);
         this.byDateTime = byDateTime;
         this.type = "D";
     }
 
     @Override
-    public String getByDateTime() {
+    public LocalDateTime getByDateTime() {
         return byDateTime;
     }
 

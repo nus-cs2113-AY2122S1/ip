@@ -2,6 +2,8 @@ package duke.program;
 
 import duke.task.Task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,6 +16,7 @@ public class LizUi {
     private static final String TASK_TYPE_ICON_EVENT = "E";
 
     private static final String COMMAND_DEADLINE = "deadline";
+    private static final DateTimeFormatter DATE_TIME_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
     private static final String LIZTEXT = "      ___                   ___           ___           ___     \n" +
             "     /\\__\\      ___        /\\  \\         /\\  \\         |\\__\\    \n" +
@@ -82,14 +85,63 @@ public class LizUi {
         if (taskType.equals(TASK_TYPE_ICON_TODO)) {
             System.out.printf("[%s][%s] %s%n", taskType, taskStatus, taskDescription);
         } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
-            String taskByTime = task.getByDateTime();
-            System.out.printf("[%s][%s] %s (by: %s)%n", taskType, taskStatus, taskDescription, taskByTime);
+            LocalDateTime taskByTime = task.getByDateTime();
+            String taskByTimeString = DATE_TIME_FORMAT_OUTPUT.format(taskByTime);
+            System.out.printf("[%s][%s] %s (by: %s)%n", taskType, taskStatus, taskDescription, taskByTimeString);
         } else if (taskType.equals(TASK_TYPE_ICON_EVENT)) {
-            String taskAtTime = task.getStartAndEndTime();
-            System.out.printf("[%s][%s] %s (at: %s)%n", taskType, taskStatus, taskDescription, taskAtTime);
+            LocalDateTime taskStartTime = task.getStartTime();
+            LocalDateTime taskEndTime = task.getEndTime();
+            String taskStartTimeString = DATE_TIME_FORMAT_OUTPUT.format(taskStartTime);
+            String taskEndTimeString = DATE_TIME_FORMAT_OUTPUT.format(taskEndTime);
+            System.out.printf("[%s][%s] %s (at: %s to %s)%n", taskType, taskStatus,
+                    taskDescription, taskStartTimeString, taskEndTimeString);
         } else {
             printGenericErrorMessage();
         }
+    }
+
+    public void printMarkAsDoneMessage(Task task) {
+        String taskType = task.getType();
+        String taskStatus = task.getStatusIcon();
+        String taskDescription = task.getDescription();
+
+        System.out.println("Nice! I've marked this task as done:");
+        printIndividualTask(task, taskType, taskStatus, taskDescription);
+    }
+
+    public void printDeletedTaskMessage(Task task, int taskCount) {
+        String taskType = task.getType();
+        String taskStatus = task.getStatusIcon();
+        String taskDescription = task.getDescription();
+
+        System.out.println("Noted. I've removed this task:");
+        printIndividualTask(task, taskType, taskStatus, taskDescription);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    public void printAddedTaskMessage(Task task, int taskCount) {
+        String taskType = task.getType();
+        String taskDescription = task.getDescription();
+
+        System.out.println("Got it. I've added this task:");
+        if (taskType.equals(TASK_TYPE_ICON_TODO)) {
+            System.out.printf("[%s][ ] %s%n", taskType, taskDescription);
+        } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
+            LocalDateTime byTime = task.getByDateTime();
+            String byTimeString = DATE_TIME_FORMAT_OUTPUT.format(byTime);
+            System.out.printf("[%s][ ] %s (by: %s)%n", taskType, taskDescription, byTimeString);
+        } else if (taskType.equals((TASK_TYPE_ICON_EVENT))) {
+            LocalDateTime startTime = task.getStartTime();
+            LocalDateTime endTime = task.getEndTime();
+            String startTimeString = DATE_TIME_FORMAT_OUTPUT.format(startTime);
+            String endTimeString = DATE_TIME_FORMAT_OUTPUT.format(endTime);
+            System.out.printf("[%s][ ] %s (at: %s to %s)%n", taskType, taskDescription,
+                    startTimeString, endTimeString);
+        } else {
+            printGenericErrorMessage();
+        }
+
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
     ///////////////////////////////
@@ -140,43 +192,9 @@ public class LizUi {
         System.out.println("Oops! Something went wrong :(");
     }
 
-    public void printMarkAsDoneMessage(Task task) {
-        String taskType = task.getType();
-        String taskStatus = task.getStatusIcon();
-        String taskDescription = task.getDescription();
-
-        System.out.println("Nice! I've marked this task as done:");
-        printIndividualTask(task, taskType, taskStatus, taskDescription);
+    public void printInvalidDateTimeFormatMessage() {
+        System.out.println("Sorry bud, but that's an invalid date-time format! It should be as follows: " +
+                System.lineSeparator() + "/by dd/mm/yyyy HHmm (for deadlines)" + System.lineSeparator() +
+                "/at dd/mm/yyyy HHmm to dd/mm/yyyy HHmm (for events)");
     }
-
-    public void printDeletedTaskMessage(Task task, int taskCount) {
-        String taskType = task.getType();
-        String taskStatus = task.getStatusIcon();
-        String taskDescription = task.getDescription();
-
-        System.out.println("Noted. I've removed this task:");
-        printIndividualTask(task, taskType, taskStatus, taskDescription);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-    }
-
-    public void printAddedTaskMessage(Task task, int taskCount) {
-        String taskType = task.getType();
-        String taskDescription = task.getDescription();
-
-        System.out.println("Got it. I've added this task:");
-        if (taskType.equals(TASK_TYPE_ICON_TODO)) {
-            System.out.printf("[%s][ ] %s%n", taskType, taskDescription);
-        } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
-            String byTime = task.getByDateTime();
-            System.out.printf("[%s][ ] %s(by:%s)%n", taskType, taskDescription, byTime);
-        } else if (taskType.equals((TASK_TYPE_ICON_EVENT))) {
-            String atTime = task.getStartAndEndTime();
-            System.out.printf("[%s][ ] %s(at:%s)%n", taskType, taskDescription, atTime);
-        } else {
-            printGenericErrorMessage();
-        }
-
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-    }
-
 }
