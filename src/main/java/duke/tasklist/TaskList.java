@@ -1,9 +1,6 @@
 package duke.tasklist;
 
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
-import duke.task.Todo;
 
 import java.util.ArrayList;
 
@@ -70,14 +67,19 @@ public class TaskList {
         taskList.remove(index);
     }
 
-    public ArrayList<Task> findTask(String task) {
+    /**
+     * Finds tasks that contains a certain keyword
+     * @param toFind the keyword to find
+     * @return ArrayList of tasks that contains keyword
+     */
+    public ArrayList<Task> findTask(String toFind) {
         int size = this.getListSize();
         ArrayList<Task> tasksFound = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
             Task currTask = this.getTask(i);
 
-            if (currTask.getDescription().contains(task)) {
+            if (currTask.getDescription().contains(toFind)) {
                 tasksFound.add(currTask);
             }
         }
