@@ -12,6 +12,8 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
     private static final String COMMAND_EXIT = "bye";
@@ -181,11 +183,13 @@ public class Parser {
             if (deadlineName.equals("")) {
                 throw new DukeException("Please specify a deadline name.");
             }
-            String deadlineDate = userInput.substring(byIndex + 5).strip();
+            String deadlineDateString = userInput.substring(byIndex + 5).strip();
             //if do by date is not found
-            if (deadlineDate.equals("")) {
+            if (deadlineDateString.equals("")) {
                 throw new DukeException("Please specify a do by date.");
             }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy");
+            LocalDate deadlineDate = LocalDate.parse(deadlineDateString, formatter);
             return new Deadline(deadlineName, deadlineDate);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Please provide a deadline in the format \"deadline [task name] /by [date]\".");
