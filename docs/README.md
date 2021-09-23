@@ -132,7 +132,7 @@ Q: Where is my task list data stored? </br>
 A: There is a directory called `UserStatus` under where you store `ip.jar`. Your task list is named as `<your_username>.txt` and stored inside it.
 
 
-##<span id="summary">Command Summary</span>
+## <span id="summary">Command Summary</span>
 
 Action | Command Format | Example
 --- | --- | --- | 
