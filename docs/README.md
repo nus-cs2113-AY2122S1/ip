@@ -57,12 +57,12 @@ There are three possible task types that can be added.
 #### format:
 1. add a `todo` task: `todo <task description>`
 ##### example:
-![img](todo.png)
+![img](todo.png)<br/>
 2. add a `deadline` task: `deadline <task description> /<YYYY-MM-DD> [HH:MM]`
 ##### example:
-![img](deadline.png)
+![img](deadline.png) <br/>
 3. add a `event` task: `event <task description> /<YYYY-MM-DD> \<HH:MM\>`
-##### example:
+##### example: 
 ![img](event.png)
 
 <br/>  
@@ -114,7 +114,7 @@ delete a task at specific index.
 Exit the program and automatically save all the tasks.
 #### format: `bye`
 #### example:
-[img](exit.png)
+![img](exit.png)
 
 <br/>  
 
