@@ -5,14 +5,23 @@ import duke.task.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Ui class manages the printing of messages onto the Command Line Interface
+ */
 public class Ui {
     private static final String LINE = "─────────────────────────────────────────────────────────────\n";
 
+    /**
+     * Prints the exit message onto the CLI
+     */
     public void printByeMessage() {
         String byeGreeting = "Bye. Hope to see you again soon!\n";
         System.out.println(LINE + byeGreeting + LINE);
     }
 
+    /**
+     * Prints the welcome message onto the CLI
+     */
     public void printHelloMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -24,12 +33,21 @@ public class Ui {
         System.out.println(LINE + helloGreeting + LINE);
     }
 
+    /**
+     * Prints the error message whenever an exception is thrown
+     * @param e Exception thrown
+     */
     public void printErrorMessage(DukeException e) {
         System.out.println(LINE);
         System.out.println(e.getMessage());
         System.out.println(LINE);
     }
 
+    /**
+     * Prints a message to the CLI whenever a task is added to the task list
+     * @param task The task that was added to the task list
+     * @param tasks ArrayList to store tasks into the task list at run time
+     */
     public void printAddTaskMessage(Task task, ArrayList<Task> tasks) {
         System.out.println(LINE);
         System.out.println("Got it. I've added this task:");
@@ -38,6 +56,11 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Prints a message to the CLI whenever a task is deleted from the task list
+     * @param taskIndex Index of task that was deleted
+     * @param tasks ArrayList to store tasks into the task list at run time
+     */
     public void printDeleteTaskMessage(int taskIndex, ArrayList<Task> tasks) {
         System.out.println(LINE);
         System.out.println("Noted. I've removed this task:");
@@ -46,6 +69,11 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Prints a message to the CLI when a task is done from the task list
+     * @param taskIndex Index of task that was done
+     * @param tasks ArrayList to store tasks into the task list at run time
+     */
     public void printTaskDoneMessage(int taskIndex, ArrayList<Task> tasks) {
         System.out.println(LINE);
         System.out.println("Nice! I've marked this task as done:");
@@ -53,6 +81,10 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Prints the entire task list
+     * @param tasks ArrayList to store tasks into the task list at run time
+     */
     public void printTaskList(ArrayList<Task> tasks) {
         System.out.println(LINE);
         if (tasks.size() == 0) {
@@ -66,6 +98,10 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Prints a message to the Command Line Interface when the given task is found
+     * @param matchingTasks List of tasks that match the given keyword
+     */
     public void printFindTask(List<Task> matchingTasks) {
         System.out.println(LINE);
         if (matchingTasks.size() == 0) {

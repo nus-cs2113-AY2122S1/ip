@@ -11,10 +11,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Storage class transfers the user's data from the task list to a csv file
+ */
 public class Storage {
     private final String STORAGE_PATH = "data/tasks.csv";
     private final File file = new File(STORAGE_PATH);
 
+    /**
+     * Constructor of Storage class creates the data folder and tasks.csv file if it does not already exist.
+     * @throws DukeException Exception is thrown when the tasks.csv file cannot be created
+     */
     public Storage() throws DukeException {
         try {
             file.getParentFile().mkdirs();
