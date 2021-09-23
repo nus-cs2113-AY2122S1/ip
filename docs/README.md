@@ -1,29 +1,52 @@
-# User Guide
+# Duke project
+This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
-## Features 
+## Functions of Duke
 
-### Feature-ABC
+Prerequisites: JDK 11, update Intellij to the most recent version.
 
-Description of the feature.
+1. `Todo <taskname_here>` This creates a simple Todo task.
 
-### Feature-XYZ
 
-Description of the feature.
+2. `Deadline <taskname_here> /by <date_here>` This creates a Deadline task.
+    - Example:
+    - `deadline math assignment /by 12 october, 2019`
 
-## Usage
 
-### `Keyword` - Describe action
+3. `Event <taskname_here> /at <date_here>` This creates an Event task.
+    - Example:
+    - `event Christmas Dinner /at 25 December, 2022`
 
-Describe the action and its outcome.
 
-Example of usage: 
+4. `Event <taskname_here> /at <date_here>` This creates an Event task.
+    - Example:
+    - `event Christmas Dinner /at 25 December, 2022`
 
-`keyword (optional arguments)`
 
-Expected outcome:
+5. `find <search_query_here>` This prints out any task that contains `<search_query_here>`
 
-Description of the outcome.
 
-```
-expected output
-```
+6. `done <task_number>` This marks the task as done.
+
+
+7. `delete <task_number>` This deletes the task from the task list.
+
+
+8. `list` This lists out the whole list of tasks which have been input by the user.
+
+
+9. `bye` This would exit the programme.
+
+First run of the programme should give an output like this:
+   ```
+    ___
+ __/_  `.  .-"""-.
+ \_,` | \-'  /   )`-')
+  "") `"`    \  ((`"`
+ ___Y  ,    .'7 /|
+(_,___/...-` (_/_/ 
+Hello! I'm Duke the Dancing Doggo.
+Anything I can help you with, young Padawan?
+_____________________________________________________
+=>
+   ```
