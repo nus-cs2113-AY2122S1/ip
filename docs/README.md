@@ -52,7 +52,7 @@ F
 2. Some commands require additional keywords to ensure correct input. Without those additional keywords, the command will be deemed as invalid.
    - Example of commands that require additional keywords are `deadline` and `event`
 
-###`help` - View help
+### `help` - View help
 
 Description: `help` function will print out all available commands and the command format
 
@@ -76,7 +76,7 @@ help
      If <time2> is HHMM, it will inherit YYYY-MM-DD from <time1>
      -- creates an event task with the description given and store 2 time given by the input
 ```
-###`bye` - Exit program
+### `bye` - Exit program
 
 Description: Exits the program
 
@@ -88,8 +88,7 @@ bye
     _________________________________________________________________
 ```
 
-###
-###`list` - List all the tasks created
+### `list` - List all the tasks created
 Description: This command will show all the tasks in the list
 
 Example: 
@@ -113,7 +112,7 @@ list
      4. [E][ ] this is what happens when time1 is later than time2 (at: 01-10-2021 0300 to 02-10-2021 1300)
     _________________________________________________________________
 ```
-###`todo` - Create a todo task
+### `todo` - Create a todo task
 Description: Todo is a type of task that store only description.
 Create a todo by following the format below:
 >Format: `todo` &lt;description&gt;
@@ -126,7 +125,7 @@ todo create a task
      Now you have 1 tasks in the list.
     _________________________________________________________________
 ```
-###`deadline` - Create a deadline task
+### `deadline` - Create a deadline task
 Description: Deadline is a type of task that takes in a description and time. 
 Create a deadline by following the format below:
 >Format: `deadline` &lt;description&gt; /by &lt;time>
@@ -140,7 +139,7 @@ deadline create a deadline task /by 2021-10-01 1159
     _________________________________________________________________
 ```
 
-###`event` - Create an event task
+### `event` - Create an event task
 Description: Event is a type of task that takes in a description and 2 time.
 Create a deadline by following the format below:
 >Format: `event` &lt;description&gt; /at &lt;time1> to &lt;time2>
@@ -155,7 +154,7 @@ event this is what happens when time1 is later than time2 /at 2021-10-02 1300 to
     _________________________________________________________________
 ```
 
-###`done` - Check corresponding task as done
+### `done` - Check corresponding task as done
 Description: will mark a particular task as done, by showing an X on the second square bracket [ ].
 >Format: `done` &lt;number>
 > :grey_exclamation: Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
@@ -168,7 +167,7 @@ done 2
      [D][X] create a deadline task
     _________________________________________________________________
 ```
-###`delete` - Delete corresponding task from list
+### `delete` - Delete corresponding task from list
 Description: Delete a task with that has the corresponding number
 >Format: `delete` <number>
 > :grey_exclamation: Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
@@ -198,7 +197,7 @@ list
     _________________________________________________________________
 ```
 
-###`find` - Find description tasks with the given input
+### `find` - Find description tasks with the given input
 Description: Returns all the list that contains the following text
 Example:
 ```text
@@ -232,7 +231,7 @@ sort time
 
 
 
-##Command Summary
+## Command Summary
 
 |  Commands   |                      Description                       |
 |-------------|--------------------------------------------------------|
