@@ -35,6 +35,7 @@ public class Ui {
         System.out.println("4.Add event - event <description> /<due>");
         System.out.println("5.Set task as done - done <task index>");
         System.out.println("5.Delete task - delete <task index>");
+        System.out.println("6.Find tasks - find <search keywords>");
         printDivider();
     }
 
