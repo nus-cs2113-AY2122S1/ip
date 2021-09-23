@@ -14,6 +14,11 @@ public class Duke {
     private LizUi ui;
     private Parser parser;
 
+    /**
+     * Duke Constructor that loads in task data from the given file path.
+     * @param filePath file path of the save file.
+     * @param folderPath folder path of the save file.
+     */
     public Duke(String filePath, String folderPath) {
         storage = new Storage(filePath, folderPath);
         ui = new LizUi();
@@ -24,12 +29,19 @@ public class Duke {
             ui.printFileErrorMessage();
         }
     }
+
+    /**
+     * Main method of Duke. Instantiates Duke and runs the main program.
+     * @param args not utilised here.
+     */
     public static void main(String[] args) {
         new Duke(FILE_PATH, FOLDER_PATH).run();
     }
 
+    /**
+     * Executes the main program of Duke.
+     */
     public void run() {
-
         Scanner in = new Scanner(System.in);
 
         ui.printGreetingMessage();

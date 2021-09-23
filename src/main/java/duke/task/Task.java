@@ -16,6 +16,10 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Checks if a task is completed and returns a corresponding status icon.
+     * @return "X" if task is done, " " if task is not done.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -28,6 +32,10 @@ public class Task {
         isDone = true;
     }
 
+    /**
+     * Getter for task subclasses that obtains the task type in the form of a task type icon.
+     * @return 'T' for a todo task, 'D' for a deadline task, 'E' for an event task.
+     */
     public String getType() {
         return null;
     }
