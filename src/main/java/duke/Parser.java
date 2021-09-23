@@ -11,6 +11,9 @@ import duke.task.Deadline;
 import duke.task.Events;
 import duke.task.ToDos;
 
+/**
+ * The Parser class parses the user input, extracts the command and creates the relevant command objects
+ */
 public class Parser {
     //Commands stored as string constants
     private static final String EXIT_COMMAND = "bye";

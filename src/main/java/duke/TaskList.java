@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * TaskList class represents a real-life task list and handles all task operations including adding tasks into the list,
+ * removing tasks from the list, finding tasks in the list, marking tasks as done and printing the whole list on the
+ * console.
+ */
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
     private Ui ui;
@@ -32,6 +37,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints the tasks list
+     */
     public void printTasks() {
         ui.printTaskList(tasks);
     }
