@@ -1,7 +1,7 @@
-package duke.processes;
+package duke.processes.tasks;
 
 public class Task {
-    protected String description;
+    public String description;
     public boolean isDone;
 
     public Task(String description) {

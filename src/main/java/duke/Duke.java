@@ -1,16 +1,16 @@
 package duke;
 
-import duke.processes.Interface;
-import duke.processes.Manager;
-import duke.processes.ProcessFiles;
-import duke.processes.Task;
+import duke.processes.*;
+import duke.processes.commands.ByeCommand;
+import duke.processes.commands.Command;
+import duke.processes.commands.CommandResult;
+import duke.processes.tasks.Task;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke {
     public static ArrayList<Task> taskList = new ArrayList<>();
-    public static Manager manager = new Manager(taskList);
+    //public static Manager manager = new Manager(taskList);
 
     public static void main(String[] args) {
         Interface.introductoryMessage();
@@ -26,40 +26,23 @@ public class Duke {
     protected static void runIkaros() {
         boolean isRunning = true;
 
-        Scanner in = new Scanner(System.in);
         String response;
-        String[] command;
-
+        Command command;
+        CommandResult feedback;
         while (isRunning) {
-            response = in.nextLine();
-            Interface.lineBreak();
-            command = response.split(" ", 10);
-            switch (command[0]) {
-            case "echo":
-                Manager.echo();
-                break;
-            case "list":
-                Manager.printList();
-                break;
-            case "done":
-            case "undo":
-                Manager.manageDoUndo(command);
-                break;
-            case "remove":
-            case "add":
-                Manager.manageInstructions(command, response);
-                break;
-            case "bye":
+            do {
+                response = Interface.readInput();
+                command = Parser.parseCommand(response);
+                feedback = command.execute();
+                System.out.println(feedback.feedbackToUser);
+                System.out.println(Interface.lineBreak);
+            } while (ByeCommand.isRunning);
+            response = Interface.readInput();
+            if (response.equalsIgnoreCase("y")) {
                 isRunning = false;
-                break;
-            case "help":
-                Manager.help();
-                break;
-            default:
-                System.out.println("I didn't catch that!");
-                Interface.lineBreak();
-                Manager.help();
-                break;
+            } else {
+                System.out.println(Interface.lineBreak + System.lineSeparator() +
+                        "No problem, what further assistance " + "do you require?");
             }
         }
     }

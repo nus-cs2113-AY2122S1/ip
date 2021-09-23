@@ -1,10 +1,17 @@
 package duke.processes;
 
+import duke.Duke;
+import duke.processes.tasks.Task;
+
+import java.util.Scanner;
+
 public class Interface {
-    public static void lineBreak() {
-        String lineBreak = "..........................." +
-                ".......................................";
-        System.out.println(lineBreak);
+    public static final String lineBreak = "..........................." +
+            ".......................................";
+
+    public static String readInput() {
+        Scanner in = new Scanner(System.in);
+        return in.nextLine();
     }
 
     /**
@@ -15,14 +22,14 @@ public class Interface {
                 + " #  @ @  #    Welcome to IKAROS!\n"
                 + " #   ^   #  Your one and only butler\n"
                 + " #########";
-        lineBreak();
+        System.out.println(Interface.lineBreak);
 
         System.out.println(logo);
-        lineBreak();
+        System.out.println(Interface.lineBreak);
         System.out.println("Below is your current list of tasks."
                 + System.lineSeparator()
                 + "What further assistance do you require?");
-        lineBreak();
+        System.out.println(Interface.lineBreak);
     }
 
     /**
@@ -30,6 +37,17 @@ public class Interface {
      */
     public static void goodbyeMessage() {
         System.out.println("GoodBye, Ikaros awaits for future commands");
-        lineBreak();
+        System.out.println(Interface.lineBreak);
+    }
+
+    public static void printList() {
+        int i = 1;
+        System.out.println("Here are the tasks in your list:");
+        for (Task task : Duke.taskList) {
+            System.out.println(i + ".[" + task.getTaskID() + "]" +
+                    "[" + task.getStatusIcon() +
+                    "] " + task.description + task.getDate());
+            i++;
+        }
     }
 }

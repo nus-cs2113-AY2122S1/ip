@@ -1,7 +1,9 @@
 package duke.processes;
 
+import duke.Duke;
 import duke.processes.tasks.Deadlines;
 import duke.processes.tasks.Event;
+import duke.processes.tasks.Task;
 import duke.processes.tasks.ToDo;
 
 import java.io.File;
@@ -31,7 +33,8 @@ public class ProcessFiles {
         } catch (IOException e) {
             System.out.println("File corrupted. pls try reload again, or start a new");
         } finally {
-            Manager.printList();
+            Interface.printList();
+            System.out.println(Interface.lineBreak);
         }
     }
 
@@ -39,28 +42,28 @@ public class ProcessFiles {
         switch (command[0]) {
         case "todo":
             ToDo taskTodo = new ToDo(command[2]);
-            Manager.taskList.add(taskTodo);
+            Duke.taskList.add(taskTodo);
             break;
         case "deadline":
             Deadlines taskDeadline = new Deadlines(command[2], command[3]);
-            Manager.taskList.add(taskDeadline);
+            Duke.taskList.add(taskDeadline);
             break;
         case "event":
             Event taskEvent = new Event(command[2], command[3]);
-            Manager.taskList.add(taskEvent);
+            Duke.taskList.add(taskEvent);
             break;
         default:
             System.out.println("file error");
         }
         if (command[1].equalsIgnoreCase("X")) {
-            Manager.taskList.get(Manager.taskList.size() - 1).markAsDone();
+            Duke.taskList.get(Duke.taskList.size() - 1).markAsDone();
         }
     }
 
     public static void SaveTasks() {
         try {
             FileWriter fw = new FileWriter("ikarosTaskData.txt");
-            for (Task task : Manager.taskList) {
+            for (Task task : Duke.taskList) {
                 fw.write(task.getTaskType() + ">"
                         + task.getStatusIcon() + ">"
                         + task.getDescription() + ">"

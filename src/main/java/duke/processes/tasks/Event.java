@@ -1,7 +1,5 @@
 package duke.processes.tasks;
 
-import duke.processes.Task;
-
 public class Event extends Task {
     protected String date;
 
