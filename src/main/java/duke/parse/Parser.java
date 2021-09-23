@@ -1,7 +1,14 @@
 package duke.parse;
 
 import duke.DukeException;
-import duke.commands.*;
+import duke.commands.AddCommand;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
+import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.HelpCommand;
+import duke.commands.ListCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
@@ -64,6 +71,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks for errors in help command input before returning the Command
+     * @param line the user input
+     * @return Command that prints help menu
+     * @throws DukeException when help input has incorrect format
+     */
     public static Command parseHelpCommand(String line) throws DukeException {
         final String HELP_ERROR = "help does not take in additional parameters";
 
@@ -78,7 +91,7 @@ public class Parser {
      * Checks for errors in list command input before returning the Command
      * @param line the user input
      * @return Command that executes list
-     * @throws DukeException when list is input in incorrect format
+     * @throws DukeException when list input has incorrect format
      */
     public static Command parseListCommand(String line) throws DukeException {
         final String LIST_ERROR = "list does not take in additional parameters";
@@ -104,7 +117,9 @@ public class Parser {
             throw new DukeException(TODO_ERROR);
         }
 
-        return new AddCommand(new Todo(line.substring(START_INDEX).trim()));
+        return new AddCommand(new Todo(line
+                .substring(START_INDEX)
+                .trim()));
     }
 
     /**
@@ -152,8 +167,12 @@ public class Parser {
             throw new DukeException(DEADLINE_ERROR_4);
         }
 
-        String[] deadlineInputs = line.substring(START_INDEX).split(BY_DELIMITER);
-        String[] dateAndTime = deadlineInputs[BY_INDEX].trim().split(" ");
+        String[] deadlineInputs = line
+                .substring(START_INDEX)
+                .split(BY_DELIMITER);
+        String[] dateAndTime = deadlineInputs[BY_INDEX]
+                .trim()
+                .split(" ");
 
         if (dateAndTime.length > MAX_LENGTH) {
             throw new DukeException(DEADLINE_ERROR_5);
@@ -204,10 +223,10 @@ public class Parser {
 
         LocalDate date;
         String newDate;
-        LocalTime time1;
-        String newTime1;
-        LocalTime time2;
-        String newTime2;
+        LocalTime startTime;
+        String newStartTime;
+        LocalTime endTime;
+        String newEndTime;
 
         if (line.equals(COMMAND_EVENT)) {
             throw new DukeException(EVENT_ERROR_1);
@@ -225,8 +244,12 @@ public class Parser {
             throw new DukeException(EVENT_ERROR_4);
         }
 
-        String[] eventInputs = line.substring(START_INDEX).split(AT_DELIMITER);
-        String[] dateAndTime = eventInputs[AT_INDEX].trim().split(" ");
+        String[] eventInputs = line
+                .substring(START_INDEX)
+                .split(AT_DELIMITER);
+        String[] dateAndTime = eventInputs[AT_INDEX]
+                .trim()
+                .split(" ");
 
         if (dateAndTime.length > MAX_LENGTH) {
             throw new DukeException(EVENT_ERROR_5);
@@ -239,18 +262,18 @@ public class Parser {
         try {
             date = LocalDate.parse(dateAndTime[DATE_INDEX].trim());
             newDate = date.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
-            time1 = LocalTime.parse(dateAndTime[TIME_INDEX_1].trim());
-            newTime1 = time1.format(DateTimeFormatter.ofPattern(TIME_FORMAT));
-            time2 = LocalTime.parse(dateAndTime[TIME_INDEX_2].trim());
-            newTime2 = time2.format(DateTimeFormatter.ofPattern(TIME_FORMAT));
+            startTime = LocalTime.parse(dateAndTime[TIME_INDEX_1].trim());
+            newStartTime = startTime.format(DateTimeFormatter.ofPattern(TIME_FORMAT));
+            endTime = LocalTime.parse(dateAndTime[TIME_INDEX_2].trim());
+            newEndTime = endTime.format(DateTimeFormatter.ofPattern(TIME_FORMAT));
         } catch (DateTimeParseException e) {
             throw new DukeException(EVENT_ERROR_7);
         }
 
         return new AddCommand(new Event(eventInputs[DESCRIPTION_INDEX].trim(),
                 newDate,
-                newTime1,
-                newTime2));
+                newStartTime,
+                newEndTime));
     }
 
     /**
@@ -340,7 +363,9 @@ public class Parser {
             throw new DukeException(FIND_ERROR);
         }
 
-        String toFind = line.substring(START_INDEX).trim();
+        String toFind = line
+                .substring(START_INDEX)
+                .trim();
 
         return new FindCommand(toFind);
     }
