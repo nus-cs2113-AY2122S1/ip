@@ -7,6 +7,21 @@ import java.util.ArrayList;
 
 public class Parser {
 
+    public static final String HELP = "help";
+    public static final String DELETE = "delete";
+    public static final String DONE = "done";
+    public static final String LIST = "list";
+    public static final String TODO = "todo";
+    public static final String DEADLINE = "deadline";
+    public static final String EVENT = "event";
+    public static final String FIND = "find";
+
+    /**
+     * This function takes in the user input and returns the input broken into its constituent parameters
+     * @param input the user input
+     * @return the input broken up into the command and the parameters as an arrayList<String>, which is in
+     * the order command, parameter, parameter (If it's a 3 argument command like deadline, event)
+     */
     public static ArrayList<String> parseInput(String input) {
         String trimmedInput = input.trim();
         ArrayList<String> arguments = new ArrayList<>();
@@ -30,33 +45,39 @@ public class Parser {
         return arguments;
     }
 
+    /**
+     * This function given the arguments of the user input, then calls the appropriate functions based on the command
+     * @param arguments an arrayList containing the user input string broken into its components
+     * @throws DukeCommandException if the command given is invalid
+     */
     public static void handleInput(ArrayList<String> arguments) throws DukeCommandException {
+        //arguments(0) is the command that was inputted by the user
         switch (arguments.get(0)) {
-        case "help":
+        case HELP:
             Ui.printHelpMessage();
             break;
 
-        case "find":
+        case FIND:
             Command.executeFind(arguments);
             break;
 
-        case "delete":
+        case DELETE:
             Command.executeDelete(arguments);
             Storage.write();
             break;
 
-        case "done":
+        case DONE:
             Command.executeDone(arguments);
             Storage.write();
             break;
 
-        case "list":
+        case LIST:
             Command.executeList();
             break;
 
-        case "todo":
-        case "deadline":
-        case "event":
+        case TODO:
+        case DEADLINE:
+        case EVENT:
             Command.executeAdd(arguments);
             Storage.write();
             break;

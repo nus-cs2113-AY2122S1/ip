@@ -14,6 +14,9 @@ public class Storage {
     private static final String DIRECTORY_NAME = "data";
     private static final String FILE_NAME = "tasks.txt";
 
+    /**
+     * This function writes the current list of tasks into the text file
+     */
     public static void write() {
         try {
             File newDirectory = new File(DIRECTORY_NAME);
@@ -33,6 +36,10 @@ public class Storage {
         }
     }
 
+    /**
+     * On startup this function gets the tasks present in the text file if present and puts them into the tasklist arraylist.
+     * If such a file isn't present it creates the respective directory and file
+     */
     public static void load() {
         File newDirectory = new File(DIRECTORY_NAME);
         if(!newDirectory.exists()) {
