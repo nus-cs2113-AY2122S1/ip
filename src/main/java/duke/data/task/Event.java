@@ -32,9 +32,9 @@ public class Event extends Task {
     /**
      * Constructor for Task of type Event using Date and Time objects
      *
-     * @param description Description of the task to add.
-     * @param deadlineDate    Date Deadline of task
-     * @param deadlineTime    Time Deadline of task
+     * @param description  Description of the task to add.
+     * @param deadlineDate Date Deadline of task
+     * @param deadlineTime Time Deadline of task
      */
     public Event(String description, LocalDate deadlineDate, LocalTime deadlineTime) {
         super(description, TASK_TYPE);
@@ -77,13 +77,14 @@ public class Event extends Task {
      * @return Formatted string of a task.
      */
     public String toFormattedString() {
-        if (deadline != null){
+        if (deadline != null) {
             return String.format("%s (at: %s)", super.toFormattedString(), this.deadline);
         } else {
             assert deadlineDate != null;
             String formattedDate = deadlineDate.format(DateTimeFormatter.ofPattern(FORMAT_DATE_OUT));
-            if (deadlineTime != null){
-                String formattedTime = deadlineTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME_OUT));;
+            if (deadlineTime != null) {
+                String formattedTime = deadlineTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME_OUT));
+                ;
                 return String.format("%s (at: %s %s)", super.toFormattedString(), formattedDate, formattedTime);
             } else {
                 return String.format("%s (at: %s)", super.toFormattedString(), formattedDate);

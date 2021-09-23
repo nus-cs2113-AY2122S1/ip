@@ -52,6 +52,8 @@ public class Strings {
 
     public static final String MESSAGE_LIST_EMPTY = "The list, just like your head, is empty.";
     public static final String MESSAGE_LIST = "Here is the list of the things your feeble human mind is incapable of keeping track of:";
+    public static final String MESSAGE_LIST_DATE = "These are the tasks occurring on %s";
+    public static final String MESSAGE_LIST_DATE_EMPTY = "There is nothing occurring on %s";
     public static final String MESSAGE_TASK_ADDED = "Got it. I've added this task:";
     public static final String MESSAGE_TASK_COUNT_SINGULAR = "There is now 1 task in the list";
     public static final String MESSAGE_TASK_COUNT = "There are now %d tasks in the list";

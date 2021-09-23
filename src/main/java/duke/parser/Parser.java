@@ -26,6 +26,12 @@ public class Parser {
 
     public static final Pattern COMMAND_FORMAT = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
 
+    /**
+     * parses given user input
+     *
+     * @param userInput String that should be parsed
+     * @return Command object based on the parsed userInput
+     */
     public static Command parseCommand(String userInput) {
         try {
 
@@ -42,7 +48,7 @@ public class Parser {
 
             switch (command) {
             case ListCommand.COMMAND_WORD:
-                toReturn = new ListCommand();
+                toReturn = prepareList(arguments);
                 break;
             case ByeCommand.COMMAND_WORD:
                 toReturn = new ByeCommand();
@@ -92,6 +98,15 @@ public class Parser {
         return prepareDeadlineEvent(args, Deadline.TASK_TYPE);
     }
 
+    /**
+     * Additional parsing and preparation for Event and Deadline commands
+     *
+     * @param args      arguments given after the command
+     * @param eventType 'E' or 'D' depending on if it is an Event or Deadline
+     * @return Event or Deadline command
+     * @throws IllegalCommandException returns exception if an invalid eventtype was given or command arguments was
+     *                                 malformed
+     */
     private static Command prepareDeadlineEvent(String args, char eventType) throws IllegalCommandException {
         Pattern COMMAND_FORMAT;
 
@@ -120,14 +135,14 @@ public class Parser {
         LocalDate deadlineDate = dateTime.getDate();
         LocalTime deadlineTime = dateTime.getTime();
 
-        if (eventType == Deadline.TASK_TYPE){
-            if (deadlineDate == null){
+        if (eventType == Deadline.TASK_TYPE) {
+            if (deadlineDate == null) {
                 return new DeadlineCommand(description, deadline);
             } else {
                 return new DeadlineCommand(description, deadlineDate, deadlineTime);
             }
         } else {
-            if (deadlineDate == null){
+            if (deadlineDate == null) {
                 return new EventCommand(description, deadline);
             } else {
                 return new EventCommand(description, deadlineDate, deadlineTime);
@@ -136,7 +151,13 @@ public class Parser {
 
     }
 
-    public static DateTime parseDateTime(String dateTimeString){
+    /**
+     * Parses string to find if any date or time exists
+     *
+     * @param dateTimeString String to be parsed
+     * @return DateTime object containing LocalDate and LocalTime objects parsed from dateTimeString
+     */
+    public static DateTime parseDateTime(String dateTimeString) {
         final Matcher dateMatcher = COMMAND_DATE_TIME_FORMAT.matcher(dateTimeString);
 
         LocalDate deadlineDate = null;
@@ -148,7 +169,7 @@ public class Parser {
 
             deadlineDate = DateParser.parseDate(date);
 
-            if (!time.isEmpty()){
+            if (!time.isEmpty()) {
                 deadlineTime = DateParser.parseTime(time);
             }
         }
@@ -180,5 +201,21 @@ public class Parser {
         } catch (NumberFormatException e) {
             return new ErrorCommand(MESSAGE_NUMBER_FORMAT_EXCEPTION);
         }
+    }
+
+    public static final Pattern COMMAND_LIST_DATE_FORMAT = Pattern.compile(
+            "/on(?<date>.*)");
+
+    private static Command prepareList(String args) {
+        final Matcher matcher = COMMAND_LIST_DATE_FORMAT.matcher(args);
+
+        if (!matcher.find()) {
+            return new ListCommand();
+        }
+
+        final String dateString = matcher.group("date").trim();
+        LocalDate date = DateParser.parseDate(dateString);
+
+        return new ListCommand(date);
     }
 }

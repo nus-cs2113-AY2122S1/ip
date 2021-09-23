@@ -3,7 +3,6 @@ package duke.commands;
 import static duke.ui.Strings.MESSAGE_FILE_NOT_FOUND_EXCEPTION;
 
 import duke.data.TaskList;
-import duke.data.task.Deadline;
 import duke.data.task.Event;
 import duke.data.task.Task;
 import duke.storage.Storage;
