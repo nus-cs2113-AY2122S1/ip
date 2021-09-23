@@ -1,17 +1,13 @@
 package duke.ui;
 
+import duke.task.Task;
+
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-import static duke.message.Messages.BYE;
-import static duke.message.Messages.DELETED_TASK;
-import static duke.message.Messages.ERROR;
-import static duke.message.Messages.FILE_NOT_FOUND;
-import static duke.message.Messages.FINISHED_TASK;
-import static duke.message.Messages.LIST_TASK;
-import static duke.message.Messages.LOGO;
-import static duke.message.Messages.WELCOME;
+import static duke.message.Messages.*;
 
 public class Ui {
     private static final String SEPARATOR = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
@@ -64,6 +60,10 @@ public class Ui {
 
     public void printDeletedTask() {
         out.println(SEPARATOR + LS + DELETED_TASK);
+    }
+
+    public void printFound() {
+        out.println(SEPARATOR + LS + FOUND_TASK);
     }
 
     public void printBye() {
