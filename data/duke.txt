@@ -1,3 +1,4 @@
 [T] | 1 | read book
 [T] | 1 | return book
 [D] | 0 | good job | 2001-09-11 10:00
+[E] | 1 | bad job | 2001-09-11 12:12

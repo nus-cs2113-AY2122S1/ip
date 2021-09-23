@@ -15,6 +15,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String getDate() {
+        return startDate.format(CommonFormat.formatterDateOnly);
+    }
+
+    @Override
     public String getStatusIcon() {
         return FLAG_TYPE + super.getStatusIcon();
     }

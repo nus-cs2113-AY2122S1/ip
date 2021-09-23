@@ -3,6 +3,7 @@ package duke.task;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -204,6 +205,20 @@ public class TaskManager {
      */
     private String getInvalidFileInputMessage(String s) {
         return String.format("Error: Invalid input \"%s\"\n", s);
+    }
+
+    public void printTaskOnDate(String date){
+        for (int i = 0; i < totalNumberOfTasks; i++) {
+            if(doesTaskHasDate(taskList.get(i))){
+                if(taskList.get(i).getDate().equals(date)){
+                    printTask(i);
+                }
+            }
+        }
+    }
+
+    private boolean doesTaskHasDate(Task t){
+        return t instanceof Event || t instanceof Deadline;
     }
 
 }

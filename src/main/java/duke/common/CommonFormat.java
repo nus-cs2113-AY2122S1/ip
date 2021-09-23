@@ -10,5 +10,6 @@ public class CommonFormat {
     final public static String FORMAT_DATETIME_PRINT = "MMM dd yyyy, HH:mm";
 
     final public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_DATETIME);
+    final public static DateTimeFormatter formatterDateOnly = DateTimeFormatter.ofPattern(FORMAT_DATE);
     final public static DateTimeFormatter formatterPrint = DateTimeFormatter.ofPattern(FORMAT_DATETIME_PRINT);
 }

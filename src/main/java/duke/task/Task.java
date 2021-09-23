@@ -72,4 +72,8 @@ public class Task {
         }
     }
 
+    public String getDate(){
+        return null;
+    }
+
 }

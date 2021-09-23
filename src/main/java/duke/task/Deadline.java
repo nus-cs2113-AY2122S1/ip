@@ -15,6 +15,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String getDate() {
+        return dueDate.format(CommonFormat.formatterDateOnly);
+    }
+
+    @Override
     public String getStatusIcon() {
         return FLAG_TYPE + super.getStatusIcon();
     }
