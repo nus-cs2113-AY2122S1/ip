@@ -55,11 +55,27 @@ public class TextUi {
             System.out.println(" Your schedule is clear, Master Wayne.");
         } else {
             System.out.println(" Your tasks, sir:");
-            for (int i = 0; i < numberOfTasks; i++) {
-                System.out.println(" " + (i + 1) + "." + taskList.getTask(i).toString());
-            }
+            printEnumeratedTasks(taskList, numberOfTasks);
         }
         System.out.println(LINE);
+    }
+
+    public static void printFoundTasks(TaskList filteredList) {
+        int numberOfTasks = filteredList.getSize();
+        System.out.print(LINE);
+        if (numberOfTasks == 0) {
+            System.out.println(" There appears to be no task by that query sir.");
+        } else {
+            System.out.println(" I've procured the following tasks based on that query, sir:");
+            printEnumeratedTasks(filteredList, numberOfTasks);
+        }
+        System.out.println(LINE);
+    }
+
+    private static void printEnumeratedTasks(TaskList taskList, int numberOfTasks) {
+        for (int i = 0; i < numberOfTasks; i++) {
+            System.out.println(" " + (i + 1) + "." + taskList.getTask(i).toString());
+        }
     }
 
     public static void addTaskMessage(Task t, int numberOfTasks) {

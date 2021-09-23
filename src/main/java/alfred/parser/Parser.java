@@ -6,6 +6,7 @@ import alfred.command.CompleteTaskCommand;
 import alfred.command.DeleteTaskCommand;
 import alfred.command.ExitAppCommand;
 import alfred.command.FailedCommand;
+import alfred.command.FindCommand;
 import alfred.command.ListTasksCommand;
 import alfred.exception.EmptyDescriptionException;
 import alfred.exception.InvalidDateException;
@@ -18,6 +19,7 @@ public class Parser {
     private final String EVENT_COMMAND = "event";
     private final String DEADLINE_COMMAND = "deadline";
     private final String DELETE_COMMAND = "delete";
+    private final String FIND_COMMAND = "find";
 
     private final String TODO_TYPE = "T";
     private final String EVENT_TYPE = "E";
@@ -53,6 +55,9 @@ public class Parser {
             break;
         case DELETE_COMMAND:
             command = parseDeleteCommand(userInput);
+            break;
+        case FIND_COMMAND:
+            command = parseFindCommand(userInput);
             break;
         default:
             command = new FailedCommand(FailedCommandType.GENERAL);
@@ -155,5 +160,16 @@ public class Parser {
             return new FailedCommand(FailedCommandType.NO_INDEX_SPECIFIED);
         }
         return new DeleteTaskCommand(taskIndex);
+    }
+
+    private Command parseFindCommand(String userInput) {
+        String[] destructuredInputs = userInput.split(" ", 2);
+        String query;
+        try {
+            query = destructuredInputs[TASK_FULL_DESCRIPTION_INDEX];
+        } catch (IndexOutOfBoundsException e) {
+            return new FailedCommand(FailedCommandType.NO_QUERY_SPECIFIED);
+        }
+        return new FindCommand(query);
     }
 }
