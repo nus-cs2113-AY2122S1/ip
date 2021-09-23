@@ -5,6 +5,8 @@ import duke.exception.InvalidFormatException;
 import duke.program.LizUi;
 import duke.program.TaskList;
 
+import java.time.format.DateTimeParseException;
+
 public class AddCommand extends Command {
     private static final int TODO_DESCRIPTION_START_INDEX = 5;
     private static final int DEADLINE_DESCRIPTION_START_INDEX = 9;
@@ -45,6 +47,8 @@ public class AddCommand extends Command {
             ui.printEmptyDescriptionMessage(COMMAND_EVENT);
         } catch (InvalidFormatException e) {
             ui.printInvalidFormatMessage(COMMAND_EVENT);
+        } catch (DateTimeParseException e) {
+            ui.printInvalidDateTimeFormatMessage();
         }
     }
 
@@ -56,6 +60,8 @@ public class AddCommand extends Command {
             ui.printEmptyDescriptionMessage(COMMAND_DEADLINE);
         } catch (InvalidFormatException e) {
             ui.printInvalidFormatMessage(COMMAND_DEADLINE);
+        } catch (DateTimeParseException e) {
+            ui.printInvalidDateTimeFormatMessage();
         }
     }
 
