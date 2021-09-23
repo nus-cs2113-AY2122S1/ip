@@ -113,9 +113,7 @@ public class Parser {
 
             tasks.get(taskIndex).markAsDone();
             storage.updateFile(tasks.TaskList);
-            System.out.println(
-                    "Bueno! The following task is marked as done: \n[" + tasks.get(taskIndex).getStatusIcon() + "] "
-                            + tasks.get(taskIndex).taskDescription);
+            System.out.println("Bueno! The following task is marked as done: \n" + tasks.get(taskIndex));
         } catch (NumberFormatException e) {
             ui.printNumberFormatException();
         } catch (NullPointerException e) {
