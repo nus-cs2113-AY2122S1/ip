@@ -28,6 +28,10 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
     }
 
+    public void getFindMessage() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
     public void deleteTaskMessage(Task taskToDelete) {
         System.out.println("Noted. I've removed this task:\n" +
                 "  " + taskToDelete.toString());

@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TaskList {
     private final static String TASK_TYPE_TODO = "todo";
@@ -56,6 +58,22 @@ public class TaskList {
                 this.taskList.add(event);
                 event.printAddTaskMessage();
                 break;
+        }
+    }
+
+    public void findTask(String taskToFind) {
+        String patternToFind = "\\b" + taskToFind + "\\b";
+        Pattern pattern = Pattern.compile(patternToFind);
+        int taskNumber = 0;
+        for (int i = 0; i < this.taskList.size(); i ++) {
+            Task currentTask = this.taskList.get(i);
+            String taskDescription = currentTask.getTaskDescription();
+            Matcher matcher = pattern.matcher(taskDescription);
+            boolean taskFound = matcher.find();
+            if (taskFound) {
+                taskNumber += 1;
+                System.out.println(taskNumber + "." + currentTask.toString());
+            }
         }
     }
 }
