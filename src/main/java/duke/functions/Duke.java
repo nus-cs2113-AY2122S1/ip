@@ -4,15 +4,17 @@ import duke.exceptions.EmptyArgException;
 import duke.exceptions.WrongFormatException;
 import duke.utility.Parser;
 import duke.utility.Storage;
-import duke.utility.Tasklist;
+import duke.utility.TaskList;
 import duke.utility.Ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class Duke {
 
     private static final Ui ui = new Ui();
-    private static final Tasklist tasklist = new Tasklist();
+    private static final TaskList tasklist = new TaskList();
     private static final Parser parser = new Parser();
     private static final Storage storage = new Storage("SAVEDLIST.txt");
 
@@ -71,6 +73,14 @@ public class Duke {
                 }
                 break;
             }
+            case "find": {
+                try {
+                    handleFind(parser.getTaskDescription());
+                } catch (EmptyArgException e) {
+                    ui.emptyDescription("find");
+                }
+                break;
+            }
             case "deadline": {
                 try {
                     handleDeadline(parser.getDeadlineOrEventArgs());
@@ -104,6 +114,17 @@ public class Duke {
         }
 
         ui.printBye();
+    }
+
+    private static void handleFind(String query) {
+        TaskList foundItems = new TaskList();
+        for (Task item : tasklist.items){
+            String descriptionCaps = item.description.toUpperCase();
+            if(descriptionCaps.contains(query.toUpperCase())){
+                foundItems.add(item);
+            }
+        }
+        ui.displayFoundItems(foundItems);
     }
 
     private static void handleDelete(int taskNum) throws EmptyArgException {
