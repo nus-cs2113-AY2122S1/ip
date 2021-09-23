@@ -1,6 +1,6 @@
 
 ![DukeLogo](https://user-images.githubusercontent.com/69495787/134464789-b4193e01-2537-41b2-b782-8abff7851e53.png) 
-![Duke](https://user-images.githubusercontent.com/69495787/134464981-f883b017-0532-4cef-9ef3-0dc61769c362.JPG =368x213)
+![Duke](https://user-images.githubusercontent.com/69495787/134464981-f883b017-0532-4cef-9ef3-0dc61769c362.JPG width=368 height=213)
 
 # User Guide
 
