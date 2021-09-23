@@ -83,23 +83,24 @@ Sets a task that DUKE is tracking as done.
 
 Format: `done INDEX_OF_TASK`
 
-- Sets task at specified `INDEX` as done.
+- Sets task at specified `INDEX_OF_TASK` as done.
+- The index refers to the index number shown in the displayed tasks list.
 - The index must be a **positive integer** 1, 2, 3, …
 - If the index of task given is out of range, nothing will happen and a warning will be given.
 
-Example: `done 2`
+Example: `list` followed by `done 2` sets the second task as done.
 
 ###Deleting a Task: `delete`
 Deletes a task. DUKE will then stop tracking that particular task. 
 
 Format: `delete INDEX_OF_TASK`
 
-- Deletes the task at specified `INDEX`.
+- Deletes the task at specified `INDEX_OF_TASK`.
 - The index refers to the index number shown in the displayed tasks list.
 - The index must be a **positive integer** 1, 2, 3, …
 - If the index of task given is out of range, nothing will happen and a warning will be given.
 
-Example: `delete 3`
+Example: `list` followed by `delete 3` deletes the third task and DUKE will not track it anymore.
 
 ###Finding a Task: `find`
 Finds tasks with `TASK_DESCRIPTION` that contain a keyword given by user.
