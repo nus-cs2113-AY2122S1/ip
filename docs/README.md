@@ -179,7 +179,7 @@ Create a deadline by following the format below:
 
 >Format: `event` &lt;description&gt; /at &lt;time1> to &lt;time2>
 
->:grey_exclamation: Note: if &lt;time1> is later than &lt;time2>, the time will switch around
+>❕ Note: if &lt;time1> is later than &lt;time2>, the time will switch around
 
 __Example:__
 
@@ -200,7 +200,7 @@ Description: will mark a particular task as done, by showing an X on the second 
 
 >Format: `done` &lt;number>
 
-> :grey_exclamation: Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
+> ❕ Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
 
 __Example:__
 
@@ -221,7 +221,7 @@ Description: Delete a task with that has the corresponding number
 
 >Format: `delete` <number>
 
-> :grey_exclamation: Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
+> ❕ Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
 
 __Example:__
 
