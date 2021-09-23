@@ -5,6 +5,9 @@ import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.task.TaskList;
 
+/**
+ * Represents the command to add event
+ */
 public class AddEventCommand extends Command{
 
     private static final int EVENT_NAME_CONSTANT = 6;
@@ -16,6 +19,13 @@ public class AddEventCommand extends Command{
         this.input = input;
     }
 
+    /**
+     * Executes the command to add an event to the TaskList
+     *
+     * @param list The tasklist instance to handle interactions with the ArrayList of task
+     * @param ui The ui instance to handle interactions with the user
+     * @param storage The storage instance to handle interactions with the text file
+     */
     @Override
      public void execute(TaskList list, Ui ui, Storage storage) {
         try {
@@ -36,6 +46,9 @@ public class AddEventCommand extends Command{
         }
      }
 
+    /**
+     * @return returns true if the command to exit the application is given
+     */
     @Override
     public boolean isExit() {
         return false;

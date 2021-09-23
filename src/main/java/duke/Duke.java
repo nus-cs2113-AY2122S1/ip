@@ -38,7 +38,6 @@ public class Duke {
                 ui.printWrongCommandFormatMessage();
             }
         }
-        ui.printGoodbyeMessage();
     }
 
     public static void main(String[] args) {

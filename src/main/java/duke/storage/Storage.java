@@ -16,6 +16,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+/**
+ * Represents the interactions with the text file for storage of data
+ */
 public class Storage {
 
     private static final String FILEPATH = "data/duke.txt";
@@ -29,6 +32,9 @@ public class Storage {
         this.taskList = taskList;
     }
 
+    /**
+     * Initialises the TaskList based on the inputs within the text file
+     */
     public void initList() {
         try {
             File file = new File(FILEPATH);
@@ -72,6 +78,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new folder for the storage of text file
+     */
     public void createFolder() {
         File folder = new File(FOLDERPATH);
         boolean folderIsCreated = folder.mkdir();
@@ -80,6 +89,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new text file for the storage of task data
+     */
     public void createFile() {
         File file = new File(FILEPATH);
         try {
@@ -92,6 +104,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends a given text to the text file
+     *
+     * @param textToAppend the text to be appended
+     * @throws IOException failure to access or append to the text file
+     */
     public void appendToFile(String textToAppend) throws IOException {
         File file = new File(FILEPATH);
         if (file.length() != 0) {
@@ -102,6 +120,9 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Update the text file based on the TaskList
+     */
     public void updateFile() {
         try {
             ArrayList<Task> list = taskList.getList();
@@ -127,6 +148,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Clears the file of all inputs
+     *
+     * @throws IOException failure to access to write to the text file
+     */
     private void clearFile() throws IOException {
         FileWriter fw = new FileWriter(FILEPATH);
         fw.write("");
