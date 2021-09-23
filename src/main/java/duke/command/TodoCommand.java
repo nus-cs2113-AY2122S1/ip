@@ -1,6 +1,7 @@
 package duke.command;
 
-public class TodoCommand extends Command{
+public class TodoCommand extends Command {
+
     final public static String COMMAND_WORD = "todo";
     final public static String MESSAGE_FORMAT = COMMAND_WORD + TAG_TASK_DESCRIPTION;
 
@@ -13,7 +14,7 @@ public class TodoCommand extends Command{
     }
 
     @Override
-    public void execute(){
+    public void execute() {
         taskManager.createToDoTask(this.arguments);
     }
 }

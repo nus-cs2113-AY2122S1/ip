@@ -1,6 +1,7 @@
 package duke.command;
 
-public class EventCommand extends Command{
+public class EventCommand extends Command {
+
     final public static String COMMAND_WORD = "event";
     final public static String TAG_START_DATE_DEADLINE = "/at";
     final public static String TAG_START_DATE_DEADLINE_FORMAT = "<start date>";
@@ -18,8 +19,12 @@ public class EventCommand extends Command{
         this.hasDataChange = true;
     }
 
+    /**
+     * Method that calls the task manager that will create the event command. The variables arguments[0] is the task
+     * description and arguments[1] is the start date.
+     */
     @Override
-    public void execute(){
-        taskManager.createEventTask(arguments[0],arguments[1]);
+    public void execute() {
+        taskManager.createEventTask(arguments[0], arguments[1]);
     }
 }

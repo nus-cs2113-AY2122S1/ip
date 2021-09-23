@@ -16,6 +16,11 @@ public class FileHandler {
         this.fileDirectory = fileDirectory;
     }
 
+    /**
+     * @param fileName File to be processed
+     * @param contents All contents from current task list during the execution of duke
+     * @throws DukeException Error regarding writing to file issues
+     */
     public void writeToFile(String fileName, String contents) throws DukeException {
         File directory = new File(fileDirectory);
         directory.mkdir();
@@ -29,7 +34,13 @@ public class FileHandler {
         }
     }
 
-
+    /**
+     * Method to load all contents from the given filename.
+     *
+     * @param fileName File to be processed
+     * @return All contents from the given filename
+     * @throws DukeException Error regarding file not found
+     */
     public ArrayList<String> load(String fileName) throws DukeException {
         ArrayList<String> contents = new ArrayList<String>();
         File f = new File(fileDirectory, fileName);

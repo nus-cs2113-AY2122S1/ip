@@ -19,6 +19,10 @@ public class DeadlineCommand extends Command {
         this.hasDataChange = true;
     }
 
+    /**
+     * Method that calls the task manager that will create the deadline command. The variables arguments[0] is the task
+     * description and arguments[1] is the due date.
+     */
     @Override
     public void execute() {
         taskManager.createDeadlineTask(arguments[0], arguments[1]);

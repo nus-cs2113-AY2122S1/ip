@@ -1,6 +1,7 @@
 package duke.parser;
 
-public class ParserException extends Exception{
+public class ParserException extends Exception {
+
     private String errorMessage;
 
     public ParserException(String errorMessage) {
@@ -8,7 +9,7 @@ public class ParserException extends Exception{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return errorMessage;
     }
 }

@@ -21,7 +21,7 @@ public class Ui {
     }
 
     public void printWelcomeMessage() {
-        System.out.printf("%s\n",getLogoMessage());
+        System.out.printf("%s\n", getLogoMessage());
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println(LINE);
@@ -36,44 +36,44 @@ public class Ui {
         return logo;
     }
 
-    public String getUserInput(){
+    public String getUserInput() {
         System.out.printf(">>> ");
         return in.nextLine();
     }
 
-    public void printMessage(String... data){
-        for(String s:data){
+    public void printMessage(String... data) {
+        for (String s : data) {
             System.out.println(s);
         }
         System.out.println(LINE);
     }
 
-    public void printDukeExceptionMessage(DukeException e){
+    public void printDukeExceptionMessage(DukeException e) {
         System.out.println(e.toString());
         System.out.println(LINE);
     }
 
-    public void printParserExceptionMessage(ParserException e){
+    public void printParserExceptionMessage(ParserException e) {
         System.out.println(e.toString());
         System.out.println(LINE);
     }
 
-    public void printCommandExceptionMessage(CommandException e){
+    public void printCommandExceptionMessage(CommandException e) {
         System.out.println(e.toString());
         System.out.println(LINE);
     }
 
-    public void printFileLoadingMessage(String filename){
+    public void printFileLoadingMessage(String filename) {
         System.out.printf("Loading data from %s...\n", filename);
         System.out.println(LINE);
     }
 
-    public void printFileLoadingDoneMessage(){
+    public void printFileLoadingDoneMessage() {
         System.out.println("Finish Loading.");
         System.out.println(LINE);
     }
 
-    public void printLine(){
+    public void printLine() {
         System.out.println(LINE);
     }
 

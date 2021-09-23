@@ -1,6 +1,7 @@
 package duke.task;
 
-public class TaskManagerException extends Exception{
+public class TaskManagerException extends Exception {
+
     private String errorMessage;
 
     public TaskManagerException(String errorMessage) {
@@ -8,7 +9,7 @@ public class TaskManagerException extends Exception{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return errorMessage;
     }
 }

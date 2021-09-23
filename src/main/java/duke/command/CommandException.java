@@ -1,6 +1,7 @@
 package duke.command;
 
-public class CommandException extends Exception{
+public class CommandException extends Exception {
+
     private String errorMessage;
 
     public CommandException(String errorMessage) {
@@ -8,7 +9,7 @@ public class CommandException extends Exception{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return errorMessage;
     }
 }

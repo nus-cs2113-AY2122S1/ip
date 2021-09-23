@@ -20,6 +20,15 @@ public class Parser {
 
     }
 
+    /**
+     * Function that maps user command to its respective functionality. Upon a successful valid command, a command
+     * object will be return. As for an invalid command, an exception will be thrown containing an error message
+     * regarding the issues of the given command.
+     *
+     * @param userInput Raw user inputs from scanner
+     * @return Command object
+     * @throws ParserException Error regarding the validness of existing commands
+     */
     public Command parseCommand(String userInput) throws ParserException {
         Command command;
         switch (getCommonCommand(userInput)) {
@@ -50,17 +59,37 @@ public class Parser {
         return command;
     }
 
+    /**
+     * Method to get the base command from the user inputs. Base command are the first word of the user inputs.
+     *
+     * @param userInput Raw user inputs from scanner
+     * @return The first word of userInput separated by a space
+     */
     private String getCommonCommand(String userInput) {
         return userInput.split(" ")[0];
     }
 
+    /**
+     * Get arguments for the base command.
+     *
+     * @param userInput Raw user inputs from scanner
+     * @return An edited userInput excluding the first word in it
+     */
     private String getCommandData(String userInput) {
         String[] payload = userInput.split(" ");
         payload[0] = "";
         return String.join(" ", payload).trim();
     }
 
-    private int getTaskIndex(String userInput) throws ParserException{
+    /**
+     * Get a number from user inputs after the base command. This number represents the task number in which some
+     * commands need to reference from.
+     *
+     * @param userInput Raw user inputs from scanner
+     * @return An integer number that represents the task number in the list
+     * @throws ParserException Error regarding invalid non-numeric inputs
+     */
+    private int getTaskIndex(String userInput) throws ParserException {
         int result = -1;
         try {
             result = Integer.parseInt(userInput.split(" ")[1]);
@@ -85,6 +114,13 @@ public class Parser {
         return isEmpty;
     }
 
+    /**
+     * Method to check the validation and perform the todo command.
+     *
+     * @param userInput Raw user inputs from scanner
+     * @return Valid todo command
+     * @throws ParserException Error regarding the validness of the todo command format
+     */
     private Command executeTodoCommand(String userInput) throws ParserException {
         String errorMessage = String.format(MESSAGE_INVALID_FORMAT, TodoCommand.MESSAGE_FORMAT);
         String arguments = getCommandData(userInput);
@@ -94,6 +130,13 @@ public class Parser {
         return new TodoCommand(arguments);
     }
 
+    /**
+     * Method to check the validation and perform the deadline command.
+     *
+     * @param userInput Raw user inputs from scanner
+     * @return Valid deadline command
+     * @throws ParserException Error regarding the validness of the deadline command format
+     */
     private Command executeDeadlineCommand(String userInput) throws ParserException {
         String errorMessage = String.format(MESSAGE_INVALID_FORMAT, DeadlineCommand.MESSAGE_FORMAT);
         String arguments = getCommandData(userInput);
@@ -109,6 +152,13 @@ public class Parser {
         return new DeadlineCommand(argumentArray);
     }
 
+    /**
+     * Method to check the validation and perform the event command.
+     *
+     * @param userInput Raw user inputs from scanner
+     * @return Valid event command
+     * @throws ParserException Error regarding the validness of the event command format
+     */
     private Command executeEventCommand(String userInput) throws ParserException {
         String errorMessage = String.format(MESSAGE_INVALID_FORMAT, EventCommand.MESSAGE_FORMAT);
         String arguments = getCommandData(userInput);

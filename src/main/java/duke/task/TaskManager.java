@@ -133,8 +133,8 @@ public class TaskManager {
         return data;
     }
 
-    public void processContentsFromFile(ArrayList<String> contents){
-        for(String s:contents){
+    public void processContentsFromFile(ArrayList<String> contents) {
+        for (String s : contents) {
             addTaskFromContent(s);
         }
     }

@@ -1,6 +1,7 @@
 package duke;
 
-public class DukeException extends Exception{
+public class DukeException extends Exception {
+
     private String errorMessage;
 
     public DukeException(String errorMessage) {
@@ -8,7 +9,7 @@ public class DukeException extends Exception{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return errorMessage;
     }
 }
