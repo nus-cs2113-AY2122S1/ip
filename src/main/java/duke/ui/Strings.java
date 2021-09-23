@@ -40,15 +40,21 @@ public class Strings {
     public static final String MESSAGE_GOODBYE = "My favourite feeling is schadenfreude. I also like hiraeth. "
             + "It's the Welsh concept of longing for home.";
 
-    /* Task related strings */
+    /* List related strings */
 
     public static final String MESSAGE_LIST_EMPTY = "The list, just like your head, is empty.";
     public static final String MESSAGE_LIST = "Here is the list of the things your feeble human mind is incapable of keeping track of:";
+    public static final String MESSAGE_LIST_FIND_EMPTY = "There are no tasks matching \"%s\"";
+    public static final String MESSAGE_LIST_FIND = "Here are the tasks tasks matching \"%s\"";
+
+    /* Task related strings */
+
     public static final String MESSAGE_TASK_ADDED = "Got it. I've added this task:";
     public static final String MESSAGE_TASK_COUNT_SINGULAR = "There is now 1 task in the list";
     public static final String MESSAGE_TASK_COUNT = "There are now %d tasks in the list";
     public static final String MESSAGE_TASK_DONE = "The task has been marked as done. No need to thank me.";
     public static final String MESSAGE_TASK_DELETE = "I have erased this task from existence:";
+
 
     /* Exception related strings */
 

@@ -11,6 +11,7 @@ import duke.commands.DeleteCommand;
 import duke.commands.DoneCommand;
 import duke.commands.ErrorCommand;
 import duke.commands.EventCommand;
+import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.TodoCommand;
 import duke.data.exception.IllegalCommandException;
@@ -30,8 +31,8 @@ public class Parser {
                 throw new IllegalCommandException();
             }
 
-            final String command = matcher.group("command");
-            final String arguments = matcher.group("arguments");
+            final String command = matcher.group("command").trim();
+            final String arguments = matcher.group("arguments").trim();
 
             Command toReturn;
 
@@ -41,6 +42,9 @@ public class Parser {
                 break;
             case ByeCommand.COMMAND_WORD:
                 toReturn = new ByeCommand();
+                break;
+            case FindCommand.COMMAND_WORD:
+                toReturn = new FindCommand(arguments);
                 break;
             case DoneCommand.COMMAND_WORD:
                 toReturn = prepareDone(arguments);
