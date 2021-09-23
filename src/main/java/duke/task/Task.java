@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Tasks class is the parent class that stores the description and status of task
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

@@ -6,6 +6,9 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+/**
+ * Makes sense of user inputs
+ */
 public class Parser {
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_TODO = "todo";
@@ -17,6 +20,12 @@ public class Parser {
     private static final String INVALID_COMMAND = "invalid command";
     private static final int COMMAND_INDEX = 0;
 
+    /**
+     * Identify the command that users input
+     * @param line the user input
+     * @return the corresponding Command to execute
+     * @throws DukeException when an invalid command is detected
+     */
     public static Command parse(String line) throws DukeException {
         String[] words = line.split(" ");
 
@@ -40,6 +49,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks for errors in list command input before returning the Command
+     * @param line the user input
+     * @return Command that executes list
+     * @throws DukeException when list is input in incorrect format
+     */
     public static Command parseListCommand(String line) throws DukeException {
         final String LIST_ERROR = "list does not take in additional parameters";
 
@@ -50,6 +65,12 @@ public class Parser {
         return new ListCommand();
     }
 
+    /**
+     * Checks for errors in todo command input before returning the Command
+     * @param line the user input
+     * @return Command that adds todo task
+     * @throws DukeException when todo command has missing parameters
+     */
     public static Command parseTodoCommand(String line) throws DukeException {
         final String TODO_ERROR = "todo description missing";
         final int START_INDEX = 5;
@@ -61,6 +82,13 @@ public class Parser {
         return new AddCommand(new Todo(line.substring(START_INDEX)));
     }
 
+    /**
+     * Checks for errors in deadline command input before returning the Command
+     * @param line the user input
+     * @param words list of words from user input split by spacing
+     * @return Command to add deadline task
+     * @throws DukeException when there are errors in user input
+     */
     public static Command parseDeadlineCommand(String line, String[] words) throws DukeException {
         final String BY_DELIMITER = "/by";
         final String DEADLINE_ERROR_1 = "specify task and date/time";
@@ -94,6 +122,13 @@ public class Parser {
                 deadlineInputs[BY_INDEX].trim()));
     }
 
+    /**
+     * Checks for error in event command input before returning Command
+     * @param line the user input
+     * @param words list of words from user input split by spacing
+     * @return Command to add event task
+     * @throws DukeException when there are errors in user input
+     */
     public static Command parseEventCommand(String line, String[] words) throws DukeException {
         final String AT_DELIMITER = "/at";
         final String EVENT_ERROR_1 = "specify task and date/time";
@@ -127,6 +162,13 @@ public class Parser {
                 eventInputs[AT_INDEX].trim()));
     }
 
+    /**
+     * Checks for errors in done command input before returning Command
+     * @param line the user input
+     * @param words the list of words from user input split by space
+     * @return Command to mark task done by index
+     * @throws DukeException when there are errors in user input
+     */
     public static Command parseDoneCommand(String line, String[] words) throws DukeException {
         final String DONE_ERROR_1 = "missing index of task done";
         final String DONE_ERROR_2 = "extra parameters found";
@@ -152,6 +194,13 @@ public class Parser {
         return new DoneCommand(index);
     }
 
+    /**
+     * Checks for errors in delete command input before returning Command
+     * @param line the user input
+     * @param words the list of words from user input split by space
+     * @return Command to delete task by index
+     * @throws DukeException when there are errors in user input
+     */
     public static Command parseDeleteCommand(String line, String[] words) throws DukeException {
         final String DELETE_ERROR_1 = "missing index of task to delete";
         final String DELETE_ERROR_2 = "extra parameters found";
@@ -177,6 +226,13 @@ public class Parser {
         return new DeleteCommand(index);
     }
 
+    /**
+     * Checks for errors in bye command user input before returning Command
+     * @param line the user input
+     * @param words this list of words from user input split by space
+     * @return Command to save before exit program
+     * @throws DukeException when there are additional parameters for bye
+     */
     public static Command parseByeCommand(String line, String[] words) throws DukeException {
         final String BYE_ERROR = "bye does not take in additional parameters";
 

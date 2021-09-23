@@ -14,6 +14,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Loads and saves list of tasks data from a local text file
+ */
 public class Storage {
     private static final String DEFAULT_STORAGE_FILEPATH = "data/duke.txt";
     private final Path path;
@@ -22,6 +25,11 @@ public class Storage {
         this.path = Paths.get(DEFAULT_STORAGE_FILEPATH);
     }
 
+    /**
+     * Loads the data from a default storage filepath, creates one if it does not exist
+     * @return the list of tasks stored in filepath
+     * @throws FileNotFoundException when the data file does not exist
+     */
     public ArrayList<Task> load() throws FileNotFoundException {
         final String LOAD_DELIMITER = "--";
         final int TASK_INDEX = 0;
@@ -63,6 +71,11 @@ public class Storage {
         return loadList;
     }
 
+    /**
+     * Saves the list of tasks
+     * @param tasks the list of tasks
+     * @throws IOException when there is a problem writing to the file
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         final String DELIMITER = "--";
         FileWriter beginWrite = new FileWriter("data/duke.txt");
