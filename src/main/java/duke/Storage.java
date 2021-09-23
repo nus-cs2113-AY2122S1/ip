@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Storage {
     private final String pathName = "data/data.txt";
@@ -79,7 +80,8 @@ public class Storage {
                 task = new Event(words[2], words[3]);
                 break;
             case "D":
-                task = new Deadline(words[2], words[3]);
+                LocalDate byDate = LocalDate.ofEpochDay(Long.parseLong(words[3]));
+                task = new Deadline(words[2], byDate);
                 break;
             default:
                 throw new DukeException("Error: Unable to parse data file.");
