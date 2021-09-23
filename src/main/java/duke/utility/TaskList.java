@@ -3,7 +3,7 @@ import duke.functions.Task;
 
 import java.util.ArrayList;
 
-public class Tasklist {
+public class TaskList {
     public ArrayList<Task> items = new ArrayList<>();
 
     public void remove(int i){
