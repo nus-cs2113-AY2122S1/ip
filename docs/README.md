@@ -1,4 +1,14 @@
+
+![DukeLogo](https://user-images.githubusercontent.com/69495787/134464789-b4193e01-2537-41b2-b782-8abff7851e53.png)
+
 # User Guide
+     ____        _
+    |  _ \ _   _| | _____
+    | | | | | | | |/ / _ \
+    | |_| | |_| |   <  __/
+    |____/ \__,_|_|\_\___|
+    
+is a productivity desktop app that is used through a **Command Line Interface (CLI)** . It is a fast and simple way to keep track of all your schedule and tasks on the go.
 
 ## Features 
 
