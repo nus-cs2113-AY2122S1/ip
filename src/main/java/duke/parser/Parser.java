@@ -3,6 +3,9 @@ package duke.parser;
 import duke.exception.DukeException;
 import duke.command.*;
 
+/**
+ * Represents the parsing of user commands
+ */
 public class Parser {
     /**
      * Parses the user input and returns the command to be executed
@@ -12,6 +15,7 @@ public class Parser {
      * @return The command to be executed
      */
     public static Command parse(String input) throws DukeException{
+
         String[] inputWords = input.split(" ");
         String command = inputWords[0].toLowerCase();
         Command c;

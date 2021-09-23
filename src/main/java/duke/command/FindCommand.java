@@ -5,6 +5,9 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.task.Task;
 
+/**
+ * Represents the command to find tasks based on a keyword
+ */
 public class FindCommand extends Command{
     
     private String keyword;
@@ -13,6 +16,13 @@ public class FindCommand extends Command{
         this.keyword = keyword.toLowerCase();
     }
 
+    /**
+     * Executes the command to find tasks based on a keyword
+     *
+     * @param list The tasklist instance to handle interactions with the ArrayList of task
+     * @param ui The ui instance to handle interactions with the user
+     * @param storage The storage instance to handle interactions with the text file
+     */
     @Override
      public void execute(TaskList list, Ui ui, Storage storage) {
         boolean isFound = false;
@@ -34,6 +44,9 @@ public class FindCommand extends Command{
         }
      }
 
+    /**
+     * @return returns true if the command to exit the application is given
+     */
     @Override
     public boolean isExit() {
         return false;

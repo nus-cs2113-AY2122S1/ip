@@ -5,6 +5,9 @@ import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.task.TaskList;
 
+/**
+ * Represents the command to add deadline
+ */
 public class AddDeadlineCommand extends Command{
 
     private static final int DEADLINE_NAME_CONSTANT = 9;
@@ -16,6 +19,13 @@ public class AddDeadlineCommand extends Command{
         this.input = input;
     }
 
+    /**
+     * Executes the command to add a deadline to the TaskList
+     *
+     * @param list The tasklist instance to handle interactions with the ArrayList of task
+     * @param ui The ui instance to handle interactions with the user
+     * @param storage The storage instance to handle interactions with the text file
+     */
     @Override
      public void execute(TaskList list, Ui ui, Storage storage) {
         try {
@@ -36,6 +46,9 @@ public class AddDeadlineCommand extends Command{
         }
      }
 
+    /**
+     * @return returns true if the command to exit the application is given
+     */
     @Override
     public boolean isExit() {
         return false;
