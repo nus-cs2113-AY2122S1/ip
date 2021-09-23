@@ -9,6 +9,9 @@ public class CompleteTaskCommand extends Command {
         taskIndex = index;
     }
 
+    /**
+     * This method sets a Task as done based on its given index.
+     */
     public void execute() {
         try {
             taskList.setTaskDoneInList(taskIndex);
