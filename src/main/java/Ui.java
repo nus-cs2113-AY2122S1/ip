@@ -8,6 +8,21 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 
+    public static void printMatchingList(ArrayList<Task> tasks, String query) {
+        int count = 0;
+        if (tasks.size() == 0) {
+            System.out.println("I'm sorry, there is no task containing your word.");
+        } else {
+            System.out.println("Here is your list of tasks containing " + "' " + Parser.getQueryDescription(query) + "'" + ":");
+            for (Task item : tasks) {
+                if (tasks.get(count) != null) {
+                    count++;
+                    System.out.println(count + ". " + item);
+                }
+            }
+        }
+    }
+
     /**
      * Return void. Function is responsible for printing out the whole task list of the user.
      *
