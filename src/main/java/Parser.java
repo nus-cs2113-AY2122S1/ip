@@ -127,6 +127,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Function changes the Done status of the indicated task to "completed", i.e. [X].
+     *
+     * @param tasks ArrayList of tasks
+     * @param query user input
+     */
     public static void doDoneTask(ArrayList<Task> tasks, String query) {
         try {
             int taskNumber = Parser.getTaskNum(query) - 1;
@@ -139,12 +145,24 @@ public class Parser {
         }
     }
 
+    /**
+     * Function creates a new Todo task to be input in tasks.
+     *
+     * @param tasks ArrayList of tasks
+     * @param query user input
+     */
     public static void makeTodoTask(ArrayList<Task> tasks, String query) {
         tasks.add(new Todo(Parser.getQueryDescription(query)));
         System.out.println("Added a Todo Task: " + Parser.getQueryDescription(query));
         System.out.println("Total unchecked items in your list: " + Parser.getNumOfUncompletedTasks(tasks));
     }
 
+    /**
+     * Function creates a new Event task to be input in tasks.
+     *
+     * @param tasks ArrayList of tasks
+     * @param query user input
+     */
     public static void makeEventTask(ArrayList<Task> tasks, String query) {
         try {
             if (Parser.getDate(query).equals("")) {
@@ -160,6 +178,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Function creates a new Deadline task to be input in tasks.
+     *
+     * @param tasks ArrayList of tasks
+     * @param query user input
+     */
     public static void makeDeadlineTask(ArrayList<Task> tasks, String query) {
         try {
             if (Parser.getDate(query).equals("")) {
@@ -175,6 +199,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Function finds tasks with descriptions matching the user's query and adds them to a new ArrayList. If no matching
+     * words are found, the user will be notified.
+     *
+     * @param tasks ArrayList of tasks
+     * @param query user input
+     */
     public static void findMatching(ArrayList<Task> tasks, String query) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
@@ -185,6 +216,12 @@ public class Parser {
         Ui.printMatchingList(matchingTasks, query);
     }
 
+    /**
+     * Function deletes an item from the ArrayList task.
+     *
+     * @param tasks ArrayList of tasks
+     * @param query user input
+     */
     public static void deleteItem(ArrayList<Task> tasks, String query) {
         try {
             int taskNumber = Parser.getTaskNum(query) - 1;

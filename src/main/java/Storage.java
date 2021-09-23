@@ -6,7 +6,8 @@ import java.util.Scanner;
 public class Storage {
     /**
      * Function appends user input text to a file, except for the command "bye".
-     * @param filePath path to the file being written
+     *
+     * @param filePath     path to the file being written
      * @param textToAppend user input
      * @throws IOException IOException
      */
@@ -27,9 +28,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Function loads tasks from list.txt file. If file is not found, it will b created after the user's first input.
+     */
     public static void loadTask() {
         String query;
-        String FILEPATH = "list.txt";
+        String FILEPATH = "./list.txt";
         try {
             File file = new File(FILEPATH);
             Scanner listInput = new Scanner(file);
