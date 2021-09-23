@@ -15,7 +15,7 @@ public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " <task index in list>";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " <task_index_in_list>";
     public static final String MESSAGE_HELP = "Marks task at supplied index as done";
 
     private final int index;

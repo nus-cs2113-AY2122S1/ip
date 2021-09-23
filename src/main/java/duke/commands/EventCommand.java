@@ -15,7 +15,7 @@ public class EventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " <description> /at <time range>";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " <description> /at <time_range>";
     public static final String MESSAGE_HELP = "Adds a new task that starts and ends at a specific time";
 
     private final Task toAdd;
