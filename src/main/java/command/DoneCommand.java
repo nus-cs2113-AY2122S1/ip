@@ -1,7 +1,8 @@
 package command;
 
+import storage.Storage;
 import task.Task;
-import task.TaskManager;
+import task.TaskList;
 import ui.UI;
 
 import java.io.IOException;
@@ -19,16 +20,19 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Uses the TaskManager object to mark the task as done internally, and then prints a message using the UI object
-     * to let the user know the task is marked done.
+     * Uses the TaskList object to mark the task as done internally, and then prints a message using the UI object
+     * to let the user know the task is marked done. Ensures that the command is marked as done in the taro.txt data
+     * file.
      *
-     * @param taskManager the TaskManager type object used to handle internal task related operations
+     * @param taskList the TaskList type object used to handle internal task related operations
      * @param ui the UI type object used to handle i/o for taro
+     * @param storage the object used for handling read/write operations to the taro.txt data file
      */
     @Override
-    public void execute(TaskManager taskManager, UI ui) {
+    public void execute(TaskList taskList, UI ui, Storage storage) {
         try {
-            Task doneTask = taskManager.markAsDone(taskIndex);
+            Task doneTask = taskList.markAsDone(taskIndex);
+            storage.writeDoneTask(taskIndex);
             ui.printMarkedDoneMessage(doneTask);
         } catch (IOException e) {
             ui.printString("there was an error while marking that task as done.");
