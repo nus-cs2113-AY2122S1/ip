@@ -1,9 +1,10 @@
 package karen.tasklist.task;
 
 public class ToDo extends Task{
-
+    private String todoTask;
     public ToDo(String fullTaskDescription){
         super(fullTaskDescription);
+        this.todoTask = fullTaskDescription;
     }
 
     public String getType(){
@@ -12,7 +13,7 @@ public class ToDo extends Task{
 
     // get formatted description to print out for list and task commands, eg "return book (by: Sunday)"
     public String getFormattedDescription(){
-        return getTask();
+        return todoTask;
     }
 
     public String getFormattedFileDescription() {
@@ -21,8 +22,7 @@ public class ToDo extends Task{
 
     //obtain the task to do from the input description
     public String getTask(){
-        String task = this.fullTaskDescription;
-        return task;
+        return todoTask;
     }
     
 }

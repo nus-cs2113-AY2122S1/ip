@@ -1,5 +1,5 @@
 package karen.storage;
-import karen.program.ProgramManager;
+
 import karen.tasklist.TaskList;
 import karen.tasklist.task.Deadline;
 import karen.tasklist.task.Event;
@@ -40,6 +40,7 @@ public abstract class Storage {
         String taskDescription = splitData[2].trim();
         String fullTaskDescription;
 
+
         Task task = new Task(taskDescription);
 
         switch (taskType) {
@@ -49,12 +50,12 @@ public abstract class Storage {
         case DEADLINE_COMMAND:
             String by = splitData[3].trim();
             fullTaskDescription = String.format("%s /by %s", taskDescription, by);
-            task = new Deadline(fullTaskDescription);
+            task = new Deadline(fullTaskDescription, by, taskDescription);
             break;
         case EVENT_COMMAND:
             String at = splitData[3].trim();
             fullTaskDescription = String.format("%s /at %s", taskDescription, at);
-            task = new Event(fullTaskDescription);
+            task = new Event(fullTaskDescription, at, taskDescription);
             break;
         default:
             Ui.printIOExceptionMessage();

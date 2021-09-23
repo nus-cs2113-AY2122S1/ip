@@ -88,7 +88,7 @@ public abstract class Ui {
     }
 
     public static void printTaskDoneMessage(Task task) {
-        String message = String.format("    Alright! I've marked this task as done! :)\n    [%s] %s\n",
+        String message = String.format("    Alright! I've marked this task as done!\n    [%s] %s\n",
                 task.getStatusIcon(), task.getFormattedDescription());
         printFormattedMessage(message);
     }
@@ -100,12 +100,12 @@ public abstract class Ui {
 
 
     public static void printGoodByeMessage() {
-        String message = "    Bye, Plankton :( \n";
+        String message = "    Bye, Plankton. \n";
         printFormattedMessage(message);
     }
 
     public static void printInvalidCommandMessage() {
-        String message = "    Invalid Command :( Please try again.\n";
+        String message = "    Invalid Command. Please try again.\n";
         printFormattedMessage(message);
     }
 
@@ -130,12 +130,12 @@ public abstract class Ui {
     }
 
     public static void printIOExceptionMessage() {
-        String message = "    Error when reading or writing to files :(\n";
+        String message = "    Error when reading or writing to files.\n";
         printFormattedMessage(message);
     }
 
     public static void printCreateFileErrorMessage() {
-        String message = "    Error creating file :(\n";
+        String message = "    Error creating file.\n";
         printFormattedMessage(message);
     }
 

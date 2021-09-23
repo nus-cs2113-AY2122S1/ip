@@ -2,10 +2,14 @@ package karen.tasklist.task;
 
 public class Deadline extends Task{
     private String by;
+    private String deadlineTask;
+    private String formattedDescription;
 
-    public Deadline(String fullTaskDescription) {
+    public Deadline(String fullTaskDescription, String by, String deadlineTask) {
         super(fullTaskDescription);
-        this.by = getBy();
+        this.by = by;
+        this.deadlineTask = deadlineTask;
+        this.formattedDescription = getFormattedFileDescription();
     }
 
     public String getType() {
@@ -13,25 +17,21 @@ public class Deadline extends Task{
     }
 
     public String getBy() {
-        String[] descriptionWords = fullTaskDescription.split(" /by ", 2);
-        String by = descriptionWords[1].trim();
         return by;
     }
 
     // get formatted description to print out for list and task commands, eg "return book (by: Sunday)"
     public String getFormattedDescription() {
-        return String.format("%s (by: %s)", getTask(),this.by);
+        return String.format("%s (by: %s)", this.deadlineTask, this.by);
     }
 
     public String getFormattedFileDescription() {
-        return String.format("Deadline,%s,%s,%s",getStatusIcon(), getTask(), this.by);
+        return String.format("Deadline,%s,%s,%s",getStatusIcon(), deadlineTask, this.by);
     }
 
 
     //obtain the task to do from the input description
     public String getTask() {
-        int endIndex = this.fullTaskDescription.indexOf(" /by ");
-        String task = this.fullTaskDescription.substring(0, endIndex);
-        return task;
+        return deadlineTask;
     }
 }
