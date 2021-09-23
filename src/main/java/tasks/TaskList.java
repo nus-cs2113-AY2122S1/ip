@@ -28,6 +28,19 @@ public class TaskList {
                 printDeleted(tasksAL, taskIndex);
                 tasksAL.remove(taskIndex);
 
+            } else if (input.toLowerCase().startsWith("find") && input.split(" ").length == 2){
+                boolean haveResults = false;
+                String keyword = input.split(" ")[1].toLowerCase();
+                for (int taskIndex = 0; taskIndex < tasksAL.size(); taskIndex++) {
+                    if (tasksAL.get(taskIndex).getName().toLowerCase().contains(keyword)){
+                        System.out.println(taskIndex + 1 + ". " + tasksAL.get(taskIndex).getName());
+                        haveResults = true;
+                    }
+                }
+                if (!haveResults){
+                    System.out.println("There were no tasks that could be found. Please try again.");
+                }
+
             } else if (input.toLowerCase().startsWith("todo")) {
                 if (input.split(" ").length == 1) {
                     System.out.println("Please add a task after 'todo'");
