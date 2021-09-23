@@ -1,15 +1,19 @@
 package duke.command;
 
-import duke.data.Storage;
 import duke.data.TaskList;
-import duke.startup.Ui;
+import duke.exceptionhandler.InputCheckAndPrint;
 
+/**
+ * Default command to inform the user of an incorrect command syntax
+ *  * A <code>Oopsie</code> command can be called with any prefix that's NOT in <code>CommandPrefix</code> enum.
+ */
 public class OopsieCommand extends Command{
     public OopsieCommand() {
-        super(CommandPrefix.oopsie);
+        super(CommandPrefix.OOPSIE);
     }
 
     @Override
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks) {
+        InputCheckAndPrint.inputFailMessage();
     }
 }

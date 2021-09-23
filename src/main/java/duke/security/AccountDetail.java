@@ -2,6 +2,10 @@ package duke.security;
 
 import java.util.Scanner;
 
+/**
+ * Experimental authentication layer of Duke,
+ * for personalized task lists, styling in future implementations
+ */
 public class AccountDetail {
     private String username = "John Doe";
     private String password = "password";

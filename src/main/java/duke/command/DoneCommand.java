@@ -1,12 +1,14 @@
 package duke.command;
 
-import duke.data.Storage;
 import duke.data.TaskList;
-import duke.startup.Ui;
 
+/**
+ * Command to mark tasks as done from both the task list and save file.
+ *  * A <code>Done</code> command can be called with the prefix 'done' in Duke.
+ */
 public class DoneCommand extends Command{
     public DoneCommand() {
-        super(CommandPrefix.done);
+        super(CommandPrefix.DONE);
     }
     @Override
     public void saveListAndPrintDone(TaskList tasks) {
@@ -14,8 +16,13 @@ public class DoneCommand extends Command{
         System.out.println("marking as done!");
     }
 
+    /**
+     * Mark a set of <code>Task</code> as done in both task list and save file.
+     * @param tasks TaskList to mark tasks as done from
+     *
+     */
     @Override
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks) {
         tasks.markTasksAsDone();
         saveListAndPrintDone(tasks);
     }

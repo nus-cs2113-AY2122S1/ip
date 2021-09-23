@@ -1,31 +1,43 @@
 package duke.command;
 
-import duke.data.Storage;
 import duke.data.TaskList;
 import duke.startup.Ui;
 
+/**
+ * Command to find tasks by keyword from both the task list and save file.
+ *  * A <code>find</code> command can be called with the prefix 'find' in Duke.
+ */
 public class FindCommand extends Command{
     public FindCommand() {
-        super(CommandPrefix.find);
+            super(CommandPrefix.FIND);
     }
 
     @Override
     public void saveListAndPrintDone(TaskList tasks) {
         super.saveListAndPrintDone(tasks);
-        System.out.println("adding");
+        System.out.println("finding");
     }
 
+    /**
+     * Returns first case-sensitive word in user input sentence.
+     * @return firstKeyword the first word in user input sentence
+     */
     public String getKeyWord() {
         String sentence = Ui.readCommand();
         String firstKeyword = sentence.split("",2)[0];
         return firstKeyword;
     }
 
+    /**
+     * Returns all tasks that contain keyword in task description.
+     *  @param tasks TaskList to be read
+     *
+     */
     @Override
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
-        System.out.println("Please enter one, and only one keyword: ");
+    public void execute(TaskList tasks) {
+        Ui.printOneKeyword();
         String keyword = getKeyWord();
-        System.out.println("Here are the matching tasks in your list: ");
+        Ui.printMatchingTasksAlert();
         tasks.getTaskList().stream()
             .filter(t -> t.getDescription().contains(keyword))
                 .forEach(System.out::println);

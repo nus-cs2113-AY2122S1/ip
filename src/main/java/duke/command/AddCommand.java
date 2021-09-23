@@ -1,12 +1,14 @@
 package duke.command;
 
-import duke.data.Storage;
 import duke.data.TaskList;
-import duke.startup.Ui;
 
+/**
+ * Adds tasks to a list.
+ * A <code>Add</code> command can be called with the prefix 'add' in Duke.
+ */
 public class AddCommand extends Command{
     public AddCommand() {
-        super(CommandPrefix.add);
+        super(CommandPrefix.ADD);
     }
 
     @Override
@@ -15,8 +17,23 @@ public class AddCommand extends Command{
         System.out.println("adding");
     }
 
+    /**
+     * Executes add functionality - adding tasks to a TaskList task, then writes the data to a file.
+     * A task can either be a:
+     * <ol>
+     *     <li><code>event</code></li>
+     *     <li><code>todo</code></li>
+     *     <li><code>deadline</code></li>
+     * </ol>
+     *
+     * Additionally, the user would be informed if a <code>Date</code> is recorded in user input.
+     *  For instance, 2020-10-10 would be recognised as Oct 10 2020, and would be recorded as an
+     *      additional attribute by the program.
+     *  @param tasks TaskList to add tasks to
+     *
+     */
     @Override
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks) {
         tasks.addTasksToList();
         saveListAndPrintDone(tasks);
     }

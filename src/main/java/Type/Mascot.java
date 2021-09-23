@@ -1,9 +1,10 @@
 package Type;
 
+/**
+ * Represents a virtual chatbot to echo user input
+ * References: https://linuxgazette.net/issue67/orr.html
+ */
 public class Mascot {
-    private static final String name = "John Doe";
-
-    //references: https://linuxgazette.net/issue67/orr.html
     public static void penguinSay(String say) {
         System.out.println("< " + say + "  >\n" +
                 " -----------------------\n" +

@@ -1,12 +1,15 @@
 package duke.command;
 
-import duke.data.Storage;
 import duke.data.TaskList;
 import duke.startup.Ui;
 
+/**
+ * Command to wave goodbye to user.
+ *  * A <code>Bye</code> command can be called with the prefix 'bye' in Duke.
+ */
 public class ByeCommand extends Command{
     public ByeCommand() {
-        super(CommandPrefix.bye);
+        super(CommandPrefix.BYE);
     }
     @Override
     public void saveListAndPrintDone(TaskList tasks) {
@@ -15,7 +18,7 @@ public class ByeCommand extends Command{
     }
 
     @Override
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks) {
         Ui.sayGoodbye();
         saveListAndPrintDone(tasks);
     }

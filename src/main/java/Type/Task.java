@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Task object, represents a generic task with descriptions and when to complete it by
+ */
 public abstract class Task implements Serializable{
     protected String description;
     protected boolean isDone = false;
@@ -27,29 +30,21 @@ public abstract class Task implements Serializable{
         isDone = done;
     }
 
-    public LocalDate getTime() {
-        return timeOfTask;
-    }
-
-    public boolean hasTime() {
-        return ValidTime;
-    }
-    public void printTime() {
-        System.out.println(timeOfTask.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
-    }
-
+    /**
+     * Sets a valid time of a task, only when the following format is followed: YYYY-MM-DD
+     *  Note that this only returns one valid date, on a first-come-first-serve basis
+     * @param fullUserInput full sentence input by user
+     */
     public void setTime(String fullUserInput) {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
         DateValidator validator = new DateValidatorUsingDateFormat(dateFormatter);
         List<String> chunksOfText = Arrays.asList(fullUserInput.split(" "));
-        //create list only with valid date --> constraint: first date
         List<String> suitableDate = chunksOfText.stream()
-                .filter(s -> validator.isValid(s))
+                .filter(validator::isValid)
                 .collect(Collectors.toList())
                 ;
-
         if (!suitableDate.isEmpty()) {
-            this.timeOfTask = LocalDate.parse(suitableDate.get(0)); //1st date in case of troll
+            this.timeOfTask = LocalDate.parse(suitableDate.get(0)); //1st date by index
             System.out.println("great! i've recorded a date with the task: " + this.getDescription() + " "
                                 + "with the date: " + timeOfTask.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
         this.ValidTime = true;

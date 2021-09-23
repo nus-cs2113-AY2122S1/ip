@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-//reference: baeldung.com/java-string-valid-date
+/**
+ * Validates a date, formats string into a date
+ * Reference: baeldung.com/java-string-valid-date
+ */
 public class DateValidatorUsingDateFormat implements DateValidator {
     private DateTimeFormatter dateFormatter;
 

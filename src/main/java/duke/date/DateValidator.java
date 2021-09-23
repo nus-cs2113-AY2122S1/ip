@@ -1,7 +1,9 @@
 package duke.date;
 
-
-//reference: baeldung.com/java-string-valid-date
+/**
+ * Checks if a date is valid.
+ * Reference: baeldung.com/java-string-valid-date
+ */
 public interface DateValidator {
     boolean isValid(String dateStr);
 }

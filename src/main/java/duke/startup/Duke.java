@@ -1,7 +1,5 @@
 package duke.startup;
 
-
-import Type.Task;
 import duke.command.Command;
 import duke.data.Storage;
 import duke.data.TaskList;
@@ -15,7 +13,6 @@ public class Duke {
     private Storage storage;
     private AccountDetail accountDetail;
 
-    //setup of Duke
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,7 +20,6 @@ public class Duke {
         taskList = new TaskList(storage.load());
     }
 
-    //functional bit of Duke
     public void run(){
         ui.sayHi(accountDetail.getUsername());
         boolean isExit = false;
@@ -31,7 +27,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.printLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
+                c.execute(taskList);
                 isExit = c.isExit();
                 ui.printLine();
         } while (!isExit);
