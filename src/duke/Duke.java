@@ -8,34 +8,24 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
-    public static final String WELCOME_MESSAGE =
-            " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n"
-            + "Hello I'm Duke\nWhat can I do for you?";
     public static final String COMMAND_EXIT = "bye";
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
-    public static final String INVALID_COMMAND = "Please enter a valid command";
-    public static final String INVALID_INDEX = "Please enter a valid task number";
-    public static final String INVALID_DESCRIPTION = "Please enter a valid description";
     public static final String SEPARATOR_SPACE = " ";
     public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_FIND = "find";
 
     public static void main(String[] args) {
-        System.out.println(WELCOME_MESSAGE);
+        UI.printWelcome();
         Assistant duke = new Assistant();
         duke.loadFile();
         String userInput;
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
-        String[] inputs = userInput.split(SEPARATOR_SPACE,2);
+        String[] inputs = userInput.split(SEPARATOR_SPACE, 2);
         while (!inputs[0].equals(COMMAND_EXIT)) { //check command
             try {
                 switch (inputs[0]) {
@@ -64,18 +54,17 @@ public class Duke {
                     throw new InvalidCommandException();
                 }
             } catch (MissingInputException | ArrayIndexOutOfBoundsException | NullPointerException e) {
-                System.out.println(INVALID_DESCRIPTION);
+                UI.printInvalidDescription();
             } catch (InvalidCommandException e) {
-                System.out.println(INVALID_COMMAND);
+                UI.printInvalidCommand();
             } catch (InvalidIndexException e) {
-                System.out.println(INVALID_INDEX);
+                UI.printInvalidIndex();
             } catch (DateTimeParseException e) {
-                System.out.println("Please enter a valid date");
-                System.out.println("Date should be in the form DDMMYYYY or DD/MM/YYYY or DD-MM-YYYY");
+                UI.printInvalidDate();
             }
             duke.saveFile();
             userInput = in.nextLine();
-            inputs = userInput.split(SEPARATOR_SPACE,2);
+            inputs = userInput.split(SEPARATOR_SPACE, 2);
         }
         System.out.println("Bye. Hope to see you again soon!");
     }

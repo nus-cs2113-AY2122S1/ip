@@ -34,7 +34,7 @@ public class Storage {
                 System.out.println("New save data folder created");
             }
             if (!saveDataFile.createNewFile()) {
-                System.out.println("No existing save duke.data\nNew file created");
+                UI.printNewSave();
             }
             else {
                 Scanner in = new Scanner(saveDataFile);
