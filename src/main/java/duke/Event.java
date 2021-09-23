@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 public class Event extends Task {
     protected LocalDate event;
 
-    public Event(String description, int index, String event) throws DateTimeParseException {
+    public Event(String description, int index, String event) {
         super(description, index);
         this.type = Type.E;
         this.event = LocalDate.parse(event);

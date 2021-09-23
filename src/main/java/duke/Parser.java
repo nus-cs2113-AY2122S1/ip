@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
@@ -36,6 +37,8 @@ public class Parser {
 
     /** Converts the string into its individual arguments */
     public void parseCommand(String input) throws StringIndexOutOfBoundsException {
+        this.description = null;
+        this.time = null;
         String temp;
         if (input.contains(" ")) {
             this.command = input.substring(0, input.indexOf(" "));
@@ -86,18 +89,32 @@ public class Parser {
             break;
         case "deadline":
             errorCheck(true);
-            count++;
-            tasklist.addDeadline(description, time, count);
+            try {
+                LocalDate.parse(time);
+                count++;
+                tasklist.addDeadline(description, time, count);
+            } catch (DateTimeParseException e) {
+                Ui.dateFormatError();
+            }
             break;
         case "event":
             errorCheck(true);
-            count++;
-            tasklist.addEvent(description, time, count);
+            try {
+                LocalDate.parse(time);
+                count++;
+                tasklist.addEvent(description, time, count);
+            } catch (DateTimeParseException e) {
+                Ui.dateFormatError();
+            }
             break;
         case "delete":
             errorCheck(false);
             count--;
             tasklist.delete(description, count);
+            break;
+        case "find":
+            errorCheck(false);
+            tasklist.find(description);
             break;
         case "bye":
             Ui.end();
