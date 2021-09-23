@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.CommonFormat;
+import duke.common.CommonFormat;
 import java.time.LocalDateTime;
 
 public class Event extends Task {

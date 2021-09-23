@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.CommonFormat;
+import duke.common.CommonFormat;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeadlineCommand;
@@ -11,7 +11,6 @@ import duke.command.ListCommand;
 import duke.command.TodoCommand;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
