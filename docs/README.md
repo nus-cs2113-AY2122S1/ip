@@ -3,7 +3,7 @@
 # Quick Start
 Ensure that you have Java ```11``` installed in your computer. 
 
-Download the latest ip.jar from [here](https://github.com/theodorekwok/ip/releases/tag/A-Jar)
+Download the latest ```ip.jar``` from [here](https://github.com/theodorekwok/ip/releases/tag/A-Release)
 
 Copy the jar file to a folder that you want to run Duke from. 
 
