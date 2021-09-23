@@ -6,20 +6,33 @@ public class TaskList {
 
     // getting task names, deadline, duration etc should be done in Parser
 
-    public static void addTodo(String input, ArrayList<Task> tasks) {
+    public static void addTodo(String input, ArrayList<Task> tasks) throws InvalidTaskDescriptionException {
+        if (!Parser.isValidTaskDescription(input)) {
+            throw new InvalidTaskDescriptionException("Task description is invalid!");
+        }
         String description = Parser.getTodoDescription(input);
-        tasks.add(new Todo(description));
+        Todo newTodo = new Todo(description);
+        tasks.add(newTodo);
+        Ui.printAddedTaskMessage(newTodo, tasks);
     }
 
-    public static void addDeadlineOrEvent(String input, ArrayList<Task> tasks) {
+    public static void addDeadlineOrEvent(String input, ArrayList<Task> tasks) throws InvalidTaskDescriptionException {
         String taskType = Parser.getTaskType(input);
         String description = Parser.getDeadlineOrEventDescription(input);
         String time = Parser.getDeadlineOrEventTime(input);
 
+        if (!Parser.isValidDeadlineOrEventDescription(input, description, time)) {
+            throw new InvalidTaskDescriptionException("Invalid or missing task detail!");
+        }
+
         if (taskType.equalsIgnoreCase("deadline")) {
-            tasks.add(new Deadline(description, time));
+            Deadline newDeadline = new Deadline(description, time);
+            tasks.add(newDeadline);
+            Ui.printAddedTaskMessage(newDeadline, tasks);
         } else if (taskType.equalsIgnoreCase("event")) {
-            tasks.add(new Event(description, time));
+            Event newEvent = new Event(description, time);
+            tasks.add(newEvent);
+            Ui.printAddedTaskMessage(newEvent, tasks);
         }
     }
 
@@ -35,7 +48,7 @@ public class TaskList {
     }
 
     public static void undoDone(String input, ArrayList<Task> tasks) throws InvalidDoOrUndoException {
-        int taskNumber = Parser.getTaskNumber(input)
+        int taskNumber = Parser.getTaskNumber(input);
         Task t = tasks.get(taskNumber);
         if (!t.isDone) {
             Ui.printHorizontalLine();
@@ -63,5 +76,25 @@ public class TaskList {
             System.out.println("No such task number exists!");
             Ui.printHorizontalLine();
         }
+    }
+
+    public static void deleteTask(String input, ArrayList<Task> tasks) {
+        int taskNumber = Parser.getTaskNumber(input);
+        Ui.printDeleteMessage(tasks.get(taskNumber), tasks);
+        tasks.remove(taskNumber);
+    }
+
+    public static void requestList(ArrayList<Task> tasks) {
+        Ui.printHorizontalLine();
+        if (tasks.size() == 0) {
+            System.out.println("There are no tasks!");
+            Ui.printHorizontalLine();
+            return;
+        }
+        System.out.println("Here are the tasks in your list: ");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
+        }
+        Ui.printHorizontalLine();
     }
 }
