@@ -1,11 +1,15 @@
 # Duke User Guide
 
 # Quick Start
-* Ensure that you have Java ```11``` installed in your computer. 
-* Download the latest ip.jar from [here](https://github.com/theodorekwok/ip/releases/tag/A-Jar)
-* Copy the jar file to a folder that you want to run Duke from. 
-* At the folder where you copied the jar file run the command ```java -jar ip.jar``` in terminal. 
-* If Duke starts successfully, you should see the following output:
+Ensure that you have Java ```11``` installed in your computer. 
+
+Download the latest ip.jar from [here](https://github.com/theodorekwok/ip/releases/tag/A-Jar)
+
+Copy the jar file to a folder that you want to run Duke from. 
+
+At the folder where you copied the jar file run the command ```java -jar ip.jar``` in terminal. 
+
+If Duke starts successfully, you should see the following output:
 ```
 Hello from
 ____        _
@@ -18,7 +22,7 @@ ____        _
 Hello! I'm Duke
 What can I do for you?
 ```
-* Refer the list of commands below under [Features](https://theodorekwok.github.io/ip/#features) for more details
+Refer the list of commands below under [Features](https://theodorekwok.github.io/ip/#features) for more details
 on how to use Duke.
 
 # Features
