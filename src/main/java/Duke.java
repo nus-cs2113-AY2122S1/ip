@@ -7,9 +7,6 @@ import java.io.FileWriter;
 
 public class Duke {
 
-    /**
-     * Array of tasks
-     */
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
