@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Custom exception to deal with incorrect input format from user
  */

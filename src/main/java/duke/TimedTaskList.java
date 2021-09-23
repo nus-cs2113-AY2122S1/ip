@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -21,7 +23,7 @@ public class TimedTaskList {
     /**
      * Override Comparator to make sorting of deadline and event based on time possible
      */
-    public static Comparator<TimedTask> TimedTaskDateComparator = new Comparator<TimedTask>() {
+    public static Comparator<TimedTask> TimedTaskDateComparator = new Comparator<>() {
         @Override
         public int compare(TimedTask task1, TimedTask task2){
             return task1.getStartDate().compareTo(task2.getStartDate());

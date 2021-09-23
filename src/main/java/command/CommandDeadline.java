@@ -1,5 +1,9 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+package command;
+
+import duke.Deadline;
+import duke.DukeException;
+import duke.Parser;
+import duke.TaskList;
 
 public class CommandDeadline extends Command{
     private static final int FIRST_ARRAY_PARAMETER = 0;

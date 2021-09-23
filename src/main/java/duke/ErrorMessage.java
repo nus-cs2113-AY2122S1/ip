@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * List of error messages
  */

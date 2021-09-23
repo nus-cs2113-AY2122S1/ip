@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Exception is thrown when command keyed in is not in the command list
  */

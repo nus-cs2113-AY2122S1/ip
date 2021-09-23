@@ -1,8 +1,7 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toCollection;
-import static java.util.stream.Collectors.toList;
 
 public class TaskList {
     private static final int INDEX_FIX = 1;

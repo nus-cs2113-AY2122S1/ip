@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -112,19 +114,18 @@ public class Storage {
     /**
      * Takes the string stored inside the file and convert it into a datetime object for creation
      * of task to store into arraylist upon the start of program
-     * @param result
+     * @param result input of string date to be parsed
      * @return datetime object
      */
     private static LocalDateTime parseDeadline (String result) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-        LocalDateTime date = LocalDateTime.parse(result, formatter);
-        return date;
+        return LocalDateTime.parse(result, formatter);
     }
 
     /**
      * Takes the string stored inside the file and convert it into a datetime object for creation
      * of task to store into arraylist upon the start of program
-     * @param result
+     * @param result input of string date to be parsed
      * @return datetime object
      */
     private static LocalDateTime[] parseEvent (String result) {

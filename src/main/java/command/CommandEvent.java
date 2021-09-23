@@ -1,3 +1,10 @@
+package command;
+
+import duke.DukeException;
+import duke.Event;
+import duke.Parser;
+import duke.TaskList;
+
 public class CommandEvent extends Command {
     private static final int FIRST_ARRAY_PARAMETER = 0;
     private static final int SECOND_ARRAY_PARAMETER = 1;

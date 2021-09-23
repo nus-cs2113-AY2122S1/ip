@@ -1,3 +1,9 @@
+package command;
+
+import duke.DukeException;
+import duke.Parser;
+import duke.Ui;
+
 public class CommandFind extends Command{
 
     private static final int FIRST_ARRAY_PARAMETER = 0;

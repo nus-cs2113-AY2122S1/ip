@@ -1,3 +1,7 @@
+package command;
+
+import duke.Ui;
+
 public class CommandBye extends Command{
     public static final String BYE_MESSAGE = "     Bye. Hope to see you again soon!";
 

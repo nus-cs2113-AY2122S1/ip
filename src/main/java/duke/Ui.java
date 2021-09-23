@@ -1,3 +1,5 @@
+package duke;
+
 public class Ui {
     public static final String DASH_LINE = "    _________________________________________________________________";
     public static final String WELCOME_MESSAGE = "     Hello! I'm Duke\n" +

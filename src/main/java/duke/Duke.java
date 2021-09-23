@@ -1,3 +1,4 @@
+package duke;
 
 import command.Command;
 

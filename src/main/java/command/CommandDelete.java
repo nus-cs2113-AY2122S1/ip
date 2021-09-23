@@ -1,3 +1,9 @@
+package command;
+
+import duke.DukeException;
+import duke.Parser;
+import duke.TaskList;
+
 public class CommandDelete extends Command{
     private static final int FIRST_ARRAY_PARAMETER = 0;
     private static final int SECOND_ARRAY_PARAMETER = 1;

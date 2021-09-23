@@ -1,3 +1,10 @@
+package command;
+
+import duke.DukeException;
+import duke.Parser;
+import duke.TaskList;
+import duke.Todo;
+
 public class CommandTodo extends Command{
 
     private static final int FIRST_ARRAY_PARAMETER = 0;

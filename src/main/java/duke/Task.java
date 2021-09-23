@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * A Class that is a parent of Todo, Deadline, Event
  * Created so that different classes of similar functionalities(Task)

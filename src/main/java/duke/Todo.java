@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * A type of task that stores a description of the task
  */
