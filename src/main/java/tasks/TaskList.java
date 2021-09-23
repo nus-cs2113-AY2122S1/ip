@@ -17,7 +17,7 @@ public class TaskList {
 
             } else if (input.toLowerCase().startsWith("done") && input.split(" ").length == 2) {
                 int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (tasksAL.get(taskIndex - 1).getComplete().equals("X")) {
+                if (tasksAL.get(taskIndex).getComplete().equals("X")) {
                     System.out.println("You have already completed that task!");
                 } else {
                     tasksAL.get(taskIndex).makeComplete();
