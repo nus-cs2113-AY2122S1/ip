@@ -3,7 +3,7 @@
 # Quick Start
 Ensure that you have Java ```11``` installed in your computer. 
 
-Download the latest ```ip.jar``` from [here](https://github.com/theodorekwok/ip/releases/tag/A-Release)
+Download the latest ```ip.jar``` from [here](https://github.com/theodorekwok/ip/releases/tag/A-Release).
 
 Copy the jar file to a folder that you want to run Duke from. 
 
@@ -187,7 +187,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 Note:
 * An index number must be provided to successfully delete a task.
 
-### Exiting the program
+## Exiting the program
 
 Terminates the program. This feature is used when you have done all you needed to do with Duke. After exiting,
 the remaining tasks in your list would be saved for you to reference again when you start Duke again.
