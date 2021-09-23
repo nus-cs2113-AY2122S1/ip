@@ -4,9 +4,11 @@ import java.time.format.DateTimeFormatter;
  * An inheritance from task that requires a range of time for additional input
  */
 public class Event extends TimedTask {
-    private LocalDateTime endDate;
 
     public static final char TASK_TYPE_EVENT = 'E';
+    public static final int FIRST_TIME_INPUT = 0;
+    public static final int SECOND_TIME_INPUT = 1;
+    private LocalDateTime endDate;
 
     /**
      * Constructor of Event from console

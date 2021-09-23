@@ -1,12 +1,8 @@
 public class Ui {
-    private static final int INDEX_FIX = 1;
     public static final String DASH_LINE = "    ____________________________________________________________";
     public static final String WELCOME_MESSAGE = "     Hello! I'm Duke\n" +
             "     What can I do for you?";
-    public static final String BYE_MESSAGE = "     Bye. Hope to see you again soon!";
-    public static final String LIST_HEADER = "     Here are the tasks in your list:";
-    public static final String LIST_NO_TASK = "     You have no tasks in the list at the moment.\n" +
-            "     Please add a new task to begin.";
+
     public static final String TASK_MESSAGE_START = "     Now you have ";
     public static final String TASK_MESSAGE_END = " tasks in the list.";
     public static final String DELETE_MESSAGE = "     Noted. I've removed this task:";
@@ -27,6 +23,15 @@ public class Ui {
             "or YYYY-MM-DD HHMM while <time2> could be YYYY-MM-DD or YYYY-MM-DD HHMM or even HHMM\n" +
             ". If <time2> is HHMM, it will inherit YYYY-MM-DD from <time1>\n" +
             "-- creates an event task with the description given and store 2 time given by the input\n";
+    public static final String logo = " ____        _        \n"
+            + "|  _ \\ _   _| | _____ \n"
+            + "| | | | | | | |/ / _ \\\n"
+            + "| |_| | |_| |   <  __/\n"
+            + "|____/ \\__,_|_|\\_\\___|\n"
+            + "There are too many students changing this logo away.\n"
+            + "Let's keep it this way to show the contribution Duke has done to\n"
+            + "thousands of students. (No matter positive or negative)\n"
+            + "F";
 
     public static void printLineOnConsole() {
         System.out.println(DASH_LINE);
@@ -40,35 +45,6 @@ public class Ui {
     public static void printWelcomeMessage() {
         printLineOnConsole();
         System.out.println(WELCOME_MESSAGE);
-        printLineOnConsole();
-    }
-
-
-    /**
-     * Prints goodbye message upon exit
-     */
-    public static void printGoodbyeMessage() {
-        printLineOnConsole();
-        System.out.println(BYE_MESSAGE);
-        printLineOnConsole();
-    }
-
-    /**
-     * Print all the tasks in the list array
-     */
-    public static void printList() {
-
-        printLineOnConsole();
-        int size = TaskList.getArraySize();
-        if (size != 0) {
-            System.out.println(LIST_HEADER);
-            for (int i = 0; i < size; i++) {
-                int numbering = i + INDEX_FIX;
-                System.out.println("     " + numbering + ". " + TaskList.getTask(i));
-            }
-        } else {
-            System.out.println(LIST_NO_TASK);
-        }
         printLineOnConsole();
     }
 
@@ -137,4 +113,7 @@ public class Ui {
         System.out.println(HELP_OUTPUT);
     }
 
+    public static void printDuke() {
+        System.out.println("Hello from\n" + logo);
+    }
 }

@@ -11,18 +11,8 @@ public class Duke {
 
     public static void main(String[] args) throws IOException {
 
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n"
-                + "There are too many students changing this logo away.\n"
-                + "Let's keep it this way to show the contribution Duke has done to\n"
-                + "thousands of students.\n"
-                + "F";
-
         String input;
-        System.out.println("Hello from\n" + logo);
+        Ui.printDuke();
         Ui.printWelcomeMessage();
         // load data into arraylist
         File f = new File(filePath);
@@ -72,23 +62,25 @@ public class Duke {
      */
     private static void parseInputFromUser(String input, String[] words) {
         try {
-            Parser.checkCommand(words, input);
+            Command command = Parser.checkCommand(words, input);
+            command.run();
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         } catch (NumberFormatException e) {
-            System.out.println("Please key in an integer");
+            System.out.println(ErrorMessage.EXCEPTION_NUMBER_FORMAT);
         } catch (NullPointerException e) {
             System.out.println(ErrorMessage.EXCEPTION_MESSAGE_INPUT_NOT_INT);
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Invalid Number.");
+            System.out.println(ErrorMessage.EXCEPTION_INDEX_OUT_OF_BOUNDS);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Number keyed in is invalid");
-        } catch (IncorrectTimeFormatException e) {
-            System.out.println("Date keyed in is of invalid format");
-        } catch ( DateTimeParseException e) {
-            System.out.println("invalid datetime format");
-        } catch ( Exception e) {
-            System.out.println("invalid command, please try other commands/inputs");
+            System.out.println(ErrorMessage.EXCEPTION_INDEX_OUT_OF_BOUNDS);
+        } catch (DateTimeParseException e) {
+            System.out.println(ErrorMessage.EXCEPTION_INCORRECT_TIME_FORMAT);
+        } catch (UnknownCommandException e) {
+            System.out.println(ErrorMessage.EXCEPTION_MESSAGE_UNKNOWN_COMMAND);
+        } catch (Exception e) {
+            System.out.println(e.fillInStackTrace());
+            System.out.println(ErrorMessage.EXCEPTION_WRONG_INPUT);
         }
     }
 }
