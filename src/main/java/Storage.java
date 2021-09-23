@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+    private static ArrayList<Task> tasks;
     protected static Messages messages = new Messages();
     //Creation of database file
     private static final String FILE_PATH = "data/jim.txt";
@@ -41,52 +42,52 @@ public class Storage {
         }
     }
 
-//    public static void initList(Scanner s) throws JimException {
-//        while (s.hasNext()) {
-//            String task = s.nextLine();
-//            String[] listedTask = task.split(" \\| ", 4);
-//            switch (listedTask[0]) {
-//            case "T":
-//                tasks.add(new Todo(listedTask[2]));
-//                if (listedTask[1].equals("1")) {
-//                    tasks.get(tasks.size() - 1).markAsDone();
-//                }
-//                break;
-//            case "D":
-//                tasks.add(new Deadline(listedTask[2], listedTask[3]));
-//                if (listedTask[1].equals("1")) {
-//                    tasks.get(tasks.size() - 1).markAsDone();
-//                }
-//                break;
-//            case "E":
-//                tasks.add(new Event(listedTask[2], listedTask[3]));
-//                if (listedTask[1].equals("1")) {
-//                    tasks.get(tasks.size() - 1).markAsDone();
-//                }
-//                break;
-//            default:
-//                throw new JimException();
-//            }
-//        }
-//        s.close();
-//    }
+    public static void initList(Scanner s) throws JimException {
+        while (s.hasNext()) {
+            String task = s.nextLine();
+            String[] listedTask = task.split(" \\| ", 4);
+            switch (listedTask[0]) {
+            case "T":
+                tasks.add(new Todo(listedTask[2]));
+                if (listedTask[1].equals("1")) {
+                    tasks.get(tasks.size() - 1).markAsDone();
+                }
+                break;
+            case "D":
+                tasks.add(new Deadline(listedTask[2], listedTask[3]));
+                if (listedTask[1].equals("1")) {
+                    tasks.get(tasks.size() - 1).markAsDone();
+                }
+                break;
+            case "E":
+                tasks.add(new Event(listedTask[2], listedTask[3]));
+                if (listedTask[1].equals("1")) {
+                    tasks.get(tasks.size() - 1).markAsDone();
+                }
+                break;
+            default:
+                throw new JimException();
+            }
+        }
+        s.close();
+    }
 
-//    public static void initJim() {
-//        try {
-//            tasks = new ArrayList<>();
-//            File file = new File(FILE_PATH);
-//            File folder = new File(FOLDER_PATH);
-//            messages = new Messages();
-//            folderChecker(folder);
-//            databaseChecker(file);
-//            Scanner s = new Scanner(file);
-//            initList(s);
-//        } catch (JimException e) {
-//            messages.showCorruptedDatabaseFileMessage(tasks.size() + 1);
-//        } catch (FileNotFoundException e) {
-//            messages.showNoDatabaseFileMessage();
-//        }
-//    }
+    public static void initJim() {
+        try {
+            tasks = new ArrayList<>();
+            File file = new File(FILE_PATH);
+            File folder = new File(FOLDER_PATH);
+            messages = new Messages();
+            folderChecker(folder);
+            databaseChecker(file);
+            Scanner s = new Scanner(file);
+            initList(s);
+        } catch (JimException e) {
+            messages.showCorruptedDatabaseFileMessage(tasks.size() + 1);
+        } catch (FileNotFoundException e) {
+            messages.showNoDatabaseFileMessage();
+        }
+    }
 
     public static void appendDatabase(String type, String input, String isDone) {
         //append new tasks to database
@@ -125,23 +126,26 @@ public class Storage {
         }
     }
 
-//    public static void updateDatabase() {
-//        //update after mark done.
-//        //clear file then append from list
-//        clearDatabase();
-//        for (Task task: tasks) {
-//            String isDone = task.getIsDone()? "1" : "0";
-//            if (task instanceof Todo) {
-//                appendDatabase("T", task.getDescription(), isDone);
-//            } else if (task instanceof Deadline) {
-//                Deadline deadline = (Deadline) task;
-//                String input = deadline.getDescription() + "/by" + deadline.getDeadline();
-//                appendDatabase("D", input , isDone);
-//            } else if (task instanceof Event) {
-//                Event event = (Event) task;
-//                String input = event.getDescription() + "/at" + event.getTimeRange();
-//                appendDatabase("E", input , isDone);
-//            }
-//        }
-//    }
+    public static void updateDatabase() {
+        //clear file then append from list
+        clearDatabase();
+        for (Task task: tasks) {
+            String isDone = task.getIsDone()? "1" : "0";
+            if (task instanceof Todo) {
+                appendDatabase("T", task.getDescription(), isDone);
+            } else if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                String input = deadline.getDescription() + "/by" + deadline.getDeadline();
+                appendDatabase("D", input , isDone);
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                String input = event.getDescription() + "/at" + event.getTimeRange();
+                appendDatabase("E", input , isDone);
+            }
+        }
+    }
+
+    public static ArrayList<Task> getTasks() {
+        return tasks;
+    }
 }

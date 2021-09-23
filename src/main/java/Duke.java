@@ -71,7 +71,7 @@ public class Duke {
                 Task thisTask = tasks.get(index - 1);
                 messages.showDeleteTaskMessage(thisTask, (tasks.size() - 1));
                 tasks.remove(thisTask);
-                updateDatabase();
+                Storage.updateDatabase();
             }
         } catch (IndexOutOfBoundsException e) {
             messages.showNothingToRemoveMessage();
@@ -94,7 +94,7 @@ public class Duke {
             } else {
                 tasks.get(index - 1).markAsDone();
                 messages.showTaskCompleteMessage(tasks.get(index - 1));
-                updateDatabase();
+                Storage.updateDatabase();
             }
         } catch (StringIndexOutOfBoundsException e) {
             messages.showNoTaskSpecifiedMessage();
@@ -109,19 +109,19 @@ public class Duke {
             if (input.toLowerCase().startsWith("todo")) {
                 addTodo(input);
                 int indexOfAddedTask = tasks.size() - 1;
-                appendDatabase("T", tasks.get(indexOfAddedTask).getDescription(), "0");
+                Storage.appendDatabase("T", tasks.get(indexOfAddedTask).getDescription(), "0");
             } else if (input.toLowerCase().startsWith("deadline")) {
                 addDeadline(input);
                 int indexOfAddedTask = tasks.size() - 1;
                 Deadline addedDeadline = (Deadline) tasks.get(indexOfAddedTask);
                 String deadlineInput = addedDeadline.getDescription() + "/by" + addedDeadline.getDeadline();
-                appendDatabase("D", deadlineInput, "0");
+                Storage.appendDatabase("D", deadlineInput, "0");
             } else if (input.toLowerCase().startsWith("event")){
                 addEvent(input);
                 int indexOfAddedTask = tasks.size() - 1;
                 Event addedEvent = (Event) tasks.get(indexOfAddedTask);
                 String eventInput = addedEvent.getDescription() + "/at" + addedEvent.getTimeRange();
-                appendDatabase("E", eventInput, "0");
+                Storage.appendDatabase("E", eventInput, "0");
             }
         } catch (StringIndexOutOfBoundsException e){
             messages.showMissingTaskDescriptionMessage();
@@ -187,63 +187,6 @@ public class Duke {
         messages.showTaskAddedMessage(task, tasks.size());
     }
 
-    public static void appendDatabase(String type, String input, String isDone) {
-        //append new tasks to database
-        try {
-            FileWriter fw = new FileWriter(FILE_PATH, true);
-            switch (type) {
-            case "T":
-                fw.write(type + " | " + isDone + " | " + input + System.lineSeparator());
-                break;
-            case "D":
-                String[] deadlineSplit = input.split("/by", 2);
-                fw.write(type + " | " + isDone + " | " + deadlineSplit[0] + " | " +
-                        deadlineSplit[1] + System.lineSeparator());
-                break;
-            case "E":
-                String[] eventSplit = input.split("/at", 2);
-                fw.write(type + " | " + isDone + " | " + eventSplit[0] + " | " + eventSplit[1]
-                        + System.lineSeparator());
-                break;
-            default:
-                break;
-            }
-            fw.close();
-        } catch (IOException e) {
-            messages.showNoDatabaseFileMessage();
-        }
-    }
-
-    public static void clearDatabase() {
-        try {
-            FileWriter fw = new FileWriter(FILE_PATH);
-            fw.write("");
-            fw.close();
-        } catch (IOException e) {
-            messages.showNoDatabaseFileMessage();
-        }
-    }
-
-    public static void updateDatabase() {
-        //update after mark done.
-        //clear file then append from list
-        clearDatabase();
-        for (Task task: tasks) {
-            String isDone = task.getIsDone()? "1" : "0";
-            if (task instanceof Todo) {
-                appendDatabase("T", task.getDescription(), isDone);
-            } else if (task instanceof Deadline) {
-                Deadline deadline = (Deadline) task;
-                String input = deadline.getDescription() + "/by" + deadline.getDeadline();
-                appendDatabase("D", input , isDone);
-            } else if (task instanceof Event) {
-                Event event = (Event) task;
-                String input = event.getDescription() + "/at" + event.getTimeRange();
-                appendDatabase("E", input , isDone);
-            }
-        }
-    }
-
     public static void initList(Scanner s) throws JimException {
         while (s.hasNext()) {
             String task = s.nextLine();
@@ -274,24 +217,6 @@ public class Duke {
         s.close();
     }
 
-    //Initialises the list
-    public static void initJim() {
-        try {
-            tasks = new ArrayList<>();
-            File file = new File(FILE_PATH);
-            File folder = new File(FOLDER_PATH);
-            messages = new Messages();
-            Storage.folderChecker(folder);
-            Storage.databaseChecker(file);
-            Scanner s = new Scanner(file);
-            initList(s);
-        } catch (JimException e) {
-            messages.showCorruptedDatabaseFileMessage(tasks.size() + 1);
-        } catch (FileNotFoundException e) {
-            messages.showNoDatabaseFileMessage();
-        }
-    }
-
     public static String getUserInput() {
         messages.showUserInputMessage();
         return sc.nextLine();
@@ -312,7 +237,7 @@ public class Duke {
             } else if (input.equalsIgnoreCase("echo")) {
                 echo();
             } else if (input.equalsIgnoreCase("clear database")) {
-                clearDatabase();
+                Storage.clearDatabase();
                 tasks.clear();
                 messages.showClearDatabaseMessage();
             } else if (input.toUpperCase().contains("BIRTHDAY")) {
@@ -330,7 +255,9 @@ public class Duke {
         }
     }
     public static void main(String[] args) {
-        initJim();
+        messages = new Messages();
+        Storage.initJim();
+        tasks = Storage.getTasks();
         greeting();
         while (true) {
             String userCommand = getUserInput();
