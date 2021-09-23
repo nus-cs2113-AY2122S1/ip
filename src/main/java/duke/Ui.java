@@ -16,7 +16,7 @@ public class Ui {
     }
 
     public void printStart() {
-        System.out.println("Hello! I'm Duke, your friendly human (not a bot!)! What can I do for you?\n");
+        System.out.println("Hello! I'm DAHNAM, your friendly human (not a bot!)! What can I do for you?\n");
     }
 
     public void printEnd() {

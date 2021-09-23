@@ -9,6 +9,7 @@ public class Parser {
     public static final int TASK_NUMBER = 1;
     public static final int TIMING = 1;
     public static final int TODO_HEADER = 5;
+    public static final int FIND_HEADER = 5;
     public static final int EVENT_HEADER = 6;
     public static final int DEADLINE_HEADER = 9;
     public static final String LINEBAR = "____________________________________________________________\n";
@@ -61,13 +62,74 @@ public class Parser {
             deleteTask();
             return;
 
-        case "index":
-            tasks.getTaskIndex();
+        case "find":
+            findTask();
             return;
 
         default:
             ui.showListOfCommands();
         }
+    }
+
+    /**
+     * Modifies a task and sets its boolean isDone to true. Prints out an acknowledgement after.
+     *
+     * @throws NumberFormatException     Thrown when the input is not a valid positive integer e.g. an alphabet
+     * @throws NullPointerException      Thrown when the value inserted exceeds the number of tasks
+     * @throws IndexOutOfBoundsException Thrown when input is a negative value, or does not include a value
+     */
+    public void completeTask()
+            throws NumberFormatException, NullPointerException, IndexOutOfBoundsException {
+        System.out.println(LINEBAR);
+        try {
+            int taskNumber = Integer.parseInt(userIn.split(" ")[TASK_NUMBER]);
+
+            //Navigate to the given index and change the sign
+            int taskIndex = taskNumber - 1;
+
+            tasks.get(taskIndex).markAsDone();
+            storage.updateFile(tasks.TaskList);
+            System.out.println(
+                    "Bueno! The following task is marked as done: \n[" + tasks.get(taskIndex).getStatusIcon() + "] "
+                            + tasks.get(taskIndex).taskDescription);
+        } catch (NumberFormatException e) {
+            ui.printNumberFormatException();
+        } catch (NullPointerException e) {
+            ui.printNullPtrException();
+        } catch (IndexOutOfBoundsException e) {
+            ui.printIndexOOBException();
+        }
+        System.out.println(LINEBAR);
+    }
+
+    /**
+     * Prints a message denying any and all allegations of DAHNAM being a bot when prompted with 'bot?'
+     */
+    public void denyBotNature() {
+        String denyBotNature = "No, I am definitely not a bot. Why do you ask?\n";
+
+        System.out.println(LINEBAR);
+        System.out.println(denyBotNature);
+        System.out.println(LINEBAR);
+    }
+
+    /**
+     * Enumerates through an array of tasks and prints out all tasks input by user
+     */
+    public void listAllTasks() {
+        System.out.println(LINEBAR);
+        if (tasks.taskIndex == 0) {
+            ui.printNoItemInList();
+            System.out.println(LINEBAR);
+            return;
+        }
+
+        int taskNumber = 1;
+        for (Task t : tasks.TaskList) {
+            System.out.println(taskNumber + ". " + t);
+            taskNumber++;
+        }
+        System.out.println(LINEBAR);
     }
 
     /**
@@ -138,67 +200,6 @@ public class Parser {
         System.out.println(LINEBAR);
     }
 
-    /**
-     * Enumerates through an array of tasks and prints out all tasks input by user
-     */
-    public void listAllTasks() {
-        System.out.println(LINEBAR);
-        if (tasks.taskIndex == 0) {
-            ui.printNoItemInList();
-            System.out.println(LINEBAR);
-            return;
-        }
-
-        int taskNumber = 1;
-        for (Task t : tasks.TaskList) {
-            System.out.println(taskNumber + ". " + t);
-            taskNumber++;
-        }
-        System.out.println(LINEBAR);
-    }
-
-    /**
-     * Prints a message denying any and all allegations of DAHNAM being a bot when prompted with 'bot?'
-     */
-    public void denyBotNature() {
-        String denyBotNature = "No, I am definitely not a bot. Why do you ask?\n";
-
-        System.out.println(LINEBAR);
-        System.out.println(denyBotNature);
-        System.out.println(LINEBAR);
-    }
-
-    /**
-     * Modifies a task and sets its boolean isDone to true. Prints out an acknowledgement after.
-     *
-     * @throws NumberFormatException     Thrown when the input is not a valid positive integer e.g. an alphabet
-     * @throws NullPointerException      Thrown when the value inserted exceeds the number of tasks
-     * @throws IndexOutOfBoundsException Thrown when input is a negative value, or does not include a value
-     */
-    public void completeTask()
-            throws NumberFormatException, NullPointerException, IndexOutOfBoundsException {
-        System.out.println(LINEBAR);
-        try {
-            int taskNumber = Integer.parseInt(userIn.split(" ")[TASK_NUMBER]);
-
-            //Navigate to the given index and change the sign
-            int taskIndex = taskNumber - 1;
-
-            tasks.get(taskIndex).markAsDone();
-            storage.updateFile(tasks.TaskList);
-            System.out.println(
-                    "Bueno! The following task is marked as done: \n[" + tasks.get(taskIndex).getStatusIcon() + "] "
-                            + tasks.get(taskIndex).taskDescription);
-        } catch (NumberFormatException e) {
-            ui.printNumberFormatException();
-        } catch (NullPointerException e) {
-            ui.printNullPtrException();
-        } catch (IndexOutOfBoundsException e) {
-            ui.printIndexOOBException();
-        }
-        System.out.println(LINEBAR);
-    }
-
     public void deleteTask() {
         System.out.println(LINEBAR);
 
@@ -223,5 +224,28 @@ public class Parser {
 
         System.out.println(LINEBAR);
 
+    }
+
+    public void findTask() {
+        System.out.println(LINEBAR);
+        System.out.println("Below are a list of tasks matching your description\n");
+
+        String targetDesc = userIn.substring(FIND_HEADER);
+
+        int matching = 0;
+
+        for (Task t: tasks.TaskList) {
+            String currDesc = t.taskDescription;
+
+            if (currDesc.contains(targetDesc)) {
+                matching++;
+                System.out.println(matching + ". " + t);
+            }
+        }
+
+        if (matching == 0) {
+            System.out.println("No matches found\n");
+        }
+        System.out.println(LINEBAR);
     }
 }
