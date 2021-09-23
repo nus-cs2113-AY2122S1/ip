@@ -4,10 +4,11 @@ public class TaskList {
     public static int inputCount = 0;
 
     /**
-     * Returns a print statement of all tasks in the file Duke.txt
+     * Returns a print statement of all tasks in the file Duke.txt which contain the keyword
+     * isolated in "findSplitter[1]"
      *
-     * @param input input of user
-     * @return prints list of all tasks
+     * @param input input command of user
+     * @return prints list of all tasks which contain keyword
      */
     static void findList(String input) {
         String[] findSplitter;
@@ -139,7 +140,7 @@ public class TaskList {
     }
 
     /**
-     * creates a new todo task by using child class Todo and ovverride toString() function
+     * creates a new todo task by using child class Todo and override toString() function
      *
      * @param input String containing the user command
      * @return tasksToDo which contains the new todo task to be added
@@ -155,6 +156,13 @@ public class TaskList {
 
     }
 
+    /**
+     * creates a new deadline method by using child class Deadline and override toString() function
+     * new task entry contains description, date and time components from the user's input
+     *
+     * @param input String containing the user command
+     * @return description which contains the new deadline task to be added
+     */
     public static Task getDeadlineMethod(String input) {
         String[] deadlineSplitter = input.substring(9).split(" /by ");
         String deadlineDescription = deadlineSplitter[0]; //before /by
@@ -172,6 +180,13 @@ public class TaskList {
 
     }
 
+    /**
+     * creates a new event task by using child class Event and override toString() function
+     * new task entry contains the location "at" depending on the user's input
+     *
+     * @param input String containing the user command
+     * @return description which contains the new event task to be added
+     */
     public static Task getEventMethod(String input) {
         String[] eventSplitter = input.substring(6).split(" /at ");
         String eventDescription = eventSplitter[0]; //before /at
@@ -184,6 +199,16 @@ public class TaskList {
         return description;
     }
 
+    /**
+     * tests to see if the users input for "todo" tasks have a valid description after
+     * the command by checking if there are more than 5 characters in the whole command
+     * stored in String input. throws DukeExceptions if the length of input is less than
+     * 5 characters, meaning thats its just a "todo", which has no description and is thus
+     * a false input
+     *
+     * @param input String containing the user command
+     * @return nil, this is a void method
+     */
     public static void testInput(String input) throws DukeExceptions {
         if (input.length() < 5) { //check for description after todo
             throw new DukeExceptions();

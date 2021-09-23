@@ -10,7 +10,7 @@ public class Duke {
 
         Ui.welcomeMessage();
 
-        Parser.mainLogic();
+        Parser.commandChecker();
     }
 }
 
