@@ -9,17 +9,16 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import ui.TextUI;
+import data.Storage;
 
 public class Esteban {
     public static void main(String[] args) {
         TextUI ui = new TextUI();
+        Storage dataStore = new Storage();
 
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        try {
-            tasks = Data.read();
-        } catch (IOException e) {
-            System.out.println("  (!) FATAL: Could not process data file, starting with empty data");
-        }
+        //ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = dataStore.read();
+
 
         boolean isContinue = true;
         String line;
@@ -30,15 +29,15 @@ public class Esteban {
             Command cmd = getCommand(line);
             switch(cmd) {
             case BYE:
-                Header.printExit();
+                System.out.println("{TODO} bye");
                 isContinue = false;
                 break;
             case LIST:
-                Header.printSeparator();
+                System.out.println("{TODO} separator");
                 for (int i = 0; i < tasks.size(); i++) {
                     System.out.println((i+1) + ". " + tasks.get(i).toString());
                 }
-                Header.printSeparator();
+                System.out.println("{TODO} separator");
                 break;
             case TODO:
                 try {

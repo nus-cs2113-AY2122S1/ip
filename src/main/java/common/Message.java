@@ -10,4 +10,6 @@ public class Message {
     public static final String MESSAGE_WELCOME = "Hola! Soy Esteban, what can I do for you?";
     public static final String MESSAGE_EXIT = "Gracias! Hope to see you again soon!";
     public static final String MESSAGE_SEPARATOR = "------------------------------------------------------------";
+
+    public static final String SUCCESS_DATA_READ = "  (+) Loaded %d entries";
 }
