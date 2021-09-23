@@ -23,15 +23,14 @@ Duke is a java application to manage tasks via command line interface (CLI). Thi
 1. Ensure that you have java 11 installed in your computer.
 2. Download duke.jar from A-Release tag and store it into a folder.
 3. Store duke.jar file to the file that you would want to store
-4. Open command prompt(for windows) or terminal(for mac and linux) and change directory to the folder ----
+4. Open command prompt(for windows) or terminal(for mac and linux) and change directory to the folder .jar file is stored
 5. Run command ```java -jar duke.jar```
 6. Upon start, if you manage to see the message below in your console, you have successfully installed and run duke.jar
 
 
-<style> .p1-c1 {color: red} </style>
 
 
-```
+```a
 Hello from
  ____        _        
 |  _ \ _   _| | _____ 
@@ -88,14 +87,17 @@ help
 ### `bye` - Exit program
 
 Description: Exits the program
-
+<span style="color:red">
 Example:
 ```text
+<span style="color:blue">
 bye
     _________________________________________________________________
      Bye. Hope to see you again soon!
     _________________________________________________________________
+</span>
 ```
+</span>
 
 ### `list` - List all the tasks created
 Description: This command will show all the tasks in the list
@@ -163,7 +165,7 @@ Create a deadline by following the format below:
 >:grey_exclamation: Note: if &lt;time1> is later than &lt;time2>, the time will switch around
 
 Example: 
-```text
+```
 event this is what happens when time1 is later than time2 /at 2021-10-02 1300 to 2021-10-01 0300
     _________________________________________________________________
      [E][ ] this is what happens when time1 is later than time2 (at: 01-10-2021 0300 to 02-10-2021 1300)
