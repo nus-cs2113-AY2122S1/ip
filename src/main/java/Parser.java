@@ -5,6 +5,7 @@ import todo.Task;
 import todo.ToDo;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Scanner;
 
 public class Parser extends Duke {
@@ -23,6 +24,7 @@ public class Parser extends Duke {
         while (!line.contains("bye") || in.hasNextLine()) {
             line = in.nextLine();
             assert line != null;
+            printDivider();
             String[] words = line.split(" ", 2);
             try{
                 checkValidCommand(words);
@@ -57,11 +59,18 @@ public class Parser extends Duke {
      * @param command string containing command which we want to execute
      * @throws MissingFieldError format of command is incorrect
      */
-    protected static void executeCommand(String[] fullCommand, String command) throws MissingFieldError {
+    protected static void executeCommand(String[] fullCommand, String command) throws MissingFieldError, IndexOutOfBoundsException {
         switch (command) {
             case "done": {
-                int currentIndex = checkTaskIndex(fullCommand);
-                setTaskDone(currentIndex);
+                try{
+                    int currentIndex = checkTaskIndex(fullCommand);
+                    setTaskDone(currentIndex);
+                } catch (IndexOutOfBoundsException e) {
+                    printMessage("This task index does not exist");
+                } catch (MissingFieldError e) {
+                    printMessage("Missing fields!");
+                }
+
                 break;
             }
             case "list":
@@ -106,7 +115,7 @@ public class Parser extends Duke {
             currentTask = Duke.tasks.get(i).toString();
             if(currentTask.contains(wordToFind)) {
                 if(!taskExists) {
-                    System.out.println("Here are the matching tasks in your list");
+                    System.out.println("Here are the matching tasks in your list:");
                     taskExists = true;
                 }
                 System.out.println((i + 1) + ". " + currentTask);
@@ -163,7 +172,7 @@ public class Parser extends Duke {
             task = taskDescription[0].trim();
             date = taskDescription[1].split(" ", 2)[1];
         }
-        executeCommand(task, date, type);
+        executeTask(task, date, type);
     }
 
     /**
@@ -173,8 +182,8 @@ public class Parser extends Duke {
      * @param date date to complete the task by
      * @param type type of task
      */
-    protected static void executeCommand(String task, String date,
-                                         String type) {
+    protected static void executeTask(String task, String date,
+                                      String type) {
         switch (type) {
             case "deadline":
                 addDeadline(task, date);
@@ -199,7 +208,7 @@ public class Parser extends Duke {
      * @return index of the task to which command is to carry out on
      * @throws MissingFieldError format of command is incorrect
      */
-    protected static int checkTaskIndex(String[] fullCommand) throws MissingFieldError {
+    protected static int checkTaskIndex(String[] fullCommand) throws MissingFieldError, IndexOutOfBoundsException {
         if(fullCommand.length < 2) {
             throw new MissingFieldError();
         } else {
