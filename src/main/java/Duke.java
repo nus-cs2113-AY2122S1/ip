@@ -11,6 +11,10 @@ public class Duke {
 
         Scanner in = new Scanner(System.in); //Create scanner object to take in input
 
+        handleUserInput(userLineInput, taskItems, taskCounter, in);
+    }
+
+    private static void handleUserInput(String userLineInput, Task[] taskItems, int taskCounter, Scanner in) {
         while (!userLineInput.equals("bye")) {
             userLineInput = in.nextLine(); //user input
             String[] userWords = userLineInput.split(" ");
