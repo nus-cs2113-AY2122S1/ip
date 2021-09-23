@@ -1,15 +1,22 @@
 package tasks;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Event extends Task {
 
-    protected String at;
+    protected LocalDate date;
+    protected LocalTime time;
 
     public Event(String description, String at) {
         super(description);
-        this.at = at;
+        String[] when = at.trim().split(" ");
+        this.date = TimeHandler.getDate(when[0].trim());
+        this.time = TimeHandler.getTime(when[1].trim());
     }
 
-    public String toString(){
-        return "[E]" + super.toString() + " (at: " + at + ')';
+    public String toString() {
+        return "[E]" + super.toString() + " (at: " + TimeHandler.formatDate(date)
+                + " " + TimeHandler.formatTime(time) + ')';
     }
 }
