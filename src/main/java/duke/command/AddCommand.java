@@ -11,7 +11,7 @@ public class AddCommand extends Command {
     Task task = null;
 
     /**
-     * Constructor for AddCommand, command to add task to taskManager
+     * Constructor for AddCommand, command to add task to taskList
      *
      * @param task the Task to be added to taskManager
      */
@@ -20,9 +20,9 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Calls the addTask method in taskManager to add the specified task
+     * Calls the addTask method in taskList to add the specified task
      *
-     * @param taskList the taskManager that the task will be added to
+     * @param taskList the taskList that the task will be added to
      * @param storage  the storage class that will store the updated TaskList
      * @param ui       the ui class instance that will print out the completion message
      * @throws DukeException if the maximum number of tasks has been reached
