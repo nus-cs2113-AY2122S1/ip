@@ -35,7 +35,7 @@ public class DoneCommand extends Command {
         }
         int numberInTaskArray = Integer.parseInt(number) - ARRAY_INDEX_FINDER;
 
-        if (taskList.isIndexExist(numberInTaskArray)) {
+        if (taskList.isNotOutOfBounds(numberInTaskArray)) {
             throw new DoneException("Index Of Task Does Not Exist");
         }
 

@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
         }
         int numberInTaskArray = Integer.parseInt(number) - ARRAY_INDEX_FINDER;
 
-        if (taskList.isIndexExist(numberInTaskArray)) {
+        if (taskList.isNotOutOfBounds(numberInTaskArray)) {
             throw new DeleteException("Array Out Of Bonds");
         }
 

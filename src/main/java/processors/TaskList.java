@@ -88,7 +88,7 @@ public class TaskList {
      * @param index the integer value of the index
      * @return true if the index is out of bounds, otherwise returns false
      */
-    public boolean isIndexExist(int index) {
+    public boolean isNotOutOfBounds(int index) {
         return taskList.isEmpty() || getLastIndex() < index || index < ZERO;
     }
 }
