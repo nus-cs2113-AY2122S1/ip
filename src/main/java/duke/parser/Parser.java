@@ -28,9 +28,9 @@ public class Parser {
     /**
      * Parses user response to the corresponding command.
      *
-     * @param userResponse User response.
-     * @return The corresponding command.
-     * @throws DukeException If response is invalid.
+     * @param userResponse user response
+     * @return the corresponding command
+     * @throws DukeException if response is invalid
      */
     public static Command parse(String userResponse) throws DukeException {
         CommandType commandType = getCommandType(userResponse);

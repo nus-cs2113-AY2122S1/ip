@@ -7,8 +7,8 @@ public class Deadline extends Task {
      * Initializes the task description and deadline, and
      * sets initial status to "not done".
      *
-     * @param description Task description.
-     * @param taskDeadline Task deadline.
+     * @param description task description
+     * @param taskDeadline task deadline
      */
     public Deadline(String description, String taskDeadline) {
         super(description);
@@ -19,9 +19,9 @@ public class Deadline extends Task {
      * Initializes the task description and deadline, and
      * sets initial status according to the given parameter.
      *
-     * @param description Task description.
-     * @param taskDeadline Task deadline.
-     * @param isDone Initial status.
+     * @param description task description
+     * @param taskDeadline task deadline
+     * @param isDone initial status
      */
     public Deadline(String description, String taskDeadline, boolean isDone) {
         super(description, isDone);

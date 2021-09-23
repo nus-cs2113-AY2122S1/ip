@@ -22,7 +22,11 @@ public class Storage {
 
     public Storage() {}
 
-    /** Creates a new data file. */
+    /**
+     * Creates a new data file.
+     *
+     * @param ui user interface.
+     */
     public void createNewData(Ui ui) {
         try {
             File file = new File(PATH_TO_FILE.toString());
@@ -40,8 +44,8 @@ public class Storage {
     /**
      * Loads task data from a saved file.
      *
-     * @return Data stored in a list of strings.
-     * @throws IOException If an I/O error occurs.
+     * @return data stored in a list of strings
+     * @throws IOException if an I/O error occurs
      */
     public List<String> loadData() throws IOException {
         try {
@@ -62,7 +66,7 @@ public class Storage {
     /**
      * Saves task data to a file.
      *
-     * @param data Task data.
+     * @param data task data
      */
     public void saveData(String data) throws IOException {
         try {
