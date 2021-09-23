@@ -17,6 +17,9 @@ public class DukeUI {
             + "| |_| | |_| |   <  __/" + LINEBREAK
             + "|____/ \\__,_|_|\\_\\___|" + LINEBREAK;
 
+    /**
+     * Greet the user when the program is initialized
+     */
     public static void greet() {
         drawHorizontalLine();
         System.out.println("Hello! I'm Duke, your personal assistant.");
@@ -24,12 +27,18 @@ public class DukeUI {
         drawHorizontalLine();
     }
 
+    /**
+     * Say goodbye before terminate the program
+     */
     public static void sayGoodbye() {
         drawHorizontalLine();
         System.out.println("Bye. Hope to see you again soon!");
         drawHorizontalLine();
     }
 
+    /**
+     * Draw a horizontal line to separate text command
+     */
     public static void drawHorizontalLine() {
         for (int i = 0; i < DEFAULT_LINE_LENGTH; i++) {
             System.out.print("\u2500");
@@ -50,6 +59,10 @@ public class DukeUI {
         drawHorizontalLine();
     }
 
+    /**
+     * @param task the newly added task
+     * @param taskListSize the size of the list after the addition of the new task
+     */
     public static void printCompleteAddTask(Task task, int taskListSize) {
         drawHorizontalLine();
         System.out.println("Got it. I've added this task:");
@@ -58,12 +71,19 @@ public class DukeUI {
         drawHorizontalLine();
     }
 
+    /**
+     * @param task the completed task
+     */
     public static void printMarkTaskDone(Task task) {
         drawHorizontalLine();
         System.out.printf("I have marked \"%s\" as done" + LINEBREAK, task.getDescription());
         drawHorizontalLine();
     }
 
+    /**
+     * @param task The deleted task
+     * @param taskListSize the size of the task list after the deletion
+     */
     public static void printCompleteDeleteTask(Task task, int taskListSize) {
         drawHorizontalLine();
         System.out.println("Noted. I've removed this task:");
@@ -72,10 +92,16 @@ public class DukeUI {
         drawHorizontalLine();
     }
 
+    /**
+     * Print the DUKE logo
+     */
     public static void printLogo() {
         System.out.println(LOGO);
     }
 
+    /**
+     * @param e the given error
+     */
     public static void printError(Exception e) {
         if (e instanceof WrongCommandException) {
             drawHorizontalLine();
