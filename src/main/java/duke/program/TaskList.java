@@ -9,13 +9,18 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
 
     private static final String SEPARATOR_BY = "/by";
     private static final String SEPARATOR_AT = "/at";
+    private static final String SEPARATOR_TO = "to";
     private static final String ICON_DONE = "X";
+    private static final DateTimeFormatter DATE_TIME_FORMAT_INPUT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     private static ArrayList<Task> tasks;
     private static int taskCount;
@@ -48,7 +53,7 @@ public class TaskList {
     }
 
     public void addNewDeadline(String descriptionAndTime)
-            throws EmptyDescriptionException, InvalidFormatException {
+            throws EmptyDescriptionException, InvalidFormatException, DateTimeParseException {
         String[] descriptionAndByTimeArray = descriptionAndTime.split(SEPARATOR_BY);
         String description = descriptionAndByTimeArray[0].trim();
 
@@ -59,7 +64,8 @@ public class TaskList {
             throw new InvalidFormatException();
         }
 
-        String byDateTime = descriptionAndByTimeArray[1].trim();
+        String byDateTimeString = descriptionAndByTimeArray[1].trim();
+        LocalDateTime byDateTime = LocalDateTime.parse(byDateTimeString, DATE_TIME_FORMAT_INPUT);
 
         tasks.add(new Deadline(description, byDateTime));
         taskCount++;
@@ -77,9 +83,13 @@ public class TaskList {
             throw new InvalidFormatException();
         }
 
-        String startAndEndTime = descriptionAndAtTimeArray[1].trim();
+        String[] startAndEndTimeArray = descriptionAndAtTimeArray[1].split(SEPARATOR_TO);
+        String startTimeString = startAndEndTimeArray[0].trim();
+        String endTimeString = startAndEndTimeArray[1].trim();
+        LocalDateTime startTime = LocalDateTime.parse(startTimeString, DATE_TIME_FORMAT_INPUT);
+        LocalDateTime endTime = LocalDateTime.parse(endTimeString, DATE_TIME_FORMAT_INPUT);
 
-        tasks.add(new Event(description, startAndEndTime));
+        tasks.add(new Event(description, startTime, endTime));
         taskCount++;
     }
 

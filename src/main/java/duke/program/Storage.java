@@ -8,6 +8,7 @@ import duke.task.ToDo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -49,11 +50,15 @@ public class Storage {
             if (taskType.equals(TASK_TYPE_ICON_TODO)) {
                 tasks.add(new ToDo(taskDescription, taskStatus));
             } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
-                String taskByTime = taskArgs[3];
+                String taskByTimeString = taskArgs[3];
+                LocalDateTime taskByTime = LocalDateTime.parse(taskByTimeString);
                 tasks.add(new Deadline(taskDescription, taskByTime, taskStatus));
             } else if (taskType.equals(TASK_TYPE_ICON_EVENT)) {
-                String taskAtTime = taskArgs[3];
-                tasks.add(new Event(taskDescription, taskAtTime, taskStatus));
+                String taskStartTimeString = taskArgs[3];
+                String taskEndTimeString = taskArgs[4];
+                LocalDateTime taskStartTime = LocalDateTime.parse(taskStartTimeString);
+                LocalDateTime taskEndTime = LocalDateTime.parse(taskEndTimeString);
+                tasks.add(new Event(taskDescription, taskStartTime, taskEndTime, taskStatus));
             } else {
                 ui.printGenericErrorMessage();
             }
@@ -73,11 +78,13 @@ public class Storage {
             if (taskType.equals(TASK_TYPE_ICON_TODO)) {
                 fw.write(taskType + SEPARATOR_DOT + taskStatus + SEPARATOR_DOT + taskDescription);
             } else if (taskType.equals(TASK_TYPE_ICON_DEADLINE)) {
-                String byTime = tasks.get(i).getByDateTime();
+                LocalDateTime byTime = tasks.get(i).getByDateTime();
                 fw.write(taskType + SEPARATOR_DOT + taskStatus + SEPARATOR_DOT + taskDescription + SEPARATOR_DOT + byTime);
             } else if (taskType.equals((TASK_TYPE_ICON_EVENT))) {
-                String atTime = tasks.get(i).getStartAndEndTime();
-                fw.write(taskType + SEPARATOR_DOT + taskStatus + SEPARATOR_DOT + taskDescription + SEPARATOR_DOT + atTime);
+                LocalDateTime startTime = tasks.get(i).getStartTime();
+                LocalDateTime endTime = tasks.get(i).getEndTime();
+                fw.write(taskType + SEPARATOR_DOT + taskStatus + SEPARATOR_DOT + taskDescription + SEPARATOR_DOT
+                        + startTime + SEPARATOR_DOT + endTime);
             } else {
                 ui.printGenericErrorMessage();
             }
