@@ -1,8 +1,7 @@
 # Duke User Guide
 Welcome to Duke :penguin: - your personal task manager!
 Let's record all your 'tasks' in a 'list'!
-## Features 
-
+## Features
 ### Feature-Add
 Adds task to your list
 ### Feature-Done
