@@ -1,13 +1,17 @@
 package duke.command;
 
 import Type.Mascot;
-import duke.data.Storage;
 import duke.data.TaskList;
 import duke.startup.Ui;
 
+/**
+ * Command to have a Mascot echo user input.
+ * A Mascot is in fact a Penguin in our method, but can represent other Objects in the near future.
+ * A <code>Mascot</code> command can be called with the prefix 'mascot' in Duke.
+ */
 public class MascotCommand extends Command{
     public MascotCommand() {
-        super(CommandPrefix.mascot);
+        super(CommandPrefix.MASCOT);
     }
 
     @Override
@@ -17,13 +21,12 @@ public class MascotCommand extends Command{
     }
 
     private static void mascotSay() {
-        Mascot jim = new Mascot();
         String text = Ui.readCommand();
         Mascot.penguinSay(text);
     }
 
     @Override
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks) {
         mascotSay();
         saveListAndPrintDone(tasks);
     }

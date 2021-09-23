@@ -1,5 +1,8 @@
 package duke.exceptionhandler;
 
+/**
+ * Print statements to inform the user of correct input
+ */
 public class InputCheckAndPrint {
     String name;
 
@@ -7,49 +10,10 @@ public class InputCheckAndPrint {
         this.name = name;
     }
 
-    //short function to check for at most 2 sentences
-    public static boolean isValidDeadline(String input) {
-        return (countWhitespace(input) <= 1);
-    }
-
-    public static boolean isNull(String input) {
-        return input.equals(null);
-    }
-
-    public static boolean isEmpty(String input) {
-        return input.equals("");
-    }
-    public static int countWhitespace(String input) {
-        int spaceCount = 0;
-        for (char s : input.toCharArray()) {
-            if (s == ' ') {
-                spaceCount++;
-            }
-        }
-        return spaceCount;
-    }
-
-    public static boolean startsWithSpace(String input) {
-        return input.startsWith(" ");
-    }
-
     public static String cleanUpString(String input) {
         input = input.trim();
         input = input.replaceAll(" ", "");
         return input;
-    }
-    public static boolean isIntegerInput(String input) {
-        input = cleanUpString(input);
-        for (char x : input.toCharArray()) {
-            if (!Character.isDigit(x)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static boolean inListRange(int index, int taskCount) {
-        return index >= 0 && index < taskCount; //taskCount is the latest "empty" block
     }
 
     public static void printNotInRange(int index) {
@@ -73,9 +37,4 @@ public class InputCheckAndPrint {
         System.out.println("Please only input integers!");
     }
 
-    public static void printDeadlineFormatIssue() {
-        System.out.println("Please use the following format to add deadlines:");
-        System.out.println("task_id /by deadline");
-        System.out.println("e.g 1 /by 2pm today");
-    }
 }

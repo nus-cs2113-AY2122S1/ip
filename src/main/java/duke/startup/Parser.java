@@ -4,12 +4,15 @@ import Type.Deadline;
 import Type.Event;
 import Type.Task;
 import Type.Todo;
+import Type.Divider;
 import duke.command.*;
 
 public class Parser {
-    public static final String EVENT_DIVIDER = "/at";
-    public static final String DEADLINE_DIVIDER = "/by";
-
+    /**
+     * Converts string to Task
+     * @param userInput user input as string
+     * @return TaskToAdd task object with respective attributes
+     */
     public static Task parseInputAsTask(String userInput) {
         if (inputIsEvent(userInput)) {
             Event eventToAdd = parseInputToEvent(userInput);
@@ -22,53 +25,60 @@ public class Parser {
             return todoToAdd;
         }
     }
+
     protected static String[] splitInput(String userInput, String divider) {
         return userInput.split(divider);
     }
 
     protected static Event parseInputToEvent(String userInput) {
-        String[] eventData = splitInput(userInput, EVENT_DIVIDER);
+        String[] eventData = splitInput(userInput, Divider.E.getDivisor());
         return new Event(eventData[0], eventData[1]);
     }
 
     protected static Deadline parseInputToDeadline(String userInput) {
-        String[] deadlineData = splitInput(userInput, DEADLINE_DIVIDER);
+        String[] deadlineData = splitInput(userInput, Divider.D.getDivisor());
         return new Deadline(deadlineData[0], deadlineData[1]);
     }
 
     protected static boolean inputIsDeadline(String userInput) {
-        return userInput.toLowerCase().contains(DEADLINE_DIVIDER);
+        return userInput.toLowerCase().contains(Divider.D.getDivisor());
     }
 
     protected static boolean inputIsEvent(String userInput) {
-        return userInput.toLowerCase().contains(EVENT_DIVIDER);
+        return userInput.toLowerCase().contains(Divider.E.getDivisor());
     }
 
 
+    /**
+     * Given user input, checks which command to return
+     *  note only the first word is checked for user input,
+     *      and the keyword can be found in the CommandPrefix enum.
+     * @param fullCommand   full sentence given by user, separated by new line
+     * @return  Command command to execute
+     */
     public static Command parse(String fullCommand) {
         String stringToRead = fullCommand.trim().toLowerCase();
-        if (stringToRead.startsWith("add")) {
+        if (stringToRead.startsWith(CommandPrefix.ADD.getPrefix())) {
             return new AddCommand();
-        } else if (stringToRead.startsWith("bye")) {
+        } else if (stringToRead.startsWith(CommandPrefix.BYE.getPrefix())) {
             return new ByeCommand();
-        } else if (stringToRead.startsWith("clear")) {
+        } else if (stringToRead.startsWith(CommandPrefix.CLEAR.getPrefix())) {
             return new ClearCommand();
-        } else if (stringToRead.startsWith("delete")) {
+        } else if (stringToRead.startsWith(CommandPrefix.DELETE.getPrefix())) {
             return new DeleteCommand();
-        } else if (stringToRead.startsWith("done")) {
+        } else if (stringToRead.startsWith(CommandPrefix.DONE.getPrefix())) {
             return new DoneCommand();
-        } else if (stringToRead.startsWith("echo")) {
+        } else if (stringToRead.startsWith(CommandPrefix.ECHO.getPrefix())) {
             return new EchoCommand();
-        } else if (stringToRead.startsWith("list")) {
+        } else if (stringToRead.startsWith(CommandPrefix.LIST.getPrefix())) {
             return new ListCommand();
-        } else if (stringToRead.startsWith("mascot")) {
+        } else if (stringToRead.startsWith(CommandPrefix.MASCOT.getPrefix())) {
             return new MascotCommand();
-        } else if (stringToRead.startsWith("find")) {
+        } else if (stringToRead.startsWith(CommandPrefix.FIND.getPrefix())) {
             return new FindCommand();
-        } else if (stringToRead.startsWith("date")) {
+        } else if (stringToRead.startsWith(CommandPrefix.DATE.getPrefix())) {
             return new DateCommand();
         } else {
-            Ui.printWrongCommand();
             return new OopsieCommand();
         }
     }

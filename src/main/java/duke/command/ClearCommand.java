@@ -1,12 +1,14 @@
 package duke.command;
 
-import duke.data.Storage;
 import duke.data.TaskList;
-import duke.startup.Ui;
 
+/**
+ * Command to erase tasks from both the task list and save file.
+ *  * A <code>Clear</code> command can be called with the prefix 'clear' in Duke.
+ */
 public class ClearCommand extends Command{
     public ClearCommand() {
-        super(CommandPrefix.clear);
+        super(CommandPrefix.CLEAR);
     }
 
     @Override
@@ -15,8 +17,13 @@ public class ClearCommand extends Command{
         System.out.println("clearing list!");
     }
 
+    /**
+     * Removes all tasks in TaskList and save file, regardless of done status.
+     *  @param tasks TaskList to remove all tasks from
+     *
+     */
     @Override
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks) {
         tasks.clearTaskList();
         saveListAndPrintDone(tasks);
     }

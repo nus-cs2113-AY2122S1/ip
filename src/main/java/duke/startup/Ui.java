@@ -24,10 +24,13 @@ public class Ui {
         System.out.println("Oops, please enter a proper command!");
     }
 
-    public void showLoadingError() {
-        System.out.println("Loading Error");
+    public static void printOneKeyword() {
+        System.out.println("Please enter one, and only one keyword: ");
     }
 
+    public static void printMatchingTasksAlert() {
+        System.out.println("Here are the matching tasks in your list: ");
+    }
     public static String readCommand() {
         Scanner in = new Scanner(System.in);
         return  in.nextLine();

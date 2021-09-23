@@ -1,7 +1,7 @@
 package duke.data;
 
 import Type.Task;
-import Type.task.Divider;
+import Type.Divider;
 import duke.startup.Parser;
 
 import java.io.File;
@@ -13,6 +13,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents storage functionalities to write task list to a save file.
+ * A <code>Storage</code> object primarily runs on a save file, given by fileName,
+ *  in the directory folderName.
+ */
 public class Storage{
     private static String filePath;
     private static String folderName = "data/";
@@ -21,14 +26,23 @@ public class Storage{
         filePath = filePathToInput;
     }
 
-    //print a task array list in easy to wrangle data format
-    //format:
-    //separated by lines, [TYPE] [DESC] -[DEADLINE]- [DONE]
-    //within a function
+
+    /**
+     * Prints a task array list in easy to parse data format
+     *  format: [TYPE] | [DESC] | [DEADLINE IF EXIST] | [DONE]
+     * @param t task to wrangle data from
+     * @return
+     */
     public static String printTaskAsString(Task t) {
         return t.toString() + '\n';
     }
 
+    /**
+     * Saves list to save file
+     * @param taskList task list to save
+     * @throws IOException  if file/ directory not found
+     *                      - handled by creating new directory/ file if necessary
+     */
     public static void saveList(TaskList taskList) throws IOException {
         checkAndAddDirectory();
         File newList = new File(folderName + fileName);
@@ -39,8 +53,12 @@ public class Storage{
         fw.close();
     }
 
-    //returns an array list, given a text file
-    //format per LINE : [TASK_TYPE]|[DEADLINE]|[DESC]|[DONE]
+    /**
+     * Returns a task list with attributes of every task, given save file
+     * format of task per line of save file:
+     *      [TASK_TYPE] | [DEADLINE IF EXISTS] | [DESCRIPTION] | [DONE]
+     * @return tasksToRead task list
+     */
     public static ArrayList<Task> load() {
         ArrayList<Task> tasksToRead = new ArrayList<>();
         try {
@@ -67,12 +85,18 @@ public class Storage{
         }
     }
 
+    /**
+     * Parses text to a <code>Task</code> with attributes done, type, description etc.
+     * @param readLine line of text to read
+     * @param taskListToSave    task list to add tasks
+     */
     private static void addTaskToArray(String readLine, ArrayList<Task> taskListToSave) {
         String toCommand = savedDataToCommandFormat(readLine);
         Task taskToAdd = Parser.parseInputAsTask(toCommand);
         markTaskIfDone(readLine, taskToAdd);
         taskListToSave.add(taskToAdd);
     }
+
     private static void markTaskIfDone(String readLine, Task taskToAdd) {
         if (readLine.endsWith("true")) {
             taskToAdd.setDone(true);
@@ -81,18 +105,29 @@ public class Storage{
 
     //assume that data is saved in the following manner:
     // [TYPE] | [DESC] |  [BY/AT] | [DONE], where 3rd field can be null if its just a 'todo'
+
+    /**
+     * Converts save data into simulated user input for easy convertability
+     *  Note this does not mark the done attribute, which we do in <code>addTaskToArray</code>
+     * @param readLine line of text to read
+     * @return simulated user input to add a single task
+     */
     private static String savedDataToCommandFormat(String readLine) {
         String[] separateData = readLine.split("\\|");
         switch (separateData[0]) {
         case ("D") :
-            return separateData[1] + '/' + Divider.by + separateData[2];
+            return separateData[1] + Divider.D.getDivisor() + separateData[2];
         case ("E") :
-            return separateData[1] + '/' + Divider.at + separateData[2];
+            return separateData[1] + Divider.E.getDivisor() + separateData[2];
         default:    //is a todo only
             return separateData[1];
         }
     }
 
+    /**
+     * Creates directory if directory folderName is not found.
+     * @throws IOException case where directory not found
+     */
     private static void checkAndAddDirectory() throws IOException {
         String home = new File("").getAbsolutePath();
         File dirCheck = new File(home + folderName);
@@ -102,10 +137,6 @@ public class Storage{
         System.out.println("Hey, I didn't find directory " + folderName);
         System.out.println("adding " + folderName + " into repository...");
         Files.createDirectories(Paths.get(home + folderName));
-    }
-
-    public static String getFolderName() {
-        return folderName;
     }
 
 }

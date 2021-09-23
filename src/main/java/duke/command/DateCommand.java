@@ -1,16 +1,14 @@
 package duke.command;
 
-import Type.Task;
-import duke.data.Storage;
 import duke.data.TaskList;
-import duke.startup.Ui;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+/**
+ * Command to list tasks with a valid date.
+ *  * A <code>Date</code> command can be called with the prefix 'date' in Duke.
+ */
 public class DateCommand extends Command{
     public DateCommand() {
-        super(CommandPrefix.date);
+        super(CommandPrefix.DATE);
     }
 
     @Override
@@ -20,8 +18,14 @@ public class DateCommand extends Command{
     }
 
     //assume date is given, if not don't print
+
+    /**
+     * Prints tasks with a valid date
+     * @param tasks TaskList to be read
+     *
+     */
     @Override
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks) {
         tasks.printTasksWithValidDate();
         saveListAndPrintDone(tasks);
     }

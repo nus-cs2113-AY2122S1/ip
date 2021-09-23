@@ -1,12 +1,14 @@
 package duke.command;
 
-import duke.data.Storage;
 import duke.data.TaskList;
-import duke.startup.Ui;
 
+/**
+ * Command to delete tasks from both the task list and save file.
+ *  * A <code>Delete</code> command can be called with the prefix 'delete' in Duke.
+ */
 public class DeleteCommand extends Command{
     public DeleteCommand() {
-        super(CommandPrefix.delete);
+        super(CommandPrefix.DELETE);
     }
 
     @Override
@@ -15,8 +17,13 @@ public class DeleteCommand extends Command{
         System.out.println("deleting tasks!");
     }
 
+    /**
+     * Deletes a set of <code>Task</code> from both task list and save file.
+     * @param tasks TaskList to delete tasks from.
+     *
+     */
     @Override
-    public void execute (TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks) {
         tasks.deleteTasks();
         saveListAndPrintDone(tasks);
     }

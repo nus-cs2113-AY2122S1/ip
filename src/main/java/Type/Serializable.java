@@ -1,5 +1,9 @@
 package Type;
 
+/**
+ * Interface to return the type of all tasks,
+ *  either todo/ deadline/ event
+ */
 public interface Serializable {
-    public char getType();
+    char getType();
 }
