@@ -58,6 +58,14 @@ public class TaskList {
         return doneTask;
     }
 
+    /**
+     * Delete the specified task at taskIndex in the internal list of tasks stored by taro.
+     *
+     * @param taskIndex the index of the task to be deleted
+     * @return the Task object that was deleted
+     * @throws IOException the exception thrown when there is an issue with the index given by the user ie; the index
+     * is out of bounds
+     */
     public Task deleteTask(int taskIndex) throws IOException {
         Task toDelete = tasks.get(taskIndex);
         tasks.remove(toDelete);

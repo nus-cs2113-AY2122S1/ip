@@ -2,7 +2,6 @@ package ui;
 
 import task.Task;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class UI {
@@ -93,6 +92,13 @@ public class UI {
                 "  " + task);
     }
 
+    /**
+     * Prints a response when a task is deleted from internal storage indicating the description of the task deleted
+     * and the number of tasks left on the list.
+     *
+     * @param deletedTask the Task object that was deleted
+     * @param taskCount the total number of remaining tasks
+     */
     public void printTaskDeletedMessage(Task deletedTask, int taskCount) {
         printString("noted. I've removed this task:\n" +
                 "  " + deletedTask +
