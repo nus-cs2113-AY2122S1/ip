@@ -20,7 +20,7 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Calls the completeTask method in taskList to mark the task at the specified index as completed
+     * Marks the task at the specified index in taskList as completed
      *
      * @param taskList the taskList that contains the task to be marked
      * @param ui       the ui class instance that will print out the completion message
