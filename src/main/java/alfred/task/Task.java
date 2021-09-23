@@ -33,4 +33,8 @@ public abstract class Task {
     public void setTaskDone() {
         this.isDone = true;
     }
+
+    public boolean isQueriedTask(String query) {
+        return description.toLowerCase().contains(query.toLowerCase());
+    }
 }
