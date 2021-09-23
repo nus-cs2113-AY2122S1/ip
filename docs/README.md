@@ -92,7 +92,7 @@ Shows the user the whole list of current Task and is numbered.
 Example of usage: `list`
 
 Expected outcome: List out all the task and numbered from 1 to the last task number. 
-It also have type and done status displated before the description of the task.
+It also have type and done status displayed before the description of the task.
 
 ```
     ____________________________________________________________
