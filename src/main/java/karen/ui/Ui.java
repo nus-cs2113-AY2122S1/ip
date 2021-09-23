@@ -73,11 +73,11 @@ public abstract class Ui {
 
         //empty list
         if (listSize == 0) {
-            printFormattedMessage("    Your List is Empty!\n");
+            printFormattedMessage("    Your List is still Empty!\n");
             return;
         }
 
-        String message = String.format("    Task List:\n");
+        String message = String.format("    Alright! Here is your list of tasks! \n\n    Task List:\n");
 
         for (int i = 0; i < listSize; i ++) {
            message = message + String.format("    %d. [%s][%s] %s\n",

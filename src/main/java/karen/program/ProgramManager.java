@@ -19,21 +19,16 @@ public class ProgramManager {
 
         taskList = new TaskList();
         parser = new Parser(taskList, this);
-        Storage.bootUpData(this, taskList);
+        Storage.bootUpData(taskList);
         Ui.printWelcomeMessage(isFirstRun);
     }
 
-    public void startProgram() {
+    public void runProgram() {
         do {
             String rawUserInput = Ui.getUserInput();
-            parser.processInput(rawUserInput);
+            parser.parseInput(rawUserInput);
         } while (getIsRunning());
-
     }
-
-//    public void setIsFirstRunFalse() {
-//        this.isFirstRun = false;
-//    }
 
     public boolean getIsFirstRun() {
         File dataFile = new File(Storage.getFilePath());

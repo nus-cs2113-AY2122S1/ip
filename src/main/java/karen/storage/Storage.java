@@ -68,7 +68,7 @@ public abstract class Storage {
         return task;
     }
 
-    public static void bootUpData(ProgramManager programManager, TaskList taskList) {
+    public static void bootUpData(TaskList taskList) {
         File dataFile = new File(FILE_PATH);
         try {
             if (!dataFile.exists()) {

@@ -16,14 +16,12 @@ import java.util.ArrayList;
 
 public class Command {
     private String command;
-//    private Parser parser;
     private TaskList taskList;
     private ArrayList<Task> tasks;
     private ProgramManager programManager;
 
     public Command(String command, ProgramManager programManager, TaskList taskList) {
         this.command = command;
-//        this.parser = parser;
         this.taskList = taskList;
         this.tasks = taskList.getTaskList();
         this.programManager = programManager;
@@ -37,7 +35,6 @@ public class Command {
             throws IncorrectDescriptionFormatException, NoDescriptionException,
             NumberFormatException, IndexOutOfBoundsException, IOException {
 
-        // split the input string into array
         String[] inputWords = rawUserInput.split(" ");
 
         if (inputWords.length == 1) {
@@ -48,7 +45,6 @@ public class Command {
 
         int doneIndex = Integer.parseInt(inputWords[1]) - 1;
 
-        // task has not been marked as done and needs to be marked as done
         if (!tasks.get(doneIndex).getIsDone()) {
             tasks.get(doneIndex).markAsDone();
             Ui.printTaskDoneMessage(tasks.get(doneIndex));
@@ -89,7 +85,6 @@ public class Command {
 
     public void executeToDoCommand(String rawUserInput, String fullTaskDescription) throws NoDescriptionException, IOException {
         String[] inputWords = rawUserInput.split(" ");
-//        String fullTaskDescription = parser.getFullTaskDescription(rawUserInput);
 
         if (inputWords.length == 1) {
             throw new NoDescriptionException();
@@ -114,7 +109,6 @@ public class Command {
         }
 
         String[] separatedDescription = rawUserInput.split(" /by ", 2);
-//        String fullTaskDescription = parser.getFullTaskDescription(rawUserInput);
 
         if (separatedDescription.length == 1) {
             throw new IncorrectDescriptionFormatException();
@@ -136,14 +130,11 @@ public class Command {
     public void executeEventCommand(String rawUserInput, String fullTaskDescription)
             throws NoDescriptionException, IncorrectDescriptionFormatException, IOException {
         String[] inputWords = rawUserInput.split(" ");
-
         if (inputWords.length == 1) {
             throw new NoDescriptionException();
         }
-        // for checking if valid
-        String[] separatedDescription = rawUserInput.split(" /at ", 2);
-//        String fullTaskDescription = parser.getFullTaskDescription(rawUserInput);
 
+        String[] separatedDescription = rawUserInput.split(" /at ", 2);
         if (separatedDescription.length == 1) {
             throw new IncorrectDescriptionFormatException();
         } else if (!rawUserInput.contains(" /at ")) {
@@ -163,6 +154,7 @@ public class Command {
 
     public void executeByeCommand(String rawUserInput) throws IncorrectDescriptionFormatException{
         String[] inputWords = rawUserInput.split(" ");
+
         if (inputWords.length != 1) {
             throw new IncorrectDescriptionFormatException();
         }

@@ -21,41 +21,11 @@ public class Parser {
 
     private static TaskList taskList;
     private static ProgramManager programManager;
-//    private static boolean isRunning;
-//    private static boolean isFirstRun;
-
 
     public Parser(TaskList taskList, ProgramManager programManager) {
-//        this.taskList = new ArrayList<>();
         this.taskList = taskList;
         this.programManager = programManager;
-//        this.isRunning = true;
-//        this.isFirstRun = true;
     }
-//
-//    public void setIsFirstRunFalse() {
-//        isFirstRun = false;
-//    }
-//
-//    public static boolean getIsFirstRun() {
-//        return isFirstRun;
-//    }
-//
-//    public void setIsRunningOff() {
-//        isRunning = false;
-//    }
-//
-//    public boolean getIsRunning() {
-//        return isRunning;
-//    }
-
-//    public ArrayList<Task> getTaskList() {
-//        return taskList;
-//    }
-//
-//    public void addTask(Task task){
-//        this.taskList.add(task);
-//    }
 
 
     public String parseTaskCommand(String rawUserInput) {
@@ -70,8 +40,7 @@ public class Parser {
         return FullTaskDescription;
     }
 
-
-    public void processInput(String rawUserInput) {
+    public void parseInput(String rawUserInput) {
         String taskCommand = parseTaskCommand(rawUserInput);
         Command command = new Command(taskCommand, this.programManager, taskList);
         try {
