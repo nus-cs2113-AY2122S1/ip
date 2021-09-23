@@ -1,9 +1,4 @@
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Arrays;
-import java.io.File;
-import java.io.FileWriter;
 
 public class Ui {
 
