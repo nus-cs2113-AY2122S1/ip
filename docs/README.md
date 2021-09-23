@@ -6,6 +6,7 @@
 3. Copy the jar file to a folder that you want to run Duke from.
 4. At the folder where you copied the jar file run the command ```java -jar ip.jar``` in terminal.
 5. If Duke starts successfully, you should see the following output:
+
 ```Hello from
  ____        _
 |  _ \ _   _| | _____
@@ -17,6 +18,7 @@
 Hello! I'm Duke
 What can I do for you?
 ```
+
 6. Refer the list of commands below under [Features](https://theodorekwok.github.io/ip/#features) for more details
 on how to use Duke.
 
