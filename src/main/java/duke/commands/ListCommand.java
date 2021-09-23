@@ -16,12 +16,14 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        int userInputsCount = taskList.getListSize();
+        int size = taskList.getListSize();
 
         ui.printListTask();
 
-        for (int i = 1; i <= userInputsCount; i++) {
+        for (int i = 1; i <= size; i++) {
             ui.printToUser("    ", Integer.toString(i), ".", taskList.getTask(i - 1).toString());
         }
+
+        ui.printListSize(size);
     }
 }

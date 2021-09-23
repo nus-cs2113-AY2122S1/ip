@@ -11,6 +11,7 @@ import static duke.message.Messages.FOUND_TASK;
 import static duke.message.Messages.HELP;
 import static duke.message.Messages.LIST_TASK;
 import static duke.message.Messages.LOGO;
+import static duke.message.Messages.NUMBER_LIST_TASK;
 import static duke.message.Messages.WELCOME;
 
 /**
@@ -61,6 +62,10 @@ public class Ui {
      */
     public void printListTask() {
         out.println(SEPARATOR + LS + LIST_TASK);
+    }
+
+    public void printListSize(int size) {
+        out.println(LS + size + NUMBER_LIST_TASK);
     }
 
     /**
