@@ -7,7 +7,7 @@ public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
 
     /**
-     * Returns the number of Tasks in TaskList
+     * Returns the number of Tasks in TaskList.
      *
      * @return the number of Tasks in TaskList
      */
@@ -16,7 +16,7 @@ public class TaskList {
     }
 
     /**
-     * Adds the task to the list of tasks
+     * Adds the task to the list of tasks.
      *
      * @param task the task to be added
      */
@@ -25,7 +25,7 @@ public class TaskList {
     }
 
     /**
-     * Deletes the task at the specified index
+     * Deletes the task at the specified index.
      *
      * @param taskIndex the index of the task to be deleted
      * @return the Task that was deleted
@@ -42,14 +42,14 @@ public class TaskList {
     }
 
     /**
-     * Deletes all tasks in TaskList
+     * Deletes all tasks in TaskList.
      */
     public void deleteAllTasks() {
         tasks.clear();
     }
 
     /**
-     * Marks the task at the specified index as completed
+     * Marks the task at the specified index as completed.
      *
      * @param taskIndex the index of the task to be marked as completed
      * @return the Task that was marked as completed

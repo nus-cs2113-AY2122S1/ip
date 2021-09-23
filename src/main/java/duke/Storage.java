@@ -15,6 +15,12 @@ public class Storage {
     private final String pathName = "data/data.txt";
     private final File file = new File(pathName);
 
+    /**
+     * Constructor for Storage class. Attempts to access data file,
+     * creates a new data file if it is not found.
+     *
+     * @throws DukeException if unable to create or load data file
+     */
     public Storage() throws DukeException {
         try {
             file.getParentFile().mkdirs();
