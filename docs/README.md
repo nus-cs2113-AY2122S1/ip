@@ -90,6 +90,7 @@ Output:
 Description: This command will show all the tasks in the list
 
 >Format: `list`
+
 Example: 
 
 if there is no tasks in the list:
@@ -106,8 +107,13 @@ Output:
     _________________________________________________________________
 ```
 if there are tasks in the list:
+
+Input:
 ```text
 list
+```
+Output:
+```
     _________________________________________________________________
      Here are the tasks in your list:
      1. [T][ ] create a task
@@ -122,15 +128,24 @@ Create a todo by following the format below:
 >Format: `todo` &lt;description&gt;
 
 Example:
+
+Input:
 ```text
 todo create a task
+```
+Output:
+```
     _________________________________________________________________
      [T][ ] create a task
      Now you have 1 tasks in the list.
     _________________________________________________________________
 ```
+Input:
 ```text
 todo create another task
+```
+Output:
+```
     _________________________________________________________________
      [T][ ] create another task
      Now you have 2 tasks in the list.
@@ -139,12 +154,18 @@ todo create another task
 
 ### `deadline` - Create a deadline task
 Description: Deadline is a type of task that takes in a description and time. 
+Time format is either in YYYY-MM-DD or YYYY-MM-DD HHMM.
 Create a deadline by following the format below:
 >Format: `deadline` &lt;description&gt; /by &lt;time>
 
 Example:
+
+Input:
 ```text
 deadline create a deadline task /by 2021-10-01 1159
+```
+Output:
+```
     _________________________________________________________________
      [D][ ] create a deadline task (by: 01-10-2021 1159)
      Now you have 3 tasks in the list.
@@ -152,7 +173,8 @@ deadline create a deadline task /by 2021-10-01 1159
 ```
 
 ### `event` - Create an event task
-Description: Event is a type of task that takes in a description and 2 time.
+Description: Event is a type of task that takes in a description and 2 time inputs.
+Time format is either in YYYY-MM-DD or YYYY-MM-DD HHMM.
 Create a deadline by following the format below:
 
 >Format: `event` &lt;description&gt; /at &lt;time1> to &lt;time2>
@@ -160,9 +182,12 @@ Create a deadline by following the format below:
 >:grey_exclamation: Note: if &lt;time1> is later than &lt;time2>, the time will switch around
 
 Example: 
+
+Input:
 ```
 event this is what happens when time1 is later than time2 /at 2021-10-02 1300 to 2021-10-01 0300
 ```
+Output:
 ```
     _________________________________________________________________
      [E][ ] this is what happens when time1 is later than time2 (at: 01-10-2021 0300 to 02-10-2021 1300)
@@ -178,8 +203,13 @@ Description: will mark a particular task as done, by showing an X on the second 
 > :grey_exclamation: Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
 
 Example: 
+
+Input:
 ```text
 done 3
+```
+Output:
+```
     _________________________________________________________________
      Nice! I've marked this task as done:
      [D][X] create a deadline task
@@ -194,9 +224,13 @@ Description: Delete a task with that has the corresponding number
 > :grey_exclamation: Note: Please provide a positive whole number that is tagged to the task as shown with the list command.
 
 Example:
-```text
 
+Input:
+```text
 delete 2
+```
+Output:
+```
     _________________________________________________________________
      Noted. I've removed this task:
      [T][ ] create another task
@@ -207,11 +241,14 @@ delete 2
 ### `find` - Find description tasks with the given input
 Description: Returns all the list that contains the following text
 
->Format: `find`
+>Format: `find` &lt;text>
 
 Example:
 ```text
 find create a
+```
+Output
+```
     _________________________________________________________________
      [T][ ] create a task
      [D][X] create a deadline task (by: 01-10-2021 1159)
@@ -224,8 +261,13 @@ Description: Sort tasks with time in ascending order. Tasks without time will be
 > Format: `sort time`
 
 Example:
+
+Input
 ```text
 sort time
+```
+Output
+```
     _________________________________________________________________
      [E][ ] this is what happens when time1 is later than time2 (at: 01-10-2021 0300 to 02-10-2021 1300)
      [D][X] create a deadline task (by: 01-10-2021 1159)
@@ -236,15 +278,19 @@ sort time
 
 Description: Exits the program
 
->Format: `bye'
+>Format: `bye`
 
 Example:
+
+Input
 ```text
 bye
+```
+Output:
+```
     _________________________________________________________________
      Bye. Hope to see you again soon!
     _________________________________________________________________
-
 ```
 
 ### Frequently Asked Questions(FAQ)
@@ -258,13 +304,15 @@ bye
       If you want to shift the application to other computer, be sure to copy the duke.jar and duke.txt file
       to the new computer. Losing the duke.txt file means that all saved tasks would be gone.
 
-3. **Q:** Is there a way to edit tasks without CLI?
+
+2. **Q:** Is there a way to edit tasks without CLI?
 
    **A:** Yes, you cna edit the tasks before you start or after you end the application. There will be a text file
       that stores all the files in certain format. However, please ensure that all tasks are in the correct format,
       or you might have the risk of the task list being corrupted.
 
-4. **Q:** There is a file called duke.txt being generated. Should I treat it as an unwanted file and delete it?
+
+3. **Q:** There is a file called duke.txt being generated. Should I treat it as an unwanted file and delete it?
    
    **A:** The file is used to store all the tasks you have recorded down in the application. Deleting the file means that
       all the tasks saved by the program will be deleted. Unless you want a clean task list, it is not advisable to perform
