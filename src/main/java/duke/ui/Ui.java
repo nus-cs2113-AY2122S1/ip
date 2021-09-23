@@ -121,7 +121,6 @@ public class Ui {
         System.out.print(taskList);
         System.out.println(LINE);
     }
-}
 
     /**
      * Displays to user the filtered task list that occurs
