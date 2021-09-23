@@ -35,12 +35,23 @@ public class TextUi {
         printMessage(DIVIDER);
     }
 
+    /**
+     * Prints array of strings given one line at a time
+     *
+     * @param message Array of strings to be printed
+     */
     public void printMessage(String... message) {
         for (String m : message) {
             System.out.println(m.replace("\n", NL));
         }
     }
 
+    /**
+     * Prints task added message
+     *
+     * @param task      Task that was added
+     * @param taskCount total tasks in the taskList
+     */
     public void printTaskAddedMessage(String task, int taskCount) {
         String taskCountMessage;
 

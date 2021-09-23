@@ -8,6 +8,8 @@ import duke.data.task.Task;
 import duke.storage.Storage;
 import duke.ui.TextUi;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class EventCommand extends Command {
 
@@ -20,6 +22,10 @@ public class EventCommand extends Command {
 
     public EventCommand(String description, String deadline) {
         this.toAdd = new Event(description, deadline);
+    }
+
+    public EventCommand(String description, LocalDate deadlineDate, LocalTime deadlineTime) {
+        this.toAdd = new Event(description, deadlineDate, deadlineTime);
     }
 
     @Override

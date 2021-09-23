@@ -1,4 +1,4 @@
 T | 0 | borrow book
 D | 1 | return book | June 6th
 E | 1 | project meeting | Mon 2-4pm
-T | 0 | eat
+D | 0 | eat | 02/12/2019

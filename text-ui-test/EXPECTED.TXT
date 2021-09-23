@@ -33,7 +33,7 @@ There is now 1 task in the list
 ============================================================
 ============================================================
 Got it. I've added this task:
-  [D][ ] return book (at: June 6th)
+  [D][ ] return book (by: June 6th)
 There are now 2 tasks in the list
 ============================================================
 ============================================================
@@ -44,12 +44,12 @@ There are now 3 tasks in the list
 ============================================================
 Here is the list of the things your feeble human mind is incapable of keeping track of:
 1.[T][ ] borrow book
-2.[D][ ] return book (at: June 6th)
+2.[D][ ] return book (by: June 6th)
 3.[E][ ] project meeting (at: Mon 2-4pm)
 ============================================================
 ============================================================
 The task has been marked as done. No need to thank me.
-  [D][X] return book (at: June 6th)
+  [D][X] return book (by: June 6th)
 ============================================================
 ============================================================
 The task has been marked as done. No need to thank me.
@@ -57,63 +57,63 @@ The task has been marked as done. No need to thank me.
 ============================================================
 ============================================================
 Got it. I've added this task:
-  [T][ ] eat
+  [D][ ] eat (by: Dec 02 2019)
 There are now 4 tasks in the list
 ============================================================
 ============================================================
 Got it. I've added this task:
-  [T][ ] sleep
+  [D][ ] sleep (by: Dec 02 2019 06:00:00 PM)
 There are now 5 tasks in the list
 ============================================================
 ============================================================
 Got it. I've added this task:
-  [T][ ] rave
+  [E][ ] rave (at: Aug 05 1998)
 There are now 6 tasks in the list
 ============================================================
 ============================================================
 Got it. I've added this task:
-  [T][ ] repeat
+  [E][ ] repeat (at: Dec 02 2019 12:20:00 PM)
 There are now 7 tasks in the list
 ============================================================
 ============================================================
 Here is the list of the things your feeble human mind is incapable of keeping track of:
 1.[T][ ] borrow book
-2.[D][X] return book (at: June 6th)
+2.[D][X] return book (by: June 6th)
 3.[E][X] project meeting (at: Mon 2-4pm)
-4.[T][ ] eat
-5.[T][ ] sleep
-6.[T][ ] rave
-7.[T][ ] repeat
+4.[D][ ] eat (by: Dec 02 2019)
+5.[D][ ] sleep (by: Dec 02 2019 06:00:00 PM)
+6.[E][ ] rave (at: Aug 05 1998)
+7.[E][ ] repeat (at: Dec 02 2019 12:20:00 PM)
 ============================================================
 ============================================================
 The task has been marked as done. No need to thank me.
-  [T][X] sleep
+  [D][X] sleep (by: Dec 02 2019 06:00:00 PM)
 ============================================================
 ============================================================
 The task has been marked as done. No need to thank me.
-  [T][X] rave
+  [E][X] rave (at: Aug 05 1998)
 ============================================================
 ============================================================
 Here is the list of the things your feeble human mind is incapable of keeping track of:
 1.[T][ ] borrow book
-2.[D][X] return book (at: June 6th)
+2.[D][X] return book (by: June 6th)
 3.[E][X] project meeting (at: Mon 2-4pm)
-4.[T][ ] eat
-5.[T][X] sleep
-6.[T][X] rave
-7.[T][ ] repeat
+4.[D][ ] eat (by: Dec 02 2019)
+5.[D][X] sleep (by: Dec 02 2019 06:00:00 PM)
+6.[E][X] rave (at: Aug 05 1998)
+7.[E][ ] repeat (at: Dec 02 2019 12:20:00 PM)
 ============================================================
 ============================================================
 I have erased this task from existence:
-  [T][X] sleep
+  [D][X] sleep (by: Dec 02 2019 06:00:00 PM)
 ============================================================
 ============================================================
 I have erased this task from existence:
-  [T][X] rave
+  [E][X] rave (at: Aug 05 1998)
 ============================================================
 ============================================================
 I have erased this task from existence:
-  [T][ ] repeat
+  [E][ ] repeat (at: Dec 02 2019 12:20:00 PM)
 ============================================================
 ============================================================
 The task index given is invalid. Is it that hard to read numbers off a list?
