@@ -34,7 +34,8 @@ public class Parser {
                     TaskList.deleteTask(deleteIndex);
                     break;
                 case "find":
-                    TaskList.findTasks(line.substring(4));
+                    TaskList.findTasks(line.substring(4).trim());
+                    break;
                 case "filter":
                     TaskList.filterDates(line);
                     break;
