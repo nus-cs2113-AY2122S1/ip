@@ -1,5 +1,7 @@
 package duke;
 
+import static duke.Duke.tasks;
+
 public class Parser {
 
     private static String getCommand(String userInput) {
@@ -8,8 +10,41 @@ public class Parser {
     }
 
     // parse user input into command for execution
-    public static void parseCommand(String command) {
-
+    // huge try catch block here
+    public static void parseCommand(String userInput) {
+        try {
+            String command = getCommand(userInput);
+            switch (command) {
+                // abstract variables later depending on which class to put under
+            case ("bye"):
+                Ui.printFarewellMessage();
+                break;
+            case ("list"):
+                TaskList.requestList(tasks);
+                break;
+            case ("done"):
+            case ("undo"):
+                TaskList.changeDoneStatus(userInput, tasks);
+                break;
+            case ("todo"):
+                TaskList.addTodo(userInput, tasks);
+                break;
+            case ("deadline"):
+            case ("event"):
+                TaskList.addDeadlineOrEvent(userInput, tasks);
+                break;
+            case ("delete"):
+                TaskList.deleteTask(userInput, tasks);
+                break;
+            default:
+                Ui.printErrorMessage();
+                break;
+            }
+        } catch (InvalidTaskDescriptionException e) {
+            Ui.printHorizontalLine();
+            System.out.println(e.getMessage());
+            Ui.printHorizontalLine();
+        }
     }
 
     public static String getTaskType(String userInput) {
@@ -26,13 +61,8 @@ public class Parser {
         return userInput.trim().indexOf(" ");
     }
 
-    // can insert try catch block here
     public static int DeadlineOrEventTimePosition(String userInput) {
-        if (userInput.toLowerCase().contains("deadline")) {
-           return userInput.trim().indexOf("/by");
-        } else if (userInput.toLowerCase().contains("event")) {
-           return userInput.trim().indexOf("/at");
-        }
+        return Math.max(userInput.trim().indexOf("/by"), userInput.trim().indexOf("/at"));
     }
 
     public static String getDeadlineOrEventDescription(String userInput) {
@@ -51,5 +81,26 @@ public class Parser {
         return Integer.parseInt(userInput.trim().substring(taskNumberPosition + 1));
     }
 
+    public static boolean isValidTaskDescription(String userInput) {
+        String[] description = userInput.trim().split(" ");
+        return description.length > 1;
+    }
+
+    public static boolean isValidDeadlineOrEventDescription(String userInput, String description, String time) {
+        if (!isValidDeadlineFormat(userInput) || !isValidEventFormat(userInput)) {
+            return false;
+        } else if (description.isEmpty() || time.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isValidDeadlineFormat(String userInput) {
+        return userInput.contains("/by");
+    }
+
+    public static boolean isValidEventFormat(String userInput) {
+        return userInput.contains("/at");
+    }
 
 }
