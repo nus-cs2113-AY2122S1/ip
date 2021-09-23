@@ -17,6 +17,10 @@ public class CommandDeadline extends Command{
         this.descriptionInput = descriptionInput;
     }
 
+    /**
+     * Create a deadline task in list
+     * @throws DukeException if description input is incorrect
+     */
     @Override
     public void run() throws DukeException {
         Parser.checkDescription(word, descriptionInput);

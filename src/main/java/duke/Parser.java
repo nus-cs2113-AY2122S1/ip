@@ -138,7 +138,7 @@ public class Parser {
             formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             date = LocalDateTime.parse(parser, formatter);
         } else {
-            //this will need to throw an exception
+            //throw an exception when there is wrong time format
             throw new DukeException(ErrorMessage.EXCEPTION_INCORRECT_TIME_FORMAT);
         }
         return date;

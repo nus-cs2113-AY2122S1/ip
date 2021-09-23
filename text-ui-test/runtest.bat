@@ -10,7 +10,7 @@ REM compile the code into the bin folder
 REM javac -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\"*.java"
 REM C:\Java0\jdk11.0.12_7\bin\java.exe "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2021.2\lib\idea_rt.jar=1091:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2021.2\bin" -Dfile.encoding=UTF-8 -classpath "C:\Users\tohyi\Desktop\CG1111\cs2113T\ip project\out\production\ip project" Duke
 REM javac -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java ..\src\main\java\handleException\*.java ..\src\main\java\handleTask\*.java ..\src\main\java\handleInput\*.java
-javac -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java
+javac -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java ..\src\main\java\command\*.java ..\src\main\java\duke\*.java
 
 IF ERRORLEVEL 1 (
     echo - BUILD FAILURE -

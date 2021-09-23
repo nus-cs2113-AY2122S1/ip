@@ -15,6 +15,11 @@ public class CommandDelete extends Command{
         this.words = words;
         this.descriptionInput = descriptionInput;
     }
+
+    /**
+     * Delete a task corresponding to the index
+     * @throws DukeException when there is no parameters after command
+     */
     @Override
     public void run() throws DukeException {
         int taskNumber;

@@ -8,7 +8,6 @@ import duke.TaskList;
 public class CommandEvent extends Command {
     private static final int FIRST_ARRAY_PARAMETER = 0;
     private static final int SECOND_ARRAY_PARAMETER = 1;
-    public static final String INPUT_DELIMITER = " ";
 
     private String word;
     private String[] descriptionInput;
@@ -18,6 +17,10 @@ public class CommandEvent extends Command {
         this.descriptionInput = descriptionInput;
     }
 
+    /**
+     * Create an event task and put it in list
+     * @throws DukeException when incorrect parameters is passed
+     */
     @Override
     public void run() throws DukeException {
         Parser.checkDescription(word, descriptionInput);

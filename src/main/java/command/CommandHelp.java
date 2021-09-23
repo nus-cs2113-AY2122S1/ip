@@ -9,8 +9,11 @@ public class CommandHelp extends Command{
     public CommandHelp() {
     }
 
+    /**
+     * Prints help command
+     */
     @Override
-    public void run() throws DukeException {
+    public void run() {
         Ui.printHelp();
     }
 }

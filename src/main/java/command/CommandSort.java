@@ -16,6 +16,10 @@ public class CommandSort extends Command{
         this.descriptionInput = descriptionInput;
     }
 
+    /**
+     * Prints all the task that contains date time sorted in ascending order of datetime
+     * @throws DukeException when incorrect parameters is passed
+     */
     @Override
     public void run() throws DukeException {
         Parser.checkDescription(word, descriptionInput);

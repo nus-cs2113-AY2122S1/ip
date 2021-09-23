@@ -15,6 +15,10 @@ public class CommandDone extends Command{
         this.words = words;
         this.descriptionInput = descriptionInput;
     }
+    /**
+     * Mark a task as done corresponding to the index
+     * @throws DukeException when there is no parameters after command
+     */
     @Override
     public void run() throws DukeException {
         Parser.checkDescription(words[FIRST_ARRAY_PARAMETER], descriptionInput);

@@ -16,6 +16,10 @@ public class CommandFind extends Command{
         this.descriptionInput = descriptionInput;
     }
 
+    /**
+     * Find all tasks that contains the substring given by the user
+     * @throws DukeException when there is no input after find
+     */
     @Override
     public void run() throws DukeException {
         Parser.checkDescription(word, descriptionInput);

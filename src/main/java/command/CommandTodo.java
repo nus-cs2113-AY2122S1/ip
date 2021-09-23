@@ -18,6 +18,10 @@ public class CommandTodo extends Command{
         this.descriptionInput = descriptionInput;
     }
 
+    /**
+     * Create a todo task and store it in list
+     * @throws DukeException when no description input is given
+     */
     public void run() throws DukeException {
         Parser.checkDescription(word, descriptionInput);
         Todo todo = new Todo(descriptionInput[FIRST_ARRAY_PARAMETER]);

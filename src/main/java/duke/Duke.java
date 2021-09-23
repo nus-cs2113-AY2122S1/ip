@@ -20,7 +20,7 @@ public class Duke {
         // load data into arraylist
         File f = new File(filePath);
         f.createNewFile();
-        // and scanner input
+        // and create scanner input
         try {
             Scanner in = new Scanner(f);
             Storage.loadData(in);
