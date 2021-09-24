@@ -6,8 +6,9 @@ Alfred is a Command Line Application for task management, modelled after Alfred 
   - Adding tasks:
     - [Todo: `todo`](#todo)
     - [Event: `event`](#event)
-    - Deadline: `deadline`
-  - Marking task as complete: `done`
+    - [Deadline: `deadline`](#deadline)
+  - [Marking task as complete: `done`](#done)
+  - [Delete a task: `delete`](#delete)
   - Searching for tasks: `find`
   - Exiting the app: `bye`
 - Saving the data
@@ -16,8 +17,9 @@ Alfred is a Command Line Application for task management, modelled after Alfred 
 ## Features and Usage
 
 ### <a name="list"></a>`list` - Listing current tasks
-Lists all current tasks stored in local storage task list. <br />
-Usage: `list` <br />
+Lists all current tasks stored in local storage task list.
+
+Usage: `list`
 
 Expected outcome and examples of usage:
 
@@ -37,10 +39,12 @@ ____________________________________________________________
  Your schedule is clear, Master Wayne.
 ____________________________________________________________
 ```
+<br />
 
 ### <a name="todo"></a>`todo` - Adding a Todo
-Adds a Todo to the task list. <br />
-Usage: `todo TODO_DESCRIPTION` <br />
+Adds a Todo to the task list.
+
+Usage: `todo TODO_DESCRIPTION`
 - :warning: `TODO_DESCRIPTION` cannot be empty.
 
 Expected outcome and examples of usage:
@@ -55,10 +59,12 @@ ____________________________________________________________
  Sir, the number of Tasks you have scheduled currently amounts to 1.
 ____________________________________________________________
 ```
+<br />
 
-### <a name="event"></a>Adding Events: `event`
-Adds an Event to the task list. <br />
-Usage: `event EVENT_DESCRIPTION /at EVENT_DATE` <br />
+### <a name="event"></a>`event` - Adding an Event
+Adds an Event to the task list.
+
+Usage: `event EVENT_DESCRIPTION /at EVENT_DATE`
 - :warning: `EVENT_DESCRIPTION` cannot be empty.
 - :warning: `EVENT_DATE` cannot be empty.
 - :warning: `EVENT_DATE` must be formatted as `DDMMYYYY`, `DD/MM/YYYY`, or `DD-MM-YYYY`.
@@ -75,11 +81,12 @@ ____________________________________________________________
  Sir, the number of Tasks you have scheduled currently amounts to 2.
 ____________________________________________________________
 ```
+<br />
 
+### <a name="deadline"></a>`deadline` - Adding a Deadline
+Adds a Deadline to the task list.
 
-### <a name="deadline"></a>Adding Deadlines: `deadline`
-Adds a Deadline to the task list. <br />
-Usage: `deadline DEADLINE_DESCRIPTION /by DEADLINE_DATE` <br />
+Usage: `deadline DEADLINE_DESCRIPTION /by DEADLINE_DATE`
 - :warning: `DEADLINE_DESCRIPTION` cannot be empty.
 - :warning: `DEADLINE_DATE` cannot be empty.
 - :warning: `DEADLINE_DATE` must be formatted as `DDMMYYYY`, `DD/MM/YYYY`, or `DD-MM-YYYY`.
@@ -96,9 +103,47 @@ ____________________________________________________________
  Sir, the number of Tasks you have scheduled currently amounts to 3.
 ____________________________________________________________
 ```
+<br />
 
-### <a name="done"></a>Marking task as complete: `done`
+### <a name="done"></a>`done` - Marking task as complete
+Marks a task as done/complete in the task list based on index specified.
 
+Usage: `done TASK_INDEX`
+- :warning: `TASK_INDEX` must be specified, and as an integer.
+- :warning: `TASK_INDEX` must be within range of 1 - N, where N is the number of tasks in the task list.
+
+Expected outcome and examples of usage:
+
+Alfred will place a check on the Task to mark it as done:
+```
+done 1
+____________________________________________________________
+Duly noted on completion of task, sir.
+    1.[T][X] Meet Catwoman
+____________________________________________________________
+```
+<br />
+
+### <a name="delete"></a>`delete` - Delete a task
+Deletes a task in the task list based on index specified.
+
+Usage: `delete TASK_INDEX`
+- :warning: `TASK_INDEX` must be specified, and as an integer.
+- :warning: `TASK_INDEX` must be within range of 1 - N, where N is the number of tasks in the task list.
+
+Expected outcome and examples of usage:
+
+Alfred will delete the index of the task specified from the task list,
+and display the current number of tasks in the task list:
+```
+delete 1
+____________________________________________________________
+ Very well, Master Wayne, I shall remove this: 
+    1.[T][ ] Meet Catwoman
+ Sir, the number of Tasks you have scheduled currently amounts to 2.
+____________________________________________________________
+```
+<br />
 
 ### <a name="find"></a>Searching for tasks: `find`
 
