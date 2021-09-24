@@ -2,38 +2,50 @@ package karen.tasklist.task;
 
 public class Event extends Task{
     private String at;
-    private String eventTask;
-    private String formattedDescription;
+//    private String formattedDescription;
 
-    public Event(String fullTaskDescription, String at, String eventTask){
-        super(fullTaskDescription);
-//        this.at = getAt();
+    public Event(String taskDescription, String at){
+        super(taskDescription);
         this.at = at;
-        this.eventTask = eventTask;
-        this.formattedDescription = getFormattedDescription();
+//        this.formattedDescription = getFormattedDescription();
     }
 
-
+    /**
+     * Returns "Event" as the task type.
+     *
+     * @return String to represent task type of Event object
+     */
     public String getType(){
         return "Event";
     }
 
+    /**
+     * Returns the date which the Event task object is at as a String.
+     *
+     * @return String to represent the date which the Event task object is at
+     */
     public String getAt(){
         return at;
     }
 
+    /**
+     * Returns a formatted task description of the Event task object, eg. "Finish Homework (at: 21-09-2021)".
+     *
+     * @return a formatted task description of the Event task object as a String
+     */
     public String getFormattedDescription(){
-        return String.format("%s (at: %s)", this.eventTask,this.at);
+        return String.format("%s (at: %s)", this.taskDescription,this.at);
     }
 
-
+    /**
+     * Returns a formatted task description of the Event task object as a String to be
+     * saved in the storage file, eg. "Event,X,Finish Homework, 21-9-2021".
+     *
+     * @return a formatted task description of the Event task object as String to be saved in the storage file
+     */
     public String getFormattedFileDescription() {
-        return String.format("Event,%s,%s,%s",getStatusIcon(), eventTask, this.at);
+        return String.format("Event,%s,%s,%s",getStatusIcon(), taskDescription, this.at);
     }
 
-    //obtain the task to do from the input description
-    public String getTask(){
-        return eventTask;
-    }
 
 }
