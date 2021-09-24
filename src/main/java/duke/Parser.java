@@ -11,6 +11,10 @@ import duke.task.Deadline;
 import duke.task.Events;
 import duke.task.ToDos;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * The Parser class parses the user input, extracts the command and creates the relevant command objects
  */
@@ -66,13 +70,16 @@ public class Parser {
                 //8 is index after "deadline" in input string
                 String deadlineDescription = userInput.substring(8, endOfDescriptionIndex);
                 //3 is no of chars after 'by'
-                String by = userInput.substring(endOfDescriptionIndex + 3);
-                if (by.equals("")) {
+                String deadline = userInput.substring(endOfDescriptionIndex + 4);
+                LocalDate deadlineDate = LocalDate.parse(deadline);
+                if (deadline.equals("")) {
                     throw new DukeException("☹ OOPS!!! Please indicate the deadline after /by");
                 }
-                return new AddTaskCommand(new Deadline(deadlineDescription, by));
+                return new AddTaskCommand(new Deadline(deadlineDescription, deadlineDate));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("☹ OOPS!!! Please key in command in format: \"deadline taskDescription /by deadline\".");
+            } catch (DateTimeParseException e) {
+                throw new DukeException("☹ OOPS!!! Please key in date in format: yyyy-mm-dd");
             }
         } else if ((userInput.toLowerCase()).contains(DELETE_COMMAND)) {
             int taskIndex = extractTaskIndex(userInput);

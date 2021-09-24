@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -66,7 +67,8 @@ public class Storage {
             task = new ToDos(taskBreakdown[2]);
             break;
         case "D":
-            task = new Deadline(taskBreakdown[2], taskBreakdown[3]);
+            LocalDate deadlineDate = LocalDate.parse(taskBreakdown[3]);
+            task = new Deadline(taskBreakdown[2], deadlineDate);
             break;
         case "E":
             task = new Events(taskBreakdown[2], taskBreakdown[3]);

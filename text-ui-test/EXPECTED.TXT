@@ -27,7 +27,7 @@ What can I do for you?
 
 ─────────────────────────────────────────────────────────────
 
-☹ OOPS!!! Please indicate the deadline after /by
+☹ OOPS!!! Please key in command in format: "deadline taskDescription /by deadline".
 ─────────────────────────────────────────────────────────────
 
 ─────────────────────────────────────────────────────────────
@@ -49,8 +49,13 @@ Now you have 1 tasks in the list.
 
 ─────────────────────────────────────────────────────────────
 
+☹ OOPS!!! Please key in date in format: yyyy-mm-dd
+─────────────────────────────────────────────────────────────
+
+─────────────────────────────────────────────────────────────
+
 Got it. I've added this task:
-[D][ ] return book  (by: 2 Sep)
+[D][ ] return book  (by: 02 Sep 2021)
 Now you have 2 tasks in the list.
 ─────────────────────────────────────────────────────────────
 
@@ -64,7 +69,7 @@ Now you have 3 tasks in the list.
 ─────────────────────────────────────────────────────────────
 
 Got it. I've added this task:
-[D][ ] collect pack at oyp  (by: 3 Sep)
+[D][ ] collect pack at oyp  (by: 03 Sep 2021)
 Now you have 4 tasks in the list.
 ─────────────────────────────────────────────────────────────
 
@@ -79,9 +84,9 @@ Now you have 5 tasks in the list.
 
 Here are the tasks in your list:
 1.[T][ ] buy food
-2.[D][ ] return book  (by: 2 Sep)
+2.[D][ ] return book  (by: 02 Sep 2021)
 3.[E][ ] Exco+ meeting  (at: OYP this sat 10-12pm)
-4.[D][ ] collect pack at oyp  (by: 3 Sep)
+4.[D][ ] collect pack at oyp  (by: 03 Sep 2021)
 5.[T][ ] read book
 ─────────────────────────────────────────────────────────────
 
@@ -95,9 +100,9 @@ Nice! I've marked this task as done:
 
 Here are the tasks in your list:
 1.[T][X] buy food
-2.[D][ ] return book  (by: 2 Sep)
+2.[D][ ] return book  (by: 02 Sep 2021)
 3.[E][ ] Exco+ meeting  (at: OYP this sat 10-12pm)
-4.[D][ ] collect pack at oyp  (by: 3 Sep)
+4.[D][ ] collect pack at oyp  (by: 03 Sep 2021)
 5.[T][ ] read book
 ─────────────────────────────────────────────────────────────
 
@@ -114,7 +119,7 @@ No matching tasks found!
 ─────────────────────────────────────────────────────────────
 
 Here are the matching tasks in your list:
-1.[D][ ] return book  (by: 2 Sep)
+1.[D][ ] return book  (by: 02 Sep 2021)
 2.[T][ ] read book
 ─────────────────────────────────────────────────────────────
 
@@ -122,7 +127,7 @@ Here are the matching tasks in your list:
 
 Here are the matching tasks in your list:
 1.[E][ ] Exco+ meeting  (at: OYP this sat 10-12pm)
-2.[D][ ] collect pack at oyp  (by: 3 Sep)
+2.[D][ ] collect pack at oyp  (by: 03 Sep 2021)
 ─────────────────────────────────────────────────────────────
 
 ─────────────────────────────────────────────────────────────
@@ -168,15 +173,15 @@ Now you have 3 tasks in the list.
 ─────────────────────────────────────────────────────────────
 
 Here are the tasks in your list:
-1.[D][ ] return book  (by: 2 Sep)
+1.[D][ ] return book  (by: 02 Sep 2021)
 2.[E][ ] Exco+ meeting  (at: OYP this sat 10-12pm)
-3.[D][ ] collect pack at oyp  (by: 3 Sep)
+3.[D][ ] collect pack at oyp  (by: 03 Sep 2021)
 ─────────────────────────────────────────────────────────────
 
 ─────────────────────────────────────────────────────────────
 
 Noted. I've removed this task:
-[D][ ] return book  (by: 2 Sep)
+[D][ ] return book  (by: 02 Sep 2021)
 Now you have 2 tasks in the list.
 ─────────────────────────────────────────────────────────────
 
@@ -190,7 +195,7 @@ Now you have 1 tasks in the list.
 ─────────────────────────────────────────────────────────────
 
 Noted. I've removed this task:
-[D][ ] collect pack at oyp  (by: 3 Sep)
+[D][ ] collect pack at oyp  (by: 03 Sep 2021)
 Now you have 0 tasks in the list.
 ─────────────────────────────────────────────────────────────
 
