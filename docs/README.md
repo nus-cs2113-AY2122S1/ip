@@ -9,13 +9,13 @@ Duke is a **Command Line Interface (CLI) app that helps you to better manage you
 1. Ensure you have Java version `11` or above installed on your computer.
     - If you haven't, you may download it from [here](https://www.oracle.com/java/technologies/downloads/#java11-linux).
 
-Please download them relative to your Operating System.
+> ❗ Please download them relative to your Operating System.
 
 1. Next, download the latest `Duke.jar` from [here](https://github.com/Kair0s3/ip/releases).
     - Simply click on the `Duke.jar` under Assets and the download should start.
 2. After downloading, open up `command prompt` .
 
-To open command prompt, `win` + `r` , then type and enter `cmd` .
+> 💡 To open command prompt, `win` + `r` , then type and enter `cmd` .
 
 1. Then, run the `Duke.jar` by typing in `java -jar Duke.jar`. Please make sure, that you are at the directory where `Duke.jar` is.
     - In the screenshot example below, I have kept `Duke.jar` in my Downloads folder.
@@ -37,8 +37,6 @@ To open command prompt, `win` + `r` , then type and enter `cmd` .
 
 Before continuing, here are some of the things you should take note of, to better understand the terminologies used in this UG.
 
-[Untitled](https://www.notion.so/11926973ff514fe3b262981e8c1a7130)
-
 | Terminologies | Definition |
 |:-------------:|:----------:|
 | Syntax | The right format to run the command. |
@@ -48,7 +46,7 @@ Before continuing, here are some of the things you should take note of, to bette
 | `<keyword>` | <u>**Required.**</u> The word that you want to find. |
 
 # Features
-Please note that Duke is still in early stages, so that may be quite a number of bugs. However, if you find any bugs, you can let me know [here](https://github.com/Kair0s3/ip/issues).
+> ⚙ Please note that Duke is still in early stages, so that may be quite a number of bugs. However, if you find any bugs, you can let me know [here](https://github.com/Kair0s3/ip/issues).
 
 ## Adding a Task (3 types)
 
@@ -66,7 +64,7 @@ Syntax - `deadline <taskName> /by <byWhen>`
 
 ### Event Task : `event`
 
-Adds a Event task to the list of tasks.
+Adds an Event task to the list of tasks.
 
 Syntax - `event <taskName> /at <atWhen>`
 
@@ -84,7 +82,7 @@ Syntax - `list`
 
 ![Untitled](images/Untitled%202.png)
 
-## Mark task as done : `done`
+## Mark tasks as done : `done`
 
 Marks a task as done given the index of the task in the list.
 
