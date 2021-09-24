@@ -181,7 +181,7 @@ public class Duke {
         }
         if (statusString.equals("1")) {
             task.setAsDone();
-        } else if (!statusString.equals("0")){
+        } else if (!statusString.equals("0")) {
             throw new DukeException(String.format(MESSAGE_UNRECOGNISED_TASK_STATUS_ICON, statusString));
         }
         return task;
