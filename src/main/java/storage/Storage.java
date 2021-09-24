@@ -1,7 +1,7 @@
-package files;
+package storage;
 
-import jarvis.Jarvis;
-import features.Task;
+import ui.Jarvis;
+import tasklist.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,10 +10,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
 
-public class FileAccess {
+public class Storage {
     private static final String LINE = Jarvis.LINE;
     private static final String LINE_W_NL = Jarvis.LINE_W_NL;
-    private static final String JARVIS_TXT = "jarvis/jarvis.txt";
+    private static final String JARVIS_TXT = "ui/jarvis.txt";
     private static final String DIVIDER = ",";
 
     public static void findTaskFile(ArrayList<Task> taskList) {
@@ -60,13 +60,13 @@ public class FileAccess {
         String[] lineInputs = textLine.split(DIVIDER);
         switch(lineInputs[0]){
         case "T":
-            Jarvis.todoFileTask(lineInputs[2], taskList);
+            Jarvis.addTodoFileTask(lineInputs[2], taskList);
             break;
         case "D":
-            Jarvis.deadlineFileTask(lineInputs[2], lineInputs[3], taskList);
+            Jarvis.addDeadlineFileTask(lineInputs[2], lineInputs[3], taskList);
             break;
         case "E":
-            Jarvis.eventFileTask(lineInputs[2],lineInputs[3], taskList);
+            Jarvis.addEventFileTask(lineInputs[2],lineInputs[3], taskList);
             break;
         default:
             break;

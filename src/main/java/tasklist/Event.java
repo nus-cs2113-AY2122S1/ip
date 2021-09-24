@@ -1,4 +1,4 @@
-package features;
+package tasklist;
 
 public class Event extends Task {
     protected String at;

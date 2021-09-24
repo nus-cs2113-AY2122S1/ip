@@ -1,14 +1,14 @@
-# IDEA files
+# IDEA storage
 /.idea/
 /out/
 /*.iml
 
-# Gradle build files
+# Gradle build storage
 /.gradle/
 /build/
 src/main/resources/docs/
 
-# MacOS custom attributes files created by Finder
+# MacOS custom attributes storage created by Finder
 .DS_Store
 *.iml
 bin/

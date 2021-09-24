@@ -1,4 +1,4 @@
-package features;
+package tasklist;
 
 public class Todo extends Task {
     protected String by;
