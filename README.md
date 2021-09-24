@@ -8,17 +8,17 @@ Here is a table containing the command words and a brief description:
 
 Command | description
 ------------ | -------------
-[todo](##-todo-command) | adds a task to be completed
-[event](##event-command) | adds an event + location 
-[deadline](##deadline-command) | adds a deadline + date + time
-[list](##list-command) | allows user to see a list of all commitments
+[todo](#todo-command) | adds a task to be completed
+[event](#event-command) | adds an event + location 
+[deadline](#deadline-command) | adds a deadline + date + time
+[list](#list-command) | allows user to see a list of all commitments
 [find](##find-command) | allows user to filter commitments by a keyword
 [delete](##delete-command) | allows user to remove a task from the list
 [done](##done-command) | mark a task as complete
 [bye](##close-duke-command) | close Duke
 
 On startup, the user will be greeted by the following message:
-![ScreenShot](\welcome message.jpg)
+![Imgur](https://i.imgur.com/tW87ITA.jpg)
 
 Below contains screenshots of the commands Duke can process and the format of the command in the box:
 
@@ -26,55 +26,55 @@ Below contains screenshots of the commands Duke can process and the format of th
    ```
   list
    ```
-![ScreenShot](\list.jpg)
-## Todo command
+![Imgur](https://i.imgur.com/vdB5yXK.jpg)
+##Todo command
 
    ```
   todo "description"
    ```
-![ScreenShot](\todo.jpg)
+![Imgur](https://i.imgur.com/3NFVn3U.jpg)
 ##Event command
 
    ```
   event "description" /at "location"
    ```
-![ScreenShot](\event.jpg)
+![Imgur](https://i.imgur.com/fcUClHK.jpg)
 ##Deadline command
 
    ```
   dealine "description" /by "YYYY-MM-DD" "HH:MM"
    ```
-![ScreenShot](\deadline.jpg)
+![Imgur](https://i.imgur.com/xL42jdE.jpg)
 ##Done command
 
    ```
   done "index_number"
    ```
-![ScreenShot](\done.jpg)
+![Imgur](https://i.imgur.com/Hs0F7Ej.jpg)
 ##Delete command
 
    ```
  delete "index_number"
    ```
-![ScreenShot](\delete.jpg)
+![Imgur](https://i.imgur.com/1tfECL4.jpg)
 ##List command
 
    ```
   list
    ```
 
-![ScreenShot](\list2.jpg)
+![Imgur](https://i.imgur.com/BOq0AwX.jpg)
 ##Find command
 
    ```
   find "index_number"
    ```
-![ScreenShot](\find.jpg)
+![Imgur](https://i.imgur.com/XcLGGCH.jpg)
 ##Close DUKE command
 
    ```
  bye
    ```
-![ScreenShot](\bye.jpg)
+![Imgur](https://i.imgur.com/MJVdEue.jpg)
 
 Have fun trialing!!
