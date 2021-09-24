@@ -1,9 +1,17 @@
 import java.io.IOException;
 
+/**
+ * The main class of the whole program
+ */
 public class Duke {
 
     public static final TaskList taskList = new TaskList();
 
+    /**
+     * Starts Duke
+     * print welcome message and read from DukeData/data.txt
+     * wait for standard input into Duke and execute command thereafter
+     */
     public Duke() {
         Ui.welcomeMessage();
         try {
