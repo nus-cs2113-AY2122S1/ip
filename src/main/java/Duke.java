@@ -195,7 +195,6 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
 
-
         while (!input.startsWith("bye")) {
             String cleanInput = input.trim();
             String[] userInput = cleanInput.split(" ",2);
