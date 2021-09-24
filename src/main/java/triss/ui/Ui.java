@@ -1,4 +1,4 @@
-package triss;
+package triss.ui;
 
 import java.util.Scanner;
 

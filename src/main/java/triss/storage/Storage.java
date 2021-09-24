@@ -1,5 +1,6 @@
-package triss;
+package triss.storage;
 
+import triss.tasklist.TaskList;
 import triss.exception.TrissException;
 import triss.task.Task;
 

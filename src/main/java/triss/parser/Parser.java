@@ -1,4 +1,4 @@
-package triss;
+package triss.parser;
 
 import triss.command.*;
 

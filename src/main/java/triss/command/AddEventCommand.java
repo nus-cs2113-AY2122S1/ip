@@ -1,9 +1,9 @@
 package triss.command;
 
-import triss.Parser;
-import triss.Storage;
-import triss.TaskList;
-import triss.Ui;
+import triss.parser.Parser;
+import triss.storage.Storage;
+import triss.tasklist.TaskList;
+import triss.ui.Ui;
 import triss.exception.TrissException;
 
 public class AddEventCommand extends Command{

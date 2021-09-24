@@ -2,7 +2,10 @@ package triss;
 
 import triss.command.Command;
 import triss.exception.TrissException;
-import triss.task.Task;
+import triss.parser.Parser;
+import triss.storage.Storage;
+import triss.tasklist.TaskList;
+import triss.ui.Ui;
 
 
 public class Triss {
