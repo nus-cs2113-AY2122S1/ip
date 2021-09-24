@@ -45,7 +45,6 @@ ________________________________________________________________
 I am your very own schedule assistant here to enhance your everyday life
 Type help to see what i can do!
 ```
-
 ________________________________________________________________
 
 # Features
