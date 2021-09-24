@@ -26,6 +26,7 @@ public class Parser {
     private static final String EVENT_COMMAND = "event";
     private static final String DELETE_COMMAND = "delete";
     private static final String BYE_COMMAND = "bye";
+    private static final String FIND_COMMAND = "find";
     private static final String DEADLINE_SEPARATOR = " /by ";
     private static final String EVENT_SEPARATOR = " /at ";
 
@@ -109,6 +110,9 @@ public class Parser {
         Command command = new Command(inputCommand, this.programManager, taskList);
         try {
             switch (inputCommand) {
+            case FIND_COMMAND:
+                command.executeFindCommand();
+                break;
             case LIST_COMMAND:
                 command.executeListCommand();
                 break;

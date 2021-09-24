@@ -32,7 +32,11 @@ public class Command {
         return command;
     }
 
-    public void executeDoneCommand (int doneIndex) throws NumberFormatException, IndexOutOfBoundsException, IOException {
+    public void executeFindCommand() {
+
+    }
+
+    public void executeDoneCommand(int doneIndex) throws NumberFormatException, IndexOutOfBoundsException, IOException {
         if (!tasks.get(doneIndex).getIsDone()) {
             tasks.get(doneIndex).markAsDone();
             Ui.printTaskDoneMessage(tasks.get(doneIndex));
