@@ -1,3 +1,2 @@
-duke.tasks.Task,false,work
-duke.tasks.Event,false,work,as
-duke.tasks.Deadline,false,work,asd
+duke.tasks.Task,false,CS2113 ip
+duke.tasks.Deadline,false,CS2113 Assignment,tomorrow 4pm

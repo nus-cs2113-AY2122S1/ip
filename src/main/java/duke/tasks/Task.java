@@ -5,6 +5,8 @@ package duke.tasks;
  * if it is completed or not
  */
 public class Task {
+    public static final int TASK_LETTER_START_INDEX = 11;
+    public static final int TASK_LETTER_END_INDEX = 12;
     private String description;
     private boolean isDone;
 
@@ -71,8 +73,7 @@ public class Task {
     @Override
     public String toString(){
         String done = this.isDone()? "X" : " ";
-        String taskType = this.getClass().getName().substring(11,12).toUpperCase();
-        System.out.println(this.getClass().getName());
+        String taskType = this.getClass().getName().substring(TASK_LETTER_START_INDEX, TASK_LETTER_END_INDEX).toUpperCase();
         return String.format("[%s][%s] %s",taskType, done, this.getDescription());
     }
 }

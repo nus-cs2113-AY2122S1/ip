@@ -1,6 +1,6 @@
 # DUKE User Guide
 DUKE is a task manager program that is made for use via a Command Line Interface (CLI)
-```aidl
+```text
 Hello from
  ____        _        
 |  _ \ _   _| | _____ 
@@ -46,18 +46,18 @@ Format: `event DESCPRIPTION /[at:] OCCURING_AT`
 * `at :` is used only if the user wants to store `OCCURING_AT` in a `MMM-DD-YYYY` format
 
 Examples:
-`event CS2113 lecture /tomorrow 4pm`
-`event CS2113 consultation /at: 2021-10-01`
+* `event CS2113 lecture /tomorrow 4pm`
+* `event CS2113 consultation /at: 2021-10-01`
 
 Expected outcome:
 ```text
 event CS2113 lecture /at: tomorrow 4pm
 Got it. I've added this task:
-  [T][ ] CS2113 lecture (at: tomorrow 4pm)
+  [E][ ] CS2113 lecture (at: tomorrow 4pm)
 Now you have 2 task in the list
 event CS2113 consultation /at: 2021-10-01
 Got it. I've added this task:
-  [T][ ] CS2113 consultation (Oct 01 2021)
+  [E][ ] CS2113 consultation (Oct 01 2021)
 Now you have 3 task in the list
 ```
 
@@ -75,11 +75,11 @@ Expected outcome:
 ```text
 deadline CS2113 Assignment /tomorrow 4pm
 Got it. I've added this task:
-  [T][ ] CS2113 Assignment (tomorrow 4pm)
+  [D][ ] CS2113 Assignment (tomorrow 4pm)
 Now you have 4 task in the list
 deadline CS2113 tp /by: 2021-10-01
 Got it. I've added this task:
-  [T][ ] CS2113 tp (Oct 01 2021)
+  [D][ ] CS2113 tp (Oct 01 2021)
 Now you have 5 task in the list
 ```
 
@@ -93,19 +93,42 @@ Expected outcome:
 list
 Here are the tasks in your list:
 1. [T][ ] CS2113 ip
-2. [T][ ] CS2113 lecture (at: tomorrow 4pm)
-3. [T][ ] CS2113 consultation (Oct 01 2021)
-4. [T][ ] CS2113 Assignment (tomorrow 4pm)
-5. [T][ ] CS2113 tp (Oct 01 2021)
+2. [E][ ] CS2113 lecture (at: tomorrow 4pm)
+3. [E][ ] CS2113 consultation (Oct 01 2021)
+4. [D][ ] CS2113 Assignment (tomorrow 4pm)
+5. [D][ ] CS2113 tp (Oct 01 2021)
 ```
 ### Find specific tasks: `find`
-Show a list of all tasks that matches a specific keyword or phrase
+Show a list of all tasks that matches a specific keyword or phrase in the `DESCRIPTION` field.
 
 Format: `find KEYWORD`
 * `KEYWORD` can be either a word or, a phrase
 
+Example:
+`find Assignment`
 
+Expected outcome:
+```text
+find Assignment 
+Here are the tasks in your list:
+1. [D][ ] CS2113 Assignment (tomorrow 4pm)
+```
 ### Delete a task item: `delete`
+Removes a task from the list
+
+Format: `delete TASK_INDEX`
+* `TASK_INDEX` is the number corresponding to the task on the list. The number must be a positive integer.
+
+Example:
+`delete 2`
+
+Expected outcome:
+```text
+delete 2 
+Noted. I've removed this task:
+  [E][ ] CS2113 lecture (tomorrow 4pm)
+Now you have 2 task in the list.
+```
 ### Mark a task item as completed: `done`
 ### Exiting the program: `bye`
 

@@ -68,7 +68,7 @@ public abstract class Parser {
     private static int getTaskIndex(String request) {
         try {
             int taskIndexStart = request.indexOf(" ");
-            String taskIndex = request.substring(taskIndexStart);
+            String taskIndex = request.substring(taskIndexStart).trim();
             return Integer.parseInt(taskIndex) - 1;
         } catch (Exception e){
             throw new NumberFormatException("Sorry there's no integer I can read!");
