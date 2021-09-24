@@ -15,7 +15,13 @@ public class Command {
         this.parser = new Parser();
     }
 
-
+    /**
+     * Check if the input is valid to be processed.
+     *
+     * @param phrase The user's input.
+     * @throws InvalidTaskException If the input is recognized as a Task but is of an invalid format.
+     * @throws InvalidInputException If the input is invalid.
+     */
     public void isInputValid(String phrase) throws InvalidInputException, InvalidTaskException {
         boolean isValid = false;
         for (String command : commands) {
@@ -61,7 +67,7 @@ public class Command {
     private boolean isValidDeadline(String phrase) throws InvalidTaskException {
         String[] splitPhrase = phrase.split(" ");
         boolean validInput = splitPhrase.length > 1;
-        boolean gotDeadline = phrase.contains("/by") && splitPhrase[splitPhrase.length - 1].equals("/by");
+        boolean gotDeadline = phrase.contains("/by") && !splitPhrase[splitPhrase.length - 1].equals("/by");
         if (!(validInput && gotDeadline)) {
             throw new InvalidTaskException("ERROR! Please add a description after 'deadline' " +
                     "and more information about the time/date after '/by'" + "\n"
@@ -84,6 +90,13 @@ public class Command {
         }
     }
 
+    /**
+     * Marks the user specified task as done.
+     * Parse the task's number to be marked as done and set it as done.
+     *
+     * @param phrase The User's input
+     * @param tasks The current TaskList
+     */
     public void runDoneCommand(String phrase, TaskList tasks) {
         int taskNumber = parser.parseDoneInputToInt(phrase);
         if (tasks.markAsDone(taskNumber)) {
@@ -94,17 +107,39 @@ public class Command {
 
     }
 
+    /**
+     * Deletes the user specified task.
+     * Parse the task's number from the user input and then delete the specified task.
+     *
+     * @param phrase The User's input
+     * @param tasks The current TaskList
+     */
     public void runDeleteCommand(String phrase, TaskList tasks) {
         int taskNumber = parser.parseDeleteInputToInt(phrase);
         ui.printTaskDeleted(taskNumber, tasks);
         tasks.delete(taskNumber);
     }
 
+    /**
+     * Finds the task that matches the input's description.
+     * Parse the input into a string containing only the details to search for.
+     *
+     * @param phrase The User's input
+     * @param tasks The current TaskList
+     */
     public void runFindCommand(String phrase, TaskList tasks) {
         String phraseToSearch = parser.parseSearchInputToString(phrase);
         ui.printMatchingTaskList(new TaskList(tasks.search(phraseToSearch)));
     }
 
+    /**
+     * Adds the User's input as a task to the current TaskList.
+     * Parse the input as the specified Task subclass: Todo/Deadline/Event.
+     *
+     * @param phrase The User's input
+     * @param tasks The current TaskList
+     * @throws InvalidInputException If the phrase does not follow specified task format.
+     */
     public void runTaskCommand(String phrase, TaskList tasks) throws InvalidInputException {
         Task task = parser.parsePhraseToTask(phrase);
         tasks.add(task);

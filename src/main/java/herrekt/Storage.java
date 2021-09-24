@@ -16,29 +16,41 @@ public class Storage {
 
     private final String filePath;
 
+    /**
+     * Initialize the Storage class as an instant.
+     *
+     * @param filePath directory and name of the file to load from and save on.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+    private void writeToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter("save.txt");
         fw.write(textToAdd);
         fw.close();
     }
 
+    /**
+     * Returns a list of tasks obtained from the save.txt file.
+     *
+     * @return a list of tasks
+     * @throws FileNotFoundException  If save.txt does not exist.
+     */
     public List<Task> load() throws FileNotFoundException {
         List<String> stringList = loadSaveAsStringList(filePath);
         List<Task> tasks = convertStringListToTaskList(stringList);
         return tasks;
     }
 
+    /** Save the current tasks kept recorded as a txt file called save.txt. */
     public void save(TaskList tasks) {
         try {
             if (tasks.getSize() == 0) {
-                writeToFile("save.txt", "");
+                writeToFile("");
             } else {
                 StringBuilder toSaveToFile = tasks.convertTaskListToSaveFormat();
-                writeToFile("save.txt", toSaveToFile.toString());
+                writeToFile(toSaveToFile.toString());
 
             }
         } catch (IOException e) {
@@ -46,7 +58,7 @@ public class Storage {
         }
     }
 
-    public List<String> loadSaveAsStringList(String filePath) throws FileNotFoundException {
+    private List<String> loadSaveAsStringList(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
         List<String> taskInStringList = new ArrayList<>();
         Scanner sc = new Scanner(f);
@@ -70,11 +82,7 @@ public class Storage {
             task = new Todo(taskInArray[2]);
             break;
         case "D":
-            if (Parser.containsDate(taskInArray[3])) {
-                task = new Deadline<>(taskInArray[2], Parser.dateConverter(taskInArray[3]));
-            } else {
-                task = new Deadline<>(taskInArray[2], taskInArray[3]);
-            }
+            task = Parser.dateConverter(taskInArray[2], taskInArray[3]);
             break;
         case "E":
             task = new Event(taskInArray[2], taskInArray[3]);

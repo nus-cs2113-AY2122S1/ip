@@ -9,29 +9,49 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    private static final String DATE_AND_TIME_REGEX = "(\\d+-\\d+-\\d+\\s\\d+)";
     private static final String DATE_REGEX = "(\\d+-\\d+-\\d+)";
 
-
+    /**
+     * Returns an integer which is the number of the task to be marked done.
+     *
+     * @param phrase A string starting with 'done'.
+     * @return Task number
+     * @throws NumberFormatException If the character after done is not an integer.
+     * @throws StringIndexOutOfBoundsException If the task number is bigger than the number of current tasks.
+     */
     public int parseDoneInputToInt(String phrase) throws NumberFormatException, StringIndexOutOfBoundsException {
         phrase = phrase.substring(5);
         return Integer.parseInt(phrase);
     }
 
+    /**
+     * Returns an integer which is the number of the task to be deleted.
+     *
+     * @param phrase A string starting with 'delete'.
+     * @return Task number
+     * @throws NumberFormatException If the character after delete is not an integer.
+     * @throws StringIndexOutOfBoundsException If the task number is bigger than the number of current tasks.
+     */
     public int parseDeleteInputToInt(String phrase) throws NumberFormatException, StringIndexOutOfBoundsException{
         phrase = phrase.substring(7);
         return Integer.parseInt(phrase);
     }
 
+    /**
+     * Returns a task of either Todo, Deadline, or Event.
+     *
+     * @param phrase A string starting with either 'todo', 'deadline', or 'event'.
+     * @return A task of the specified child class Todo/Deadline/Event.
+     * @throws InvalidInputException If the input does not follow the correct format.
+     */
     public Task parsePhraseToTask(String phrase) throws InvalidInputException {
-        if (phrase.contains("todo")) {
+        if (phrase.startsWith("todo ")) {
             return new Todo(phrase.substring(5));
-        } else if (phrase.contains("deadline")) {
+        } else if (phrase.startsWith("deadline ")) {
             phrase = phrase.substring(9);
             String[] taskAndTime = phrase.split(" /by ");
-            Object date = dateConverter(taskAndTime[1]);
-            return new Deadline<>(taskAndTime[0], date);
-        } else if (phrase.contains("event")) {
+            return new Deadline<>(taskAndTime[0], taskAndTime[1]);
+        } else if (phrase.startsWith("event ")) {
             phrase = phrase.substring(6);
             String[] taskAndTime = phrase.split(" /at ");
             return new Event(taskAndTime[0], taskAndTime[1]);
@@ -40,28 +60,32 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the string to be searched for in a task's description
+     *
+     * @param phrase A string starting with 'search'.
+     * @return Phrase to be searched
+     */
     public String parseSearchInputToString(String phrase) {
         return phrase.substring(5);
     }
 
-    public static boolean containsDate(String phrase) {
-        Matcher matcher = Pattern.compile(DATE_REGEX).matcher(phrase);
-        return matcher.find();
-    }
-
-    public static Object dateConverter(String phrase) {
-        Matcher matcher = Pattern.compile(DATE_REGEX).matcher(phrase);
-        String dateAsString = phrase;
+    /**
+     * Returns a deadline in with the date in LocalDate format if possible.
+     *
+     * @param description Description of the deadline.
+     * @param date Date the deadline is due.
+     * @return A deadline .
+     */
+    public static Task dateConverter(String description, String date) {
+        Matcher matcher = Pattern.compile(DATE_REGEX).matcher(date);
+        String dateAsString;
         if (matcher.find()) {
             dateAsString = matcher.group(1);
-            return LocalDate.parse(dateAsString, DateTimeFormatter.ISO_LOCAL_DATE);
+            LocalDate localDate = LocalDate.parse(dateAsString, DateTimeFormatter.ISO_LOCAL_DATE);
+            return new Deadline<>(description, localDate);
         } else {
-            return dateAsString;
+            return new Deadline<>(description, date);
         }
-    }
-
-    public boolean containsDateAndTime(String phrase) {
-        Matcher matcher = Pattern.compile(DATE_AND_TIME_REGEX).matcher(phrase);
-        return matcher.find();
     }
 }
