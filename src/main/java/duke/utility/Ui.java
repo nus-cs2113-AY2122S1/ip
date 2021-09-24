@@ -114,4 +114,17 @@ public class Ui {
     public void writeToFileError() {
         System.out.println("\tError writing to file");
     }
+
+    public void displayFoundItems(TaskList foundItems) {
+        drawLine();
+        if (!foundItems.items.isEmpty()){
+            System.out.println("\tHere are the matching tasks in your list:");
+            for (Task item : foundItems.items){
+                System.out.println("\t\t" + item);
+            }
+        } else {
+            System.out.println("\tNo matching tasks found");
+        }
+        drawLine();
+    }
 }

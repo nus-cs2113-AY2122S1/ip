@@ -4,7 +4,7 @@ import duke.exceptions.EmptyArgException;
 import duke.exceptions.WrongFormatException;
 import duke.utility.Parser;
 import duke.utility.Storage;
-import duke.utility.Tasklist;
+import duke.utility.TaskList;
 import duke.utility.Ui;
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Duke {
 
     private static final Ui ui = new Ui();
-    private static final Tasklist tasklist = new Tasklist();
+    private static final TaskList tasklist = new TaskList();
     private static final Parser parser = new Parser();
     private static final Storage storage = new Storage("SAVEDLIST.txt");
 
@@ -71,6 +71,14 @@ public class Duke {
                 }
                 break;
             }
+            case "find": {
+                try {
+                    handleFind(parser.getTaskDescription());
+                } catch (EmptyArgException e) {
+                    ui.emptyDescription("find");
+                }
+                break;
+            }
             case "deadline": {
                 try {
                     handleDeadline(parser.getDeadlineOrEventArgs());
@@ -107,6 +115,22 @@ public class Duke {
     }
 
     /**
+     * Finds tasks description contains the query from the task list.
+     *
+     * @param query the expression to be search for. Case insensitive
+     */
+    private static void handleFind(String query) {
+        TaskList foundItems = new TaskList();
+        for (Task item : tasklist.items){
+            String descriptionCaps = item.description.toUpperCase();
+            if(descriptionCaps.contains(query.toUpperCase())){
+                foundItems.add(item);
+            }
+        }
+        ui.displayFoundItems(foundItems);
+    }
+
+    /**
      * Deletes a specified task
      *
      * @param taskNum the task number to delete, starts from 1, handled by parser
@@ -131,7 +155,7 @@ public class Duke {
     }
 
     /**
-     * Adds an event to the tasklist
+     * Adds an event to the task list
      *
      * @param eventArgs String array containing the description and the date of the event
      * @throws EmptyArgException when no description and date is provided
@@ -143,7 +167,7 @@ public class Duke {
     }
 
     /**
-     * Adds a deadline to the tasklist
+     * Adds a deadline to the task list
      *
      * @param deadlineArgs String array containing the description and the do by date of the event
      * @throws EmptyArgException when no description and date is provided
@@ -155,7 +179,7 @@ public class Duke {
     }
 
     /**
-     * Adds a todo to the tasklist
+     * Adds a todo to the task list
      *
      * @param taskDescription description of the task
      * @throws EmptyArgException when no description is provided
