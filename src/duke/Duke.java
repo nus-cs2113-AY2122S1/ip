@@ -18,6 +18,10 @@ public class Duke {
     public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_FIND = "find";
 
+    private Storage storage;
+    private UI ui;
+
+
     public static void main(String[] args) {
         UI.printWelcome();
         Assistant duke = new Assistant();
