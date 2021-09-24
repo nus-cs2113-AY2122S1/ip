@@ -3,32 +3,44 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Class that contains methods to handle respective user inputs.
+ *
+ * @author pragyan01
+ */
 public class TaskList {
 
     public static String line = "------------------------------------------------------------------------------------------\n";
-    //declare task array and keep track of how many tasks stored
     public static ArrayList<Task> t = new ArrayList<>();
     public static int taskCount = 0;
-    public static int quitFlag = 0; //if 0, take user input. Otherwise, don't.
+    public static int quitFlag = 0;
 
-    //updates flag so that no more user input is taken
+    /**
+     * Method that updates quitFlag to 1 when user wants to terminate the program.
+     */
     public static void updateQuitFlag() {
         quitFlag = 1;
     }
 
-    //Program exits with this ending
-    public static void sayBye(String input) throws DukeException{                                                       //bye
+    /**
+     * Terminates the program.
+     *
+     * @param input that user gives
+     */
+    public static void sayBye(String input) throws DukeException{
         if (input.length() != 3) {
-            throw new DukeException("You didn't say bye properly, but i get it! Adios for now!\n");                     //bye 9
+            throw new DukeException("You didn't say bye properly, but i get it! Adios for now!\n");
         } else {
-            System.out.println(line + "\n" + "Ciao! More tasks to do later!\n" + line);                                 //bye
+            System.out.println(line + "\n" + "Ciao! More tasks to do later!\n" + line);
             updateQuitFlag();
         }
         System.exit(0);
     }
 
-    //Lists out all tasks stored and their statuses
-    public static void sayList() throws DukeException{                                                                  //list
+    /**
+     * Prints out all the tasks, their types and statuses stored by the bot.
+     */
+    public static void sayList() throws DukeException{
         if (taskCount == 0) {
             throw new DukeException("Hold your horses, you didn't even tell me about your wishes yet!");
         } else {
@@ -40,46 +52,58 @@ public class TaskList {
         }
     }
 
-    //Marks a stored task as done
-    public static void sayDone(String input) throws DukeException {                                                     //done 1
+    /**
+     * Marks a specific task stored as done.
+     *
+     * @param input that user gives containing the position of task
+     */
+    public static void sayDone(String input) throws DukeException {
         if (taskCount != 0) {
             try {
                 String taskNumber = input.substring(input.lastIndexOf(" ") + 1);
                 int finalTaskNumber = Integer.parseInt(taskNumber) - 1;
                 t.get(finalTaskNumber).markAsDone();
-                System.out.println(line + "\n" + "Kudos! One less thing to stress about!\n");                           //done 1
+                System.out.println(line + "\n" + "Kudos! One less thing to stress about!\n");
                 System.out.println("  " + t.get(finalTaskNumber).toString() + "\n" + line);
             } catch (NullPointerException e) {
-                System.out.println(line + "\nInvalid task number entered! Please try again!\n" + line);                 //done 101
+                System.out.println(line + "\nInvalid task number entered! Please try again!\n" + line);
             }
         } else {
-            throw new DukeException("Calm down, we haven't even started listing out tasks yet!");                       //done 1 when taskCount = 0
+            throw new DukeException("Calm down, we haven't even started listing out tasks yet!");
         }
     }
 
-    //Adds a new todo task and prints it                                                                                //todo borrow book
+    /**
+     * Adds a todo task.
+     *
+     * @param input that user gives
+     */
     public static void sayTodo(String input) {
         if (input.length() == 4) {
-            System.out.println(line + "\nDid you forget what you were gonna say?\n" + line);                            //todo
+            System.out.println(line + "\nDid you forget what you were gonna say?\n" + line);
         } else {
             int endIndex = input.length();
             String taskName = input.substring(5, endIndex);
             t.add(taskCount, new Todo(taskName));
             System.out.println(line + "\n");
-            System.out.println("That's the spirit! I've added this task:\n");                                           //todo borrow book
+            System.out.println("That's the spirit! I've added this task:\n");
             System.out.println(t.get(taskCount).toString());
             taskCount++;
             System.out.println("\nNow you have " + taskCount + " tasks in the list.\n" + line);
         }
     }
 
-    //Adds a new deadline task and prints it
-    public static void sayDeadline(String input) {                                                                      //deadline return books /by Sunday
+    /**
+     * Adds a deadline task.
+     *
+     * @param input that user gives
+     */
+    public static void sayDeadline(String input) {
         if (input.length() == 8) {
-            System.out.println(line + "\nAre you kidding me? You didn't even tell me what you were supposed to do!\n"); //deadline
+            System.out.println(line + "\nAre you kidding me? You didn't even tell me what you were supposed to do!\n");
             System.out.println(line);
         } else if (!input.contains("/")) {
-            System.out.println(line + "\nAre you kidding me? You forgot to tell me your deadline again?\n" + line);     //deadline return book
+            System.out.println(line + "\nAre you kidding me? You forgot to tell me your deadline again?\n" + line);
         } else {
             int endIndex = input.indexOf("/");
             String taskName = input.substring(9, endIndex);
@@ -89,7 +113,7 @@ public class TaskList {
             t.add(taskCount, new Deadline(taskName, by));
             System.out.println(line + "\n");
             System.out.println("Deadline Entered: " + dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n");
-            System.out.println("Got it. I've added this task:\n");                                                      //deadline return book /by Sunday
+            System.out.println("Got it. I've added this task:\n");
             System.out.println(t.get(taskCount).toString());
             taskCount++;
             System.out.println("\nNow you have " + taskCount + " tasks in the list.\n" + line);
@@ -97,13 +121,17 @@ public class TaskList {
     }
 
 
-    //Adds a new event task and prints it
-    public static void sayEvent(String input) {                                                                         //event project meeting /at Mon 2-4pm
+    /**
+     * Adds a event task.
+     *
+     * @param input that user gives
+     */
+    public static void sayEvent(String input) {
         if (input.length() == 5) {
-            System.out.println(line + "\nAre you kidding me? You didn't even tell me what you were supposed to do!\n"); //event
+            System.out.println(line + "\nAre you kidding me? You didn't even tell me what you were supposed to do!\n");
             System.out.println(line);
         } else if (!input.contains("/")) {
-            System.out.println(line + "\nAre you kidding me? You forgot to tell me your event timing again?\n" + line); //event project meeting
+            System.out.println(line + "\nAre you kidding me? You forgot to tell me your event timing again?\n" + line);
         } else {
             int endIndex = input.lastIndexOf("/");
             String taskName = input.substring(6, endIndex);
@@ -111,15 +139,19 @@ public class TaskList {
             String at = input.substring(endIndex + 4, endIndex2);
             t.add(taskCount, new Event(taskName, at));
             System.out.println(line + "\n");
-            System.out.println("Got it. I've added this task:\n");                                                      //event project meeting /at Tue 3-7pm
+            System.out.println("Got it. I've added this task:\n");
             System.out.println(t.get(taskCount).toString());
             taskCount++;
             System.out.println("\nNow you have " + taskCount + " tasks in the list.\n" + line);
         }
     }
 
-    //Deletes a stored task
-    public static void sayDelete(String input) throws DukeException {                                                   //delete 1
+    /**
+     * Deletes a specific task.
+     *
+     * @param input that user gives containing the position of task
+     */
+    public static void sayDelete(String input) throws DukeException {
         if (taskCount != 0) {
             try {
                 String taskNumber = input.substring(input.lastIndexOf(" ") + 1);
@@ -127,19 +159,23 @@ public class TaskList {
                 Task taskRemoved = t.get(finalTaskNumber);
                 t.remove(finalTaskNumber);
                 taskCount--;
-                System.out.println(line + "\n" + "One more thing outta your life as always...\n");                      //delete 1
+                System.out.println(line + "\n" + "One more thing outta your life as always...\n");
                 System.out.println("  " + taskRemoved.toString() + "\n" + "\nYou now have " + taskCount + " tasks left.\n");
                 System.out.println(line);
             } catch (IndexOutOfBoundsException e) {
-                System.out.println(line + "\nInvalid task number entered! Please try again!\n" + line);                 //delete 101
+                System.out.println(line + "\nInvalid task number entered! Please try again!\n" + line);
             }
         } else {
-            throw new DukeException("Calm down, we don't even have tasks yet!");                                        //delete 1 when taskCount = 0
+            throw new DukeException("Calm down, we don't even have tasks yet!");
         }
     }
 
-    //Give users a way to find a task by searching for a keyword
-    public static void sayFind(String input){                                                                            //find book
+    /**
+     * Finds and prints a specific task.
+     *
+     * @param input that user gives containing the position of task
+     */
+    public static void sayFind(String input){
         String[] arrayString = input.split(" ", 2);
         String keyWord = arrayString[1];
         int matchCount = 0;

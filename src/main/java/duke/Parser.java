@@ -4,9 +4,16 @@ import java.util.Scanner;
 import static duke.Storage.saveData;
 import static duke.TaskList.*;
 
+/**
+ * Class responsible for filtering out user commands and determining the flow of the program.
+ *
+ * @author pragyan01
+ */
 public class Parser {
 
-    //Creates scanner, takes in user input & filters it to different methods
+    /**
+     * Method that determines the control flow of the duke bot based on user input
+     */
     public static void inputSort() throws DukeException {
         while (quitFlag == 0) {
             System.out.println("Enter your wish: " + "\n" + line);

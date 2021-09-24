@@ -2,11 +2,18 @@ package duke;
 import java.io.FileNotFoundException;
 import static duke.Storage.loadData;
 
+/**
+ * Class responsible for displaying the welcome messages by the bot.
+ *
+ * @author pragyan01
+ */
 public class Ui {
 
     public static String line = "------------------------------------------------------------------------------------------\n";
 
-    //Program starts with this greeting
+    /**
+     * Method that prints a greeting and loads previously saved tasks into the bot.
+     */
     public static void start() throws DukeException {
         try {
             loadData();
@@ -20,6 +27,4 @@ public class Ui {
             System.out.println("Saved file could not be found. I've used one of your wishes to create a new file for you! Thank me later.");
         }
     }
-
-
 }

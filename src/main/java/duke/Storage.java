@@ -7,9 +7,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import static duke.TaskList.*;
 
+/**
+ * Class responsible for saving and loading of tasks to/from a local file.
+ *
+ * @author pragyan01
+ */
 public class Storage {
 
-    //Saves Task list into local file
+    /**
+     * Writes tasks in Arraylist and saves to local file in offline storage.
+     *
+     * @param t storing all tasks in the bot
+     */
     public static void saveData(ArrayList<Task> t) {
         try {
             String path = new File("userData.txt").getAbsolutePath();
@@ -27,7 +36,9 @@ public class Storage {
         }
     }
 
-    //Loads Task list into Duke
+    /**
+     * Method that loads the offline txt file tasks into the bot.
+     */
     public static void loadData() throws FileNotFoundException, DukeException {
         String path = new File("userData.txt").getAbsolutePath();
         File f = new File(path);
