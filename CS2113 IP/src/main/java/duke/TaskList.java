@@ -22,6 +22,7 @@ public class TaskList {
     final private static String ERROR_EMPTY_DEADLINE_DESCRIPTION = "Please do not leave your deadline description empty :-(";
     final private static String ERROR_EMPTY_EVENT_DESCRIPTION = "Please do not leave your event description empty :-(";
     final private static String ERROR_EMPTY_DELETE_DESCRIPTION = "Please do not leave your delete task number empty :-(";
+    final private static String ERROR_MISSING_FIND_DESCRIPTION = "What are you finding?? :o";
     final private static String ERROR_WRONG_HANDLE_TODO_DESCRIPTION = "Check for missing fields in your description!";
     final private static String ERROR_WRONG_HANDLE_EVENT_DESCRIPTION = "Include /at handler and insert date of event!";
     final private static String ERROR_WRONG_HANDLE_DEADLINE_DESCRIPTION = "Include /by handler and insert deadline!";
@@ -94,19 +95,38 @@ public class TaskList {
     private static void deleteTask(String userInput) throws DukeException, OutOfBoundsException, NumberFormatException {
         int userInputInt = parser.getUserInputInt(userInput, tasks.size());
         taskCount--;
-        ui.handleDelete(userInputInt, taskCount, tasks);
+        int zeroIndexInputInt = userInputInt - 1;
+        Task specifiedTask = tasks.get(zeroIndexInputInt);
+        ui.handleDelete(specifiedTask, tasks, zeroIndexInputInt, taskCount);
     }
 
     private static void doneTask(String userInput) throws DukeException, NumberFormatException, OutOfBoundsException {
         int userInputInt = parser.getUserInputInt(userInput, tasks.size());
-        tasks.get(userInputInt).markAsDone();
-        ui.handleDone(userInputInt, tasks);
+        int zeroIndexInputInt = userInputInt - 1;
+        Task specifiedTask = tasks.get(zeroIndexInputInt);
+        specifiedTask.markAsDone();
+        ui.handleDone(specifiedTask);
     }
 
     private static void listTask() {
         ui.handleListComment();
-        for (int i = 0; i < taskCount; i++) {
-            ui.handleListFormat(i, tasks);
+        int taskIndex = 1;
+        for (Task task : tasks) {
+            ui.handleListFormat(taskIndex, task);
+            taskIndex++;
+        }
+    }
+
+    private static void findTask(String userInput) throws DukeException {
+        String userSearchKey = parser.getUserSearchKey(userInput);
+        ui.handleListComment();
+        int tasksFoundIndex = 1;
+        for (Task task : tasks) {
+            boolean hasSearchKey = parser.hasSearchKey(userSearchKey, task.description);
+            if (hasSearchKey) {
+                ui.handleFind(tasksFoundIndex, task);
+                tasksFoundIndex++;
+            }
         }
     }
 
@@ -152,6 +172,7 @@ public class TaskList {
         boolean isDeadline;
         boolean isEvent;
         boolean isDelete;
+        boolean isFind;
 
         do {
             String userInput = parser.getUserInput();
@@ -163,6 +184,7 @@ public class TaskList {
             isDeadline = userInput.startsWith("deadline");
             isEvent = userInput.startsWith("event");
             isDelete = userInput.startsWith("delete");
+            isFind = userInput.startsWith("find");
 
 
             Ui.showHorizontalLine();
@@ -217,6 +239,12 @@ public class TaskList {
                     System.out.println(ERROR_EMPTY_EVENT_DESCRIPTION);
                 } catch (FormatException e) {
                     System.out.println(ERROR_WRONG_HANDLE_EVENT_DESCRIPTION);
+                }
+            } else if (isFind) {
+                try {
+                    findTask(userInput);
+                } catch (DukeException e) {
+                    System.out.println(ERROR_MISSING_FIND_DESCRIPTION);
                 }
             } else {
                 System.out.println(ERROR_UNKNOWN_INPUT);
