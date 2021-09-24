@@ -1,15 +1,38 @@
 # User Guide
+Alfred is a Command Line Application for task management. 
 
-## Features 
+- Features
+  - [Listing current tasks: `list`](#list)
+  - Adding tasks:
+    - Todo: `todo`
+    - Event: `event`
+    - Deadline: `deadline`
+  - Marking task as complete: `done`
+  - Searching for tasks: `find`
+  - Exiting the app: `bye`
+- Command summary
 
-### Feature-ABC
+## Features
 
-Description of the feature.
+### <a name="list"></a>Listing current tasks: `list`
 
-### Feature-XYZ
 
-Description of the feature.
+### Adding Todos: `todo`
 
+
+### Adding Events: `event`
+
+
+### Adding Deadlines: `deadline`
+
+
+### Marking task as complete: `done`
+
+
+### Searching for tasks: `find`
+
+
+### Exiting the app: `bye`
 ## Usage
 
 ### `Keyword` - Describe action
@@ -27,3 +50,5 @@ Description of the outcome.
 ```
 expected output
 ```
+
+### list
