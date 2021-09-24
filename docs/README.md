@@ -130,5 +130,47 @@ Noted. I've removed this task:
 Now you have 2 task in the list.
 ```
 ### Mark a task item as completed: `done`
+Use for marking a task as completed.
+
+Format: `done TASK_INDEX`
+* `TASK_INDEX` is the number corresponding to the task on the list. The number must be a positive integer.
+* Each task can only be marked done once. Once a task is marked `done` it cannot be undone. 
+
+Example:
+`done 1`
+
+Expected outcome:
+```text
+done 1
+Nice! I've marked this task as done:
+  [T][X] CS2113 ip
+list
+Here are the tasks in your list:
+1. [T][X] CS2113 ip
+2. [D][ ] CS2113 Assignment (tomorrow 4pm)
+```
 ### Exiting the program: `bye`
+Use for terminating the program
+
+Format:
+`bye`
+* All the data in the task list will be saved in file in the same directory as the program for future access.
+
+Expected outcome:
+```text
+bye
+Bye. Hope to see you again soon!
+```
+
+## Command Summary
+Action | Format,Examples
+------ | ---------------
+Add todo | `todo DESCPRIPTION` 
+Add event | `event DESCPRIPTION /[at:] OCCURING_AT` eg.`event CS2113 consultation /at: 2021-10-01`
+Add deadline | `deadline DESCPRIPTION /[by:] DUE_BY` eg. `deadline CS2113 tp /by: 2021-10-01`
+List | `list`
+Find | `find KEYWORD` eg. `find Assignment`
+Delete task | `delete TASK_INDEX` eg. `delete 2`
+Done | `done TASK_INDEX` eg. `done 1`
+Terminate | `bye`
 
