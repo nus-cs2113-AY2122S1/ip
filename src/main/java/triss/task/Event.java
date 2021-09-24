@@ -1,17 +1,31 @@
 package triss.task;
 
+import triss.exception.TrissException;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task{
     /** The timing this event occurs at */
-    private String timing;
+    private LocalDate timing;
 
     /**
      * Creates a deadline with task type [E], and timing based on user's input.
      * @param name The name of the event.
      * @param timing The timing of the event.
      */
-    public Event(String name, String timing) {
+    public Event(String name, String timing) throws TrissException {
         super(name);
-        this.timing = timing;
+        try {
+            this.timing = LocalDate.parse(timing);
+        } catch (DateTimeParseException e) {
+            String errorMessage = "You didn't format your date properly!\n"
+                    + " \n"
+                    + "Try inserting an event in this format:\n"
+                    + "    event Stay in a log cabin /2021-08-13";
+            throw new TrissException(errorMessage);
+        }
         this.typeOfTask = "[E]";
     }
 
@@ -20,7 +34,7 @@ public class Event extends Task{
      * @return Timing of the event.
      */
     public String getTiming() {
-        return timing;
+        return timing.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     /**
@@ -36,6 +50,6 @@ public class Event extends Task{
     @Override
     public String printTaskForStoring() {
         return getTypeOfTask() + "," + getDoneStatusAsSymbol()
-                + "," + getName() + "," + getTiming();
+                + "," + getName() + "," + timing;
     }
 }
