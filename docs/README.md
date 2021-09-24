@@ -2,11 +2,21 @@
 
 <br>
 
-<center>
+## How to use this user guide?
+
+All features can be found in the index to the left. Press the specific command to learn more about it.
+
+## Setting Up Triss
+
+1. Press `View on GitHub` at the top of this page.
+2. Open the `Releases` tab at the right of the github repo.
+3. Press the dropdown labelled `Assets` in your preferred release.
+4. Download the file titled `ip.jar` into an accessible folder.
+5. Open up a command line interface in the folder.
+6. Enter `java -jar ip.jar` to start Triss in the command line interface.
+7. Congratulations! You should be good to go!
 
 ## List of Features
-
-</center>
 
 | Feature | Description |
 ----------|--------------
@@ -217,4 +227,43 @@ ____________________________________________________________
 I've added: [T][ ] Add Git Request
 ____________________________________________________________
 ```
+<hr>
+
+### Add a new event: `event`
+Adds a new event to Triss's database.
+
+#### Format
+
+`event NameOfEvent /EventTiming`
+
+`NameOfEvent` refers to the name of your event.
+
+`EventTiming` refers to the date which your event is on. It should be typed in `YYYY-MM-DD` format.
+
+#### Example of usage:
+
+```
+event Submit Log Report /2021-12-12
+____________________________________________________________
+I've added: [E][ ] Submit Log Report (Dec 12 2021)
+____________________________________________________________
+```
+<hr>
+
+### Save all tasks
+All tasks will be saved automatically in `data/storedtasks.txt` after every input from the user. If the program crashes during execution, the data preceding the crash will still be retained.
+
+<hr>
+
+## Frequently Asked Questions
+
+<hr>
+
+Q: I can't access my stored tasks after moving Triss to a new location. What can I do?
+
+A: You should move the folder titled `data` from the original location to the new location, to access the previously stored tasks.
+
+<hr>
+
+
 <hr>
