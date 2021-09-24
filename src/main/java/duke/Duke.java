@@ -30,7 +30,7 @@ public class Duke {
                 Ui.emptyDescriptionError();
             }
             try {
-                Storage.writeToFile("temp/tasks.txt", tasklist);
+                Storage.writeToFile("tasks.txt", tasklist);
             } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
