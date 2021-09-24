@@ -135,7 +135,7 @@ public class TaskList {
             String errorMessage = "You didn't format your event properly!\n"
                     + " \n"
                     + "Try inserting an event in this format:\n"
-                    + "    event Stay in a log cabin /Friday the 13th";
+                    + "    event Stay in a log cabin /2021-09-23";
             throw new TrissException(errorMessage);
         }
 
@@ -177,7 +177,7 @@ public class TaskList {
             String errorMessage = "You didn't write your deadline properly!\n"
                     + " \n"
                     + "Try inserting a deadline in this format:\n"
-                    + "    deadline Meet with Friends /12th July";
+                    + "    deadline Meet with Friends /2021-09-23";
             throw new TrissException(errorMessage);
         }
 
