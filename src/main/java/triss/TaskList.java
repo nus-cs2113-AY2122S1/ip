@@ -57,7 +57,7 @@ public class TaskList {
      * Removes task from tasklist.
      * @param task Task to be removed.
      */
-    public void removeTask(Task task) {
+    private void removeTask(Task task) {
         tasks.remove(task);
     }
 
@@ -65,7 +65,7 @@ public class TaskList {
      * Adds task to tasklist.
      * @param task Task to be added.
      */
-    public void addTask(Task task) {
+    private void addTask(Task task) {
         tasks.add(task);
     }
 
@@ -196,6 +196,76 @@ public class TaskList {
         if (!isSilent) {
             ui.printLine("I've added: " + newDeadline.printTask());
         }
+    }
+
+    /**
+     * Mark user task as done, if request is valid.
+     * Stops if user did not specify a task.
+     * Stops if user's chosen task does not exist.
+     * Informs user if task was already done.
+     * @param userInput Any user input starting with "done".
+     */
+    public void markTaskAsDone(String userInput) throws TrissException {
+        // Get number of task after the term "done"
+        int indexOfCompletedTask;
+        // Throw exception if user did not type a number after "done"
+        try {
+            indexOfCompletedTask = Integer.parseInt(parser.parseUserInput(userInput, 1)) - 1;
+        } catch (Exception e) {
+            throw new TrissException("Ach, nee! That task does not exist.");
+        }
+
+
+        // If task does not exist, do not delete any task
+        if (indexOfCompletedTask >= getSize() || indexOfCompletedTask < 0) {
+            ui.printLine("Apologies! That task does not exist.");
+            return;
+        }
+
+        // Find task since it exists
+        Task chosenTask = getTaskByIndex(indexOfCompletedTask);
+
+        // If task was already done, let user know
+        if (chosenTask.isDone()) {
+            ui.printLine("Oh! This task was already marked as done:");
+            // Print out the task in the following format: "    [X] Task"
+            ui.printLine("    " + chosenTask.printTask());
+            return;
+        }
+
+        // If task exists, and is not done, mark it as done
+        chosenTask.setDone(true);
+        ui.printLine("Wunderbar! This task has been marked as done:");
+
+        // Print out the task in the following format: "    [X] Task"
+        ui.printLine("    " + chosenTask.printTask());
+    }
+
+    public void deleteTask(String userInput) throws TrissException {
+        // Get number of task after the term "done"
+        int indexOfRemovableTask;
+        // Throw exception if user did not type a number after "done"
+        try {
+            indexOfRemovableTask = Integer.parseInt(parser.parseUserInput(userInput, 1)) - 1;
+        } catch (Exception e) {
+            throw new TrissException("Ach, nee! That task does not exist.");
+        }
+
+        // If task does not exist, do not delete any task
+        if (indexOfRemovableTask >= getSize() || indexOfRemovableTask < 0) {
+            ui.printLine("Apologies! That task does not exist.");
+            return;
+        }
+
+        // Find task since it exists
+        Task chosenTask = getTaskByIndex(indexOfRemovableTask);
+
+        // Remove task from tasks
+        removeTask(chosenTask);
+        ui.printLine("Wunderbar! This task has been deleted:");
+
+        // Print out the task in the following format: "    [X] Task"
+        ui.printLine("    " + chosenTask.printTask());
     }
 
 }

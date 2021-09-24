@@ -1,5 +1,7 @@
 package triss;
 
+import triss.command.*;
+
 public class Parser {
 
     public Parser() {
@@ -22,5 +24,34 @@ public class Parser {
 
     public String getTaskName(String userInput, int lengthOfCommandWord) {
         return userInput.substring(lengthOfCommandWord, userInput.indexOf("/")).trim();
+    }
+
+    /**
+     * Returns appropriate Command Type based on user's command.
+     * @param userInput User's input.
+     * @return Command that can execute user's input.
+     */
+    public Command parseUserCommand(String userInput) {
+        String userCommand = parseUserInput(userInput, 0);
+
+        // Perform actions based on user's command
+        switch (userCommand) {
+        case "bye":
+            return new ByeCommand();
+        case "list":
+            return new ListCommand();
+        case "done":
+            return new DoneCommand();
+        case "delete":
+            return new DeleteCommand();
+        case "deadline":
+            return new AddDeadlineCommand();
+        case "event":
+            return new AddEventCommand();
+        case "todo":
+            return new AddTodoCommand();
+        default:
+            return new InvalidCommand();
+        }
     }
 }
