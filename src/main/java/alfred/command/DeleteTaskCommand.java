@@ -17,7 +17,7 @@ public class DeleteTaskCommand extends Command {
         try {
             Task removedTask = taskList.removeTask(taskIndex);
             int numberOfTasks = taskList.getSize();
-            TextUi.deleteTaskMessage(removedTask, numberOfTasks);
+            TextUi.deleteTaskMessage(removedTask, numberOfTasks, taskIndex);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             TextUi.uninitialisedTaskIndexMessage(taskList.getSize());
         }

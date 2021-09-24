@@ -136,8 +136,9 @@ public class TextUi {
      * @param t The Task deleted
      * @param numberOfTasks The current number of Tasks
      */
-    public static void deleteTaskMessage(Task t, int numberOfTasks) {
-        String messageString = " Very well, Master Wayne, I shall remove this: \n    " + t.toString() + "\n" +
+    public static void deleteTaskMessage(Task t, int numberOfTasks, int taskIndex) {
+        String messageString =
+                " Very well, Master Wayne, I shall remove this: \n    " + (taskIndex + 1) + "." + t.toString() + "\n" +
                 " Sir, the number of Tasks you have scheduled currently amounts to " + numberOfTasks + "." + "\n";
         printMessageTemplate(messageString);
     }
