@@ -18,25 +18,22 @@ import static duke.constants.DukeDataStorageConstants.NOT_DONE;
 /**
  * Encodes {@code Task} objects in a task list into strings to be saved in storage file.
  */
-public class TaskListEncoder {
+public class TaskEncoder {
 
     /**
      * Encodes the {@code Task}s in {@code taskList} into a list of strings which can be decoded and written to the
      * storage file.
      *
-     * @param taskList task list containing tasks to be encoded
+     * @param task task to be encoded
      * @param fileWriter writes the string representing the decoded task to the storage file
      * @param formattedTask a formatted string which represents the encoded task
      * @throws IOException if there is an error writing to the file
      */
-    public static void encodeTask(ArrayList<Task> taskList, FileWriter fileWriter, StringBuilder formattedTask) throws IOException {
-        for (Task task : taskList) {
+    public static void encodeTask(Task task, FileWriter fileWriter, StringBuilder formattedTask) throws IOException {
             appendTaskType(formattedTask, task.getTaskType());
             appendDoneStatus(formattedTask, task.isDone());
             appendTaskDescription(formattedTask, task);
             fileWriter.write(formattedTask + System.lineSeparator());
-            formattedTask = new StringBuilder();
-        }
     }
 
     /**

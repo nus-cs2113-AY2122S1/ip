@@ -18,7 +18,7 @@ import static duke.constants.DukeDataStorageConstants.NOT_DONE;
 /**
  * Decodes data in storage file into a {@code Task} object.
  */
-public class TaskListDecoder {
+public class TaskDecoder {
     /**
      * Decodes a task in the form of a string into a {@code Task} object.
      *
