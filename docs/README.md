@@ -58,7 +58,7 @@ Terminates the Duke program.
 
 ### Save data to file
 
-Converts all current tasks in the list to String form and saves this to
+Converts all current `Task` data to String form and saves this to
 `duke.txt`. This is done automatically.
 
 
@@ -131,7 +131,7 @@ ____________________________________________________________
 
 ### List all `Task`: `list`
 
-Lists out all current tasks in the list.
+Lists out all current `Task` objects in the list.
 
 Format: `list`
 
@@ -151,7 +151,7 @@ ____________________________________________________________
 
 ### Marking a `Task` as done: `done`
 
-Marks a task as done. To obtain the task index of the task you wish to mark
+Marks a `Task` as done. To obtain the index of the `Task` you wish to mark
 as done, first use the `list` command.
 
 Format: `done TASK_INDEX`
@@ -170,7 +170,7 @@ ____________________________________________________________
 
 ### Delete a `Task`: `delete`
 
-Deletes a task from the list. To obtain the task index of the task you 
+Deletes a `Task` from the list. To obtain the index of the `Task` you 
 wish to delete, first use the `list` command.
 
 Format: `delete TASK_INDEX`
@@ -190,7 +190,8 @@ ____________________________________________________________
 
 ### Find `Task`: `find`
 
-Finds all the tasks that contain a keyword.
+Finds all the `Task` objects that contain a keyword, and prints
+them.
 
 Format: `find KEYWORD`
 
@@ -209,7 +210,7 @@ ____________________________________________________________
 ### Exit: `bye`
 
 Terminates the Duke program. Upon terminating the program, the current
-tasks are automatically saved to the file.
+`Task` data is automatically saved to the file.
 
 Format: `bye`
 
