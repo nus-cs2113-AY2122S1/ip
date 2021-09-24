@@ -27,36 +27,42 @@ Below contains screenshots of the commands Duke can process and the format of th
   list
    ```
 ![Imgur](https://i.imgur.com/vdB5yXK.jpg)
+
 ##Todo command
 
    ```
   todo "description"
    ```
 ![Imgur](https://i.imgur.com/3NFVn3U.jpg)
+
 ##Event command
 
    ```
   event "description" /at "location"
    ```
 ![Imgur](https://i.imgur.com/fcUClHK.jpg)
+
 ##Deadline command
 
    ```
   dealine "description" /by "YYYY-MM-DD" "HH:MM"
    ```
 ![Imgur](https://i.imgur.com/xL42jdE.jpg)
+
 ##Done command
 
    ```
   done "index_number"
    ```
 ![Imgur](https://i.imgur.com/Hs0F7Ej.jpg)
+
 ##Delete command
 
    ```
  delete "index_number"
    ```
 ![Imgur](https://i.imgur.com/1tfECL4.jpg)
+
 ##List command
 
    ```
@@ -64,12 +70,14 @@ Below contains screenshots of the commands Duke can process and the format of th
    ```
 
 ![Imgur](https://i.imgur.com/BOq0AwX.jpg)
+
 ##Find command
 
    ```
   find "index_number"
    ```
 ![Imgur](https://i.imgur.com/XcLGGCH.jpg)
+
 ##Close DUKE command
 
    ```
