@@ -8,7 +8,7 @@ Here is a table containing the command words and a brief description:
 
 Command | description
 ------------ | -------------
-[todo](##todo-command) | adds a task to be completed
+[todo](##-todo-command) | adds a task to be completed
 [event](##event-command) | adds an event + location 
 [deadline](##deadline-command) | adds a deadline + date + time
 [list](##list-command) | allows user to see a list of all commitments
@@ -18,7 +18,7 @@ Command | description
 [bye](##close-duke-command) | close Duke
 
 On startup, the user will be greeted by the following message:
-![ScreenShot](C:\Users\Edwar\Desktop\CEG Y2S1\CS2113T\2113t pics\welcome message.jpg)
+![ScreenShot](\welcome message.jpg)
 
 Below contains screenshots of the commands Duke can process and the format of the command in the box:
 
@@ -26,55 +26,55 @@ Below contains screenshots of the commands Duke can process and the format of th
    ```
   list
    ```
-![ScreenShot](C:\Users\Edwar\Desktop\CEG Y2S1\CS2113T\2113t pics\list.jpg)
-##Todo command
+![ScreenShot](\list.jpg)
+## Todo command
 
    ```
   todo "description"
    ```
-![ScreenShot](C:\Users\Edwar\Desktop\CEG Y2S1\CS2113T\2113t pics\todo.jpg)
+![ScreenShot](\todo.jpg)
 ##Event command
 
    ```
   event "description" /at "location"
    ```
-![ScreenShot](C:\Users\Edwar\Desktop\CEG Y2S1\CS2113T\2113t pics\event.jpg)
+![ScreenShot](\event.jpg)
 ##Deadline command
 
    ```
   dealine "description" /by "YYYY-MM-DD" "HH:MM"
    ```
-![ScreenShot](C:\Users\Edwar\Desktop\CEG Y2S1\CS2113T\2113t pics\deadline.jpg)
+![ScreenShot](\deadline.jpg)
 ##Done command
 
    ```
   done "index_number"
    ```
-![ScreenShot](C:\Users\Edwar\Desktop\CEG Y2S1\CS2113T\2113t pics\done.jpg)
+![ScreenShot](\done.jpg)
 ##Delete command
 
    ```
  delete "index_number"
    ```
-![ScreenShot](C:\Users\Edwar\Desktop\CEG Y2S1\CS2113T\2113t pics\delete.jpg)
+![ScreenShot](\delete.jpg)
 ##List command
 
    ```
   list
    ```
 
-![ScreenShot](C:\Users\Edwar\Desktop\CEG Y2S1\CS2113T\2113t pics\list2.jpg)
+![ScreenShot](\list2.jpg)
 ##Find command
 
    ```
   find "index_number"
    ```
-![ScreenShot](C:\Users\Edwar\Desktop\CEG Y2S1\CS2113T\2113t pics\find.jpg)
+![ScreenShot](\find.jpg)
 ##Close DUKE command
 
    ```
  bye
    ```
-![ScreenShot](C:\Users\Edwar\Desktop\CEG Y2S1\CS2113T\2113t pics\bye.jpg)
+![ScreenShot](\bye.jpg)
 
 Have fun trialing!!
