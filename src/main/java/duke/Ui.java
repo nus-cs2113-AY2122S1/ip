@@ -117,6 +117,10 @@ public class Ui {
                 + task);
     }
 
+    public void printMatchingDescriptionPrompt() {
+        System.out.println("     Here are the matching tasks in your list:");
+    }
+
     public static String readCommand() {
         Scanner s = new Scanner(System.in);
         String userInput = s.nextLine();

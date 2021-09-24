@@ -44,7 +44,7 @@ public class AddCommand extends Command {
             addTodoTaskWithException(taskInput, tasks, ui, storage, isForLoading);
         } else if (taskInput.startsWith(COMMAND_DEADLINE)) {
             addDeadlineTaskWithException(taskInput, tasks, ui, storage, isForLoading);
-        } else if(taskInput.startsWith(COMMAND_EVENT)) {
+        } else if (taskInput.startsWith(COMMAND_EVENT)) {
             addEventTaskWithException(taskInput, tasks, ui, storage, isForLoading);
         } else {
             throw new WrongCommandException();
