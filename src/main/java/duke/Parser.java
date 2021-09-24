@@ -14,8 +14,13 @@ import duke.exceptions.IncompleteInformationException;
 import duke.exceptions.InvalidRequestException;
 import duke.exceptions.InvalidFilterException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+
 public abstract class Parser {
     public static final int TIME_INFO_START_INDEX = 1;
+    public static final int SPECIAL_DATE_SEQUENCE = 4;
 
     public static Command parse(String request) throws Exception {
         if (CommandType.isList(request)) {
@@ -88,7 +93,13 @@ public abstract class Parser {
             if (timeIndex < 0) {
                 throw new EmptyTimeException();
             }
-            return request.substring(timeIndex + TIME_INFO_START_INDEX);
+            try {
+                String time = request.substring(timeIndex + SPECIAL_DATE_SEQUENCE).trim();
+                LocalDate date = LocalDate.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            } catch (Exception ex) {
+                return request.substring(timeIndex + TIME_INFO_START_INDEX).trim();
+            }
     }
 
     private static String getDescription(String request) throws EmptyDescriptionException {
