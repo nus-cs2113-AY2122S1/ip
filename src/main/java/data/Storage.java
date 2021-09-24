@@ -7,7 +7,7 @@ import task.ToDo;
 
 import static common.Error.FILE_NOT_EXIST;
 import static common.Error.WRITE_IOEXCEPTION;
-import static common.Error.READ_SUCCESS;
+import static common.Message.SUCCESS_FILE_FOUND;
 import static common.Message.SUCCESS_DATA_READ;
 
 import java.io.File;
@@ -52,7 +52,7 @@ public class Storage {
             String absolutePath = data.getAbsolutePath();
             System.out.println(String.format(FILE_NOT_EXIST, absolutePath));
         } else {
-            System.out.println(String.format(READ_SUCCESS, data.getAbsolutePath()));
+            System.out.println(String.format(SUCCESS_FILE_FOUND, data.getAbsolutePath()));
         }
         return data;
     }

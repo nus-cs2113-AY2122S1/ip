@@ -7,6 +7,9 @@ public class Parser {
         case BYE:
             preparedCommand = createBye();
             break;
+        case LIST:
+            preparedCommand = createList();
+            break;
         case TODO:
             preparedCommand = createToDo(input);
             break;
@@ -18,6 +21,10 @@ public class Parser {
 
     private static Command createBye() {
         return new ByeCommand();
+    }
+
+    private static Command createList() {
+        return new ListCommand();
     }
 
     private static Command createUnknown() {
@@ -32,7 +39,7 @@ public class Parser {
         CommandType type;
         if (input.equals(ByeCommand.COMMAND_WORD)) {
             type = CommandType.BYE;
-        } else if (input.equals("/list")) {
+        } else if (input.equals(ListCommand.COMMAND_WORD)) {
             type = CommandType.LIST;
         } else if (input.startsWith(ToDoCommand.COMMAND_WORD)) {
             type = CommandType.TODO;

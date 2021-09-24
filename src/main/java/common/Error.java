@@ -2,7 +2,7 @@ package common;
 
 public class Error {
     public static final String READ_IOEXCEPTION = "  (!) FATAL: Could not process data file, starting with empty data";
-    public static final String READ_SUCCESS = "  (+) Data file found: %s";
+
     public static final String WRITE_IOEXCEPTION = "  (!) FATAL: IO Error";
     public static final String FILE_NOT_EXIST = "  (!) Data file not found"
             + System.lineSeparator() + "  (+) Empty data file created: %s";

@@ -36,6 +36,11 @@ public class TaskList {
         return tasks;
     }
 
+    public String getTaskInfo(int taskID) {
+        Task currentTask = tasks.get(taskID);
+        return currentTask.toString();
+    }
+
     public int getSize() {
         return tasks.size();
     }
