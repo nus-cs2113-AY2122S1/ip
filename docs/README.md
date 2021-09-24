@@ -45,7 +45,10 @@ Before continuing, here are some of the things you should take note of, to bette
 | `<byWhen>` | <u>**Required.**</u> The date and time of the Deadline. |
 | `<keyword>` | <u>**Required.**</u> The word that you want to find. |
 
+---
+
 # Features
+
 > ⚙ Please note that Duke is still in early stages, so that may be quite a number of bugs. However, if you find any bugs, you can let me know [here](https://github.com/Kair0s3/ip/issues).
 
 ## Adding a Task (3 types)
@@ -113,6 +116,8 @@ Syntax - `find <keyword>`
 Exits the Duke program.
 
 Syntax - `bye`
+
+---
 
 # Command Summary
 
