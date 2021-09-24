@@ -4,8 +4,8 @@ Alfred is a Command Line Application for task management, modelled after Alfred 
 - Features
   - [Listing current tasks: `list`](#list)
   - Adding tasks:
-    - Todo: `todo`
-    - Event: `event`
+    - [Todo: `todo`](#todo)
+    - [Event: `event`](#event)
     - Deadline: `deadline`
   - Marking task as complete: `done`
   - Searching for tasks: `find`
@@ -20,6 +20,7 @@ Lists all current tasks stored in local storage task list. <br />
 Usage: `list` <br />
 
 Expected outcome and examples of usage:
+
 - If there exists tasks, Alfred will enumerate the tasks and print them:
 ```
 list
@@ -40,9 +41,10 @@ ____________________________________________________________
 ### <a name="todo"></a>`todo` - Adding a Todo
 Adds a Todo to the task list. <br />
 Usage: `todo TODO_DESCRIPTION` <br />
-- :warning: `TODO_DESCRIPTION` cannot be empty,
+- :warning: `TODO_DESCRIPTION` cannot be empty.
 
-Expected outcome and examples of usage: <br />
+Expected outcome and examples of usage:
+
 Alfred will add the Todo to the current task list, and 
 display the current number of tasks in the task list:
 ```
@@ -61,7 +63,8 @@ Usage: `event EVENT_DESCRIPTION /at EVENT_DATE` <br />
 - :warning: `EVENT_DATE` cannot be empty.
 - :warning: `EVENT_DATE` must be formatted as `DDMMYYYY`, `DD/MM/YYYY`, or `DD-MM-YYYY`.
 
-Expected outcome and examples of usage: <br />
+Expected outcome and examples of usage: 
+
 Alfred will add the Event to the current task list, and
 display the current number of tasks in the task list:
 ```
@@ -81,7 +84,8 @@ Usage: `deadline DEADLINE_DESCRIPTION /by DEADLINE_DATE` <br />
 - :warning: `DEADLINE_DATE` cannot be empty.
 - :warning: `DEADLINE_DATE` must be formatted as `DDMMYYYY`, `DD/MM/YYYY`, or `DD-MM-YYYY`.
 
-Expected outcome and examples of usage: <br />
+Expected outcome and examples of usage:
+
 Alfred will add the Deadline to the current task list, and
 display the current number of tasks in the task list:
 ```
