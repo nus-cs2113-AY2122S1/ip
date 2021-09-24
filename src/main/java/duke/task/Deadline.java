@@ -1,22 +1,24 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 public class Deadline extends Task{
 
-    private String deadline;
+    private LocalDateTime deadlineDateTime;
 
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, LocalDateTime deadlineDateTime) {
         super(description);
-        this.deadline = deadline;
+        this.deadlineDateTime = deadlineDateTime;
     }
 
-    public String getDeadline() {
-        return deadline;
+    public LocalDateTime getDeadline() {
+        return deadlineDateTime;
     }
 
 
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + deadline + ")";
+        return "[D]" + super.toString() + "(by:" + deadlineDateTime + ")";
     }
 }
