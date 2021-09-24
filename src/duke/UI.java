@@ -1,10 +1,6 @@
 package duke;
 
 public class UI {
-
-
-
-
     public static final String WELCOME_MESSAGE =
             " ____        _        \n"
                     + "|  _ \\ _   _| | _____ \n"
