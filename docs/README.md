@@ -32,7 +32,9 @@
 ### Help - Show All Valid Commands
 
 List down all valid commands and their formats
+
 Format: `help`
+
 Expected Outcome:
 
 ```
@@ -51,6 +53,9 @@ Expected Outcome:
 List down all current tasks in the task list
 
 Format `list`
+
+Expected Outcome:
+
 ```
 These are the list of tasks you have
 ________________________________________________________________
@@ -60,7 +65,8 @@ ________________________________________________________________
      4.[ ] CS2113T iP Submission (by: Thurs)
 ________________________________________________________________
 ```
-Description of the feature.
+
+### Add - Add a Task to Your List
 
 ## Usage
 
