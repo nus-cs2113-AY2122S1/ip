@@ -1,21 +1,20 @@
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.TaskList;
+package duke;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.stream.StreamSupport;
 
-public class SaveFile {
+public class Storage {
 
     protected String path;
 
-    public SaveFile(String path){
+    public Storage(String path){
         this.path = path;
     }
 
@@ -24,7 +23,9 @@ public class SaveFile {
         File t = new File(this.path);
 
         TaskList taskArrayList = new TaskList();
-        if(t.exists()){
+        if(!t.exists()){
+            t.createNewFile();
+        }
             try{
                 Scanner scanner = new Scanner(t);
                 int index = 0;
@@ -56,11 +57,8 @@ public class SaveFile {
             }catch (IOException e){
                 System.out.println(e.getMessage());
             }
-        }
-        else{
-            t.mkdir();
-            t.createNewFile();
-        }
+
+
         return taskArrayList;
     }
 
