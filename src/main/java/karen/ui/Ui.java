@@ -3,6 +3,7 @@ package karen.ui;
 import karen.tasklist.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public abstract class Ui {
@@ -83,6 +84,19 @@ public abstract class Ui {
            message = message + String.format("    %d. [%s][%s] %s\n",
                    i + 1, taskList.get(i).getType(), taskList.get(i).getStatusIcon(),
                    taskList.get(i).getFormattedDescription());
+        }
+        printFormattedMessage(message);
+    }
+
+    public static void printFoundTasks(List<Task> tasks, String keyword) {
+        if (tasks.size() == 0){
+            printFormattedMessage("    There seems to have no matching tasks\n");
+            return;
+        }
+        String message = "    Here are your tasks matching with:  " + keyword + "\n\n";
+        for (int i = 0; i < tasks.size(); i ++) {
+            message += String.format("      %d. [%s][%s] %s\n",
+                    i+1, tasks.get(i).getType(), tasks.get(i).getStatusIcon(), tasks.get(i).getFormattedDescription());
         }
         printFormattedMessage(message);
     }

@@ -14,6 +14,8 @@ import karen.tasklist.task.ToDo;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Command {
     private String command;
@@ -32,8 +34,11 @@ public class Command {
         return command;
     }
 
-    public void executeFindCommand() {
-
+    public void executeFindCommand(String keyword, ArrayList<Task> tasks) {
+        List<Task> filteredTasks = tasks.stream()
+                .filter((t) -> t.getTask().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+        Ui.printFoundTasks(filteredTasks, keyword);
     }
 
     public void executeDoneCommand(int doneIndex) throws NumberFormatException, IndexOutOfBoundsException, IOException {

@@ -39,6 +39,16 @@ public class Parser {
     }
 
 
+
+    public String parseFind(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
+        ErrorCheck.checkCommandDescriptionExceptions(FIND_COMMAND,rawUserInput);
+
+        String[] inputSplit = rawUserInput.split(" ",2);
+        String keyword = inputSplit[1].trim();
+        return keyword;
+    }
+
+
     public Event parseEvent(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
         ErrorCheck.checkTaskExceptions(EVENT_COMMAND, EVENT_SEPARATOR, rawUserInput);
 
@@ -68,7 +78,6 @@ public class Parser {
         Deadline deadline = new Deadline(fullTaskDescription, by, deadlineTask);
         return deadline;
     }
-
 
 
     public ToDo parseToDo(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
@@ -111,7 +120,8 @@ public class Parser {
         try {
             switch (inputCommand) {
             case FIND_COMMAND:
-                command.executeFindCommand();
+                String keyword = parseFind(rawUserInput);
+                command.executeFindCommand(keyword, taskList.getTaskList());
                 break;
             case LIST_COMMAND:
                 command.executeListCommand();

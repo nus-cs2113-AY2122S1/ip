@@ -28,6 +28,9 @@ public abstract class ErrorCheck {
     public static void checkCommandDescriptionExceptions(String command, String rawUserInput)
             throws NoDescriptionException, IncorrectDescriptionFormatException {
         String[] inputWords = rawUserInput.split(" ");
+        if (command.equals("find")) {
+            inputWords = rawUserInput.split(" ", 2);
+        }
         if (command.equals("bye")) {
             if (inputWords.length != 1) {
                 throw new IncorrectDescriptionFormatException();
