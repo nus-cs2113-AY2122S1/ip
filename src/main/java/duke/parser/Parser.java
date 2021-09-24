@@ -1,6 +1,7 @@
 package duke.parser;
 
 
+import duke.exception.EmptyListException;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 import duke.exception.InvalidTaskDescriptionException;
@@ -40,11 +41,15 @@ public class Parser {
             case ("delete"):
                 TaskList.deleteTask(userInput, tasks);
                 break;
+            case ("find"):
+                String filteredInput = getFindDescription(userInput);
+                TaskList.findTasks(filteredInput, tasks);
+                break;
             default:
                 Ui.printErrorMessage();
                 break;
             }
-        } catch (InvalidTaskDescriptionException e) {
+        } catch (InvalidTaskDescriptionException | EmptyListException e) {
             Ui.printHorizontalLine();
             System.out.println(e.getMessage());
             Ui.printHorizontalLine();
@@ -107,4 +112,7 @@ public class Parser {
         return userInput.contains("/at");
     }
 
+    public static String getFindDescription(String userInput) {
+        return getTodoDescription(userInput);
+    }
 }

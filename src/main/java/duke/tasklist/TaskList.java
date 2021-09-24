@@ -1,5 +1,6 @@
 package duke.tasklist;
 
+import duke.exception.EmptyListException;
 import duke.ui.Ui;
 import duke.exception.InvalidDoOrUndoException;
 import duke.exception.InvalidTaskDescriptionException;
@@ -10,6 +11,7 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
@@ -99,9 +101,23 @@ public class TaskList {
             return;
         }
         System.out.println("Here are the tasks in your list: ");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
-        }
+        Ui.printList(tasks);
         Ui.printHorizontalLine();
+    }
+
+    public static void findTasks(String input, ArrayList<Task> tasks) throws EmptyListException {
+        ArrayList<Task> filteredList = filterTasksByString(input, tasks);
+        if (filteredList.isEmpty()) {
+            throw new EmptyListException("I can't find any matching tasks! Try again!");
+        }
+        Ui.printFilteredTaskList(filteredList);
+    }
+
+    // find tasks using stream
+    public static ArrayList<Task> filterTasksByString(String input, ArrayList<Task> tasks) {
+        ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
+                .filter((task) -> task.getDescription().toLowerCase().contains(input))
+                .collect(Collectors.toList());
+        return filteredList;
     }
 }
