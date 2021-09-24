@@ -19,9 +19,7 @@ public class Ui {
     private static final String EMPTY_LIST_MESSAGE = "No items added!";
     private static final String TASK_IS_ALREADY_DONE_MESSAGE = "That task is already done!";
     public static final String MARKED_TASK_AS_DONE_MESSAGE = "Nice! I've marked this task as done:";
-    public static final String ENTER_A_NUMBER_AFTER_DONE_MESSAGE = "Please enter a number after 'done'!";
     public static final String TASK_DOES_NOT_EXIST_MESSAGE = "That task does not exist!";
-    public static final String ENTER_A_NUMBER_AFTER_DELETE_MESSAGE = "Please enter a number after 'delete'!";
     public static final String TASK_ADDED_MESSAGE = "Got it. I've added this task: ";
     public static final String EMPTY_TODO_MESSAGE = "☹ OOPS!!! The description of a todo cannot be empty.";
     public static final String WRONG_DEADLINE_FORMAT_MESSAGE = "Incorrect format for entering deadline!";
@@ -123,14 +121,14 @@ public class Ui {
      * Prints out the message to inform user that a new folder has been created
      */
     public void printNewFolderMessage() {
-        System.out.println(NEW_FOLDER_MESSAGE + LINE_SEPARATOR + LINE);
+        System.out.println(LINE + LINE_SEPARATOR + NEW_FOLDER_MESSAGE + LINE_SEPARATOR + LINE);
     }
 
     /**
      * Prints out the message to inform user that a new text file has been created
      */
     public void printNewTextFileMessage() {
-        System.out.println(NEW_TEXT_FILE_MESSAGE + LINE_SEPARATOR + LINE);
+        System.out.println(NEW_TEXT_FILE_MESSAGE);
     }
 
     /**
@@ -157,24 +155,10 @@ public class Ui {
     }
 
     /**
-     * Prints out the error message when user does not use the done command properly
-     */
-    public void printWrongDoneFormatMessage() {
-        System.out.println(LINE + LINE_SEPARATOR + ENTER_A_NUMBER_AFTER_DONE_MESSAGE + LINE_SEPARATOR + LINE);
-    }
-
-    /**
      * Prints out the error message when the user tries to access a task which does not exist
      */
     public void printTaskDoesNotExistMessage() {
         System.out.println(LINE + LINE_SEPARATOR + TASK_DOES_NOT_EXIST_MESSAGE + LINE_SEPARATOR + LINE);
-    }
-
-    /**
-     * Prints out the error message when the user does not use the delete command properly
-     */
-    public void printEnterNumberAfterTaskMessage() {
-        System.out.println(LINE + LINE_SEPARATOR + ENTER_A_NUMBER_AFTER_DELETE_MESSAGE + LINE_SEPARATOR + LINE);
     }
 
     /**

@@ -5,7 +5,7 @@ If you can type fast, Duke can get your task management done faster than traditi
 
 ## Features
 
-###Notes about the command format:
+### Notes about the command format:
 Words in UPPER_CASE are the parameters to be supplied by the user. <br />
 e.g. in `todo TASK_DESCRIPTION`, `TASK_DESCRIPTION` is a parameter which can be used as `todo read book`
 
