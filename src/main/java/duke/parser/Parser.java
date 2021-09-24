@@ -1,8 +1,6 @@
 package duke.parser;
 
-import duke.commands.AddDeadlineCommand;
-import duke.commands.AddEventCommand;
-import duke.commands.AddTodoCommand;
+import duke.commands.AddTaskCommand;
 import duke.commands.ByeCommand;
 import duke.commands.Command;
 import duke.commands.DeleteCommand;
@@ -53,13 +51,13 @@ public class Parser {
             return new DoneCommand(indexOfTaskToMarkDone);
         } else if (beginsWith(userInput, TODO_COMMAND)) {
             Todo newTodo = parseAddTodoCommand(userInput);
-            return new AddTodoCommand(newTodo);
+            return new AddTaskCommand(newTodo);
         } else if (beginsWith(userInput, DEADLINE_COMMAND)) {
             Deadline newDeadline = parseAddDeadlineCommand(userInput);
-            return new AddDeadlineCommand(newDeadline);
+            return new AddTaskCommand(newDeadline);
         } else if (beginsWith(userInput, EVENT_COMMAND)) {
             Event newEvent = parseAddEventCommand(userInput);
-            return new AddEventCommand(newEvent);
+            return new AddTaskCommand(newEvent);
         } else if (beginsWith(userInput, DELETE_COMMAND)) {
             int indexOfTaskToDelete = parseDeleteCommand(userInput);
             return new DeleteCommand(indexOfTaskToDelete);

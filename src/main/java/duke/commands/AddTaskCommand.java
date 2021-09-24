@@ -1,14 +1,14 @@
 package duke.commands;
 
 import duke.storage.DataStorage;
-import duke.task.Deadline;
+import duke.task.Task;
 import duke.task.TaskList;
 
-public class AddDeadlineCommand extends Command {
+public class AddTaskCommand extends Command {
 
-    private final Deadline toAdd;
+    private final Task toAdd;
 
-    public AddDeadlineCommand(Deadline toAdd) {
+    public AddTaskCommand(Task toAdd) {
         this.toAdd = toAdd;
     }
 
