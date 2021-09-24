@@ -2,7 +2,6 @@ package duke.task;
 
 import java.util.ArrayList;
 import duke.ui.Ui;
-import java.io.IOException;
 
 /**
  * Represents the ArrayList of tasks

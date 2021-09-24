@@ -5,6 +5,10 @@ import java.util.ArrayList;
 
 public class Ui {
     
+    /**
+     *
+     */
+    private static final String LIST_MESSAGE = "Here are the tasks in your list:";
     private static final String NO_TASK_FOUND_MESSAGE = "There are no tasks containing that keyword!";
     private static final String FOUND_MATCHING_TASK_MESSAGE = "Here are the matching tasks in your list:";
     public static final String LINE = "____________________________________________________________";
@@ -94,6 +98,7 @@ public class Ui {
      */
     public void printTasks(ArrayList<Task> list) {
         System.out.println(LINE);
+        System.out.println(LIST_MESSAGE);
         for (int i = 0; i < list.size(); i += 1) {
             System.out.println((i+1) + ". " + list.get(i));
         }
