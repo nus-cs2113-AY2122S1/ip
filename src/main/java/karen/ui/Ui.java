@@ -92,7 +92,12 @@ public abstract class Ui {
         printFormattedMessage(message);
     }
 
-    public static void printTasksOnDay (LocalDate date, List<Task> tasks) {
+    public static void printTasksOnDate (LocalDate date, List<Task> tasks) {
+        if (tasks.size() == 0) {
+            printFormattedMessage("    You are free on that day!\n");
+            return;
+        }
+
         String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy, E"));
         String message = "    Okay Plankton, here are the tasks you have on " + formattedDate + ".\n\n     Task List:\n\n";
         for (int i = 0; i < tasks.size(); i ++) {

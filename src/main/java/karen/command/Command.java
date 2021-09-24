@@ -43,7 +43,7 @@ public class Command {
                 .filter((t) -> (t.getDate()).equals(date))
                 .collect(Collectors.toList());
 
-        Ui.printTasksOnDay(date, filteredTasks);
+        Ui.printTasksOnDate(date, filteredTasks);
     }
 
     public void executeDoneCommand(int doneIndex) throws NumberFormatException, IndexOutOfBoundsException, IOException {
@@ -100,7 +100,7 @@ public class Command {
     }
 
     public void executeByeCommand(String rawUserInput) throws IncorrectDescriptionFormatException, NoDescriptionException {
-        String[] inputWords = rawUserInput.split(" ");
+        String[] inputWords = rawUserInput.split(" ", 0);
         ValidityAndErrorCheck.checkCommandDescriptionExceptions("bye", rawUserInput);
         Ui.printGoodByeMessage();
         programManager.setIsRunningOff();

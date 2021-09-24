@@ -27,17 +27,22 @@ public class Deadline extends Task{
     }
 
     public LocalDate findDate() {
-        String[] splitDateAndTime = this.by.split(" ");
+        String[] splitDateAndTime = this.by.split(" ", 0);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate date = LocalDate.parse(splitDateAndTime[0], formatter);
+        String dateString = splitDateAndTime[0].trim();
+        LocalDate date = LocalDate.parse(dateString, formatter);
         return date;
     }
 
     public LocalTime findTime() {
-        String[] splitDateAndTime = this.by.split(" ");
+        String[] splitDateAndTime = this.by.split(" ", 0);
+        for (int i = 0; i < splitDateAndTime.length; i ++) {
+            System.out.println(splitDateAndTime[i]);
+        }
         if (splitDateAndTime.length == 2) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
-            LocalTime time = LocalTime.parse(splitDateAndTime[1], formatter);
+            String timeString = splitDateAndTime[1].trim();
+            LocalTime time = LocalTime.parse(timeString, formatter);
             return time;
         }
         return null;

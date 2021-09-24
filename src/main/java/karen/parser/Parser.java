@@ -40,6 +40,18 @@ public class Parser {
     }
 
 
+    public LocalDate parseShow(String rawUserInput)
+            throws NoDescriptionException, IncorrectDescriptionFormatException, DateTimeParseException {
+        ValidityAndErrorCheck.checkCommandDescriptionExceptions(SHOW_COMMAND, rawUserInput);
+
+        String[] inputWords = rawUserInput.split(" ",0);
+        String dateString = inputWords[1].trim();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        LocalDate parsedDate = LocalDate.parse(dateString, dateFormatter);
+        return parsedDate;
+    }
+
     public Event parseEvent(String rawUserInput)
             throws DateTimeParseException, NoDescriptionException, IncorrectDescriptionFormatException {
         ValidityAndErrorCheck.checkTaskExceptions(EVENT_COMMAND, EVENT_SEPARATOR, rawUserInput);
@@ -81,33 +93,22 @@ public class Parser {
 
     public int parseDone(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
         ValidityAndErrorCheck.checkCommandDescriptionExceptions(DONE_COMMAND, rawUserInput);
-        String[] inputWords = rawUserInput.split(" ");
+        String[] inputWords = rawUserInput.split(" ", 0);
         int doneIndex = Integer.parseInt(inputWords[1]) - 1;
         return doneIndex;
     }
 
     public int parseDelete(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
         ValidityAndErrorCheck.checkCommandDescriptionExceptions(DELETE_COMMAND, rawUserInput);
-        String[] inputWords = rawUserInput.split(" ");
+        String[] inputWords = rawUserInput.split(" ", 0);
         //find the index of the task to delete and the task itself
         int deleteIndex = Integer.parseInt(inputWords[1]) - 1;
         return deleteIndex;
     }
 
-    public LocalDate parseShow(String rawUserInput)
-            throws NoDescriptionException, IncorrectDescriptionFormatException, DateTimeParseException {
-        ValidityAndErrorCheck.checkCommandDescriptionExceptions(SHOW_COMMAND, rawUserInput);
-
-        String[] inputWords = rawUserInput.split(" ");
-        String dateString = inputWords[1];
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-        LocalDate parsedDate = LocalDate.parse(dateString, dateFormatter);
-        return parsedDate;
-    }
 
     public String parseCommand(String rawUserInput) {
-        String[] inputWords = rawUserInput.toLowerCase().split(" ");
+        String[] inputWords = rawUserInput.toLowerCase().split(" ", 0);
         String taskCommand = inputWords[0];
         return taskCommand;
     }
