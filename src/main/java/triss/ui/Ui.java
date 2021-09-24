@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Ui {
 
     /** Logo shown during startup */
-    private static final String LOGO = "████████ ██████  ██ ███████ ███████ \n" +
+    private final String LOGO = "████████ ██████  ██ ███████ ███████ \n" +
             "   ██    ██   ██ ██ ██      ██      \n" +
             "   ██    ██████  ██ ███████ ███████ \n" +
             "   ██    ██   ██ ██      ██      ██ \n" +
@@ -13,10 +13,8 @@ public class Ui {
 
     /** String of underscores to separate user input and Triss output */
     private final String SEPARATOR_LINE = "____________________________________________________________";
-
     /** Scanner to read user input */
     private static Scanner in;
-
     /** Static string variable to store user input across UIs */
     private static String userInput;
 
@@ -33,7 +31,7 @@ public class Ui {
     }
 
     /**
-     * Create a new Scanner to read user input.
+     * Creates a new Scanner to read user input.
      * @return A new Scanner.
      */
     private Scanner createNewInputReader() {
@@ -41,7 +39,7 @@ public class Ui {
     }
 
     /**
-     * Read the next line of user input.
+     * Reads the next line of user input.
      * If the user input is blank, asks user for input again.
      */
     public void readUserInput() {
@@ -56,7 +54,7 @@ public class Ui {
     }
 
     /**
-     * Print a string, then terminates the line.
+     * Prints a string, then terminates the line.
      * @param s The string to be printed.
      */
     public void printLine(String s) {
@@ -64,7 +62,7 @@ public class Ui {
     }
 
     /**
-     * Print a separator line, then terminates the line.
+     * Prints a separator line, then terminates the line.
      */
     public void printSeparatorLine() {
         printLine(SEPARATOR_LINE);
