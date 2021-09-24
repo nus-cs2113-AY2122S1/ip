@@ -12,7 +12,7 @@ import java.util.Scanner;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
-import duke.task.Todo;
+import duke.task.ToDo;
 
 /**
  * A personal assistant chatbot.
@@ -159,8 +159,8 @@ public class Duke {
         final String description = args[2];
         Task task;
         switch (taskTypeIcon) {
-        case Todo.TASK_TYPE_ICON:
-            task = new Todo(description);
+        case ToDo.TASK_TYPE_ICON:
+            task = new ToDo(description);
             break;
         case Event.TASK_TYPE_ICON:
             if (args.length < 4) {
@@ -266,7 +266,7 @@ public class Duke {
         if (description.isEmpty()) {
             throw new DukeException(MESSAGE_TODO_DESCRIPTION_EMPTY);
         }
-        Task task = new Todo(description);
+        Task task = new ToDo(description);
         return addTask(task);
     }
 

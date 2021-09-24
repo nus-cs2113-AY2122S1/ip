@@ -3,7 +3,7 @@ package duke.task;
 /**
  * Represents a task that does not have any date/time attached to it.
  */
-public class Todo extends Task {
+public class ToDo extends Task {
     public static final String TASK_TYPE_ICON = "T";
 
     /**
@@ -11,7 +11,7 @@ public class Todo extends Task {
      *
      * @param description Description of the task.
      */
-    public Todo(String description) {
+    public ToDo(String description) {
         super(description);
     }
 
