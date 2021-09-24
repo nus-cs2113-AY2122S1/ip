@@ -18,6 +18,8 @@ Command Line Interface (CLI). The 3 types of tasks are:
   - [Deleting a Task: `delete`](#deleting-a-task-delete)
   - [Finding a Task: `find`](#finding-a-task-find)
   - [Ending the Program: `bye`](#ending-the-program-bye)
+  - [Saving Tasks to Hard Drive (Automatic)](#saving-tasks-to-hard-drive-automatic)
+  - [Change of Date Format (Automatic)](#change-of-date-format-automatic)
 - [Command Summary](#command-summary)
 
 ## Setting Up
@@ -109,7 +111,7 @@ Format: `find KEYWORD`
 
 - The search is case-insensitive. e.g, `ball` will match `Ball`.
 - Only accepts 1 keyword else a warning will be thrown.
-- Only 'TASK_DESCRIPTION' is searched.
+- Only `TASK_DESCRIPTION` field of tasks is searched.
 - Non-full words can be matched e.g., `ball` will match `football`.
 - DUKE will notify user if there are no related tasks.
 
