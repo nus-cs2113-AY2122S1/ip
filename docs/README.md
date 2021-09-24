@@ -22,7 +22,7 @@ To open command prompt, `win` + `r` , then type and enter `cmd` .
 
 ![Untitled](images/Untitled.png)
 
-1. Here on, you can type commands to tell Duke to do something for you. Below are some of sample commands you can try out.
+1. Here on, you can type commands to tell Duke to do something for you. Below are some sample commands you can try out.
     - `list` : List all tasks that you have added.
     - `todo Do my iP User Guide` : Adds a Todo task to the list of tasks.
     - `done 2` : Marks the 2nd task in the list as done.
@@ -38,6 +38,14 @@ To open command prompt, `win` + `r` , then type and enter `cmd` .
 Before continuing, here are some of the things you should take note of, to better understand the terminologies used in this UG.
 
 [Untitled](https://www.notion.so/11926973ff514fe3b262981e8c1a7130)
+
+| Terminologies | Definition |
+|:-------------:|:----------:|
+| Syntax | The right format to run the command. |
+| `<taskName>` | <u>**Required.**/u> The name of the task. |
+| `<atWhen>` | <u>**Required.**</u> The date and time of the Event. |
+| `<byWhen>` | <u>**Required.**</u> The date and time of the Deadline. |
+| `<keyword>` | <u>**Required.**</u> The word that you want to find. |
 
 # Features
 Please note that Duke is still in early stages, so that may be quite a number of bugs. However, if you find any bugs, you can let me know [here](https://github.com/Kair0s3/ip/issues).
@@ -62,9 +70,9 @@ Adds a Event task to the list of tasks.
 
 Syntax - `event <taskName> /at <atWhen>`
 
-Sample output of Adding an Event
+<u>Sample output of Adding an Event</u>
 
-![Untitled](images/Untitled%201.png)
+[Untitled](images/Untitled%201.png)
 
 ## List all tasks : `list`
 
@@ -72,7 +80,7 @@ Displays a list of tasks previously added. If no tasks exist , shows a message s
 
 Syntax - `list`
 
-Sample output
+<u>Sample output</u>
 
 ![Untitled](images/Untitled%202.png)
 
@@ -82,7 +90,7 @@ Marks a task as done given the index of the task in the list.
 
 Syntax - `done <index>`
 
-Sample output
+<u>Sample output</u>
 
 ![Untitled](images/Untitled%203.png)
 
@@ -98,10 +106,25 @@ Finds all tasks with task name containing a given keyword.
 
 Syntax - `find <keyword>`
 
-Sample output
+<u>Sample output</u>
 
 ![Untitled](images/Untitled%204.png)
 
+## Find task : `find`
+
+Exits the Duke program.
+
+Syntax - `bye`
+
 # Command Summary
 
-[Untitled](https://www.notion.so/57be9a15360a484f9050504a96c8fa16)
+| Action | Command | Example Usage |
+|:------:|:-------:|:-------------:|
+| Add Todo | `todo <taskName>` | `todo Do my iP User Guide` |
+| Add Deadline | `deadline <taskName>` | `deadline iP Week 7 /by 2021-10-01` |
+| Add Event | `event <taskName>` | `event CS2106 midterms /at 2-4pm This Wednesday` |
+| List all task | `list` | `list` |
+| Mark a task as done | `done <index>` | `done 3` |
+| Delete a task | `delete <index>` | `delete 3` |
+| Find a task | `find <keyword>` | `find iP` |
+| Exit Duke program | `bye` | `bye` |
