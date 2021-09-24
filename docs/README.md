@@ -148,6 +148,7 @@ Here is how it will look like:
 ![date example](date_example.png)
 
 ## Command Summary
+
 | Action | Format, Examples |
 | ------------ | ------------- |
 | Add ToDo | `todo TASK_DESCRIPTION` <br /> e.g., `todo read book` |
