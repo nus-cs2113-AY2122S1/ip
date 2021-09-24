@@ -6,6 +6,8 @@
 
 All features can be found in the index to the left. Press the specific command to learn more about it.
 
+<hr>
+
 ## Setting Up Triss
 
 1. Press `View on GitHub` at the top of this page.
@@ -15,6 +17,8 @@ All features can be found in the index to the left. Press the specific command t
 5. Open up a command line interface in the folder.
 6. Enter `java -jar ip.jar` to start Triss in the command line interface.
 7. Congratulations! You should be good to go!
+
+<hr>
 
 ## List of Features
 
@@ -262,8 +266,5 @@ All tasks will be saved automatically in `data/storedtasks.txt` after every inpu
 Q: I can't access my stored tasks after moving Triss to a new location. What can I do?
 
 A: You should move the folder titled `data` from the original location to the new location, to access the previously stored tasks.
-
-<hr>
-
 
 <hr>
