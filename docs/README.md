@@ -6,7 +6,7 @@
 
 **Duke** is a productivity desktop app that is used through a **Command Line Interface (CLI)**. It is a fast and simple way to keep track of your schedule and tasks on the go.
 
-## Table of Content
+# Table of Content
 
 - [Quick Start](#quick-start)
 - [Features](#Features)
@@ -22,6 +22,12 @@
     * [Bye](#Bye---Exit-the-Application)
 - [FAQ](#faq)
 - [Command Summary]()
+
+## Quick Start
+
+## Features
+
+
 
 ### Help - Show All Valid Commands
 
@@ -41,8 +47,20 @@ ________________________________________________________________
      6. Exit From Program: bye
 ________________________________________________________________
 
-### Feature-XYZ
+### List - List Down All Current Tasks
 
+List down all current tasks in the task list
+
+Format `list`
+```
+These are the list of tasks you have
+________________________________________________________________
+     1.[E][ ] Read (at: Mon)
+     2.[E][ ] Bible Study (at: Tues)
+     3.[E][ ] Dinner (at: Wed)
+     4.[ ] CS2113T iP Submission (by: Thurs)
+________________________________________________________________
+```
 Description of the feature.
 
 ## Usage
