@@ -3,6 +3,7 @@ package parser;
 import command.AddDeadlineTaskCommand;
 import command.AddEventTaskCommand;
 import command.AddTodoTaskCommand;
+import command.AgendaCommand;
 import command.ClearTasksCommand;
 import command.Command;
 import command.DeleteTaskCommand;
@@ -17,6 +18,10 @@ import exception.AustinException;
 import exception.AustinInvalidCommandException;
 import exception.AustinInvalidCommandFormatException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     /**
      * Parses the command input by the user.
@@ -28,13 +33,16 @@ public class Parser {
      */
     public static Command parse(String line) throws AustinException,
             ArrayIndexOutOfBoundsException,
-            NumberFormatException {
+            NumberFormatException,
+            DateTimeParseException {
         String command = getFirstWord(line);
         switch (command) {
         case (ListCommand.COMMAND_KEYWORD):
             return validateListCommand(line);
         case (HelpCommand.COMMAND_KEYWORD):
             return validateHelpCommand(line);
+        case (AgendaCommand.COMMAND_KEYWORD):
+            return validateAgendaCommand(line);
         case (AddTodoTaskCommand.COMMAND_KEYWORD):
             return validateAddTodoCommand(line);
         case (AddEventTaskCommand.COMMAND_KEYWORD):
@@ -54,6 +62,14 @@ public class Parser {
         default:
             throw new AustinInvalidCommandException();
         }
+    }
+
+    private static AgendaCommand validateAgendaCommand(String line) throws
+            AustinInvalidCommandFormatException {
+        if (!line.equals(AgendaCommand.COMMAND_KEYWORD)) {
+            throw new AustinInvalidCommandFormatException(AgendaCommand.COMMAND_KEYWORD);
+        }
+        return new AgendaCommand();
     }
 
     /**
@@ -113,7 +129,8 @@ public class Parser {
     private static AddEventTaskCommand validateAddEventCommand(String line) throws
             AustinInvalidCommandFormatException,
             AustinEmptyTimeDetailsException,
-            AustinEmptyDescriptionException {
+            AustinEmptyDescriptionException,
+            DateTimeParseException {
         try {
             String details = removeFirstWord(line);
             if (!line.contains("|")) {
@@ -126,7 +143,9 @@ public class Parser {
             if (at.isEmpty()) {
                 throw new AustinEmptyTimeDetailsException();
             }
-            return new AddEventTaskCommand(description, at);
+            LocalDateTime atDT = LocalDateTime.parse(at,
+                    DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            return new AddEventTaskCommand(description, atDT);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new AustinEmptyDescriptionException();
         }
@@ -143,7 +162,8 @@ public class Parser {
     private static AddDeadlineTaskCommand validateAddDeadlineCommand(String line) throws
             AustinInvalidCommandFormatException,
             AustinEmptyTimeDetailsException,
-            AustinEmptyDescriptionException {
+            AustinEmptyDescriptionException,
+            DateTimeParseException {
         try {
             String details = removeFirstWord(line);
             if (!line.contains("|")) {
@@ -156,7 +176,9 @@ public class Parser {
             if (by.isEmpty()) {
                 throw new AustinEmptyTimeDetailsException();
             }
-            return new AddDeadlineTaskCommand(description, by);
+            LocalDateTime byDT = LocalDateTime.parse(by,
+                    DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            return new AddDeadlineTaskCommand(description, byDT);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new AustinEmptyDescriptionException();
         }

@@ -1,25 +1,32 @@
 package task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
     /** Deadline date and time */
-    protected String by;
+    protected LocalDateTime dueDateTime;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime dueDateTime) {
         super(description);
-        setBy(by);
+        this.dueDateTime = dueDateTime;
     }
 
-    public void setBy(String by) {
-        this.by = by;
+    @Override
+    public LocalDateTime getDT() {
+        return dueDateTime;
     }
 
     @Override
     public String toFileFormat() {
-        return "D # " + (isDone? "1" : "0") + " # " + description + " # " + by + "\n";
+        return "D # " + (isDone ? "1" : "0") + " # " + description + " # " +
+                dueDateTime + "\n";
     }
 
     @Override
     public String toString() {
-        return "[D] [" + getStatus() + "] " + getDescription() + " (by: " + by + ")";
+        return "[D] [" + getStatus() + "] " + getDescription() + " (by: " +
+                dueDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) +
+                ")";
     }
 }

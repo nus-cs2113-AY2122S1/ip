@@ -7,6 +7,7 @@ import task.TaskList;
 import ui.Ui;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     private Ui ui;
@@ -19,7 +20,14 @@ public class Duke {
         try {
             taskList = new TaskList(storage.load());
         } catch (IOException e) {
+            ui.printExceptionDivider();
             ui.showIOError(e);
+            ui.printExceptionDivider();
+            taskList = new TaskList();
+        } catch (DateTimeParseException e) {
+            ui.printExceptionDivider();
+            ui.showDateTimeParseExceptionErrorWhileLoading();
+            ui.printExceptionDivider();
             taskList = new TaskList();
         }
     }
@@ -29,7 +37,6 @@ public class Duke {
     }
 
     public void run() {
-        ui.printWelcomeMessage();
         ui.printCurrentStatus(taskList.tasksCount());
         boolean isExit = false;
         while (!isExit) {
@@ -47,6 +54,8 @@ public class Duke {
                 ui.showMissingTaskIndexError();
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 ui.showNumberFormatError();
+            } catch (DateTimeParseException e) {
+                ui.showDateTimeParseExceptionError();
             } finally {
                 ui.showFinishingLine(isExit);
             }

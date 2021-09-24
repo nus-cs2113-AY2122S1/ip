@@ -1,5 +1,7 @@
 package task;
 
+import java.time.LocalDateTime;
+
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -12,5 +14,10 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T] [" + getStatus() + "] " + getDescription();
+    }
+
+    @Override
+    public LocalDateTime getDT() {
+        return null;
     }
 }

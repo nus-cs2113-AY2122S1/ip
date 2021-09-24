@@ -1,5 +1,7 @@
 package task;
 
+import java.time.LocalDateTime;
+
 public abstract class Task {
     /** Description of the task */
     protected String description;
@@ -45,4 +47,6 @@ public abstract class Task {
 
     @Override
     public abstract String toString();
+
+    public abstract LocalDateTime getDT();
 }

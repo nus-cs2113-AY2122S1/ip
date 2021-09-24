@@ -1,25 +1,32 @@
 package task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     /** Event date and time */
-    protected String at;
+    protected LocalDateTime eventDateTime;
 
-    public Event(String description, String at) {
+    public Event(String description, LocalDateTime eventDateTime) {
         super(description);
-        setAt(at);
-    }
-
-    public void setAt(String at) {
-        this.at = at;
+        this.eventDateTime = eventDateTime;
     }
 
     @Override
     public String toFileFormat() {
-        return "E # " + (isDone ? "1" : "0") + " # " + description + " # " + at + "\n";
+        return "E # " + (isDone ? "1" : "0") + " # " + description + " # " +
+                eventDateTime + "\n";
+    }
+
+    @Override
+    public LocalDateTime getDT() {
+        return eventDateTime;
     }
 
     @Override
     public String toString() {
-        return "[E] [" + getStatus() + "] " + getDescription() + " (at: " + at + ")";
+        return "[E] [" + getStatus() + "] " + getDescription() + " (at: " +
+                eventDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
+                + ")";
     }
 }

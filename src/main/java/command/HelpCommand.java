@@ -9,8 +9,8 @@ public class HelpCommand extends Command {
     private static final String HELP_MESSAGE =
             "Below are the list of valid commands:\n" +
             "todo <task_description>\n" +
-            "event <task_description> | <date_and_time_information>\n" +
-            "deadline <task_description> | <date_and_time_information>\n" +
+            "event <task_description> | <date(d/m/yyyy)> <time(HHmm)>\n" +
+            "deadline <task_description> | <date(d/m/yyyy)> <time(HHmm)>\n" +
             "done <task_id>\n" +
             "undo <task_id>\n" +
             "list\n" +
