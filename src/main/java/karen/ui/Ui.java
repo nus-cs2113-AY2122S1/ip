@@ -1,7 +1,11 @@
 package karen.ui;
 
+import karen.tasklist.task.Deadline;
+import karen.tasklist.task.Event;
 import karen.tasklist.task.Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -68,8 +72,8 @@ public abstract class Ui {
         printFormattedMessage(message);
     }
 
-    public static void printTaskList(ArrayList<Task> taskList) {
-        int listSize = taskList.size();
+    public static void printTaskList(ArrayList<Task> tasks) {
+        int listSize = tasks.size();
 
         //empty list
         if (listSize == 0) {
@@ -81,10 +85,31 @@ public abstract class Ui {
 
         for (int i = 0; i < listSize; i ++) {
            message = message + String.format("    %d. [%s][%s] %s\n",
-                   i + 1, taskList.get(i).getType(), taskList.get(i).getStatusIcon(),
-                   taskList.get(i).getFormattedDescription());
+                   i + 1, tasks.get(i).getType(), tasks.get(i).getStatusIcon(),
+                   tasks.get(i).getFormattedDescription());
         }
         printFormattedMessage(message);
+    }
+
+    public static void printTasksOnDay (LocalDate date, ArrayList<Task> tasks) {
+        String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy, E"));
+        int index = 0;
+
+        System.out.print(LINE);
+        System.out.print("    Okay Plankton, here are the tasks you have on " + formattedDate + ".\n\n");
+        System.out.println("    Task List:\n");
+        int taskCount = (int) tasks.stream()
+                .filter((t) -> t instanceof Deadline || t instanceof Event)
+                .filter((t) -> (t.getDate()).equals(date))
+                .count();
+
+        tasks.stream()
+                .filter((t) -> t instanceof Deadline || t instanceof Event)
+                .filter((t) -> (t.getDate()).equals(date))
+                .map((t) -> String.format("        [%s][%s] %s",t.getType(), t.getStatusIcon(), t.getFormattedDescription()))
+                .forEach(System.out::println);
+        System.out.println("\n    Total number of tasks: " + taskCount);
+        System.out.println(LINE);
     }
 
     public static void printTaskDoneMessage(Task task) {
@@ -136,6 +161,11 @@ public abstract class Ui {
 
     public static void printCreateFileErrorMessage() {
         String message = "    Error creating file.\n";
+        printFormattedMessage(message);
+    }
+
+    public static void printDateTimeErrorMessage() {
+        String message = "    Invalid date entered.\n";
         printFormattedMessage(message);
     }
 

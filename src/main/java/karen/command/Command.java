@@ -1,6 +1,6 @@
 package karen.command;
 
-import karen.exception.ErrorCheck;
+import karen.exception.ValidityAndErrorCheck;
 import karen.program.ProgramManager;
 import karen.storage.Storage;
 import karen.exception.IncorrectDescriptionFormatException;
@@ -13,6 +13,9 @@ import karen.tasklist.task.Task;
 import karen.tasklist.task.ToDo;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Command {
@@ -32,7 +35,11 @@ public class Command {
         return command;
     }
 
-    public void executeDoneCommand (int doneIndex) throws NumberFormatException, IndexOutOfBoundsException, IOException {
+    public void executeShowCommand(LocalDate date, ArrayList<Task> tasks) {
+        Ui.printTasksOnDay(date, tasks);
+    }
+
+    public void executeDoneCommand(int doneIndex) throws NumberFormatException, IndexOutOfBoundsException, IOException {
         if (!tasks.get(doneIndex).getIsDone()) {
             tasks.get(doneIndex).markAsDone();
             Ui.printTaskDoneMessage(tasks.get(doneIndex));
@@ -87,7 +94,7 @@ public class Command {
 
     public void executeByeCommand(String rawUserInput) throws IncorrectDescriptionFormatException, NoDescriptionException {
         String[] inputWords = rawUserInput.split(" ");
-        ErrorCheck.checkCommandDescriptionExceptions("bye", rawUserInput);
+        ValidityAndErrorCheck.checkCommandDescriptionExceptions("bye", rawUserInput);
         Ui.printGoodByeMessage();
         programManager.setIsRunningOff();
     }

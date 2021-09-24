@@ -1,6 +1,6 @@
 package karen.parser;
 
-import karen.exception.ErrorCheck;
+import karen.exception.ValidityAndErrorCheck;
 import karen.exception.IncorrectDescriptionFormatException;
 import karen.exception.NoDescriptionException;
 import karen.command.Command;
@@ -15,8 +15,9 @@ import java.io.IOException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
     private static final String LIST_COMMAND = "list";
@@ -26,6 +27,7 @@ public class Parser {
     private static final String EVENT_COMMAND = "event";
     private static final String DELETE_COMMAND = "delete";
     private static final String BYE_COMMAND = "bye";
+    private static final String SHOW_COMMAND = "show";
     private static final String DEADLINE_SEPARATOR = " /by ";
     private static final String EVENT_SEPARATOR = " /at ";
 
@@ -37,9 +39,35 @@ public class Parser {
         this.programManager = programManager;
     }
 
+//    public LocalDate parseDate(String dateString) throws DateTimeParseException {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        LocalDate date = LocalDate.parse(dateString, formatter);
+////        String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy, E"));
+//        return date;
+//    }
+//
+//    public LocalTime parseTime(String timeString) throws DateTimeParseException {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
+//        LocalTime time = LocalTime.parse(timeString, formatter);
+////        String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy, E, HHmm")) + "h";
+//        return time;
+//    }
 
-    public Event parseEvent(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
-        ErrorCheck.checkTaskExceptions(EVENT_COMMAND, EVENT_SEPARATOR, rawUserInput);
+//    public String parseDateString(String dateString) throws DateTimeParseException {
+//        String formattedDate = dateString;
+//        if (ValidityAndErrorCheck.isDate(dateString)) {
+//            formattedDate = parseDate(dateString);
+//        }
+//        if (ValidityAndErrorCheck.isDateAndTime(dateString)) {
+//            formattedDate = parseDateAndTime(dateString);
+//        }
+//        return formattedDate;
+//    }
+
+
+    public Event parseEvent(String rawUserInput)
+            throws DateTimeParseException, NoDescriptionException, IncorrectDescriptionFormatException {
+        ValidityAndErrorCheck.checkTaskExceptions(EVENT_COMMAND, EVENT_SEPARATOR, rawUserInput);
 
         String fullTaskDescription = parseFullTaskDescription(rawUserInput);
 
@@ -49,12 +77,13 @@ public class Parser {
         int endIndex = fullTaskDescription.indexOf(EVENT_SEPARATOR);
         String eventTask = fullTaskDescription.substring(0, endIndex);
 
-        Event event = new Event(fullTaskDescription, at, eventTask);
+        Event event = new Event(fullTaskDescription, eventTask, at);
         return event;
     }
 
-    public Deadline parseDeadline(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
-        ErrorCheck.checkTaskExceptions(DEADLINE_COMMAND, DEADLINE_SEPARATOR, rawUserInput);
+    public Deadline parseDeadline(String rawUserInput)
+            throws DateTimeParseException, NoDescriptionException, IncorrectDescriptionFormatException {
+        ValidityAndErrorCheck.checkTaskExceptions(DEADLINE_COMMAND, DEADLINE_SEPARATOR, rawUserInput);
 
         String fullTaskDescription = parseFullTaskDescription(rawUserInput);
 
@@ -64,32 +93,40 @@ public class Parser {
         int endIndex = fullTaskDescription.indexOf(DEADLINE_SEPARATOR);
         String deadlineTask = fullTaskDescription.substring(0, endIndex);
 
-        Deadline deadline = new Deadline(fullTaskDescription, by, deadlineTask);
+        Deadline deadline = new Deadline(fullTaskDescription, deadlineTask, by);
         return deadline;
     }
 
-
-
     public ToDo parseToDo(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
-        ErrorCheck.checkTaskExceptions(TODO_COMMAND, "", rawUserInput);
+        ValidityAndErrorCheck.checkTaskExceptions(TODO_COMMAND, "", rawUserInput);
         String fullTaskDescription = parseFullTaskDescription(rawUserInput);
         ToDo todo = new ToDo(fullTaskDescription);
         return todo;
     }
 
     public int parseDone(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
-        ErrorCheck.checkCommandDescriptionExceptions("done", rawUserInput);
+        ValidityAndErrorCheck.checkCommandDescriptionExceptions(DONE_COMMAND, rawUserInput);
         String[] inputWords = rawUserInput.split(" ");
         int doneIndex = Integer.parseInt(inputWords[1]) - 1;
         return doneIndex;
     }
 
     public int parseDelete(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
-        ErrorCheck.checkCommandDescriptionExceptions("delete", rawUserInput);
+        ValidityAndErrorCheck.checkCommandDescriptionExceptions(DELETE_COMMAND, rawUserInput);
         String[] inputWords = rawUserInput.split(" ");
         //find the index of the task to delete and the task itself
         int deleteIndex = Integer.parseInt(inputWords[1]) - 1;
         return deleteIndex;
+    }
+
+    public LocalDate parseShow(String rawUserInput)
+            throws NoDescriptionException, IncorrectDescriptionFormatException, DateTimeParseException {
+        ValidityAndErrorCheck.checkCommandDescriptionExceptions(SHOW_COMMAND, rawUserInput);
+        String[] inputWords = rawUserInput.split(" ");
+        String dateString = inputWords[1];
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate parsedDate = LocalDate.parse(dateString, dateFormatter);
+        return parsedDate;
     }
 
     public String parseCommand(String rawUserInput) {
@@ -109,6 +146,10 @@ public class Parser {
         Command command = new Command(inputCommand, this.programManager, taskList);
         try {
             switch (inputCommand) {
+            case SHOW_COMMAND:
+                LocalDate localdate = parseShow(rawUserInput);
+                command.executeShowCommand(localdate, taskList.getTaskList());
+                break;
             case LIST_COMMAND:
                 command.executeListCommand();
                 break;
@@ -149,6 +190,9 @@ public class Parser {
             Ui.printIndexOutOfBoundsMessage();
         } catch (IOException e) {
             Ui.printIOExceptionMessage();
+        } catch (DateTimeParseException e) {
+            Ui.printDateTimeErrorMessage();
         }
+
     }
 }
