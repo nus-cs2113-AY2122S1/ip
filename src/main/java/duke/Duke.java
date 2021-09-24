@@ -4,8 +4,6 @@ public class Duke {
     private static final String WELCOME_MESSAGE = "     Hello! I'm Duke\n     What can I do for you?";
     private static final String EXIT_MESSAGE = "     Bye. Hope to see you again soon!";
 
-    private static final String DATA_FILEPATH = "data/duke.txt";
-
     private static final String DIVIDER = "    ____________________________________________________________";
 
 
@@ -32,7 +30,6 @@ public class Duke {
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
 
-//        loadSavedData(taskManager);
         taskManager.loadData();
         printWelcomeMessage();
         readUserInputUntilBye(taskManager);
