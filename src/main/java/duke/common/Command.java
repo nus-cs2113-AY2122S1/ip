@@ -68,15 +68,17 @@ public class Command {
     }
 
     /**
-     * Marks a given task as completed.
+     * Toggles whether a task is marked as completed or not.
      *
-     * @param taskIndex the number of the task to be marked completed
+     * @param taskIndex the number of the task to be marked completed (or incomplete)
      * @throws IOException if an error occurred while writing to the data file
      */
     public static void doneTask(int taskIndex) throws IOException {
         try {
-            tasks.get(taskIndex - 1).setDone(true);
-            Ui.printDoneMessage(tasks);
+            Task givenTask = tasks.get(taskIndex - 1);
+            boolean isDone = givenTask.getStatusIcon().equals(Task.DONE_ICON);
+            givenTask.setDone(!isDone);
+            Ui.printDoneMessage(taskIndex, tasks, !isDone);
             Storage.saveData();
         } catch (IndexOutOfBoundsException e) {
             Ui.printIndexOutOfBoundsMessage();

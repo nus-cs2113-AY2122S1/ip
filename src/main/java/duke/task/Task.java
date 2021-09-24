@@ -13,7 +13,8 @@ public class Task {
     public final static String DONE_ICON = "[X]";
     public final static String NOT_DONE_ICON = "[ ]";
     public final static String WORD_DELIM = " ";
-    public final static String DATA_SEP = "\\|";
+    public final static String DATA_SEP = "|";
+    public final static String ESCAPED_DATA_SEP = "\\" + DATA_SEP;
     public final static String PADDED_DATA_SEP = WORD_DELIM + DATA_SEP + WORD_DELIM;
     private final static String DATE_TIME_FORMAT_DATA = "dd/MM/yyyy HHmm";
     public final static DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_DATA);

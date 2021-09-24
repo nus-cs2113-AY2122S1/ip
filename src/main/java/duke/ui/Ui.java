@@ -19,6 +19,7 @@ public class Ui {
     private final static String LIST_MESSAGE = "Here are your current tasks and their status:";
     private final static String ADD_MESSAGE = "Okay, I've added that task to your list:";
     private final static String DONE_MESSAGE = "Nice! I've marked this task as done:";
+    private final static String UNDONE_MESSAGE = "I've unmarked this task as done:";
     private final static String DELETE_MESSAGE = "Okay, I've deleted that task!";
     private final static String FIND_MESSAGE_START = "I found these tasks for \"";
     private final static String FIND_MESSAGE_END = "\":";
@@ -123,14 +124,17 @@ public class Ui {
     }
 
     /**
-     * Notifies the user that a task has been marked as done.
+     * Notifies the user whether a task has been marked as done or incomplete.
      *
+     * @param taskIndex the task number to be marked
      * @param tasks the current task list
+     * @param isDone the new status of the task given
      */
-    public static void printDoneMessage(ArrayList<Task> tasks) {
+    public static void printDoneMessage(int taskIndex, ArrayList<Task> tasks, boolean isDone) {
+        String toPrint = isDone ? DONE_MESSAGE : UNDONE_MESSAGE;
         printDivider();
-        println(DONE_MESSAGE);
-        println(tasks.get(Task.getTaskCount() - 1));
+        println(toPrint);
+        println(tasks.get(taskIndex - 1));
         printDivider();
     }
 
@@ -178,7 +182,7 @@ public class Ui {
     /** Notifies the user that the date and/or time they entered was of the wrong format. */
     public static void printDateTimeParseMessage() {
         printDivider();
-        System.out.println(DATE_TIME_PARSE_MESSAGE);
+        println(DATE_TIME_PARSE_MESSAGE);
         printDivider();
     }
 }

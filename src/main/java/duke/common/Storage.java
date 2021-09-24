@@ -24,8 +24,7 @@ public class Storage {
      * Opens access to the data file if it exists, and creates one otherwise. Notifies the user if an error occurred
      * while doing so.
      */
-    public static void startDuke() {
-        try {
+    public static void startDuke() throws IOException {
             if (Files.notExists(Paths.get(FILE_PATH))) {
                 Files.createDirectories(Paths.get(FILE_PATH).getParent());
                 Files.createFile(Paths.get(FILE_PATH));
@@ -34,9 +33,6 @@ public class Storage {
                 loadData();
                 Ui.printReturningHello(Command.tasks);
             }
-        } catch (IOException e) {
-            Ui.printIOExceptionMessage(e);
-        }
     }
 
     private static void loadData() throws IOException {

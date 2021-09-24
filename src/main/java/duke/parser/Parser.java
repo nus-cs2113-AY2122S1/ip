@@ -75,7 +75,7 @@ public class Parser {
      * @throws IOException if an invalid line is found in the data file
      */
     public static Task parseTaskFromData(String taskInfo) throws IOException {
-        String[] parsedData = taskInfo.split(Task.DATA_SEP);
+        String[] parsedData = taskInfo.split(Task.ESCAPED_DATA_SEP);
         Task newTask;
 
         switch (parsedData[0].strip()) {
