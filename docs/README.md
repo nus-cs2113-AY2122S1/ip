@@ -23,7 +23,7 @@ Duke is a Personal Assistant Command Line Chatbot designed to help you manage yo
 3. Move the file to the folder that you want to use as the Duke's root folder.
 4. Execute the `java -jar duke.jar` command in the terminal in the same folder as the `duke.jar` file to launch Duke. The following output should be observed:
 
-![startup image](https://github.com/justinfidelis/ip/blob/master/docs/images/startup.png)
+![startup image](images/startup.png)
 
 5. Type the command into the terminal and press Enter to execute it.
 6. Refer to the [features](#Features) section below for details of each command
