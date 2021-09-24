@@ -3,6 +3,7 @@ package triss;
 public class Parser {
 
     public Parser() {
+        // Parser has no dependencies to be initialised
     }
 
     /**

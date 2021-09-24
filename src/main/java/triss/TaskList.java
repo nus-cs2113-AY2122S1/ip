@@ -17,42 +17,81 @@ public class TaskList {
     private Parser parser;
 
     /** Length of the word "todo" */
-    public final int LENGTH_OF_WORD_TODO = 4;
-
+    private final int LENGTH_OF_WORD_TODO = 4;
     /** Length of the word "deadline" */
-    public final int LENGTH_OF_WORD_DEADLINE = 8;
+    private final int LENGTH_OF_WORD_DEADLINE = 8;
     /** Length of the word "event" */
-    public final int LENGTH_OF_WORD_EVENT = 5;
+    private final int LENGTH_OF_WORD_EVENT = 5;
 
     public TaskList() {
         ui = new Ui();
         parser = new Parser();
     }
 
+    /**
+     * Returns an array of all tasks.
+     * @return ArrayList of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Returns the number of tasks in array.
+     * @return Int value for number of tasks.
+     */
     public int getSize() {
         return tasks.size();
     }
 
+    /**
+     * Return task stored at given index in tasklist.
+     * @param index Index of task.
+     * @return Task stored at index.
+     */
     public Task getTaskByIndex(int index) {
         return tasks.get(index);
     }
 
+    /**
+     * Removes task from tasklist.
+     * @param task Task to be removed.
+     */
     public void removeTask(Task task) {
         tasks.remove(task);
     }
 
+    /**
+     * Adds task to tasklist.
+     * @param task Task to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
     /**
+     * Returns index of task.
+     * @param task Any existing task in tasklist.
+     * @return Index of task in tasklist.
+     */
+    public int getIndexOfTask(Task task) {
+        return tasks.indexOf(task);
+    }
+
+    /**
+     * Prints all tasks stored in Task Array tasks.
+     */
+    public void printAllTasks() {
+        // If user said "list", print a list of all saved tasks
+        for (Task task: getTasks()) {
+            ui.printLine(getIndexOfTask(task) + 1 + "." + task.printTask());
+        }
+    }
+
+    /**
      * Creates a new todo based on user's input.
      * If user did not type in this format: "todo Eat with Friends", it asks the user to try again.
-     * @param userInput Any user input starting with the words "todo"
+     * @param userInput Any user input starting with the words "todo".
      */
     public void createNewTodo(String userInput, boolean isSilent) throws TrissException {
         String taskName;
@@ -156,20 +195,6 @@ public class TaskList {
         // Then, echo the task if not silent
         if (!isSilent) {
             ui.printLine("I've added: " + newDeadline.printTask());
-        }
-    }
-
-    public int getIndexOfTask(Task task) {
-        return tasks.indexOf(task);
-    }
-
-    /**
-     * Prints all tasks stored in Task Array tasks.
-     */
-    public void printAllTasks() {
-        // If user said "list", print a list of all saved tasks
-        for (Task task: getTasks()) {
-            ui.printLine(getIndexOfTask(task) + 1 + "." + task.printTask());
         }
     }
 

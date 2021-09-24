@@ -14,20 +14,22 @@ public class Ui {
     /** String of underscores to separate user input and Triss output */
     private final String SEPARATOR_LINE = "____________________________________________________________";
 
+    /** Scanner to read user input */
     private static Scanner in;
 
+    /** Static string variable to store user input across UIs */
     private static String userInput;
-
-    public String getUserInput() {
-        return userInput;
-    }
-
-    public void setUserInput(String userInput) {
-        this.userInput = userInput;
-    }
 
     public Ui() {
         in = createNewInputReader();
+    }
+
+    /**
+     * Gets stored user input.
+     * @return Stored user input as string.
+     */
+    public String getUserInput() {
+        return userInput;
     }
 
     /**

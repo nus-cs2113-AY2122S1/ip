@@ -7,26 +7,29 @@ import triss.task.Task;
 public class Triss {
 
     /** Boolean to track if user has said "bye" */
-    private static boolean hasUserSaidBye = false;
-
+    private boolean hasUserSaidBye;
     /** TaskList to store and edit tasks */
-    private static final TaskList tasklist = new TaskList();
-
+    private final TaskList tasklist;
     /** User interface to receive input and give output */
-    private static final Ui ui = new Ui();
-
+    private final Ui ui;
     /** Parser to read information from user input and stored data */
-    private static final Parser parser = new Parser();
-
+    private final Parser parser;
     /** Storage where tasks can be retrieved and stored */
-    private static final Storage storage = new Storage();
+    private final Storage storage;
+
+    public Triss() {
+        hasUserSaidBye = false;
+        tasklist = new TaskList();
+        ui = new Ui();
+        parser = new Parser();
+        storage = new Storage();
+    }
 
     /**
      * Loops Triss into receiving user input and giving output messages.
      * It will only end once the user types "bye".
-     * @param args No params currently used.
      */
-    public static void main(String[] args) {
+    private void run() {
         // Print LOGO and welcome text
         ui.printWelcomeMessage();
 
@@ -38,29 +41,10 @@ public class Triss {
             String userCommand = parser.parseUserInput(ui.getUserInput(), 0);
             ui.printSeparatorLine();
 
-            // Perform actions based on user's command
-            switch (userCommand) {
-            case "bye":
-                storage.saveTasks();
-                hasUserSaidBye = true;
-                ui.printShutdownMessage();
-                break;
-            case "list":
-                tasklist.printAllTasks();
-                break;
-            case "done":
-                handleUserMarkingTaskAsDone(ui.getUserInput());
-                break;
-            case "delete":
-                handleUserDeletingTask(ui.getUserInput());
-                break;
-            default:
-                try {
-                    handleUserCreatingTask(ui.getUserInput());
-                } catch (TrissException exception) {
-                    ui.printLine(exception.getMessage());
-                }
-                break;
+            try {
+                executeBasedOnCommand(userCommand);
+            } catch (TrissException e) {
+                ui.printLine(e.getMessage());
             }
 
             storage.saveTasks();
@@ -69,17 +53,53 @@ public class Triss {
         }
     }
 
-    private static void handleUserDeletingTask(String userInput) {
+    /**
+     * Executes appropriate function based on user's command.
+     * @param userCommand User's command from user's input.
+     * @throws TrissException Depends on error in each command's execution.
+     */
+    private void executeBasedOnCommand(String userCommand) throws TrissException {
+        // Perform actions based on user's command
+        switch (userCommand) {
+        case "bye":
+            storage.saveTasks();
+            hasUserSaidBye = true;
+            ui.printShutdownMessage();
+            break;
+        case "list":
+            tasklist.printAllTasks();
+            break;
+        case "done":
+            handleUserMarkingTaskAsDone(ui.getUserInput());
+            break;
+        case "delete":
+            handleUserDeletingTask(ui.getUserInput());
+            break;
+        case "deadline":
+            tasklist.createNewDeadline(ui.getUserInput(), false);
+            break;
+        case "event":
+            tasklist.createNewEvent(ui.getUserInput(), false);
+            break;
+        case "todo":
+            tasklist.createNewTodo(ui.getUserInput(), false);
+            break;
+        default:
+            String errorMessage = "Oof, I didn't understand your command! Let's try that again.\n"
+                    + " \n" + "Type a todo in this format:\n" + "    todo Eat with Friends";
+            throw new TrissException(errorMessage);
+        }
+    }
+
+    private void handleUserDeletingTask(String userInput) throws TrissException {
         // Get number of task after the term "done"
         int indexOfRemovableTask;
         // Throw exception if user did not type a number after "done"
         try {
             indexOfRemovableTask = Integer.parseInt(parser.parseUserInput(userInput, 1)) - 1;
         } catch (Exception e) {
-            ui.printLine("Ach, nee! That task does not exist.");
-            return;
+            throw new TrissException("Ach, nee! That task does not exist.");
         }
-
 
         // If task does not exist, do not delete any task
         if (indexOfRemovableTask >= tasklist.getSize() || indexOfRemovableTask < 0) {
@@ -98,48 +118,21 @@ public class Triss {
         ui.printLine("    " + chosenTask.printTask());
     }
 
-
-
-    /**
-     * Creates new task depending on first word in user input.
-     * @param userInput The user's input.
-     */
-    private static void handleUserCreatingTask(String userInput) throws TrissException {
-        String taskType = parser.parseUserInput(userInput, 0);
-
-        switch (taskType) {
-        case "deadline":
-            tasklist.createNewDeadline(userInput, false);
-            break;
-        case "event":
-            tasklist.createNewEvent(userInput, false);
-            break;
-        case "todo":
-            tasklist.createNewTodo(userInput, false);
-            break;
-        default:
-            String errorMessage = "Oof, I didn't understand your command! Let's try that again.\n"
-                    + " \n" + "Type a todo in this format:\n" + "    todo Eat with Friends";
-            throw new TrissException(errorMessage);
-        }
-    }
-
     /**
      * Mark user task as done, if request is valid.
      * Stops if user did not specify a task.
      * Stops if user's chosen task does not exist.
      * Informs user if task was already done.
-     * @param userInput Any user input starting with "done"
+     * @param userInput Any user input starting with "done".
      */
-    private static void handleUserMarkingTaskAsDone(String userInput) {
+    private void handleUserMarkingTaskAsDone(String userInput) throws TrissException {
         // Get number of task after the term "done"
         int indexOfCompletedTask;
         // Throw exception if user did not type a number after "done"
         try {
             indexOfCompletedTask = Integer.parseInt(parser.parseUserInput(userInput, 1)) - 1;
         } catch (Exception e) {
-            ui.printLine("Ach, nee! That task does not exist.");
-            return;
+            throw new TrissException("Ach, nee! That task does not exist.");
         }
 
 
@@ -166,6 +159,10 @@ public class Triss {
 
         // Print out the task in the following format: "    [X] Task"
         ui.printLine("    " + chosenTask.printTask());
+    }
+
+    public static void main(String[] args) {
+        new Triss().run();
     }
 
 }
