@@ -1,9 +1,13 @@
 package duke;
 
-import duke.command.CommandExecutor;
+import duke.command.Command;
 import duke.datasaver.DataManager;
+import duke.exception.InvalidCommandFormatException;
+import duke.parser.Parser;
 import duke.task.TaskList;
 import duke.ui.Ui;
+
+import java.time.format.DateTimeParseException;
 
 /**
  * Entry point of Duke program.
@@ -11,13 +15,11 @@ import duke.ui.Ui;
  */
 public class Duke {
 
-    private final CommandExecutor commandExecutor;
     private final TaskList taskList;
     private final DataManager dataManager;
 
     /** Sets up the required objects needed for the program to work. */
     public Duke() {
-        this.commandExecutor = new CommandExecutor();
         this.taskList = new TaskList();
         this.dataManager = new DataManager();
     }
@@ -29,7 +31,7 @@ public class Duke {
     /** Runs the Duke program until termination. */
     private void run() {
         start();
-        runLoopUntilExitCommand(commandExecutor);
+        runLoopUntilExitCommand();
     }
 
     /** Loads data from storage file and prints a greeting upon entry of program. */
@@ -38,15 +40,23 @@ public class Duke {
         Ui.printHeyMessage();
     }
 
-    /** Reads user command and executes the command until a {@code bye} command is entered. */
-    private void runLoopUntilExitCommand(CommandExecutor commandExecutor) {
-        String userInput;
-        boolean isExit;
 
-        do {
-            userInput = Ui.readUserInput();
-            commandExecutor.execute(userInput, taskList, dataManager);
-            isExit = commandExecutor.isExit(userInput);
-        } while (!isExit);
+    /**
+     *  Reads user command and executes the command until a {@code bye} command is entered.
+     */
+    @SuppressWarnings("InfiniteLoopStatement")
+    private void runLoopUntilExitCommand() {
+        String userInput;
+        while(true) {
+            try {
+                userInput = Ui.readUserInput();
+                Command command = Parser.parseCommandWord(userInput);
+                command.execute(taskList, dataManager);
+            } catch (InvalidCommandFormatException | NumberFormatException fe) {
+                Ui.printInvalidCommandFormatMessage();
+            } catch (DateTimeParseException dtpe) {
+                Ui.printInvalidDateTimeMessage();
+            }
+        }
     }
 }

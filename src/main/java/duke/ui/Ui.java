@@ -1,6 +1,7 @@
 package duke.ui;
 
 import duke.task.Task;
+import duke.task.TaskList;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -72,11 +73,12 @@ public class Ui {
      *
      * @param taskList list of tasks to be printed
      */
-    public static void printTaskList(ArrayList<Task> taskList) {
+    public static void printTaskList(TaskList taskList) {
+        ArrayList<Task> taskArrayListToPrint = taskList.getTaskList();
         out.println(STRAIGHT_LINE);
         out.println(HERE_IS_TASK_LIST_MESSAGE);
-        for (int i = 0; i < taskList.size(); i++) {
-            String formattedTask = formatTaskToBeDisplayed(i + DISPLAYED_INDEX_OFFSET, taskList.get(i));
+        for (int i = 0; i < taskArrayListToPrint.size(); i++) {
+            String formattedTask = formatDisplayedTask(i + DISPLAYED_INDEX_OFFSET, taskArrayListToPrint.get(i));
             out.println(formattedTask);
         }
         out.println(STRAIGHT_LINE);
@@ -92,7 +94,7 @@ public class Ui {
         out.println(STRAIGHT_LINE);
         out.println(HERE_ARE_TASKS_CONTAINING_MESSAGE + "\"" + query + "\"");
         for (int i = 0; i < taskListContainingQuery.size(); i++) {
-            String formattedTask = formatTaskToBeDisplayed(i + DISPLAYED_INDEX_OFFSET, taskListContainingQuery.get(i));
+            String formattedTask = formatDisplayedTask(i + DISPLAYED_INDEX_OFFSET, taskListContainingQuery.get(i));
             out.println(formattedTask);
         }
         out.println(STRAIGHT_LINE);
@@ -240,7 +242,6 @@ public class Ui {
 
     /**
      * Prints a message informing the user that an unrecognized command has been entered.
-     * Commands recognized can be found in the {@code CommandWord} enumeration.
      * Prints a message suggesting the user to enter the {@code help} command for help.
      */
     public static void printUnrecognizedCommandMessage() {
@@ -266,7 +267,7 @@ public class Ui {
      * @param task {@code Task} to be printed
      * @return formatted {@code String} which appends {@code task} to a number
      */
-    private static String formatTaskToBeDisplayed(int displayedIndex, Task task) {
+    private static String formatDisplayedTask(int displayedIndex, Task task) {
         return String.format(DISPLAYED_TASK_FORMAT, displayedIndex, task.toString());
     }
 }

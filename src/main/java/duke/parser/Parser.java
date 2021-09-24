@@ -1,6 +1,16 @@
 package duke.parser;
 
-import duke.command.CommandWord;
+import duke.command.AddDeadlineCommand;
+import duke.command.AddEventCommand;
+import duke.command.AddTodoCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.HelpCommand;
+import duke.command.ListCommand;
+import duke.command.UnrecognizedCommand;
 import duke.exception.InvalidCommandFormatException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -18,32 +28,38 @@ import static duke.constants.DukeCommandStrings.*;
 public class Parser {
     
     /**
-     * Parses {@code userInput} into a {@code CommandWord} for execution of command.
+     * Parses {@code userInput} into a subclass of {@code Command} for execution.
      * 
      * @param userInput full user input string
-     * @return {@code CommandWord} based on the user input
+     * @return {@code Command} object
      */
-    public static CommandWord parseCommandWord(String userInput) {
+    public static Command parseCommandWord(String userInput) throws InvalidCommandFormatException, NumberFormatException, DateTimeParseException {
         if (beginsWith(userInput, LIST_COMMAND)) {
-            return CommandWord.LIST;
+            return new ListCommand();
         } else if (beginsWith(userInput, DONE_COMMAND)) {
-            return CommandWord.DONE;
+            int indexOfTaskToMarkDone = parseDoneCommand(userInput);
+            return new DoneCommand(indexOfTaskToMarkDone);
         } else if (beginsWith(userInput, TODO_COMMAND)) {
-            return CommandWord.TODO;
+            Todo newTodo = parseAddTodoCommand(userInput);
+            return new AddTodoCommand(newTodo);
         } else if (beginsWith(userInput, DEADLINE_COMMAND)) {
-            return CommandWord.DEADLINE;
+            Deadline newDeadline = parseAddDeadlineCommand(userInput);
+            return new AddDeadlineCommand(newDeadline);
         } else if (beginsWith(userInput, EVENT_COMMAND)) {
-            return CommandWord.EVENT;
+            Event newEvent = parseAddEventCommand(userInput);
+            return new AddEventCommand(newEvent);
         } else if (beginsWith(userInput, DELETE_COMMAND)) {
-            return CommandWord.DELETE;
+            int indexOfTaskToDelete = parseDeleteCommand(userInput);
+            return new DeleteCommand(indexOfTaskToDelete);
         } else if (beginsWith(userInput, HELP_COMMAND)) {
-            return CommandWord.HELP;
+            return new HelpCommand();
         } else if (beginsWith(userInput, FIND_COMMAND)) {
-            return CommandWord.FIND;
+            String keyword = parseFindCommand(userInput);
+            return new FindCommand(keyword);
         } else if (beginsWith(userInput, EXIT_COMMAND)) {
-            return CommandWord.EXIT;
+            return new ByeCommand();
         } else {
-            return CommandWord.INVALID;
+            return new UnrecognizedCommand();
         }
     }
 
@@ -56,7 +72,7 @@ public class Parser {
      * @throws InvalidCommandFormatException if task ID is non-numeric, lacking from command
      * @throws NumberFormatException if task ID is not in the task list
      */
-    public static int parseDoneCommand(String userInput) throws InvalidCommandFormatException, NumberFormatException {
+    private static int parseDoneCommand(String userInput) throws InvalidCommandFormatException, NumberFormatException {
         String[] doneCommandAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if(doneCommandAsArray.length != 2) {
             /* throws exception because task ID is lacking */
@@ -81,7 +97,7 @@ public class Parser {
      * @return a {@code Todo} with the description as entered by the user
      * @throws InvalidCommandFormatException if the todo is lacking a description
      */
-    public static Todo parseAddTodoCommand(String userInput) throws InvalidCommandFormatException {
+    private static Todo parseAddTodoCommand(String userInput) throws InvalidCommandFormatException {
         String[] todoAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if(todoAsArray.length != 2) {
             /* throws exception because description is lacking */
@@ -99,9 +115,9 @@ public class Parser {
      * @return a {@code Deadline} with a description and deadline as entered by the user
      * @throws InvalidCommandFormatException if the deadline is lacking either a description or a date and time
      * @throws DateTimeParseException if the date and time do not follow the correct format or if an invalid date
-     *                                date and time is entered
+     *                                and time is entered
      */
-    public static Deadline parseAddDeadlineCommand(String userInput) throws InvalidCommandFormatException, DateTimeParseException {
+    private static Deadline parseAddDeadlineCommand(String userInput) throws InvalidCommandFormatException, DateTimeParseException {
         String[] deadlineAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if(deadlineAsArray.length != 2) {
             /* throws exception because both description and deadline are lacking */
@@ -132,9 +148,9 @@ public class Parser {
      * @return an {@code Event} with a description and event time as entered by the user
      * @throws InvalidCommandFormatException if the event is lacking either a description or a date and time
      * @throws DateTimeParseException if the date and time do not follow the correct format or if an invalid date
-     *                                date and time is entered
+     *                                and time is entered
      */
-    public static Event parseAddEventCommand(String userInput) throws InvalidCommandFormatException, DateTimeParseException {
+    private static Event parseAddEventCommand(String userInput) throws InvalidCommandFormatException, DateTimeParseException {
         String[] eventAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if(eventAsArray.length != 2) {
             /* throws exception because both description and event time are lacking */
@@ -166,7 +182,7 @@ public class Parser {
      * @throws InvalidCommandFormatException if task ID is non-numeric, lacking from command
      * @throws NumberFormatException if task ID is not in the task list
      */
-    public static int parseDeleteCommand(String userInput) throws InvalidCommandFormatException, NumberFormatException {
+    private static int parseDeleteCommand(String userInput) throws InvalidCommandFormatException, NumberFormatException {
         String[] deleteCommandAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if(deleteCommandAsArray.length != 2) {
             /* throws exception because task ID is lacking */
@@ -191,7 +207,7 @@ public class Parser {
      * @return a {@code String} representing the keyword to search for
      * @throws InvalidCommandFormatException if the keyword is lacking from the user input
      */
-    public static String parseFindCommand(String userInput) throws InvalidCommandFormatException {
+    private static String parseFindCommand(String userInput) throws InvalidCommandFormatException {
         String[] findCommandAsArray = userInput.split(WHITESPACE_SEQUENCE, 2);
         if (findCommandAsArray.length != 2) {
             /* throws exception because keyword is lacking */
