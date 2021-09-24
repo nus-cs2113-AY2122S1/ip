@@ -31,24 +31,33 @@ Duke is a **desktop app for managing daily tasks, optimized for use via the comm
 
 ```
     ____________________________________________________________
-     MMMMMMMMMMMMMMMMMMMMNmd+h/....`.omohMMMMMMMMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMMMMNs.    `-`  `  `.  -sNMMMMMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMMMN-  ` ` ...`.-````   `:oMMMMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMN/   ` -+hmNNNNNNdh+.```  yMMMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMN   `/mMMMNmNNNNMNNNNy:`  .hMMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMh..-sNNMMNN+mNNNMMNNMNNd/ `NMMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMM:`.mNNMMmNs.+NMNNMNNNNNNNmmMMMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMm`hNNNMd/N-..yNmNNdNNNNNNNmMMMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMMdNNNNm-+o....N+yN+oNNNNMNNMMMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMMNNNNN:.+-....--.:yyodNNmdNMMMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMMNNMNN.+oo-.....-ydN+hNNo-NNMMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMMNMMMo+-yNN......-yo.yNN/:NNMMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMMMMMM/..-o+`.........:dm+NMmMMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMMNNMMo:.............::hMNMMmNMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMMMNNMMhy............+:NMNdMNmMMMMMMMMMMMMMMM
-     MMMMMMMMMMMMMMyohMMMNNm+.........-hmMMNNh-/mdMMMMMMMMMMMMM
-     MMMMMMMMMMMMmo-.`oNMNNMMMs:--..--/NmNMNy`    hMMMMMMMMMMMM
-     MMMMMMMMMMMMN++o`.NNydNNy::::/:...ohNMs`    .hMMMMMMMMMMMM
+                         -/ /mmddddmNmh` .:`                   
+                   `/sdydNNmhmNMMMMMMMMhymMm+`                 
+                 -sNMMMMMMNNddNMMMNMMMMmmMMMMms.               
+                /NMMMNMMNMMmmdNMNMmMMNMmNMMMMMNyy-             
+              .:oNMMMMNNMmhos+so+/::ohdmMMMMMmmMMm.            
+             /mNMMMNNNdy+.````````````../ydNNNMMMMy            
+             /MMMMNmy/.`  `````````  `````.sdNMMMMm+           
+             sNNNNNy.``  ```.:`` ``` ```````./dmNMMh`          
+            `ommdy:```  ` ``sy`` ```  `````````:mmN:           
+            +dNNh.```` ````:dm+` ````  `````````--:            
+            -dMm.````  `s``hdmm-`````````````````-:            
+             -N+````` `sm`/mmmmh`.-```-.``````````-            
+             .:```````+mh.dmmmmm/`y:-`-d/`````` ```            
+             ````````:md/oymmmmmh/ymh+/mmo-````  ```           
+              `` ````dmmymmmmmmmmmmmmd+`.++-````o. .           
+             ``` `` `mmsssdmmmmmmmmmh-s `.m.```-dy .           
+              .`  ` +h:sy.`/dmmmmmmmdy`./-N-` `+dm`.           
+              .`   `mdsN-```dmmmmmmmmNy+smm-- `hds ``          
+               `   -dmmNd/:+mmmmmmmmmmmmmmmy/ .d+  ``          
+              ``   .hdmmNmddmmmmmmmmmmmmmmyd+ ...  .``         
+              `.`   yddmmmdmmmmmmmmmmmmmmm+mo`  `` `..         
+               ```  `/+hmmmmmmmmmmmmmmmmmm/m:` ``- . .`        
+             `` ` `  ```ymmmmmmmmmmmmmmmmm/: ` `.``-//`        
+            :hho- `  ``  :sdmmmmmmmmmmmmd+`.    .`:dMm-:/.     
+          `/hmmdN:`` ` `   `:shmmmmmmmdds..``   `/NMMMNMMs     
+          +ddddmMy```. ``   odyhhhhhhhdmdy..`   .mNMMMMMMd     
+           os//mMm```+o-``-odddhyhhhdmmdMN/:`` oMMMMMMMNm+     
 
      Konnichiwa! I'm your personal maid. Call me Maid-chan!
      What can I do for you? (//ω//)
