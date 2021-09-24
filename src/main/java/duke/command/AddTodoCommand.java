@@ -28,7 +28,7 @@ public class AddTodoCommand extends Command{
     @Override
      public void execute(TaskList list, Ui ui, Storage storage) {
         try {
-            String taskName = input.substring(TODO_NAME_CONSTANT);
+            String taskName = input.substring(TODO_NAME_CONSTANT).trim();
             list.addTodo(taskName);
             storage.appendToFile("T / 0 / " + taskName);
             list.printAddedTask();

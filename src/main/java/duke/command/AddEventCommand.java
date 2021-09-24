@@ -2,6 +2,7 @@ package duke.command;
 
 import java.io.IOException;
 import duke.ui.Ui;
+import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 
@@ -29,13 +30,16 @@ public class AddEventCommand extends Command{
     @Override
      public void execute(TaskList list, Ui ui, Storage storage) {
         try {
-            if (!input.contains("/at")) {
+            if (!input.toLowerCase().contains(" /at ")) {
                 ui.printWrongEventFormatMessage();
                 return;
             }
-            int taskEndIndex = input.indexOf("/at") - 1;
-            String taskName = input.substring(EVENT_NAME_CONSTANT, taskEndIndex);
-            String at = input.substring(taskEndIndex + EVENT_AT_CONSTANT);
+            int taskEndIndex = input.toLowerCase().indexOf(" /at ");
+            String taskName = input.substring(EVENT_NAME_CONSTANT, taskEndIndex).trim();
+            String at = input.substring(taskEndIndex + EVENT_AT_CONSTANT).trim();
+            if (taskName.length() == 0 || at.length() == 0) {
+                throw new DukeException();
+            }
             list.addEvent(taskName, at);
             storage.appendToFile("E / 0 / " + taskName + " / " + at);
             list.printAddedTask();
@@ -43,6 +47,8 @@ public class AddEventCommand extends Command{
             ui.printEmptyEventMessage();
         } catch(IOException e) {
             ui.printSomethingWentWrongMessage(e);
+        } catch (DukeException e) {
+            ui.printWrongEventFormatMessage();
         }
      }
 

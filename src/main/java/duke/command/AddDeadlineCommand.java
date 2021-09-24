@@ -2,6 +2,7 @@ package duke.command;
 
 import java.io.IOException;
 import duke.ui.Ui;
+import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 
@@ -29,13 +30,16 @@ public class AddDeadlineCommand extends Command{
     @Override
      public void execute(TaskList list, Ui ui, Storage storage) {
         try {
-            if (!input.contains("/by")) {
+            if (!input.toLowerCase().contains(" /by ")) {
                 ui.printWrongDeadlineFormatMessage();
                 return;
             }
-            int taskEndIndex = input.indexOf("/by") - 1;
-            String taskName = input.substring(DEADLINE_NAME_CONSTANT, taskEndIndex);
-            String deadline = input.substring(taskEndIndex + DEADLINE_BY_CONSTANT);
+            int taskEndIndex = input.toLowerCase().indexOf(" /by ");
+            String taskName = input.substring(DEADLINE_NAME_CONSTANT, taskEndIndex).trim();
+            String deadline = input.substring(taskEndIndex + DEADLINE_BY_CONSTANT).trim();
+            if (taskName.length() == 0 || deadline.length() == 0) {
+                throw new DukeException();
+            }
             list.addDeadline(taskName, deadline);
             storage.appendToFile("D / 0 / " + taskName + " / " + deadline);
             list.printAddedTask();
@@ -43,6 +47,8 @@ public class AddDeadlineCommand extends Command{
             ui.printEmptyDeadlineMessage();
         } catch(IOException e) {
             ui.printSomethingWentWrongMessage(e);
+        } catch(DukeException e) {
+            ui.printWrongDeadlineFormatMessage();
         }
      }
 
