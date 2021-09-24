@@ -1,68 +1,79 @@
-import Exceptions.JimException;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
+package storage;
+
+import exceptions.JimException;
+import ui.Ui;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+import tasklist.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private static ArrayList<Task> tasks;
-    protected static Messages messages = new Messages();
-    //Creation of database file
+    private static Ui ui;
+    private static TaskList tasks;
+
+    //Paths
     private static final String FILE_PATH = "data/jim.txt";
     private static final String FOLDER_PATH = "data";
 
-    public static void folderChecker(File folder) {
+
+    public Storage(TaskList tasks) {
+        this.tasks = tasks;
+        ui = new Ui();
+    }
+
+
+    public void folderChecker(File folder) {
         boolean result = folder.mkdir();
-        messages.showCheckFolderMessage();
+        ui.showCheckFolderMessage();
         if (result) {
-            messages.showCreateMissingFolderMessage();
+            ui.showCreateMissingFolderMessage();
         } else {
-            messages.showFolderFoundMessage();
+            ui.showFolderFoundMessage();
         }
     }
 
-    public static void databaseChecker(File file) {
+    public void databaseChecker(File file) {
         try {
             boolean result = file.createNewFile();
-            messages.showCheckDatabaseFileMessage();
+            ui.showCheckDatabaseFileMessage();
             if (result) {
-                messages.showCreateMissingDatabaseFileMessage();
+                ui.showCreateMissingDatabaseFileMessage();
             } else {
-                messages.showDatabaseFileFoundMessage();
+                ui.showDatabaseFileFoundMessage();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void initList(Scanner s) throws JimException {
+    public void initList(Scanner s) throws JimException {
         while (s.hasNext()) {
             String task = s.nextLine();
             String[] listedTask = task.split(" \\| ", 4);
             switch (listedTask[0]) {
             case "T":
-                tasks.add(new Todo(listedTask[2]));
+                tasks.addTaskToList(new Todo(listedTask[2]));
                 if (listedTask[1].equals("1")) {
-                    tasks.get(tasks.size() - 1).markAsDone();
+                    tasks.getTaskFromList(tasks.getListSize() - 1).markAsDone();
                 }
                 break;
             case "D":
-                tasks.add(new Deadline(listedTask[2], listedTask[3]));
+                tasks.addTaskToList(new Deadline(listedTask[2], listedTask[3]));
                 if (listedTask[1].equals("1")) {
-                    tasks.get(tasks.size() - 1).markAsDone();
+                    tasks.getTaskFromList(tasks.getListSize() - 1).markAsDone();
                 }
                 break;
             case "E":
-                tasks.add(new Event(listedTask[2], listedTask[3]));
+                tasks.addTaskToList(new Event(listedTask[2], listedTask[3]));
                 if (listedTask[1].equals("1")) {
-                    tasks.get(tasks.size() - 1).markAsDone();
+                    tasks.getTaskFromList(tasks.getListSize() - 1).markAsDone();
                 }
                 break;
             default:
@@ -72,20 +83,18 @@ public class Storage {
         s.close();
     }
 
-    public static void initJim() {
+    public void initJim() {
         try {
-            tasks = new ArrayList<>();
             File file = new File(FILE_PATH);
             File folder = new File(FOLDER_PATH);
-            messages = new Messages();
             folderChecker(folder);
             databaseChecker(file);
             Scanner s = new Scanner(file);
             initList(s);
         } catch (JimException e) {
-            messages.showCorruptedDatabaseFileMessage(tasks.size() + 1);
+            ui.showCorruptedDatabaseFileMessage(tasks.getListSize() + 1);
         } catch (FileNotFoundException e) {
-            messages.showNoDatabaseFileMessage();
+            ui.showNoDatabaseFileMessage();
         }
     }
 
@@ -112,7 +121,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            messages.showNoDatabaseFileMessage();
+            ui.showNoDatabaseFileMessage();
         }
     }
 
@@ -122,14 +131,14 @@ public class Storage {
             fw.write("");
             fw.close();
         } catch (IOException e) {
-            messages.showNoDatabaseFileMessage();
+            ui.showNoDatabaseFileMessage();
         }
     }
 
     public static void updateDatabase() {
         //clear file then append from list
         clearDatabase();
-        for (Task task: tasks) {
+        for (Task task: tasks.getTaskList()) {
             String isDone = task.getIsDone()? "1" : "0";
             if (task instanceof Todo) {
                 appendDatabase("T", task.getDescription(), isDone);
@@ -143,9 +152,5 @@ public class Storage {
                 appendDatabase("E", input , isDone);
             }
         }
-    }
-
-    public static ArrayList<Task> getTasks() {
-        return tasks;
     }
 }

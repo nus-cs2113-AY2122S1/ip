@@ -1,16 +1,16 @@
-import Tasks.Task;
+package ui;
+import java.util.Scanner;
+import tasks.Task;
 
-public class Messages {
-    protected static final String VERSION = " Jim - Version 7" + System.lineSeparator();
+public class Ui {
+    protected static final String VERSION = " Chatbot Jim - Version 7" + System.lineSeparator();
     protected static final String LINES = "____________________________________________________________"
             + System.lineSeparator();
     protected static final String GREETING_MESSAGE = " HeLLO! I'm Jim, a real person who definitely passes" +
             " reCaptchas!" + System.lineSeparator();
     protected static final String USER_INPUT_MESSAGE = " How can I help you: ";
     /** ----------EXTRA FUNCTIONS MESSAGES---------- */
-    protected static final String ECHO_MESSAGE = " Echoing after you!" + System.lineSeparator();
     protected static final String BIRTHDAY_MESSAGE = " ^o^ Happy birthday to you! ^o^" + System.lineSeparator();
-    protected static final String ECHO_QUIT_MESSAGE = " That was annoying huh..." + System.lineSeparator();
     /** ----------DATABASE MESSAGE AND ERRORS---------- */
     protected static final String CLEAR_DATABASE_MESSAGE = "Database wiped clean!" + System.lineSeparator();
     protected static final String NO_DATABASE_FILE_MESSAGE = "No database file!" + System.lineSeparator();
@@ -63,28 +63,39 @@ public class Messages {
     /** ----------HELP MESSAGE---------- */
     protected static final String HELP_MESSAGE = " Here are the commands for the things I can do:" +
             System.lineSeparator() +
-            "    1. todo [task] = adds a Tasks.Todo task" + System.lineSeparator() +
-            "    2. deadline [task] /by [deadline] = adds a Tasks.Deadline task" + System.lineSeparator() +
-            "    3. event [task] /at [time range] = adds an Tasks.Event task" + System.lineSeparator() +
+            "    1. todo [task] = adds a Todo task" + System.lineSeparator() +
+            "    2. deadline [task] /by [deadline] = adds a Deadline task" + System.lineSeparator() +
+            "    3. event [task] /at [time range] = adds an Event task" + System.lineSeparator() +
             "    4. done [taskIndex] = marks the inputted task as done" + System.lineSeparator() +
-            "    5. list = lists out all current tasks with their taskIndex" + System.lineSeparator() +
-            "    6. echo = turn into a huge cave and echo your inputs back to you!!" + System.lineSeparator() +
-            "    7. quit (only in echo mode) = turn back to normal and stop echoing" + System.lineSeparator() +
-            "    8. genshin = begin the genshin helper" + System.lineSeparator() +
-            "    9. clear database = what it sounds like" + System.lineSeparator() +
-            "    10. help = shows the list of things I can do for you ^^ (aka this list)" + System.lineSeparator() +
-            "    11. bye = shuts me down... ;-;" + System.lineSeparator();
+            "    5. list = lists out all tasks you have currently" + System.lineSeparator() +
+            "    6. find [keyword] = finds all tasks that contain the keyword in the description" + System.lineSeparator() +
+            "    7. clear database = wipes your database spick and span" + System.lineSeparator() +
+            "    8. help = shows the list of things I can do for you ^^ (aka this list)" + System.lineSeparator() +
+            "    9. bye = shuts me down... ;-;" + System.lineSeparator();
     /** ----------EXIT MESSAGE---------- */
     protected static final String EXIT_MESSAGE = " Bye! Remember, stay out of fire, suuuuuuper high level " +
             "tactic yea?" + System.lineSeparator();
 
-
-
-
-
+    protected Scanner sc;
 
     /**
-     * Methods to output Messages and Errors.
+     * Constructor
+     */
+    public Ui() {
+        sc = new Scanner(System.in);
+    }
+    /**
+     * returns the user input
+     *
+     * @return user input
+     */
+    public String readCommand() {
+        showUserInputMessage();
+        return sc.nextLine();
+    }
+
+    /**
+     * Methods to output Messages.Messages and Errors.
      */
     public void showLines() {
         System.out.print(LINES);
@@ -96,14 +107,6 @@ public class Messages {
         System.out.print(USER_INPUT_MESSAGE);
     }
     /** ----------EXTRA FUNCTIONS MESSAGE METHODS---------- */
-    public void showEchoMessage() {
-        System.out.print(LINES + ECHO_MESSAGE + LINES);
-    }
-    
-    public void showEchoQuitMessage() {
-        System.out.print(LINES + ECHO_QUIT_MESSAGE + LINES);
-    }
-    
     public void showBirthdayMessage() {
         System.out.print(LINES + BIRTHDAY_MESSAGE + LINES);
     }
@@ -126,15 +129,15 @@ public class Messages {
     }
 
     public void showCreateMissingFolderMessage() {
-        System.out.print(CREATE_MISSING_FOLDER_MESSAGE + LINES);
+        System.out.print(CREATE_MISSING_FOLDER_MESSAGE);
     }
 
     public void showFolderFoundMessage() {
-        System.out.print(FOLDER_FOUND_MESSAGE + LINES);
+        System.out.print(FOLDER_FOUND_MESSAGE);
     }
 
     public void showCheckDatabaseFileMessage() {
-        System.out.print(LINES + CHECK_DATABASE_FILE_MESSAGE);
+        System.out.print(CHECK_DATABASE_FILE_MESSAGE);
     }
 
     public void showCreateMissingDatabaseFileMessage() {
