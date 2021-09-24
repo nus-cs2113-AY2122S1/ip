@@ -15,23 +15,28 @@ to set up Duke on your computer.
 3. Create a new folder and copy the `ip.jar` into this folder.
 4. Open a terminal (such as `cmd`) in this folder.
 5. To launch Duke, type `java -jar ip.jar` into your terminal.
-6. Duke will now create a text file `duke.txt` in a folder named `data` 
-where duke will save your tasks.
-7. Please refer below for the list of commands and features.
+6. You should now see a welcome message like this:
+```
+____________________________________________________________
+ Hello! I'm Duke
+ What can I do for you?
+____________________________________________________________
+```
+7. Please refer below for the list of features and usage instructions.
 
 ## Features 
 
 ### Add `Task`
 
 Add a new task to the list. \
-Duke supports 3 types of `tasks` namely:
+Duke supports 3 types of `Task` objects namely:
 - `Todo`
 - `Deadline`
 - `Event`
 
 ### List `Task`
 
-List out all the current tasks in the list.
+List out all the current `Task` objects in the list.
 
 ### Mark `Task` as done
 
@@ -44,7 +49,7 @@ Delete a `Task` from the list.
 
 ### Find `Task`
 
-List all matching tasks that contain a keyword.
+List all matching `Task` objects that contain a keyword.
 
 
 ### Exit 
