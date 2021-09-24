@@ -1,12 +1,9 @@
 package parser;
 
 import exceptions.JimException;
-import ui.Ui;
 import commands.*;
 
 public class Parser {
-
-    private static final Ui ui = new Ui();
 
     public static Command parseCommand(String input) throws JimException {
         Command c;

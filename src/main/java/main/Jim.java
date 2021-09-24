@@ -7,9 +7,6 @@ import ui.Ui;
 import storage.Storage;
 import tasklist.TaskList;
 
-
-import java.util.Scanner;
-
 public class Jim {
     private TaskList tasks;
     private Ui ui;
