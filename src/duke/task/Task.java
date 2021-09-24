@@ -17,6 +17,11 @@ public abstract class Task {
         this.taskName = taskName;
     }
 
+    /**
+     * Displays an icon showing whether a task has been marked as completed.
+     *
+     * @return String depicting the completion status of the task.
+     */
     public String getStatus() {
         return isDone ? "[X]" : "[ ]";
     }

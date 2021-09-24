@@ -17,6 +17,7 @@ public class TaskList {
 
     /**
      * Adds a given Task into the TaskList and prints a confirmation message to the console.
+     *
      * @param newTask Task to be added into the TaskList.
      */
     public void addTask(Task newTask) {
@@ -27,9 +28,10 @@ public class TaskList {
     /**
      * Marks the task at the specified index as completed and prints a confirmation message
      * to the console.
+     *
      * @param input String containing the index of the task to complete.
      * @throws InvalidIndexException when the index specified exceeds the number of tasks in
-     * the TaskList
+     *                               the TaskList
      */
     public void completeTask(String input) throws InvalidIndexException {
         int index = Integer.parseInt(input) - 1;
@@ -42,9 +44,10 @@ public class TaskList {
 
     /**
      * Deletes the task at the specified index and prints a confirmation message to the console.
+     *
      * @param input String containing the index of the task to complete.
      * @throws InvalidIndexException when the index specified exceeds the number of tasks in
-     * the TaskList
+     *                               the TaskList
      */
     public void deleteTask(String input) throws InvalidIndexException {
         int index = Integer.parseInt(input) - 1;
@@ -58,6 +61,7 @@ public class TaskList {
     /**
      * Finds all tasks containing the given query and prints the list of tasks found to
      * the console.
+     *
      * @param input String containing the search query.
      */
     public void findTask(String input) {

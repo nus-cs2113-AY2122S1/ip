@@ -11,6 +11,11 @@ public class Event extends Task {
         this.duration = duration;
     }
 
+    /**
+     * Exports the task as a string in the standard format to be stored in the save file.
+     *
+     * @return The formatted string with the task data.
+     */
     @Override
     public String exportTask() {
         return "E|" + super.getStatus() + "|" + super.toString() + "|" + duration + System.lineSeparator();
