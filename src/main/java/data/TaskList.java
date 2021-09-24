@@ -1,9 +1,6 @@
 package data;
 
 import task.Task;
-import task.Deadline;
-import task.Event;
-import task.ToDo;
 
 import java.util.ArrayList;
 
@@ -11,19 +8,32 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList() {
-        tasks = new ArrayList<>();
+        this(new ArrayList<>());
     }
 
     public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+        setTaskList(tasks);
     }
 
-    public void addTask(String[] fields) {
-
+    public void addTask(Task newTask) {
+        tasks.add(newTask);
     }
 
     public void deleteTask(int taskID) {
+        Task targetTask = tasks.get(taskID - 1);
+        tasks.remove(targetTask);
+    }
 
+    public void doneTask(int taskID) {
+        tasks.get(taskID - 1).setStatus(true);
+    }
+
+    public void setTaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return tasks;
     }
 
 }

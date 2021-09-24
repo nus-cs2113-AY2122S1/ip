@@ -1,5 +1,5 @@
-package command;
+package commands;
 
-public enum Command {
+public enum CommandType {
     BYE, LIST, TODO, DEADLINE, EVENT, DONE, UNKNOWN, DELETE
 }
