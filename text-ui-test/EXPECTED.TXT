@@ -1,3 +1,8 @@
+Loading data from duke.txt...
+____________________________________________________________
+Notice: File duke.txt not found.
+____________________________________________________________
+Finish Loading.
 ____________________________________________________________
  ____        _        
 |  _ \ _   _| | _____ 
@@ -8,85 +13,89 @@ ____________________________________________________________
 Hello! I'm Duke
 What can I do for you?
 ____________________________________________________________
-____________________________________________________________
-Here are the tasks in your list:
+>>> Here are the tasks in your list:
 There are currently 0 tasks in your list.
 ____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
+>>> Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 tasks in the list
 ____________________________________________________________
-____________________________________________________________
-Here are the tasks in your list:
+>>> Here are the tasks in your list:
 1.[T][ ] borrow book
 There are currently 1 tasks in your list.
 ____________________________________________________________
+>>> Error: Incorrect format detected.
+deadline <task description> /by <due date>
 ____________________________________________________________
-Error: Incorrect format detected.
-Usage: deadline <task description> /by <due date>
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-[D][ ] return book (by: Sunday)
+>>> Got it. I've added this task:
+[D][ ] CS2113T iP final submission (by: Oct 01 2021, 23:59)
 Now you have 2 tasks in the list
 ____________________________________________________________
+>>> Error: Incorrect date time format. Format: yyyy-MM-dd HH:mm
 ____________________________________________________________
-Got it. I've added this task:
-[E][ ] project meeting (at: Mon 2-4pm)
+>>> Got it. I've added this task:
+[E][ ] CS2106 Midterm F2F (at: Sep 29 2021, 14:15)
 Now you have 3 tasks in the list
 ____________________________________________________________
+>>> Error: Incorrect format detected.
+event <task description> /at <start date>
 ____________________________________________________________
-Got it. I've added this task:
-[D][ ] do homework (by: no idea :-p)
+>>> Got it. I've added this task:
+[E][ ] CS2105 Midterm Luminous (at: Oct 04 2021, 14:00)
 Now you have 4 tasks in the list
 ____________________________________________________________
+>>> Got it. I've added this task:
+[E][ ] GEH1062 Midterm Luminous (at: Oct 05 2021, 16:15)
+Now you have 5 tasks in the list
 ____________________________________________________________
-Here are the tasks in your list:
+>>> Here are the tasks in your list:
 1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (at: Mon 2-4pm)
-4.[D][ ] do homework (by: no idea :-p)
-There are currently 4 tasks in your list.
+2.[D][ ] CS2113T iP final submission (by: Oct 01 2021, 23:59)
+3.[E][ ] CS2106 Midterm F2F (at: Sep 29 2021, 14:15)
+4.[E][ ] CS2105 Midterm Luminous (at: Oct 04 2021, 14:00)
+5.[E][ ] GEH1062 Midterm Luminous (at: Oct 05 2021, 16:15)
+There are currently 5 tasks in your list.
 ____________________________________________________________
+>>> Error: task not found.
 ____________________________________________________________
-Error: task not found.
+>>> Nice! I've marked this task as done:
+[D][X] CS2113T iP final submission (by: Oct 01 2021, 23:59)
 ____________________________________________________________
-____________________________________________________________
-Nice! I've marked this task as done:
-[D][X] return book (by: Sunday)
-____________________________________________________________
-____________________________________________________________
-Nice! I've marked this task as done:
+>>> Nice! I've marked this task as done:
 [T][X] borrow book
 ____________________________________________________________
+>>> Error: Incorrect format detected.
+date yyyy-MM-dd
 ____________________________________________________________
-Here are the tasks in your list:
+>>> [E][ ] CS2106 Midterm F2F (at: Sep 29 2021, 14:15)
+____________________________________________________________
+>>> ____________________________________________________________
+>>> [E][ ] CS2106 Midterm F2F (at: Sep 29 2021, 14:15)
+[E][ ] CS2105 Midterm Luminous (at: Oct 04 2021, 14:00)
+[E][ ] GEH1062 Midterm Luminous (at: Oct 05 2021, 16:15)
+____________________________________________________________
+>>> Here are the tasks in your list:
 1.[T][X] borrow book
-2.[D][X] return book (by: Sunday)
-3.[E][ ] project meeting (at: Mon 2-4pm)
-4.[D][ ] do homework (by: no idea :-p)
-There are currently 4 tasks in your list.
+2.[D][X] CS2113T iP final submission (by: Oct 01 2021, 23:59)
+3.[E][ ] CS2106 Midterm F2F (at: Sep 29 2021, 14:15)
+4.[E][ ] CS2105 Midterm Luminous (at: Oct 04 2021, 14:00)
+5.[E][ ] GEH1062 Midterm Luminous (at: Oct 05 2021, 16:15)
+There are currently 5 tasks in your list.
 ____________________________________________________________
+>>> Error: Invalid Task Number.
 ____________________________________________________________
-Error: Incorrect format detected.
-Usage: done <task number(can be seen using the list command)>
-Error: task not found.
+>>> Error: Command not found.
 ____________________________________________________________
-____________________________________________________________
-Error: Command not found.
-____________________________________________________________
-____________________________________________________________
-Here are the tasks in your list:
+>>> Here are the tasks in your list:
 1.[T][X] borrow book
-2.[D][X] return book (by: Sunday)
-3.[E][ ] project meeting (at: Mon 2-4pm)
-4.[D][ ] do homework (by: no idea :-p)
-There are currently 4 tasks in your list.
+2.[D][X] CS2113T iP final submission (by: Oct 01 2021, 23:59)
+3.[E][ ] CS2106 Midterm F2F (at: Sep 29 2021, 14:15)
+4.[E][ ] CS2105 Midterm Luminous (at: Oct 04 2021, 14:00)
+5.[E][ ] GEH1062 Midterm Luminous (at: Oct 05 2021, 16:15)
+There are currently 5 tasks in your list.
 ____________________________________________________________
+>>> Error: Command not found.
 ____________________________________________________________
-Error: Command not found.
-____________________________________________________________
-____________________________________________________________
+>>> ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
