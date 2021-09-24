@@ -22,7 +22,6 @@ public abstract class Command {
     protected static final int LENGTH_TODO = 4;
     protected static final int LENGTH_DEADLINE = 8;
     protected static final int LENGTH_EVENT = 5;
-    protected static final int LENGTH_FIND = 4;
 
     protected static final boolean IS_EXIT = true;
     protected static final boolean IS_NOT_EXIT = false;
