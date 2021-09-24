@@ -5,7 +5,7 @@ import duke.Parser;
 import duke.TaskList;
 import duke.Todo;
 
-public class CommandTodo extends Command{
+public class CommandTodo extends Command {
 
     private static final int FIRST_ARRAY_PARAMETER = 0;
 
@@ -20,6 +20,7 @@ public class CommandTodo extends Command{
 
     /**
      * Create a todo task and store it in list
+     *
      * @throws DukeException when no description input is given
      */
     public void run() throws DukeException {

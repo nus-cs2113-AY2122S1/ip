@@ -4,6 +4,7 @@ import command.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 public class Parser {
 
     private static final int DESCRIPTION_PARAMETERS = 2;
@@ -34,26 +35,26 @@ public class Parser {
      */
     public static Command checkCommand(String[] words, String input) throws
             UnknownCommandException, DukeException {
-        String[] descriptionInput = parseInput(words, input);
+        String[] parsedParameters = parseInput(words, input);
         switch (words[FIRST_ARRAY_PARAMETER]) {
         case COMMAND_BYE:
             return new CommandBye();
         case COMMAND_LIST:
             return new CommandList();
         case COMMAND_DONE:
-            return new CommandDone(words,descriptionInput);
+            return new CommandDone(words, parsedParameters);
         case COMMAND_DELETE:
-            return new CommandDelete(words, descriptionInput);
+            return new CommandDelete(words, parsedParameters);
         case COMMAND_TODO:
-            return new CommandTodo(words[FIRST_ARRAY_PARAMETER],descriptionInput);
+            return new CommandTodo(words[FIRST_ARRAY_PARAMETER], parsedParameters);
         case COMMAND_DEADLINE:
-            return new CommandDeadline(words[FIRST_ARRAY_PARAMETER],descriptionInput);
+            return new CommandDeadline(words[FIRST_ARRAY_PARAMETER], parsedParameters);
         case COMMAND_EVENT:
-            return new CommandEvent(words[FIRST_ARRAY_PARAMETER], descriptionInput);
+            return new CommandEvent(words[FIRST_ARRAY_PARAMETER], parsedParameters);
         case COMMAND_SORT:
-            return new CommandSort(words[FIRST_ARRAY_PARAMETER], descriptionInput);
+            return new CommandSort(words[FIRST_ARRAY_PARAMETER], parsedParameters);
         case COMMAND_FIND:
-            return new CommandFind(words[FIRST_ARRAY_PARAMETER], descriptionInput);
+            return new CommandFind(words[FIRST_ARRAY_PARAMETER], parsedParameters);
         case COMMAND_HELP:
             return new CommandHelp();
         default:
@@ -63,7 +64,8 @@ public class Parser {
 
     /**
      * Throws different exception based on the command type
-     * @param command is the first word of user input
+     *
+     * @param command          is the first word of user input
      * @param descriptionInput is the string that followed after the command
      * @throws DukeException if the subsequent words after the command is empty
      */
@@ -84,6 +86,7 @@ public class Parser {
 
     /**
      * Throws input if necessary commands requires additional input
+     *
      * @param descriptionInput, line of text after the command word
      * @throws DukeException when there are missing parameters given the valid command word
      */
@@ -96,6 +99,7 @@ public class Parser {
 
     /**
      * Takes description and split based on command accordingly
+     *
      * @param words array of words which include the command word
      * @param input the input given by the user
      * @return parsed output
@@ -122,11 +126,12 @@ public class Parser {
      * Change datetime string into datetime object for deadline
      * if parser is YYYY-MM-DD, time will automatically be 0000
      * else if parser YYYY-MM-DD HHMM, time will follow based on user input
+     *
      * @param parser is the datetime part of input
      * @return datetime object
      * @throws DukeException if input format of time is incorrect or invalid numbers for time
      */
-    public static LocalDateTime parseDeadlineDate (String parser) throws DukeException {
+    public static LocalDateTime parseDeadlineDate(String parser) throws DukeException {
         String[] stringDate = parser.split(INPUT_DELIMITER);
         LocalDateTime date;
         DateTimeFormatter formatter;
@@ -150,18 +155,19 @@ public class Parser {
      * if parser is YYYY-MM-DD HHMM to HHMM, the second time will follow the date given,
      * assuming that the event start and end on the same day
      * if parser is YYYY-MM-DD to YYYY-MM-DD HHMM, the time will be based on user input
-     *
+     * <p>
      * Types of input for event time accepted: (date = YYYY-MM-DD, time = HHMM)
      * date to date
      * date to time
      * date to date time
      * date time to time
      * date time to dead time
+     *
      * @param parser is the datetime part of input
      * @return datetime object
      * @throws DukeException if input format of time is incorrect
      */
-    public static LocalDateTime[] parseEventDate (String parser) throws DukeException {
+    public static LocalDateTime[] parseEventDate(String parser) throws DukeException {
         String[] stringDates = parser.split(INPUT_DELIMITER);
         LocalDateTime[] dates;
         if (stringDates.length == 3 && stringDates[1].equals("to")
@@ -180,12 +186,12 @@ public class Parser {
             String startDate = stringDates[0] + ' ' + stringDates[1];
             String endDate = stringDates[0] + ' ' + stringDates[3];
             dates = formatTime(startDate, endDate);
-        }else if (stringDates.length == 4 && stringDates[1].equals("to")) {
+        } else if (stringDates.length == 4 && stringDates[1].equals("to")) {
             //date to date time
             String startDate = stringDates[0] + ' ' + "0000";
             String endDate = stringDates[2] + ' ' + stringDates[3];
             dates = formatTime(startDate, endDate);
-        }else if (stringDates.length == 5 && stringDates[2].equals("to")) {
+        } else if (stringDates.length == 5 && stringDates[2].equals("to")) {
             //date time to date time
             String startDate = stringDates[0] + ' ' + stringDates[1];
             String endDate = stringDates[3] + ' ' + stringDates[4];
@@ -198,8 +204,9 @@ public class Parser {
 
     /**
      * Convert String of start_date and end_date to datetime
+     *
      * @param startDate string for start_date
-     * @param endDate string for end_date
+     * @param endDate   string for end_date
      * @return an array of 2 datetime for start_date and end_date
      */
     private static LocalDateTime[] formatTime(String startDate, String endDate) {
@@ -213,11 +220,12 @@ public class Parser {
 
     /**
      * Swap the dates around if end_date is before start_date
+     *
      * @param date an array of start_date, end_date
      * @return swapped dates if above condition is met. else dates remains in the same order
      */
-    private static LocalDateTime[] arrangeEventDate(LocalDateTime[] date){
-        if (date[FIRST_TIME_INPUT].isAfter(date[SECOND_TIME_INPUT])){
+    private static LocalDateTime[] arrangeEventDate(LocalDateTime[] date) {
+        if (date[FIRST_TIME_INPUT].isAfter(date[SECOND_TIME_INPUT])) {
             LocalDateTime temp = date[FIRST_TIME_INPUT];
             date[FIRST_TIME_INPUT] = date[SECOND_TIME_INPUT];
             date[SECOND_TIME_INPUT] = temp;

@@ -3,7 +3,7 @@ package command;
 import duke.DukeException;
 import duke.Ui;
 
-public class CommandHelp extends Command{
+public class CommandHelp extends Command {
 
 
     public CommandHelp() {

@@ -4,7 +4,7 @@ import duke.DukeException;
 import duke.Parser;
 import duke.TaskList;
 
-public class CommandDelete extends Command{
+public class CommandDelete extends Command {
     private static final int FIRST_ARRAY_PARAMETER = 0;
     private static final int SECOND_ARRAY_PARAMETER = 1;
 
@@ -18,6 +18,7 @@ public class CommandDelete extends Command{
 
     /**
      * Delete a task corresponding to the index
+     *
      * @throws DukeException when there is no parameters after command
      */
     @Override

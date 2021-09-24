@@ -2,15 +2,16 @@ package duke;
 
 import java.time.LocalDateTime;
 
-public abstract class TimedTask extends Task{
+public abstract class TimedTask extends Task {
 
     protected LocalDateTime startDate;
 
     /**
      * Constructor of TimedTask from console
+     *
      * @param description description of task
-     * @param taskType a character that represent a task
-     * @param date the start date of the task
+     * @param taskType    a character that represent a task
+     * @param date        the start date of the task
      */
     protected TimedTask(String description, char taskType, LocalDateTime date) {
         super(description, taskType);
@@ -19,10 +20,11 @@ public abstract class TimedTask extends Task{
 
     /**
      * Constructor of TimedTask from file
+     *
      * @param description description of task
-     * @param taskType a character that represent a task
-     * @param isDone status of the task
-     * @param date the start date of the task
+     * @param taskType    a character that represent a task
+     * @param isDone      status of the task
+     * @param date        the start date of the task
      */
     protected TimedTask(String description, char taskType, boolean isDone, LocalDateTime date) {
         super(description, taskType, isDone);
@@ -31,6 +33,7 @@ public abstract class TimedTask extends Task{
 
     /**
      * Getter for the start date for sorting
+     *
      * @return start date
      */
     public LocalDateTime getStartDate() {

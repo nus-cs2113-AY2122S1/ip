@@ -8,6 +8,7 @@ public class DukeException extends Exception {
 
     /**
      * Store error message upon constructed
+     *
      * @param message
      */
     public DukeException(String message) {
@@ -16,6 +17,7 @@ public class DukeException extends Exception {
 
     /**
      * To get the message from the instance of the Exception
+     *
      * @return error message to be printed
      */
     @Override

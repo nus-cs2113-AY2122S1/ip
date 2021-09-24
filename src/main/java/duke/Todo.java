@@ -5,8 +5,10 @@ package duke;
  */
 public class Todo extends Task {
     public static final char TASK_TYPE_TODO = 'T';
+
     /**
      * Constructor of Todo Task from console
+     *
      * @param description
      */
     public Todo(String description) {
@@ -15,6 +17,7 @@ public class Todo extends Task {
 
     /**
      * Constructor of Todo Task from file
+     *
      * @param description
      * @param isDone
      */
@@ -24,6 +27,7 @@ public class Todo extends Task {
 
     /**
      * Convert event task to string upon printing on console
+     *
      * @return string of todo task
      */
     @Override

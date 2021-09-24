@@ -67,6 +67,7 @@ public abstract class Task {
     /**
      * Returns character based on their task type
      * T:todo D:deadline E:event
+     *
      * @return necessary taskType as above
      */
     public char getTaskType() {

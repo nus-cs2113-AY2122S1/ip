@@ -19,6 +19,7 @@ public class CommandEvent extends Command {
 
     /**
      * Create an event task and put it in list
+     *
      * @throws DukeException when incorrect parameters is passed
      */
     @Override

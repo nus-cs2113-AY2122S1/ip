@@ -4,7 +4,7 @@ import duke.DukeException;
 import duke.Parser;
 import duke.Ui;
 
-public class CommandSort extends Command{
+public class CommandSort extends Command {
 
     private static final int FIRST_ARRAY_PARAMETER = 0;
 
@@ -18,6 +18,7 @@ public class CommandSort extends Command{
 
     /**
      * Prints all the task that contains date time sorted in ascending order of datetime
+     *
      * @throws DukeException when incorrect parameters is passed
      */
     @Override
@@ -30,6 +31,7 @@ public class CommandSort extends Command{
      * Check if the keyword given by the user is correct
      * Format: sort 'keyword'
      * e.g. sort time
+     *
      * @param keyword
      * @throws DukeException when the keyword is incompatible
      */

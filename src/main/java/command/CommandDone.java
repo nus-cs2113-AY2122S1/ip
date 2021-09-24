@@ -4,7 +4,7 @@ import duke.DukeException;
 import duke.Parser;
 import duke.TaskList;
 
-public class CommandDone extends Command{
+public class CommandDone extends Command {
     private static final int FIRST_ARRAY_PARAMETER = 0;
     private static final int SECOND_ARRAY_PARAMETER = 1;
 
@@ -15,8 +15,10 @@ public class CommandDone extends Command{
         this.words = words;
         this.descriptionInput = descriptionInput;
     }
+
     /**
      * Mark a task as done corresponding to the index
+     *
      * @throws DukeException when there is no parameters after command
      */
     @Override

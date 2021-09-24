@@ -4,7 +4,7 @@ import duke.DukeException;
 import duke.Parser;
 import duke.Ui;
 
-public class CommandFind extends Command{
+public class CommandFind extends Command {
 
     private static final int FIRST_ARRAY_PARAMETER = 0;
 
@@ -18,6 +18,7 @@ public class CommandFind extends Command{
 
     /**
      * Find all tasks that contains the substring given by the user
+     *
      * @throws DukeException when there is no input after find
      */
     @Override

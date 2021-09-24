@@ -41,6 +41,7 @@ public class Duke {
 
     /**
      * Attempts to write into file
+     *
      * @param f File object of the particular pathname
      * @throws IOException when file is missing while app is running
      */
@@ -52,7 +53,7 @@ public class Duke {
         } catch (FileNotFoundException e) {
             System.out.println("file not found, tasks cannot be saved. Exiting");
             f.createNewFile();
-        }   catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Please restart the app and try again");
         }
     }
@@ -60,6 +61,7 @@ public class Duke {
     /**
      * Takes in input from user and excute based on the command given
      * Also helps to solve exceptions if user enters invalid command
+     *
      * @param input user input in String
      * @param words an array of user inputs split by ' '
      */

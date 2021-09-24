@@ -47,6 +47,7 @@ public class Ui {
 
     /**
      * Print out the task status upon adding
+     *
      * @param newTask the task that was added to the task array list
      */
     public static void printAddNewTask(Task newTask) {
@@ -60,6 +61,7 @@ public class Ui {
 
     /**
      * Print the deleted task and the number of tasks left
+     *
      * @param size is the size of the task array list after deletion
      * @param task is the task that was deleted
      */
@@ -79,11 +81,11 @@ public class Ui {
     public static void printSortedDateTimedTask() {
         boolean isEmpty = true;
         System.out.println(DASH_LINE);
-        for(TimedTask task: TimedTaskList.getSortedList()) {
+        for (TimedTask task : TimedTaskList.getSortedList()) {
             System.out.println("     " + task);
             isEmpty = false;
         }
-        if(isEmpty){
+        if (isEmpty) {
             System.out.println("     There are no deadlines or events to sort");
         }
         System.out.println(DASH_LINE);
@@ -91,12 +93,13 @@ public class Ui {
 
     /**
      * Print filtered task array list that has the input user wants on console
+     *
      * @param input is the input user requires to be in the task description
      */
     public static void printFilteredDateTimedTask(String input) {
         boolean isEmpty = true;
         System.out.println(DASH_LINE);
-        for(Task task: TaskList.findTask(input)) {
+        for (Task task : TaskList.findTask(input)) {
             System.out.println("     " + task);
             isEmpty = false;
         }

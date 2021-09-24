@@ -8,12 +8,13 @@ public class TimedTaskList {
 
     /**
      * Sort task based on time/start time and remove Todo while sorting
+     *
      * @return List of Deadline and Event in ascending order of time
      */
-    public static ArrayList<TimedTask> getSortedList (){
-        for (Task task : TaskList.getList()){
-            if (task instanceof TimedTask){
-                timedList.add((TimedTask)task);
+    public static ArrayList<TimedTask> getSortedList() {
+        for (Task task : TaskList.getList()) {
+            if (task instanceof TimedTask) {
+                timedList.add((TimedTask) task);
             }
         }
         timedList.sort(TimedTaskDateComparator);
@@ -25,7 +26,7 @@ public class TimedTaskList {
      */
     public static Comparator<TimedTask> TimedTaskDateComparator = new Comparator<>() {
         @Override
-        public int compare(TimedTask task1, TimedTask task2){
+        public int compare(TimedTask task1, TimedTask task2) {
             return task1.getStartDate().compareTo(task2.getStartDate());
         }
     };
