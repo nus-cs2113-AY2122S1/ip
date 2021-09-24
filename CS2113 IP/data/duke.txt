@@ -1,4 +1,1 @@
-T |   | drink ice coffee
-T |   | panic attack
-T |   | drink coke
-T |   | get diabetes
+

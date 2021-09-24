@@ -8,6 +8,9 @@ import duke.exception.OutOfBoundsException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Parser {
 
@@ -70,6 +73,21 @@ public class Parser {
             throw new DukeException();
         } else if (isIncorrectFormat(userInput, specificTask)) {
             throw new FormatException();
+        }
+    }
+
+    public boolean isThreeDaysAway(String deadline) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, formatter);
+        long diff = ChronoUnit.DAYS.between(currentDateTime, deadlineDateTime);
+        final int THREE_DAYS = 3;
+        boolean isWithinThreeDays = (int) diff <= THREE_DAYS;
+        boolean hasNotPassed = (int) diff > 0;
+        if (isWithinThreeDays && hasNotPassed) {
+            return true;
+        } else {
+            return false;
         }
     }
 

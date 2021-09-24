@@ -11,6 +11,7 @@ import duke.task.Todo;
 import duke.ui.Ui;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -28,6 +29,7 @@ public class TaskList {
     final private static String ERROR_MARK_TASK_UNKNOWN_INPUT = "Please enter as follows: done (INT in number)";
     final private static String ERROR_DELETE_TASK_UNKNOWN_INPUT = "Please enter as follows: delete (INT in number)";
     final private static String ERROR_OUT_OF_BOUNDS = "That task does not exist! Stop fooling around!";
+    final private static String ERROR_WRONG_DEADLINE = "Please input your deadline in the format: d/M/yyyy HHmm :-)";
     private static ArrayList<Task> tasks;
     private static int taskCount = 0;
     private static final Parser parser = new Parser();
@@ -128,6 +130,15 @@ public class TaskList {
         }
     }
 
+    private static void listUpcoming() {
+        ui.handleUpcomingComment();
+        for (Task t : tasks) {
+            if (t instanceof Deadline) {
+                ui.handleUpcoming(t, parser.isThreeDaysAway(t.deadline), t.isDone);
+            }
+        }
+    }
+
     private static void addTask(String userInput, TaskType specificTask) throws DukeException, FormatException {
         parser.addTaskExceptionHandler(userInput, specificTask);
         Task newTask;
@@ -155,6 +166,7 @@ public class TaskList {
 
         boolean isBye;
         boolean isList;
+        boolean isUpcoming;
         boolean isDone;
         boolean isTodo;
         boolean isDeadline;
@@ -166,6 +178,7 @@ public class TaskList {
             String userInput = parser.getUserInput();
             isBye = userInput.equals("bye");
             isList = userInput.equals("list");
+            isUpcoming = userInput.equals("upcoming");
             isDone = userInput.startsWith("done");
             isTodo = userInput.startsWith("todo");
             isDeadline = userInput.startsWith("deadline");
@@ -173,11 +186,14 @@ public class TaskList {
             isDelete = userInput.startsWith("delete");
             isFind = userInput.startsWith("find");
 
+
             Ui.showHorizontalLine();
             if (isBye) {
                 System.out.println(GOODBYE_COMMENT);
             } else if (isList) {
                 listTask();
+            } else if (isUpcoming) {
+                listUpcoming();
             } else if (isDone) {
                 try {
                     doneTask(userInput);
@@ -213,6 +229,8 @@ public class TaskList {
                     System.out.println(ERROR_EMPTY_DEADLINE_DESCRIPTION);
                 } catch (FormatException e) {
                     System.out.println(ERROR_WRONG_HANDLE_DEADLINE_DESCRIPTION);
+                } catch (DateTimeParseException e) {
+                    System.out.println(ERROR_WRONG_DEADLINE);
                 }
             } else if (isEvent) {
                 try {
