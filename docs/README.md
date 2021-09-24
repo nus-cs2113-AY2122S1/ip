@@ -43,6 +43,7 @@ Before continuing, here are some of the things you should take note of, to bette
 | `<taskName>` | <u><b>Required.</b></u> The name of the task. |
 | `<atWhen>` | <u><b>Required.</b></u> The date and time of the Event. |
 | `<byWhen>` | <u><b>Required.</b></u> The date and time of the Deadline. |
+| `<index>` | <u><b>Required.</b></u> The index of the task as an integer (eg. 1, 2, 3) |
 | `<keyword>` | <u><b>Required.</b></u> The word that you want to find. |
 
 ---
