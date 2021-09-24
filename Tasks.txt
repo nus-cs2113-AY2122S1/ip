@@ -1,4 +1,3 @@
-deadline ar /by 2021-12-05 17:00 | 0
+deadline ar /by 2021-12-05 17:00 | 1
 event afw /at 2034-12-18 05:00 | 1
-todo gg | 0
 todo yy | 1
