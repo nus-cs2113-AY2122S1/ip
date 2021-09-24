@@ -31,23 +31,21 @@ public class Ui {
         System.out.println(LOADING_ERROR);
     }
 
-    public void handleDelete(int userInputInt, int taskCount, ArrayList<Task> tasks) {
+    public void handleDelete(Task task, ArrayList<Task> tasks, int zeroIndexInputInt, int taskCount) {
         System.out.println(DELETE_TASK_COMMENT);
 
-        String printTask = String.format(" [%s][ ] %s",
-                tasks.get(userInputInt).taskType, tasks.get(userInputInt).description);
-        tasks.remove(userInputInt);
+        String printTask = String.format(" [%s][%s] %s", task.taskType, task.getStatusIcon(), task.description);
+        tasks.remove(zeroIndexInputInt);
         System.out.println(printTask);
 
         String printTaskNumber = String.format("Now you have %d items in the list.", taskCount);
         System.out.println(printTaskNumber);
     }
 
-    public void handleDone(int userInputInt, ArrayList<Task> tasks) {
+    public void handleDone(Task task) {
         System.out.println(MARK_TASK_COMMENT);
 
-        String formatOutput = String.format("[%s][%s] %s",
-                tasks.get(userInputInt).taskType, tasks.get(userInputInt).getStatusIcon(), tasks.get(userInputInt).description);
+        String formatOutput = String.format("[%s][%s] %s", task.taskType, task.getStatusIcon(), task.description);
         System.out.println(formatOutput);
     }
 
@@ -55,17 +53,23 @@ public class Ui {
         System.out.println(LIST_TASK_COMMENT);
     }
 
-    public void handleListFormat(int indexZero, ArrayList<Task> tasks) {
-        int indexOne = indexZero + 1;
+    public void handleListFormat(int taskIndex, Task task) {
         String formatOutput = String.format("%d.[%s][%s] %s",
-                indexOne, tasks.get(indexZero).taskType, tasks.get(indexZero).getStatusIcon(), tasks.get(indexZero).description);
+                taskIndex, task.taskType,
+                task.getStatusIcon(), task.description);
+        System.out.println(formatOutput);
+    }
+
+    public void handleFind(int indexOne, Task task) {
+        String formatOutput = String.format("%d.[%s][%s] %s", indexOne, task.taskType,
+                task.getStatusIcon(), task.description);
         System.out.println(formatOutput);
     }
 
     public void handleAdd(Task newTask, int taskCount) {
         System.out.println(ADDED_TASK_COMMENT);
 
-        String printTask = String.format(" [%s][ ] %s", newTask.taskType, newTask.description);
+        String printTask = String.format(" [%s][] %s", newTask.taskType, newTask.description);
         System.out.println(printTask);
 
         String printTaskNumber = String.format("Now you have %d items in the list.", taskCount);

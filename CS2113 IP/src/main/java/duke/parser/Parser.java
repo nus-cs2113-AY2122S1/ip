@@ -40,7 +40,7 @@ public class Parser {
         String userInputIntString = splitStringBySpace[1];
         int userInputInt = Integer.parseInt(userInputIntString);
 
-        if (userInputInt >= taskListSize) {
+        if (userInputInt > taskListSize) {
             throw new OutOfBoundsException();
         }
         return userInputInt;
@@ -49,6 +49,20 @@ public class Parser {
     public String getUserInput() {
         String userInput = commandScanner.nextLine();
         return userInput;
+    }
+
+    public String getUserSearchKey(String userInput) throws DukeException {
+        if (isEmptyDescription(userInput)) {
+            throw new DukeException();
+        }
+        String[] splitStringBySpace = userInput.trim().split("\\s+", 2);
+        String userInputSearchKey = splitStringBySpace[1];
+        return userInputSearchKey;
+    }
+
+    public boolean hasSearchKey(String userSearchKey, String taskDescription) {
+        boolean hasSearchKey = taskDescription.contains(userSearchKey);
+        return hasSearchKey;
     }
 
     public void addTaskExceptionHandler(String userInput, TaskType specificTask) throws DukeException, FormatException {
