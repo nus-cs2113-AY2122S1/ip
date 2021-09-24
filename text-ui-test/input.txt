@@ -2,9 +2,9 @@ deadline
 deadline submit report
 deadline submit report /by
 deadline submit report /by tuesday
-deadline submit report /by 21 09 2021
+deadline submit report /by 21 09 2021 2359
 deadline return book /by 25 0 2021
-deadline return book /by 25 10 2021
+deadline return book /by 25 10 2021 0900
 list
 done
 done 1
