@@ -8,14 +8,14 @@ Here is a table containing the command words and a brief description:
 
 Command | description
 ------------ | -------------
-[todo](#todo-command) | adds a task to be completed
-[event](#event-command) | adds an event + location 
-[deadline](#deadline-command) | adds a deadline + date + time
-[list](#list-command) | allows user to see a list of all commitments
-[find](#find-command) | allows user to filter commitments by a keyword
-[delete](#delete-command) | allows user to remove a task from the list
-[done](#done-command) | mark a task as complete
-[bye](#close-duke-command) | close Duke
+[todo](##todo-command) | adds a task to be completed
+[event](##event-command) | adds an event + location 
+[deadline](##deadline-command) | adds a deadline + date + time
+[list](##list-command) | allows user to see a list of all commitments
+[find](##find-command) | allows user to filter commitments by a keyword
+[delete](##delete-command) | allows user to remove a task from the list
+[done](##done-command) | mark a task as complete
+[bye](##close-duke-command) | close Duke
 
 On startup, the user will be greeted by the following message:
 ![ScreenShot](C:\Users\Edwar\Desktop\CEG Y2S1\CS2113T\2113t pics\welcome message.jpg)
