@@ -1,5 +1,8 @@
 package duke.command;
 
+/**
+ * Todo command that will create a Todo task.
+ */
 public class TodoCommand extends Command {
 
     final public static String COMMAND_WORD = "todo";
@@ -13,6 +16,9 @@ public class TodoCommand extends Command {
         this.hasDataChange = true;
     }
 
+    /**
+     * Method to execute the command by calling the TaskManager to perform its specified operation.
+     */
     @Override
     public void execute() {
         taskManager.createToDoTask(this.arguments);

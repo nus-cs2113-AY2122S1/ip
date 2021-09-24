@@ -4,14 +4,15 @@ import duke.common.CommonFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parent Task class. Provides an abstraction to most function of a task object.
+ */
 public class Task {
 
-    /**
-     * Status of whether the task is completed
-     */
+    // Status of whether the task is completed.
     private boolean isDone;
-    private String description;
 
+    private String description;
 
     public Task(String description) {
         this.description = description.trim();
@@ -22,6 +23,11 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Get the done status of Task object in the format of 0 or 1.
+     *
+     * @return A binary status determining if the task is done.
+     */
     public String getDoneStatus() {
         if (isDone) {
             return "1";
@@ -49,7 +55,7 @@ public class Task {
     /**
      * Returns a string depending on the isDone status. If the task isDone is true, "X" is return. Else " " is return.
      *
-     * @return isDone status icon
+     * @return isDone status icon.
      */
     public String getStatusIcon() {
         String isDoneFlag = "[ ]";
@@ -64,15 +70,28 @@ public class Task {
         return " " + " | " + getDoneStatus() + " | " + description;
     }
 
+    /**
+     * Method to translate a string into a valid localdatetime variable. This is used for Task that have a date argument
+     * such as Event or Deadline task.
+     *
+     * @param s Given a date string from user input.
+     * @return A converted localdatetime variable in regard to the format specified in CommonFormat.
+     * @throws DateTimeParseException Exception dealing with wrong formatted string derives from parsing.
+     */
     public LocalDateTime convertToLocalDateTime(String s) throws DateTimeParseException {
-        try{
+        try {
             return LocalDateTime.parse(s, CommonFormat.formatter);
-        }catch(DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             throw e;
         }
     }
 
-    public String getDate(){
+    /**
+     * Generic function to getDate, child classes should be the one overriding it.
+     *
+     * @return Null as there is no date in a generic Task object.
+     */
+    public String getDate() {
         return null;
     }
 

@@ -2,7 +2,11 @@ package duke.common;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Common formats related items to be shared across all classes in duke.
+ */
 public class CommonFormat {
+
     final public static String FORMAT_DATE = "yyyy-MM-dd";
     final public static String FORMAT_TIME = "HH:mm";
     final public static String FORMAT_DATETIME = FORMAT_DATE + " " + FORMAT_TIME;

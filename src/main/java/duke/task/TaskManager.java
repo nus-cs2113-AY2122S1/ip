@@ -1,12 +1,13 @@
 package duke.task;
 
-
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Class that handles any Task related objects and maintain a task list.
+ */
 public class TaskManager {
 
     private ArrayList<Task> taskList = new ArrayList<>();
@@ -18,7 +19,7 @@ public class TaskManager {
     }
 
     /**
-     * Create a ToDo task and add into tasks list
+     * Create a ToDo task and add into tasks list.
      *
      * @param description The description of the task.
      */
@@ -28,7 +29,7 @@ public class TaskManager {
     }
 
     /**
-     * Create an Event task and add into tasks list
+     * Create an Event task and add into tasks list.
      *
      * @param description The description of the task.
      * @param date        Start date for the event.
@@ -64,7 +65,7 @@ public class TaskManager {
 
 
     /**
-     * Print all task status in the tasks list.
+     * Print all task information in the tasks list.
      */
     public void printAllTasks() {
         System.out.println("Here are the tasks in your list:");
@@ -76,9 +77,9 @@ public class TaskManager {
     }
 
     /**
-     * Print an individual task status in the tasks list, with reference to its index number.
+     * Print an individual task information in the tasks list, with reference to its index number.
      *
-     * @param taskIndex The task index number in the tasks list to be printed out.
+     * @param taskIndex The task index number in the tasks list to be printed out
      */
     public void printTask(int taskIndex) {
         System.out.printf("%s %s" + System.lineSeparator(),
@@ -90,7 +91,7 @@ public class TaskManager {
     /**
      * Set a given task to be marked as done.
      *
-     * @param taskNumber The task index number in the tasks list to be set as done.
+     * @param taskNumber The task index number in the tasks list to be set as done
      */
     public void setTaskToDone(int taskNumber) {
         if (taskNumber < 1 || taskNumber > totalNumberOfTasks) {
@@ -135,6 +136,13 @@ public class TaskManager {
         return data;
     }
 
+    /**
+     * Method to gather contents from input file that is handled by a file handler and save into the task list. This
+     * method is usually run at the setup phase of duke. Any task information that do not comply with the existing
+     * format guidelines will be discarded and ignored.
+     *
+     * @param contents Contents from a text file that contains a previous saved task list.
+     */
     public void processContentsFromFile(ArrayList<String> contents) {
         PrintStream originalStream = System.out;
         PrintStream noOutputStream = new PrintStream(new OutputStream() {
@@ -145,13 +153,13 @@ public class TaskManager {
         System.setOut(noOutputStream);
         for (String s : contents) {
             System.out.println(s);
-            try{
+            try {
                 addTaskFromContent(s);
-            }catch(DateTimeParseException e){
+            } catch (DateTimeParseException e) {
                 System.setOut(originalStream);
-                System.out.printf("Error: Invalid date detected.\n%s\n",s);
+                System.out.printf("Error: Invalid date detected.\n%s\n", s);
                 System.setOut(noOutputStream);
-            }catch(TaskManagerException e){
+            } catch (TaskManagerException e) {
                 System.setOut(originalStream);
                 System.out.println(e);
                 System.setOut(noOutputStream);
@@ -199,41 +207,54 @@ public class TaskManager {
     }
 
     /**
-     * Method to print the content in which causes the invalid error when placing data from text file.
+     * Method to get the content in which causes the invalid error when placing data from text file.
      *
      * @param s The input that trigger the error.
+     * @return The full error message of invalid format.
      */
     private String getInvalidFileInputMessage(String s) {
-        return String.format("Error: Invalid input \"%s\"\n", s);
+        return String.format("Error: Invalid input format. \"%s\"\n", s);
     }
 
-    public void printTaskOnDate(String date){
+    public void printTaskOnDate(String date) {
         for (int i = 0; i < totalNumberOfTasks; i++) {
-            if(doesTaskHasDate(taskList.get(i))){
-                if(taskList.get(i).getDate().equals(date)){
+            if (doesTaskHasDate(taskList.get(i))) {
+                if (taskList.get(i).getDate().equals(date)) {
                     printTask(i);
                 }
             }
         }
     }
 
-    private boolean doesTaskHasDate(Task t){
+    /**
+     * Method that ensure the Task has a date argument tag in it. For example Deadline and Event are the current only
+     * ones.
+     *
+     * @param t Given a task object to be tested on.
+     * @return Whether the Task has the date attribute argument.
+     */
+    private boolean doesTaskHasDate(Task t) {
         return t instanceof Event || t instanceof Deadline;
     }
 
+    /**
+     * Method to find all task that contains the given keyword.
+     *
+     * @param keyword User given keyword to filter out Tasks in task list.
+     */
     public void findTask(String keyword) {
         if (keyword == null || keyword.isBlank()) {
             System.out.println("Error: keyword is non existent.");
             return;
         }
         for (int i = 0; i < totalNumberOfTasks; i++) {
-            if(isKeywordInside(taskList.get(i).getDescription(),keyword)){
+            if (isKeywordInside(taskList.get(i).getDescription(), keyword)) {
                 printTask(i);
             }
         }
     }
 
-    private boolean isKeywordInside(String description, String keyword){
+    private boolean isKeywordInside(String description, String keyword) {
         return description.contains(keyword);
     }
 

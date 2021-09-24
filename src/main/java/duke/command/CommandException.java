@@ -1,5 +1,8 @@
 package duke.command;
 
+/**
+ * Command Exception that handles exception from command related errors.
+ */
 public class CommandException extends Exception {
 
     private String errorMessage;
