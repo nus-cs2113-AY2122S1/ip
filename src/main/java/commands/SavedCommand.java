@@ -1,13 +1,13 @@
 package commands;
 
 import processors.Storage;
-import processors.Ui;
+import processors.UI;
 import processors.TaskList;
 
 import java.io.IOException;
 
 public class SavedCommand extends Command {
-    public Ui ui = new Ui();
+    public UI ui = new UI();
     public Storage storage = new Storage();
 
     /**

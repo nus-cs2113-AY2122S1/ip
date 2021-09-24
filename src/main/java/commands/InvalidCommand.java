@@ -1,10 +1,10 @@
 package commands;
 
 import exceptions.DukeException;
-import processors.Ui;
+import processors.UI;
 
 public class InvalidCommand extends Command{
-    public Ui ui = new Ui();
+    public UI ui = new UI();
 
     /**
      * Function runs due to invalid command from the user and throws an exception

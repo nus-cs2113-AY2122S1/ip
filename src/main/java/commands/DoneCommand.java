@@ -2,7 +2,7 @@ package commands;
 
 import exceptions.DoneException;
 import processors.TaskList;
-import processors.Ui;
+import processors.UI;
 
 public class DoneCommand extends Command {
     private static final Integer DONE_LENGTH = 4;
@@ -11,7 +11,7 @@ public class DoneCommand extends Command {
     private static final Integer ARRAY_INDEX_FINDER = 1;
     private static final String DONE_DELETE_KEYWORD = " ";
 
-    public Ui ui = new Ui();
+    public UI ui = new UI();
 
     /**
      * Function sets the isDone attribute of task in the task list to true

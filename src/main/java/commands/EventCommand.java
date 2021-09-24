@@ -1,10 +1,8 @@
 package commands;
 
-import exceptions.DeadlineException;
 import exceptions.EventException;
 import processors.TaskList;
-import processors.Ui;
-import tasks.Deadline;
+import processors.UI;
 import tasks.Event;
 
 public class EventCommand extends Command {
@@ -13,7 +11,7 @@ public class EventCommand extends Command {
     private static final Integer ZERO = 0;
     private static final Integer TASK_DATE_DIVIDER = 4;
 
-    public Ui ui = new Ui();
+    public UI ui = new UI();
 
     /**
      * Function adds an Event task into the task list

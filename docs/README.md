@@ -10,24 +10,47 @@
 
 - [Quick Start](#quick-start)
 - [Features](#Features)
-    * [Help](#help---Show-All-Valid-Commands)
-    * [List](#list---List-Down-All-Current-Tasks)
+    * [Help](#Help---Show-All-Valid-Commands)
+    * [List](#List---List-Down-All-Current-Tasks)
     * [Add Task](#Add---Add-a-Task-to-Your-List)
         * [Todo](#A-Todo-Task)
         * [Deadline](#A-Deadline-Task)
         * [Event](#An-Event-Task)
     * [Find](#Find---Show-All-Task-Related-to-Search-Terms)
     * [Done](#Done---Mark-a-Task-as-Done)
+    * [Delete](#Delete---Remove-a-Task)
     * [Save](#Save---Save-All-Task-Into-Local-File)
     * [Bye](#Bye---Exit-the-Application)
-- [FAQ](#faq)
-- [Command Summary]()
+- [FAQ](#FAQ---Frequently-Asked-Questions)
+- [Command Summary](#Command-Summary)
 
 # Quick Start
 
+1. Ensure that you have Java `11` in your computer
+2. Download `iP.jar` from [here](https://github.com/Poopies99/ip)
+3. Copy file into any folder
+4. Double-click the file to start the app.
+
+Expected Outcome:
+
+```
+________________________________________________________________
+     Hello! I'm
+     ____        _
+    |  _ \ _   _| | _____
+    | | | | | | | |/ / _ \
+    | |_| | |_| |   <  __/
+    |____/ \__,_|_|\_\___|
+________________________________________________________________
+I am your very own schedule assistant here to enhance your everyday life
+Type help to see what i can do!
+```
+
+________________________________________________________________
+
 # Features
 
-
+________________________________________________________________
 
 ## Help - Show All Valid Commands
 
@@ -65,6 +88,9 @@ ________________________________________________________________
      2.[E][ ] Bible Study (at: Tues)
      3.[E][ ] Dinner (at: Wed)
      4.[ ] CS2113T iP Submission (by: Thurs)
+     5.[T][ ] Read Micah
+     6.[ ] Study for CS2113T (by: Saturday 2pm)
+     7.[E][ ] Dinner Date (at: Thursday 7pm)
 ________________________________________________________________
 ```
 
@@ -100,7 +126,7 @@ Format `deadline <DESCRIPTION> /by <DATE>`
 
 * **DESCRIPTION:** The Deadline description
 
-* **DATE:** Date and Time that the task is due by
+* **DATE:** Date and Time that the deadline is due by
 
 Example: `deadline Study for CS2113T /by Saturday 2pm`
 
@@ -116,20 +142,141 @@ ________________________________________________________________
 
 ### An Event Task
 
-## Usage
+Add Event Task into task list
 
-### `Keyword` - Describe action
+Format `event <DESCRIPTION> /at <DATE>`
 
-Describe the action and its outcome.
+* **DESCRIPTION:** The Event description
 
-Example of usage:
+* **DATE:** Date and Time that the deadline is due by
 
-`keyword (optional arguments)`
+Example: `event Dinner Date /at Thursday 7pm`
 
-Expected outcome:
-
-Description of the outcome.
+Expected Outcome: 
 
 ```
-expected output
+________________________________________________________________
+     Got it. I've added this task:
+     [E][ ] Dinner Date (at: Thursday 7pm)
+     Now you have 7 tasks in the list.
+________________________________________________________________
 ```
+
+## Find - Show All Task Related to Search Terms
+
+Show related task to search terms
+
+Format `find <DESCRIPTION>`
+
+* **DESCRIPTION:** Description of the Task to search
+
+Example: `find Read`
+
+Expected Outcome:
+
+```
+________________________________________________________________
+     Here are the matching tasks in your list:
+     1.[E][ ] Read (at: Mon)
+     2.[T][ ] Read Micah
+________________________________________________________________
+```
+
+## Done - Mark a Task as Done
+
+Mark a Task as done base on Index in List
+
+Format `done <INDEX>`
+
+* **INDEX:** Index of Task as shown from the task list
+
+Example `done 3`
+
+Expected Outcome: 
+
+```
+________________________________________________________________
+     Nice! I've marked this task as done:
+     [X] Dinner
+________________________________________________________________
+```
+
+## Delete - Remove a Task
+
+Delete a Task from the list base on Index
+
+Format `delete <INDEX>`
+
+* **INDEX:** Index of Task as shown from the task list
+
+Example `delete 3`
+
+Expected Outcome:
+
+```
+________________________________________________________________
+     Noted. I've removed this task:
+     [E][X] Dinner (at: Wed)
+     Now you have 6 tasks in the list.
+________________________________________________________________
+```
+
+## Save - Save All Task Into Local File
+
+Save all current task into local file
+
+Format `save`
+
+Expected Outcome:
+
+```
+________________________________________________________________
+     Your tasks has been saved
+________________________________________________________________
+```
+
+## Bye - Exit the Application
+
+Exit from Duke
+
+Format `bye`
+
+Expected Outcome:
+
+```
+File has been saved!
+________________________________________________________________
+     Bye. Hope to see you again soon!
+________________________________________________________________
+```
+
+________________________________________________________________
+
+## FAQ - Frequently Asked Questions
+
+**Q:** I would like to unmark a completed task
+
+**A:** Currently unmark is not supported in this version
+
+**Q:** I would like to edit the description of my Task
+
+**A:** Currently editing task is not supported, feel free to delete and add task
+
+**Q:** How do I import task list
+
+**A:** Simply deleting local SavedTask.txt file and import date by copying file into data folder
+
+## Command Summary
+
+| Command, Format                                       | Meaning, Examples                                                     |
+| --------------                                        | ----------                                                            |
+| `help`                                                | Show All Valid Commands                                               |
+| `list`                                                | List Down All Current Tasks                                           |
+| `todo <DESCRIPTION>`                                  | Add a todo task                                                       |
+| `deadline <DESCRIPTION> /by <DATE>`                   | Add a deadline task                                                   |
+| `event <DESCRIPTION> /at <DATE>`                      | Add an event task                                                     |
+| `find <DESCRIPTION>`                                  | Show all task related to search terms                                 |
+| `done <INDEX`                                         | Mark a task as done                                                   |
+| `delete <INDEX>`                                      | Remove a task                                                         |
+| `save`                                                | Save all task into local file                                         |
+| `bye`                                                 | Exits the application                                                 |

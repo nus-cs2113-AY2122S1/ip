@@ -18,7 +18,7 @@ public class Storage {
     private static final Integer ZERO = 0;
     private static final Integer ARRAY_INDEX_FINDER = 1;
 
-    public Ui ui = new Ui();
+    public UI ui = new UI();
 
     /**
      * Used to call loadingTasks method and check for any exceptions that may be presented
