@@ -6,11 +6,26 @@ import duke.Ui;
 import exception.IndexTooBigException;
 import exception.IndexTooSmallException;
 
+/**
+ * Represents a <code>Command</code> to mark <code>Task</code> as done.
+ */
 public class DoneCommand extends Command {
+    /**
+     * Instantiates a <code>DoneCommand</code> object.
+     *
+     * @param description Description of the task.
+     */
     public DoneCommand(String description) {
         super(description, IS_NOT_EXIT);
     }
 
+    /**
+     * Set task done in <code>tasks</code> list.
+     *
+     * @param tasks Tasks to be executed on.
+     * @param ui UI to interact with user.
+     * @param storage Storage to save task changes.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         setTaskDoneWithException(tasks, ui, storage, getDescription());

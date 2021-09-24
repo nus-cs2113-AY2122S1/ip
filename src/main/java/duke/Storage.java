@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage where tasks are loaded and saved.
+ */
 public class Storage {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
@@ -30,11 +33,21 @@ public class Storage {
     private String filepath;
     private ArrayList<Task> savedTasks;
 
+    /**
+     * Instantiates a <code>Storage</code> object.
+     *
+     * @param filepath Relative path of the file where tasks are saved.
+     */
     public Storage (String filepath) {
         this.filepath = filepath;
         this.savedTasks = loadTasks();
     }
 
+    /**
+     * Returns tasks saved.
+     *
+     * @return tasks saved.
+     */
     public ArrayList<Task> getSavedTasks() {
         return this.savedTasks;
     }
@@ -104,6 +117,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks into the file.
+     *
+     * @param tasks A collection of tasks to be saved.
+     */
     public void saveTasksToDiskWithException(ArrayList<Task> tasks) {
         try {
             saveTasksToDisk(tasks);

@@ -1,20 +1,30 @@
 package Command;
 
-import duke.Deadline;
-import duke.Event;
-import duke.Storage;
-import duke.TaskList;
-import duke.Todo;
-import duke.Ui;
+import duke.*;
 import exception.EmptyDescriptionException;
 import exception.MissingInformationException;
 import exception.WrongCommandException;
 
+/**
+ * Represents a <code>Command</code> to add new <code>Task</code>.
+ */
 public class AddCommand extends Command {
+    /**
+     * Instantiates a <code>AddCommand</code> object.
+     *
+     * @param description Description of the task.
+     */
     public AddCommand(String description) {
         super(description, IS_NOT_EXIT);
     }
 
+    /**
+     * Adds new task to <code>tasks</code> list.
+     *
+     * @param tasks Tasks to be executed on.
+     * @param ui UI to interact with user.
+     * @param storage Storage to save task changes.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         addTaskWithException(tasks, ui, storage, NOT_FOR_LOADING);
