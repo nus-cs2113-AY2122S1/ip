@@ -65,7 +65,7 @@ Duke is a **desktop app for managing daily tasks, optimized for use via the comm
 
 ## Features
 
-> ℹ️ **Notes:**
+> 📝 **Notes:**
 >   * All commands are case-sensitive. For example, `List` does not equal `list`.
 >   * Words in `UPPER_CASE` are parameters. For example, `find KEYWORD`.
 
