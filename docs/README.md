@@ -44,7 +44,7 @@ Notes about the commands format
   `2021-09-24` represents the `24 September 2021`.
 * Parameters must be given in the format specified.
 
-### Adding Todo Task: `todo`
+### Adding Todo Task: `todo`<a name="adding-todo-task"></a>
 
 Adds a todo task into the task list.
 
@@ -76,7 +76,7 @@ Error: Incorrect format detected.
 todo <task description>
 ```
 
-### Adding Deadline Task: `deadline`
+### Adding Deadline Task: `deadline`<a name="adding-deadline-task"></a>
 
 Adds a deadline task into task list.
 
@@ -113,7 +113,7 @@ deadline <task description> /by <due date>
 Error: Incorrect date time format. Format: yyyy-MM-dd HH:mm
 ```
 
-### Adding Event Task: `event`
+### Adding Event Task: `event`<a name="adding-event-task"></a>
 
 Add an event task into task list.
 
@@ -152,7 +152,7 @@ event <task description> /at <start date>
 Error: Incorrect date time format. Format: yyyy-MM-dd HH:mm
 ```
 
-### Display all tasks in task list: `list`
+### Display all tasks in task list: `list`<a name="display-all-tasks-in-task-list"></a>
 
 Prints all task information inside the task list.
 
@@ -187,7 +187,7 @@ There are currently 0 tasks in your list.
 ____________________________________________________________
 ```
 
-### Remove task from task list: `delete`
+### Remove task from task list: `delete`<a name="remove-task-from-task-list"></a>
 
 Delete existing task in the task list.
 
@@ -231,7 +231,7 @@ Error: Invalid Task Number.
 Error: task not found.
 ```
 
-### Mark a task as done: `done`
+### Mark a task as done: `done`<a name="mark-a-task-as-done"></a>
 
 Set a task to done. This is for tasks that has been completed by the user.
 
@@ -274,7 +274,7 @@ Error: Invalid Task Number.
 Error: task not found.
 ```
 
-### Display all task that falls on a specified date: `date`
+### Display all task that falls on a specified date: `date`<a name="display-all-task-that-falls-on-a-specified-date"></a>
 
 User will provide a date and the program will print all task that happens on the given date.
 
@@ -313,7 +313,7 @@ Error: Incorrect format detected.
 date yyyy-MM-dd
 ```
 
-### Display all tasks that contains a keyword: `find`
+### Display all tasks that contains a keyword: `find`<a name="display-all-tasks-that-contains-a-keyword"></a>
 
 Print all tasks whom task description contains the given keyword.
 
