@@ -18,6 +18,8 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static duke.constants.DukeDataStorageConstants.BACKSLASH;
+import static duke.constants.DukeDataStorageConstants.BACKSLASH_SEPARATOR;
 import static duke.constants.DukeDataStorageConstants.DEFAULT_STORAGE_FILEPATH;
 import static duke.constants.DukeDataStorageConstants.FILE_CREATION_ERROR_MESSAGE;
 import static duke.constants.DukeDataStorageConstants.FILE_WRITE_ERROR_MESSAGE;
@@ -124,7 +126,7 @@ public class DataManager {
             while (fileScanner.hasNext()) {
                 String task = fileScanner.nextLine();
                 try {
-                    Task decodedTask = TaskListDecoder.decodeTask(task);
+                    Task decodedTask = TaskDecoder.decodeTask(task);
                     taskList.add(decodedTask);
                 } catch (InvalidFileDataException ifde) {
                     Ui.printFileTaskInvalidFormatMessage();
@@ -143,8 +145,12 @@ public class DataManager {
      */
     private static void writeData(ArrayList<Task> taskList) throws IOException {
         FileWriter fileWriter = new FileWriter(DEFAULT_STORAGE_FILEPATH, false);
-        StringBuilder formattedTask = new StringBuilder();
-        TaskListEncoder.encodeTask(taskList, fileWriter, formattedTask);
+
+        for (Task task : taskList) {
+            StringBuilder formattedTask = new StringBuilder();
+            TaskEncoder.encodeTask(task, fileWriter, formattedTask);
+        }
+
         fileWriter.close();
     }
 
@@ -155,10 +161,19 @@ public class DataManager {
      * @throws IOException if there is an error creating the file
      */
     private static void createFileInDirectory(String filePath) throws IOException {
-        String[] filePathAsArray = filePath.split("\\\\");
-        String directoryName = filePathAsArray[0];
+        String directoryName = getDirectoryPath(filePath);
         Files.createDirectories(Paths.get(directoryName));
         Files.createFile(Paths.get(filePath));
+    }
+
+    private static String getDirectoryPath(String filePath) {
+        String[] directoryPathAsArray = filePath.split(BACKSLASH_SEPARATOR);
+        StringBuilder directoryPath = new StringBuilder();
+
+        for (int i = 0; i < (directoryPathAsArray.length - 1); i++) {
+            directoryPath.append(directoryPathAsArray[i]).append(BACKSLASH);
+        }
+        return String.valueOf(directoryPath);
     }
 
     /**

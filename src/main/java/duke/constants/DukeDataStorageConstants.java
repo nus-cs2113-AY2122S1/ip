@@ -5,7 +5,9 @@ public class DukeDataStorageConstants extends DukeConstants {
     /** Default file path for file containing Duke's data */
     public static final String DIRECTORY_NAME = "dukeData";
     public static final String FILE_NAME = "tasks.txt";
-    public static final String DEFAULT_STORAGE_FILEPATH = DIRECTORY_NAME + "\\" + FILE_NAME;
+    public static final String BACKSLASH = "\\";
+    public static final String DEFAULT_STORAGE_FILEPATH = DIRECTORY_NAME + BACKSLASH + FILE_NAME;
+    public static final String BACKSLASH_SEPARATOR = "\\\\";
 
     /** Strings which help in encoding and decoding Duke's data */
     public static final String ENCODER_ATTRIBUTE_SEPARATOR = " | ";
