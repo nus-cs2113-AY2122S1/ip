@@ -19,13 +19,15 @@ public class Duke {
     private final DataManager dataManager;
 
     /** Sets up the required objects needed for the program to work. */
-    public Duke() {
+    public Duke(String[] launchArgs) {
         this.taskList = new TaskList();
-        this.dataManager = new DataManager();
+
+        /* launchArgs with length > 0 implies that the user has specified a file path for storage file */
+        this.dataManager = (launchArgs.length > 0) ? new DataManager(launchArgs[0]) : new DataManager();
     }
 
-    public static void main(String[] args) {
-        new Duke().run();
+    public static void main(String[] launchArgs) {
+        new Duke(launchArgs).run();
     }
 
     /** Runs the Duke program until termination. */
