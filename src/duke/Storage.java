@@ -1,10 +1,7 @@
 package duke;
 
 import duke.exception.MissingInputException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import duke.task.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -25,16 +22,19 @@ public class Storage {
         this.saveDataDirectory = saveDataFile.getParentFile();
     }
 
-    public ArrayList<Task> loadData() {
+    public TaskList loadData() {
+        TaskList taskList = new TaskList();
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             //if save file does not exist, create new file
             //otherwise, read and load duke.data
-            if (!saveDataDirectory.mkdirs()) {
-                System.out.println("New save data folder created");
+            if (!saveDataDirectory.exists()) {
+                saveDataFile.getParentFile().mkdirs();
             }
-            if (!saveDataFile.createNewFile()) {
-                UI.printNewSave();
+            if (!saveDataFile.exists()) {
+                saveDataFile.createNewFile();
+                System.out.println("No existing save duke.data\nNew file created");
+                return new TaskList();
             }
             else {
                 Scanner in = new Scanner(saveDataFile);
@@ -59,6 +59,7 @@ public class Storage {
                     }
                 }
             }
+            taskList.setTasks(tasks);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error loading save file");
@@ -68,7 +69,7 @@ public class Storage {
             System.out.println("Invalid date in save file duke.data");
 //            System.out.println("Date should be in the form DDMMYYYY or DD/MM/YYYY or DD-MM-YYYY");
         }
-        return tasks;
+        return taskList;
     }
 
     public void saveFile(ArrayList<Task> tasks) {

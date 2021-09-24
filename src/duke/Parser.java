@@ -37,6 +37,8 @@ public class Parser {
         String[] inputs = userInput.split(SEPARATOR_SPACE, 2);
         try {
             switch (inputs[0]) {
+            case COMMAND_EXIT:
+                return true;
             case COMMAND_LIST:
                 taskList.listTasks();
                 break;
@@ -58,8 +60,6 @@ public class Parser {
             case COMMAND_FIND:
                 taskList.findTask(inputs[1]);
                 break;
-            case COMMAND_EXIT:
-                return true;
             default:
                 throw new InvalidCommandException();
             }
