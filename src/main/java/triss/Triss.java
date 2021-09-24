@@ -6,15 +6,10 @@ import triss.task.Event;
 import triss.task.Task;
 import triss.task.Todo;
 
-import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 
 public class Triss {
-
 
     /** Boolean to track if user has said "bye" */
     private static boolean hasUserSaidBye = false;
@@ -23,15 +18,20 @@ public class Triss {
     protected static final ArrayList<Task> tasks = new ArrayList<>();
 
     /** Length of the word "todo" */
-    public static final int END_INDEX_OF_WORD_TODO = 4;
+    public static final int LENGTH_OF_WORD_TODO = 4;
     /** Length of the word "deadline" */
-    public static final int END_INDEX_OF_WORD_DEADLINE = 8;
+    public static final int LENGTH_OF_WORD_DEADLINE = 8;
     /** Length of the word "event" */
-    public static final int END_INDEX_OF_WORD_EVENT = 5;
+    public static final int LENGTH_OF_WORD_EVENT = 5;
+
     /** User interface to receive input and give output */
-    private static Ui ui = new Ui();
+    private static final Ui ui = new Ui();
+
+    /** Parser to read information from user input and stored data */
+    private static final Parser parser = new Parser();
+
     /** Storage where tasks can be retrieved and stored */
-    private static Storage storage = new Storage();
+    private static final Storage storage = new Storage();
 
     /**
      * Loops Triss into receiving user input and giving output messages.
@@ -47,7 +47,7 @@ public class Triss {
 
             // Get the next line of input, and parse it to find the user's command (first word in input)
             ui.readUserInput();
-            String userCommand = parseUserInput(ui.getUserInput(), 0);
+            String userCommand = parser.parseUserInput(ui.getUserInput(), 0);
             ui.printSeparatorLine();
 
             // Perform actions based on user's command
@@ -86,7 +86,7 @@ public class Triss {
         int indexOfRemovableTask;
         // Throw exception if user did not type a number after "done"
         try {
-            indexOfRemovableTask = Integer.parseInt(parseUserInput(userInput, 1)) - 1;
+            indexOfRemovableTask = Integer.parseInt(parser.parseUserInput(userInput, 1)) - 1;
         } catch (Exception e) {
             ui.printLine("Ach, nee! That task does not exist.");
             return;
@@ -110,22 +110,14 @@ public class Triss {
         ui.printLine("    " + chosenTask.printTask());
     }
 
-    /**
-     * Parse the user input and return the word in the index the user wants.
-     * @param userInput The user input to be parsed.
-     * @param i The index of the word in the user input to be returned.
-     * @return Parsed string from user input.
-     */
-    private static String parseUserInput(String userInput, int i) {
-        return userInput.split(" ")[i];
-    }
+
 
     /**
      * Creates new task depending on first word in user input.
      * @param userInput The user's input.
      */
     private static void handleUserCreatingTask(String userInput) throws TrissException {
-        String taskType = parseUserInput(userInput, 0);
+        String taskType = parser.parseUserInput(userInput, 0);
 
         switch (taskType) {
         case "deadline":
@@ -151,7 +143,7 @@ public class Triss {
      */
     public static void createNewTodo(String userInput, boolean isSilent) throws TrissException {
         String taskName;
-        taskName = userInput.substring(END_INDEX_OF_WORD_TODO).trim();
+        taskName = userInput.substring(LENGTH_OF_WORD_TODO).trim();
 
         if (taskName.isBlank()) {
             String errorMessage = "You didn't specify a name for your todo! Let's try that again.\n"
@@ -181,8 +173,8 @@ public class Triss {
 
         // Parse the task's name from the user's input
         try {
-            taskName = userInput.substring(END_INDEX_OF_WORD_EVENT, userInput.indexOf("/")).trim();
-            eventTiming = userInput.substring(userInput.indexOf("/") + 1).trim();
+            taskName = parser.getTaskName(userInput, LENGTH_OF_WORD_EVENT);
+            eventTiming = parser.getDeadlineOrTiming(userInput);
         } catch (Exception error) {
             String errorMessage = "You didn't format your event properly!\n"
                     + " \n"
@@ -223,8 +215,8 @@ public class Triss {
         String taskName;
 
         try {
-            deadlineDate = userInput.substring(userInput.indexOf("/") + 1).trim();
-            taskName = userInput.substring(END_INDEX_OF_WORD_DEADLINE, userInput.indexOf("/")).trim();
+            deadlineDate = parser.getDeadlineOrTiming(userInput);
+            taskName = parser.getTaskName(userInput, LENGTH_OF_WORD_DEADLINE);
         } catch (Exception error) {
             String errorMessage = "You didn't write your deadline properly!\n"
                     + " \n"
@@ -266,7 +258,7 @@ public class Triss {
         int indexOfCompletedTask;
         // Throw exception if user did not type a number after "done"
         try {
-            indexOfCompletedTask = Integer.parseInt(parseUserInput(userInput, 1)) - 1;
+            indexOfCompletedTask = Integer.parseInt(parser.parseUserInput(userInput, 1)) - 1;
         } catch (Exception e) {
             ui.printLine("Ach, nee! That task does not exist.");
             return;

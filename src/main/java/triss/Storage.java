@@ -55,7 +55,7 @@ public class Storage {
         }
     }
 
-    public static void saveTasks() {
+    public void saveTasks() {
 
         try {
             FileWriter fw = new FileWriter("data/storedtasks.txt");
