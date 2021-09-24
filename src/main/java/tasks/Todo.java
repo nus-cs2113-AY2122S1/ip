@@ -20,6 +20,11 @@ public class Todo extends Task {
         return String.format("T | %b | %s\n", super.hasCompleted(), this.getTaskName());
     }
 
+    @Override
+    public String getTaskType () {
+        return "todo";
+    }
+
     public LocalDateTime getTime() {
         return null;
     }

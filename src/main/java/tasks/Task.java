@@ -19,6 +19,10 @@ abstract public class Task {
         return String.format("[%s]", isCompleted ? "X":" ");
     }
 
+    public String getTaskStatus() {
+        return isCompleted? "yes" : "no";
+    }
+
     public boolean hasCompleted() {
         return this.isCompleted;
     }
@@ -38,6 +42,7 @@ abstract public class Task {
     }
 
     abstract public String save();
+    public abstract String getTaskType();
 
     public boolean searchKeyword(String keyword) {
         return taskName.contains(keyword);

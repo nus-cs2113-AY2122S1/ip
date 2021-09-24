@@ -35,6 +35,11 @@ public class Deadline extends Task {
                 this.deadline.toString());
     }
 
+    @Override
+    public String getTaskType () {
+        return "deadline";
+    }
+
     public LocalDateTime getTime() {
         return this.deadline;
     }

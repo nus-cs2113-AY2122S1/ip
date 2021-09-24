@@ -84,8 +84,13 @@ public class TaskList {
         });
 
         return this.listTasks();
-
     }
+
+    public Task getTask(int i) {
+        return this.tasks.get(i);
+    }
+
+
 
 
 

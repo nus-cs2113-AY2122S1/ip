@@ -35,6 +35,11 @@ public class Event extends Task {
                 this.completeTime.toString());
     }
 
+    @Override
+    public String getTaskType () {
+        return "event";
+    }
+
     public LocalDateTime getTime() {
         return this.completeTime;
     }
