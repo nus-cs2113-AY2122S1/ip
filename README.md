@@ -1,4 +1,4 @@
-# Duke project template
+# Duke 
 
 **Duke** is a desktop app for managing **todo tasks, deadlines, and events**, optimised for use via a Command Line Interface (CLI).
 
