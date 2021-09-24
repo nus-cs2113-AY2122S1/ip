@@ -72,7 +72,7 @@ Syntax - `event <taskName> /at <atWhen>`
 
 <u>Sample output of Adding an Event</u>
 
-[Untitled](images/Untitled%201.png)
+![Untitled](images/Untitled%201.png)
 
 ## List all tasks : `list`
 
