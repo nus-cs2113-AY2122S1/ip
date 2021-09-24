@@ -9,7 +9,6 @@ import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
-import ui.UI;
 import ui.ErrorUI;
 
 import java.time.LocalDate;
@@ -35,12 +34,12 @@ public class Parser {
         this.taskList = taskList;
     }
 
-    public boolean parseCommand(String userInput) {
+    public void parseCommand(String userInput) {
         String[] inputs = userInput.split(SEPARATOR_SPACE, 2);
         try {
             switch (inputs[0]) {
             case COMMAND_EXIT:
-                return true;
+                return;
             case COMMAND_LIST:
                 taskList.listTasks();
                 break;
@@ -74,7 +73,6 @@ public class Parser {
         } catch (DateTimeParseException e) {
             ErrorUI.printInvalidDate();
         }
-        return false;
     }
 
     private Task parseEvent(String input) throws MissingInputException, DateTimeParseException {

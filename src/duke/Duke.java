@@ -13,12 +13,22 @@ public class Duke {
     private TaskList tasks;
     private Parser parser;
 
+    /**
+     * Creates an instance of the Duke Personal Assistant Chatbot by instantiating
+     * a new Storage, TaskList and Parser. The TaskList will be loaded from the
+     * duke.txt file if possible.
+     */
     public Duke() {
         this.storage = new Storage(FILE_NAME);
         this.tasks = storage.loadData();
         this.parser = new Parser(tasks);
     }
 
+    /**
+     * Starts the Duke instance by printing a welcome message and takes in user
+     * input. Commands are executed according to the user input and will terminate
+     * when the user inputs the exit command "bye".
+     */
     public void run() {
         UI.printWelcome();
         String userInput;
