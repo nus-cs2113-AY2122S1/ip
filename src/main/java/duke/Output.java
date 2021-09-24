@@ -23,7 +23,7 @@ public class Output {
      * @return String containing a list of all Duke commands
      */
     public static String getHelpMessage() {
-        String helpMessage = "Here is a list of commands:" + System.lineSeparator()
+        String helpMessage = SPACER + "Here is a list of commands:" + System.lineSeparator()
                 + SPACER + SPACER + "todo [task name] - adds todo task to task manager" + System.lineSeparator()
                 + SPACER + SPACER + "event [task name] /at [date] - adds event task to task manager" + System.lineSeparator()
                 + SPACER + SPACER + "deadline [task name] /by [date] - adds deadline task to task manager" + System.lineSeparator()

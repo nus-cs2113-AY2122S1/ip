@@ -6,7 +6,9 @@ import java.util.Scanner;
 
 public class Ui {
     Scanner inputScanner = new Scanner(System.in);
-    private static final String LINE = "  ────────────────────────────────────────────────";
+    private static final String LINE = "  \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500" +
+            "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500" +
+            "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500";
 
     /**
      * Gets user input from terminal and returns it as a String.
