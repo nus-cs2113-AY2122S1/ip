@@ -1,7 +1,7 @@
 package userManagement;
 
 import FileManager.FileSaver;
-import Parser.Parser;
+import Parser.CLIParser;
 import UI.TextUI;
 import exceptions.DukeException;
 import exceptions.FileException;
@@ -18,7 +18,7 @@ public class UserServer {
     private TaskList userTasks;
     private UserManager userManager;
     private TextUI UI = new TextUI();
-    private Parser parser = new Parser();
+    private CLIParser parser = new CLIParser();
 
     public UserServer(UserManager userManager) {
         this.userManager = userManager;

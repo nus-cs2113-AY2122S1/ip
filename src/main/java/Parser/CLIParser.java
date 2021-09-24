@@ -28,7 +28,7 @@ import java.time.format.DateTimeParseException;
 /**
  * A class to interpret user commands.
  */
-public class Parser {
+public class CLIParser {
 
     /**
      * Interprets user input, and gets what type of command it is.
