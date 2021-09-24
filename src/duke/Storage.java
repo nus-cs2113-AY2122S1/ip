@@ -109,7 +109,7 @@ public class Storage {
      *
      * @param date String containing the date in the format ddMMyyyy or dd/MM/yyyy or dd-MM-yyyy
      * @return Returns a LocalDate object containing the date.
-     * @throws DateTimeParseException
+     * @throws DateTimeParseException when the given date cannot be parsed into a LocalDate object properly.
      */
     private LocalDate parseDate(String date) throws DateTimeParseException {
         return LocalDate.parse(date.trim(), DateTimeFormatter.ofPattern("[ddMMyyyy][dd/MM/yyyy][dd-MM-yyyy]"));

@@ -1,5 +1,7 @@
 package ui;
 
+import duke.task.Task;
+
 public class UI {
     public static final String WELCOME_MESSAGE =
             " ____        _        \n"
@@ -20,5 +22,9 @@ public class UI {
     public static void printNewSave() {
         System.out.println("No existing save duke.data");
         System.out.println("New save file created");
+    }
+
+    public static void printAddTask(Task newTask) {
+        System.out.println("Added: " + newTask.getTaskName());
     }
 }
