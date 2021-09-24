@@ -58,7 +58,6 @@ Converts all current tasks in the list to String form and saves this to
 
 
 
-
 ## Usage
 
 ### Adding a `Todo`: `todo`
@@ -71,6 +70,7 @@ Example of usage:
 
 `todo shopping`
 
+Expected outcome:
 ```
 ____________________________________________________________
  Got it. I've added this task:
@@ -91,6 +91,7 @@ Example of usage:
 - `deadline assignment /by tonight`
 - `deadline submit report /by 2021-10-01 11:59`
 
+Expected outcome:
 ```
 ____________________________________________________________
  Got it. I've added this task:
@@ -111,6 +112,7 @@ Example of usage:
 - `event dinner /at tomorrow night 7pm`
 - `event concert /at 2021-12-11 19:00`
 
+Expected outcome:
 ```
 ____________________________________________________________
  Got it. I've added this task:
@@ -132,6 +134,7 @@ Example of usage:
 
 - `list`
 
+Expected outcome:
 ```
 ____________________________________________________________
  Here are the tasks in your list:
@@ -152,6 +155,7 @@ Example of usage:
 
 - `done 2`
 
+Expected outcome:
 ```
 ____________________________________________________________
  Nice! I've marked this task as done:
@@ -170,6 +174,7 @@ Example of usage:
 
 - `delete 3`
 
+Expected outcome:
 ```
 ____________________________________________________________
  Got it! I've removed this task:
@@ -188,25 +193,11 @@ Example of usage:
 
 - `find report`
 
+Expected outcome:
 ```
 ____________________________________________________________
  Here are the matching tasks in your list:
  1.[D][X] submit report (by: Oct 01 2021 11:59)
-____________________________________________________________
-```
-### Exit: `bye`
-
-Terminates the Duke program.
-
-Format: `bye`
-
-Example of usage:
-
-- `bye`
-
-```
-____________________________________________________________
- Bye. Hope to see you again soon!
 ____________________________________________________________
 ```
 
@@ -221,6 +212,7 @@ Example of usage:
 
 - `bye`
 
+Expected outcome:
 ```
 ____________________________________________________________
  Bye. Hope to see you again soon!
