@@ -7,7 +7,7 @@ public class Task {
     public String specificDescription;
     public String taskType = "";
     public int index;
-    protected boolean isDone;
+    public boolean isDone;
 
     public Task(String description, int index) {
         this.description = description;
