@@ -64,4 +64,9 @@ public class Ui {
     public static void printHorizontalLine() {
         System.out.print(HORIZONTAL_LINE);
     }
+    public static void printList(ArrayList<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
+        }
+    }
 }
