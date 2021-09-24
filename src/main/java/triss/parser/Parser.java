@@ -9,7 +9,7 @@ public class Parser {
     }
 
     /**
-     * Parse the user input and return the word in the index the user wants.
+     * Parses user input and returns the word in the index the user wants.
      * @param userInput The user input to be parsed.
      * @param i The index of the word in the user input to be returned.
      * @return Parsed string from user input.
@@ -18,6 +18,11 @@ public class Parser {
         return userInput.split(" ")[i];
     }
 
+    /**
+     * Parses user input and returns any deadline or timing given.
+     * @param userInput The user input to be parsed.
+     * @return Parsed string representing deadline or timing from user input.
+     */
     public String getDeadlineOrTiming(String userInput) {
         return userInput.substring(userInput.indexOf("/") + 1).trim();
     }

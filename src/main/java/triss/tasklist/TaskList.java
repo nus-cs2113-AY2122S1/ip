@@ -244,10 +244,20 @@ public class TaskList {
         ui.printLine("    " + chosenTask.printTask());
     }
 
+    /**
+     * Checks if index can be accessed in tasklist.
+     * @param index Index to be checked.
+     * @return True is index is valid, or False if invalid.
+     */
     private boolean isIndexValid(int index) {
         return index >= getSize() || index < 0;
     }
 
+    /**
+     * Deletes task from tasklist, and notifies user.
+     * @param userInput User input in the form "delete [indexOfRemovableTask].
+     * @throws TrissException If task does not exist in tasklist.
+     */
     public void deleteTask(String userInput) throws TrissException {
         // Get number of task after the term "done"
         int indexOfRemovableTask;
