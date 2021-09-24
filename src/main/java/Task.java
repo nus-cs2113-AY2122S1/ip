@@ -1,3 +1,6 @@
+/**
+ * Parent class that all tasks inherit from (Todo, Deadline, Event classes)
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -19,6 +22,11 @@ public class Task {
         this.isDone = true;
     }
 
+    /**
+     * Formats the data of a task into a string suitable for storing in DukeData.txt
+     *
+     * @return string that is in a format suitable for storing in DukeData.txt
+     */
     public String getDataStorageString() {
         char isDoneNumber = (isDone) ? '1' : '0';
         return " | " + isDoneNumber + " | " + description;

@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/**
+ * Has methods that takes in standard input by user and processes it to a format understandable
+ * by the program
+ */
 public class Parser {
     public static final String COMMAND_DONE = "done";
     public static final int TASK_DATE_INDEX = 1;
@@ -22,11 +26,20 @@ public class Parser {
     private static final Scanner in = new Scanner(System.in);
     private static String userInput;
 
+    /**
+     * Reads from standard input, trims it of leading and trailing whitespaces,
+     * and sets the string userInput to that value
+     */
     private static void setUserInput() {
         userInput = in.nextLine().trim();
     }
 
 
+    /**
+     * sets userInput
+     * based on userInput, execute a command
+     * loops indefinitely until isExit === true
+     */
     public static void parseAndExecuteCommand() {
         boolean isExit = false;
         do {
@@ -86,7 +99,17 @@ public class Parser {
     }
 
 
-    //command keyword removed eg. "todo clean room"  -> "clean room"
+    //command keyword removed
+
+    /**
+     * Remove command keyword from userInput string
+     * eg. "todo clean room"  -> "clean room"
+     *
+     * @param commandType type of command
+     * @param userInput   string read from standard input that user entered
+     * @return userInput string without the command word at the start of string
+     * @throws BlankDescriptionException if resulting strippedUserInput string is blank
+     */
     public static String stripCommandWord(CommandEnum commandType, String userInput) throws BlankDescriptionException {
         String strippedUserInput = "";
 
@@ -117,6 +140,14 @@ public class Parser {
         return strippedUserInput;
     }
 
+    /**
+     * Extracts the task description and date from a stripped userInput string
+     *
+     * @param taskType                    only Deadline or Event allowed
+     * @param userInputWithoutTaskCommand userInput string that has command word removed
+     * @return taskDetails array that is { taskDescription, date }
+     * @throws IncompleteInformationException if taskDetails array does not have length of 2 or * if any of its elements are empty
+     */
     public static String[] getTaskDetails(CommandEnum taskType, String userInputWithoutTaskCommand) throws IncompleteInformationException {
         String[] taskDetails;
         //strip userInputWithoutTaskCommand prevents empty description / dates
@@ -126,10 +157,12 @@ public class Parser {
             taskDetails = userInputWithoutTaskCommand.strip().split("/at");
         }
 
-        // taskDetails[] should have length of 2
-        //containing Task description (index 0) and Task date (index 1)
-        //special case of length 2 when "/by timing" which is still invalid
-        //is checked by .isBlank()
+        /*
+        taskDetails[] should have length of 2
+        containing Task description (index 0) and Task date (index 1)
+        special case of length 2 when "/by timing" which is still invalid
+        is checked by .isBlank()
+         */
         if (taskDetails.length != 2
                 || taskDetails[TaskList.TASK_DESCRIPTION_INDEX].isBlank()
                 || taskDetails[TASK_DATE_INDEX].isBlank()) {
@@ -142,6 +175,13 @@ public class Parser {
         return taskDetails;
     }
 
+    /**
+     * parses a line of text from DukeData/data.txt, adding tasks if any
+     * ignores line if blank line
+     *
+     * @param line a line of text from DukeData/data.txt
+     * @throws InvalidIntegerException if (isDoneInt != Integer.parseInt("1") && isDoneInt != Integer.parseInt("0")
+     */
     static void parseStorageData(String line) throws InvalidIntegerException {
         if (line.isBlank()) {
             return;
