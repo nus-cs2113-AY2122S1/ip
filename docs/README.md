@@ -9,7 +9,7 @@
 ## Table of Content
 
 - [Quick Start](#quick-start)
-- [Features](#features)
+- [Features](#Features)
     * [Help](#help---Show-All-Valid-Commands)
     * [List](#list---List-Down-All-Current-Tasks)
     * [Add Task](#Add---Add-a-Task-to-Your-List)
@@ -23,9 +23,23 @@
 - [FAQ](#faq)
 - [Command Summary]()
 
-### Feature-ABC
+### Help - Show All Valid Commands
 
-Description of the feature.
+List down all valid commands and their formats
+
+Format: `help`
+
+#### Expected Output
+________________________________________________________________
+     Please input a valid request
+     Duke can do the follow instructions
+     1. Record Todo Task: todo (description)
+     2. Record Deadline Task: task (description) /by (date)
+     3. Record Event Task: event (description) /at (date)
+     4. List Down Recorded Tasks: list
+     5. Set Task After Completion: done (index on list)
+     6. Exit From Program: bye
+________________________________________________________________
 
 ### Feature-XYZ
 
