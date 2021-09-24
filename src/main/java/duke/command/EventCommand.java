@@ -1,5 +1,8 @@
 package duke.command;
 
+/**
+ * Event command that will create a event task object.
+ */
 public class EventCommand extends Command {
 
     final public static String COMMAND_WORD = "event";

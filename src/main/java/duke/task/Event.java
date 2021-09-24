@@ -3,6 +3,9 @@ package duke.task;
 import duke.common.CommonFormat;
 import java.time.LocalDateTime;
 
+/**
+ * Class that represents an Event Task.
+ */
 public class Event extends Task {
 
     final private static String FLAG_TYPE = "[E]";
@@ -14,6 +17,11 @@ public class Event extends Task {
         this.startDate = convertToLocalDateTime(startDate);
     }
 
+    /**
+     * Method used to get the localdate only from the localdatetime startDate.
+     *
+     * @return A String representing the date of startDate.
+     */
     @Override
     public String getDate() {
         return startDate.format(CommonFormat.formatterDateOnly);
@@ -36,6 +44,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return FLAG_TYPE + " | " + getDoneStatus() + " | " + this.getDescription() + " | " + startDate.format(CommonFormat.formatter);
+        return FLAG_TYPE + " | " + getDoneStatus() + " | " + this.getDescription() + " | " + startDate.format(
+                CommonFormat.formatter);
     }
 }

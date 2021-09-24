@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * File class that handles any reading/writing to file operations.
+ */
 public class FileHandler {
 
     private String fileDirectory;
@@ -17,9 +20,12 @@ public class FileHandler {
     }
 
     /**
-     * @param fileName File to be processed
-     * @param contents All contents from current task list during the execution of duke
-     * @throws DukeException Error regarding writing to file issues
+     * Method to place the given contents back into the specified file, it will overwrite all data in that specified
+     * file.
+     *
+     * @param fileName File to be processed.
+     * @param contents All contents from current task list during the execution of duke.
+     * @throws DukeException Error regarding writing to file issues.
      */
     public void writeToFile(String fileName, String contents) throws DukeException {
         File directory = new File(fileDirectory);
@@ -35,11 +41,11 @@ public class FileHandler {
     }
 
     /**
-     * Method to load all contents from the given filename.
+     * Method to load all contents from the specified file.
      *
-     * @param fileName File to be processed
-     * @return All contents from the given filename
-     * @throws DukeException Error regarding file not found
+     * @param fileName File to be processed.
+     * @return All contents from the given filename.
+     * @throws DukeException Error regarding file not found.
      */
     public ArrayList<String> load(String fileName) throws DukeException {
         ArrayList<String> contents = new ArrayList<String>();

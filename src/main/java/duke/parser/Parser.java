@@ -16,6 +16,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser class that handles and filter the user input and translate validated ones into valid command objects.
+ */
 public class Parser {
 
     final static String MESSAGE_INVALID_FORMAT = "Error: Incorrect format detected.\n%s";
@@ -34,9 +37,9 @@ public class Parser {
      * object will be return. As for an invalid command, an exception will be thrown containing an error message
      * regarding the issues of the given command.
      *
-     * @param userInput Raw user inputs from scanner
-     * @return Command object
-     * @throws ParserException Error regarding the validness of existing commands
+     * @param userInput Raw user inputs from scanner.
+     * @return Command object.
+     * @throws ParserException Error regarding the validness of existing commands.
      */
     public Command parseCommand(String userInput) throws ParserException {
         Command command = null;
@@ -77,8 +80,8 @@ public class Parser {
     /**
      * Method to get the base command from the user inputs. Base command are the first word of the user inputs.
      *
-     * @param userInput Raw user inputs from scanner
-     * @return The first word of userInput separated by a space
+     * @param userInput Raw user inputs from scanner.
+     * @return The first word of userInput separated by a space.
      */
     private String getCommonCommand(String userInput) {
         return userInput.split(" ")[0];
@@ -87,8 +90,8 @@ public class Parser {
     /**
      * Get arguments for the base command.
      *
-     * @param userInput Raw user inputs from scanner
-     * @return An edited userInput excluding the first word in it
+     * @param userInput Raw user inputs from scanner.
+     * @return An edited userInput excluding the first word in it.
      */
     private String getCommandData(String userInput) {
         String[] payload = userInput.split(" ");
@@ -100,9 +103,9 @@ public class Parser {
      * Get a number from user inputs after the base command. This number represents the task number in which some
      * commands need to reference from.
      *
-     * @param userInput Raw user inputs from scanner
-     * @return An integer number that represents the task number in the list
-     * @throws ParserException Error regarding invalid non-numeric inputs
+     * @param userInput Raw user inputs from scanner.
+     * @return An integer number that represents the task number in the list.
+     * @throws ParserException Error regarding invalid non-numeric inputs.
      */
     private int getTaskIndex(String userInput) throws ParserException {
         int result = -1;
@@ -132,9 +135,9 @@ public class Parser {
     /**
      * Method to check the validation and perform the todo command.
      *
-     * @param userInput Raw user inputs from scanner
-     * @return Valid todo command
-     * @throws ParserException Error regarding the validness of the todo command format
+     * @param userInput Raw user inputs from scanner.
+     * @return Valid todo command.
+     * @throws ParserException Error regarding the validness of the todo command format.
      */
     private Command executeTodoCommand(String userInput) throws ParserException {
         String errorMessage = String.format(MESSAGE_INVALID_FORMAT, TodoCommand.MESSAGE_FORMAT);
@@ -148,9 +151,9 @@ public class Parser {
     /**
      * Method to check the validation and perform the deadline command.
      *
-     * @param userInput Raw user inputs from scanner
-     * @return Valid deadline command
-     * @throws ParserException Error regarding the validness of the deadline command format
+     * @param userInput Raw user inputs from scanner.
+     * @return Valid deadline command.
+     * @throws ParserException Error regarding the validness of the deadline command format.
      */
     private Command executeDeadlineCommand(String userInput) throws ParserException {
         String errorMessage = String.format(MESSAGE_INVALID_FORMAT, DeadlineCommand.MESSAGE_FORMAT);
@@ -172,9 +175,9 @@ public class Parser {
     /**
      * Method to check the validation and perform the event command.
      *
-     * @param userInput Raw user inputs from scanner
-     * @return Valid event command
-     * @throws ParserException Error regarding the validness of the event command format
+     * @param userInput Raw user inputs from scanner.
+     * @return Valid event command.
+     * @throws ParserException Error regarding the validness of the event command format.
      */
     private Command executeEventCommand(String userInput) throws ParserException {
         String errorMessage = String.format(MESSAGE_INVALID_FORMAT, EventCommand.MESSAGE_FORMAT);
@@ -193,12 +196,20 @@ public class Parser {
         return new EventCommand(argumentArray);
     }
 
+    /**
+     * Method that handles the validation and creation of a Date Command. It will check if all arguments are provided
+     * and the date given is in a specific format.
+     *
+     * @param userInput Raw user inputs from scanner.
+     * @return Valid date command.
+     * @throws ParserException Exception to when arguments are not provided correctly.
+     */
     private Command executeDateCommand(String userInput) throws ParserException {
         String errorMessage = String.format(MESSAGE_INVALID_FORMAT, DateCommand.MESSAGE_FORMAT);
         String arguments = getCommandData(userInput);
         if (isStringEmpty(arguments)) {
             throw new ParserException(errorMessage);
-        }else if(!isValidDateFormat(arguments)){
+        } else if (!isValidDateFormat(arguments)) {
             throw new ParserException(errorMessage);
         }
         return new DateCommand(LocalDate.parse(arguments, CommonFormat.formatterDateOnly));
