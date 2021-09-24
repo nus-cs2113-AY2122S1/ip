@@ -7,7 +7,7 @@ import java.io.IOException;
  * This program helps you keep track of your tasks and manage them
  *
  * @author  Peng Yanjia
- * @version 1.0
+ * @version 0.2
  * @since   2021-09-01
  */
 public class Duke {
