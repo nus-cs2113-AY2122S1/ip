@@ -71,7 +71,8 @@ public class Task {
     @Override
     public String toString(){
         String done = this.isDone()? "X" : " ";
-        String taskType = this.getClass().getName().substring(5,6).toUpperCase();
+        String taskType = this.getClass().getName().substring(11,12).toUpperCase();
+        System.out.println(this.getClass().getName());
         return String.format("[%s][%s] %s",taskType, done, this.getDescription());
     }
 }

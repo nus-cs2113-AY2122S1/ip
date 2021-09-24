@@ -58,10 +58,10 @@ public class Storage {
         while (s.hasNext()){
             String[] taskInfo = s.nextLine().split(",");
 
-            if (taskInfo[0].equals("duke.Task")) {
+            if (taskInfo[0].equals("duke.tasks.Task")) {
                 Task todo = new Task(Boolean.parseBoolean(taskInfo[TASK_DONE_INDEX]), taskInfo[TASK_DESCRIPTION_INDEX]);
                 tasks.add(todo);
-            } else if (taskInfo[0].equals("duke.Event")) {
+            } else if (taskInfo[0].equals("duke.tasks.Event")) {
                 Task event = new Event(Boolean.parseBoolean(taskInfo[TASK_DONE_INDEX]),taskInfo[TASK_DESCRIPTION_INDEX], taskInfo[TASK_TIME_INDEX]);
                 tasks.add(event);
             } else {
