@@ -1,4 +1,5 @@
-import commands.*;
+import commands.Command;
+import commands.Parser;
 import ui.TextUI;
 import data.Storage;
 import data.TaskList;
@@ -17,12 +18,5 @@ public class Esteban {
                 break;
             }
         }
-
-        //ArrayList<Task> tasks = dataStore.read();
-
-        //boolean isContinue = true;
-        //String line;
-
-
     }
 }

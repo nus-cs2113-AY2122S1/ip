@@ -15,6 +15,6 @@ public class Message {
     public static final String SUCCESS_DATA_READ = "  (+) Loaded %d entries";
 
 
-    public static final String ADDED_TODO = "  (+) Added: %s"
+    public static final String ADDED_TASK = "  (+) Added: %s"
             + System.lineSeparator() + "  (i) You have %d tasks in the list";
 }

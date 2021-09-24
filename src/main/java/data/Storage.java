@@ -63,7 +63,7 @@ public class Storage {
         try {
             Scanner s = new Scanner(data);
             while (s.hasNext()) {
-                String[] line = s.nextLine().split(taskDelimiter);
+                String[] line = s.nextLine().split(taskDelimiterRegex);
                 Boolean status = false;
                 if (line[1].equals("1")) {
                     status = true;
