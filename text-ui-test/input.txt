@@ -6,8 +6,9 @@ event
 event Exco+ meeting /at
 todo buy food
 deadline return book /by 2 Sep
+deadline return book /by 2021-09-02
 event Exco+ meeting /at OYP this sat 10-12pm
-deadline collect pack at oyp /by 3 Sep
+deadline collect pack at oyp /by 2021-09-03
 todo read book
 list
 done 1
