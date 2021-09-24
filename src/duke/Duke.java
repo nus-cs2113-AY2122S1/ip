@@ -20,7 +20,6 @@ public class Duke {
 
     public void run() {
         UI.printWelcome();
-        boolean exit = false;
         String userInput;
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();

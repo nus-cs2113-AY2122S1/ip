@@ -2,7 +2,7 @@ package duke.task;
 
 import java.time.LocalDate;
 
-public class Event extends Task{
+public class Event extends Task {
     public static final String EVENT_ICON = "[E]";
     private LocalDate duration;
 

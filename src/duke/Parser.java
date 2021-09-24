@@ -3,12 +3,12 @@ package duke;
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidIndexException;
 import duke.exception.MissingInputException;
+
 import duke.task.TaskList;
 import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
-
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -98,5 +98,4 @@ public class Parser {
     private LocalDate parseDate(String date) throws DateTimeParseException {
         return LocalDate.parse(date.trim(), DateTimeFormatter.ofPattern("[ddMMyyyy][dd/MM/yyyy][dd-MM-yyyy]"));
     }
-
 }
