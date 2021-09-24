@@ -1,7 +1,7 @@
 package duke.commands;
 
+import duke.storage.DataStorage;
 import duke.task.Deadline;
-import duke.datasaver.DataManager;
 import duke.task.TaskList;
 
 public class AddDeadlineCommand extends Command {
@@ -19,11 +19,11 @@ public class AddDeadlineCommand extends Command {
      * if an invalid date and time is entered.
      *
      * @param taskList {@code TaskList} where the deadline is to be added to
-     * @param dataManager {@code DataManager} which saves the new deadline to Duke's storage
+     * @param dataStorage {@code DataStorage} which saves the new deadline to Duke's storage
      */
     @Override
-    public void execute(TaskList taskList, DataManager dataManager) {
+    public void execute(TaskList taskList, DataStorage dataStorage) {
         taskList.addTask(toAdd);
-        dataManager.saveData(taskList);
+        dataStorage.saveData(taskList);
     }
 }

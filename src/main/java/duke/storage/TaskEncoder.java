@@ -1,4 +1,4 @@
-package duke.datasaver;
+package duke.storage;
 
 import duke.parser.Parser;
 import duke.task.Deadline;
@@ -8,7 +8,6 @@ import duke.task.Todo;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static duke.constants.DukeCommandStrings.DATE_TIME_INPUT_FORMAT;
 import static duke.constants.DukeDataStorageConstants.DONE;

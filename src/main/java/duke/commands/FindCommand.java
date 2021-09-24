@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.datasaver.DataManager;
+import duke.storage.DataStorage;
 import duke.exception.QueryNotFoundException;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -23,7 +23,7 @@ public class FindCommand extends Command {
      * @param taskList task list to be searched
      */
     @Override
-    public void execute(TaskList taskList, DataManager dataManager) {
+    public void execute(TaskList taskList, DataStorage dataStorage) {
         try {
             ArrayList<Task> tasksContainingQuery = search(taskList, keyword);
             Ui.printTaskListContainingQuery(tasksContainingQuery, keyword);

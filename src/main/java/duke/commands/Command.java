@@ -1,9 +1,9 @@
 package duke.commands;
 
-import duke.datasaver.DataManager;
+import duke.storage.DataStorage;
 import duke.task.TaskList;
 
 public abstract class Command {
 
-    public abstract void execute(TaskList taskList, DataManager dataManager);
+    public abstract void execute(TaskList taskList, DataStorage dataStorage);
 }

@@ -1,4 +1,4 @@
-package duke.datasaver;
+package duke.storage;
 
 import duke.exception.InvalidFileDataException;
 import duke.parser.Parser;

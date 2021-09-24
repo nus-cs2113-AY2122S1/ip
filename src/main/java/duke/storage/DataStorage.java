@@ -1,4 +1,4 @@
-package duke.datasaver;
+package duke.storage;
 
 import duke.exception.InvalidFileDataException;
 import duke.exception.InvalidFileTypeException;
@@ -30,7 +30,7 @@ import static duke.constants.DukeDataStorageConstants.VALID_FILE_TYPE;
  * Handles storage of data in Duke's task list.
  * This includes reading and writing to a {@code ".txt"} file in the user's device.
  */
-public class DataManager {
+public class DataStorage {
 
     /** {@code Path} object representing the path of storage file*/
     private Path filePath;
@@ -38,7 +38,7 @@ public class DataManager {
     /**
      * Parameterless constructor will set the storage file path to the default, {@code "dukeData\tasks.txt"}
      */
-    public DataManager() {
+    public DataStorage() {
         this(DEFAULT_STORAGE_FILEPATH);
     }
 
@@ -48,7 +48,7 @@ public class DataManager {
      *
      * @param filePath string representing the file path
      */
-    public DataManager(String filePath) {
+    public DataStorage(String filePath) {
         try {
             checkFileType(filePath);
             this.filePath = Paths.get(filePath);

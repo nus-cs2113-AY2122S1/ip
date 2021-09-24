@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.datasaver.DataManager;
+import duke.storage.DataStorage;
 import duke.exception.EmptyListException;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -14,7 +14,7 @@ public class ListCommand extends Command {
      * @param taskList {@code TaskList} containing the tasks to be printed
      */
     @Override
-    public void execute(TaskList taskList, DataManager dataManager) {
+    public void execute(TaskList taskList, DataStorage dataStorage) {
         try {
             checkListSize(taskList);
             Ui.printTaskList(taskList);

@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.datasaver.DataManager;
+import duke.storage.DataStorage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -18,13 +18,13 @@ public class DoneCommand extends Command {
      * or not in the task list.
      *
      * @param taskList  {@code TaskList} containing the task to be mark done
-     * @param dataManager {@code DataManager} which saves the updated done status of the task to Duke's storage file
+     * @param dataStorage {@code DataStorage} which saves the updated done status of the task to Duke's storage file
      */
     @Override
-    public void execute(TaskList taskList, DataManager dataManager) {
+    public void execute(TaskList taskList, DataStorage dataStorage) {
         try {
             taskList.markTaskDone(taskIndex);
-            dataManager.saveData(taskList);
+            dataStorage.saveData(taskList);
         } catch (IndexOutOfBoundsException ioobe) {
             Ui.printTaskNotInListMessage();
         }

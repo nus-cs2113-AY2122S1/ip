@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.datasaver.DataManager;
+import duke.storage.DataStorage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -18,13 +18,13 @@ public class DeleteCommand extends Command {
      * or not in the task list.
      *
      * @param taskList {@code TaskList} containing the task to be deleted
-     * @param dataManager {@code DataManager} which removes the deleted task from Duke's storage
+     * @param dataStorage {@code DataStorage} which removes the deleted task from Duke's storage
      */
     @Override
-    public void execute(TaskList taskList, DataManager dataManager) {
+    public void execute(TaskList taskList, DataStorage dataStorage) {
         try {
             taskList.deleteTask(taskIndex);
-            dataManager.saveData(taskList);
+            dataStorage.saveData(taskList);
         } catch (IndexOutOfBoundsException ioobe) {
             Ui.printTaskNotInListMessage();
         }
