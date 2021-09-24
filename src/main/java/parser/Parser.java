@@ -3,6 +3,7 @@ package parser;
 import command.AddDeadlineTaskCommand;
 import command.AddEventTaskCommand;
 import command.AddTodoTaskCommand;
+import command.AgendaCommand;
 import command.ClearTasksCommand;
 import command.Command;
 import command.DeleteTaskCommand;
@@ -40,6 +41,8 @@ public class Parser {
             return validateListCommand(line);
         case (HelpCommand.COMMAND_KEYWORD):
             return validateHelpCommand(line);
+        case (AgendaCommand.COMMAND_KEYWORD):
+            return validateAgendaCommand(line);
         case (AddTodoTaskCommand.COMMAND_KEYWORD):
             return validateAddTodoCommand(line);
         case (AddEventTaskCommand.COMMAND_KEYWORD):
@@ -59,6 +62,14 @@ public class Parser {
         default:
             throw new AustinInvalidCommandException();
         }
+    }
+
+    private static AgendaCommand validateAgendaCommand(String line) throws
+            AustinInvalidCommandFormatException {
+        if (!line.equals(AgendaCommand.COMMAND_KEYWORD)) {
+            throw new AustinInvalidCommandFormatException(AgendaCommand.COMMAND_KEYWORD);
+        }
+        return new AgendaCommand();
     }
 
     /**

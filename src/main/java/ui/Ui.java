@@ -4,6 +4,7 @@ import exception.AustinException;
 import task.Task;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static task.TaskList.getTaskItemInString;
@@ -224,5 +225,17 @@ public class Ui {
      */
     public void acknowledgeClear() {
         System.out.println(ACKNOWLEDGE_CLEAR_MESSAGE);
+    }
+
+    public void printAgenda(ArrayList<Task> todayTasks) {
+        if (todayTasks.size() == 0) {
+            System.out.println("There are no deadlines and events today.");
+        }
+        System.out.println("Today's agenda:");
+        int index = 1;
+        for (Task task : todayTasks) {
+            System.out.println(index + ". " + task.toString());
+            index++;
+        }
     }
 }

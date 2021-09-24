@@ -5,22 +5,28 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     /** Deadline date and time */
-    protected LocalDateTime by;
+    protected LocalDateTime dueDateTime;
 
-    public Deadline(String description, LocalDateTime by) {
+    public Deadline(String description, LocalDateTime dueDateTime) {
         super(description);
-        this.by = by;
+        this.dueDateTime = dueDateTime;
+    }
+
+    @Override
+    public LocalDateTime getDT() {
+        return dueDateTime;
     }
 
     @Override
     public String toFileFormat() {
         return "D # " + (isDone ? "1" : "0") + " # " + description + " # " +
-                by + "\n";
+                dueDateTime + "\n";
     }
 
     @Override
     public String toString() {
         return "[D] [" + getStatus() + "] " + getDescription() + " (by: " +
-                by.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) + ")";
+                dueDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm")) +
+                ")";
     }
 }

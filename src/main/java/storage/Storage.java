@@ -5,7 +5,6 @@ import task.Task;
 import task.Todo;
 import task.Event;
 import task.Deadline;
-import ui.Ui;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -35,7 +34,7 @@ public class Storage {
         if (!file.exists()) {
             File dir = new File("data");
             dir.mkdir();
-            File newFile = new File("data/austin.txt");
+            File newFile = new File(FILE_PATH);
             newFile.createNewFile();
             return newFile;
         }
