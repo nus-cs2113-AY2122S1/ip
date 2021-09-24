@@ -22,13 +22,13 @@ type fast, Duke can get your management tasks done faster than traditional GUI a
 ## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
-2. Download the latest duke.jar from here.
-3. Copy the file to the folder you want to use as the home folder for your Duke.
-4. Open your command prompt and go into the directory containing the `duke.jar` file.
+2. Download the latest ip.jar from [here](https://github.com/Woolicious98/ip/releases/tag/A-Release).
+3. Copy the file to the folder you want to use as the home folder for your Duke Bot.
+4. Open your command prompt and go into the directory containing the `ip.jar` file.
     1. You can do so by `win+R` and run `cmd`.
-    2. In the console type `cd C:/directoryWithDuke` where directoryWithDuke is your folder
+    2. In the console type `cd C:/directoryContainingIp` where directoryContainingIp is your folder
        containing the jar file.
-5. In the command prompt, run `java -jar duke.jar`
+5. In the command prompt, run `java -jar ip.jar`
 6. To exit the program, run `bye`
 7. Refer to the [Features](#features) below for details of each command.
 
