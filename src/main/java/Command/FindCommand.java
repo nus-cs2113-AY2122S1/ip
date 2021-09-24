@@ -8,17 +8,32 @@ import duke.Ui;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a <code>Command</code> to filter lists by keywords.
+ */
 public class FindCommand extends Command {
+    /**
+     * Instantiates a <code>FindCommand</code>.
+     *
+     * @param description Description of the <code>Command</code>.
+     */
     public FindCommand(String description) {
         super(description, IS_NOT_EXIT);
     }
 
+    /**
+     * Prints list with certain keywords.
+     *
+     * @param tasks Tasks to be executed on.
+     * @param ui UI to be used.
+     * @param storage Storage to be used.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         printMatchingDescription(ui, tasks);
     }
 
-    public void printMatchingDescription(Ui ui, TaskList tasks) {
+    private void printMatchingDescription(Ui ui, TaskList tasks) {
         String wordFilter = getWordFilter(getDescription());
         ArrayList<Task> filteredTasks = getFilteredTasks(tasks, wordFilter);
 
