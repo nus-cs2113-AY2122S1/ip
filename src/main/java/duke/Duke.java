@@ -5,21 +5,22 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+//import java.nio.file.Path;
+//import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 
 public class Duke {
 //    private static final File dukeDir = new File("Duke");
-    private static final Path dukeDataPath = Paths.get("Duke/data.txt");
-    private static final File dukeData = new File(dukeDataPath.toString());
+//    private static final Path dukeDataPath = Paths.get("Duke/data.txt");
+//    private static final File dukeData = new File(dukeDataPath.toString());
     private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS]; // fixed size array for now, each contains a Task element
+    private static final Task[] tasks = new Task[MAX_TASKS]; // fixed size array for now, each contains a Task element
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final int TODO_MIN_LENGTH = 6;
     private static final int TODO_DESCRIPTION_START = 5;
@@ -179,13 +180,29 @@ public class Duke {
     }
 
     public static int readFile() throws FileNotFoundException {
-        Scanner s = new Scanner(dukeData);
-        int currCount = 0;
-        while (s.hasNext()) {
-            parseDataFromFile(s.nextLine(), currCount);
-            currCount += 1;
+        File dir = new File("Duke");
+        if (!dir.exists()) {
+            dir.mkdir();
         }
-        return currCount;
+        File data = new File("Duke/data.txt");
+        if (data.exists()) {
+            Scanner s = new Scanner(data);
+            int currCount = 0;
+            while (s.hasNext()) {
+                parseDataFromFile(s.nextLine(), currCount);
+                currCount += 1;
+            }
+            return currCount;
+        }
+        else {
+            System.out.println("Creating new data file....");
+            try {
+                data.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Unable to create new data file");
+            }
+        }
+        return 0; // initial value of currCount
     }
 
     public static void parseDataFromFile(String nextLine, int currCount) {
@@ -251,16 +268,7 @@ public class Duke {
         try {
             currCount = readFile();
         } catch (FileNotFoundException e) {
-            System.out.println("Duke/data.txt is not found");
-            try {
-                dukeData.createNewFile();
-            }
-            catch (IOException f) {
-                System.out.println("Unable to create new file");
-            }
-            finally {
-                System.out.println("New file Duke/data.txt is created");
-            }
+            System.out.println("Data file not found");
         }
         executeCommands(currCount);
         printGoodBye();
