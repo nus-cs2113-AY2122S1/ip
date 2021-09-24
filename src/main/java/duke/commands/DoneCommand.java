@@ -24,7 +24,7 @@ public class DoneCommand extends Command {
     public void execute(TaskList taskList, DataManager dataManager) {
         try {
             taskList.markTaskDone(taskIndex);
-            dataManager.saveData(taskList.getTaskList());
+            dataManager.saveData(taskList);
         } catch (IndexOutOfBoundsException ioobe) {
             Ui.printTaskNotInListMessage();
         }

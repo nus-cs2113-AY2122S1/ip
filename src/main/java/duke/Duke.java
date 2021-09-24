@@ -36,10 +36,9 @@ public class Duke {
 
     /** Loads data from storage file and prints a greeting upon entry of program. */
     private void start() {
-        dataManager.loadData(taskList.getTaskList());
+        dataManager.loadData(taskList);
         Ui.printHeyMessage();
     }
-
 
     /**
      *  Reads user command and executes the command until a {@code bye} command is entered.

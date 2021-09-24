@@ -4,6 +4,7 @@ import duke.exception.InvalidFileDataException;
 import duke.exception.InvalidFileTypeException;
 import duke.task.Task;
 
+import duke.task.TaskList;
 import duke.ui.Ui;
 
 import java.io.File;
@@ -70,9 +71,9 @@ public class DataManager {
      *
      * @param taskList task list into which the tasks are to be loaded
      */
-    public void loadData(ArrayList<Task> taskList) {
+    public void loadData(TaskList taskList) {
         Scanner fileScanner = getScanner(filePath.toString());
-        readData(fileScanner, taskList);
+        readData(fileScanner, taskList.getTaskList());
     }
 
     /**
@@ -82,9 +83,9 @@ public class DataManager {
      *
      * @param taskList task list containing data of tasks to be saved
      */
-    public void saveData(ArrayList<Task> taskList) {
+    public void saveData(TaskList taskList) {
         try {
-            writeData(taskList);
+            writeData(taskList.getTaskList());
         } catch (IOException ioe) {
             System.out.println(FILE_WRITE_ERROR_MESSAGE + ioe.getMessage());
         }

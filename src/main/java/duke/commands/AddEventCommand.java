@@ -24,6 +24,6 @@ public class AddEventCommand extends Command {
     @Override
     public void execute(TaskList taskList, DataManager dataManager) {
         taskList.addTask(toAdd);
-        dataManager.saveData(taskList.getTaskList());
+        dataManager.saveData(taskList);
     }
 }
