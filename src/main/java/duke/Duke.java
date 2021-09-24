@@ -1,6 +1,6 @@
 package duke;
 
-import duke.command.Command;
+import duke.commands.Command;
 import duke.datasaver.DataManager;
 import duke.exception.InvalidCommandFormatException;
 import duke.parser.Parser;

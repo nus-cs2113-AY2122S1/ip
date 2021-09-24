@@ -1,16 +1,16 @@
 package duke.parser;
 
-import duke.command.AddDeadlineCommand;
-import duke.command.AddEventCommand;
-import duke.command.AddTodoCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.DoneCommand;
-import duke.command.FindCommand;
-import duke.command.HelpCommand;
-import duke.command.ListCommand;
-import duke.command.UnrecognizedCommand;
+import duke.commands.AddDeadlineCommand;
+import duke.commands.AddEventCommand;
+import duke.commands.AddTodoCommand;
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
+import duke.commands.FindCommand;
+import duke.commands.HelpCommand;
+import duke.commands.ListCommand;
+import duke.commands.UnrecognizedCommand;
 import duke.exception.InvalidCommandFormatException;
 import duke.task.Deadline;
 import duke.task.Event;

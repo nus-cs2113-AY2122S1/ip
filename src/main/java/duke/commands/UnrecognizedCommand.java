@@ -1,13 +1,13 @@
-package duke.command;
+package duke.commands;
 
 import duke.datasaver.DataManager;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-public class HelpCommand extends Command {
+public class UnrecognizedCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, DataManager dataManager) {
-        Ui.printHelp();
+        Ui.printUnrecognizedCommandMessage();
     }
 }

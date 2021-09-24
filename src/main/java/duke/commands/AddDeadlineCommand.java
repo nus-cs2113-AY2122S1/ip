@@ -1,4 +1,4 @@
-package duke.command;
+package duke.commands;
 
 import duke.task.Deadline;
 import duke.datasaver.DataManager;
