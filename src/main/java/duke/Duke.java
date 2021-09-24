@@ -3,6 +3,10 @@ package duke;
 import Command.Command;
 import java.util.ArrayList;
 
+/**
+ * Enters the Duke application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Duke {
     private static final String DATA_FILEPATH = "duke.txt";
 
@@ -10,6 +14,9 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Instantiates a Duke application.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage(DATA_FILEPATH);
@@ -18,6 +25,9 @@ public class Duke {
         tasks = new TaskList(savedTasks);
     }
 
+    /**
+     * Runs the program until user inputs "bye".
+     */
     public void run() {
         ui.printWelcomeMessage();
 

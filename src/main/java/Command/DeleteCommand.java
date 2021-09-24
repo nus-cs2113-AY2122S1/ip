@@ -6,11 +6,26 @@ import duke.Ui;
 import exception.IndexTooBigException;
 import exception.IndexTooSmallException;
 
+/**
+ * Represents a <code>Command</code> to delete <code>Task</code>.
+ */
 public class DeleteCommand extends Command {
+    /**
+     * Instantiates a <code>DeleteCommand</code> object.
+     *
+     * @param description Description of the task.
+     */
     public DeleteCommand(String description) {
         super(description, IS_NOT_EXIT);
     }
 
+    /**
+     * Delete task from <code>tasks</code> list.
+     *
+     * @param tasks Tasks to be executed on.
+     * @param ui UI to interact with user.
+     * @param storage Storage to save task changes.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         deleteTaskWithException(tasks, ui, storage, getDescription());
@@ -29,7 +44,8 @@ public class DeleteCommand extends Command {
         tasks.getTasks().remove(taskIndex);
     }
 
-    private void deleteTaskWithException(TaskList tasks, Ui ui, Storage storage, String userInput) {
+    private void deleteTaskWithException(TaskList tasks, Ui ui,
+                                         Storage storage, String userInput) {
         int taskIndex = getTaskIndex(userInput) - 1;
 
         try {
@@ -49,6 +65,4 @@ public class DeleteCommand extends Command {
 
         return taskNumber;
     }
-
-
 }
