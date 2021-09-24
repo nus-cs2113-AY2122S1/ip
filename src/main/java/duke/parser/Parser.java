@@ -20,7 +20,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static duke.constants.DukeCommandStrings.*;
+import static duke.constants.DukeCommandStrings.DATE_TIME_INPUT_FORMAT;
+import static duke.constants.DukeCommandStrings.DEADLINE_COMMAND;
+import static duke.constants.DukeCommandStrings.DEADLINE_PREFIX;
+import static duke.constants.DukeCommandStrings.DELETE_COMMAND;
+import static duke.constants.DukeCommandStrings.DONE_COMMAND;
+import static duke.constants.DukeCommandStrings.EVENT_COMMAND;
+import static duke.constants.DukeCommandStrings.EVENT_PREFIX;
+import static duke.constants.DukeCommandStrings.EXIT_COMMAND;
+import static duke.constants.DukeCommandStrings.FIND_COMMAND;
+import static duke.constants.DukeCommandStrings.HELP_COMMAND;
+import static duke.constants.DukeCommandStrings.LIST_COMMAND;
+import static duke.constants.DukeCommandStrings.TODO_COMMAND;
+import static duke.constants.DukeCommandStrings.WHITESPACE_SEQUENCE;
 
 /**
  * Parses user input.
