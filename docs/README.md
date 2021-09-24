@@ -28,7 +28,7 @@ type fast, Duke can get your management tasks done faster than traditional GUI a
     1. You can do so by `win+R` and run `cmd`.
     2. In the console type `cd C:/directoryWithDuke` where directoryWithDuke is your folder
        containing the jar file.
-5. In the command prompt, run `java --jar duke.jar`
+5. In the command prompt, run `java -jar duke.jar`
 6. To exit the program, run `bye`
 7. Refer to the [Features](#features) below for details of each command.
 
