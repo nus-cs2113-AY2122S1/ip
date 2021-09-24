@@ -227,15 +227,19 @@ public class Ui {
         System.out.println(ACKNOWLEDGE_CLEAR_MESSAGE);
     }
 
+    public static void printList(ArrayList<Task> tasks) {
+        int index = 1;
+        for (Task task: tasks) {
+            System.out.println(index + ". " + task.toString());
+            index++;
+        }
+    }
+
     public void printAgenda(ArrayList<Task> todayTasks) {
         if (todayTasks.size() == 0) {
             System.out.println("There are no deadlines and events today.");
         }
         System.out.println("Today's agenda:");
-        int index = 1;
-        for (Task task : todayTasks) {
-            System.out.println(index + ". " + task.toString());
-            index++;
-        }
+        printList(todayTasks);
     }
 }

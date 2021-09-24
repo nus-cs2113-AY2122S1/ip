@@ -8,11 +8,13 @@ import command.ClearTasksCommand;
 import command.Command;
 import command.DeleteTaskCommand;
 import command.ExitCommand;
+import command.FindTasksCommand;
 import command.HelpCommand;
 import command.ListCommand;
 import command.MarkAsDoneCommand;
 import command.MarkAsNotDoneCommand;
 import exception.AustinEmptyDescriptionException;
+import exception.AustinEmptyKeywordException;
 import exception.AustinEmptyTimeDetailsException;
 import exception.AustinException;
 import exception.AustinInvalidCommandException;
@@ -41,6 +43,8 @@ public class Parser {
             return validateListCommand(line);
         case (HelpCommand.COMMAND_KEYWORD):
             return validateHelpCommand(line);
+        case (FindTasksCommand.COMMAND_KEYWORD):
+            return validateFindTasksCommand(line);
         case (AgendaCommand.COMMAND_KEYWORD):
             return validateAgendaCommand(line);
         case (AddTodoTaskCommand.COMMAND_KEYWORD):
@@ -61,6 +65,16 @@ public class Parser {
             return validateExitCommand(line);
         default:
             throw new AustinInvalidCommandException();
+        }
+    }
+
+    private static FindTasksCommand validateFindTasksCommand(String line) throws
+            AustinEmptyKeywordException {
+        try {
+            String search = removeFirstWord(line);
+            return new FindTasksCommand(search);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new AustinEmptyKeywordException();
         }
     }
 

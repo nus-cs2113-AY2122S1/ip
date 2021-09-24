@@ -6,9 +6,9 @@ import exception.AustinTaskAlreadyCompletedException;
 import exception.AustinTaskAlreadyNotCompletedException;
 import ui.Ui;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 public class TaskList {
@@ -77,11 +77,7 @@ public class TaskList {
             throw new AustinEmptyListException();
         }
         System.out.println("Below are the list of tasks in your list:");
-        int i;
-        for (i = 0; i < tasks.size(); i++) {
-            System.out.print((i + 1) + ". ");
-            System.out.println(tasks.get(i).toString());
-        }
+        Ui.printList(tasks);
         Ui.printCurrentStatus(tasks.size());
     }
 
@@ -170,5 +166,22 @@ public class TaskList {
             throw new AustinClearListException();
         }
         tasks.clear();
+    }
+
+    public void findTasks(String search) throws AustinEmptyListException {
+        if (tasks.size() == 0) {
+            throw new AustinEmptyListException();
+        }
+        ArrayList<Task> result = (ArrayList<Task>) tasks.stream()
+                .filter((task) -> task.getDescription().toLowerCase()
+                        .contains(search.toLowerCase()))
+                .collect(Collectors.toList());
+        if (result.size() == 0) {
+            System.out.println("There are no matching tasks based on the " +
+                    "keyword you have given.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            Ui.printList(result);
+        }
     }
 }
