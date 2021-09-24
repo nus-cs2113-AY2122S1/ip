@@ -39,31 +39,6 @@ public class Parser {
         this.programManager = programManager;
     }
 
-//    public LocalDate parseDate(String dateString) throws DateTimeParseException {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-//        LocalDate date = LocalDate.parse(dateString, formatter);
-////        String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy, E"));
-//        return date;
-//    }
-//
-//    public LocalTime parseTime(String timeString) throws DateTimeParseException {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
-//        LocalTime time = LocalTime.parse(timeString, formatter);
-////        String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy, E, HHmm")) + "h";
-//        return time;
-//    }
-
-//    public String parseDateString(String dateString) throws DateTimeParseException {
-//        String formattedDate = dateString;
-//        if (ValidityAndErrorCheck.isDate(dateString)) {
-//            formattedDate = parseDate(dateString);
-//        }
-//        if (ValidityAndErrorCheck.isDateAndTime(dateString)) {
-//            formattedDate = parseDateAndTime(dateString);
-//        }
-//        return formattedDate;
-//    }
-
 
     public Event parseEvent(String rawUserInput)
             throws DateTimeParseException, NoDescriptionException, IncorrectDescriptionFormatException {
@@ -122,9 +97,11 @@ public class Parser {
     public LocalDate parseShow(String rawUserInput)
             throws NoDescriptionException, IncorrectDescriptionFormatException, DateTimeParseException {
         ValidityAndErrorCheck.checkCommandDescriptionExceptions(SHOW_COMMAND, rawUserInput);
+
         String[] inputWords = rawUserInput.split(" ");
         String dateString = inputWords[1];
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
         LocalDate parsedDate = LocalDate.parse(dateString, dateFormatter);
         return parsedDate;
     }

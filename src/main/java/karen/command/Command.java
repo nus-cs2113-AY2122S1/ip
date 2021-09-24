@@ -17,6 +17,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Command {
     private String command;
@@ -36,7 +38,12 @@ public class Command {
     }
 
     public void executeShowCommand(LocalDate date, ArrayList<Task> tasks) {
-        Ui.printTasksOnDay(date, tasks);
+        List<Task> filteredTasks = tasks.stream()
+                .filter((t) -> t instanceof Deadline || t instanceof Event)
+                .filter((t) -> (t.getDate()).equals(date))
+                .collect(Collectors.toList());
+
+        Ui.printTasksOnDay(date, filteredTasks);
     }
 
     public void executeDoneCommand(int doneIndex) throws NumberFormatException, IndexOutOfBoundsException, IOException {

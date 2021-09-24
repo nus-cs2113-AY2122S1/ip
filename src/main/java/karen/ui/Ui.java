@@ -7,6 +7,7 @@ import karen.tasklist.task.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public abstract class Ui {
@@ -91,25 +92,16 @@ public abstract class Ui {
         printFormattedMessage(message);
     }
 
-    public static void printTasksOnDay (LocalDate date, ArrayList<Task> tasks) {
+    public static void printTasksOnDay (LocalDate date, List<Task> tasks) {
         String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy, E"));
-        int index = 0;
+        String message = "    Okay Plankton, here are the tasks you have on " + formattedDate + ".\n\n     Task List:\n\n";
+        for (int i = 0; i < tasks.size(); i ++) {
+            message += String.format("      %d. [%s][%s] %s\n",
+                    i+1, tasks.get(i).getType(), tasks.get(i).getStatusIcon(), tasks.get(i).getFormattedDescription());
+        }
 
-        System.out.print(LINE);
-        System.out.print("    Okay Plankton, here are the tasks you have on " + formattedDate + ".\n\n");
-        System.out.println("    Task List:\n");
-        int taskCount = (int) tasks.stream()
-                .filter((t) -> t instanceof Deadline || t instanceof Event)
-                .filter((t) -> (t.getDate()).equals(date))
-                .count();
-
-        tasks.stream()
-                .filter((t) -> t instanceof Deadline || t instanceof Event)
-                .filter((t) -> (t.getDate()).equals(date))
-                .map((t) -> String.format("        [%s][%s] %s",t.getType(), t.getStatusIcon(), t.getFormattedDescription()))
-                .forEach(System.out::println);
-        System.out.println("\n    Total number of tasks: " + taskCount);
-        System.out.println(LINE);
+        message += String.format("\n    Total number of tasks: " + tasks.size());
+        printFormattedMessage(message);
     }
 
     public static void printTaskDoneMessage(Task task) {
