@@ -1,6 +1,10 @@
 package duke;
 
 import duke.data.TaskList;
+import duke.exception.DukeInvalidInputException;
+import duke.exception.DukeParameterException;
+import duke.exception.DukeTaskNotFoundException;
+import duke.exception.DukeTimeFormatException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -30,21 +34,21 @@ public class Command {
     /**
      * Sets a given task as done based on the task index in the list.
      * If the index doesn't exist or invalid inputs are given shows error message
-     * @param arguments an arrayList containing the user input string broken into its components
+     * @param index a string that is the index of the task in the task list that is to be marked as done
      */
-    public static void executeDone(ArrayList<String> arguments) {
+    public static void executeDone(String index) throws DukeInvalidInputException, DukeTaskNotFoundException {
         try {
             ArrayList<Task> taskList = TaskList.getTaskList();
-            int taskIndex = Integer.parseInt(arguments.get(1)) - 1;
+            int taskIndex = Integer.parseInt(index) - 1;
             taskList.get(taskIndex).setDone();
             Ui.printDivider();
             System.out.println("Nice I've marked this task as done:");
             System.out.println(taskList.get(taskIndex));
             Ui.printDivider();
         } catch (IndexOutOfBoundsException e) {
-            Ui.printInvalidTaskMessage();
+            throw new DukeTaskNotFoundException();
         } catch (NumberFormatException e) {
-            Ui.printInvalidArgumentMessage();
+            throw new DukeInvalidInputException();
         }
     }
 
@@ -52,7 +56,7 @@ public class Command {
      * Adds a given task to the task list. If the input is missing parameters shows an error message
      * @param arguments an arrayList containing the user input string broken into its components
      */
-    public static void executeAdd(ArrayList<String> arguments) {
+    public static void executeAdd(ArrayList<String> arguments) throws DukeParameterException, DukeTimeFormatException {
         ArrayList<Task> taskList = TaskList.getTaskList();
         try {
             switch (arguments.get(0)) {
@@ -70,9 +74,9 @@ public class Command {
             }
             Ui.printAddTaskMessage();
         } catch (IndexOutOfBoundsException e) {
-            Ui.printParameterErrorMessage();
+            throw new DukeParameterException();
         } catch (DateTimeParseException ex) {
-            Ui.printTimeParseErrorMessage();
+            throw new DukeTimeFormatException();
         }
     }
 
@@ -113,12 +117,12 @@ public class Command {
     /**
      * Deletes a given task as done based on the task index in the list.
      * If the index doesn't exist or invalid inputs are given shows error message
-     * @param arguments an arrayList containing the user input string broken into its components
+     * @param index a string that is the index of the task in the task list which is to be deleted
      */
-    public static void executeDelete(ArrayList<String> arguments) {
+    public static void executeDelete(String index) throws DukeInvalidInputException, DukeTaskNotFoundException {
         try {
             ArrayList<Task> taskList = TaskList.getTaskList();
-            int taskIndex = Integer.parseInt(arguments.get(1)) - 1;
+            int taskIndex = Integer.parseInt(index) - 1;
             taskList.get(taskIndex);
             Ui.printDivider();
             System.out.println("Noted. I've removed this task: ");
@@ -127,19 +131,23 @@ public class Command {
             System.out.println("You now have " + taskList.size() + " items in the list.");
             Ui.printDivider();
         } catch (IndexOutOfBoundsException e) {
-            Ui.printInvalidTaskMessage();
+            throw new DukeTaskNotFoundException();
         } catch (NumberFormatException e) {
-            Ui.printInvalidArgumentMessage();
+            throw new DukeInvalidInputException();
         }
     }
 
-    public static void executeFind(ArrayList<String> arguments) {
+    /**
+     * Finds which tasks in the task list contain the given input string and displays to user.
+     * If no tasks are found shows a prompt saying list of tasks found is empty
+     * @param patternToSearch a string that is the user input to search for
+     */
+    public static void executeFind(String patternToSearch) throws DukeParameterException {
         ArrayList<Task> taskList = TaskList.getTaskList();
         ArrayList<Task> foundTasks = new ArrayList<>();
         try {
-            String pattern = arguments.get(1);
             for (Task task : taskList) {
-                if (task.getDescription().contains(pattern)) {
+                if (task.getDescription().contains(patternToSearch)) {
                     foundTasks.add(task);
                 }
             }
@@ -153,7 +161,7 @@ public class Command {
                 Ui.printDivider();
             }
         } catch (IndexOutOfBoundsException e) {
-            Ui.printParameterErrorMessage();
+            throw new DukeParameterException();
         }
     }
 

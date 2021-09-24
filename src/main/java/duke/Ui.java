@@ -45,9 +45,9 @@ public class Ui {
         printDivider();
     }
 
-    public static void printInvalidArgumentMessage() {
+    public static void printInvalidInputMessage() {
         printDivider();
-        System.out.println("Invalid command");
+        System.out.println("Invalid input for the given command");
         System.out.println("For information on how to use me try using the help command!");
         printDivider();
     }
@@ -85,7 +85,7 @@ public class Ui {
 
     public static void printTimeParseErrorMessage() {
         printDivider();
-        System.out.println("Time is in an incorrect format. Pls follow the given format <>");
+        System.out.println("Time is in an incorrect format. Pls follow the given format <yyyy-MM-dd>");
         printDivider();
     }
 }

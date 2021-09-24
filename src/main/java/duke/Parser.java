@@ -1,7 +1,7 @@
 package duke;
 
 import duke.data.Storage;
-import duke.exception.DukeCommandException;
+import duke.exception.*;
 
 import java.util.ArrayList;
 
@@ -22,12 +22,18 @@ public class Parser {
      * @return the input broken up into the command and the parameters as an arrayList<String>, which is in
      * the order command, parameter, parameter (If it's a 3 argument command like deadline, event)
      */
-    public static ArrayList<String> parseInput(String input) {
+    public static ArrayList<String> parseInput(String input) throws DukeParameterException {
         String trimmedInput = input.trim();
         ArrayList<String> arguments = new ArrayList<>();
+
+        //First word of the input is command so we split at first space
         String command = trimmedInput.split(" ")[0];
         arguments.add(command);
+
+        //Separate the command from user input for further parsing
         String parameters = trimmedInput.replaceFirst(command, "");
+
+        //Check if is a 3 param or 2 param command (3 param commands contain a '/')
         int separatorIndex = parameters.indexOf('/');
         if (separatorIndex != -1 && separatorIndex != parameters.length() - 1) {
             String[] splitParams = parameters.split("/", 2);
@@ -35,7 +41,7 @@ public class Parser {
                 arguments.add(splitParams[0].trim());
                 arguments.add(splitParams[1].trim());
             } else {
-                Ui.printParameterErrorMessage();
+                throw new DukeParameterException();
             }
         } else {
             if (!parameters.isBlank()) {
@@ -50,24 +56,25 @@ public class Parser {
      * @param arguments an arrayList containing the user input string broken into its components
      * @throws DukeCommandException if the command given is invalid
      */
-    public static void handleInput(ArrayList<String> arguments) throws DukeCommandException {
-        //arguments(0) is the command that was inputted by the user
+    public static void handleInput(ArrayList<String> arguments) throws DukeCommandException, DukeParameterException, DukeInvalidInputException, DukeTaskNotFoundException, DukeTimeFormatException {
+        //arguments[0] is the command that was inputted by the user
+        //arguments[1], arguments[2] (For the case of deadline, events) are the parameters that were given to the command
         switch (arguments.get(0)) {
         case HELP:
             Ui.printHelpMessage();
             break;
 
         case FIND:
-            Command.executeFind(arguments);
+            Command.executeFind(arguments.get(1));
             break;
 
         case DELETE:
-            Command.executeDelete(arguments);
+            Command.executeDelete(arguments.get(1));
             Storage.write();
             break;
 
         case DONE:
-            Command.executeDone(arguments);
+            Command.executeDone(arguments.get(1));
             Storage.write();
             break;
 

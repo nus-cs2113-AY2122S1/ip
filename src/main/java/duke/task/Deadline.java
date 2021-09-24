@@ -5,10 +5,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-    protected LocalDate dueTime;
+    private LocalDate dueTime;
 
-    public Deadline(String name, String dueTime) {
-        super(name);
+    public Deadline(String description, String dueTime) {
+        super(description);
         try {
             this.dueTime = LocalDate.parse(dueTime);
         } catch (DateTimeParseException e) {

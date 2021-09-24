@@ -1,5 +1,8 @@
 package duke.exception;
 
-public class DukeCommandException extends Exception {
 
+/**
+ * Thrown when given command doesn't match any of the available commands
+ */
+public class DukeCommandException extends Exception {
 }
