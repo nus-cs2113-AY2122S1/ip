@@ -9,6 +9,7 @@ public class Ui {
     final private static String DELETE_TASK_COMMENT = "Noted. I've removed this task:";
     final private static String MARK_TASK_COMMENT = "Nice! I've marked this task as done:";
     final private static String LIST_TASK_COMMENT = "Here are the tasks in your list:";
+    final private static String LIST_UPCOMING_TASKS = "Here are the upcoming deadlines in your list within the next three days:";
     final private static String ADDED_TASK_COMMENT = "Got it. I've added this task:";
 
     public Ui() {
@@ -55,6 +56,10 @@ public class Ui {
         System.out.println(LIST_TASK_COMMENT);
     }
 
+    public void handleUpcomingComment(){
+        System.out.println(LIST_UPCOMING_TASKS);
+    }
+
     public void handleListFormat(int indexZero, ArrayList<Task> tasks) {
         int indexOne = indexZero + 1;
         String formatOutput = String.format("%d.[%s][%s] %s",
@@ -70,6 +75,14 @@ public class Ui {
 
         String printTaskNumber = String.format("Now you have %d items in the list.", taskCount);
         System.out.println(printTaskNumber);
+    }
+
+    public void handleUpcoming(Task t, boolean isThreeDaysAway, boolean isDone) {
+        boolean isNotDone = !isDone;
+        if (isThreeDaysAway && isNotDone) {
+            String printTask = String.format(">>> %s", t.description);
+            System.out.println(printTask);
+        }
     }
 
     public static void showHorizontalLine() {
