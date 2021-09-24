@@ -11,22 +11,22 @@ Duke is an all-in-one task tracker to help you manage your daily events and duti
 * Deleting tasks: `delete`
 * Exiting the program : `bye`
 
-##Features
+## Features
 
-###Adding todos: `todo`
+### Adding todos: `todo`
 
 Adds a todo to your task list.
 
-Format: `todo NAME`
+#### Format: `todo NAME`
 
 Adds a todo of the specified `NAME`.
 `NAME` can be any string of characters
 
-Examples:
+#### Examples:
 
 `todo eat cheese`
 
-Expected Output:
+#### Expected Output:
 
 ```
 Got it. I've added this task:
@@ -34,21 +34,21 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ```
 
-###Adding events: `event`
+### Adding events: `event`
 
 Adds an event to your task list.
 
-Format: `event NAME /at DATE`
+#### Format: `event NAME /at DATE`
 
 Adds an event of the specified `NAME` and `DATE`.
 `NAME` can be any string of characters.
 `DATE` must be in the format YYYY-MM-DD.
 
-Examples:
+#### Examples:
 
 `event meteor shower /at 2019-06-09`
 
-Expected Output:
+#### Expected Output:
 
 ```
 Got it. I've added this task:
@@ -56,21 +56,21 @@ Got it. I've added this task:
 Now you have 2 tasks in the list.
 ```
 
-###Adding deadlines: `deadline`
+### Adding deadlines: `deadline`
 
 Adds a deadline to your task list.
 
-Format: `deadline NAME /by DATE`
+#### Format: `deadline NAME /by DATE`
 
 Adds a deadline of the specified `NAME` and `DATE`.
 `NAME` can be any string of characters.
 `DATE` must be in the format YYYY-MM-DD.
 
-Examples:
+#### Examples:
 
 `deadline Final version /at 2021-10-01`
 
-Expected Output:
+#### Expected Output:
 
 ```
 Got it. I've added this task:
@@ -78,17 +78,17 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ```
 
-###Listing tasks: `list`
+### Listing tasks: `list`
 
 Shows all existing tasks.
 
-Format: `list`
+#### Format: `list`
 
-Examples:
+#### Examples:
 
 `list`
 
-Expected Output:
+#### Expected Output:
 
 ```
 1. [T] [ ] eat cheese
@@ -96,77 +96,77 @@ Expected Output:
 3. [D] [ ] Final version (by: 1 Oct 2021)
 ```
 
-###Marking tasks: `done`
+### Marking tasks: `done`
 
 Marks the task as completed.
 
-Format: `done INDEX`
+#### Format: `done INDEX`
 
 Marks a task of a specific `INDEX` to show that it has been completed.
 `INDEX` must be an integer corresponding to the index of an existing task.
 
-Examples:
+#### Examples:
 
 `done 2`
 
-Expected Output:
+#### Expected Output:
 
 ```
 Nice! I've marked this task as done:
 [X] meteor shower
 ```
 
-###Searching tasks: `find`
+### Searching tasks: `find`
 
 Looks through the list of tasks and lists out any tasks that contains the given keyword.
 
-Format: `find KEYWORD`
+#### Format: `find KEYWORD`
 
 Searches for any existing tasks that contains the given `KEYWORD` and lists them out.
 `KEYWORD` can be any string of characters.
 
-Examples:
+#### Examples:
 
 `find eat`
 
-Expected Output:
+#### Expected Output:
 
 ```
 Here are the matching tasks in your list:
 1. [T] [ ] eat cheese
 ```
 
-###Deleting tasks: `delete`
+### Deleting tasks: `delete`
 
 Deletes a task.
 
-Format: `delete INDEX`
+#### Format: `delete INDEX`
 
 Deletes a task of the specified `INDEX`.
 `INDEX` must be an integer corresponding to the index of an existing task.
 
-Examples:
+#### Examples:
 
 `delete 1`
 
-Expected Output:
+#### Expected Output:
 
 ```
 Noted. I've removed this task:
 [T] [ ] eat cheese
 ```
 
-###Exiting the program: `bye`
+### Exiting the program: `bye`
 
 Exits the program
 
-Format: `bye`
+#### Format: `bye`
 
-Examples:
+#### Examples:
 
 `bye`
 
-Expected Output:
+#### Expected Output:
 
 ```
 Bye. Hope to see you again soon!
