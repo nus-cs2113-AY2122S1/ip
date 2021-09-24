@@ -3,6 +3,8 @@ package duke;
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidIndexException;
 import duke.exception.MissingInputException;
+import duke.task.Task;
+import duke.task.TaskList;
 
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -17,15 +19,35 @@ public class Duke {
     public static final String SEPARATOR_SPACE = " ";
     public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_FIND = "find";
+    public static final String FILE_NAME = "duke/data/duke.txt";
 
     private Storage storage;
     private UI ui;
+    private TaskList tasks;
+    private Parser parser;
 
+    public Duke() {
+        this.storage = new Storage(FILE_NAME);
+        this.ui = new UI();
+        tasks = new TaskList(storage.loadData());
+    }
+
+    public void run() {
+        boolean exit = false;
+        String userInput;
+        Scanner in = new Scanner(System.in);
+        userInput = in.nextLine();
+        while(!exit) {
+            exit = parser.parseCommand(userInput);
+            storage.saveFile(tasks.getTasks());
+            userInput = in.nextLine();
+        }
+
+
+    }
 
     public static void main(String[] args) {
-        UI.printWelcome();
         Assistant duke = new Assistant();
-        duke.loadFile();
         String userInput;
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();

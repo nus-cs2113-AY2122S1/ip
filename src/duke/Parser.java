@@ -3,7 +3,12 @@ package duke;
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidIndexException;
 import duke.exception.MissingInputException;
-import duke.task.*;
+import duke.task.TaskList;
+import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
+
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +26,6 @@ public class Parser {
 
     public static final String SEPARATOR_SPACE = " ";
     public static final String SEPARATOR_SLASH = "/";
-
 
     private TaskList taskList;
 
