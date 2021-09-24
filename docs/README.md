@@ -8,7 +8,7 @@ ________________________,--._(___Y___)_,--._______________________
 ```
 Author: Li Xi Yuan
 
-##Overview
+## Overview
 Duke is a simple CLI-based task planner
 <br/><br/>
 ## Features 
