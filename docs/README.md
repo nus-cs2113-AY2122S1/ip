@@ -12,7 +12,7 @@
   - [:mag_right: Searching for tasks: `find`](#find)
   - [:door: Exiting the app: `bye`](#exit)
 - [:floppy_disk: Saving the data](#save)
-- Command summary
+- [Command summary](#summary)
 
 ## Features and Usage
 
@@ -184,8 +184,20 @@ ____________________________________________________________
 ```
 <br />
 
-
 ## <a name="save"></a>:floppy_disk: Saving the data
 :bulb: Alfred's task list is saved into the user's local storage automatically after every command
 execution, and thus there is no explicit `save` command implemented.
+<br />
 
+## <a name="summary"></a>Command Summary
+
+Command | Format, Examples
+--------|--------------
+List Tasks | `list`
+Add Todo | `todo TODO_DESCRIPTION` <br /> eg.`todo CS2113T IP`
+Add Event | `event EVENT_DESCRIPTION /at EVENT_DATE` <br /> eg.`event CS2101 OP1 /at 10092021`
+Add Deadline | `deadline DEADLINE_DESCRIPTION /at DEADLINE_DATE` <br /> eg.`deadline CS2113T IP /by 01-10-2021`
+Done Task | `done TASK_INDEX` <br /> eg.`done 1`
+Delete Task | `delete TASK_INDEX` <br /> eg.`delete 2`
+Find Task(s) | `find QUERY` <br /> eg.`find CS`
+Exit App | `bye`
