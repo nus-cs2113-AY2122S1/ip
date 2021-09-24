@@ -8,8 +8,13 @@ public class Event extends Task {
     protected LocalDateTime at;
 
     public Event(String desc, LocalDateTime at) {
-        super(desc);
+        super(desc, EVENT_ICON);
         this.at = at;
+    }
+
+    @Override
+    public LocalDateTime getDateTime() {
+        return this.at;
     }
 
     @Override

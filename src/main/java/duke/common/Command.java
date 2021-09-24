@@ -7,14 +7,15 @@ import duke.task.Todo;
 import duke.ui.Ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Implements all the commands that Duke can execute. This class holds the ArrayList object 'tasks' to be used
- * by Duke, hence all the commands that require access to 'tasks' are in this class.
+ * Implements all the commands that Duke can execute. This class holds the ArrayList object 'tasks' to be used by Duke,
+ * hence all the commands that require access to 'tasks' are in this class.
  */
 public class Command {
 
@@ -38,9 +39,8 @@ public class Command {
     }
 
     /**
-     * Adds a deadline task to the tasklist. Deadlines must be entered in the format
-     * "dd/mm/yyyy hhmm" with the time being in 24-Hour format.
-     * For example: 22/12/2021 1800
+     * Adds a deadline task to the tasklist. Deadlines must be entered in the format "dd/mm/yyyy hhmm" with the time
+     * being in 24-Hour format. For example: 22/12/2021 1800
      *
      * @param description the description of the task to be added
      * @param by the description of the task to be added
@@ -53,9 +53,8 @@ public class Command {
     }
 
     /**
-     * Adds an event task to the tasklist. Event times must be entered in the format
-     * "dd/mm/yyyy hhmm" with the time being in 24-Hour format.
-     * For example: 22/12/2021 1800
+     * Adds an event task to the tasklist. Event times must be entered in the format "dd/mm/yyyy hhmm" with the time
+     * being in 24-Hour format. For example: 22/12/2021 1800
      *
      * @param description the description of the task to be added
      * @param at the date and time of the task to be added
@@ -102,16 +101,31 @@ public class Command {
     }
 
     /**
-     * Searches the tasklist for any tasks that contain the given keywords, and displays them
-     * to the user.
+     * Searches the tasklist for any tasks that contain the given keywords, and displays them to the user.
      *
      * @param keywords the keywords to search for in tasks
      */
-    public static void findTask(String ... keywords) {
+    public static void findTaskByDesc(String... keywords) {
         for (String keyword : keywords) {
-            List<Task> searchResults = tasks.stream().filter(task->task.getDescription().contains(keyword)).collect(Collectors.toList());
-            Ui.printResults(tasks, searchResults, keyword);
+            List<Task> searchResults = tasks.stream().filter(task -> task.getDescription().contains(keyword))
+                    .collect(Collectors.toList());
+            Ui.printResults(tasks, searchResults, keyword, false);
         }
+        Ui.printDivider();
+    }
+
+    public static void findTaskByDate(LocalDate date) {
+        ArrayList<Task> searchResults = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getType().equals(Task.TODO_ICON)) {
+                continue;
+            }
+            boolean isMatch = task.getDateTime().toLocalDate().isEqual(date);
+            if (isMatch) {
+                searchResults.add(task);
+            }
+        }
+        Ui.printResults(tasks, searchResults, date.format(Task.commandFormat), true);
         Ui.printDivider();
     }
 }

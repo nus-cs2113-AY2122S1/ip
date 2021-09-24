@@ -1,11 +1,12 @@
 package duke.task;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * The parent class for all task types.
  */
-public class Task {
+public abstract class Task {
 
     public final static String DEADLINE_ICON = "[D]";
     public final static String EVENT_ICON = "[E]";
@@ -16,19 +17,32 @@ public class Task {
     public final static String DATA_SEP = "|";
     public final static String ESCAPED_DATA_SEP = "\\" + DATA_SEP;
     public final static String PADDED_DATA_SEP = WORD_DELIM + DATA_SEP + WORD_DELIM;
+
     private final static String DATE_TIME_FORMAT_DATA = "dd/MM/yyyy HHmm";
-    public final static DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_DATA);
     private final static String DATE_TIME_FORMAT_UI = "dd LLLL yyyy hh:mm a";
+    private final static String DATE_FORMAT_COMMAND = "dd/MM/yyyy";
+
+    public final static DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_DATA);
     public final static DateTimeFormatter uiFormat = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_UI);
+    public static DateTimeFormatter commandFormat = DateTimeFormatter.ofPattern(DATE_FORMAT_COMMAND);
+
     protected static int taskCount = 0;
     private String description;
     private boolean isDone;
+    protected String type;
 
-    public Task(String desc) {
+    public Task(String desc, String type) {
         setDescription(desc);
         setDone(false);
+        this.type = type;
         taskCount++;
     }
+
+    public abstract LocalDateTime getDateTime();
+
+    public String getType() {
+        return this.type;
+    };
 
     public static int getTaskCount() {
         return taskCount;

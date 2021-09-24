@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Ui {
 
-    private final static String DIVIDER = "-----------------------------------------------------";
+    private final static String DIVIDER = "_";
 
     private final static String NEW_HELLO = "Hi! I'm Duke. I've created your data file for you!";
     private final static String RETURNING_HELLO = "Welcome back! Here are your current tasks and their status:";
@@ -21,8 +21,9 @@ public class Ui {
     private final static String DONE_MESSAGE = "Nice! I've marked this task as done:";
     private final static String UNDONE_MESSAGE = "I've unmarked this task as done:";
     private final static String DELETE_MESSAGE = "Okay, I've deleted that task!";
-    private final static String FIND_MESSAGE_START = "I found these tasks for \"";
-    private final static String FIND_MESSAGE_END = "\":";
+    private final static String FIND_MESSAGE_START = "I found these tasks for ";
+    private final static String FIND_MESSAGE_END = ":";
+    private final static String DATE_MESSAGE_START = "Here are the tasks happening on/ due by ";
     private static final String BYE_MESSAGE = "Bye! I hope to see you again soon :)";
 
     private final static String EMPTY_COMMAND_MESSAGE = "That command was incomplete!";
@@ -43,7 +44,7 @@ public class Ui {
 
     /** Prints a divider to separate user input from Duke's output. */
     public static void printDivider() {
-        println(DIVIDER);
+        println(DIVIDER.repeat(80));
     }
 
 
@@ -92,19 +93,21 @@ public class Ui {
     }
 
     /**
-     * Prints the results found when the user searches for a keyword.
+     * Prints the results found when the user searches for a keyword or date.
      *
      * @param tasks the current tasklist
      * @param searchResults the results found from the search
-     * @param keyword the keyword for which the results were found
+     * @param keyword the keyword or date for which the results were found
+     * @param isDate true if the keyword is a date
      */
-    public static void printResults(ArrayList<Task> tasks, List<Task> searchResults, String keyword) {
+    public static void printResults(ArrayList<Task> tasks, List<Task> searchResults, String keyword, boolean isDate) {
         printDivider();
         if (searchResults.isEmpty()) {
             println(NO_RESULTS_MESSAGE_START + keyword + NO_RESULTS_MESSAGE_END);
             return;
         }
-        println(FIND_MESSAGE_START + keyword + FIND_MESSAGE_END);
+        String toPrint = isDate ? DATE_MESSAGE_START : FIND_MESSAGE_START;
+        println(toPrint + keyword + FIND_MESSAGE_END);
         for (Task result : searchResults) {
             print((tasks.indexOf(result) + 1) + ". ");
             println(result);

@@ -8,13 +8,19 @@ public class Deadline extends Task {
     protected LocalDateTime by;
 
     public Deadline(String desc, LocalDateTime by) {
-        super(desc);
+        super(desc, DEADLINE_ICON);
         this.by = by;
     }
 
     @Override
+    public LocalDateTime getDateTime() {
+        return this.by;
+    }
+
+
+    @Override
     public String toStorageString() {
-        return type + " | " + super.toStorageString() + " | " + by.format(dataFormat);
+        return type + PADDED_DATA_SEP + super.toStorageString() + PADDED_DATA_SEP + by.format(dataFormat);
     }
 
     @Override

@@ -1,16 +1,21 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 public class Todo extends Task {
 
-    protected String type = "[T]";
-
     public Todo(String desc) {
-        super(desc);
+        super(desc, TODO_ICON);
+    }
+
+    @Override
+    public LocalDateTime getDateTime() {
+        return null;
     }
 
     @Override
     public String toStorageString() {
-        return type + " | " + super.toStorageString();
+        return type + PADDED_DATA_SEP + super.toStorageString();
     }
 
     @Override

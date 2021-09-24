@@ -9,6 +9,7 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -61,6 +62,9 @@ public class Parser {
             break;
         case "FIND":
             parseAndExecuteFind(fullCommand);
+            break;
+        case "DATE":
+            parseAndExecuteDate(fullCommand);
             break;
         default:
             throw new IllegalCommandException();
@@ -122,10 +126,14 @@ public class Parser {
     private static void parseAndAddDeadline(String fullCommand) throws IOException, IllegalCommandException,
             EmptyCommandException {
         String commandDescription = fullCommand.substring(DEADLINE_LENGTH).strip();
+        if (!commandDescription.contains(DEADLINE_SEP)) {
+            throw new IllegalCommandException();
+        }
         String[] descWithBy = commandDescription.split(DEADLINE_SEP);
         if (descWithBy.length < 2) {
             throw new EmptyCommandException();
-        } else if (descWithBy.length > 2) {
+        }
+        if (descWithBy.length > 2) {
             throw new IllegalCommandException();
         }
         String trimmedDesc = descWithBy[0].strip();
@@ -149,6 +157,9 @@ public class Parser {
     private static void parseAndAddEvent(String fullCommand) throws IOException, IllegalCommandException,
             EmptyCommandException {
         String commandDescription = fullCommand.substring(EVENT_LENGTH).strip();
+        if (!commandDescription.contains(EVENT_SEP)) {
+            throw new IllegalCommandException();
+        }
         String[] descWithAt = commandDescription.split(EVENT_SEP);
         if (descWithAt.length < 2) {
             throw new EmptyCommandException();
@@ -188,6 +199,15 @@ public class Parser {
             throw new EmptyCommandException();
         }
         String[] keywordsArr = keywords.split(COMMAND_SEP);
-        Command.findTask(keywordsArr);
+        Command.findTaskByDesc(keywordsArr);
+    }
+
+    private static void parseAndExecuteDate(String fullCommand) throws EmptyCommandException {
+        String dateToFind = fullCommand.replace("date","").trim();
+        if (dateToFind.isEmpty()) {
+            throw new EmptyCommandException();
+        }
+        LocalDate parsedDate = LocalDate.parse(dateToFind, Task.commandFormat);
+        Command.findTaskByDate(parsedDate);
     }
 }
