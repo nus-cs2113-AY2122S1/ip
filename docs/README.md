@@ -1,5 +1,5 @@
 
-![DukeLogo](https://user-images.githubusercontent.com/69495787/134464789-b4193e01-2537-41b2-b782-8abff7851e53.png) 
+![DukeLogo](https://user-images.githubusercontent.com/69495787/134464789-b4193e01-2537-41b2-b782-8abff7851e53.png)
 <img src="https://user-images.githubusercontent.com/69495787/134465925-5eaf528b-fdb8-48b3-a085-afd7dbf5450f.JPG" width="368" height="213">
 
 # User Guide
@@ -76,9 +76,20 @@ Add Todo Task into task list
 
 Format `todo <DESCRIPTION>`
 
-* **DESCRIPTION**: The Task Description
+* **DESCRIPTION**: The task description
+
+Example: `todo Read Micah`
 
 Expected Outcome:
+
+```
+________________________________________________________________
+     Got it. I've added this task:
+     [T][ ] Read Micah
+     Now you have 5 tasks in the list.
+________________________________________________________________
+```
+
 
 
 
@@ -92,7 +103,7 @@ Expected Outcome:
 
 Describe the action and its outcome.
 
-Example of usage: 
+Example of usage:
 
 `keyword (optional arguments)`
 
