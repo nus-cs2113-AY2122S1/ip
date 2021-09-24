@@ -23,6 +23,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Retrieves stored info in data/storedtasks.txt.
+     * If file/directory does not exist, data/storedtasks.txt is created.
+     * @throws IOException If file cannot be read by I/O tools.
+     * @throws TrissException If text in file is formatted incorrectly.
+     */
     private void initialiseDataStorage() throws IOException, TrissException {
         File dataDirectory = new File("data");
         File storedTasks = new File("data/storedtasks.txt");
@@ -57,6 +63,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks in data/storedtasks.txt.
+     */
     public void saveTasks() {
 
         try {

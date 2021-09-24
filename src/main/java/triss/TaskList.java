@@ -215,9 +215,8 @@ public class TaskList {
             throw new TrissException("Ach, nee! That task does not exist.");
         }
 
-
         // If task does not exist, do not delete any task
-        if (indexOfCompletedTask >= getSize() || indexOfCompletedTask < 0) {
+        if (isIndexValid(indexOfCompletedTask)) {
             ui.printLine("Apologies! That task does not exist.");
             return;
         }
@@ -241,6 +240,10 @@ public class TaskList {
         ui.printLine("    " + chosenTask.printTask());
     }
 
+    private boolean isIndexValid(int index) {
+        return index >= getSize() || index < 0;
+    }
+
     public void deleteTask(String userInput) throws TrissException {
         // Get number of task after the term "done"
         int indexOfRemovableTask;
@@ -252,7 +255,7 @@ public class TaskList {
         }
 
         // If task does not exist, do not delete any task
-        if (indexOfRemovableTask >= getSize() || indexOfRemovableTask < 0) {
+        if (isIndexValid(indexOfRemovableTask)) {
             ui.printLine("Apologies! That task does not exist.");
             return;
         }
