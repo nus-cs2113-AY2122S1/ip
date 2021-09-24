@@ -36,6 +36,7 @@ public abstract class Command {
     protected static final int LENGTH_DEADLINE = 8;
     /** Represents the length of "event" */
     protected static final int LENGTH_EVENT = 5;
+    protected static final int LENGTH_FIND = 4;
 
     /** Represents a <code>Command</code> is an exit command*/
     protected static final boolean IS_EXIT = true;
