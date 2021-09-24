@@ -1,17 +1,19 @@
-# Triss's User Guide
+# Triss: A User Guide
 
-## Features
+<br>
+
+## List of Features
 
 | Feature | Description |
 ----------|--------------
-<center>`bye`</center> | <center>Shut Triss down</center>
-<center>`list`</center> | <center>List all tasks</center>
-<center>`done`</center> | <center>Mark task as done</center>
-<center>`delete`</center> | <center>Delete task</center>
-<center>`find`</center> | <center>Find task by keyword</center>
-<center>`deadline`</center> | <center>Add new deadline</center>
-<center>`event`</center> | <center>Add new event</center>
-<center>`todo`</center> | <center>Add new todo</center>
+<center> `bye` </center> | <center> Shut Triss down </center>
+<center> `list` </center> | <center> List all tasks </center>
+<center> `done` </center> | <center> Mark task as done </center>
+<center> `delete` </center> | <center> Delete task </center>
+<center> `find` </center> | <center> Find task by keyword </center>
+<center> `deadline` </center> | <center> Add new deadline </center>
+<center> `event` </center> | <center> Add new event </center>
+<center> `todo` </center> | <center> Add new todo </center>
 
 ### Shut Triss down : `bye`
 Stops Triss and stores all tasks in _data/storedtasks.txt_.
@@ -24,8 +26,9 @@ ____________________________________________________________
 Thanks for coming. Auf wiedersehen!
 ____________________________________________________________
 ```
+<hr>
 
-### Lists all tasks : `list`
+### List all tasks : `list`
 Lists all tasks in Triss's database.
 
 #### Legend
@@ -33,8 +36,6 @@ Lists all tasks in Triss's database.
 Each task will be displayed in the following manner:
 
 `TaskID.[Tasking][Completion Status] Name of Task (Timing of Task)`
-
-<hr>
 
 The symbols in `[Tasking]` and [`Completion Status`] represent varying information as shown below:
 
@@ -57,6 +58,7 @@ ____________________________________________________________
 3.[E][X] love (Jun 13 2021)
 ____________________________________________________________
 ```
+<hr>
 
 ### Mark task as done : `done`
 Marks a specific task as done.
@@ -64,8 +66,6 @@ Marks a specific task as done.
 #### Format
 
 `done TaskID`
-
-<hr>
 
 `TaskID` refers to the number preceding the individual task's details in `list`:
 
@@ -89,6 +89,7 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
 ```
+<hr>
 
 ### Delete a task : `delete`
 Delete a task from Triss's database.
@@ -118,6 +119,7 @@ ____________________________________________________________
 2.[E][ ] love (Jun 13 2021)
 ____________________________________________________________
 ```
+<hr>
 
 ### Find tasks containing a keyword : `find`
 Finds tasks in Triss's database containing a given keyword.
@@ -125,8 +127,6 @@ Finds tasks in Triss's database containing a given keyword.
 #### Format
 
 `find keyword`
-
-<hr>
 
 `keyword` refers to the text you are searching for.
 
@@ -150,6 +150,7 @@ ____________________________________________________________
 No tasks containing 'rovers' found!
 ____________________________________________________________
 ```
+<hr>
 
 ### Add a new deadline: `deadline`
 Adds a new deadline to Triss's database.
@@ -157,8 +158,6 @@ Adds a new deadline to Triss's database.
 #### Format
 
 `deadline NameOfDeadline /DueDate`
-
-<hr>
 
 `NameOfDeadline` refers to the name of your deadline.
 
@@ -172,6 +171,7 @@ ____________________________________________________________
 I've added: [E][ ] Submit Log Report (Dec 12 2021)
 ____________________________________________________________
 ```
+<hr>
 
 ### Add a new deadline: `event`
 Adds a new event to Triss's database.
@@ -179,8 +179,6 @@ Adds a new event to Triss's database.
 #### Format
 
 `event NameOfEvent /EventTiming`
-
-<hr>
 
 `NameOfEvent` refers to the name of your event.
 
@@ -194,6 +192,7 @@ ____________________________________________________________
 I've added: [E][ ] Submit Log Report (Dec 12 2021)
 ____________________________________________________________
 ```
+<hr>
 
 ### Add a new todo: `todo`
 Adds a new todo to Triss's database.
@@ -201,8 +200,6 @@ Adds a new todo to Triss's database.
 #### Format
 
 `todo NameOfTodo`
-
-<hr>
 
 `NameOfTodo` refers to the name of your todo.
 
@@ -214,3 +211,4 @@ ____________________________________________________________
 I've added: [T][ ] Add Git Request
 ____________________________________________________________
 ```
+<hr>
