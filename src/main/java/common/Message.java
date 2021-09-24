@@ -12,4 +12,7 @@ public class Message {
     public static final String MESSAGE_SEPARATOR = "------------------------------------------------------------";
 
     public static final String SUCCESS_DATA_READ = "  (+) Loaded %d entries";
+
+    public static final String ADDED_TODO = "  (+) Added: %s"
+            + System.lineSeparator() + "  (i) You have %d tasks in the list";
 }

@@ -5,29 +5,36 @@ public class Parser {
         Command preparedCommand;
         switch(categoriseCommand(input)) {
         case BYE:
-            preparedCommand = prepareBye();
+            preparedCommand = createBye();
+            break;
+        case TODO:
+            preparedCommand = createToDo(input);
             break;
         default:
-            preparedCommand = prepareUnknown();
+            preparedCommand = createUnknown();
         }
         return preparedCommand;
     }
 
-    private static Command prepareBye() {
+    private static Command createBye() {
         return new ByeCommand();
     }
 
-    private static Command prepareUnknown() {
+    private static Command createUnknown() {
         return new UnknownCommand();
+    }
+
+    private static ToDoCommand createToDo(String input) {
+        return new ToDoCommand(input);
     }
 
     private static CommandType categoriseCommand(String input) {
         CommandType type;
-        if (input.startsWith(ByeCommand.COMMAND_WORD)) {
+        if (input.equals(ByeCommand.COMMAND_WORD)) {
             type = CommandType.BYE;
         } else if (input.equals("/list")) {
             type = CommandType.LIST;
-        } else if (input.startsWith("/todo")) {
+        } else if (input.startsWith(ToDoCommand.COMMAND_WORD)) {
             type = CommandType.TODO;
         } else if (input.startsWith("/deadline")) {
             type = CommandType.DEADLINE;

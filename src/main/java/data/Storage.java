@@ -49,9 +49,10 @@ public class Storage {
             } catch (IOException e) {
                 System.out.println(WRITE_IOEXCEPTION);
             }
-            System.out.println(String.format(FILE_NOT_EXIST, data.getAbsolutePath()));
+            String absolutePath = data.getAbsolutePath();
+            System.out.println(String.format(FILE_NOT_EXIST, absolutePath));
         } else {
-            System.out.println(READ_SUCCESS);
+            System.out.println(String.format(READ_SUCCESS, data.getAbsolutePath()));
         }
         return data;
     }
