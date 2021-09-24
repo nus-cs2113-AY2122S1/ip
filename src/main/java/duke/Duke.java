@@ -14,15 +14,17 @@ import java.time.LocalDate;
 
 public class Duke {
 
-    private static Storage storage;
+    private static Storage storage = new Storage("Tasks.txt");
+    private static Ui ui = new Ui();
+    private static TaskList tasks = new TaskList();
+
 
     private static int byeFlag = 0;
     private static int loadFlag = 0;
     private static int positionCheck = 0;
 
-    private static ArrayList<Task> commands = new ArrayList<>();
+    private static ArrayList<Task> commands = tasks.commands;
 
-    private static String filePath = "Tasks.txt";
     private static void sendCommand() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -104,10 +106,6 @@ public class Duke {
                 break;
             }
         }
-    }
-
-    public static void sayBye() {
-        System.out.println(Response.ENDING_MESSAGE + Response.LINE);
     }
 
     public static void addDeadline(String[] input, int length) throws DukeException, IOException, DateTimeParseException {
@@ -265,10 +263,6 @@ public class Duke {
         storage.saveAllTasks(commands);
     }
 
-    public static void greetUser() {
-        System.out.println(Response.GREETINGS);
-    }
-
     /*
     public static void saveNewTask(String[] input) throws IOException {
         String filePath = new File("Tasks.txt").getAbsolutePath();
@@ -339,15 +333,14 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException, IOException {
-        storage = new Storage(filePath);
         try {
             loadTasks();
         } catch (FileNotFoundException e) {
             System.out.println("File not found. Automatic text file creation initiated master!");
             loadFlag = 1;
         }
-        greetUser();
+        ui.greetUser();
         sendCommand();
-        sayBye();
+        ui.sayBye();
     }
 }
