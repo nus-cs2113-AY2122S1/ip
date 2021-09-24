@@ -13,9 +13,9 @@
     * [Help](#help---Show-All-Valid-Commands)
     * [List](#list---List-Down-All-Current-Tasks)
     * [Add Task](#Add---Add-a-Task-to-Your-List)
-        * [Todo](#Adding---A-Todo)
-        * [Deadline](#Adding---A-deadline)
-        * [Event](#Adding---An-event)
+        * [Todo](#Add---A-Todo-Task)
+        * [Deadline](#Add---A-Deadline-Task)
+        * [Event](#Add---An-Event-Task)
     * [Find](#Find---Show-All-Task-Related-to-Search-Terms)
     * [Done](#Done---Mark-a-Task-as-Done)
     * [Save](#Save---Save-All-Task-Into-Local-File)
@@ -67,6 +67,14 @@ ________________________________________________________________
 ```
 
 ### Add - Add a Task to Your List
+
+Add Task into task list
+
+#### A Todo Task
+
+#### A Deadline Task
+
+#### An Event Task
 
 ## Usage
 
