@@ -1,8 +1,15 @@
 package duke.utilities;
 
+import duke.commands.ByeCommand;
+import duke.commands.DeadlineCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
+import duke.commands.EventCommand;
+import duke.commands.HelpCommand;
+import duke.commands.ListCommand;
+import duke.commands.ToDoCommand;
 import duke.task.Task;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Ui {
@@ -37,37 +44,37 @@ public class Ui {
     private static final String SPACING = " ";
     private final String PREFIX = ">";
 
-    private void print(String... input) {
+    public void print(String... input) {
         for (String m : input) {
-            System.out.println(PREFIX + m);
+            System.out.println(m);
         }
     }
 
     /**
      * Prints the goodbye message
      */
-    public static void printByeMessage() {
+    public void printByeMessage() {
         System.out.println(MESSAGE_GOODBYE);
     }
 
     /**
      * Prints the welcome message
      */
-    public static void printWelcomeMessage() {
+    public void printWelcomeMessage() {
         System.out.println(MESSAGE_WELCOME);
     }
 
     /**
      * Prints a divider
      */
-    public static void printDivider() {
+    public void printDivider() {
         System.out.println(DIVIDER);
     }
 
     /**
      * Prints the list of tasks stored
      */
-    public static void printList(ArrayList<Task> tasks) {
+    public void printList(ArrayList<Task> tasks) {
         int counter = 1;
         for (Task t : tasks) {
             System.out.print(counter + ". ");
@@ -81,7 +88,7 @@ public class Ui {
     /**
      * Prints the number of tasks
      */
-    public static void printTaskNumber(ArrayList<Task> tasks) {
+    public void printTaskNumber(ArrayList<Task> tasks) {
         String task = TASK_PLURAL;
         if (tasks.size() == 1) {
             task = TASK_SINGLE;
@@ -89,7 +96,14 @@ public class Ui {
         System.out.println(PRINT_TASK_MESSAGE_FRONT + tasks.size() + SPACING + task + PRINT_TASK_MESSAGE_BACK);
     }
 
-    public static void printNoInput() {
+    public void printNoInput() {
         System.out.println(MESSAGE_NO_INPUT);
+    }
+
+    public void printHelp() {
+        System.out.println("Commands available : ");
+        print(ByeCommand.COMMAND_WORD, DeadlineCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD,
+                DoneCommand.COMMAND_WORD, EventCommand.COMMAND_WORD, ListCommand.COMMAND_WORD,
+                ToDoCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD);
     }
 }

@@ -12,23 +12,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private final static String filePath = "./data/duke.txt";
-    private static File file = new File(filePath);
 
-    public static TaskList loadFile() {
-        TaskList data = new TaskList();
-        checkForFile();
-        try {
-            data = readFromFile();
-        } catch (FileNotFoundException fileMissingE) {
-            fileMissingE.printStackTrace();
-        } catch (DukeException dukeE) {
-            dukeE.printStackTrace();
-        }
-        return data;
+    protected String filePath;
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
-    private static void checkForFile() {
+    public ArrayList<Task> loadFile() throws DukeException {
+        checkForFile();
+        TaskList data = readFromFile();
+        return data.getTasks();
+    }
+
+    private void checkForFile() {
+        File file = new File(filePath);
         try {
             Files.createDirectories(Paths.get("./data"));
             if (file.createNewFile()) {
@@ -39,16 +37,21 @@ public class Storage {
         }
     }
 
-    public static TaskList readFromFile() throws FileNotFoundException, DukeException {
+    public TaskList readFromFile() throws DukeException {
+        File file = new File(filePath);
         TaskList temp = new TaskList();
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNext()) {
-            convertFileData(temp, scanner.nextLine());
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                convertFileData(temp, scanner.nextLine());
+            }
+        } catch (FileNotFoundException fileE) {
+            fileE.printStackTrace();
         }
         return temp;
     }
 
-    private static void convertFileData(TaskList temp, String line) throws DukeException {
+    private void convertFileData(TaskList temp, String line) throws DukeException {
         String[] words = line.split(" ");
         boolean isDone = checkDone(words[0]);
         String task = line.substring(2);
@@ -56,9 +59,9 @@ public class Storage {
         temp.addTask(task, isDone, type);
     }
 
-    private static String checkType(String task) {
+    private String checkType(String task) {
         String type = new String();
-        switch (Parser.getCommand(task)) {
+        switch (Parser.scanCommand(task)) {
         case "todo":
             type = "T";
             break;
@@ -72,11 +75,11 @@ public class Storage {
         return type;
     }
 
-    private static boolean checkDone(String word) {
+    private boolean checkDone(String word) {
         return "1".equals(word);
     }
 
-    public static void saveToFile(ArrayList<Task> tasks) {
+    public void saveToFile(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(filePath);
             for (Task t : tasks) {

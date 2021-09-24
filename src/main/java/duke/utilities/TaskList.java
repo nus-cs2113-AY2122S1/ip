@@ -6,31 +6,38 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    private static final String SPACING = " ";
-    private static final String MESSAGE_TASK_ADDED = "Added task:\n    ";
-    private static final String ERROR_WRONG_EVENT_FORMAT = "The input was wrong :( "
+    private final String SPACING = " ";
+    private final String MESSAGE_TASK_ADDED = "Added task:\n    ";
+    private final String ERROR_WRONG_EVENT_FORMAT = "The input was wrong :( "
             + "Please type 'event <description> /at <time of event>'";
-    private static final String ERROR_WRONG_DEADLINE_FORMAT = "The input was wrong :( "
+    private final String ERROR_WRONG_DEADLINE_FORMAT = "The input was wrong :( "
             + "Please type 'deadline <description> /by <time of event>'";
-    private static final String ERROR_WRONG_TODO_FORMAT = "The input was wrong :( Please type 'todo <description>'";
-    private static final String PRINT_REMOVE_MESSAGE = "Task removed :\n    ";
-    private static final String MESSAGE_OUT_OF_RANGE = "No such task found! Try a range of 1 to ";
-    private static final String PRINT_DONE_MESSAGE_FRONT = "I have marked\n     ";
-    private static final String PRINT_DONE_MESSAGE_BACK = "\n as done!";
+    private final String ERROR_WRONG_TODO_FORMAT = "The input was wrong :( Please type 'todo <description>'";
+    private final String PRINT_REMOVE_MESSAGE = "Task removed :\n    ";
+    private final String MESSAGE_OUT_OF_RANGE = "No such task found! Try a range of 1 to ";
+    private final String PRINT_DONE_MESSAGE_FRONT = "I have marked\n     ";
+    private final String PRINT_DONE_MESSAGE_BACK = "\n as done!";
 
 
     private ArrayList<Task> tasks = new ArrayList<>();
+
+    public TaskList() {
+        this.tasks = new ArrayList<Task>();
+    }
+
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
 
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    public void addTask(String input, String type) throws DukeException {
+    public void addTask(String input, Ui ui, String type) throws DukeException {
         Task temp = Parser.getTaskType(input, type);
         tasks.add(temp);
         System.out.println(MESSAGE_TASK_ADDED + temp);
-        Ui.printTaskNumber(tasks);
-        Storage.saveToFile(tasks);
+        ui.printTaskNumber(tasks);
     }
 
     public void addTask(String input, boolean isDone, String type) throws DukeException {
@@ -41,17 +48,15 @@ public class TaskList {
         tasks.add(temp);
     }
 
-    public void deleteTask(String input) {
+    public void deleteTask(String input, Ui ui) {
         int taskIdx = findTaskNumber(input);
         try {
             Task temp = tasks.get(taskIdx);
             tasks.remove(taskIdx);
-            System.out.println();
-            System.out.println(PRINT_REMOVE_MESSAGE + temp);
+            ui.print(System.lineSeparator() + PRINT_REMOVE_MESSAGE + temp);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(MESSAGE_OUT_OF_RANGE + tasks.size());
+            ui.print(MESSAGE_OUT_OF_RANGE + tasks.size());
         }
-        Storage.saveToFile(tasks);
     }
 
     /**
@@ -59,7 +64,7 @@ public class TaskList {
      *
      * @param input input of user
      */
-    public void setTaskAsDone(String input) {
+    public void setTaskAsDone(String input, Ui ui) {
         int taskIdx = findTaskNumber(input);
         try {
             Task temp = tasks.get(taskIdx);
@@ -67,11 +72,10 @@ public class TaskList {
             tasks.set(taskIdx, temp);
             System.out.println(PRINT_DONE_MESSAGE_FRONT + temp + PRINT_DONE_MESSAGE_BACK);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(MESSAGE_OUT_OF_RANGE + tasks.size());
+            ui.print(MESSAGE_OUT_OF_RANGE + tasks.size());
         } catch (NumberFormatException e) {
-            System.out.println("Please key in a number instead pls :(");
+            ui.print("Please key in a number instead pls :(");
         }
-        Storage.saveToFile(tasks);
     }
 
     private int findTaskNumber(String input) {

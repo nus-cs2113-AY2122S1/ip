@@ -1,5 +1,14 @@
 package duke.utilities;
 
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.DeadlineCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
+import duke.commands.EventCommand;
+import duke.commands.HelpCommand;
+import duke.commands.ListCommand;
+import duke.commands.ToDoCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -36,9 +45,34 @@ public class Parser {
      * @param input input of user
      * @return the command to be executed
      */
-    public static String getCommand(String input) {
+    public static String scanCommand(String input) {
         String[] words = input.toLowerCase().split(SPACING);
         return words[0];
+    }
+
+    public static Command getCommand(String input, Ui ui) {
+
+        String commandWord = scanCommand(input);
+
+        switch(commandWord) {
+        case ByeCommand.COMMAND_WORD:
+            return new ByeCommand();
+        case DeadlineCommand.COMMAND_WORD:
+            return new DeadlineCommand();
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommand();
+        case DoneCommand.COMMAND_WORD:
+            return new DoneCommand();
+        case EventCommand.COMMAND_WORD:
+            return new EventCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+        case ToDoCommand.COMMAND_WORD:
+            return new ToDoCommand();
+        case HelpCommand.COMMAND_WORD:
+        default:
+            return new HelpCommand();
+        }
     }
 
     public static Task getTaskType(String input, String type) throws DukeException {
@@ -81,7 +115,7 @@ public class Parser {
         int startIdx = isSavingInput ? 1 : 0;
         for (int i = 0; i < words.length; i++) {
             if (i == words.length - 1) {
-                throw new DukeException();
+                throw new DukeException("No description found!");
             }
 
             if (checkAtEntry(words[i])) {
@@ -109,7 +143,7 @@ public class Parser {
         boolean isMissingDescription = (words.length <= 1 && !isSavingFile);
 
         if (isMissingDescription) {
-            throw new DukeException();
+            throw new DukeException("No description found!");
         }
 
         int spaceCount = 1;
