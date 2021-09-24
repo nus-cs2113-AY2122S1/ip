@@ -5,6 +5,9 @@ import duke.command.CommandException;
 import duke.parser.ParserException;
 import java.util.Scanner;
 
+/**
+ * User interface class that handles any I/O with user.
+ */
 public class Ui {
 
     final static String LINE = "____________________________________________________________";

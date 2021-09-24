@@ -3,6 +3,9 @@ package duke.task;
 import duke.common.CommonFormat;
 import java.time.LocalDateTime;
 
+/**
+ * Class that represents a Deadline Task.
+ */
 public class Deadline extends Task {
 
     final private static String FLAG_TYPE = "[D]";
@@ -14,6 +17,11 @@ public class Deadline extends Task {
         this.dueDate = convertToLocalDateTime(dueDate);
     }
 
+    /**
+     * Method used to get the localdate only from the localdatetime dueDate.
+     *
+     * @return A String representing the date of dueDate.
+     */
     @Override
     public String getDate() {
         return dueDate.format(CommonFormat.formatterDateOnly);
@@ -36,6 +44,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return FLAG_TYPE + " | " + getDoneStatus() + " | " + this.getDescription() + " | " + dueDate.format(CommonFormat.formatter);
+        return FLAG_TYPE + " | " + getDoneStatus() + " | " + this.getDescription() + " | " + dueDate.format(
+                CommonFormat.formatter);
     }
 }

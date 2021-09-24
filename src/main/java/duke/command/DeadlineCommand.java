@@ -1,7 +1,8 @@
 package duke.command;
 
-import java.time.LocalDateTime;
-
+/**
+ * Deadline command that will create a deadline task object.
+ */
 public class DeadlineCommand extends Command {
 
     final public static String COMMAND_WORD = "deadline";

@@ -9,7 +9,9 @@ import duke.parser.ParserException;
 import duke.task.TaskManager;
 import duke.ui.Ui;
 
-
+/**
+ * Duke main class, the program should start running from here as the main.
+ */
 public class Duke {
 
     private Ui ui;
@@ -19,6 +21,12 @@ public class Duke {
     private String fileName;
     private String fileDirectory;
 
+    /**
+     * Constructor that initialise components the duke need to use as well as load data from given file into task list.
+     *
+     * @param fileDirectory File directory that contains the text file of saved task list if any
+     * @param fileName      Supplied filename of the text file of saved task list
+     */
     public Duke(String fileDirectory, String fileName) {
         this.fileName = fileName;
         this.fileDirectory = fileDirectory;
@@ -39,18 +47,20 @@ public class Duke {
 
     /**
      * Main function to run the Duke bot. Provided with hardcoded data file's directory and its name. This data file
-     * stores saves task list from previous runs.
+     * stores saved task list from previous runs.
      *
-     * @param args Arguments from console input
+     * @param args Arguments from console input (not used)
      */
     public static void main(String[] args) {
         new Duke("data", "duke.txt").run();
     }
 
     /**
-     * Perform the execution of a command object that is given from the parser.
+     * Perform the execution of a command object that is validated and given by the parser. The parser is a command
+     * handler that ensures the user input are valid existing commands of duke. Upon changes detected to the task list,
+     * the current task list will be overwritten on to the provided filename text file in order to save its contents.
      *
-     * @param command
+     * @param command Command object that was translated from user input
      */
     private void executeCommand(Command command) {
         try {
