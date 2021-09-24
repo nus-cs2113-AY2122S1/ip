@@ -37,4 +37,9 @@ public class Deadline extends Task {
     public String formatData() {
         return super.formatData() + "|" + dueTime;
     }
+
+    @Override
+    public String getDataForFind() {
+        return super.getDataForFind() + " "  + dueTime.format(DateTimeFormatter.ISO_LOCAL_DATE);
+    }
 }

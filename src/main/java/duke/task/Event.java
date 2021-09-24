@@ -25,4 +25,9 @@ public class Event extends Task {
     public String formatData() {
         return super.formatData() + "|" + eventDuration;
     }
+
+    @Override
+    public String getDataForFind() {
+        return super.getDataForFind() + " " + eventDuration;
+    }
 }

@@ -29,7 +29,7 @@ public class Task {
         return type + "|" + isDone + "|" + description;
     }
 
-    public String getDescription() {
+    public String getDataForFind() {
         return this.description;
     }
 }
