@@ -42,7 +42,7 @@ public abstract class Task {
 
     public String getType() {
         return this.type;
-    };
+    }
 
     public static int getTaskCount() {
         return taskCount;

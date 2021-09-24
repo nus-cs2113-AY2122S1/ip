@@ -1,6 +1,15 @@
-todo eat food
-deadline assignment /by tomorrow 2359
+todo report
+deadline assignment /by 30/09/2021 2359
+event project meeting /at 31/08/2021 2100
 done 2
-event team meeting /at 3rd Sep 2100-2300
+list
+event presentation /at 30/09/2021 1000
+deadline project essay /by 31/08/2021 2359
+todo project feedback
+list
+find project
+date 30/09/2021
+done 2
+done 4
 list
 bye

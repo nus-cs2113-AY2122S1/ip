@@ -1,18 +1,78 @@
-Hello! I'm Duke.
-What can I do for you?
-I've added that to your list:
-[T][ ] eat food
-Now you have 1 tasks in the list.
-I've added that to your list:
-[D][ ] assignment  (by: tomorrow 2359)
-Now you have 2 tasks in the list.
+________________________________________________________________________________
+Hi! I'm Duke. I've created your data file for you!
+What would you like me to do?
+________________________________________________________________________________
+________________________________________________________________________________
+Okay, I've added that task to your list:
+[T][ ] report
+________________________________________________________________________________
+________________________________________________________________________________
+Okay, I've added that task to your list:
+[D][ ] assignment (by: 30 September 2021 11:59 PM)
+________________________________________________________________________________
+________________________________________________________________________________
+Okay, I've added that task to your list:
+[E][ ] project meeting (at: 31 August 2021 09:00 PM)
+________________________________________________________________________________
+________________________________________________________________________________
 Nice! I've marked this task as done:
-[D][X] assignment  (by: tomorrow 2359)
-I've added that to your list:
-[E][ ] team meeting  (at: 3rd Sep 2100-2300)
-Now you have 3 tasks in the list.
+[D][X] assignment (by: 30 September 2021 11:59 PM)
+________________________________________________________________________________
+________________________________________________________________________________
 Here are your current tasks and their status:
-1. [T][ ] eat food
-2. [D][X] assignment  (by: tomorrow 2359)
-3. [E][ ] team meeting  (at: 3rd Sep 2100-2300)
+1. [T][ ] report
+2. [D][X] assignment (by: 30 September 2021 11:59 PM)
+3. [E][ ] project meeting (at: 31 August 2021 09:00 PM)
+________________________________________________________________________________
+________________________________________________________________________________
+Okay, I've added that task to your list:
+[E][ ] presentation (at: 30 September 2021 10:00 AM)
+________________________________________________________________________________
+________________________________________________________________________________
+Okay, I've added that task to your list:
+[D][ ] project essay (by: 31 August 2021 11:59 PM)
+________________________________________________________________________________
+________________________________________________________________________________
+Okay, I've added that task to your list:
+[T][ ] project feedback
+________________________________________________________________________________
+________________________________________________________________________________
+Here are your current tasks and their status:
+1. [T][ ] report
+2. [D][X] assignment (by: 30 September 2021 11:59 PM)
+3. [E][ ] project meeting (at: 31 August 2021 09:00 PM)
+4. [E][ ] presentation (at: 30 September 2021 10:00 AM)
+5. [D][ ] project essay (by: 31 August 2021 11:59 PM)
+6. [T][ ] project feedback
+________________________________________________________________________________
+________________________________________________________________________________
+I found these tasks for project:
+3. [E][ ] project meeting (at: 31 August 2021 09:00 PM)
+5. [D][ ] project essay (by: 31 August 2021 11:59 PM)
+6. [T][ ] project feedback
+________________________________________________________________________________
+________________________________________________________________________________
+Here are the tasks happening on/ due by 30/09/2021:
+2. [D][X] assignment (by: 30 September 2021 11:59 PM)
+4. [E][ ] presentation (at: 30 September 2021 10:00 AM)
+________________________________________________________________________________
+________________________________________________________________________________
+I've unmarked this task as done:
+[D][ ] assignment (by: 30 September 2021 11:59 PM)
+________________________________________________________________________________
+________________________________________________________________________________
+Nice! I've marked this task as done:
+[E][X] presentation (at: 30 September 2021 10:00 AM)
+________________________________________________________________________________
+________________________________________________________________________________
+Here are your current tasks and their status:
+1. [T][ ] report
+2. [D][ ] assignment (by: 30 September 2021 11:59 PM)
+3. [E][ ] project meeting (at: 31 August 2021 09:00 PM)
+4. [E][X] presentation (at: 30 September 2021 10:00 AM)
+5. [D][ ] project essay (by: 31 August 2021 11:59 PM)
+6. [T][ ] project feedback
+________________________________________________________________________________
+________________________________________________________________________________
 Bye! I hope to see you again soon :)
+________________________________________________________________________________
