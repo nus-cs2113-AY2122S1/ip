@@ -1,8 +1,8 @@
 package duke.task;
 
 public class Task {
-    protected String content;
-    protected Boolean isDone;
+    private final String content; //need to change?
+    private Boolean isDone;
 
     public Task(String content) {
         this.content = content;
@@ -16,10 +16,6 @@ public class Task {
     public void markAsDone() {
         this.isDone = true;
     }
-    @Override
-    public String toString() {
-        return "[" + this.TaskStatus() + "] " + this.content;
-    }
 
     public String getContent() {
         return this.content;
@@ -27,6 +23,11 @@ public class Task {
 
     public Boolean getIsDone() {
         return this.isDone;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.TaskStatus() + "] " + this.content;
     }
 }
 

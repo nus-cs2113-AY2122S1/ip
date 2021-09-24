@@ -1,20 +1,21 @@
 package duke.task;
 
-import duke.task.Task;
-
 public class Deadline extends Task {
-    protected String ddl;
-    public Deadline(String content, String ddl) {
+    private final String deadline;
+
+    public Deadline(String content, String deadline) {
         super(content);
-        this.ddl = ddl;
+        this.deadline = deadline;
     }
+
+    public String getdeadline() {
+        return this.deadline;
+    }
+
     @Override
     public String toString() {
-        return "[D]" + "[" + this.TaskStatus() + "] " + this.content
-                + "(by: " + this.ddl + ")";
+        return "[D]" + "[" + this.TaskStatus() + "] " + this.getContent()
+                + "(by: " + this.deadline + ")";
     }
 
-    public String getDdl() {
-        return this.ddl;
-    }
 }
