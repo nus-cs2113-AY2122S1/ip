@@ -9,6 +9,8 @@ import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
+import ui.UI;
+import ui.ErrorUI;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -64,13 +66,13 @@ public class Parser {
                 throw new InvalidCommandException();
             }
         } catch (MissingInputException | ArrayIndexOutOfBoundsException | NullPointerException e) {
-            UI.printInvalidDescription();
+            ErrorUI.printInvalidDescription();
         } catch (InvalidCommandException e) {
-            UI.printInvalidCommand();
+            ErrorUI.printInvalidCommand();
         } catch (InvalidIndexException e) {
-            UI.printInvalidIndex();
+            ErrorUI.printInvalidIndex();
         } catch (DateTimeParseException e) {
-            UI.printInvalidDate();
+            ErrorUI.printInvalidDate();
         }
         return false;
     }

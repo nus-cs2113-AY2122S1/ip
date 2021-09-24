@@ -7,6 +7,8 @@ import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
+import ui.ErrorUI;
+import ui.UI;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -37,7 +39,7 @@ public class Storage {
             }
             if (!saveDataFile.exists()) {
                 saveDataFile.createNewFile();
-                System.out.println("No existing save duke.data\nNew file created");
+                UI.printNewSave();
                 return new TaskList();
             }
             else {
@@ -64,14 +66,10 @@ public class Storage {
                 }
             }
             taskList.setTasks(tasks);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error loading save file");
-        } catch (MissingInputException e) {
-            System.out.println(e + " contains invalid duke.data");
+        } catch (IOException | MissingInputException e) {
+            ErrorUI.printInvalidSaveFile();
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date in save file duke.data");
-//            System.out.println("Date should be in the form DDMMYYYY or DD/MM/YYYY or DD-MM-YYYY");
+            ErrorUI.printInvalidDateLoaded();
         }
         return taskList;
     }
@@ -85,7 +83,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error writing to save file");
+            ErrorUI.printInvalidWrite();
         }
     }
 

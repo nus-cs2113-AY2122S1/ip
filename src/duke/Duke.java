@@ -1,6 +1,7 @@
 package duke;
 
 import duke.task.TaskList;
+import ui.UI;
 
 import java.util.Scanner;
 
