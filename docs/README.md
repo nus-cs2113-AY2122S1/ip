@@ -23,13 +23,13 @@
 - [FAQ](#faq)
 - [Command Summary]()
 
-## Quick Start
+# Quick Start
 
-## Features
+# Features
 
 
 
-### Help - Show All Valid Commands
+## Help - Show All Valid Commands
 
 List down all valid commands and their formats
 
@@ -48,7 +48,7 @@ Expected Outcome:
      6. Exit From Program: bye
 ```
 
-### List - List Down All Current Tasks
+## List - List Down All Current Tasks
 
 List down all current tasks in the task list
 
@@ -66,15 +66,15 @@ ________________________________________________________________
 ________________________________________________________________
 ```
 
-### Add - Add a Task to Your List
+## Add - Add a Task to Your List
 
 Add Task into task list
 
-#### A Todo Task
+### A Todo Task
 
-#### A Deadline Task
+### A Deadline Task
 
-#### An Event Task
+### An Event Task
 
 ## Usage
 
