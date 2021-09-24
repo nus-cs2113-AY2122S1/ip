@@ -13,15 +13,31 @@ import duke.exceptions.EmptyTimeException;
 import duke.exceptions.IncompleteInformationException;
 import duke.exceptions.InvalidRequestException;
 import duke.exceptions.InvalidFilterException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
 
+
+/**
+ * This class is used to parse string inputs from users and return the input commands as objects
+ * that can be executed, according to the commands specified by the user
+ */
 public abstract class Parser {
     public static final int TIME_INFO_START_INDEX = 1;
     public static final int SPECIAL_DATE_SEQUENCE = 4;
 
+    /**
+     * Returns an executable command object based on the input string where the command type and other additional
+     * information is specified. If the command cannot be parsed appropriately or if the command the user has
+     * input is incorrect, an exception will be thrown
+     *
+     * @param request It is the string input users enter in the command line to interact with the application
+     * @return The method returns a command object which contains a method to carry out the specified command on the task list
+     * @throws Exception it is thrown when an error occur when attempting to parse the input command
+     */
     public static Command parse(String request) throws Exception {
         if (CommandType.isList(request)) {
             return new ListCommand(CommandType.LIST);
@@ -49,15 +65,17 @@ public abstract class Parser {
         }
     }
 
-    public static int getTaskIndex(String request) throws Exception{
+    private static int getTaskIndex(String request) {
         try {
-            return Integer.parseInt(request.split(" ")[1]) - 1;
+            int taskIndexStart = request.indexOf(" ");
+            String taskIndex = request.substring(taskIndexStart);
+            return Integer.parseInt(taskIndex) - 1;
         } catch (Exception e){
             throw new NumberFormatException("Sorry there's no integer I can read!");
         }
     }
 
-    public static Command getTask(String request) throws Exception {
+    private static Command getTask(String request) throws Exception {
         if (CommandType.isTodo(request)) {
             return buildTodo(request.trim());
         } else if (CommandType.isSpecialTask(request)) {

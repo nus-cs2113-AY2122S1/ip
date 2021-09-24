@@ -1,6 +1,6 @@
 duke.Deadline,true,work more and more,by:tmr
 duke.Task,false,wokr
-duke.Event,false,do work,at: 2/12/2019
+duke.Event,true,do work,at: 2/12/2019
 duke.Event,false,do work,y 2/12/2019
 duke.Event,false,do work,2/12/2019
 duke.Event,false,do work,2-12-2019
@@ -9,3 +9,5 @@ duke.Deadline,false,die,21-12-2020
 duke.Event,false,do work,Dec 21 2020
 duke.Event,false,todo work,by 2020-10-15
 duke.Deadline,false,work,Oct 15 2020
+duke.Task,false,work
+duke.Deadline,false,lalala,at:12
