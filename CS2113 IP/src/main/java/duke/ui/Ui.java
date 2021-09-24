@@ -53,12 +53,10 @@ public class Ui {
     public void handleListComment() {
         System.out.println(LIST_TASK_COMMENT);
     }
-  
-      public void handleUpcomingComment(){
+
+    public void handleUpcomingComment() {
         System.out.println(LIST_UPCOMING_TASKS);
     }
-
-    public void handleListFormat(int taskIndex, Task task) {
 
     public void handleListFormat(int taskIndex, Task task) {
         String formatOutput = String.format("%d.[%s][%s] %s",
