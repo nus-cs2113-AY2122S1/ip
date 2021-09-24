@@ -5,6 +5,7 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 
+/** Prints all the tasks stored in the list */
 public class ListCommand extends Command {
     public static final String COMMAND_KEYWORD = "list";
 

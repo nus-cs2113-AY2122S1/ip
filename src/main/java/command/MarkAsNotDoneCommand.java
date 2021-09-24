@@ -7,6 +7,7 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/** Marks the task as "not done". */
 public class MarkAsNotDoneCommand extends Command {
     public static final String COMMAND_KEYWORD = "undo";
     private int taskIndex;

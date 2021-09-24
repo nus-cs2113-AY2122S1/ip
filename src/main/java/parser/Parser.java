@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/** Parses and validates the user's command before returning the command to execute */
 public class Parser {
     /**
      * Parses the command input by the user.
@@ -68,6 +69,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Validates the "find" command called by the user.
+     * @param line User's command
+     * @return "find" command to execute
+     * @throws AustinEmptyKeywordException
+     */
     private static FindTasksCommand validateFindTasksCommand(String line) throws
             AustinEmptyKeywordException {
         try {
@@ -78,6 +85,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Validates the "agenda" command called by the user.
+     * @param line User's command
+     * @return "agenda" command to execute
+     * @throws AustinInvalidCommandFormatException If there are additional characters
+     * apart from the command
+     */
     private static AgendaCommand validateAgendaCommand(String line) throws
             AustinInvalidCommandFormatException {
         if (!line.equals(AgendaCommand.COMMAND_KEYWORD)) {

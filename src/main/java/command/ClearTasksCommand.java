@@ -7,6 +7,7 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/** Clears all the tasks in the list and in the file */
 public class ClearTasksCommand extends Command {
     public static final String COMMAND_KEYWORD = "clear";
 

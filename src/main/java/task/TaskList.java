@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-
+/** Performs operations in the task list */
 public class TaskList {
     private static ArrayList<Task> tasks;
 
@@ -168,13 +168,18 @@ public class TaskList {
         tasks.clear();
     }
 
-    public void findTasks(String search) throws AustinEmptyListException {
+    /**
+     * Filters out the tasks based on the keyword imput by the user.
+     * @param keyword Keyword input by the user
+     * @throws AustinEmptyListException If there are no tasks in the list
+     */
+    public void findTasks(String keyword) throws AustinEmptyListException {
         if (tasks.size() == 0) {
             throw new AustinEmptyListException();
         }
         ArrayList<Task> result = (ArrayList<Task>) tasks.stream()
                 .filter((task) -> task.getDescription().toLowerCase()
-                        .contains(search.toLowerCase()))
+                        .contains(keyword.toLowerCase()))
                 .collect(Collectors.toList());
         if (result.size() == 0) {
             System.out.println("There are no matching tasks based on the " +

@@ -7,6 +7,7 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/** Marks the task as done */
 public class MarkAsDoneCommand extends Command {
     public static final String COMMAND_KEYWORD = "done";
     private int taskIndex;

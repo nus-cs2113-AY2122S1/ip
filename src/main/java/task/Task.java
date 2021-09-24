@@ -48,5 +48,10 @@ public abstract class Task {
     @Override
     public abstract String toString();
 
+    /**
+     * Abstract method used to extract date and time details from event and deadline tasks.
+     * Returns null for todo.
+     * @return Date and time details
+     */
     public abstract LocalDateTime getDT();
 }

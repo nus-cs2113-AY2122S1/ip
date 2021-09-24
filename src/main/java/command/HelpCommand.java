@@ -4,6 +4,7 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 
+/** Prints all the valid commands and its format */
 public class HelpCommand extends Command {
     public static final String COMMAND_KEYWORD = "help";
     private static final String HELP_MESSAGE =
