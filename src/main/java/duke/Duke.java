@@ -15,15 +15,15 @@ import java.time.format.DateTimeParseException;
  */
 public class Duke {
 
-    private final TaskList taskList;
-    private final DataStorage dataStorage;
+    private final TaskList dukeTaskList;
+    private final DataStorage dukeDataStorage;
 
     /** Sets up the required objects needed for the program to work. */
     public Duke(String[] launchArgs) {
-        this.taskList = new TaskList();
+        dukeTaskList = new TaskList();
 
         /* launchArgs with length > 0 implies that the user has specified a file path for storage file */
-        this.dataStorage = (launchArgs.length > 0) ? new DataStorage(launchArgs[0]) : new DataStorage();
+        dukeDataStorage = (launchArgs.length > 0) ? new DataStorage(launchArgs[0]) : new DataStorage();
     }
 
     public static void main(String[] launchArgs) {
@@ -38,7 +38,7 @@ public class Duke {
 
     /** Loads data from storage file and prints a greeting upon entry of program. */
     private void start() {
-        dataStorage.loadData(taskList);
+        dukeDataStorage.loadData(dukeTaskList);
         Ui.printHeyMessage();
     }
 
@@ -52,7 +52,7 @@ public class Duke {
             try {
                 userInput = Ui.readUserInput();
                 Command command = Parser.parseCommandWord(userInput);
-                command.execute(taskList, dataStorage);
+                command.execute(dukeTaskList, dukeDataStorage);
             } catch (InvalidCommandFormatException | NumberFormatException fe) {
                 Ui.printInvalidCommandFormatMessage();
             } catch (DateTimeParseException dtpe) {
