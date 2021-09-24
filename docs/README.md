@@ -32,11 +32,10 @@
 ### Help - Show All Valid Commands
 
 List down all valid commands and their formats
-
 Format: `help`
+Expected Outcome:
 
-#### Expected Output
-________________________________________________________________
+```
      Please input a valid request
      Duke can do the follow instructions
      1. Record Todo Task: todo (description)
@@ -45,7 +44,7 @@ ________________________________________________________________
      4. List Down Recorded Tasks: list
      5. Set Task After Completion: done (index on list)
      6. Exit From Program: bye
-________________________________________________________________
+```
 
 ### List - List Down All Current Tasks
 
