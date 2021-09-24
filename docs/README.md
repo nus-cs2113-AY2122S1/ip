@@ -2,18 +2,24 @@
 
 <br>
 
+<center>
+
 ## List of Features
+
+</center>
 
 | Feature | Description |
 ----------|--------------
-<center> `bye` </center> | <center> Shut Triss down </center>
-<center> `list` </center> | <center> List all tasks </center>
-<center> `done` </center> | <center> Mark task as done </center>
-<center> `delete` </center> | <center> Delete task </center>
-<center> `find` </center> | <center> Find task by keyword </center>
-<center> `deadline` </center> | <center> Add new deadline </center>
-<center> `event` </center> | <center> Add new event </center>
-<center> `todo` </center> | <center> Add new todo </center>
+ `bye` |  Shut Triss down
+ `list` |  List all tasks
+ `done` |  Mark task as done
+ `delete` |  Delete task
+ `find` |  Find task by keyword
+ `deadline` |  Add new deadline
+ `event` |  Add new event
+ `todo` |  Add new todo
+
+<hr>
 
 ### Shut Triss down : `bye`
 Stops Triss and stores all tasks in _data/storedtasks.txt_.
@@ -173,7 +179,7 @@ ____________________________________________________________
 ```
 <hr>
 
-### Add a new deadline: `event`
+### Add a new event: `event`
 Adds a new event to Triss's database.
 
 #### Format
