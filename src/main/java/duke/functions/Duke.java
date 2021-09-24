@@ -8,8 +8,6 @@ import duke.utility.TaskList;
 import duke.utility.Ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Locale;
 
 public class Duke {
 
@@ -116,6 +114,11 @@ public class Duke {
         ui.printBye();
     }
 
+    /**
+     * Finds tasks description contains the query from the task list.
+     *
+     * @param query the expression to be search for. Case insensitive
+     */
     private static void handleFind(String query) {
         TaskList foundItems = new TaskList();
         for (Task item : tasklist.items){
@@ -127,6 +130,12 @@ public class Duke {
         ui.displayFoundItems(foundItems);
     }
 
+    /**
+     * Deletes a specified task
+     *
+     * @param taskNum the task number to delete, starts from 1, handled by parser
+     * @throws EmptyArgException when parser cannot find a taskNum
+     */
     private static void handleDelete(int taskNum) throws EmptyArgException {
         int indexToDelete = taskNum - 1;
         Task removedItem = tasklist.get(indexToDelete);
@@ -134,22 +143,47 @@ public class Duke {
         ui.printRemovedItem(removedItem);
     }
 
+    /**
+     * Marks a specified task as done
+     *
+     * @param taskNum the task number to mark as done, starts from 1, handled by parser
+     */
     private static void handleDone(int taskNum) {
         int indexToMark = taskNum - 1;
         tasklist.get(indexToMark).markAsDone();
         ui.printMarkAsDone(tasklist.items, indexToMark);
     }
 
+    /**
+     * Adds an event to the task list
+     *
+     * @param eventArgs String array containing the description and the date of the event
+     * @throws EmptyArgException when no description and date is provided
+     * @throws WrongFormatException when argument is missing "/at"
+     */
     private static void handleEvent(String[] eventArgs) throws EmptyArgException, WrongFormatException {
         tasklist.add(new Event(eventArgs[0],eventArgs[1]));
         ui.printTaskAdded(tasklist.items);
     }
 
+    /**
+     * Adds a deadline to the task list
+     *
+     * @param deadlineArgs String array containing the description and the do by date of the event
+     * @throws EmptyArgException when no description and date is provided
+     * @throws WrongFormatException when argument is missing "/by"
+     */
     private static void handleDeadline(String[] deadlineArgs) throws EmptyArgException, WrongFormatException {
         tasklist.add(new Deadline(deadlineArgs[0], deadlineArgs[1]));
         ui.printTaskAdded(tasklist.items);
     }
 
+    /**
+     * Adds a todo to the task list
+     *
+     * @param taskDescription description of the task
+     * @throws EmptyArgException when no description is provided
+     */
     private static void handleTodo(String taskDescription) throws EmptyArgException {
         tasklist.add(new Todo(taskDescription));
         ui.printTaskAdded(tasklist.items);

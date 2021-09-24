@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Allows saving and reading of the tasklist as a text file in a specified location
+ */
 public class Storage extends Ui {
     private final String filepath;
 
@@ -18,6 +21,12 @@ public class Storage extends Ui {
         this.filepath = filepath;
     }
 
+    /**
+     * Reads the saved list from filepath, creates a new text file if saved list is not found
+     *
+     * @param items the tasklist to add tasks to when reading from the text file
+     * @throws IOException When there is a problem writing/reading to the text file
+     */
     public void readSavedList(ArrayList<Task> items) throws IOException {
         File f = new File(filepath);
         if (f.createNewFile()) {
@@ -51,6 +60,12 @@ public class Storage extends Ui {
         }
     }
 
+    /**
+     * Writes to the text file after every command input by user
+     *
+     * @param items the tasklist to write from
+     * @throws IOException When there is a problem reading from tasklist or writing to text file
+     */
     public void writeToFile(ArrayList<Task> items) throws IOException {
         FileWriter fw = new FileWriter(filepath);
         for (Task i : items) {
