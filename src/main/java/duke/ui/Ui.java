@@ -7,6 +7,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static duke.constants.DukeConstants.DISPLAYED_INDEX_OFFSET;
+import static duke.constants.DukeConstants.DISPLAYED_TASK_FORMAT;
 import static duke.constants.DukeConstants.INDENT;
 import static duke.constants.DukeConstants.STRAIGHT_LINE;
 import static duke.constants.DukeConstants.WHITESPACE;
@@ -44,12 +46,6 @@ import static duke.constants.DukeOutputMessages.UNRECOGNIZED_COMMAND_MESSAGE;
  * from the user and printing output and error messages for the user.
  */
 public class Ui {
-
-    /** Offset to  differentiate between 0-based and 1-based indexing */
-    private static final int DISPLAYED_INDEX_OFFSET = 1;
-
-    /** Format of task to be printed in list */
-    private static final String DISPLAYED_TASK_FORMAT = " %1$d. %2$s";
 
     private static final Scanner in = new Scanner(System.in);
     private static final PrintStream out = System.out;
