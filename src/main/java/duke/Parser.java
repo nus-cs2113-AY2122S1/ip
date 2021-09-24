@@ -1,13 +1,17 @@
 package duke;
 
-import Command.*;
+import Command.AddCommand;
+import Command.Command;
+import Command.DeleteCommand;
+import Command.DoneCommand;
+import Command.ExitCommand;
+import Command.ListCommand;
 
 public class Parser {
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_DELETE = "delete";
-    private static final String COMMAND_FIND = "find";
 
     public static Command parse(String fullCommand) {
         if (fullCommand.equals(COMMAND_BYE)) {
@@ -24,10 +28,6 @@ public class Parser {
 
         if (fullCommand.startsWith(COMMAND_DELETE)) {
             return new DeleteCommand(fullCommand);
-        }
-
-        if (fullCommand.startsWith(COMMAND_FIND)) {
-            return new FindCommand(fullCommand);
         }
 
         return new AddCommand(fullCommand);
