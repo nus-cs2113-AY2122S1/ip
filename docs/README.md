@@ -40,7 +40,7 @@ Before continuing, here are some of the things you should take note of, to bette
 | Terminologies | Definition |
 |:-------------:|:----------:|
 | Syntax | The right format to run the command. |
-| `<taskName>` | <u>**Required.**/u> The name of the task. |
+| `<taskName>` | <u>**Required.**</u> The name of the task. |
 | `<atWhen>` | <u>**Required.**</u> The date and time of the Event. |
 | `<byWhen>` | <u>**Required.**</u> The date and time of the Deadline. |
 | `<keyword>` | <u>**Required.**</u> The word that you want to find. |
