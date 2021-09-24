@@ -1,17 +1,17 @@
 # User Guide
-Alfred is a Command Line Application for task management, modelled after Alfred the Butler from Batman.
+:older_man: Alfred is a Command Line Application for task management, modelled after Alfred the Butler from Batman.
 
-- Features
-  - [Listing current tasks: `list`](#list)
+- Features and Usage
+  - [:scroll: Listing current tasks: `list`](#list)
   - Adding tasks:
-    - [Todo: `todo`](#todo)
-    - [Event: `event`](#event)
-    - [Deadline: `deadline`](#deadline)
-  - [Marking task as complete: `done`](#done)
-  - [Delete a task: `delete`](#delete)
-  - Searching for tasks: `find`
-  - Exiting the app: `bye`
-- Saving the data
+    - [:bookmark: Todo: `todo`](#todo)
+    - [:calendar: Event: `event`](#event)
+    - [:pushpin: Deadline: `deadline`](#deadline)
+  - [:white_check_mark: Marking task as complete: `done`](#done)
+  - [:x: Delete a task: `delete`](#delete)
+  - [:mag_right: Searching for tasks: `find`](#find)
+  - [:door: Exiting the app: `bye`](#exit)
+- [:floppy_disk: Saving the data](#save)
 - Command summary
 
 ## Features and Usage
@@ -145,28 +145,47 @@ ____________________________________________________________
 ```
 <br />
 
-### <a name="find"></a>Searching for tasks: `find`
+### <a name="find"></a>`find` - Searching for tasks
+Searches for tasks in the task list based on the query term specified.
 
+Usage: `find QUERY`
+- :warning: `QUERY` must be specified.
+- :bulb: `QUERY` is not case-sensitive.
 
-### <a name="exut"></a>Exiting the app: `bye`
+Expected outcome and examples of usage:
 
-### Exiting the app: `bye`
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
+Alfred will search the task list using the query specified, enumerate the tasks found,
+and print them out as a list:
 ```
-expected output
+find cs2113
+____________________________________________________________
+ I've procured the following tasks based on that query, sir:
+ 1.[T][ ] CS2113 IP
+ 2.[D][ ] CS2113 IP (by: Oct 01 2021)
+ 3.[T][ ] CS2113 TP
+____________________________________________________________
 ```
+<br />
 
-### list
+### <a name="exit"></a>Exiting the app: `bye`
+Terminates the app session and exits programme.
+
+Usage: `bye`
+- :bulb: `bye` is not case-sensitive.
+
+Expected outcome and examples of usage:
+
+Alfred will print out the exit message and the app session will be terminated:
+```
+bye
+____________________________________________________________
+ Very well sir, I shall leave you to your own devices.
+____________________________________________________________
+```
+<br />
+
+
+## <a name="save"></a>Saving the data
+:bulb: Alfred's task list is saved into the user's local storage automatically after every command
+execution, and thus there is no explicit `save` command implemented.
+
