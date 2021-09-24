@@ -14,7 +14,9 @@ public class Ui {
     /** String of underscores to separate user input and Triss output */
     private final String SEPARATOR_LINE = "____________________________________________________________";
 
-    Scanner in;
+    private static Scanner in;
+
+    private static String userInput;
 
     public String getUserInput() {
         return userInput;
@@ -23,8 +25,6 @@ public class Ui {
     public void setUserInput(String userInput) {
         this.userInput = userInput;
     }
-
-    String userInput;
 
     public Ui() {
         in = createNewInputReader();

@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 public class Storage {
 
+    TaskList tasklist = new TaskList();
+
     public Storage() {
         // Check for any stored data
         try {
@@ -21,7 +23,7 @@ public class Storage {
         }
     }
 
-    private static void initialiseDataStorage() throws IOException, TrissException {
+    private void initialiseDataStorage() throws IOException, TrissException {
         File dataDirectory = new File("data");
         File storedTasks = new File("data/storedtasks.txt");
         if (dataDirectory.exists()) {
@@ -31,20 +33,20 @@ public class Storage {
                 String[] taskDetails = lineInFile.split(",");
                 switch (taskDetails[0]) {
                 case "[T]":
-                    Triss.createNewTodo("todo " + taskDetails[2], true);
+                    tasklist.createNewTodo("todo " + taskDetails[2], true);
                     break;
                 case "[E]":
-                    Triss.createNewEvent("event " + taskDetails[2] + " /" + taskDetails[3], true);
+                    tasklist.createNewEvent("event " + taskDetails[2] + " /" + taskDetails[3], true);
                     break;
                 case "[D]":
-                    Triss.createNewDeadline("deadline " + taskDetails[2] + " /" + taskDetails[3], true);
+                    tasklist.createNewDeadline("deadline " + taskDetails[2] + " /" + taskDetails[3], true);
                     break;
                 default:
                     throw new TrissException("Tasks storage has been corrupted! Try restarting.");
                 }
 
                 if (taskDetails[1].equals("[X]")) {
-                    Triss.tasks.get(Triss.tasks.size() - 1).setDone(true);
+                    tasklist.getTaskByIndex(tasklist.getSize() - 1).setDone(true);
                 }
 
             }
@@ -60,7 +62,7 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter("data/storedtasks.txt");
 
-            for (Task task : Triss.tasks) {
+            for (Task task : tasklist.getTasks()) {
                 fw.write(task.printTaskForStoring() + System.lineSeparator());
             }
             fw.close();
