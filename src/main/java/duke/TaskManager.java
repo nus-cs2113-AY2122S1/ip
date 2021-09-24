@@ -1,6 +1,11 @@
 package duke;
 
-import duke.command.*;
+import duke.command.DeleteCommand;
+import duke.command.AddCommand;
+import duke.command.ExitCommand;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
 
 import duke.exception.DukeException;
 import duke.task.Task;
@@ -19,7 +24,7 @@ public class TaskManager {
      * @param input    is the command given by the user
      * @param taskList is a TaskList object
      * @param storage  is a Storage object
-     * @throws DukeException if delete/done command is not provided with an index or an invalid command is given
+     * @throws DukeException if delete/done/find command is not provided with an index/keyword or an invalid command is given or wrong date/time format is written
      */
     public static void parseUserCommand(String command, String input, TaskList taskList, Storage storage) throws DukeException {
         switch (command) {
@@ -65,7 +70,7 @@ public class TaskManager {
         case "todo":
             Task todo = Parser.getTodoDetails(input);
 
-            // Initialize task object and adds task to the list
+            // Initialize todo object and adds task to the list
             new AddCommand(todo).executeUserCommand(taskList, storage);
             break;
         case "deadline":

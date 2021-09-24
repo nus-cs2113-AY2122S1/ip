@@ -10,7 +10,6 @@ import java.util.ArrayList;
  */
 public class TaskList {
     public static ArrayList<Task> list = new ArrayList<>();
-    static int count = 0;
 
     /**
      * Adds a task to the list and prints a completion message
@@ -18,8 +17,7 @@ public class TaskList {
      * @param task is the Task object is being added to the list
      */
     public void addTask(Task task) {
-        list.add(count, task);
-        count++;
+        list.add(task);
 
         Ui.printAddTaskMessage(task);
     }
@@ -51,7 +49,6 @@ public class TaskList {
         Ui.printDeleteTaskMessage(taskIndex);
 
         list.remove(taskIndex);
-        count--;
     }
 
     /**
@@ -70,14 +67,22 @@ public class TaskList {
      *
      * @param keyword is the word that needs to be searched for
      */
-    public void findTask(String keyword) {
+    public void findTask(String keyword) throws DukeException {
         if (list.isEmpty()) {
             Ui.printEmptyListMessage();
         } else {
             try {
-                Ui.printMatchingTasks(keyword);
+                Ui.printLineSeparator();
+                System.out.println("Here are the matching tasks in your list:");
+
+                for (int i = 0; i < list.size(); i++) {
+                    String taskDescription = list.get(i).getDataForFind().toLowerCase();
+                    Ui.printMatchingTasks(keyword, taskDescription, i);
+                }
+
+                Ui.printLineSeparator();
             } catch (DukeException e) {
-                Ui.printErrorMessage(e);
+                throw new DukeException("No matching tasks found, try another keyword");
             }
         }
     }

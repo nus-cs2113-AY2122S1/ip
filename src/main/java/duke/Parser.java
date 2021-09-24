@@ -7,8 +7,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalField;
 import java.util.Scanner;
 
 /**
@@ -35,9 +33,7 @@ public class Parser {
         // To extract the description after the four-letter word "todo"
         String todoDescription = input.substring(INDEX_AFTER_TODO).trim();
 
-        Task todo = new Todo(todoDescription);
-
-        return todo;
+        return new Todo(todoDescription);
     }
 
     /**
@@ -45,13 +41,13 @@ public class Parser {
      *
      * @param input is the command given by the user
      * @return the deadline object created under Task
-     * @throws DukeException if /by is not present in the command or if no description is present after the deadline command or wrong date/time format is written
+     * @throws DukeException if /by is not present in the command or if no description is present after the deadline command
      */
     public static Task getDeadlineDetails(String input) throws DukeException {
         if (input.substring(INDEX_AFTER_DEADLINE).isBlank()) {
             throw new DukeException("Task description is missing");
         } else if (!input.contains("/by")) {
-            throw new DukeException("DEADLINE task description is missing \"/by\" [Format: deadline task description /by deadline time/day/date]");
+            throw new DukeException("DEADLINE task description is missing \"/by\" [Format: deadline task description /by deadline YYYY-MM-DD]");
         }
 
         // To extract description between the eight-letter word "deadline" and "/by"
@@ -61,9 +57,7 @@ public class Parser {
 
         dueTime = LocalDate.parse(deadlineDate);
 
-        Task deadline = new Deadline(deadlineDescription, dueTime);
-
-        return deadline;
+        return new Deadline(deadlineDescription, dueTime);
     }
 
     /**
@@ -85,9 +79,7 @@ public class Parser {
         String eventDescription = input.substring(INDEX_AFTER_EVENT, endIndex).trim();
         String eventDate = getDateFromCommand(input);
 
-        Task event = new Event(eventDescription, eventDate);
-
-        return event;
+        return new Event(eventDescription, eventDate);
     }
 
     public static String getUserInput(Scanner in) {

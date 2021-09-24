@@ -3,7 +3,6 @@ package duke;
 import duke.exception.DukeException;
 import duke.task.Task;
 
-import static duke.TaskList.count;
 import static duke.TaskList.list;
 
 /**
@@ -49,13 +48,13 @@ public class Ui {
 
     public static void printAddTaskMessage(Task task) {
         printLineSeparator();
-        System.out.println("Got it. I've added this task:\n" + task + "\nNow you have " + count + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n" + task + "\nNow you have " + list.size() + " tasks in the list.");
         printLineSeparator();
     }
 
     public static void printDeleteTaskMessage(int taskIndex) {
         Ui.printLineSeparator();
-        System.out.println("Noted. I've deleted this task:\n" + list.get(taskIndex) + "\nNow you have " + (count - 1) + " tasks in the list.");
+        System.out.println("Noted. I've deleted this task:\n" + list.get(taskIndex) + "\nNow you have " + (list.size() - 1) + " tasks in the list.");
         Ui.printLineSeparator();
     }
 
@@ -74,28 +73,14 @@ public class Ui {
         for (int i = 0; i < list.size(); i++) {
             System.out.println((i + 1) + ". " + list.get(i));
         }
+
         Ui.printLineSeparator();
     }
 
-    public static void printMatchingTasks(String keyword) throws DukeException {
-        int numOfTasksFound = 0;
-
-        Ui.printLineSeparator();
-        System.out.println("Here are the matching tasks in your list:");
-
-        for (int i = 0; i < list.size(); i++) {
-            String taskDescription = list.get(i).getDescription().toLowerCase();
-            if (taskDescription.contains(keyword)) {
-                System.out.println((i + 1) + ". " + list.get(i));
-                numOfTasksFound++;
-            }
+    public static void printMatchingTasks(String keyword, String taskDescription, int i) throws DukeException {
+        if (taskDescription.contains(keyword)) {
+            System.out.println((i + 1) + ". " + list.get(i));
         }
-
-        if (numOfTasksFound == 0) {
-            throw new DukeException("No matching tasks found, try another keyword");
-        }
-
-        Ui.printLineSeparator();
     }
 
     public static void printEmptyListMessage() {

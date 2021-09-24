@@ -9,6 +9,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String getDataForFind() {
+        return description + at;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + "[" + getStatusIcon() + "] " + description + " (at: " + at + ")";
     }

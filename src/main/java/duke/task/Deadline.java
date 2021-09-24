@@ -12,6 +12,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String getDataForFind() {
+        return description + dueTime.format((DateTimeFormatter.ofPattern("MMM dd yyyy")));
+    }
+
+    @Override
     public String toString() {
         return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + dueTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }

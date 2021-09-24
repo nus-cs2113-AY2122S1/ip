@@ -1,10 +1,6 @@
 package duke.task;
 
 public class Task {
-    public String getDescription() {
-        return description;
-    }
-
     protected String description;
     protected boolean isDone;
 
@@ -32,6 +28,15 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    /**
+     * To combine the task description and time/date to find the matching keyword
+     *
+     * @return the combined task description and time/date
+     */
+    public String getDataForFind() {
+        return "";
     }
 
     public void markAsDone() {

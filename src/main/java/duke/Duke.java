@@ -10,8 +10,8 @@ import java.util.Scanner;
  */
 public class Duke {
     private Storage storage;
-    private TaskList taskList;
-    private Ui ui;
+    private final TaskList taskList;
+    private final Ui ui;
 
     public Duke() {
         ui = new Ui();
@@ -21,8 +21,14 @@ public class Duke {
             storage = new Storage();
             storage.loadData();
         } catch (DukeException e) {
-            ui.printErrorMessage(e);
+            Ui.printErrorMessage(e);
         }
+    }
+
+    public static void main(String[] args) {
+        Ui.printWelcomeMessage();
+        new Duke().run();
+        Ui.printByeMessage();
     }
 
     /**
@@ -41,11 +47,5 @@ public class Duke {
                 Ui.printErrorMessage(e);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Ui.printWelcomeMessage();
-        new Duke().run();
-        Ui.printByeMessage();
     }
 }

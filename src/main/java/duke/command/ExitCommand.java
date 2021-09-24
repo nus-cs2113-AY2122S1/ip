@@ -11,5 +11,6 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void executeUserCommand(TaskList taskList, Storage storage) throws DukeException { }
+    public void executeUserCommand(TaskList taskList, Storage storage) throws DukeException {
+    }
 }

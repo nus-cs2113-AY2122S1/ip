@@ -7,6 +7,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public String getDataForFind() {
+        return description;
+    }
+
+    @Override
     public String toString() {
         return "[T]" + "[" + getStatusIcon() + "] " + description;
     }
@@ -14,6 +19,6 @@ public class Todo extends Task {
     @Override
     public String getStoreDataString() {
         String checkDone = isDone ? "1" : "0";
-        return "T | " + checkDone + " | " +  description;
+        return "T | " + checkDone + " | " + description;
     }
 }

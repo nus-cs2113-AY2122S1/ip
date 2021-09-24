@@ -4,6 +4,9 @@ import duke.Storage;
 import duke.TaskList;
 import duke.exception.DukeException;
 
+/**
+ * To relay the parsed user input to TaskList class for execution
+ */
 public abstract class Command {
     protected static boolean isOver = false;
 
@@ -20,7 +23,7 @@ public abstract class Command {
      * Abstract method to execute user commands
      *
      * @param taskList is an object of TaskList that consists of task operations
-     * @param storage is an object of Storage that saves current list of tasks
+     * @param storage  is an object of Storage that saves current list of tasks
      * @throws DukeException if the subclasses have any exceptions
      */
     public abstract void executeUserCommand(TaskList taskList, Storage storage) throws DukeException;

@@ -29,7 +29,7 @@ ________________________________________________________
 Task description is missing
 ________________________________________________________
 ________________________________________________________
-DEADLINE task description is missing "/by" [Format: deadline task description /by deadline time/day/date]
+DEADLINE task description is missing "/by" [Format: deadline task description /by deadline YYYY-MM-DD]
 ________________________________________________________
 ________________________________________________________
 Use the correct date time format, my friend

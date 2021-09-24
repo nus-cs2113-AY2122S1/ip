@@ -72,6 +72,7 @@ public class Storage {
      */
     public void addData(String taskWords) throws DukeException {
         try {
+            // To break down the task words in the saved txt file
             String[] word = taskWords.split(" \\| ");
 
             switch (word[0]) {
@@ -80,8 +81,7 @@ public class Storage {
                 if (word[1].equals("1")) {
                     todo.markAsDone();
                 }
-                TaskList.list.add(TaskList.count, todo);
-                TaskList.count++;
+                TaskList.list.add(todo);
                 break;
             case "D":
                 dueTime = LocalDate.parse(word[3]);
@@ -89,16 +89,14 @@ public class Storage {
                 if (word[1].equals("1")) {
                     deadline.markAsDone();
                 }
-                TaskList.list.add(TaskList.count, deadline);
-                TaskList.count++;
+                TaskList.list.add(deadline);
                 break;
             case "E":
                 Task event = new Event(word[2], word[3]);
                 if (word[1].equals("1")) {
                     event.markAsDone();
                 }
-                TaskList.list.add(TaskList.count, event);
-                TaskList.count++;
+                TaskList.list.add(event);
                 break;
             default:
                 throw new DukeException("Unable to parse data!");
