@@ -2,7 +2,7 @@ package commands;
 
 import exceptions.DeleteException;
 import processors.TaskList;
-import processors.Ui;
+import processors.UI;
 
 public class DeleteCommand extends Command {
     private static final Integer ARRAY_INDEX_FINDER = 1;
@@ -10,7 +10,7 @@ public class DeleteCommand extends Command {
     private static final Integer TASK_DATE_DIVIDER = 4;
     private static final String DONE_DELETE_KEYWORD = " ";
 
-    public Ui ui = new Ui();
+    public UI ui = new UI();
 
     /**
      * Function deletes the task - from the list of tasks - specified by the user

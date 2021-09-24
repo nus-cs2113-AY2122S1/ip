@@ -2,7 +2,7 @@ package commands;
 
 import exceptions.DeadlineException;
 import processors.TaskList;
-import processors.Ui;
+import processors.UI;
 import tasks.Deadline;
 
 public class DeadlineCommand extends Command {
@@ -11,7 +11,7 @@ public class DeadlineCommand extends Command {
     private static final Integer ZERO = 0;
     private static final Integer TASK_DATE_DIVIDER = 4;
 
-    public Ui ui = new Ui();
+    public UI ui = new UI();
 
     /**
      * Function adds a Deadline into the list of task

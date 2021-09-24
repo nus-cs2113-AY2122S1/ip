@@ -1,9 +1,9 @@
 package commands;
 
-import processors.Ui;
+import processors.UI;
 
 public class HelpCommand extends Command {
-    public Ui ui = new Ui();
+    public UI ui = new UI();
 
     /**
      * Function calls the help method in ui that displays the accepted commands from the user

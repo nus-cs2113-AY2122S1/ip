@@ -23,7 +23,7 @@ public class ProcessManager {
     public ByeCommand byeCommand = new ByeCommand();
     public HelpCommand helpCommand = new HelpCommand();
 
-    public Ui ui = new Ui();
+    public UI ui = new UI();
 
     /**
      * Function takes in a specific command and executes that Command

@@ -2,12 +2,12 @@ package commands;
 
 import processors.Storage;
 import processors.TaskList;
-import processors.Ui;
+import processors.UI;
 
 import java.io.IOException;
 
 public class ByeCommand extends Command{
-    public Ui ui = new Ui();
+    public UI ui = new UI();
     public Storage storage = new Storage();
 
     public void execute(TaskList taskList) throws IOException {

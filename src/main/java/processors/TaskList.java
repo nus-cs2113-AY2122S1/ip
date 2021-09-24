@@ -8,7 +8,7 @@ public class TaskList {
     private static final Integer ARRAY_INDEX_FINDER = 1;
     private static final Integer ZERO = 0;
 
-    public Ui ui = new Ui();
+    public UI ui = new UI();
     public ArrayList<Task> taskList = new ArrayList<>();
 
     /**

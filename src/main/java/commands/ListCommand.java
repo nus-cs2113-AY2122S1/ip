@@ -1,10 +1,10 @@
 package commands;
 
 import processors.TaskList;
-import processors.Ui;
+import processors.UI;
 
 public class ListCommand extends Command {
-    public Ui ui = new Ui();
+    public UI ui = new UI();
 
     /**
      * Function prints out the tasks found in the list

@@ -2,14 +2,14 @@ package commands;
 
 import exceptions.TodoException;
 import processors.TaskList;
-import processors.Ui;
+import processors.UI;
 import tasks.Todo;
 
 public class TodoCommand extends Command {
     private static final Integer TASK_DATE_DIVIDER = 4;
     private static final Integer TODO_DIVIDER = 5;
 
-    public static Ui ui = new Ui();
+    public static UI ui = new UI();
 
     /**
      * Function saves a task into the list of tasks

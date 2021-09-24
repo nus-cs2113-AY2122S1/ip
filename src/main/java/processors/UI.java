@@ -11,7 +11,7 @@ import tasks.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Ui {
+public class UI {
     private static final Integer ZERO = 0;
     private static final Integer ARRAY_INDEX_FINDER = 1;
 
