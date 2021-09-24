@@ -27,8 +27,13 @@ public class Parser {
         return userInput.substring(userInput.indexOf("/") + 1).trim();
     }
 
-    public String getTaskName(String userInput, int lengthOfCommandWord) {
-        return userInput.substring(lengthOfCommandWord, userInput.indexOf("/")).trim();
+    public String getTaskName(String userInput, int lengthOfCommandWord, boolean hasDate) {
+        if (hasDate) {
+            return userInput.substring(lengthOfCommandWord, userInput.indexOf("/")).trim();
+        } else {
+            return userInput.substring(lengthOfCommandWord).trim();
+        }
+
     }
 
     /**
@@ -49,6 +54,8 @@ public class Parser {
             return new DoneCommand();
         case "delete":
             return new DeleteCommand();
+        case "find":
+            return new FindCommand();
         case "deadline":
             return new AddDeadlineCommand();
         case "event":

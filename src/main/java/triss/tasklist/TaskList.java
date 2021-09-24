@@ -24,6 +24,8 @@ public class TaskList {
     private final int LENGTH_OF_WORD_DEADLINE = 8;
     /** Length of the word "event" */
     private final int LENGTH_OF_WORD_EVENT = 5;
+    /** Length of the word "find" */
+    private final int LENGTH_OF_WORD_FIND = 4;
 
     public TaskList() {
         ui = new Ui();
@@ -85,7 +87,7 @@ public class TaskList {
      */
     public void printAllTasks() {
         // If user said "list", print a list of all saved tasks
-        for (Task task: getTasks()) {
+        for (Task task : getTasks()) {
             ui.printLine(getIndexOfTask(task) + 1 + "." + task.printTask());
         }
     }
@@ -97,7 +99,7 @@ public class TaskList {
      */
     public void createNewTodo(String userInput, boolean isSilent) throws TrissException {
         String taskName;
-        taskName = userInput.substring(LENGTH_OF_WORD_TODO).trim();
+        taskName = parser.getTaskName(userInput, LENGTH_OF_WORD_TODO, false);
 
         if (taskName.isBlank()) {
             String errorMessage = "You didn't specify a name for your todo! Let's try that again.\n"
@@ -127,7 +129,7 @@ public class TaskList {
 
         // Parse the task's name from the user's input
         try {
-            taskName = parser.getTaskName(userInput, LENGTH_OF_WORD_EVENT);
+            taskName = parser.getTaskName(userInput, LENGTH_OF_WORD_EVENT, true);
             eventTiming = parser.getDeadlineOrTiming(userInput);
         } catch (Exception error) {
             String errorMessage = "You didn't format your event properly!\n"
@@ -170,7 +172,7 @@ public class TaskList {
 
         try {
             deadlineDate = parser.getDeadlineOrTiming(userInput);
-            taskName = parser.getTaskName(userInput, LENGTH_OF_WORD_DEADLINE);
+            taskName = parser.getTaskName(userInput, LENGTH_OF_WORD_DEADLINE, true);
         } catch (Exception error) {
             String errorMessage = "You didn't write your deadline properly!\n"
                     + " \n"
@@ -283,4 +285,27 @@ public class TaskList {
         ui.printLine("    " + chosenTask.printTask());
     }
 
+    /**
+     * Finds tasks which contain keyword.
+     * @param userInput String in the format 'find [keyword]'.
+     */
+    public void findTaskByKeyword(String userInput) {
+        String keyword = parser.getTaskName(userInput, LENGTH_OF_WORD_FIND, false);
+        boolean hasMatchingCases = false;
+
+        for (Task task : getTasks()) {
+            if (task.getName().contains(keyword)) {
+                if (!hasMatchingCases) {
+                    ui.printLine("Here are the matching tasks:");
+                }
+                hasMatchingCases = true;
+
+                ui.printLine("    " + task.printTask());
+            }
+        }
+
+        if (!hasMatchingCases) {
+            ui.printLine("No tasks containing '" + keyword + "' found!");
+        }
+    }
 }
