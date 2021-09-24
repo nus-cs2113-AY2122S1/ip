@@ -16,7 +16,7 @@
 
 ## Features and Usage
 
-### <a name="list"></a>`list` - Listing current tasks
+### <a name="list"></a>:scroll: `list` - Listing current tasks
 Lists all current tasks stored in local storage task list.
 
 Usage: `list`
@@ -41,7 +41,7 @@ ____________________________________________________________
 ```
 <br />
 
-### <a name="todo"></a>`todo` - Adding a Todo
+### <a name="todo"></a>:bookmark: `todo` - Adding a Todo
 Adds a Todo to the task list.
 
 Usage: `todo TODO_DESCRIPTION`
@@ -61,7 +61,7 @@ ____________________________________________________________
 ```
 <br />
 
-### <a name="event"></a>`event` - Adding an Event
+### <a name="event"></a>:calendar: `event` - Adding an Event
 Adds an Event to the task list.
 
 Usage: `event EVENT_DESCRIPTION /at EVENT_DATE`
@@ -83,7 +83,7 @@ ____________________________________________________________
 ```
 <br />
 
-### <a name="deadline"></a>`deadline` - Adding a Deadline
+### <a name="deadline"></a>:pushpin: `deadline` - Adding a Deadline
 Adds a Deadline to the task list.
 
 Usage: `deadline DEADLINE_DESCRIPTION /by DEADLINE_DATE`
@@ -105,7 +105,7 @@ ____________________________________________________________
 ```
 <br />
 
-### <a name="done"></a>`done` - Marking task as complete
+### <a name="done"></a>:white_check_mark: `done` - Marking task as complete
 Marks a task as done/complete in the task list based on index specified.
 
 Usage: `done TASK_INDEX`
@@ -124,7 +124,7 @@ ____________________________________________________________
 ```
 <br />
 
-### <a name="delete"></a>`delete` - Delete a task
+### <a name="delete"></a>:x: `delete` - Delete a task
 Deletes a task in the task list based on index specified.
 
 Usage: `delete TASK_INDEX`
@@ -145,7 +145,7 @@ ____________________________________________________________
 ```
 <br />
 
-### <a name="find"></a>`find` - Searching for tasks
+### <a name="find"></a>:mag_right: `find` - Searching for tasks
 Searches for tasks in the task list based on the query term specified.
 
 Usage: `find QUERY`
@@ -167,7 +167,7 @@ ____________________________________________________________
 ```
 <br />
 
-### <a name="exit"></a>Exiting the app: `bye`
+### <a name="exit"></a>:door: Exiting the app: `bye`
 Terminates the app session and exits programme.
 
 Usage: `bye`
@@ -185,7 +185,7 @@ ____________________________________________________________
 <br />
 
 
-## <a name="save"></a>Saving the data
+## <a name="save"></a>:floppy_disk: Saving the data
 :bulb: Alfred's task list is saved into the user's local storage automatically after every command
 execution, and thus there is no explicit `save` command implemented.
 
