@@ -8,12 +8,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Scanner;
-import java.time.LocalDate;
 
 public class Storage {
-    private final String pathName = "data/data.txt";
-    private final File file = new File(pathName);
+    private static final String PATH_NAME = "data/data.txt";
+    private static final File FILE = new File(PATH_NAME);
+
+    private static final String STORAGE_SEPARATOR = " \\| ";
+    private static final String ERROR_LOAD_STORAGE = "Error: Unable to load data.";
+    private static final String ERROR_SAVE_STORAGE = "Error: Unable to save data.";
+    private static final String NEW_FILE_CREATED = " New data file created.";
+    private static final String ERROR_PARSE_STORAGE = "Error: Unable to parse data file.";
 
     /**
      * Constructor for Storage class. Attempts to access data file,
@@ -23,10 +31,10 @@ public class Storage {
      */
     public Storage() throws DukeException {
         try {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
+            FILE.getParentFile().mkdirs();
+            FILE.createNewFile();
         } catch (IOException e) {
-            throw new DukeException("Error: Unable to load data.");
+            throw new DukeException(ERROR_LOAD_STORAGE);
         }
     }
 
@@ -39,7 +47,7 @@ public class Storage {
     public void loadData(TaskList taskList) throws DukeException {
         Scanner scanner = null;
         try {
-            scanner = new Scanner(file);
+            scanner = new Scanner(FILE);
             while (scanner.hasNext()) {
                 Task task = readTask(scanner.nextLine());
                 taskList.addTask(task);
@@ -47,7 +55,7 @@ public class Storage {
         } catch (FileNotFoundException | DukeException e) {
             taskList.deleteAllTasks();
             saveData(taskList);
-            throw new DukeException(e.getMessage() + " New data file created.");
+            throw new DukeException(e.getMessage() + NEW_FILE_CREATED);
         }
     }
 
@@ -59,11 +67,11 @@ public class Storage {
      */
     public void saveData(TaskList taskList) throws DukeException {
         try {
-            FileWriter fw = new FileWriter(pathName);
+            FileWriter fw = new FileWriter(PATH_NAME);
             fw.write(taskList.getStorageString());
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("Error: Unable to save data.");
+            throw new DukeException(ERROR_SAVE_STORAGE);
         }
     }
 
@@ -81,7 +89,7 @@ public class Storage {
             markCompleted(words, task);
             return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Error: Unable to parse data file.");
+            throw new DukeException(ERROR_PARSE_STORAGE);
         }
     }
 
@@ -92,7 +100,7 @@ public class Storage {
      * @return Array of Strings after storageLine was split
      */
     private static String[] splitWords(String storageLine) {
-        String[] words = storageLine.split(" \\| ");
+        String[] words = storageLine.split(STORAGE_SEPARATOR);
         return words;
     }
 
@@ -105,16 +113,21 @@ public class Storage {
      * @throws IndexOutOfBoundsException if words is missing some Task information
      */
     private static Task parseTask(String[] words) throws DukeException, IndexOutOfBoundsException {
-        switch (words[0]) {
-        case "T":
-            return new ToDo(words[2]);
-        case "E":
-            return new Event(words[2], words[3]);
-        case "D":
-            LocalDate byDate = LocalDate.ofEpochDay(Long.parseLong(words[3]));
-            return new Deadline(words[2], byDate);
-        default:
-            throw new DukeException("Error: Unable to parse data file.");
+        try {
+            switch (words[0]) {
+            case "T":
+                return new ToDo(words[2]);
+            case "E":
+                return new Event(words[2], words[3]);
+            case "D":
+                ZoneOffset zone = ZoneOffset.UTC;
+                LocalDateTime byDateTime = LocalDateTime.ofEpochSecond(Long.parseLong(words[3]), 0, zone);
+                return new Deadline(words[2], byDateTime);
+            default:
+                throw new DukeException(ERROR_PARSE_STORAGE);
+            }
+        } catch (NumberFormatException | DateTimeException e) {
+            throw new DukeException(ERROR_PARSE_STORAGE);
         }
     }
 

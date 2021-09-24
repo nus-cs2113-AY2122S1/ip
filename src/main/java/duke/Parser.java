@@ -12,7 +12,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -26,6 +26,32 @@ public class Parser {
     private static final String COMMAND_NEW_DEADLINE = "deadline";
     private static final String COMMAND_NEW_EVENT = "event";
     private static final String COMMAND_FIND = "find";
+
+    private static final Character SPACE_CHARACTER = ' ';
+    private static final String EMPTY_STRING = "";
+    private static final String DEADLINE_SEPARATOR = " /by ";
+    private static final String EVENT_SEPARATOR = " /at ";
+
+    private static final String ERROR_INVALID_COMMAND = "Sorry, I do not understand your command.";
+    private static final String ERROR_DONE_INVALID_NUMBER = "Please provide a valid number.";
+    private static final String ERROR_DONE_MISSING_NUMBER = "Please specify the index of a task.";
+    private static final String ERROR_DELETE_INVALID_NUMBER = "Please provide a valid number.";
+    private static final String ERROR_DELETE_MISSING_NUMBER = "Please specify the index of a task.";
+    private static final String ERROR_FIND_INVALID_FORMAT = "Please enter your search in the format \"find [keyword]\".";
+    private static final String ERROR_FIND_MISSING_KEYWORD = "Please specify a keyword to search for.";
+    private static final String ERROR_TODO_INVALID_FORMAT = "Please provide a todo in the format \"todo [task name]\".";
+    private static final String ERROR_TODO_MISSING_NAME = "Please specify a todo name.";
+    private static final String ERROR_DEADLINE_INVALID_FORMAT = "Please provide a deadline in the format \"deadline [task name] /by [date + time]\".";
+    private static final String ERROR_DEADLINE_MISSING_SEPARATOR = "Please use the \" /by \" separator to separate the deadline name and date + time.";
+    private static final String ERROR_DEADLINE_MISSING_NAME = "Please specify a deadline name.";
+    private static final String ERROR_DEADLINE_MISSING_DATE_TIME = "Please specify a do by date and time.";
+    private static final String ERROR_DATE_TIME_INVALID_FORMAT = "Please provide the date in the format \"dd mm yyyy HHMM\", eg. \"12 02 2021 1830\".";
+    private static final String ERROR_EVENT_INVALID_FORMAT = "Please provide an in the format \"event [task name] /at [date]\".";
+    private static final String ERROR_EVENT_MISSING_SEPARATOR = "Please use the \" /at \" separator to separate the event name and date.";
+    private static final String ERROR_EVENT_MISSING_NAME = "Please specify an event name.";
+    private static final String ERROR_EVENT_MISSING_DATE = "Please specify an event date.";
+
+    private static final String DATE_TIME_FORMAT_PATTERN = "dd MM yyyy HHmm";
 
     /**
      * Takes in the userInput String and returns the corresponding command to be executed
@@ -66,7 +92,7 @@ public class Parser {
             Task task = parseEventTask(userInput);
             return new AddCommand(task);
         }
-        throw new DukeException("Sorry, I do not understand your command.");
+        throw new DukeException(ERROR_INVALID_COMMAND);
     }
 
     /**
@@ -82,9 +108,9 @@ public class Parser {
         try {
             taskIndex = Integer.parseInt(userInput.substring(5).strip()) - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Please provide a valid number.");
+            throw new DukeException(ERROR_DONE_INVALID_NUMBER);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Please specify the index of the task.");
+            throw new DukeException(ERROR_DONE_MISSING_NUMBER);
         }
         return new DoneCommand(taskIndex);
     }
@@ -102,9 +128,9 @@ public class Parser {
         try {
             taskIndex = Integer.parseInt(userInput.substring(7).strip()) - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Please provide a valid number.");
+            throw new DukeException(ERROR_DELETE_INVALID_NUMBER);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Please specify the index of the task.");
+            throw new DukeException(ERROR_DELETE_MISSING_NUMBER);
         }
         return new DeleteCommand(taskIndex);
     }
@@ -121,12 +147,12 @@ public class Parser {
         String keyword = "";
         try {
             //if no space character after "find"
-            if (userInput.charAt(4) != ' ') {
-                throw new DukeException("Please enter your search in the format \"find [keyword]\".");
+            if (userInput.charAt(4) != SPACE_CHARACTER) {
+                throw new DukeException(ERROR_FIND_INVALID_FORMAT);
             }
             keyword = userInput.substring(5);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Please specify a keyword to search for.");
+            throw new DukeException(ERROR_FIND_MISSING_KEYWORD);
         }
         return new FindCommand(keyword);
     }
@@ -144,17 +170,17 @@ public class Parser {
     private static ToDo parseTodoTask(String userInput) throws DukeException {
         try {
             //if no space character after "todo"
-            if (userInput.charAt(4) != ' ') {
-                throw new DukeException("Please provide a todo in the format \"todo [task name]\".");
+            if (userInput.charAt(4) != SPACE_CHARACTER) {
+                throw new DukeException(ERROR_TODO_INVALID_FORMAT);
             }
             //if task name is not found
             String todoName = userInput.substring(4).strip();
-            if (todoName.equals("")) {
-                throw new DukeException("Please specify a task name.");
+            if (todoName.equals(EMPTY_STRING)) {
+                throw new DukeException(ERROR_TODO_MISSING_NAME);
             }
             return new ToDo(todoName);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Please provide a todo in the format \"todo [task name]\".");
+            throw new DukeException(ERROR_TODO_INVALID_FORMAT);
         }
     }
 
@@ -171,31 +197,46 @@ public class Parser {
     private static Deadline parseDeadlineTask(String userInput) throws DukeException {
         try {
             //if no space character after "deadline"
-            if (userInput.charAt(8) != ' ') {
-                throw new DukeException("Please provide a deadline in the format \"deadline [task name] /by [date]\".");
+            if (userInput.charAt(8) != SPACE_CHARACTER) {
+                throw new DukeException(ERROR_DEADLINE_INVALID_FORMAT);
             }
-            int byIndex = userInput.indexOf(" /by ");
+            int byIndex = userInput.indexOf(DEADLINE_SEPARATOR);
             //if " /by " separator is not found
             if (byIndex == -1) {
-                throw new DukeException("Please use the \" /by \" separator to separate the deadline name and date.");
+                throw new DukeException(ERROR_DEADLINE_MISSING_SEPARATOR);
             }
             String deadlineName = userInput.substring(8, byIndex).strip();
             //if task name is found
-            if (deadlineName.equals("")) {
-                throw new DukeException("Please specify a deadline name.");
+            if (deadlineName.equals(EMPTY_STRING)) {
+                throw new DukeException(ERROR_DEADLINE_MISSING_NAME);
             }
-            String deadlineDateString = userInput.substring(byIndex + 5).strip();
+            String dateTimeString = userInput.substring(byIndex + 5).strip();
             //if do by date is not found
-            if (deadlineDateString.equals("")) {
-                throw new DukeException("Please specify a do by date.");
+            if (dateTimeString.equals(EMPTY_STRING)) {
+                throw new DukeException(ERROR_DEADLINE_MISSING_DATE_TIME);
             }
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy");
-            LocalDate deadlineDate = LocalDate.parse(deadlineDateString, formatter);
-            return new Deadline(deadlineName, deadlineDate);
+            LocalDateTime deadlineDateTime = parseDateTime(dateTimeString);
+            return new Deadline(deadlineName, deadlineDateTime);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Please provide a deadline in the format \"deadline [task name] /by [date]\".");
+            throw new DukeException(ERROR_DEADLINE_INVALID_FORMAT);
+        }
+    }
+
+    /**
+     * Takes in a String containing Date and Time information and returns a LocalDateTime
+     * with that information.
+     *
+     * @param dateTimeString String containing Date and Time information
+     * @return LocalDateTime corresponding to the information in dateTimeString
+     * @throws DukeException if the dateTimeString is in the incorrect format
+     */
+    private static LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
+        try {
+            DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_PATTERN);
+            LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, dateTimeFormat);
+            return dateTime;
         } catch (DateTimeParseException e) {
-            throw new DukeException("Please provide the date in the format \"dd mm yyyy\", eg. \"12 02 2021\".");
+            throw new DukeException(ERROR_DATE_TIME_INVALID_FORMAT);
         }
     }
 
@@ -212,27 +253,27 @@ public class Parser {
     private static Event parseEventTask(String userInput) throws DukeException {
         try {
             //if no space character after "event"
-            if (userInput.charAt(5) != ' ') {
-                throw new DukeException("Please provide an in the format \"event [task name] /at [date]\".");
+            if (userInput.charAt(5) != SPACE_CHARACTER) {
+                throw new DukeException(ERROR_EVENT_INVALID_FORMAT);
             }
-            int atIndex = userInput.indexOf(" /at ");
+            int atIndex = userInput.indexOf(EVENT_SEPARATOR);
             //if " /at " separator is not found
             if (atIndex == -1) {
-                throw new DukeException("Please use the \" /at \" separator to separate the event name and date.");
+                throw new DukeException(ERROR_EVENT_MISSING_SEPARATOR);
             }
             String eventName = userInput.substring(5, atIndex).strip();
             //if task name is not found
-            if (eventName.equals("")) {
-                throw new DukeException("Please specify an event name.");
+            if (eventName.equals(EMPTY_STRING)) {
+                throw new DukeException(ERROR_EVENT_MISSING_NAME);
             }
             String eventDate = userInput.substring(atIndex + 5).strip();
             //if event date is not found
-            if (eventDate.equals("")) {
-                throw new DukeException("Please specify an event date.");
+            if (eventDate.equals(EMPTY_STRING)) {
+                throw new DukeException(ERROR_EVENT_MISSING_DATE);
             }
             return new Event(eventName, eventDate);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Please provide an in the format \"event [task name] /at [date]\".");
+            throw new DukeException(ERROR_EVENT_INVALID_FORMAT);
         }
     }
 }
