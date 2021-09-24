@@ -8,6 +8,7 @@ import ui.Ui;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/** Adds a deadline task into the list and the file */
 public class AddDeadlineTaskCommand extends Command {
     public static final String COMMAND_KEYWORD = "deadline";
     private String description;

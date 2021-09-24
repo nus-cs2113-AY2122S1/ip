@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+/** Extracts and prints event tasks happening today and deadline tasks due today */
 public class AgendaCommand extends Command {
     public static final String COMMAND_KEYWORD = "agenda";
 

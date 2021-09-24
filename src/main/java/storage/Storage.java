@@ -17,7 +17,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * Performs file operations such as reading, writing and creating files.
+ * Also, adds the tasks stored in the file to the list.
+ */
 public class Storage {
     private static final String FILE_PATH = "data/austin.txt";
     private static final String SEPARATOR = " # ";

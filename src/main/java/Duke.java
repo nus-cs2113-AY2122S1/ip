@@ -36,6 +36,10 @@ public class Duke {
         new Duke().run();
     }
 
+    /**
+     * Handles all the commands input by the user and perform operations based
+     * on the command given. Also prints exception messages if there is any error.
+     */
     public void run() {
         ui.printCurrentStatus(taskList.tasksCount());
         boolean isExit = false;

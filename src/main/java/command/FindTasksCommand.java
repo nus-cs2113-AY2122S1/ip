@@ -7,6 +7,7 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/** Extracts and prints tasks that matches with the keyboard input by the user */
 public class FindTasksCommand extends Command {
     public static final String COMMAND_KEYWORD = "find";
     private String keyword;

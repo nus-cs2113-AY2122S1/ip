@@ -1,8 +1,13 @@
 help
 list
-todo CS2113 Project
-deadline CS2102 project \by Week 8
-event CS2101 presentation \at 7 Sep 0800
+todo CS2113 A-UserGuide
+deadline CS2113 project | 1/10/2021 2359
+event CS2113 finals | 30/11/2021 0900
+find project
 list
 done 2
+delete 2
+done 2
+undo 2
+clear
 bye

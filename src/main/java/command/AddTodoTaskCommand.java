@@ -6,6 +6,7 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/** Adds a todo task into the list and the file */
 public class AddTodoTaskCommand extends Command {
     public static final String COMMAND_KEYWORD = "todo";
     private String description;

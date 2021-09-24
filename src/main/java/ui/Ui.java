@@ -10,6 +10,7 @@ import java.util.Scanner;
 import static task.TaskList.getTaskItemInString;
 import static task.TaskList.tasksCount;
 
+/** Interacts with user by printing messages and task details */
 public class Ui {
     private final String logo =
                     "        ___      __    __       _______.___________.__  .__   __.\n" +
@@ -227,6 +228,10 @@ public class Ui {
         System.out.println(ACKNOWLEDGE_CLEAR_MESSAGE);
     }
 
+    /**
+     * Prints all the tasks from the list in a string format.
+     * @param tasks List containing task objects
+     */
     public static void printList(ArrayList<Task> tasks) {
         int index = 1;
         for (Task task: tasks) {
@@ -235,6 +240,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints deadline tasks due today and event tasks happening today.
+     * @param todayTasks List containing the deadline and event tasks
+     */
     public void printAgenda(ArrayList<Task> todayTasks) {
         if (todayTasks.size() == 0) {
             System.out.println("There are no deadlines and events today.");

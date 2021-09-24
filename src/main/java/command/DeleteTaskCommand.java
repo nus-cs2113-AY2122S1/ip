@@ -8,6 +8,7 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/** Deletes a task in the list and in the file */
 public class DeleteTaskCommand extends Command {
     public static final String COMMAND_KEYWORD = "delete";
     private int taskIndex;
