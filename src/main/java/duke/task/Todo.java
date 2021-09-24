@@ -5,7 +5,7 @@ public class Todo extends Task {
      * Initializes task description and set the initial
      * status to "not done".
      *
-     * @param description Task description.
+     * @param description task description
      */
     public Todo(String description) {
         super(description);
@@ -15,8 +15,8 @@ public class Todo extends Task {
      * Initializes task description and sets the initial
      * status according to the given parameter.
      *
-     * @param description Task description.
-     * @param isDone Initial status.
+     * @param description task description
+     * @param isDone initial status
      */
     public Todo(String description, boolean isDone) {
         super(description, isDone);

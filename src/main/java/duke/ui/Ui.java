@@ -33,7 +33,6 @@ public class Ui {
 
     private final Scanner sc = new Scanner(System.in);
 
-    /** Reads user response. */
     public String readUserResponse() {
         return sc.nextLine().strip();
     }
@@ -42,10 +41,8 @@ public class Ui {
     public void printGreeting() {
         System.out.print(LINE);
         System.out.println(LOGO);
-        System.out.println(PADDING
-                + "Konnichiwa! I'm your personal maid. Call me Maid-chan! "
-                + Message.EXPRESSION_BLUSH);
-        System.out.println(PADDING + "What can I do for you?");
+        System.out.println(PADDING + "Konnichiwa! I'm your personal maid. Call me Maid-chan!");
+        System.out.println(PADDING + "What can I do for you? " + Message.EXPRESSION_BLUSH);
         System.out.println(LINE);
     }
 
@@ -101,9 +98,8 @@ public class Ui {
      * Displays to user the task marked as done.
      *
      * @param task the task marked as done
-     * @param size the size of the task list
      */
-    public void printTaskMarkedAsDone(Task task, int size) {
+    public void printTaskMarkedAsDone(Task task) {
         System.out.print(LINE);
         System.out.println(PADDING + "Good job! I've marked this task as done:");
         System.out.println(PADDING + "  " + task);
@@ -130,7 +126,7 @@ public class Ui {
      * @param date the specified date
      */
     public void printTaskWithDate(TaskList taskList, String date) {
-        TaskList filteredTaskList = taskList.filterDate(date);
+        TaskList filteredTaskList = taskList.filterTaskByDate(date);
 
         System.out.print(LINE);
         if (filteredTaskList.isEmpty()) {
@@ -157,7 +153,7 @@ public class Ui {
             System.out.println(PADDING + "There is no matching task in your list.");
         } else {
             System.out.println(PADDING + "Here are the matching tasks in your list:");
-            System.out.println(filteredTaskList);
+            System.out.print(filteredTaskList);
         }
         System.out.println(LINE);
     }

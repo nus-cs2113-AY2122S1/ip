@@ -24,7 +24,7 @@ public class DoneCommand extends Command {
 
         Task task = taskList.getTask(taskNumber - 1);
         taskList.markTaskAsDone(taskNumber - 1);
-        ui.printTaskMarkedAsDone(task, taskList.getSize());
+        ui.printTaskMarkedAsDone(task);
         storage.saveData(taskList.serialize());
     }
 }

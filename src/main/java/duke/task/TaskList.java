@@ -47,7 +47,7 @@ public class TaskList {
      * @param date the specified date
      * @return the filtered task list
      */
-    public TaskList filterDate(String date) {
+    public TaskList filterTaskByDate(String date) {
         TaskList filteredTaskList = new TaskList();
         for (Task task : taskList) {
             if (task instanceof Deadline) {
@@ -84,7 +84,7 @@ public class TaskList {
     /**
      * Serializes task data.
      *
-     * @return Serialied task data.
+     * @return serialied task data
      */
     public String serialize() {
         StringBuilder serializedData = new StringBuilder();
@@ -97,9 +97,9 @@ public class TaskList {
     /**
      * Deserializes stored data and returns a new list.
      *
-     * @param data Stored data.
-     * @return The new task list after deserialization.
-     * @throws DukeException If data is in invalid format.
+     * @param data stored data
+     * @return the new task list after deserialization
+     * @throws DukeException if data is in invalid format
      */
     public static List<Task> deserialize(List<String> data) throws DukeException {
         List<Task> taskList = new ArrayList<>();

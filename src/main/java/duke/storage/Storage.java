@@ -67,6 +67,7 @@ public class Storage {
      * Saves task data to a file.
      *
      * @param data task data
+     * @throws IOException if an I/O error occurs
      */
     public void saveData(String data) throws IOException {
         try {
