@@ -19,7 +19,7 @@ Alfred is a Command Line Application for task management, modelled after Alfred 
 Lists all current tasks stored in local storage task list. <br />
 Usage: `list` <br />
 
-Examples of usage and expected outcome:
+Expected outcome and examples of usage:
 - If there exists tasks, Alfred will enumerate the tasks and print them:
 ```
 list
@@ -40,8 +40,11 @@ ____________________________________________________________
 ### <a name="todo"></a>`todo` - Adding a Todo
 Adds a Todo to the task list. <br />
 Usage: `todo TODO_DESCRIPTION` <br />
+- :warning: `TODO_DESCRIPTION` cannot be empty,
 
-Examples of usage and expected outcome:
+Expected outcome and examples of usage: <br />
+Alfred will add the Todo to the current task list, and 
+display the current number of tasks in the task list:
 ```
 todo Meet Catwoman
 ____________________________________________________________
@@ -50,13 +53,45 @@ ____________________________________________________________
  Sir, the number of Tasks you have scheduled currently amounts to 1.
 ____________________________________________________________
 ```
-> :warning: `TODO_DESCRIPTION` cannot be empty.
 
 ### <a name="event"></a>Adding Events: `event`
+Adds an Event to the task list. <br />
+Usage: `event EVENT_DESCRIPTION /at EVENT_DATE` <br />
+- :warning: `EVENT_DESCRIPTION` cannot be empty.
+- :warning: `EVENT_DATE` cannot be empty.
+- :warning: `EVENT_DATE` must be formatted as `DDMMYYYY`, `DD/MM/YYYY`, or `DD-MM-YYYY`.
+
+Expected outcome and examples of usage: <br />
+Alfred will add the Event to the current task list, and
+display the current number of tasks in the task list:
+```
+event OP1 /at 10092021
+____________________________________________________________
+ I shall put this in your schedule, Master Wayne:
+    [E][ ] OP1 (at: Sep 10 2021)
+ Sir, the number of Tasks you have scheduled currently amounts to 2.
+____________________________________________________________
+```
 
 
 ### <a name="deadline"></a>Adding Deadlines: `deadline`
+Adds a Deadline to the task list. <br />
+Usage: `deadline DEADLINE_DESCRIPTION /by DEADLINE_DATE` <br />
+- :warning: `DEADLINE_DESCRIPTION` cannot be empty.
+- :warning: `DEADLINE_DATE` cannot be empty.
+- :warning: `DEADLINE_DATE` must be formatted as `DDMMYYYY`, `DD/MM/YYYY`, or `DD-MM-YYYY`.
 
+Expected outcome and examples of usage: <br />
+Alfred will add the Deadline to the current task list, and
+display the current number of tasks in the task list:
+```
+deadline Submit IP Final Version /by 01/10/2021
+____________________________________________________________
+ I shall put this in your schedule, Master Wayne: 
+    [D][ ] Submit IP Final Version (by: Oct 01 2021)
+ Sir, the number of Tasks you have scheduled currently amounts to 3.
+____________________________________________________________
+```
 
 ### <a name="done"></a>Marking task as complete: `done`
 
