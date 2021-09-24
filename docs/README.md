@@ -38,6 +38,7 @@ Format: `help`
 Expected Outcome:
 
 ```
+________________________________________________________________
      Please input a valid request
      Duke can do the follow instructions
      1. Record Todo Task: todo (description)
@@ -46,6 +47,7 @@ Expected Outcome:
      4. List Down Recorded Tasks: list
      5. Set Task After Completion: done (index on list)
      6. Exit From Program: bye
+________________________________________________________________
 ```
 
 ## List - List Down All Current Tasks
@@ -76,7 +78,7 @@ Add Todo Task into task list
 
 Format `todo <DESCRIPTION>`
 
-* **DESCRIPTION**: The task description
+* **DESCRIPTION:** The Todo description
 
 Example: `todo Read Micah`
 
@@ -90,10 +92,27 @@ ________________________________________________________________
 ________________________________________________________________
 ```
 
-
-
-
 ### A Deadline Task
+
+Add Deadline Task into task list
+
+Format `deadline <DESCRIPTION> /by <DATE>`
+
+* **DESCRIPTION:** The Deadline description
+
+* **DATE:** Date and Time that the task is due by
+
+Example: `deadline Study for CS2113T /by Saturday 2pm`
+
+Expected Outcome: 
+
+```
+________________________________________________________________
+     Got it. I've added this task:
+     [ ] Study for CS2113T (by: Saturday 2pm)
+     Now you have 6 tasks in the list.
+________________________________________________________________
+```
 
 ### An Event Task
 
