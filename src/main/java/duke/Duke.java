@@ -11,6 +11,11 @@ import static duke.storage.UserData.initFileWithDirectory;
 
 public class Duke {
 
+    /**
+     *
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         Program currProgram = new Program();
         HalUi newUi = new HalUi();

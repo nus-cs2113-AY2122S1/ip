@@ -4,6 +4,10 @@ import duke.task.Task;
 
 import java.util.Scanner;
 
+/**
+ * Class handling CLI text functions.
+ * Public functions from HalUi is called when printing UI elements or error messages.
+ */
 public class HalUi {
     public static final String LINE_BREAK_SINGLE = "____________________________________________________________";
     public static final String ENTER_COMMAND_TEXT = "Enter command: ";

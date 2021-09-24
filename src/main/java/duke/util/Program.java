@@ -16,6 +16,9 @@ import java.util.Objects;
 
 import static duke.storage.UserData.readFromFile;
 
+/**
+ * Program acts as a central core of Hal's task functions.
+ */
 public class Program {
     private boolean canTerminateHal = false;    //when true, the program exits
     private static ArrayList<Task> listTasks = new ArrayList<>(999);
@@ -25,7 +28,11 @@ public class Program {
     Event dummyEvent = new Event(null, null);
     Deadline dummyDeadline = new Deadline(null, null);
 
-    public Program() throws IOException {
+    /**
+     * Constructor to create a Program instance.
+     * Tasks saved in local storage is loaded into memory once the program is launched.
+     */
+    public Program() {
         this.numItems = 0;
         loadSavedTasks();
     }
@@ -37,7 +44,15 @@ public class Program {
         return numItems;
     }
 
-    //function takes in an input string from the user, parses it and runs the corresponding function
+    /**
+     * Takes in a string input. The function then parses it and runs the corresponding function.
+     * If the input string doesn't match any existing function, a HalException is thrown.
+     * Tasks are saved to local storage each time the function is run.
+     *
+     * @param string String input containing a function call.
+     * @throws HalException thrown when no corresponding function exists.
+     * @throws IOException thrown when tasks failed to save to local storage.
+     */
     public void parseAndExecuteTask(String string) throws HalException, IOException {
         if (Objects.equals(string, "list")) {
             listAllTasks();
@@ -59,8 +74,11 @@ public class Program {
         UserData.writeToFile(storageParser.saveListAsString(listTasks));
     }
 
-    //function to load tasks from memory
-    public static void loadSavedTasks() throws IOException {
+    /**
+     * Load tasks from local storage.
+     * Updates the number of tasks in storage for list function.
+     */
+    public static void loadSavedTasks() {
         listTasks = readFromFile();
         int count = 0;
         for (Object obj : listTasks) {
@@ -71,6 +89,15 @@ public class Program {
         numItems = count;
     }
 
+    /**
+     * Add tasks based on the task description and the type of task specified.
+     * Description and time is parsed from the message using parseTextInput function.
+     * If a task is not specified according to the format, a HalException is thrown.
+     *
+     * @param taskMessage Task description entered by the user.
+     * @param type The type of task object -> to do, event or deadline
+     * @throws HalException thrown when taskMessage cannot be parsed properly.
+     */
     public static void addTasks(String taskMessage, Task type) throws HalException {
         ui.printSingleLineBreak();
         String description;
@@ -98,7 +125,10 @@ public class Program {
         ui.printEnterCommandMessage();
     }
 
-    //function to list all tasks currently saved by the user
+    /**
+     * Prints all the tasks currently saved by the user.
+     * If no tasks are present, an empty task message will be printed.
+     */
     public static void listAllTasks() {
         ui.printSingleLineBreak();
         System.out.println("Displaying all items saved:");
@@ -111,7 +141,12 @@ public class Program {
         ui.printEnterCommandMessage();
     }
 
-    //function to mark individual tasks as done
+    /**
+     * Marks task as done based on the specified task index.
+     * Takes in a string in the format "done x", where x is the order of the task in the list.
+     *
+     * @param task A string containing the order of the task in the list.
+     */
     public void executeDoneTask(String task) {
         int taskNum = messageParser.parseInt(task);
         if (taskNum > getNumItems() || taskNum <= 0) {
@@ -125,6 +160,12 @@ public class Program {
         ui.printEnterCommandMessage();
     }
 
+    /**
+     * Deletes a task from the list based on the specified task index.
+     * Takes in a string in the format "delete x", where x is the order of the task in the list.
+     * If the specified index does not exist, or an invalid format is entered, exceptions are thrown.
+     * @param index A string containing the order of the task in the list.
+     */
     public void deleteTask(String index) {
         ui.printSingleLineBreak();
         try {
@@ -145,7 +186,9 @@ public class Program {
         }
     }
 
-    //function to exit program
+    /**
+     * Exits the program when called.
+     */
     public void executeBye() {
         this.setCanTerminateHal(true);
     }
