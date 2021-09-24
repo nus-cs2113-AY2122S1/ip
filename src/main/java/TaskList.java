@@ -203,6 +203,11 @@ public class TaskList {
     }
 
 
+    /**
+     * findTasks with error handling
+     *
+     * @param userInput keyword/letters that user wants to find in tasks list
+     */
     public void findTasksPlusException(String userInput) {
         try {
             findTasks(userInput);
@@ -212,6 +217,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * find tasks based on certain keywords/letters that task descriptions contain
+     *
+     * @param userInput keyword/letters that user wants to find in tasks list
+     * @throws BlankDescriptionException if findKeyPhrase.isBlank()
+     */
     private void findTasks(String userInput) throws BlankDescriptionException {
         if (tasks.isEmpty()) {
             Ui.printlnTab("Your task list is empty!");

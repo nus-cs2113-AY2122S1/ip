@@ -6,7 +6,7 @@ public class Ui {
     /**
      * prints a string with a tab prepended to it and a newline appended to it
      *
-     * @param str
+     * @param str string to print
      */
     public static void printlnTab(String str) {
         System.out.println("\t" + str);
