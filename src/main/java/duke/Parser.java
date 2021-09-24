@@ -17,12 +17,17 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
 /**
  * This class is used to parse string inputs from users and return the input commands as objects
  * that can be executed, according to the commands specified by the user
  */
-public class Parser {
-    private static final int TIME_INFO_START_INDEX = 1;
+public abstract class Parser {
+    public static final int TIME_INFO_START_INDEX = 1;
+    public static final int SPECIAL_DATE_SEQUENCE = 4;
 
     /**
      * Returns an executable command object based on the input string where the command type and other additional
@@ -106,7 +111,13 @@ public class Parser {
             if (timeIndex < 0) {
                 throw new EmptyTimeException();
             }
-            return request.substring(timeIndex + TIME_INFO_START_INDEX);
+            try {
+                String time = request.substring(timeIndex + SPECIAL_DATE_SEQUENCE).trim();
+                LocalDate date = LocalDate.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            } catch (Exception ex) {
+                return request.substring(timeIndex + TIME_INFO_START_INDEX).trim();
+            }
     }
 
     private static String getDescription(String request) throws EmptyDescriptionException {
