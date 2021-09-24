@@ -22,10 +22,10 @@ public class Ui {
     }
 
     /**
-     * Prints message when a file write error has occurred.
+     * Prints message when a file error has occurred.
      */
     public void printFileError() {
-        System.out.println("File write error");
+        System.out.println("File error");
     }
 
     /**
@@ -128,7 +128,7 @@ public class Ui {
      */
     public void printDeadlineCommandFormat() {
         String message = ("  Invalid command format!!" + System.lineSeparator() +
-                "  Correct format is: " + "deadline <task name> /by <date>");
+                "  Correct format is: " + "deadline <task name> /by <date_time>");
         System.out.println(message);
     }
 
@@ -151,7 +151,7 @@ public class Ui {
      */
     public void printEventCommandFormat() {
         String message = ("  Invalid command format!!" + System.lineSeparator() +
-                "  Correct format is: " + "event <event name> /at <time>");
+                "  Correct format is: " + "event <event name> /at <date_time>");
         System.out.println(message);
     }
 

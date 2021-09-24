@@ -126,7 +126,7 @@ public class FileManager {
      * Initialises Duke by creating a directory and file if they do not exist, then
      * calls the initialiseDukeStatus method to initialise the status of Duke.
      *
-     * @param taskManager To pass to the initialiseDukeStatus method
+     * @param taskManager To pass to the initialiseDukeStatus method.
      */
     public void initialiseDuke(TaskManager taskManager, Ui ui) {
         createDirectory();

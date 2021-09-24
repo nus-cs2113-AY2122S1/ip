@@ -15,20 +15,16 @@ public class Duke {
     private static final Path FILE_PATH = Paths.get(ROOT, "data", "duke.txt");
     private static final Path DIRECTORY_PATH = Paths.get(ROOT, "data");
 
-    // Task manager
     private TaskManager taskManager;
 
-    // File manager
     private FileManager fileManager;
 
-    // Parser
     private Parser parser;
 
-    // Ui
     private Ui ui;
 
     /**
-     * Constructor. Instantiates a TaskManager, FileManager, and Parser.
+     * Constructor. Instantiates a TaskManager, FileManager, Parser, and Ui.
      */
     public Duke() {
         taskManager = new TaskManager();

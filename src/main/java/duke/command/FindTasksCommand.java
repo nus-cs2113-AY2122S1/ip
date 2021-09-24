@@ -6,7 +6,7 @@ import duke.task.TaskManager;
 import duke.ui.Ui;
 
 /**
- * Command to find tasks based on a keyword
+ * Command to find tasks based on a keyword.
  */
 public class FindTasksCommand extends Command {
     private static final String COMMAND_FIND = "find";

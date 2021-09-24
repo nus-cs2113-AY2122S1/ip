@@ -111,7 +111,7 @@ public class Parser {
      *
      * @param rawDescription The entire description (excluding the command).
      * @param command        The command (command word) from the user.
-     * @param indexSplit     The index of "/at" or "/by"
+     * @param indexSplit     The index of "/at" or "/by".
      * @return A String Array of length 2, containing the description (task name)
      * and timing information.
      * @throws DukeException If the description format provided is invalid.

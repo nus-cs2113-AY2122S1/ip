@@ -13,7 +13,7 @@ public class ListTasksCommand extends Command {
      * current tasks.
      *
      * @param taskManager Passed to the listTasks method.
-     * @param ui          Used to list all tasks.
+     * @param ui          Used to list (print) all tasks.
      */
     @Override
     public void execute(TaskManager taskManager, Ui ui) {

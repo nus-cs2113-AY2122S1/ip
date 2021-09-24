@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
  */
 public class TaskManager {
     // Constants
-    private static final int MAX_TASKS = 100;
     private static final String DELIMITER = " | ";
     private static final String SYMBOL_TODO = "T";
     private static final String SYMBOL_DEADLINE = "D";
@@ -109,7 +108,7 @@ public class TaskManager {
      * Converts all the current tasks into a String.
      *
      * @return The String representing all the current tasks.
-     * @throws DukeException If unable to save one or more tasks.
+     * @throws DukeException If unable to save a task.
      */
     public String convertCurrentTasksToString() throws DukeException {
         StringBuilder lines = new StringBuilder();
