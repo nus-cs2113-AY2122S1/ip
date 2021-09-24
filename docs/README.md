@@ -148,14 +148,13 @@ Here is how it will look like:
 ![date example](date_example.png)
 
 ## Command Summary
-Action | Format, Examples
------------- | -------------
-Add ToDo | `todo TASK_DESCRIPTION` <br /> e.g., `todo read book`
-Add Deadline | `deadline TASK_DESCRIPTION /by DEADLINE` <br /> e.g., `deadline read book /by 21 feb`
-Add Event | `event TASK_DESCRIPTION /at EVENT_DETAILS` <br /> e.g., `event read book /at 21 feb bishan library`
-List | `list`
-Set Done | `done INDEX_OF_TASK` <br /> e.g., `done 2`
-Delete | `delete INDEX_OF_TASK` <br /> e.g., `delete 2`
-Find | `find KEYWORD` <br /> e.g., `find ball`
-End | `bye`
-
+| Action | Format, Examples |
+| ------------ | ------------- |
+| Add ToDo | `todo TASK_DESCRIPTION` <br /> e.g., `todo read book` |
+| Add Deadline | `deadline TASK_DESCRIPTION /by DEADLINE` <br /> e.g., `deadline read book /by 21 feb` |
+| Add Event | `event TASK_DESCRIPTION /at EVENT_DETAILS` <br /> e.g., `event read book /at 21 feb bishan library` |
+| List | `list` |
+| Set Done | `done INDEX_OF_TASK` <br /> e.g., `done 2` |
+| Delete | `delete INDEX_OF_TASK` <br /> e.g., `delete 2` |
+| Find | `find KEYWORD` <br /> e.g., `find ball` |
+| End | `bye` |
