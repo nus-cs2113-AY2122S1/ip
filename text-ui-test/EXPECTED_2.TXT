@@ -34,11 +34,11 @@ ____________________________________________________________
 4.[T][ ] 4
 5.[T][ ] 4
 6.[T][ ] 5
-7.[D][ ] 0 (by: Sep 20 2021 4:00 PM)
-8.[D][ ] 0 (by: Sep 20 2021 2:00 PM)
-9.[D][ ] 0 (by: Sep 21 2021 6:00 PM)
-10.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
-11.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+7.[D][ ] today (by: Sep 20 2021 4:00 PM)
+8.[D][ ] today2 (by: Sep 20 2021 2:00 PM)
+9.[D][ ] tmr (by: Sep 21 2021 6:00 PM)
+10.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
+11.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
 12.[E][ ] todayactually (at: today)
 13.[T][ ] some task
 ____________________________________________________________
@@ -59,11 +59,11 @@ ____________________________________________________________
 4.[T][ ] 4
 5.[T][ ] 4
 6.[T][ ] 5
-7.[D][ ] 0 (by: Sep 20 2021 4:00 PM)
-8.[D][ ] 0 (by: Sep 20 2021 2:00 PM)
-9.[D][ ] 0 (by: Sep 21 2021 6:00 PM)
-10.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
-11.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+7.[D][ ] today (by: Sep 20 2021 4:00 PM)
+8.[D][ ] today2 (by: Sep 20 2021 2:00 PM)
+9.[D][ ] tmr (by: Sep 21 2021 6:00 PM)
+10.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
+11.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
 12.[E][ ] todayactually (at: today)
 13.[T][ ] some task
 14.[E][ ] something (at: 8pm)
@@ -86,11 +86,11 @@ ____________________________________________________________
 4.[T][X] 4
 5.[T][ ] 4
 6.[T][ ] 5
-7.[D][ ] 0 (by: Sep 20 2021 4:00 PM)
-8.[D][ ] 0 (by: Sep 20 2021 2:00 PM)
-9.[D][ ] 0 (by: Sep 21 2021 6:00 PM)
-10.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
-11.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+7.[D][ ] today (by: Sep 20 2021 4:00 PM)
+8.[D][ ] today2 (by: Sep 20 2021 2:00 PM)
+9.[D][ ] tmr (by: Sep 21 2021 6:00 PM)
+10.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
+11.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
 12.[E][ ] todayactually (at: today)
 13.[T][ ] some task
 14.[E][ ] something (at: 8pm)
@@ -118,11 +118,11 @@ ____________________________________________________________
 4.[T][X] 4
 5.[T][ ] 4
 6.[T][ ] 5
-7.[D][ ] 0 (by: Sep 20 2021 4:00 PM)
-8.[D][ ] 0 (by: Sep 20 2021 2:00 PM)
-9.[D][ ] 0 (by: Sep 21 2021 6:00 PM)
-10.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
-11.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+7.[D][ ] today (by: Sep 20 2021 4:00 PM)
+8.[D][ ] today2 (by: Sep 20 2021 2:00 PM)
+9.[D][ ] tmr (by: Sep 21 2021 6:00 PM)
+10.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
+11.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
 12.[E][ ] todayactually (at: today)
 13.[T][ ] some task
 14.[E][ ] something (at: 8pm)
@@ -196,17 +196,17 @@ has been added. You now have 21 task(s) in the list
 ____________________________________________________________
 ____________________________________________________________
 I have removed the task: 
-[D][ ] 0 (by: Sep 20 2021 2:00 PM)
+[D][ ] today2 (by: Sep 20 2021 2:00 PM)
 You now have 20 tasks remaining
 ____________________________________________________________
 ____________________________________________________________
 I have removed the task: 
-[D][ ] 0 (by: Sep 21 2021 6:00 PM)
+[D][ ] tmr (by: Sep 21 2021 6:00 PM)
 You now have 19 tasks remaining
 ____________________________________________________________
 ____________________________________________________________
 I have removed the task: 
-[D][ ] 0 (by: Sep 20 2021 4:00 PM)
+[D][ ] today (by: Sep 20 2021 4:00 PM)
 You now have 18 tasks remaining
 ____________________________________________________________
 ____________________________________________________________
@@ -216,8 +216,8 @@ ____________________________________________________________
 4.[T][X] 4
 5.[T][ ] 4
 6.[T][ ] 5
-7.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
-8.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+7.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
+8.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
 9.[E][ ] todayactually (at: today)
 10.[T][ ] some task
 11.[E][ ] something (at: 8pm)
@@ -263,10 +263,12 @@ Here are the matching tasks in your list:
 ____________________________________________________________
 1.[E][ ] something (at: 8pm)
 2.[D][X] something (by: 7pm)
-3.[E][ ] something (at: 8pm)
-4.[D][ ] something (by: 7pm)
-5.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
-6.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
+3.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
+4.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
+5.[E][ ] something (at: 8pm)
+6.[D][ ] something (by: 7pm)
+7.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
+8.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
 ____________________________________________________________
 ____________________________________________________________
 Please enter something to search for after 'find'
@@ -277,10 +279,10 @@ ____________________________________________________________
 ____________________________________________________________
 Today's Agenda : 
 ____________________________________________________________
-1.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+1.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
 2.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
 3.[D][ ] today2 (by: Sep 20 2021 2:00 PM)
-4.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
+4.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
 5.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
 6.[D][ ] today (by: Sep 20 2021 4:00 PM)
 ____________________________________________________________
@@ -291,8 +293,8 @@ ____________________________________________________________
 4.[T][X] 4
 5.[T][ ] 4
 6.[T][ ] 5
-7.[E][ ] 0 (at: Sep 20 2021 3:00 PM)
-8.[E][ ] 0 (at: Sep 20 2021 11:00 AM)
+7.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
+8.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
 9.[E][ ] todayactually (at: today)
 10.[T][ ] some task
 11.[E][ ] something (at: 8pm)

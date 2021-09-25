@@ -102,7 +102,7 @@ public class Storage {
             try {
                 LocalDateTime byDT = LocalDateTime.parse(taskDetails[3].trim(),
                         DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-                return new Deadline(taskDetails[1].trim(), byDT, isDone);
+                return new Deadline(taskDetails[2].trim(), byDT, isDone);
             } catch (DateTimeParseException dtpe) {
                 return new Deadline(taskDetails[2].trim(), taskDetails[3].trim(), isDone);
             }
@@ -111,7 +111,7 @@ public class Storage {
             try {
                 LocalDateTime atDT = LocalDateTime.parse(taskDetails[3].trim(),
                         DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-                return new Event(taskDetails[1].trim(), atDT, isDone);
+                return new Event(taskDetails[2].trim(), atDT, isDone);
             } catch (DateTimeParseException dtpe) {
                 return new Event(taskDetails[2].trim(), taskDetails[3].trim(), isDone);
             }
