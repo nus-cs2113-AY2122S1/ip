@@ -81,7 +81,7 @@ public class TaskManager {
      * Preloads tasks from the file.
      *
      * @param reader Reads from the file used to save tasks.
-     * @throws IOException If an I/O exception occurs.
+     * @throws IOException If an I/O error occurs.
      */
     // @@author brendanlsz-reused
     // Reused from https://www.techiedelight.com/how-to-read-a-file-using-bufferedreader-in-java/

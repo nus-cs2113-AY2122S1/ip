@@ -51,6 +51,7 @@ public class Duke {
             } catch (DukeException e) {
                 ui.println("  " + e.getMessage());
             }
+            fileManager.saveDukeWithoutMessage(taskManager, ui);
             ui.printHorizontalLine();
             System.out.print(System.lineSeparator());
         } while (!isExit);
