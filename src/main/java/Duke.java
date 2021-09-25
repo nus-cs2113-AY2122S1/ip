@@ -261,6 +261,10 @@ public class Duke {
                 System.out.println(LINE_SEPARATOR);
                 System.out.println(dukeException.getMessage());
                 System.out.println(LINE_SEPARATOR);
+            } catch (NumberFormatException numberFormatException) {
+            System.out.println(LINE_SEPARATOR);
+            System.out.println("Oops, please enter the task number!");
+            System.out.println(LINE_SEPARATOR);
             }
         }
     }
