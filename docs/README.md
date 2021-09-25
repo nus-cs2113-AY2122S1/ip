@@ -23,20 +23,14 @@ Duke is a **Command Line Interface (CLI) app that helps you to better manage you
 
 1. Ensure you have Java version `11` or above installed on your computer.
     - If you haven't, you may download it from [here](https://www.oracle.com/java/technologies/downloads/#java11-linux).
-
 > ❗ Please download them relative to your Operating System.
-
 2. Next, download the latest `Duke.jar` from [here](https://github.com/Kair0s3/ip/releases).
     - Simply click on the `Duke.jar` under Assets and the download should start.
 3. After downloading, open up `command prompt` .
-
 > 💡 To open command prompt, `win` + `r` , then type and enter `cmd` .
-
 4. Then, run the `Duke.jar` by typing in `java -jar Duke.jar`. Please make sure, that you are at the directory where `Duke.jar` is.
     - In the screenshot example below, I have kept `Duke.jar` in my Downloads folder.
-
 ![Untitled](images/Untitled.png)
-
 5. Here on, you can type commands to tell Duke to do something for you. Below are some sample commands you can try out.
     - `list` : List all tasks that you have added.
     - `todo Do my iP User Guide` : Adds a Todo task to the list of tasks.
