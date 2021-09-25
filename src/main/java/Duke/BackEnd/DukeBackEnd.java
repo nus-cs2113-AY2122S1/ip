@@ -30,7 +30,7 @@ public class DukeBackEnd {
             return false;
         }
 
-        String[] commands = inWord.split(" ");
+        String[] commands = DukeParser.parseDoneInstruction(inWord);
         if (commands.length != 2) {
             return false;
         }
@@ -48,7 +48,7 @@ public class DukeBackEnd {
             throw new DukeException();
         }
 
-        String[] commands = inWord.split(" ");
+        String[] commands = DukeParser.parseDoneInstruction(inWord);
         int taskDoneIndex = Integer.parseInt(commands[1]);
         taskList.get(taskDoneIndex - 1).markAsDone();
         taskDoneMessage(taskDoneIndex, taskList);
@@ -68,7 +68,7 @@ public class DukeBackEnd {
         }
 
         //split inWord by the first whitespace(s) into 2 separate strings
-        String[] commands = inWord.split("\\s+", 2);
+        String[] commands = DukeParser.parseEventInstruction(inWord);
         if (commands.length != 2 || !inWord.contains(EVENT_KEYWORD)) {
             return false;
         }
@@ -85,19 +85,15 @@ public class DukeBackEnd {
 
     public static void printEvent(String inWord, ArrayList<Task> taskList) throws DukeException {
         //split inWord by the first whitespace(s) into 2 separate strings
-        String[] commands = inWord.split("\\s+", 2);
+        String[] commands = DukeParser.parseEventInstruction(inWord);
 
-        if(!checkValidEvent(inWord)) {
+        if (checkValidEvent(inWord)) {
+            Event newItem = DukeParser.parseEventDescription(commands);
+            taskList.add(newItem);
+            eventMessage(newItem, taskList);
+        } else {
             throw new DukeException();
         }
-
-        String[] details = commands[1].split(EVENT_KEYWORD, 2);
-        String description = details[0].trim();
-        String at = details[1].trim();
-
-        Event newItem = new Event(description, at);
-        taskList.add(newItem);
-        eventMessage(newItem, taskList);
     }
 
     public static void manageEvent(String inWord, ArrayList<Task> taskList) {
@@ -115,7 +111,7 @@ public class DukeBackEnd {
         }
 
         //split inWord by the first whitespace(s) into 2 separate strings
-        String[] commands = inWord.split("\\s+", 2);
+        String[] commands = DukeParser.parseTodoInstruction(inWord);
         String details = commands[1];
         boolean isNonEmptyDetails = !details.isEmpty();
         return commands.length == 2 && isNonEmptyDetails;
@@ -123,7 +119,7 @@ public class DukeBackEnd {
 
     public static void printTodo(String inWord, ArrayList<Task> taskList) throws DukeException {
         //split inWord by the first whitespace(s) into 2 separate strings
-        String[] commands = inWord.split("\\s+", 2);
+        String[] commands = DukeParser.parseTodoInstruction(inWord);
 
         if(!checkValidTodo(inWord)) {
             throw new DukeException();
@@ -150,7 +146,7 @@ public class DukeBackEnd {
         }
 
         //split inWord by the first whitespace(s) into 2 separate strings
-        String[] commands = inWord.split("\\s+", 2);
+        String[] commands = DukeParser.parseDeadlineInstruction(inWord);
         if (commands.length != 2 || !inWord.contains(DEADLINE_KEYWORD)) {
             return false;
         }
@@ -167,19 +163,15 @@ public class DukeBackEnd {
 
     public static void printDeadline(String inWord, ArrayList<Task> taskList) throws DukeException {
         //split inWord by the first whitespace(s) into 2 separate strings
-        String[] commands = inWord.split("\\s+", 2);
+        String[] commands = DukeParser.parseDeadlineInstruction(inWord);
 
-        if(!checkValidDeadline(inWord)) {
+        if (checkValidDeadline(inWord)) {
+            Deadline newItem = DukeParser.parseDeadlineDescription(commands);
+            taskList.add(newItem);
+            deadlineMessage(newItem, taskList);
+        } else {
             throw new DukeException();
         }
-
-        String[] details = commands[1].split(DEADLINE_KEYWORD, 2);
-        String description = details[0].trim();
-        String by = details[1].trim();
-
-        Deadline newItem = new Deadline(description, by);
-        taskList.add(newItem);
-        deadlineMessage(newItem, taskList);
     }
 
     public static void manageDeadline(String inWord, ArrayList<Task> taskList) {
@@ -196,7 +188,7 @@ public class DukeBackEnd {
             return false;
         }
 
-        String[] commands = inWord.split(" ");
+        String[] commands = DukeParser.parseDeleteInstruction(inWord);
         if (commands.length != 2) {
             return false;
         }

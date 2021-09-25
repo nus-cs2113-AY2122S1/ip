@@ -1,6 +1,7 @@
 package Duke.RunFile;
 
 import Duke.BackEnd.DukeBackEnd;
+import Duke.BackEnd.DukeParser;
 import Duke.SaveFile.DataSaver;
 import Duke.TaskTypes.Task;
 import Duke.UI.UserInterface;
@@ -15,9 +16,7 @@ public class DukeProgram {
     public static final ArrayList<Task> taskList = new ArrayList<>();
 
     public static void executeUserInstruction(String inWord) {
-        //split inWord by the first whitespace(s) into 2 separate strings
-        String[] instruction = inWord.split("\\s+", 2);
-        String instructionType = instruction[0];
+        String instructionType = DukeParser.getCommandType(inWord);
 
         switch(instructionType) {
         case LIST_COMMAND:
