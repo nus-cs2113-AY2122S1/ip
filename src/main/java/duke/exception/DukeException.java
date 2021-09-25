@@ -7,7 +7,7 @@ public class DukeException extends Exception {
     private final String message;
 
     /**
-     * Constructs a DukeException with a message s.
+     * Constructs a DukeException with a message.
      *
      * @param message The exception message.
      */
