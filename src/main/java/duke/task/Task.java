@@ -5,7 +5,7 @@ import duke.Message;
 public class Task {
     private boolean isDone;
     private String description;
-    protected final Type type;
+    final Type type;
 
     public enum Type {
         DEADLINE(3, "by"),
@@ -33,11 +33,11 @@ public class Task {
             return super.toString().toLowerCase();
         }
 
-        public char getChar() {
+        private char getChar() {
             return super.toString().charAt(0);
         }
 
-        public static Type getType(char firstLetter){
+        static Type getType(char firstLetter){
             for(Type type : values()){
                 if(firstLetter == type.getChar()){
                     return type;
@@ -59,8 +59,8 @@ public class Task {
         this.type = type;
     }
 
-    void setDescription(String description) {
-        this.description = description;
+    String getDescription() {
+        return description;
     }
 
     private char getIsDoneChar() {
@@ -76,6 +76,7 @@ public class Task {
     public String toString() {
         return String.format("[%c][%c] %s", type.getChar(), getIsDoneChar(), description);
     }
+
     String getFormattedString() {
         return String.format("%c|%d|%s", type.getChar(), isDone ? 1 : 0, description);
     }

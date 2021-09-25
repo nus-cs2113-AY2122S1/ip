@@ -16,7 +16,6 @@ public class TaskManager {
 
     private static ArrayList<Task> tasks = new ArrayList<>(MAX_TASKS);
 
-
     //A class to be passed into a function to allow lambda code to be executed
     private interface Lambda {
         void execute();
@@ -42,6 +41,7 @@ public class TaskManager {
                 Message.printWithSpacers(aiobe.getMessage());
             }
         }
+
     }
 
     public static void taskDone(int id) {
@@ -86,7 +86,7 @@ public class TaskManager {
         }
     }
 
-    private static Type getTaskFromLoadedTask(String[] loadedTaskSplit) throws IllegalArgumentException, WrongNumberOfArgumentsException{
+    private static Type getTaskFromLoadedTask(String[] loadedTaskSplit) throws IllegalArgumentException, WrongNumberOfArgumentsException {
         Type taskType = loadedTaskSplit[0].length() == 1 ? Type.getType(loadedTaskSplit[0].charAt(0)) : null;
         if (taskType == null) {
             throw new IllegalArgumentException();
@@ -136,13 +136,16 @@ public class TaskManager {
     }
 
     public static void printTasks() {
+        printTasks("", tasks);
+    }
+
+    public static void printTasks(String message, ArrayList<Task> tasksToPrint) {
         try {
-            if (tasks.size() == 0) {
+            if (tasksToPrint.size() == 0) {
                 throw new ListEmptyException();
             }
             int count = 1;
-            String message = "";
-            for (Task task : tasks) {
+            for (Task task : tasksToPrint) {
                 message += String.format("%d.%s\n", count++, task);
             }
             Message.printWithSpacers(message);
@@ -150,4 +153,15 @@ public class TaskManager {
             Message.printWithSpacers(lee.getMessage());
         }
     }
+
+    public static void findTasks(String description) {
+        ArrayList<Task> tasksToPrint = new ArrayList<>(MAX_TASKS);
+        for (Task task : tasks) {
+            if (task.getDescription().contains(description)) {
+                tasksToPrint.add(task);
+            }
+        }
+        printTasks("Here are the matching tasks in your list:\n", tasksToPrint);
+    }
+
 }
