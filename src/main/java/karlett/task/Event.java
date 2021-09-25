@@ -1,6 +1,8 @@
 package karlett.task;
 
 import karlett.storage.TaskListEncoder;
+import karlett.tasklist.TaskList;
+import karlett.ui.TextUi;
 
 import java.io.IOException;
 
@@ -17,8 +19,8 @@ public class Event extends Task {
         this.description = description;
         this.isDone = false;
         this.at = at;
-        increaseNumberOfTasks();
-        printNewTaskAddedMessage();
+        TaskList.increaseNumberOfTasks();
+        TextUi.printNewTaskAddedMessage(this);
         TaskListEncoder.appendNewEventToFile(this);
     }
 
@@ -27,7 +29,7 @@ public class Event extends Task {
         this.description = description;
         this.isDone = isDone;
         this.at = at;
-        increaseNumberOfTasks();
+        TaskList.increaseNumberOfTasks();
     }
 
     @Override

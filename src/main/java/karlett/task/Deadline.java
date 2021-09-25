@@ -1,6 +1,8 @@
 package karlett.task;
 
 import karlett.storage.TaskListEncoder;
+import karlett.tasklist.TaskList;
+import karlett.ui.TextUi;
 
 import java.io.IOException;
 
@@ -17,8 +19,8 @@ public class Deadline extends Task {
         this.description = description;
         this.isDone = false;
         this.by = by;
-        increaseNumberOfTasks();
-        printNewTaskAddedMessage();
+        TaskList.increaseNumberOfTasks();
+        TextUi.printNewTaskAddedMessage(this);
         TaskListEncoder.appendNewDeadlineToFile(this);
     }
 
@@ -27,7 +29,7 @@ public class Deadline extends Task {
         this.description = description;
         this.isDone = isDone;
         this.by = by;
-        increaseNumberOfTasks();
+        TaskList.increaseNumberOfTasks();
     }
 
     @Override

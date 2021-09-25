@@ -3,6 +3,7 @@ package karlett.ui;
 import karlett.Duke;
 import karlett.storage.StorageFile;
 import karlett.task.Task;
+import karlett.tasklist.TaskList;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -141,5 +142,31 @@ public class TextUi {
             n--;
         }
         System.out.println();
+    }
+
+    public static void printTaskDeletedMessage(Task t) {
+        drawDivider();
+        System.out.println("Meow~ Karlett has deleted this task:\n" +
+                "  " + t + "\nYou have " + TaskList.numberOfTasks +
+                " tasks in the list now meow (((;꒪ꈊ꒪;)))");
+        drawDivider();
+    }
+
+    public static void printNewTaskAddedMessage(Task task) {
+        drawDivider();
+        System.out.println("Karlett now remembers:\n" + "  " + task);
+        if (TaskList.numberOfTasks == 1) {
+            System.out.println("You have 1 task in the list now meow (((;꒪ꈊ꒪;)))");
+        } else {
+            System.out.println("You have " + TaskList.numberOfTasks + " tasks in the list now meow (((;꒪ꈊ꒪;)))");
+        }
+        drawDivider();
+    }
+
+    public static void printMarkAsDoneMessage(Task task) {
+        drawDivider();
+        System.out.println("Meow~ Karlett has marked this task as done:\n" +
+                "  " + task);
+        drawDivider();
     }
 }

@@ -3,6 +3,7 @@ package karlett.storage;
 import karlett.task.Deadline;
 import karlett.task.Event;
 import karlett.task.Task;
+import karlett.tasklist.TaskList;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -17,7 +18,7 @@ public class TaskListEncoder {
         BufferedReader reader = null;
         FileWriter writer = null;
         reader = new BufferedReader(new FileReader(StorageFile.filePath));
-        for (int i = 0; i < Task.getNumberOfTasks(); i++) {
+        for (int i = 0; i < TaskList.getNumberOfTasks(); i++) {
             line = reader.readLine();
             if (i == index) {
                 continue;
@@ -43,7 +44,7 @@ public class TaskListEncoder {
         line = reader.readLine();
         String updatedTask = line.replaceFirst("0", "1");
         fileContent = fileContent + updatedTask + System.lineSeparator();
-        for (int i = index + 1; i < Task.getNumberOfTasks(); i++) {
+        for (int i = index + 1; i < TaskList.getNumberOfTasks(); i++) {
             line = reader.readLine();
             fileContent = fileContent + line + System.lineSeparator();
         }

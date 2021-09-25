@@ -4,6 +4,7 @@ import karlett.Duke;
 import karlett.task.Deadline;
 import karlett.task.Event;
 import karlett.task.Task;
+import karlett.tasklist.TaskList;
 import karlett.ui.TextUi;
 
 import java.io.IOException;
@@ -101,12 +102,12 @@ public class Parser {
             break;
         case "list":
             if (taskContentWords.length == 0) {
-                Task.printList(Duke.list);
+                TaskList.printList(Duke.list);
             } else {
                 TextUi.printPendingConfirmationToListMessage();
                 String userConfirmation = in.nextLine().toLowerCase(Locale.ROOT);
                 if (userConfirmation.equals("y")) {
-                    Task.printList(Duke.list);
+                    TaskList.printList(Duke.list);
                 }
             }
             break;
@@ -125,7 +126,7 @@ public class Parser {
         case "delete":
             try {
                 int index = Integer.parseInt(taskContentWords[0]);
-                Task.remove(Duke.list, index);
+                TaskList.remove(Duke.list, index);
                 break;
             } catch (NumberFormatException ex) {
                 TextUi.printDeleteFormatErrorMessage();
