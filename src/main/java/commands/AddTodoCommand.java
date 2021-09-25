@@ -4,8 +4,9 @@ import task.Todo;
 
 public class AddTodoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a todo to the task list. \n" +
-            "Example: " + COMMAND_WORD+" {DESCRIPTION}";
+    public static final String MESSAGE_USAGE = "\ntodo: Adds a todo to the task list. \n"
+            + "\tFormat: todo {DESCRIPTION}\n"
+            +"\tExample: todo wipe the table\n";
     public static final String MESSAGE_SUCCESS = "New todo added: %1$s";
     public final Todo toAdd;
 

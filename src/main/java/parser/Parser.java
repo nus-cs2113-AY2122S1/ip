@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 import static common.Messages.*;
+import static ui.Ui.DISPLAYED_INDEX_OFFSET;
 
 public class Parser {
     public static final String DATE_KEYWORD = "/d";
@@ -43,8 +44,8 @@ public class Parser {
         }
     }
 
-    private static String[] splitCommandWordsAndArgs(String rawInput, String keyword) {
-        final String[] split = rawInput.trim().split(keyword, 2);
+    private static String[] splitCommandWordsAndArgs(String input, String keyword) {
+        final String[] split = input.trim().split(keyword, 2);
         if (split.length == 2) {
             return split;
         }
@@ -64,8 +65,8 @@ public class Parser {
 
     public static String[] getTaskDateArgs(String commandArgs) {
         String[] descriptionAndDatetime = splitCommandWordsAndArgs(commandArgs, DATE_KEYWORD);
-        String[] dateAndTime = splitCommandWordsAndArgs(descriptionAndDatetime[1].trim(),TIME_KEYWORD);
-        return new String[]{descriptionAndDatetime[0],dateAndTime[0],dateAndTime[1]};
+        String[] dateAndTime = splitCommandWordsAndArgs(descriptionAndDatetime[1].trim(), TIME_KEYWORD);
+        return new String[]{descriptionAndDatetime[0], dateAndTime[0], dateAndTime[1]};
     }
 
     public static Command prepareAddEvent(String[] eventArgs) {
@@ -106,19 +107,19 @@ public class Parser {
         return LocalTime.parse(str.trim());
     }
 
-    public static Command prepareDeleteTask(String taskNumber) {
+    public static Command prepareDeleteTask(String displayIndex) {
         try {
-            int displayIndex = parseArgsAsDisplayedIndex(taskNumber);
-            return new DeleteCommand(displayIndex);
+            int taskIndex = parseArgsAsDisplayedIndex(displayIndex) - DISPLAYED_INDEX_OFFSET;
+            return new DeleteCommand(taskIndex);
         } catch (ParseException e) {
             return new IncorrectCommand("could not parse display index.");
         }
     }
 
-    private static Command prepareMarkAsDone(String taskNumber) {
+    private static Command prepareMarkAsDone(String displayIndex) {
         try {
-            int displayIndex = parseArgsAsDisplayedIndex(taskNumber);
-            return new MarkAsDoneCommand(displayIndex);
+            int taskIndex = parseArgsAsDisplayedIndex(displayIndex) - DISPLAYED_INDEX_OFFSET;
+            return new MarkAsDoneCommand(taskIndex);
         } catch (ParseException e) {
             return new IncorrectCommand("could not parse display index.");
         }

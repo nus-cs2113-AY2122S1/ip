@@ -18,7 +18,7 @@ public abstract class TaskWithDate extends Task{
 
     @Override
     public String toString() {
-        return getStatusIcon() + " " + super.toString() + " ( " + DATE_TIME_FORMATTER.format(dateTime) + ")";
+        return getStatusIcon() + " " + super.toString() + " (" + DATE_TIME_FORMATTER.format(dateTime) + ")";
     }
 
     public boolean isAfter(TaskWithDate taskWithDate) {

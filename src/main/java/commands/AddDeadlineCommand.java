@@ -9,8 +9,9 @@ import static parser.Parser.TIME_KEYWORD;
 
 public class AddDeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a deadline to the task list. \n"
-            + "Example: " + COMMAND_WORD + " {DESCRIPTION}" + DATE_KEYWORD + "{yyyy-mm-dd}" + TIME_KEYWORD + "{hh:mm}";
+    public static final String MESSAGE_USAGE = "\ndeadline: Adds a deadline to the task list. \n"
+            + "\tFormat: deadline {DESCRIPTION}" + DATE_KEYWORD + " {yyyy-mm-dd}" + TIME_KEYWORD + "{hh:mm}\n"
+            + "\tExample: deadline homework /d2020-12-31 /t09:00\n";
     public static final String MESSAGE_SUCCESS = "New deadline added: %1$s";
     public final Deadline toAdd;
 

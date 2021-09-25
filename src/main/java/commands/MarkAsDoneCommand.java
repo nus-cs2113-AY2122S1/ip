@@ -1,32 +1,30 @@
 package commands;
 
-import common.Messages;
 import task.Task;
 
-import static ui.Ui.INDENT;
-
+import static common.Messages.MESSAGE_TASK_NOT_FOUND;
 
 public class MarkAsDoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks the task corresponding to the task number as complete. \n"
-            + "Example: done {TASK_NUMBER}";
-    public static final String MESSAGE_DONE_SUCCESS = "Wow. You finally completed a task after lazying around all day.\n"
-            + INDENT + "Completed: %1$s";
+    public static final String MESSAGE_USAGE = "done: Marks the task corresponding to the task number as complete.\n"
+            + "\tFormat: done {TASK_NUMBER}\n"
+            + "\tExample: done 2";
+    public static final String MESSAGE_SUCCESS = "\nCompleted: %1$s\n"+
+            "\tWow. You finally completed a task after lazying around all day.\n";
 
-
-    public MarkAsDoneCommand(int targetDisplayIndex) {
-        super(targetDisplayIndex);
+    public MarkAsDoneCommand(int targetIndex) {
+        super(targetIndex);
     }
 
     @Override
     public CommandResult execute() {
         try {
-            final int taskIndex = getTargetDisplayIndex();
-            final Task toComplete = getTargetTask();
-            taskManager.markTaskAsDone(taskIndex);
-            return new CommandResult(String.format(MESSAGE_DONE_SUCCESS, toComplete.toString()));
+            Task toMarkDone = getTargetTask();
+            int targetIndex = getTargetIndex();
+            taskManager.markTaskAsDone(targetIndex);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toMarkDone.toString()));
         } catch (IndexOutOfBoundsException e) {
-            return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
+            return new CommandResult(MESSAGE_TASK_NOT_FOUND);
         }
     }
 }

@@ -20,7 +20,7 @@ public class Ui {
             + "|____/ \\__,_|_|\\_\\___|\n";
     public static final int DISPLAYED_INDEX_OFFSET = 1;
 
-    public static final String INDENT = "\t\t";
+    public static final String INDENT = "\t";
     public static final String NEW_LINE = "\n\t";
     public static final String INDENTED_NEW_LINE = "\n\t\t";
     public static final String DIVIDER = "_______________________________";
@@ -47,19 +47,6 @@ public class Ui {
         return input;
     }
 
-
-    public void showLoadingError() {
-    }
-
-    public void showError(String errorMessage) {
-    }
-
-    public void showToUser(String... message) {
-        for (String m : message) {
-            System.out.println(INDENT + m.replace("\n", NEW_LINE));
-        }
-    }
-
     public void showResultToUser(CommandResult result) {
         final ArrayList<Task> relevantTasks = result.getRelevantTasks();
         if (relevantTasks != null) {
@@ -84,8 +71,15 @@ public class Ui {
         return taskStringsList.toArray(new String[0]);
     }
 
+    public void showToUser(String... message) {
+        for (String m : message) {
+            out.println(INDENT + m.replace("\n",NEW_LINE));
+        }
+        showLine();
+    }
+
     public void showWelcome() {
-        out.println(INDENT + LOGO.replace("\n",INDENTED_NEW_LINE));
+        out.println(INDENT + LOGO.replace("\n", INDENTED_NEW_LINE));
         out.println(INDENT + GREETING);
     }
 

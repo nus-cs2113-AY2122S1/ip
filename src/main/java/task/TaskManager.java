@@ -29,7 +29,7 @@ public class TaskManager {
         return getTaskList();
     }
 
-    public void sortTaskList() {
+    private void sortTaskList() {
         ArrayList<TaskWithDate> taskWithDateList = filterTasksWithDateFromTaskList();
         sortByDate(taskWithDateList);
         ArrayList<Task> sortedTaskList = new ArrayList<>(taskWithDateList);
@@ -51,8 +51,6 @@ public class TaskManager {
             }
         }
     }
-
-
 
     private ArrayList<TaskWithDate> filterTasksWithDateFromTaskList() {
         ArrayList<TaskWithDate> taskWithDateList = new ArrayList<>();

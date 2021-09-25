@@ -6,12 +6,12 @@ import task.Task;
 public class DeleteCommand extends Command{
 
     public static final String COMMAND_WORD = "delete";
-    public static final String MESSAGE_USAGE = COMMAND_WORD+": Deletes the task corresponding to the task number. \n"
+    public static final String MESSAGE_USAGE = "\tdelete: Deletes the task corresponding to the task index.\n"
             + "Example: delete {TASK_NUMBER}";
-    public static final String MESSAGE_DELETE_SUCCESS = "I've deleted the task: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted task: %1$s";
 
-    public DeleteCommand(int targetDisplayIndex) {
-        super(targetDisplayIndex);
+    public DeleteCommand(int targetIndex) {
+        super(targetIndex);
     }
 
     @Override
@@ -19,7 +19,7 @@ public class DeleteCommand extends Command{
         try {
             final Task toDelete = getTargetTask();
             taskManager.deleteTask(toDelete);
-            return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, toDelete.toString()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete.toString()));
         } catch (IndexOutOfBoundsException e) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
         }
