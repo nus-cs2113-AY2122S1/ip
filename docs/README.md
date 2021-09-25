@@ -319,8 +319,8 @@ ____________________________________________________________
 <br />
 
 ### Local Save
-All updates made to the task list is automatically saved to a local file
-> Note: Save will be automatically loaded up on application start up, if valid
+All updates made to the task list are automatically saved to a local file `duke.txt`
+> Note: There is no need to save manually.
 
 <br />
 
