@@ -2,7 +2,7 @@ package duke.constants;
 
 public class DukeCommandStrings extends DukeConstants {
 
-    /** Commands recognized by Duke */
+    /** Commands recognized by Duke. */
     public static final String LIST_COMMAND = "list";
     public static final String DONE_COMMAND = "done";
     public static final String TODO_COMMAND = "todo";
