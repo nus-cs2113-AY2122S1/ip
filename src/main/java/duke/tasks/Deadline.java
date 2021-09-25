@@ -44,6 +44,9 @@ public class Deadline extends Task {
         }
     }
 
+    // @@author MadProgrammer-reused
+    // Reused from https://stackoverflow.com/questions/20231539/java-check-the-date-format-of-current-string-is-according-to-required-format-or/20232680
+    // with minor modifications
     /**
      * Checks if the format of the date, time, or dateTime the user entered is correct based on a specified format
      *
@@ -75,4 +78,5 @@ public class Deadline extends Task {
         }
         return false;
     }
+    // @@author
 }
