@@ -1,18 +1,22 @@
 package shima.parser;
 
-import shima.command.Command;
 import shima.command.AddCommand;
-import shima.command.DeleteCommand;
-import shima.command.DoneCommand;
-import shima.command.ListCommand;
-import shima.command.ViewPersonalityCommand;
-import shima.command.ExitCommand;
 import shima.command.HelpCommand;
+import shima.command.DoneCommand;
+import shima.command.DeleteCommand;
+import shima.command.ListCommand;
+import shima.command.ExitCommand;
+import shima.command.ViewPersonalityCommand;
+import shima.command.Command;
+import shima.command.FindCommand;
+
 import shima.design.UserInterface;
 import shima.storage.Storage;
+import shima.task.Task;
 import shima.task.TaskList;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
@@ -33,6 +37,8 @@ public class Parser {
     public static final String SLASH_MISSING_MSG = "Sorry, fail to create an Event, the time specific character '/' is missing";
     public static final String DASH_MISSING_MSG = "Sorry, fail to create an Event, the period specific character '-' is missing";
     public static final String EMPTY_TASK_INDEX_MSG = "Sorry, the input task number is missing, please try again! :(";
+    public static final String EMPTY_KEYWORD_MSG = "Sorry, the keyword is empty! I do not know which task you are looking for :(";
+    public static final String NO_MATCHING_TASK_MSG = "\tHmm... I do not find any task matches the keyword, please use another keyword!";
     private static String name = "";
     public static final String EMPTY_DEADLINE_MSG = "Sorry, the deadline for the task \"" + name + "\" is missing!";
     public static final String EMPTY_PERIOD_MSG = "Sorry, the date and period for the task \"" + name + "\" is missing!";
@@ -42,8 +48,8 @@ public class Parser {
      *
      * @param tasks   The list class object that stores all the tasks
      * @param storage The storage class object that used to save data
-     * @return Returns the respective command to each input accordingly
      * @param ui The user interface class object used to display message box
+     * @return Returns the respective command to each input accordingly
      * @throws IOException Throws this exception when there is error occurs when accessing external file
      */
     public static Command readCommand(TaskList tasks, Storage storage, UserInterface ui) throws IOException {
@@ -70,10 +76,39 @@ public class Parser {
             return parseDeadline(tasks, command, words, ui);
         case COMMAND_DONE:
             return parseDoneCommand(tasks, storage, words, ui);
+        case "find":
+            return parseFindCommand(tasks, command, words, ui);
         default:
             ui.showMessage(INVALID_COMMAND_MSG, HELP_SUPPORT_MSG);
             return new Command();
         }
+    }
+
+    /**
+     * Checks if the find command syntax and keyword are valid
+     * @param tasks The task list class object that stores all the tasks
+     * @param command The input command typed by the user
+     * @param words   The array of words that compose the input command
+     * @param ui The user interface class object used to display message box
+     * @return Returns a new find command object if the syntax is correct, return empty command otherwise
+     */
+    private static Command parseFindCommand(TaskList tasks, String command, String[] words, UserInterface ui) {
+        String keyword = command.replaceFirst(words[0], "").trim();
+        if (keyword.isEmpty()){
+            ui.showMessage(EMPTY_KEYWORD_MSG);
+            return new Command();
+        }
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task t : tasks.getTasks()){
+            if (t.toString().contains(keyword)){
+                matchingTasks.add(t);
+            }
+        }
+        if (matchingTasks.isEmpty()){
+            ui.showMessage(NO_MATCHING_TASK_MSG);
+            return new Command();
+        }
+        return new FindCommand(matchingTasks, ui);
     }
 
     /**
