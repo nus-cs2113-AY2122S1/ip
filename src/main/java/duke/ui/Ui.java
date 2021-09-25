@@ -44,8 +44,8 @@ public class Ui {
      * Prints the details of the newly added task.
      *
      * @param task        Task object that was added.
-     * @param taskManager TaskManager object, used to get
-     *                    task count in this case.
+     * @param taskManager TaskManager object used to get
+     *                    task count.
      */
     public void printAddTask(Task task, TaskManager taskManager) {
         if (task == null) {
@@ -93,7 +93,7 @@ public class Ui {
      *
      * @param task        Task object that was deleted.
      * @param taskManager TaskManager object used to get the
-     *                    task count in this case.
+     *                    task count.
      */
     public void printDeleteTask(Task task, TaskManager taskManager) {
         String message = " Got it! I've removed this task:" +

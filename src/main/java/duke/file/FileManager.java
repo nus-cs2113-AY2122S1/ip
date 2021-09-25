@@ -109,8 +109,8 @@ public class FileManager {
      * Then, print to the user a success message if successful, or an error
      * message otherwise.
      *
-     * @param taskManager To pass to the saveDukeStatus method.
-     * @param ui          To print success message if current tasks were successfully saved.
+     * @param taskManager Passed to the saveDukeStatus method.
+     * @param ui          Used to print success message if current tasks were successfully saved.
      */
     public void saveDuke(TaskManager taskManager, Ui ui) {
         try {
@@ -126,7 +126,7 @@ public class FileManager {
      * Initialises Duke by creating a directory and file if they do not exist, then
      * calls the initialiseDukeStatus method to initialise the status of Duke.
      *
-     * @param taskManager To pass to the initialiseDukeStatus method.
+     * @param taskManager Passed to the initialiseDukeStatus method.
      */
     public void initialiseDuke(TaskManager taskManager, Ui ui) {
         createDirectory();

@@ -27,7 +27,7 @@ public class DoneCommand extends Command {
      *
      * @param taskManager Used to mark task as done.
      * @param ui          Used to print messages.
-     * @throws DukeException If task ID is invalid.
+     * @throws DukeException If taskId is invalid.
      */
     @Override
     public void execute(TaskManager taskManager, Ui ui) throws DukeException {

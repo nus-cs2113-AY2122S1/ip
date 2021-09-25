@@ -60,7 +60,7 @@ public class Duke {
     /**
      * Instantiates an instance of Duke and runs it.
      *
-     * @param args not utilised for this program.
+     * @param args Not utilised for this program.
      */
     public static void main(String[] args) {
         new Duke().run();
