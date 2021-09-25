@@ -20,6 +20,13 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
+    public static void printDukeHelp() {
+        System.out.println(LINE);
+        System.out.println(HELP_MESSAGE);
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
+
     public static void printList(ArrayList<Task> taskList) {
         if (taskList.size() == 0) {
             DukeException.emptyTaskException();

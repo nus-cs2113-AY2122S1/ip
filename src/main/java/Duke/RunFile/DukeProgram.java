@@ -37,6 +37,9 @@ public class DukeProgram {
         case DELETE_COMMAND:
             DukeBackEnd.manageDelete(inWord, taskList);
             break;
+        case HELP_COMMAND:
+            UserInterface.printDukeHelp();
+            break;
         default:
             UserInterface.generalDukeException();
             break;

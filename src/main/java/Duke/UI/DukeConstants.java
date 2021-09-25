@@ -9,6 +9,7 @@ public class DukeConstants {
     public static final String DEADLINE_COMMAND = "deadline";
     public static final String EVENT_COMMAND = "event";
     public static final String DELETE_COMMAND = "delete";
+    public static final String HELP_COMMAND = "help";
     public static final String DUKE_LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
@@ -18,4 +19,11 @@ public class DukeConstants {
     public static final String EVENT_KEYWORD = " /at";
     public static final String DEADLINE_KEYWORD = " /by";
     public static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
+    public static final String HELP_MESSAGE = " Type list to display your list of todos.\n"
+            +" Type todo {description} to add a task into your list.\n"
+            +" Type event {description} /at {at} to add an event into your list.\n"
+            +" Type deadline {description} /by {by} to add a deadline into your list.\n"
+            +" Type delete {index} to delete a task from your list of todos.\n"
+            +" Type done {index} to mark a task as done in your list of todos.\n"
+            +" Type bye to exit Duke.";
 }
