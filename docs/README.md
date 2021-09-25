@@ -118,7 +118,33 @@ ____________________________________________________________
 ```
 <br />
    
-   
+ ### Adding an EVENT: `event <DESCRIPTION> /at <DATE_TIME>`
+Adds a *EVENT* task to the task list. It is set to **not done** by default
+- **DESCRIPTION** : the Task description
+- **/at** : is a *REQUIRED* clause when adding a deadline
+- **DATETIME** : the *date* and *time* that the task takes place. This **CANNOT BE NULL/EMPTY**.
+> :warning: Note: datetime needs to be given in a valid format.
+> See [Dates](#list-valid-datetime-formats-dates) for more details
+
+Example: `event family dinner /at today 1930`
+```shell
+event attend lecture /at 2021-11-21 08:00
+____________________________________________________________
+Got it. I've added this task:
+ [E][ ] attend lecture  (at:NOVEMBER 21, 2021 08:00 a.m.)
+Now you have 3 tasks in the list.
+____________________________________________________________
+list
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] Complete CS2113T Assignment
+2.[D][ ] read book  (by:OCTOBER 13, 2021 04:00 p.m.)
+3.[E][ ] attend lecture  (at:NOVEMBER 21, 2021 08:00 a.m.)
+____________________________________________________________
+
+```
+
+<br />  
    
 ### Listing all tasks: `list`
 This command lists all the tasks currently scheduled in the the task list
@@ -181,27 +207,6 @@ Your query returned the following results:
 
 <br />
 
-
-
-### Adding an EVENT: `event <DESCRIPTION> /at <DATE_TIME>`
-Adds a *EVENT* task to the task list. It is set to **not done** by default
-- **DESCRIPTION** : the Task description
-- **/at** : is a *REQUIRED* clause when adding a deadline
-- **DATETIME** : the *date* and *time* that the task takes place. This **CANNOT BE NULL/EMPTY**.
-> :warning: Note: datetime needs to be given in a valid format.
-> See [Dates](#list-valid-datetime-formats-dates) for more details
-
-Example: `event family dinner /at today 1930`
-```shell
-~$ event family dinner /at today 1930
-------------------------------------------
-Got it. I've added this task: 
-[E][ ] family dinner (at: Sep 20 2021 19:30)
-You now have (7) tasks!
-------------------------------------------
-```
-
-<br />
 
 ### List valid DateTime Formats: `dates`
 Lists all the valid datetime formats to be used when
