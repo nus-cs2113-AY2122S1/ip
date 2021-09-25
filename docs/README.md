@@ -99,7 +99,7 @@ If the command is successful, the task will be printed out together with the tot
 
 **Command format:**
 
-`deadline [description] \by [deadline]`
+`deadline [description] /by [deadline]`
 
 Parameters:
 * `[description]` - Description of the task, can include spaces
@@ -131,7 +131,7 @@ If the command is successful, the task will be printed out together with the tot
 
 **Command format:**
 
-`event [description] \at [time]`
+`event [description] /at [time]`
 
 Parameters:
 * `[description]` - Description of the task, can include spaces
