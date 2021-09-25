@@ -11,8 +11,11 @@ import javax.swing.*;
 public class UserServerGUI {
     private WelcomeGUI welcomePage;
     private ServeGUI servePage;
-    private TaskList tasks = new TaskList();
+    private UserManager userManager;
+
+    private TaskList tasks;
     private JButton twoPageTransitionButton;
+    private JTextField usernameField;
 
     private JButton sortTaskButton;
     private JButton finishTaskButton;
@@ -20,14 +23,15 @@ public class UserServerGUI {
     private JButton deleteTaskButton;
     private JButton exitButton;
     private JButton addTaskButton;
-    private JComboBox taskType;
-    private JTextArea taskName;
-    private JTextField time;
+    private JComboBox taskTypeComBox;
+    private JTextArea taskNameTextArea;
+    private JTextField timeTextField;
     private JTextField findKeyword;
-    private List taskList;
+    private List taskListJTable;
 
     private GUIParser guiParser;
-    public UserServerGUI() {
+    public UserServerGUI(UserManager userManager) {
+        this.userManager = userManager;
         welcomePage = new WelcomeGUI();
         welcomePage.setVisible(true);
         servePage = new ServeGUI();
@@ -39,13 +43,14 @@ public class UserServerGUI {
         this.deleteTaskButton = servePage.getDeleteTaskButton();
         this.exitButton = servePage.getExitButton();
         this.addTaskButton = servePage.getAddTaskButton();
-        this.taskType = servePage.getTaskType();
-        this.taskName = servePage.getTaskNameTextArea();
-        this.time = servePage.getTaskTimeTextField();
+        this.taskTypeComBox = servePage.getTaskType();
+        this.taskNameTextArea = servePage.getTaskNameTextArea();
+        this.timeTextField = servePage.getTaskTimeTextField();
         this.findKeyword = servePage.getKeywordJTextField();
-        this.taskList = servePage.getTable();
+        this.taskListJTable = servePage.getTable();
+        this.usernameField = welcomePage.getUsername();
 
-        this.guiParser = new GUIParser(addTaskButton, findTaskButton, taskType, taskName, time, taskList, tasks);
+        this.guiParser = new GUIParser(addTaskButton, taskTypeComBox, taskNameTextArea, timeTextField, taskListJTable);
 
         addHandlerForTransitionButton();
         addHandlerForSortButton();
@@ -58,8 +63,22 @@ public class UserServerGUI {
     private void addHandlerForTransitionButton () {
         this.twoPageTransitionButton = welcomePage.getStartButton();
         twoPageTransitionButton.addActionListener(e -> {
+            String userName = this.usernameField.getText();
+            try {
+                TaskList userTask = userManager.loadUser(userName);
+                System.out.println(userTask);
+                if (userTask != null) {
+                    this.tasks = userTask;
+                } else {
+                    this.tasks = new TaskList();
+                }
+            } catch (Exception exception) {
+                this.tasks = new TaskList();
+            }
+
             welcomePage.setVisible(false);
             servePage.setVisible(true);
+            this.guiParser.setTaskList(this.tasks);
         });
     }
 
@@ -67,24 +86,24 @@ public class UserServerGUI {
     private void addHandlerForSortButton() {
         this.sortTaskButton.addActionListener(e -> {
             this.tasks.sort();
-            taskList.listTask(this.tasks);
+            taskListJTable.listTask(this.tasks);
         });
     }
 
     private void addHandlerForDeleteButton() {
         this.deleteTaskButton.addActionListener(e -> {
-            int taskIndex = taskList.getSelectedRow();
+            int taskIndex = taskListJTable.getSelectedRow();
             this.tasks.deleteTask(taskIndex + 1);
-            this.taskList.listTask(tasks);
+            this.taskListJTable.listTask(tasks);
         });
 
     }
 
     private void addHandlerForFinishButton() {
         this.finishTaskButton.addActionListener(e -> {
-            int taskIndex = taskList.getSelectedRow();
+            int taskIndex = taskListJTable.getSelectedRow();
             this.tasks.markAsDone(taskIndex + 1);
-            this.taskList.listTask(tasks);
+            this.taskListJTable.listTask(tasks);
         });
     }
 
@@ -97,7 +116,8 @@ public class UserServerGUI {
     private void addHandlerForFindButton() {
         this.findTaskButton.addActionListener(e -> {
             String keyword = this.findKeyword.getText().strip();
-            this.taskList.listTask(this.tasks.findTask(keyword));
+            this.taskListJTable.listTask(this.tasks.findTask(keyword));
+            this.findKeyword.setText("");
         });
     }
 }

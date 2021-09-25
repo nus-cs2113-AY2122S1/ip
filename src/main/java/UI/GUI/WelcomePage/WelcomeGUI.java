@@ -17,8 +17,9 @@ public class WelcomeGUI extends JFrame {
         initializeStartButton();
     }
 
-    public String getUsername() {
-        return this.inputArea.getText();
+
+    public JTextField getUsername() {
+        return this.inputArea;
     }
 
     public JButton getStartButton() {

@@ -1,6 +1,8 @@
 package Parser;
 
 import UI.GUI.ServePage.List;
+import commands.AddTaskCommand;
+import exceptions.TimeException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.TaskList;
@@ -9,10 +11,10 @@ import tasks.Todo;
 import javax.swing.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class GUIParser {
     private JButton addTaskButton;
-    private JButton finkTaskButton;
 
     private JComboBox taskType;
     private JTextArea taskName;
@@ -20,17 +22,20 @@ public class GUIParser {
     private TaskList tasks;
     private List taskList;
 
-    public GUIParser(JButton addTaskButton, JButton finkTaskButton, JComboBox taskType,
-                     JTextArea taskName, JTextField taskTime, List taskList, TaskList tasks) {
+    public GUIParser(JButton addTaskButton, JComboBox taskType,
+                     JTextArea taskName, JTextField taskTime, List taskList) {
         this.addTaskButton = addTaskButton;
-        this.finkTaskButton = finkTaskButton;
         this.taskType = taskType;
         this.taskName = taskName;
         this.taskTime = taskTime;
-        this.tasks = tasks;
         this.taskList = taskList;
 
         addHandlerForAddTaskButton();
+    }
+
+    public void setTaskList(TaskList tasks) {
+        this.tasks = tasks;
+        this.taskList.listTask(tasks);
     }
 
     private void addHandlerForAddTaskButton() {
@@ -44,16 +49,28 @@ public class GUIParser {
                 break;
 
             case "deadline":
-                this.tasks.addTask(new Deadline(taskName, LocalDate.parse(time), false));
+                String[] deadlineSplit = time.split(" ");
+
+                if (deadlineSplit.length == 1) {
+                    LocalDate date = LocalDate.parse(time);
+                    this.tasks.addTask(new Deadline(taskName, date, false));
+                } else {
+                    LocalDate date = LocalDate.parse(deadlineSplit[0].strip());
+                    LocalTime minute = LocalTime.parse(deadlineSplit[1].strip());
+                    this.tasks.addTask(new Deadline(taskName, date, minute, false));
+                }
                 break;
 
             case "event":
-                this.tasks.addTask(new Event(taskName, LocalDateTime.parse(time), false));
+                String[] split = time.strip().split(" ");
+                this.tasks.addTask(new Event(taskName, LocalDate.parse(split[0]),
+                        LocalTime.parse(split[1]), false));
                  break;
             }
 
             this.taskList.listTask(this.tasks);
-
+            this.taskName.setText("Put the task name here");
+            this.taskTime.setText("Put the time");
         });
     }
 

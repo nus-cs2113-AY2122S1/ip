@@ -130,8 +130,6 @@ public class CLIParser {
                 LocalDate date = LocalDate.parse(time[0].strip());
                 LocalTime minute = LocalTime.parse(time[1].strip());
 
-                System.out.println(LocalDateTime.now());
-
                 if (!LocalDateTime.of(date, minute).isAfter(LocalDateTime.now())) {
                     throw new TimeException();
                 }

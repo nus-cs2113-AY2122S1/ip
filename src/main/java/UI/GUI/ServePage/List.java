@@ -18,10 +18,6 @@ public class List extends JTable{
     List() {
         super(0,4);
         this.setSize(new Dimension(500, 440));
-        this.getColumnModel().getColumn(0).setHeaderValue("task type");
-        this.getColumnModel().getColumn(1).setHeaderValue("task name");
-        this.getColumnModel().getColumn(2).setHeaderValue("deadline");
-        this.getColumnModel().getColumn(3).setHeaderValue("completed");
     }
 
 
@@ -36,6 +32,10 @@ public class List extends JTable{
             model.addRow(new Object[]{taskType, taskName, time, status});
         }
         this.setModel(model);
+        this.getColumnModel().getColumn(0).setHeaderValue("task type");
+        this.getColumnModel().getColumn(1).setHeaderValue("task name");
+        this.getColumnModel().getColumn(2).setHeaderValue("deadline");
+        this.getColumnModel().getColumn(3).setHeaderValue("completed");
     }
 
 

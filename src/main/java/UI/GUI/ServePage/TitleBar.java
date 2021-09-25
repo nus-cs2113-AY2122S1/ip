@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class TitleBar extends JPanel {
-    JLabel titleText = new JLabel("To Do List");
+    JLabel titleText = new JLabel("Duke");
 
     TitleBar () {
         this.setPreferredSize(new Dimension(400, 80));

@@ -10,7 +10,7 @@ public class Duke {
 
 //        UserServer newUser = new UserServer(userManager);
 //        newUser.run();
-        new UserServerGUI();
+        new UserServerGUI(userManager);
 
     }
 }
