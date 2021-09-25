@@ -1,8 +1,8 @@
 package duke.task;
 
 public class Deadline extends Task{
-
     protected String by;
+    private static final String ICON_DEADLINE = "D";
 
     public Deadline(String description, String by) {
         super(description);
@@ -11,7 +11,7 @@ public class Deadline extends Task{
 
     @Override
     public String getTaskIcon() {
-        return "D";
+        return ICON_DEADLINE;
     }
 
     @Override

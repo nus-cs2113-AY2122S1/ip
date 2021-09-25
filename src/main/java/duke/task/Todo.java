@@ -5,10 +5,11 @@ public class Todo extends Task{
     public Todo(String description) {
         super(description);
     }
+    private static final String ICON_TODO = "T";
 
     @Override
     public String getTaskIcon() {
-        return "T";
+        return ICON_TODO;
     }
 
     @Override

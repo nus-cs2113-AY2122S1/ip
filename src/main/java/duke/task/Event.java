@@ -2,6 +2,7 @@ package duke.task;
 
 public class Event extends Task{
     protected String at;
+    private static final String ICON_EVENT = "E";
 
     public Event(String description, String at) {
         super(description);
@@ -10,7 +11,7 @@ public class Event extends Task{
 
     @Override
     public String getTaskIcon() {
-        return "E";
+        return ICON_EVENT;
     }
 
     @Override

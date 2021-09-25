@@ -7,6 +7,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class ParseFromRawFormat extends Parser {
+    private static final String COMMAND_DONE = "done";
+    private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_FIND = "find";
+    private static final String DATE_FORMAT = "MMM d yyyy";
+    private static final String PREFIX_DEADLINE = "/by";
+    private static final String PREFIX_EVENT = "/at";
+
     public ParseFromRawFormat(String input) throws EmptyDescriptionException, EmptyTimeFieldException {
         handleRawInputs(input);
     }
@@ -16,19 +26,19 @@ public class ParseFromRawFormat extends Parser {
 
         command = inputSubstrings[0];
         switch (command) {
-        case "find":
-        case "todo":
+        case COMMAND_FIND:
+        case COMMAND_TODO:
             if (inputSubstrings.length < 2) {
                 throw new EmptyDescriptionException();
             }
             description = inputSubstrings[1];
             break;
-        case "deadline":
-        case "event":
+        case COMMAND_DEADLINE:
+        case COMMAND_EVENT:
             if (inputSubstrings.length < 2) {
                 throw new EmptyDescriptionException();
             }
-            if (!inputSubstrings[1].contains("/by") && !inputSubstrings[1].contains("/at")) {
+            if (!inputSubstrings[1].contains(PREFIX_DEADLINE) && !inputSubstrings[1].contains(PREFIX_EVENT)) {
                 throw new EmptyTimeFieldException();
             }
             description = inputSubstrings[1]
@@ -42,8 +52,8 @@ public class ParseFromRawFormat extends Parser {
                     .strip();
             localDate = formatTimeField(timeField);
             break;
-        case "done":
-        case "delete":
+        case COMMAND_DONE:
+        case COMMAND_DELETE:
             if (inputSubstrings.length < 2) {
                 throw new EmptyDescriptionException();
             }
@@ -57,7 +67,7 @@ public class ParseFromRawFormat extends Parser {
         if (localDate == null) {
             throw new DateTimeException("invalid time");
         }
-        formattedTimeField = localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        formattedTimeField = localDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
         return localDate;
     }
 }

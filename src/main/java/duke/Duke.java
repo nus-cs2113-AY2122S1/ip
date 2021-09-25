@@ -5,7 +5,6 @@ import duke.exceptions.EmptyTimeFieldException;
 import duke.parser.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
-
 import java.time.DateTimeException;
 import java.util.Scanner;
 
@@ -27,22 +26,20 @@ public class Duke {
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_FIND = "find";
-    private static final String ICON_TODO = "T";
-    private static final String ICON_DEADLINE = "D";
-    private static final String ICON_EVENT = "E";
-    private static final String ICON_COMPLETEDTASK = "X";
 
     private static boolean isDone = false;
-    private static Ui ui = new Ui();
-    private static TaskList tasks = new TaskList();
-    private static Storage storage = new Storage(FILE_PATH, FILE_DIRECTORY, ui);
-
+    private static Ui ui;
+    private static TaskList tasks;
+    private static Storage storage;
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+        ui = new Ui();
+        tasks = new TaskList();
+        storage = new Storage(FILE_PATH, FILE_DIRECTORY, ui);
         storage.loadData(tasks);
-        ui.printWelcomeMessage();
+        Scanner in = new Scanner(System.in);
 
+        ui.printWelcomeMessage();
         do {
             try {
                 Parser inputHandler = ui.readUserInput(in);
@@ -119,7 +116,6 @@ public class Duke {
 
     private static void executeDelete(int taskIndex) {
         Task deletedTask = tasks.deleteTask(taskIndex);
-
         ui.printDeleteTask(deletedTask);
     }
 

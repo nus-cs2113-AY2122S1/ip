@@ -1,13 +1,10 @@
 package duke;
 
-import duke.exceptions.EmptyDescriptionException;
-import duke.exceptions.EmptyTimeFieldException;
 import duke.parser.ParseFromFileFormat;
 import duke.parser.ParseToFileFormat;
 import duke.parser.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,8 +12,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private Ui ui;
-    private Task tasks;
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_EVENT = "event";
+    private final Ui ui;
     private final String filePath;
     private final String fileDirectory;
 
@@ -34,11 +33,10 @@ public class Storage {
         }
     }
 
-    private void writeToFile(ArrayList<Task> tasks) throws  IOException {
+    private void writeToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
-        for (Task t : tasks) {
-//            Parser fileFormatter = new Parser(t);
-            Parser fileFormatter = new ParseToFileFormat(t);
+        for (Task task : tasks) {
+            Parser fileFormatter = new ParseToFileFormat(task);
             String taskData = fileFormatter.getFileFormat();
             fileWriter.write(taskData);
         }
@@ -50,24 +48,22 @@ public class Storage {
             File file = loadFile();
             Scanner scanner = new Scanner(file);
             while(scanner.hasNext()) {
-//                String fileFormat = scanner.nextLine();
-//                Parser fileFormatHandler = new Parser(fileFormat, 0);
                 Parser fileFormatHandler = new ParseFromFileFormat(scanner.nextLine());
 
                 switch (fileFormatHandler.getCommand()) {
-                case "todo":
+                case COMMAND_TODO:
                     Task todoTask = tasks.addTodo(fileFormatHandler.getDescription());
                     if (fileFormatHandler.isDone()) {
                         todoTask.setDone();
                     }
                     break;
-                case "deadline":
+                case COMMAND_DEADLINE:
                     Task deadlineTask = tasks.addDeadline(fileFormatHandler.getDescription(), fileFormatHandler.getFormattedTimeField());
                     if (fileFormatHandler.isDone()) {
                         deadlineTask.setDone();
                     }
                     break;
-                case "event":
+                case COMMAND_EVENT:
                     Task eventTask = tasks.addEvent(fileFormatHandler.getDescription(), fileFormatHandler.getFormattedTimeField());
                     if (fileFormatHandler.isDone()) {
                         eventTask.setDone();
@@ -76,7 +72,7 @@ public class Storage {
                 }
             }
         } catch (IOException exception) {
-            System.out.println("oops something went wrong..." + exception.getMessage());
+            ui.printIoExceptionErrorMessage(exception);
         }
     }
 
