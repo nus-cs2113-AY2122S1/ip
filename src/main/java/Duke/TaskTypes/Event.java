@@ -1,24 +1,30 @@
 package Duke.TaskTypes;
 
-public class Event extends Task{
-    protected String at;
+import Duke.BackEnd.DukeParser;
 
-    public Event(String description, String at) {
+import java.time.LocalDateTime;
+
+import static Duke.UI.DukeConstants.FORMAT_DATE_TIME_OUTPUT;
+
+public class Event extends Task{
+    protected LocalDateTime at;
+
+    public Event(String description, LocalDateTime at) {
         super(description);
         this.at = at;
     }
 
-    public String getAt() {
+    public LocalDateTime getAt() {
         return at;
     }
 
-    public void setAt(String newAt) {
+    public void setAt(LocalDateTime newAt) {
         this.at = newAt;
     }
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (at: " + at + ")";
+        return "[E] " + super.toString() + " (at: " + DukeParser.dateTimetoStringConverter(at, FORMAT_DATE_TIME_OUTPUT) + ")";
     }
 
     @Override
