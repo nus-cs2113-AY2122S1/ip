@@ -14,7 +14,7 @@ It is optimized for use via a Command Line Interface (CLI) that can help you man
     * [Adding a Todo](#adding-a-todo-todo-description)
     * [Adding a Deadline](#adding-a-deadline-deadline-description-by-date_time)
     * [Adding an Event](#adding-an-event-event-description-at-date_time)
-    * [Listing all Tasks](#listing-tasks-list)
+    * [Listing all Tasks](#listing-all-tasks)
     * [Marking a task as done](#marking-a-task-as-done-done-idx)
     * [Deleting a task](#deleting-a-task-delete-idx)
     * [Searching for a task](#querying-tasks-find-regex-type-tasktype-limit-querylimit)
