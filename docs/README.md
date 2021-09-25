@@ -69,33 +69,7 @@ Some example commands you can try:
 > - Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `bye`) will not be ignored.<br />
 > e.g. `help 123` will not be interpreted as  `help`. Make sure to give the correct commands.
 
-### Feature-ABC
-
-Description of the feature.
-
-### Feature-XYZ
-
-Description of the feature.
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-  
-expected output
-```
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## FAQ
 
 **Q:** Why am I unable to create a task in the past?
@@ -115,7 +89,7 @@ it creates with the file that contains the data from your previous Duke home fol
 
 <br />
 
----
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Command Summary
 
@@ -126,9 +100,9 @@ it creates with the file that contains the data from your previous Duke home fol
 | `find <SEARCH_KEYWORD>`, `find Read`       | Searches in the task list for tasks which contain the keyword                  |
 | `todo <DESCRIPTION>`, `todo eat food`      | Adds a todo task with description                                              |
 | `deadline <DESCRIPTION> /by <DATE_TIME>`,  |                                                                                |
-   `deadline Eat Food /by 2021-10-13 16:00`  | Adds a deadline task with description and a deadline                           |
+|   `deadline Eat Food /by 2021-10-13 16:00` | Adds a deadline task with description and a deadline                           |
 | `event <DESCRIPTION> /at <DATE_TIME>` ,    |                                                                                |
-   `event join lecture /at 2021-09-09 09:45` | Adds an event task with description and event timing                           |
+|  `event join lecture /at 2021-09-09 09:45` | Adds an event task with description and event timing                           |
 | `delete <NUMBER>`, `delete 3`              | Deletes a task from the task list according to the index number provided       |
 | `done <NUMBER>`, `done 4`                  | Marks a task as done in the task list according to the index number provided   |
 | `bye`                                      | Exits the application                                                          |
