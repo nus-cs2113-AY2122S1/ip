@@ -6,7 +6,8 @@ import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     private LocalDateTime time;
-    protected DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final String dtFormat = "dd/MM/yyyy HHmm";
+    protected DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dtFormat);
 
     public Deadline (String desc, String timeString, Boolean status) throws DateTimeParseException {
         super(desc, status);
@@ -19,7 +20,6 @@ public class Deadline extends Task {
     }
 
     public String getTime() {
-        String formatted = time.format(dtf);
         return time.format(dtf);
     }
 
