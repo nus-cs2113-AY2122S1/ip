@@ -55,9 +55,6 @@ public class TaskManager {
             printLine();
             // Fallthrough
         }
-      //  if (tasks.size() > 0) {
-     //       printAddedTask(tasks.get(tasks.size() - 1), tasks);
-       // }
     }
 
     /**
