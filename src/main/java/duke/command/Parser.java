@@ -11,6 +11,7 @@ public class Parser {
     public static final String DONE = "done";
     public static final String EXIT = "bye";
     public static final String DELETE = "delete";
+    static int taskNumber;
 
     static void chooseTask() throws IOException {
         String line, taskType, taskDescription = null;
@@ -39,19 +40,36 @@ public class Parser {
             TaskList.displayList();
             break;
         case DONE:
-            TaskList.markTaskComplete(taskDescription);
+            if (isValidNumber(taskDescription)) {
+                TaskList.markTaskComplete(taskNumber);
+            }
+            break;
+        case DELETE:
+            if (isValidNumber(taskDescription)) {
+                TaskList.deleteTask(taskNumber);
+            }
             break;
         case EXIT:
             Ui.bye();
             return;
-        case DELETE:
-            TaskList.deleteTask(taskDescription);
-            break;
         default:
             Ui.printDividerLine();
             System.out.println("Invalid Input!");
             Ui.printDividerLine();
         }
         chooseTask();
+    }
+
+    static boolean isValidNumber(String taskDescription) {
+        try {
+            taskNumber = Integer.parseInt(taskDescription);
+            if (taskNumber > TaskList.numberOfTasks || taskNumber <= 0) {
+                System.out.println("Error! This task does not exist!");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error! This task does not exist!");
+        }
+        return true;
     }
 }

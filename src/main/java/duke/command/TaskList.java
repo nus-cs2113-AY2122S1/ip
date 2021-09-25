@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class TaskList {
     static ArrayList<Task> taskList = null;
     static int numberOfTasks = 0;
+    static String type, status, description;
 
     public TaskList() {
         taskList = new ArrayList<Task>();
@@ -51,7 +52,10 @@ public class TaskList {
 
         Ui.printDividerLine();
         System.out.println("I have added this task:");
-        System.out.println("[" + taskList.get(numberOfTasks).getType() + "][" + taskList.get(numberOfTasks).getStatusIcon() + "] " + taskList.get(numberOfTasks).getDescription());
+        type = TaskList.taskList.get(numberOfTasks).getType();
+        status = TaskList.taskList.get(numberOfTasks).getStatusIcon();
+        description = TaskList.taskList.get(numberOfTasks).getOriginalDescription();
+        System.out.println("[" + type + "][" + status + "] " + description);
         numberOfTasks++;
         System.out.println("You have " + numberOfTasks + " task(s) in the list.");
         Ui.printDividerLine();
@@ -73,55 +77,27 @@ public class TaskList {
         Ui.printDividerLine();
     }
 
-    static void markTaskComplete(String taskDescription) {
-        int taskNumber;
-
-        try {
-            taskNumber = Integer.parseInt(taskDescription);
-            if (taskNumber > numberOfTasks || taskNumber <= 0) {
-                System.out.println("Error! This task does not exist!");
-                return;
-            }
-            taskNumber--;
-            taskList.get(taskNumber).markAsDone();
-            Ui.printDividerLine();
-            System.out.println("I have marked it as completed!");
-            System.out.println(taskNumber + 1 + ". [" + taskList.get(taskNumber).getType() + "][" + taskList.get(taskNumber).getStatusIcon() + "] " + taskList.get(taskNumber).getDescription());
-            Ui.printDividerLine();
-        } catch (NumberFormatException e) {
-            System.out.println("Error! This task does not exist!");
-        }
-        try {
-            Storage.writeToFile();
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
+    static void markTaskComplete(int taskNumber) throws IOException {
+        taskNumber--;
+        taskList.get(taskNumber).markAsDone();
+        Ui.printDividerLine();
+        System.out.println("I have marked it as completed!");
+        System.out.println(taskNumber + 1 + ". [" + taskList.get(taskNumber).getType() + "][" + taskList.get(taskNumber).getStatusIcon() + "] " + taskList.get(taskNumber).getDescription());
+        Ui.printDividerLine();
+        Storage.writeToFile();
     }
 
-    static void deleteTask(String taskDescription) {
-        int taskNumber;
-
-        try {
-            taskNumber = Integer.parseInt(taskDescription);
-            if (taskNumber > numberOfTasks || taskNumber <= 0) {
-                System.out.println("Error! This task does not exist!");
-                return;
-            }
-            taskNumber--;
-            Ui.printDividerLine();
-            System.out.println("Noted. I've removed this task: ");
-            System.out.println("  [" + taskList.get(taskNumber).getType() + "][" + taskList.get(taskNumber).getStatusIcon() + "] " + taskList.get(taskNumber).getDescription());
-            Ui.printDividerLine();
-            taskList.remove(taskNumber);
-            numberOfTasks--;
-        } catch (NumberFormatException e) {
-            System.out.println("Error! This task does not exist!");
-        }
-        try {
-            Storage.writeToFile();
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
+    static void deleteTask(int taskNumber) throws IOException {
+        taskNumber--;
+        taskList.remove(taskNumber);
+        numberOfTasks--;
+        Ui.printDividerLine();
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println("  [" + taskList.get(taskNumber).getType() + "][" + taskList.get(taskNumber).getStatusIcon() + "] " + taskList.get(taskNumber).getDescription());
+        Ui.printDividerLine();
+        Storage.writeToFile();
 
     }
+
+
 }

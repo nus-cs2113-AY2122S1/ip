@@ -39,7 +39,7 @@ public class Storage {
                 break;
             }
             if (status.equals("X")) {
-                TaskList.markTaskComplete(Integer.toString(counter));
+                TaskList.markTaskComplete(counter);
             }
             counter++;
         }
