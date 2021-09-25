@@ -6,9 +6,9 @@ import java.io.IOException;
 
 public class AddCommand extends Command {
 
-    private final TaskList tasks;
-    private final String command;
-    private final String[] words;
+    protected TaskList tasks;
+    protected String command;
+    protected String[] words;
 
     /**
      * @param tasks   The list that stores all the tasks
