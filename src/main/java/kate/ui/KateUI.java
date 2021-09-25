@@ -94,6 +94,7 @@ public class KateUI {
                 + Message.TEXT_INDENTATION + "- " + Message.COMMAND_DONE + "\n"
                 + Message.TEXT_INDENTATION + "- " + Message.COMMAND_DELETE + "\n"
                 + Message.TEXT_INDENTATION + "- " + Message.COMMAND_LIST + "\n"
+                + Message.TEXT_INDENTATION + "- " + Message.COMMAND_FIND + "\n"
                 + Message.TEXT_INDENTATION + "- " + Message.COMMAND_BYE + "\n";
         printMessage(helpText);
     }
