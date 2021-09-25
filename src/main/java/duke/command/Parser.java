@@ -11,6 +11,7 @@ public class Parser {
     public static final String DONE = "done";
     public static final String EXIT = "bye";
     public static final String DELETE = "delete";
+    public static final String FIND = "find";
     static int taskNumber;
 
     static void chooseTask() throws IOException {
@@ -48,6 +49,15 @@ public class Parser {
             if (isValidNumber(taskDescription)) {
                 TaskList.deleteTask(taskNumber);
             }
+            break;
+        case FIND:
+            if (taskDescription == null) {
+                Ui.printDividerLine();
+                System.out.println("Invalid Input!");
+                Ui.printDividerLine();
+                break;
+            }
+            TaskList.find(taskDescription);
             break;
         case EXIT:
             Ui.bye();
