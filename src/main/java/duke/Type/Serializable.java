@@ -1,4 +1,4 @@
-package Type;
+package duke.Type;
 
 /**
  * Interface to return the type of all tasks,

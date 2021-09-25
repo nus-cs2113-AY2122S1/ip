@@ -1,8 +1,8 @@
 package duke.data;
 
-import Type.Task;
-import Type.Divider;
-import duke.startup.Parser;
+import duke.Type.Task;
+import duke.Type.Divider;
+import duke.Ui.Parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;

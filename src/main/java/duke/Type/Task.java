@@ -1,4 +1,4 @@
-package Type;
+package duke.Type;
 
 import duke.date.DateValidator;
 import duke.date.DateValidatorUsingDateFormat;
@@ -13,10 +13,11 @@ import java.util.stream.Collectors;
  * Task object, represents a generic task with descriptions and when to complete it by
  */
 public abstract class Task implements Serializable{
+    protected final String DEFAULT_DATE = "1999-11-30";
     protected String description;
     protected boolean isDone = false;
-    protected LocalDate timeOfTask = null;
-    protected boolean ValidTime = false;
+    protected LocalDate timeOfTask = LocalDate.parse(DEFAULT_DATE);
+    protected boolean hasValidDate = false;
 
     public String getDescription() {
         return description;
@@ -47,7 +48,11 @@ public abstract class Task implements Serializable{
             this.timeOfTask = LocalDate.parse(suitableDate.get(0)); //1st date by index
             System.out.println("great! i've recorded a date with the task: " + this.getDescription() + " "
                                 + "with the date: " + timeOfTask.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
-        this.ValidTime = true;
+        this.hasValidDate = true;
         }
+    }
+
+    public LocalDate getTaskDate() {
+        return timeOfTask;
     }
 }

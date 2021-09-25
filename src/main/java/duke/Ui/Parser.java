@@ -1,10 +1,10 @@
-package duke.startup;
+package duke.Ui;
 
-import Type.Deadline;
-import Type.Event;
-import Type.Task;
-import Type.Todo;
-import Type.Divider;
+import duke.Type.Deadline;
+import duke.Type.Event;
+import duke.Type.Task;
+import duke.Type.Todo;
+import duke.Type.Divider;
 import duke.command.*;
 
 public class Parser {

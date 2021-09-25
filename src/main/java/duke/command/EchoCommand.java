@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.data.TaskList;
-import duke.startup.Ui;
+import duke.Ui.Ui;
 
 /**
  * Command to echo user input.
@@ -18,7 +18,7 @@ public class EchoCommand extends Command{
     }
 
     public static String readInputEchoCommand() {
-        String command = Ui.readCommand();
+        String command = Ui.readLine();
         System.out.println("    " + command);
         return command;
     }

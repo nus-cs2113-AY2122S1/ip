@@ -1,4 +1,4 @@
-package Type;
+package duke.Type;
 
 public class Event extends Task {
     String atWhen;
