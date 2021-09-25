@@ -208,7 +208,7 @@ Here are the tasks in your list:
 
 <br />
    
-### Deleting a task: `delete <IDEX_NUMBER>`
+### Deleting a task: `delete <INDEX_NUMBER>`
 Deletes a task from the task list, by their **index_number**
 - **INDEX_NUMBER** : index as displayed in the TASK list.
    
