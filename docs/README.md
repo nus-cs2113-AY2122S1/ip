@@ -43,42 +43,121 @@ ____________________________________________________________
 
 ### Adding a deadline: `deadline`
 
-Adds a deadline to the task list.
+Adds a task with a deadline to the task list.
 
 Format: `deadline TASK_DESCRIPTION /by DEADLINE`
 
 Example:
-`deadline finish essay /by Mon 9pm` Adds the task "finish essay" with a deadline "Mon 9pm) to the task list.
+`deadline finish essay /by Mon 9pm` Adds a task "finish essay" with the deadline "Mon 9pm" to the task list.
 ```
 ____________________________________________________________
  Got it. I've added this task:
   [D][ ] finish essay (by: Mon 9pm)
- Now you have 1 tasks in the list.
+ Now you have 2 tasks in the list.
 ____________________________________________________________
 ```
 
-### Adding an event: event
+### Adding an event: `event`
 
 Adds an event to the task list.
 
-### Listing all tasks: list
+Format: `event TASK_DESCRIPTION /at DATE`
+
+Example:
+`event school dance /at Jan 28th 7-9pm` Adds an event "school dance" with the date "Jan 28th 7-9pm" to the task list.
+```
+____________________________________________________________
+ Got it. I've added this task:
+  [E][ ] school dance (at: Jan 28th 7-9pm)
+ Now you have 3 tasks in the list.
+____________________________________________________________
+```
+
+### Listing all tasks: `list`
 
 Shows a list of all tasks in the task list.
 
-### Checking off a task: done
+Format: `list`
+
+Example:
+`list`
+```
+____________________________________________________________
+ Here are the tasks in your list:
+ 1.[T][ ] read book
+ 2.[D][ ] finish essay (by: Mon 9pm)
+ 3.[E][ ] school dance (at: Jan 28th 7-9pm)
+____________________________________________________________
+```
+
+### Checking off a task: `done`
 
 Marks a task as done.
 
-### Finding a task by keyword: find
+Format: `done TASK_NUMBER`
 
-Finds tasks with descriptions that contain the keyword.
+Example:
+`done 2` Marks the second task in the task list "finish essay" as done.
+```
+____________________________________________________________
+ Nice! I've marked this task as done:
+  [D][X] finish essay (by: Mon 9pm)
+____________________________________________________________
+```
 
-### Deleting a task: delete
+### Finding a task by keyword: `find`
+
+Finds tasks with a description that contain the keyword.
+
+Format: `find KEYWORD`
+
+Example:
+`find school` Finds tasks with a description that contain the keyword "school".
+```
+____________________________________________________________
+ Here are the matching tasks in your list:
+ 1.[E][ ] school dance (at: Jan 28th 7-9pm)
+____________________________________________________________
+
+```
+
+### Deleting a task: `delete`
 
 Deletes a task in the task list.
 
-### Exiting the program: bye
+Format: `delete TASK_NUMBER`
+
+Example:
+`delete 1` Deletes the first task in the task list.
+```
+____________________________________________________________
+ Noted. I've removed this task:
+  [T][ ] read book
+ Now you have 2 tasks in the list.
+____________________________________________________________
+```
+
+### Exiting the program: `bye`
 
 Exits the program.
 
+Format: `bye`
+
+Example:
+```
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
 ## Command Summary
+Command | Format
+------------ | -------------
+Todo | `todo TASK_DESCRIPTION`
+Deadline | `deadline TASK_DESCRIPTION /by DEADLINE`
+Event | `event TASK_DESCRIPTION /at DATE`
+List | `list`
+Done | `done TASK_NUMBER`
+Find | `find KEYWORD`
+Delete | `delete TASK_NUMBER`
+Bye | `bye`
