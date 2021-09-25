@@ -1,5 +1,4 @@
 package duke.task;
-import duke.List;
 
 public class Event extends List {
     protected String at;
@@ -11,6 +10,6 @@ public class Event extends List {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at:" + at + ")";
+        return "[E]" + super.toString() + " (at: " + at + ")";
     }
 }

@@ -1,1 +1,1 @@
-[[T][X] 1]
+[[T][X] borrow book, [D][X] return book (by: Sunday), [E][X] project meeting (at: Mon 2-4pm)]

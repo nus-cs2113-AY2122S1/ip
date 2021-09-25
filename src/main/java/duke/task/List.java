@@ -1,9 +1,9 @@
-package duke;
+package duke.task;
 import java.lang.String;
 
 public class List {
-    protected String description;
-    protected boolean isDone;
+    public String description;
+    public boolean isDone;
 
     public List(String description) {
         this.description = "[ ] " + description;
