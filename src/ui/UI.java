@@ -11,6 +11,9 @@ public class UI {
                     + "|____/ \\__,_|_|\\_\\___|\n"
                     + "Hello I'm Duke\nWhat can I do for you?";
 
+    /**
+     * Prints the welcome message with the Duke logo to the console.
+     */
     public static void printWelcome() {
         System.out.println(WELCOME_MESSAGE);
     }
@@ -24,6 +27,10 @@ public class UI {
         System.out.println("New save file created");
     }
 
+    /**
+     * Prints a message to the console confirming that a new task has been added.
+     * @param newTask Task to be added
+     */
     public static void printAddTask(Task newTask) {
         System.out.println("Added: " + newTask.getTaskName());
     }
