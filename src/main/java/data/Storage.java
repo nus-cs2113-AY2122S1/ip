@@ -1,55 +1,69 @@
-package command;
+package data;
 
-import java.util.ArrayList;
+import task.Task;
 import task.Deadline;
 import task.Event;
-import task.Task;
 import task.ToDo;
 
+import static common.Error.FILE_NOT_EXIST;
+import static common.Error.WRITE_IOEXCEPTION;
+import static common.Message.SUCCESS_FILE_FOUND;
+import static common.Message.SUCCESS_DATA_READ;
+
 import java.io.File;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Data {
+public class Storage {
+    private final String dataPath;
+    private final String pathDelimiter = "/";
+    private final String taskDelimiter = " | ";
+    private final String taskDelimiterRegex = " \\| ";
 
-    public static void write(ArrayList<Task> tasks) {
-        try {
-            FileWriter fw = new FileWriter("data/data.txt");
-            for (Task currentTask : tasks) {
-                fw.write(getTaskData(currentTask) + System.lineSeparator());
-            }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("  (!) FATAL: IO Error");
-            e.printStackTrace();
-        }
+    public Storage() {
+        this.dataPath = "data/data.txt";
     }
 
-    public static ArrayList<Task> read() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<>();
+    private File validatePath() {
+        String[] directories = this.dataPath.split(pathDelimiter);
         /*
         Check for whether ./data directory exists
         if not, create ./data directory
         */
-        File dir = new File("data");
-        if (!dir.exists()) {
-            dir.mkdir();
+        File directory = new File(directories[0]);
+        if (!directory.exists()) {
+            directory.mkdir();
         }
         /*
         Check for whether ./data/data.txt exists
         if so, process list of tasks contained within
         if not, create new, empty data.txt file
         */
-        File data = new File("data/data.txt");
-        if (data.exists()) {
-            System.out.println("  (+) Data file found: " + data.getAbsolutePath());
-            /*
-            Read data.txt line by line and populate tasks list accordingly
-             */
+        File data = new File(dataPath);
+        if (!data.exists()) {
+            try {
+                data.createNewFile();
+            } catch (IOException e) {
+                System.out.println(WRITE_IOEXCEPTION);
+            }
+            String absolutePath = data.getAbsolutePath();
+            System.out.println(String.format(FILE_NOT_EXIST, absolutePath));
+        } else {
+            System.out.println(String.format(SUCCESS_FILE_FOUND, data.getAbsolutePath()));
+        }
+        return data;
+    }
+
+    public ArrayList<Task> read() {
+        File data = validatePath();
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
             Scanner s = new Scanner(data);
             while (s.hasNext()) {
-                String[] line = s.nextLine().split(" \\| ");
+                String[] line = s.nextLine().split(taskDelimiterRegex);
                 Boolean status = false;
                 if (line[1].equals("1")) {
                     status = true;
@@ -69,12 +83,24 @@ public class Data {
                     break;
                 }
             }
-            System.out.println("  (+) Loaded " + tasks.size() + " entries");
-        } else {
-            System.out.println("  (!) Data file not found");
-            System.out.println("  (+) Empty data file created: " + data.getAbsolutePath());
+        } catch (FileNotFoundException e) {
+            //TODO
+            System.out.println("file not found");
         }
+        System.out.println(String.format(SUCCESS_DATA_READ, tasks.size()));
         return tasks;
+    }
+
+    public void write(ArrayList<Task> tasks) {
+        try {
+            FileWriter fw = new FileWriter(dataPath);
+            for (Task currentTask : tasks) {
+                fw.write(getTaskData(currentTask) + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(WRITE_IOEXCEPTION);
+        }
     }
 
     private static String getTaskData(Task current) {
