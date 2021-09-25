@@ -72,7 +72,7 @@ Format: `done {index of task done}`
 *Note: the index is the index of the task when you enter `list`*
 
 Example interaction:
-```aidl
+```text
 User: list
 Duke : 
 ____________________________________________________________
