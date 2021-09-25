@@ -26,20 +26,20 @@ to record down your various tasks faster than traditional GUI applications.
 
 ## Quick start
 
-1. Ensure Java 11 is installed in your computer [here](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html).
+1. Ensure `Java 11` is installed in your computer.
    * Find the platform you are running on your computer and click on the corresponding 
-     download link provided.
+     download link [here](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html).
 2. Download the latest `kate.jar` from here.
 
 ## Command summary
 
 **Notes about the command format**
 
-* Parameters encased in `[]` are **compulsory** to be supplied by the user
-* Parameters encased in `<>` are **optional**
-* Parameters must be in a specific order specified by `help` command
-* `date` must be supplied in `dd-MM-yyyy` format
-* `time` uses 24-hour format and supplied in `HHmm`
+* Parameters encased in `[]` are **compulsory** to be supplied by the user.
+* Parameters encased in `<>` are **optional**.
+* Parameters must be in a specific order specified by `help` command.
+* `date` must be supplied in `dd-MM-yyyy` format.
+* `time` uses 24-hour format and supplied in `HHmm`.
 
 Command | Parameters
 ------- | ------
@@ -92,11 +92,11 @@ You currently have (2) tasks in your list :)
 
 ### Adding a task for an event: `event`
 
-Adds an event into the task list
+Adds an event into the task list.
 
 Format: `event [description] /at [date] [time] <duration>`
-* `<duration>` can only be supplied in complete hour
-  * Values such as `2.5` or `1.25` will not be accepted
+* `<duration>` can only be supplied in complete hour.
+  * Values such as `2.5` or `1.25` will not be accepted.
   
 Examples: 
 * `event CS2113T Lecture /at 24-09-2021 1600 2`
@@ -126,10 +126,9 @@ Nice! I've marked this task as done:
 
 ### Deleting a task: `delete`
 
-Deletes a specific task
+Deletes a specific task.
 
 Format: `delete [task number]`
-* Task number **must** exist in the task list
 
 Example: 
 * `delete 2`
@@ -155,7 +154,7 @@ Here are the tasks in your list:
 
 ### Finding a task with keyword: `find`
 
-Lists the tasks with a specific keyword
+Lists the tasks with a specific keyword.
 
 Format: `find [keyword]`
 
@@ -170,7 +169,7 @@ Here are the filtered tasks with keyword: groceries
 
 ### Showing help page: `help`
 
-Shows the help page with the list of commands available
+Shows the help page with the list of commands available.
 
 Format: `list`
 
@@ -188,7 +187,7 @@ Please enter only the following commands:
 
 ### Exiting Kate: `bye`
 
-Exits Kate
+Exits Kate.
 
 Format: `bye`
 
@@ -209,10 +208,11 @@ Kate stores the data in a text file at
 modify the file directly by editing the file.
 
 **Note**
+
 In case the data file is modified incorrectly such that Kate
 is unable to read, it will show the expected output below:
 ```
 Did you tamper with the data file? It is CORRUPTED!
 ```
 
-To continue using Kate, delete `kate.txt` and run the program as per normal
+To continue using Kate, delete the file `kate.txt` and run the program as per normal
