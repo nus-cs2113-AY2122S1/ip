@@ -18,7 +18,6 @@ public class ParseToFileFormat extends Parser {
                     .concat(task.getStatusIcon()).concat(" | ")
                     .concat(task.getDescription()).concat(" | ")
                     .concat(task.getDue()).concat(System.lineSeparator());
-
         }
     }
 }

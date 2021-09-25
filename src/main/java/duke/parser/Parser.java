@@ -33,6 +33,6 @@ public abstract class Parser {
     }
 
     public String getFileFormat() {
-       return fileFormat;
+        return fileFormat;
     }
 }
