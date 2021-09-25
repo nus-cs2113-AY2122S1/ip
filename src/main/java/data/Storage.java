@@ -18,17 +18,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private final String dataPath;
-    private final String pathDelimiter = "/";
-    private final String taskDelimiter = " | ";
-    private final String taskDelimiterRegex = " \\| ";
+    protected String dataPath;
+    protected static final String PATH_DELIMITER = "/";
+    protected static final String TASK_DELIMITER = " | ";
+    protected static final String TASK_DELIMITER_REGEX = " \\| ";
 
     public Storage() {
         this.dataPath = "data/data.txt";
     }
 
     private File validatePath() {
-        String[] directories = this.dataPath.split(pathDelimiter);
+        String[] directories = this.dataPath.split(PATH_DELIMITER);
         /*
         Check for whether ./data directory exists
         if not, create ./data directory
@@ -63,7 +63,7 @@ public class Storage {
         try {
             Scanner s = new Scanner(data);
             while (s.hasNext()) {
-                String[] line = s.nextLine().split(taskDelimiterRegex);
+                String[] line = s.nextLine().split(TASK_DELIMITER_REGEX);
                 Boolean status = false;
                 if (line[1].equals("1")) {
                     status = true;
@@ -104,21 +104,24 @@ public class Storage {
     }
 
     private static String getTaskData(Task current) {
-        String output = "";
         if (current instanceof ToDo) {
-            output += "T | " + convertStatus(current.getStatus()) + " | ";
-            output += current.getDescription();
+            return "T" + TASK_DELIMITER +
+                    convertStatus(current.getStatus()) + TASK_DELIMITER +
+                    current.getDescription();
         } else if (current instanceof Deadline) {
-            output += "D | " + convertStatus(current.getStatus()) + " | ";
-            output += current.getDescription() + " | ";
-            output += ((Deadline) current).getTime();
+            return "D" + TASK_DELIMITER +
+                    convertStatus(current.getStatus()) + TASK_DELIMITER +
+                    current.getDescription() + TASK_DELIMITER +
+                    ((Deadline) current).getTime();
         } else if (current instanceof Event) {
-            output += "E | " + convertStatus(current.getStatus()) + " | ";
-            output += current.getDescription() + " | ";
-            output += ((Event) current).getStart() + " | ";
-            output += ((Event) current).getEnd() + " | ";
+            return "E" + TASK_DELIMITER +
+                    convertStatus(current.getStatus()) + TASK_DELIMITER +
+                    current.getDescription() + TASK_DELIMITER +
+                    ((Event) current).getStart() + TASK_DELIMITER +
+                    ((Event) current).getEnd() + TASK_DELIMITER;
+        } else {
+            return "";
         }
-        return output;
     }
 
     private static int convertStatus(String status) {

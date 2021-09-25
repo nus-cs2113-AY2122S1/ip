@@ -3,7 +3,6 @@ package commands;
 import static common.Message.MESSAGE_SEPARATOR;
 import data.Storage;
 import data.TaskList;
-import task.Task;
 import ui.TextUI;
 
 public class ListCommand extends Command {
