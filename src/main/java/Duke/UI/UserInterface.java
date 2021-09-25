@@ -1,18 +1,19 @@
 package Duke.UI;
 
 import Duke.Exception.DukeException;
-import Duke.TaskTypes.Deadline;
-import Duke.TaskTypes.Event;
 import Duke.TaskTypes.Task;
-import Duke.TaskTypes.Todo;
-
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-
 import static Duke.UI.DukeConstants.*;
 
+/**
+ * Class which stores all the command line printing methods
+ */
 public class UserInterface {
+    /**
+     * Print Duke welcome message
+     */
     public static void printDukeGreet() {
         System.out.println("Hello from\n" + DUKE_LOGO);
         System.out.println(LINE);
@@ -21,6 +22,9 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
+    /**
+     * Print user manual for duke program
+     */
     public static void printDukeHelp() {
         System.out.println(LINE);
         System.out.println(HELP_MESSAGE);
@@ -28,6 +32,10 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * prints all the tasks in the user's list
+     * @param taskList the list which stores user's tasks
+     */
     public static void printList(ArrayList<Task> taskList) {
         if (taskList.size() == 0) {
             DukeException.emptyTaskException();
@@ -43,6 +51,12 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * print which task is marked as done
+     *
+     * @param taskDoneIndex the index of the task to be marked done
+     * @param taskList the list which stores user's tasks
+     */
     public static void taskDoneMessage (int taskDoneIndex, ArrayList<Task> taskList) {
         System.out.println(LINE);
         System.out.println(" Nice! I've marked this task as done:");
@@ -51,6 +65,12 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * print which task is added to the task list
+     *
+     * @param newItem task to be added
+     * @param taskList the list which stores user's tasks
+     */
     public static void taskAddedMessage (Task newItem, ArrayList<Task> taskList) {
         System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
@@ -60,16 +80,24 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
-    public static void deleteMessage(int taskDeleteIndex, Task deletedTask, ArrayList<Task> taskList) {
+    /**
+     * print which task is deleted from the task list
+     *
+     * @param deletedTask task to be deleted
+     * @param taskList the list which stores user's tasks
+     */
+    public static void deleteMessage(Task deletedTask, ArrayList<Task> taskList) {
         System.out.println(LINE);
         System.out.println(" Noted! I've removed this task:");
         System.out.println("   " + deletedTask.toString());
-        //taskList.remove(taskDeleteIndex - 1);
         System.out.println(" Now you have " + taskList.size() +" tasks in the list.");
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * prints an error message for exceptions in Duke Program
+     */
     public static void generalDukeException() {
         System.out.println(LINE);
         System.out.println("Please input a valid command!");
@@ -77,12 +105,18 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * prints goodbye message when Duke Program terminates
+     */
     public static void printDukeExit() {
         System.out.println(LINE);
         System.out.println(GOODBYE_MESSAGE);
         System.out.println(LINE);
     }
 
+    /**
+     * Prints error message when todo instruction has no description
+     */
     public static void emptyTodoMessage() {
         System.out.println(LINE);
         System.out.println("Your todo command does not have an argument!");
@@ -91,6 +125,9 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * Prints error message when deadline instruction is invalid
+     */
     public static void invalidDeadlineMessage() {
         System.out.println(LINE);
         System.out.println("Your deadline command is invalid!");
@@ -99,6 +136,9 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * Prints error message when event instruction is invalid
+     */
     public static void invalidEventMessage() {
         System.out.println(LINE);
         System.out.println("Your event command is invalid!");
@@ -107,6 +147,9 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * Prints error message when done instruction is invalid
+     */
     public static void invalidDoneMessage() {
         System.out.println(LINE);
         System.out.println("Your done command is invalid!");
@@ -115,6 +158,9 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * Prints error message when delete instruction is invalid
+     */
     public static void invalidDeleteMessage() {
         System.out.println(LINE);
         System.out.println("Your delete command is invalid!");
@@ -123,6 +169,9 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * Prints message when task list is still empty
+     */
     public static void emptyTaskMessage() {
         System.out.println(LINE);
         System.out.println(" No Tasks here yet. Go include some tasks!");
@@ -130,6 +179,9 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * Prints error message if save file is invalid
+     */
     public static void invalidSaveFileMessage() {
         System.out.println(LINE);
         System.out.println("Your save file is invalid!");
@@ -137,6 +189,10 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * prints error message if IO exception occurs when creating new file
+     * @param ioException the exception which occurs from running program
+     */
     public static void createIOExceptionMessage(IOException ioException) {
         System.out.println(LINE);
         System.out.println("Something went wrong: " + ioException.getMessage());
@@ -144,6 +200,10 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * prints error message if IO exception occurs when saving file
+     * @param ioException the exception which occurs from running program
+     */
     public static void SaveIOExceptionMessage(IOException ioException) {
         System.out.println(LINE);
         System.out.println("Something went wrong: " + ioException.getMessage());
@@ -151,7 +211,9 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
-
+    /**
+     * Prints error message when find instruction is invalid
+     */
     public static void invalidFindMessage() {
         System.out.println(LINE);
         System.out.println("Your find command is invalid!");
@@ -160,6 +222,9 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * Prints message when user query gives out no match
+     */
     public static void noMatchMessage() {
         System.out.println(LINE);
         System.out.println("There are no matching tasks in your list!");
@@ -167,6 +232,12 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+    /**
+     * Prints all the matched task from user query
+     *
+     * @param searchedWord the user query
+     * @param tasksWithQuery the list of matched tasks with query
+     */
     public static void printAllMatchingTasks(String searchedWord, ArrayList<Task> tasksWithQuery) {
         System.out.println(LINE);
         System.out.println("Here are the matching tasks in your list to \"" + searchedWord + "\"");
@@ -177,7 +248,11 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
-    public static void createdtpExceptionMessaeg(DateTimeParseException dtpException) {
+    /**
+     * Prints exception message if date-time format is invalid
+     * @param dtpException the exception which occurs from running duke program
+     */
+    public static void createDtpExceptionMessage(DateTimeParseException dtpException) {
         System.out.println(LINE);
         System.out.println("Something went wrong: " + dtpException.getMessage());
         System.out.println(LINE);

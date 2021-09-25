@@ -9,6 +9,12 @@ import static Duke.UI.DukeConstants.FORMAT_DATE_TIME_OUTPUT;
 public class Event extends Task{
     protected LocalDateTime at;
 
+    /**
+     * Constructor for event class
+     *
+     * @param description event description
+     * @param at event at description
+     */
     public Event(String description, LocalDateTime at) {
         super(description);
         this.at = at;
