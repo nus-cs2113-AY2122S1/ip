@@ -35,37 +35,36 @@ public class Duke {
     public static void alarm(Alarm typeOfAlarm) {
         switch(typeOfAlarm) {
         case INVALID_COMMAND:
-            //System.out.println("Invalid charm. What did Professor Flitwick told you?");
-            System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            System.out.println("Invalid charm. What did Professor Flitwick told you?");
+            //System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             break;
         case BLANK_DESCRIPTION:
-            System.out.println("☹ OOPS!!! The description of a task cannot be empty.");
+            System.out.println("Hermoine says the description of a task cannot be empty.");
             break;
         case EMPTY_DONE:
-            System.out.println("Give me a number");
+            System.out.println("Give me a number.");
             break;
         case EMPTY_TODO:
-            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            System.out.println("☹Hermoine says the description of a todo cannot be empty.");
             break;
         case EMPTY_EVENT:
-            System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
+            System.out.println("The Head Boy says the description of a event cannot be empty.");
             break;
         case EMPTY_DEADLINE:
-            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+            System.out.println("The Head Girl says the description of a deadline cannot be empty.");
             break;
         case NO_DDL_KEYWORD:
-            System.out.println("Missing important keyword, add a /by before time");
+            System.out.println("Missing important keyword, add a /by before time.");
             break;
         case NO_EVENT_KEYWORD:
-            System.out.println("Missing important keyword, add a /at before time");
+            System.out.println("Missing important keyword, add a /at before time.");
             break;
         case INVALID_ID:
-            System.out.println("You should give me a valid number");
+            System.out.println("Not a number.");
             break;
         case OUT_OF_RANGE:
-            System.out.println("Can't find the item in the list");
-            System.out.println("Give me a number from 1 to " + taskCount);
-            printList();
+            System.out.println("Can't find the item in your list.");
+            System.out.println("Give me a number from 1 to " + taskCount + ".");
             break;
         default:
             System.out.println("UNIDENTIFIED ERROR!");
@@ -90,6 +89,11 @@ public class Duke {
     }
 
     public static void printList() {
+        if (taskCount == 0) {
+            System.out.println("No items in list yet.");
+            return;
+        }
+
         System.out.println("Here are the tasks in your list:\n");
         for (int i = 0; i < taskCount; i++) {
             Task t = tasks[i];
@@ -99,17 +103,15 @@ public class Duke {
 
     public static void markDone(String id)throws DukeException {
         int i = Integer.parseInt(id) - 1;
-        if (i == -1 || i > taskCount) {
+        if (taskCount == 0) {
+            System.out.println("No items in list yet.");
+            return;
+        } else if (i == 0 || i > taskCount) {
             throw new DukeException();
         }
         tasks[i].setDone(true);
         System.out.println("Nice!I've marked this task as done:");
         System.out.println(tasks[i].id + ". " + tasks[i].toString());
-    }
-
-    public static String[] splitFirstWord (String userInput) {
-        String[] output = userInput.split(" ",2);
-        return output;
     }
 
     public static String[] getDetails(String taskInput, String keyword) {
@@ -132,7 +134,7 @@ public class Duke {
                 Todo t = new Todo(taskInput);
                 add(t);
             } catch (ArrayIndexOutOfBoundsException e) {
-                alarm(Alarm.BLANK_DESCRIPTION);
+                alarm(Alarm.EMPTY_TODO);
             }
             break;
         case "deadline":
