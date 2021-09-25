@@ -18,6 +18,7 @@ public class Ui {
             + NL
             + "list" + NL
             + "agenda" + NL
+            + "find {query} (eg. find book)" + NL
             + "done {index number of task done}  (eg. done 1)" + NL
             + "delete {index number of task you want to delete}  (eg. delete 1)" + NL
             + "bye";

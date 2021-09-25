@@ -25,8 +25,7 @@ public class AgendaCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) {
-        //TODO change this to LocalDate.now() in final release
-        LocalDate today = LocalDate.of(2021, 9, 20);
+        LocalDate today = LocalDate.now();
         ArrayList<Task> todayDeadlineEvents = (ArrayList<Task>) tasks.getTasks().stream()
                 .filter(t -> t.getDT() != null && t.getDT().toLocalDate().equals(today))
                 .sorted(Comparator.comparing(Task::getDT))

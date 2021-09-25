@@ -17,6 +17,7 @@ event {description of event} /at {time of event} (eg. event party at/ 9am)
 deadline {description of task} /by {deadline of task}  (eg. deadline assignment /by 6pm)
 list
 agenda
+find {query} (eg. find book)
 done {index number of task done}  (eg. done 1)
 delete {index number of task you want to delete}  (eg. delete 1)
 bye
@@ -102,6 +103,7 @@ event {description of event} /at {time of event} (eg. event party at/ 9am)
 deadline {description of task} /by {deadline of task}  (eg. deadline assignment /by 6pm)
 list
 agenda
+find {query} (eg. find book)
 done {index number of task done}  (eg. done 1)
 delete {index number of task you want to delete}  (eg. delete 1)
 bye
