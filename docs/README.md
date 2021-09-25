@@ -28,9 +28,9 @@ It is optimized for use via a Command Line Interface (CLI) that can help you man
 
 ## Quick Start
 
-1. Ensure that you have Java `11` or above installed in your computer
+1. Ensure that you have Java `11` or above installed in your computer.
 2. Download the latest `ip.jar` from [here](https://github.com/aditichadha1310/ip)
-3. Copy the file to the folder you want to use as the home folder for your `Task Scheduler`.
+3. Copy the file to the folder you want to use as the home folder for your `Personal Assistant Chatbot- Duke`.
 4. Double-click the file to start the app
 
 You should see the following output :
@@ -269,6 +269,13 @@ ____________________________________________________________
 
 <br />
 
+### Saving the Tasks
+All updates made to the task list are automatically saved to a local file `duke.txt`
+> Note: There is no need to save manually.
+
+<br />
+   
+   
 ### Exit the application : `bye`
 Exits and closes **DUKE**.
 
@@ -279,12 +286,6 @@ ____________________________________________________________
 ____________________________________________________________
 
 ```
-<br />
-
-### Saving the Tasks
-All updates made to the task list are automatically saved to a local file `duke.txt`
-> Note: There is no need to save manually.
-
 <br />
 
 -----------------------------------------------------------------------------------------------------------------------------------------
