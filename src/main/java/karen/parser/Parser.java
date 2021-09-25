@@ -14,10 +14,6 @@ import karen.ui.Ui;
 
 import java.io.IOException;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Parser {
     private static final String LIST_COMMAND = "list";
@@ -53,15 +49,16 @@ public class Parser {
      * @throws IncorrectDescriptionFormatException if an Event command is given with incorrect formatting
      */
     public Event parseEvent(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
+        // checks if the input for Event Command is given correctly, ie. correct formatting and task description is given
         ErrorCheck.checkTaskExceptions(EVENT_COMMAND, EVENT_SEPARATOR, rawUserInput);
 
         String fullTaskDescription = parseFullTaskDescription(rawUserInput);
 
+        // obtains a list of 2 Strings, which includes the task description and the at date
         String[] descriptionWords = fullTaskDescription.split(EVENT_SEPARATOR, 2);
+        String eventTaskDescription = descriptionWords[0].trim();
         String at = descriptionWords[1].trim();
 
-        int endIndex = fullTaskDescription.indexOf(EVENT_SEPARATOR);
-        String eventTaskDescription = fullTaskDescription.substring(0, endIndex);
 
         Event event = new Event(eventTaskDescription, at);
         return event;
@@ -81,15 +78,15 @@ public class Parser {
      * @throws IncorrectDescriptionFormatException if a Deadline command is given with incorrect formatting
      */
     public Deadline parseDeadline(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
+        // checks if the input for Deadline Command is given correctly, ie. correct formatting and task description is given
         ErrorCheck.checkTaskExceptions(DEADLINE_COMMAND, DEADLINE_SEPARATOR, rawUserInput);
 
         String fullTaskDescription = parseFullTaskDescription(rawUserInput);
 
+        // obtains a list of 2 Strings, which includes the task description and the by date
         String[] descriptionWords = fullTaskDescription.split(DEADLINE_SEPARATOR, 2);
+        String deadlineTaskDescription = descriptionWords[0].trim();
         String by = descriptionWords[1].trim();
-
-        int endIndex = fullTaskDescription.indexOf(DEADLINE_SEPARATOR);
-        String deadlineTaskDescription = fullTaskDescription.substring(0, endIndex);
 
         Deadline deadline = new Deadline(deadlineTaskDescription, by);
         return deadline;
@@ -108,6 +105,7 @@ public class Parser {
      * @throws IncorrectDescriptionFormatException if a ToDo command is given with incorrect formatting
      */
     public ToDo parseToDo(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
+        // checks if there is a task description given
         ErrorCheck.checkTaskExceptions(TODO_COMMAND, "", rawUserInput);
         String todoTaskDescription = parseFullTaskDescription(rawUserInput);
         ToDo todo = new ToDo(todoTaskDescription);
@@ -126,6 +124,7 @@ public class Parser {
      * @throws IncorrectDescriptionFormatException if a Done Command is given with incorrect formatting
      */
     public int parseDone(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
+        // checks if there are exactly 2 elements in the rawUserInput, and a number is given as task number.
         ErrorCheck.checkCommandDescriptionExceptions("done", rawUserInput);
         String[] inputWords = rawUserInput.split(" ");
         int doneIndex = Integer.parseInt(inputWords[1]) - 1;
@@ -144,9 +143,9 @@ public class Parser {
      * @throws IncorrectDescriptionFormatException if a Delete Command is given with incorrect formatting
      */
     public int parseDelete(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
+        // checks if there are exactly 2 elements in the rawUserInput, and a number is given as task number.
         ErrorCheck.checkCommandDescriptionExceptions("delete", rawUserInput);
         String[] inputWords = rawUserInput.split(" ");
-        //find the index of the task to delete and the task itself
         int deleteIndex = Integer.parseInt(inputWords[1]) - 1;
         return deleteIndex;
     }
@@ -160,6 +159,7 @@ public class Parser {
      * @throws IncorrectDescriptionFormatException if a Bye Command is given with incorrect formatting
      */
     public void parseBye(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
+        //checks if there is exactly 1 word, ie. "bye"
         ErrorCheck.checkCommandDescriptionExceptions("bye", rawUserInput);
     }
 
@@ -281,12 +281,10 @@ public class Parser {
             break;
         case DEADLINE_COMMAND:
             String by = splitData[3].trim();
-//            fullTaskDescription = String.format("%s /by %s", taskDescription, by);
             task = new Deadline(taskDescription, by);
             break;
         case EVENT_COMMAND:
             String at = splitData[3].trim();
-//            fullTaskDescription = String.format("%s /at %s", taskDescription, at);
             task = new Event(taskDescription, at);
             break;
         default:

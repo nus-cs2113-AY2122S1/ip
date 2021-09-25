@@ -2,12 +2,10 @@ package karen.tasklist.task;
 
 public class Event extends Task{
     private String at;
-//    private String formattedDescription;
 
     public Event(String taskDescription, String at){
         super(taskDescription);
         this.at = at;
-//        this.formattedDescription = getFormattedDescription();
     }
 
     /**

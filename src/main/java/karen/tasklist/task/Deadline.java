@@ -2,12 +2,10 @@ package karen.tasklist.task;
 
 public class Deadline extends Task{
     private String by;
-//    private String formattedDescription;
 
     public Deadline(String taskDescription, String by) {
         super(taskDescription);
         this.by = by;
-//        this.formattedDescription = getFormattedFileDescription();
     }
 
     /**
