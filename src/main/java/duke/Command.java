@@ -7,39 +7,37 @@ import duke.task.TaskManager;
 class Command {
 
     private enum Commands {
-        BYE("bye", 1),
-        LIST("list", 1),
-        DONE("done <task number>", 2),
-        DELETE("delete <task number>", 2);
+        BYE("bye", 1, "(?i)%s"),
+        LIST("list", 1, "(?i)%s"),
+        DONE("done <task number>", 2, "(?i)%s\\s+\\d+$"),
+        DELETE("delete <task number>", 2, "(?i)%s\\s+\\d+$"),
+        FIND("find <description>", 2, "(?i)%s\\s+\\S+$");
 
-        private final String usage;
+        private final String USAGE;
         private final int ARGS;
+        private final String REGEX;
 
-        private static final String REGEX_INT_ARG = "(?i)%s" + Parser.WHITESPACE_REGEX + "\\d+$";
-
-        Commands(String usage, int args) {
-            this.usage = usage;
+        Commands(String usage, int args, String regex) {
+            USAGE = usage;
             ARGS = args;
+            REGEX = regex;
         }
 
         private String getUsage() {
-            return "Wrong argument(s). Usage: " + usage;
-        }
-
-        private String getRegexIntArg() {
-            return String.format(REGEX_INT_ARG, this);
+            return "Wrong argument(s). Usage: " + USAGE;
         }
 
         private static Commands getCommand(String commandString){
             return valueOf(commandString.toUpperCase());
         }
 
+        @Override
+        public String toString(){
+            return super.toString().toLowerCase();
+        }
+
         private boolean matchesRegex(String userInput) {
-            if (this == DONE || this == DELETE) {
-                return userInput.matches(getRegexIntArg());
-            }
-            //No need to check regex for BYE or LIST
-            return true;
+            return userInput.matches(String.format(REGEX, toString()));
         }
 
         private static boolean contains(String userInput) {
@@ -83,6 +81,9 @@ class Command {
                 break;
             case DELETE:
                 TaskManager.deleteTask(Integer.parseInt(userInputSplit[1]) - 1);
+                break;
+            case FIND:
+                TaskManager.findTasks(userInputSplit[1]);
                 break;
             }
         } catch (InvalidCommandException ive) {

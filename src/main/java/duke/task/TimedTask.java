@@ -26,7 +26,6 @@ abstract class TimedTask extends Task {
 
     public static TimedTask newTimedTask(Type taskType, String userInput) throws WrongNumberOfArgumentsException {
         String[] parsedInputs = parseUserInput(taskType, userInput);
-        TimedTask createdTask;
         if (taskType == Type.EVENT) {
             return new Event(parsedInputs[0], parsedInputs[1]);
         }
