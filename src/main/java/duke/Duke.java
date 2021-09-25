@@ -4,12 +4,9 @@ import duke.manager.TaskManager;
 
 /**
  * TODO : Better Documentation
- *        Add Delete
- *        Add Save
  *        Add more constants
  *        Update Tests
  *        Create more exceptions
- *        Fix commit messages (git convention)
  *        Add checkstyle
  */
 
