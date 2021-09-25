@@ -15,6 +15,11 @@ public class Ui {
     private static final int LINE_WIDTH = 60;
 
     /**
+     * Scanner object to read user input.
+     */
+    private static final Scanner IN = new Scanner(System.in);
+
+    /**
      * Prints a horizontal line for improving readability.
      */
     public void printHorizontalLine() {
@@ -181,10 +186,7 @@ public class Ui {
      * @return The user's inputs as a String.
      */
     public String readCommand() {
-        String line;
-        Scanner in = new Scanner(System.in);
-        line = in.nextLine();
-        return line;
+        return IN.nextLine();
     }
 
     /**
