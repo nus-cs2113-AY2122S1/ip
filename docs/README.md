@@ -44,7 +44,7 @@ Duke is a **Command Line Interface (CLI) app that helps you to better manage you
     - `delete 2` : Deletes the 2nd task in the list.
     - `find iP` : Finds any task in list with name containing "iP".
     - `bye` : Exits the app.
-6. For more information on Duke's features, please refer to the [Features Section]().
+6. For more information on Duke's features, please refer to the [Features Section](#features).
 
 ---
 
