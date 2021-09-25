@@ -1,6 +1,0 @@
-D | 1 | watch lecture | today
-E | 0 | movie | 7
-T | 0 | buy bread | 
-T | 0 | play ball | 
-T | 0 | eat bread | 
-T | 0 | eat | 

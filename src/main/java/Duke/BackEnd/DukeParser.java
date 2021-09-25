@@ -1,5 +1,6 @@
 package Duke.BackEnd;
 
+import Duke.Exception.DukeException;
 import Duke.TaskTypes.Deadline;
 import Duke.TaskTypes.Event;
 
@@ -50,5 +51,13 @@ public class DukeParser {
     public static String[] parseDeleteInstruction (String inWord) {
         String[] commands = inWord.split(" ");
         return commands;
+    }
+
+    public static String parseFindInstruction (String inWord) throws DukeException {
+        String[] commands = inWord.split("\\s+", 2);
+        if (commands.length != 2) {
+            throw new DukeException();
+        }
+        return commands[1].trim();
     }
 }

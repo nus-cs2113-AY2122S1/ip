@@ -41,4 +41,8 @@ public class DukeException extends Exception{
     public static void SaveIOException(IOException ioException) {
         UserInterface.SaveIOExceptionMessage(ioException);
     }
+
+    public static void invalidFindException() {
+        UserInterface.invalidFindMessage();
+    }
 }
