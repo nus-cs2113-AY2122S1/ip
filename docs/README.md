@@ -4,14 +4,14 @@ Shika is a simple Command Line Interface (CLI) app for managing tasks.
 
 ## Table of Contents
 * Features
-   1. [Exit](#bye-exits-shika-a-name--byea)
-   2. Add
-      * [Todo](#todo---add-todo)
-      * [Deadline](#deadline---add-deadline)
-      * [Event](#event---add-event)
-   3. [Done](#done---mark-task-as-done)
-   4. [List](#list---list-all-tasks)
-   5. [Find](#find---finds-task)
+    1. [Exit](#bye-exits-shika-a-name--byea)
+    2. Add
+        * [Todo](#todo---add-todo)
+        * [Deadline](#deadline---add-deadline)
+        * [Event](#event---add-event)
+    3. [Done](#done---mark-task-as-done)
+    4. [List](#list---list-all-tasks)
+    5. [Find](#find---finds-task)
 * [Command Summary](#command-summary)
 
 ## Features
@@ -20,7 +20,7 @@ Shika is a simple Command Line Interface (CLI) app for managing tasks.
 
 Exits Shika.
 
-Example of usage: 
+Example of usage:
 
 `bye`
 
@@ -90,7 +90,7 @@ ____________________________________________________________________________
 
 ### `event` - Add Event
 
-Adds an event to the task list. 
+Adds an event to the task list.
 
 Format: `event TASKNAME /at DATE`
 * Date has to follow `ddMMyyyy`, `dd/MM/yyyy` or `dd-MM-yyyy` formats.
@@ -253,8 +253,6 @@ Done | `done INDEX`
 List | `list`
 Find | `find SEARCHTERM`
 
-##References and Acknowledgements
-- Text to ASCII Art Generator
-https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Shika%0A
-- OOP Structure: Referenced from AddressBook
-https://github.com/se-edu/addressbook-level2/
+## References and Acknowledgements
+- [Text to ASCII Art Generator](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Shika%0A)
+- [OOP Structure: Referenced from AddressBook](https://github.com/se-edu/addressbook-level2)
