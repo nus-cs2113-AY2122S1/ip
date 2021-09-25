@@ -44,6 +44,13 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Checks if the format of the date, time, or dateTime the user entered is correct based on a specified format
+     *
+     * @param value the date/time/dateTime input to be checked
+     * @param format the specified format to be checked with
+     * @return returns true if the format entered by the user matches the format specified, false otherwise
+     */
     private boolean isValidDateTimeFormat(String value, String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
 
