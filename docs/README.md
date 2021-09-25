@@ -203,7 +203,7 @@ ____________________________________________________________
 Removes a task from the task list, by their **index_number**
 - **INDEX_NUMBER** : index as displayed in the TASK list.
    
-Example: `list` -> `delete 2` -> `list 
+Example: `list` -> `delete 2` -> `list` 
 ```shell
 list
 ____________________________________________________________
@@ -305,7 +305,7 @@ it creates with the file that contains the data from your previous Duke home fol
 
 ## Command Summary
 
-| Command Format                             | Meaning                                                       |
+| Command Format                             | Action                                                        |
 | -----                                      | -------                                                       |
 | `help`                                     | Lists all the valid commands                                  |
 | `list`                                     | Lists all the scheduled tasks from the task list              |
