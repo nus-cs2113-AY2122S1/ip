@@ -320,7 +320,7 @@ it creates with the file that contains the data from your previous Duke home fol
 ## Command Summary
 
 | Command Format                             | Meaning                                                               |
-| ------------------------------------------ | ----------------------------------------------------------------------|
+| -----                                      | -------                                                               |
 | `help`                                     | Lists all the valid commands                                          |
 | `list`                                     | Lists all the scheduled tasks from the task list                      |
 | `find <SEARCH_KEYWORD>`                    | Searches in the task list for tasks which contain the keyword         |
