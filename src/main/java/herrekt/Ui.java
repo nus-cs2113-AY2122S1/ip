@@ -23,7 +23,7 @@ public class Ui {
     }
 
     void printLoadingError() {
-        System.out.println("ERROR! Could not locate save.txt.");
+        System.out.println("ERROR! Could not locate save.txt. Creating new one.");
     }
 
     void printInputBiggerThanTaskList(TaskList tasks) {

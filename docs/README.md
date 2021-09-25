@@ -117,21 +117,89 @@ Command | Output
 * To switch off the app, input: `bye`.
 * Output: 
   * `Bye. Hope you will complete everything for today!`
-
+	
 ## Overall Usage (Example)
 
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
 ```
-expected output
+Hi! I'm Herrick, your task manager.
+What would you like to add to your timetable?
+```
+Input: `deadline essay /by 2021-10-03`
+```
+Task added: [D][ ] essay (by: OCT 3 2021)`
+For now, you have 1 task on the list
+```
+Input: `event exam /at LT27 on Monday`
+```
+Task added: [E][ ] exam (at: LT27 on Monday)
+For now, you have 2 tasks on the list
+```
+Input: `todo User Guide`
+```
+Task added: [T][ ] User Guide
+For now, you have 3 tasks on the list
+```
+Input: `todo Java Doc`
+```
+Task added: [T][ ] Java Doc
+For now, you have 4 tasks on the list
+```
+Input: `delete 4`
+```
+Alright. I've removed this task: 
+  [T][ ] Java Doc
+Now you have 3 tasks left to do
+```
+Input: `todo javadoc`
+```
+Task added: [T][ ] javadoc
+For now, you have 4 tasks on the list
+```
+Input: `list`
+```
+Here are the tasks in your list:
+1. [D][ ] essay (by: OCT 3 2021)
+2. [E][ ] exam (at: LT27 on Monday)
+3. [T][ ] User Guide
+4. [T][ ] javadoc 
+```
+Input: `find t`
+```
+Here are the matching tasks in your list:
+3. [T][ ] User Guide
+4. [T][ ] javadoc
+```
+Input: `done 4`
+```
+Nice! I've marked this task as done:
+  [T][X] javadoc
+```
+Input: `done 3`
+```
+Nice! I've marked this task as done:
+  [T][X] User Guide
+```
+Input: `list`
+```
+Here are the tasks in your list:
+1. [D][ ] essay (by: OCT 3 2021)
+2. [E][ ] exam (at: LT27 on Monday)
+3. [T][X] User Guide
+4. [T][X] javadoc
+```
+Input: `find done`
+```
+Here are the matching tasks in your list:
+3. [T][X] User Guide
+4. [T][X] javadoc
+```
+Input: `find undone`
+```
+Here are the matching tasks in your list:
+1. [D][ ] essay (by: OCT 3 2021)
+2. [E][ ] exam (at: LT27 on Monday)
+```
+Input: `bye`
+```
+Bye. Hope you will complete everything for today!
 ```
