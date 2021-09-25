@@ -2,12 +2,19 @@ package parser;
 
 import commands.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+
 import static common.Messages.*;
 
 public class Parser {
+    public static final String DATE_KEYWORD = "/d";
+    public static final String TIME_KEYWORD = "/t";
 
     public Command parseCommand(String userInputString) {
-        final String[] commandTypeAndParams = splitCommandWordsAndArgs(userInputString);
+        final String[] commandTypeAndParams = splitCommandWordsAndArgs(userInputString, "\\s+");
         final String commandType = commandTypeAndParams[0];
         final String commandArgs = commandTypeAndParams[1];
         switch (commandType) {
@@ -20,11 +27,9 @@ public class Parser {
         case AddTodoCommand.COMMAND_WORD:
             return prepareAddTodo(commandArgs);
         case AddEventCommand.COMMAND_WORD:
-            String[] eventArgs = decodeTask(AddEventCommand.COMMAND_WORD, commandArgs);
-            return prepareAddEvent(eventArgs);
+            return prepareAddEvent(getTaskDateArgs(commandArgs));
         case AddDeadlineCommand.COMMAND_WORD:
-            String[] deadlineArgs = decodeTask(AddDeadlineCommand.COMMAND_WORD, commandArgs);
-            return prepareAddDeadline(deadlineArgs);
+            return prepareAddDeadline(getTaskDateArgs(commandArgs));
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
         case DeleteCommand.COMMAND_WORD:
@@ -38,25 +43,12 @@ public class Parser {
         }
     }
 
-    private static String[] splitCommandWordsAndArgs(String rawUserInput) {
-        final String[] split = rawUserInput.trim().split("\\s+", 2);
+    private static String[] splitCommandWordsAndArgs(String rawInput, String keyword) {
+        final String[] split = rawInput.trim().split(keyword, 2);
         if (split.length == 2) {
             return split;
         }
         return new String[]{split[0], ""};
-    }
-
-    private static String[] decodeTask(String commandType, String commandArgs) {
-        if (commandType.equals(AddEventCommand.COMMAND_WORD)) {
-            if (commandArgs.contains(AddEventCommand.KEYWORD)) {
-                return commandArgs.trim().split(AddEventCommand.KEYWORD, 2);
-            }
-        } else if (commandType.equals(AddDeadlineCommand.COMMAND_WORD)) {
-            if (commandArgs.contains(AddDeadlineCommand.KEYWORD)) {
-                return commandArgs.trim().split(AddDeadlineCommand.KEYWORD, 2);
-            }
-        }
-        return new String[0]; // empty string array
     }
 
     private static int parseArgsAsDisplayedIndex(String displayIndex) throws ParseException, NumberFormatException {
@@ -70,16 +62,48 @@ public class Parser {
         return new AddTodoCommand(description, false);
     }
 
+    public static String[] getTaskDateArgs(String commandArgs) {
+        String[] descriptionAndDatetime = splitCommandWordsAndArgs(commandArgs, DATE_KEYWORD);
+        String[] dateAndTime = splitCommandWordsAndArgs(descriptionAndDatetime[1].trim(),TIME_KEYWORD);
+        return new String[]{descriptionAndDatetime[0],dateAndTime[0],dateAndTime[1]};
+    }
+
     public static Command prepareAddEvent(String[] eventArgs) {
-        String description = eventArgs[0];
-        String date = eventArgs[1];
-        return new AddEventCommand(description, false, date);
+        try {
+            String description = eventArgs[0];
+            LocalDate date = parseArgsAsDate(eventArgs[1].trim());
+            LocalTime time = parseArgsAsTime(eventArgs[2].trim());
+            LocalDateTime dateTime = date.atTime(time);
+            return new AddEventCommand(description, false, dateTime);
+        } catch (ParseException e) {
+            return new IncorrectCommand("could not parse date for event.");
+        }
     }
 
     public static Command prepareAddDeadline(String[] deadlineArgs) {
-        String description = deadlineArgs[0];
-        String date = deadlineArgs[1];
-        return new AddDeadlineCommand(description, false, date);
+        try {
+            String description = deadlineArgs[0];
+            LocalDate date = parseArgsAsDate(deadlineArgs[1].trim());
+            LocalTime time = parseArgsAsTime(deadlineArgs[2].trim());
+            LocalDateTime dateTime = LocalDateTime.of(date, time);
+            return new AddDeadlineCommand(description, false, dateTime);
+        } catch (ParseException e) {
+            return new IncorrectCommand("could not parse date for deadline.");
+        }
+    }
+
+    public static LocalDate parseArgsAsDate(String str) throws DateTimeParseException, ParseException {
+        if (str.trim().isEmpty()) {
+            throw new ParseException("Could not find date to parse");
+        }
+        return LocalDate.parse(str.trim());
+    }
+
+    public static LocalTime parseArgsAsTime(String str) throws DateTimeParseException {
+        if (str.trim().isEmpty()) {
+            return LocalTime.MIN;
+        }
+        return LocalTime.parse(str.trim());
     }
 
     public static Command prepareDeleteTask(String taskNumber) {
