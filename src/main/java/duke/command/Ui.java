@@ -20,9 +20,9 @@ public class Ui {
         System.out.println("1.  ToDos: tasks without any date/time attached to it");
         System.out.println("    COMMAND: todo xxx");
         System.out.println("2.  Deadlines: tasks that need to be done before a specific date/time");
-        System.out.println("    COMMAND: deadline xxx /by yyy");
+        System.out.println("    COMMAND: deadline xxx /by dd/MM/yyyy HHmm");
         System.out.println("3.  Events: tasks that start at a specific time and ends at a specific time");
-        System.out.println("    COMMAND: event xxx /at yyy");
+        System.out.println("    COMMAND: event xxx /at dd/MM/yyyy HHmm");
         System.out.println("4.  Display list");
         System.out.println("    COMMAND: list");
         System.out.println("5.  Mark task complete");
