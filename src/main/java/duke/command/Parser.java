@@ -14,6 +14,7 @@ public class Parser {
     public static final String BEFORE = "before";
     public static final String AFTER = "after";
     public static final String DELETE = "delete";
+    public static final String FIND = "find";
     public static final String EXIT = "bye";
     static int taskNumber;
     public static DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -60,6 +61,15 @@ public class Parser {
             break;
         case AFTER:
             TaskList.afterDate(taskDescription);
+            break;
+        case FIND:
+            if (taskDescription == null) {
+                Ui.printDividerLine();
+                System.out.println("Invalid Input!");
+                Ui.printDividerLine();
+                break;
+            }
+            TaskList.find(taskDescription);
             break;
         case EXIT:
             Ui.bye();

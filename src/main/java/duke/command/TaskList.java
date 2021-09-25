@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -168,5 +169,16 @@ public class TaskList {
         }
         Ui.printDividerLine();
     }
+    static void find(String keyword) {
+        Ui.printDividerLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task item : taskList) {
+            if (item.getDescription().contains(keyword)) {
+                System.out.println("[" + item.getType() + "][" + item.getStatusIcon() + "] " + item.getDescription());
+            }
+        }
+        Ui.printDividerLine();
+    }
+
 
 }
