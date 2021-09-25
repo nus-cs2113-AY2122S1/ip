@@ -11,7 +11,9 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 import java.util.Scanner;
 
 public class Duke {
@@ -41,15 +43,19 @@ public class Duke {
         }
     }
 
+    private static void printWithIndex(List<?> list) {
+        for (int i = 1; i <= list.size(); i += 1) {
+            System.out.println(i + ": " + list.get(i - 1));
+        }
+    }
+
     private static boolean handleOneInputLine(String line) {
         String[] splitted = line.split("\\s+");
         switch (splitted[0]) {
         case "bye":
             return true;
         case "list":
-            for (int i = 1; i <= taskList.size(); i += 1) {
-                System.out.println(i + ": " + taskList.get(i - 1));
-            }
+            printWithIndex(taskList);
             break;
         case "done": {
             Task target = taskList.get(Integer.parseInt(splitted[1]) - 1);
@@ -63,6 +69,12 @@ public class Duke {
             saveTaskListToFile();
             System.out.println("Noted. I've removed this task:");
             System.out.println(target);
+            break;
+        }
+        case "find": {
+            String needle = splitted[1];
+            List<Task> filteredTasks = taskList.stream().filter(t -> t.getTitle().contains(needle)).collect(Collectors.toList());
+            printWithIndex(filteredTasks);
             break;
         }
         default:
