@@ -25,7 +25,7 @@ import static duke.constants.DukeCommandStrings.DELETE_COMMAND;
 import static duke.constants.DukeCommandStrings.DONE_COMMAND;
 import static duke.constants.DukeCommandStrings.EVENT_COMMAND;
 import static duke.constants.DukeCommandStrings.EVENT_PREFIX;
-import static duke.constants.DukeCommandStrings.EXIT_COMMAND;
+import static duke.constants.DukeCommandStrings.BYE_COMMAND;
 import static duke.constants.DukeCommandStrings.FIND_COMMAND;
 import static duke.constants.DukeCommandStrings.HELP_COMMAND;
 import static duke.constants.DukeCommandStrings.LIST_COMMAND;
@@ -66,7 +66,7 @@ public class Parser {
         } else if (beginsWith(userInput, FIND_COMMAND)) {
             String keyword = parseFindCommand(userInput);
             return new FindCommand(keyword);
-        } else if (beginsWith(userInput, EXIT_COMMAND)) {
+        } else if (beginsWith(userInput, BYE_COMMAND)) {
             return new ByeCommand();
         } else {
             return new UnrecognizedCommand();

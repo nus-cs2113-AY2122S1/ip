@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static duke.constants.DukeDataStorageConstants.BACKSLASH;
-import static duke.constants.DukeDataStorageConstants.BACKSLASH_SEPARATOR;
+import static duke.constants.DukeDataStorageConstants.BACKSLASH_REGEX;
 import static duke.constants.DukeDataStorageConstants.DEFAULT_STORAGE_FILEPATH;
 import static duke.constants.DukeDataStorageConstants.FILE_CREATION_ERROR_MESSAGE;
 import static duke.constants.DukeDataStorageConstants.FILE_WRITE_ERROR_MESSAGE;
@@ -168,9 +168,10 @@ public class DataStorage {
     }
 
     private static String getDirectoryPath(String filePath) {
-        String[] directoryPathAsArray = filePath.split(BACKSLASH_SEPARATOR);
+        String[] directoryPathAsArray = filePath.split(BACKSLASH_REGEX);
         StringBuilder directoryPath = new StringBuilder();
 
+        /* Iterate up to length - 1 because the last argument in a file path is usually the file type */
         for (int i = 0; i < (directoryPathAsArray.length - 1); i++) {
             directoryPath.append(directoryPathAsArray[i]).append(BACKSLASH);
         }
