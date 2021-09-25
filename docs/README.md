@@ -5,9 +5,9 @@ Hello there 👋 and welcome to **Duke**! **Duke** is a Task List designed to st
 task like todo, event and deadline which can be displayed to the user.  
 
 ## Setting up
-- The text-art folder that contains all the text-art needs to be included in the JAR directory. 
+- The "text-art" folder that contains all the text-art needs to be included in the JAR directory. 
 - data/duke.txt will be created in the JAR directory if it does not exist and the duke.txt must 
-be kept empty.
+be kept empty (unless it is of the correct format - generated from this app).
 
 ## Features 
 
@@ -20,6 +20,19 @@ accidentally pressing CTRL + C to the terminal...
 #### Anti-Duplicate
 
 Everytime a task is added, it is checked and ensure that no 2 task is exactly the same. 
+
+#### 3 Types of Task
+
+Todo: Purely descriptive. 
+
+Event: Description and time of occurrence in format of (yyyy-mm-dd HH:mm).
+
+Deadline: Description and time which the task is due in format of (yyyy-mm-dd HH:mm). 
+
+#### Search for Task
+
+Allows searching for task via find which can find a matching pattern of String according 
+to the list of task. 
 
 ## Usage
 
