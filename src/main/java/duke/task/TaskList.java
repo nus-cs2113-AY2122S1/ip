@@ -35,13 +35,13 @@ public class TaskList {
     public Task markDone(int index) {
         Task task = tasks.get(index - 1);
         task.setDone();
-        numOfTasks--;
         return task;
     }
 
     public Task deleteTask(int index) {
         Task task = tasks.get(index - 1);
         tasks.remove(index - 1);
+        numOfTasks--;
         return task;
     }
 

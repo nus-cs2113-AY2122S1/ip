@@ -2,6 +2,8 @@ package duke;
 
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.EmptyTimeFieldException;
+import duke.parser.ParseFromRawFormat;
+import duke.parser.Parser;
 import duke.task.Task;
 
 import java.io.IOException;
@@ -130,6 +132,7 @@ public class Ui {
 
     public Parser readUserInput(Scanner in) throws EmptyDescriptionException, EmptyTimeFieldException {
         System.out.println("\tCall out a smurf to do a job for you!");
-        return new Parser(in.nextLine(), 1);
+        return new ParseFromRawFormat(in.nextLine());
+//        return new Parser(in.nextLine(), 1);
     }
 }

@@ -9,10 +9,8 @@ package duke.task;
  */
 
 public abstract class Task {
-    //protected static int numOfTasks = 0;
     protected String description;
     protected boolean isDone;
-    //protected int itemIndex;
 
     /**
      * Creates a task with the specified task description.

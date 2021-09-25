@@ -2,6 +2,9 @@ package duke;
 
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.EmptyTimeFieldException;
+import duke.parser.ParseFromFileFormat;
+import duke.parser.ParseToFileFormat;
+import duke.parser.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -34,7 +37,8 @@ public class Storage {
     private void writeToFile(ArrayList<Task> tasks) throws  IOException {
         FileWriter fileWriter = new FileWriter(filePath);
         for (Task t : tasks) {
-            Parser fileFormatter = new Parser(t);
+//            Parser fileFormatter = new Parser(t);
+            Parser fileFormatter = new ParseToFileFormat(t);
             String taskData = fileFormatter.getFileFormat();
             fileWriter.write(taskData);
         }
@@ -46,8 +50,9 @@ public class Storage {
             File file = loadFile();
             Scanner scanner = new Scanner(file);
             while(scanner.hasNext()) {
-                String fileFormat = scanner.nextLine();
-                Parser fileFormatHandler = new Parser(fileFormat, 0);
+//                String fileFormat = scanner.nextLine();
+//                Parser fileFormatHandler = new Parser(fileFormat, 0);
+                Parser fileFormatHandler = new ParseFromFileFormat(scanner.nextLine());
 
                 switch (fileFormatHandler.getCommand()) {
                 case "todo":
@@ -72,10 +77,6 @@ public class Storage {
             }
         } catch (IOException exception) {
             System.out.println("oops something went wrong..." + exception.getMessage());
-        } catch (EmptyTimeFieldException exception) {
-            ui.printEmptyTimeFieldErrorMessage();
-        } catch (EmptyDescriptionException exception) {
-            ui.printEmptyDescriptionErrorMessage();
         }
     }
 

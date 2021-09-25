@@ -2,6 +2,7 @@ package duke;
 
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.EmptyTimeFieldException;
+import duke.parser.Parser;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -118,6 +119,7 @@ public class Duke {
 
     private static void executeDelete(int taskIndex) {
         Task deletedTask = tasks.deleteTask(taskIndex);
+
         ui.printDeleteTask(deletedTask);
     }
 
