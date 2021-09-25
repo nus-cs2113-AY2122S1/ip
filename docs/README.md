@@ -119,15 +119,17 @@ it creates with the file that contains the data from your previous Duke home fol
 
 ## Command Summary
 
-| Command Format                          | Examples                                  | Meaning                                                                        |
-| --------------                          | ----------                                | ----------                                                                     |
-| `help`                                  | `help`                                    | Lists all the valid commands                                                   |
-| `list`                                  | `list`                                    | Lists all the scheduled tasks from the task list                               |
-| `find <SEARCH_KEYWORD>`                 | `find Read`                               | Searches in the task list for tasks which contain the keyword                  |
-| `todo <DESCRIPTION>`                    | `todo eat food`                           | Adds a todo task with description                                              |
-| `deadline <DESCRIPTION> /by <DATE_TIME>`| `deadline Eat Food /by 2021-10-13 16:00`  | Adds a deadline task with description and a deadline                           |
-| `event <DESCRIPTION> /at <DATE_TIME>`   | `event join lecture /at 2021-09-09 09:45` | Adds an event task with description and event timing                           |
-| `delete <NUMBER>`                       | `delete 3`                                | Deletes a task from the task list according to the index number provided       |
-| `done <NUMBER>`                         | `done 4`                                  | Marks a task as done in the task list according to the index number provided   |
-| `bye`                                   | `bye`                                     | Exits the application                                                          |
+| Command Format,Examples                    | Meaning                                                                        |
+| --------------                             | ----------                                                                     |
+| `help`                                     | Lists all the valid commands                                                   |
+| `list`                                     | Lists all the scheduled tasks from the task list                               |
+| `find <SEARCH_KEYWORD>`, `find Read`       | Searches in the task list for tasks which contain the keyword                  |
+| `todo <DESCRIPTION>`, `todo eat food`      | Adds a todo task with description                                              |
+| `deadline <DESCRIPTION> /by <DATE_TIME>`,  |                                                                                |
+   `deadline Eat Food /by 2021-10-13 16:00`  | Adds a deadline task with description and a deadline                           |
+| `event <DESCRIPTION> /at <DATE_TIME>` ,    |                                                                                |
+   `event join lecture /at 2021-09-09 09:45` | Adds an event task with description and event timing                           |
+| `delete <NUMBER>`, `delete 3`              | Deletes a task from the task list according to the index number provided       |
+| `done <NUMBER>`, `done 4`                  | Marks a task as done in the task list according to the index number provided   |
+| `bye`                                      | Exits the application                                                          |
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------  
