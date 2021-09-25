@@ -198,7 +198,7 @@ save manually.
 
 ### Editing the data file
 
-AddressBook data are saved as a csv file `[JAR file location]/data/tasks.csv`. Advanced users are welcome to update data 
+Duke's task data are saved as a csv file `[JAR file location]/data/tasks.csv`. Advanced users are welcome to update data 
 directly by editing that data file.
 
 ❗  **Caution**: If your changes to the data file is detected to be corrupted or does not conform to Duke's 
