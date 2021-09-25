@@ -255,4 +255,11 @@ public class Ui {
     private void printTaskListEmpty() {
         System.out.println("  You have no tasks yet.");
     }
+
+    /**
+     * Prints a new line.
+     */
+    public void printNewLine() {
+        System.out.print(System.lineSeparator());
+    }
 }

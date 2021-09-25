@@ -53,7 +53,7 @@ public class Duke {
             }
             fileManager.saveDukeWithoutMessage(taskManager);
             ui.printHorizontalLine();
-            System.out.print(System.lineSeparator());
+            ui.printNewLine();
         } while (!isExit);
         fileManager.saveDuke(taskManager);
     }
