@@ -41,7 +41,7 @@ What can I do for you?
 ____________________________________________________________
 
 ```
-5. Note the sample tasks already present! Type a command and press `Enter` to execute it.
+5. Note the sample commands given below! Type a command and press `Enter` to execute it.
    e.g. typing `help` will display all possible commands that **DUKE** accepts.
 
 Some example commands you can try:
@@ -72,9 +72,9 @@ These are the valid commands:
  > help
  > todo
  > deadline
- > done
  > event
  > list
+ > done
  > delete
  > find
  > bye
@@ -84,7 +84,7 @@ These are the valid commands:
    
 ### Adding a TODO: `todo <DESCRIPTION>`
 Adds a *TODO* task to the task list. By default, the task is set to **not done**.
-- **DESCRIPTION** :  is the description of the Task
+- **DESCRIPTION** :  is the description of the Task.
 
 Example: `todo Complete CS2113T Assignment`
 ```shell
@@ -100,11 +100,11 @@ ____________________________________________________________
    
 ### Adding a DEADLINE: `deadline <DESCRIPTION> /by <DATE_TIME>`
 Adds a *DEADLINE* task to the task list. By default, the task is set to **not done**.
-- **DESCRIPTION** : is the description of the Task
+- **DESCRIPTION** : is the description of the Task.
 - **/by** : is a *REQUIRED* clause when adding a deadline
 - **DATE_TIME** : are the *date* and *time* that the task is due by. This **CANNOT BE NULL/EMPTY**.
-> :warning: Note: date_time needs to be given in a valid format.
-> See [Dates](#list-valid-datetime-formats-dates) for more details
+> Note: date_time needs to be given in a valid format.
+> The correct format is YYYY-MM-DD HH:MM.
 
 Example: `deadline read book /by 2021-10-13 16:00`
 ```shell
@@ -119,11 +119,11 @@ ____________________________________________________________
    
 ### Adding an EVENT: `event <DESCRIPTION> /at <DATE_TIME>`
 Adds a *EVENT* task to the task list. By default, the task is set to **not done**.
-- **DESCRIPTION** :  is the description of the Task
+- **DESCRIPTION** :  is the description of the Task.
 - **/at** : is a *REQUIRED* clause when adding an event
 - **DATE_TIME** : are the *date* and *time* for which the event is scheduled. This **CANNOT BE NULL/EMPTY**.
-> :warning: Note: date_time needs to be given in a valid format.
-> See [Dates](#list-valid-datetime-formats-dates) for more details
+> Note: date_time needs to be given in a valid format.
+> The correct format is YYYY-MM-DD HH:MM.
 
 Example: `event attend lecture /at 2021-11-21 08:00`
 ```shell
@@ -146,7 +146,7 @@ ____________________________________________________________
 
    
 ### Listing all tasks: `list`
-This command lists all the tasks currently scheduled in the the task list
+This command lists all the tasks currently scheduled in the the task list.
 ```shell
 list
 ____________________________________________________________
@@ -181,7 +181,7 @@ The format for each Task printed is:
 
 Marks a task as done, by their **INDEX_NUMBER**.
 
-- **INDEX_NUMBER** : index as displayed in the task list.
+- **INDEX_NUMBER** : index as displayed in the Task list.
 
 Example: `list` -> `done 2` -> `list`
 ```shell
@@ -210,7 +210,7 @@ Here are the tasks in your list:
    
 ### Deleting a task: `delete <INDEX_NUMBER>`
 Deletes a task from the task list, by their **index_number**
-- **INDEX_NUMBER** : index as displayed in the TASK list.
+- **INDEX_NUMBER** : index as displayed in the Task list.
    
 Example: `list` -> `delete 2` -> `list` 
 ```shell
