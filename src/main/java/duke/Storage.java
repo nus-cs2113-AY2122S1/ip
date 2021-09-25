@@ -40,15 +40,12 @@ public class Storage {
                             taskArrayList.add(new Task(description));
                             break;
                         case "E": {
-                            parts[3] = parts[3].substring(1,parts[3].length()-1);
-                            String[] date = parts[3].split(", ");
+                            String date = parts[3];
                             taskArrayList.add(new Event(description, date, parts[4]));
                             break;
                         }
                         case "D": {
-                            parts[3] = parts[3].substring(1,parts[3].length()-1);
-                            String[] date = parts[3].split(", ");
-                            taskArrayList.add(new Deadline(description, date, parts[4]));
+                            taskArrayList.add(new Deadline(description, parts[3], parts[4]));
                             break;
                         }
                     }
@@ -74,10 +71,10 @@ public class Storage {
             Task t = taskList.get(i);
             if (t instanceof Event) {
                 txtData.append("E|").append(t.getStatus()).append("|").append(t.getName()).append("|")
-                        .append(Arrays.toString(((Event) t).getDates())).append("|").append(((Event) t).getTime());
+                        .append(((Event) t).getDates()).append("|").append(((Event) t).getTime());
             } else if (t instanceof Deadline) {
                 txtData.append("D|").append(t.getStatus()).append("|").append(t.getName()).append("|")
-                        .append(Arrays.toString(((Deadline) t).getDates())).append("|").append(((Deadline) t).getTime());
+                        .append(((Deadline) t).getDates()).append("|").append(((Deadline) t).getTime());
             } else {
                 txtData.append("T|").append(t.getStatus()).append("|").append(t.getName());
             }

@@ -21,39 +21,31 @@ public class Parser {
             input = input.replaceFirst("event", "");
             String[] parsedInput = input.split("/at");
             if(parsedInput.length < 2){
-                throw new DukeException("Please use the correct format! [EVENT NAME] /by [DAY/MONTH/YEAR] [TIME]");
+                throw new DukeException("Please use the correct format! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME]");
             }
             if (parsedInput[1].stripLeading().isEmpty()) {
                 throw new DukeException("Date and time cannot be empty!");
             }
             String[] dateAndTime = parsedInput[1].stripLeading().split(" ");
-            String[] date = dateAndTime[0].split("/");
             if(dateAndTime.length != 2){
-                throw new DukeException("Please use the correct format for date and time! [EVENT NAME] /by [DAY/MONTH/YEAR] [TIME] ");
+                throw new DukeException("Please use the correct format for date and time! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME] ");
             }
-            if(date.length != 3 ){
-                throw new DukeException("Please use the correct format for date! [EVENT NAME] /by [DAY/MONTH/YEAR] [TIME]");
-            }
-            Task t = new Event(parsedInput[0], date, dateAndTime[1]);
+            Task t = new Event(parsedInput[0], dateAndTime[0], dateAndTime[1]);
             return new AddTaskCommand(taskList, t, ui,storage);
         } else if (input.startsWith("deadline")) {
             input = input.replaceFirst("deadline", "");
             String[] parsedInput = input.split("/by");
             if(parsedInput.length < 2){
-                throw new DukeException("Please use the correct format! [EVENT NAME] /by [DAY/MONTH/YEAR] [TIME]");
+                throw new DukeException("Please use the correct format! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME]");
             }
             if (parsedInput[1].stripLeading().isEmpty()) {
                 throw new DukeException("Date and time cannot be empty!");
             }
             String[] dateAndTime = parsedInput[1].stripLeading().split(" ");
-            String[] date = dateAndTime[0].split("/");
             if(dateAndTime.length != 2){
-                throw new DukeException("Please use the correct format for date and time! [EVENT NAME] /by [DAY/MONTH/YEAR] [TIME] ");
+                throw new DukeException("Please use the correct format for date and time! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME] ");
             }
-            if(date.length != 3 ){
-                throw new DukeException("Please use the correct format for date! [EVENT NAME] /by [DAY/MONTH/YEAR] [TIME]");
-            }
-            Task t = new Deadline(parsedInput[0],  date, dateAndTime[1]);
+            Task t = new Deadline(parsedInput[0], dateAndTime[0], dateAndTime[1]);
             return new AddTaskCommand(taskList, t, ui,storage);
         } else if (input.startsWith("done")) {
             String[] parsedInput = input.split(" ");

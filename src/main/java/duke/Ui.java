@@ -4,7 +4,7 @@ import duke.tasks.TaskList;
 import java.util.Scanner;
 
 public class Ui {
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     protected String readCommand() {
         return scanner.nextLine();

@@ -5,11 +5,10 @@ import duke.tasks.TaskList;
 
 import java.io.IOException;
 import duke.commands.Command;
-import java.util.Scanner;
+
 
 public class Duke {
 
-    private boolean exit = false;
     private TaskList taskList = new TaskList();
     private Ui ui;
     private Storage storage;
@@ -28,7 +27,7 @@ public class Duke {
 
     public void run() throws IOException {
         String userInput;
-        exit = true;
+        boolean exit = true;
         while (exit) {
                 try {
                     userInput = ui.readCommand();

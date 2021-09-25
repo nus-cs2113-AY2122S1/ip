@@ -1,33 +1,29 @@
 package duke.tasks;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Event extends Task {
 
-    protected String year;
-    protected String month;
-    protected String day;
+    protected LocalDate localDate;
     protected String time;
 
-    public Event(String name, String[] dates, String time){
+    public Event(String name, String dates, String time){
         super(name);
-        this.year = dates[2];
-        this.month = dates[1];
-        this.day = dates[0];
         this.time = time;
+        this.localDate = LocalDate.parse(dates);
     }
 
     public String getTime(){
         return this.time;
     }
-    public String[] getDates(){
-        String[] dates = new String[3];
-        dates[0] = day;
-        dates[1] = month;
-        dates[2] = year;
-        return dates;
+    public LocalDate getDates(){
+        return this.localDate;
     }
 
     public String toString(){
-        return "[E][" + super.getStatus() + "]" + super.name + "at: " + day + "-" + month +"-"
-                + year + " " + time;
+        return "[E][" + super.getStatus() + "]" + super.name + "at: "
+                + localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +" " + time;
     }
 }
