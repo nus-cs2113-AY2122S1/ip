@@ -48,6 +48,14 @@ public class Parser {
         return true;
     }
 
+    private boolean isCompleteListCommand(String fullCommand) {
+        int lengthOfHeader = "list".length();
+        if (fullCommand.length() != lengthOfHeader) {
+            return false;
+        }
+        return true;
+    }
+
     private boolean isCompleteDoneCommand(String fullCommand) {
         int lengthOfHeader = "done ".length();
         int requiredArguments = 2;
@@ -94,6 +102,9 @@ public class Parser {
         String commandType = getCommandType(fullCommand);
         switch (commandType) {
         case "list":
+            if (!isCompleteListCommand(fullCommand)) {
+                throw new WrongFormat();
+            }
             return new ListAllCommand();
         case "done":
             if (!isCompleteDoneCommand(fullCommand)) {

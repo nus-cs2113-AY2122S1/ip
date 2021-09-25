@@ -7,10 +7,6 @@ import duke.system.Storage;
 import duke.system.TaskList;
 import duke.system.Ui;
 
-
-import java.io.IOException;
-import java.util.ArrayList;
-
 public class Duke {
 
     private final Storage storage;

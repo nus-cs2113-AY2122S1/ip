@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    static final String LINE_SEPARATOR = "     _______________________________________________________\n";
+    static final String LINE_SEPARATOR = "     ____________________________________________________________________\n";
     static final String SPACING = "     ";
     static final String CANNOT_IDENTIFY =
             "I am sorry, but I do not know what do you mean. " +
