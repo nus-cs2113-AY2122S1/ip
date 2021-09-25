@@ -34,6 +34,7 @@ to record down your various tasks faster than traditional GUI applications.
 4. For Windows user, type `cmd` into the location bar at the top of the window of your *home folder* and tap enter. 
 For Linux users, `cd` into your *home folder* on your terminal
 5. Run `java -jar kate.jar` and you should see the start page as shown below
+
 ```
                      _  __     _
                     | |/ /__ _| |_ ___
@@ -47,6 +48,7 @@ For Linux users, `cd` into your *home folder* on your terminal
 
 >>
 ```
+
 6. Type `help` to see the list of commands.
 7. Refer to the [Features](#features) below for detailed explanation for each command
 
