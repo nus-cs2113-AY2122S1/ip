@@ -1,6 +1,7 @@
 import UI.GUI.GUI;
 import UI.GUI.ServePage.ServeGUI;
 import userManagement.UserManager;
+import userManagement.UserServerGUI;
 
 public class Duke {
     private static UserManager userManager = new UserManager();
@@ -9,7 +10,7 @@ public class Duke {
 
 //        UserServer newUser = new UserServer(userManager);
 //        newUser.run();
-        new ServeGUI();
+        new UserServerGUI();
 
     }
 }

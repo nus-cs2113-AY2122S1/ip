@@ -9,7 +9,6 @@ public class MoreFunctionPanel extends JPanel {
     private JButton findTask;
     private JButton deleteTask;
     private JButton exit;
-
     private JTextField findKeyword;
     private JLabel moreFunction;
     private GridBagConstraints c = new GridBagConstraints();
@@ -42,8 +41,8 @@ public class MoreFunctionPanel extends JPanel {
         return this.exit;
     }
 
-    public String getKeyword() {
-        return this.findKeyword.getText();
+    public JTextField getKeywordTextField () {
+        return this.findKeyword;
     }
 
     private void initialComponent() {

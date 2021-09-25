@@ -1,7 +1,6 @@
 package UI.GUI.ServePage;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
@@ -31,10 +30,6 @@ public class ButtonPanel extends JPanel{
         return explorePanel.getSortTaskButton();
     }
 
-    public JButton getFinishTaskButton() {
-        return explorePanel.getFinishTaskButton();
-    }
-
     public JButton getFindTaskButton() {
         return explorePanel.getFindTaskButton();
     }
@@ -47,23 +42,27 @@ public class ButtonPanel extends JPanel{
         return explorePanel.getExitButton();
     }
 
-    public String getKeyword() {
-        return explorePanel.getKeyword();
+    public JTextField getKeywordJTextField () {
+        return explorePanel.getKeywordTextField();
     }
 
     public JButton getAddTaskButton() {
         return addTaskPanel.getAddTaskButton();
     }
 
-    public String getTaskType() {
-        return addTaskPanel.getTaskType();
+    public JComboBox getTaskTypeJCombox () {
+        return addTaskPanel.getTaskTypeJCombox();
     }
 
-    public String getTaskName() {
-        return addTaskPanel.getTaskName();
+    public JTextArea getTaskNameTextArea () {
+        return addTaskPanel.getTaskNameTextArea();
     }
 
-    public String getTaskTime() {
-        return addTaskPanel.getTaskTime();
+    public JTextField getTaskTimeTextField () {
+        return addTaskPanel.getTaskTimeTextArea();
+    }
+
+    public JButton getFinishTaskButton() {
+        return explorePanel.getFinishTaskButton();
     }
 }

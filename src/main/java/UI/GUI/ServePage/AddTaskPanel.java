@@ -8,7 +8,6 @@ import java.awt.*;
 public class AddTaskPanel extends JPanel {
     private JButton addTask;
     private JLabel addTaskHint;
-
     private JComboBox taskType;
     private JTextArea taskName;
     private JTextField time;
@@ -18,16 +17,16 @@ public class AddTaskPanel extends JPanel {
         return this.addTask;
     }
 
-    public String getTaskType() {
-        return this.taskType.getSelectedItem().toString();
+    public JComboBox getTaskTypeJCombox () {
+        return this.taskType;
     }
 
-    public String getTaskName() {
-        return this.taskName.getText();
+    public JTextArea getTaskNameTextArea () {
+        return this.taskName;
     }
 
-    public String getTaskTime() {
-        return this.time.getText();
+    public JTextField getTaskTimeTextArea () {
+        return this.time;
     }
 
     public AddTaskPanel() {

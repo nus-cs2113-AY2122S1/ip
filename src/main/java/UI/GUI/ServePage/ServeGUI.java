@@ -1,13 +1,7 @@
 package UI.GUI.ServePage;
-import Parser.GUIParser;
-import tasks.Deadline;
 import tasks.TaskList;
-import tasks.Todo;
-import tasks.Event;
 
 import java.awt.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import javax.swing.*;
 
 public class ServeGUI extends JFrame{
@@ -32,16 +26,20 @@ public class ServeGUI extends JFrame{
     }
 
 
+   public List getTable() {
+        return this.list;
+   }
+
     public JButton getSortTaskButton() {
         return btnPanel.getSortTaskButton();
     }
 
-    public JButton getFinishTaskButton() {
-        return btnPanel.getFinishTaskButton();
-    }
-
     public JButton getFindTaskButton() {
         return btnPanel.getFindTaskButton();
+    }
+
+    public JButton getFinishTaskButton() {
+        return btnPanel.getFinishTaskButton();
     }
 
     public JButton getDeleteTaskButton() {
@@ -52,24 +50,24 @@ public class ServeGUI extends JFrame{
         return btnPanel.getExitButton();
     }
 
-    public String getKeyword() {
-        return btnPanel.getKeyword();
+    public JTextField getKeywordJTextField () {
+        return btnPanel.getKeywordJTextField();
     }
 
     public JButton getAddTaskButton() {
         return btnPanel.getAddTaskButton();
     }
 
-    public String getTaskType() {
-        return btnPanel.getTaskType();
+    public JComboBox getTaskType() {
+        return btnPanel.getTaskTypeJCombox();
     }
 
-    public String getTaskName() {
-        return btnPanel.getTaskName();
+    public JTextArea getTaskNameTextArea () {
+        return btnPanel.getTaskNameTextArea();
     }
 
-    public String getTaskTime() {
-        return btnPanel.getTaskTime();
+    public JTextField getTaskTimeTextField () {
+        return btnPanel.getTaskTimeTextField();
     }
 
 //        addTask = btnPanel.getTaskButton();
@@ -100,11 +98,7 @@ public class ServeGUI extends JFrame{
 //        exitButton = btnPanel.getExitButton();
 //        exitButton.addActionListener(e -> System.exit(1));
 //
-//        sortTask = btnPanel.getSortTaskButton();
-//        sortTask.addActionListener(e -> {
-//            this.tasks.sort();
-//            list.listTask(tasks);
-//        });
+//
 //
 //
 //        findTask = btnPanel.findTaskButton();
