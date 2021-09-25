@@ -320,7 +320,7 @@ Command Format | Action
 ------------------------------------------------------------------------------------------------------------
 ##test
    
-| Syntax      | Description |
+| Command Format     | Action |
 | ----------- | ----------- |
 | Header      | Title       |
 | Paragraph   | Text        |
