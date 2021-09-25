@@ -5,7 +5,6 @@ import duke.exceptions.EmptyTimeFieldException;
 import duke.task.Task;
 
 import java.io.IOException;
-import java.io.SerializablePermission;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -67,6 +66,22 @@ public class Ui {
         System.out.println("\tHandy Smurf is here to give you a hand!");
         System.out.println("\tI have added: ");
         System.out.println("\t" + taskIndex + ". "+ task);
+        System.out.println(SEPARATOR);
+    }
+
+    public void printFindTask(ArrayList<Task> tasks, String description) {
+        boolean hasFound = false;
+        System.out.println(SEPARATOR);
+        for (Task task : tasks) {
+            String taskDescription = task.getDescription();
+            if (taskDescription.contains(description)) {
+                System.out.println("\t" + (tasks.indexOf(task) + 1) + ". " + task);
+                hasFound = true;
+            }
+        }
+        if (!hasFound) {
+            System.out.println("\tno tasks found!");
+        }
         System.out.println(SEPARATOR);
     }
 

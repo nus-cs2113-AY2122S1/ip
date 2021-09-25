@@ -51,11 +51,11 @@ public class Parser {
             break;
         case "D":
             command = "deadline";
-            timeField = inputSubstrings[3].strip();
+            formattedTimeField = inputSubstrings[3].strip();
             break;
         case "E":
             command = "event";
-            timeField = inputSubstrings[3].strip();
+            formattedTimeField = inputSubstrings[3].strip();
             break;
         }
         done = inputSubstrings[1].strip().equals("X");
@@ -67,6 +67,7 @@ public class Parser {
 
         command = inputSubstrings[0];
         switch (command) {
+        case "find":
         case "todo":
             if (inputSubstrings.length < 2) {
                 throw new EmptyDescriptionException();

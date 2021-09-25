@@ -25,6 +25,7 @@ public class Duke {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_FIND = "find";
     private static final String ICON_TODO = "T";
     private static final String ICON_DEADLINE = "D";
     private static final String ICON_EVENT = "E";
@@ -80,6 +81,9 @@ public class Duke {
         case COMMAND_DELETE:
             executeDelete(inputHandler.getTaskIndex());
             break;
+        case COMMAND_FIND:
+            executeFind(inputHandler.getDescription());
+            break;
         default:
             ui.printErrorMessage();
             break;
@@ -115,6 +119,10 @@ public class Duke {
     private static void executeDelete(int taskIndex) {
         Task deletedTask = tasks.deleteTask(taskIndex);
         ui.printDeleteTask(deletedTask);
+    }
+
+    private static void executeFind(String description) {
+        ui.printFindTask(tasks.getTasks(), description);
     }
 
     private static void executeList() {
