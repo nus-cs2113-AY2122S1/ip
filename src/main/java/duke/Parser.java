@@ -5,6 +5,7 @@ import Command.Command;
 import Command.DeleteCommand;
 import Command.DoneCommand;
 import Command.ExitCommand;
+import Command.FindCommand;
 import Command.ListCommand;
 
 /**
@@ -15,9 +16,10 @@ public class Parser {
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
 
     /**
-     * Formats the <code>deadline</code> to <code>String</code>.
+     * Parse the user input to Command object.
      *
      * @param fullCommand Full user input.
      * @return Command object representing the user input.
@@ -37,6 +39,10 @@ public class Parser {
 
         if (fullCommand.startsWith(COMMAND_DELETE)) {
             return new DeleteCommand(fullCommand);
+        }
+
+        if (fullCommand.startsWith(COMMAND_FIND)) {
+            return new FindCommand(fullCommand);
         }
 
         return new AddCommand(fullCommand);
