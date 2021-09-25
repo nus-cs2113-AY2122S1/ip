@@ -1,7 +1,7 @@
 # User Guide
 
 **Duke** is a desktop app to **manage tasks and keep a track of things**.
-It is a Personal Assistant Chatbot that can store data and help you keep a track of your scheduled tasks.
+It is a **Personal Assistant Chatbot** that can store data and help you keep a track of your scheduled tasks.
 It is optimized for use via a Command Line Interface (CLI) that can help you manage your tasks faster than the traditional GUI apps.
 
 
