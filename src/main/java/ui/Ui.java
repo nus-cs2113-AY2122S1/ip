@@ -5,6 +5,7 @@ import task.Task;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,6 +23,8 @@ public class Ui {
     public static final String NEW_LINE = "\n\t";
     public static final String INDENTED_NEW_LINE = "\n\t\t";
     public static final String DIVIDER = "_______________________________";
+
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
 
     private final Scanner in;
     private final PrintStream out;
