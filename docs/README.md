@@ -76,9 +76,9 @@ Now you have 2 tasks in the list.
 
 Adds a Deadline task to Duke. A Deadline task contains a task description and a due date.
 
-Format: `deadline {task description} /by {due date}
+Format: `deadline {task description} /by {due date}`
 
-`` :warning: `due date` needs to be in format `yyyy-MM-dd`.
+` ` :warning: `due date` needs to be in format `yyyy-MM-dd`.
 
 Example:
 ```
@@ -201,7 +201,7 @@ save manually.
 AddressBook data are saved as a csv file `[JAR file location]/data/tasks.csv`. Advanced users are welcome to update data 
 directly by editing that data file.
 
-`` :exclamation: **Caution**: If your changes to the data file is detected to be corrupted or does not conform to Duke's 
+` ` :exclamation: **Caution**: If your changes to the data file is detected to be corrupted or does not conform to Duke's 
 saved file format (csv), Duke will not run.
 
 -----------------------------------------------
