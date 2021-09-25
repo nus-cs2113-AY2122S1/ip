@@ -1,14 +1,13 @@
 package herrekt.command;
 
-import herrekt.exceptions.InvalidInputException;
-import herrekt.exceptions.InvalidTaskException;
+import herrekt.exceptions.*;
 import herrekt.taskmanager.Task;
 import herrekt.taskmanager.TaskList;
 
 public class Command {
     private final CommandUi ui;
     private final Parser parser;
-    private final static String[] commands = {"todo", "event", "deadline", "list", "done", "find", "delete", "bye"};
+    private final static String[] commands = {"todo", "event", "deadline", "list", "done", "find", "delete", "bye", "help"};
 
     public Command() {
         this.ui = new CommandUi();
@@ -53,23 +52,23 @@ public class Command {
         }
     }
 
-    private boolean isValidTodo(String phrase) throws InvalidTaskException {
+    private boolean isValidTodo(String phrase) throws InvalidTodoException {
         String[] splitPhrase = phrase.split(" ");
         boolean validInput = splitPhrase.length > 1;
         if (!validInput) {
-            throw new InvalidTaskException("ERROR! Please add a description after 'todo'!" + "\n"
+            throw new InvalidTodoException("ERROR! Please add a description after 'todo'!" + "\n"
             + "Your input: " + phrase);
         } else {
             return true;
         }
     }
 
-    private boolean isValidDeadline(String phrase) throws InvalidTaskException {
+    private boolean isValidDeadline(String phrase) throws InvalidDeadlineException {
         String[] splitPhrase = phrase.split(" ");
         boolean validInput = splitPhrase.length > 1;
         boolean gotDeadline = phrase.contains("/by") && !splitPhrase[splitPhrase.length - 1].equals("/by");
         if (!(validInput && gotDeadline)) {
-            throw new InvalidTaskException("ERROR! Please add a description after 'deadline' " +
+            throw new InvalidDeadlineException("ERROR! Please add a description after 'deadline' " +
                     "and more information about the time/date after '/by'" + "\n"
                     + "Your input: " + phrase);
         } else {
@@ -77,12 +76,12 @@ public class Command {
         }
     }
 
-    private boolean isValidEvent(String phrase) throws InvalidTaskException {
+    private boolean isValidEvent(String phrase) throws InvalidEventException {
         String[] splitPhrase = phrase.split(" ");
         boolean validInput = splitPhrase.length > 1;
         boolean gotEvent = phrase.contains("/at") && !splitPhrase[splitPhrase.length - 1].equals("/at");
         if (!(validInput && gotEvent)) {
-            throw new InvalidTaskException("ERROR! Please add a description after 'event' " +
+            throw new InvalidEventException("ERROR! Please add a description after 'event' " +
                     "and more information about the time/date after '/at'" + "\n"
                     + "Your input: " + phrase);
         } else {
@@ -127,7 +126,7 @@ public class Command {
      * @param phrase The User's input
      * @param tasks The current TaskList
      */
-    public void runFindCommand(String phrase, TaskList tasks) {
+    public void runFindCommand(String phrase, TaskList tasks) throws InvalidFindException {
         String phraseToSearch = parser.parseSearchInputToString(phrase);
         ui.printMatchingTaskList(tasks.search(phraseToSearch));
     }
@@ -138,12 +137,16 @@ public class Command {
      *
      * @param phrase The User's input
      * @param tasks The current TaskList
-     * @throws InvalidInputException If the phrase does not follow specified task format.
+     * @throws InvalidTaskException If the phrase does not follow specified task format.
      */
-    public void runTaskCommand(String phrase, TaskList tasks) throws InvalidInputException {
+    public void runTaskCommand(String phrase, TaskList tasks) throws InvalidTaskException {
         Task task = parser.parsePhraseToTask(phrase);
         tasks.add(task);
         ui.printTaskAdded(task);
         ui.printNumberOfTasks(tasks);
+    }
+
+    public void runHelpCommand() {
+        ui.printCommandList();
     }
 }

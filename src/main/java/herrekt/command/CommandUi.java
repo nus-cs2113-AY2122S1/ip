@@ -52,4 +52,9 @@ public class CommandUi {
     protected void printTaskAdded(Task task) {
         System.out.println("Task added: " + task.toString());
     }
+
+    protected void printCommandList() {
+        System.out.println("Please refer to the README.md for the features available");
+        System.out.println("Commands available: todo, deadline, event, list, done, delete, find, help, bye");
+    }
 }

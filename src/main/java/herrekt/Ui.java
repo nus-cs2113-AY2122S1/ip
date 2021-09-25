@@ -52,8 +52,34 @@ public class Ui {
         System.out.println("Your input: " + phrase);
     }
 
-    public void printNoNumericInputError(String phrase) {
-        System.out.println("ERROR! Please input an acceptable number after done/delete command");
+    public void printInvalidDoneDeleteFindError(String phrase) {
+        if (phrase.startsWith("find")) {
+            System.out.println("ERROR! Please input a phrase/parameter after find command");
+        } else {
+            System.out.println("ERROR! Please input an acceptable number after done/delete command");
+            System.out.println("Your input: " + phrase);
+        }
+    }
+
+    public void printInvalidTodoError(String phrase) {
+        System.out.println("ERROR! Please add a description after 'todo'!");
+        System.out.println("Your input: " + phrase);
+    }
+
+    public void printInvalidDeadlineError(String phrase) {
+        System.out.println("ERROR! Please add a description after 'deadline' " +
+                "and more information about the time/date after '/by'");
+        System.out.println("Your input: " + phrase);
+    }
+
+    public void printInvalidEventError(String phrase) {
+        System.out.println("ERROR! Please add a description after 'event' " +
+                "and more information about the time/date/venue after '/at'");
+        System.out.println("Your input: " + phrase);
+    }
+
+    public void printInvalidFindError(String phrase) {
+        System.out.println("ERROR! Please input a phrase/parameter after find command");
         System.out.println("Your input: " + phrase);
     }
 }

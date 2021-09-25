@@ -1,11 +1,11 @@
 package herrekt.command;
 
-import herrekt.exceptions.InvalidInputException;
+import herrekt.exceptions.InvalidFindException;
+import herrekt.exceptions.InvalidTaskException;
 import herrekt.taskmanager.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,9 +43,9 @@ public class Parser {
      *
      * @param phrase A string starting with either 'todo', 'deadline', or 'event'.
      * @return A task of the specified child class Todo/Deadline/Event.
-     * @throws InvalidInputException If the input does not follow the correct format.
+     * @throws InvalidTaskException If the input does not follow the correct format.
      */
-    public Task parsePhraseToTask(String phrase) throws InvalidInputException {
+    public Task parsePhraseToTask(String phrase) throws InvalidTaskException {
         if (phrase.startsWith("todo ")) {
             return new Todo(phrase.substring(5));
         } else if (phrase.startsWith("deadline ")) {
@@ -57,7 +57,7 @@ public class Parser {
             String[] taskAndTime = phrase.split(" /at ");
             return new Event(taskAndTime[0], taskAndTime[1]);
         } else {
-            throw new InvalidInputException("Invalid Task Format");
+            throw new InvalidTaskException("Invalid Task Format");
         }
     }
 
@@ -67,8 +67,13 @@ public class Parser {
      * @param phrase A string starting with 'search'.
      * @return Phrase to be searched
      */
-    public String parseSearchInputToString(String phrase) {
-        return phrase.substring(5).toLowerCase();
+    public String parseSearchInputToString(String phrase) throws InvalidFindException, StringIndexOutOfBoundsException {
+        String parameter = phrase.substring(5).toLowerCase();
+        if (parameter.equals("")) {
+            throw new InvalidFindException("no search parameter after find");
+        } else {
+            return parameter;
+        }
     }
 
     /**

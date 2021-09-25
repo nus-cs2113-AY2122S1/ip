@@ -136,7 +136,7 @@ Command | Output
 ## Overall Usage (Example)
 
 ```
-Hi! I'm Herrick, your task manager.
+Hi! I'm Herrekt, your task manager.
 What would you like to add to your timetable?
 ```
 Input: `deadline essay /by 2021-10-03`

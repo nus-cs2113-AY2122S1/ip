@@ -1,8 +1,7 @@
 package herrekt;
 
 import herrekt.command.Command;
-import herrekt.exceptions.InvalidInputException;
-import herrekt.exceptions.InvalidTaskException;
+import herrekt.exceptions.*;
 import herrekt.taskmanager.TaskList;
 
 import java.io.FileNotFoundException;
@@ -55,21 +54,29 @@ public class Herrekt {
                     command.runDeleteCommand(phrase, tasks);
                 } else if (phrase.startsWith("find")) {
                     command.runFindCommand(phrase, tasks);
+                } else if (phrase.startsWith("help")) {
+                    command.runHelpCommand();
                 } else {
                     command.runTaskCommand(phrase, tasks);
                 }
             } catch (ArrayIndexOutOfBoundsException e1) {
                 ui.printIncorrectFormatError(phrase);
+            } catch(InvalidFindException e2) {
+                ui.printInvalidFindError(phrase);
             } catch(NumberFormatException | StringIndexOutOfBoundsException e2) {
-                ui.printNoNumericInputError(phrase);
+                ui.printInvalidDoneDeleteFindError(phrase);
             } catch (IndexOutOfBoundsException e2) {
                 ui.printInputBiggerThanTaskList(tasks);
             } catch (InvalidInputException e3) {
                 ui.printInvalidInputError(phrase);
-                e3.printStackTrace();
+            } catch (InvalidTodoException e4) {
+                ui.printInvalidTodoError(phrase);
+            } catch (InvalidDeadlineException e4) {
+                ui.printInvalidDeadlineError(phrase);
+            } catch (InvalidEventException e4) {
+                ui.printInvalidEventError(phrase);
             } catch (InvalidTaskException e4) {
                 ui.printInvalidTaskError(phrase);
-                e4.printStackTrace();
             } catch (DateTimeParseException e5) {
                 ui.printInvalidDateError(phrase);
             }
