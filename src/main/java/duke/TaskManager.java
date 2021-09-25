@@ -65,7 +65,7 @@ public class TaskManager {
             System.out.println("List is empty!");
             return;
         }
-        System.out.println("Here are your items: ");
+        System.out.println("Here are your item(s): ");
         for (int i = 0; i < numOfTasks; i++) {
             System.out.println(i + 1 + "." + tasks.get(i));
         }
@@ -117,7 +117,7 @@ public class TaskManager {
 
     private static void addToDo(String description) throws DukeBlankDescriptionsException {
         if (!description.isBlank()) {
-            tasks.add(new ToDo(description));
+            tasks.add(new ToDo(description.trim()));
             numOfTasks++;
         } else {
             throw new DukeBlankDescriptionsException();
@@ -129,7 +129,7 @@ public class TaskManager {
         if (hasBlankEntry(descriptions)) {
             throw new DukeBlankDescriptionsException();
         }
-        tasks.add(new Event(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]));
+        tasks.add(new Event(descriptions[TASK_DESCRIPTION_INDEX].trim(), descriptions[BY_OR_AT_INDEX].trim()));
         numOfTasks++;
 
     }
@@ -139,7 +139,7 @@ public class TaskManager {
         if (hasBlankEntry(descriptions)) {
             throw new DukeBlankDescriptionsException();
         }
-        tasks.add(new Deadline(descriptions[TASK_DESCRIPTION_INDEX], descriptions[BY_OR_AT_INDEX]));
+        tasks.add(new Deadline(descriptions[TASK_DESCRIPTION_INDEX].trim(), descriptions[BY_OR_AT_INDEX].trim()));
         numOfTasks++;
     }
 
@@ -170,7 +170,7 @@ public class TaskManager {
         if (relatedTasks.isEmpty()) {
             System.out.println("No related tasks.");
         } else {
-            System.out.println("Here are the matching tasks in your list: ");
+            System.out.println("Here are the matching task(s) in your list: ");
             for (int i = 0; i < relatedTasks.size(); i++) {
                 System.out.println(i + 1 + "." + relatedTasks.get(i));
             }

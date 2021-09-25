@@ -229,7 +229,7 @@ public class UserInterface {
         UserInterface.printLine();
         System.out.println("Noted! I've deleted this task:");
         System.out.println(task);
-        System.out.println("Now you have " + TaskManager.getNumOfTasks() + " tasks");
+        System.out.println("Now you have " + TaskManager.getNumOfTasks() + " task(s)");
         UserInterface.printLine();
     }
 
