@@ -9,9 +9,9 @@ public class Duke {
     public static void main(String[] args) throws DukeException, IOException {
 
         Scanner in = new Scanner(System.in);
-//        Storage storage = new Storage();
-//        TaskList tasks = new TaskList();
-//        Ui ui = new Ui();
+//       Storage storage = new Storage();
+//       TaskList tasks = new TaskList();
+//       Ui ui = new Ui();
         Parser parser = new Parser();
 
         int localCount=0;
@@ -41,6 +41,11 @@ public class Duke {
             else if (Objects.equals(parser.keyword(), "done")) {
                 Ui.markDone();
                 TaskList.markDone(Integer.parseInt(parser.listIndex()));
+            }
+            else if (Objects.equals(parser.keyword(), "find")) {
+                Ui.find();
+                System.out.println(parser.listIndex());
+                TaskList.find(parser.listIndex());
             }
             else if (Objects.equals(parser.keyword(), "d")) {
                 Deadline t = new Deadline(parser.splitDeadlineTask(), parser.splitDeadlineBy());

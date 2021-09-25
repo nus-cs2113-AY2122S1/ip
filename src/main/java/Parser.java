@@ -1,10 +1,10 @@
 package ip.src.main.java;
 
-import java.util.Objects;
-import java.util.Scanner;
-
+/**
+ * Represents a Parser class. A <code>Parser</code> Class contains methods regarding the
+ * parsing of data from the user and breaking it down for subsequent functions.
+ */
 public class Parser {
-
     private static String line = null;
     private static String[] arr;
     private static String[] deadline;
