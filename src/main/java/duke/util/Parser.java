@@ -8,6 +8,7 @@ import duke.command.DeleteCommand;
 import duke.command.ListCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
+import duke.command.HelpCommand;
 
 import duke.task.Deadline;
 import duke.task.Event;
@@ -25,9 +26,10 @@ public class Parser {
     static private final String COMMAND_DONE = "done";
     static private final String COMMAND_DELETE = "delete";
     static private final String COMMAND_FIND = "find";
+    static private final String COMMAND_HELP = "help";
     static private final String COMMAND_EXIT = "bye";
 
-    static private final String INVALID_COMMAND = "Yo check your typing man. I don't get it.";
+    static private final String INVALID_COMMAND = "Not a recognisable command by me. Try \"help\" instead!";
 
     static private final String COMMAND_DEADLINE_SEPARATOR = "/by";
     static private final String COMMAND_EVENT_SEPARATOR = "/at";
@@ -65,6 +67,8 @@ public class Parser {
             return parseExitCommand();
         case COMMAND_FIND:
             return parseFindCommand(command);
+        case COMMAND_HELP:
+            return parseHelpCommand(command);
         default:
             throw new DukeException(INVALID_COMMAND);
         }
@@ -185,5 +189,11 @@ public class Parser {
             throw new DukeException("Uhm that definitely not a number bro. Pick again.");
         }
 
+    }
+
+    private static Command parseHelpCommand(String command) {
+        String detail = command.substring(COMMAND_HELP.length()).trim();
+
+        return new HelpCommand(detail);
     }
 }
