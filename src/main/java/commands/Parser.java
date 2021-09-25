@@ -25,6 +25,9 @@ public class Parser {
         case DELETE:
             preparedCmd = createDelete(input);
             break;
+        case FIND:
+            preparedCmd = createFind(input);
+            break;
         case TODAY:
             preparedCmd = createToday();
             break;
@@ -66,6 +69,10 @@ public class Parser {
         return new DeleteCommand(input);
     }
 
+    private static Command createFind(String input) {
+        return new FindCommand(input);
+    }
+
     private static Command createToday() {
         return new TodayCommand();
     }
@@ -86,6 +93,8 @@ public class Parser {
             type = CommandType.DONE;
         } else if (input.startsWith(DeleteCommand.COMMAND_WORD)) {
             type = CommandType.DELETE;
+        } else if (input.startsWith(FindCommand.COMMAND_WORD)) {
+            type = CommandType.FIND;
         } else if (input.equals(TodayCommand.COMMAND_WORD)) {
             type = CommandType.TODAY;
         } else {
