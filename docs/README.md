@@ -15,9 +15,9 @@ It is optimized for use via a Command Line Interface (CLI) that can help you man
     * [Adding a Deadline](#adding-a-deadline-deadline-description-by-date_time)
     * [Adding an Event](#adding-an-event-event-description-at-date_time)
     * [Listing all Tasks](#listing-all-tasks-list")
-    * [Marking a task as done](#marking-a-task-as-done-done-number)
-    * [Deleting a task](#deleting-a-task-delete-number)
-    * [Searching for tasks](#querying-tasks-find-regex-type-tasktype-limit-querylimit)
+    * [Marking a task as done](#marking-a-task-as-done-done-index_number)
+    * [Deleting a task](#deleting-a-task-delete-index_number)
+    * [Searching for tasks](#searching-for-tasks-find-keyword)
     * [Saving the tasks](#saving-the-tasks)
     * [Exiting the program](#exit-the-application--bye)
 
