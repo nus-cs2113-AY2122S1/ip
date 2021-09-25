@@ -29,7 +29,26 @@ to record down your various tasks faster than traditional GUI applications.
 1. Ensure `Java 11` is installed in your computer.
    * Find the platform you are running on your computer and click on the corresponding 
      download link [here](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html).
-2. Download the latest `kate.jar` from here.
+2. Download the latest `kate.jar` [here](https://github.com/a-tph/ip/releases/tag/A-Release).
+3. Save it into an empty folder. This will be your *home folder* for Kate
+4. For Windows user, type `cmd` into the location bar at the top of the window of your *home folder* and tap enter. 
+For Linux users, `cd` into your *home folder* on your terminal
+5. Run `java -jar kate.jar` and you should see the start page as shown below
+```
+                     _  __     _
+                    | |/ /__ _| |_ ___
+                    | ' </ _` |  _/ -_)
+                    |_|\_\__,_|\__\___|
+
+=====================================================================
+    This is Kate, your personal assistant ;)
+    How can I help you?
+=====================================================================
+
+>>
+```
+6. Type `help` to see the list of commands.
+7. Refer to the [Features](#features) below for detailed explanation for each command
 
 ## Command summary
 
@@ -40,6 +59,7 @@ to record down your various tasks faster than traditional GUI applications.
 * Parameters must be in a specific order specified by `help` command.
 * `date` must be supplied in `dd-MM-yyyy` format.
 * `time` uses 24-hour format and supplied in `HHmm`.
+* `[description]` parameter only accepts alphanumeric and special characters.
 
 Command | Parameters
 ------- | ------
@@ -157,6 +177,7 @@ Here are the tasks in your list:
 Lists the tasks with a specific keyword.
 
 Format: `find [keyword]`
+* `find` filters tasks including the `date` and `time` fields
 
 Examples:
 * `find groceries`
