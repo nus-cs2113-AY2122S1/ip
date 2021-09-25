@@ -9,32 +9,11 @@ import Duke.TaskTypes.Todo;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static Duke.UI.DukeConstants.*;
+
 public class UserInterface {
-    //List of Special User Commands
-    public static final String EXIT_STRING = "bye";
-    public static final String LIST_COMMAND = "list";
-    public static final String DONE_COMMAND = "done";
-    public static final String TODO_COMMAND = "todo";
-    public static final String DEADLINE_COMMAND = "deadline";
-    public static final String EVENT_COMMAND = "event";
-    public static final String DELETE_COMMAND = "delete";
-    public static final String DUKE_LOGO = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
-
-    //Other constants
-    public static final String LINE = "____________________________________________________________";
-    public static final String EVENT_KEYWORD = " /at";
-    public static final String DEADLINE_KEYWORD = " /by";
-    public static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
-
-
     public static void printDukeGreet() {
         System.out.println("Hello from\n" + DUKE_LOGO);
-
-        //Greeting the User
         System.out.println(LINE);
         System.out.println(" Hello! I'm Duke");
         System.out.println(" What can I do for you?");

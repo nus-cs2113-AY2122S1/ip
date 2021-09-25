@@ -11,6 +11,7 @@ import Duke.UI.UserInterface;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import static Duke.UI.DukeConstants.*;
 import static Duke.UI.UserInterface.*;
 
 public class DukeProgram {
