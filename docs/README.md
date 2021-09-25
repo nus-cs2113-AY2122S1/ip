@@ -323,4 +323,4 @@ Command Format | Action
 | Command Format     | Action |
 | ----------- | ----------- |
 | `help`      | Lists all the valid commands       |
-| Paragraph   | Text        |
+| `list`  | Lists all the scheduled tasks from the task list   |
