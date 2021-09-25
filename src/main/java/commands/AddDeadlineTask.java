@@ -5,11 +5,11 @@ import ui.Ui;
 import storage.Storage;
 import tasks.Deadline;
 
-public class AddDeadline extends Command {
+public class AddDeadlineTask extends Command {
     protected Ui ui = new Ui();
     private final String input;
 
-    public AddDeadline(String input) {
+    public AddDeadlineTask(String input) {
         this.input = input;
     }
 
@@ -17,14 +17,14 @@ public class AddDeadline extends Command {
     public void execute(TaskList tasks) {
         if (input.trim().length() <= 8) {
             ui.showMissingTaskOrDeadlineMessage();
+        } else if (!input.toLowerCase().contains("/by")) {
+            ui.showMissingByMessage();
         } else {
             int slashIndex = input.toLowerCase().indexOf("/by");
             String task = input.substring(9, slashIndex).trim();
             String dueDate = input.substring(slashIndex + 3).trim();
             if (task.length() <= 0) {
                 ui.showMissingTaskDescriptionMessage();
-            } else if (!input.toLowerCase().contains("/by")) {
-                ui.showMissingByMessage();
             } else if (dueDate.length() <= 0) {
                 ui.showMissingTaskDeadlineMessage();
             } else {

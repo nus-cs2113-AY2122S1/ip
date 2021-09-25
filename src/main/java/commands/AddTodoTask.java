@@ -5,11 +5,11 @@ import ui.Ui;
 import storage.Storage;
 import tasks.Todo;
 
-public class AddTodo extends Command {
+public class AddTodoTask extends Command {
     protected Ui ui = new Ui();
     private final String input;
 
-    public AddTodo(String input) {
+    public AddTodoTask(String input) {
         this.input = input;
     }
 

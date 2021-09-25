@@ -5,11 +5,11 @@ import ui.Ui;
 import storage.Storage;
 
 
-public class MarkDone extends Command {
+public class MarkTaskAsDone extends Command {
     protected Ui ui = new Ui();
     private final String input;
 
-    public MarkDone(String input) {
+    public MarkTaskAsDone(String input) {
         this.input = input;
     }
 

@@ -6,11 +6,11 @@ import storage.Storage;
 import tasks.Event;
 
 
-public class AddEvent extends Command {
+public class AddEventTask extends Command {
     protected Ui ui = new Ui();
     private final String input;
 
-    public AddEvent(String input) {
+    public AddEventTask(String input) {
         this.input = input;
     }
 
@@ -18,14 +18,14 @@ public class AddEvent extends Command {
     public void execute(TaskList tasks) {
         if (input.trim().length() <= 5) {
             ui.showMissingTaskOrTimeRangeMessage();
+        } else if (!input.toLowerCase().contains("/at")) {
+            ui.showMissingAtMessage();
         } else {
             int slashIndex = input.toLowerCase().indexOf("/at");
             String task = input.substring(6, slashIndex).trim();
             String timeRange = input.substring(slashIndex + 3).trim();
             if (task.length() <= 0) {
                 ui.showMissingTaskDescriptionMessage();
-            } else if (!input.toLowerCase().contains("/at")) {
-                ui.showMissingAtMessage();
             } else if (timeRange.length() <= 0) {
                 ui.showMissingEventTimeRangeMessage();
             } else {

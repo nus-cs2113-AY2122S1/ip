@@ -9,19 +9,21 @@ public class Parser {
         Command c;
         String inputToParse = input.toLowerCase();
         if (inputToParse.startsWith("todo")) {
-            c = new AddTodo(input);
+            c = new AddTodoTask(input);
         } else if (inputToParse.startsWith("deadline")) {
-            c = new AddDeadline(input);
+            c = new AddDeadlineTask(input);
         } else if (inputToParse.startsWith("event")) {
-            c = new AddEvent(input);
-        }else if (inputToParse.startsWith("done")) {
-            c = new MarkDone(input);
+            c = new AddEventTask(input);
+        } else if (inputToParse.startsWith("done")) {
+            c = new MarkTaskAsDone(input);
         } else if (inputToParse.equals("list")) {
-            c = new List();
+            c = new ListCommand();
         } else if (inputToParse.startsWith("remove")) {
             c = new RemoveTask(input);
+        } else if (inputToParse.startsWith("find")) {
+            c = new FindTaskCommand(input);
         } else if (inputToParse.equals("clear database")) {
-            c = new ClearDatabase();
+            c = new ClearDatabaseCommand();
         } else if (inputToParse.contains("birthday")) {
             c = new BirthdayCommand();
         } else if (inputToParse.equals("help")) {

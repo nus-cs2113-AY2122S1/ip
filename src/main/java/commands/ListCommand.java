@@ -3,7 +3,7 @@ package commands;
 import tasklist.TaskList;
 import ui.Ui;
 
-public class List extends Command {
+public class ListCommand extends Command {
     protected Ui ui = new Ui();
 
     @Override

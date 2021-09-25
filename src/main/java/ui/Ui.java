@@ -60,6 +60,13 @@ public class Ui {
             System.lineSeparator();
     protected static final String TASK_COMPLETE_MESSAGE = "Nice! You're a real champ for finishing this: " +
             System.lineSeparator();
+    /** ----------FIND TASK MESSAGES AND ERRORS---------- */
+    protected static final String NO_KEYWORD_SPECIFIED_MESSAGE = "Please specify the keyword you would like to " +
+            "find!" + System.lineSeparator();
+    protected static final String FOUND_TASK_MESSAGE = "Here are the matching tasks in your list: " +
+            System.lineSeparator();
+    protected static final String TASK_NOT_FOUND_MESSAGE = "No task with given keyword in description!" +
+            System.lineSeparator();
     /** ----------HELP MESSAGE---------- */
     protected static final String HELP_MESSAGE = " Here are the commands for the things I can do:" +
             System.lineSeparator() +
@@ -226,7 +233,18 @@ public class Ui {
     public void showTaskCompleteMessage(Task task) {
         System.out.print(LINES + TASK_COMPLETE_MESSAGE + task.toString() + System.lineSeparator() + LINES);
     }
+    /** ----------FIND TASK MESSAGES AND ERRORS---------- */
+    public void showNoKeywordSpecifiedMessage() {
+        System.out.println(LINES + NO_KEYWORD_SPECIFIED_MESSAGE + LINES);
+    }
 
+    public void showFoundTaskMessage() {
+        System.out.print(LINES + FOUND_TASK_MESSAGE);
+    }
+
+    public void showTaskNotFoundMessage() {
+        System.out.print(LINES + TASK_NOT_FOUND_MESSAGE + LINES);
+    }
     /** ----------HELP MESSAGE---------- */
     public void showHelpMessage() {
         System.out.print(LINES + HELP_MESSAGE + LINES);
