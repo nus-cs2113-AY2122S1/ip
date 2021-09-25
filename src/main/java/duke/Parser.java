@@ -13,7 +13,7 @@ public class Parser {
     private static final String COMMAND_FIND = "find";
 
     /**
-     * Formats the <code>deadline</code> to <code>String</code>.
+     * Parse the user input to Command object.
      *
      * @param fullCommand Full user input.
      * @return Command object representing the user input.
