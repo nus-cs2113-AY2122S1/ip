@@ -11,6 +11,11 @@ import duke.manager.TaskManager;
  */
 
 public class Duke {
+
+    private final static String WELCOME_GREETING = "Howdy there! I'm Fluke";
+    private final static String WELCOME_ASK = "What can I do for you today master?";
+    private final static String BYE_MESSAGE = "Bye. Hope to serve you again master!";
+
     public static void main(String[] args) {
         welcomeMessage();
         TaskManager.processInput();
@@ -22,8 +27,8 @@ public class Duke {
      */
     private static void welcomeMessage() {
         TaskManager.printLine();
-        System.out.println("Howdy there! I'm Fluke");
-        System.out.println("What can I do for you today master?");
+        System.out.println(WELCOME_GREETING);
+        System.out.println(WELCOME_ASK);
         TaskManager.printLine();
     }
 
@@ -32,7 +37,7 @@ public class Duke {
      */
     private static void byeMessage() {
         TaskManager.printLine();
-        System.out.println("Bye. Hope to serve you again master!");
+        System.out.println(BYE_MESSAGE);
         TaskManager.printLine();
     }
 }
