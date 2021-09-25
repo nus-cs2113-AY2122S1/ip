@@ -49,4 +49,8 @@ public class Ui {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?\n");
     }
+
+    public static void find() {
+        System.out.println("Here are the matching tasks in your list!");
+    }
 }

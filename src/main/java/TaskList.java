@@ -1,5 +1,7 @@
 package ip.src.main.java;
 
+import tp.src.main.java.Edge;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -30,10 +32,9 @@ public class TaskList {
     }
 
     public static void printTask() {
-        for (int j=1; j<=tasks.size(); j++) System.out.println(j + ". "
-                + "[" + letter.get(j-1) + "] "
-                + "[" + done.get(j-1) + "] " +
-                tasks.get(j-1).description());
+        for (int j=1; j<=tasks.size(); j++)
+            System.out.println(j + ". " + "[" + letter.get(j-1) + "] "
+                    + "[" + done.get(j-1) + "] " + tasks.get(j-1).description());
     }
 
     public static String getDescription(int i) {
@@ -41,7 +42,15 @@ public class TaskList {
     }
 
     public static String getTask(int i) {
-        //System.out.println("internal i=" + i);
         return i + " | " + letter.get(i - 1) + " | " + done.get(i - 1) +  " | " + getDescription(i);
+    }
+
+    public static void find(String data) {
+        for (int j=1; j<=tasks.size(); j++) {
+            if (tasks.get(j-1).description().contains(data)) {
+                System.out.println(j + ". " + "[" + letter.get(j-1) + "] "
+                        + "[" + done.get(j-1) + "] " + tasks.get(j-1).description());
+            }
+        }
     }
 }
