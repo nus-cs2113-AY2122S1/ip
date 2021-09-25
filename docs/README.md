@@ -249,29 +249,12 @@ Marks a task as done, by their **IDX**.
 
 Example: `list` -> `done 5`
 ```shell
-~$ list
-------------------------------------------
-Here are your scheduled tasks!
-1.[T][ ] eat dinner
-2.[T][ ] read book 2
-3.[T][ ] read book
-4.[D][ ] return book (by: May 29 1998 18:00)
-5.[D][ ] eat food (by: Sep 18 2021 23:59)
-6.[E][ ] family dinner (at: Sep 20 2021 19:30)
-------------------------------------------
+done 2
+____________________________________________________________
+Nice! I have marked this task as done:
+[D][X] read book  (by:OCTOBER 13, 2021 04:00 p.m.)
+____________________________________________________________
 
-~$ done 5
-------------------------------------------
-Nice! I've marked this task as done: 
-[T][X] eat dinner
-Here are your scheduled tasks!
-1.[T][ ] eat dinner
-2.[T][ ] read book 2
-3.[T][ ] read book
-4.[D][ ] return book (by: May 29 1998 18:00)
-5.[D][X] eat food (by: Sep 18 2021 23:59)
-6.[E][ ] family dinner (at: Sep 20 2021 19:30)
-------------------------------------------
 ```
 
 <br />
