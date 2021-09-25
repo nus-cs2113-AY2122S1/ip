@@ -51,11 +51,11 @@ public class Duke {
             } catch (DukeException e) {
                 ui.println("  " + e.getMessage());
             }
-            fileManager.saveDukeWithoutMessage(taskManager, ui);
+            fileManager.saveDukeWithoutMessage(taskManager);
             ui.printHorizontalLine();
             System.out.print(System.lineSeparator());
         } while (!isExit);
-        fileManager.saveDuke(taskManager, ui);
+        fileManager.saveDuke(taskManager);
     }
 
     /**

@@ -111,9 +111,8 @@ public class FileManager {
      * message otherwise.
      *
      * @param taskManager Passed to the saveDukeStatus method.
-     * @param ui          Used to print message.
      */
-    public void saveDuke(TaskManager taskManager, Ui ui) {
+    public void saveDuke(TaskManager taskManager) {
         createDirectory();
         try {
             createFile();
@@ -129,9 +128,8 @@ public class FileManager {
      * Calls the saveDukeStatus method in order to save the current tasks.
      *
      * @param taskManager Passed to the saveDukeStatus method.
-     * @param ui          Used to print message.
      */
-    public void saveDukeWithoutMessage(TaskManager taskManager, Ui ui) {
+    public void saveDukeWithoutMessage(TaskManager taskManager) {
         createDirectory();
         try {
             createFile();
