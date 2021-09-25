@@ -7,6 +7,7 @@ import Duke.TaskTypes.Task;
 import Duke.TaskTypes.Todo;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import static Duke.UI.DukeConstants.*;
@@ -146,6 +147,13 @@ public class UserInterface {
     public static void SaveIOExceptionMessage(IOException ioException) {
         System.out.println(LINE);
         System.out.println("Something went wrong: " + ioException.getMessage());
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
+
+    public static void createdtpExceptionMessaeg(DateTimeParseException dtpException) {
+        System.out.println(LINE);
+        System.out.println("Something went wrong: " + dtpException.getMessage());
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
