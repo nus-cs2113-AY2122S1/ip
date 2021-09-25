@@ -91,7 +91,7 @@ public class TaskManager {
     /**
      * Store deadline tasks in a list.
      *
-     * @param args  the item after the command the user inputs
+     * @param args the item after the command the user inputs
      **/
     public static void addDeadlineTaskToList(String args) {
         String description = args.substring(0, args.indexOf(BY_DIVIDER)).trim();
@@ -138,6 +138,12 @@ public class TaskManager {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Checks if a task is done using the task number the user entered
+     *
+     * @param args the command together with the task number to be checked
+     * @return returns true if the task is already marked as done, false otherwise
+     */
     public static boolean isTaskDone(String args) {
         int stringLength = args.length();
         int taskNumber = Integer.parseInt(args.substring(stringLength - 1));
