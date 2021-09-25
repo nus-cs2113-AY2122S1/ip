@@ -1,8 +1,8 @@
-package duke.command;
+package itachi.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.exception.DukeException;
+import itachi.Storage;
+import itachi.TaskList;
+import itachi.exception.ItachiException;
 
 public class FindCommand extends Command {
     protected String keyword;
@@ -12,7 +12,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void executeUserCommand(TaskList taskList, Storage storage) throws DukeException {
+    public void executeUserCommand(TaskList taskList, Storage storage) throws ItachiException {
         taskList.findTask(keyword);
     }
 }

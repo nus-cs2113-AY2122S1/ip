@@ -1,9 +1,11 @@
-package duke;
+package itachi;
 
-import duke.exception.DukeException;
-import duke.task.Task;
+import itachi.exception.ItachiException;
+import itachi.task.Task;
 
-import static duke.TaskList.list;
+import java.util.ArrayList;
+
+import static itachi.TaskList.list;
 
 /**
  * To print messages and details to deal with user interactions
@@ -40,7 +42,7 @@ public class Ui {
         printLineSeparator();
     }
 
-    public static void printErrorMessage(DukeException e) {
+    public static void printErrorMessage(ItachiException e) {
         printLineSeparator();
         System.out.println(e.getMessage());
         printLineSeparator();
@@ -77,9 +79,10 @@ public class Ui {
         Ui.printLineSeparator();
     }
 
-    public static void printMatchingTasks(String keyword, String taskDescription, int i) throws DukeException {
+    public static void printMatchingTasks(String keyword, String taskDescription, int i, ArrayList<Task> listOfTasksFound) throws ItachiException {
         if (taskDescription.contains(keyword)) {
             System.out.println((i + 1) + ". " + list.get(i));
+            listOfTasksFound.add(list.get(i));
         }
     }
 

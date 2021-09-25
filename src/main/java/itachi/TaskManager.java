@@ -1,14 +1,14 @@
-package duke;
+package itachi;
 
-import duke.command.DeleteCommand;
-import duke.command.AddCommand;
-import duke.command.ExitCommand;
-import duke.command.DoneCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
+import itachi.command.DeleteCommand;
+import itachi.command.AddCommand;
+import itachi.command.ExitCommand;
+import itachi.command.DoneCommand;
+import itachi.command.FindCommand;
+import itachi.command.ListCommand;
 
-import duke.exception.DukeException;
-import duke.task.Task;
+import itachi.exception.ItachiException;
+import itachi.task.Task;
 
 import java.time.format.DateTimeParseException;
 
@@ -24,9 +24,9 @@ public class TaskManager {
      * @param input    is the command given by the user
      * @param taskList is a TaskList object
      * @param storage  is a Storage object
-     * @throws DukeException if delete/done/find command is not provided with an index/keyword or an invalid command is given or wrong date/time format is written
+     * @throws ItachiException if delete/done/find command is not provided with an index/keyword or an invalid command is given or wrong date/time format is written
      */
-    public static void parseUserCommand(String command, String input, TaskList taskList, Storage storage) throws DukeException {
+    public static void parseUserCommand(String command, String input, TaskList taskList, Storage storage) throws ItachiException {
         switch (command) {
         case "bye":
             // Changes the loop condition to true to exit from the program
@@ -42,8 +42,10 @@ public class TaskManager {
 
                 // Passes the current list of tasks in the txt file to find a task
                 new FindCommand(keyword).executeUserCommand(taskList, storage);
-            } catch (IndexOutOfBoundsException | DukeException e) {
-                throw new DukeException("I do not know which task you want me to FIND. Give the task keyword my friend");
+            } catch (IndexOutOfBoundsException e) {
+                throw new ItachiException("I do not know which task you want me to FIND. Give the task keyword my friend");
+            } catch (ItachiException f) {
+                Ui.printErrorMessage(f);
             }
             break;
         case "delete":
@@ -53,7 +55,7 @@ public class TaskManager {
                 // Passes the index and current list from the txt file to delete a task
                 new DeleteCommand(indexOfDelete).executeUserCommand(taskList, storage);
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                throw new DukeException("I do not know which task you want me to DELETE. Give the task number my friend");
+                throw new ItachiException("I do not know which task you want me to DELETE. Give the task number my friend");
             }
             break;
         case "done":
@@ -64,7 +66,7 @@ public class TaskManager {
                 // Passes the index and current list from the txt file to mark a task as done
                 new DoneCommand(indexOfDone).executeUserCommand(taskList, storage);
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                throw new DukeException("I do not know which task you want me to MARK. Give the task number my friend");
+                throw new ItachiException("I do not know which task you want me to MARK. Give the task number my friend");
             }
             break;
         case "todo":
@@ -79,10 +81,10 @@ public class TaskManager {
 
                 // Initialize deadline object and adds task to the list
                 new AddCommand(deadline).executeUserCommand(taskList, storage);
-            } catch (DukeException e) {
+            } catch (ItachiException e) {
                 Ui.printErrorMessage(e);
             } catch (DateTimeParseException e) {
-                throw new DukeException("Use the correct date time format, my friend");
+                throw new ItachiException("Use the correct date time format, my friend");
             }
             break;
         case "event":
@@ -92,7 +94,7 @@ public class TaskManager {
             new AddCommand(event).executeUserCommand(taskList, storage);
             break;
         default:
-            throw new DukeException("I'm sorry, I do not know what you are trying to say");
+            throw new ItachiException("I'm sorry, I do not know what you are trying to say: Please refer to the User Guide");
         }
     }
 }

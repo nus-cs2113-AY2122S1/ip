@@ -1,33 +1,31 @@
-package duke;
+package itachi;
 
-import duke.command.Command;
-import duke.exception.DukeException;
+import itachi.command.Command;
+import itachi.exception.ItachiException;
 
 import java.util.Scanner;
 
 /**
  * To initialize the key objects needed and run the program
  */
-public class Duke {
+public class Itachi {
     private Storage storage;
     private final TaskList taskList;
-    private final Ui ui;
 
-    public Duke() {
-        ui = new Ui();
+    public Itachi() {
         taskList = new TaskList();
 
         try {
             storage = new Storage();
             storage.loadData();
-        } catch (DukeException e) {
+        } catch (ItachiException e) {
             Ui.printErrorMessage(e);
         }
     }
 
     public static void main(String[] args) {
         Ui.printWelcomeMessage();
-        new Duke().run();
+        new Itachi().run();
         Ui.printByeMessage();
     }
 
@@ -43,7 +41,7 @@ public class Duke {
 
             try {
                 TaskManager.parseUserCommand(command, input, taskList, storage);
-            } catch (DukeException e) {
+            } catch (ItachiException e) {
                 Ui.printErrorMessage(e);
             }
         }

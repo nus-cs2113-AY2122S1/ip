@@ -1,7 +1,7 @@
-package duke;
+package itachi;
 
-import duke.exception.DukeException;
-import duke.task.Task;
+import itachi.exception.ItachiException;
+import itachi.task.Task;
 
 import java.util.ArrayList;
 
@@ -27,23 +27,28 @@ public class TaskList {
      *
      * @param taskIndex is the index of the task needed to be marked as done
      */
-    public void doneTask(int taskIndex) {
-        list.get(taskIndex).markAsDone();
+    public void doneTask(int taskIndex) throws ItachiException {
+        if (taskIndex >= list.size()) {
+            throw new ItachiException("Task index does not exist!");
+        } else if (taskIndex <= -1) {
+            throw new ItachiException("Task index must be larger than 0");
+        }
+            list.get(taskIndex).markAsDone();
 
-        Ui.printDoneTaskMessage(taskIndex);
+            Ui.printDoneTaskMessage(taskIndex);
     }
 
     /**
      * Deletes a task with the given index and prints a completion message
      *
      * @param taskIndex is the index of the task needed to be deleted
-     * @throws DukeException if index provided is larger than the list size or is lesser than 1
+     * @throws ItachiException if index provided is larger than the list size or is lesser than 1
      */
-    public void deleteTask(int taskIndex) throws DukeException {
+    public void deleteTask(int taskIndex) throws ItachiException {
         if (taskIndex >= list.size()) {
-            throw new DukeException("Task index does not exist!");
+            throw new ItachiException("Task index does not exist!");
         } else if (taskIndex <= -1) {
-            throw new DukeException("Task index must be larger than 0");
+            throw new ItachiException("Task index must be larger than 0");
         }
 
         Ui.printDeleteTaskMessage(taskIndex);
@@ -67,23 +72,24 @@ public class TaskList {
      *
      * @param keyword is the word that needs to be searched for
      */
-    public void findTask(String keyword) throws DukeException {
+    public void findTask(String keyword) throws ItachiException {
         if (list.isEmpty()) {
             Ui.printEmptyListMessage();
         } else {
-            try {
+                ArrayList<Task> listOfTasksFound = new ArrayList<>();
                 Ui.printLineSeparator();
                 System.out.println("Here are the matching tasks in your list:");
 
                 for (int i = 0; i < list.size(); i++) {
+                    // Stores the combined description and date into a lowercase string to check for keyword
                     String taskDescription = list.get(i).getDataForFind().toLowerCase();
-                    Ui.printMatchingTasks(keyword, taskDescription, i);
+                    Ui.printMatchingTasks(keyword, taskDescription, i, listOfTasksFound);
                 }
 
+                if(listOfTasksFound.isEmpty()) {
+                    throw new ItachiException("No matching tasks found, try another keyword");
+                }
                 Ui.printLineSeparator();
-            } catch (DukeException e) {
-                throw new DukeException("No matching tasks found, try another keyword");
-            }
         }
     }
 

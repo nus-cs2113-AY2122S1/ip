@@ -1,10 +1,10 @@
-package duke;
+package itachi;
 
-import duke.exception.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import itachi.exception.ItachiException;
+import itachi.task.Deadline;
+import itachi.task.Event;
+import itachi.task.Task;
+import itachi.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import static duke.Parser.dueTime;
+import static itachi.Parser.dueTime;
 
 /**
  * To deal with loading tasks from the file and saving tasks in the file
@@ -21,21 +21,21 @@ import static duke.Parser.dueTime;
 public class Storage {
     private final File file = new File("data/tasks.txt");
 
-    public Storage() throws DukeException {
+    public Storage() throws ItachiException {
         try {
             file.getParentFile().mkdirs();
             file.createNewFile();
         } catch (IOException e) {
-            throw new DukeException("Unable to load data!");
+            throw new ItachiException("Unable to load data!");
         }
     }
 
     /**
      * Adds data from the task list to the text file
      *
-     * @throws DukeException if IO operations fails
+     * @throws ItachiException if IO operations fails
      */
-    public void saveData() throws DukeException {
+    public void saveData() throws ItachiException {
         try {
             FileWriter fw = new FileWriter("data/tasks.txt");
             for (Task task : TaskList.list) {
@@ -43,16 +43,16 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new DukeException("Unable to save data!");
+            throw new ItachiException("Unable to save data!");
         }
     }
 
     /**
      * Loads data from the text file to the task list
      *
-     * @throws DukeException if file not found
+     * @throws ItachiException if file not found
      */
-    public void loadData() throws DukeException {
+    public void loadData() throws ItachiException {
         try {
             Scanner load = new Scanner(file);
             while (load.hasNext()) {
@@ -60,7 +60,7 @@ public class Storage {
                 addData(sentence);
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException("Unable to load data!");
+            throw new ItachiException("Unable to load data!");
         }
     }
 
@@ -68,9 +68,9 @@ public class Storage {
      * Creates task from txt file and stores them in Task objects respectively
      *
      * @param taskWords data present in the txt file
-     * @throws DukeException if the lines in the txt file do not start with T/D/E or if negative/unwanted array index is being accessed
+     * @throws ItachiException if the lines in the txt file do not start with T/D/E or if negative/unwanted array index is being accessed
      */
-    public void addData(String taskWords) throws DukeException {
+    public void addData(String taskWords) throws ItachiException {
         try {
             // To break down the task words in the saved txt file
             String[] word = taskWords.split(" \\| ");
@@ -99,10 +99,10 @@ public class Storage {
                 TaskList.list.add(event);
                 break;
             default:
-                throw new DukeException("Unable to parse data!");
+                throw new ItachiException("Unable to parse data!");
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Unable to parse data!");
+            throw new ItachiException("Unable to parse data!");
         }
     }
 }

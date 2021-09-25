@@ -1,8 +1,8 @@
-package duke.command;
+package itachi.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.exception.DukeException;
+import itachi.Storage;
+import itachi.TaskList;
+import itachi.exception.ItachiException;
 
 /**
  * To relay the parsed user input to TaskList class for execution
@@ -24,7 +24,7 @@ public abstract class Command {
      *
      * @param taskList is an object of TaskList that consists of task operations
      * @param storage  is an object of Storage that saves current list of tasks
-     * @throws DukeException if the subclasses have any exceptions
+     * @throws ItachiException if the subclasses have any exceptions
      */
-    public abstract void executeUserCommand(TaskList taskList, Storage storage) throws DukeException;
+    public abstract void executeUserCommand(TaskList taskList, Storage storage) throws ItachiException;
 }

@@ -1,7 +1,7 @@
-package duke.command;
+package itachi.command;
 
-import duke.Storage;
-import duke.TaskList;
+import itachi.Storage;
+import itachi.TaskList;
 
 public class ListCommand extends Command {
 

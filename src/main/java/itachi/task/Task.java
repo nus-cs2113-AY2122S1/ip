@@ -1,4 +1,4 @@
-package duke.task;
+package itachi.task;
 
 public class Task {
     protected String description;

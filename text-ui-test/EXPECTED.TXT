@@ -15,7 +15,7 @@ ________________________________________________________
 What can I do for you?
 ________________________________________________________
 ________________________________________________________
-I'm sorry, I do not know what you are trying to say
+I'm sorry, I do not know what you are trying to say: Please refer to the User Guide
 ________________________________________________________
 ________________________________________________________
 Task description is missing
@@ -74,6 +74,11 @@ I do not know which task you want me to MARK. Give the task number my friend
 ________________________________________________________
 ________________________________________________________
 I do not know which task you want me to FIND. Give the task keyword my friend
+________________________________________________________
+________________________________________________________
+Here are the matching tasks in your list:
+________________________________________________________
+No matching tasks found, try another keyword
 ________________________________________________________
 ________________________________________________________
 Here are the matching tasks in your list:
