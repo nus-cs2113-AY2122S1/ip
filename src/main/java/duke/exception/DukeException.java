@@ -9,10 +9,10 @@ public class DukeException extends Exception {
     /**
      * Constructs a DukeException with a message s.
      *
-     * @param s The exception message.
+     * @param message The exception message.
      */
-    public DukeException(String s) {
-        this.message = s;
+    public DukeException(String message) {
+        this.message = message;
     }
 
     /**

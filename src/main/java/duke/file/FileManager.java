@@ -16,6 +16,8 @@ import java.io.InputStreamReader;
  * Handles dealing with the file and directory used to save current tasks.
  */
 public class FileManager {
+    private static final Ui ui = new Ui();
+
     public String filePath;
     public String directoryPath;
 
@@ -43,9 +45,9 @@ public class FileManager {
         File file = new File(filePath);
         boolean hasCreatedFile = file.createNewFile();
         if (hasCreatedFile) {
-            System.out.println("File created at " + file.getCanonicalPath());
+            ui.println("File created at " + file.getCanonicalPath());
         } else {
-            System.out.println("File already exists at " + file.getCanonicalPath());
+            ui.println("File already exists at " + file.getCanonicalPath());
         }
     }
 
@@ -59,7 +61,7 @@ public class FileManager {
         File directory = new File(directoryPath);
         boolean hasCreatedDirectory = directory.mkdir();
         if (hasCreatedDirectory) {
-            System.out.println("New directory created at " + directoryPath);
+            ui.println("New directory created at " + directoryPath);
         }
     }
 
@@ -96,7 +98,7 @@ public class FileManager {
         try {
             currentTasks = taskManager.convertCurrentTasksToString();
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            ui.println(e.getMessage());
             return;
         }
         fw = new FileWriter(file);
@@ -116,10 +118,10 @@ public class FileManager {
         try {
             saveDukeStatus(taskManager);
         } catch (IOException e) {
-            System.out.println("File write error");
+            ui.printFileError();
             return;
         }
-        ui.printSuccessfullySavedTasks(filePath.toString());
+        ui.printSuccessfullySavedTasks(filePath);
     }
 
     /**
@@ -133,16 +135,14 @@ public class FileManager {
         try {
             createFile();
         } catch (IOException e) {
-            System.out.println("File Error!");
+            ui.printFileError();
         }
         try {
             initialiseDukeStatus(taskManager);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found!");
+            ui.println("File not found!");
         } catch (IOException e) {
-            System.out.println("File error!");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("An error occurred while adding task");
+            ui.printFileError();
         }
     }
 }

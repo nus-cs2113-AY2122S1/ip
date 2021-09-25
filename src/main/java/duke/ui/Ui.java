@@ -236,4 +236,13 @@ public class Ui {
                     matchingTasks.get(i - 1).toString());
         }
     }
+
+    /**
+     * Prints a message to the user.
+     *
+     * @param message The message to be printed.
+     */
+    public void println(String message) {
+        System.out.println(message);
+    }
 }

@@ -49,7 +49,7 @@ public class Duke {
                 c.execute(taskManager, ui);
                 isExit = c.getIsBye();
             } catch (DukeException e) {
-                System.out.println("  " + e.getMessage());
+                ui.println("  " + e.getMessage());
             }
             ui.printHorizontalLine();
             System.out.print(System.lineSeparator());
