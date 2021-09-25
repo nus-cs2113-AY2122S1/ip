@@ -6,6 +6,8 @@ import task.Task;
 import task.Todo;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Storage {
@@ -19,7 +21,7 @@ public class Storage {
         dataFile = new File(filePath);
     }
 
-    public ArrayList<Task> load() throws StorageOperationException{
+    public ArrayList<Task> load() throws StorageOperationException {
         if (!dataFile.exists()) {
             createFile();
         }
@@ -33,7 +35,7 @@ public class Storage {
                 line = reader.readLine();
             }
             reader.close();
-        } catch (FileNotFoundException fnfe) {
+        } catch (FileNotFoundException f) {
             createFile();
             throw new StorageOperationException("File not found. Creating new file");
         } catch (IOException e) {
@@ -84,15 +86,18 @@ public class Storage {
             int isComplete = Integer.parseInt(split[1].trim());
             boolean isDone = isComplete == 1;
             String description = split[2].trim();
-            String date;
+            String dateStr;
+            LocalDateTime dateTime;
 
             switch (taskType) {
             case 'D':
-                 date = split[3].trim();
-                return new Deadline(description, isDone, date);
+                dateStr = split[3].trim();
+                dateTime = LocalDateTime.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                return new Deadline(description, isDone, dateTime);
             case 'E':
-                 date = split[3].trim();
-                return new Event(description, isDone, date);
+                dateStr = split[3].trim();
+                dateTime = LocalDateTime.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                return new Event(description, isDone, dateTime);
             case 'T':
                 return new Todo(description, isDone);
             default:

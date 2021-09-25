@@ -1,20 +1,21 @@
 package task;
 
-public class Event extends Task {
-    protected String at;
+import java.time.LocalDateTime;
 
-    public Event(String description, boolean isDone, String at) {
-        super(description, isDone);
-        this.at = at.trim();
+public class Event extends TaskWithDate {
+
+    public Event(String description, boolean isDone, LocalDateTime dateTime) {
+        super(description, isDone, dateTime);
     }
 
     @Override
     public String toString() {
-        return "[E]" + getStatusIcon() + " " + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString();
     }
 
     @Override
     public String toFileString() {
-        return "E" + super.toFileString() + "|" + at;
+        return "E" + super.toFileString();
     }
+
 }

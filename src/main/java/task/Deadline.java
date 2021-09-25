@@ -1,21 +1,21 @@
 package task;
 
-public class Deadline extends Task {
+import java.time.LocalDateTime;
 
-    protected String by;
+public class Deadline extends TaskWithDate {
 
-    public Deadline(String description, boolean isDone, String by) {
-        super(description, isDone);
-        this.by = by.trim();
+    public Deadline(String description, boolean isDone, LocalDateTime dateTime) {
+        super(description, isDone, dateTime);
     }
 
     @Override
     public String toString() {
-        return "[D]" + getStatusIcon() + " " + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString();
     }
 
     @Override
     public String toFileString() {
-        return "D" + super.toFileString() + "|" + by;
+        return "D" + super.toFileString();
     }
+
 }
