@@ -1,6 +1,1 @@
-T | 1 | read book
-T | 0 | asdias
-T | 0 | asduin
-T | 0 | book lol
-D | 0 | book ahahha | asdjnas
-T | 1 | test
+T | 0 | read book
