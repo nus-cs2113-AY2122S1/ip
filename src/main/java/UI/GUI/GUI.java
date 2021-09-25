@@ -1,9 +1,13 @@
 package UI.GUI;
 import Parser.GUIParser;
+import tasks.Deadline;
+import tasks.TaskList;
+import tasks.Todo;
+import tasks.Event;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.swing.*;
 
 public class GUI extends JFrame{
@@ -17,6 +21,9 @@ public class GUI extends JFrame{
     private JButton sortTask;
     private JButton doneTask;
     private JButton exitButton;
+    private JButton findTask;
+
+    private TaskList tasks = new TaskList();
 
     public GUI() {
         this.setSize(800, 630);
@@ -31,25 +38,47 @@ public class GUI extends JFrame{
 
         addTask = btnPanel.getTaskButton();
         addTask.addActionListener(e -> {
-            list.addRow(parser.parseTask(btnPanel.getTaskType(), btnPanel.getTaskName(), btnPanel.getTime()));
-            revalidate();
+            String taskType = btnPanel.getTaskType(), taskName = btnPanel.getTaskName(), time = btnPanel.getTime();
+
+            switch (taskType) {
+            case "todo":
+                this.tasks.addTask(new Todo(taskName, false));
+                break;
+            case "deadline":
+                this.tasks.addTask(new Deadline(taskName, LocalDate.parse(time), false));
+                break;
+            case "event":
+                this.tasks.addTask(new Event(taskName, LocalDateTime.parse(time), false));
+                break;
+            }
+            list.listTask(tasks);
         });
 
         doneTask = btnPanel.getDoneTask();
-        doneTask.addActionListener(e -> {list.setDone(list.getSelectedRow());});
+        doneTask.addActionListener(e -> {
+            int taskIndex = list.getSelectedRow();
+            this.tasks.markAsDone(taskIndex);
+            list.listTask(tasks);
+        });
 
         exitButton = btnPanel.getExitButton();
         exitButton.addActionListener(e -> System.exit(1));
 
+        sortTask = btnPanel.getSortTaskButton();
+        sortTask.addActionListener(e -> {
+            this.tasks.sort();
+            list.listTask(tasks);
+        });
+
+
+        findTask = btnPanel.findTaskButton();
+        findTask.addActionListener(e -> {
+            String keyword = btnPanel.getFindKeyWord();
+            list.listTask(tasks.findTask(keyword));
+        });
         this.setVisible(true);
         //this.pack();
     }
 }
 
 
-//        sortTask = btnPanel.getSortTaskButton();
-//        sortTask.addActionListener(e -> {
-//           // list.listTask(tasks.sort());
-//            revalidate();
-//
-//        });

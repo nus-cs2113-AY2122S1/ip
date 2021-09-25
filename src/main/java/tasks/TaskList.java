@@ -90,6 +90,9 @@ public class TaskList {
         return this.tasks.get(i);
     }
 
+    public String toString() {
+        return this.tasks.toString();
+    }
 
 
 

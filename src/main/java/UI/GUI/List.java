@@ -24,26 +24,21 @@ public class List extends JTable{
         this.getColumnModel().getColumn(3).setHeaderValue("completed");
     }
 
-
-    public void addRow(String[] taskDetail) {
-        DefaultTableModel model = (DefaultTableModel) this.getModel();
-        model.addRow(new Object[]{taskDetail[0], taskDetail[1], taskDetail[2] , "no"});
-    }
+    
 
     public void listTask(TaskList tasks) {
-        DefaultTableModel model = new DefaultTableModel(tasks.getTotalTaskNumber(), 4);
+        DefaultTableModel model = new DefaultTableModel(0, 4);
         for (int i = 0; i < tasks.getTotalTaskNumber(); i++) {
             Task newTask = tasks.getTask(i);
-            String taskType = newTask.getTaskType(), taskName = newTask.getTaskName(), time = newTask.getTime().toString(),
+            String taskType = newTask.getTaskType(), taskName = newTask.getTaskName(),
                     status = newTask.getTaskStatus();
+            String time = (taskType.equals("todo"))? "" : newTask.getTime().toString();
             model.addRow(new Object[]{taskType, taskName, time, status});
         }
         this.setModel(model);
     }
 
-    public void setDone(int row) {
-        this.setValueAt("yes", row, 3);
-    }
+
 
 
 }

@@ -147,11 +147,11 @@ public class ButtonPanel extends JPanel{
     public JButton getTaskButton() {
         return this.addTask;
     }
-//
-//    public JButton getSortTaskButton () {
-//        return this.sortTask;
-//    }
-//
+
+    public JButton getSortTaskButton () {
+        return this.sortTask;
+    }
+
     public String getTaskType () {
         return this.taskType.getSelectedItem().toString();
     }
@@ -164,8 +164,16 @@ public class ButtonPanel extends JPanel{
         return this.time.getText();
     }
 
+    public String getFindKeyWord() {
+        return this.findKeyword.getText();
+    }
+
     public JButton getDoneTask() {
         return this.finishTask;
+    }
+
+    public JButton findTaskButton() {
+        return this.findTask;
     }
 
     public JButton getExitButton() {
