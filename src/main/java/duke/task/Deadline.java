@@ -4,21 +4,19 @@ import java.time.LocalDateTime;
 
 public class Deadline extends Task{
 
-    private LocalDateTime deadlineDateTime;
+    private LocalDateTime deadline;
 
-    public Deadline(String description, LocalDateTime deadlineDateTime) {
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
-        this.deadlineDateTime = deadlineDateTime;
+        this.deadline = deadline;
     }
 
     public LocalDateTime getDeadline() {
-        return deadlineDateTime;
+        return deadline;
     }
-
-
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + deadlineDateTime + ")";
+        return "[D]" + super.toString() + "(by:" + deadline + ")";
     }
 }
