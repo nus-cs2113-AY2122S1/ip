@@ -64,10 +64,10 @@ public class Ui {
             "format provided, please use a valid date time format\n" +
             "(e.g yyyy-mm-dd HH:mm)";
     private static final String ERROR_EVENT_FORMAT = "There is an error with the format of the input. " +
-            "Please enter a valid input \n" +
+            "Please enter a valid input\n" +
             "(e.g event Lecture /at 2019-08-13 20:00)";
     private static final String ERROR_DEADLINE_FORMAT = "There is an error with the format of the input. " +
-            "Please enter a valid input \n " +
+            "Please enter a valid input\n " +
             "(e.g deadline Assignment /by 2021-08-23 13:00)";
 
     /**
