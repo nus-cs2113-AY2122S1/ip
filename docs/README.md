@@ -78,7 +78,7 @@ Adds a Deadline task to Duke. A Deadline task contains a task description and a 
 
 Format: `deadline {task description} /by {due date}`
 
-    ⚠️  `due date` needs to be in format `yyyy-MM-dd`.
+⚠️  `due date` needs to be in format `yyyy-MM-dd`.
 
 Example:
 ```
