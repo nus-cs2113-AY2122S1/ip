@@ -90,7 +90,7 @@ These are the valid commands:
 ```
 <br />
 
-### Listing tasks: `list`
+### Listing all tasks: `list`
 This command lists all the tasks current registered in the the task list
 ```shell
 list
@@ -311,10 +311,10 @@ Exits and closes **DUKE**.
 
 Example: `bye`
 ```shell
-~$ bye
-------------------------------------------
-Bye. Hope to see you again soon!
-------------------------------------------
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
+
 ```
 <br />
 
