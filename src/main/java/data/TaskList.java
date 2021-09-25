@@ -37,6 +37,10 @@ public class TaskList {
         return tasks;
     }
 
+    public Task getTask(int taskID) {
+        return tasks.get(taskID);
+    }
+
     public String getTaskInfo(int taskID) {
         Task currentTask = tasks.get(taskID);
         return currentTask.toString();

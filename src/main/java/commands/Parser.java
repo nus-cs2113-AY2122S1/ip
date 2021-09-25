@@ -25,6 +25,9 @@ public class Parser {
         case DELETE:
             preparedCmd = createDelete(input);
             break;
+        case FIND:
+            preparedCmd = createFind(input);
+            break;
         default:
             preparedCmd = createUnknown();
         }
@@ -63,6 +66,10 @@ public class Parser {
         return new DeleteCommand(input);
     }
 
+    private static Command createFind(String input) {
+        return new FindCommand(input);
+    }
+
     private static CommandType categoriseCommand(String input) {
         CommandType type;
         if (input.equals(ByeCommand.COMMAND_WORD)) {
@@ -79,6 +86,8 @@ public class Parser {
             type = CommandType.DONE;
         } else if (input.startsWith(DeleteCommand.COMMAND_WORD)) {
             type = CommandType.DELETE;
+        } else if (input.startsWith(FindCommand.COMMAND_WORD)) {
+            type = CommandType.FIND;
         } else {
             type = CommandType.UNKNOWN;
         }

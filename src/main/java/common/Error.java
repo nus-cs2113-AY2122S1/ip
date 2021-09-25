@@ -16,6 +16,8 @@ public class Error {
             "  (!) Format: /done <id>";
     public static final String ERROR_FORMAT_DELETE = "  (!) Task ID cannot be empty!" + System.lineSeparator() +
             "  (!) Format: /delete <id>";
+    public static final String ERROR_FORMAT_FIND = "  (!) Search term cannot be empty!" + System.lineSeparator() +
+            "  (!) Format: /find <search_term>";
     public static final String ERROR_INVALID_TASK = "  (!) Task ID does not exist >:(";
     public static final String ERROR_INVALID_COMMAND = "  (!) Unrecognised Command! ";
 }
