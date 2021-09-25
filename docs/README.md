@@ -84,7 +84,7 @@ These are the valid commands:
 <br />
    
 ### Adding a TODO: `todo <DESCRIPTION>`
-Adds a *TODO* task to the task list. It is set to **not done** by default
+Adds a *TODO* task to the task list. By default, the task is set to **not done**.
 - **DESCRIPTION** : the Task description
 
 Example: `todo Complete CS2113T Assignment`
@@ -100,7 +100,7 @@ ____________________________________________________________
 <br />
    
 ### Adding a DEADLINE: `deadline <DESCRIPTION> /by <DATE_TIME>`
-Adds a *DEADLINE* task to the task list. It is set to **not done** by default
+Adds a *DEADLINE* task to the task list.By default, the task is set to **not done**.
 - **DESCRIPTION** : the Task description
 - **/by** : is a *REQUIRED* clause when adding a deadline
 - **DATETIME** : the *date* and *time* that the task is due by. This **CANNOT BE NULL/EMPTY**.
@@ -313,15 +313,15 @@ it creates with the file that contains the data from your previous Duke home fol
 
 ## Command Summary
 
-| Command Format                             | Meaning                                                               |
-| -----                                      | -------                                                               |
-| `help`                                     | Lists all the valid commands                                          |
-| `list`                                     | Lists all the scheduled tasks from the task list                      |
-| `find <SEARCH_KEYWORD>`                    | Searches in the task list for tasks which contain the keyword         |
-| `todo <DESCRIPTION>`                       | Adds a todo task with description                                     |
-| `deadline <DESCRIPTION> /by <DATE_TIME>`   | Adds a deadline task with description and a deadline                  |
-| `event <DESCRIPTION> /at <DATE_TIME>` ,    | Adds an event task with description and event timing                  |
-| `delete <NUMBER>`, `delete 3`              | Deletes a task from the task list according to the index provided     |
-| `done <NUMBER>`                            | Marks a task as done in the task list according to the index provided |
-| `bye`                                      | Exits the application                                                 |
+| Command Format                             | Meaning                                                       |
+| -----                                      | -------                                                       |
+| `help`                                     | Lists all the valid commands                                  |
+| `list`                                     | Lists all the scheduled tasks from the task list              |
+| `find <SEARCH_KEYWORD>`                    | Searches in the task list for tasks which contain the keyword |
+| `todo <DESCRIPTION>`                       | Adds a todo task with description                             |
+| `deadline <DESCRIPTION> /by <DATE_TIME>`   | Adds a deadline task with description and a deadline          |
+| `event <DESCRIPTION> /at <DATE_TIME>` ,    | Adds an event task with description and event timing          |
+| `delete <NUMBER>`, `delete 3`              | Deletes a task from the specified index                       |
+| `done <NUMBER>`                            | Marks the task at the specified index as done                 |
+| `bye`                                      | Exits the application                                         |
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------  
