@@ -84,16 +84,16 @@ These are the valid commands:
 <br />
 
 ### Listing all tasks: `list`
-This command lists all the tasks current registered in the the task list
+This command lists all the tasks currently scheduled in the the task list
 ```shell
 list
-------------------------------------------
-Here are your scheduled tasks!
-1.[T][ ] read book 2
-2.[T][ ] read book
-3.[D][ ] return book (by: May 29 1998 18:00)
-4.[D][ ] eat food (by: Sep 18 2021 23:59)
-------------------------------------------
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] Complete CS2113T Assignment
+2.[D][X] read book  (by:OCTOBER 13, 2021 04:00 p.m.)
+3.[E][ ] attend lecture  (at:NOVEMBER 21, 2021 08:00 a.m.)
+____________________________________________________________
+
 ```
 The format for each Task printed is:
 `[TaskType][isDone] Description`
