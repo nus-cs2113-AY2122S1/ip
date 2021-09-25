@@ -31,7 +31,6 @@ public class Event extends Task{
         String[] splitDateAndTime = this.at.split(" ", 0);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate date = LocalDate.parse(splitDateAndTime[0], formatter);
-//        String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy, E"));
         return date;
     }
 
@@ -40,7 +39,6 @@ public class Event extends Task{
         if (splitDateAndTime.length == 2) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
             LocalTime time = LocalTime.parse(splitDateAndTime[1], formatter);
-//        String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy, E, HHmm")) + "h";
             return time;
         }
         return null;

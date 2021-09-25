@@ -27,6 +27,7 @@ public class Parser {
     private static final String EVENT_COMMAND = "event";
     private static final String DELETE_COMMAND = "delete";
     private static final String BYE_COMMAND = "bye";
+    private static final String FIND_COMMAND = "find";
     private static final String SHOW_COMMAND = "show";
     private static final String DEADLINE_SEPARATOR = " /by ";
     private static final String EVENT_SEPARATOR = " /at ";
@@ -39,6 +40,16 @@ public class Parser {
         this.programManager = programManager;
     }
 
+
+
+
+    public String parseFind(String rawUserInput) throws NoDescriptionException, IncorrectDescriptionFormatException {
+        ValidityAndErrorCheck.checkCommandDescriptionExceptions(FIND_COMMAND,rawUserInput);
+
+        String[] inputSplit = rawUserInput.split(" ",2);
+        String keyword = inputSplit[1].trim();
+        return keyword;
+    }
 
     public LocalDate parseShow(String rawUserInput)
             throws NoDescriptionException, IncorrectDescriptionFormatException, DateTimeParseException {
@@ -124,6 +135,10 @@ public class Parser {
         Command command = new Command(inputCommand, this.programManager, taskList);
         try {
             switch (inputCommand) {
+            case FIND_COMMAND:
+                String keyword = parseFind(rawUserInput);
+                command.executeFindCommand(keyword, taskList.getTaskList());
+                break;
             case SHOW_COMMAND:
                 LocalDate localdate = parseShow(rawUserInput);
                 command.executeShowCommand(localdate, taskList.getTaskList());

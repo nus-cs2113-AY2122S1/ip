@@ -36,9 +36,7 @@ public class Deadline extends Task{
 
     public LocalTime findTime() {
         String[] splitDateAndTime = this.by.split(" ", 0);
-        for (int i = 0; i < splitDateAndTime.length; i ++) {
-            System.out.println(splitDateAndTime[i]);
-        }
+
         if (splitDateAndTime.length == 2) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
             String timeString = splitDateAndTime[1].trim();

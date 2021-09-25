@@ -14,8 +14,6 @@ import karen.tasklist.task.ToDo;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +35,14 @@ public class Command {
         return command;
     }
 
+
+    public void executeFindCommand(String keyword, ArrayList<Task> tasks) {
+        List<Task> filteredTasks = tasks.stream()
+                .filter((t) -> t.getTask().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+        Ui.printFoundTasks(filteredTasks, keyword);
+    }
+
     public void executeShowCommand(LocalDate date, ArrayList<Task> tasks) {
         List<Task> filteredTasks = tasks.stream()
                 .filter((t) -> t instanceof Deadline || t instanceof Event)
@@ -44,6 +50,7 @@ public class Command {
                 .collect(Collectors.toList());
 
         Ui.printTasksOnDate(date, filteredTasks);
+
     }
 
     public void executeDoneCommand(int doneIndex) throws NumberFormatException, IndexOutOfBoundsException, IOException {
@@ -100,7 +107,6 @@ public class Command {
     }
 
     public void executeByeCommand(String rawUserInput) throws IncorrectDescriptionFormatException, NoDescriptionException {
-        String[] inputWords = rawUserInput.split(" ", 0);
         ValidityAndErrorCheck.checkCommandDescriptionExceptions("bye", rawUserInput);
         Ui.printGoodByeMessage();
         programManager.setIsRunningOff();
