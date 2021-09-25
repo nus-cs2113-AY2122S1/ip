@@ -101,3 +101,6 @@ Format: `delete {index of task you want to delete}` - Similar to Setting task as
 
 #### 9. Exit 
 Format: `bye`
+
+## Acknowledgements 
+This project takes inspiration from https://github.com/nus-cs2113-AY2122S1/personbook for the structure of the OOP code
