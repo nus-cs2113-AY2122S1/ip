@@ -1,4 +1,4 @@
-package duke;
+package duke.ErrorHandling;
 
 public class CommandException extends Exception{
 
@@ -10,5 +10,9 @@ public class CommandException extends Exception{
 
     public void handleException(){
         System.out.println(errorMessage);
+    }
+
+    public String getErrorMessage(){
+        return errorMessage;
     }
 }

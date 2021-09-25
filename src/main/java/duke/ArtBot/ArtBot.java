@@ -1,8 +1,11 @@
-package duke;
+package duke.ArtBot;
+
+import duke.ErrorHandling.CommandException;
+import duke.ErrorHandling.ErrorStaticString;
 
 import java.util.ArrayList;
 
-public class ArtBot implements ArtInterface{
+public class ArtBot implements ArtInterface {
 
     private final String userInput;
 
@@ -128,27 +131,46 @@ public class ArtBot implements ArtInterface{
         return letterArt;
     }
 
-    public void drawArt() throws CommandException{
-        String[] charArray = userInput.split("(?!^)");
-        ArrayList<String[]> artArray = new ArrayList<>();
-        String[] mergeString = new String[5];
-        for(String s:charArray){
+    private ArrayList<String[]> getLetterInArtForm(String[] inputArrayOfLetter) throws CommandException{
+        ArrayList<String[]> listToStoreLetterInArtForm = new ArrayList<>();
+        for(String s:inputArrayOfLetter){
             String[] letterInArtForm = getLogo(s);
             if(letterInArtForm == null){
-                throw new CommandException(ErrorList.ERROR_LETTER_NOT_FOUND);
+                throw new CommandException(ErrorStaticString.ERROR_LETTER_NOT_FOUND);
             }
-            artArray.add(letterInArtForm);
+            listToStoreLetterInArtForm.add(letterInArtForm);
         }
+        return listToStoreLetterInArtForm;
+    }
+
+    private String[] mergeArray(ArrayList<String[]> arrayToMerge){
+        String[] arrayToReturn = new String[5];
         for(int i = 0; i < 5; i++){
             StringBuilder sb = new StringBuilder();
-            for (String[] strings : artArray) {
+            for (String[] strings : arrayToMerge) {
                 String temp = strings[i];
                 sb.append(temp);
             }
-            mergeString[i] = sb.toString();
+            arrayToReturn[i] = sb.toString();
         }
+        return arrayToReturn;
+    }
+
+    private void printArray(String[] array){
         for(int i = 0; i < 5; i++){
-            System.out.println(mergeString[i]);
+            System.out.println(array[i]);
         }
+    }
+
+    public void drawArt() {
+        String[] letterArray = userInput.split("(?!^)");
+        ArrayList<String[]> letterInArtFormList = null;
+        try {
+            letterInArtFormList = getLetterInArtForm(letterArray);
+        } catch (CommandException e) {
+            e.handleException();
+        }
+        String[] mergeLetterHorizontallyArray = mergeArray(letterInArtFormList);
+        printArray(mergeLetterHorizontallyArray);
     }
 }

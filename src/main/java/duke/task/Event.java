@@ -12,7 +12,7 @@ public class Event extends Task{
 
     @Override
     public String toString(){
-        return TASK_SYMBOL + super.toString() + "(at:" + startTime + ")";
+        return TASK_SYMBOL + super.toString() + "(at: " + startTime + ")";
     }
 
     @Override

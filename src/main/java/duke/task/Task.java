@@ -1,7 +1,5 @@
 package duke.task;
 
-import duke.TaskInterface;
-
 public class Task implements TaskInterface {
     private static final String COMPLETE_STATUS_ICON = "[X]";
     private static final String INCOMPLETE_STATUS_ICON = "[ ]";

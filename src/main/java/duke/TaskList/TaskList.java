@@ -1,13 +1,15 @@
-package duke;
+package duke.TaskList;
 
+import duke.ErrorHandling.CommandException;
+import duke.ErrorHandling.ErrorStaticString;
+import duke.Storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
-
 import java.util.ArrayList;
 
-public class ListManager implements TaskList{
+public class TaskList implements TaskListInterface {
 
     private static final String MESSAGE_TASK_ADDED = "Got it. I've added this task: ";
     private static final String MESSAGE_TASK_IN_LIST = " tasks in the list.";
@@ -18,87 +20,82 @@ public class ListManager implements TaskList{
 
     private final ArrayList<Task> list;
 
-    public ListManager(ArrayList<Task> list){
+    public TaskList(){
+        list = new ArrayList<>();
+    }
+    public TaskList(ArrayList<Task> list){
         this.list = list;
     }
 
-    public void printList(){
+    private void printer(ArrayList<Task> listToPrint){
         System.out.println(MESSAGE_LIST_TASK);
-        for(int i = 0; i < list.size(); i++){
+        for(int i = 0; i < listToPrint.size(); i++){
             int itemIndex= i + 1;
-            System.out.println(itemIndex + MESSAGE_SPACER + list.get(i).toString());
+            System.out.println(itemIndex + MESSAGE_SPACER + listToPrint.get(i).toString());
         }
     }
 
-    public void printToDo() throws CommandException{
+    public void printList(){
+        printer(list);
+    }
+
+    public void printToDo() throws CommandException {
         boolean haveToDo = false;
-        for(int i = 1; i <= list.size(); i++){
+        ArrayList<Task> listOfToDo = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++){
             if(list.get(i) instanceof ToDo){
                 haveToDo = true;
-                break;
+                listOfToDo.add(list.get(i));
             }
         }
         if(!haveToDo){
-            throw new CommandException(ErrorList.ERROR_EMPTY_TODO_LIST);
+            throw new CommandException(ErrorStaticString.ERROR_EMPTY_TODO_LIST);
         }
-        for(int i = 0; i < list.size(); i++){
-            int itemIndex= i + 1;
-            if(list.get(i) instanceof ToDo ) {
-                System.out.println(itemIndex + MESSAGE_SPACER + list.get(i).toString());
-            }
-        }
+        printer(listOfToDo);
     }
 
     public void printEvent() throws CommandException{
         boolean haveEvent = false;
-        for(int i = 1; i <= list.size(); i++){
+        ArrayList<Task> listOfEvent = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++){
             if(list.get(i) instanceof Event) {
                 haveEvent = true;
-                break;
+                listOfEvent.add(list.get(i));
             }
         }
         if(!haveEvent){
-            throw new CommandException(ErrorList.ERROR_EMPTY_EVENT_LIST);
+            throw new CommandException(ErrorStaticString.ERROR_EMPTY_EVENT_LIST);
         }
-        for(int i = 0; i < list.size(); i++){
-            int itemIndex= i + 1;
-            if(list.get(i) instanceof Event ) {
-                System.out.println(itemIndex + MESSAGE_SPACER + list.get(i).toString());
-            }
-        }
+        printer(listOfEvent);
     }
 
     public void printDeadline() throws CommandException{
         boolean haveDeadline = false;
-        for(int i = 1; i <= list.size(); i++){
+        ArrayList<Task> listOfDeadline = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++){
             if(list.get(i) instanceof Deadline) {
                 haveDeadline = true;
-                break;
+                listOfDeadline.add(list.get(i));
             }
         }
         if(!haveDeadline){
-            throw new CommandException(ErrorList.ERROR_EMPTY_DEADLINE_LIST);
+            throw new CommandException(ErrorStaticString.ERROR_EMPTY_DEADLINE_LIST);
         }
-        for(int i = 0; i < list.size(); i++){
-            int itemIndex= i + 1;
-            if(list.get(i) instanceof Deadline ) {
-                System.out.println(itemIndex + MESSAGE_SPACER + list.get(i).toString());
-            }
-        }
+        printer(listOfDeadline);
     }
 
     private void printAddItem(Task t){
         System.out.println(MESSAGE_TASK_ADDED + System.lineSeparator() + t.toString() + System.lineSeparator() + MESSAGE_TASK_NOW
-                            + list.size() + MESSAGE_TASK_IN_LIST);
+                + list.size() + MESSAGE_TASK_IN_LIST);
     }
 
     public void addTodo(String description, boolean isFromFile){
         Task t = new ToDo(description);
         list.add(t);
         if(!isFromFile) {
-            System.out.println(Logo.dividerWithoutNewLine);
             printAddItem(t);
-            System.out.println(Logo.dividerWithoutNewLine);
+            Storage storage = new Storage();
+            storage.appendTask(t);
         }
     }
 
@@ -106,9 +103,9 @@ public class ListManager implements TaskList{
         Task t = new Event(description, time);
         list.add(t);
         if(!isFromFile) {
-            System.out.println(Logo.dividerWithoutNewLine);
             printAddItem(t);
-            System.out.println(Logo.dividerWithoutNewLine);
+            Storage storage = new Storage();
+            storage.appendTask(t);
         }
     }
 
@@ -116,31 +113,38 @@ public class ListManager implements TaskList{
         Task t = new Deadline(description, deadline);
         list.add(t);
         if(!isFromFile) {
-            System.out.println(Logo.dividerWithoutNewLine);
             printAddItem(t);
-            System.out.println(Logo.dividerWithoutNewLine);
+            Storage storage = new Storage();
+            storage.appendTask(t);
         }
     }
 
     public void completeTask(int t, boolean isFromFile) throws CommandException{
         if (t > list.size() || t < 0){
-            throw new CommandException(ErrorList.ERROR_DONE_TASK_NOT_IN_LIST);
+            throw new CommandException(ErrorStaticString.ERROR_DONE_TASK_NOT_IN_LIST);
         }
         Task doneTask = list.get(t);
         doneTask.setDone();
         if (!isFromFile) {
             System.out.println(doneTask.toString());
+            Storage storage = new Storage();
+            storage.writeTask(list);
         }
-
     }
 
     public void deleteTask(int t) throws CommandException{
         if(t > list.size() || t < 0){
-            throw new CommandException(ErrorList.ERROR_DELETE_TASK);
+            throw new CommandException(ErrorStaticString.ERROR_DELETE_TASK);
         }
         Task removeTask = list.get(t);
         list.remove(t);
-        System.out.println(MESSAGE_DELETE + System.lineSeparator() + removeTask.toString() + System.lineSeparator() +
+        printDeleteTask(removeTask);
+        Storage storage = new Storage();
+        storage.writeTask(list);
+    }
+
+    private void printDeleteTask(Task t){
+        System.out.println(MESSAGE_DELETE + System.lineSeparator() + t.toString() + System.lineSeparator() +
                 MESSAGE_TASK_NOW + list.size() + MESSAGE_TASK_IN_LIST);
     }
 

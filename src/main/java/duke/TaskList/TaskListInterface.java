@@ -1,6 +1,8 @@
-package duke;
+package duke.TaskList;
 
-public interface TaskList {
+import duke.ErrorHandling.CommandException;
+
+public interface TaskListInterface {
     void printList() throws CommandException;
     void printToDo() throws CommandException;
     void printEvent() throws CommandException;

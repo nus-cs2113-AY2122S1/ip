@@ -1,4 +1,3 @@
-[T];[X];watch hankyuu livestream
-[T];[ ];watch haxxnini livestream
-[D];[X];reach radiant;this season
-[E];[ ]g2 vs sentinel;12am
+[T];[ ];watch hank
+[T];[ ];watch haxxnini
+[T];[ ];watch nats

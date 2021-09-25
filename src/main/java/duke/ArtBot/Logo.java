@@ -1,4 +1,4 @@
-package duke;
+package duke.ArtBot;
 
 public class Logo {
     public static final String divider = "____________________________________________________________\n";
