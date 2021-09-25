@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * with this ArrayList.
  */
 public class TaskManager {
-    private static final Ui UI = new Ui();
+    private final Ui ui;
 
     // Constants
     private static final String DELIMITER = " | ";
@@ -26,6 +26,14 @@ public class TaskManager {
 
     // Task list
     private final ArrayList<Task> tasks = new ArrayList<>();
+
+    /**
+     * Constructs a TaskManager and instantiates
+     * an Ui object.
+     */
+    public TaskManager() {
+        this.ui = new Ui();
+    }
 
     /**
      * Gets the number os tasks in the ArrayList tasks.
@@ -103,7 +111,7 @@ public class TaskManager {
             }
             preloadTaskCount++;
         }
-        UI.println("Successfully preloaded " + preloadTaskCount + " tasks");
+        ui.println("Successfully preloaded " + preloadTaskCount + " tasks");
     }
 
     /**
@@ -146,7 +154,7 @@ public class TaskManager {
      */
     public void listTasks() {
         for (int i = 1; i <= tasks.size(); i++) {
-            UI.println(" " + i + "." +
+            ui.println(" " + i + "." +
                     tasks.get(i - 1));
         }
     }
