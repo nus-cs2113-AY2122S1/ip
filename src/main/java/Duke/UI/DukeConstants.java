@@ -10,6 +10,7 @@ public class DukeConstants {
     public static final String EVENT_COMMAND = "event";
     public static final String DELETE_COMMAND = "delete";
     public static final String HELP_COMMAND = "help";
+    public static final String FIND_COMMAND = "find";
     public static final String DUKE_LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"

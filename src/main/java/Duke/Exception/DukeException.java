@@ -43,6 +43,10 @@ public class DukeException extends Exception{
         UserInterface.SaveIOExceptionMessage(ioException);
     }
 
+    public static void invalidFindException() {
+        UserInterface.invalidFindMessage();
+    }
+      
     public static void dateTimeParseException(DateTimeParseException dtpException) {
         UserInterface.createdtpExceptionMessaeg(dtpException);
     }

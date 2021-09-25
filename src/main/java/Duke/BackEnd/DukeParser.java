@@ -73,6 +73,15 @@ public class DukeParser {
         return commands;
     }
 
+
+    public static String parseFindInstruction (String inWord) throws DukeException {
+        String[] commands = inWord.split("\\s+", 2);
+        if (commands.length != 2) {
+            throw new DukeException();
+        }
+        return commands[1].trim();
+    }
+
     public static LocalDateTime parseDateTime (String dateTime, String dateTimeFormat) throws DateTimeParseException{
         DateTimeFormatter format = DateTimeFormatter.ofPattern(dateTimeFormat);
         return LocalDateTime.parse(dateTime, format);
@@ -81,5 +90,6 @@ public class DukeParser {
     public static String dateTimetoStringConverter (LocalDateTime dateTime, String dateTimeFormat) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern(dateTimeFormat);
         return dateTime.format(format);
+
     }
 }

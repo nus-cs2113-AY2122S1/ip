@@ -151,6 +151,32 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+
+    public static void invalidFindMessage() {
+        System.out.println(LINE);
+        System.out.println("Your find command is invalid!");
+        System.out.println("To input a find command, type \"find {searched word}\"!");
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
+
+    public static void noMatchMessage() {
+        System.out.println(LINE);
+        System.out.println("There are no matching tasks in your list!");
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
+
+    public static void printAllMatchingTasks(String searchedWord, ArrayList<Task> tasksWithQuery) {
+        System.out.println(LINE);
+        System.out.println("Here are the matching tasks in your list to \"" + searchedWord + "\"");
+        for (int i = 0; i < tasksWithQuery.size(); i++) {
+            System.out.println(" " + (i + 1) + ". " + tasksWithQuery.get(i).toString());
+        }
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
+
     public static void createdtpExceptionMessaeg(DateTimeParseException dtpException) {
         System.out.println(LINE);
         System.out.println("Something went wrong: " + dtpException.getMessage());

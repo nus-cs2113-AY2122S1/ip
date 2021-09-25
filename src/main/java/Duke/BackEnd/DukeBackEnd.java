@@ -44,6 +44,9 @@ public class DukeBackEnd {
         case HELP_COMMAND:
             UserInterface.printDukeHelp();
             break;
+        case FIND_COMMAND:
+            FindCommand.findMatching(inWord, taskList);
+            break;
         default:
             UserInterface.generalDukeException();
             break;
