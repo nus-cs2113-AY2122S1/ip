@@ -2,11 +2,17 @@ package Duke.BackEnd;
 
 import Duke.Commands.*;
 import Duke.UI.UserInterface;
-
 import static Duke.RunFile.DukeProgram.taskList;
 import static Duke.UI.DukeConstants.*;
 
 public class DukeBackEnd {
+    /**
+     * Method checks whether a string is numeric
+     * upon conversion to integer
+     *
+     * @param strNum the string to be checked
+     * @return true if string is numeric upon conversion to integer, false otherwise
+     */
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {
             return false;
@@ -19,6 +25,12 @@ public class DukeBackEnd {
         return true;
     }
 
+    /**
+     * Method extracts out the specific instruction type from user
+     * input and executes the program accordingly
+     *
+     * @param inWord the user input
+     */
     public static void executeUserInstruction(String inWord) {
         String instructionType = DukeParser.getCommandType(inWord);
 

@@ -25,7 +25,7 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() +" (by: " + DukeParser.dateTimetoStringConverter(by, FORMAT_DATE_TIME_OUTPUT) + ")";
+        return "[D] " + super.toString() +" (by: " + DukeParser.dateTimeToStringConverter(by, FORMAT_DATE_TIME_OUTPUT) + ")";
     }
 
     @Override

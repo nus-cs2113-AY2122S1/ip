@@ -24,7 +24,7 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (at: " + DukeParser.dateTimetoStringConverter(at, FORMAT_DATE_TIME_OUTPUT) + ")";
+        return "[E] " + super.toString() + " (at: " + DukeParser.dateTimeToStringConverter(at, FORMAT_DATE_TIME_OUTPUT) + ")";
     }
 
     @Override
