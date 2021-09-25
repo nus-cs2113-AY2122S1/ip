@@ -17,7 +17,7 @@ public class ToDo extends Task{
     }
 
     public String getFormattedFileDescription() {
-        return String.format("Todo,%s,%s",getStatusIcon(), getTask());
+        return String.format("Todo@%s@%s",getStatusIcon(), getTask());
     }
 
     //obtain the task to do from the input description

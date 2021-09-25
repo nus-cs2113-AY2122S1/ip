@@ -2,7 +2,7 @@ package karen.exception;
 
 import java.io.IOException;
 
-public abstract class ErrorCheck {
+public abstract class ValidityAndErrorCheck {
 
     public static void checkTaskExceptions(String taskType, String separator, String rawUserInput)
             throws NoDescriptionException, IncorrectDescriptionFormatException {
@@ -41,6 +41,20 @@ public abstract class ErrorCheck {
             throw new IncorrectDescriptionFormatException();
         }
     }
+
+//    public static boolean isDate(String dateString) {
+//        if (dateString.matches("\\d{2}-\\d{2}-\\d{4}")) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    public static boolean isDateAndTime(String dateString) {
+//        if (dateString.matches("\\d{2}-\\d{2}-\\d{4} \\d{4}")) {
+//            return true;
+//        }
+//        return false;
+//    }
 
 
 
