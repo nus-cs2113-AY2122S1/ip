@@ -6,58 +6,16 @@ import Duke.TaskTypes.Event;
 import Duke.Exception.DukeException;
 import Duke.TaskTypes.Task;
 import Duke.TaskTypes.Todo;
+import Duke.UI.UserInterface;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import static Duke.UI.UserInterface.*;
+
 public class DukeProgram {
-    //List of Special User Commands
-    public static final String EXIT_STRING = "bye";
-    public static final String LIST_COMMAND = "list";
-    public static final String DONE_COMMAND = "done";
-    public static final String TODO_COMMAND = "todo";
-    public static final String DEADLINE_COMMAND = "deadline";
-    public static final String EVENT_COMMAND = "event";
-    public static final String DELETE_COMMAND = "delete";
-
-    //Other constants
-    public static final String LINE = "____________________________________________________________";
-    public static final String EVENT_KEYWORD = " /at";
-    public static final String DEADLINE_KEYWORD = " /by";
-    public static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
-
     //Collections to store all the tasks
     public static final ArrayList<Task> taskList = new ArrayList<>();
-
-    public static void printList(ArrayList<Task> taskList) {
-        if (taskList.size() == 0) {
-            DukeException.emptyTaskException();
-            return;
-        }
-
-        System.out.println(LINE);
-        System.out.println(" Here are the tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println(" " + (i + 1) + ". " + taskList.get(i).toString());
-        }
-        System.out.println(LINE);
-        System.out.print(System.lineSeparator());
-    }
-
-    public static void printDukeGreet() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-
-        //Greeting the User
-        System.out.println(LINE);
-        System.out.println(" Hello! I'm Duke");
-        System.out.println(" What can I do for you?");
-        System.out.println(LINE);
-    }
 
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {
@@ -97,11 +55,7 @@ public class DukeProgram {
         String[] commands = inWord.split(" ");
         int taskDoneIndex = Integer.parseInt(commands[1]);
         taskList.get(taskDoneIndex - 1).markAsDone();
-        System.out.println(LINE);
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + taskList.get(taskDoneIndex - 1).toString());
-        System.out.println(LINE);
-        System.out.print(System.lineSeparator());
+        taskDoneMessage(taskDoneIndex, taskList);
     }
 
     public static void manageDoneInstruction(String inWord, ArrayList<Task> taskList) {
@@ -147,12 +101,7 @@ public class DukeProgram {
 
         Event newItem = new Event(description, at);
         taskList.add(newItem);
-        System.out.println(LINE);
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + newItem);
-        System.out.println(" Now you have " + taskList.size() +" tasks in the list.");
-        System.out.println(LINE);
-        System.out.print(System.lineSeparator());
+        eventMessage(newItem, taskList);
     }
 
     public static void manageEvent(String inWord, ArrayList<Task> taskList) {
@@ -187,12 +136,7 @@ public class DukeProgram {
         String description = commands[1];
         Todo newItem = new Todo(description);
         taskList.add(newItem);
-        System.out.println(LINE);
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + newItem);
-        System.out.println(" Now you have " + taskList.size() +" tasks in the list.");
-        System.out.println(LINE);
-        System.out.print(System.lineSeparator());
+        todoMessage(newItem, taskList);
     }
 
     public static void manageTodo(String inWord, ArrayList<Task> taskList) {
@@ -239,12 +183,7 @@ public class DukeProgram {
 
         Deadline newItem = new Deadline(description, by);
         taskList.add(newItem);
-        System.out.println(LINE);
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + newItem);
-        System.out.println(" Now you have " + taskList.size() +" tasks in the list.");
-        System.out.println(LINE);
-        System.out.print(System.lineSeparator());
+        deadlineMessage(newItem, taskList);
     }
 
     public static void manageDeadline(String inWord, ArrayList<Task> taskList) {
@@ -280,13 +219,8 @@ public class DukeProgram {
 
         String[] commands = inWord.split(" ");
         int taskDeleteIndex = Integer.parseInt(commands[1]);
-        System.out.println(LINE);
-        System.out.println(" Noted! I've removed this task:");
-        System.out.println("   " + taskList.get(taskDeleteIndex - 1).toString());
-        taskList.remove(taskDeleteIndex - 1);
-        System.out.println(" Now you have " + taskList.size() +" tasks in the list.");
-        System.out.println(LINE);
-        System.out.print(System.lineSeparator());
+        deleteMessage(taskDeleteIndex, taskList);
+
     }
 
     public static void manageDelete(String inWord, ArrayList<Task> taskList) {
@@ -298,13 +232,6 @@ public class DukeProgram {
         }
     }
 
-    public static void generalDukeException() {
-        System.out.println(LINE);
-        System.out.println("Please input a valid command!");
-        System.out.println(LINE);
-        System.out.print(System.lineSeparator());
-    }
-
     public static void executeUserInstruction(String inWord) {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] instruction = inWord.split("\\s+", 2);
@@ -312,7 +239,7 @@ public class DukeProgram {
 
         switch(instructionType) {
         case LIST_COMMAND:
-            printList(taskList);
+            UserInterface.printList(taskList);
             break;
         case DONE_COMMAND:
             manageDoneInstruction(inWord, taskList);
@@ -330,19 +257,13 @@ public class DukeProgram {
             manageDelete(inWord, taskList);
             break;
         default:
-            generalDukeException();
+            UserInterface.generalDukeException();
             break;
         }
     }
 
-    public static void printDukeExit() {
-        System.out.println(LINE);
-        System.out.println(GOODBYE_MESSAGE);
-        System.out.println(LINE);
-    }
-
     public static void main(String[] args) {
-        printDukeGreet();
+        UserInterface.printDukeGreet();
         DataSaver.manageLoad(taskList);
 
         String inWord;
@@ -355,8 +276,6 @@ public class DukeProgram {
             inWord = scan.nextLine();
         }
 
-        //DataSaver.manageSave(taskList);
-        //Exits when user types "bye"
-        printDukeExit();
+        UserInterface.printDukeExit();
     }
 }
