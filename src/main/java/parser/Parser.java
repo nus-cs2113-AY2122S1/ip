@@ -13,6 +13,8 @@ public class Parser {
         switch (commandType) {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(commandArgs);
         case MarkAsDoneCommand.COMMAND_WORD:
             return prepareMarkAsDone(commandArgs);
         case AddTodoCommand.COMMAND_WORD:
@@ -56,6 +58,7 @@ public class Parser {
         }
         return new String[0]; // empty string array
     }
+
     private static int parseArgsAsDisplayedIndex(String displayIndex) throws ParseException, NumberFormatException {
         if (displayIndex.isEmpty()) {
             throw new ParseException("Could not find index number to parse");

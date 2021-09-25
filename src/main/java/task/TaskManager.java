@@ -20,9 +20,7 @@ public class TaskManager {
     }
 
     public TaskManager(ArrayList<Task> savedTaskList) {
-        if (taskList != null) {
-            taskList.addAll(savedTaskList);
-        }
+        taskList.addAll(savedTaskList);
     }
 
     public void addTask(Task t) {

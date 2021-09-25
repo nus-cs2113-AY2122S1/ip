@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static common.Messages.GREETING;
 
@@ -62,6 +63,12 @@ public class Ui {
             showToUser(getIndexedListViewOfTasks(relevantTasks));
         }
         showToUser(result.feedbackToUser, DIVIDER);
+    }
+
+    public static ArrayList<Task> filterTasksByString(ArrayList<Task> taskList, String filterString) {
+        return (ArrayList<Task>) taskList.stream()
+                .filter((t) -> t.getDescription().contains(filterString))
+                .collect(Collectors.toList());
     }
 
     private String[] getIndexedListViewOfTasks(ArrayList<Task> relevantTasks) {

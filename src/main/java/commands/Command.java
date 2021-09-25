@@ -11,12 +11,12 @@ import static common.Messages.MESSAGE_LIST_ALL_TASKS;
 import static ui.Ui.DISPLAYED_INDEX_OFFSET;
 
 public abstract class Command {
+    protected TaskManager taskManager;
+    private int targetDisplayIndex = -1;
+
     public void setData(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
-
-    protected TaskManager taskManager;
-    private int targetDisplayIndex = -1;
 
     protected Command() {
     }

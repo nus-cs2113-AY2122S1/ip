@@ -1,8 +1,14 @@
 package task;
 
 public abstract class Task {
+
     protected String description;
+
     protected boolean isDone;
+
+    public String getDescription() {
+        return description;
+    }
 
     public Task(String description, boolean isDone) {
         this.description = description.trim();
