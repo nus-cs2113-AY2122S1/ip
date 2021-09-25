@@ -1,6 +1,7 @@
 package karlett.ui;
 
 import karlett.Duke;
+import karlett.storage.StorageFile;
 import karlett.task.Task;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class TextUi {
     }
 
     public static void printFileNotFoundMessage() throws IOException {
-        System.out.print("Uh-oh...Karlett can't find the file in " + Duke.filePath + "(=ಠᆽಠ=)\n");
+        System.out.print("Uh-oh...Karlett can't find the file in " + StorageFile.filePath + "(=ಠᆽಠ=)\n");
         printFileNotFoundInstructions();
         Scanner in = new Scanner(System.in);
 
@@ -26,13 +27,13 @@ public class TextUi {
             int response = Integer.parseInt(r);
             switch (response) {
             case 1:
-                Duke.file.createNewFile();
+                StorageFile.file.createNewFile();
                 printNewFileCreatedMessage();
                 break;
             case 2:
                 System.out.print("Please tell me the new file path meow: ");
-                Duke.filePath = in.next();
-                Duke.loadData();
+                StorageFile.filePath = in.next();
+                StorageFile.loadDataFromStorageFile();
                 break;
             case 3:
                 Task.exit();
@@ -47,7 +48,7 @@ public class TextUi {
 
     private static void printNewFileCreatedMessage() {
         System.out.print("Meow~ Karlett has created the new file here:\n" +
-                Duke.file.getAbsolutePath() +
+                StorageFile.file.getAbsolutePath() +
                 "\nKarlett can start tracking your tasks now ಇ/ᐠ ̥ᵔ ̮ᵔ ̥ᐟ\\ಇ\n");
     }
 
