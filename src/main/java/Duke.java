@@ -210,6 +210,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Prints the arrayList using streams
+     *
+     * @param arrayList the arrayList to be printed
+     */
     public static void printArrayList(ArrayList<Task> arrayList) {
         System.out.println(LINE_SEPARATOR);
         arrayList.stream()
