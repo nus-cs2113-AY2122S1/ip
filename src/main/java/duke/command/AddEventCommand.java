@@ -5,21 +5,30 @@ import duke.exception.UnsavedFile;
 import duke.system.Storage;
 import duke.system.TaskList;
 import duke.system.Ui;
-import duke.task.Deadline;
+import duke.task.Event;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class AddEventCommand extends Command {
     private final String eventName;
-    private final String eventTime;
+    private final LocalDate eventStartDate;
+    private final LocalDate eventEndDate;
+    private final String eventStartTime;
+    private final String eventEndTime;
 
-    public AddEventCommand(String eventName, String eventTime) {
+    public AddEventCommand(String eventName, LocalDate eventStartDate, String eventStartTime,
+                 LocalDate eventEndDate, String eventEndTime) {
         this.eventName = eventName;
-        this.eventTime = eventTime;
+        this.eventStartDate = eventStartDate;
+        this.eventStartTime = eventStartTime;
+        this.eventEndDate = eventEndDate;
+        this.eventEndTime = eventEndTime;
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        tasks.addTask(new Deadline(eventName, eventTime));
+        tasks.addTask(new Event(eventName, eventStartDate, eventStartTime,
+                eventEndDate, eventEndTime));
         int currentTaskIndex = tasks.getTaskListSize() - 1;
         ui.printAdded(tasks.getTaskDetails(currentTaskIndex));
         try {
