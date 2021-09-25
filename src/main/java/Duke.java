@@ -26,6 +26,8 @@ public class Duke {
             Ui.printFailContents();
         }
 
+        //System.out.println("i am book".contains("book"));
+
         while (!Objects.equals(parser.input(), "bye")) {
             line = in.nextLine();
             parser.feed(line);
@@ -41,6 +43,11 @@ public class Duke {
             else if (Objects.equals(parser.keyword(), "done")) {
                 Ui.markDone();
                 TaskList.markDone(Integer.parseInt(parser.listIndex()));
+            }
+            else if (Objects.equals(parser.keyword(), "find")) {
+                Ui.find();
+                System.out.println(parser.listIndex());
+                TaskList.find(parser.listIndex());
             }
             else if (Objects.equals(parser.keyword(), "d")) {
                 Deadline t = new Deadline(parser.splitDeadlineTask(), parser.splitDeadlineBy());
