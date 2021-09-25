@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class Storage {
 
-
     public static final String INITIAL_TODO = "T";
     public static final String INITIAL_DEADLINE = "D";
     public static final String INITIAL_EVENT = "E";
@@ -105,7 +104,6 @@ public class Storage {
 
             lineToWrite += "\n";
             fw.write(lineToWrite);
-
         }
         fw.close();
     }
@@ -117,6 +115,4 @@ public class Storage {
             System.out.println("Unable to save data to the disk");
         }
     }
-
-
 }

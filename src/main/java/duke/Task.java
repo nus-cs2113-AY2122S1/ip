@@ -1,9 +1,7 @@
 package duke;
 
 public class Task {
-    /**
-     * Stores the task description.
-     */
+
     protected String description;
     protected TaskType taskType;
 
@@ -31,7 +29,7 @@ public class Task {
     }
 
     /**
-     * Returns X if task is completed and space otherwise.Returns the task completion status of a particular task.
+     * Returns string "X" if task is completed and space otherwise.Returns the task completion status of a particular task.
      *
      * @return Task Completion Status
      */

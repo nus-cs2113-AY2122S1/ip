@@ -1,7 +1,6 @@
 package duke;
 
 public class Event extends Task {
-
     /**
      * Stores the event time of the task
      */
@@ -20,7 +19,7 @@ public class Event extends Task {
     }
 
     /**
-     * returns the string in a particular format.
+     * Returns the string in a particular format.
      *
      * @return Task description and event time in a particular format.
      */

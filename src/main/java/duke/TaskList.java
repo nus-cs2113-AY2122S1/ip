@@ -19,7 +19,6 @@ public class TaskList {
 
     public static final int INVALID = -1;
     public static final int DELIMITING_LIMIT_TWO = 2;
-    public static final int DELIMITING_LIMIT_ONE = 1;
 
     public static final String MESSAGE_TASK_REMOVED = "Noted. I've removed this task:";
     public static final String MESSAGE_TASK_ADDED = "Got it. I've added this task:";
@@ -185,7 +184,6 @@ public class TaskList {
 
         if (isTaskValid) {
             Ui.printLine();
-
             System.out.println(MESSAGE_TASK_ADDED);
             System.out.println(DELIMITER_SPACE + scheduledTasks.get(scheduledTasks.size() - 1));
             System.out.println("Now you have " + scheduledTasks.size() + " tasks in the list.");
@@ -207,6 +205,7 @@ public class TaskList {
         } else {
             throw new DukeException(ERROR_INCORRECT_DELETE_COMMAND);
         }
+
         if ((deleteTask <= scheduledTasks.size()) && (deleteTask > 0)) {
             Task taskToBeDeleted = scheduledTasks.get(deleteTask - 1);
             System.out.println(MESSAGE_TASK_REMOVED);
@@ -218,6 +217,7 @@ public class TaskList {
         } else {
             throw new NoTaskFoundException(ERROR_INVALID_TASK_NUMBER);
         }
+
     }
 
     /**
@@ -228,7 +228,6 @@ public class TaskList {
      */
     public static void list() throws NoTaskFoundException {
         int i;
-        String taskCompletionStatus;
         Ui.printLine();
         if (scheduledTasks.size() == 0) {
             throw new NoTaskFoundException(ERROR_EMPTY_TASKLIST);
@@ -236,7 +235,6 @@ public class TaskList {
             System.out.println(MESSAGE_LIST_ALL_TASKS);
             i = 0;
             for (Task task : scheduledTasks) {
-                taskCompletionStatus = task.getStatus();
                 System.out.print((i + 1) + DELIMITER_DOT);
                 System.out.println(task);
                 i++;

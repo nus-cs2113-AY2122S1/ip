@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Parser {
 
-
+    /* Initializing Strings with commands */
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DONE = "done";
