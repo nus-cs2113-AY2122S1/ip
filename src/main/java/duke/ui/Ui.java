@@ -115,6 +115,10 @@ public class Ui {
      *                    all the current tasks.
      */
     public void listTasks(TaskManager taskManager) {
+        if (taskManager.getTasksCount() == 0) {
+            printTaskListEmpty();
+            return;
+        }
         System.out.println(" Here are the tasks in your list:");
         taskManager.listTasks();
     }
@@ -246,5 +250,9 @@ public class Ui {
      */
     public void println(String message) {
         System.out.println(message);
+    }
+
+    private void printTaskListEmpty() {
+        System.out.println("  You have no tasks yet.");
     }
 }
