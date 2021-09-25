@@ -17,7 +17,7 @@ public class Ui {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
-    //Utilities
+    //Utility constants
     private static final String INDENTATION = "\t";
     private static final int HORIZONTAL_LINE_LENGTH = 100;
 
@@ -95,7 +95,7 @@ public class Ui {
         return in.nextLine();
     }
 
-    //Utility methods
+    //Utility print methods
     private static void printHorizontalLine() {
         for (int i = 0; i < HORIZONTAL_LINE_LENGTH; i++) {
             System.out.print("-");
@@ -114,7 +114,6 @@ public class Ui {
     }
 
     //General Messages
-
     /**
      * Prints a welcome message to the user.
      */
@@ -220,7 +219,6 @@ public class Ui {
     }
 
     //Error messages split into multiple methods for better maintainability
-
     /**
      * Shows error when there is no description provided for a Todo task.
      */
