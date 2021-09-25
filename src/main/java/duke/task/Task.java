@@ -9,10 +9,10 @@ package duke.task;
  */
 
 public abstract class Task {
-    protected static int numOfTasks = 0;
+    //protected static int numOfTasks = 0;
     protected String description;
     protected boolean isDone;
-    protected int itemIndex;
+    //protected int itemIndex;
 
     /**
      * Creates a task with the specified task description.
@@ -21,24 +21,18 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         isDone = false;
-        numOfTasks++;
-        itemIndex = numOfTasks;
-    }
-
-    public static void decrementNumOfTasks() {
-        numOfTasks--;
     }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getDescription() {
-        return description;
+    public boolean isDone() {
+        return isDone;
     }
 
-    public static int getNumOfTasks() {
-        return numOfTasks;
+    public String getDescription() {
+        return description;
     }
 
     public String getTaskIcon() {

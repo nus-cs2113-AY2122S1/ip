@@ -4,6 +4,7 @@ import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.EmptyTimeFieldException;
 import duke.task.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -49,32 +50,34 @@ public class Ui {
     public void printDoneTask(Task task, int itemNum) {
         System.out.println(SEPARATOR);
         System.out.println("\tBrainy Smurf: aah another thing done");
-        System.out.printf("\t%d. [%s][%s] %s\n", itemNum, task.getTaskIcon(), task.getStatusIcon(),
-                task.getDescription());
+        System.out.println("\t" + itemNum + ". " + task);
+//        System.out.printf("\t%d. [%s][%s] %s\n", itemNum, task.getTaskIcon(), task.getStatusIcon(),
+//                task.getDescription());
         System.out.println(SEPARATOR);
     }
 
     public void printDeleteTask(Task deletedTask) {
         System.out.println(SEPARATOR);
         System.out.println("\tI will get Weakling smurf to do it for you.");
-        System.out.printf("\t   [%s][%s] %s\n", deletedTask.getTaskIcon(), deletedTask.getStatusIcon(),
-                deletedTask.getDescription());
+        System.out.println("\t   " + deletedTask);
+        //System.out.printf("\t   [%s][%s] %s\n", deletedTask.getTaskIcon(), deletedTask.getStatusIcon(),
+        //        deletedTask.getDescription());
         System.out.println(SEPARATOR);
     }
 
-    public void printAddTask(Task task) {
+    public void printAddTask(Task task, int taskIndex) {
         System.out.println(SEPARATOR);
         System.out.println("\tHandy Smurf is here to give you a hand!");
         System.out.println("\tI have added: ");
-        System.out.println("\t" + (Duke.tasks.indexOf(task) + 1) + task);
+        System.out.println("\t" + taskIndex + ". "+ task);
         System.out.println(SEPARATOR);
     }
 
     public void printTaskList(ArrayList<Task> tasks) {
         System.out.println(SEPARATOR);
         System.out.println("\t\"Tracker Smurf!! I need you here!!\"");
-        for (Task task : Duke.tasks) {
-            System.out.println("\t" + (tasks.indexOf(task) + 1) + task);
+        for (Task task : tasks) {
+            System.out.println("\t" + (tasks.indexOf(task) + 1) + ". "+ task);
         }
         System.out.println(SEPARATOR);
     }
@@ -97,6 +100,10 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public void printIoExceptionErrorMessage(IOException exception) {
+        System.out.println("something went wrong while saving..." + exception.getMessage());
+    }
+
     public void printExitMessage() {
         System.out.println(SEPARATOR);
         System.out.println("\toh shucks! Gargamel is here..we gotta hide");
@@ -105,6 +112,6 @@ public class Ui {
 
     public Parser readUserInput(Scanner in) throws EmptyDescriptionException, EmptyTimeFieldException {
         System.out.println("\tCall out a smurf to do a job for you!");
-        return new Parser(in.nextLine());
+        return new Parser(in.nextLine(), 1);
     }
 }
