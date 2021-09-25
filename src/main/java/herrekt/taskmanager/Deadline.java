@@ -5,12 +5,18 @@ import java.time.LocalDate;
 public class Deadline<T> extends Task {
     protected T date;
 
+    /**
+     * Initialise a Deadline with a description and date.
+     *
+     * @param description Description of the deadline
+     * @param date The date can be either a String or LocalDate class.
+     */
     public Deadline(String description, T date) {
         super(description);
         this.date = date;
     }
 
-    public String getDate() {
+    protected String getDate() {
         if (date instanceof String) {
             return (String) date;
         } else {
@@ -21,8 +27,14 @@ public class Deadline<T> extends Task {
         }
     }
 
+    /**
+     * Returns the save format of the current Deadline.
+     * Converts the deadline into a String format recognizable in the save file.
+     *
+     * @return The deadline as a string.
+     */
     @Override
-    public String toSave() {
+    protected String toSave() {
         int done = 0;
         if (this.isDone) {
             done = 1;
@@ -33,7 +45,7 @@ public class Deadline<T> extends Task {
                 + this.date.toString();
     }
 
-    public String getDescription() {
+    protected String getDescription() {
         return super.description + " (by: " + this.getDate() + ")";
     }
 

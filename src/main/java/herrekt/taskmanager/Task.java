@@ -5,16 +5,16 @@ public abstract class Task {
     protected final String description;
     protected boolean isDone;
 
-    Task(String description) {
+    protected Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    public abstract String toSave();
+    protected abstract String toSave();
 
-    public abstract String getDescription();
+    protected abstract String getDescription();
 
-    public boolean isDone() {
+    protected boolean isDone() {
         return this.isDone;
     }
 

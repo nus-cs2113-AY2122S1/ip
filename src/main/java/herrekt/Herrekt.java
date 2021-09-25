@@ -1,5 +1,6 @@
 package herrekt;
 
+import herrekt.command.Command;
 import herrekt.exceptions.InvalidInputException;
 import herrekt.exceptions.InvalidTaskException;
 import herrekt.taskmanager.TaskList;
@@ -14,11 +15,14 @@ public class Herrekt {
     private final Ui ui;
     private final Storage storage;
     private TaskList tasks;
-    private final Parser parser;
     private final Command command;
 
-    public Herrekt(String filePath) {
-        this.parser = new Parser();
+    /**
+     * Initialize the task manager.
+     *
+     * @param filePath Search for the .txt file and load up any pre-existing task list.
+     */
+    private Herrekt(String filePath) {
         this.ui = new Ui();
         this.command = new Command();
         this.storage = new Storage(filePath);
@@ -29,8 +33,12 @@ public class Herrekt {
             this.tasks = new TaskList();
         }
     }
-
-    public void run() {
+    /**
+     * Runs the task manager program.
+     * Allows the User to input commands.
+     * Recognize the commands to perform certain task in managing the current list of tasks.
+     */
+    private void run() {
         ui.printWelcomeMessage();
         Scanner sc = new Scanner(System.in);
 

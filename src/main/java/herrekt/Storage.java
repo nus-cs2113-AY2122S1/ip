@@ -1,5 +1,6 @@
 package herrekt;
 
+import herrekt.command.Parser;
 import herrekt.taskmanager.*;
 
 import java.io.File;

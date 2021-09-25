@@ -4,18 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
+    /**
+     * Initialise a Task List to manage the list of current tasks.
+     *
+     * @param tasks The list of current tasks.
+     */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
-
+    
+    /** Initialise a Task List to containing an empty list of tasks. */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
     }
 
     public Task getTask(int index) {
@@ -30,15 +32,18 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public void delete(Task task) {
-        this.tasks.remove(task);
-    }
-
     public void delete(int taskNumber) {
         int index = taskNumber - 1;
         this.tasks.remove(index);
     }
 
+    /**
+     * Returns true if the task was not done, false if otherwise.
+     * Also sets the task's done status to true if it was false from the start.
+     *
+     * @param taskNumber Number of the task to be marked as done.
+     * @return True if the task is not done at the start.
+     */
     public boolean markAsDone(int taskNumber) {
         int index = taskNumber - 1;
         Task toMark = this.getTask(index);
@@ -50,6 +55,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the list of current tasks in a format that can be saved and loaded in a .txt file.
+     * Converts the task list into a format that is recognizable when loaded from a .txt file.
+     *
+     * @return The task list in the format to be saved.
+     */
     public StringBuilder convertTaskListToSaveFormat() {
         StringBuilder toSaveToFile = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++ ) {
@@ -63,6 +74,12 @@ public class TaskList {
         return toSaveToFile;
     }
 
+    /**
+     * Returns a list of tasks that contains the phrase/
+     *
+     * @param phrase The parameter of the filter.
+     * @return The list of tasks that matches the search parameters.
+     */
     public List<Task> search(String phrase) {
         List<Task> results = new ArrayList<>();
         for (Task task : this.tasks) {

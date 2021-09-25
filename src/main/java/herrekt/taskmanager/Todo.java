@@ -2,12 +2,22 @@ package herrekt.taskmanager;
 
 public class Todo extends Task {
 
+    /**
+     * Initialise an Todo with a description and date.
+     *
+     * @param description Description of the todo.
+     */
     public Todo(String description) {
         super(description);
     }
-
+    /**
+     * Returns the save format of the current Todo.
+     * Converts the todo into a string format recognizable in the save file.
+     *
+     * @return The todo as a string.
+     */
     @Override
-    public String toSave() {
+    protected String toSave() {
         int done = 0;
         if (this.isDone) {
             done = 1;
@@ -17,7 +27,7 @@ public class Todo extends Task {
                 + this.description;
     }
 
-    public String getDescription() {
+    protected String getDescription() {
         return super.description;
     }
 

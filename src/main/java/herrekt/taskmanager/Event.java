@@ -1,19 +1,31 @@
 package herrekt.taskmanager;
 
 public class Event extends Task {
-    protected String date;
+    private final String date;
 
+    /**
+     * Initialise an Event with a description and date.
+     *
+     * @param description Description of the event.
+     * @param date Further details of when it occurs.
+     */
     public Event(String description, String date) {
         super(description);
         this.date = date;
     }
 
-    public String getDate() {
+    protected String getDate() {
         return date;
     }
 
+    /**
+     * Returns the save format of the current Event.
+     * Converts the event into a string format recognizable in the save file.
+     *
+     * @return The event as a string.
+     */
     @Override
-    public String toSave() {
+    protected String toSave() {
         int done = 0;
         if (this.isDone) {
             done = 1;
@@ -24,7 +36,7 @@ public class Event extends Task {
                 + this.date;
     }
 
-    public String getDescription() {
+    protected String getDescription() {
         return super.description + " (at: " + this.getDate() + ")";
     }
 

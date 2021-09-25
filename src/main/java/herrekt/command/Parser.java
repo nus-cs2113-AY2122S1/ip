@@ -1,4 +1,4 @@
-package herrekt;
+package herrekt.command;
 
 import herrekt.exceptions.InvalidInputException;
 import herrekt.taskmanager.*;
@@ -50,7 +50,7 @@ public class Parser {
         } else if (phrase.startsWith("deadline ")) {
             phrase = phrase.substring(9);
             String[] taskAndTime = phrase.split(" /by ");
-            return new Deadline<>(taskAndTime[0], taskAndTime[1]);
+            return dateConverter(taskAndTime[0], taskAndTime[1]);
         } else if (phrase.startsWith("event ")) {
             phrase = phrase.substring(6);
             String[] taskAndTime = phrase.split(" /at ");

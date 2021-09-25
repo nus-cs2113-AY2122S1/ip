@@ -1,4 +1,4 @@
-package herrekt;
+package herrekt.command;
 
 import herrekt.exceptions.InvalidInputException;
 import herrekt.exceptions.InvalidTaskException;
@@ -6,12 +6,12 @@ import herrekt.taskmanager.Task;
 import herrekt.taskmanager.TaskList;
 
 public class Command {
-    private final Ui ui;
+    private final CommandUi ui;
     private final Parser parser;
     private final static String[] commands = {"todo", "event", "deadline", "list", "done", "find", "delete", "bye"};
 
     public Command() {
-        this.ui = new Ui();
+        this.ui = new CommandUi();
         this.parser = new Parser();
     }
 
