@@ -1,0 +1,5 @@
+T,X,complete duke project
+D,X,complete duke ,1 oct 2021
+E,X,finalize duke ,tonight
+E,X,Attend CS2113T Lectures ,Every Friday 4pm-6pm
+D,X,update my resume ,end of September 2021
