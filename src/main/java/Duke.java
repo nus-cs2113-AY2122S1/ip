@@ -9,10 +9,11 @@ public class Duke {
     public static void main(String[] args) throws DukeException, IOException {
 
         Scanner in = new Scanner(System.in);
+        Parser parser = new Parser();
+
 //       Storage storage = new Storage();
 //       TaskList tasks = new TaskList();
 //       Ui ui = new Ui();
-        Parser parser = new Parser();
 
         int localCount=0;
         String line;
