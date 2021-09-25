@@ -18,7 +18,7 @@ It is optimized for use via a Command Line Interface (CLI) that can help you man
     * [Marking a task as done](#marking-a-task-as-done-done-idx)
     * [Deleting a task](#deleting-a-task-delete-idx)
     * [Searching for a task](#querying-tasks-find-regex-type-tasktype-limit-querylimit)
-    * [Saving the tasks]()
+    * [Saving the tasks](#saving-the-tasks)
     * [Exiting the program](#exit-the-application--bye)
 
 - [FAQ](#faq)
@@ -281,7 +281,7 @@ ____________________________________________________________
 ```
 <br />
 
-### Local Save
+### Saving the Tasks
 All updates made to the task list are automatically saved to a local file `duke.txt`
 > Note: There is no need to save manually.
 
