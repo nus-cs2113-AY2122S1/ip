@@ -322,8 +322,6 @@ Command Format | Action
    
 | Command Format     | Action |
 | ----------- | ----------- |
-| `help`      | Lists all the valid commands       |
-| `list`  | Lists all the scheduled tasks from the task list   |
 | `help`                                  | Lists all the valid commands                                  |
 | `list`                                  | Lists all the scheduled tasks from the task list              |
 | `find <SEARCH_KEYWORD>`                 | Searches in the task list for tasks which contain the keyword |
