@@ -1,24 +1,25 @@
 package duke.task;
+import java.time.LocalDate;
 
 public class Event extends Task {
-    private String to;
+    private LocalDate to;
 
-    public Event(String description, String to) {
+    public Event(String description, LocalDate to) {
         super(description);
         setTo(to);
     }
 
-    public String getTo() {
+    public LocalDate getTo() {
         return to;
     }
 
-    public void setTo(String to) {
+    public void setTo(LocalDate to) {
         this.to = to;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (at: " + getTo() + ")";
+        return super.toString() + " (at: " + getTo().format(formatter) + ")";
     }
 
     @Override
