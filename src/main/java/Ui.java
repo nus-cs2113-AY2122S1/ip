@@ -18,6 +18,13 @@ public class Ui {
         printDivider();
     }
 
+    public static void echoLastTask() {
+        int index= TaskManager.tasks.size()-1;
+        printNewlyAddedTask(index);
+        Ui.printTaskCount();
+        Ui.printDivider();
+    }
+
     public static void printTaskCount() {
         int count = TaskManager.tasks.size();
         if (count == 0) {
@@ -46,6 +53,13 @@ public class Ui {
         printDivider();
     }
 
+    public static void printEmptyTimeExceptionMEssage() {
+        System.out.println("☹ OOPS!!! You forgot to add the date/time.");
+        System.out.println("Format: {type} {description} /by {datetime} ");
+        System.out.println("Example: deadline coding project /by Friday 2359");
+        printDivider();
+    }
+
     public static void printDukeExceptionMessage(String command) {
         if (command.equalsIgnoreCase("done")) {
             System.out.println("☹ OOPS!!! You've forgotten to write the task number");
@@ -55,6 +69,19 @@ public class Ui {
             System.out.printf("☹ OOPS!!! The description of a %s cannot be empty" + System.lineSeparator(), command);
         }
         printDivider();
+    }
+
+    public static void printOutOfBoundsMessage () {
+        int taskCount = TaskManager.tasks.size();
+        if (taskCount == 0) {
+            System.out.println("You have not added any tasks yet");
+        }
+        else if (taskCount == 1) {
+            System.out.println("You only have 1 task");
+        }
+        else {
+            System.out.println("Please pick a number from 1 to " + taskCount);
+        }
     }
 
     public static void printMarkAsDoneMessage(int index) {
@@ -78,6 +105,14 @@ public class Ui {
         System.out.printf("There are %d tasks containing \"%s\"" + System.lineSeparator(), tasks.size(), userInput);
         for (Task t : tasks) {
             System.out.println(t);
+        }
+        printDivider();
+    }
+
+    public static void printTasks() {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < TaskManager.tasks.size(); i++) {
+            System.out.printf("%d.%s" + System.lineSeparator(), i + 1, TaskManager.tasks.get(i));
         }
         printDivider();
     }

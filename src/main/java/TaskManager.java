@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import exceptions.DukeException;
+import exceptions.EmptyTimeException;
 import exceptions.InvalidCommandException;
 import task.Deadline;
 import task.Event;
@@ -11,25 +12,15 @@ import task.Todo;
 public class TaskManager {
     public static ArrayList<Task> tasks = new ArrayList<>();
 
-    private void taskDone(String userInput) throws DukeException {
-        String[] params = userInput.split(" ", 2);
-        if (params.length < 2) {
-            throw new DukeException();
-        }
-        String position = params[1];
-        int index = Integer.parseInt(position) - 1;
+    private void taskDone(String userInput) throws DukeException, IndexOutOfBoundsException {
+        int index = Parser.parseExtractIndex(userInput);
         tasks.get(index).markAsDone();
         Ui.printMarkAsDoneMessage(index);
         Ui.printDivider();
     }
 
-    private void deleteTask(String userInput) throws DukeException {
-        String[] params = userInput.split(" ", 2);
-        if (params.length < 2) {
-            throw new DukeException();
-        }
-        String position = params[1];
-        int index = Integer.parseInt(position) - 1;
+    private void deleteTask(String userInput) throws DukeException, IndexOutOfBoundsException {
+        int index = Parser.parseExtractIndex(userInput);
         Ui.printDeleteTaskMessage(index);
         tasks.remove(index);
     }
@@ -37,23 +28,6 @@ public class TaskManager {
     public static void taskDoneLatest() {
         tasks.get(tasks.size() - 1).markAsDone();
     }
-
-
-    public void listTasks() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d.%s" + System.lineSeparator(), i + 1, tasks.get(i));
-        }
-        Ui.printDivider();
-    }
-
-    private void echoTask(int index) {
-        Ui.printNewlyAddedTask(index);
-        Ui.printTaskCount();
-        Ui.printDivider();
-    }
-
-
     public static void addTodo(String userInput) {
         tasks.add(new Todo(userInput));
     }
@@ -73,59 +47,45 @@ public class TaskManager {
         return filteredList;
     }
 
-    public void findTask(String userInput) throws DukeException {
-        String[] params = userInput.split(" ", 2);
-        if (params.length < 2) {
-            throw new DukeException();
-        }
-        ArrayList<Task> filteredList = filterTasksByString(tasks, params[1]);
+    public void findTask(String userInput) throws DukeException, EmptyTimeException {
+        String userQuery = Parser.parseExtractString(userInput);
+        ArrayList<Task> filteredList = filterTasksByString(tasks, userQuery);
         Ui.printData(filteredList, userInput);
     }
 
-    private void addTask(String userInput) throws DukeException {
-        String[] params = userInput.split(" ", 2);
-        String command = params[0];
-        if (params.length < 2) {
-            throw new DukeException();
-        }
-
-        String description = params[1];
-        String[] separateTime;
-        String[] separatePreposition;
-        String time;
+    private void addTask(String userInput) throws DukeException, EmptyTimeException{
+        String command = Parser.parseExtractCommand(userInput);
+        String description = Parser.parseExtractString(userInput);
 
         if (command.equals("todo")) {
             addTodo(description);
-        }
-        else { //timed tasks
-            separateTime = params[1].split("/", 2);
-            description = separateTime[0];
-            separatePreposition = separateTime[1].split(" ", 2);
-            time = separatePreposition[1];
-            if (command.equals("deadline")){
-                addDeadline(description, time);
-            }
-            else {
-                addEvent(description, time);
-            }
+            Ui.echoLastTask();
+            return;
         }
 
+        //timed tasks
+        String[] InfoTimeArray = Parser.parseExtractInfoAndTime(description);
+        description = InfoTimeArray[0];
+        String time = InfoTimeArray[1];
+        if (command.equals("deadline")) {
+            addDeadline(description, time);
+        } else if (command.equals("event")) {
+            addEvent(description, time);
+        }
+        Ui.echoLastTask();
     }
 
     public void handleRequest(String userInput) {
         try {
-            String[] params = userInput.split(" ", 2);
-            String command = params[0];
-
+            String command = Parser.parseExtractCommand(userInput);
             switch (command.toUpperCase()) {
             case "LIST":
-                listTasks();
+                Ui.printTasks();
                 break;
             case "TODO":
             case "DEADLINE":
             case "EVENT":
                 addTask(userInput);
-                echoTask(tasks.size() - 1);
                 break;
             //fallthrough
             case "FIND":
@@ -138,10 +98,14 @@ public class TaskManager {
                 deleteTask(userInput);
                 break;
             default:
-                throw new InvalidCommandException(); //if user input is not any of the commands
+                throw new InvalidCommandException("☹ OOPS!!! I do not understand what that means!"); //if user input is not any of the commands
             }
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printOutOfBoundsMessage();
+        } catch (EmptyTimeException e) {
+            Ui.printEmptyTimeExceptionMEssage();
         } catch (InvalidCommandException e) {
-            Ui.printInvalidCommandMessage();
+            System.out.println(e.getMessage());
         } catch (DukeException e) {
             Ui.printDukeExceptionMessage(userInput);
         }

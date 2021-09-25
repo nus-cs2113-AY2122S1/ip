@@ -10,43 +10,46 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class DataManager {
+
+    public static final String vertLineSeparator = "\\s\\|\\s";
+    public static final String taskIsDone = "1";
     private final String path;
 
     public DataManager(String path) {
         this.path = path;
     }
 
-    /*examples of file content
-   T | 1 | read book
-   E | 0 | project meeting | Aug 6th 2-4pm
-   params[0] - Type, param[1] - status, param[2] - description, param[3] - time(if applicable) */
+    /*
+        examples of file content
+        T | 1 | read book
+        E | 0 | project meeting | Aug 6th 2-4pm
+        params[0] - Type, param[1] - status, param[2] - description, param[3] - time(if applicable)
+    * */
     private void readFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
             String line = s.nextLine();
-            String[] params = line.split("\\s\\|\\s");
-            switch (params[0]) {
+            String[] params = line.split(vertLineSeparator);
+            String taskType = params[0];
+            String status = params[1];
+            String description = params[2];
+            String time = params[3];
+            switch (taskType) {
             case "T":
-                TaskManager.addTodo(params[2]);
+                TaskManager.addTodo(description);
                 break;
             case "D":
-                TaskManager.addDeadline(params[2], params[3]);
+                TaskManager.addDeadline(description, time);
                 break;
             case "E":
-                TaskManager.addEvent(params[2], params[3]);
+                TaskManager.addEvent(description, time);
                 break;
             }
-            if (params[1].equals("1")) {
+            if (status.equals(taskIsDone)) {
                 TaskManager.taskDoneLatest();
             }
         }
-    }
-
-    private void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
-        fw.write(textToAppend);
-        fw.close();
     }
 
     public void writeFileContents(String filePath) throws IOException {
@@ -58,10 +61,14 @@ public class DataManager {
         String textToAppend;
         FileWriter fw = new FileWriter(filePath, false);// create a FileWriter in override mode
         fw.write("");
+        fw.close();
         for (int i = 0; i < TaskManager.tasks.size(); i++) {
             Task task = TaskManager.tasks.get(i);
-            textToAppend = task.getType() + " | " + task.getStatus() + " | " + task.getDescription() + " | " + task.getTime() + System.lineSeparator();
-            appendToFile(filePath, textToAppend);
+            textToAppend = task.getType() + " | " + task.getStatus() + " | "
+                    + task.getDescription() + " | " + task.getTime() + System.lineSeparator();
+            FileWriter appender = new FileWriter(filePath, true);
+            appender.write(textToAppend);
+            appender.close();
         }
     }
 
