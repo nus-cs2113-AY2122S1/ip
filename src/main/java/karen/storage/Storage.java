@@ -50,12 +50,12 @@ public abstract class Storage {
         case DEADLINE_COMMAND:
             String by = splitData[3].trim();
             fullTaskDescription = String.format("%s /by %s", taskDescription, by);
-            task = new Deadline(fullTaskDescription, by, taskDescription);
+            task = new Deadline(fullTaskDescription, taskDescription, by);
             break;
         case EVENT_COMMAND:
             String at = splitData[3].trim();
             fullTaskDescription = String.format("%s /at %s", taskDescription, at);
-            task = new Event(fullTaskDescription, at, taskDescription);
+            task = new Event(fullTaskDescription, taskDescription, at);
             break;
         default:
             Ui.printIOExceptionMessage();
@@ -86,7 +86,7 @@ public abstract class Storage {
         Scanner s = new Scanner(dataFile);
         while (s.hasNext()) {
             //check type of task
-            String splitData[] = s.nextLine().split(",");
+            String splitData[] = s.nextLine().split("@");
             Task task = parseData(splitData);
             taskList.addTask(task);
         }

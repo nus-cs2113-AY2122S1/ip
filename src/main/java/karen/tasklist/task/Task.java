@@ -1,5 +1,8 @@
 package karen.tasklist.task;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Task {
     protected String fullTaskDescription;
     protected boolean isDone;
@@ -35,6 +38,13 @@ public class Task {
 
     public String getType(){
         return "Task";
+    }
+
+    public LocalDate getDate() {
+        return null;
+    }
+    public LocalTime getTime() {
+        return null;
     }
 
     // get formatted description to print out for list and task commands, eg "return book (by: Sunday)"

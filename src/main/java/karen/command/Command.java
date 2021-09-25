@@ -1,6 +1,6 @@
 package karen.command;
 
-import karen.exception.ErrorCheck;
+import karen.exception.ValidityAndErrorCheck;
 import karen.program.ProgramManager;
 import karen.storage.Storage;
 import karen.exception.IncorrectDescriptionFormatException;
@@ -13,6 +13,7 @@ import karen.tasklist.task.Task;
 import karen.tasklist.task.ToDo;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,11 +35,22 @@ public class Command {
         return command;
     }
 
+
     public void executeFindCommand(String keyword, ArrayList<Task> tasks) {
         List<Task> filteredTasks = tasks.stream()
                 .filter((t) -> t.getTask().toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toList());
         Ui.printFoundTasks(filteredTasks, keyword);
+    }
+
+    public void executeShowCommand(LocalDate date, ArrayList<Task> tasks) {
+        List<Task> filteredTasks = tasks.stream()
+                .filter((t) -> t instanceof Deadline || t instanceof Event)
+                .filter((t) -> (t.getDate()).equals(date))
+                .collect(Collectors.toList());
+
+        Ui.printTasksOnDate(date, filteredTasks);
+
     }
 
     public void executeDoneCommand(int doneIndex) throws NumberFormatException, IndexOutOfBoundsException, IOException {
@@ -95,8 +107,7 @@ public class Command {
     }
 
     public void executeByeCommand(String rawUserInput) throws IncorrectDescriptionFormatException, NoDescriptionException {
-        String[] inputWords = rawUserInput.split(" ");
-        ErrorCheck.checkCommandDescriptionExceptions("bye", rawUserInput);
+        ValidityAndErrorCheck.checkCommandDescriptionExceptions("bye", rawUserInput);
         Ui.printGoodByeMessage();
         programManager.setIsRunningOff();
     }

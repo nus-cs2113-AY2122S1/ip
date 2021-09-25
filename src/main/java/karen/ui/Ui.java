@@ -2,6 +2,8 @@ package karen.ui;
 
 import karen.tasklist.task.Task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -69,8 +71,8 @@ public abstract class Ui {
         printFormattedMessage(message);
     }
 
-    public static void printTaskList(ArrayList<Task> taskList) {
-        int listSize = taskList.size();
+    public static void printTaskList(ArrayList<Task> tasks) {
+        int listSize = tasks.size();
 
         //empty list
         if (listSize == 0) {
@@ -82,14 +84,15 @@ public abstract class Ui {
 
         for (int i = 0; i < listSize; i ++) {
            message = message + String.format("    %d. [%s][%s] %s\n",
-                   i + 1, taskList.get(i).getType(), taskList.get(i).getStatusIcon(),
-                   taskList.get(i).getFormattedDescription());
+                   i + 1, tasks.get(i).getType(), tasks.get(i).getStatusIcon(),
+                   tasks.get(i).getFormattedDescription());
         }
         printFormattedMessage(message);
     }
 
+
     public static void printFoundTasks(List<Task> tasks, String keyword) {
-        if (tasks.size() == 0){
+        if (tasks.size() == 0) {
             printFormattedMessage("    There seems to have no matching tasks\n");
             return;
         }
@@ -98,6 +101,26 @@ public abstract class Ui {
             message += String.format("      %d. [%s][%s] %s\n",
                     i+1, tasks.get(i).getType(), tasks.get(i).getStatusIcon(), tasks.get(i).getFormattedDescription());
         }
+
+        message += String.format("\n    Total number of tasks: " + tasks.size() + "\n");
+        printFormattedMessage(message);
+    }
+
+    public static void printTasksOnDate (LocalDate date, List<Task> tasks) {
+        if (tasks.size() == 0) {
+            printFormattedMessage("    You are free on that day!\n");
+            return;
+        }
+
+        String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy, E"));
+        String message = "    Okay Plankton, here are the tasks you have on " + formattedDate + ".\n\n     Task List:\n\n";
+
+        for (int i = 0; i < tasks.size(); i ++) {
+            message += String.format("      %d. [%s][%s] %s\n",
+                    i+1, tasks.get(i).getType(), tasks.get(i).getStatusIcon(), tasks.get(i).getFormattedDescription());
+        }
+
+        message += String.format("\n    Total number of tasks: " + tasks.size() + "\n");
         printFormattedMessage(message);
     }
 
@@ -150,6 +173,11 @@ public abstract class Ui {
 
     public static void printCreateFileErrorMessage() {
         String message = "    Error creating file.\n";
+        printFormattedMessage(message);
+    }
+
+    public static void printDateTimeErrorMessage() {
+        String message = "    Invalid date entered.\n";
         printFormattedMessage(message);
     }
 
