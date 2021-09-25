@@ -16,6 +16,8 @@ public class TaskList {
     public static final String INDEX_OUT_OF_BOUND_MSG = "Sorry, the input task number is out of the bound, please try again! :(";
     public static final String UNEXPECTED_ERROR_MSG = "An unexpected error occurs when I try to update the file";
     public static final String TASK_FINISHED_MSG = "\tNice! You have finished all tasks! Time to chill~";
+    public static final String UPDATE_STORAGE_ERROR_MSG = "An unexpected error occurs when I try to update the file";
+    public static final String DELETE_ALL_MSG = "All tasks have been removed! Time to chill?";
     public static int longestTaskDescription = 0; //The length of the longest task description
     private ArrayList<Task> tasks;
     private final Storage storage;
@@ -93,11 +95,8 @@ public class TaskList {
     private void printTasks() {
         for (int i = 0; i < tasks.size(); i++) {
             //Fill the first [] with class type, and the second [] with a 'X' if the task is completed
-            if (tasks.get(i).getDone()) {
-                System.out.print("\t| [" + tasks.get(i).getClassType() + "][X] " + (i + 1) + ". ");
-            } else {
-                System.out.print("\t| [" + tasks.get(i).getClassType() + "][ ] " + (i + 1) + ". ");
-            }
+            String doneIcon = (tasks.get(i).getDone()) ? "[X] " : "[ ] ";
+            System.out.print("\t| [" + tasks.get(i).getClassType() + "]" + doneIcon + (i + 1) + ". ");
             //Calculates the required spacing for the current task as compared to the longest task description to print '|'
             int distanceToClosingFrame = longestTaskDescription + "| [ ][ ] 100. ".length() - ("| [ ][ ] " + (i + 1) + ". ").length() + 1;
             System.out.printf("%1$-" + distanceToClosingFrame + "s", tasks.get(i));
@@ -166,39 +165,15 @@ public class TaskList {
      */
     public void createDeadline(String taskName, String time) throws IOException {
         tasks.add(new Deadline(taskName, time));
-        if (longestTaskDescription < taskName.length() + time.length()) {
-            longestTaskDescription = taskName.length() + "(by: )".length() + time.length();
+        Deadline deadline = (Deadline) tasks.get(tasks.size() - 1);
+        int deadlineDescriptionLength = deadline.toString().length();
+        if (longestTaskDescription < deadlineDescriptionLength) {
+            longestTaskDescription = deadlineDescriptionLength;
         }
         storage.saveTaskToFile(this);
         Task currentTask = tasks.get(tasks.size() - 1);
         ui.showMessage(" Class type [" + currentTask.getClassType() + "] \"" + currentTask + "\" has been added to the list!" +
                 "(" + tasks.size() + " tasks in total)");
-    }
-
-    /**
-     * Create task according to its type to the array list
-     *
-     * @param command The input command entered by the user
-     * @param words   The array of words that compose the command
-     * @throws IOException Throws this exception when there is error during saving data
-     */
-    public void addTask(String command, String[] words) throws IOException {
-        command = command.replaceFirst(words[0], "").trim();
-        String time = command.substring(command.indexOf('/') + 1).trim();
-        String taskName = command.split("/", 2)[0].trim();
-        switch (words[0].toLowerCase()) {
-        case "todo":
-            createToDo(command, words);
-            break;
-        case "deadline":
-            createDeadline(taskName, time);
-            break;
-        case "event":
-            createEvent(taskName, time);
-            break;
-        default:
-            ui.showMessage("An unexpected error has occured when I try to add task :(");
-        }
     }
 
     /**
@@ -224,7 +199,7 @@ public class TaskList {
         try {
             storage.updateStorage(this);
         } catch (IOException ioException) {
-            ui.showMessage("An unexpected error occurs when I try to update the file");
+            ui.showMessage(UPDATE_STORAGE_ERROR_MSG);
             System.out.print("\t");
             ioException.printStackTrace();
         }
@@ -237,7 +212,7 @@ public class TaskList {
      */
     private void deleteAllTasks(ArrayList<Task> tasks) {
         tasks.clear();
-        ui.showMessage("All tasks have been removed! Time to chill?");
+        ui.showMessage(DELETE_ALL_MSG);
     }
 
     /**
@@ -286,9 +261,8 @@ public class TaskList {
                 //Deletes the task with the largest task index first
                 taskIndices.sort(Collections.reverseOrder());
                 for (Integer i : taskIndices) {
-                    String doneIcon = (tasks.get(i - 1).getDone()) ? "[X] " : "[ ] ";
-                    ui.showMessage("I have removed this task: [" + tasks.get(i - 1).getClassType() + "]" + doneIcon
-                            + tasks.get(i - 1));
+                    String doneIcon = (tasks.get(i).getDone()) ? "[X] " : "[ ] ";
+                    ui.showMessage("I have removed this task: [" + tasks.get(i).getClassType() + "]" + doneIcon + tasks.get(i));
                     tasks.remove((int) i);
                 }
                 //Prints the message according to tasks left
