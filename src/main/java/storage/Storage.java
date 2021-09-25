@@ -14,6 +14,8 @@ import java.util.Scanner;
 
 public class Storage {
 
+    private static final String SEPARATOR_FOR_FILE = " / ";
+
     public Storage() {}
 
     public void loadTextFile(TaskList tasks) throws IOException, DukeException {
@@ -24,7 +26,6 @@ public class Storage {
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
             addTaskFromFile(s,tasks);
-            Task.setTotalTasks(Task.getTotalTasks() + 1);
         }
     }
 
@@ -36,8 +37,8 @@ public class Storage {
         fw.close();
     }
 
-    public void addTaskFromFile(Scanner s, TaskList tasks) throws IndexOutOfBoundsException {
-        String[] parsedOutput = s.nextLine().split(" / ");
+    private void addTaskFromFile(Scanner s, TaskList tasks) throws IndexOutOfBoundsException {
+        String[] parsedOutput = s.nextLine().split(SEPARATOR_FOR_FILE);
         switch(parsedOutput[0]){
         case "T":
             tasks.addTask(new ToDo(parsedOutput[2]));
@@ -56,7 +57,7 @@ public class Storage {
 
     private void updateTaskStatus(String done, TaskList tasks) {
         if (done.equals("1")) {
-            tasks.getTask(Task.getTotalTasks()).markAsDone();
+            tasks.getTask(Task.getTotalTasks()-1).markAsDone();
         }
     }
 }

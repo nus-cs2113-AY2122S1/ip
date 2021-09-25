@@ -16,11 +16,11 @@ public class CommandResult{
         this.type = type;
     }
 
-    public CommandResult(String feedbackToUser) {
+    public CommandResult(String feedbackToUser,PrintOptions type) {
         this.feedbackToUser = feedbackToUser;
         this.task = null;
         this.tasks = null;
-        this.type = null;
+        this.type = type;
     }
 
     public CommandResult(String feedbackToUser, Task task,PrintOptions type) {

@@ -1,6 +1,7 @@
 package parser;
 
 import commands.*;
+import constants.Message;
 import task.TaskType;
 
 public class Parser {
@@ -15,11 +16,23 @@ public class Parser {
         String type = input.split(" ")[0].toLowerCase();
         switch(type) {
         case "todo":
-            return prepareAddCommand(input,TaskType.TODO);
+            try {
+                return prepareAddCommand(input,TaskType.TODO);
+            } catch (StringIndexOutOfBoundsException error) {
+                return new IncorrectCommand(Message.PROMPT_TASK_DESCRIPTION);
+            }
         case "deadline":
-            return prepareAddCommand(input,TaskType.DEADLINE);
+            try {
+                return prepareAddCommand(input,TaskType.DEADLINE);
+            } catch (StringIndexOutOfBoundsException error) {
+                return new IncorrectCommand(Message.PROMPT_TASK_DESCRIPTION);
+            }
         case "event":
-            return prepareAddCommand(input,TaskType.EVENT);
+            try {
+                return prepareAddCommand(input,TaskType.EVENT);
+            } catch (StringIndexOutOfBoundsException error) {
+                return new IncorrectCommand(Message.PROMPT_TASK_DESCRIPTION);
+            }
         case "list":
             return new ListCommand();
         case "done":
@@ -31,11 +44,11 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         default :
-            return new IncorrectCommand();
+            return new IncorrectCommand(Message.TYPE_SUITABLE_COMMAND_MESSAGE);
         }
     }
 
-    private Command prepareAddCommand(String input,TaskType type) {
+    private Command prepareAddCommand(String input,TaskType type) throws StringIndexOutOfBoundsException{
         String description;
         String parsedOutput[];
         switch(type){
@@ -52,7 +65,7 @@ public class Parser {
             parsedOutput = description.split(DEADLINE_DESCRIPTION_AND_DATE_SPLITTER);
             return new AddCommand(parsedOutput,TaskType.DEADLINE);
         default:
-            return new IncorrectCommand();
+            return new IncorrectCommand(Message.DEFAULT_ERROR_MESSAGE);
         }
     }
 }

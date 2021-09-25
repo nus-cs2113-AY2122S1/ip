@@ -17,6 +17,6 @@ public class HelpCommand extends Command{
             "- Marks the task with the corresponding number as done";
 
     public CommandResult execute() {
-        return new CommandResult(HELP_MESSAGE);
+        return new CommandResult(HELP_MESSAGE,PrintOptions.DEFAULT);
     }
 }

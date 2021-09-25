@@ -1,10 +1,16 @@
 package commands;
 
+import constants.Message;
+
 public class IncorrectCommand extends Command{
 
-    public static final String DEFAULT_ERROR_MESSAGE = "Oops, something went wrong!";
+    private String message;
+
+    public IncorrectCommand(String message) {
+        this.message = message;
+    }
 
     public CommandResult execute() {
-        return new CommandResult(DEFAULT_ERROR_MESSAGE);
+        return new CommandResult(message,PrintOptions.DEFAULT);
     }
 }

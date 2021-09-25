@@ -29,8 +29,7 @@ public class Ui {
     }
 
     public String getUserCommand() {
-        String input = in.nextLine();
-        return input;
+        return in.nextLine();
     }
 
     public void printIndentationAndDivider() {
@@ -51,13 +50,14 @@ public class Ui {
         out.println();
     }
 
-    public void printGoodbyeMessage() {
+    public void printMessage(String input) {
         printIndentationAndDivider();
-        printWordsWithIndentation(Message.GOODBYE_MESSAGE);
+        printWordsWithIndentation(input);
         printIndentationAndDivider();
+        System.out.println();
     }
 
-    private void printTaskMessage(CommandResult result, Boolean notifyNumberOfTasks, Boolean printTask) {
+    private void printCommandResultMessage(CommandResult result, Boolean notifyNumberOfTasks, Boolean printTask) {
         printIndentationAndDivider();
         printWordsWithIndentation(result.feedbackToUser);
         if(printTask) {
@@ -70,17 +70,22 @@ public class Ui {
         System.out.println();
     }
 
-    public void printMessage(CommandResult result) {
+    public void showResult(CommandResult result) {
         switch(result.type){
         case WITH_TASK_AND_NUMBER_OF_TASK:
-            printTaskMessage(result,NOTIFY_NUMBER_OF_TASK,PRINT_TASK);
+            printCommandResultMessage(result,NOTIFY_NUMBER_OF_TASK,PRINT_TASK);
             break;
         case ONLY_TASK:
-            printTaskMessage(result,!NOTIFY_NUMBER_OF_TASK,PRINT_TASK);
+            printCommandResultMessage(result,!NOTIFY_NUMBER_OF_TASK,PRINT_TASK);
+            break;
         case LIST:
             printList(result);
+            break;
+        case DEFAULT:
+            printCommandResultMessage(result,!NOTIFY_NUMBER_OF_TASK,!PRINT_TASK);
+            break;
         default:
-            printTaskMessage(result,!NOTIFY_NUMBER_OF_TASK,!PRINT_TASK);
+            printMessage(result.feedbackToUser);
         }
     }
 
@@ -89,25 +94,16 @@ public class Ui {
     /**
      * Prints the tasks based on the given format
      */
-    public void printTask(CommandResult result) {
+    private void printTask(CommandResult result) {
         for (int i = 0; i < Task.getTotalTasks(); i++) {
             printWordsWithIndentation(i + 1 + "." + result.tasks.getTask(i).getStatusIconAndDescription());
         }
     }
 
-    public void printList(CommandResult result) {
+    private void printList(CommandResult result) {
         printIndentationAndDivider();
-        if(Task.getTotalTasks() == 0) {
-            printWordsWithIndentation(result.feedbackToUser);
-        }
+        printWordsWithIndentation(result.feedbackToUser);
         printTask(result);
-        printIndentationAndDivider();
-        System.out.println();
-    }
-
-    public void printHelpMessage() {
-        printIndentationAndDivider();
-        printWordsWithIndentation(Message.HELP_MESSAGE);
         printIndentationAndDivider();
         System.out.println();
     }
