@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 
 /**
  * <h1>Load saved user status</h1>
- * <p>This FildReader provides methods to reload the tasks that a user saved previously.</p>
+ * <p>This FileReader provides methods to reload the tasks that a user saved previously.</p>
  *
  */
 public class FileReader {
@@ -30,7 +30,7 @@ public class FileReader {
     /**
      * Load all tasks that a user has saved before.
      *
-     * @return {@link TaskList} returns the reloaded task with a {@link TaskList} object.
+     * @return returns the reloaded task with a {@link TaskList} object.
      */
     public TaskList restore() throws FileException{
         try {

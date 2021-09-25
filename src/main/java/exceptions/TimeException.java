@@ -1,5 +1,10 @@
 package exceptions;
 
+
+/**
+ * Thrown to indicate that a user provides an invalid time for a task.
+ *
+ */
 public class TimeException extends DukeException{
     public String toString() {
         return String.format("     ☹ OOPS!!! The time is missing or incorrect! It should be: \n" +

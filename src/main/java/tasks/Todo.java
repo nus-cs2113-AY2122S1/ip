@@ -3,7 +3,7 @@ package tasks;
 import java.time.LocalDateTime;
 
 /**
- * <h1>The <b>Todo</b> type {@link Task} from users</h1>
+ * <h1>The <b>Todo</b> type from users</h1>
  */
 public class Todo extends Task {
 
