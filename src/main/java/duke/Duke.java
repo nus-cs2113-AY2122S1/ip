@@ -7,6 +7,7 @@ package duke;
  * @author YEOWEIHNGWHYELAB
  */
 
+import duke.commandHandler.CommandHandler;
 import duke.exceptionHandler.DukeException;
 
 import java.io.IOException;

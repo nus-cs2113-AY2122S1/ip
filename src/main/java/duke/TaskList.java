@@ -141,7 +141,7 @@ public class TaskList {
             String time = by.split(" ")[2];
             formattedDateTime = date + "T" + time;
         } catch (IndexOutOfBoundsException indexOutOfBound) {
-            throw new DukeException("The deadline is not stated correctly");
+            throw new DukeException("The deadline is not stated correctly (yyyy-mm-dd HH:mm)");
         }
 
         LocalDateTime dateTime;
@@ -218,7 +218,7 @@ public class TaskList {
             String time = at.split(" ")[2];
             formattedDateTime = date + "T" + time;
         } catch (IndexOutOfBoundsException indexOutOfBound) {
-            throw new DukeException("The deadline is not stated correctly");
+            throw new DukeException("The event is not stated correctly (yyyy-mm-dd HH:mm)");
         }
 
         LocalDateTime dateTime;
@@ -226,7 +226,7 @@ public class TaskList {
         try {
             dateTime = LocalDateTime.parse(formattedDateTime);
         } catch (DateTimeParseException formatIssue) {
-            throw new DukeException("Deadline be in the format of: yyyy-mm-dd HH:mm");
+            throw new DukeException("Event time be in the format of: yyyy-mm-dd HH:mm");
         }
 
         if (dukeTaskText.saveEvent(taskName, at) == true) {
