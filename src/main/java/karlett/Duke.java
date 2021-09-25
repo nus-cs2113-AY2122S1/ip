@@ -27,7 +27,6 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         while (true) {
             String userInput = in.nextLine();
-            Task.setFilePath(StorageFile.filePath);
             Parser.parseCommand(userInput);
         }
     }

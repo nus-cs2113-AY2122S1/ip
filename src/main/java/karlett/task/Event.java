@@ -1,9 +1,14 @@
 package karlett.task;
 
-import java.io.FileWriter;
+import karlett.storage.TaskListEncoder;
+
 import java.io.IOException;
 
 public class Event extends Task {
+
+    public String getAt() {
+        return at;
+    }
 
     protected String at;
 
@@ -14,7 +19,7 @@ public class Event extends Task {
         this.at = at;
         increaseNumberOfTasks();
         printNewTaskAddedMessage();
-        appendNewTaskToFile();
+        TaskListEncoder.appendNewEventToFile(this);
     }
 
     /* constructor used for loading file data */
@@ -23,14 +28,6 @@ public class Event extends Task {
         this.isDone = isDone;
         this.at = at;
         increaseNumberOfTasks();
-    }
-
-    //@Override
-    private void appendNewTaskToFile() throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        String textToAppend = "E | 0 | " + description + " | " + at + "\n";
-        fw.write(textToAppend);
-        fw.close();
     }
 
     @Override

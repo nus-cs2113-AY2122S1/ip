@@ -1,20 +1,18 @@
 package karlett.task;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
+import karlett.storage.TaskListEncoder;
+import karlett.ui.TextUi;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Task {
 
-    private static int numberOfTasks = 0;
-
-    public static void setFilePath(String filePath) {
-        Task.filePath = filePath;
+    public static int getNumberOfTasks() {
+        return numberOfTasks;
     }
 
-    protected static String filePath = "";
+    protected static int numberOfTasks = 0;
 
     protected String description;
     protected boolean isDone;
@@ -24,7 +22,7 @@ public class Task {
         this.description = description;
         this.isDone = false;
         increaseNumberOfTasks();
-        appendNewTaskToFile();
+        TaskListEncoder.appendNewTaskToFile(this);
         printNewTaskAddedMessage();
     }
 
@@ -39,21 +37,14 @@ public class Task {
     }
 
     protected void printNewTaskAddedMessage() {
-        drawDivider();
+        TextUi.drawDivider();
         System.out.println("Karlett now remembers:\n" + "  " + this);
         if (numberOfTasks == 1) {
             System.out.println("You have 1 task in the list now meow (((;꒪ꈊ꒪;)))");
         } else {
             System.out.println("You have " + numberOfTasks + " tasks in the list now meow (((;꒪ꈊ꒪;)))");
         }
-        drawDivider();
-    }
-
-    private void appendNewTaskToFile() throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        String textToAppend = "T | 0 | " + description + "\n";
-        fw.write(textToAppend);
-        fw.close();
+        TextUi.drawDivider();
     }
 
     public String getDescription() {
@@ -70,42 +61,19 @@ public class Task {
 
     public void markAsDone(int index) throws IOException {
         this.isDone = true;
-        modifyTaskStatusInFile(index);
+        TaskListEncoder.modifyTaskStatusInFile(index);
         printMarkAsDoneMessage();
     }
 
-    private void modifyTaskStatusInFile(int index) throws IOException {
-        String fileContent = "";
-        String line = "";
-        BufferedReader reader = null;
-        FileWriter writer = null;
-        reader = new BufferedReader(new FileReader(filePath));
-        for (int i = 0; i < index; i++) {
-            line = reader.readLine();
-            fileContent = fileContent + line + System.lineSeparator();
-        }
-        line = reader.readLine();
-        String updatedTask = line.replaceFirst("0", "1");
-        fileContent = fileContent + updatedTask + System.lineSeparator();
-        for (int i = index + 1; i < numberOfTasks; i++) {
-            line = reader.readLine();
-            fileContent = fileContent + line + System.lineSeparator();
-        }
-        writer = new FileWriter(filePath);
-        writer.write(fileContent);
-        reader.close();
-        writer.close();
-    }
-
     private void printMarkAsDoneMessage() {
-        drawDivider();
+        TextUi.drawDivider();
         System.out.println("Meow~ Karlett has marked this task as done:\n" +
                 "  " + this);
-        drawDivider();
+        TextUi.drawDivider();
     }
 
     public static void remove(ArrayList<Task> list, int index) throws IOException {
-        removeTaskInFile(index - 1);
+        TaskListEncoder.removeTaskInFile(index - 1);
         Task t = list.get(index - 1);
         for (int i = index; i < list.size(); i++) {
             list.set(i - 1, list.get(i));
@@ -115,35 +83,16 @@ public class Task {
         printTaskDeletedMessage(t);
     }
 
-    private static void removeTaskInFile(int index) throws IOException {
-        String fileContent = "";
-        String line = "";
-        BufferedReader reader = null;
-        FileWriter writer = null;
-        reader = new BufferedReader(new FileReader(filePath));
-        for (int i = 0; i < numberOfTasks; i++) {
-            line = reader.readLine();
-            if (i == index) {
-                continue;
-            }
-            fileContent = fileContent + line + System.lineSeparator();
-        }
-        writer = new FileWriter(filePath);
-        writer.write(fileContent);
-        reader.close();
-        writer.close();
-    }
-
     private static void printTaskDeletedMessage(Task t) {
-        drawDivider();
+        TextUi.drawDivider();
         System.out.println("Meow~ Karlett has deleted this task:\n" +
                 "  " + t + "\nYou have " + numberOfTasks +
                 " tasks in the list now meow (((;꒪ꈊ꒪;)))");
-        drawDivider();
+        TextUi.drawDivider();
     }
 
     public static void printList(ArrayList<Task> list) {
-        drawDivider();
+        TextUi.drawDivider();
         if (numberOfTasks == 0) {
             System.out.println("You have done everything! Time to relax with Karlett meow ʕ♡ﻌ♡ʔ");
         } else {
@@ -151,7 +100,7 @@ public class Task {
                 System.out.println("ฅ" + (i + 1) + " " + list.get(i));
             }
         }
-        drawDivider();
+        TextUi.drawDivider();
     }
 
     @Override
@@ -160,18 +109,9 @@ public class Task {
     }
 
     public static void exit() {
-        drawDivider();
+        TextUi.drawDivider();
         System.out.println("Bye~Bye~ヾ(￣▽￣) Hope to see you again soon meow.");
-        drawDivider();
+        TextUi.drawDivider();
         System.exit(0);
-    }
-
-    public static void drawDivider() {
-        int n = 4;
-        while (n > 0) {
-            System.out.print("ﾟ･:*｡(ꈍᴗꈍ)ε｀*)~｡*:･ﾟ");
-            n--;
-        }
-        System.out.println();
     }
 }

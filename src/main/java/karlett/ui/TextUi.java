@@ -79,31 +79,31 @@ public class TextUi {
     }
 
     public static void printMissingTimeErrorMessage() {
-        Task.drawDivider();
+        drawDivider();
         System.out.println("Karlett needs to know the date/time for this event meow(๑•́ᆽ•̀๑✿)");
-        Task.drawDivider();
+        drawDivider();
     }
 
     public static void printMissingDeadlineErrorMessage() {
-        Task.drawDivider();
+        drawDivider();
         System.out.println("Karlett needs to know your deadline for this task meow(๑•́ᆽ•̀๑✿)");
-        Task.drawDivider();
+        drawDivider();
     }
 
     public static void printDoneFormatErrorMessage() {
-        Task.drawDivider();
+        drawDivider();
         System.out.println("Karlett was expecting an index after \"done\" meow(๑•́ᆽ•̀๑✿)");
-        Task.drawDivider();
+        drawDivider();
     }
 
     public static void printDeleteFormatErrorMessage() {
-        Task.drawDivider();
+        drawDivider();
         System.out.println("Karlett was expecting an index after \"delete\" meow(๑•́ᆽ•̀๑✿)");
-        Task.drawDivider();
+        drawDivider();
     }
 
     public static void printOutOfBoundErrorMessage() {
-        Task.drawDivider();
+        drawDivider();
         if (Duke.list.size() == 0) {
             System.out.println("You have done everything! Time to relax with Karlett meow ʕ♡ﻌ♡ʔ");
         } else {
@@ -113,24 +113,33 @@ public class TextUi {
                 System.out.println("ฅ" + (i + 1) + " " + Duke.list.get(i));
             }
         }
-        Task.drawDivider();
+        drawDivider();
     }
 
     public static void printGeneralErrorMessage() {
-        Task.drawDivider();
+        drawDivider();
         System.out.println("You are confusing Karlett meowwww(๑•́ᆽ•̀๑✿)");
-        Task.drawDivider();
+        drawDivider();
     }
 
     public static void printPendingConfirmationToListMessage() {
-        Task.drawDivider();
+        drawDivider();
         System.out.println("Do you want Karlett to list the tasks?(๑•́ᆽ•̀๑✿) [y/n]");
-        Task.drawDivider();
+        drawDivider();
     }
 
     public static void printEmptyTaskErrorMessage() {
-        Task.drawDivider();
+        drawDivider();
         System.out.println("Karlett doesn't know what you need to do meow?(๑•́ᆽ•̀๑✿)");
-        Task.drawDivider();
+        drawDivider();
+    }
+
+    public static void drawDivider() {
+        int n = 4;
+        while (n > 0) {
+            System.out.print("ﾟ･:*｡(ꈍᴗꈍ)ε｀*)~｡*:･ﾟ");
+            n--;
+        }
+        System.out.println();
     }
 }

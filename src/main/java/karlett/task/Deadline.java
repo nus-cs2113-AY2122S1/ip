@@ -1,9 +1,14 @@
 package karlett.task;
 
-import java.io.FileWriter;
+import karlett.storage.TaskListEncoder;
+
 import java.io.IOException;
 
 public class Deadline extends Task {
+
+    public String getBy() {
+        return by;
+    }
 
     protected String by;
 
@@ -14,7 +19,7 @@ public class Deadline extends Task {
         this.by = by;
         increaseNumberOfTasks();
         printNewTaskAddedMessage();
-        appendNewTaskToFile();
+        TaskListEncoder.appendNewDeadlineToFile(this);
     }
 
     /* constructor used for loading file data */
@@ -23,14 +28,6 @@ public class Deadline extends Task {
         this.isDone = isDone;
         this.by = by;
         increaseNumberOfTasks();
-    }
-
-    //@Override
-    private void appendNewTaskToFile() throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        String textToAppend = "D | 0 | " + description + " | " + by + "\n";
-        fw.write(textToAppend);
-        fw.close();
     }
 
     @Override
