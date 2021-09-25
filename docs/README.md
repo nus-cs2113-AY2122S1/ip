@@ -14,7 +14,7 @@ It is optimized for use via a Command Line Interface (CLI) that can help you man
     * [Adding a Todo](#adding-a-todo-todo-description)
     * [Adding a Deadline](#adding-a-deadline-deadline-description-by-datetime)
     * [Adding an Event](#adding-an-event-event-description-at-datetime)
-    * [Listing the Task List](#listing-tasks-list)
+    * [Listing all Tasks](#listing-tasks-list)
     * [Marking a task as done](#marking-a-task-as-done-done-idx)
     * [Deleting a task](#deleting-a-task-delete-idx)
     * [Searching for a task](#querying-tasks-find-regex-type-tasktype-limit-querylimit)
@@ -55,7 +55,7 @@ Some example commands you can try:
 ---
 ## Features
 
->:information_source: **Notes about the command formats**
+**Notes about the command formats**
 > - Words in `<UPPER_CASE>` are the parameters to be given by the user. <br />
 > e.g. in `todo <DESCRIPTION>`, <DESCRIPTION> is a parameter which can be used as : `todo Read Novel`
 > <br /><br />
@@ -70,6 +70,262 @@ Some example commands you can try:
 > e.g. `help 123` will not be interpreted as  `help`. Make sure to give the correct commands.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+### Viewing help : `help`
+This will list all the valid commands that DUKE accepts.
+```shell
+~$ help
+------------------------------------------
+These are the valid commands: 
+ > bye
+ > help
+ > dates
+ > list
+ > find
+ > todo
+ > deadline
+ > event
+ > delete
+ > done
+------------------------------------------
+```
+<br />
+
+### Listing tasks: `list`
+This command lists all the tasks current registered in the the task list
+```shell
+list
+------------------------------------------
+Here are your scheduled tasks!
+1.[T][ ] read book 2
+2.[T][ ] read book
+3.[D][ ] return book (by: May 29 1998 18:00)
+4.[D][ ] eat food (by: Sep 18 2021 23:59)
+------------------------------------------
+```
+The format for each Task printed is:
+`[TaskType][isDone] Description`
+
+**TaskType:**
+* T -> TODO task
+* D -> DEADLINE Task
+* E -> EVENT Task
+
+**isDone:**
+* \[ ]  -> not done
+* \[X] -> done
+
+<br />
+
+### Querying tasks: `find <REGEX> [/type TASKTYPE] [/limit QUERYLIMIT]`
+Queries the task list by a word or phrase.
+- The **task type** can be specified for query by using the optional flag `/type`
+    * e.g. `/type todo` will filter the query to only return TODO tasks
+
+
+- The **number of tasks** returned can be limited by the optional flag `/limit`
+    * e.g `/limit 5` will filter the query to only return the top 5 tasks
+
+
+- Any remaining tasks that contains the `REGEXx` will be displayed
+
+Example 1:
+```shell
+~$ find book
+------------------------------------------
+Your query returned the following results: 
+1.[T][ ] read book
+2.[D][ ] return book (by: May 29 1998 18:00)
+3.[T][ ] read book 2
+------------------------------------------
+```
+
+Example 2:
+```shell
+~$ find book /type todo
+------------------------------------------
+Your query returned the following results: 
+1.[T][ ] read book
+2.[T][ ] read book 2
+------------------------------------------
+```
+
+<br />
+
+### Adding a TODO: `todo <DESCRIPTION>`
+Adds a *TODO* task to the task list. It is set to **not done** by default
+- **DESCRIPTION** : the Task description
+
+Example: `todo eat dinner`
+```shell
+~$ todo eat dinner
+------------------------------------------
+Got it. I've added this task: 
+[T][ ] eat dinner
+You now have (5) tasks!
+------------------------------------------
+```
+<br />
+
+### Adding a DEADLINE: `deadline <DESCRIPTION> /by <DATETIME>`
+Adds a *DEADLINE* task to the task list. It is set to **not done** by default
+- **DESCRIPTION** : the Task description
+- **/by** : is a *REQUIRED* clause when adding a deadline
+- **DATETIME** : the *date* and *time* that the task is due by. This **CANNOT BE NULL/EMPTY**.
+> :warning: Note: datetime needs to be given in a valid format.
+> See [Dates](#list-valid-datetime-formats-dates) for more details
+
+Example: `deadline eat lunch /by today 1200`
+```shell
+~$ deadline eat lunch /by today 1200
+------------------------------------------
+Got it. I've added this task: 
+[D][ ] eat lunch (by: Sep 20 2021 12:00)
+You now have (6) tasks!
+------------------------------------------
+
+```
+<br />
+
+### Adding an EVENT: `event <DESCRIPTION> /at <DATETIME>`
+Adds a *EVENT* task to the task list. It is set to **not done** by default
+- **DESCRIPTION** : the Task description
+- **/at** : is a *REQUIRED* clause when adding a deadline
+- **DATETIME** : the *date* and *time* that the task takes place. This **CANNOT BE NULL/EMPTY**.
+> :warning: Note: datetime needs to be given in a valid format.
+> See [Dates](#list-valid-datetime-formats-dates) for more details
+
+Example: `event family dinner /at today 1930`
+```shell
+~$ event family dinner /at today 1930
+------------------------------------------
+Got it. I've added this task: 
+[E][ ] family dinner (at: Sep 20 2021 19:30)
+You now have (7) tasks!
+------------------------------------------
+```
+
+<br />
+
+### List valid DateTime Formats: `dates`
+Lists all the valid datetime formats to be used when
+adding a [Deadline](#adding-a-deadline-deadline-description-by-datetime)
+or [Event](#adding-an-event-event-description-at-datetime).
+
+Example: `help`
+```shell
+~$ dates
+------------------------------------------
+Here are the valid DateTime formats to use: 
+-> MMM d yyyy HH:mm
+-> MMM d yyyy HHmm
+-> MMM d yy HH:mm
+-> MMM d yy HHmm
+-> dd/M/yyyy HH:mm
+-> dd/M/yyyy HHmm
+-> dd/M/yy HH:mm
+-> dd/M/yy HHmm
+-> today HH:mm
+-> today HHmm
+------------------------------------------
+
+```
+> :bulb: Refer to the following Table for example of valid date time formats:
+
+| Pattern Syntax | Example    |
+| -------------- | ---------- |
+| MMM d yyyy     | Oct 10 2015|
+| MMM d yy       | Oct 10 15  |
+| dd/M/yyyy      | 15/10/2015 |
+| dd/M/yy        | 15/10/15   |
+| today          | today      |
+| HH:mm          | 18:00      |
+| HHmm           | 1800       |
+
+<br />
+
+### Removing a task: `delete <IDX>`
+Removes a task from the task list, by their **idx**
+- **IDX** : index as displayed in the full list (**NOT QUERIED LIST**)
+
+Example: `list` -> `delete 6`
+```shell
+~$ list
+------------------------------------------
+Here are your scheduled tasks!
+1.[T][ ] eat dinner
+2.[T][ ] read book 2
+3.[T][ ] read book
+4.[D][ ] return book (by: May 29 1998 18:00)
+5.[D][ ] eat food (by: Sep 18 2021 23:59)
+6.[D][ ] eat lunch (by: Sep 20 2021 12:00)
+7.[E][ ] family dinner (at: Sep 20 2021 19:30)
+------------------------------------------
+
+~$ delete 6
+------------------------------------------
+Noted. I've removed this task: 
+[D][ ] eat lunch (by: Sep 20 2021 12:00)
+You now have (6) tasks!
+------------------------------------------
+```
+
+<br />
+
+### Marking a task as done: `done <IDX>`
+
+Marks a task as done, by their **IDX**.
+
+- **IDX** : index as displayed in the full list (**NOT QUERIED LIST**)
+
+Example: `list` -> `done 5`
+```shell
+~$ list
+------------------------------------------
+Here are your scheduled tasks!
+1.[T][ ] eat dinner
+2.[T][ ] read book 2
+3.[T][ ] read book
+4.[D][ ] return book (by: May 29 1998 18:00)
+5.[D][ ] eat food (by: Sep 18 2021 23:59)
+6.[E][ ] family dinner (at: Sep 20 2021 19:30)
+------------------------------------------
+
+~$ done 5
+------------------------------------------
+Nice! I've marked this task as done: 
+[T][X] eat dinner
+Here are your scheduled tasks!
+1.[T][ ] eat dinner
+2.[T][ ] read book 2
+3.[T][ ] read book
+4.[D][ ] return book (by: May 29 1998 18:00)
+5.[D][X] eat food (by: Sep 18 2021 23:59)
+6.[E][ ] family dinner (at: Sep 20 2021 19:30)
+------------------------------------------
+```
+
+<br />
+
+### Exit the application : `bye`
+Exits and closes **DUKE**.
+
+Example: `bye`
+```shell
+~$ bye
+------------------------------------------
+Bye. Hope to see you again soon!
+------------------------------------------
+```
+<br />
+
+### Local Save
+All updates made to the task list is automatically saved to a local file
+> Note: Save will be automatically loaded up on application start up, if valid
+
+<br />
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
 ## FAQ
 
 **Q:** Why am I unable to create a task in the past?
@@ -93,17 +349,15 @@ it creates with the file that contains the data from your previous Duke home fol
 
 ## Command Summary
 
-| Command Format,Examples                    | Meaning                                                                        |
-| --------------                             | ----------                                                                     |
-| `help`                                     | Lists all the valid commands                                                   |
-| `list`                                     | Lists all the scheduled tasks from the task list                               |
-| `find <SEARCH_KEYWORD>`, `find Read`       | Searches in the task list for tasks which contain the keyword                  |
-| `todo <DESCRIPTION>`, `todo eat food`      | Adds a todo task with description                                              |
-| `deadline <DESCRIPTION> /by <DATE_TIME>`,  |                                                                                |
-|   `deadline Eat Food /by 2021-10-13 16:00` | Adds a deadline task with description and a deadline                           |
-| `event <DESCRIPTION> /at <DATE_TIME>` ,    |                                                                                |
-|  `event join lecture /at 2021-09-09 09:45` | Adds an event task with description and event timing                           |
-| `delete <NUMBER>`, `delete 3`              | Deletes a task from the task list according to the index number provided       |
-| `done <NUMBER>`, `done 4`                  | Marks a task as done in the task list according to the index number provided   |
-| `bye`                                      | Exits the application                                                          |
+| Command Format                             | Meaning                                                               |
+| ------------------------------------------ | ----------------------------------------------------------------------|
+| `help`                                     | Lists all the valid commands                                          |
+| `list`                                     | Lists all the scheduled tasks from the task list                      |
+| `find <SEARCH_KEYWORD>`                    | Searches in the task list for tasks which contain the keyword         |
+| `todo <DESCRIPTION>`                       | Adds a todo task with description                                     |
+| `deadline <DESCRIPTION> /by <DATE_TIME>`   | Adds a deadline task with description and a deadline                  |
+| `event <DESCRIPTION> /at <DATE_TIME>` ,    | Adds an event task with description and event timing                  |
+| `delete <NUMBER>`, `delete 3`              | Deletes a task from the task list according to the index provided     |
+| `done <NUMBER>`                            | Marks a task as done in the task list according to the index provided |
+| `bye`                                      | Exits the application                                                 |
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------  
