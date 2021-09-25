@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
  * with this ArrayList.
  */
 public class TaskManager {
+    private static final Ui UI = new Ui();
+
     // Constants
     private static final String DELIMITER = " | ";
     private static final String SYMBOL_TODO = "T";
@@ -101,7 +103,7 @@ public class TaskManager {
             }
             preloadTaskCount++;
         }
-        System.out.println("Successfully preloaded " + preloadTaskCount + " tasks");
+        UI.println("Successfully preloaded " + preloadTaskCount + " tasks");
     }
 
     /**
@@ -144,7 +146,7 @@ public class TaskManager {
      */
     public void listTasks() {
         for (int i = 1; i <= tasks.size(); i++) {
-            System.out.println(" " + i + "." +
+            UI.println(" " + i + "." +
                     tasks.get(i - 1));
         }
     }
