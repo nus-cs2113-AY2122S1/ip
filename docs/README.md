@@ -47,8 +47,8 @@ ____________________________________________________________
 Some example commands you can try:
 - `list` : Lists all tasks.
 - `todo <description>` : Adds a TODO task in the task list.
-- `deadline <description> /by <DateAndTime>` : Adds a DEADLINE task to be completed by `<datetime>` in the task list.
-- `event <description> /at <DateAndTime>` : Adds an EVENT task that will take place at `<datetime>` in the task list.
+- `deadline <description> /by <Date_Time>` : Adds a DEADLINE task to be completed by `<datetime>` in the task list.
+- `event <description> /at <Date_Time>` : Adds an EVENT task that will take place at `<datetime>` in the task list.
 - `delete <5>` : Deletes the 5th task from the current list.
 - `bye` : Exits the application.
 
@@ -82,7 +82,44 @@ These are the valid commands:
 ------------------------------------------
 ```
 <br />
+   
+### Adding a TODO: `todo <DESCRIPTION>`
+Adds a *TODO* task to the task list. It is set to **not done** by default
+- **DESCRIPTION** : the Task description
 
+Example: `todo Complete CS2113T Assignment`
+```shell
+todo Complete CS2113T Assignment
+____________________________________________________________
+Got it. I've added this task:
+ [T][ ] Complete CS2113T Assignment
+Now you have 1 tasks in the list.
+____________________________________________________________
+
+```
+<br />
+   
+### Adding a DEADLINE: `deadline <DESCRIPTION> /by <DATE_TIME>`
+Adds a *DEADLINE* task to the task list. It is set to **not done** by default
+- **DESCRIPTION** : the Task description
+- **/by** : is a *REQUIRED* clause when adding a deadline
+- **DATETIME** : the *date* and *time* that the task is due by. This **CANNOT BE NULL/EMPTY**.
+> :warning: Note: datetime needs to be given in a valid format.
+> See [Dates](#list-valid-datetime-formats-dates) for more details
+
+Example: `deadline eat lunch /by today 1200`
+```shell
+deadline read book /by 2021-10-13 16:00
+____________________________________________________________
+Got it. I've added this task:
+ [D][ ] read book  (by:OCTOBER 13, 2021 04:00 p.m.)
+Now you have 2 tasks in the list.
+____________________________________________________________
+```
+<br />
+   
+   
+   
 ### Listing all tasks: `list`
 This command lists all the tasks currently scheduled in the the task list
 ```shell
@@ -144,43 +181,9 @@ Your query returned the following results:
 
 <br />
 
-### Adding a TODO: `todo <DESCRIPTION>`
-Adds a *TODO* task to the task list. It is set to **not done** by default
-- **DESCRIPTION** : the Task description
 
-Example: `todo Complete CS2113T Assignment`
-```shell
-todo Complete CS2113T Assignment
-____________________________________________________________
-Got it. I've added this task:
- [T][ ] Complete CS2113T Assignment
-Now you have 1 tasks in the list.
-____________________________________________________________
 
-```
-<br />
-
-### Adding a DEADLINE: `deadline <DESCRIPTION> /by <DATETIME>`
-Adds a *DEADLINE* task to the task list. It is set to **not done** by default
-- **DESCRIPTION** : the Task description
-- **/by** : is a *REQUIRED* clause when adding a deadline
-- **DATETIME** : the *date* and *time* that the task is due by. This **CANNOT BE NULL/EMPTY**.
-> :warning: Note: datetime needs to be given in a valid format.
-> See [Dates](#list-valid-datetime-formats-dates) for more details
-
-Example: `deadline eat lunch /by today 1200`
-```shell
-~$ deadline eat lunch /by today 1200
-------------------------------------------
-Got it. I've added this task: 
-[D][ ] eat lunch (by: Sep 20 2021 12:00)
-You now have (6) tasks!
-------------------------------------------
-
-```
-<br />
-
-### Adding an EVENT: `event <DESCRIPTION> /at <DATETIME>`
+### Adding an EVENT: `event <DESCRIPTION> /at <DATE_TIME>`
 Adds a *EVENT* task to the task list. It is set to **not done** by default
 - **DESCRIPTION** : the Task description
 - **/at** : is a *REQUIRED* clause when adding a deadline
