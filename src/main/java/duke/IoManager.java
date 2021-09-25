@@ -23,8 +23,8 @@ public class IoManager {
         try {
             Path path = Paths.get(DIRECTORY);
             Files.createDirectories(path);
-            File myObj = new File(FILE_NAME);
-            if (myObj.createNewFile()) {
+            File saveFile = new File(FILE_NAME);
+            if (saveFile.createNewFile()) {
                 System.out.println("Save file created: " + FILE_NAME);
             } else {
                 System.out.println("Loading previously created save file.");
@@ -52,7 +52,8 @@ public class IoManager {
         File file = new File(FILE_NAME);
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
-            loadedTasks.add(scanner.nextLine().split("\\|"));
+            String loadedTask = scanner.nextLine();
+            loadedTasks.add(loadedTask.split("\\|"));
         }
         scanner.close();
         return loadedTasks;
@@ -60,9 +61,9 @@ public class IoManager {
 
     public static void overwriteFile(String toWrite) {
         try {
-            FileWriter myWriter = new FileWriter(FILE_NAME);
-            myWriter.write(toWrite);
-            myWriter.close();
+            FileWriter writer = new FileWriter(FILE_NAME);
+            writer.write(toWrite);
+            writer.close();
         } catch (IOException ioe) {
             Message.printWithSpacers("Unable to Write to save file, IO exception encountered.");
         }

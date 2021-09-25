@@ -5,22 +5,24 @@ import duke.Message;
 public class Task {
     private boolean isDone;
     private String description;
-    private final Types type;
+    protected final Type type;
 
-    public enum Types {
-        DEADLINE(3),
-        EVENT(3),
-        TODO(2);
+    public enum Type {
+        DEADLINE(3, "by"),
+        EVENT(3, "at"),
+        TODO(2, "");
 
         public final int NUM_ARGS;
+        public final String PREPOSITION;
 
-        Types(int numArgs){
+        Type(int numArgs, String preposition){
             NUM_ARGS = numArgs;
+            PREPOSITION = preposition;
         }
 
         public static String getTypesRegex() {
             String regex = "(?i:";
-            for (Types type : Types.values()) {
+            for (Type type : Type.values()) {
                 regex += type.toString() + ".*|";
             }
             return regex.substring(0, regex.length() - 1) + ')';
@@ -35,8 +37,8 @@ public class Task {
             return super.toString().charAt(0);
         }
 
-        public static Types getType(char firstLetter){
-            for(Types type : values()){
+        public static Type getType(char firstLetter){
+            for(Type type : values()){
                 if(firstLetter == type.getChar()){
                     return type;
                 }
@@ -45,19 +47,13 @@ public class Task {
         }
     }
 
-    Task(Types type) {
-        this.description = null;
-        this.isDone = false;
-        this.type = type;
-    }
-
-    Task(String description, Types type) {
+    Task(String description, Type type) {
         this.description = description;
         this.isDone = false;
         this.type = type;
     }
 
-    Task(boolean isDone, String description, Types type) {
+    Task(boolean isDone, String description, Type type) {
         this.isDone = isDone;
         this.description = description;
         this.type = type;

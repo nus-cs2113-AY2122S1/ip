@@ -1,16 +1,13 @@
 package duke.task;
 
-import duke.exception.WrongNumberOfArgumentsException;
-
 class Event extends TimedTask {
-    private static final String PREPOSITION = "at";
-    private static final Task.Types type = Task.Types.EVENT;
+    private static final Type type = Type.EVENT;
 
-    Event(String userInput) throws WrongNumberOfArgumentsException {
-        super(userInput, PREPOSITION, type);
+    Event(String description, String dateTime) {
+        super(description, dateTime, type);
     }
 
     Event(boolean isDone, String description, String dateTime) {
-        super(isDone, description, dateTime, PREPOSITION, type);
+        super(isDone, description, dateTime, type);
     }
 }
