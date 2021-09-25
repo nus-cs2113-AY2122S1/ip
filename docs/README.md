@@ -2,9 +2,24 @@
 
 Duke is a **Command Line Interface (CLI) app that helps you to better manage your tasks in life by being your personal assistant (PA).** If you have a preference for typing over clicking, then Duke would definitely be a great PA for you.
 
+# Table of Contents
+- [Quick Start](#quick-start)
+- [Before continuing...](#before-continuing)
+- [Features](#features)
+  - [Adding a Task](#adding-task)
+    - [Todo Task : `todo`](#todo-task)
+    - [Deadline Task : `deadline`](#deadline-task)
+    - [Event Task : `Event`](#event-task)
+  - [List all tasks : `list`](#list-tasks)
+  - [Mark task as done : `done`](#done-task)
+  - [Delete task : `delete`](#delete-task)
+  - [Find task : `find`](#find-task)
+  - [Exit Duke Program : `bye`](#exit-duke)
+- [Command Summary](#command-summary)
+
 ---
 
-# Quick Start
+# Quick Start<a name="quick-start"></a>
 
 1. Ensure you have Java version `11` or above installed on your computer.
     - If you haven't, you may download it from [here](https://www.oracle.com/java/technologies/downloads/#java11-linux).
@@ -33,7 +48,7 @@ Duke is a **Command Line Interface (CLI) app that helps you to better manage you
 
 ---
 
-# Before continuing...
+# Before continuing...<a name="before-continuing"></a>
 
 Before continuing, here are some of the things you should take note of, to better understand the terminologies used in this UG.
 
@@ -48,25 +63,25 @@ Before continuing, here are some of the things you should take note of, to bette
 
 ---
 
-# Features
+# Features<a name="features"></a>
 
 > ⚙ Please note that Duke is still a newborn, so that may be quite a number of bugs. However, if you find any bugs, you can let me know [here](https://github.com/Kair0s3/ip/issues).
 
-## Adding a Task (3 types)
+## Adding a Task (3 types)<a name="adding-task"></a>
 
-### Todo Task : `todo`
+### Todo Task : `todo`<a name="todo-task"></a>
 
 Adds a Todo task to the list of tasks.
 
 Syntax - `todo <taskName>`
 
-### Deadline Task : `deadline`
+### Deadline Task : `deadline`<a name="deadline-task"></a>
 
 Adds a Deadline task to the list of tasks.
 
 Syntax - `deadline <taskName> /by <byWhen>`
 
-### Event Task : `event`
+### Event Task : `event`<a name="event-task"></a>
 
 Adds an Event task to the list of tasks.
 
@@ -76,7 +91,7 @@ Syntax - `event <taskName> /at <atWhen>`
 
 ![Untitled](images/Untitled%201.png)
 
-## List all tasks : `list`
+## List all tasks : `list`<a name="list-tasks"></a>
 
 Displays a list of tasks previously added. If no tasks exist , shows a message saying that the list of tasks is empty.
 
@@ -86,7 +101,7 @@ Syntax - `list`
 
 ![Untitled](images/Untitled%202.png)
 
-## Mark tasks as done : `done`
+## Mark tasks as done : `done`<a name="done-task"></a>
 
 Marks a task as done given the index of the task in the list.
 
@@ -96,13 +111,13 @@ Syntax - `done <index>`
 
 ![Untitled](images/Untitled%203.png)
 
-## Delete task : `delete`
+## Delete task : `delete`<a name="delete-task"></a>
 
 Deletes a task given the index of the task in the list.
 
 Syntax - `delete <index>`
 
-## Find task : `find`
+## Find task : `find`<a name="find-task"></a>
 
 Finds all tasks with task name containing a given keyword.
 
@@ -112,7 +127,7 @@ Syntax - `find <keyword>`
 
 ![Untitled](images/Untitled%204.png)
 
-## Exit program : `bye`
+## Exit program : `bye`<a name="exit-duke"></a>
 
 Exits the Duke program.
 
@@ -120,7 +135,7 @@ Syntax - `bye`
 
 ---
 
-# Command Summary
+# Command Summary<a name="command-summary"></a>
 
 | Action | Command | Example Usage |
 |:------:|:-------:|:-------------:|
