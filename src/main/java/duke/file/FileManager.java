@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
  * Handles dealing with the file and directory used to save current tasks.
  */
 public class FileManager {
-    private static final Ui UI = new Ui();
+    private final Ui ui;
 
     public String filePath;
     public String directoryPath;
@@ -31,6 +31,7 @@ public class FileManager {
     public FileManager(String filePath, String directoryPath) {
         this.filePath = filePath;
         this.directoryPath = directoryPath;
+        this.ui = new Ui();
     }
 
     /**
@@ -45,9 +46,9 @@ public class FileManager {
         File file = new File(filePath);
         boolean hasCreatedFile = file.createNewFile();
         if (hasCreatedFile) {
-            UI.println("File created at " + file.getCanonicalPath());
+            ui.println("File created at " + file.getCanonicalPath());
         } else {
-            UI.println("File already exists at " + file.getCanonicalPath());
+            ui.println("File already exists at " + file.getCanonicalPath());
         }
     }
 
@@ -61,7 +62,7 @@ public class FileManager {
         File directory = new File(directoryPath);
         boolean hasCreatedDirectory = directory.mkdir();
         if (hasCreatedDirectory) {
-            UI.println("New directory created at " + directoryPath);
+            ui.println("New directory created at " + directoryPath);
         }
     }
 
@@ -98,7 +99,7 @@ public class FileManager {
         try {
             currentTasks = taskManager.convertCurrentTasksToString();
         } catch (DukeException e) {
-            UI.println(e.getMessage());
+            ui.println(e.getMessage());
             return;
         }
         fw = new FileWriter(file);
@@ -135,14 +136,14 @@ public class FileManager {
         try {
             createFile();
         } catch (IOException e) {
-            UI.printFileError();
+            ui.printFileError();
         }
         try {
             initialiseDukeStatus(taskManager);
         } catch (FileNotFoundException e) {
-            UI.println("File not found!");
+            ui.println("File not found!");
         } catch (IOException e) {
-            UI.printFileError();
+            ui.printFileError();
         }
     }
 }
