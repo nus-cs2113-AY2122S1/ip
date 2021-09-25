@@ -34,7 +34,7 @@ public class Ui {
     }
 
     /**
-     * Prints a greeting message to the user
+     * Prints a greeting message to the user.
      */
     public void printGreeting() {
         printHorizontalLine();

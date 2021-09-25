@@ -36,7 +36,7 @@ public class TaskManager {
     }
 
     /**
-     * Gets the number os tasks in the ArrayList tasks.
+     * Gets the number of tasks in the ArrayList tasks.
      *
      * @return The number of current tasks.
      */

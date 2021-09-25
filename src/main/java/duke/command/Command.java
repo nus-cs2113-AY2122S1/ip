@@ -16,7 +16,7 @@ public abstract class Command {
     abstract public void execute(TaskManager taskManager, Ui ui) throws DukeException;
 
     /**
-     * Returns a boolean indicating whether user has said "bye"
+     * Returns a boolean indicating whether user has said "bye".
      *
      * @return Boolean isBye indicating whether user has said "bye".
      */
