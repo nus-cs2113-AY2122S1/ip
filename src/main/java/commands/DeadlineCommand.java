@@ -5,6 +5,9 @@ import data.TaskList;
 import task.Deadline;
 import ui.TextUI;
 
+import java.time.format.DateTimeParseException;
+
+import static common.Error.INVALID_DATETIME_FORMAT;
 import static common.Message.ADDED_TASK;
 import static common.Error.ERROR_FORMAT_DEADLINE;
 
@@ -32,6 +35,8 @@ public class DeadlineCommand extends Command{
             data.write(tasks.getTaskList());
         } catch (StringIndexOutOfBoundsException e) {
             ui.showMessage(ERROR_FORMAT_DEADLINE);
+        } catch (DateTimeParseException e) {
+            ui.showMessage(INVALID_DATETIME_FORMAT);
         }
     }
 }
