@@ -9,9 +9,11 @@ import duke.control.command.DoneCommand;
 import duke.control.command.DeleteCommand;
 import duke.control.command.HelpCommand;
 import duke.control.command.ListCommand;
-
 import java.util.Scanner;
 
+/**
+ * For printing responses to the User as well as getting and processing User input.
+ */
 public class Ui {
     static final String RESPONSE_SEPARATOR = "=============================" +
             "===========================================";
@@ -68,6 +70,12 @@ public class Ui {
         System.out.println(RESPONSE_SEPARATOR);
     }
 
+    /**
+     * Obtains the user input.
+     * If the user inputs an empty line or a line of empty spaces, ignore the line.
+     * @param in User input from scanner
+     * @return User input
+     */
     public static String getUserResponse(Scanner in) {
         String line;
         line = in.nextLine();
@@ -90,7 +98,7 @@ public class Ui {
      * Commands are: list, help, bye, done, delete, todo, deadline or event
      * @param input user input, one line.
      * @return Command object of the correct command according to the input
-     * @throws InvalidInputFormatException
+     * @throws InvalidInputFormatException Input is none of the commands.
      */
     protected static Command processInput(String input) throws InvalidInputFormatException {
         Command command;

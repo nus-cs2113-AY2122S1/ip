@@ -10,7 +10,7 @@ public class ToDo extends Task {
     }
 
     public String toString() {
-        return (getTaskSymbol() + getStatusSymbol() + " " + name);
+        return (getTaskSymbol() + getStatusSymbol() + " " + description);
     }
 
     @Override

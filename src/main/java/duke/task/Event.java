@@ -18,7 +18,7 @@ public class Event extends TaskWithDateTime {
     public String toString() {
         int hours = dateTime.getHour();
         int minutes = dateTime.getMinute();
-        return (getTaskSymbol() + getStatusSymbol() + " " + name + " (at: " +
+        return (getTaskSymbol() + getStatusSymbol() + " " + description + " (at: " +
                 dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + hours + ":" + minutes + " )");
     }
 
@@ -28,6 +28,6 @@ public class Event extends TaskWithDateTime {
      */
     @Override
     public String toStringForSave() {
-        return (getTaskSymbol() + getStatusSymbol() + " " + name + " DT: " + dateTime.toString());
+        return (getTaskSymbol() + getStatusSymbol() + " " + description + " DT: " + dateTime.toString());
     }
 }

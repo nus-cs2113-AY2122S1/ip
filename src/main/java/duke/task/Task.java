@@ -1,24 +1,23 @@
 package duke.task;
 
-
 public abstract class Task {
-    protected String name;
+    protected String description;
     protected boolean isDone = false;
 
     public Task(String name) {
-        this.name = name;
+        this.description = name;
     }
 
     public String getStatusSymbol() {
         return ("[" + (isDone ? "X" : " ") + "]");
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String name) {
+        this.description = name;
     }
 
     public boolean getIsDone() {
@@ -30,7 +29,7 @@ public abstract class Task {
     }
 
     public String toString() {
-        return (getTaskSymbol() + getStatusSymbol() + " " + name);
+        return (getTaskSymbol() + getStatusSymbol() + " " + description);
     }
 
     /**
@@ -43,7 +42,7 @@ public abstract class Task {
     /**
      * returns the task object in String form for saving into save file
      * In the form [a][b] Description DT: LocalDateTime
-     * a is task type, b is isDone status, DT: LocalDateTime only for Deadline or Event classes.
+     * a is task type, b is isDone status, "DT: LocalDateTime"  is only for Deadline or Event classes.
      * @return Task object as a String
      */
     public abstract String toStringForSave();
