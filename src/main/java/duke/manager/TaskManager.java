@@ -7,6 +7,7 @@ import duke.task.Todo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class TaskManager {
 
@@ -55,9 +56,9 @@ public class TaskManager {
             printLine();
             // Fallthrough
         }
-      //  if (tasks.size() > 0) {
-     //       printAddedTask(tasks.get(tasks.size() - 1), tasks);
-       // }
+        //  if (tasks.size() > 0) {
+        //       printAddedTask(tasks.get(tasks.size() - 1), tasks);
+        // }
     }
 
     /**
@@ -199,7 +200,10 @@ public class TaskManager {
         while (!message.equals("bye")) {
             if (message.equals("list")) {
                 printTasks(tasks);
-            } else if (message.contains("done")) {
+            } else if (message.contains("find")) {
+            findTask(tasks, message);
+            }
+        else if (message.contains("done")) {
                 markDone(tasks, message);
             } else if (message.contains("delete")) {
                 deleteTask(tasks, message);
@@ -212,10 +216,29 @@ public class TaskManager {
     }
 
     /**
+     * Finds the matching tasks according to string
+     * input by the user
+     *
+     * @param tasks   the array of tasks
+     * @param message the input string
+     */
+    private static void findTask(ArrayList<Task> tasks, String message) {
+        String filter = message.substring(5);
+        ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getDescription().contains(filter)).collect(Collectors.toList());
+        printLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task: filteredTasks) {
+            System.out.println(task.getDescription());
+        }
+        printLine();
+    }
+
+    /**
      * Deletes the task of the provided index
      *
      * @param tasks   the array of tasks
-     * @param message the input string containing
+     * @param message the input string
      */
     private static void deleteTask(ArrayList<Task> tasks, String message) {
         try {
