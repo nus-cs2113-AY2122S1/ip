@@ -1,19 +1,20 @@
 package shima.parser;
 
-import shima.command.Command;
-import shima.command.AddCommand;
-import shima.command.DeleteCommand;
-import shima.command.DoneCommand;
-import shima.command.ListCommand;
-import shima.command.ViewPersonalityCommand;
-import shima.command.ExitCommand;
-import shima.command.HelpCommand;
+import shima.command.*;
 import shima.design.UserInterface;
 import shima.storage.Storage;
+import shima.task.Deadline;
+import shima.task.Task;
 import shima.task.TaskList;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Parser {
     public static final String COMMAND_PROFILE = "profile";
@@ -33,17 +34,22 @@ public class Parser {
     public static final String SLASH_MISSING_MSG = "Sorry, fail to create an Event, the time specific character '/' is missing";
     public static final String DASH_MISSING_MSG = "Sorry, fail to create an Event, the period specific character '-' is missing";
     public static final String EMPTY_TASK_INDEX_MSG = "Sorry, the input task number is missing, please try again! :(";
-    private static String name = "";
-    public static final String EMPTY_DEADLINE_MSG = "Sorry, the deadline for the task \"" + name + "\" is missing!";
-    public static final String EMPTY_PERIOD_MSG = "Sorry, the date and period for the task \"" + name + "\" is missing!";
+    public static final String EMPTY_DEADLINE_MSG = "Sorry, the deadline for the task is missing! I don't know how to memorize it:(";
+    public static final String EMPTY_PERIOD_MSG = "Sorry, the date and period for the task is missing! I don't know how to memorize it :(";
+    public static final String EXPIRED_DEADLINE_MSG = "Oops, the end date and time for the task is already expired, please give the task a new deadline!";
+    public static final String INCORRECT_DATE_TIME_FORMAT_MSG = "Oh no! The date and time format are incorrect, the format should be : /dd-MM-yyyy HH:mm";
+    public static final String INVALID_DATE_TIME_MSG = "Sorry, the input after the backslash '/' or '/by' should only contains date and time of format (dd-MM-yyyy HH:mm)";
+    public static final String COMMAND_DATE = "date";
+    public static final String WRONG_DATE_TIME_FORMAT_MSG = "Sorry, the input date format is not correct! The correct format should be yyyy-MM-dd";
+    public static final String INVALID_DATE_MSG = "Sorry, the input date should only contains yyyy-MM-dd";
 
     /**
      * Reads the input command entered by the user and handle each command
      *
      * @param tasks   The list class object that stores all the tasks
      * @param storage The storage class object that used to save data
+     * @param ui      The user interface class object used to display message box
      * @return Returns the respective command to each input accordingly
-     * @param ui The user interface class object used to display message box
      * @throws IOException Throws this exception when there is error occurs when accessing external file
      */
     public static Command readCommand(TaskList tasks, Storage storage, UserInterface ui) throws IOException {
@@ -70,6 +76,8 @@ public class Parser {
             return parseDeadline(tasks, command, words, ui);
         case COMMAND_DONE:
             return parseDoneCommand(tasks, storage, words, ui);
+        case COMMAND_DATE:
+            return parseDateCommand(tasks, command, words, ui);
         default:
             ui.showMessage(INVALID_COMMAND_MSG, HELP_SUPPORT_MSG);
             return new Command();
@@ -77,10 +85,55 @@ public class Parser {
     }
 
     /**
+     * Checks if the input date is valid or in correct format
+     *
+     * @param tasks   The list class object that stores all the tasks
+     * @param command The input command typed by the user
+     * @param words   The array of words that compose the input command
+     * @param ui      The user interface class object used to display message box
+     * @return Returns the list date command object if the input command is valid, returns an empty command otherwise
+     */
+    private static Command parseDateCommand(TaskList tasks, String command, String[] words, UserInterface ui) {
+        String inputDateString = command.replaceFirst(words[0], "").trim();
+        try {
+            inputDateString = padDate(inputDateString);
+            LocalDate inputDate = LocalDate.parse(inputDateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            ArrayList<Task> allDeadlines = (ArrayList<Task>) tasks.getTasks().stream().filter(t -> t instanceof Deadline).collect(Collectors.toList());
+            ArrayList<Deadline> resultList = new ArrayList<>();
+            for (Task t : allDeadlines) {
+                Deadline deadline = (Deadline) t;
+                if (isSameDate(inputDate, deadline)) {
+                    resultList.add(deadline);
+                }
+            }
+            return new ListDateCommand(resultList);
+        } catch (DateTimeParseException dateTimeParseException) {
+            ui.showMessage(WRONG_DATE_TIME_FORMAT_MSG);
+            return new Command();
+        } catch (NumberFormatException numberFormatException) {
+            ui.showMessage(INVALID_DATE_MSG);
+            return new Command();
+        }
+    }
+
+    /**
+     * Checks if the two dates are the same
+     *
+     * @param inputDate The user input date
+     * @param deadline  The deadline stored in the tasks list class object
+     * @return Returns true if the two dates are exactly the same, false otherwise
+     */
+    private static boolean isSameDate(LocalDate inputDate, Deadline deadline) {
+        return deadline.getEndTime().getYear() == inputDate.getYear() &&
+                deadline.getEndTime().getMonth() == inputDate.getMonth() &&
+                deadline.getEndTime().getDayOfMonth() == inputDate.getDayOfMonth();
+    }
+
+    /**
      * Checks the syntax for the command to create a new task
      *
      * @param words The array of words that compose the input command
-     * @param ui The user interface class object used to display message box
+     * @param ui    The user interface class object used to display message box
      * @return Returns true if an instance of the subclass is created and successfully stored in the to-do list
      */
     private static boolean isCorrectToDo(String[] words, UserInterface ui) {
@@ -96,13 +149,10 @@ public class Parser {
      *
      * @param command The input command typed by the user
      * @param words   The array of words that compose the input command
-     * @param ui The user interface class object used to display message box
+     * @param ui      The user interface class object used to display message box
      * @return Returns true if an instance of the subclass Event is created and successfully stored in the to-do list
      */
-    private static boolean isCorrectEvent(String command, String[] words, UserInterface ui) {
-        command = command.replaceFirst(words[0], "").trim();
-        String time = command.substring(command.indexOf('/') + 1).trim();
-        String taskName = command.split("/", 2)[0].trim();
+    private static boolean isCorrectEvent(String command, String[] words, String taskName, String time, UserInterface ui) {
         if (time.toLowerCase().startsWith("at")) {
             time = time.replaceFirst("(?i)at", "").trim();
         }
@@ -111,7 +161,6 @@ public class Parser {
             return false;
         }
         if (time.isEmpty()) {
-            name = taskName;
             ui.showMessage(EMPTY_PERIOD_MSG);
             return false;
         }
@@ -127,17 +176,14 @@ public class Parser {
     }
 
     /**
-     * Checks the syntax for the command to create an 'Deadline' instance
+     * Checks if the syntax for the deadline command is correct, and the date and time specified is in correct format and valid
      *
      * @param command The input command typed by the user
      * @param words   The array of words that compose the input command
-     * @param ui The user interface class object used to display message box
+     * @param ui      The user interface class object used to display message box
      * @return Returns true if the subclass Deadline is created and successfully stored in the to-do list
      */
-    private static boolean isCorrectDeadline(String command, String[] words, UserInterface ui) {
-        command = command.replaceFirst(words[0], "").trim();
-        String time = command.substring(command.indexOf('/') + 1).trim();
-        String taskName = command.split("/", 2)[0].trim();
+    private static boolean isCorrectDeadline(String command, String[] words, String taskName, String time, UserInterface ui) {
         if (time.toLowerCase().startsWith("by")) {
             time = time.replaceFirst("(?i)by", "").trim();
         }
@@ -146,7 +192,6 @@ public class Parser {
             return false;
         }
         if (time.isEmpty()) {
-            name = taskName;
             ui.showMessage(EMPTY_DEADLINE_MSG);
             return false;
         }
@@ -154,63 +199,130 @@ public class Parser {
             ui.showMessage(SLASH_MISSING_MSG);
             return false;
         }
-        return true;
+        try {
+            //pad input time
+            time = padCorrectDateTimeFormat(time);
+            LocalDateTime inputTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            LocalDateTime now = LocalDateTime.now();
+            if (inputTime.isBefore(now)) {
+                ui.showMessage(EXPIRED_DEADLINE_MSG);
+                return false;
+            }
+            return true;
+        } catch (DateTimeParseException dateTimeParseException) {
+            ui.showMessage(INCORRECT_DATE_TIME_FORMAT_MSG);
+            return false;
+        } catch (NumberFormatException numberFormatException) {
+            ui.showMessage(INVALID_DATE_TIME_MSG);
+            return false;
+        }
     }
 
     /**
-     * Checks if the to-do command is correct and creates a new add command to execute
+     * Pads the input date time so that it has the same DateTimeFormat as yyyy-MM-dd HH:mm
+     *
+     * @param time The input time
+     * @return Returns the time string with correct date time format
+     */
+    private static String padCorrectDateTimeFormat(String time) {
+        time = padDate(time);
+        time = padTime(time, time.indexOf(" "));
+        return time;
+    }
+
+    /**
+     * Pads the input month/day with a leading '0' if they contain only single digit
+     *
+     * @param time The input time string
+     * @return Returns the time string padded with leading '0' for month/day of end date
+     */
+    private static String padDate(String time) {
+        int indexOfDash = time.indexOf("-");
+        if (Integer.parseInt(time.substring(indexOfDash + 1, indexOfDash + 2)) > 1) {
+            if (Integer.parseInt(time.substring(time.lastIndexOf("-") + 1, time.lastIndexOf("-") + 2)) > 1) {
+                time = time.substring(0, time.lastIndexOf("-") + 1) + "0" + time.substring(time.lastIndexOf("-") + 1);
+            }
+            time = time.substring(0, indexOfDash + 1) + "0" + time.substring(indexOfDash + 1);
+        }
+        return time;
+    }
+
+    /**
+     * Pads the input hour with a leading '0' if it contains only single digit
+     *
+     * @param time         The input time string
+     * @param indexOfColon Returns the time string padded with leading '0' for hour of end time
+     * @return Return the time string padded with leading '0' for hour of end time
+     */
+    private static String padTime(String time, int indexOfColon) {
+        if (Integer.parseInt(time.substring(time.indexOf(":") - 2, time.indexOf(":")).trim()) < 10) {
+            time = time.substring(0, indexOfColon + 1) + "0" + time.substring(indexOfColon + 1);
+        }
+        return time;
+    }
+
+    /**
+     * Checks if the to-do command is correct and creates a new add to-do command to execute
      *
      * @param tasks   The list class object that stores all the tasks
      * @param command The user input command
      * @param words   The array of words that compose the command
-     * @param ui The user interface class object used to display message box
+     * @param ui      The user interface class object used to display message box
      * @return Returns the add command object if the input command is valid, returns empty command object otherwise
      */
     private static Command parseToDo(TaskList tasks, String command, String[] words, UserInterface ui) {
         if (isCorrectToDo(words, ui)) {
-            return new AddCommand(tasks, command, words);
+            return new AddToDoCommand(tasks, command, words);
         }
         return new Command();
     }
 
     /**
-     * Checks if the deadline command is correct and creates a new add command to execute
+     * Checks if the deadline command is correct and creates a new add deadline command to execute
      *
      * @param tasks   The list class object that stores all the tasks
      * @param command The user input command
      * @param words   The array of words that compose the command
-     * @param ui The user interface class object used to display message box     *
+     * @param ui      The user interface class object used to display message box     *
      * @return Returns the add command object if the input command is valid, returns empty command object otherwise
      */
     private static Command parseDeadline(TaskList tasks, String command, String[] words, UserInterface ui) {
-        if (isCorrectDeadline(command, words, ui)) {
-            return new AddCommand(tasks, command, words);
+        command = command.replaceFirst(words[0], "").trim();
+        String time = command.substring(command.indexOf('/') + 1).trim();
+        String taskName = command.split("/", 2)[0].trim();
+        if (isCorrectDeadline(command, words, taskName, time, ui)) {
+            time = padCorrectDateTimeFormat(time);
+            return new AddDeadlineCommand(tasks, command, words, time);
         }
         return new Command();
     }
 
     /**
-     * Checks if the event command is correct and creates a new add command to execute
+     * Checks if the event command is correct and creates a new add event command to execute
      *
      * @param tasks   The list class object that stores all the tasks
      * @param command The user input command
      * @param words   The array of words that compose the command
-     * @param ui The user interface class object used to display message box
+     * @param ui      The user interface class object used to display message box
      * @return Returns the add command object if the input command is valid, returns empty command object otherwise
      */
     private static Command parseEvent(TaskList tasks, String command, String[] words, UserInterface ui) {
-        if (isCorrectEvent(command, words, ui)) {
-            return new AddCommand(tasks, command, words);
+        command = command.replaceFirst(words[0], "").trim();
+        String time = command.substring(command.indexOf('/') + 1).trim();
+        String taskName = command.split("/", 2)[0].trim();
+        if (isCorrectEvent(command, words, taskName, time, ui)) {
+            return new AddEventCommand(tasks, command, words, taskName, time);
         }
         return new Command();
     }
 
     /**
+     * Checks if the done command is correct and creates a new done command to execute
      *
-     * @param tasks The list class object that stores all the tasks
+     * @param tasks   The list class object that stores all the tasks
      * @param storage The storage class object used to save data
-     * @param words The array of words that compose the command
-     * @param ui The user interface class object used to display message box
+     * @param words   The array of words that compose the command
+     * @param ui      The user interface class object used to display message box
      * @return Returns the done command object if the input command is valid, returns an empty command otherwise
      */
     private static Command parseDoneCommand(TaskList tasks, Storage storage, String[] words, UserInterface ui) {
