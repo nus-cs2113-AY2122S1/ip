@@ -65,7 +65,7 @@ Before continuing, here are some of the things you should take note of, to bette
 
 # Features<a name="features"></a>
 
-> ⚙ Please note that Duke is still a newborn, so that may be quite a number of bugs. However, if you find any bugs, you can let me know [here](https://github.com/Kair0s3/ip/issues).
+> ⚙ Please note that Duke is still a newborn, so there may be quite a number of bugs. However, if you find any bugs, you can let me know [here](https://github.com/Kair0s3/ip/issues).
 
 ## Adding a Task (3 types)<a name="adding-task"></a>
 
