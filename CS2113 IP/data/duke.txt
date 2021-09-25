@@ -1,1 +1,4 @@
 T |   | ice coffee
+T |   | CS2113 Level-2
+E |   | Mum's birthday celebration /at Sunday 2pm
+D |   | IP submission /by 1/10/2021 2359
