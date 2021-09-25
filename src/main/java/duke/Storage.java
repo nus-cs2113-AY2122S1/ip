@@ -8,6 +8,7 @@ import duke.tasks.TaskList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Storage {
@@ -39,13 +40,15 @@ public class Storage {
                             taskArrayList.add(new Task(description));
                             break;
                         case "E": {
-                            String time = parts[3];
-                            taskArrayList.add(new Event(description, time));
+                            parts[3] = parts[3].substring(1,parts[3].length()-1);
+                            String[] date = parts[3].split(", ");
+                            taskArrayList.add(new Event(description, date, parts[4]));
                             break;
                         }
                         case "D": {
-                            String time = parts[3];
-                            taskArrayList.add(new Deadline(description, time));
+                            parts[3] = parts[3].substring(1,parts[3].length()-1);
+                            String[] date = parts[3].split(", ");
+                            taskArrayList.add(new Deadline(description, date, parts[4]));
                             break;
                         }
                     }
@@ -70,9 +73,11 @@ public class Storage {
         for (int i = 0; i < taskList.size() ;i++) {
             Task t = taskList.get(i);
             if (t instanceof Event) {
-                txtData.append("E|").append(t.getStatus()).append("|").append(t.getName()).append("|").append(((Event) t).getTime());
+                txtData.append("E|").append(t.getStatus()).append("|").append(t.getName()).append("|")
+                        .append(Arrays.toString(((Event) t).getDates())).append("|").append(((Event) t).getTime());
             } else if (t instanceof Deadline) {
-                txtData.append("D|").append(t.getStatus()).append("|").append(t.getName()).append("|").append(((Deadline) t).getTime());
+                txtData.append("D|").append(t.getStatus()).append("|").append(t.getName()).append("|")
+                        .append(Arrays.toString(((Deadline) t).getDates())).append("|").append(((Deadline) t).getTime());
             } else {
                 txtData.append("T|").append(t.getStatus()).append("|").append(t.getName());
             }
