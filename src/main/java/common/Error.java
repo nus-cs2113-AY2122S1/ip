@@ -20,4 +20,7 @@ public class Error {
             "  (!) Format: /find <search_term>";
     public static final String ERROR_INVALID_TASK = "  (!) Task ID does not exist >:(";
     public static final String ERROR_INVALID_COMMAND = "  (!) Unrecognised Command! ";
+
+    public static final String INVALID_DATETIME_FORMAT = "  (!) Invalid datetime format!" + System.lineSeparator() +
+            "  (!) Format: dd/mm/yyyy hhmm";
 }

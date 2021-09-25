@@ -28,6 +28,9 @@ public class Parser {
         case FIND:
             preparedCmd = createFind(input);
             break;
+        case TODAY:
+            preparedCmd = createToday();
+            break;
         default:
             preparedCmd = createUnknown();
         }
@@ -70,6 +73,10 @@ public class Parser {
         return new FindCommand(input);
     }
 
+    private static Command createToday() {
+        return new TodayCommand();
+    }
+
     private static CommandType categoriseCommand(String input) {
         CommandType type;
         if (input.equals(ByeCommand.COMMAND_WORD)) {
@@ -88,6 +95,8 @@ public class Parser {
             type = CommandType.DELETE;
         } else if (input.startsWith(FindCommand.COMMAND_WORD)) {
             type = CommandType.FIND;
+        } else if (input.equals(TodayCommand.COMMAND_WORD)) {
+            type = CommandType.TODAY;
         } else {
             type = CommandType.UNKNOWN;
         }
