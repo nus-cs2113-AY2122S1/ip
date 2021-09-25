@@ -134,7 +134,7 @@ public class Ui {
      */
     public void printWrongEventFormatMessage() {
         printHorizontalLine();
-        System.out.println("     ☹ OOPS!!! Please follow this deadline format: " +
+        System.out.println("     ☹ OOPS!!! Please follow this event format: " +
                 "{event_description} /at {date/time}");
         printHorizontalLine();
     }
