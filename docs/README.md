@@ -7,7 +7,7 @@ If you can type fast and want to manage your tasks, then this is the App for you
 
 ## **1. Quick Start**
 * Ensure you have `Java 11` installed in your computer
-* Download the v0.2 JAR file (ip.jar) from [here](https://github.com/naijie2108/ip/releases).
+* Download the v0.2 JAR file (ip.jar) from [here](https://github.com/naijie2108/ip/releases/tag/A-Release).
 * Copy the file to your desired folder. This folder will act as the home folder for the JAR file.
 * Then, open your terminal in the folder storing the JAR file, and run the following command `java -jar ip.jar` You should be able to see a welcome message
 like this:
