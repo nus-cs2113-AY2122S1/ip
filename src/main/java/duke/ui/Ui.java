@@ -3,7 +3,6 @@ package duke.ui;
 import duke.exceptions.DukeException;
 import duke.tasks.Task;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -124,6 +123,16 @@ public class Ui {
      */
     public void showAgenda(ArrayList<Task> tasks) {
         System.out.println("Today's Agenda : ");
+        showTasks(tasks);
+    }
+
+    /**
+     * Prints out all tasks matching the users query
+     *
+     * @param tasks all tasks that match the users query
+     */
+    public void showSearchResults(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list: ");
         showTasks(tasks);
     }
 

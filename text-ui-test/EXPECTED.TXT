@@ -198,6 +198,20 @@ Understood,
 [E][ ] todayactually (at: today)
 has been added. You now have 12 task(s) in the list
 ____________________________________________________________
+Here are the matching tasks in your list: 
+____________________________________________________________
+1.[E][ ] something (at: 8pm)
+2.[D][X] something (by: 7pm)
+3.[E][ ] somethin g (at: Sep 20 2021 3:00 PM)
+4.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)
+____________________________________________________________
+____________________________________________________________
+Please enter something to search for after 'find'
+____________________________________________________________
+Here are the matching tasks in your list: 
+____________________________________________________________
+
+____________________________________________________________
 Today's Agenda : 
 ____________________________________________________________
 1.[E][ ] somethingelse (at: Sep 20 2021 11:00 AM)

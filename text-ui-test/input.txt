@@ -39,6 +39,9 @@ deadline tmr /by 21/9/2021 1800
 event somethin g /at 20/9/2021 1500
 event somethingelse /at 20/9/2021 1100
 event todayactually /at today
+find somet
+find
+find -1
 agenda
 list 
 bye

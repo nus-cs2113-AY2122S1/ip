@@ -7,10 +7,12 @@ import duke.commands.AgendaCommand;
 import duke.commands.Command;
 import duke.commands.DeleteTaskCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkAsDoneCommand;
 import duke.exceptions.DukeEmptyDescriptionException;
 import duke.exceptions.DukeEmptyTimeException;
+import duke.exceptions.DukeInvalidQueryException;
 import duke.exceptions.DukeMissingKeywordException;
 import duke.exceptions.InvalidCommandException;
 
@@ -43,13 +45,16 @@ public class Parser {
             ArrayIndexOutOfBoundsException,
             DukeEmptyDescriptionException,
             DukeEmptyTimeException,
-            DukeMissingKeywordException {
+            DukeMissingKeywordException,
+            DukeInvalidQueryException {
         String command = getFirstWord(input);
         switch (command) {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
         case AgendaCommand.COMMAND_WORD:
             return new AgendaCommand();
+        case FindCommand.COMMAND_WORD:
+            return prepareFindCommand(input);
         case MarkAsDoneCommand.COMMAND_WORD:
             return prepareMarkAsDoneCommand(input);
         case AddTodoCommand.COMMAND_WORD:
@@ -79,6 +84,20 @@ public class Parser {
             ArrayIndexOutOfBoundsException {
         int indexOfTaskDone = getIntegerFromCommand(input);
         return new MarkAsDoneCommand(indexOfTaskDone);
+    }
+
+    /**
+     * @param input user input
+     * @return FindCommand object which can be executed to find a print all tasks matching a query
+     * @throws DukeInvalidQueryException when there is no query found in user input
+     */
+    private static FindCommand prepareFindCommand(String input) throws DukeInvalidQueryException {
+        String[] splitInput = input.split(" ");
+        if (splitInput.length <= 1) {
+            throw new DukeInvalidQueryException();
+        }
+        String query = input.replace(splitInput[0], "").trim();
+        return new FindCommand(query);
     }
 
     /**
