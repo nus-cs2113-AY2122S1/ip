@@ -62,7 +62,6 @@ public class Storage {
             while (sc.hasNext()) {
                 String[] tasksData = sc.nextLine().split(DELIMITER);
                 readData(tasks, tasksData);
-
             }
             //Displays the to-do list if it is not empty
             if (tasks.size() > 0) {
@@ -102,9 +101,11 @@ public class Storage {
             String symbolForDone = (t.getDone()) ? "Y" : "N";
             boolean canSave = true;
             if (t instanceof Deadline) {
-                taskToSave = t.getClassType() + DELIMITER + symbolForDone + DELIMITER + t.getTask() + DELIMITER + t.getTime() + System.lineSeparator();
+                taskToSave = t.getClassType() + DELIMITER + symbolForDone + DELIMITER + t.getTask() + DELIMITER + t.getTime() +
+                        System.lineSeparator();
             } else if (t instanceof Event) {
-                taskToSave = t.getClassType() + DELIMITER + symbolForDone + DELIMITER + t.getTask() + DELIMITER + t.getTime() + System.lineSeparator();
+                taskToSave = t.getClassType() + DELIMITER + symbolForDone + DELIMITER + t.getTask() + DELIMITER + t.getTime() +
+                        System.lineSeparator();
             } else if (t instanceof ToDo) {
                 taskToSave = t.getClassType() + DELIMITER + symbolForDone + DELIMITER + t.getTask() + System.lineSeparator();
             } else {
@@ -128,7 +129,8 @@ public class Storage {
         FileWriter fileEditor = new FileWriter(file, true); //Appends the existing file
         Task currentTask = tasks.get(tasks.size() - 1);
         if (currentTask instanceof Deadline || currentTask instanceof Event) {
-            String taskToSave = currentTask.getClassType() + DELIMITER + "N" + DELIMITER + currentTask.getTask() + DELIMITER + currentTask.getTime() + System.lineSeparator();
+            String taskToSave = currentTask.getClassType() + DELIMITER + "N" + DELIMITER + currentTask.getTask() + DELIMITER +
+                    currentTask.getTime() + System.lineSeparator();
             fileEditor.write(taskToSave);
         } else if (currentTask instanceof ToDo) {
             String taskToSave = currentTask.getClassType() + DELIMITER + "N" + DELIMITER + currentTask.getTask() + System.lineSeparator();
@@ -158,7 +160,7 @@ public class Storage {
             tasks.add(new Deadline(tasksData[2], tasksData[3]));
             currentTask = tasks.get(tasks.size() - 1);
 
-            TaskList.longestTaskDescription = Math.max(currentTask.getTask().length() + "(by: )".length() + currentTask.getTime().length(),
+            TaskList.longestTaskDescription = Math.max("(by: )".length() + currentTask.toString().length(),
                     TaskList.longestTaskDescription);
             break;
         case "E":
