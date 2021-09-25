@@ -1,44 +1,41 @@
----
-layout: page
-title: User Guide
----
+# User Guide
 
-Duke is a **Personal Assistant ChatBot** that allows a person to **keep track of various tasks** through a Command Line Interface (CLI). A fast typist can manage her tasks more efficiently with Duke than with traditional Graphical User Interface (GUI) applications.
+## Introduction
+Duke is a **Task Management Application** that allows one to **keep track of various tasks** through a Command Line Interface (CLI). A fast typist can manage her tasks more efficiently with Duke than with traditional Graphical User Interface (GUI) applications.
 
-* Table of Contents
-{:toc}
+## Start Guide
+1. Ensure that Java Runtime Environment (JRE) 11 is installed on your system
+2. Download the Duke `ip.jar` file from [here]() to a directory of your choice on your system.
+3. Execute `java -jar ip.jar` in a terminal in the directory chosen previously. The expected output should be:
+```
+	______________________________________________________________________
 
---------------------------------------------------------------------------------------------------------------------
+	 ____        _        
+	|  _ \ _   _| | _____ 
+	| | | | | | | |/ / _ \
+	| |_| | |_| |   <  __/
+	|____/ \__,_|_|\_\___|
 
-- [Set Up](#set-up)
-- [Quick Start](#quick-start)
-- [Features](#features)
-  - [Viewing Help](#viewing-help)
-  - [Adding a Todo Task](#adding-a-todo-task)
-  - [Adding a Deadline Task](#adding-a-deadline-task)
-  - [Adding an Event Task](#adding-an-event-task)
-  - [Listing all Tasks](#listing-all-tasks)
-  - [Mark as Done](#mark-as-done)
-  - [Delete a Task](#delete-a-task)
-  - [Find Tasks](#find-tasks)
-  - [Exiting the Program](#exiting-the-program)
+	Hello! I'm Duke
+	What can I do for you?
+	______________________________________________________________________
+
+	Reading DukeData/data.txt file...
+	
+	Done reading DukeData/data.txt
+	______________________________________________________________________
+```
 
 
+## Features 
 
-
-# Set Up
-
-# Quick Start
-
-# Features 
-
-## Viewing help: help OR h
+### Viewing help: help OR h
 - Displays all available commands
 - Format: `help` OR `h`
 
 Example of usage:
 ```
-help
+h
 ```
 
 Expected outcome:
@@ -55,9 +52,9 @@ List of commands:
 9. bye
 ```
 
-## Adding a Todo Task
+### Adding a Todo Task
 
-Adds a todo task without any date/time details _eg. tidy up room
+Adds a todo task without any date/time details 
 
 Format: `todo <TASK_NAME>`
 
@@ -73,9 +70,9 @@ Got it. I've added this task:
 Now you have 1 task in the list.
 ```
 
-## Adding a Deadline Task
+### Adding a Deadline Task
 
-Adds a deadline task that has to be completed by a certain date/time _eg. Submit Assignment 1 by Friday 2359
+Adds a deadline task that has to be completed by a certain date/time 
 
 Format: `deadline <TASK_NAME> /by <DATE_AND_OR_TIME>`
 
@@ -94,9 +91,9 @@ Got it. I've added this task:
 Now you have 2 tasks in the list.
 ```
 
-## Adding an Event Task
+### Adding an Event Task
 
-Adds an event task that will happen at a specifc time in the future _eg. Dental Appointment at Saturday 1pm
+Adds an event task that will happen at a specifc time in the future 
 
 Format: `event <TASK_NAME> /at <DATE_AND_OR_TIME>`
 
@@ -116,28 +113,102 @@ Now you have 3 tasks in the list.
 ```
 
 
+### List all Tasks
 
+Displays a list of all tasks.
 
+Format: `list`
 
-
-### Feature-XYZ
-
-Description of the feature.
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
+Example of usage:
+```
+list
+```
 
 Expected outcome:
-
-Description of the outcome.
-
 ```
-expected output
+Here are the tasks in your list:
+1.[T][ ] apply for badminton club
+2.[D][ ] Submit Assignment 1 (by: Friday 2359)
+3.[E][ ] Dental Appointment (at: 19 July 1pm)
 ```
+
+### Mark as Done
+
+Marks a task as completed.
+
+Format: `done <TASK_NUMBER>`
+
+Example of usage:
+```
+done 3
+```
+
+Expected outcome:
+```
+Nice! I've marked this task as done:
+[E][X] Dental Appointment (at: 19 July 1pm)
+```
+
+### Find Tasks
+
+Displays tasks with a keyword that the user searches for.
+
+Format: `find <KEYWORD>`
+
+Example of usage:
+```
+find club
+```
+
+Expected outcome:
+```
+Here are the matching tasks in your list:
+1.[T][ ] apply for badminton club
+```
+
+### Delete a Task
+
+Deletes a task from the list.
+
+Format: `delete <TASK_NUMBER>`
+
+Example of usage:
+```
+delete 2
+```
+
+Expected outcome:
+```	
+Noted. I've removed this task:
+[D][ ] Submit Assignment 1 (by: Friday 2359)
+Now you have 2 tasks in the list.
+```
+
+### Exiting the Program
+
+Ends and exits Duke.
+
+Format: `bye`
+
+Expected outcome:
+```	
+Bye. Hope to see you again soon!
+```
+
+## Notes:
+The data in the task list is automatically saved into a file on your computer.
+
+## Command Summary
+
+| Action       | Format, Examples                                                                                                   |
+| :---         | :---                                                                                                               |
+| **Help**     | `help`                                                                                                             |
+| **List**     | `list`                                                                                                             |
+| **Todo**     | `todo <TASK_NAME>`<br/>eg., `todo play guitar`                                                                     |
+| **Deadline** | `deadline <TASK_NAME> /by <DATE_AND_OR_TIME>`<br/>eg., `deadline return library book /by Friday`                   |
+| **Event**    | `event <TASK_NAME> /at <DATE_AND_OR_TIME>`<br/>eg., `event circus /at Saturday 3pm`                                |
+| **Done**     | `done <TASK_NUMBER>`<br/>eg., `done 1`                                                                             |
+| **Find**     | `find <KEYWORD>`<br/>eg., `find circus`                                                                            |
+| **Delete**   | `delete <TASK_NUMBER>`<br/>eg., `delete 4`                                                                         |
+| **Exit**     | `bye`                                                                                                              |
+
