@@ -5,7 +5,7 @@ import herrekt.taskmanager.TaskList;
 public class Ui {
 
     void printWelcomeMessage() {
-        String greeting = "Hi! I'm Herrick, your task manager." + "\n"
+        String greeting = "Hi! I'm Herrekt, your task manager." + "\n"
                 + "What would you like to add to your timetable?";
         System.out.println(greeting);
     }

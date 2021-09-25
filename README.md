@@ -1,5 +1,20 @@
 # User Guide
 
+## What is Herrekt?
+
+Herrekt is a task managing bot
+which is able to take in 3 types of tasks,
+todos, deadlines, and events. 
+
+He keeps tracks of your current tasks, 
+adding new ones when you ask for it, 
+marking them done when you inform him, 
+and deleting the ones you no longer need.
+
+Furthermore, if you're swamped with work,
+he comes with the ability to search for specific tasks, 
+and is also remembers them even after shutting down.
+
 ## Features
 
 * Notes about the command format:
