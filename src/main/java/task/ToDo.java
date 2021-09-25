@@ -4,7 +4,7 @@ public class ToDo extends Task{
     private static final String IDENTIFIER = "T";
 
     public ToDo(String description) {
-        super(description);
+        this.description = description;
     }
 
     public String getStatusIconAndDescription() {

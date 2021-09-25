@@ -6,13 +6,14 @@ public class Deadline extends Task{
     private static final String IDENTIFIER = "D";
 
     public Deadline(String description,String date) {
-        super(description);
+        this.description = description;
         this.date = date;
     }
 
     public String getStatusIconAndDescription() {
         String icon = (isDone ? "X" : " ");
-        return addSquareBrackets(IDENTIFIER) + addSquareBrackets(icon) + " " + description + " " + addBrackets(BY + date);
+        return addSquareBrackets(IDENTIFIER) + addSquareBrackets(icon) + " " + description + " "
+                + addBrackets(BY + date);
     }
 
     public String getStatusIconAndDescriptionForFile() {
