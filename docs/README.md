@@ -17,7 +17,7 @@ It is optimized for use via a Command Line Interface (CLI) that can help you man
     * [Listing all Tasks](#listing-all-tasks)
     * [Marking a task as done](#marking-a-task-as-done-done-number)
     * [Deleting a task](#deleting-a-task-delete-number)
-    * [Searching for a task](#querying-tasks-find-regex-type-tasktype-limit-querylimit)
+    * [Searching for tasks](#querying-tasks-find-regex-type-tasktype-limit-querylimit)
     * [Saving the tasks](#saving-the-tasks)
     * [Exiting the program](#exit-the-application--bye)
 
@@ -47,8 +47,8 @@ ____________________________________________________________
 Some example commands you can try:
 - `list` : Lists all tasks.
 - `todo <description>` : Adds a TODO task in the task list.
-- `deadline <description> /by <Date_Time>` : Adds a DEADLINE task to be completed by `<datetime>` in the task list.
-- `event <description> /at <Date_Time>` : Adds an EVENT task that will take place at `<datetime>` in the task list.
+- `deadline <description> /by <Date_Time>` : Adds a DEADLINE task to be completed by `<date_time>` in the task list.
+- `event <description> /at <Date_Time>` : Adds an EVENT task that will take place at `<date_time>` in the task list.
 - `delete <5>` : Deletes the 5th task from the current list.
 - `bye` : Exits the application.
 
@@ -102,8 +102,8 @@ ____________________________________________________________
 Adds a *DEADLINE* task to the task list. By default, the task is set to **not done**.
 - **DESCRIPTION** : is the description of the Task
 - **/by** : is a *REQUIRED* clause when adding a deadline
-- **DATETIME** : the *date* and *time* that the task is due by. This **CANNOT BE NULL/EMPTY**.
-> :warning: Note: datetime needs to be given in a valid format.
+- **DATE_TIME** : are the *date* and *time* that the task is due by. This **CANNOT BE NULL/EMPTY**.
+> :warning: Note: date_time needs to be given in a valid format.
 > See [Dates](#list-valid-datetime-formats-dates) for more details
 
 Example: `deadline read book /by 2021-10-13 16:00`
@@ -118,11 +118,11 @@ ____________________________________________________________
 <br />
    
 ### Adding an EVENT: `event <DESCRIPTION> /at <DATE_TIME>`
-Adds a *EVENT* task to the task list. It is set to **not done** by default
+Adds a *EVENT* task to the task list. By default, the task is set to **not done**.
 - **DESCRIPTION** :  is the description of the Task
-- **/at** : is a *REQUIRED* clause when adding a deadline
-- **DATETIME** : the *date* and *time* that the task takes place. This **CANNOT BE NULL/EMPTY**.
-> :warning: Note: datetime needs to be given in a valid format.
+- **/at** : is a *REQUIRED* clause when adding an event
+- **DATE_TIME** : are the *date* and *time* for which the event is scheduled. This **CANNOT BE NULL/EMPTY**.
+> :warning: Note: date_time needs to be given in a valid format.
 > See [Dates](#list-valid-datetime-formats-dates) for more details
 
 Example: `event attend lecture /at 2021-11-21 08:00`
@@ -158,7 +158,7 @@ ____________________________________________________________
 
 ```
 The format for each Task printed is:
-`[TaskType][isDone] Description`
+`[TaskType][isDone] Description (Deadline/Event Time)`
 
 **TaskType:**
 * T -> TODO task
@@ -168,63 +168,42 @@ The format for each Task printed is:
 **isDone:**
 * \[ ]  -> not done
 * \[X] -> done
+ 
+**Deadline/Event Time**
+* \ *null* -> In case of a Todo there is no deadline or event time. 
+* \ (by:MONTH_NAME DAY_OF_MONTH, YEAR TIME) -> In case of a Deadline
+* \ (at:MONTH_NAME DAY_OF_MONTH, YEAR TIME) -> In case of an Event
 
 <br />
 
-### Querying tasks: `find <REGEX> [/type TASKTYPE] [/limit QUERYLIMIT]`
-Queries the task list by a word or phrase.
-- The **task type** can be specified for query by using the optional flag `/type`
-    * e.g. `/type todo` will filter the query to only return TODO tasks
+### Searching for tasks: `find <KEYWORD>`
+Queries the task list by the keyword passed.
+   
+- All tasks that contains the `KEYWORD` in their task description will be displayed. 
 
-
-- The **number of tasks** returned can be limited by the optional flag `/limit`
-    * e.g `/limit 5` will filter the query to only return the top 5 tasks
-
-
-- Any remaining tasks that contains the `REGEXx` will be displayed
-
-Example 1:
+Example: `list` -> `find Attend`
 ```shell
-~$ find book
-------------------------------------------
-Your query returned the following results: 
-1.[T][ ] read book
-2.[D][ ] return book (by: May 29 1998 18:00)
-3.[T][ ] read book 2
-------------------------------------------
-```
-
-Example 2:
-```shell
-~$ find book /type todo
-------------------------------------------
-Your query returned the following results: 
-1.[T][ ] read book
-2.[T][ ] read book 2
-------------------------------------------
+list
+____________________________________________________________
+Here are the tasks in your list:
+1.[E][ ] Attend CS2113T lecture  (at:NOVEMBER 13, 2021 08:00 a.m.)
+2.[D][X] Complete CG2271 Labs  (by:DECEMBER 4, 2021 09:00 a.m.)
+3.[T][X] Attend carnival
+4.[D][ ] Finish all assignments  (by:DECEMBER 25, 2021 11:59 p.m.)
+____________________________________________________________
+find Attend
+[E][ ] Attend CS2113T lecture  (at:NOVEMBER 13, 2021 08:00 a.m.)
+[T][X] Attend carnival
+____________________________________________________________
 ```
 
 <br />
 
-
-### List valid DateTime Formats: `dates`
-Lists all the valid datetime formats to be used when
-adding a [Deadline](#adding-a-deadline-deadline-description-by-datetime)
-or [Event](#adding-an-event-event-description-at-datetime).
-
-Example: `help`
-```shell
-~$ dates
-------------------------------------------
-
-
-<br />
-
-### Removing a task: `delete <IDX>`
-Removes a task from the task list, by their **idx**
-- **IDX** : index as displayed in the full list (**NOT QUERIED LIST**)
-
-Example: `list` -> `delete 2`
+### Removing a task: `delete <IDEX_NUMBER>`
+Removes a task from the task list, by their **index_number**
+- **INDEX_NUMBER** : index as displayed in the TASK list.
+   
+Example: `list` -> `delete 2` -> `list 
 ```shell
 list
 ____________________________________________________________
@@ -250,19 +229,32 @@ ____________________________________________________________
 
 <br />
 
-### Marking a task as done: `done <IDX>`
+### Marking a task as done: `done <INDEX_NUMBER>`
 
-Marks a task as done, by their **IDX**.
+Marks a task as done, by their **INDEX_NUMBER**.
 
-- **IDX** : index as displayed in the full list (**NOT QUERIED LIST**)
+- **INDEX_NUMBER** : index as displayed in the task list.
 
-Example: `list` -> `done 5`
+Example: `list` -> `done 2` -> `list`
 ```shell
+list
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] Complete CS2113T Assignment
+2.[D][ ] read book  (by:OCTOBER 13, 2021 04:00 p.m.)
+3.[E][ ] attend lecture  (at:NOVEMBER 21, 2021 08:00 a.m.)
+____________________________________________________________
 done 2
 ____________________________________________________________
 Nice! I have marked this task as done:
 [D][X] read book  (by:OCTOBER 13, 2021 04:00 p.m.)
 ____________________________________________________________
+list
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] Complete CS2113T Assignment
+2.[D][X] read book  (by:OCTOBER 13, 2021 04:00 p.m.)
+3.[E][ ] attend lecture  (at:NOVEMBER 21, 2021 08:00 a.m.)
 
 ```
 
@@ -320,7 +312,7 @@ it creates with the file that contains the data from your previous Duke home fol
 | `todo <DESCRIPTION>`                       | Adds a todo task with description                             |
 | `deadline <DESCRIPTION> /by <DATE_TIME>`   | Adds a deadline task with description and a deadline          |
 | `event <DESCRIPTION> /at <DATE_TIME>` ,    | Adds an event task with description and event timing          |
-| `delete <NUMBER>`, `delete 3`              | Deletes a task from the specified index                       |
-| `done <NUMBER>`                            | Marks the task at the specified index as done                 |
+| `delete <INDEX_NUMBER>`                    | Deletes a task from the specified index                       |
+| `done <INDEX_NUMBER>`                      | Marks the task at the specified index as done                 |
 | `bye`                                      | Exits the application                                         |
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------  
