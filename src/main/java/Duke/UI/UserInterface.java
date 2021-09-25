@@ -50,7 +50,7 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
-    public static void eventMessage (Event newItem, ArrayList<Task> taskList) {
+    public static void taskAddedMessage (Task newItem, ArrayList<Task> taskList) {
         System.out.println(LINE);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newItem);
@@ -59,29 +59,11 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
-    public static void todoMessage(Todo newItem, ArrayList<Task> taskList) {
-        System.out.println(LINE);
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + newItem);
-        System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
-        System.out.println(LINE);
-        System.out.print(System.lineSeparator());
-    }
-
-    public static void deadlineMessage(Deadline newItem, ArrayList<Task> taskList) {
-        System.out.println(LINE);
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + newItem);
-        System.out.println(" Now you have " + taskList.size() +" tasks in the list.");
-        System.out.println(LINE);
-        System.out.print(System.lineSeparator());
-    }
-
-    public static void deleteMessage(int taskDeleteIndex, ArrayList<Task> taskList) {
+    public static void deleteMessage(int taskDeleteIndex, Task deletedTask, ArrayList<Task> taskList) {
         System.out.println(LINE);
         System.out.println(" Noted! I've removed this task:");
-        System.out.println("   " + taskList.get(taskDeleteIndex - 1).toString());
-        taskList.remove(taskDeleteIndex - 1);
+        System.out.println("   " + deletedTask.toString());
+        //taskList.remove(taskDeleteIndex - 1);
         System.out.println(" Now you have " + taskList.size() +" tasks in the list.");
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
