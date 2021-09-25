@@ -107,7 +107,7 @@ Adds a *DEADLINE* task to the task list. It is set to **not done** by default
 > :warning: Note: datetime needs to be given in a valid format.
 > See [Dates](#list-valid-datetime-formats-dates) for more details
 
-Example: `deadline eat lunch /by today 1200`
+Example: `deadline read book /by 2021-10-13 16:00`
 ```shell
 deadline read book /by 2021-10-13 16:00
 ____________________________________________________________
@@ -126,7 +126,7 @@ Adds a *EVENT* task to the task list. It is set to **not done** by default
 > :warning: Note: datetime needs to be given in a valid format.
 > See [Dates](#list-valid-datetime-formats-dates) for more details
 
-Example: `event family dinner /at today 1930`
+Example: `event attend lecture /at 2021-11-21 08:00`
 ```shell
 event attend lecture /at 2021-11-21 08:00
 ____________________________________________________________
