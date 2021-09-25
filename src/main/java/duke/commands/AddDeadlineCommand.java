@@ -21,18 +21,18 @@ public class AddDeadlineCommand extends Command {
     }
 
     public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
-        Deadline toAdd = getDeadline(description,by);//new Deadline(description, by, false);
+        Deadline toAdd = getDeadline(description, by);//new Deadline(description, by, false);
         tasks.addTask(toAdd);
         storage.writeToData(toAdd, tasks.getNumberOfTasks());
         ui.acknowledgeAddCommand(toAdd, tasks.getNumberOfTasks());
     }
-    
+
     private Deadline getDeadline(String description, String by) {
         try {
             LocalDateTime byDT = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-            return new Deadline(description,byDT,false);
+            return new Deadline(description, byDT, false);
         } catch (DateTimeParseException dtpe) {
-            return new Deadline(description,by,false);
+            return new Deadline(description, by, false);
         }
     }
 }
