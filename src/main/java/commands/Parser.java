@@ -19,6 +19,12 @@ public class Parser {
         case EVENT:
             preparedCmd = createEvent(input);
             break;
+        case DONE:
+            preparedCmd = createDone(input);
+            break;
+        case DELETE:
+            preparedCmd = createDelete(input);
+            break;
         default:
             preparedCmd = createUnknown();
         }
@@ -49,6 +55,14 @@ public class Parser {
         return new EventCommand(input);
     }
 
+    private static Command createDone(String input) {
+        return new DoneCommand(input);
+    }
+
+    private static Command createDelete(String input) {
+        return new DeleteCommand(input);
+    }
+
     private static CommandType categoriseCommand(String input) {
         CommandType type;
         if (input.equals(ByeCommand.COMMAND_WORD)) {
@@ -61,9 +75,9 @@ public class Parser {
             type = CommandType.DEADLINE;
         } else if (input.startsWith(EventCommand.COMMAND_WORD)) {
             type = CommandType.EVENT;
-        } else if (input.startsWith("/done")) {
+        } else if (input.startsWith(DoneCommand.COMMAND_WORD)) {
             type = CommandType.DONE;
-        } else if (input.startsWith("/delete")) {
+        } else if (input.startsWith(DeleteCommand.COMMAND_WORD)) {
             type = CommandType.DELETE;
         } else {
             type = CommandType.UNKNOWN;

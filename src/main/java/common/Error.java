@@ -12,8 +12,10 @@ public class Error {
             "  (!) Format: /deadline <description> -by <date: dd/mm/yyyy hhmm>";
     public static final String ERROR_FORMAT_EVENT = "  (!) Invalid/missing values" + System.lineSeparator() +
             "  (!) Format: /event <description> -from <date: dd/mm/yyyy hhmm> -to <date: dd/mm/yyyy hhmm>";
-    public static final String ERROR_FORMAT_TASK = "  (!) Task ID cannot be empty!" + System.lineSeparator() +
+    public static final String ERROR_FORMAT_DONE = "  (!) Task ID cannot be empty!" + System.lineSeparator() +
             "  (!) Format: /done <id>";
+    public static final String ERROR_FORMAT_DELETE = "  (!) Task ID cannot be empty!" + System.lineSeparator() +
+            "  (!) Format: /delete <id>";
     public static final String ERROR_INVALID_TASK = "  (!) Task ID does not exist >:(";
     public static final String ERROR_INVALID_COMMAND = "  (!) Unrecognised Command! ";
 }

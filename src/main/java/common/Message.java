@@ -14,7 +14,9 @@ public class Message {
     public static final String SUCCESS_FILE_FOUND = "  (+) Data file found: %s";
     public static final String SUCCESS_DATA_READ = "  (+) Loaded %d entries";
 
-
-    public static final String ADDED_TASK = "  (+) Added: %s"
-            + System.lineSeparator() + "  (i) You have %d tasks in the list";
+    public static final String ADDED_TASK = "  (+) Added: %s" + System.lineSeparator() +
+            "  (i) You have %d tasks in the list";
+    public static final String DONE_TASK = "  (+) Marked as Done: %s";
+    public static final String DELETE_TASK = "  (-) Removed: %s" + System.lineSeparator() +
+            "  (i) You have %d tasks in the list";
 }

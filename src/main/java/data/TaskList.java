@@ -19,12 +19,13 @@ public class TaskList {
         tasks.add(newTask);
     }
 
-    public void deleteTask(int taskID) {
+    public Task deleteTask(int taskID) throws IndexOutOfBoundsException {
         Task targetTask = tasks.get(taskID - 1);
         tasks.remove(targetTask);
+        return targetTask;
     }
 
-    public void doneTask(int taskID) {
+    public void doneTask(int taskID) throws IndexOutOfBoundsException {
         tasks.get(taskID - 1).setStatus(true);
     }
 

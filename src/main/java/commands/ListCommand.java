@@ -15,7 +15,7 @@ public class ListCommand extends Command {
     public void execute(TextUI ui, TaskList tasks, Storage data) {
         ui.showMessage(MESSAGE_SEPARATOR);
         for (int i = 0; i < tasks.getSize(); i++) {
-            ui.showMessage(tasks.getTaskInfo(i));
+            ui.showMessage(i + 1 + ". " + tasks.getTaskInfo(i));
         }
         ui.showMessage(MESSAGE_SEPARATOR);
     }

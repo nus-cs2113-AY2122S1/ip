@@ -2,18 +2,19 @@ package commands;
 
 import data.Storage;
 import data.TaskList;
+import task.Task;
 import ui.TextUI;
 
-import static common.Error.ERROR_FORMAT_DONE;
 import static common.Error.ERROR_INVALID_TASK;
-import static common.Message.DONE_TASK;
+import static common.Message.DELETE_TASK;
+import static common.Error.ERROR_FORMAT_DELETE;
 
-public class DoneCommand extends Command {
-    public static final String COMMAND_WORD = "/done";
+public class DeleteCommand extends Command {
+    public static final String COMMAND_WORD = "/delete";
     protected String args;
     protected int taskID;
 
-    public DoneCommand(String args) {
+    public DeleteCommand(String args) {
         this.args = args;
     }
 
@@ -21,12 +22,12 @@ public class DoneCommand extends Command {
     public void execute(TextUI ui, TaskList tasks, Storage data) {
         try {
             taskID = Integer.parseInt(args.split(" ")[1]);
-            tasks.doneTask(taskID);
+            Task deletedTask = tasks.deleteTask(taskID);
 
-            ui.showMessage(String.format(DONE_TASK, tasks.getTaskInfo(taskID - 1)));
+            ui.showMessage(String.format(DELETE_TASK, deletedTask, tasks.getSize()));
             data.write(tasks.getTaskList());
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.showMessage(ERROR_FORMAT_DONE);
+            ui.showMessage(ERROR_FORMAT_DELETE);
         } catch (IndexOutOfBoundsException e) {
             ui.showMessage(ERROR_INVALID_TASK);
         }

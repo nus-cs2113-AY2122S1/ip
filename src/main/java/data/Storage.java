@@ -21,7 +21,7 @@ public class Storage {
     private final String dataPath;
     private final String pathDelimiter = "/";
     private final String taskDelimiter = " | ";
-    private final String taskDelimiterRegex = "\\|";
+    private final String taskDelimiterRegex = " \\| ";
 
     public Storage() {
         this.dataPath = "data/data.txt";
