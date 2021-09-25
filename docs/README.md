@@ -155,14 +155,15 @@ Your query returned the following results:
 Adds a *TODO* task to the task list. It is set to **not done** by default
 - **DESCRIPTION** : the Task description
 
-Example: `todo eat dinner`
+Example: `todo Complete CS2113T Assignment`
 ```shell
-~$ todo eat dinner
-------------------------------------------
-Got it. I've added this task: 
-[T][ ] eat dinner
-You now have (5) tasks!
-------------------------------------------
+todo Complete CS2113T Assignment
+____________________________________________________________
+Got it. I've added this task:
+ [T][ ] Complete CS2113T Assignment
+Now you have 1 tasks in the list.
+____________________________________________________________
+
 ```
 <br />
 
@@ -215,31 +216,7 @@ Example: `help`
 ```shell
 ~$ dates
 ------------------------------------------
-Here are the valid DateTime formats to use: 
--> MMM d yyyy HH:mm
--> MMM d yyyy HHmm
--> MMM d yy HH:mm
--> MMM d yy HHmm
--> dd/M/yyyy HH:mm
--> dd/M/yyyy HHmm
--> dd/M/yy HH:mm
--> dd/M/yy HHmm
--> today HH:mm
--> today HHmm
-------------------------------------------
 
-```
-> :bulb: Refer to the following Table for example of valid date time formats:
-
-| Pattern Syntax | Example    |
-| -------------- | ---------- |
-| MMM d yyyy     | Oct 10 2015|
-| MMM d yy       | Oct 10 15  |
-| dd/M/yyyy      | 15/10/2015 |
-| dd/M/yy        | 15/10/15   |
-| today          | today      |
-| HH:mm          | 18:00      |
-| HHmm           | 1800       |
 
 <br />
 
