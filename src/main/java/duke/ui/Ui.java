@@ -67,7 +67,7 @@ public class Ui {
     /**
      * Prints a numbered list of tasks when {@code list} command is entered by the user.
      *
-     * @param taskList list of tasks to be printed
+     * @param taskList list containing tasks to be printed
      */
     public static void printTaskList(TaskList taskList) {
         ArrayList<Task> taskArrayListToPrint = taskList.getTaskList();

@@ -25,7 +25,7 @@ import static duke.constants.DukeCommandStrings.DELETE_COMMAND;
 import static duke.constants.DukeCommandStrings.DONE_COMMAND;
 import static duke.constants.DukeCommandStrings.EVENT_COMMAND;
 import static duke.constants.DukeCommandStrings.EVENT_PREFIX;
-import static duke.constants.DukeCommandStrings.EXIT_COMMAND;
+import static duke.constants.DukeCommandStrings.BYE_COMMAND;
 import static duke.constants.DukeCommandStrings.FIND_COMMAND;
 import static duke.constants.DukeCommandStrings.HELP_COMMAND;
 import static duke.constants.DukeCommandStrings.LIST_COMMAND;
@@ -38,10 +38,16 @@ import static duke.constants.DukeCommandStrings.WHITESPACE_SEQUENCE;
 public class Parser {
     
     /**
-     * Parses {@code userInput} into a subclass of {@code Command} for execution.
+     * Parses {@code userInput} and returns a subclass of {@code Command} to be executed.
      * 
      * @param userInput full user input string
-     * @return {@code Command} object
+     * @return a {@code Command} which will be executed
+     * @throws InvalidCommandFormatException if the command input by the user is of the wrong format (i.e. lacking
+     *                                       arguments)
+     * @throws NumberFormatException for {@code done} and {@code delete} commands which require the task index to be
+     *                               a positive integer
+     * @throws DateTimeParseException if the date and time entered for {@code Event}s and {@code Deadline}s do not
+     *                                follow the correct format or if the date and time is invalid
      */
     public static Command parseCommandWord(String userInput) throws InvalidCommandFormatException, NumberFormatException, DateTimeParseException {
         if (beginsWith(userInput, LIST_COMMAND)) {
@@ -66,7 +72,7 @@ public class Parser {
         } else if (beginsWith(userInput, FIND_COMMAND)) {
             String keyword = parseFindCommand(userInput);
             return new FindCommand(keyword);
-        } else if (beginsWith(userInput, EXIT_COMMAND)) {
+        } else if (beginsWith(userInput, BYE_COMMAND)) {
             return new ByeCommand();
         } else {
             return new UnrecognizedCommand();

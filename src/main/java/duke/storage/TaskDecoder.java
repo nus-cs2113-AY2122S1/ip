@@ -19,13 +19,14 @@ import static duke.constants.DukeDataStorageConstants.NOT_DONE;
  * Decodes data in storage file into a {@code Task} object.
  */
 public class TaskDecoder {
+
     /**
-     * Decodes a task in the form of a string into a {@code Task} object.
+     * Decodes a task in the form of a {@code String} into a {@code Task} object.
      *
      * @param task a formatted string containing the attributes of a {@code Task} object
      * @return a decoded {@code Task} with the same attributes of those in the storage file
      * @throws InvalidFileDataException if any of the task strings contain invalid attributes or are in an invalid format
-     * @throws DateTimeParseException if date and time of {@code Event}/{@code Deadline} objects are of invalid format
+     * @throws DateTimeParseException if date and time of {@code Event} or {@code Deadline} objects are of invalid format
      */
     public static Task decodeTask(String task) throws InvalidFileDataException, DateTimeParseException {
         String[] taskAttributes = task.split(DECODER_ATTRIBUTE_SEPARATOR);

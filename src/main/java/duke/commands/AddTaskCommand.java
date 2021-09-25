@@ -4,6 +4,9 @@ import duke.storage.DataStorage;
 import duke.task.Task;
 import duke.task.TaskList;
 
+/**
+ * Represents a command to add a {@code Task}.
+ */
 public class AddTaskCommand extends Command {
 
     private final Task toAdd;
@@ -13,12 +16,10 @@ public class AddTaskCommand extends Command {
     }
 
     /**
-     * Executes the addition of a {@code Deadline} to {@code taskList} by passing the user input to it.
-     * An error message is printed if {@code userInput} lacks the deadline description or the deadline.
-     * An error message is also printed if the date and time entered do not follow the format dd-MM-yyyy HH:mm or
-     * if an invalid date and time is entered.
+     * Executes the addition of a {@code Task} to {@code taskList}. Saves the updated {@code taskList} to Duke's
+     * {@code DataStorage}.
      *
-     * @param taskList {@code TaskList} where the deadline is to be added to
+     * @param taskList {@code TaskList} where the task is to be added to
      * @param dataStorage {@code DataStorage} which saves the new deadline to Duke's storage
      */
     @Override

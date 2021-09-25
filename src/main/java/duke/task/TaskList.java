@@ -24,11 +24,11 @@ public class TaskList {
     }
 
     /**
-     * Parses {@code userInput} to obtain the task ID of the task to mark done.
-     * Marks the task with the task ID in {@code taskList} as done. An error message is printed if task ID entered by
-     * the user is non-numeric, lacking from the command or not in the task list.
+     * Marks the task at {@code indexOfTaskToMarkDone} in {@code taskList} as done.
+     * Prints a message showing the user the task marked done.
      *
-     * @throws IndexOutOfBoundsException if task ID is not in the task list
+     * @param indexOfTaskToMarkDone index of task in {@code taskList} to be marked as done
+     * @throws IndexOutOfBoundsException if {@code indexOfTaskToMarkDone} is not contained in {@code taskList}
      */
     public void markTaskDone(int indexOfTaskToMarkDone) throws IndexOutOfBoundsException {
         try {
@@ -39,15 +39,22 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds {@code newTask} to {@code taskList}.
+     * Prints message informing user that the task has been added successfully.
+     *
+     * @param newTask task to be added to {@code taskList}
+     */
     public void addTask(Task newTask) {
         taskList.add(newTask);
         Ui.printTaskAddedMessage(newTask, taskList.size());
     }
 
     /**
-     * Parses {@code userInput} to obtain the task ID of the task to delete.
-     * Deletes the task with the task ID in {@code taskList}. An error message is printed if task ID entered by
-     * the user is non-numeric, lacking from the command or not in the task list.
+     * Deletes the task at {@code indexOfTaskToDelete} from {@code taskList}.
+     * Prints a message informing the user that the task has been successfully deleted along with the task.
+     *
+     * @param indexOfTaskToDelete index of task in {@code taskList} to be deleted
      */
     public void deleteTask(int indexOfTaskToDelete) throws IndexOutOfBoundsException {
         try {

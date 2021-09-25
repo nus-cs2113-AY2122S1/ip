@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static duke.constants.DukeDataStorageConstants.BACKSLASH;
-import static duke.constants.DukeDataStorageConstants.BACKSLASH_SEPARATOR;
+import static duke.constants.DukeDataStorageConstants.BACKSLASH_REGEX;
 import static duke.constants.DukeDataStorageConstants.DEFAULT_STORAGE_FILEPATH;
 import static duke.constants.DukeDataStorageConstants.FILE_CREATION_ERROR_MESSAGE;
 import static duke.constants.DukeDataStorageConstants.FILE_WRITE_ERROR_MESSAGE;
@@ -32,11 +32,10 @@ import static duke.constants.DukeDataStorageConstants.VALID_FILE_TYPE;
  */
 public class DataStorage {
 
-    /** {@code Path} object representing the path of storage file*/
     private Path filePath;
 
     /**
-     * Parameterless constructor will set the storage file path to the default, {@code "dukeData\tasks.txt"}
+     * Parameterless constructor will set the storage file path to the default, {@code "dukeData\tasks.txt"}.
      */
     public DataStorage() {
         this(DEFAULT_STORAGE_FILEPATH);
@@ -44,7 +43,7 @@ public class DataStorage {
 
     /**
      * Constructor which allows for a specific file path to be created for data storage.
-     * Prints an error message if the file specified is not a {@code ".txt"} file
+     * Prints an error message if the file specified is not a {@code ".txt"} file.
      *
      * @param filePath string representing the file path
      */
@@ -58,7 +57,7 @@ public class DataStorage {
     }
 
     /**
-     * Returns storage file path in string format
+     * Returns storage file path in string format.
      *
      * @return string representing file path
      */
@@ -67,7 +66,7 @@ public class DataStorage {
     }
 
     /**
-     * Loads data from storage file into {@code taskList} upon entering the program
+     * Loads data from storage file into {@code taskList} upon entering the program.
      *
      * @param taskList task list into which the tasks are to be loaded
      */
@@ -151,7 +150,6 @@ public class DataStorage {
             StringBuilder formattedTask = new StringBuilder();
             TaskEncoder.encodeTask(task, fileWriter, formattedTask);
         }
-
         fileWriter.close();
     }
 
@@ -167,10 +165,19 @@ public class DataStorage {
         Files.createFile(Paths.get(filePath));
     }
 
+    /**
+     * Helper function which returns the full directory path of {@code filePath}. The purpose of this method
+     * is so that the directory for the storage file can be created first before the file is created in the
+     * {@code createFileInDirectory} method.
+     *
+     * @param filePath string representing the file path
+     * @return a string representing the full directory path of {@code filePath}
+     */
     private static String getDirectoryPath(String filePath) {
-        String[] directoryPathAsArray = filePath.split(BACKSLASH_SEPARATOR);
+        String[] directoryPathAsArray = filePath.split(BACKSLASH_REGEX);
         StringBuilder directoryPath = new StringBuilder();
 
+        /* Iterate up to length - 1 because the last argument in a file path is usually the file type */
         for (int i = 0; i < (directoryPathAsArray.length - 1); i++) {
             directoryPath.append(directoryPathAsArray[i]).append(BACKSLASH);
         }
