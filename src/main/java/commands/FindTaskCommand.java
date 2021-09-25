@@ -18,7 +18,7 @@ public class FindTaskCommand extends Command {
         if (input.trim().length() <= 4) {
             ui.showNoKeywordSpecifiedMessage();
         } else {
-            String keyword = input.substring(5);
+            String keyword = input.substring(5).trim();
             List<Integer> foundTasksIndices = new ArrayList<>();
             int index = 1;
             for (Task task : tasks.getTaskList()) {
