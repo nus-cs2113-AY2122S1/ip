@@ -158,6 +158,7 @@ public class DukeProgram {
     public static void manageEvent(String inWord, ArrayList<Task> taskList) {
         try {
             printEvent(inWord, taskList);
+            DataSaver.manageSave(taskList);
         } catch (DukeException invalidEventException) {
             DukeException.invalidEventException();
         }
@@ -179,7 +180,6 @@ public class DukeProgram {
         //split inWord by the first whitespace(s) into 2 separate strings
         String[] commands = inWord.split("\\s+", 2);
 
-
         if(!checkValidTodo(inWord)) {
             throw new DukeException();
         }
@@ -198,6 +198,7 @@ public class DukeProgram {
     public static void manageTodo(String inWord, ArrayList<Task> taskList) {
         try {
             printTodo(inWord, taskList);
+            DataSaver.manageSave(taskList);
         } catch (DukeException emptyTodoException) {
             DukeException.emptyTodoException();
         }
@@ -249,6 +250,7 @@ public class DukeProgram {
     public static void manageDeadline(String inWord, ArrayList<Task> taskList) {
         try {
             printDeadline(inWord, taskList);
+            DataSaver.manageSave(taskList);
         } catch (DukeException invalidDeadlineException) {
             DukeException.invalidDeadlineException();
         }
@@ -290,6 +292,7 @@ public class DukeProgram {
     public static void manageDelete(String inWord, ArrayList<Task> taskList) {
         try {
             printDelete(inWord, taskList);
+            DataSaver.manageSave(taskList);
         } catch (DukeException invalidDeleteException) {
             DukeException.invalidDeleteException();
         }
@@ -352,7 +355,7 @@ public class DukeProgram {
             inWord = scan.nextLine();
         }
 
-        DataSaver.manageSave(taskList);
+        //DataSaver.manageSave(taskList);
         //Exits when user types "bye"
         printDukeExit();
     }

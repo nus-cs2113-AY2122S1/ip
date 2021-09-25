@@ -19,7 +19,8 @@ public class DataSaver {
 
     private static final String DONE_STATUS = "1";
     private static final String NOT_DONE_STATUS = "0";
-    private static final String FILE_PATH = "duke.txt";
+    private static final String DIRECTORY_PATH = "savedData";
+    private static final String FILE_PATH = "savedData\\duke.txt";
     private static final String DIVIDER = " | ";
 
     public static void manageLoad(ArrayList<Task> taskList) {
@@ -35,6 +36,7 @@ public class DataSaver {
 
     public static void createNewFile() {
         try {
+            Files.createDirectories(Paths.get(DIRECTORY_PATH));
             Files.createFile(Paths.get(FILE_PATH));
         } catch (IOException ioException) {
             DukeException.createIOException(ioException);
