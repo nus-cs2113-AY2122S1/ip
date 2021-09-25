@@ -42,6 +42,7 @@ Format: `todo TASK_DESCRIPTION`
 
 - If an empty or blank task description is given, the ToDo task will not be
   added and a warning will be given.
+- Leading and trailing spaces of `TASK_DESCRIPTION` will be removed.
 
 Example: `todo read book`
 
@@ -52,6 +53,7 @@ Format: `deadline TASK_DESCRIPTION /by DEADLINE`
 
 - If any parameters given is empty or blank, the Deadline task will not be
   added and a warning will be given.
+- Leading and trailing spaces of `TASK_DESCRIPTION` and `DEADLINE` will be removed.
 
 Example: `deadline read book /by 21 feb`
 
@@ -62,6 +64,7 @@ Format: `event TASK_DESCRIPTION /at EVENT_DETAILS`
 
 - If any parameters given is empty or blank, the Event task will not be
   added and a warning will be given.
+- Leading and trailing spaces of `TASK_DESCRIPTION` and `EVENT_DETAILS` will be removed.
 
 Example: `event read book /at 21 feb bishan library`
 
