@@ -68,7 +68,7 @@ public class Ui {
             "(e.g event Lecture /at 2019-08-13 20:00)";
     private static final String ERROR_DEADLINE_FORMAT = "There is an error with the format of the input. " +
             "Please enter a valid input \n " +
-            "(e.g deadline Assignment /by 2021-08-32 13:00)";
+            "(e.g deadline Assignment /by 2021-08-23 13:00)";
 
     /**
      * Scanner object to read user input
