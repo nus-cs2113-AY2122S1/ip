@@ -322,5 +322,5 @@ Command Format | Action
    
 | Command Format     | Action |
 | ----------- | ----------- |
-| Header      | Title       |
+| `help`      | Lists all the valid commands       |
 | Paragraph   | Text        |
