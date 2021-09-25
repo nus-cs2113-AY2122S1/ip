@@ -1,7 +1,8 @@
 package storage;
 
-import ui.Jarvis;
+import jarvis.Jarvis;
 import tasklist.Task;
+import ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -11,9 +12,9 @@ import java.io.IOException;
 import java.io.FileWriter;
 
 public class Storage {
-    private static final String LINE = Jarvis.LINE;
-    private static final String LINE_W_NL = Jarvis.LINE_W_NL;
-    private static final String JARVIS_TXT = "ui/jarvis.txt";
+    private static final String LINE = Ui.LINE;
+    private static final String LINE_W_NL = Ui.LINE_W_NL;
+    public static final String JARVIS_TXT = "jarvis/jarvis.txt";
     private static final String DIVIDER = ",";
 
     public static void findTaskFile(ArrayList<Task> taskList) {
@@ -60,13 +61,13 @@ public class Storage {
         String[] lineInputs = textLine.split(DIVIDER);
         switch(lineInputs[0]){
         case "T":
-            Jarvis.addTodoFileTask(lineInputs[2], taskList);
+            tasklist.TaskList.addTodoFileTask(lineInputs[2], taskList);
             break;
         case "D":
-            Jarvis.addDeadlineFileTask(lineInputs[2], lineInputs[3], taskList);
+            tasklist.TaskList.addDeadlineFileTask(lineInputs[2], lineInputs[3], taskList);
             break;
         case "E":
-            Jarvis.addEventFileTask(lineInputs[2],lineInputs[3], taskList);
+            tasklist.TaskList.addEventFileTask(lineInputs[2],lineInputs[3], taskList);
             break;
         default:
             break;
