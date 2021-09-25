@@ -39,7 +39,7 @@ public class DukeBackEnd {
             UserInterface.printList(taskList);
             break;
         case DONE_COMMAND:
-            DoneCommand.manageDoneInstruction(inWord);
+            DoneCommand.manageDoneInstruction(inWord, taskList);
             break;
         case EVENT_COMMAND:
             AddEventCommand.manageEvent(inWord, taskList);
