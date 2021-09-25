@@ -1,39 +1,45 @@
 package duke.task;
 
-import duke.Message;
+import duke.Parser;
 import duke.exception.WrongNumberOfArgumentsException;
 
 abstract class TimedTask extends Task {
     private String dateTime;
-    private final String preposition;
 
-    TimedTask(String userInput, String preposition, Types type) throws WrongNumberOfArgumentsException {
-        //TODO: Is using constructor class to parse inputs good OOP?
-        super(type);
-        String[] inputs = userInput.split(Message.WHITESPACE_REGEX + '/' + preposition + Message.WHITESPACE_REGEX);
-        if (inputs.length != 2) {
-            throw new WrongNumberOfArgumentsException(type.toString(), preposition);
-        }
-        this.setDescription(inputs[0]);
-        this.dateTime = inputs[1];
-        this.preposition = preposition;
+    TimedTask(String description, String dateTime, Type type) {
+        super(description, type);
+        this.dateTime = dateTime;
     }
 
-    TimedTask(boolean isDone, String description, String dateTime, String preposition, Types type) {
-        //TODO: Is using constructor class to parse inputs good OOP?
+    TimedTask(boolean isDone, String description, String dateTime, Type type) {
         super(isDone, description, type);
         this.dateTime = dateTime;
-        this.preposition = preposition;
+    }
+
+    private static String[] parseUserInput(Type taskType, String userInput) throws WrongNumberOfArgumentsException {
+        String[] inputs = userInput.split(Parser.WHITESPACE_REGEX + '/' + taskType.PREPOSITION + Parser.WHITESPACE_REGEX);
+        if (inputs.length != 2) {
+            throw new WrongNumberOfArgumentsException(inputs[0], taskType.PREPOSITION);
+        }
+        return inputs;
+    }
+
+    public static TimedTask newTimedTask(Type taskType, String userInput) throws WrongNumberOfArgumentsException {
+        String[] parsedInputs = parseUserInput(taskType, userInput);
+        TimedTask createdTask;
+        if (taskType == Type.EVENT) {
+            return new Event(parsedInputs[0], parsedInputs[1]);
+        }
+        return new Deadline(parsedInputs[0], parsedInputs[1]);
     }
 
     @Override
     public String toString() {
-        //Append preposition and datetime
-        return String.format("%s (%s: %s)", super.toString(), preposition, dateTime);
+        return String.format("%s (%s: %s)", super.toString(), type.PREPOSITION, dateTime);
     }
 
     @Override
-    String getFormattedString(){
+    String getFormattedString() {
         return super.getFormattedString() + '|' + dateTime;
     }
 
