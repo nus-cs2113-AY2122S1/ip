@@ -1,11 +1,13 @@
 package UI.GUI.WelcomePage;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JLabel;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import java.awt.Font;
 
 public class WelcomeGUI extends JFrame {
     private JLabel welcome = new JLabel("Welcome to use Duke!");
-    private JLabel usernameLabel;
     private JTextField inputArea;
     private JButton startButton;
 
@@ -41,7 +43,7 @@ public class WelcomeGUI extends JFrame {
     }
 
     private void initializeUsernameLabel() {
-        this.usernameLabel = new JLabel("Username");
+        JLabel usernameLabel = new JLabel("Username");
         usernameLabel.setBounds(40, 70, 80, 40);
         usernameLabel.setFont(new Font("Mv Boli", Font.PLAIN, 14));
         this.add(usernameLabel);

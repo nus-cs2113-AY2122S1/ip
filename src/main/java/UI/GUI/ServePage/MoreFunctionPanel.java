@@ -1,7 +1,16 @@
 package UI.GUI.ServePage;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 public class MoreFunctionPanel extends JPanel {
     private JButton sortTask;
@@ -10,7 +19,6 @@ public class MoreFunctionPanel extends JPanel {
     private JButton deleteTask;
     private JButton exit;
     private JTextField findKeyword;
-    private JLabel moreFunction;
     private GridBagConstraints c = new GridBagConstraints();
 
     MoreFunctionPanel() {
@@ -62,7 +70,7 @@ public class MoreFunctionPanel extends JPanel {
         c.gridwidth = 3;
         c.insets = new Insets(5, 0, 0, 5);
 
-        moreFunction = new JLabel("More >>");
+        JLabel moreFunction = new JLabel("More >>");
         moreFunction.setPreferredSize(new Dimension(250, 40));
         moreFunction.setFont(new Font("Mv Boli", Font.BOLD, 16));
         moreFunction.setForeground(Color.orange);

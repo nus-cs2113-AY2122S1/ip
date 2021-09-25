@@ -1,14 +1,23 @@
 package UI.GUI.ServePage;
 
-import Parser.GUIParser;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 public class AddTaskPanel extends JPanel {
     private JButton addTask;
-    private JLabel addTaskHint;
-    private JComboBox taskType;
+    private JComboBox<String> taskType;
     private JTextArea taskName;
     private JTextField time;
 
@@ -17,7 +26,7 @@ public class AddTaskPanel extends JPanel {
         return this.addTask;
     }
 
-    public JComboBox getTaskTypeJCombox () {
+    public JComboBox<String> getTaskTypeJCombox () {
         return this.taskType;
     }
 
@@ -46,7 +55,7 @@ public class AddTaskPanel extends JPanel {
     }
 
     private void initializeLabel() {
-        addTaskHint = new JLabel("Create New Task");
+        JLabel addTaskHint = new JLabel("Create New Task");
         addTaskHint.setPreferredSize(new Dimension(250, 40));
         addTaskHint.setFont(new Font("Mv Boli", Font.BOLD, 16));
         addTaskHint.setForeground(Color.orange);
@@ -62,7 +71,7 @@ public class AddTaskPanel extends JPanel {
 
     private void initializeComboBox() {
         GridBagConstraints c = new GridBagConstraints();
-        taskType = new JComboBox(new String[] {"todo", "deadline", "event"});
+        taskType = new JComboBox<>(new String[] {"todo", "deadline", "event"});
         c.gridx = 0;
         c.gridy = 1;
         c.gridwidth = 3;

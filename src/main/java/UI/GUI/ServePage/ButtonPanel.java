@@ -1,8 +1,15 @@
 package UI.GUI.ServePage;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class ButtonPanel extends JPanel{
     private AddTaskPanel addTaskPanel;
@@ -50,7 +57,7 @@ public class ButtonPanel extends JPanel{
         return addTaskPanel.getAddTaskButton();
     }
 
-    public JComboBox getTaskTypeJCombox () {
+    public JComboBox<String> getTaskTypeJCombox () {
         return addTaskPanel.getTaskTypeJCombox();
     }
 

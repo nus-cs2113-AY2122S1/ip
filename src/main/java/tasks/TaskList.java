@@ -39,7 +39,7 @@ public class TaskList {
     }
 
     public Task markAsDone(int index) throws IndexOutOfBoundsException{
-        Task completedTask = this.tasks.get(index - 1);
+        Task completedTask = this.tasks.get(index);
         completedTask.setCompleted();
         return completedTask;
     }

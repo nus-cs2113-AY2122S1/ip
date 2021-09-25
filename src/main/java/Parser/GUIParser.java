@@ -1,14 +1,17 @@
 package Parser;
 
 import UI.GUI.ServePage.List;
-import commands.AddTaskCommand;
-import exceptions.TimeException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.TaskList;
 import tasks.Todo;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -16,61 +19,80 @@ import java.time.LocalTime;
 public class GUIParser {
     private JButton addTaskButton;
 
-    private JComboBox taskType;
-    private JTextArea taskName;
-    private JTextField taskTime;
+    private JComboBox<String> taskTypeComboBox;
+    private JTextArea taskNameTextArea;
+    private JTextField taskTimeTextField;
     private TaskList tasks;
-    private List taskList;
+    private List taskJTable;
 
-    public GUIParser(JButton addTaskButton, JComboBox taskType,
+    public GUIParser(JButton addTaskButton, JComboBox<String> taskType,
                      JTextArea taskName, JTextField taskTime, List taskList) {
         this.addTaskButton = addTaskButton;
-        this.taskType = taskType;
-        this.taskName = taskName;
-        this.taskTime = taskTime;
-        this.taskList = taskList;
+        this.taskTypeComboBox = taskType;
+        this.taskNameTextArea = taskName;
+        this.taskTimeTextField = taskTime;
+        this.taskJTable = taskList;
 
         addHandlerForAddTaskButton();
     }
 
-    public void setTaskList(TaskList tasks) {
+    public void setTaskJTable (TaskList tasks) {
         this.tasks = tasks;
-        this.taskList.listTask(tasks);
+        this.taskJTable.listTask(tasks);
     }
 
     private void addHandlerForAddTaskButton() {
         addTaskButton.addActionListener(e -> {
-            String taskType = this.taskType.getSelectedItem().toString(),
-                    taskName = this.taskName.getText(), time = this.taskTime.getText();
+            String taskType = this.taskTypeComboBox.getSelectedItem().toString(),
+                    taskName = this.taskNameTextArea.getText(), time = this.taskTimeTextField.getText();
 
-            switch (taskType) {
-            case "todo":
-                this.tasks.addTask(new Todo(taskName, false));
-                break;
+            try {
+                switch (taskType) {
+                case "todo":
+                    this.tasks.addTask(new Todo(taskName, false));
+                    break;
 
-            case "deadline":
-                String[] deadlineSplit = time.split(" ");
+                case "deadline":
+                    String[] deadlineSplit = time.split(" ");
 
-                if (deadlineSplit.length == 1) {
-                    LocalDate date = LocalDate.parse(time);
-                    this.tasks.addTask(new Deadline(taskName, date, false));
-                } else {
-                    LocalDate date = LocalDate.parse(deadlineSplit[0].strip());
-                    LocalTime minute = LocalTime.parse(deadlineSplit[1].strip());
-                    this.tasks.addTask(new Deadline(taskName, date, minute, false));
+                    if (deadlineSplit.length == 1) {
+                        LocalDate date = LocalDate.parse(time);
+                        if (! date.isAfter(LocalDate.now())) {
+                            throw new Exception();
+                        }
+                        this.tasks.addTask(new Deadline(taskName, date, false));
+                    } else {
+                        LocalDate date = LocalDate.parse(deadlineSplit[0].strip());
+                        LocalTime minute = LocalTime.parse(deadlineSplit[1].strip());
+                        LocalDateTime deadline = LocalDateTime.of(date, minute);
+
+                        if (! deadline.isAfter(LocalDateTime.now())) {
+                            throw new Exception();
+                        }
+
+                        this.tasks.addTask(new Deadline(taskName, deadline,  false));
+                    }
+                    break;
+
+                case "event":
+                    String[] split = time.strip().split(" ");
+                    LocalDateTime eventTime = LocalDateTime.of(LocalDate.parse(split[0]), LocalTime.parse(split[1]));
+
+                    if (! eventTime.isAfter(LocalDateTime.now())) {
+                        throw new Exception();
+                    }
+                    this.tasks.addTask(new Event(taskName, eventTime,  false));
+                    break;
                 }
-                break;
-
-            case "event":
-                String[] split = time.strip().split(" ");
-                this.tasks.addTask(new Event(taskName, LocalDate.parse(split[0]),
-                        LocalTime.parse(split[1]), false));
-                 break;
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(new JFrame(), "Time format is wrong or it is a past time. \n" +
+                        "It should be YYYY-MM-DD or YYYY-MM-DD HH:MM for deadline type, " +
+                        "YYYY-MM-DD HH:MM for event type");
             }
 
-            this.taskList.listTask(this.tasks);
-            this.taskName.setText("Put the task name here");
-            this.taskTime.setText("Put the time");
+            this.taskJTable.listTask(this.tasks);
+            this.taskNameTextArea.setText("Put the task name here");
+            this.taskTimeTextField.setText("Put the time");
         });
     }
 

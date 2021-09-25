@@ -23,6 +23,11 @@ public class Deadline extends Task {
         this.deadline = LocalDateTime.of(deadline, time);
     }
 
+    public Deadline (String taskName, LocalDateTime deadline, boolean isCompleted) {
+        super(taskName, isCompleted);
+        this.deadline = deadline;
+    }
+
 
     @Override
     public String toString() {

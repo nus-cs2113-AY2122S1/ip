@@ -1,20 +1,26 @@
 package userManagement;
 
+import FileManager.FileSaver;
 import Parser.GUIParser;
 import UI.GUI.ServePage.List;
 import UI.GUI.ServePage.ServeGUI;
 import UI.GUI.WelcomePage.WelcomeGUI;
 import tasks.TaskList;
 
-import javax.swing.*;
+import javax.swing.JTextArea;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+
 
 public class UserServerGUI {
+    private String userName;
+
     private WelcomeGUI welcomePage;
     private ServeGUI servePage;
     private UserManager userManager;
 
     private TaskList tasks;
-    private JButton twoPageTransitionButton;
     private JTextField usernameField;
 
     private JButton sortTaskButton;
@@ -22,10 +28,6 @@ public class UserServerGUI {
     private JButton findTaskButton;
     private JButton deleteTaskButton;
     private JButton exitButton;
-    private JButton addTaskButton;
-    private JComboBox taskTypeComBox;
-    private JTextArea taskNameTextArea;
-    private JTextField timeTextField;
     private JTextField findKeyword;
     private List taskListJTable;
 
@@ -42,10 +44,10 @@ public class UserServerGUI {
         this.finishTaskButton = servePage.getFinishTaskButton();
         this.deleteTaskButton = servePage.getDeleteTaskButton();
         this.exitButton = servePage.getExitButton();
-        this.addTaskButton = servePage.getAddTaskButton();
-        this.taskTypeComBox = servePage.getTaskType();
-        this.taskNameTextArea = servePage.getTaskNameTextArea();
-        this.timeTextField = servePage.getTaskTimeTextField();
+        JButton addTaskButton = servePage.getAddTaskButton();
+        JComboBox<String> taskTypeComBox = servePage.getTaskType();
+        JTextArea taskNameTextArea = servePage.getTaskNameTextArea();
+        JTextField timeTextField = servePage.getTaskTimeTextField();
         this.findKeyword = servePage.getKeywordJTextField();
         this.taskListJTable = servePage.getTable();
         this.usernameField = welcomePage.getUsername();
@@ -61,12 +63,11 @@ public class UserServerGUI {
     }
 
     private void addHandlerForTransitionButton () {
-        this.twoPageTransitionButton = welcomePage.getStartButton();
+        JButton twoPageTransitionButton = welcomePage.getStartButton();
         twoPageTransitionButton.addActionListener(e -> {
-            String userName = this.usernameField.getText();
+            this.userName = this.usernameField.getText();
             try {
                 TaskList userTask = userManager.loadUser(userName);
-                System.out.println(userTask);
                 if (userTask != null) {
                     this.tasks = userTask;
                 } else {
@@ -78,7 +79,7 @@ public class UserServerGUI {
 
             welcomePage.setVisible(false);
             servePage.setVisible(true);
-            this.guiParser.setTaskList(this.tasks);
+            this.guiParser.setTaskJTable(this.tasks);
         });
     }
 
@@ -102,13 +103,15 @@ public class UserServerGUI {
     private void addHandlerForFinishButton() {
         this.finishTaskButton.addActionListener(e -> {
             int taskIndex = taskListJTable.getSelectedRow();
-            this.tasks.markAsDone(taskIndex + 1);
+            this.tasks.markAsDone(taskIndex);
             this.taskListJTable.listTask(tasks);
         });
     }
 
     private void addHandlerForExitButton() {
         this.exitButton.addActionListener(e -> {
+            FileSaver saver = new FileSaver(userName);
+            saver.save(this.tasks);
             System.exit(1);
         });
     }

@@ -4,16 +4,14 @@ package UI.GUI.ServePage;
 import tasks.Task;
 import tasks.TaskList;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-import java.awt.*;
+import java.awt.Dimension;
 
 public class List extends JTable{
     public boolean isCellEditable (int row, int column) {
         return false;
-    };
+    }
 
     List() {
         super(0,4);
@@ -36,6 +34,10 @@ public class List extends JTable{
         this.getColumnModel().getColumn(1).setHeaderValue("task name");
         this.getColumnModel().getColumn(2).setHeaderValue("deadline");
         this.getColumnModel().getColumn(3).setHeaderValue("completed");
+        this.getColumnModel().getColumn(0).setPreferredWidth(80);
+        this.getColumnModel().getColumn(1).setPreferredWidth(200);
+        this.getColumnModel().getColumn(2).setPreferredWidth(150);
+        this.getColumnModel().getColumn(3).setPreferredWidth(70);
     }
 
 
