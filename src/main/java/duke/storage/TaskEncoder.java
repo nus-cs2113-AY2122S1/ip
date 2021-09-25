@@ -20,10 +20,9 @@ import static duke.constants.DukeDataStorageConstants.NOT_DONE;
 public class TaskEncoder {
 
     /**
-     * Encodes the {@code Task}s in {@code taskList} into a list of strings which can be decoded and written to the
-     * storage file.
+     * Encodes a {@code Task} into a {@code String} which can be decoded and written to the storage file.
      *
-     * @param task task to be encoded
+     * @param task task to be encoded into a {@code String}
      * @param fileWriter writes the string representing the decoded task to the storage file
      * @param formattedTask a formatted string which represents the encoded task
      * @throws IOException if there is an error writing to the file
