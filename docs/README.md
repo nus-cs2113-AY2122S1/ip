@@ -30,9 +30,9 @@ to record down your various tasks faster than traditional GUI applications.
    * Find the platform you are running on your computer and click on the corresponding 
      download link [here](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html).
 2. Download the latest `kate.jar` [here](https://github.com/a-tph/ip/releases/tag/A-Release).
-3. Save it into an empty folder. This will be your *home folder* for Kate
+3. Save it into an empty folder. This will be your *home folder* for Kate.
 4. For Windows user, type `cmd` into the location bar at the top of the window of your *home folder* and tap enter. 
-For Linux users, `cd` into your *home folder* on your terminal
+For Linux users, `cd` into your *home folder* on your terminal.
 5. Run `java -jar kate.jar` and you should see the start page as shown below
 
 ```
@@ -50,7 +50,7 @@ For Linux users, `cd` into your *home folder* on your terminal
 ```
 
 6. Type `help` to see the list of commands.
-7. Refer to the [Features](#features) below for detailed explanation for each command
+7. Refer to the [Features](#features) below for detailed explanation for each command.
 
 ## Command summary
 
