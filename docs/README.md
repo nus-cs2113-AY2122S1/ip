@@ -328,7 +328,7 @@ Command Format | Action
 | `todo <DESCRIPTION>`                    | Adds a todo task with description                             |
 | `deadline <DESCRIPTION> /by <DATE_TIME>`| Adds a deadline task with description and a deadline          |
 | `event <DESCRIPTION> /at <DATE_TIME>`   | Adds an event task with description and event timing          |
-| `delete <INDEX_NUMBER>`                 | Deletes a task from the specified index                       |
+| `delete <INDEX_NUMBER>`                 | Deletes the task from the specified index                     |
 | `done <INDEX_NUMBER>`                   | Marks the task at the specified index as done                 |
 | `bye`                                   | Exits the application                                         |
 
