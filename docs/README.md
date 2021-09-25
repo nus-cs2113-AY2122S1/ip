@@ -78,7 +78,7 @@ Below contains screenshots of the commands Duke can process and the format of th
 # Find Command
 
    ```
-  find "index_number"
+  find "keyword"
    ```
 ![Imgur](https://i.imgur.com/XcLGGCH.jpg)
 
