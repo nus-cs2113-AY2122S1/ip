@@ -108,4 +108,29 @@ public class TaskList {
             ui.printSign();
         }
     }
+
+    public void findTask(String userCommand) {
+        // Give users a way to find a task by searching for a keyword.
+        try {
+            String keyword = userCommand.substring(5); // "find " got 5 spaces
+            int taskNum = 1;
+            ui.printSign();
+            System.out.println("Here are the matching tasks in your list:");
+            for (Task task : tasks) {
+                if (task.getDescription().contains(keyword)) {
+                    System.out.println(taskNum + "." + task);
+                    taskNum++;
+                }
+            }
+            if (taskNum == 1) {
+                System.out.println("None.");
+            }
+            ui.printSign();
+        }
+        catch (StringIndexOutOfBoundsException e) {
+            ui.printSign();
+            System.out.println("☹ OOPS!!! The index of the task to be found as done cannot be empty.");
+            ui.printSign();
+        }
+    }
 }
