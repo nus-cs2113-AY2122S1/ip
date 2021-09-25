@@ -1,4 +1,4 @@
-package UI.GUI;
+package UI.GUI.ServePage;
 
 
 import java.awt.Color;

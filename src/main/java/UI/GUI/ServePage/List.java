@@ -1,4 +1,4 @@
-package UI.GUI;
+package UI.GUI.ServePage;
 
 
 import tasks.Task;
@@ -24,7 +24,7 @@ public class List extends JTable{
         this.getColumnModel().getColumn(3).setHeaderValue("completed");
     }
 
-    
+
 
     public void listTask(TaskList tasks) {
         DefaultTableModel model = new DefaultTableModel(0, 4);

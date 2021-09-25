@@ -1,12 +1,24 @@
 package Parser;
 
+import javax.swing.*;
+
 public class GUIParser {
+    private JButton addTaskButton;
+    private JButton finkTaskButton;
 
-    public String[] parseTask(String taskType, String taskName, String time) {
-        if (taskType.equals("todo")) {
-            return new String[] {taskType, taskName, null};
-        }
+    private JComboBox taskType;
+    private JTextArea taskName;
+    private JTextField taskTime;
 
-        return new String[] {taskType, taskName, time};
+    public GUIParser(JButton addTaskButton, JButton finkTaskButton, JComboBox taskType,
+                     JTextArea taskName, JTextField taskTime) {
+        this.addTaskButton = addTaskButton;
+        this.finkTaskButton = finkTaskButton;
+        this.taskType = taskType;
+        this.taskName = taskName;
+        this.taskTime = taskTime;
     }
+
+
+
 }
