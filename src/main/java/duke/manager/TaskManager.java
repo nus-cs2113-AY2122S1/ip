@@ -11,6 +11,11 @@ import java.util.stream.Collectors;
 
 public class TaskManager {
 
+    public static final String TASK_TODO = "todo";
+    public static final String TASK_EVENT = "event";
+    public static final String TASK_DEADLINE = "deadline";
+    public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
     /**
      * Prints a line on the console
      */
