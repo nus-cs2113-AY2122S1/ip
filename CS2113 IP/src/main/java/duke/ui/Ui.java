@@ -32,6 +32,15 @@ public class Ui {
         System.out.println(LOADING_ERROR);
     }
 
+    /**
+     * Handles 'delete' command's UI aspect, formatting the task deleted.
+     * Reiterates the number of items left in the list after deletion.
+     *
+     * @param task              Specific task outlined for deletion.
+     * @param tasks             List of tasks.
+     * @param zeroIndexInputInt User's input integer converted to 0-based-index for array manipulation.
+     * @param taskCount         Number of tasks in the list after deletion.
+     */
     public void handleDelete(Task task, ArrayList<Task> tasks, int zeroIndexInputInt, int taskCount) {
         System.out.println(DELETE_TASK_COMMENT);
 
@@ -43,6 +52,12 @@ public class Ui {
         System.out.println(printTaskNumber);
     }
 
+    /**
+     * Handles 'done' command's UI aspect, formatting the task to be mark as done.
+     * e.g. [T][X] homework
+     *
+     * @param task Specific task outlined for deletion.
+     */
     public void handleDone(Task task) {
         System.out.println(MARK_TASK_COMMENT);
 
@@ -58,6 +73,13 @@ public class Ui {
         System.out.println(LIST_UPCOMING_TASKS);
     }
 
+    /**
+     * Formats list of tasks for the 'list' command.
+     * e.g. 1.[T][X] homework
+     *
+     * @param taskIndex 1-based-index to index each task when listing.
+     * @param task      Specific task within the list.
+     */
     public void handleListFormat(int taskIndex, Task task) {
         String formatOutput = String.format("%d.[%s][%s] %s",
                 taskIndex, task.taskType,
@@ -71,6 +93,13 @@ public class Ui {
         System.out.println(formatOutput);
     }
 
+    /**
+     * Handles 'add' command's UI aspect, formatting the task that was just added.
+     * Reiterates the number of items left in the list after addition.
+     *
+     * @param newTask   Specific task that was newly added.
+     * @param taskCount Number of tasks in the list after addition.
+     */
     public void handleAdd(Task newTask, int taskCount) {
         System.out.println(ADDED_TASK_COMMENT);
 
@@ -81,10 +110,19 @@ public class Ui {
         System.out.println(printTaskNumber);
     }
 
-    public void handleUpcoming(Task t, boolean isThreeDaysAway, boolean isDone) {
+    /**
+     * Handles 'upcoming' command's UI aspect, formatting the task to be listed if it is upcoming and uncompleted.
+     * If task is three days away and is yet to be completed, print task in the following format:
+     * >>> [TASK_DESCRIPTION]
+     *
+     * @param task            Specified task to be checked whether it is upcoming or completed.
+     * @param isThreeDaysAway Boolean value of whether task is due within three days of current date time.
+     * @param isDone          Boolean value of whether task is completed.
+     */
+    public void handleUpcoming(Task task, boolean isThreeDaysAway, boolean isDone) {
         boolean isNotDone = !isDone;
         if (isThreeDaysAway && isNotDone) {
-            String printTask = String.format(">>> %s", t.description);
+            String printTask = String.format(">>> %s", task.description);
             System.out.println(printTask);
         }
     }

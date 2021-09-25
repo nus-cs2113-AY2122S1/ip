@@ -6,12 +6,10 @@ public class Task {
     public String description;
     public String specificDescription;
     public String taskType = "";
-    public int index;
     public boolean isDone;
 
-    public Task(String description, int index) {
+    public Task(String description) {
         this.description = description;
-        this.index = index;
         this.isDone = false;
     }
 
@@ -22,4 +20,17 @@ public class Task {
     public void markAsDone() {
         this.isDone = true;
     }
+
+    /**
+     * Returns description of task within user's input after splitting user's input string by spaces.
+     *
+     * @param description User's input in the Command Line.
+     * @return Description of task within user's input.
+     */
+    protected String trimUserInput(String description) {
+        String[] splitStringBySpace = description.trim().split("\\s+", 2);
+        String trimString = splitStringBySpace[1];
+        return trimString;
+    }
+
 }

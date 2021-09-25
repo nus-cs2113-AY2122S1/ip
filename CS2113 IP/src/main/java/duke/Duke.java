@@ -12,9 +12,11 @@ public class Duke {
     private final Storage storage;
     private static TaskList tasks;
 
-    public Duke(String filePath) throws IOException, DukeException {
+    public Duke(String filePath) throws IOException {
         ui = new Ui();
         storage = new Storage();
+        storage.createDirectory();
+        storage.createFile();
         try {
             tasks = new TaskList(filePath);
         } catch (DukeException e) {
@@ -25,13 +27,11 @@ public class Duke {
 
     public void run() throws IOException {
         ui.showWelcome();
-        storage.createDirectory();
-        storage.createFile();
         tasks.listOperations();
         storage.writeFile(tasks);
     }
 
-    public static void main(String[] args) throws IOException, DukeException {
+    public static void main(String[] args) throws IOException {
         new Duke(filePath).run();
     }
 }

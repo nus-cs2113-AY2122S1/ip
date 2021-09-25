@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class TaskList {
     final private static String GOODBYE_COMMENT = "Bye. Hope to see you again soon!";
-    final private static String ERROR_MARK_TASK = "Please do not leave your task number empty :-(";
+    final private static String ERROR_MARK_TASK_DESCRIPTION = "Please do not leave your task number empty :-(";
     final private static String ERROR_UNKNOWN_INPUT = ":-( OOPS!!! I'm sorry, but I don't know what that means :-(";
     final private static String ERROR_EMPTY_TODO_DESCRIPTION = "Please do not leave your todo description empty :-(";
     final private static String ERROR_EMPTY_DEADLINE_DESCRIPTION = "Please do not leave your deadline description empty :-(";
@@ -52,6 +52,16 @@ public class TaskList {
         return taskCount;
     }
 
+    /**
+     * Sets up the array at the start of runtime of the programme, using the database.
+     * Scans through the entire document to get data line by line.
+     * Adds the task and its descriptive fields into the list.
+     * Depending on the task type indicator, adds the specific task and its description into the list.
+     *
+     * @param filePath File path of database.
+     * @throws IOException   If file to scan does not exist.
+     * @throws DukeException If data fields of one line within database is insufficient (i.e. <3)
+     */
     private static void setUpDuke(String filePath) throws IOException, DukeException {
         parser.setScanner(filePath);
 
@@ -70,17 +80,17 @@ public class TaskList {
             switch (taskTypeString) {
             case ("T"):
                 userInput = String.format("todo %s", description.trim());
-                newTask = new Todo(userInput, taskCount);
+                newTask = new Todo(userInput);
                 tasks.add(taskCount, newTask);
                 break;
             case ("E"):
                 userInput = String.format("event %s", description.trim());
-                newTask = new Event(userInput, taskCount);
+                newTask = new Event(userInput);
                 tasks.add(taskCount, newTask);
                 break;
             case ("D"):
                 userInput = String.format("deadline %s", description.trim());
-                newTask = new Deadline(userInput, taskCount);
+                newTask = new Deadline(userInput);
                 tasks.add(taskCount, newTask);
                 break;
             }
@@ -117,6 +127,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Iterates through the list of tasks to check if tasks contains the search key.
+     * If so, the ui handles the tasks that contains description that matches the search key and lists them out.
+     *
+     * @param userInput User's input to Command Line.
+     * @throws DukeException If user's input lacks the search key.
+     */
     private static void findTask(String userInput) throws DukeException {
         String userSearchKey = parser.getUserSearchKey(userInput);
         ui.handleListComment();
@@ -130,6 +147,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Iterates through the list of tasks, and only checks the tasks in the list labelled as deadlines.
+     * Tasks that are upcoming (due within less than three days) are listed by the Ui.
+     */
     private static void listUpcoming() {
         ui.handleUpcomingComment();
         for (Task t : tasks) {
@@ -144,16 +165,16 @@ public class TaskList {
         Task newTask;
         switch (specificTask) {
         case EVENT:
-            newTask = new Event(userInput, taskCount);
+            newTask = new Event(userInput);
             break;
         case TODO:
-            newTask = new Todo(userInput, taskCount);
+            newTask = new Todo(userInput);
             break;
         case DEADLINE:
-            newTask = new Deadline(userInput, taskCount);
+            newTask = new Deadline(userInput);
             break;
         default:
-            newTask = new Task(userInput, taskCount);
+            newTask = new Task(userInput);
             break;
         }
         tasks.add(newTask);
@@ -162,6 +183,18 @@ public class TaskList {
         ui.handleAdd(newTask, taskCount);
     }
 
+
+    /**
+     * Parses user input command to check for the specific command keyword before executing the command.
+     * If unknown, prints an unknown input error message.
+     * Within each command, try and catch blocks are used to perform exception/error handling.
+     * Exits the loop when 'bye' command is input.
+     * <p>
+     * 'done', 'delete': Catch error if task number is missing, of incorrect format, or out of bounds.
+     * 'todo', 'event': Catch error if description field missing, placeholders missing.
+     * 'deadline': Additionally, catch error if deadline is formatted incorrectly (unable to be parsed)
+     * 'find': Catch error if search key is missing.
+     */
     public void listOperations() {
 
         boolean isBye;
@@ -198,7 +231,7 @@ public class TaskList {
                 try {
                     doneTask(userInput);
                 } catch (DukeException e) {
-                    System.out.println(ERROR_MARK_TASK);
+                    System.out.println(ERROR_MARK_TASK_DESCRIPTION);
                 } catch (NumberFormatException e) {
                     System.out.println(ERROR_MARK_TASK_UNKNOWN_INPUT);
                 } catch (OutOfBoundsException e) {
