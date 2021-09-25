@@ -4,7 +4,6 @@ import Duke.BackEnd.DukeParser;
 import Duke.Exception.DukeException;
 import Duke.SaveFile.DataSaver;
 import Duke.Task.TaskList;
-import Duke.TaskTypes.Event;
 import Duke.TaskTypes.Task;
 
 import java.util.ArrayList;
@@ -12,6 +11,12 @@ import java.util.ArrayList;
 import static Duke.UI.DukeConstants.EVENT_KEYWORD;
 
 public class AddEventCommand {
+    /**
+     * Method checks if the user "Event" instruction is valid
+     *
+     * @param inWord the user instruction to be checked
+     * @return true if user instruction is of a correct format, false otherwise
+     */
     public static boolean isValidEvent(String inWord) {
         if (!inWord.contains(" ")) {
             return false;
@@ -33,6 +38,13 @@ public class AddEventCommand {
         return !descriptionDetails.isEmpty() && !descriptionAt.isEmpty();
     }
 
+    /**
+     * Method to add Event from instruction to task list
+     * and to the save file
+     *
+     * @param inWord The user instruction
+     * @param taskList the current list of user's tasks
+     */
     public static void manageEvent(String inWord, ArrayList<Task> taskList) {
         try {
             TaskList.addEvent(inWord);

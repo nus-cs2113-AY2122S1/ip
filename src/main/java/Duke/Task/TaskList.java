@@ -41,7 +41,7 @@ public class TaskList {
             int taskDeleteIndex = Integer.parseInt(commands[1]);
             Task deletedTask = taskList.get(taskDeleteIndex - 1);
             taskList.remove(taskDeleteIndex - 1);
-            UserInterface.deleteMessage(taskDeleteIndex, deletedTask, taskList);
+            UserInterface.deleteMessage(deletedTask, taskList);
         } else {
             throw new DukeException();
         }

@@ -1,6 +1,11 @@
 package Duke.TaskTypes;
 
 public class Todo extends Task{
+    /**
+     * Constructor for todo class
+     *
+     * @param description deadline description
+     */
     public Todo(String description) {
         super(description);
     }

@@ -4,7 +4,6 @@ import Duke.BackEnd.DukeParser;
 import Duke.Exception.DukeException;
 import Duke.SaveFile.DataSaver;
 import Duke.Task.TaskList;
-import Duke.TaskTypes.Deadline;
 import Duke.TaskTypes.Task;
 
 import java.util.ArrayList;
@@ -12,6 +11,12 @@ import java.util.ArrayList;
 import static Duke.UI.DukeConstants.DEADLINE_KEYWORD;
 
 public class AddDeadlineCommand {
+    /**
+     * Method checks if the user "Deadline" instruction is valid
+     *
+     * @param inWord the user instruction to be checked
+     * @return true if user instruction is of a correct format, false otherwise
+     */
     public static boolean checkValidDeadline(String inWord) {
         if (!inWord.contains(" ")) {
             return false;
@@ -33,6 +38,13 @@ public class AddDeadlineCommand {
         return !descriptionDetails.isEmpty() && !descriptionBy.isEmpty();
     }
 
+    /**
+     * Method to add Deadline from instruction to task list
+     * and to the save file
+     *
+     * @param inWord The user instruction
+     * @param taskList the current list of user's tasks
+     */
     public static void manageDeadline(String inWord, ArrayList<Task> taskList) {
         try {
             TaskList.addDeadline(inWord);
