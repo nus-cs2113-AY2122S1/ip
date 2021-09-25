@@ -13,7 +13,7 @@ Duke is a Command Line Interface chat-bot application designed to assist the use
 
 ### Features
 
-###Summary
+### Summary
 
 Command | Format
 ------- | --------
