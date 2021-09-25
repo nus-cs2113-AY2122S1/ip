@@ -15,8 +15,7 @@ public class Duke {
     static final int DESCRIPTION = 0;
     static final int TIME = 1;
 
-    public static Task[] tasks = new Task[100];
-    public static int taskCount = 0;
+    //public static Task[] tasks = new Task[100];
 
     public static String[] getDetails(String taskInput, String keyword) {
         String[] details = taskInput.split(keyword,2);
@@ -75,18 +74,38 @@ public class Duke {
             }
             break;
         case "list":
-            printList();
+            try {
+                printList();
+            } catch (EmptyListException e) {
+                alarm(Alarm.EMPTY_LIST);
+            }
             break;
         case "done":
             try {
                 String taskInput = userInput[1];
                 markDone(taskInput);
             } catch (ArrayIndexOutOfBoundsException e) {
-                alarm(Alarm.EMPTY_DONE);
-            } catch (DukeException e) {
+                alarm(Alarm.EMPTY_INDEX);
+            } catch (InvalidIndexException e) {
                 alarm(Alarm.OUT_OF_RANGE);
             } catch (NumberFormatException e) {
                 alarm(Alarm.INVALID_ID);
+            } catch (EmptyListException e) {
+                alarm(Alarm.EMPTY_LIST);
+            }
+            break;
+        case "delete":
+            try {
+                String taskInput = userInput[1];
+                delete(taskInput);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                alarm(Alarm.EMPTY_INDEX);
+            } catch (InvalidIndexException e) {
+                alarm(Alarm.OUT_OF_RANGE);
+            } catch (NumberFormatException e) {
+                alarm(Alarm.INVALID_ID);
+            } catch (EmptyListException e) {
+                alarm(Alarm.EMPTY_LIST);
             }
             break;
         default:
