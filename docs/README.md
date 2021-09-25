@@ -267,8 +267,7 @@ All updates made to the task list are automatically saved to a local file `duke.
 > Note: There is no need to save manually.
 
 <br />
-   
-   
+      
 ### Exit the application : `bye`
 Exits and closes **DUKE**.
 
@@ -307,15 +306,15 @@ it creates with the file that contains the data from your previous Duke home fol
 
 ## Command Summary
 
-| Command Format                             | Action                                                        |
-| -----                                      | -------                                                       |
-| `help`                                     | Lists all the valid commands                                  |
-| `list`                                     | Lists all the scheduled tasks from the task list              |
-| `find <SEARCH_KEYWORD>`                    | Searches in the task list for tasks which contain the keyword |
-| `todo <DESCRIPTION>`                       | Adds a todo task with description                             |
-| `deadline <DESCRIPTION> /by <DATE_TIME>`   | Adds a deadline task with description and a deadline          |
-| `event <DESCRIPTION> /at <DATE_TIME>` ,    | Adds an event task with description and event timing          |
-| `delete <INDEX_NUMBER>`                    | Deletes a task from the specified index                       |
-| `done <INDEX_NUMBER>`                      | Marks the task at the specified index as done                 |
-| `bye`                                      | Exits the application                                         |
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------  
+| Command Format                          | Action                                                        |
+| -----                                   | -------                                                       |
+| `help`                                  | Lists all the valid commands                                  |
+| `list`                                  | Lists all the scheduled tasks from the task list              |
+| `find <SEARCH_KEYWORD>`                 | Searches in the task list for tasks which contain the keyword |
+| `todo <DESCRIPTION>`                    | Adds a todo task with description                             |
+| `deadline <DESCRIPTION> /by <DATE_TIME>`| Adds a deadline task with description and a deadline          |
+| `event <DESCRIPTION> /at <DATE_TIME>`   | Adds an event task with description and event timing          |
+| `delete <INDEX_NUMBER>`                 | Deletes a task from the specified index                       |
+| `done <INDEX_NUMBER>`                   | Marks the task at the specified index as done                 |
+| `bye`                                   | Exits the application                                         |
+------------------------------------------------------------------------------------------------------------
