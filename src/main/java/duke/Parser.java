@@ -1,6 +1,12 @@
 package duke;
 
-import Command.*;
+import Command.AddCommand;
+import Command.Command;
+import Command.DeleteCommand;
+import Command.DoneCommand;
+import Command.ExitCommand;
+import Command.FindCommand;
+import Command.ListCommand;
 
 /**
  * Represents an object to parse user inputs.
