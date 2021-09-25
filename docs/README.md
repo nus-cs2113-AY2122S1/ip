@@ -142,8 +142,8 @@ Here are the tasks in your list:
 ____________________________________________________________
 
 ```
-
 <br />  
+
    
 ### Listing all tasks: `list`
 This command lists all the tasks currently scheduled in the the task list
@@ -176,58 +176,6 @@ The format for each Task printed is:
 
 <br />
 
-### Searching for tasks: `find <KEYWORD>`
-Queries the task list by the keyword passed.
-   
-- All tasks that contains the `KEYWORD` in their task description will be displayed. 
-
-Example: `list` -> `find Attend`
-```shell
-list
-____________________________________________________________
-Here are the tasks in your list:
-1.[E][ ] Attend CS2113T lecture  (at:NOVEMBER 13, 2021 08:00 a.m.)
-2.[D][X] Complete CG2271 Labs  (by:DECEMBER 4, 2021 09:00 a.m.)
-3.[T][X] Attend carnival
-4.[D][ ] Finish all assignments  (by:DECEMBER 25, 2021 11:59 p.m.)
-____________________________________________________________
-find Attend
-[E][ ] Attend CS2113T lecture  (at:NOVEMBER 13, 2021 08:00 a.m.)
-[T][X] Attend carnival
-____________________________________________________________
-```
-
-<br />
-
-### Removing a task: `delete <IDEX_NUMBER>`
-Removes a task from the task list, by their **index_number**
-- **INDEX_NUMBER** : index as displayed in the TASK list.
-   
-Example: `list` -> `delete 2` -> `list` 
-```shell
-list
-____________________________________________________________
-Here are the tasks in your list:
-1.[T][ ] Complete CS2113T Assignment
-2.[D][X] read book  (by:OCTOBER 13, 2021 04:00 p.m.)
-3.[E][ ] attend lecture  (at:NOVEMBER 21, 2021 08:00 a.m.)
-____________________________________________________________
-delete 2
-____________________________________________________________
-Noted. I've removed this task:
-[D][X] read book  (by:OCTOBER 13, 2021 04:00 p.m.)
-Now you have 2 tasks in the list.
-____________________________________________________________
-list
-____________________________________________________________
-Here are the tasks in your list:
-1.[T][ ] Complete CS2113T Assignment
-2.[E][ ] attend lecture  (at:NOVEMBER 21, 2021 08:00 a.m.)
-____________________________________________________________
-
-```
-
-<br />
 
 ### Marking a task as done: `done <INDEX_NUMBER>`
 
@@ -259,7 +207,60 @@ Here are the tasks in your list:
 ```
 
 <br />
+   
+### Deleting a task: `delete <IDEX_NUMBER>`
+Deletes a task from the task list, by their **index_number**
+- **INDEX_NUMBER** : index as displayed in the TASK list.
+   
+Example: `list` -> `delete 2` -> `list` 
+```shell
+list
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] Complete CS2113T Assignment
+2.[D][X] read book  (by:OCTOBER 13, 2021 04:00 p.m.)
+3.[E][ ] attend lecture  (at:NOVEMBER 21, 2021 08:00 a.m.)
+____________________________________________________________
+delete 2
+____________________________________________________________
+Noted. I've removed this task:
+[D][X] read book  (by:OCTOBER 13, 2021 04:00 p.m.)
+Now you have 2 tasks in the list.
+____________________________________________________________
+list
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] Complete CS2113T Assignment
+2.[E][ ] attend lecture  (at:NOVEMBER 21, 2021 08:00 a.m.)
+____________________________________________________________
 
+```
+
+<br />
+
+### Searching for tasks: `find <KEYWORD>`
+Queries the task list by the keyword passed.
+   
+- All tasks that contains the `KEYWORD` in their task description will be displayed. 
+
+Example: `list` -> `find Attend`
+```shell
+list
+____________________________________________________________
+Here are the tasks in your list:
+1.[E][ ] Attend CS2113T lecture  (at:NOVEMBER 13, 2021 08:00 a.m.)
+2.[D][X] Complete CG2271 Labs  (by:DECEMBER 4, 2021 09:00 a.m.)
+3.[T][X] Attend carnival
+4.[D][ ] Finish all assignments  (by:DECEMBER 25, 2021 11:59 p.m.)
+____________________________________________________________
+find Attend
+[E][ ] Attend CS2113T lecture  (at:NOVEMBER 13, 2021 08:00 a.m.)
+[T][X] Attend carnival
+____________________________________________________________
+```
+
+<br />
+   
 ### Saving the Tasks
 All updates made to the task list are automatically saved to a local file `duke.txt`
 > Note: There is no need to save manually.
