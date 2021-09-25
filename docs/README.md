@@ -84,7 +84,7 @@ These are the valid commands:
    
 ### Adding a TODO: `todo <DESCRIPTION>`
 Adds a *TODO* task to the task list. By default, the task is set to **not done**.
-- **DESCRIPTION** : the Task description
+- **DESCRIPTION** :  is the description of the Task
 
 Example: `todo Complete CS2113T Assignment`
 ```shell
@@ -99,8 +99,8 @@ ____________________________________________________________
 <br />
    
 ### Adding a DEADLINE: `deadline <DESCRIPTION> /by <DATE_TIME>`
-Adds a *DEADLINE* task to the task list.By default, the task is set to **not done**.
-- **DESCRIPTION** : the Task description
+Adds a *DEADLINE* task to the task list. By default, the task is set to **not done**.
+- **DESCRIPTION** : is the description of the Task
 - **/by** : is a *REQUIRED* clause when adding a deadline
 - **DATETIME** : the *date* and *time* that the task is due by. This **CANNOT BE NULL/EMPTY**.
 > :warning: Note: datetime needs to be given in a valid format.
@@ -119,7 +119,7 @@ ____________________________________________________________
    
 ### Adding an EVENT: `event <DESCRIPTION> /at <DATE_TIME>`
 Adds a *EVENT* task to the task list. It is set to **not done** by default
-- **DESCRIPTION** : the Task description
+- **DESCRIPTION** :  is the description of the Task
 - **/at** : is a *REQUIRED* clause when adding a deadline
 - **DATETIME** : the *date* and *time* that the task takes place. This **CANNOT BE NULL/EMPTY**.
 > :warning: Note: datetime needs to be given in a valid format.
