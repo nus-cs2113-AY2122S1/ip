@@ -49,7 +49,8 @@ Expected output:
      Now you have 1 task in the list.
     ____________________________________________________________
 ```
-<br></br>
+
+<br>
 
 ### Add a Deadline Task : `deadline`
 Add a Deadline task that has a deadline date/time into the list.
@@ -69,7 +70,7 @@ Expected output:
     ____________________________________________________________
 ```
 
-<br></br>
+<br>
 
 ### Add an Event Task : `event`
 Add an event task that has additional information into the list.
@@ -89,7 +90,7 @@ Expected output:
     ____________________________________________________________
 ```
 
-<br></br>
+<br>
 
 ### Mark Task as Done : `done`
 Mark any task in the list as done.
@@ -108,7 +109,7 @@ Expected output:
     ____________________________________________________________
 ```
 
-<br></br>
+<br>
 
 ### List All Tasks : `list`
 List all the tasks.
@@ -127,7 +128,7 @@ Expected output:
      3.[E][ ] Career Fair (at: NUS)
     ____________________________________________________________
 ```
-<br></br>
+<br>
 
 ### Delete a Task : `delete`
 Delete a task in the list.
@@ -147,7 +148,7 @@ Expected output:
     ____________________________________________________________
 ```
 
-<br></br>
+<br>
 
 ### Find a Task : `find`
 Find all tasks in the list that match the filter word(s) given.
@@ -166,7 +167,7 @@ Expected output:
     ____________________________________________________________
 ```
 
-<br></br>
+<br>
 
 ### Exit the Program : `bye`
 Exit Duke program.
