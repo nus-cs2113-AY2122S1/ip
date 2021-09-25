@@ -20,6 +20,7 @@ public class TaskManager {
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_LIST = "list";
+
     /**
      * Prints a line on the console
      */
@@ -211,9 +212,8 @@ public class TaskManager {
             if (message.equals(COMMAND_LIST)) {
                 printTasks(tasks);
             } else if (message.contains(COMMAND_FIND)) {
-            findTask(tasks, message);
-            }
-        else if (message.contains(COMMAND_DONE)) {
+                findTask(tasks, message);
+            } else if (message.contains(COMMAND_DONE)) {
                 markDone(tasks, message);
             } else if (message.contains(COMMAND_DELETE)) {
                 deleteTask(tasks, message);
@@ -243,13 +243,11 @@ public class TaskManager {
                 System.out.println(task.getDescription());
             }
             printLine();
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             printLine();
             System.out.println("No tasks added yet");
             printLine();
-        }
-        catch (StringIndexOutOfBoundsException e) {
+        } catch (StringIndexOutOfBoundsException e) {
             printLine();
             System.out.println("find cannot be empty");
             printLine();
