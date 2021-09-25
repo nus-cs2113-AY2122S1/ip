@@ -1,8 +1,10 @@
+package duke.task;
+
 public class Task {
 
     protected String description;
     protected boolean isDone;
-    protected int id;
+    public int id;
 
     public static int taskCount = 0;
 

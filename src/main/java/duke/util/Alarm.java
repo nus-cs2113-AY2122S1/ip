@@ -1,3 +1,5 @@
+package duke.util;
+
 public enum Alarm {
     INVALID_COMMAND, BLANK_DESCRIPTION,EMPTY_TODO,
     EMPTY_DEADLINE, EMPTY_EVENT, EMPTY_DONE,
