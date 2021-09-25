@@ -118,7 +118,7 @@ ____________________________________________________________
 ```
 <br />
    
- ### Adding an EVENT: `event <DESCRIPTION> /at <DATE_TIME>`
+### Adding an EVENT: `event <DESCRIPTION> /at <DATE_TIME>`
 Adds a *EVENT* task to the task list. It is set to **not done** by default
 - **DESCRIPTION** : the Task description
 - **/at** : is a *REQUIRED* clause when adding a deadline
