@@ -39,7 +39,7 @@ public class Parser {
      * Task type is either Todo, Deadline or Event.
      * @param input line of input from user
      * @return TaskType of the input
-     * @throws InvalidInputFormatException
+     * @throws InvalidInputFormatException input not in the correct format, missing the /by or /at parameter flag.
      */
     protected static TaskList.TaskType parseTaskType(String input) throws InvalidInputFormatException {
         if (input.startsWith("deadline") && input.contains(" /by ")) {
@@ -104,7 +104,7 @@ public class Parser {
      * Parses the isDone status from a line of input from save file.
      * @param inputLineFromFile line of input from save file
      * @return isDone, whether the task in the input line is done.
-     * @throws InvalidInputFormatException
+     * @throws InvalidInputFormatException file input is not in the correct format.
      */
     protected static boolean parseIsDoneFromFile(String inputLineFromFile) throws InvalidInputFormatException {
         switch (inputLineFromFile.charAt(FILE_ISDONE_INDEX)) {
@@ -122,7 +122,7 @@ public class Parser {
      * Task type is either Todo, Deadline or Event
      * @param inputLineFromFile line of input from save file
      * @return the TaskType of the task from the input line
-     * @throws InvalidInputFormatException
+     * @throws InvalidInputFormatException file input not in the correct format
      */
     protected static TaskList.TaskType parseTaskTypeFromFile(String inputLineFromFile) throws
             InvalidInputFormatException {
@@ -143,7 +143,7 @@ public class Parser {
      * Data is saved in the form [D][X] name DT: yyyy-mm-ddTxx:xx
      * @param inputLineFromFile line of input from save file
      * @return the date and time of the task object from the input line, in the form of a LocalDateTime object.
-     * @throws InvalidInputFormatException
+     * @throws InvalidInputFormatException file input not in the correct format
      */
     protected static LocalDateTime parseDateTimeFromFile(String inputLineFromFile) throws InvalidInputFormatException {
         int markerIndex = inputLineFromFile.indexOf("DT: ");
@@ -157,11 +157,10 @@ public class Parser {
      * @param inputLineFromFile line of input from save file
      * @param taskType type of entry, either Todo, Deadline or Event
      * @return Description of task
-     * @throws InvalidInputFormatException
-     * @throws StringIndexOutOfBoundsException
+     * @throws InvalidInputFormatException file input not in the correct format.
      */
     protected static String parseDescriptionFromFile(String inputLineFromFile, TaskList.TaskType taskType) throws
-            InvalidInputFormatException, StringIndexOutOfBoundsException {
+            InvalidInputFormatException {
         if (taskType.equals(TaskList.TaskType.TODO)) {
             return inputLineFromFile.substring(FILE_TASK_NAME_INDEX);
         } else if (taskType.equals(TaskList.TaskType.DEADLINE) || taskType.equals(TaskList.TaskType.EVENT)) {

@@ -4,6 +4,9 @@ import duke.control.command.ByeCommand;
 import duke.control.command.Command;
 import java.util.Scanner;
 
+/**
+ * Main class for Duke application
+ */
 public class Duke {
     private static TaskList list;
     private static Storage storage;
@@ -23,9 +26,9 @@ public class Duke {
     public static void run() {
         Scanner in = new Scanner(System.in);
         String userInput;
+        Command command;
         while (true) {
             userInput = Ui.getUserResponse(in);
-            Command command;
             try {
                 command = Ui.processInput(userInput);
             } catch (InvalidInputFormatException e) {

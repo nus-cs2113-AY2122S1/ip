@@ -8,7 +8,9 @@ import duke.task.ToDo;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-
+/**
+ * Class for management of list of tasks.
+ */
 public class TaskList {
     private int numberOfEntries = 0;
     private final ArrayList<Task> taskList;
@@ -71,7 +73,7 @@ public class TaskList {
      */
     public void doneEntry(int entryNumber) {
         (taskList.get(entryNumber-1)).setDone();
-        System.out.println((taskList.get(entryNumber-1)).getName() + " done. Well done.");
+        System.out.println((taskList.get(entryNumber-1)).getDescription() + " done. Well done.");
     }
 
     /**
@@ -79,7 +81,6 @@ public class TaskList {
      * The string is stored in the same format as it is displayed: [T][X] name (at: dateTime)
      * InvalidInputFormatException will be thrown and caught if the data in the save file is not of the correct format.
      * i.e. it was saved incorrectly
-     *
      * @param inputLineFromFile the String input that is read from the save file.
      */
     protected void addEntryFromFile(String inputLineFromFile) {
@@ -112,7 +113,7 @@ public class TaskList {
     }
 
     private Deadline addDeadlineFromFile(String inputLineFromFile, String description) throws
-            InvalidInputFormatException{
+            InvalidInputFormatException {
         LocalDateTime dateTime = Parser.parseDateTimeFromFile(inputLineFromFile);
         return new Deadline(description, dateTime);
     }
@@ -131,7 +132,7 @@ public class TaskList {
     }
 
     private Boolean isSearchMatched(String searchTerm, Task entry) {
-        return entry.getName().contains(searchTerm);
+        return entry.getDescription().contains(searchTerm);
     }
 
     /**

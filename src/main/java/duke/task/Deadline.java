@@ -22,7 +22,7 @@ public class Deadline extends TaskWithDateTime {
     public String toString() {
         int hours = dateTime.getHour();
         int minutes = dateTime.getMinute();
-        return (getTaskSymbol() + getStatusSymbol() + " " + name + " (by: " +
+        return (getTaskSymbol() + getStatusSymbol() + " " + description + " (by: " +
                 dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + hours + ":" + minutes + " )");
     }
 
@@ -32,6 +32,6 @@ public class Deadline extends TaskWithDateTime {
      */
     @Override
     public String toStringForSave() {
-        return (getTaskSymbol() + getStatusSymbol() + " " + name + " DT: " + dateTime.toString());
+        return (getTaskSymbol() + getStatusSymbol() + " " + description + " DT: " + dateTime.toString());
     }
 }
