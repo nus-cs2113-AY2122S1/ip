@@ -49,8 +49,8 @@ public class Duke {
         }
     }
 
-    /**
-     * Starts Duke by showing the starting message, running Duke and ends by showing the ending message
+    /** 
+     * Shows users Starting or Ending Messages and starts running Duke
      */
     public void start() {
         ui.showStartingOrEndingMessage(IS_STARTING);
