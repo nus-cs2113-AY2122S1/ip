@@ -2,12 +2,10 @@ package duke;
 
 import duke.exceptions.EmptyDescriptionException;
 import duke.exceptions.EmptyTimeFieldException;
-import duke.task.*;
+import duke.task.Task;
+import duke.task.TaskList;
 
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.time.DateTimeException;
 import java.util.Scanner;
 
 /**
@@ -51,6 +49,8 @@ public class Duke {
                 ui.printEmptyDescriptionErrorMessage();
             } catch (EmptyTimeFieldException exception) {
                 ui.printEmptyTimeFieldErrorMessage();
+            } catch (DateTimeException exception) {
+                ui.printWrongTimeFormatErrorMessage();
             } catch (Exception exception) {
                 ui.printErrorMessage();
             }
@@ -72,10 +72,10 @@ public class Duke {
             executeTodo(inputHandler.getDescription());
             break;
         case COMMAND_DEADLINE:
-            executeDeadline(inputHandler.getDescription(), inputHandler.getTimeField());
+            executeDeadline(inputHandler.getDescription(), inputHandler.getFormattedTimeField());
             break;
         case COMMAND_EVENT:
-            executeEvent(inputHandler.getDescription(), inputHandler.getTimeField());
+            executeEvent(inputHandler.getDescription(), inputHandler.getFormattedTimeField());
             break;
         case COMMAND_DELETE:
             executeDelete(inputHandler.getTaskIndex());
@@ -94,17 +94,17 @@ public class Duke {
 
     private static void executeEvent(String description, String timeField) {
         Task newTask = tasks.addEvent(description, timeField);
-        ui.printAddTask(newTask, (tasks.getNumOfTasks() - 1));
+        ui.printAddTask(newTask, (tasks.getNumOfTasks()));
     }
 
     private static void executeDeadline(String description, String timeField) {
         Task newTask = tasks.addDeadline(description, timeField);
-        ui.printAddTask(newTask, (tasks.getNumOfTasks() - 1));
+        ui.printAddTask(newTask, (tasks.getNumOfTasks()));
     }
 
     private static void executeTodo(String description) {
         Task newTask = tasks.addTodo(description);
-        ui.printAddTask(newTask, (tasks.getNumOfTasks() - 1));
+        ui.printAddTask(newTask, (tasks.getNumOfTasks()));
     }
 
     private static void executeDone(int taskIndex) {
