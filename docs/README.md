@@ -5,8 +5,10 @@ Duke is a **task management tool** designed to help individuals keep track of th
 This **command-line based app** features a personal assistant, Lizzy, that you can interact with in order
 to perform various actions.
 
-##Starting the program
+## Starting the program
+
 (Adapted start-up instructions from [addressbook-level2](https://github.com/se-edu/addressbook-level2/blob/master/docs/UserGuide.adoc))
+
 ### Using IntelliJ
 
 - Find the project in the `Project Explorer` (usually located at the left side)
@@ -137,7 +139,7 @@ Now you have 3 tasks in the list.
 Slow down there bud! You've already completed this task!
 ```
 
-### Delete a task `delete`
+### Delete a task: `delete`
 
 Removes a task from the task list. This process is irreversible.
 
@@ -190,7 +192,7 @@ Outcome:
 Bye. Hope to see you again soon!
 ```
 
-### View list of commands 
+### View list of commands: 
 
 The list of commands is displayed whenever you type in an incorrect command.
 
@@ -213,7 +215,7 @@ event
 bye
 ```
 
-### Saving the data
+### Saving the data:
 
 The task list data is saved in the hard disk automatically after the execution
 of any command that changes data, so there is no need to save manually.
