@@ -1,4 +1,4 @@
-package duke;
+package duke.tasks;
 
 public class Task {
     protected String description;
@@ -25,7 +25,6 @@ public class Task {
     public String toString() {
         return getStatusIcon() + " " + getDescription();
     }
-
 
     public String toFileFormat() {
         return isDone + "|" + description;
