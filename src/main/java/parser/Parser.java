@@ -20,8 +20,8 @@ public class Parser {
             c = new ListCommand();
         } else if (inputToParse.startsWith("remove")) {
             c = new RemoveTask(input);
-        } else if (inputToParse.startsWith("find")) {
-            c = new FindTaskCommand(input);
+//        } else if (inputToParse.startsWith("find")) {
+//            c = new FindTaskCommand(input);
         } else if (inputToParse.equals("clear database")) {
             c = new ClearDatabaseCommand();
         } else if (inputToParse.contains("birthday")) {
