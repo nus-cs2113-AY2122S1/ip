@@ -129,7 +129,7 @@ public class Command {
      */
     public void runFindCommand(String phrase, TaskList tasks) {
         String phraseToSearch = parser.parseSearchInputToString(phrase);
-        ui.printMatchingTaskList(new TaskList(tasks.search(phraseToSearch)));
+        ui.printMatchingTaskList(tasks.search(phraseToSearch));
     }
 
     /**
@@ -143,6 +143,7 @@ public class Command {
     public void runTaskCommand(String phrase, TaskList tasks) throws InvalidInputException {
         Task task = parser.parsePhraseToTask(phrase);
         tasks.add(task);
+        ui.printTaskAdded(task);
         ui.printNumberOfTasks(tasks);
     }
 }

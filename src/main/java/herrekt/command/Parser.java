@@ -5,6 +5,7 @@ import herrekt.taskmanager.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,7 +68,7 @@ public class Parser {
      * @return Phrase to be searched
      */
     public String parseSearchInputToString(String phrase) {
-        return phrase.substring(5);
+        return phrase.substring(5).toLowerCase();
     }
 
     /**

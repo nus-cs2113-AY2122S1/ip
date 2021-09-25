@@ -14,6 +14,10 @@ public abstract class Task {
 
     protected abstract String getDescription();
 
+    protected boolean equals(Task otherTask) {
+        return this.getDescription().equals(otherTask.getDescription());
+    }
+
     protected boolean isDone() {
         return this.isDone;
     }

@@ -1,6 +1,7 @@
 package herrekt.taskmanager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class TaskList {
@@ -17,7 +18,7 @@ public class TaskList {
     
     /** Initialise a Task List to containing an empty list of tasks. */
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     public Task getTask(int index) {
@@ -35,6 +36,18 @@ public class TaskList {
     public void delete(int taskNumber) {
         int index = taskNumber - 1;
         this.tasks.remove(index);
+    }
+
+    private int getTaskNumber(Task task) {
+        int counter = 1;
+        for (int i = 0; i < this.getSize(); i++) {
+            if (task.equals(this.tasks.get(i))) {
+                return counter;
+            } else {
+                counter += 1;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -75,16 +88,83 @@ public class TaskList {
     }
 
     /**
-     * Returns a list of tasks that contains the phrase/
+     * Returns a map of tasks within the search parameters and their number on the task list.
      *
      * @param phrase The parameter of the filter.
-     * @return The list of tasks that matches the search parameters.
+     * @return A HashMap of tasks in the form of TaskNumber, Task.
      */
-    public List<Task> search(String phrase) {
-        List<Task> results = new ArrayList<>();
+    public HashMap<Integer, Task> search(String phrase) {
+        switch (phrase) {
+        case "t":
+            return searchForTodo();
+        case "d":
+            return searchForDeadline();
+        case "e":
+            return searchForEvent();
+        case "done":
+            return searchForDone();
+        case "undone":
+            return searchForNotDone();
+        default:
+            return defaultSearch(phrase);
+        }
+    }
+
+    private HashMap<Integer, Task> defaultSearch(String phrase) {
+        HashMap<Integer, Task> results = new HashMap<>();
         for (Task task : this.tasks) {
-            if (task.getDescription().contains(phrase)) {
-                results.add(task);
+            if (task.getDescription().toLowerCase().contains(phrase)) {
+                results.put(this.getTaskNumber(task), task);
+            }
+        }
+        return results;
+    }
+
+    private HashMap<Integer, Task> searchForTodo() {
+        HashMap<Integer, Task> results = new HashMap<>();
+        for (Task task : this.tasks) {
+            if (task instanceof Todo) {
+                results.put(this.getTaskNumber(task), task);
+            }
+        }
+        return results;
+    }
+
+    private HashMap<Integer, Task> searchForDeadline() {
+        HashMap<Integer, Task> results = new HashMap<>();
+        for (Task task : this.tasks) {
+            if (task instanceof Deadline) {
+                results.put(this.getTaskNumber(task), task);
+            }
+        }
+        return results;
+    }
+
+    private HashMap<Integer, Task> searchForEvent() {
+        HashMap<Integer, Task> results = new HashMap<>();
+        for (Task task : this.tasks) {
+            if (task instanceof Event) {
+                results.put(this.getTaskNumber(task), task);
+            }
+        }
+        return results;
+    }
+
+    private HashMap<Integer, Task> searchForDone() {
+        HashMap<Integer, Task> results = new HashMap<>();
+        for (Task task : this.tasks) {
+            if (task.isDone()) {
+                results.put(this.getTaskNumber(task), task);
+            }
+        }
+        return results;
+    }
+
+    private HashMap<Integer, Task> searchForNotDone() {
+        HashMap<Integer, Task> results = new HashMap<>();
+        for (Task task : this.tasks) {
+            if (!task.isDone()) {
+                results.put(this.getTaskNumber(task), task);
             }
         }
         return results;
