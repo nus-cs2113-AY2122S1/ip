@@ -1,24 +1,25 @@
 package duke.task;
+import java.time.LocalDate;
 
 public class Deadline extends Task {
-    String by;
+    LocalDate by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         setBy(by);
     }
 
-    public String getBy() {
+    public LocalDate getBy() {
         return by;
     }
 
-    public void setBy(String by) {
+    public void setBy(LocalDate by) {
         this.by = by;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + getBy() + ")";
+        return super.toString() + " (by: " + getBy().format(formatter) + ")";
     }
 
     @Override

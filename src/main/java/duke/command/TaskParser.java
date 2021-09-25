@@ -7,6 +7,7 @@ import duke.task.Todo;
 import duke.task.Task;
 import duke.task.Event;
 import duke.task.Deadline;
+import java.time.LocalDate;
 
 final public class TaskParser {
     static private List<Class<? extends Task>> taskTypes =
@@ -24,17 +25,19 @@ final public class TaskParser {
             int byPosition = Arrays.asList(args).indexOf("/by");
             description =
                 String.join(" ", Arrays.copyOfRange(args, 1, byPosition));
-            String by = String.join(
+            String byStr = String.join(
                 " ", Arrays.copyOfRange(args, byPosition + 1, args.length));
-            newTask = new Deadline(description, by);
+            LocalDate byDate = LocalDate.parse(byStr);
+            newTask = new Deadline(description, byDate);
             break;
         case "event":
             int atPosition = Arrays.asList(args).indexOf("/at");
             description =
                 String.join(" ", Arrays.copyOfRange(args, 1, atPosition));
-            String at = String.join(
+            String atStr = String.join(
                 " ", Arrays.copyOfRange(args, atPosition + 1, args.length));
-            newTask = new Event(description, at);
+            LocalDate atDate = LocalDate.parse(atStr);
+            newTask = new Event(description, atDate);
             break;
         case "todo":
             if (args.length == 1) {

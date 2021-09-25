@@ -1,10 +1,12 @@
 package duke.task;
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 
 public abstract class Task implements Serializable {
 
     private String title = "";
     private boolean doneStatus = false;
+    protected final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     protected String getType() {
         return "task";
