@@ -318,6 +318,8 @@ Command Format | Action
 `done <INDEX_NUMBER>`| Marks the task at the specified index as done 
 `bye` | Exits the application |
 ------------------------------------------------------------------------------------------------------------
+##test
+   
 | Syntax      | Description |
 | ----------- | ----------- |
 | Header      | Title       |
