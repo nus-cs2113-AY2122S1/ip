@@ -341,6 +341,12 @@ public class Parser {
         try {
             String[] storedArr = storedTask.split(DELIM_PIPE);
             String taskLabel = storedArr[0];
+            String doneInput = storedArr[1];
+            boolean isValidDoneInput = doneInput.equalsIgnoreCase("true")
+                    || doneInput.equalsIgnoreCase("false");
+            if (!isValidDoneInput) {
+                throw new FileCorruptedException();
+            }
             boolean isDone = Boolean.parseBoolean(storedArr[1]);
             String description = storedArr[2];
             String date;
