@@ -11,7 +11,7 @@ to set up Duke on your computer.
 ### To run the jar file
 1. Install `Java 11` on your computer.
 2. Download the `ip.jar` file from 
-[here](https://github.com/brendanlsz/ip/releases/tag/A-Jar).
+[here](https://github.com/brendanlsz/ip/releases/tag/A-Release).
 3. Create a new folder and copy the `ip.jar` into this folder.
 4. Open a terminal (such as `cmd`) in this folder.
 5. To launch Duke, type `java -jar ip.jar` into your terminal.
