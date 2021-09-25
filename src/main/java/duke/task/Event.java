@@ -1,9 +1,15 @@
 package duke.task;
 
-public class Event extends Task {
+import duke.command.Parser;
 
-    public Event(String description) {
+import java.time.LocalDateTime;
+
+public class Event extends Task {
+    protected LocalDateTime dateTime;
+
+    public Event(String description, LocalDateTime dateTime) {
         super(description);
+        this.dateTime = dateTime;
     }
 
     @Override
@@ -13,8 +19,17 @@ public class Event extends Task {
 
     @Override
     public String getDescription() {
-        int byPos = description.indexOf("/at");
-        return (description.substring(0, byPos) + "(at: " + description.substring(byPos + 3).trim() + ")");
+        return (description + "(at: " + Parser.dateStringOutput(dateTime) + ")");
+    }
+
+    @Override
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    @Override
+    public String getOriginalDescription() {
+        return (description + "/at " + dateTime.format(Parser.inputFormatter));
     }
 
 }

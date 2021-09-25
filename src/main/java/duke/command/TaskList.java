@@ -8,6 +8,8 @@ import duke.task.ToDo;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class TaskList {
     static ArrayList<Task> taskList = null;
@@ -16,6 +18,16 @@ public class TaskList {
 
     public TaskList() {
         taskList = new ArrayList<Task>();
+
+        String str = "23/04/1999 0830 123213";
+        try {
+            LocalDateTime dateTime = Parser.parseDate(str);
+        } catch (Exception e) {
+            System.out.println("☹ OOPS!!! Invalid date");
+
+        }
+
+        //System.out.println(dateTime.format(outputFormatter));
     }
 
     static void addTask(String taskType, String taskDescription) throws IOException {
@@ -38,7 +50,15 @@ public class TaskList {
                 Ui.printDividerLine();
                 return;
             }
-            taskList.add((new Deadline(taskDescription)));
+            int byPos = taskDescription.indexOf("/by");
+            try {
+                LocalDateTime dateTime = Parser.parseDate(taskDescription.substring(byPos + 3).trim());
+                taskList.add((new Deadline(taskDescription.substring(0, byPos), dateTime)));
+            } catch (Exception a) {
+                System.out.println("Invalid time format!");
+                Ui.printDividerLine();
+                return;
+            }
             break;
         case Parser.EVENT:
             if (!taskDescription.contains("/at")) {
@@ -47,7 +67,15 @@ public class TaskList {
                 Ui.printDividerLine();
                 return;
             }
-            taskList.add((new Event(taskDescription)));
+            int atPos = taskDescription.indexOf("/at");
+            try {
+                LocalDateTime dateTime = Parser.parseDate(taskDescription.substring(atPos + 3).trim());
+                taskList.add((new Event(taskDescription.substring(0, atPos), dateTime)));
+            } catch (Exception a) {
+                System.out.println("Invalid time format!");
+                Ui.printDividerLine();
+                return;
+            }
             break;
         }
 
@@ -55,7 +83,7 @@ public class TaskList {
         System.out.println("I have added this task:");
         type = TaskList.taskList.get(numberOfTasks).getType();
         status = TaskList.taskList.get(numberOfTasks).getStatusIcon();
-        description = TaskList.taskList.get(numberOfTasks).getOriginalDescription();
+        description = TaskList.taskList.get(numberOfTasks).getDescription();
         System.out.println("[" + type + "][" + status + "] " + description);
         numberOfTasks++;
         System.out.println("You have " + numberOfTasks + " task(s) in the list.");
@@ -100,6 +128,47 @@ public class TaskList {
 
     }
 
+    static void beforeDate(String dateString) {
+        LocalDateTime dateTime;
+        Ui.printDividerLine();
+        try {
+            dateTime = Parser.parseDate(dateString);
+        } catch (Exception a) {
+            System.out.println("Invalid time format!");
+            Ui.printDividerLine();
+            return;
+        }
+        System.out.println("The following tasks happen before " + Parser.dateStringOutput(dateTime) + ":");
+        boolean isValidType;
+        for (Task item : taskList) {
+            isValidType = item.getType().equals("D") || item.getType().equals("E");
+            if (isValidType && item.getDateTime().isBefore(dateTime)) {
+                System.out.println("[" + item.getType() + "][" + item.getStatusIcon() + "] " + item.getDescription());
+            }
+        }
+        Ui.printDividerLine();
+    }
+
+    static void afterDate(String dateString) {
+        LocalDateTime dateTime;
+        Ui.printDividerLine();
+        try {
+            dateTime = Parser.parseDate(dateString);
+        } catch (Exception a) {
+            System.out.println("Invalid time format!");
+            Ui.printDividerLine();
+            return;
+        }
+        System.out.println("The following tasks happen after " + Parser.dateStringOutput(dateTime) + ":");
+        boolean isValidType;
+        for (Task item : taskList) {
+            isValidType = item.getType().equals("D") || item.getType().equals("E");
+            if (isValidType && item.getDateTime().isAfter(dateTime)) {
+                System.out.println("[" + item.getType() + "][" + item.getStatusIcon() + "] " + item.getDescription());
+            }
+        }
+        Ui.printDividerLine();
+    }
     static void find(String keyword) {
         Ui.printDividerLine();
         System.out.println("Here are the matching tasks in your list:");

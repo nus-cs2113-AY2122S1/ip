@@ -1,7 +1,9 @@
 package duke.command;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class Parser {
     public static final String TODO = "todo";
@@ -9,10 +11,14 @@ public class Parser {
     public static final String EVENT = "event";
     public static final String LIST = "list";
     public static final String DONE = "done";
-    public static final String EXIT = "bye";
+    public static final String BEFORE = "before";
+    public static final String AFTER = "after";
     public static final String DELETE = "delete";
     public static final String FIND = "find";
+    public static final String EXIT = "bye";
     static int taskNumber;
+    public static DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    public static DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm a");
 
     static void chooseTask() throws IOException {
         String line, taskType, taskDescription = null;
@@ -50,6 +56,12 @@ public class Parser {
                 TaskList.deleteTask(taskNumber);
             }
             break;
+        case BEFORE:
+            TaskList.beforeDate(taskDescription);
+            break;
+        case AFTER:
+            TaskList.afterDate(taskDescription);
+            break;
         case FIND:
             if (taskDescription == null) {
                 Ui.printDividerLine();
@@ -82,4 +94,13 @@ public class Parser {
         }
         return true;
     }
+
+    static LocalDateTime parseDate(String str) {
+        return LocalDateTime.parse(str, inputFormatter);
+    }
+    public static String dateStringOutput(LocalDateTime dateTime) {
+        return dateTime.format(outputFormatter);
+    }
+
+
 }
