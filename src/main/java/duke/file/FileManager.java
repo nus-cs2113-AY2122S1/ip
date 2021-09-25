@@ -128,7 +128,7 @@ public class FileManager {
      *
      * @param taskManager Passed to the initialiseDukeStatus method.
      */
-    public void initialiseDuke(TaskManager taskManager, Ui ui) {
+    public void initialiseDuke(TaskManager taskManager) {
         createDirectory();
         try {
             createFile();

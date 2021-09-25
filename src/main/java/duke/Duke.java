@@ -29,7 +29,7 @@ public class Duke {
     public Duke() {
         taskManager = new TaskManager();
         fileManager = new FileManager(FILE_PATH.toString(), DIRECTORY_PATH.toString());
-        fileManager.initialiseDuke(taskManager, ui);
+        fileManager.initialiseDuke(taskManager);
         parser = new Parser();
         ui = new Ui();
     }
