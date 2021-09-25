@@ -12,7 +12,9 @@ Duke is a Command Line Interface chat-bot application designed to assist the use
 6. Press enter to see a list of Valid Commands
 
 ### Features
+
 ###Summary
+
 Command | Format
 ------- | --------
 todo | `todo {description}` eg. `todo sleep`
