@@ -217,26 +217,28 @@ Example: `help`
 Removes a task from the task list, by their **idx**
 - **IDX** : index as displayed in the full list (**NOT QUERIED LIST**)
 
-Example: `list` -> `delete 6`
+Example: `list` -> `delete 2`
 ```shell
-~$ list
-------------------------------------------
-Here are your scheduled tasks!
-1.[T][ ] eat dinner
-2.[T][ ] read book 2
-3.[T][ ] read book
-4.[D][ ] return book (by: May 29 1998 18:00)
-5.[D][ ] eat food (by: Sep 18 2021 23:59)
-6.[D][ ] eat lunch (by: Sep 20 2021 12:00)
-7.[E][ ] family dinner (at: Sep 20 2021 19:30)
-------------------------------------------
+list
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] Complete CS2113T Assignment
+2.[D][X] read book  (by:OCTOBER 13, 2021 04:00 p.m.)
+3.[E][ ] attend lecture  (at:NOVEMBER 21, 2021 08:00 a.m.)
+____________________________________________________________
+delete 2
+____________________________________________________________
+Noted. I've removed this task:
+[D][X] read book  (by:OCTOBER 13, 2021 04:00 p.m.)
+Now you have 2 tasks in the list.
+____________________________________________________________
+list
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] Complete CS2113T Assignment
+2.[E][ ] attend lecture  (at:NOVEMBER 21, 2021 08:00 a.m.)
+____________________________________________________________
 
-~$ delete 6
-------------------------------------------
-Noted. I've removed this task: 
-[D][ ] eat lunch (by: Sep 20 2021 12:00)
-You now have (6) tasks!
-------------------------------------------
 ```
 
 <br />
