@@ -66,6 +66,9 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Error for wrong task type
+     */
     private static void taskError() {
         printLine();
         System.out.println(TASK_ERROR);
