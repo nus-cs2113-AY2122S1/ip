@@ -47,6 +47,13 @@ public class ProgramManager {
         } while (getIsRunning());
     }
 
+    /**
+     * Returns a boolean to check if program has ran before.
+     *
+     * This method checks for existing storage file in the file path, to detect
+     * if it is the program's first run.
+     * @return boolean to check if it is the first program run
+     */
     public boolean getIsFirstRun() {
         File dataFile = new File(Storage.getFilePath());
         if (dataFile.exists()) {
@@ -57,10 +64,18 @@ public class ProgramManager {
         return this.isFirstRun;
     }
 
+    /**
+     * This method provides a flag to end the program.
+     */
     public void setIsRunningOff() {
         this.isRunning = false;
     }
 
+    /**
+     * Return a boolean to check if the program is still running.
+     *
+     * @return boolean to check the runnng status of the program
+     */
     public boolean getIsRunning() {
         return isRunning;
     }

@@ -1,7 +1,7 @@
 package karen.exception;
 
 
-public abstract class ErrorCheck {
+public abstract class ValidityAndErrorCheck {
 
     /**
      * This method checks for errors when parsing Task Commands, ie. Deadline Command, Event Command,
@@ -45,6 +45,9 @@ public abstract class ErrorCheck {
     public static void checkCommandDescriptionExceptions(String command, String rawUserInput)
             throws NoDescriptionException, IncorrectDescriptionFormatException {
         String[] inputWords = rawUserInput.split(" ");
+        if (command.equals("find")) {
+            inputWords = rawUserInput.split(" ", 2);
+        }
         if (command.equals("bye")) {
             if (inputWords.length != 1) {
                 throw new IncorrectDescriptionFormatException();
@@ -58,7 +61,5 @@ public abstract class ErrorCheck {
             throw new IncorrectDescriptionFormatException();
         }
     }
-
-
 
 }

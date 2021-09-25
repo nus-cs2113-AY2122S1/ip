@@ -26,12 +26,12 @@ public class ToDo extends Task{
 
     /**
      * Returns a formatted task description of the ToDo task object as a String to be
-     * saved in the storage file, eg. "Todo,X,Finish Homework".
+     * saved in the storage file, eg. "Todo@X@Finish Homework".
      *
      * @return formatted description of the ToDo task object as String to be saved  in the storage file
      */
     public String getFormattedFileDescription() {
-        return String.format("Todo,%s,%s",getStatusIcon(), this.taskDescription);
+        return String.format("Todo@%s@%s",getStatusIcon(), this.taskDescription);
     }
 
 }

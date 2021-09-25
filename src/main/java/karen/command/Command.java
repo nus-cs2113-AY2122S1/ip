@@ -1,10 +1,7 @@
 package karen.command;
 
-import karen.exception.ErrorCheck;
 import karen.program.ProgramManager;
 import karen.storage.Storage;
-import karen.exception.IncorrectDescriptionFormatException;
-import karen.exception.NoDescriptionException;
 import karen.tasklist.TaskList;
 import karen.ui.Ui;
 import karen.tasklist.task.Deadline;
@@ -13,23 +10,57 @@ import karen.tasklist.task.Task;
 import karen.tasklist.task.ToDo;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Command {
-    private String command;
+    private String commandType;
     private TaskList taskList;
     private ArrayList<Task> tasks;
     private ProgramManager programManager;
 
-    public Command(String command, ProgramManager programManager, TaskList taskList) {
-        this.command = command;
+    public Command(String commandType, ProgramManager programManager, TaskList taskList) {
+        this.commandType = commandType;
         this.taskList = taskList;
         this.tasks = taskList.getTaskList();
         this.programManager = programManager;
     }
 
-    public String getCommand() {
-        return command;
+    public String getCommandType() {
+        return this.commandType;
+    }
+
+    /**
+     * This method retrieves Task objects that contain the given keyword in their
+     * description from the list of tasks and then prints them out.
+     *
+     * @param keyword String given by user to query for matching Task objects
+     * @param tasks a list of Task objects to query from
+     */
+    public void executeFindCommand(String keyword, ArrayList<Task> tasks) {
+        List<Task> filteredTasks = tasks.stream()
+                .filter((t) -> t.getTaskDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+        Ui.printFoundTasks(filteredTasks, keyword);
+    }
+
+    /**
+     * This method retrieves Task objects that have the same date as the given
+     * input date from the list of tasks and then prints them out.
+     *
+     * @param date LocalDate given by user to find tasks occurring on that day
+     * @param tasks list of Task objects to query from
+     */
+    public void executeShowCommand(LocalDate date, ArrayList<Task> tasks) {
+        List<Task> filteredTasks = tasks.stream()
+                .filter((t) -> t instanceof Deadline || t instanceof Event)
+                .filter((t) -> (t.getDate()).equals(date))
+                .collect(Collectors.toList());
+
+        Ui.printTasksOnDate(date, filteredTasks);
+
     }
 
     /**
@@ -41,7 +72,7 @@ public class Command {
      * object with doneIndex as their index
      * @throws IOException if there are errors when writing to storage file
      */
-    public void executeDoneCommand (int doneIndex) throws NumberFormatException, IndexOutOfBoundsException, IOException {
+    public void executeDoneCommand(int doneIndex) throws NumberFormatException, IndexOutOfBoundsException, IOException {
         if (!tasks.get(doneIndex).getIsDone()) {
             tasks.get(doneIndex).markAsDone();
             Ui.printTaskDoneMessage(tasks.get(doneIndex));
@@ -135,5 +166,4 @@ public class Command {
         Ui.printGoodByeMessage();
         programManager.setIsRunningOff();
     }
-
 }

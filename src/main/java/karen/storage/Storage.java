@@ -14,8 +14,8 @@ public abstract class Storage {
     private static final String FILE_PATH = "data/bobby.txt";
 
     /**
-     * This method is called when there is no existing storage file in the specific file path, FILE_PATH.
-     * It uses the File object read in to create a new storage file to the specified file path.
+     * This method is called when there is no existing storage file in the specific file path,
+     * FILE_PATH. It uses the File object to create a new storage file to the specified file path.
      * This method also catches any exceptions thrown when creating a new file.
      *
      * @param dataFile file object with a specified path name, FILE_PATH

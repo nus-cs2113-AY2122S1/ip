@@ -1,12 +1,15 @@
 package karen.tasklist.task;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Task {
     protected String taskDescription;
     protected boolean isDone;
 
     /**
      * This class constructor is used to instantiate a new Task object with a given task description
-     * and done status as false, by default.
+     * and done status set as false by default.
      *
      * @param taskDescription task description of the Task object
      */
@@ -64,6 +67,24 @@ public class Task {
     }
 
     /**
+     * Returns task date if any.
+     *
+     * @return task date if any as a LocalDate
+     */
+    public LocalDate getDate() {
+        return null;
+    }
+
+    /**
+     * Returns task time if any.
+     *
+     * @return task time if any as a LocalTime
+     */
+    public LocalTime getTime() {
+        return null;
+    }
+
+    /**
      * Returns the taskDescription of the Task object, eg. "Finish Homework".
      *
      * @return task description of the Task object as a String
@@ -81,5 +102,4 @@ public class Task {
     public String getFormattedFileDescription() {
         return this.taskDescription;
     }
-
 }
