@@ -1,5 +1,6 @@
 package task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -23,8 +24,13 @@ public class Deadline extends Task {
         return time.format(dtf);
     }
 
+    @Override
     public String toString() {
         return "[d] [" + getStatus() + "] " + getDescription()
                 + " (By: " + getTime() + ")";
+    }
+
+    public Boolean compareDate(LocalDate ld) {
+        return ld.equals(time.toLocalDate());
     }
 }

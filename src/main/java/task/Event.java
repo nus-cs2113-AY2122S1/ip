@@ -31,9 +31,13 @@ public class Event extends Task {
         return end.format(dtf);
     }
 
+
     public String toString() {
         return "[e] [" + getStatus() + "] " + getDescription()
                 + " (" + getStart() + " to " + getEnd() + ")";
     }
 
+    public Boolean compareDate(LocalDate ld) {
+        return ld == start.toLocalDate();
+    }
 }
