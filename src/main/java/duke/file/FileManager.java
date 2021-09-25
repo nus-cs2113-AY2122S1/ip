@@ -21,9 +21,9 @@ public class FileManager {
     public String filePath;
     public String directoryPath;
 
-
     /**
      * Constructs a FileManager with the file path and directory path.
+     * Then, instantiates an Ui object.
      *
      * @param filePath      The path of the file.
      * @param directoryPath The path of the directory.
