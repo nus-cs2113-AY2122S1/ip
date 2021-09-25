@@ -23,7 +23,11 @@ Duke is a desktop application for **keeping track of tasks** via a **Command Lin
 6. Type a command in Duke's command box and press enter to execute it.
 7. Refer to the **Features** below for details of each command.
 
-## Features 
+## Features
+
+**Notes about the command format:**
+* Words in UPPER_CASE are the parameters to be supplied by the user.
+* For commands that do not take in parameters, supplying a parameter will result in an error.
 
 ### Adding a todo: `todo`
 
@@ -143,7 +147,8 @@ Exits the program.
 
 Format: `bye`
 
-Example:
+Example: `bye`
+
 ```
 ____________________________________________________________
  Bye. Hope to see you again soon!
@@ -151,13 +156,13 @@ ____________________________________________________________
 ```
 
 ## Command Summary
-Command | Format
------------- | -------------
-Todo | `todo TASK_DESCRIPTION`
-Deadline | `deadline TASK_DESCRIPTION /by DEADLINE`
-Event | `event TASK_DESCRIPTION /at DATE`
-List | `list`
-Done | `done TASK_NUMBER`
-Find | `find KEYWORD`
-Delete | `delete TASK_NUMBER`
-Bye | `bye`
+| Command | Format |
+| ------------ | ------------- |
+| Todo | `todo TASK_DESCRIPTION` |
+| Deadline | `deadline TASK_DESCRIPTION /by DEADLINE` |
+| Event | `event TASK_DESCRIPTION /at DATE` |
+| List | `list` |
+| Done | `done TASK_NUMBER` |
+| Find | `find KEYWORD` |
+| Delete | `delete TASK_NUMBER` |
+| Bye | `bye` |
