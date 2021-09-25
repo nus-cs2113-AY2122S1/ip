@@ -6,9 +6,17 @@ import duke.ui.Ui;
 import duke.exception.InvalidTaskDescriptionException;
 import duke.task.Task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 
+
 public class Parser {
+
+    private static final String DATE_AND_OR_TIME_FORMAT = "dd/mm/yyyy[ HH:mm]";
 
     public static String getCommand(String userInput) {
         String[] input = userInput.trim().toLowerCase().split(" ");
@@ -75,9 +83,20 @@ public class Parser {
         return userInput.substring(descriptionPosition, timePosition);
     }
 
-    public static String getDeadlineOrEventTime(String userInput) {
-        int timePosition = DeadlineOrEventTimePosition(userInput);
-        return userInput.substring(timePosition + 3);
+//    public static String getDeadlineOrEventTime(String userInput) {
+//        int timePosition = DeadlineOrEventTimePosition(userInput);
+//        return userInput.substring(timePosition + 3);
+//    }
+
+    //https://stackoverflow.com/questions/48280447/java-8-datetimeformatter-with-optional-part
+    public static LocalDateTime getDeadlineOrEventDateAndTime(String userInput) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_AND_OR_TIME_FORMAT);
+        TemporalAccessor temporalAccessor = formatter.parseBest(userInput, LocalDateTime::from, LocalDate::from);
+        if (temporalAccessor instanceof LocalDateTime) {
+            return (LocalDateTime) temporalAccessor;
+        } else {
+            return ((LocalDate)temporalAccessor).atStartOfDay();
+        }
     }
 
     public static int getTaskNumber(String userInput) {
@@ -106,5 +125,7 @@ public class Parser {
     public static boolean isValidEventFormat(String userInput) {
         return userInput.contains("/at");
     }
+
+
 
 }
