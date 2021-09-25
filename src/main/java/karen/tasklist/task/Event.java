@@ -5,57 +5,79 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task{
-    private String at;
     private LocalDate date;
     private LocalTime time;
-    private String eventTask;
-    private String formattedDescription;
-    private String formattedDateAndTime;
+    private String at;
 
-    public Event(String fullTaskDescription, String eventTask, String at) {
-        super(fullTaskDescription);
+    public Event(String taskDescription, String at, LocalDate date, LocalTime time){
+        super(taskDescription);
         this.at = at;
-        this.date = findDate();
-        this.time = findTime();
-        this.eventTask = eventTask;
-        this.formattedDescription = getFormattedDescription();
-        this.formattedDateAndTime = getFormattedDateAndTime();
+        this.date = date;
+        this.time = time;
     }
 
-
-    public String getType(){
+    /**
+     * Returns "Event" as the task type.
+     *
+     * @return String to represent task type of Event object
+     */
+    public String getType() {
         return "Event";
     }
 
-    public LocalDate findDate() {
-        String[] splitDateAndTime = this.at.split(" ", 0);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate date = LocalDate.parse(splitDateAndTime[0], formatter);
-        return date;
-    }
-
-    public LocalTime findTime() {
-        String[] splitDateAndTime = this.at.split(" ", 0);
-        if (splitDateAndTime.length == 2) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
-            LocalTime time = LocalTime.parse(splitDateAndTime[1], formatter);
-            return time;
-        }
-        return null;
-    }
-
+    /**
+     * Returns the date that the task occurs on.
+     *
+     * @return task date as a LocalDate
+     */
     public LocalDate getDate() {
         return this.date;
     }
 
+    /**
+     * Returns the time that the task occurs on.
+     *
+     * @return task time as a LocalTime
+     */
     public LocalTime getTime() {
         return this.time;
     }
 
-    public String getFormattedDescription() {
-        return String.format("%s (at: %s)", this.eventTask, this.formattedDateAndTime);
+    /**
+     * Returns the date and time which the Event task object is at, as a String.
+     *
+     * @return String to represent the date which the Event task object is at
+     */
+    public String getAt() {
+        return at;
     }
 
+    /**
+     * Returns a formatted task description of the Event task object,
+     * eg. "Attend Lessons (at: Dec 18 2021, Mon, 1800h)".
+     *
+     * @return a formatted task description of the Event task object as a String
+     */
+    public String getFormattedDescription() {
+        String formattedDateAndTime = getFormattedDateAndTime();
+        return String.format("%s (at: %s)", this.taskDescription, formattedDateAndTime);
+    }
+
+    /**
+     * Returns a formatted task description of the Event task object as a String to be
+     * saved in the storage file, eg. "Event@X@Finish Homework@ 21-9-2021 1800h".
+     *
+     * @return a formatted task description of the Event task object as String to be saved in the storage file
+     */
+    public String getFormattedFileDescription() {
+        return String.format("Event@%s@%s@%s",getStatusIcon(), taskDescription, this.at);
+    }
+
+    /**
+     * Returns a formatted date and time String of the Event task object,
+     * eg. "Dec 18 2021, Mon, 1800h"
+     * @return a formatted date and time String of the Event task object
+     */
     public String getFormattedDateAndTime() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM d yyyy, E");
         String formattedDateAndTime = this.date.format(dateFormatter);
@@ -65,14 +87,4 @@ public class Event extends Task{
         }
         return formattedDateAndTime;
     }
-
-    public String getFormattedFileDescription() {
-        return String.format("Event@%s@%s@%s",getStatusIcon(), this.eventTask, this.at);
-    }
-
-    //obtain the task to do from the input description
-    public String getTask(){
-        return eventTask;
-    }
-
 }

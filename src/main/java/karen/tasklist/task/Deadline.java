@@ -5,59 +5,70 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
-    private String by;
     private LocalDate date;
     private LocalTime time;
-    private String deadlineTask;
-    private String formattedDescription;
-    private String formattedDateAndTime;
+    private String by;
 
-    public Deadline(String fullTaskDescription, String deadlineTask, String by) {
-        super(fullTaskDescription);
+
+    public Deadline(String taskDescription, String by, LocalDate date, LocalTime time) {
+        super(taskDescription);
         this.by = by;
-        this.date = findDate();
-        this.time = findTime();
-        this.deadlineTask = deadlineTask;
-        this.formattedDescription = getFormattedDescription();
-        this.formattedDateAndTime = getFormattedDateAndTime();
+        this.date = date;
+        this.time = time;
     }
 
+    /**
+     * Returns "Deadline" as the task type.
+     *
+     * @return String to represent task type of Deadline object
+     */
     public String getType() {
         return "Deadline";
     }
 
-    public LocalDate findDate() {
-        String[] splitDateAndTime = this.by.split(" ", 0);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String dateString = splitDateAndTime[0].trim();
-        LocalDate date = LocalDate.parse(dateString, formatter);
-        return date;
-    }
-
-    public LocalTime findTime() {
-        String[] splitDateAndTime = this.by.split(" ", 0);
-
-        if (splitDateAndTime.length == 2) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmm");
-            String timeString = splitDateAndTime[1].trim();
-            LocalTime time = LocalTime.parse(timeString, formatter);
-            return time;
-        }
-        return null;
-    }
-
+    /**
+     * Returns completion date of the task.
+     *
+     * @return task date as a LocalDate
+     */
     public LocalDate getDate() {
         return this.date;
     }
 
+    /**
+     * Returns time of the task to finish by.
+     *
+     * @return task time as a LocalTime
+     */
     public LocalTime getTime() {
         return this.time;
     }
 
-    public String getFormattedDescription() {
-        return String.format("%s (by: %s)", this.deadlineTask, this.formattedDateAndTime);
+    /**
+     * Returns the date and time which the Deadline task object is set to be completed by, as a String.
+     *
+     * @return String to represent the date and time which the Deadline task object is to be completed by
+     */
+    public String getBy() {
+        return this.by;
     }
 
+    /**
+     * Returns a formatted task description of the Deadline task object,
+     * eg. "Finish Homework (by: Dec 18 2021, Mon, 1800h)".
+     *
+     * @return a formatted task description of the Deadline task object as a String
+     */
+    public String getFormattedDescription() {
+        String formattedDateAndTime = getFormattedDateAndTime();
+        return String.format("%s (by: %s)", this.taskDescription, formattedDateAndTime);
+    }
+
+    /**
+     * Returns a formatted date and time String of the Deadline task object,
+     * eg. "Dec 18 2021, Mon, 1800h"
+     * @return a formatted date and time String of the Deadline task object
+     */
     public String getFormattedDateAndTime() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM d yyyy, E");
         String formattedDateAndTime = this.date.format(dateFormatter);
@@ -69,13 +80,13 @@ public class Deadline extends Task{
         return formattedDateAndTime;
     }
 
+    /**
+     * Returns a formatted task description of the Deadline task object as a String to be
+     * saved in the storage file, eg. "Deadline@ @Finish Homework@ 21-9-2021 1830".
+     *
+     * @return a formatted task description of the Deadline task object as String to be saved in the storage file
+     */
     public String getFormattedFileDescription() {
-        return String.format("Deadline@%s@%s@%s",getStatusIcon(), this.deadlineTask, this.by);
-    }
-
-
-    //obtain the task to do from the input description
-    public String getTask() {
-        return deadlineTask;
+        return String.format("Deadline@%s@%s@%s",getStatusIcon(), this.taskDescription, this.by);
     }
 }
