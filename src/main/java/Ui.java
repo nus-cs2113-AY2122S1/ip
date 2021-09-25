@@ -1,5 +1,9 @@
 package ip.src.main.java;
 
+/**
+ * Represents a UI class. A <code>UI</code> Class contains methods regarding the
+ * printing of data from the computer to the user and makes the main code simpler.
+ */
 public class Ui {
     public static void printContents() {
         System.out.println("Here's your content from last time!");
