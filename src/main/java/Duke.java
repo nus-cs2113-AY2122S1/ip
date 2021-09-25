@@ -26,8 +26,6 @@ public class Duke {
             Ui.printFailContents();
         }
 
-        //System.out.println("i am book".contains("book"));
-
         while (!Objects.equals(parser.input(), "bye")) {
             line = in.nextLine();
             parser.feed(line);
