@@ -128,11 +128,13 @@ public class DataSaver {
 
     public static void configureTask(ArrayList<Task> taskList, FileWriter writeFile) throws IOException {
         for (Task task : taskList) {
-            StringBuilder parsedTask = new StringBuilder();
-            parseType(task, parsedTask);
-            parseStatus(task, parsedTask);
-            parseDescription(task, parsedTask);
-            writeFile.write(parsedTask + System.lineSeparator());
+            if (task != null) {
+                StringBuilder parsedTask = new StringBuilder();
+                parseType(task, parsedTask);
+                parseStatus(task, parsedTask);
+                parseDescription(task, parsedTask);
+                writeFile.write(parsedTask + System.lineSeparator());
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 package Duke.BackEnd;
 
+import Duke.Exception.DukeException;
 import Duke.TaskTypes.Deadline;
 import Duke.TaskTypes.Event;
 
@@ -33,13 +34,18 @@ public class DukeParser {
     }
 
     public static Event parseEventDescription (String[] commands) throws DateTimeParseException{
-        String[] details = commands[1].split(EVENT_KEYWORD, 2);
-        String description = details[0].trim();
-        String at = details[1].trim();
+        try {
+            String[] details = commands[1].split(EVENT_KEYWORD, 2);
+            String description = details[0].trim();
+            String at = details[1].trim();
 
-        LocalDateTime eventAt = parseDateTime(at, FORMAT_DATE_TIME_INPUT);
+            LocalDateTime eventAt = parseDateTime(at, FORMAT_DATE_TIME_INPUT);
 
-        return new Event(description, eventAt);
+            return new Event(description, eventAt);
+        } catch (DateTimeParseException dtpException) {
+            DukeException.dateTimeParseException(dtpException);
+            return null;
+        }
     }
 
     public static String[] parseDeadlineInstruction (String inWord) {
@@ -48,13 +54,18 @@ public class DukeParser {
     }
 
     public static Deadline parseDeadlineDescription (String[] commands) throws DateTimeParseException {
-        String[] details = commands[1].split(DEADLINE_KEYWORD, 2);
-        String description = details[0].trim();
-        String by = details[1].trim();
+        try {
+            String[] details = commands[1].split(DEADLINE_KEYWORD, 2);
+            String description = details[0].trim();
+            String by = details[1].trim();
 
-        LocalDateTime deadlineBy = parseDateTime(by, FORMAT_DATE_TIME_INPUT);
+            LocalDateTime deadlineBy = parseDateTime(by, FORMAT_DATE_TIME_INPUT);
 
-        return new Deadline(description, deadlineBy);
+            return new Deadline(description, deadlineBy);
+        } catch (DateTimeParseException dtpException) {
+            DukeException.dateTimeParseException(dtpException);
+            return null;
+        }
     }
 
     public static String[] parseDeleteInstruction (String inWord) {
