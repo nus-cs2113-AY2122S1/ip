@@ -154,8 +154,7 @@ public class TaskManager {
      */
     public void listTasks() {
         for (int i = 1; i <= tasks.size(); i++) {
-            ui.println(" " + i + "." +
-                    tasks.get(i - 1));
+            ui.println(" " + i + "." + tasks.get(i - 1));
         }
     }
 
