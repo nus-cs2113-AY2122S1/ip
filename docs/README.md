@@ -59,13 +59,6 @@ Some example commands you can try:
 > - Words in `<UPPER_CASE>` are the parameters to be given by the user. <br />
 > e.g. in `todo <DESCRIPTION>`, <DESCRIPTION> is a parameter which can be used as : `todo Read Novel`
 > <br /><br />
-> - Items in square brackets are optional <br />
-> e.g. find `find <REGEX> [/type TASKTYPE]` 
-> can be called as `find eat /type todo` OR `find eat`.
-> <br /><br />
-> - Parameters can be in any order for optional flags <br />
-> e.g. `find <REGEX> [/type TASKTYPE] [/limit QUERYLIMIT]` is equivalent to `find <REGEX> [/limit QUERYLIMIT] [/type TASKTYPE] `
-> <br /><br />
 > - Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `bye`) will not be ignored.<br />
 > e.g. `help 123` will not be interpreted as  `help`. Make sure to give the correct commands.
 
