@@ -207,7 +207,7 @@ public class Ui {
      */
     public void printSuccessfullySavedTasks(String filePath) {
         printHorizontalLine();
-        System.out.println("Current tasks successfully saved at: " +
+        System.out.println("Current tasks successfully saved at:" +
                 System.lineSeparator() + filePath);
         printHorizontalLine();
     }

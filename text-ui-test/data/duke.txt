@@ -1,6 +1,2 @@
-T | 1 | borrow book
-D | 0 | return book | Sunday
-E | 0 | project meeting | Mon 2-4pm
-T | 0 | borrow book
-D | 0 | return book | Sunday
-E | 0 | project meeting | Mon 2-4pm
+E | 1 | project meeting | Oct 09 2021 18:00
+D | 0 | submission | Sep 19 2021 23:00

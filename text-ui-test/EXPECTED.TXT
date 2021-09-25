@@ -1,3 +1,5 @@
+File created at C:\Users\Brendan Lau\Desktop\ip\text-ui-test\data\duke.txt
+Successfully preloaded 0 tasks
 ____________________________________________________________
  Hello! I'm Duke
  What can I do for you?
@@ -5,47 +7,54 @@ ____________________________________________________________
 
 ____________________________________________________________
  Got it. I've added this task:
-  [T][ ] borrow book
+  [E][ ] project meeting (at: Oct 09 2021 18:00)
  Now you have 1 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
- Here are the tasks in your list:
- 1.[T][ ] borrow book
-____________________________________________________________
-
-____________________________________________________________
  Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+  [D][ ] submission (by: Sep 19 2021 23:00)
  Now you have 2 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
  Got it. I've added this task:
-  [E][ ] project meeting (at: Mon 2-4pm)
+  [T][ ] buy food
  Now you have 3 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
  Here are the tasks in your list:
- 1.[T][ ] borrow book
- 2.[D][ ] return book (by: Sunday)
- 3.[E][ ] project meeting (at: Mon 2-4pm)
+ 1.[E][ ] project meeting (at: Oct 09 2021 18:00)
+ 2.[D][ ] submission (by: Sep 19 2021 23:00)
+ 3.[T][ ] buy food
 ____________________________________________________________
 
 ____________________________________________________________
  Nice! I've marked this task as done:
-   [T][X] borrow book
+   [E][X] project meeting (at: Oct 09 2021 18:00)
 ____________________________________________________________
 
 ____________________________________________________________
- Here are the tasks in your list:
- 1.[T][X] borrow book
- 2.[D][ ] return book (by: Sunday)
- 3.[E][ ] project meeting (at: Mon 2-4pm)
+  Sorry, no matching results found!
+____________________________________________________________
+
+____________________________________________________________
+ Got it! I've removed this task:
+   [T][ ] buy food
+ Now you have 2 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+  Task ID does not exist!
+  Please try again!
 ____________________________________________________________
 
 ____________________________________________________________
  Bye. Hope to see you again soon!
 ____________________________________________________________
 
+____________________________________________________________
+Current tasks successfully saved at:
+C:\Users\Brendan Lau\Desktop\ip\text-ui-test\data\duke.txt
+____________________________________________________________
