@@ -1,5 +1,18 @@
 package duke;
 
+import duke.exceptions.DeleteRangeException;
+import duke.exceptions.DoneRangeException;
+import duke.exceptions.EmptyListException;
+import duke.exceptions.DoneException;
+import duke.exceptions.DeleteException;
+import duke.exceptions.DeadlineException;
+import duke.exceptions.EventException;
+import duke.exceptions.TodoException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -72,15 +85,23 @@ public class Duke {
     }
 
     public static void printDoneException() {
-        System.out.println("The description of done cannot be empty.");
+        System.out.println("The description of done must be a number from the task list.");
+    }
+
+    public static void printRangeException() {
+        System.out.println("That task does not exist.");
     }
 
     public static void printDeleteException() {
-        System.out.println("The description of delete cannot be empty.");
+        System.out.println("The description of delete must be a number from the task list.");
+    }
+
+    public static void printEmptyListException() {
+        System.out.println("The list is empty.");
     }
 
     public static void printTaskTypeResponse() {
-        //printing different responses depending if its duke.Todo/duke.Deadline/duke.Event
+        //printing different responses depending if its duke.tasks.Todo/duke.tasks.Deadline/duke.tasks.Event
         printGotIt();
         tasks.get(tasks.size() - 1).printTask();
         printTaskCount();
@@ -91,22 +112,25 @@ public class Duke {
         tasks.get(tasks.size() - 1).printTask();
     }
 
-    public static void printList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i += 1) {
-            System.out.print((i + 1) + ".");
-            tasks.get(i).printTask();
-
+    public static void printList() throws EmptyListException {
+        if (tasks.size() == 0) {
+            throw new EmptyListException();
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.size(); i += 1) {
+                System.out.print((i + 1) + ".");
+                tasks.get(i).printTask();
+            }
         }
     }
 
-    public static void createFile() throws IOException{
+    public static void createFile() throws IOException {
         Path pathToFile = Paths.get("data/duke.txt");
         Files.createDirectories(pathToFile.getParent());
         f.createNewFile();
     }
 
-    public static void initialiseTasks(){
+    public static void initialiseTasks() {
         try {
             loadTasks();
         } catch (FileNotFoundException e0){
@@ -136,11 +160,14 @@ public class Duke {
         }
     }
 
-    public static void taskDone(String line) throws DoneException {
-        if (line.equals("") || line.equals("done")) {
+    public static void taskDone(String line) throws DoneException, DoneRangeException {
+        if (!line.matches("\\d+")) {
             throw new DoneException();
+        }
+        int index = Integer.parseInt(line) - 1;
+        if (index >= tasks.size()) {
+            throw new DoneRangeException();
         } else {
-            int index = Integer.parseInt(line) - 1;
             tasks.get(index).setDone();
             System.out.println("Nice! I've marked this task as done:");
             tasks.get(index).printTask();
@@ -164,7 +191,7 @@ public class Duke {
             //extracting the description and date
             String description = line.replaceAll("/.+", "");
             String by = line.replaceAll(".+/by", "");
-            tasks.add(new Deadline (description, by));
+            tasks.add(new Deadline(description, by));
             printTaskTypeResponse();
             write();
         }
@@ -177,17 +204,20 @@ public class Duke {
             //extracting the description and date
             String description = line.replaceAll("/.+", "");
             String at = line.replaceAll(".+/at", "");
-            tasks.add(new Event (description, at));
+            tasks.add(new Event(description, at));
             printTaskTypeResponse();
             write();
         }
     }
 
-    public static void deleteTask(String line) throws DeleteException {
-        if (line.equals("") || line.equals("delete")) {
+    public static void deleteTask(String line) throws DeleteException, DeleteRangeException {
+        if (!line.matches("\\d+")) {
             throw new DeleteException();
+        }
+        int index = Integer.parseInt(line) - 1;
+        if (index >= tasks.size()) {
+            throw new DeleteRangeException();
         } else {
-            int index = Integer.parseInt(line) - 1;
             printDeleteResponse();
             tasks.remove(index);
             printTaskCount();
@@ -199,13 +229,19 @@ public class Duke {
         String command = splitLine[0];
         line = line.replaceAll("^" + command + " ", "");
         if (command.equals("list")) {
-            printList();
+            try {
+                printList();
+            } catch (EmptyListException e) {
+                printEmptyListException();
+            }
         } else if (command.equals("done")) {
             try {
                 //find which task user is done with
                 taskDone(line);
             } catch (DoneException e) {
                 printDoneException();
+            } catch (DoneRangeException e) {
+                printRangeException();
             }
         } else if (command.equals("todo")) {
             try {
@@ -230,6 +266,8 @@ public class Duke {
                 deleteTask(line);
             } catch (DeleteException e) {
                 printDeleteException();
+            } catch (DeleteRangeException e) {
+                printRangeException();
             }
         } else {
             //error with input

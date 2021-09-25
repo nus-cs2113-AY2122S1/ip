@@ -1,4 +1,4 @@
-package duke;
+package duke.tasks;
 
 public class Event extends Todo{
     protected String at;
