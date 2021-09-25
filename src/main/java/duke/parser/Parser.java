@@ -21,7 +21,7 @@ import java.time.format.DateTimeParseException;
  * Parses user input to make sense of the input.
  */
 public class Parser {
-    private static final Ui ui = new Ui();
+    private static final Ui UI = new Ui();
 
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
@@ -60,7 +60,7 @@ public class Parser {
         case COMMAND_FIND:
             return new FindTasksCommand(line);
         default:
-            ui.printInvalidCommand();
+            UI.printInvalidCommand();
             throw new DukeException("Please provide a valid command");
         }
     }
@@ -78,7 +78,7 @@ public class Parser {
         try {
             command = words[0];
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.printInvalidCommand();
+            UI.printInvalidCommand();
             throw new DukeException("Please provide a valid command");
         }
         return command;
@@ -98,7 +98,7 @@ public class Parser {
         try {
             description = line.substring(descriptionIndex).strip();
         } catch (StringIndexOutOfBoundsException e) {
-            ui.printEmptyDescription(command);
+            UI.printEmptyDescription(command);
             throw new DukeException("Please provide a description");
         }
         return description.strip();
@@ -124,7 +124,7 @@ public class Parser {
             description[0] = rawDescription.substring(0, indexSplit - 1).strip();
             description[1] = rawDescription.substring(indexSplit + 4).strip();
         } catch (StringIndexOutOfBoundsException e) {
-            ui.printCorrectCommandFormat(command);
+            UI.printCorrectCommandFormat(command);
             throw new DukeException("Please try again!");
         }
         return description;
@@ -148,7 +148,7 @@ public class Parser {
             }
             num = Integer.parseInt(taskId);
         } catch (NumberFormatException e) {
-            ui.printInvalidTaskNumberFormat();
+            UI.printInvalidTaskNumberFormat();
             throw new DukeException("Please provide an integer");
         }
         return num - 1;

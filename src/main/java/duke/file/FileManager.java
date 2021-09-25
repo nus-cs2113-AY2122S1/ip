@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
  * Handles dealing with the file and directory used to save current tasks.
  */
 public class FileManager {
-    private static final Ui ui = new Ui();
+    private static final Ui UI = new Ui();
 
     public String filePath;
     public String directoryPath;
@@ -45,9 +45,9 @@ public class FileManager {
         File file = new File(filePath);
         boolean hasCreatedFile = file.createNewFile();
         if (hasCreatedFile) {
-            ui.println("File created at " + file.getCanonicalPath());
+            UI.println("File created at " + file.getCanonicalPath());
         } else {
-            ui.println("File already exists at " + file.getCanonicalPath());
+            UI.println("File already exists at " + file.getCanonicalPath());
         }
     }
 
@@ -61,7 +61,7 @@ public class FileManager {
         File directory = new File(directoryPath);
         boolean hasCreatedDirectory = directory.mkdir();
         if (hasCreatedDirectory) {
-            ui.println("New directory created at " + directoryPath);
+            UI.println("New directory created at " + directoryPath);
         }
     }
 
@@ -98,7 +98,7 @@ public class FileManager {
         try {
             currentTasks = taskManager.convertCurrentTasksToString();
         } catch (DukeException e) {
-            ui.println(e.getMessage());
+            UI.println(e.getMessage());
             return;
         }
         fw = new FileWriter(file);
@@ -135,14 +135,14 @@ public class FileManager {
         try {
             createFile();
         } catch (IOException e) {
-            ui.printFileError();
+            UI.printFileError();
         }
         try {
             initialiseDukeStatus(taskManager);
         } catch (FileNotFoundException e) {
-            ui.println("File not found!");
+            UI.println("File not found!");
         } catch (IOException e) {
-            ui.printFileError();
+            UI.printFileError();
         }
     }
 }
