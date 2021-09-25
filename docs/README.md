@@ -252,3 +252,9 @@ Delete | `delete INDEX`
 Done | `done INDEX`
 List | `list`
 Find | `find SEARCHTERM`
+
+##References and Acknowledgements
+- Text to ASCII Art Generator
+https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Shika%0A
+- OOP Structure: Referenced from AddressBook
+https://github.com/se-edu/addressbook-level2/
