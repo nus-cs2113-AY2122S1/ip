@@ -1,7 +1,7 @@
 package duke.task;
 import java.io.Serializable;
 
-public class Task implements Serializable {
+public abstract class Task implements Serializable {
 
     private String title = "";
     private boolean doneStatus = false;
@@ -36,6 +36,7 @@ public class Task implements Serializable {
     }
 
     public String toString() {
-        return "[" + Character.toUpperCase(this.getType().charAt(0)) + ']' + '[' + this.getStatusIcon() + ']' + ' ' + this.title;
+        return "[" + Character.toUpperCase(this.getType().charAt(0)) + ']' +
+            '[' + this.getStatusIcon() + ']' + ' ' + this.title;
     }
 }
