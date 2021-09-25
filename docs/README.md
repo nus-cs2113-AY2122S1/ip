@@ -69,16 +69,15 @@ This will list all the valid commands that DUKE accepts.
 ~$ help
 ------------------------------------------
 These are the valid commands: 
- > bye
  > help
- > dates
- > list
- > find
  > todo
  > deadline
- > event
- > delete
  > done
+ > event
+ > list
+ > delete
+ > find
+ > bye
 ------------------------------------------
 ```
 <br />
