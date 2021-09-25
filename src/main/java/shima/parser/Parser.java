@@ -1,5 +1,10 @@
 package shima.parser;
 
+
+
+import shima.design.UserInterface;
+import shima.storage.Storage;
+
 import shima.command.*;
 import shima.design.UserInterface;
 import shima.storage.Storage;
@@ -12,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -34,6 +40,9 @@ public class Parser {
     public static final String SLASH_MISSING_MSG = "Sorry, fail to create an Event, the time specific character '/' is missing";
     public static final String DASH_MISSING_MSG = "Sorry, fail to create an Event, the period specific character '-' is missing";
     public static final String EMPTY_TASK_INDEX_MSG = "Sorry, the input task number is missing, please try again! :(";
+
+    public static final String EMPTY_KEYWORD_MSG = "Sorry, the keyword is empty! I do not know which task you are looking for :(";
+    public static final String NO_MATCHING_TASK_MSG = "\tHmm... I do not find any task matches the keyword, please use another keyword!";
     public static final String EMPTY_DEADLINE_MSG = "Sorry, the deadline for the task is missing! I don't know how to memorize it:(";
     public static final String EMPTY_PERIOD_MSG = "Sorry, the date and period for the task is missing! I don't know how to memorize it :(";
     public static final String EXPIRED_DEADLINE_MSG = "Oops, the end date and time for the task is already expired, please give the task a new deadline!";
@@ -42,6 +51,7 @@ public class Parser {
     public static final String COMMAND_DATE = "date";
     public static final String WRONG_DATE_TIME_FORMAT_MSG = "Sorry, the input date format is not correct! The correct format should be yyyy-MM-dd";
     public static final String INVALID_DATE_MSG = "Sorry, the input date should only contains yyyy-MM-dd";
+
 
     /**
      * Reads the input command entered by the user and handle each command
@@ -76,6 +86,8 @@ public class Parser {
             return parseDeadline(tasks, command, words, ui);
         case COMMAND_DONE:
             return parseDoneCommand(tasks, storage, words, ui);
+        case "find":
+            return parseFindCommand(tasks, command, words, ui);
         case COMMAND_DATE:
             return parseDateCommand(tasks, command, words, ui);
         default:
@@ -85,7 +97,32 @@ public class Parser {
     }
 
     /**
-     * Checks if the input date is valid or in correct format
+     * Checks if the find command syntax and keyword are valid
+     * @param tasks The task list class object that stores all the tasks
+     * @param command The input command typed by the user
+     * @param words   The array of words that compose the input command
+     * @param ui The user interface class object used to display message box
+     * @return Returns a new find command object if the syntax is correct, return empty command otherwise
+     */
+    private static Command parseFindCommand(TaskList tasks, String command, String[] words, UserInterface ui) {
+        String keyword = command.replaceFirst(words[0], "").trim();
+        if (keyword.isEmpty()){
+            ui.showMessage(EMPTY_KEYWORD_MSG);
+            return new Command();
+        }
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task t : tasks.getTasks()){
+            if (t.toString().contains(keyword)){
+                matchingTasks.add(t);
+            }
+        }
+        if (matchingTasks.isEmpty()){
+            ui.showMessage(NO_MATCHING_TASK_MSG);
+            return new Command();
+        }
+        return new FindCommand(matchingTasks, ui);
+
+     /** Checks if the input date is valid or in correct format
      *
      * @param tasks   The list class object that stores all the tasks
      * @param command The input command typed by the user
