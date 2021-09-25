@@ -57,13 +57,13 @@ public class Storage {
                     }
                     break;
                 case "deadline":
-                    Task deadlineTask = tasks.addDeadline(fileFormatHandler.getDescription(), fileFormatHandler.getTimeField());
+                    Task deadlineTask = tasks.addDeadline(fileFormatHandler.getDescription(), fileFormatHandler.getFormattedTimeField());
                     if (fileFormatHandler.isDone()) {
                         deadlineTask.setDone();
                     }
                     break;
                 case "event":
-                    Task eventTask = tasks.addEvent(fileFormatHandler.getDescription(), fileFormatHandler.getTimeField());
+                    Task eventTask = tasks.addEvent(fileFormatHandler.getDescription(), fileFormatHandler.getFormattedTimeField());
                     if (fileFormatHandler.isDone()) {
                         eventTask.setDone();
                     }

@@ -5,10 +5,16 @@ import duke.exceptions.EmptyTimeFieldException;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Parser {
     protected String command;
     protected String description;
     protected String timeField;
+    protected String formattedTimeField;
+    protected LocalDate localDate;
     protected int taskIndex;
     protected boolean done = false;
     protected String fileFormat;
@@ -84,6 +90,7 @@ public class Parser {
             timeField = inputSubstrings[1]
                     .substring((inputSubstrings[1].indexOf("/") + 3))
                     .strip();
+            localDate = formatTimeField(timeField);
             break;
         case "done":
         case "delete":
@@ -95,16 +102,25 @@ public class Parser {
         }
     }
 
+    private LocalDate formatTimeField(String timeField) throws DateTimeException {
+        LocalDate localDate = LocalDate.parse(timeField);
+        if (localDate == null) {
+            throw new DateTimeException("invalid time");
+        }
+        formattedTimeField = localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return localDate;
+    }
+
+    public String getFormattedTimeField() {
+        return formattedTimeField;
+    }
+
     public String getCommand() {
         return command;
     }
 
     public String getDescription() {
         return description;
-    }
-
-    public String getTimeField() {
-        return timeField;
     }
 
     public int getTaskIndex() {

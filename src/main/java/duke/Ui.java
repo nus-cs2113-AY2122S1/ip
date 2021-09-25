@@ -5,6 +5,7 @@ import duke.exceptions.EmptyTimeFieldException;
 import duke.task.Task;
 
 import java.io.IOException;
+import java.io.SerializablePermission;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -51,8 +52,6 @@ public class Ui {
         System.out.println(SEPARATOR);
         System.out.println("\tBrainy Smurf: aah another thing done");
         System.out.println("\t" + itemNum + ". " + task);
-//        System.out.printf("\t%d. [%s][%s] %s\n", itemNum, task.getTaskIcon(), task.getStatusIcon(),
-//                task.getDescription());
         System.out.println(SEPARATOR);
     }
 
@@ -60,8 +59,6 @@ public class Ui {
         System.out.println(SEPARATOR);
         System.out.println("\tI will get Weakling smurf to do it for you.");
         System.out.println("\t   " + deletedTask);
-        //System.out.printf("\t   [%s][%s] %s\n", deletedTask.getTaskIcon(), deletedTask.getStatusIcon(),
-        //        deletedTask.getDescription());
         System.out.println(SEPARATOR);
     }
 
@@ -102,6 +99,12 @@ public class Ui {
 
     public void printIoExceptionErrorMessage(IOException exception) {
         System.out.println("something went wrong while saving..." + exception.getMessage());
+    }
+
+    public void printWrongTimeFormatErrorMessage() {
+        System.out.println(SEPARATOR);
+        System.out.println("\tplease give your time field in YYYY-MM-DD format");
+        System.out.println(SEPARATOR);
     }
 
     public void printExitMessage() {
