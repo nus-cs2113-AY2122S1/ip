@@ -1,5 +1,6 @@
 package Duke.SaveFile;
 
+import Duke.BackEnd.DukeParser;
 import Duke.Exception.DukeException;
 import Duke.TaskTypes.Task;
 import Duke.TaskTypes.Todo;
@@ -10,10 +11,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import static Duke.BackEnd.DukeParser.parseDateTime;
+import static Duke.UI.DukeConstants.FORMAT_DATE_TIME_INPUT;
 
 public class DataSaver {
 
@@ -72,14 +77,16 @@ public class DataSaver {
             break;
         case "D":
             String deadlineDescription = taskDetails[2].trim();
-            String deadlineBy = taskDetails[3].trim();
+            String by = taskDetails[3].trim();
+            LocalDateTime deadlineBy = DukeParser.parseDateTime(by, FORMAT_DATE_TIME_INPUT);
             Deadline addedDeadline = new Deadline(deadlineDescription, deadlineBy);
             addDoneStatus(addedDeadline, taskDetails);
             taskList.add(addedDeadline);
             break;
         case "E":
             String eventDescription = taskDetails[2].trim();
-            String eventAt = taskDetails[3].trim();
+            String at = taskDetails[3].trim();
+            LocalDateTime eventAt = DukeParser.parseDateTime(at, FORMAT_DATE_TIME_INPUT);
             Event addedEvent = new Event(eventDescription, eventAt);
             addDoneStatus(addedEvent, taskDetails);
             taskList.add(addedEvent);
@@ -121,11 +128,13 @@ public class DataSaver {
 
     public static void configureTask(ArrayList<Task> taskList, FileWriter writeFile) throws IOException {
         for (Task task : taskList) {
-            StringBuilder parsedTask = new StringBuilder();
-            parseType(task, parsedTask);
-            parseStatus(task, parsedTask);
-            parseDescription(task, parsedTask);
-            writeFile.write(parsedTask + System.lineSeparator());
+            if (task != null) {
+                StringBuilder parsedTask = new StringBuilder();
+                parseType(task, parsedTask);
+                parseStatus(task, parsedTask);
+                parseDescription(task, parsedTask);
+                writeFile.write(parsedTask + System.lineSeparator());
+            }
         }
     }
 

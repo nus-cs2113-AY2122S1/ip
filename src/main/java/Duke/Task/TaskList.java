@@ -52,8 +52,9 @@ public class TaskList {
 
         if (AddEventCommand.isValidEvent(inWord)) {
             Event newEvent = DukeParser.parseEventDescription(commands);
-            UserInterface.taskAddedMessage(newEvent, taskList);
-            addTask(newEvent);
+            if (newEvent != null) {
+                addTask(newEvent);
+            }
         } else {
             throw new DukeException();
         }
@@ -76,7 +77,9 @@ public class TaskList {
 
         if (AddDeadlineCommand.checkValidDeadline(inWord)) {
             Deadline newDeadline = DukeParser.parseDeadlineDescription(commands);
-            addTask(newDeadline);
+            if (newDeadline != null) {
+                addTask(newDeadline);
+            }
         } else {
             throw new DukeException();
         }

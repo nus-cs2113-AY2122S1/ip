@@ -3,6 +3,7 @@ package Duke.Exception;
 import Duke.UI.UserInterface;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 
 public class DukeException extends Exception{
@@ -44,5 +45,9 @@ public class DukeException extends Exception{
 
     public static void invalidFindException() {
         UserInterface.invalidFindMessage();
+    }
+      
+    public static void dateTimeParseException(DateTimeParseException dtpException) {
+        UserInterface.createdtpExceptionMessaeg(dtpException);
     }
 }

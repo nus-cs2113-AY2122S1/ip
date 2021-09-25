@@ -27,4 +27,6 @@ public class DukeConstants {
             +" Type delete {index} to delete a task from your list of todos.\n"
             +" Type done {index} to mark a task as done in your list of todos.\n"
             +" Type bye to exit Duke.";
+    public static final String FORMAT_DATE_TIME_INPUT = "yyyy-MM-dd HH:mm";
+    public static final String FORMAT_DATE_TIME_OUTPUT = "LLL dd yyyy HH:mma";
 }

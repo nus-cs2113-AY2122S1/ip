@@ -7,6 +7,7 @@ import Duke.TaskTypes.Task;
 import Duke.TaskTypes.Todo;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import static Duke.UI.DukeConstants.*;
@@ -150,6 +151,7 @@ public class UserInterface {
         System.out.print(System.lineSeparator());
     }
 
+
     public static void invalidFindMessage() {
         System.out.println(LINE);
         System.out.println("Your find command is invalid!");
@@ -171,6 +173,13 @@ public class UserInterface {
         for (int i = 0; i < tasksWithQuery.size(); i++) {
             System.out.println(" " + (i + 1) + ". " + tasksWithQuery.get(i).toString());
         }
+        System.out.println(LINE);
+        System.out.print(System.lineSeparator());
+    }
+
+    public static void createdtpExceptionMessaeg(DateTimeParseException dtpException) {
+        System.out.println(LINE);
+        System.out.println("Something went wrong: " + dtpException.getMessage());
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
