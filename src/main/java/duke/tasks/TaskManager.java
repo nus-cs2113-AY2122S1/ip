@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.Ui;
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -37,19 +39,9 @@ public class TaskManager {
             System.out.print((i + 1) + ". ");
             System.out.println(taskList.get(i).toString());
         }
-        System.out.println("Total tasks undone: " + numberOfTasksUndone);
-        System.out.println(LINE_SEPARATOR);
+        Ui.printUndoneTaskMessage(numberOfTasksUndone);
     }
 
-    /**
-     * Prints the message containing how many tasks are in the list
-     *
-     * @param size the size of the list, how many tasks are in the list
-     */
-    private static void printTaskNumberMessage(int size) {
-        System.out.println("Now you have " + size + " tasks in the list");
-        System.out.println(LINE_SEPARATOR);
-    }
 
     /**
      * Deletes a task from the list
@@ -60,9 +52,7 @@ public class TaskManager {
         int stringLength = args.length();
         int taskIndex = Integer.parseInt(args.substring(stringLength - 1));
 
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("Got it! This task was removed:" + System.lineSeparator()
-                + taskList.get(taskIndex - 1).toString());
+        Ui.printDeletedTaskMessage(taskList, taskIndex - 1);
 
         // if deleted task was not marked as done, decrease numberOfTasksUndone
         if (!taskList.get(taskIndex - 1).getStatusIcon().equals("X")) {
@@ -70,7 +60,7 @@ public class TaskManager {
         }
         taskList.remove(taskIndex - 1);
 
-        printTaskNumberMessage(taskList.size());
+        Ui.printTaskNumberMessage(taskList.size());
     }
 
     /**
@@ -83,9 +73,8 @@ public class TaskManager {
         ToDo t = new ToDo(args);
         taskList.add(t);
         numberOfTasksUndone++;
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("added: " + args);
-        printTaskNumberMessage(taskList.size());
+        Ui.printAddedTaskMessage(args);
+        Ui.printTaskNumberMessage(taskList.size());
     }
 
     /**
@@ -99,9 +88,8 @@ public class TaskManager {
         Deadline t = new Deadline(description, time);
         taskList.add(t);
         numberOfTasksUndone++;
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("added: " + description);
-        printTaskNumberMessage(taskList.size());
+        Ui.printAddedTaskMessage(description);
+        Ui.printTaskNumberMessage(taskList.size());
     }
 
     /**
@@ -115,9 +103,8 @@ public class TaskManager {
         Event t = new Event(description, time);
         taskList.add(t);
         numberOfTasksUndone++;
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("added: " + description);
-        printTaskNumberMessage(taskList.size());
+        Ui.printAddedTaskMessage(description);
+        Ui.printTaskNumberMessage(taskList.size());
     }
 
     /**
@@ -131,11 +118,7 @@ public class TaskManager {
         taskList.get(doneTaskNumber - 1).markAsDone();
         numberOfTasksUndone--;
 
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("Good job! This task is marked as done:");
-        System.out.println(taskList.get(doneTaskNumber - 1).toString());
-        System.out.println("Now you have " + numberOfTasksUndone + " tasks undone");
-        System.out.println(LINE_SEPARATOR);
+        Ui.printMarkAsDoneMessage(taskList, doneTaskNumber - 1, numberOfTasksUndone);
     }
 
     /**

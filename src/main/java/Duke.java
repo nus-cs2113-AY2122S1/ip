@@ -119,26 +119,8 @@ public class Duke {
         System.out.println(LINE_SEPARATOR);
     }
 
-    /**
-     * prints welcome message
-     *
-     */
-    private static void printWelcomeMessage() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(logo);
-
-        // greet
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        System.out.println(LINE_SEPARATOR);
-    }
-
     public static void main(String[] args) {
-        printWelcomeMessage();
+        Ui.printWelcomeMessage();
 
         // to read input on each new line, Duke constantly scans input in this loop
         Scanner sc = new Scanner(System.in);
