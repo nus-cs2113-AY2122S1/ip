@@ -1,9 +1,11 @@
 import duke.DukeException;
 import duke.tasks.FileManager;
+import duke.tasks.Task;
 import duke.tasks.TaskManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -19,6 +21,7 @@ public class Duke {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
     public static final String FILE_PATH = "data/duke.txt";
     public static final String DIRECTORY_PATH = "data";
 
@@ -195,9 +198,23 @@ public class Duke {
                 taskManager.deleteTask(inputStr);
             }
             break;
+        case COMMAND_FIND:
+            if (isEmptyItem(inputStr)) {
+                throw new DukeException("Oops, did you forget to enter a keyword?");
+            }
+            String keyword = getItem(inputStr);
+            printArrayList(taskManager.findTask(keyword));
+            break;
         default:
             throw new DukeException("Oops, command not recognised!");
         }
+    }
+
+    public static void printArrayList(ArrayList<Task> arrayList) {
+        System.out.println(LINE_SEPARATOR);
+        arrayList.stream()
+                .forEach(System.out::println);
+        System.out.println(LINE_SEPARATOR);
     }
 
     /**

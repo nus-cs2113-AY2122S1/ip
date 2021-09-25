@@ -1,6 +1,7 @@
 package duke.tasks;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 public class TaskManager {
@@ -144,5 +145,18 @@ public class TaskManager {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Finds the tasks in the arraylist that contains the keyword
+     *
+     * @param keyword the keyword to filter the tasks by
+     * @return returns the filtered list of the tasks containing the keyword
+     */
+    public static ArrayList<Task> findTask(String keyword) {
+        ArrayList<Task> filteredList = (ArrayList<Task>) taskList.stream()
+                .filter((t) -> t.getDescription().contains(keyword))
+                .collect((Collectors.toList()));
+        return filteredList;
     }
 }
