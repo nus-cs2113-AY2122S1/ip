@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    static final int DESCRIPTION = 1;
-    static final int TIME = 2;
+    static final int COMMAND = 0;
+    static final int DESCRIPTION = 0;
+    static final int TIME = 1;
     static final String LINE = "--------------------------------";
 
     static Task[] tasks = new Task[100];
@@ -30,12 +32,51 @@ public class Duke {
         System.out.println("- \"I solemnly swear that I am up to no good.\" ");
     }
 
-    public static void alarm() {
-        System.out.println("Invalid charm. What did Professor Flitwick told you?");
+    public static void alarm(Alarm typeOfAlarm) {
+        switch(typeOfAlarm) {
+        case INVALID_COMMAND:
+            System.out.println("Invalid charm. What did Professor Flitwick told you?");
+            //System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            break;
+        case BLANK_DESCRIPTION:
+            System.out.println("Hermoine says the description of a task cannot be empty.");
+            break;
+        case EMPTY_DONE:
+            System.out.println("Give me a number.");
+            break;
+        case EMPTY_TODO:
+            System.out.println("☹Hermoine says the description of a todo cannot be empty.");
+            break;
+        case EMPTY_EVENT:
+            System.out.println("The Head Boy says the description of a event cannot be empty.");
+            break;
+        case EMPTY_DEADLINE:
+            System.out.println("The Head Girl says the description of a deadline cannot be empty.");
+            break;
+        case NO_DDL_KEYWORD:
+            System.out.println("Missing important keyword, add a /by before time.");
+            break;
+        case NO_EVENT_KEYWORD:
+            System.out.println("Missing important keyword, add a /at before time.");
+            break;
+        case INVALID_ID:
+            System.out.println("Not a number.");
+            break;
+        case OUT_OF_RANGE:
+            System.out.println("Can't find the item in your list.");
+            System.out.println("Give me a number from 1 to " + taskCount + ".");
+            break;
+        default:
+            System.out.println("UNIDENTIFIED ERROR!");
+        }
     }
 
     public static void exit() {
         System.out.println("Mischief managed.");
+    }
+
+    public static void line() {
+        System.out.println(LINE);
     }
 
     public static void add(Task t) {
@@ -44,47 +85,111 @@ public class Duke {
         System.out.println("|| Got it. I've added this task");
         System.out.println("|| \t" + t.toString());
         System.out.println("|| Now you have " + taskCount + " in the list.");
+
     }
 
     public static void printList() {
-        System.out.println(LINE);
+        if (taskCount == 0) {
+            System.out.println("No items in list yet.");
+            return;
+        }
+
         System.out.println("Here are the tasks in your list:\n");
         for (int i = 0; i < taskCount; i++) {
             Task t = tasks[i];
             System.out.println(t.id + ". " + t);
         }
-        System.out.println(LINE);
     }
 
-    public static void markDone(String input){
-
-        String[] txt = input.split(" ", 2);
-
-        int i = Integer.parseInt(txt[1]) - 1;
+    public static void markDone(String id)throws DukeException {
+        int i = Integer.parseInt(id) - 1;
+        if (taskCount == 0) {
+            System.out.println("No items in list yet.");
+            return;
+        } else if (i == 0 || i > taskCount) {
+            throw new DukeException();
+        }
         tasks[i].setDone(true);
         System.out.println("Nice!I've marked this task as done:");
         System.out.println(tasks[i].id + ". " + tasks[i].toString());
-
     }
 
-    public static String removeFirstWord(String input) {
-        int i = input.indexOf(" ");
-        String firstWord = input.substring(0, i);
-        return input.replace(firstWord, "");
-    }
+    public static String[] getDetails(String taskInput, String keyword) {
+        String[] details = taskInput.split(keyword,2);
 
-    public static String[] getDetails(String input) {
-        String[] details = new String[3];
-
-        details[0] = removeFirstWord(input);
-
-        int j = details[0].indexOf("/");
-
-        details[DESCRIPTION] = details[0].substring(0, j);
-        details[TIME] = details[0].substring(j+4);
+        details[TIME] = details[TIME].replace(keyword, "");
 
         return details;
     }
+
+
+    public static void identifyInput (String userInput[]) {
+        String taskType = userInput[COMMAND];
+
+        line();
+        switch (taskType) {
+        case"todo":
+            try {
+                String taskInput = userInput[1];
+                Todo t = new Todo(taskInput);
+                add(t);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                alarm(Alarm.EMPTY_TODO);
+            }
+            break;
+        case "deadline":
+            try {
+                String taskInput = userInput[1];
+
+                try {
+                    String[] details1 = getDetails(taskInput, "/by");
+                    Deadline d = new Deadline(details1[DESCRIPTION], details1[TIME]);
+                    add(d);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    alarm(Alarm.NO_DDL_KEYWORD);
+                }
+
+            }  catch (ArrayIndexOutOfBoundsException e) {
+                alarm(Alarm.EMPTY_DEADLINE);
+            }
+            break;
+        case "event":
+            try {
+                String taskInput = userInput[1];
+
+                try {
+                    String[] details2 = getDetails(taskInput, "/at");
+                    Event e = new Event(details2[DESCRIPTION], details2[TIME]);
+                    add(e);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    alarm(Alarm.NO_EVENT_KEYWORD);
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                alarm(Alarm.EMPTY_EVENT);
+            }
+            break;
+        case "list":
+            printList();
+            break;
+        case "done":
+            try {
+                String taskInput = userInput[1];
+                markDone(taskInput);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                alarm(Alarm.EMPTY_DONE);
+            } catch (DukeException e) {
+                alarm(Alarm.OUT_OF_RANGE);
+            } catch (NumberFormatException e) {
+                alarm(Alarm.INVALID_ID);
+            }
+            break;
+        default:
+            alarm(Alarm.INVALID_COMMAND);
+            break;
+        }
+        line();
+    }
+
 
     public static void main(String[] args) {
         greet();
@@ -93,30 +198,10 @@ public class Duke {
         String input = in.nextLine();
 
         while (!input.startsWith("bye")) {
-            String[] details;
+            String cleanInput = input.trim();
+            String[] userInput = cleanInput.split(" ",2);
 
-            if (input.startsWith("hello")) {
-                hello();
-            } else if (input.startsWith("list")) {
-                printList();
-            } else if (input.startsWith("done")) {
-                markDone(input);
-            } else if (input.startsWith("todo")) {
-                String description = removeFirstWord(input);
-                Todo t = new Todo(description);
-                add(t);
-            } else if (input.startsWith("deadline")) {
-                details = getDetails(input);
-                Deadline t = new Deadline(details[DESCRIPTION], details[TIME]);
-                add(t);
-            } else if (input.startsWith("event")) {
-                details = getDetails(input);
-                Event t = new Event(details[DESCRIPTION], details[TIME]);
-                add(t);
-            } else {
-                alarm();
-            }
-
+            identifyInput(userInput);
             input = in.nextLine();
         }
         exit();
