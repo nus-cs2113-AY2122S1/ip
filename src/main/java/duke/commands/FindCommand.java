@@ -8,6 +8,9 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a command to search for a keyword in the task list.
+ */
 public class FindCommand extends Command {
 
     private final String keyword;
@@ -17,8 +20,8 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes find by creating a list with the tasks containing the keyword and printing the list.
-     * {@code userInput} is parsed to extract the keyword (or query) and the query is searched for in {@code taskList}.
+     * Executes find by creating a list with the tasks containing {@code keyword} and printing the list. {@code keyword}
+     * is searched for in {@code taskList}.
      *
      * @param taskList task list to be searched
      */
@@ -33,19 +36,20 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Helper function which searches for a query in {@code taskList} A query is said to be found in a {@code Task} if
-     * it is a continuous substring/contained in the task description.
+     * Helper function which searches for a keyword in {@code taskList} A keyword is said to be found in a {@code Task} if
+     * it is a continuous substring contained in the task description.
      *
      * @param taskList task list to be searched
-     * @param query keyword to be searched for in the task list
-     * @return a list of tasks containing the query
-     * @throws QueryNotFoundException if the query could not be found in any of the tasks in the task list
+     * @param keyword keyword to be searched for in the task list
+     * @return a list of tasks containing the keyword
+     * @throws QueryNotFoundException if the keyword could not be found in any of the tasks in the task list
      */
-    private static ArrayList<Task> search(TaskList taskList, String query) throws QueryNotFoundException {
+    private static ArrayList<Task> search(TaskList taskList, String keyword) throws QueryNotFoundException {
         ArrayList<Task> taskListContainingQuery = new ArrayList<>();
         ArrayList<Task> taskListToSearch = taskList.getTaskList();
         for (Task t : taskListToSearch) {
-            if (t.getDescription().toLowerCase().contains(query.toLowerCase())) {
+            /* find is case-insensitive */
+            if (t.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 taskListContainingQuery.add(t);
             }
         }
@@ -54,5 +58,4 @@ public class FindCommand extends Command {
         }
         return taskListContainingQuery;
     }
-
 }

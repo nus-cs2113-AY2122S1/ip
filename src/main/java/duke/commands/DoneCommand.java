@@ -4,6 +4,9 @@ import duke.storage.DataStorage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Represents a command to mark a {@code Task} as done.
+ */
 public class DoneCommand extends Command {
 
     private final int taskIndex;
@@ -13,9 +16,8 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Executes the marking of a task as done by passing the user input to the task list to be marked done.
-     * An error message is printed if the task ID entered by the user is non-numeric, lacking from the command
-     * or not in the task list.
+     * Executes the marking of a task in {@code taskList} as done. Saves the updated {@code taskList} to Duke's
+     * {@code DataStorage}.
      *
      * @param taskList  {@code TaskList} containing the task to be mark done
      * @param dataStorage {@code DataStorage} which saves the updated done status of the task to Duke's storage file
