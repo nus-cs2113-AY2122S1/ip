@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class TaskManager {
 
@@ -23,6 +24,7 @@ public class TaskManager {
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_LIST = "list";
     public static DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, uuuu hh:mm a");
+
 
     /**
      * Prints a line on the console
@@ -244,6 +246,8 @@ public class TaskManager {
         while (!message.equals(COMMAND_BYE)) {
             if (message.equals(COMMAND_LIST)) {
                 printTasks(tasks);
+            } else if (message.contains(COMMAND_FIND)) {
+                findTask(tasks, message);
             } else if (message.contains(COMMAND_DONE)) {
                 markDone(tasks, message);
             } else if (message.contains(COMMAND_DELETE)) {
@@ -257,10 +261,39 @@ public class TaskManager {
     }
 
     /**
+     * Finds the matching tasks according to string
+     * input by the user
+     *
+     * @param tasks   the array of tasks
+     * @param message the input string
+     */
+    private static void findTask(ArrayList<Task> tasks, String message) {
+        try {
+            String filter = message.substring(5);
+            ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
+                    .filter((t) -> t.getDescription().contains(filter)).collect(Collectors.toList());
+            printLine();
+            System.out.println("Here are the matching tasks in your list:");
+            for (Task task : filteredTasks) {
+                System.out.println(task.getDescription());
+            }
+            printLine();
+        } catch (NullPointerException e) {
+            printLine();
+            System.out.println("No tasks added yet");
+            printLine();
+        } catch (StringIndexOutOfBoundsException e) {
+            printLine();
+            System.out.println("find cannot be empty");
+            printLine();
+        }
+    }
+
+    /**
      * Deletes the task of the provided index
      *
      * @param tasks   the array of tasks
-     * @param message the input string containing
+     * @param message the input string
      */
     private static void deleteTask(ArrayList<Task> tasks, String message) {
         try {
