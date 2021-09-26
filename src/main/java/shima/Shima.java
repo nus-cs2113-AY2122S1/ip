@@ -62,6 +62,7 @@ public class Shima {
             ui.showMessage(STORAGE_IO_ERROR_MSG);
             ioException.printStackTrace();
         } catch (ShimaException.StorageException storageException) {
+            //user can choose whether to continue by forcefully deleting all the data from storage, or stop and fix the error
             storage.handleStorageError(tasks);
         }
     }
