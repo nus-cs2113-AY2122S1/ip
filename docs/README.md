@@ -190,5 +190,5 @@ If your changes to the data file makes its format invalid, Duke will discard all
 
 
 ## <span id="FAQ">FAQ</span>
-Q: Where is my task list data stored? </br>
+Q: Where is my task list data stored? <br/>
 A: There is a directory called `UserStatus` under where you store `ip.jar`. Your task list is named as `<your_username>.txt` and stored inside it.
