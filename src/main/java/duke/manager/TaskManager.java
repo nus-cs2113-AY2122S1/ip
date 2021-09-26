@@ -7,8 +7,19 @@ import duke.task.Todo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class TaskManager {
+
+    public static final String TASK_TODO = "todo";
+    public static final String TASK_EVENT = "event";
+    public static final String TASK_DEADLINE = "deadline";
+    public static final String TASK_ERROR = "I really cannot understand what you wrote";
+    public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
+    public static final String COMMAND_BYE = "bye";
+    public static final String COMMAND_DONE = "done";
+    public static final String COMMAND_LIST = "list";
 
     /**
      * Prints a line on the console
@@ -40,24 +51,28 @@ public class TaskManager {
      */
     private static void addTask(ArrayList<Task> tasks, String message) {
         switch (taskType(message)) {
-        case "todo":
+        case TASK_TODO:
             addTodo(tasks, message);
             break;
-        case "deadline":
+        case TASK_DEADLINE:
             addDeadline(tasks, message);
             break;
-        case "event":
+        case TASK_EVENT:
             addEvent(tasks, message);
             break;
         default:
-            printLine();
-            System.out.println("I really cannot understand what you wrote");
-            printLine();
+            taskError();
             // Fallthrough
         }
-      //  if (tasks.size() > 0) {
-     //       printAddedTask(tasks.get(tasks.size() - 1), tasks);
-       // }
+    }
+
+    /**
+     * Error for wrong task type
+     */
+    private static void taskError() {
+        printLine();
+        System.out.println(TASK_ERROR);
+        printLine();
     }
 
     /**
@@ -196,12 +211,14 @@ public class TaskManager {
         Scanner scanner = new Scanner(System.in);
         String message = scanner.nextLine();
 
-        while (!message.equals("bye")) {
-            if (message.equals("list")) {
+        while (!message.equals(COMMAND_BYE)) {
+            if (message.equals(COMMAND_LIST)) {
                 printTasks(tasks);
-            } else if (message.contains("done")) {
+            } else if (message.contains(COMMAND_FIND)) {
+                findTask(tasks, message);
+            } else if (message.contains(COMMAND_DONE)) {
                 markDone(tasks, message);
-            } else if (message.contains("delete")) {
+            } else if (message.contains(COMMAND_DELETE)) {
                 deleteTask(tasks, message);
             } else {
                 addTask(tasks, message);
@@ -212,10 +229,39 @@ public class TaskManager {
     }
 
     /**
+     * Finds the matching tasks according to string
+     * input by the user
+     *
+     * @param tasks   the array of tasks
+     * @param message the input string
+     */
+    private static void findTask(ArrayList<Task> tasks, String message) {
+        try {
+            String filter = message.substring(5);
+            ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
+                    .filter((t) -> t.getDescription().contains(filter)).collect(Collectors.toList());
+            printLine();
+            System.out.println("Here are the matching tasks in your list:");
+            for (Task task : filteredTasks) {
+                System.out.println(task.getDescription());
+            }
+            printLine();
+        } catch (NullPointerException e) {
+            printLine();
+            System.out.println("No tasks added yet");
+            printLine();
+        } catch (StringIndexOutOfBoundsException e) {
+            printLine();
+            System.out.println("find cannot be empty");
+            printLine();
+        }
+    }
+
+    /**
      * Deletes the task of the provided index
      *
      * @param tasks   the array of tasks
-     * @param message the input string containing
+     * @param message the input string
      */
     private static void deleteTask(ArrayList<Task> tasks, String message) {
         try {
