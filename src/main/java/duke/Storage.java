@@ -42,7 +42,13 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            ui.println("<patchidata.txt file not found>");
+            try {
+                File dir = new File("data");
+                boolean isCreated = dir.mkdirs();
+                File patchiData = new File(patchiDataPath);
+                patchiData.createNewFile();
+            } catch (IOException f) {
+            }
         }
     }
 
