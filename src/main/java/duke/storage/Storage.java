@@ -1,5 +1,6 @@
 package duke.storage;
 
+import duke.parser.Parser;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -9,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -32,11 +34,13 @@ public class Storage {
                 break;
             case ("D"):
                 Deadline deadlineTask = (Deadline) task;
-                fw.write("D | " + taskStatus + " |" + task.getDescription() + "|" + deadlineTask.getDeadline());
+                String deadlineString = Parser.storeDateAndTimeAsString(deadlineTask.getDeadline());
+                fw.write("D | " + taskStatus + " |" + task.getDescription() + "| " + deadlineString);
                 break;
             case ("E"):
                 Event eventTask = (Event) task;
-                fw.write("E | " + taskStatus + " |" + task.getDescription() + "|" + eventTask.getDuration());
+                String eventDuration = Parser.storeDateAndTimeAsString(eventTask.getDuration());
+                fw.write("E | " + taskStatus + " |" + task.getDescription() + "| " + eventDuration);
                 break;
             default:
                 System.out.println("Something went wrong!");
@@ -81,11 +85,13 @@ public class Storage {
             break;
         case ("D"):
             String taskDeadline = taskContent[3];
-            tasks.add(new Deadline(description, taskDeadline));
+            LocalDateTime deadlineDateAndTime = Parser.convertSubStringToDateAndTime(taskDeadline.trim());
+            tasks.add(new Deadline(description, deadlineDateAndTime));
             break;
         case ("E"):
             String taskDuration = taskContent[3];
-            tasks.add(new Event(description, taskDuration));
+            LocalDateTime eventDateAndTime = Parser.convertSubStringToDateAndTime(taskDuration.trim());
+            tasks.add(new Event(description, eventDateAndTime));
             break;
         default:
             System.out.println("Something went wrong!");

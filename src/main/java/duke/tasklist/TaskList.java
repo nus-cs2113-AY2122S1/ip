@@ -10,6 +10,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -28,9 +29,10 @@ public class TaskList {
     public static void addDeadlineOrEvent(String input, ArrayList<Task> tasks) throws InvalidTaskDescriptionException {
         String taskType = Parser.getTaskType(input);
         String description = Parser.getDeadlineOrEventDescription(input);
-        String time = Parser.getDeadlineOrEventTime(input);
+        String timeAsString = Parser.getDateAndTimeSubstring(input);
+        LocalDateTime time = Parser.convertSubStringToDateAndTime(timeAsString.trim());
 
-        if (!Parser.isValidDeadlineOrEventDescription(input, description, time)) {
+        if (!Parser.isValidDeadlineOrEventDescription(input, description)) {
             throw new InvalidTaskDescriptionException("Invalid or missing task detail!");
         }
 
@@ -88,6 +90,11 @@ public class TaskList {
     }
 
     public static void deleteTask(String input, ArrayList<Task> tasks) {
+        if (Parser.isDeleteAll(input)) {
+            tasks.clear();
+            Ui.printDeleteAllMessage();
+            return;
+        }
         int taskNumber = Parser.getTaskNumber(input);
         Ui.printDeleteMessage(tasks.get(taskNumber), tasks);
         tasks.remove(taskNumber);
