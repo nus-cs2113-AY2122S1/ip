@@ -25,15 +25,16 @@ public class Ui {
             "     or YYYY-MM-DD HHMM while <time2> could be YYYY-MM-DD or YYYY-MM-DD HHMM or even HHMM.\n" +
             "     If <time2> is HHMM, it will inherit YYYY-MM-DD from <time1>\n" +
             "     -- creates an event task with the description given and store 2 time given by the input\n";
-    public static final String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n"
-            + "There are too many students changing this logo away.\n"
+    public static final String logo = "          (_)     (_) ____        _        \n"
+            + " _ __ ___  _ _ __  _ |  _ \\ _   _| | _____ \n"
+            + "| '_ ` _ \\| | '_ \\| || | | | | | | |/ / _ \\\n"
+            + "| | | | | | | | | | || |_| | |_| |   <  __/\n"
+            + "|_| |_| |_|_|_| |_|_||____/ \\__,_|_|\\_\\___|\n";
+    public static final String text = "There are too many students changing this logo away.\n"
             + "Let's keep it this way to show the contribution Duke has done to\n"
             + "thousands of students. (No matter positive or negative)\n"
-            + "F";
+            + "F\n\n"
+            + "credits to address-book-level2 [https://github.com/se-edu/addressbook-level2]";
 
 
     /**
@@ -114,6 +115,6 @@ public class Ui {
     }
 
     public static void printDuke() {
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from\n" + logo + text);
     }
 }
