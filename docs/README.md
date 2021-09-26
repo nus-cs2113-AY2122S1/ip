@@ -23,6 +23,7 @@ What can I do for you?
     * Exiting the program: `bye`
 * **Command Summary**
 
+
 ##Features
 Code in `UPPER_CASE` represent input fields that must be supplied by users for commands to work
 ### Add a Todo task item: `todo`
@@ -162,6 +163,7 @@ Expected outcome:
 bye
 Bye. Hope to see you again soon!
 ```
+
 
 ## Command Summary
 Action | Format,Examples
