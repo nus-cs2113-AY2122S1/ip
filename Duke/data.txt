@@ -1,0 +1,6 @@
+T | 0 | read book
+T | 1 | say hello
+T | 1 | do assignments
+D | 1 | return book | Sunday
+T | 0 | submit project
+E | 0 | group meeting  | 2pm
