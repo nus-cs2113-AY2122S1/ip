@@ -111,7 +111,7 @@ Examples:
 - `find book`
 
 
-### Exit the program: bye
+### Exit the program: `bye`
 Format: `bye`
 
 Exits Duke. A farewell message will be printed before Duke terminates.
