@@ -1,8 +1,13 @@
 package duke.task;
 
+import duke.manager.TaskManager;
+
+import java.time.LocalDateTime;
+
 public class Event extends Task {
 
-    protected String on;
+    protected LocalDateTime on;
+    protected String onString;
 
     /**
      * Constructor to initialise the description
@@ -12,9 +17,10 @@ public class Event extends Task {
      *                    description
      * @param on          date/time for the event
      */
-    public Event(String description, String on) {
+    public Event(String description, LocalDateTime on, String onString) {
         super(description);
         this.on = on;
+        this.onString = onString;
     }
 
     /**
@@ -24,11 +30,11 @@ public class Event extends Task {
      */
     @Override
     public String getDescription() {
-        return "[E]" + super.getDescription() + " (on: " + on + ")";
+        return "[E]" + super.getDescription() + " (on: " + TaskManager.stringFormatter.format(on) + ")";
     }
 
     @Override
     public String fileDescription() {
-        return "E | " + super.fileDescription() + " | " + on;
+        return "E | " + super.fileDescription() + " | " + onString;
     }
 }
