@@ -3,27 +3,51 @@ package duke.task;
 import duke.ui.Ui;
 import java.util.ArrayList;
 
+/**
+ * A class represents all operations to the task list
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;
     private Ui ui = new Ui();
 
+    /**
+     * Constructor of a new TaskList
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructor of loading a existing TaskList
+     *
+     * @param tasks ArrayList of tasks in the data file
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Returns all the tasks in ArrayList
+     *
+     * @return ArrayList of tasks
+     */
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
+    /**
+     * Prints all tasks in ArrayList as a list
+     */
     public void printList() {
         ui.printList(tasks);
     }
 
+    /**
+     * Adds a Todo Task to ArrayList tasks
+     *
+     * @param userCommand command user key in
+     */
     public void addTodo(String userCommand) {
         //add exception
         try {
@@ -39,6 +63,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds an Event Task to ArrayList tasks
+     *
+     * @param userCommand command user key in
+     */
     public void addEvent(String userCommand) {
         //add exception
         try {
@@ -57,6 +86,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a Deadline Task to ArrayList tasks
+     *
+     * @param userCommand command user key in
+     */
     public void addDeadline(String userCommand) {
         //add exception
         try {
@@ -75,6 +109,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from ArrayList tasks
+     *
+     * @param userCommand command user key in
+     */
     public void deleteTask(String userCommand) {
         try {
             int contentStart = 7;
@@ -92,6 +131,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done in ArrayList tasks
+     *
+     * @param userCommand command user key in
+     */
     public void taskDone(String userCommand) {
         // Mark the relevant task as "done", and print out a line indicates that the task is marked as done
         try {
@@ -109,6 +153,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds a task in ArrayList tasks
+     *
+     * @param userCommand command user key in
+     */
     public void findTask(String userCommand) {
         // Give users a way to find a task by searching for a keyword.
         try {
