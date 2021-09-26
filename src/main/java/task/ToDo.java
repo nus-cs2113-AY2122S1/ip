@@ -11,8 +11,8 @@ public class ToDo extends Task {
      * @param desc Represents name of the todo
      * @param status Represents whether the todo is marked as complete
      */
-    public ToDo(String desc, Boolean status) {
-        super(desc, status);
+    public ToDo(String description, Boolean isDone) {
+        super(description, isDone);
     }
 
     /**

@@ -22,8 +22,8 @@ public class Deadline extends Task {
      * @param status Represents whether deadline is marked as done
      * @throws DateTimeParseException Thrown when user input of when deadline is due is in wrong format
      */
-    public Deadline (String desc, String timeString, Boolean status) throws DateTimeParseException {
-        super(desc, status);
+    public Deadline (String description, String timeString, Boolean isDone) throws DateTimeParseException {
+        super(description, isDone);
         LocalDateTime time = LocalDateTime.parse(timeString, dtf);
         setTime(time);
     }

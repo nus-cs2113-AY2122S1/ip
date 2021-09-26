@@ -25,8 +25,8 @@ public class Event extends Task {
      * @param status Represents whether event is marked as done
      * @throws DateTimeParseException Thrown when user input of starting or ending time is in a wrong format
      */
-    public Event(String desc, String startString, String endString, Boolean status) throws DateTimeParseException {
-        super(desc, status);
+    public Event(String description, String startString, String endString, Boolean isDone) throws DateTimeParseException {
+        super(description, isDone);
         LocalDateTime start = LocalDateTime.parse(startString, dtf);
         LocalDateTime end = LocalDateTime.parse(endString, dtf);
         setTime(start, end);

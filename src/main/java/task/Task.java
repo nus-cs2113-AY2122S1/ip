@@ -14,9 +14,9 @@ public class Task {
      * @param desc Represents the name of the task
      * @param status Represents whether the task is marked as complete
      */
-    public Task(String desc, Boolean status) {
-        setDescription(desc);
-        setStatus(status);
+    public Task(String description, Boolean isDone) {
+        setDescription(description);
+        setStatus(isDone);
     }
 
     /**
