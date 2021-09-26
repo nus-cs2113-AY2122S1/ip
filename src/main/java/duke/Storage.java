@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Storage {
 
@@ -16,8 +17,9 @@ public class Storage {
         this.filePath = new File(filePath).getAbsolutePath();
     }
 
-    public void saveNewTask(String[] input) throws IOException {
-        FileWriter fw = new FileWriter(this.filePath, true);
+    public static void saveNewTask(String[] input) throws IOException {
+        String filePath = new File("Tasks.txt").getAbsolutePath();
+        FileWriter fw = new FileWriter(filePath, true);
         String fullTaskAsString = "";
         for (String individualString : input) {
             fullTaskAsString += individualString + " ";
@@ -48,5 +50,19 @@ public class Storage {
             String fullTaskAsString = taskInFile + " | " + done + "\n";
             Files.write(Paths.get(filePath), fullTaskAsString.getBytes(), StandardOpenOption.APPEND);
         }
+    }
+
+    public ArrayList<String> loadTasks() throws IOException {
+        ArrayList<String> loadedTasks = new ArrayList<>();
+        String filePath = new File("Tasks.txt").getAbsolutePath();
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        String textFromFile;
+        while (s.hasNext()) {
+            textFromFile = s.nextLine();
+            loadedTasks.add(textFromFile);
+        }
+        System.out.println(Ui.STARTING_MESSAGE);
+        return loadedTasks;
     }
 }
