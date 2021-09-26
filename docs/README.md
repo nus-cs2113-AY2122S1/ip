@@ -218,7 +218,7 @@ Task list data are saved in the hard disk automatically when user exits app. The
 
 ## <a name="summary"></a>Command summary
 Command | Format, Examples
---------|--------------
+-------------|-------------
 List Tasks | `list`
 Add Todo | `todo TODO_DESCRIPTION` <br /> eg.`todo cs2113 iP`
 Add Deadline | `deadline DEADLINE_DESCRIPTION /by DEADLINE_DATE` <br /> eg.`deadline cs2113 iP /by 2021-10-01`
