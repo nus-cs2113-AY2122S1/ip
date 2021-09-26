@@ -7,6 +7,7 @@ optimized for use through a Command Line Interface (CLI).**
 * First Time Installation
 * Quick Start
 * Features
+* Command Summary
 -------------------------------
 ## First Time Installation:
 Prerequisite - ensure you have Java 11 or above installed in your Computer

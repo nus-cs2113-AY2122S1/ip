@@ -3,12 +3,13 @@
 ## Overview
 **Ikaros is your very own desktop butler application, to managing tasks, deadlines and events,
 optimized for use through a Command Line Interface (CLI).**
-* Overview
-* First Time Installation
-* Quick Start
-* Features
+* [Overview](#Overview)
+* [First Time Installation](#First-Time-Installation)
+* [Quick Start](#Quick-Start)
+* [Features](#Features)
+* [Command Summary](#Command-Summary)
 -------------------------------
-## First Time Installation:
+## First Time Installation
 Prerequisite - ensure you have Java 11 or above installed in your Computer
 
 1. Download Ikaros.jar to your desired folder
