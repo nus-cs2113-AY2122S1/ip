@@ -1,3 +1,10 @@
+package Storage;
+
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Todo;
+import Tasks.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -5,9 +12,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileClass {
+public class Storage {
 
-    public static void loadTasks(ArrayList<Task> taskList) throws FileNotFoundException {
+    private static ArrayList<Task> taskList = new ArrayList<>();
+    public static ArrayList<Task> loadTasks() throws FileNotFoundException {
         File f = new File("../data/duke.txt");
         Scanner scanner = new Scanner(f);
         if (f.exists() && !f.isDirectory()) {
@@ -32,13 +40,12 @@ public class FileClass {
                     break;
                 }
             }
-        } else {
-            return;
         }
+        return taskList;
     }
 
-    public static void writeToFile(String filePath, ArrayList<Task> taskList) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+    public static void saveTasks(ArrayList<Task> taskList) throws IOException {
+        FileWriter fw = new FileWriter("../data/duke.txt");
         for (int i = 0; i < taskList.size(); i++) {
             fw.write(taskList.get(i).getTaskType() + " | " + taskList.get(i).getStatusIcon() + " | " + taskList.get(i).getDescription());
         }
