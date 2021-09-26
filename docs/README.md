@@ -11,7 +11,7 @@ Examples:
 ### Add a deadline: `deadline`
 Adds a deadline to the list of tasks.  
 Format: `deadline TASKNAME /by DATE`  
-* `DATE` _must_ have a format of `yyyy-MM-dd`.
+* `DATE` **must** have a format of `yyyy-MM-dd`.
 
 Examples:
 * `deadline CS2113T homework /by 2021-09-25`
@@ -64,5 +64,5 @@ Manual saving is not necessary.
 ### Editing the data file
 Duke's data is saved as a .txt file `[JAR file location]/data/saveDuke.txt`.
 Advanced users are welcome to directly modify the data file.  
-| :exclamation: **Warning:** If your changes to the file are in the wrong format, Duke will erase all tasks from memory and start a new save data file. Edit with caution.  |
+| :exclamation: **Warning:** If your changes to the file are in the wrong format, Duke will erase all tasks <br /> from memory and start a new save data file. Edit with caution.  |
 |-|

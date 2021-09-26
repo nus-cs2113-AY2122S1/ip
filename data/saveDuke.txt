@@ -1,3 +1,0 @@
-[ ] | T | this
-[X] | E | that | Jun 21 2018
-[ ] | D | those | Mar 03 2012
