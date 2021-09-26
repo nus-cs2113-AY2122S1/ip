@@ -1,11 +1,16 @@
-todo make magic potion
-event magic potion party /at tomorrow noon
-list
+todo todo1
+todo todo 2
 done 2
-deadline mix berries /by tonight 8pm
+event event 3 /at 2121-12-12
+deadline deadline 4 /by 2121-12-12
 list
-done
-done 1
-done 3
-event who are you
+delete 1
+todo
+event /at 1212-12-12
+deadline /by 1212-12-12
+event event no time
+deadline deadline no time
+todo todo 5
+find todo
+list
 bye
