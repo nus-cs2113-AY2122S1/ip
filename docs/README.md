@@ -23,7 +23,38 @@ ____________________________________________________________
 7. Refer to Features for proper usage instructions and commands.
 
 -------------------------------------------------
+## Features
+### Note
+- Words in `<UPPER_CASE>` are parameters given by the user.
 
+### Help: `help`
+Displays all the commands and appropriate usage.
+
+### Add Todo Task: `todo`
+Adds a todo task for DUKE to keep track.
+
+### Add Event Task: `event`
+Adds an event with a specific date and time for DUKE to keep track.
+
+### Add Deadline Task: `deadline`
+Adds a deadline with a specific date and time for DUKE to keep track.
+
+### List all tasks: `list`
+Lists all the tasks added to Duke
+
+### Mark a Task as Done: `done`
+Marks a task that DUKE is tracking as done.
+
+### Delete a Task: `delete`
+Delete the task from Duke and duketasks.txt
+
+### Find a Task: `find`
+Finds tasks with a `<SEARCH_STRING>` that contains the string inputted by the user.
+
+### End the Program: `bye`
+Duke bids farewell and closes the application.
+
+-------------------------------------------------
 ## Command Summary
 
 Action | Command Format | Example
