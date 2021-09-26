@@ -25,7 +25,8 @@ What can I do for you?
 
 
 ##Features
-Code in `UPPER_CASE` represent input fields that must be supplied by users for commands to work
+* Code in `UPPER_CASE` represent input fields that must be supplied by users for commands to work
+
 ### Add a Todo task item: `todo`
 Add a `todo` type task into the task list.
 
@@ -166,6 +167,7 @@ Bye. Hope to see you again soon!
 
 
 ## Command Summary
+* 
 Action | Format,Examples
 ------ | ---------------
 Add todo | `todo DESCPRIPTION` 
