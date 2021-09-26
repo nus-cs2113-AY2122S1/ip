@@ -217,16 +217,16 @@ Task list data are saved in the hard disk automatically when user exits app. The
 <br/>
 
 ## <a name="summary"></a>Command summary
-Command | Format, Examples
--------------|-------------
-List Tasks | `list`
-Add Todo | `todo TODO_DESCRIPTION` <br /> eg.`todo cs2113 iP`
-Add Deadline | `deadline DEADLINE_DESCRIPTION /by DEADLINE_DATE` <br /> eg.`deadline cs2113 iP /by 2021-10-01`
-Add Event | `event EVENT_DESCRIPTION /at EVENT_DATE` <br /> eg.`event Halloween /at 2021-10-31`
-Completed Task | `done TASK_NUMBER` <br /> eg.`done 1`
-Delete Task | `delete TASK_NUMBER` <br /> eg.`delete 2`
-Find Task(s) | `find QUERY` <br /> eg.`find cs2113`
-Exit App | `bye`
+| Command    | Format, Examples |
+|------------|------------------|
+| List Tasks | `list`|
+| Add Todo   | `todo TODO_DESCRIPTION` <br /> eg.`todo cs2113 iP`|
+| Add Deadline | `deadline DEADLINE_DESCRIPTION /by DEADLINE_DATE` <br /> eg.`deadline cs2113 iP /by 2021-10-01`|
+| Add Event | `event EVENT_DESCRIPTION /at EVENT_DATE` <br /> eg.`event Halloween /at 2021-10-31`|
+| Completed Task | `done TASK_NUMBER` <br /> eg.`done 1`|
+| Delete Task | `delete TASK_NUMBER` <br /> eg.`delete 2`|
+| Find Task(s) | `find QUERY` <br /> eg.`find cs2113`|
+| Exit App | `bye`|
 
 ## References and Acknowledgement
 - User Guide reference: AddressBook (Level 3) <br />
