@@ -55,7 +55,7 @@ public class Storage {
             // unless content matches data to be removed.
             while ((line = bufferRead.readLine()) != null) {
                 count += 1;
-                if (!line.trim().equals(lineToRemove)) {
+                if (!line.equals(lineToRemove)) {
                     if (lastLine == true && count == taskNumberToDelete - 1) {
                         fileWrite.print(line); // No newline...
                         fileWrite.flush();
@@ -318,9 +318,9 @@ public class Storage {
     /**
      * Finds the corresponding task to be marked as done in duke.txt and mark as done.
      *
-     * @param oldLine
-     * @param taskType
-     * @throws IOException
+     * @param oldLine Task to be marked as done
+     * @param taskType Type of task 'E', 'D', 'T'
+     * @throws IOException when duke.txt is not found...
      */
     public static void textFileTaskDoneMarker(String oldLine, Character taskType) throws IOException {
         String filePath = "./data/duke.txt";
@@ -360,12 +360,25 @@ public class Storage {
         //@@author
     }
 
-
+    /**
+     * Returns the duke.txt format of saving todo.
+     *
+     * @param rawTaskDescription The todo task description stored in the Array List
+     * @return Formatted todo for duke.txt
+     * @throws IOException when duke.txt is not found...
+     */
     public static String textToDoSaveFormatter(String rawTaskDescription) throws IOException {
         String taskDecription = rawTaskDescription.substring(7);
         return "t-/-0-/-" + taskDecription;
     }
 
+    /**
+     * Returns the duke.txt format of saving event.
+     *
+     * @param rawTaskDescription The event task description / at stored in the Array List
+     * @return Formatted event for duke.txt
+     * @throws IOException when duke.txt is not found...
+     */
     public static String textEventSaveFormatter(String rawTaskDescription) throws IOException {
         String taskFullDecription = rawTaskDescription.substring(7);
 
@@ -380,6 +393,13 @@ public class Storage {
         return "e-/-0-/-" + taskDescription + " -/-/at" + taskAt;
     }
 
+    /**
+     * Returns the duke.txt format of saving deadline.
+     *
+     * @param rawTaskDescription The deadline task description / by stored in the Array List
+     * @return Formatted deadline for duke.txt
+     * @throws IOException when duke.txt is not found...
+     */
     public static String textDeadlineSaveFormatter(String rawTaskDescription) throws IOException {
         String taskFullDecription = rawTaskDescription.substring(7);
 
@@ -394,6 +414,12 @@ public class Storage {
         return "d-/-0-/-" + taskDescription + " -/-/by" + taskBy;
     }
 
+    /**
+     * Returns the format of a task that is done for duke.txt.
+     *
+     * @param rawTaskDescription raw task description stored in Array List
+     * @throws IOException when duke.txt is not found...
+     */
     public static void saveFinishedTask(String rawTaskDescription) throws IOException {
         if (rawTaskDescription.substring(1,2).equals("T") == true) {
             String formattedDescription = textToDoSaveFormatter(rawTaskDescription);
