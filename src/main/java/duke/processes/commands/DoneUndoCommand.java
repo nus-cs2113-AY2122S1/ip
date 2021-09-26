@@ -6,10 +6,23 @@ import duke.Duke;
 public class DoneUndoCommand extends Command {
     public static String[] userCommand;
 
+    /**
+     * Constructor to set the UserCommand to the given Command
+     *
+     * @param command an array of String of the Users response
+     */
     public DoneUndoCommand(String[] command) {
+
         userCommand = command;
     }
 
+    /**
+     * executes the DoneUndoCommand depending on whether the user specified
+     * done or undo
+     *
+     * @return CommandResult with a string message indicating whether Command was executed
+     * successfully
+     */
     public CommandResult execute() {
         try {
             if (userCommand[0].equalsIgnoreCase("done")) {
@@ -23,6 +36,13 @@ public class DoneUndoCommand extends Command {
         }
     }
 
+    /**
+     * checks through the tasks that the user wants to undo and changes the isDone
+     * status of the specified tasks
+     *
+     * @param command an array of String of the Users response
+     * @throws DoneUndoException throws an error if the task is already marked as undone
+     */
     protected static void undo(String[] command) throws DoneUndoException {
         try {
             String[] tasks = command[1].split(",");
@@ -42,6 +62,13 @@ public class DoneUndoCommand extends Command {
         }
     }
 
+    /**
+     * checks through the tasks that the user wants to mark done and changes the isDone
+     * status of the specified tasks
+     *
+     * @param command an array of String of the Users response
+     * @throws DoneUndoException throws an error if the task is already marked as done
+     */
     protected static void done(String[] command) throws DoneUndoException {
         try {
             String[] tasks = command[1].split(",");

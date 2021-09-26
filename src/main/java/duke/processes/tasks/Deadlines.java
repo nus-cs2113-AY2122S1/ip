@@ -4,9 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadlines extends Task {
+
     protected static DateTimeFormatter format2 = DateTimeFormatter.ofPattern("d MMM yyyy, HHmm");
 
-    public Deadlines(String description, LocalDateTime d, String date) {
+    public Deadlines(String description, LocalDateTime d) {
 
         super(description, d);
     }

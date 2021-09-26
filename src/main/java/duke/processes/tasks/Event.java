@@ -3,11 +3,10 @@ package duke.processes.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 public class Event extends Task {
     protected static DateTimeFormatter format2 = DateTimeFormatter.ofPattern("d MMM yyyy, HHmm");
 
-    public Event(String description, LocalDateTime d, String date) {
+    public Event(String description, LocalDateTime d) {
 
         super(description, d);
     }

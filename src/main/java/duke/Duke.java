@@ -11,18 +11,27 @@ import duke.processes.utility.ProcessFiles;
 import java.util.ArrayList;
 
 public class Duke {
+
     public static ArrayList<Task> taskList = new ArrayList<>();
 
+    /**
+     * main code to run the overall processes of the entire program. Uses the runIkaros
+     * function to run the bulk of the task assistant ikaros
+     *
+     * @param args an array of sequence of characters (Strings) that are passed to the
+     *             "main" function.
+     */
     public static void main(String[] args) {
         Interface.introductoryMessage();
-        ProcessFiles.LoadTasks();
+        ProcessFiles.loadFile();
         runIkaros();
-        ProcessFiles.SaveTasks();
+        ProcessFiles.saveTasks();
         Interface.goodbyeMessage();
     }
 
     /**
-     * Runs Ikaros, manages the instructions of ikaros
+     * Runs Ikaros and manages the input of the user and the response of the
+     * program. Main code running the bulk of the program
      */
     protected static void runIkaros() {
         boolean isRunning = true;

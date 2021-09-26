@@ -4,8 +4,15 @@ import duke.processes.commands.*;
 
 public class Parser {
 
+    /**
+     * parses through the user input to make sense of the different command
+     * and inform the main class what command the user has inputted
+     *
+     * @param response the direct string message of the users response
+     * @return returns the Command inputted by the user of type Command
+     */
     public static Command parseCommand(String response) {
-        String [] command = response.split(" ", 10);
+        String[] command = response.split(" ", 10);
         switch (command[0]) {
         case "list":
             return new ListCommand(command);

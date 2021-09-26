@@ -4,9 +4,18 @@ import duke.Duke;
 import duke.exceptions.TaskException;
 import duke.processes.tasks.Task;
 
-public class FindCommand extends Command{
+public class FindCommand extends Command {
+
     public static final int FIND_LENGTH = 5;
     public static String keyword;
+
+    /**
+     * Constructor that checks to see if the user has entered the command in the correct format.
+     * initializes the keyword that the user is searching for.
+     *
+     * @param command  an array of strings of the users response
+     * @param response the direct string message of the users response
+     */
     public FindCommand(String[] command, String response) {
         try {
             if (command[1].isEmpty()) {
@@ -18,6 +27,12 @@ public class FindCommand extends Command{
         }
     }
 
+    /**
+     * iterates through the main taskList to check for tasks that matches
+     * the keyword and prints out the matching tasks onto the console.
+     *
+     * @return returns the message depending on whether the search yielded results
+     */
     public CommandResult execute() {
         int i = 0;
         int found = 0;
@@ -26,7 +41,7 @@ public class FindCommand extends Command{
             if (task.description.contains(keyword)) {
                 System.out.println(i + ".[" + task.getTaskID() + "]" +
                         "[" + task.getStatusIcon() +
-                        "] " + task.description + task.getDate());
+                        "] " + task.description + " " + task.getDate());
                 found++;
             }
         }
