@@ -34,10 +34,11 @@ Hello there 👋 and welcome to **Duke**! **Duke** is a Task List designed to st
 task like todo, event and deadline which can be displayed to the user.  
 
 ## Getting Started
-- Download the [JAR file]().
+- Download the [JAR file](https://github.com/YEOWEIHNGWHYELAB/ip/releases/download/A-Release/IndividualProject.jar).
 - This open a terminal and ensure that you switch your jdk to java 11 first.
-- The "text-art" folder can be created by extracting the [compressed folder]() that contains all the text-art needs 
-to be included in the JAR directory. It can also be manually downloaded from 
+- The "text-art" folder can be created by extracting the [compressed folder](https://github.com/YEOWEIHNGWHYELAB/ip/releases/download/A-Release/text-art.zip) 
+(all text file in text-art folder must be of depth 1 from JAR base directory) that contains all the text-art 
+needs to be included in the JAR directory. It can also be manually downloaded from 
 [text-art](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/text-art). 
 - data/duke.txt will be created in the JAR directory if it does not exist and the duke.txt must 
 be kept empty (unless it is of the correct format - generated from this app).
