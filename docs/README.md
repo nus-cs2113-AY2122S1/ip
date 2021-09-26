@@ -4,6 +4,7 @@ Duke is an application for users to manage and track Tasks via a Command Line In
 
 - [Quick Start](#quick-start)
 - [Features](#features)
+  - [View help: `help`](#help---display-help-message)
   - [List all Tasks: `list`](#list---list-all-tasks)
   - [Add Todo Task: `todo`](#todo---adds-a-todo-task)
   - [Add Deadline Task: `deadline`](#deadline---adds-a-deadline-task)
@@ -13,7 +14,7 @@ Duke is an application for users to manage and track Tasks via a Command Line In
   - [Check Schedule on Date: `schedule`](#schedule---list-all-tasks-on-specific-date)
   - [Search for Keyword in Tasks: `find`](#find---search-tasks)
   - [Quit the program: `bye`](#bye---quits-the-program)
-  - [View help: `help`](#help---displays-the-help-message)
+  - 
   - [Data Storage](#data-storage)
   - [Data Editing](#data-editing)
 - [Command Summary](#command-summary)
@@ -55,7 +56,38 @@ ____________________________________________________________
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
+  
+  
+  
+### `Help` - Display help message
 
+Display command usage
+
+Format: `help`
+
+Expected outcome:
+
+```
+help
+_________________________________________________________________
+ Command   |   Usage:
+ list      |   list
+ todo      |   todo <TASK_DESCRIPTION>
+ deadline  |   deadline <TASK_DESCRIPTION> /by <yyyy-MM-dd HH:mm>
+ event     |   event <TASK_DESCRIPTION> /at <yyyy-MM-dd>
+ done      |   done <TASK_NUMBER>
+ delete    |   delete <TASK_NUMBER>
+ schedule  |   schedule <yyyy-MM-dd>
+ find      |   find <KEYWORD>
+ help      |   help
+ bye       |   bye
+
+ Detailed User Guide at https://remusteo.github.io/ip/
+_________________________________________________________________
+```
+
+  
+  
 ### `List` - List all tasks.
 
 List all tasks in the task list.
@@ -66,14 +98,16 @@ Expected outcome:
 
 ```
 list
-____________________________________________________________
+_________________________________________________________________
  Here are the tasks in your list:
  1.[T][ ] read book
  2.[D][ ] return book (by: Sep 27 2021 18:00)
  3.[E][ ] attend book event (at: Sep 28 2021 16:00)
-____________________________________________________________
+_________________________________________________________________
 ```
 
+  
+  
 ### `Todo` - Adds a todo task.
 
 Adds a todo task into the task list
@@ -84,14 +118,14 @@ Expected outcome:
 
 ```
 todo read book
-____________________________________________________________
+_________________________________________________________________
  Got it. I've added this task:
    [T][ ] read book
  Now you have 1 tasks in the list.
-____________________________________________________________
+_________________________________________________________________
 ```
 
-
+  
 
 ### `Deadline` - Adds a deadline task.
 
@@ -103,14 +137,14 @@ Excepted outcome:
 
 ```
 deadline return book /by 2021-09-27 18:00
-____________________________________________________________
+_________________________________________________________________
  Got it. I've added this task:
    [D][ ] return book (by: Sep 27 2021 18:00)
  Now you have 2 tasks in the list.
-____________________________________________________________
+_________________________________________________________________
 ```
 
-
+  
 
 ### `Event` - Adds an event task.
 
@@ -122,15 +156,15 @@ Excepted outcome:
 
 ```
 event attend book event /at 2021-09-28 16:00
-____________________________________________________________
+_________________________________________________________________
  Got it. I've added this task:
    [E][ ] attend book event (at: Sep 28 2021 16:00)
  Now you have 3 tasks in the list.
-____________________________________________________________
+_________________________________________________________________
 ```
 
 
-
+  
 ### `Event` - Adds an event task.
 
 Adds an event task into the task list
@@ -141,14 +175,14 @@ Excepted outcome:
 
 ```
 event attend book event /at 2021-09-28 16:00
-____________________________________________________________
+_________________________________________________________________
  Got it. I've added this task:
    [E][ ] attend book event (at: Sep 28 2021 16:00)
  Now you have 3 tasks in the list.
-____________________________________________________________
+_________________________________________________________________
 ```
 
-
+  
 
 ### `Done` - Mark task as done.
 
@@ -160,13 +194,13 @@ Excepted outcome:
 
 ```
 done 1
-____________________________________________________________
+_________________________________________________________________
  Nice! I've marked this task as done:
    [T][X] read book
-____________________________________________________________
+_________________________________________________________________
 ```
 
-
+  
 
 ### `Delete` - Deletes a task.
 
@@ -178,14 +212,14 @@ Excepted outcome:
 
 ```
 delete 1
-____________________________________________________________
+_________________________________________________________________
  Noted. I've removed this task:
    [T][X] read book
  Now you have 2 tasks in the list.
-____________________________________________________________
+_________________________________________________________________
 ```
 
-
+  
 
 ### `Schedule` - List all tasks on specific date.
 
@@ -197,12 +231,12 @@ Excepted outcome:
 
 ```
 schedule 2021-09-27
-____________________________________________________________
+_________________________________________________________________
  Here is your schedule on Sep 27 2021:
  1.[D][ ] return book (by: Sep 27 2021 18:00)
  2.[D][ ] buy new book (by: Sep 27 2021 10:00)
  3.[E][ ] book conference (at: Sep 27 2021 15:30)
-____________________________________________________________
+_________________________________________________________________
 ```
 
 
@@ -217,10 +251,10 @@ Excepted outcome:
 
 ```
 find buy
-____________________________________________________________
+_________________________________________________________________
  Here are the matching tasks in your list:
  1.[D][ ] buy new book (by: Sep 27 2021 10:00)
-____________________________________________________________
+_________________________________________________________________
 ```
 
 
@@ -235,9 +269,9 @@ Excepted outcome:
 
 ```
 bye
-____________________________________________________________
+_________________________________________________________________
  Bye. Hope to see you again soon!
-____________________________________________________________
+_________________________________________________________________
 ```
 
 
