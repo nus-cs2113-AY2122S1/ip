@@ -27,7 +27,7 @@
 - [list](#help---list-out-the-list-of-command)
 - [bye](#bye---terminates-the-app)
 
-[Summary](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#summary)
+[Summary](#summary)
 
 ## Introducing DUKE CS2113T
 Hello there 👋 and welcome to **Duke**! **Duke** is a Task List designed to store various type of 
