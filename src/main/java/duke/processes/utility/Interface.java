@@ -38,19 +38,14 @@ public class Interface {
     public static void introductoryMessage() {
 
         System.out.println(lineBreak);
-
         System.out.println(logo);
-        System.out.println(lineBreak);
-        displayCommandList();
+        LocalDate d = LocalDate.now();
+        System.out.println("             " + d.getDayOfWeek() + ", "
+                + d.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
         System.out.println(lineBreak);
         System.out.println("Below is your current list of tasks."
                 + System.lineSeparator()
                 + "What further assistance do you require?");
-        System.out.println(lineBreak);
-        LocalDate d = LocalDate.now();
-
-        System.out.println("Today's Date: " + d.getDayOfWeek() + ", "
-                + d.format(DateTimeFormatter.ofPattern("d MMM yyyy")));
         System.out.println(lineBreak);
     }
 
