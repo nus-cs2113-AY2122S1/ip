@@ -250,6 +250,7 @@ Expected output:
 **A:** Yes, tasks and their information are saved upon edit and persists across runs.
 
 ### Command Summary
+
 | Action           | Format                                 | Example                                |
 | :---             | :---                                   | :---                                   |
 | **Help**         | `help`                                 | `help`                                 |
@@ -261,9 +262,3 @@ Expected output:
 | **Delete**       | `delete [TASK_INDEX]`                  | `delete 1`                             |
 | **Find**         | `find [KEYWORD]`                       | `find buy`                             |
 | **Exit**         | `bye`                                  | `bye`                                  |
-
-
-
-| Action       | Format, Examples                                                                                                   |
-| :---         | :---                                                                                                               |
-| **Help**     | `help`                                                                                                             |
