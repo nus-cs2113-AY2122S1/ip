@@ -12,12 +12,15 @@ public class ListCommand extends Command {
     protected String listType;
 
     public ListCommand(String[] command) {
+
         if (command.length == 1) {
             this.listType = "list";
         } else if (command[1].equalsIgnoreCase("event")) {
             this.listType = "event";
         } else if (command[1].equalsIgnoreCase("deadline")) {
             this.listType = "deadline";
+        } else {
+            this.listType = "others";
         }
     }
 
@@ -33,6 +36,8 @@ public class ListCommand extends Command {
             bubbleSortTask();
             Interface.printSortedList();
             break;
+        case "others":
+            return new CommandResult("please specify type for list [list, list deadline, list event]");
         }
         return new CommandResult("--------END OF LIST-----------");
     }

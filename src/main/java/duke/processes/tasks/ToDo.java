@@ -9,19 +9,27 @@ public class ToDo extends Task {
         super(description, d);
     }
 
+    @Override
     public String toString() {
+
         return description;
     }
 
+    @Override
     public String getTaskType() {
+
         return "todo";
     }
 
+    @Override
     public String getTaskID() {
+
         return "T";
     }
 
+    @Override
     public String getDate() {
+
         return " ";
     }
 }

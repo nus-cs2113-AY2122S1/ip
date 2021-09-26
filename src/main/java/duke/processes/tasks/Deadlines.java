@@ -4,28 +4,34 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadlines extends Task {
-    protected LocalDateTime date;
-    protected static DateTimeFormatter format1 = DateTimeFormatter.ofPattern("dd/MM/yyyy-HHmm");
     protected static DateTimeFormatter format2 = DateTimeFormatter.ofPattern("d MMM yyyy, HHmm");
 
     public Deadlines(String description, LocalDateTime d, String date) {
+
         super(description, d);
-        this.date = LocalDateTime.parse(date, format1);
     }
 
+    @Override
     public String toString() {
+
         return description;
     }
 
+    @Override
     public String getTaskType() {
+
         return "deadline";
     }
 
+    @Override
     public String getTaskID() {
+
         return "D";
     }
 
+    @Override
     public String getDate() {
+
         return date.format(format2);
     }
 }
