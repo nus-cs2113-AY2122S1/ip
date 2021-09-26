@@ -254,6 +254,7 @@ If your changes to the data file makes its format invalid, Duke will crash and w
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command Summary
+  
 | Action | Format |
 | --- | --- |
 | **List** | `list` |
