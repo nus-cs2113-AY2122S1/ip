@@ -48,14 +48,19 @@ ________________________________________
 Sorry bud! The description after deadline can't be blank!
 ________________________________________
 ________________________________________
+Sorry bud, but that's an invalid date-time format! It should be as follows: 
+/by dd/mm/yyyy HHmm (for deadlines)
+/at dd/mm/yyyy HHmm to dd/mm/yyyy HHmm (for events)
+________________________________________
+________________________________________
 Got it. I've added this task:
-[D][ ] go to bed(by:10pm)
+[D][ ] go to bed (by: Oct 01 2021 10:00 PM)
 Now you have 2 tasks in the list.
 ________________________________________
 ________________________________________
 Here are the tasks in your list:
 1.[T][ ] sleep
-2.[D][ ] go to bed (by: 10pm)
+2.[D][ ] go to bed (by: Oct 01 2021 10:00 PM)
 ________________________________________
 ________________________________________
 Hey bud, the format for marking off a task is :done [index]
@@ -69,6 +74,7 @@ ________________________________________
 ________________________________________
 Nice! I've marked this task as done:
 [T][X] sleep
+Now you have 2 tasks in the list.
 ________________________________________
 ________________________________________
 Sorry bud! The description after event can't be blank!
@@ -82,32 +88,35 @@ Sorry bud! The description after event can't be blank!
 ________________________________________
 ________________________________________
 Got it. I've added this task:
-[E][ ] power nap(at:5:15-5:30pm)
+[E][ ] power nap (at: Nov 01 2021 05:15 PM to Nov 01 2021 05:30 PM)
 Now you have 3 tasks in the list.
 ________________________________________
 ________________________________________
 Here are the tasks in your list:
 1.[T][X] sleep
-2.[D][ ] go to bed (by: 10pm)
-3.[E][ ] power nap (at: 5:15-5:30pm)
+2.[D][ ] go to bed (by: Oct 01 2021 10:00 PM)
+3.[E][ ] power nap (at: Nov 01 2021 05:15 PM to Nov 01 2021 05:30 PM)
 ________________________________________
 ________________________________________
 Nice! I've marked this task as done:
-[D][X] go to bed (by: 10pm)
+[D][X] go to bed (by: Oct 01 2021 10:00 PM)
+Now you have 3 tasks in the list.
 ________________________________________
 ________________________________________
 Sorry bud, you can't check off/delete what is not yet there :/
 ________________________________________
 ________________________________________
 Nice! I've marked this task as done:
-[E][X] power nap (at: 5:15-5:30pm)
+[E][X] power nap (at: Nov 01 2021 05:15 PM to Nov 01 2021 05:30 PM)
+Now you have 3 tasks in the list.
 ________________________________________
 ________________________________________
-Sorry bud, but that command is gibberish to me. I can only read 7 words!
-The seven words are:
+Sorry bud, but that command is gibberish to me. I can only read 8 words!
+The eight words are:
 list
 done
 delete
+find
 todo
 deadline
 event
@@ -116,8 +125,8 @@ ________________________________________
 ________________________________________
 Here are the tasks in your list:
 1.[T][X] sleep
-2.[D][X] go to bed (by: 10pm)
-3.[E][X] power nap (at: 5:15-5:30pm)
+2.[D][X] go to bed (by: Oct 01 2021 10:00 PM)
+3.[E][X] power nap (at: Nov 01 2021 05:15 PM to Nov 01 2021 05:30 PM)
 ________________________________________
 ________________________________________
 Noted. I've removed this task:
@@ -126,12 +135,12 @@ Now you have 2 tasks in the list.
 ________________________________________
 ________________________________________
 Noted. I've removed this task:
-[D][X] go to bed (by: 10pm)
+[D][X] go to bed (by: Oct 01 2021 10:00 PM)
 Now you have 1 tasks in the list.
 ________________________________________
 ________________________________________
 Noted. I've removed this task:
-[E][X] power nap (at: 5:15-5:30pm)
+[E][X] power nap (at: Nov 01 2021 05:15 PM to Nov 01 2021 05:30 PM)
 Now you have 0 tasks in the list.
 ________________________________________
 ________________________________________

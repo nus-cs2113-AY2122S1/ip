@@ -4,6 +4,7 @@ list
 deadline go to bed
 deadline /by
 deadline go to bed /by 10pm
+deadline go to bed /by 01/10/2021 2200
 list
 done
 done abc
@@ -12,7 +13,7 @@ done 1
 event
 event power nap
 event /at
-event power nap /at 5:15-5:30pm
+event power nap /at 01/11/2021 1715 to 01/11/2021 1730
 list
 done 2
 done 4
