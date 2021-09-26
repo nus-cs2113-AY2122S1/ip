@@ -20,7 +20,7 @@ public class Duke {
 //    private static final Path dukeDataPath = Paths.get("Duke/data.txt");
 //    private static final File dukeData = new File(dukeDataPath.toString());
     private static final int MAX_TASKS = 100;
-    private static final Task[] tasks = new Task[MAX_TASKS]; // fixed size array for now, each contains a Task element
+    private static Task[] tasks = new Task[MAX_TASKS]; // fixed size array for now, each contains a Task element
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final int TODO_MIN_LENGTH = 6;
     private static final int TODO_DESCRIPTION_START = 5;
@@ -57,7 +57,7 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void markAsDone(Task[] tasks, int currCount, String line) throws DukeException {
+    public static void markAsDone(int currCount, String line) throws DukeException {
         String[] input = line.split(" ");
         if (input.length < DONE_MIN_LENGTH) {
             throw new DukeException(DONE_DESCRIPTION_ERROR);
@@ -71,9 +71,10 @@ public class Duke {
         System.out.println(" Nice! I've marked this task as done:");
         System.out.println(" " + tasks[index].toString());
         printHorizontalLine();
+        writeToFile();
     }
 
-    public static void printList(Task[] tasks, int currCount) {
+    public static void printList(int currCount) {
         printHorizontalLine();
         System.out.println(" Here are the tasks in your list:");
         Task[] taskList = Arrays.copyOf(tasks, currCount);
@@ -85,7 +86,7 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static int completeAddTask(Task[] tasks, int currCount) {
+    public static int completeAddTask(int currCount) {
         printHorizontalLine();
         System.out.println(" Got it. I've added this task:");
         System.out.println(" " + tasks[currCount].toString());
@@ -93,10 +94,11 @@ public class Duke {
         System.out.println(" Now you have " + numTasks + " tasks in the list.");
         printHorizontalLine();
         currCount += 1;
+        writeToFile();
         return currCount;
     }
 
-    public static void processEventCommand(Task[] tasks, int currCount, String line) throws DukeException {
+    public static void processEventCommand(int currCount, String line) throws DukeException {
         if (line.length() < EVENT_MIN_LENGTH) {
             throw new DukeException(EVENT_DESCRIPTION_ERROR);
         }
@@ -111,7 +113,7 @@ public class Duke {
         return new Event(description, at);
     }
 
-    public static void processDeadlineCommand(Task[] tasks, int currCount, String line) throws DukeException {
+    public static void processDeadlineCommand(int currCount, String line) throws DukeException {
         if (line.length() < DEADLINE_MIN_LENGTH) {
             throw new DukeException(DEADLINE_DESCRIPTION_ERROR);
         }
@@ -127,7 +129,7 @@ public class Duke {
         return new Deadline(description, by);
     }
 
-    public static void processTodoCommand(Task[] tasks, int currCount, String line) throws DukeException {
+    public static void processTodoCommand(int currCount, String line) throws DukeException {
         if (line.length() < TODO_MIN_LENGTH) {
             throw new DukeException(TODO_DESCRIPTION_ERROR);
         }
@@ -151,22 +153,23 @@ public class Duke {
         while (!line.equals("bye")) {
             try {
                 if (line.contains("done")) { // mark task as done
-                    markAsDone(tasks, currCount, line);
-                    writeToFile();
+                    markAsDone(currCount, line);
+//                    writeToFile();
                 } else if (line.contains("todo")) {
-                    processTodoCommand(tasks, currCount, line);
-                    currCount = completeAddTask(tasks, currCount);
-                    writeToFile();
+                    processTodoCommand(currCount, line);
+                    currCount = completeAddTask(currCount);
+//                    writeToFile();
                 } else if (line.contains("deadline")) {
-                    processDeadlineCommand(tasks, currCount, line);
-                    currCount = completeAddTask(tasks, currCount);
-                    writeToFile();
+                    processDeadlineCommand(currCount, line);
+                    currCount = completeAddTask(currCount);
+//                    writeToFile();
                 } else if (line.contains("event")) {
-                    processEventCommand(tasks, currCount, line);
-                    currCount = completeAddTask(tasks, currCount);
-                    writeToFile();
+                    processEventCommand(currCount, line);
+                    currCount = completeAddTask(currCount);
+//                    writeToFile();
                 } else if (line.equals("list")){ // print the list
-                    printList(tasks, currCount);
+                    printList(currCount);
+//                    writeToFile();
                 }
                 else {
                     throw new DukeException(COMMAND_ERROR);
@@ -176,6 +179,7 @@ public class Duke {
                 System.out.println(e.getMessage());
                 printHorizontalLine();
             }
+            line = in.nextLine();
         }
     }
 
@@ -198,6 +202,7 @@ public class Duke {
             System.out.println("Creating new data file....");
             try {
                 data.createNewFile();
+                System.out.println("New data file created");
             } catch (IOException e) {
                 System.out.println("Unable to create new data file");
             }
@@ -207,25 +212,26 @@ public class Duke {
 
     public static void parseDataFromFile(String nextLine, int currCount) {
         String[] input = nextLine.split("\\|"); // necessary to escape regex meta character
-//        for (String s: input) {
-//            s = s.trim();
-//        }
-        switch (input[0]) {
+        String[] trimmedInput = new String[input.length];
+        for (int i = 0; i < input.length; i++) {
+            trimmedInput[i] = input[i].trim();
+        }
+        switch (trimmedInput[0]) {
         case "T":
-            tasks[currCount] = addTodo(input[2]);
-            if (input[1].equals("1")) {
+            tasks[currCount] = addTodo(trimmedInput[2]);
+            if (trimmedInput[1].equals("1")) {
                 tasks[currCount].markAsDone();
             }
             break;
         case "D":
-            tasks[currCount] = addDeadline(input[2], input[3]);
-            if (input[1].equals("1")) {
+            tasks[currCount] = addDeadline(trimmedInput[2], trimmedInput[3]);
+            if (trimmedInput[1].equals("1")) {
                 tasks[currCount].markAsDone();
             }
             break;
         case "E":
-            tasks[currCount] = addEvent(input[2], input[3]);
-            if (input[1].equals("1")) {
+            tasks[currCount] = addEvent(trimmedInput[2], trimmedInput[3]);
+            if (trimmedInput[1].equals("1")) {
                 tasks[currCount].markAsDone();
             }
             break;
@@ -235,20 +241,24 @@ public class Duke {
     public static void writeToFile() {
         try {
             FileWriter fw = new FileWriter("Duke/data.txt");
-            fw.write(parseDataIntoFile());
+            for (Task t: tasks) {
+                System.out.println(t.parseDataIntoString());
+                String fileOutput = t.parseDataIntoString() + System.lineSeparator();
+                fw.write(fileOutput);
+            }
             fw.close();
         } catch (IOException e) {
             System.out.println("Unable to write to file");
         }
     }
 
-    public static String parseDataIntoFile() {
-        String output = "";
-        for (Task t: tasks) {
-            output += t.parseDataIntoString() + "\n";
-        }
-        return output;
-    }
+//    public static String parseDataIntoFile() {
+//        String output = "";
+//        for (Task t: tasks) {
+//            output += t.parseDataIntoString() + "\n";
+//        }
+//        return output;
+//    }
 
 //    public static int createAndProcessFile() throws IOException {
 //        int currCount = 0;
