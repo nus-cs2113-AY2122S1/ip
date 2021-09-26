@@ -219,15 +219,15 @@ The format for each Task printed is:
 
 **Deadline/Event Time**
 
-* \ *null* -> In case of a Todo there is no deadline or event time.
-* \ (by:MONTH_NAME DAY_OF_MONTH, YEAR TIME) -> In case of a Deadline
-* \ (at:MONTH_NAME DAY_OF_MONTH, YEAR TIME) -> In case of an Event
+* *null* -> In case of a Todo there is no deadline or event time.
+* (by:MONTH_NAME DAY_OF_MONTH, YEAR TIME) -> In case of a Deadline
+* (at:MONTH_NAME DAY_OF_MONTH, YEAR TIME) -> In case of an Event
 
 <br />
 
 ### Marking a task as done: `done <INDEX_NUMBER>`
 
-Marks a task as done, by their **INDEX_NUMBER**.
+Marks the task present at the specified **INDEX_NUMBER** as _done_ in the task list.
 
 - **INDEX_NUMBER** : index as displayed in the Task list.
 
@@ -260,7 +260,7 @@ ____________________________________________________________
 
 ### Deleting a task: `delete <INDEX_NUMBER>`
 
-Deletes a task from the task list, by their **index_number**
+Deletes the task present at the specified **index_number** in the task list.
 
 - **INDEX_NUMBER** : index as displayed in the Task list.
 
@@ -293,7 +293,7 @@ ____________________________________________________________
 
 ### Searching for tasks: `find <KEYWORD>`
 
-Queries the task list by the keyword passed.
+Queries the task list by the passed search keyword.
 
 - All tasks that contains the `KEYWORD` in their task description will be displayed.
 
