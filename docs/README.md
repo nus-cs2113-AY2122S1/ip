@@ -154,6 +154,7 @@ Displays the available commands and the input format for them.
 Format: `help`
 
 <br />
+
 ### `bye` - Exits the program
 Exits the program.
 
