@@ -85,16 +85,14 @@ public class Ui {
 
     protected Scanner sc;
 
-    /**
-     * Constructor
-     */
     public Ui() {
         sc = new Scanner(System.in);
     }
+
     /**
-     * returns the user input
+     * Returns the user input.
      *
-     * @return user input
+     * @return user input.
      */
     public String readCommand() {
         showUserInputMessage();
@@ -102,154 +100,286 @@ public class Ui {
     }
 
     /**
-     * Methods to output Messages.Messages and Errors.
+     * Prints the decorative lines with a line separator.
      */
     public void showLines() {
         System.out.print(LINES);
     }
+
+    /**
+     * Prints the welcome message with decorative lines.
+     */
     public void showWelcomeMessage() {
         System.out.print(LINES + VERSION + LINES + LINES + GREETING_MESSAGE + HELP_MESSAGE + LINES);
     }
+
+    /**
+     * Prints the message to get user input.
+     */
     public void showUserInputMessage() {
         System.out.print(USER_INPUT_MESSAGE);
     }
-    /** ----------EXTRA FUNCTIONS MESSAGE METHODS---------- */
+    /* ----------EXTRA FUNCTIONS MESSAGE METHODS---------- */
+
+    /**
+     * Prints the birthday message with decorative lines.
+     */
     public void showBirthdayMessage() {
         System.out.print(LINES + BIRTHDAY_MESSAGE + LINES);
     }
-    /** ----------DATABASE MESSAGE AND ERRORS METHODS---------- */
+    /* ----------DATABASE MESSAGE AND ERRORS METHODS---------- */
+
+    /**
+     * Prints the database cleared message with decorative lines.
+     */
     public void showClearDatabaseMessage() {
         System.out.print(LINES + CLEAR_DATABASE_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the no database file error with decorative lines.
+     */
     public void showNoDatabaseFileMessage() {
         System.out.print(LINES + NO_DATABASE_FILE_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the corrupted database file error that shows the first corrupted line
+     * with decorative lines.
+     * @param corruptedLineNumber Line number of the first corrupted line in the file.
+     */
     public void showCorruptedDatabaseFileMessage(int corruptedLineNumber) {
         System.out.print(LINES + CORRUPTED_DATABASE_FILE_MESSAGE + corruptedLineNumber + "!" +
                 System.lineSeparator() + LINES);
     }
 
+    /**
+     * Prints the check folder message with decorative line on top.
+     */
     public void showCheckFolderMessage() {
         System.out.print(LINES + CHECK_FOLDER_MESSAGE);
     }
 
+    /**
+     * Prints the create missing folder message.
+     */
     public void showCreateMissingFolderMessage() {
         System.out.print(CREATE_MISSING_FOLDER_MESSAGE);
     }
 
+    /**
+     * Prints the folder found message.
+     */
     public void showFolderFoundMessage() {
         System.out.print(FOLDER_FOUND_MESSAGE);
     }
 
+    /**
+     * Prints the check database file message.
+     */
     public void showCheckDatabaseFileMessage() {
         System.out.print(CHECK_DATABASE_FILE_MESSAGE);
     }
 
+    /**
+     * Prints the create missing file message with decorative line below.
+     */
     public void showCreateMissingDatabaseFileMessage() {
         System.out.print(CREATE_MISSING_DATABASE_FILE_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the file found message with decorative line below.
+     */
     public void showDatabaseFileFoundMessage() {
         System.out.print(DATABASE_FILE_FOUND_MESSAGE + LINES);
     }
-    /** ----------LIST MESSAGE AND ERRORS METHODS---------- */
+    /* ----------LIST MESSAGE AND ERRORS METHODS---------- */
+
+    /**
+     * Prints the empty list message with decorative lines.
+     */
     public void showEmptyListMessage() {
         System.out.print(LINES + EMPTY_LIST_MESSAGE + LINES);
     }
-    /** ----------ADD TASK MESSAGES AND ERRORS METHODS---------- */
+    /* ----------ADD TASK MESSAGES AND ERRORS METHODS---------- */
+
+    /**
+     * Prints the task added message with the task to be added and the total number of tasks in the list
+     * after adding.
+     *
+     * @param task Task to be added.
+     * @param numberOfTasks Number of tasks in the list.
+     */
     public void showTaskAddedMessage(Task task, int numberOfTasks) {
         System.out.print(LINES + ADD_MESSAGE + task.toString() + System.lineSeparator() +
                 " Now you have " + numberOfTasks + " tasks in the list." + System.lineSeparator() + LINES);
     }
 
+    /**
+     * Prints the task adding error message with decorative lines.
+     */
     public void showAddErrorMessage() {
         System.out.print(LINES + ADD_ERROR_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the missing task description error message with decorative lines.
+     */
     public void showMissingTaskDescriptionMessage() {
         System.out.print(LINES + MISSING_TASK_DESCRIPTION_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the missing deadline error message with decorative lines.
+     */
     public void showMissingTaskDeadlineMessage() {
         System.out.print(LINES + MISSING_TASK_DEADLINE_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the missing time range error message with decorative lines.
+     */
     public void showMissingEventTimeRangeMessage() {
         System.out.print(LINES + MISSING_EVENT_TIME_RANGE_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the missing description and/or deadline error message with decorative lines.
+     */
     public void showMissingTaskOrDeadlineMessage() {
         System.out.print(LINES + MISSING_TASK_OR_DEADLINE_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the missing description and/or time range error message with decorative lines.
+     */
     public void showMissingTaskOrTimeRangeMessage() {
         System.out.print(LINES + MISSING_TASK_OR_TIME_RANGE_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the missing '/by' error message with decorative lines.
+     */
     public void showMissingByMessage() {
         System.out.print(LINES + MISSING_BY_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the missing '/at' error message with decorative lines.
+     */
     public void showMissingAtMessage() {
         System.out.print(LINES + MISSING_AT_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the invalid command error message with decorative lines.
+     */
     public void showInvalidCommandMessage() {
         System.out.print(LINES + INVALID_COMMAND_MESSAGE + LINES);
     }
-    /** ----------REMOVE TASK MESSAGES AND ERRORS METHODS---------- */
+    /* ----------REMOVE TASK MESSAGES AND ERRORS METHODS---------- */
+
+    /**
+     * Prints the nothing to remove error message with decorative lines.
+     */
     public void showNothingToRemoveMessage() {
         System.out.print(LINES + NOTHING_TO_REMOVE_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the task deleted message with the deleted task and the number of tasks left with decorative lines.
+     *
+     * @param task Task to be deleted.
+     * @param numberOfTasksLeft Number of tasks left in the list.
+     */
     public void showDeleteTaskMessage(Task task, int numberOfTasksLeft) {
         String tabSpace = "   ";
         System.out.print(LINES + DELETE_TASK_MESSAGE + tabSpace + task.toString()+ System.lineSeparator() +
                 " Now you have " + numberOfTasksLeft + " tasks in the list!" + System.lineSeparator() + LINES);
     }
 
+    /**
+     * Prints the no such task error message with decorative lines.
+     */
     public void showNoSuchTaskMessage() {
         System.out.print(LINES + NO_SUCH_TASK_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the remove command error message with decorative lines.
+     * This message procs when an integer is not inputted after the 'remove' command.
+     */
     public void showRemoveCommandErrorMessage() {
         System.out.print(LINES + REMOVE_COMMAND_ERROR_MESSAGE + LINES);
     }
+    /* ----------DONE TASK MESSAGES AND ERRORS---------- */
 
+    /**
+     * Prints the task already done error message with decorative lines.
+     */
     public void showTaskAlreadyDoneMessage() {
         System.out.print(LINES + TASK_ALREADY_DONE_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the no task specified error message with decorative lines.
+     */
     public void showNoTaskSpecifiedMessage() {
         System.out.print(LINES + NO_TASK_SPECIFIED_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the done command error message with decorative lines.
+     * This message procs when an integer is not inputted after the 'done' command.
+     */
     public void showDoneCommandErrorMessage() {
         System.out.print(LINES + DONE_COMMAND_ERROR_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the task completed message with the completed task and decorative lines.
+     *
+     * @param task Task that is completed.
+     */
     public void showTaskCompleteMessage(Task task) {
         System.out.print(LINES + TASK_COMPLETE_MESSAGE + task.toString() + System.lineSeparator() + LINES);
     }
-    /** ----------FIND TASK MESSAGES AND ERRORS---------- */
+    /* ----------FIND TASK MESSAGES AND ERRORS---------- */
+
+    /**
+     * Prints the no keyword specified error message with decorative lines.
+     */
     public void showNoKeywordSpecifiedMessage() {
         System.out.println(LINES + NO_KEYWORD_SPECIFIED_MESSAGE + LINES);
     }
 
+    /**
+     * Prints the task found message with decorative line on top.
+     */
     public void showFoundTaskMessage() {
         System.out.print(LINES + FOUND_TASK_MESSAGE);
     }
 
+    /**
+     * Prints the task not found error message with decorative lines.
+     */
     public void showTaskNotFoundMessage() {
         System.out.print(LINES + TASK_NOT_FOUND_MESSAGE + LINES);
     }
-    /** ----------HELP MESSAGE---------- */
+    /* ----------HELP MESSAGE---------- */
+
+    /**
+     * Prints the help message with decorative lines.
+     */
     public void showHelpMessage() {
         System.out.print(LINES + HELP_MESSAGE + LINES);
     }
-    /** ----------EXIT MESSAGE---------- */
+    /* ----------EXIT MESSAGE---------- */
+
+    /**
+     * Prints the exit message with decorative lines.
+     */
     public void showExitMessage() {
         System.out.print(LINES + EXIT_MESSAGE + LINES);
     }

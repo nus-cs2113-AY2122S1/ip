@@ -5,6 +5,13 @@ import commands.*;
 
 public class Parser {
 
+    /**
+     * Parses the user input and returns the command that is being called.
+     *
+     * @param input The user input.
+     * @return Command being called to be executed.
+     * @throws JimException If input does not call any command.
+     */
     public static Command parseCommand(String input) throws JimException {
         Command c;
         String inputToParse = input.toLowerCase();
