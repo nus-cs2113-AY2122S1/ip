@@ -12,11 +12,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage class handles all saving and loading of data
+ */
 public class Storage {
     private static final String DIRECTORY_PATH = "data";
     private static final String FILE_PATH = "data/duke.txt";
     private static File myFile;
 
+    /**
+     * Constructor of Storage class.
+     * Initializes myFile variable with file data/duke.txt
+     */
     public Storage() {
         myFile = new File(FILE_PATH);
     }
@@ -24,8 +31,8 @@ public class Storage {
     /**
      * Write data into file data/duke.txt
      *
-     * @param data
-     * @throws IOException
+     * @param data Data to be written into the file
+     * @throws IOException If unable to write into file
      */
     private static void writeToFile(String data) throws IOException {
         FileWriter fw = new FileWriter("data/duke.txt");

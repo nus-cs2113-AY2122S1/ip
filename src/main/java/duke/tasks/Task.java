@@ -1,5 +1,9 @@
 package duke.tasks;
 
+/**
+ * Task is a super class representing a generic task. Its sub-classes are: Todo, Event, Deadline
+ * A Task object is represented by a description and a status of whether the task is done.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

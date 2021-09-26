@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * Adds an Event Task
  * If no arguments provided by user, then error message is printed.
- * Calls splitByDelimiter to process command and arguments.
+ * Calls splitByDelimiter from Parser to process command and arguments.
  */
 public class AddEventCommand extends Command {
     String arguments;

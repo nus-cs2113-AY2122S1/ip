@@ -1,6 +1,14 @@
 package duke.parser;
 
-import duke.commands.*;
+import duke.commands.Command;
+import duke.commands.ListCommand;
+import duke.commands.MarkDoneCommand;
+import duke.commands.AddDeadlineCommand;
+import duke.commands.AddEventCommand;
+import duke.commands.AddTodoCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.FindCommand;
+import duke.commands.ByeCommand;
 
 import duke.exceptions.DateTimeFormatException;
 import duke.tasks.Task;
@@ -15,6 +23,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser class handles all parsing of information.
+ * Information can be in the form of user input or data from file.
+ * After parsing, it will execute commands accordingly
+ */
 public class Parser {
     /**
      * Split the full user input and returns the command.
@@ -81,11 +94,49 @@ public class Parser {
             return new DeleteCommand(command, arguments);
         case "schedule":
             return new ScheduleCommand(command, arguments);
+        case "find":
+            return new FindCommand(command, arguments);
         case "bye":
             return new ByeCommand(command);
         default:
             throw new DukeException();
         }
+    }
+
+    /**
+     * Process data from file for purpose of loading tasks from storage.
+     *
+     * @param taskDetails Details of task from file
+     * @return Task object for writing into TaskList
+     * @throws DukeException Invalid task
+     */
+    public static Task parseFile(String taskDetails) throws DukeException {
+        String taskType = getTaskType(taskDetails);
+        Boolean taskStatus = getTaskStatus(taskDetails);
+        String description = getTaskDescription(taskDetails);
+        String date = getTaskDate(taskDetails);
+
+        Task task;
+        LocalDateTime dateTime;
+        switch (taskType) {
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            dateTime = LocalDateTime.parse(date);
+            task = new Deadline(description, dateTime);
+            break;
+        case "E":
+            dateTime = LocalDateTime.parse(date);
+            task = new Event(description, dateTime);
+            break;
+        default:
+            throw new DukeException();
+        }
+        if (taskStatus) {
+            task.markAsDone();
+        }
+        return task;
     }
 
     public static String getTaskType(String taskDetails) {
@@ -118,35 +169,7 @@ public class Parser {
         return date;
     }
 
-    public static Task parseFile(String taskDetails) throws DukeException {
-        String taskType = getTaskType(taskDetails);
-        Boolean taskStatus = getTaskStatus(taskDetails);
-        String description = getTaskDescription(taskDetails);
-        String date = getTaskDate(taskDetails);
-
-        Task task;
-        LocalDateTime dateTime;
-        switch (taskType) {
-        case "T":
-            task = new Todo(description);
-            break;
-        case "D":
-            dateTime = LocalDateTime.parse(date);
-            task = new Deadline(description, dateTime);
-            break;
-        case "E":
-            dateTime = LocalDateTime.parse(date);
-            task = new Event(description, dateTime);
-            break;
-        default:
-            throw new DukeException();
-        }
-        if (taskStatus) {
-            task.markAsDone();
-        }
-        return task;
-    }
-
+        
     public static LocalDateTime parseDateTime(String date) throws DateTimeFormatException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -176,6 +199,5 @@ public class Parser {
         String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return formattedDate;
     }
-
 
 }

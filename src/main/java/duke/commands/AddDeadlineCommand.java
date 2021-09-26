@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * Adds a Deadline Task
  * If no arguments provided by user, then error message is printed.
- * Calls splitByDelimiter to process command and arguments.
+ * Calls splitByDelimiter from Parser to process command and arguments.
  */
 public class AddDeadlineCommand extends Command {
     String arguments;

@@ -5,6 +5,9 @@ import duke.tasks.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Ui class handles all user interaction in Duke
+ */
 public class Ui {
     private static final String BORDER = "____________________________________________________________\n";
     Scanner sc = new Scanner(System.in);
@@ -33,6 +36,16 @@ public class Ui {
     public static void printOutput(String output) {
         String niceOutput = BORDER + output + BORDER;
         System.out.println(niceOutput);
+    }
+
+    /**
+     * Read user input from command line.
+     *
+     * @return userInput
+     */
+    public String readCommand() {
+        String userInput = sc.nextLine();
+        return userInput;
     }
 
     public static void acknowledgeAddedTask(Task addedTask, int taskListSize) {
@@ -84,16 +97,4 @@ public class Ui {
         String output = " ☹ OOPS!!! Please follow date format: yyyy-MM-dd\n";
         printOutput(output);
     }
-
-    /**
-     * Read user input from command line.
-     *
-     * @return userInput
-     */
-    public String readCommand() {
-        String userInput = sc.nextLine();
-        return userInput;
-    }
-
-
 }

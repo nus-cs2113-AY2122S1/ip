@@ -7,6 +7,10 @@ import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Initializes application Duke and tries to load data from storage
+ * Prompts for user input and executes commands accordingly
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;

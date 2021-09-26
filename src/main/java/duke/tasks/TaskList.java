@@ -4,6 +4,10 @@ import duke.parser.Parser;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the ArrayList of all Tasks.
+ * Essentially a wrapper class
+ */
 public class TaskList {
     // ArrayList to store all tasks
     private ArrayList<Task> tasks;
