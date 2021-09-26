@@ -1,4 +1,4 @@
-package Type;
+package duke.Type;
 
 /**
  * Divider to differentiate deadlines, events, todo in user input

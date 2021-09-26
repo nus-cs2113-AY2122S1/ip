@@ -1,4 +1,4 @@
-package Type;
+package duke.Type;
 
 public class Deadline extends Task{
     private String byWhen;

@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.data.TaskList;
-import duke.startup.Ui;
+import duke.Ui.Ui;
 
 /**
  * Command to wave goodbye to user.

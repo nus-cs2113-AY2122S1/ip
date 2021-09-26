@@ -1,7 +1,7 @@
 package duke.data;
 
-import Type.Task;
-import Type.Divider;
+import duke.Type.Task;
+import duke.Type.Divider;
 import duke.startup.Parser;
 
 import java.io.File;

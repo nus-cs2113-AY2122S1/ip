@@ -1,6 +1,10 @@
 package duke.command;
 
 import duke.data.TaskList;
+import duke.Ui.Ui;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * Command to list tasks with a valid date.
@@ -18,12 +22,20 @@ public class DateCommand extends Command{
     }
 
     /**
-     * Prints found tasks with given date
+     * Prints tasks with a valid date given
+     *  note that this logically applies to events/ deadlines rather than todo
      * @param tasks TaskList to be read
      */
     @Override
     public void execute(TaskList tasks) {
-        tasks.setTaskDateIfFound();
-        saveListAndPrintDone(tasks);
+        LocalDate dateGiven = null;
+        try {
+            dateGiven = Ui.getDate();
+        } catch (DateTimeParseException e) {
+            System.out.println("Please enter a valid date!");
+            Ui.printDateFormat();
+        }
+            tasks.printTasksWithDate(dateGiven);
+            saveListAndPrintDone(tasks);
     }
 }

@@ -1,5 +1,6 @@
 package duke.startup;
 
+import duke.Ui.Ui;
 import duke.command.Command;
 import duke.data.Storage;
 import duke.data.TaskList;
@@ -24,7 +25,7 @@ public class Duke {
         ui.sayHi(accountDetail.getUsername());
         boolean isExit = false;
         do {
-                String fullCommand = ui.readCommand();
+                String fullCommand = ui.readLine();
                 ui.printLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(taskList);

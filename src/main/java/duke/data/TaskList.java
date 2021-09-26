@@ -1,17 +1,21 @@
 package duke.data;
 
-import Type.Deadline;
-import Type.Event;
-import Type.Task;
+import duke.Type.Deadline;
+import duke.Type.Event;
+import duke.Type.Task;
 
-import duke.exceptionhandler.InputCheckAndPrint;
 import duke.startup.Parser;
-import duke.startup.Ui;
+import duke.Ui.Ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+
+import static java.util.stream.Collectors.toList;
+
 
 /**
  * Represents a task list. A <code>TaskList</code> object simulates the behaviour of a digital list,
@@ -24,7 +28,7 @@ public class TaskList {
     }
 
     public TaskList() {
-        taskList = new ArrayList<Task>();
+        taskList = new ArrayList<>();
     }
 
     public ArrayList<Task> getTaskList() {
@@ -45,7 +49,7 @@ public class TaskList {
      */
     public void listTasks() {
         int in = 1;
-        System.out.println(" /          / ");
+        Ui.printDivider();
         for (Task item : taskList) {
             if (item != null) {
                 String tick = (item.isDone()) ? "✓" : " ";
@@ -53,7 +57,7 @@ public class TaskList {
                 in++;
             }
         }
-        System.out.println(" /          / ");
+        Ui.printDivider();
     }
 
     /**
@@ -76,9 +80,9 @@ public class TaskList {
                 taskList.remove(i);
             }
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            InputCheckAndPrint.printNotInRange(lastIndex);
+            Ui.printNotInRange(lastIndex);
         } catch (NumberFormatException e) {
-            InputCheckAndPrint.printIntegerOnly();
+            Ui.printIntegerOnly();
         }
     }
 
@@ -88,7 +92,7 @@ public class TaskList {
     public void markTasksAsDone() {
         int lastIndex = 0;
         try {
-            String userInputString = Ui.readCommand();
+            String userInputString = Ui.readLine();
             userInputString = userInputString.trim();
             String[] numberList = userInputString.split(" ");
             System.out.print("done ");
@@ -98,62 +102,62 @@ public class TaskList {
                 taskList.get(index).setDone(true);
                 System.out.print(taskList.get(index).getDescription() + ", ");
             }
-            System.out.println("\n / done tasks, good job! / ");
+            Ui.printDoneMessage();
         } catch (NumberFormatException e) {
-            InputCheckAndPrint.printIntegerOnly();
-            InputCheckAndPrint.printDoneFormat();
+            Ui.printIntegerOnly();
+            Ui.printDoneFormat();
         } catch (NullPointerException e) {
-            InputCheckAndPrint.printNoNull();
+            Ui.printNoNull();
         } catch (IndexOutOfBoundsException e) {
-            InputCheckAndPrint.printNotInRange(lastIndex);
+            Ui.printNotInRange(lastIndex);
         }
     }
+
 
     public void clearTaskList() {
         taskList.clear();
     }
 
-    public void addTasksToList() {
-        String userInput;
-        do {
-            userInput = Ui.readCommand();
-        } while (!stopAddTasksCheckDate(userInput));
-    }
-
     /**
-     * Primarily checks if user enters STOP
-     *  if not, add tasks with date and respective attributes
-     * @param userInput sentence with attributes of task
-     *                  - may include deadlines, date etc.
-     * @return true if user stops add
+     * Adds tasks to a list, while checking if a date exists within input
      */
-    public boolean stopAddTasksCheckDate(String userInput) {
-        if (!userInput.equals("stop")) {
-            Task taskToAdd = Parser.parseInputAsTask(userInput);
-            taskToAdd.setTime(userInput);
-            taskList.add(taskToAdd);
-        } else {
-            return true;
-        }
-        return false;
-    }
-
-    public void setTaskDateIfFound() {
-        for (Task t : taskList) {
-            setTimeFromSavedList(t);
+    public void addTasksToList() {
+        String userInput = Ui.readLine();
+        while (!Ui.isStop(userInput)) {
+            addTaskCheckDate(userInput);
+            userInput = Ui.readLine();
             }
     }
 
+
     /**
-     * Checks if a valid date is found in a task
-     * @param t task to check
+     * Checks if a date is found in user input
+     *  if found, add to timeOfTask variable in task, ignore otherwise.
+     * @param userInput user input
      */
-    private void setTimeFromSavedList(Task t) {
-        t.setTime(t.getDescription());
-        if (t instanceof Deadline) {
-            t.setTime(((Deadline) t).getByWhen());
-        } else if (t instanceof Event) {
-            t.setTime(((Event) t).getAtWhen());
+    public void addTaskCheckDate(String userInput) {
+            Task taskToAdd = Parser.parseInputAsTask(userInput);
+            taskToAdd.setTime(userInput);
+            taskList.add(taskToAdd);
+    }
+
+    /**
+     * Prints valid tasks with date input
+     * @param dateGiven date to search tasks with
+     */
+    public void printTasksWithDate(LocalDate dateGiven) {
+        List<Task> tasksFound =
+                taskList.stream()
+                .filter(t -> t.getTaskDate().equals(dateGiven))
+                .collect(toList());
+        if (tasksFound.isEmpty()) {
+            System.out.println("No task with date " + dateGiven + " found!");
+        } else {
+            System.out.println("I found the following tasks:");
+            taskList.stream()
+                    .map(t->t.getDescription())
+                    .forEach(t-> System.out.println(t));
+            System.out.println("with the given date: " + dateGiven.format(DateTimeFormatter.ISO_DATE));
         }
     }
 }

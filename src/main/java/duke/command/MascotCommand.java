@@ -1,8 +1,8 @@
 package duke.command;
 
-import Type.Mascot;
+import duke.Type.Mascot;
 import duke.data.TaskList;
-import duke.startup.Ui;
+import duke.Ui.Ui;
 
 /**
  * Command to have a Mascot echo user input.
@@ -21,7 +21,7 @@ public class MascotCommand extends Command{
     }
 
     private static void mascotSay() {
-        String text = Ui.readCommand();
+        String text = Ui.readLine();
         Mascot.penguinSay(text);
     }
 

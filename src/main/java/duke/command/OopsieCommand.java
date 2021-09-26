@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.data.TaskList;
-import duke.exceptionhandler.InputCheckAndPrint;
+import duke.Ui.Ui;
 
 /**
  * Default command to inform the user of an incorrect command syntax
@@ -14,6 +14,6 @@ public class OopsieCommand extends Command{
 
     @Override
     public void execute(TaskList tasks) {
-        InputCheckAndPrint.inputFailMessage();
+        Ui.inputFailMessage();
     }
 }

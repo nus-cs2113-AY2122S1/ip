@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.data.TaskList;
-import duke.startup.Ui;
+import duke.Ui.Ui;
 
 /**
  * Command to find tasks by keyword from both the task list and save file.
@@ -23,7 +23,7 @@ public class FindCommand extends Command{
      * @return firstKeyword the first word in user input sentence
      */
     public String getKeyWord() {
-        String sentence = Ui.readCommand();
+        String sentence = Ui.readLine();
         String firstKeyword = sentence.split("",2)[0];
         return firstKeyword;
     }
