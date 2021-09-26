@@ -41,6 +41,7 @@ public class DataManager {
 
     /**
      * Constructor that initialises the String {@code filePath} and File {@code dataFile} variable.
+     *
      * @param filePath file path pointing to the location of the local storage file containing the user's tasklist.
      */
     public DataManager(String filePath) {
@@ -128,6 +129,7 @@ public class DataManager {
 
     /**
      * Writes tasklist {@code tasks} into the local storage file {@code dataFile}.
+     *
      * @param tasks tasklist to be written to the {@code dataFile}.
      */
     public void writeToFile(ArrayList<Task> tasks) {
