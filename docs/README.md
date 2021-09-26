@@ -2,9 +2,13 @@
 
 ## Contents
 [Intro](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/docs#introducing-duke-cs2113t)
+
 [How to get Started](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/docs#getting-started)
+
 [Welcome-Screen](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/docs#welcome-screen)
+
 [Features](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/docs#features)
+
 [Commands](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/docs#usage)
 
 ## Introducing DUKE CS2113T
