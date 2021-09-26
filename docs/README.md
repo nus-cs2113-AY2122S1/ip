@@ -1,4 +1,4 @@
-# User Guide
+# CS2113T iP User Guide
 
 :robot: Duke is a command line task manager. It is modelled after the Java Mascot, Duke.
 
