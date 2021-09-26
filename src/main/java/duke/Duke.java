@@ -12,6 +12,11 @@ import java.time.format.DateTimeParseException;
 /**
  * Entry point of Duke program.
  * Initializes the program and starts interaction with the user.
+ *
+ * Some ideas for the software structure of this program (how the classes are organized, how the objects interact
+ * with each other, etc.) were adapted from the {@code addressbook-level2} application on GitHub.
+ *
+ * The code for {@code addressbook-level2} can be found here: {@link <a href="https://github.com/se-edu/addressbook-level2">...</a>}
  */
 public class Duke {
 
