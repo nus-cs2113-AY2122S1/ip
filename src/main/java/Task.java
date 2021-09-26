@@ -1,10 +1,15 @@
 public abstract class Task {
     protected String description;
+    protected String taskType;
     protected boolean isDone;
+    protected String eventDate;
+
 
     public Task(String description) {
-        this.description = "[][ ]" + description;
+        this.description = description;
         this.isDone = false;
+        this.taskType = "";
+        this.eventDate = "";
     }
 
     public String getStatusIcon() {
@@ -13,6 +18,14 @@ public abstract class Task {
 
     public void setAsDone() {
         this.isDone = true;
-        this.description = this.description.replace("[ ]", "[" + this.getStatusIcon()+"]");
     }
+
+    public String getType() {
+        return taskType;
+    }
+
+    public String getWhen() {
+        return eventDate;
+    }
+
 }

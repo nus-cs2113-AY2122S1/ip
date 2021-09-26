@@ -1,9 +1,11 @@
-public class ToDo extends Task {
+public class Todo extends Task {
 
-    public ToDo(String description) {
+    public Todo(String description) {
         super(description);
-        this.description = this.description.replace("[]", "[T]");
-        this.isDone = false;
     }
 
+    @Override
+    public String getType() {
+        return "T";
+    }
 }
