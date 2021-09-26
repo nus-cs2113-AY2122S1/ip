@@ -68,11 +68,13 @@ public class TaskList {
 
     public String sort() {
         tasks.sort((r1, r2) -> {
-            if (r1.getTime() == null && r2.getTime() != null) {
+            if ((r1.getTime() == null && r2.getTime() != null) ||
+                    (r1.hasCompleted() && !r2.hasCompleted())) {
                 return 1;
             }
 
-            if (r2.getTime() == null && r1.getTime() != null) {
+            if ((r2.getTime() == null && r1.getTime() != null) ||
+                    (!r1.hasCompleted() && r2.hasCompleted())) {
                 return -1;
             }
 

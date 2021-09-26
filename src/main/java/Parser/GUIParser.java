@@ -93,8 +93,8 @@ public class GUIParser {
                 JOptionPane.showMessageDialog(new JFrame(), "Time format is wrong or it is a past time. \n" +
                         "It should be YYYY-MM-DD or YYYY-MM-DD HH:MM for deadline type, " +
                         "YYYY-MM-DD HH:MM for event type");
+                return;
             }
-
             this.taskJTable.listTask(this.tasks);
             this.taskNameTextArea.setText("Put the task name here");
             this.taskTimeTextField.setText("Put the time");
