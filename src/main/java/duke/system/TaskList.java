@@ -38,5 +38,16 @@ public class TaskList {
         return tasks.size();
     }
 
+    public ArrayList<Task> getRelevantTaskList(String keywords) {
+        ArrayList<Task> relevantTasks = new ArrayList<>();
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task currentTask = this.tasks.get(i);
+            if (currentTask.containsKeywords(keywords)) {
+                relevantTasks.add(currentTask);
+            }
+        }
+        return relevantTasks;
+    }
+
 
 }

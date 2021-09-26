@@ -21,7 +21,11 @@ public class Task {
         return this.taskName;
     }
 
-    public Boolean getIsDone() {
+    public boolean containsKeywords(String keywords) {
+        return this.toString().contains(keywords);
+    }
+
+    public boolean getIsDone() {
         return this.isDone;
     }
 
