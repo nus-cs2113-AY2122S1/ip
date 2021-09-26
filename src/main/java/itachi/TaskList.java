@@ -33,9 +33,9 @@ public class TaskList {
         } else if (taskIndex <= -1) {
             throw new ItachiException("Task index must be larger than 0");
         }
-            list.get(taskIndex).markAsDone();
+        list.get(taskIndex).markAsDone();
 
-            Ui.printDoneTaskMessage(taskIndex);
+        Ui.printDoneTaskMessage(taskIndex);
     }
 
     /**
@@ -68,28 +68,30 @@ public class TaskList {
     }
 
     /**
-     * Searches and prints the task based on the keyword provided. Catches exception if there are no matching tasks
+     * Searches and prints the task based on the keyword provided.
      *
      * @param keyword is the word that needs to be searched for
+     * @throws ItachiException if there are no tasks in the list containing the keyword
      */
     public void findTask(String keyword) throws ItachiException {
         if (list.isEmpty()) {
             Ui.printEmptyListMessage();
         } else {
-                ArrayList<Task> listOfTasksFound = new ArrayList<>();
-                Ui.printLineSeparator();
-                System.out.println("Here are the matching tasks in your list:");
+            // Array to store the list of tasks found from the original array
+            ArrayList<Task> listOfTasksFound = new ArrayList<>();
+            Ui.printLineSeparator();
+            System.out.println("Here are the matching tasks in your list:");
 
-                for (int i = 0; i < list.size(); i++) {
-                    // Stores the combined description and date into a lowercase string to check for keyword
-                    String taskDescription = list.get(i).getDataForFind().toLowerCase();
-                    Ui.printMatchingTasks(keyword, taskDescription, i, listOfTasksFound);
-                }
+            for (int i = 0; i < list.size(); i++) {
+                // Stores the combined description and date into a lowercase string to check for keyword
+                String taskDescription = list.get(i).getDataForFind().toLowerCase();
+                Ui.printMatchingTasks(keyword, taskDescription, i, listOfTasksFound);
+            }
 
-                if(listOfTasksFound.isEmpty()) {
-                    throw new ItachiException("No matching tasks found, try another keyword");
-                }
-                Ui.printLineSeparator();
+            if (listOfTasksFound.isEmpty()) {
+                throw new ItachiException("No matching tasks found, try another keyword");
+            }
+            Ui.printLineSeparator();
         }
     }
 

@@ -6,12 +6,17 @@ import itachi.exception.ItachiException;
 import java.util.Scanner;
 
 /**
+ * The program begins here.
  * To initialize the key objects needed and run the program
  */
 public class Itachi {
     private Storage storage;
     private final TaskList taskList;
 
+    /**
+     * Initialises the Task list and Storage whenever the app is created.
+     * The saved data is loaded from stored txt file.
+     */
     public Itachi() {
         taskList = new TaskList();
 

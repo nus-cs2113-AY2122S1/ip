@@ -1,7 +1,7 @@
-# itachi User Guide
+# Itachi User Guide
 
-itachi is an **interactive desktop app for managing tasks, optimized for use via Command Line Interface (CLI)**. 
-itachi is inspired from an anime character who is very reliable and knowledgeable.
+Itachi is an **interactive desktop app for managing tasks, optimized for use via Command Line Interface (CLI)**. 
+Itachi is inspired from an anime character who is very reliable and knowledgeable.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
@@ -181,7 +181,7 @@ ________________________________________________________
 
 ### Exit the program: `bye`
 
-Exits the itachi application.
+Exits the Itachi application.
 
 Format:`bye`
 
@@ -195,16 +195,16 @@ ________________________________________________________
 
 ### Saving the data
 
-Task data in itachi are saved in the hard disk automatically after any command that changes the data. There is no need to 
+Task data in Itachi are saved in the hard disk automatically after any command that changes the data. There is no need to 
 save manually.
 
 ### Editing the data file
 
-itachi data are saved as a txt file `[JAR file location]/data/tasks.txt`. Advanced users are welcome to update data 
+Itachi data are saved as a txt file `[JAR file location]/data/tasks.txt`. Advanced users are welcome to update data 
 directly by editing that data file.
 
-❗  **Caution**: If your changes to the data file is detected to be corrupted or does not conform to itachi's 
-saved file format (txt), itachi will not run.
+❗  **Caution**: If your changes to the data file is detected to be corrupted or does not conform to Itachi's 
+saved file format (txt), Itachi will not run.
 
 -----------------------------------------------
 
@@ -213,7 +213,7 @@ saved file format (txt), itachi will not run.
 **Question:** How do I transfer my data to another Computer?
 
 **Answer:** Install the app in the other computer and overwrite the empty data file it creates with the file that
-contains the data of your previous itachi home folder.
+contains the data of your previous Itachi home folder.
 
 -----------------------------------------------
 

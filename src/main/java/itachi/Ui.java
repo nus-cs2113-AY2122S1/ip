@@ -42,12 +42,6 @@ public class Ui {
         printLineSeparator();
     }
 
-    public static void printErrorMessage(ItachiException e) {
-        printLineSeparator();
-        System.out.println(e.getMessage());
-        printLineSeparator();
-    }
-
     public static void printAddTaskMessage(Task task) {
         printLineSeparator();
         System.out.println("Got it. I've added this task:\n" + task + "\nNow you have " + list.size() + " tasks in the list.");
@@ -79,7 +73,7 @@ public class Ui {
         Ui.printLineSeparator();
     }
 
-    public static void printMatchingTasks(String keyword, String taskDescription, int i, ArrayList<Task> listOfTasksFound) throws ItachiException {
+    public static void printMatchingTasks(String keyword, String taskDescription, int i, ArrayList<Task> listOfTasksFound) {
         if (taskDescription.contains(keyword)) {
             System.out.println((i + 1) + ". " + list.get(i));
             listOfTasksFound.add(list.get(i));
@@ -90,5 +84,16 @@ public class Ui {
         Ui.printLineSeparator();
         System.out.println("There are no more tasks in the list!");
         Ui.printLineSeparator();
+    }
+
+    /**
+     * Prints the respective error message whenever an exception is thrown
+     *
+     * @param e is the exception thrown
+     */
+    public static void printErrorMessage(ItachiException e) {
+        printLineSeparator();
+        System.out.println(e.getMessage());
+        printLineSeparator();
     }
 }
