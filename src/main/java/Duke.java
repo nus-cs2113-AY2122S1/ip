@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
     static String horizontal = " __________________________________________________\n";
@@ -12,6 +14,18 @@ public class Duke {
 
     public static void main(String[] args) {
         System.out.println(introduction);
+
+        try {
+            FileClass.loadTasks(taskList);
+            taskCount = taskList.size();
+            System.out.println(horizontal + "Here are the tasks in your list:\n");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println("    " + (i + 1) + ". [" + taskList.get(i).getTaskType() + "]" + "[" + taskList.get(i).getStatusIcon() + "] " + taskList.get(i).getDescription());
+            }
+            System.out.println(horizontal);
+        } catch (FileNotFoundException e) {
+            System.out.println("Task file could not be found");
+        }
 
         String line;
         String[] splicedLine;
@@ -47,17 +61,18 @@ public class Duke {
                 taskList.get(descriptionIndex-1).markAsDone();
             } else if (commandWord.equals("todo")) {
                 task = line.substring(line.indexOf(' '));
-                taskList.add(new Todo(task));
+                taskDate = "";
+                taskList.add(new Todo(task, false));
                 System.out.println(horizontal + taskList.get(taskCount).toString() + "Now you have " + ++taskCount + " tasks on the list.\n" + horizontal);
             } else if (commandWord.equals("deadline")) {
                 task = line.substring(line.indexOf(' ')+1, line.indexOf('/')-1);
                 taskDate = line.substring(line.indexOf('/')+4);
-                taskList.add(new Deadline(task, taskDate));
+                taskList.add(new Deadline(task, false, taskDate));
                 System.out.println(horizontal + taskList.get(taskCount).toString() + "Now you have " + ++taskCount + " tasks on the list.\n" + horizontal);
             } else if (commandWord.equals("event")) {
                 task = line.substring(line.indexOf(' ')+1, line.indexOf('/')-1);
                 taskDate = line.substring(line.indexOf('/')+4);
-                taskList.add(new Event(task, taskDate));
+                taskList.add(new Event(task, false, taskDate));
                 System.out.println(horizontal + taskList.get(taskCount).toString() + "Now you have " + ++taskCount + " tasks on the list.\n" + horizontal);
             } else if (commandWord.equals("delete")) {
                 descriptionIndex = Integer.parseInt(splicedLine[1]);
@@ -67,6 +82,11 @@ public class Duke {
                 taskList.remove(taskList.get(descriptionIndex-1));
             } else {
                 System.out.println(horizontal + "Oops! I don't know what that means :-(\n" + horizontal);
+            }
+            try {
+                FileClass.writeToFile("../data/duke.txt", taskList);
+            } catch ( IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
             }
             line = in.nextLine();
         }
