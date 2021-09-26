@@ -211,7 +211,7 @@ ____________________________________________________________
 
 <br/>
 
-### <a name="save"></a>:end: Saving the data
+### <a name="save"></a>:floppy_disk: Saving the data
 Task list data are saved in the hard disk automatically when user exits app. There is no need to save manually.
 
 <br/>
@@ -227,3 +227,9 @@ Completed Task | `done TASK_NUMBER` <br /> eg.`done 1`
 Delete Task | `delete TASK_NUMBER` <br /> eg.`delete 2`
 Find Task(s) | `find QUERY` <br /> eg.`find cs2113`
 Exit App | `bye`
+
+## References and Acknowledgement
+- User Guide reference: AddressBook (Level 3) <br />
+  https://se-education.org/addressbook-level3/UserGuide.html
+- Emoji Cheat Sheet for Github Markdown: <br />
+  https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md
