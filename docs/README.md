@@ -251,14 +251,19 @@ Expected output:
 
 ### Command Summary
 | Action | Format | Example |
-| :-: | :-- | :-- |
-| Help   | `help`  | `help` |
-| Add Todo | `todo [TASK_NAME]` | `todo buy groceries` |
-| Add Deadline | `deadline [TASK_NAME] /by [DATE_TIME]` | `return book /by 08 10 2021 1700` |
-| Add Event | `event [TASK_NAME] /at [EVENT_INFO]` | `event lunch /at Tim's house Tues 2pm` |
-| List | `list` | `list` |
-| Done | `done [TASK_INDEX]` | `done 2` |
-| Delete | `delete [TASK_INDEX]` | `delete 1` |
-| Find | `find [KEYWORD]` | `find buy` |
-| Exit | `bye` | `bye` |
+| :-- | :-- | :-- |
+| **Help**   | `help`  | `help` |
+| **Add Todo** | `todo [TASK_NAME]` | `todo buy groceries` |
+| **Add Deadline** | `deadline [TASK_NAME] /by [DATE_TIME]` | `return book /by 08 10 2021 1700` |
+| **Add Event** | `event [TASK_NAME] /at [EVENT_INFO]` | `event lunch /at Tim's house Tues 2pm` |
+| **List** | `list` | `list` |
+| **Done** | `done [TASK_INDEX]` | `done 2` |
+| **Delete** | `delete [TASK_INDEX]` | `delete 1` |
+| **Find** | `find [KEYWORD]` | `find buy` |
+| **Exit** | `bye` | `bye` |
 
+
+
+| Action       | Format, Examples                                                                                                   |
+| :---         | :---                                                                                                               |
+| **Help**     | `help`                                                                                                             |
