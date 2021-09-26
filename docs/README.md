@@ -6,9 +6,8 @@ and helps you stay ahead of the curve.
 
 -------------------------------------------------
 
-## Quick start guide
+## Quick start
 
-### To run the jar file
 1. Ensure that you have `Java 11` installed on your computer.
 2. Download the latest `ip.jar` file from 
 [here](https://github.com/mayankp291/ip/releases/tag/A-Release).
