@@ -15,19 +15,19 @@ public class DukeException extends Exception {
     public String getMessage() {
         switch(this.type){
         case "no task selected":
-            return "Patchi: You need to select a task... Œ(~ˊnˋ~)B";
+            return "Patchi: You need to select a task... Œ(~ono~)B";
         case "task doesn't exist":
-            return "Patchi: That task doesn't seem to exist...... Œ(ˊnˋ)B";
+            return "Patchi: That task doesn't seem to exist...... Œ(ono)B";
         case "missing description":
-            return "Patchi: You need to add a task description... Œ(ˊnˋ)B";
+            return "Patchi: You need to add a task description... Œ(ono)B";
         case "missing timing":
-            return "Patchi: You need to add a timing for this kind of task! Œ(ˊnˋ)B";
+            return "Patchi: You need to add a timing for this kind of task! Œ(ono)B";
         case "missing search term":
-            return "Patchi: You need to add a search term! Œ(ˊnˋ)B";
+            return "Patchi: You need to add a search term! Œ(ono)B";
         case "invalid command":
-            return "I'm sorry, I don't understand what that means... Œ(ˊnˋ)B";
+            return "Patchi: I'm sorry, I don't understand what that means... Œ(ono)B";
         case "invalid timing":
-            return "Please enter your timing in the format: yyyy-mm-dd! Œ(ˊnˋ)B";
+            return "Patchi: Please enter your timing in the format: yyyy-mm-dd! Œ(ono)B";
         default:
             return "Invalid exception type";
         }
