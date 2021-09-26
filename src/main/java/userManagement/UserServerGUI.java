@@ -7,10 +7,7 @@ import UI.GUI.ServePage.ServeGUI;
 import UI.GUI.WelcomePage.WelcomeGUI;
 import tasks.TaskList;
 
-import javax.swing.JTextArea;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 
 public class UserServerGUI {
@@ -65,7 +62,14 @@ public class UserServerGUI {
     private void addHandlerForTransitionButton () {
         JButton twoPageTransitionButton = welcomePage.getStartButton();
         twoPageTransitionButton.addActionListener(e -> {
-            this.userName = this.usernameField.getText();
+            this.userName = this.usernameField.getText().strip();
+
+            if (userName.isEmpty()) {
+                JOptionPane.showMessageDialog(new JFrame(), "username cannot be empty!");
+                return;
+            }
+
+
             try {
                 TaskList userTask = userManager.loadUser(userName);
                 if (userTask != null) {

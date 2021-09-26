@@ -2,7 +2,7 @@ package userManagement;
 
 import FileManager.FileSaver;
 import Parser.CLIParser;
-import UI.TextUI;
+import UI.CLI.TextUI;
 import exceptions.DukeException;
 import exceptions.FileException;
 import tasks.TaskList;
