@@ -12,11 +12,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Parser {
 
-    private static final String DATE_AND_OR_TIME_FORMAT = "dd/mm/yyyy[ HH:mm]";
+    private static final String DATE_AND_TIME_FORMAT = "dd/MM/yyyy[ HH:mm]";
+    private static final String PRINT_DATE_AND_TIME_FORMAT = "MMM dd yyyy HH:mm";
 
     public static String getCommand(String userInput) {
         String[] input = userInput.trim().toLowerCase().split(" ");
@@ -83,20 +85,36 @@ public class Parser {
         return userInput.substring(descriptionPosition, timePosition);
     }
 
-//    public static String getDeadlineOrEventTime(String userInput) {
-//        int timePosition = DeadlineOrEventTimePosition(userInput);
-//        return userInput.substring(timePosition + 3);
-//    }
+    public static String getDateAndTimeSubstring(String userInput) {
+        int timePosition = DeadlineOrEventTimePosition(userInput);
+        return userInput.substring(timePosition + 3).trim();
+    }
 
     //https://stackoverflow.com/questions/48280447/java-8-datetimeformatter-with-optional-part
-    public static LocalDateTime getDeadlineOrEventDateAndTime(String userInput) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_AND_OR_TIME_FORMAT);
-        TemporalAccessor temporalAccessor = formatter.parseBest(userInput, LocalDateTime::from, LocalDate::from);
-        if (temporalAccessor instanceof LocalDateTime) {
-            return (LocalDateTime) temporalAccessor;
-        } else {
-            return ((LocalDate)temporalAccessor).atStartOfDay();
+    public static LocalDateTime convertSubStringToDateAndTime(String input) {
+        LocalDateTime dateAndTime = null;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_AND_TIME_FORMAT);
+            TemporalAccessor temporalAccessor = formatter.parseBest(input, LocalDateTime::from, LocalDate::from);
+            if (temporalAccessor instanceof LocalDateTime) {
+                dateAndTime = (LocalDateTime) temporalAccessor;
+            } else {
+                dateAndTime = ((LocalDate) temporalAccessor).atStartOfDay();
+            }
+        } catch (DateTimeParseException e) {
+            Ui.printHorizontalLine();
+            System.out.println("Enter date and or time in this format: dd/MM/yyyy HH:mm (time is optional)");
+            Ui.printHorizontalLine();
         }
+        return dateAndTime;
+    }
+
+    public static String printDateAndTimeAsString(LocalDateTime dateAndTime) {
+        return dateAndTime.format(DateTimeFormatter.ofPattern(PRINT_DATE_AND_TIME_FORMAT));
+    }
+
+    public static String storeDateAndTimeAsString(LocalDateTime dateAndTime) {
+        return dateAndTime.format(DateTimeFormatter.ofPattern(DATE_AND_TIME_FORMAT));
     }
 
     public static int getTaskNumber(String userInput) {
@@ -109,10 +127,10 @@ public class Parser {
         return description.length > 1;
     }
 
-    public static boolean isValidDeadlineOrEventDescription(String userInput, String description, String time) {
+    public static boolean isValidDeadlineOrEventDescription(String userInput, String description) {
         if (!isValidDeadlineFormat(userInput) && !isValidEventFormat(userInput)) {
             return false;
-        } else if (description.isEmpty() || time.isEmpty()) {
+        } else if (description.isEmpty()) {
             return false;
         }
         return true;
