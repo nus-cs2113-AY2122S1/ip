@@ -1,3 +1,5 @@
+package ui;
+
 import tasks.Task;
 import java.util.ArrayList;
 
@@ -33,6 +35,16 @@ public abstract class MessagePrinter {
         dashes();
     }
 
+    public static void loadingData() {
+        dashes();
+        System.out.println("Allow me to fetch the data from the archives ...");
+    }
+
+    public static void dataLoaded() {
+        System.out.println("Data successfully loaded into memory sir.");
+        dashes();
+    }
+
     // Messages for null command (invalid command) enum
     public static void invalidCommand() {
         dashes();
@@ -58,8 +70,6 @@ public abstract class MessagePrinter {
         }
         dashes();
     }
-
-    // Messages for marking task as done
 
     // if taskIndex is out of bounds
     public static void outOfBoundsTaskIndex() {
@@ -121,6 +131,12 @@ public abstract class MessagePrinter {
     public static void missingDate(String type) {
         dashes();
         System.out.println("May I know the date for this " + type + " sir?");
+        dashes();
+    }
+
+    public static void ioexception(String error) {
+        dashes();
+        System.out.println("There was the error of type " + error + " when updating the storage.");
         dashes();
     }
 

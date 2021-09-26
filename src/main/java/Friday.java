@@ -1,3 +1,7 @@
+import parser.InputParser;
+import ui.MessagePrinter;
+import storage.LoadData;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,7 +12,7 @@ public class Friday {
     public static void main(String[] args) {
         MessagePrinter.greetUser();
         try {
-            TaskManager.loadData();
+            LoadData.loadData();
         } catch (FileNotFoundException e1) {
             try {
                 Path path = Paths.get("data/friday.txt");
@@ -17,7 +21,7 @@ public class Friday {
                 System.out.println(e.getMessage());
             }
         }
-        TaskManager.manageTasks();
+        InputParser.parseUserInput();
         MessagePrinter.exitMessage();
     }
 }

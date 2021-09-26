@@ -1,5 +1,17 @@
+package parser;
+import FridayExceptions.EmptyListException;
+import FridayExceptions.MissingKeyWordException;
+import FridayExceptions.MissingDateException;
+import FridayExceptions.EmptyTaskNameException;
+import FridayExceptions.InvalidTaskIndexException;
+import FridayExceptions.IncompleteCommandException;
 import enums.Commands;
 import enums.Errors;
+import storage.UpdateData;
+import ui.MessagePrinter;
+import tasks.TaskList;
+
+import java.util.Scanner;
 
 public abstract class InputParser {
     // constant flags
@@ -12,6 +24,65 @@ public abstract class InputParser {
     private static final String DEADLINE = "deadline";
     private static final String BY= "/by";
     private static final String AT = "/at";
+
+    /**
+     * Main function managing all user inputs until program is terminated
+     * via the "bye" command.
+     * Shift inside InputParser
+     */
+    public static void parseUserInput() {
+        Scanner in = new Scanner(System.in);
+        while (true) {
+            String userInput = in.nextLine();
+
+            // change to switch case based on enum
+            Commands command = getCommand(userInput);
+
+            // if bye, exit straight
+            if (command == Commands.BYE) {
+                return;
+            }
+            try {
+                switch (command) {
+                case INVALID:
+                    MessagePrinter.invalidCommand();
+                    break;
+                case LIST:
+                    TaskList.getList();
+                    break;
+                case TODO:
+                    UpdateData.updateList(TaskList.addToDo(userInput, false, false));
+                    break;
+                case DEADLINE:
+                    UpdateData.updateList(TaskList.addDeadline(userInput, false, false));
+                    break;
+                case EVENT:
+                    UpdateData.updateList(TaskList.addEvent(userInput, false, false));
+                    break;
+                case DELETE:
+                    TaskList.deleteTask(userInput);
+                    break;
+                case DONE:
+                    TaskList.markAsDone(userInput);
+                    break;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                MessagePrinter.outOfBoundsTaskIndex();
+            } catch (InvalidTaskIndexException e) {
+                MessagePrinter.invalidTaskIndex();
+            } catch (EmptyTaskNameException e) {
+                MessagePrinter.emptyTaskName();
+            } catch (EmptyListException e) {
+                MessagePrinter.emptyListMessage();
+            } catch (IncompleteCommandException e) {
+                MessagePrinter.incompleteCommand();
+            } catch (MissingKeyWordException e) {
+                MessagePrinter.missingKeyWord(e.getKeyword());
+            } catch (MissingDateException e) {
+                MessagePrinter.missingDate(e.getType());
+            }
+        }
+    }
 
     // isolate out task name from user input
     public static String getTaskName(String input) {
@@ -96,7 +167,6 @@ public abstract class InputParser {
         if (!input.contains(AT)) {
             return Errors.MISSING_AT;
         }
-
         // check if it contains a task name
         if (splitString.length <= 3) {
             return Errors.MISSING_TASK;
@@ -107,5 +177,4 @@ public abstract class InputParser {
         }
         return Errors.NONE;
     }
-
 }
