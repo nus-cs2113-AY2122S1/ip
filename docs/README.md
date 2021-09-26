@@ -61,8 +61,8 @@ Some example commands you can try:
 > - Words in `<UPPER_CASE>` are the parameters to be given by the user. <br />
     > e.g. in `todo <DESCRIPTION>`, <DESCRIPTION> is a parameter which can be used as : `todo Read Novel`
     > <br /><br />
-> - Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `bye`) will not be ignored.<br />
-    > e.g. `help 123` will not be interpreted as  `help`. Make sure to give the correct commands.
+> - Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `bye`) will be ignored.<br />
+    > e.g. `list 123` will be interpreted as `list`.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -71,19 +71,22 @@ Some example commands you can try:
 This will list all the valid commands that DUKE accepts.
 
 ```shell
-~$ help
-------------------------------------------
-These are the valid commands: 
- > help
- > todo
- > deadline
- > event
- > list
- > done
- > delete
- > find
- > bye
-------------------------------------------
+help
+The following is a list of commands that Duke accepts :
+-> help
+-> todo
+-> deadline
+-> event
+-> list
+-> done
+-> delete
+-> find
+-> bye
+-> For details please refer to the User Guide of Duke at the link given below:
+-> https://aditichadha1310.github.io/ip/
+____________________________________________________________
+
+
 ```
 
 <br />

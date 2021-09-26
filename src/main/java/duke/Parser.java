@@ -14,12 +14,13 @@ public class Parser {
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_FIND = "find";
+    public static final String COMMAND_HELP = "help";
 
     public static boolean processCommand(String userInput) {
         try {
-            if (userInput.equalsIgnoreCase(COMMAND_BYE)) {
+            if (userInput.startsWith(COMMAND_BYE)) {
                 return false;
-            } else if (userInput.equalsIgnoreCase(COMMAND_LIST)) {
+            } else if (userInput.startsWith(COMMAND_LIST)) {
                 TaskList.list();
                 return true;
             } else if (userInput.startsWith(COMMAND_DONE)) {
@@ -31,17 +32,24 @@ public class Parser {
             } else if (userInput.startsWith(COMMAND_FIND)) {
                 TaskList.callFindTasks(userInput);
                 return true;
+            } else if (userInput.startsWith(COMMAND_HELP)) {
+                TaskList.help();
+                return true;
             } else {
                 TaskList.addTaskToList(userInput);
                 return true;
             }
-        } catch (DukeException e) {
+        } catch (
+                DukeException e) {
             System.out.println(e.getMessage());
-        } catch (IOException e) {
+        } catch (
+                IOException e) {
             System.out.println("Could not save data to file");
-        } catch (NoTaskFoundException e) {
+        } catch (
+                NoTaskFoundException e) {
             System.out.println(e.getMessage());
-        } catch (EmptyTaskDescriptionException e) {
+        } catch (
+                EmptyTaskDescriptionException e) {
             System.out.println(e.getMessage());
         }
         return true;

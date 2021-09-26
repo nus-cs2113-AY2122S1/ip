@@ -44,7 +44,10 @@ public class TaskList {
     public static final String TASK_DEADLINE = "deadline";
     public static final String TASK_EVENT = "event";
 
-
+    public static final String[] COMMANDS = new String[]{
+            "help", "todo", "deadline", "event", "list", "done", "delete", "find", "bye"
+    };
+    ;
     public static ArrayList<Task> scheduledTasks;
     public static ArrayList<Task> filteredList;
 
@@ -52,6 +55,13 @@ public class TaskList {
         scheduledTasks = new ArrayList<Task>();
     }
 
+    public static void help() {
+        System.out.println("The following is a list of commands that Duke accepts :");
+        for (String i : COMMANDS) {
+            System.out.println("-> " + i);
+        }
+        System.out.println("-> For details please refer to the User Guide of Duke at the link given below:\n-> https://aditichadha1310.github.io/ip/");
+    }
 
     /**
      * Updates the status of the task by marking it as done in the task list.
