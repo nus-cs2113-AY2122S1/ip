@@ -25,6 +25,68 @@ public class Duke {
 
     public static boolean canRunDuke = true;
 
+    private static boolean isValidDoneCommand(String inputStr, TaskManager taskManager) throws DukeException {
+        if (Parser.isEmptyItem(inputStr)) {
+            throw new DukeException("Oops, did you forget to enter the task to be marked as done?");
+        } else if (taskManager.getNumberOfTasksUndone() == 0) {
+            throw new DukeException("Oops, there are no tasks to be marked done!");
+        } else if (taskManager.getNumberOfTasksAdded() < Integer.parseInt(Parser.getItem(inputStr))) {
+            throw new DukeException("Oops, there is no task " + Integer.parseInt(Parser.getItem(inputStr)) + "!");
+        } else if (taskManager.isTaskDone(inputStr)) {
+            throw new DukeException("Oops, this task is already marked as done!");
+        } else {
+            return true;
+        }
+    }
+
+    private static boolean isValidToDoCommand(String inputStr) throws DukeException {
+        if (Parser.isEmptyItem(inputStr)) {
+            throw new DukeException("Oops, the description of a ToDo cannot be empty!");
+        } else {
+            return true;
+        }
+    }
+
+    private static boolean isValidDeadlineCommand(String inputStr) throws DukeException {
+        if (Parser.isEmptyItem(inputStr)) {
+            throw new DukeException("Oops, the description of a deadline cannot be empty!");
+        } else if (Parser.isInvalidDeadline(inputStr)) {
+            throw new DukeException("Oops, the time of a deadline cannot be empty!");
+        } else {
+            return true;
+        }
+    }
+
+    private static boolean isValidEventCommand(String inputStr) throws DukeException {
+        if (Parser.isEmptyItem(inputStr)) {
+            throw new DukeException("Oops, the description of an event cannot be empty!");
+        } else if (Parser.isInvalidEvent(inputStr)) {
+            throw new DukeException("Oops, the time of an event cannot be empty!");
+        } else {
+            return true;
+        }
+    }
+
+    private static boolean isValidDeleteCommand(String inputStr, TaskManager taskManager) throws DukeException {
+        if (Parser.isEmptyItem(inputStr)) {
+            throw new DukeException("Oops, did you forget to enter the task to be deleted?");
+        } else if (taskManager.getNumberOfTasksAdded() == 0) {
+            throw new DukeException("Oops, there are no tasks in the list yet!");
+        } else if (taskManager.getNumberOfTasksAdded() < Integer.parseInt(Parser.getItem(inputStr))) {
+            throw new DukeException("Oops, there is no task " + Integer.parseInt(Parser.getItem(inputStr)) + "!");
+        } else {
+            return true;
+        }
+    }
+
+    private static boolean isValidFindCommand(String inputStr) throws DukeException {
+        if (Parser.isEmptyItem(inputStr)) {
+            throw new DukeException("Oops, did you forget to enter a keyword?");
+        } else {
+            return true;
+        }
+    }
+
     /**
      * Reads the input and command entered by the user and execute task according to user command
      *
@@ -47,60 +109,38 @@ public class Duke {
             taskManager.printTaskList();
             break;
         case COMMAND_DONE:
-            if (Parser.isEmptyItem(inputStr)) {
-                throw new DukeException("Oops, did you forget to enter the task to be marked as done?");
-            } else if (taskManager.getNumberOfTasksUndone() == 0) {
-                throw new DukeException("Oops, there are no tasks to be marked done!");
-            } else if (taskManager.getNumberOfTasksAdded() < Integer.parseInt(Parser.getItem(inputStr))) {
-                throw new DukeException("Oops, there is no task " + Integer.parseInt(Parser.getItem(inputStr)) + "!");
-            } else if (taskManager.isTaskDone(inputStr)) {
-                throw new DukeException("Oops, this task is already marked as done!");
-            } else {
+            if (isValidDoneCommand(inputStr, taskManager)) {
                 taskManager.markTaskAsDone(inputStr);
-                break;
             }
+            break;
         case COMMAND_TODO:
-            if (Parser.isEmptyItem(inputStr)) {
-                throw new DukeException("Oops, the description of a ToDo cannot be empty!");
+            if (isValidToDoCommand(inputStr)) {
+                String item = Parser.getItem(inputStr);
+                taskManager.addToDoTaskToList(item);
             }
-            String item = Parser.getItem(inputStr);
-            taskManager.addToDoTaskToList(item);
             break;
         case COMMAND_DEADLINE:
-            if (Parser.isEmptyItem(inputStr)) {
-                throw new DukeException("Oops, the description of a deadline cannot be empty!");
-            } else if (Parser.isInvalidDeadline(inputStr)) {
-                throw new DukeException("Oops, the time of a deadline cannot be empty!");
+            if (isValidDeadlineCommand(inputStr)) {
+                String item = Parser.getItem(inputStr);
+                taskManager.addDeadlineTaskToList(item);
             }
-            item = Parser.getItem(inputStr);
-            taskManager.addDeadlineTaskToList(item);
             break;
         case COMMAND_EVENT:
-            if (Parser.isEmptyItem(inputStr)) {
-                throw new DukeException("Oops, the description of an event cannot be empty!");
-            } else if (Parser.isInvalidEvent(inputStr)) {
-                throw new DukeException("Oops, the time of an event cannot be empty!");
+            if (isValidEventCommand(inputStr)) {
+                String item = Parser.getItem(inputStr);
+                taskManager.addEventTaskToList(item);
             }
-            item = Parser.getItem(inputStr);
-            taskManager.addEventTaskToList(item);
             break;
         case COMMAND_DELETE:
-            if (Parser.isEmptyItem(inputStr)) {
-                throw new DukeException("Oops, did you forget to enter the task to be deleted?");
-            } else if (taskManager.getNumberOfTasksAdded() == 0) {
-                throw new DukeException("Oops, there are no tasks in the list yet!");
-            } else if (taskManager.getNumberOfTasksAdded() < Integer.parseInt(Parser.getItem(inputStr))) {
-                throw new DukeException("Oops, there is no task " + Integer.parseInt(Parser.getItem(inputStr)) + "!");
-            } else {
+            if (isValidDeleteCommand(inputStr, taskManager)) {
                 taskManager.deleteTask(inputStr);
             }
             break;
         case COMMAND_FIND:
-            if (Parser.isEmptyItem(inputStr)) {
-                throw new DukeException("Oops, did you forget to enter a keyword?");
+            if (isValidFindCommand(inputStr)) {
+                String keyword = Parser.getItem(inputStr);
+                printArrayList(taskManager.findTask(keyword));
             }
-            String keyword = Parser.getItem(inputStr);
-            printArrayList(taskManager.findTask(keyword));
             break;
         default:
             throw new DukeException("Oops, command not recognised!");
