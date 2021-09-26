@@ -117,7 +117,7 @@ Adds a *DEADLINE* task to the task list. By default, the task is set to **not do
 
 - **DESCRIPTION** : is the description of the Task.
 - **/by** : is a *REQUIRED* clause when adding a deadline
-- **DATE_TIME** : are the *date* and *time* that the task is due by. This **CANNOT BE NULL/EMPTY**.
+- **DATE_TIME** : are the *date* and *time* that the task is due by. This **CANNOT BE EMPTY OR INVALID**.
 
 > Note: date_time needs to be given in a valid format.
 >* The correct format is **YYYY-MM-DD HH:MM**.
