@@ -42,6 +42,7 @@ needs to be included in the JAR directory. It can also be manually downloaded fr
 [text-art](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/text-art). 
 - data/duke.txt will be created in the JAR directory if it does not exist and the duke.txt must 
 be kept empty (unless it is of the correct format - generated from this app).
+- Run the command ```java -jar IndividualProject.jar```
 
 ## Welcome Screen
 
