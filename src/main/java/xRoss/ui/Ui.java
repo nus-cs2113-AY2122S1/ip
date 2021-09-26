@@ -52,59 +52,59 @@ public class Ui {
      */
     public static void printCommandErrorMessage(String s) {
         switch (s) {
-            case "todo_format":
-                System.out.println("\tWrong Todo command format: "
-                        + "String argument expected for Todo name\n"
-                        + "\tCorrect format as follows:\n"
-                        + "\t\ttodo <name>\n");
-                break;
-            case "todo_empty_string":
-                System.out.println("\tString argument for Todo name cannot be empty\n"
-                        + "\tCorrect format as follows:\n"
-                        + "\t\ttodo <name>\n");
-                break;
-            case "deadline_format":
-                System.out.println("\tWrong Deadline command format: "
-                        + "String argument expected for Deadline name and date/time\n"
-                        + "\tCorrect format as follows:\n"
-                        + "\t\tdeadline <name> /by <due by date/time>\n");
-                break;
-            case "deadline_empty_string":
-                System.out.println(
-                        "\tString argument for Deadline name and date/time cannot be empty\n"
-                                + "\tCorrect format as follows:\n"
-                                + "\t\tdeadline <name> /by <due by date/time>\n");
-                break;
-            case "event_format":
-                System.out.println("\tWrong Event command format: "
-                        + "String argument expected for Event name and date/time\n"
-                        + "\tCorrect format as follows:\n"
-                        + "\t\tevent <name> /at <date/time of event>\n");
-                break;
-            case "event_empty_string":
-                System.out.println(
-                        "\tString argument for Event name and date/time cannot be empty\n"
-                                + "\tCorrect format as follows:\n"
-                                + "\t\tevent <name> /at <date/time of event>\n");
-                break;
-            case "done":
-                System.out.println("\tWrong Mark as Done command format: "
-                        + "Integer argument expected for task to be marked as done\n"
-                        + "\tCorrect format as follows:\n"
-                        + "\t\tdone <valid task number>\n");
-                break;
-            case "delete":
-                System.out.println("\tWrong Delete command format: "
-                        + "Integer argument expected for task to be deleted\n"
-                        + "\tCorrect format as follows:\n"
-                        + "\t\tdelete <valid task number>\n");
-                break;
-            case "find":
-                System.out.println("\tWrong Find command format: "
-                        + "String argument cannot be empty\n"
-                        + "\tCorrect format as follows:\n"
-                        + "\t\tfind <expression to find>\n");
-            default:
+        case "todo_format":
+            System.out.println("\tWrong Todo command format: "
+                    + "String argument expected for Todo name\n"
+                    + "\tCorrect format as follows:\n"
+                    + "\t\ttodo <name>\n");
+            break;
+        case "todo_empty_string":
+            System.out.println("\tString argument for Todo name cannot be empty\n"
+                    + "\tCorrect format as follows:\n"
+                    + "\t\ttodo <name>\n");
+            break;
+        case "deadline_format":
+            System.out.println("\tWrong Deadline command format: "
+                    + "String argument expected for Deadline name and date/time\n"
+                    + "\tCorrect format as follows:\n"
+                    + "\t\tdeadline <name> /by <due by date/time>\n");
+            break;
+        case "deadline_empty_string":
+            System.out.println(
+                    "\tString argument for Deadline name and date/time cannot be empty\n"
+                            + "\tCorrect format as follows:\n"
+                            + "\t\tdeadline <name> /by <due by date/time>\n");
+            break;
+        case "event_format":
+            System.out.println("\tWrong Event command format: "
+                    + "String argument expected for Event name and date/time\n"
+                    + "\tCorrect format as follows:\n"
+                    + "\t\tevent <name> /at <date/time of event>\n");
+            break;
+        case "event_empty_string":
+            System.out.println(
+                    "\tString argument for Event name and date/time cannot be empty\n"
+                            + "\tCorrect format as follows:\n"
+                            + "\t\tevent <name> /at <date/time of event>\n");
+            break;
+        case "done":
+            System.out.println("\tWrong Mark as Done command format: "
+                    + "Integer argument expected for task to be marked as done\n"
+                    + "\tCorrect format as follows:\n"
+                    + "\t\tdone <valid task number>\n");
+            break;
+        case "delete":
+            System.out.println("\tWrong Delete command format: "
+                    + "Integer argument expected for task to be deleted\n"
+                    + "\tCorrect format as follows:\n"
+                    + "\t\tdelete <valid task number>\n");
+            break;
+        case "find":
+            System.out.println("\tWrong Find command format: "
+                    + "String argument cannot be empty\n"
+                    + "\tCorrect format as follows:\n"
+                    + "\t\tfind <expression to find>\n");
+        default:
         }
     }
 
