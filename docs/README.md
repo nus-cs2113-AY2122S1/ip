@@ -4,6 +4,24 @@
 of events and deadlines**. It is a personalised **chatbox** that offers customised feedback 
 and helps you stay ahead of the curve.
 
+## Quick start guide
+
+### To run the jar file
+1. Ensure that you have `Java 11` installed on your computer.
+2. Download the latest `ip.jar` file from 
+[here](https://github.com/mayankp291/ip/releases/tag/A-Release).
+3. Copy the file to the folder you want to use as the home folder for `Duke`.
+4. Open the terminal (such as `powershell`) in this folder and launch by typing `java -jar ip.jar`.
+6. A welcome message should be displayed like the one below:
+```
+____________________________________________________________
+Howdy there! I'm Fluke
+What can I do for you today master?
+____________________________________________________________
+```
+7. Refer to Features for proper usage instructions and commands.
+
+
 ## Command Summary
 
 Action | Command Format | Example
