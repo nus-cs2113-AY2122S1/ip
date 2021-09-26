@@ -177,4 +177,15 @@ public abstract class InputParser {
         }
         return Errors.NONE;
     }
+
+    public static Errors checkDeleteAndDoneCommand(String input) {
+        String[] splitString = input.split("\\s");
+        if (splitString.length <= 1) {
+            return Errors.INCOMPLETE_COMMAND;
+        }
+        if (Integer.parseInt(splitString[1]) < 0 || Integer.parseInt(splitString[1]) > 99) {
+            return Errors.OUT_OF_BOUNDS_INDEX;
+        }
+        return Errors.NONE;
+    }
 }

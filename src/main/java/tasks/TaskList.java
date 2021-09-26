@@ -17,7 +17,6 @@ public class TaskList {
 
     // Operations to add/delete tasks in list eg. addToDo, addDeadline
     /**
-     *
      * @throws EmptyListException
      * Function to print out the current Task List
      * Shift inside COMMANDS package as own Java class
@@ -32,7 +31,6 @@ public class TaskList {
     }
 
     /**
-     *
      * @param newTask Task object of new Task to add to list
      * @param taskName name of task to print out
      * Function to add a new task to the list
@@ -121,14 +119,15 @@ public class TaskList {
 
     // function to remove a task from the list of tasks
     // COMMAND "delete index"
-    public static void deleteTask(String userInput) throws IndexOutOfBoundsException, InvalidTaskIndexException {
-        int taskIndex = InputParser.getTaskIndex(userInput);
-
-        // catch exception for task being out of bounds
-        if (taskIndex < 0 || taskIndex > 99) {
+    public static void deleteTask(String userInput) throws IncompleteCommandException, InvalidTaskIndexException {
+        Errors checkTaskIndex = InputParser.checkDeleteAndDoneCommand(userInput);
+        switch (checkTaskIndex) {
+        case INCOMPLETE_COMMAND:
+            throw new IncompleteCommandException();
+        case OUT_OF_BOUNDS_INDEX:
             throw new IndexOutOfBoundsException();
         }
-
+        int taskIndex = InputParser.getTaskIndex(userInput);
         // change task to done
         Task currTask = tasks.get(taskIndex);
         if (currTask == null) {
@@ -139,15 +138,16 @@ public class TaskList {
         UpdateData.rewriteList(tasks);
     }
 
-    public static void markAsDone(String userInput) throws IndexOutOfBoundsException, InvalidTaskIndexException {
-        // get index of task to chang
-        int taskIndex = InputParser.getTaskIndex(userInput);
-
-        // catch exception for task being out of bounds
-        if (taskIndex < 0 || taskIndex > 99) {
+    public static void markAsDone(String userInput) throws IncompleteCommandException, InvalidTaskIndexException {
+        Errors checkTaskIndex = InputParser.checkDeleteAndDoneCommand(userInput);
+        switch (checkTaskIndex) {
+        case INCOMPLETE_COMMAND:
+            throw new IncompleteCommandException();
+        case OUT_OF_BOUNDS_INDEX:
             throw new IndexOutOfBoundsException();
         }
-
+        // get index of task to chang
+        int taskIndex = InputParser.getTaskIndex(userInput);
         // change task to done
         Task currTask = tasks.get(taskIndex);
         if (currTask == null) {
