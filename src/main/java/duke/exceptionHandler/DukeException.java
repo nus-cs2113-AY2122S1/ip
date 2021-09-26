@@ -7,6 +7,8 @@ package duke.exceptionHandler;
  */
 
 public class DukeException extends Exception {
+    private static final String COMMAND_BORDER = "    ____________________________________________________________";
+
     public static String openingString = "     ☹ OOPS!!! ";
 
     /**
@@ -23,8 +25,8 @@ public class DukeException extends Exception {
      * Concatenates the openingString and errorMessage.
      */
     public void printErrorMessage() {
-        System.out.println("    ____________________________________________________________");
+        System.out.println(COMMAND_BORDER);
         System.out.println(openingString + this.getMessage());
-        System.out.println("    ____________________________________________________________");
+        System.out.println(COMMAND_BORDER);
     }
 }

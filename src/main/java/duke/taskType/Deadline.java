@@ -11,6 +11,8 @@ import java.time.format.DateTimeFormatter;
  */
 
 public class Deadline extends Task {
+    private static final String COMMAND_BORDER = "    ____________________________________________________________";
+
     protected String by;
 
     /**
@@ -26,11 +28,11 @@ public class Deadline extends Task {
     }
 
     public void printAddingStatus(int numberOfTasks) {
-        System.out.println("    ____________________________________________________________");
+        System.out.println(COMMAND_BORDER);
         System.out.println("    Got it. I've added this task:\n" +
                 "      " + this.toString() + "\n" +
                 "    " + "Now you have " + (numberOfTasks + 1) + " tasks in the list.");
-        System.out.println("    ____________________________________________________________");
+        System.out.println(COMMAND_BORDER);
     }
 
     public String toRawString() {
@@ -44,9 +46,9 @@ public class Deadline extends Task {
         String date = by.split(" ")[0];
         String time = by.split(" ")[1];
         String formattedDateTime = date + "T" + time;
-        LocalDateTime dt = LocalDateTime.parse(formattedDateTime);
+        LocalDateTime dateTimeObject = LocalDateTime.parse(formattedDateTime);
         DateTimeFormatter formatTimeNow = DateTimeFormatter.ofPattern("HH:mm a");
-        String newBy = dt.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + dt.format(formatTimeNow);
+        String newBy = dateTimeObject.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + dateTimeObject.format(formatTimeNow);
 
         return "[D]" + super.toString() + "(by: " + newBy + ")";
     }

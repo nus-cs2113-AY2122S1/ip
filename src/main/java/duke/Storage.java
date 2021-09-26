@@ -46,33 +46,33 @@ public class Storage {
             // Construct the new file that will later be renamed to the original filename.
             File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
 
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+            BufferedReader bufferRead = new BufferedReader(new FileReader(file));
+            PrintWriter fileWrite = new PrintWriter(new FileWriter(tempFile));
 
             String line;
 
             // Read from the original file and write to the new
             // unless content matches data to be removed.
-            while ((line = br.readLine()) != null) {
+            while ((line = bufferRead.readLine()) != null) {
                 count += 1;
                 if (!line.trim().equals(lineToRemove)) {
                     if (lastLine == true && count == taskNumberToDelete - 1) {
-                        pw.print(line); // No newline...
-                        pw.flush();
+                        fileWrite.print(line); // No newline...
+                        fileWrite.flush();
                     } else {
                         if (count == numberOfTask) {
-                            pw.print(line);
-                            pw.flush();
+                            fileWrite.print(line);
+                            fileWrite.flush();
                         } else {
-                            pw.println(line);
-                            pw.flush();
+                            fileWrite.println(line);
+                            fileWrite.flush();
                         }
                     }
                 }
             }
 
-            pw.close();
-            br.close();
+            fileWrite.close();
+            bufferRead.close();
 
             // Delete the original file
             if (!inFile.delete()) {
@@ -179,11 +179,8 @@ public class Storage {
         try {
             Scanner scanner = new Scanner(file);
 
-            int lineNum = 0;
-
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                lineNum++;
 
                 if (line.equals(stringToCheck)) {
                     scanner.close(); // Don't forget!

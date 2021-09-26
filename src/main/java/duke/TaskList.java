@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class TaskList {
+    private static final String COMMAND_BORDER = "    ____________________________________________________________";
+
     public static int numberOfTasks = 0;
     public static ArrayList<Task> tasks = new ArrayList<>();
 
@@ -260,13 +262,13 @@ public class TaskList {
      * entered to the terminal.
      */
     public static void printTaskList() {
-        System.out.println("    ____________________________________________________________");
+        System.out.println(COMMAND_BORDER);
         for (int i = 0; i < numberOfTasks; i += 1) {
             System.out.print("     ");
             System.out.print((i + 1) + ".");
             tasks.get(i).printStatus();
         }
-        System.out.println("    ____________________________________________________________");
+        System.out.println(COMMAND_BORDER);
     }
 
 
@@ -301,12 +303,12 @@ public class TaskList {
 
         int sizeOfMatchedList = matchedTaskList.size();
 
-        System.out.println("    ____________________________________________________________");
+        System.out.println(COMMAND_BORDER);
         for (int i = 0; i < sizeOfMatchedList; i += 1) {
             System.out.print("     ");
             System.out.print((i + 1) + ".");
             matchedTaskList.get(i).printStatus();
         }
-        System.out.println("    ____________________________________________________________");
+        System.out.println(COMMAND_BORDER);
     }
 }

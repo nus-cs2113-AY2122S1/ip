@@ -8,6 +8,8 @@ package duke.taskType;
  */
 
 public class ToDo extends Task {
+    private static final String COMMAND_BORDER = "    ____________________________________________________________";
+
     /**
      * ToDo constructor creating object with attribute of the todo task's
      * description.
@@ -20,11 +22,11 @@ public class ToDo extends Task {
     }
 
     public void printAddingStatus(int numberOfTasks) {
-        System.out.println("    ____________________________________________________________");
+        System.out.println(COMMAND_BORDER);
         System.out.println("    Got it. I've added this task:\n" +
                 "      " + this.toString() + "\n" +
                 "    " + "Now you have " + (numberOfTasks + 1) + " tasks in the list.");
-        System.out.println("    ____________________________________________________________");
+        System.out.println(COMMAND_BORDER);
     }
 
     public String toRawString() {
