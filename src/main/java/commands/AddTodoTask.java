@@ -9,10 +9,21 @@ public class AddTodoTask extends Command {
     protected Ui ui = new Ui();
     private final String input;
 
+    /**
+     * Changes the input attribute to the one given by the user.
+     *
+     * @param input The input by the user.
+     */
     public AddTodoTask(String input) {
         this.input = input;
     }
 
+    /**
+     * Adds a todo task into the task list.
+     * If there is no input after the command word, the user will be prompted to include one in the correct format.
+     *
+     * @param tasks task list to be updated when a todo task is added.
+     */
     @Override
     public void execute(TaskList tasks) {
         if (input.trim().length() <= 4) {

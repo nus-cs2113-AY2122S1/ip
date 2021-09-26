@@ -19,6 +19,10 @@ public class Jim {
         storage.initJim();
     }
 
+    /**
+     * Shows welcome message. Takes in user command and executes that command (if possible, shows error if not)
+     * Taking and executing user command will loop until isExit is true, where the function terminates.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;

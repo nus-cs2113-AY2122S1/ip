@@ -10,10 +10,23 @@ public class AddEventTask extends Command {
     protected Ui ui = new Ui();
     private final String input;
 
+    /**
+     * Changes the input attribute to the one given by the user.
+     *
+     * @param input The input by the user.
+     */
     public AddEventTask(String input) {
         this.input = input;
     }
 
+    /**
+     * Adds an event task into the task list and updates the database accordingly.
+     * If there is no input after the command word, the user will be prompted to include one in the correct format.
+     * If there is no /at in the input, the user will be prompted to include it in the correct place.
+     * If there is no description or time range given, the user will be prompted to include it.
+     *
+     * @param tasks task list to be updated when an event task is added.
+     */
     @Override
     public void execute(TaskList tasks) {
         if (input.trim().length() <= 5) {

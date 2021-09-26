@@ -10,9 +10,22 @@ public class FindTaskCommand extends Command {
     protected Ui ui = new Ui();
     private final String input;
 
+    /**
+     * Changes the input attribute to the one given by the user.
+     *
+     * @param input The input by the user.
+     */
     public FindTaskCommand(String input) {
         this.input = input.toLowerCase();
     }
+
+    /**
+     * Shows the tasks that can be found using the user's input to the user. If there are no such tasks,
+     * the user will be shown a text message to reflect that.
+     * If there is no input after the command word, the user will be prompted to include it.
+     *
+     * @param tasks task list to be used to find the tasks.
+     */
     @Override
     public void execute(TaskList tasks) {
         if (input.trim().length() <= 4) {

@@ -9,10 +9,23 @@ public class AddDeadlineTask extends Command {
     protected Ui ui = new Ui();
     private final String input;
 
+    /**
+     * Changes the input attribute to the one given by the user.
+     *
+     * @param input The input by the user.
+     */
     public AddDeadlineTask(String input) {
         this.input = input;
     }
 
+    /**
+     * Adds a deadline task into the task list and updates the database accordingly.
+     * If there is no input after the command word, the user will be prompted to include one in the correct format.
+     * If there is no /by in the input, the user will be prompted to include it in the correct place.
+     * If there is no description or deadline given, the user will be prompted to include it.
+     *
+     * @param tasks task list to be updated when a deadline task is added.
+     */
     @Override
     public void execute(TaskList tasks) {
         if (input.trim().length() <= 8) {
