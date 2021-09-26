@@ -3,8 +3,18 @@ package duke.parser;
 import duke.command.*;
 import duke.exception.InvalidCommandException;
 
+/**
+ * A class that parses each command from user input
+ */
 public class Parser {
 
+    /**
+     * Returns Command object according to what user key in
+     *
+     * @param userCommand the command user typed in
+     * @return Command object
+     * @throws InvalidCommandException if the userCommand is not a valid command
+     */
     public static Command parse(String userCommand) throws InvalidCommandException {
         Command c;
         if (userCommand.equals("bye")) {

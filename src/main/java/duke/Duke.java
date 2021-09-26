@@ -9,12 +9,19 @@ import duke.ui.Ui;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Main class for running the whole program
+ */
 public class Duke {
 
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
 
+    /**
+     * Constructor of Duke class
+     * Introduce ui, storage, and tasks
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage();
@@ -25,6 +32,9 @@ public class Duke {
         }
     }
 
+    /**
+     * This method runs program Duke by reading in commands and executing them
+     */
     public void run() {
         ui.greet();
         boolean isExit = false;
@@ -40,6 +50,11 @@ public class Duke {
         }
     }
 
+    /**
+     * launches the duck program
+     *
+     * @param args arguments from command line
+     */
     public static void main(String[] args) {
         new Duke().run();
     }

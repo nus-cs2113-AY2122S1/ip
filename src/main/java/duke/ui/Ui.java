@@ -4,17 +4,31 @@ import duke.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A class used for interaction with users
+ */
 public class Ui {
     private Scanner in;
 
+    /**
+     * Constructor of the Class
+     */
     public Ui() {
         in = new Scanner(System.in);
     }
 
+    /**
+     * Returns user input as String
+     *
+     * @return String of user input
+     */
     public String getCommand() {
         return in.nextLine();
     }
 
+    /**
+     * Prints DUKE logo and greeting message
+     */
     public static void greet() {
         // the function is used to greet user in the very first beginning
         String logo = " ____        _        \n"
@@ -29,8 +43,12 @@ public class Ui {
         printSign();
     }
 
+    /**
+     * Prints out the whole task list with their status icons
+     *
+     * @param tasks ArrayList of tasks
+     */
     public static void printList(ArrayList<Task> tasks) {
-        // Print out the whole task list with their status icons
         printSign();
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= tasks.size(); i++) {
@@ -40,8 +58,12 @@ public class Ui {
         printSign();
     }
 
+    /**
+     * Prints out the total number of the tasks and what is added to do
+     *
+     * @param tasks ArrayList of tasks
+     */
     public static void printTotalNumOfTasks(ArrayList<Task> tasks) {
-        // Print out the total number of the tasks and what is added to do
         printSign();
         System.out.println("Got it. I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1).toString());
@@ -49,21 +71,28 @@ public class Ui {
         printSign();
     }
 
+    /**
+     * Exits the program once user key in "bye"
+     */
     public static void exit() {
-        // Exit the program one user key in "bye"
         printSign();
         System.out.println("Bye. Hope to see you again soon!\n");
         printSign();
     }
 
+    /**
+     * Prints out a divider line consist of "-"
+     */
     public static void printSign() {
-        // Print out a "-" line
         for (int i = 1; i <= 40; i++) {
             System.out.print("-");
         }
         System.out.println();
     }
 
+    /**
+     * Prints out the message that indicates invalid input
+     */
     public static void printInvalidMessage() {
         printSign();
         System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

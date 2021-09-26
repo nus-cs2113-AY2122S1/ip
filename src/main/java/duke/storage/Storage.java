@@ -14,11 +14,19 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A class used for load and save data file
+ */
 public class Storage {
     public static final String root = System.getProperty("user.dir");
     public static final Path dataPath = Paths.get(root, "data", "duke.txt");
     public static final Path dirPath = Paths.get(root, "data");
 
+    /**
+     * Constructor of class
+     *
+     * Creates new directory and file if dirPath and filePath is not found
+     */
     public Storage() {
         File dataDirectory = new File(dirPath.toString());
 
@@ -34,6 +42,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the previous saved data file
+     *
+     * @return tasks ArrayList saved in previous data file
+     * @throws FileNotFoundException
+     */
     public ArrayList<Task> loadData() throws FileNotFoundException {
 
         ArrayList<Task> tasks = new ArrayList<>();
@@ -67,6 +81,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves new tasks to data file
+     *
+     * @param tasks ArrayList of tasks to be saved
+     */
     public static void saveData(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(dataPath.toString());
