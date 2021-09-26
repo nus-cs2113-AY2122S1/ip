@@ -145,7 +145,7 @@ public class TaskList {
      * Prints valid tasks with date input
      * @param dateGiven date to search tasks with
      */
-    public void printTasksWithDate(LocalDate dateGiven) {
+    public void printTasksWithGivenDate(LocalDate dateGiven) {
         List<Task> tasksFound =
                 taskList.stream()
                 .filter(t -> t.getTaskDate().equals(dateGiven))
@@ -157,7 +157,7 @@ public class TaskList {
             taskList.stream()
                     .map(t->t.getDescription())
                     .forEach(t-> System.out.println(t));
-            System.out.println("with the given date: " + dateGiven.format(DateTimeFormatter.ISO_DATE));
+            System.out.println("with the given date: " + dateGiven.format(DateTimeFormatter.ISO_LOCAL_DATE));
         }
     }
 }

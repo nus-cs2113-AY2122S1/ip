@@ -83,21 +83,26 @@ T|Read books|true
 finished finding
 ```
 
-### `date` - display tasks with valid date
+### `date` - finds tasks with valid date given
 
-Display tasks with valid date
+Display tasks with matching date.
 
+Note that if no valid date is found, the task is tagged with 
+ default date 1999-11-30.
 
 Example of usage:
 ```
 date
+1999-11-30
 ```
 Expected outcome:
 
-Display tasks with valid date - format YYYY-MM-DD
+Display tasks with matching date
 
 ```
-great! i've recorded a date with the task: Party 1999-11-30 with the date: Nov 30 1999
+I found the following tasks:
+movie 
+with the given date: 1969-04-20
 finished getting date!
 ```
 ### `list` - display list

@@ -22,7 +22,7 @@ public class DateCommand extends Command{
     }
 
     /**
-     * Prints tasks with a valid date given
+     * Prints tasks found that have the same valid date input
      *  note that this logically applies to events/ deadlines rather than todo
      * @param tasks TaskList to be read
      */
@@ -35,7 +35,7 @@ public class DateCommand extends Command{
             System.out.println("Please enter a valid date!");
             Ui.printDateFormat();
         }
-            tasks.printTasksWithDate(dateGiven);
+            tasks.printTasksWithGivenDate(dateGiven);
             saveListAndPrintDone(tasks);
     }
 }
