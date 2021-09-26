@@ -1,5 +1,7 @@
 # User Guide
 
+**Duke** is a checklist app for recording tasks, via a Command Line Interfaces.
+
 ## Features 
 
 ### Feature-ABC
