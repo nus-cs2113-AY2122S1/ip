@@ -1,4 +1,4 @@
-# DUKEYAPPY User Guide 
+# DUKEY-APPY User Guide 
 
 ## Contents
 [Intro](#introducing-duke-cs2113t)
