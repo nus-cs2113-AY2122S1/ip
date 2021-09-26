@@ -1,8 +1,22 @@
 public class Deadline extends Task {
+    protected String by;
 
-    public Deadline(String description) {
+    public Deadline(String description, String by) {
         super(description);
-        this.description = this.description.replace("[]", "[D]");
-        this.isDone = false;
+        setBy(by);
+    }
+
+    public void setBy(String byDate) {
+        this.by = byDate;
+    }
+
+    @Override
+    public String getType() {
+        return "D";
+    }
+
+    @Override
+    public String getWhen() {
+        return this.by;
     }
 }
