@@ -251,7 +251,7 @@ Expected output:
 
 ### Command Summary
 | Action | Format | Example |
-| :-- | :-- | :-- |
+| :-: | :-- | :-- |
 | Help   | `help`  | `help` |
 | Add Todo | `todo [TASK_NAME]` | `todo buy groceries` |
 | Add Deadline | `deadline [TASK_NAME] /by [DATE_TIME]` | `return book /by 08 10 2021 1700` |
