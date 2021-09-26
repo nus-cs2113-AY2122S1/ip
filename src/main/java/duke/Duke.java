@@ -20,13 +20,15 @@ public class Duke {
     public void run(){
         ui.Greetings();
         boolean isExit = false;
-        do {
+        do{
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLineWithoutNewLine();
+                ui.showLine();
                 Parser parser = new Parser(fullCommand, tasks);
                 isExit = parser.isExit();
-                parser.handleInput();
+                if(!isExit) {
+                    parser.handleInput();
+                }
             }catch(CommandException e){
                 ui.showError(e.getErrorMessage());
             }finally {

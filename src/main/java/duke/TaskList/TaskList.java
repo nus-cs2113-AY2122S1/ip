@@ -7,6 +7,8 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList implements TaskListInterface {
@@ -39,13 +41,32 @@ public class TaskList implements TaskListInterface {
         printer(list);
     }
 
+    public void printDate(LocalDate dateSearched) throws CommandException{
+        boolean haveDate = false;
+        ArrayList<Task> listOfTaskWithDate = new ArrayList<>();
+        for (Task t: list){
+            String date = t.getDate(t.convertStringToDate(), true);
+            if(!date.equals("")) {
+                LocalDate localDate = LocalDate.parse(date);
+                if (dateSearched.equals(localDate)) {
+                    haveDate = true;
+                    listOfTaskWithDate.add(t);
+                }
+            }
+        }
+        if(!haveDate){
+            throw new CommandException(ErrorStaticString.ERROR_EMPTY_DATE_INPUT);
+        }
+        printer(listOfTaskWithDate);
+    }
+
     public void printToDo() throws CommandException {
         boolean haveToDo = false;
         ArrayList<Task> listOfToDo = new ArrayList<>();
-        for(int i = 0; i < list.size(); i++){
-            if(list.get(i) instanceof ToDo){
+        for(Task t: list){
+            if(t instanceof ToDo){
                 haveToDo = true;
-                listOfToDo.add(list.get(i));
+                listOfToDo.add(t);
             }
         }
         if(!haveToDo){
@@ -57,10 +78,10 @@ public class TaskList implements TaskListInterface {
     public void printEvent() throws CommandException{
         boolean haveEvent = false;
         ArrayList<Task> listOfEvent = new ArrayList<>();
-        for(int i = 0; i < list.size(); i++){
-            if(list.get(i) instanceof Event) {
+        for (Task t : list) {
+            if (t instanceof Event) {
                 haveEvent = true;
-                listOfEvent.add(list.get(i));
+                listOfEvent.add(t);
             }
         }
         if(!haveEvent){
@@ -72,10 +93,10 @@ public class TaskList implements TaskListInterface {
     public void printDeadline() throws CommandException{
         boolean haveDeadline = false;
         ArrayList<Task> listOfDeadline = new ArrayList<>();
-        for(int i = 0; i < list.size(); i++){
-            if(list.get(i) instanceof Deadline) {
+        for (Task task : list) {
+            if (task instanceof Deadline) {
                 haveDeadline = true;
-                listOfDeadline.add(list.get(i));
+                listOfDeadline.add(task);
             }
         }
         if(!haveDeadline){
@@ -99,20 +120,20 @@ public class TaskList implements TaskListInterface {
         }
     }
 
-    public void addEvent(String description, String time, boolean isFromFile){
-        Task t = new Event(description, time);
+    public void addEvent (String description, String eventDateTime, boolean isFromFile){
+        Task t = new Event(description, eventDateTime);
         list.add(t);
-        if(!isFromFile) {
+        if (!isFromFile) {
             printAddItem(t);
             Storage storage = new Storage();
             storage.appendTask(t);
         }
     }
 
-    public void  addDeadline(String description, String deadline, boolean isFromFile){
-        Task t = new Deadline(description, deadline);
+    public void addDeadline(String description, String deadlineDateTime, boolean isFromFile){
+        Task t = new Deadline(description, deadlineDateTime);
         list.add(t);
-        if(!isFromFile) {
+        if (!isFromFile) {
             printAddItem(t);
             Storage storage = new Storage();
             storage.appendTask(t);
@@ -120,9 +141,6 @@ public class TaskList implements TaskListInterface {
     }
 
     public void completeTask(int t, boolean isFromFile) throws CommandException{
-        if (t > list.size() || t < 0){
-            throw new CommandException(ErrorStaticString.ERROR_DONE_TASK_NOT_IN_LIST);
-        }
         Task doneTask = list.get(t);
         doneTask.setDone();
         if (!isFromFile) {
@@ -132,10 +150,7 @@ public class TaskList implements TaskListInterface {
         }
     }
 
-    public void deleteTask(int t) throws CommandException{
-        if(t > list.size() || t < 0){
-            throw new CommandException(ErrorStaticString.ERROR_DELETE_TASK);
-        }
+    public void deleteTask(int t){
         Task removeTask = list.get(t);
         list.remove(t);
         printDeleteTask(removeTask);

@@ -11,6 +11,7 @@ public abstract class Command {
     protected static final String COMMAND_VIEW_LIST = "list";
     protected static final String COMMAND_ECHO = "echo";
     protected static final String COMMAND_COMPLETE_TASK = "done";
+    protected static final String COMMAND_DATE_TASK = "date";
     protected static final String COMMAND_ADD_TODO = "todo";
     protected static final String COMMAND_ADD_EVENT = "event";
     protected static final String COMMAND_ADD_DEADLINE = "deadline";
@@ -18,9 +19,11 @@ public abstract class Command {
     protected static final String EVENT_TIME = "at ";
     protected static final String DEADLINE_DATE = "by ";
     protected static final String MESSAGE_TASK_COMPLETE = "Nice! I've marked this task as done: ";
+    protected static final String DATE_PATTERN = "\\d{4}-\\d{1,2}-\\d{1,2}";
     protected static final String EMPTY_STRING = "";
     protected static final String SEPARATOR = ",";
     protected static final int START_OF_STRING = 0;
+
 
     protected static final String MESSAGE_HELP =  "List of Commands:\n" +
             "   echo - Repeat whatever was typed - !echo to repeat in art form\n" +

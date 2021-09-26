@@ -24,7 +24,7 @@ public class AddEventCommand extends Command{
         if(eventDescription.isEmpty()){
             throw new CommandException(ErrorStaticString.ERROR_EMPTY_EVENT_INPUT);
         }
-        String eventTime = taskDescription.replaceFirst(eventDescription, EMPTY_STRING).replaceFirst(EVENT_TIME,EMPTY_STRING).strip();
-        listManager.addEvent(eventDescription,eventTime, false);
+        String inputWithoutDescription = taskDescription.replaceFirst(eventDescription, EMPTY_STRING).replaceFirst(EVENT_TIME,EMPTY_STRING).strip();
+        listManager.addEvent(eventDescription, inputWithoutDescription,false);
     }
 }

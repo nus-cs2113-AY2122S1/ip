@@ -1,10 +1,8 @@
 package duke.Parser;
 
-import duke.ArtBot.Logo;
 import duke.Command.*;
 import duke.ErrorHandling.CommandException;
 import duke.ErrorHandling.ErrorStaticString;
-import duke.Storage.Storage;
 import duke.TaskList.TaskList;
 
 import java.util.Objects;
@@ -19,6 +17,7 @@ public class Parser{
     private static final String COMMAND_ADD_DEADLINE = "deadline";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_EXIT = "bye";
+    private static final String COMMAND_DATE_TASK = "date";
     private static final String EMPTY_STRING = "";
     private static final String COMMAND_GUIDE_INDICATOR = "!";
     private static final String SPLITTER = ";";
@@ -31,27 +30,30 @@ public class Parser{
         this.listManager = listManager;
     }
 
-    private String taskCategory(String userInput){
-        if(userInput.startsWith(COMMAND_VIEW_LIST)) {
+    private String taskCategory(String userInput) {
+        if (userInput.startsWith(COMMAND_VIEW_LIST)) {
             return COMMAND_VIEW_LIST;
         }
-        if(userInput.startsWith(COMMAND_ADD_DEADLINE)){
+        if (userInput.startsWith(COMMAND_ADD_DEADLINE)) {
             return COMMAND_ADD_DEADLINE;
         }
-        if(userInput.startsWith(COMMAND_ADD_TODO)) {
+        if (userInput.startsWith(COMMAND_ADD_TODO)) {
             return COMMAND_ADD_TODO;
         }
-        if(userInput.startsWith(COMMAND_ADD_EVENT)){
+        if (userInput.startsWith(COMMAND_ADD_EVENT)) {
             return COMMAND_ADD_EVENT;
         }
-        if(userInput.startsWith(COMMAND_COMPLETE_TASK)){
+        if (userInput.startsWith(COMMAND_COMPLETE_TASK)) {
             return COMMAND_COMPLETE_TASK;
         }
-        if (userInput.startsWith(COMMAND_ECHO)){
+        if (userInput.startsWith(COMMAND_ECHO)) {
             return COMMAND_ECHO;
         }
-        if(userInput.startsWith(COMMAND_DELETE)){
+        if (userInput.startsWith(COMMAND_DELETE)) {
             return COMMAND_DELETE;
+        }
+        if (userInput.startsWith(COMMAND_DATE_TASK)) {
+            return COMMAND_DATE_TASK;
         }
         return null;
     }
@@ -91,8 +93,7 @@ public class Parser{
             throw new CommandException(ErrorStaticString.ERROR_NULL);
         }
         if(userInput.startsWith(COMMAND_GUIDE_INDICATOR)){
-            String userInputWithoutIndicator = userInput.replaceFirst(COMMAND_GUIDE_INDICATOR,EMPTY_STRING).trim();
-            CommandGuide commandGuide = new CommandGuide(userInputWithoutIndicator);
+            CommandGuide commandGuide = new CommandGuide(userInput);
             commandGuide.executeCommand();
         }else{
             splitInputIfThereMoreThanOneCommand();
@@ -103,7 +104,10 @@ public class Parser{
         userInput = userInput.replaceAll(SPLITTER,EMPTY_STRING);
         boolean isAddingTask = false;
         if (!isList()) {
-            isAddingTask = isTodo() || isEvent() || isDeadline();
+            Boolean isTodo = isTodo();
+            Boolean isEvent = isEvent();
+            Boolean isDeadline = isDeadline();
+            isAddingTask = isTodo || isEvent || isDeadline;
         }
         if(isAddingTask) {
             String[] commandList = userInput.split(SPLITTER);
@@ -129,9 +133,12 @@ public class Parser{
                 break;
             case COMMAND_COMPLETE_TASK:
                 DoneCommand doneCommand = new DoneCommand(inputCommand, listManager);
-                doneCommand.executeCommand();
-                listManager.printList();
-                System.out.println(Logo.dividerWithoutNewLine);
+                try {
+                    doneCommand.executeCommand();
+                    listManager.printList();
+                } catch (CommandException e) {
+                    e.handleException();
+                }
                 break;
             case COMMAND_ADD_EVENT:
                 AddEventCommand addEvent = new AddEventCommand(inputCommand, listManager);
@@ -172,6 +179,15 @@ public class Parser{
                 } catch (CommandException e) {
                     e.handleException();
                 }
+                break;
+            case COMMAND_DATE_TASK:
+                FindDateCommand findDateCommand = new FindDateCommand(inputCommand, listManager);
+                try {
+                    findDateCommand.executeCommand();
+                }catch (CommandException e){
+                    e.handleException();
+                }
+                break;
             }
         }catch(NullPointerException e){
             System.out.println(ErrorStaticString.ERROR_UNKNOWN_COMMAND);
