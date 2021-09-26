@@ -194,11 +194,11 @@ public class TaskManager {
     }
 
     /**
-     * Find task/s in tasklist {@code tasks} that contains {@code keyword} in its description
+     * Find task/s in tasklist {@code tasks} that contains {@code keyword} in its description.
      *
-     * @param keyword search term to match with the task descriptions of all tasks in tasklist {@code tasks}
+     * @param keyword search term to match with the task descriptions of all tasks in tasklist {@code tasks}.
      * @return a String that contains the tasks that contains {@code keyword} and the number of matched tasks.
-     * @throws NoTaskFoundException if no matching cases were found with {@code keyword} in tasklist {@code tasks}
+     * @throws NoTaskFoundException if no matching cases were found with {@code keyword} in tasklist {@code tasks}.
      */
     public String findTask(String keyword) throws NoTaskFoundException {
 
@@ -221,10 +221,10 @@ public class TaskManager {
     }
 
     /**
-     * Returns the list of tasks in tasklist {@code tasks} as a String
+     * Returns the list of tasks in tasklist {@code tasks} as a String.
      *
-     * @return a String that contains all task entries in tasklist {@code tasks}
-     * @throws EmptyTasklistException if the tasklist {@code tasks} is empty
+     * @return a String that contains all task entries in tasklist {@code tasks}.
+     * @throws EmptyTasklistException if the tasklist {@code tasks} is empty.
      */
     public String getTasklistEntries() throws EmptyTasklistException {
 
@@ -243,49 +243,49 @@ public class TaskManager {
     }
 
     /**
-     * Returns add task success message
+     * Returns add task success message.
      */
     public String getAddTaskMessage(int idOfTaskAdded) {
         return ADD_TASK_MSG + "\n   <" + tasks.get(idOfTaskAdded).getTaskDescription() + ">\n";
     }
 
     /**
-     * Returns set task as done success message
+     * Returns set task as done success message.
      */
     public String getSetTaskCompleteMessage(int idOfTaskCompleted) {
         return SET_TASK_COMPLETE_MSG + "\n   <" + tasks.get(idOfTaskCompleted).getTaskDescription() + ">\n";
     }
 
     /**
-     * Returns delete task success message
+     * Returns delete task success message.
      */
     public String getDeleteTaskMessage(int idOfTaskDeleted) {
         return DELETE_TASK_MSG + "\n   <" + tasks.get(idOfTaskDeleted).getTaskDescription() + ">\n";
     }
 
     /**
-     * Returns find task success message
+     * Returns find task success message.
      */
     public String getFindTaskMessage(String matchedTasks, int numMatched) {
         return FIND_TASK_MSG + "\n" + matchedTasks + "=> It has successfully returned " + numMatched + " result/s.";
     }
 
     /**
-     * Returns get all tasklist entries success message
+     * Returns get all tasklist entries success message.
      */
     public String getListMessage(String taskList) {
         return PRINT_TASKLIST_MSG + "\n" + taskList;
     }
 
     /**
-     * Returns current number of tasks in tasklist {@code tasks} as a String message
+     * Returns current number of tasks in tasklist {@code tasks} as a String message.
      */
     public String getNumTasksInList() {
         return "=> Now you have " + tasks.size() + " tasks in your list.";
     }
 
     /**
-     * Returns current number of tasks in tasklist {@code tasks} marked as done as a String message
+     * Returns current number of tasks in tasklist {@code tasks} marked as done as a String message.
      */
     public String getNumTaskComplete() {
         int numComplete = 0;
