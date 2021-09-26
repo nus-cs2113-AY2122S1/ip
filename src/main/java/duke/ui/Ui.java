@@ -180,7 +180,7 @@ public class Ui {
             printEventCommandFormat();
             break;
         default:
-            return;
+            printInvalidCommand();
         }
     }
 
