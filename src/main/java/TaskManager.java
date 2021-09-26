@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import exceptions.DukeException;
+import exceptions.EmptyTimeException;
 import exceptions.InvalidCommandException;
 import task.Deadline;
 import task.Event;
@@ -11,48 +12,44 @@ import task.Todo;
 public class TaskManager {
     public static ArrayList<Task> tasks = new ArrayList<>();
 
-    private void taskDone(String userInput) throws DukeException {
-        String[] params = userInput.split(" ", 2);
-        if (params.length < 2) {
-            throw new DukeException();
-        }
-        String position = params[1];
-        int index = Integer.parseInt(position) - 1;
+    /**
+     * Marks the task at index as done
+     * Index is extracted from userInput using Parser.parseExtractIndex
+     *
+     * @param userInput the String entered by user, in this case "done {position of task}"
+     * @throws DukeException the exception thrown when user did not include task number
+     * @throws IndexOutOfBoundsException the exception thrown when user enter a number
+     * that is out of bound of ArrayList<Task> tasks
+     */
+    private void taskDone(String userInput) throws DukeException, IndexOutOfBoundsException {
+        int index = Parser.parseExtractIndex(userInput);
         tasks.get(index).markAsDone();
         Ui.printMarkAsDoneMessage(index);
         Ui.printDivider();
     }
 
-    private void deleteTask(String userInput) throws DukeException {
-        String[] params = userInput.split(" ", 2);
-        if (params.length < 2) {
-            throw new DukeException();
-        }
-        String position = params[1];
-        int index = Integer.parseInt(position) - 1;
+    /**
+     * Delete a task from ArrayList<Task> tasks
+     * Index is extracted from userInput using Parser.parseExtractIndex
+     *
+     * @param userInput the String entered by user, in this case "delete {position of task}"
+     * @throws DukeException the exception thrown when user did not include task number
+     * @throws IndexOutOfBoundsException the exception thrown when user enter a number
+     * that is out of bound of ArrayList<Task> tasks
+     */
+    private void deleteTask(String userInput) throws DukeException, IndexOutOfBoundsException {
+        int index = Parser.parseExtractIndex(userInput);
         Ui.printDeleteTaskMessage(index);
         tasks.remove(index);
     }
 
+    /**
+     * Mark the last task that is added as done
+     * Primarily used when reading data from local storage
+     */
     public static void taskDoneLatest() {
         tasks.get(tasks.size() - 1).markAsDone();
     }
-
-
-    public void listTasks() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d.%s" + System.lineSeparator(), i + 1, tasks.get(i));
-        }
-        Ui.printDivider();
-    }
-
-    private void echoTask(int index) {
-        Ui.printNewlyAddedTask(index);
-        Ui.printTaskCount();
-        Ui.printDivider();
-    }
-
 
     public static void addTodo(String userInput) {
         tasks.add(new Todo(userInput));
@@ -66,6 +63,13 @@ public class TaskManager {
         tasks.add(new Event(description, time));
     }
 
+    /**
+     * Iterate through ArrayList<Task> tasks and return tasks that contains filterString, using Java Streams
+     *
+     * @param tasks an ArrayList that stores user's tasks
+     * @param filterString a String query by user
+     * @return a list of tasks containing filteredString
+     */
     public static ArrayList<Task> filterTasksByString(ArrayList<Task> tasks, String filterString) {
         ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
                 .filter((t) -> t.getDescription().contains(filterString))
@@ -73,59 +77,60 @@ public class TaskManager {
         return filteredList;
     }
 
-    public void findTask(String userInput) throws DukeException {
-        String[] params = userInput.split(" ", 2);
-        if (params.length < 2) {
-            throw new DukeException();
-        }
-        ArrayList<Task> filteredList = filterTasksByString(tasks, params[1]);
-        Ui.printData(filteredList, userInput);
+    public void findTask(String userInput) throws DukeException, EmptyTimeException {
+        String userQuery = Parser.parseExtractString(userInput);
+        ArrayList<Task> filteredList = filterTasksByString(tasks, userQuery);
+        Ui.printMatchingString(filteredList, userInput);
     }
 
-    private void addTask(String userInput) throws DukeException {
-        String[] params = userInput.split(" ", 2);
-        String command = params[0];
-        if (params.length < 2) {
-            throw new DukeException();
-        }
-
-        String description = params[1];
-        String[] separateTime;
-        String[] separatePreposition;
-        String time;
+    /**
+     * Adds a new task to ArrayList<Task> tasks
+     *
+     * @param userInput the String entered by user, including command
+     * @throws DukeException the exception thrown when user did not include description of task
+     * @throws EmptyTimeException the exception thrown when user did not include date/time for deadline or event
+     */
+    private void addTask(String userInput) throws DukeException, EmptyTimeException{
+        String command = Parser.parseExtractCommand(userInput);
+        String description = Parser.parseExtractString(userInput);
 
         if (command.equals("todo")) {
             addTodo(description);
-        }
-        else { //timed tasks
-            separateTime = params[1].split("/", 2);
-            description = separateTime[0];
-            separatePreposition = separateTime[1].split(" ", 2);
-            time = separatePreposition[1];
-            if (command.equals("deadline")){
-                addDeadline(description, time);
-            }
-            else {
-                addEvent(description, time);
-            }
+            Ui.echoLastTask();
+            return;
         }
 
+        //timed tasks
+        String[] InfoTimeArray = Parser.parseExtractInfoAndTime(description);
+        description = InfoTimeArray[0];
+        String time = InfoTimeArray[1];
+        if (command.equals("deadline")) {
+            addDeadline(description, time);
+        } else if (command.equals("event")) {
+            addEvent(description, time);
+        }
+        Ui.echoLastTask();
     }
+
+    /**
+     * Handles user requests: {list, todo, deadline, event, find, done, delete}
+     * and call its corresponding methods
+     * An invalid command returns an error message
+     *
+     * @param userInput the String entered by user
+     */
 
     public void handleRequest(String userInput) {
         try {
-            String[] params = userInput.split(" ", 2);
-            String command = params[0];
-
+            String command = Parser.parseExtractCommand(userInput);
             switch (command.toUpperCase()) {
             case "LIST":
-                listTasks();
+                Ui.printTasks();
                 break;
             case "TODO":
             case "DEADLINE":
             case "EVENT":
                 addTask(userInput);
-                echoTask(tasks.size() - 1);
                 break;
             //fallthrough
             case "FIND":
@@ -138,11 +143,18 @@ public class TaskManager {
                 deleteTask(userInput);
                 break;
             default:
-                throw new InvalidCommandException(); //if user input is not any of the commands
+                throw new InvalidCommandException("☹ OOPS!!! I do not understand what that means!"); //if user input is not any of the commands
             }
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printOutOfBoundsMessage();
+        } catch (EmptyTimeException e) {
+            Ui.printEmptyTimeExceptionMEssage();
         } catch (InvalidCommandException e) {
-            Ui.printInvalidCommandMessage();
-        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        } catch (NumberFormatException e) {
+            Ui.printNumberFormatExceptionMessage();
+        }
+        catch (DukeException e) {
             Ui.printDukeExceptionMessage(userInput);
         }
     }
