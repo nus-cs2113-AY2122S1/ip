@@ -1,11 +1,11 @@
 package duke.task;
 
 public class Task {
-    private final String content; //need to change?
+    private final String taskName; //need to change?
     private Boolean isDone;
 
-    public Task(String content) {
-        this.content = content;
+    public Task(String taskName) {
+        this.taskName = taskName;
         isDone = false;
     }
 
@@ -17,17 +17,21 @@ public class Task {
         this.isDone = true;
     }
 
-    public String getContent() {
-        return this.content;
+    public String getTaskName() {
+        return this.taskName;
     }
 
-    public Boolean getIsDone() {
+    public boolean containsKeywords(String keywords) {
+        return this.toString().contains(keywords);
+    }
+
+    public boolean getIsDone() {
         return this.isDone;
     }
 
     @Override
     public String toString() {
-        return "[" + this.TaskStatus() + "] " + this.content;
+        return "[" + this.TaskStatus() + "] " + this.taskName;
     }
 }
 
