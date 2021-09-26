@@ -260,7 +260,7 @@ public class Duke {
         try {
             FileWriter fw = new FileWriter("Duke/data.txt");
             for (Task t: tasks) {
-                System.out.println(t.parseDataIntoString());
+                // System.out.println(t.parseDataIntoString());
                 String fileOutput = t.parseDataIntoString() + System.lineSeparator();
                 fw.write(fileOutput);
             }
