@@ -88,6 +88,11 @@ public class TaskList {
     }
 
     public static void deleteTask(String input, ArrayList<Task> tasks) {
+        if (Parser.isDeleteAll(input)) {
+            tasks.clear();
+            Ui.printDeleteAllMessage();
+            return;
+        }
         int taskNumber = Parser.getTaskNumber(input);
         Ui.printDeleteMessage(tasks.get(taskNumber), tasks);
         tasks.remove(taskNumber);

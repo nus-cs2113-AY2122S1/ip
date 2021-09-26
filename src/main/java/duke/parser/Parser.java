@@ -144,6 +144,8 @@ public class Parser {
         return userInput.contains("/at");
     }
 
-
+    public static boolean isDeleteAll(String userInput) {
+        return userInput.trim().equalsIgnoreCase("delete all");
+    }
 
 }
