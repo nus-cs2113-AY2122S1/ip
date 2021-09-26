@@ -17,6 +17,7 @@ public class Command {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
 
     public static void commandHandler(String userLine, ArrayList<Task> taskList) {
         String[] splitString = Parser.parseUserInput(userLine);
@@ -43,6 +44,9 @@ public class Command {
                 break;
             case COMMAND_DELETE:
                 TaskList.deleteTask(userLine, taskList);
+                break;
+            case COMMAND_FIND:
+                TaskList.findKeyTasks(userLine, taskList);
                 break;
             default:
                 throw new IndexOutOfBoundsException();
