@@ -8,6 +8,11 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    public static void printNumberFormatExceptionMessage() {
+        System.out.println("Please key in a number");
+        printDivider();
+    }
+
     public void printGreetings() {
         System.out.println("Welcome to Duke! What can I do for you?");
         printDivider();
@@ -19,7 +24,7 @@ public class Ui {
     }
 
     public static void echoLastTask() {
-        int index= TaskManager.tasks.size()-1;
+        int index = TaskManager.tasks.size() - 1;
         printNewlyAddedTask(index);
         Ui.printTaskCount();
         Ui.printDivider();
@@ -56,12 +61,14 @@ public class Ui {
     public static void printEmptyTimeExceptionMEssage() {
         System.out.println("☹ OOPS!!! You forgot to add the date/time.");
         System.out.println("Format: {type} {description} /by {datetime} ");
-        System.out.println("Example: deadline coding project /by Friday 2359");
+        System.out.println("Example: deadline coding project /by 2021-12-25");
         printDivider();
     }
 
     public static void printDukeExceptionMessage(String command) {
         if (command.equalsIgnoreCase("done")) {
+            System.out.println("☹ OOPS!!! You've forgotten to write the task number");
+        } else if (command.equalsIgnoreCase("delete")) {
             System.out.println("☹ OOPS!!! You've forgotten to write the task number");
         } else if (command.equalsIgnoreCase("find")) {
             System.out.println("☹ OOPS!!! What are you finding?");
@@ -71,15 +78,13 @@ public class Ui {
         printDivider();
     }
 
-    public static void printOutOfBoundsMessage () {
+    public static void printOutOfBoundsMessage() {
         int taskCount = TaskManager.tasks.size();
         if (taskCount == 0) {
             System.out.println("You have not added any tasks yet");
-        }
-        else if (taskCount == 1) {
+        } else if (taskCount == 1) {
             System.out.println("You only have 1 task");
-        }
-        else {
+        } else {
             System.out.println("Please pick a number from 1 to " + taskCount);
         }
     }
@@ -101,8 +106,8 @@ public class Ui {
         System.out.println("Local file has been created.");
     }
 
-    public static void printData(ArrayList<Task> tasks, String userInput) {
-        System.out.printf("There are %d tasks containing \"%s\"" + System.lineSeparator(), tasks.size(), userInput);
+    public static void printMatchingString(ArrayList<Task> tasks, String userInput) {
+        System.out.printf("There are %d tasks containing \"%s\"" + System.lineSeparator(), tasks.size(), userInput.split(" ",2)[1]);
         for (Task t : tasks) {
             System.out.println(t);
         }

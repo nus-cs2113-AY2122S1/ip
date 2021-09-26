@@ -5,8 +5,7 @@ public class Duke {
     public static String path = "data/duke.txt";
     public static Ui ui = new Ui();
     public TaskManager taskManager;
-
-    private DataManager storage;
+    private DataManager dataManager;
 
     public static void main(String[] args) {
         new Duke().run();
@@ -18,6 +17,12 @@ public class Duke {
         shutdownDuke();
     }
 
+    /**
+     * Handles the main functionality of Duke.
+     * Reads user input and pass the input into the task manager.
+     * After the command is executed, the user can enter more commands until "bye" is entered,
+     * which will exit the loop.
+     */
     private void runDukeLoop() {
         String userInput;
         Scanner scanner = new Scanner(System.in);
@@ -32,15 +37,22 @@ public class Duke {
         }
     }
 
+    /**
+     * Greets the user and prepares to take user input to perform commands
+     * Loads data from local storage (if applicable)
+     */
     public void setupDuke() {
         ui.printGreetings();
-        this.storage = new DataManager(path);
+        this.dataManager = new DataManager(path);
         this.taskManager = new TaskManager();
-        storage.loadData();
+        dataManager.loadData();
     }
 
+    /**
+     * Save the data on local device and say goodbye to user
+     */
     private void shutdownDuke() {
-        storage.saveData();
+        dataManager.saveData();
         ui.printGoodbye();
     }
 

@@ -19,12 +19,19 @@ public class DataManager {
         this.path = path;
     }
 
-    /*
-        examples of file content
-        T | 1 | read book
-        E | 0 | project meeting | Aug 6th 2-4pm
-        params[0] - Type, param[1] - status, param[2] - description, param[3] - time(if applicable)
-    * */
+
+    /**
+     * Read contents of the file and add task and its properties to the list of tasks
+     *
+     * Examples of file content
+     * T | 1 | read book
+     * E | 0 | project meeting | Aug 6th 2-4pm
+     *
+     * params[0] - Type, param[1] - status, param[2] - description, param[3] - time(if applicable)
+     *
+     * @param filePath path of file to retrieve data from
+     * @throws FileNotFoundException exception thrown by File object if the specified pathname does not exist
+     */
     private void readFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -52,6 +59,12 @@ public class DataManager {
         }
     }
 
+    /**
+     * Write contents of list of tasks into local file, create file if it does nto exist
+     *
+     * @param filePath path of file to retrieve data from
+     * @throws IOException the exception thrown when the FileWriter object is unable to find the saved data file
+     */
     public void writeFileContents(String filePath) throws IOException {
         File file = new File(filePath);
         if (file.createNewFile()) {
@@ -72,6 +85,10 @@ public class DataManager {
         }
     }
 
+    /**
+     * Calls readFileContents method to load data from local file to program
+     * Prints message if local file not found, implying new user
+     */
     public void loadData() {
         try {
             readFileContents(this.path);
@@ -80,6 +97,10 @@ public class DataManager {
         }
     }
 
+    /**
+     * Calls writeFileContents method to save data from program to local file
+     * Prints message to notify data is saved successfully
+     */
     public void saveData() {
         try {
             Path path = Paths.get(this.path);
