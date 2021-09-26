@@ -5,6 +5,9 @@ import duke.tasks.TaskList;
 import duke.tasks.Event;
 import duke.parser.Parser;
 import duke.ui.Ui;
+import duke.exceptions.DateTimeFormatException;
+
+import java.time.LocalDateTime;
 
 /**
  * Adds an Event Task
@@ -31,12 +34,15 @@ public class AddEventCommand extends Command {
                 String description = splitArguments[0];
                 String at = splitArguments[1];
 
-                Event newEvent = new Event(description, at);
+                LocalDateTime dateTime = Parser.parseDateTime(at);
+                Event newEvent = new Event(description, dateTime);
                 tasks.addTask(newEvent);
                 int taskListSize = tasks.sizeOfTaskList();
                 ui.acknowledgeAddedTask(newEvent, taskListSize);
             } catch (StringIndexOutOfBoundsException e) {
                 ui.displayDelimiterErrorMessage();
+            } catch (DateTimeFormatException e) {
+                ui.displayInvalidDateTimeFormatResponse();
             }
         }
     }
