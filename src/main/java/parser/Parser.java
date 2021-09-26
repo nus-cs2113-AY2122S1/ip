@@ -59,4 +59,9 @@ public class Parser {
         return eventInputs[1].split(" /at ");
     }
 
+    public static String parseFindTaskKey(String userLine) {
+        String[] userFindInputs = userLine.split(" ");
+        return userFindInputs[1];
+    }
+
 }
