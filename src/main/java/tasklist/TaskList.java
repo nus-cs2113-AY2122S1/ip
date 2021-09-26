@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class TaskList {
     private static final String LINE = Ui.LINE;
     private static final String LINE_W_NL = Ui.LINE_W_NL;
+
     public static void listTasks(ArrayList<Task> taskList) {
         if (taskList.size() == 0) {
             throw new ArithmeticException();
@@ -72,5 +73,27 @@ public class TaskList {
     public static void addEventFileTask(String description, String at, ArrayList<Task> taskList) {
         Event t = new Event(description, at);
         taskList.add(t);
+    }
+
+    public static void findKeyTasks(String userLine, ArrayList<Task> taskList) {
+        String key = Parser.parseFindTaskKey(userLine);
+        if (taskList.size() == 0) {
+            throw new ArithmeticException();
+        } else {
+            int matchedTaskCount = 0;
+            for (int i = 0; i < taskList.size(); i++) {
+                if (taskList.get(i).getDescription().contains(key)) {
+                    if (matchedTaskCount == 0) {
+                        System.out.println(LINE_W_NL + "Here are the matching tasks in your list Sir:");
+                    }
+                    System.out.println((matchedTaskCount+1) + "." + taskList.get(i).toString());
+                    matchedTaskCount++;
+                }
+            }
+            if (matchedTaskCount == 0) {
+                System.out.println(LINE_W_NL + "Apologies, there are no matching tasks in your list Sir.");
+            }
+            System.out.println(LINE);
+        }
     }
 }
