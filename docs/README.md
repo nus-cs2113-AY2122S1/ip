@@ -64,6 +64,7 @@ Any changes made to the task list are automatically saved to the file
 
 
 ## Usage
+> **_NOTE:_** Words in UPPER_CASE are required parameters from the user
 
 ### Adding a `Todo`: `todo`
 
