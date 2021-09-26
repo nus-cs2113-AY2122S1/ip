@@ -167,8 +167,6 @@ Adds a *EVENT* task to the task list. By default, the task is set to **not done*
 - For details about the date and time format, please refer
   to [this](#adding-a-deadline-deadline-description-by-date_time) section.
 
-*
-
 Example: `event attend lecture /at 2021-11-21 08:00`
 
 ```shell
