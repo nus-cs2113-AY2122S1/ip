@@ -8,7 +8,7 @@ public class Ui {
     public static final String LINE_SEPARATOR = "_____________________________";
 
     /**
-     * prints welcome message
+     * Prints welcome message
      *
      */
     public static void printWelcomeMessage() {
@@ -25,6 +25,10 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Prints farewell message
+     *
+     */
     public static void printFarewellMessage() {
         System.out.println(LINE_SEPARATOR);
         System.out.println("Bye. Hope to see you again soon!");
