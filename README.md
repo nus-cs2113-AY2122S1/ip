@@ -14,8 +14,7 @@ Prerequisite - ensure you have Java 11 or above installed in your Computer
 
 1. Download Ikaros.jar to your desired folder
 2. In the same folder run *java -jar IP.jar* on the console. (Do ensure you have Java JDK 11)
-
-Ikaros will create an *ikarosTaskData.txt* that will store your data for future reference when you launch the application for the first time.
+3. Ikaros will create an *ikarosTaskData.txt* that will store your data for future reference when you launch the application for the first time.
 -------------------------------
 ## Quick Start
 Ensure you have completed the first time installation before proceeding with the running of this program
