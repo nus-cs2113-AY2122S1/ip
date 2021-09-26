@@ -130,7 +130,7 @@ ____________________________________________________________
 > **_NOTE:_**  If you wish to store DATE_TIME as a LocalDateTime
 > object, please provide the DATE_TIME using the format `YYYY-MM-DD HH:MM`
 
-### List all `Task`: `list`
+### List `Task`: `list`
 
 Lists out all current `Task` objects in the list.
 
@@ -230,3 +230,16 @@ Current tasks successfully saved at:
 C:\Users\Brendan Lau\Desktop\ip\data\duke.txt
 ____________________________________________________________
 ```
+
+## Command summary
+
+Action | Command Format | Example
+--- | --- | --- | 
+Todo | todo TASK_NAME | `todo shopping`
+Deadline | deadline TASK_NAME /by DATE_TIME | `deadline submit report /by 2021-10-01 11:59`
+Event | event TASK_NAME /at DATE_TIME | `event concert /at 2021-12-11 19:00`
+List | list | `list`
+Done | done TASK_INDEX | `done 2`
+Delete | delete TASK_INDEX | `delete 3`
+Find | find KEYWORD | `find report`
+Exit | bye | `bye`
