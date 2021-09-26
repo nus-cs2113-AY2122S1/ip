@@ -1,10 +1,12 @@
 package duke;
 
-import duke.processes.*;
 import duke.processes.commands.ByeCommand;
 import duke.processes.commands.Command;
 import duke.processes.commands.CommandResult;
 import duke.processes.tasks.Task;
+import duke.processes.utility.Interface;
+import duke.processes.utility.Parser;
+import duke.processes.utility.ProcessFiles;
 
 import java.util.ArrayList;
 
@@ -31,6 +33,7 @@ public class Duke {
         while (isRunning) {
             do {
                 response = Interface.readInput();
+                System.out.println(Interface.lineBreak);
                 command = Parser.parseCommand(response);
                 feedback = command.execute();
                 System.out.println(feedback.feedbackToUser);

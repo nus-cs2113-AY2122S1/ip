@@ -1,11 +1,17 @@
 package duke.processes.tasks;
 
-public class Event extends Task {
-    protected String date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String date) {
-        super(description);
-        this.date = date;
+
+public class Event extends Task {
+    //protected LocalDateTime date;
+    //protected static DateTimeFormatter format1 = DateTimeFormatter.ofPattern("dd/MM/yyyy-HHmm");
+    protected static DateTimeFormatter format2 = DateTimeFormatter.ofPattern("d MMM yyyy, HHmm");
+
+    public Event(String description, LocalDateTime d, String date) {
+        super(description, d);
+        //this.date = LocalDateTime.parse(date, format1);
     }
 
     public String toString() {
@@ -21,6 +27,6 @@ public class Event extends Task {
     }
 
     public String getDate() {
-        return date;
+        return date.format(format2);
     }
 }

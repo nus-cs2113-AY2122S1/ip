@@ -1,11 +1,15 @@
 package duke.processes.tasks;
 
+import java.time.LocalDateTime;
+
 public class Task {
     public String description;
     public boolean isDone;
+    public LocalDateTime date;
 
-    public Task(String description) {
+    public Task(String description, LocalDateTime date) {
         this.description = description;
+        this.date = date;
         this.isDone = false;
     }
 
@@ -25,6 +29,8 @@ public class Task {
         this.isDone = false;
     }
 
+    public LocalDateTime getDateValue() { return date; }
+
     public String getTaskType() {
         return getTaskType();
     }
@@ -36,4 +42,5 @@ public class Task {
     public String getDate() {
         return getDate();
     }
+
 }
