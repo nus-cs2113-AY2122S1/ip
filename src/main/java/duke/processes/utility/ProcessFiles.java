@@ -1,18 +1,23 @@
-package duke.processes;
+package duke.processes.utility;
 
 import duke.Duke;
 import duke.processes.tasks.Deadlines;
 import duke.processes.tasks.Event;
 import duke.processes.tasks.Task;
 import duke.processes.tasks.ToDo;
+import duke.processes.utility.Interface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class ProcessFiles {
+    protected static DateTimeFormatter format1 = DateTimeFormatter.ofPattern("dd/MM/yyyy-HHmm");
+
     public static void LoadTasks() {
         String[] command;
         File ikarosTaskData = new File("ikarosTaskData.txt");
@@ -41,15 +46,17 @@ public class ProcessFiles {
     private static void loadingManager(String[] command) {
         switch (command[0]) {
         case "todo":
-            ToDo taskTodo = new ToDo(command[2]);
+            ToDo taskTodo = new ToDo(command[2], LocalDateTime.parse(command[3], format1));
             Duke.taskList.add(taskTodo);
             break;
         case "deadline":
-            Deadlines taskDeadline = new Deadlines(command[2], command[3]);
+            Deadlines taskDeadline = new Deadlines(command[2], LocalDateTime.parse(command[3], format1),
+                    command[3]);
             Duke.taskList.add(taskDeadline);
             break;
         case "event":
-            Event taskEvent = new Event(command[2], command[3]);
+            Event taskEvent = new Event(command[2], LocalDateTime.parse(command[3], format1),
+                    command[3]);
             Duke.taskList.add(taskEvent);
             break;
         default:
@@ -67,7 +74,7 @@ public class ProcessFiles {
                 fw.write(task.getTaskType() + ">"
                         + task.getStatusIcon() + ">"
                         + task.getDescription() + ">"
-                        + task.getDate() + System.lineSeparator());
+                        + task.getDateValue().format(format1) + System.lineSeparator());
             }
             fw.close();
         } catch (IOException e) {

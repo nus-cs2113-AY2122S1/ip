@@ -8,6 +8,10 @@ import duke.processes.tasks.Deadlines;
 import duke.processes.tasks.Event;
 import duke.processes.tasks.ToDo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class AddCommand extends Command {
     public static final int TIME_COMMAND = 4;
     public static final int DEADLINE_LENGTH = 13;
@@ -17,6 +21,9 @@ public class AddCommand extends Command {
     public static String taskDescription;
     public static String taskTime;
     public static String taskType;
+    protected LocalDateTime formattedDate;
+    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy-HHmm");
+
     public static int error;
 
     public AddCommand(String[] command, String response) {
@@ -53,25 +60,39 @@ public class AddCommand extends Command {
 
     private void prepareTodo(String response) {
         taskTime = " ";
+        formattedDate = LocalDateTime.now();
         taskDescription = response.substring(TODO_LENGTH);
     }
 
     private void prepareEvent(String response) throws TimeException {
         if (response.indexOf("/") <= 0) {
             throw new TimeException("when is it being held? " +
-                    "[indicate by adding: /at-your_timing]");
+                    "[indicate by adding: /at-dd/MM/yyyy-HH:mm");
         }
         taskDescription = response.substring(EVENT_LENGTH, response.indexOf("/") - 1);
-        taskTime = " (at: " + response.substring(response.indexOf("/") + TIME_COMMAND) + ")";
+        String date = response.substring(response.indexOf("/") + TIME_COMMAND);
+        try {
+            formattedDate = LocalDateTime.parse(date, formatter);
+        } catch (DateTimeParseException e) {
+            throw new TimeException("please use this format for date and time: /at-dd/MM/yyyy-HH:mm ");
+        }
+        taskTime = date;
     }
 
     private void prepareDeadline(String response) throws TimeException {
+
         if (response.indexOf("/") <= 0) {
             throw new TimeException("when is it being held? " +
-                    "[indicate by adding: /by-your_timing]");
+                    "[indicate by adding: /by-dd/MM/yyyy-HH:mm]");
         }
         taskDescription = response.substring(DEADLINE_LENGTH, response.indexOf("/") - 1);
-        taskTime = " (by: " + response.substring(response.indexOf("/") + TIME_COMMAND) + ")";
+        String date = response.substring(response.indexOf("/") + TIME_COMMAND);
+        try {
+            formattedDate = LocalDateTime.parse(date, formatter);
+        } catch (DateTimeParseException e) {
+            throw new TimeException("please use this format for date and time: /by-dd/MM/yyyy-HH:mm ");
+        }
+        taskTime = date;
     }
 
     private static void addToList(Task task) {
@@ -81,13 +102,13 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         if (error == 0) {
             if (taskType.equalsIgnoreCase("event")) {
-                Event event = new Event(taskDescription, taskTime);
+                Event event = new Event(taskDescription, formattedDate, taskTime);
                 addToList(event);
             } else if (taskType.equalsIgnoreCase("todo")) {
-                ToDo task = new ToDo(taskDescription);
+                ToDo task = new ToDo(taskDescription, formattedDate);
                 addToList(task);
             } else if (taskType.equalsIgnoreCase("deadline")) {
-                Deadlines work = new Deadlines(taskDescription, taskTime);
+                Deadlines work = new Deadlines(taskDescription, formattedDate, taskTime);
                 addToList(work);
             }
 

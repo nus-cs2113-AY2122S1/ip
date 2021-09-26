@@ -1,26 +1,37 @@
 package duke.processes.tasks;
 
-public class Deadlines extends Task {
-    protected String date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadlines(String description, String date) {
-        super(description);
-        this.date = date;
+public class Deadlines extends Task {
+    protected static DateTimeFormatter format2 = DateTimeFormatter.ofPattern("d MMM yyyy, HHmm");
+
+    public Deadlines(String description, LocalDateTime d, String date) {
+
+        super(description, d);
     }
 
+    @Override
     public String toString() {
+
         return description;
     }
 
+    @Override
     public String getTaskType() {
+
         return "deadline";
     }
 
+    @Override
     public String getTaskID() {
+
         return "D";
     }
 
+    @Override
     public String getDate() {
-        return date;
+
+        return date.format(format2);
     }
 }
