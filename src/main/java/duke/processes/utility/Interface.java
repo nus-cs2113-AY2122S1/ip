@@ -12,6 +12,15 @@ public class Interface {
 
     public static final String lineBreak = "..........................." +
             ".......................................";
+    public static final String logo = "                         |" + System.lineSeparator() +
+            "_______________     ___ -+- _______________" + System.lineSeparator() +
+            "\\______       /    /_  \\ |  \\       ______/" + System.lineSeparator() +
+            " \\______      \\_____/   \\___/      ______/" + System.lineSeparator() +
+            "  \\______          IKAROS         ______/" + System.lineSeparator() +
+            "      \\_____________     ___________/" + System.lineSeparator() +
+            "                  /_______\\" + System.lineSeparator() +
+            "              Welcome to IKAROS!\n" +
+            "           Your one and only butler\n";
 
     /**
      * reads the user input and returns it in a String form
@@ -27,10 +36,7 @@ public class Interface {
      * Greets user and displays today's date and day of the week
      */
     public static void introductoryMessage() {
-        String logo = "  /\\ _ /\\\n"
-                + " #  @ @  #    Welcome to IKAROS!\n"
-                + " #   ^   #  Your one and only butler\n"
-                + " #########";
+
         System.out.println(lineBreak);
 
         System.out.println(logo);
@@ -87,7 +93,8 @@ public class Interface {
      */
     public static void goodbyeMessage() {
 
-        System.out.println("GoodBye, Ikaros awaits for future commands");
+        System.out.println("GoodBye, Ikaros awaits for future commands" + System.lineSeparator() +
+                 "              *FLIES AWAY*");
         System.out.println(Interface.lineBreak);
     }
 
