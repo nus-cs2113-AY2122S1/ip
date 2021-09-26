@@ -22,10 +22,3 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
-5. To add new tasks to Duke, type in something from below 
-   1. Todo *[task description]*
-   2. Event *[task description]* /at *[event date]*
-   3. Deadline *[task description]* /by *[deadline date]*
-6. To mark a task as done, type done *[task number]*
-7. To delete a task, type delete *[task number]*
-8. To view all task provided, type list
