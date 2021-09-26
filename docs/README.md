@@ -33,7 +33,7 @@ CLI) that can help you manage your tasks faster than the traditional GUI apps.
 
 You should see the following output :
 
-```bash
+```
 ____________________________________________________________
 Hello! I'm Duke
 What can I do for you?
@@ -70,7 +70,7 @@ Some example commands you can try:
 
 This will list all the valid commands that DUKE accepts.
 
-```shell
+```
 help
 ____________________________________________________________
 The following is a list of commands that Duke accepts :
@@ -99,7 +99,7 @@ Adds a *TODO* task to the task list. By default, the task is set to **not done**
 
 Example: `todo Complete CS2113T Assignment`
 
-```shell
+```
 todo Complete CS2113T Assignment
 ____________________________________________________________
 Got it. I've added this task:
@@ -142,7 +142,7 @@ Adds a *DEADLINE* task to the task list. By default, the task is set to **not do
 
 Example: `deadline read book /by 2021-10-13 16:00`
 
-```shell
+```
 deadline read book /by 2021-10-13 16:00
 ____________________________________________________________
 Got it. I've added this task:
@@ -169,7 +169,7 @@ Adds a *EVENT* task to the task list. By default, the task is set to **not done*
 
 Example: `event attend lecture /at 2021-11-21 08:00`
 
-```shell
+```
 event attend lecture /at 2021-11-21 08:00
 ____________________________________________________________
 Got it. I've added this task:
@@ -192,7 +192,7 @@ ____________________________________________________________
 
 This command lists all the tasks currently scheduled in the task list.
 
-```shell
+```
 list
 ____________________________________________________________
 Here are the tasks in your list:
@@ -233,7 +233,7 @@ Marks the task present at the specified **INDEX_NUMBER** as _done_ in the task l
 
 Example: `list` -> `done 2` -> `list`
 
-```shell
+```
 list
 ____________________________________________________________
 Here are the tasks in your list:
@@ -266,7 +266,7 @@ Deletes the task present at the specified **index_number** in the task list.
 
 Example: `list` -> `delete 2` -> `list`
 
-```shell
+```
 list
 ____________________________________________________________
 Here are the tasks in your list:
@@ -299,7 +299,7 @@ Queries the task list by the passed search keyword.
 
 Example: `list` -> `find Attend`
 
-```shell
+```
 list
 ____________________________________________________________
 Here are the tasks in your list:
