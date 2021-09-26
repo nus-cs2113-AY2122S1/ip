@@ -74,6 +74,6 @@ public class Event extends Task {
      * @return Boolean Whether starting date is same as one specified
      */
     public Boolean compareDate(LocalDate ld) {
-        return ld == start.toLocalDate();
+        return ld .equals(start.toLocalDate());
     }
 }
