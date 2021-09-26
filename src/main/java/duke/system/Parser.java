@@ -4,7 +4,6 @@ import duke.command.*;
 import duke.exception.*;
 
 import java.time.LocalDate;
-
 public class Parser {
 
     private String getCommandType(String inputLine) {

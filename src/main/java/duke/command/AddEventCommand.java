@@ -10,6 +10,10 @@ import duke.task.Event;
 import java.io.IOException;
 import java.time.LocalDate;
 
+
+/**
+ * Represents a command to add an event.
+ */
 public class AddEventCommand extends Command {
     private final String eventName;
     private final LocalDate eventStartDate;
@@ -26,7 +30,7 @@ public class AddEventCommand extends Command {
         this.eventEndTime = eventEndTime;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws UnsavedFile {
         tasks.addTask(new Event(eventName, eventStartDate, eventStartTime,
                 eventEndDate, eventEndTime));
         int currentTaskIndex = tasks.getTaskListSize() - 1;

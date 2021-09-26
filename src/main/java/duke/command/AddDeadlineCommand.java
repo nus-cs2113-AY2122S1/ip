@@ -10,6 +10,10 @@ import duke.task.Deadline;
 import java.io.IOException;
 import java.time.LocalDate;
 
+
+/**
+ * Represents a command to add a deadline.
+ */
 public class AddDeadlineCommand extends Command {
     private final String deadlineName;
     private final LocalDate deadlineDate;
@@ -21,7 +25,7 @@ public class AddDeadlineCommand extends Command {
         this.deadlineTime = deadlineTime;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws UnsavedFile {
         tasks.addTask(new Deadline(deadlineName, deadlineDate, deadlineTime));
         int currentTaskIndex = tasks.getTaskListSize() - 1;
         ui.printAdded(tasks.getTaskDetails(currentTaskIndex));
