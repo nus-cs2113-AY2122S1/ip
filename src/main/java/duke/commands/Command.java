@@ -4,6 +4,10 @@ import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Abstract class Command represents the generic command.
+ * Inherited by all commands.
+ */
 public abstract class Command {
     String command;
     boolean isExit;

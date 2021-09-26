@@ -5,6 +5,9 @@ import duke.tasks.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Ui class handles all user interaction in Duke
+ */
 public class Ui {
     private static final String BORDER = "____________________________________________________________\n";
     Scanner sc = new Scanner(System.in);
@@ -33,6 +36,16 @@ public class Ui {
     public static void printOutput(String output) {
         String niceOutput = BORDER + output + BORDER;
         System.out.println(niceOutput);
+    }
+
+    /**
+     * Read user input from command line.
+     *
+     * @return userInput
+     */
+    public String readCommand() {
+        String userInput = sc.nextLine();
+        return userInput;
     }
 
     public static void acknowledgeAddedTask(Task addedTask, int taskListSize) {
@@ -74,16 +87,4 @@ public class Ui {
         String unknownCommandResponse = " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n";
         printOutput(unknownCommandResponse);
     }
-
-    /**
-     * Read user input from command line.
-     *
-     * @return userInput
-     */
-    public String readCommand() {
-        String userInput = sc.nextLine();
-        return userInput;
-    }
-
-
 }

@@ -5,9 +5,8 @@ import duke.tasks.TaskList;
 import duke.ui.Ui;
 
 /**
- * Deletes Task based on given user input of task number.
- * Removal of Task from ArrayList tasks.
- * Out of bounds error handling is implemented.
+ * Bye command saves data into data/duke.txt file
+ * Sets isExit to true to signal for program to terminate
  */
 public class ByeCommand extends Command {
     public ByeCommand(String command) {

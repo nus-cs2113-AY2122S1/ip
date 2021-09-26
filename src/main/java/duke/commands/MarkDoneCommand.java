@@ -4,15 +4,12 @@ import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 
-
+/**
+ * Mark specified task as done.
+ */
 public class MarkDoneCommand extends Command {
     String arguments;
 
-    /**
-     * Mark specified task as done.
-     *
-     * @param arguments taskNumber
-     */
     public MarkDoneCommand(String command, String arguments) {
         super(command);
         this.arguments = arguments;
