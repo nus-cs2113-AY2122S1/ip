@@ -5,6 +5,8 @@ import Task.Todo;
 import Task.Deadline;
 import Task.Event;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Command {
 
@@ -81,5 +83,15 @@ public class Command {
     }
     public static void printerror(){
         System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+    public static void writeToFile(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for(int i=0; i<taskSum; i++){
+            Task now = tasks.get(i);
+            fw.write(String.format("%d ",i+1));
+            fw.write(now.toString());
+            fw.write("\n");
+        }
+        fw.close();
     }
 }

@@ -1,16 +1,13 @@
 package Task;
 
-import Task.Task;
-
 public class Event extends Task {
     protected String at;
-
     public Event(String content, String at) {
         super(content);
         this.at = at;
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "（" + at + ")";
+        return "[E]" + super.toString() + "（a" + at + ")";
     }
 }
