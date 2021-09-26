@@ -115,7 +115,7 @@ public class Ui {
     }
 
     public static void printTasks() {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("You have " + TaskManager.tasks.size() + " tasks");
         for (int i = 0; i < TaskManager.tasks.size(); i++) {
             System.out.printf("%d.%s" + System.lineSeparator(), i + 1, TaskManager.tasks.get(i));
         }

@@ -72,7 +72,7 @@ public class TaskManager {
      */
     public static ArrayList<Task> filterTasksByString(ArrayList<Task> tasks, String filterString) {
         ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
-                .filter((t) -> t.getDescription().contains(filterString))
+                .filter((t) -> t.getDescription().toLowerCase().contains(filterString.toLowerCase()))
                 .collect(Collectors.toList());
         return filteredList;
     }
@@ -121,6 +121,7 @@ public class TaskManager {
      */
 
     public void handleRequest(String userInput) {
+        Ui.printDivider();
         try {
             String command = Parser.parseExtractCommand(userInput);
             switch (command.toUpperCase()) {
