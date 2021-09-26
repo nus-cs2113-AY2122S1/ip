@@ -27,7 +27,7 @@ CLI) that can help you manage your tasks faster than the traditional GUI apps.
 ## Quick Start
 
 1. Ensure that you have Java `11` or above installed in your computer.
-2. Download the latest `ip.jar` from [here](https://github.com/aditichadha1310/ip)
+2. Download the latest `ip.jar` from [here](https://github.com/aditichadha1310/ip).
 3. Copy the file to the folder you want to use as the home folder for your `Personal Assistant Chatbot- Duke`.
 4. Write the command `java -jar ip.jar` to start the application.
 
@@ -72,6 +72,7 @@ This will list all the valid commands that DUKE accepts.
 
 ```shell
 help
+____________________________________________________________
 The following is a list of commands that Duke accepts :
 -> help
 -> todo
@@ -85,7 +86,6 @@ The following is a list of commands that Duke accepts :
 -> For details please refer to the User Guide of Duke at the link given below:
 -> https://aditichadha1310.github.io/ip/
 ____________________________________________________________
-
 
 ```
 
