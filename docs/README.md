@@ -85,12 +85,12 @@ This command will remove the specific task corresponding with the input number f
 >> * Example: `remove 3`
 >> * Example: `remove 3,4,5`
 ### Marking a Task
-This command will allow you to mark a task as done or un-mark it as un-done. Multiple tasks can be marked at once. Take note that there is no space between the task_numbers.
-> #### `done` -> removes task
+This command will allow you to mark a task as done or mark it as un-done. Multiple tasks can be marked at once. Take note that there is no space between the task_numbers.
+> #### `done` -> mark task as done
 >> * Format: `done <TASK_NUMBER,TASK_NUMBER,...>`
 >> * Example: `done 3`
 >> * Example: `done 3,2,1`
-> #### `undo` -> removes task
+> #### `undo` -> mark task as undone
 >> * Format: `undo <TASK_NUMBER,TASK_NUMBER,...>`
 >> * Example: `undo 1`
 >> * Example: `undo 3,2,1`
@@ -114,7 +114,7 @@ This command allows you to update the description or date of a specific task bas
 >> * Example: `update 5 description`
 
 ### Find a Task
-This command allows you to Tasks related to a specific keyword.
+This command allows you to find Tasks related to a specific keyword.
 > #### `find` -> task that is related to the keyword
 >> * Format: `find <KEYWORD>`
 >> * Example: `find read`
