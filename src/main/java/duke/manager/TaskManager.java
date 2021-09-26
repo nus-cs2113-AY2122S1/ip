@@ -12,6 +12,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskManager {
+
+    public static final String TASK_TODO = "todo";
+    public static final String TASK_EVENT = "event";
+    public static final String TASK_DEADLINE = "deadline";
+    public static final String TASK_ERROR = "I really cannot understand what you wrote";
+    public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
+    public static final String COMMAND_BYE = "bye";
+    public static final String COMMAND_DONE = "done";
+    public static final String COMMAND_LIST = "list";
     public static DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, uuuu hh:mm a");
 
     /**
@@ -44,21 +54,28 @@ public class TaskManager {
      */
     private static void addTask(ArrayList<Task> tasks, String message) {
         switch (taskType(message)) {
-        case "todo":
+        case TASK_TODO:
             addTodo(tasks, message);
             break;
-        case "deadline":
+        case TASK_DEADLINE:
             addDeadline(tasks, message);
             break;
-        case "event":
+        case TASK_EVENT:
             addEvent(tasks, message);
             break;
         default:
-            printLine();
-            System.out.println("I really cannot understand what you wrote");
-            printLine();
+            taskError();
             // Fallthrough
         }
+    }
+
+    /**
+     * Error for wrong task type
+     */
+    private static void taskError() {
+        printLine();
+        System.out.println(TASK_ERROR);
+        printLine();
     }
 
     /**
@@ -224,12 +241,12 @@ public class TaskManager {
         Scanner scanner = new Scanner(System.in);
         String message = scanner.nextLine();
 
-        while (!message.equals("bye")) {
-            if (message.equals("list")) {
+        while (!message.equals(COMMAND_BYE)) {
+            if (message.equals(COMMAND_LIST)) {
                 printTasks(tasks);
-            } else if (message.contains("done")) {
+            } else if (message.contains(COMMAND_DONE)) {
                 markDone(tasks, message);
-            } else if (message.contains("delete")) {
+            } else if (message.contains(COMMAND_DELETE)) {
                 deleteTask(tasks, message);
             } else {
                 addTask(tasks, message);
