@@ -6,7 +6,6 @@
 
 ## Add a new task
 ### This function will add three types of task, including todo, event and deadline into the list.
-### Format
 ```
 todo TODO_NAME
 ```
@@ -19,20 +18,17 @@ todo TODO_NAME /by DATE
 
 ## Delete a task
 ### This function will delete an existing task from the list.
-### Format
 ```
 delete TASK_INDEX
 ```
 
 ## List tasks
 ### This function will show all tasks in the list.
-### Format
 ```
 list
 ```
 ## Done
 ### This function will make the task as done in the list.
-### Format
 ```
 done TASK_INDEX
 ```
@@ -44,7 +40,6 @@ find KEY_WORD
 ```
 ## Bye
 ### This function will exit the app.
-### Format
 ```
 bye
 ```
