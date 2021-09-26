@@ -135,10 +135,10 @@ Adds a *DEADLINE* task to the task list. By default, the task is set to **not do
 >>- 22-07-08 00:54 -> **INVALID**
 >>- 2022-07-08 00:54 ->  **VALID**
 >* Note: The date of the month, the number of the month, the hours and minutes should be in **double digits**.
->> > - For example: If date is 9 August 2021 , it should be written as 2021-08-09.
->>>- Similarly, the year should be given as a four digit - **YYYY**.
->>> - The timing should contain double digits for the hours and minutes separated by a **colon**. Timing without a colon is not acceptable. For example : 02:08 is **valid** whereas 2:08 and 0208 are **invalid** timing formats.
->>>- The timing follows the 24-hour notation: `HH:MM`.
+>> - For example: If date is 9 August 2021 , it should be written as 2021-08-09.
+>>- Similarly, the year should be given as a four digit - **YYYY**.
+>>- The timing should contain double digits for the hours and minutes separated by a **colon**. Timing without a colon is not acceptable. For example : 02:08 is **valid** whereas 2:08 and 0208 are **invalid** timing formats.
+>>- The timing follows the 24-hour notation: `HH:MM`.
 
 Example: `deadline read book /by 2021-10-13 16:00`
 
@@ -162,7 +162,10 @@ Adds a *EVENT* task to the task list. By default, the task is set to **not done*
 - **DATE_TIME** : are the *date* and *time* for which the event is scheduled. This **CANNOT BE EMPTY OR INVALID**.
 
 > Note: date_time needs to be given in a valid format.
->- The correct format is **YYYY-MM-DD HH:MM**.
+
+- The correct format is **YYYY-MM-DD HH:MM**.
+- For details about the date and time format, please refer
+  to [this](#adding-a-deadline-deadline-description-by-date_time) section.
 
 *
 
