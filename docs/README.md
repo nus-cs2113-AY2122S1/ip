@@ -54,7 +54,7 @@ List all matching `Task` objects that contain a keyword.
 
 ### Exit 
 
-Terminates the Duke program.
+Exit the Duke program.
 
 ### Auto-save data
 
