@@ -10,6 +10,7 @@ public class DukePredefinedMessages {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
+        MessageBubble.printMessageBubble("user guide here https://yuejunfeng0909.github.io/ip/");
         MessageBubble.printMessageBubble("Hello from\n" + LOGO + "What can I do for you?");
     }
 
