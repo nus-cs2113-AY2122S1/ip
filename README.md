@@ -38,8 +38,9 @@ _____________________________
 
 After which, the user is able to explore the different features Duke has to offer:
 >Notes about command formatting:
-> `parameters` are in **UPPERCASE** which are compulsory
-> `additional items` are in **[square brackets]** which are needed in some commands
+>- `parameters` are in **UPPERCASE** which are compulsory
+>- `additional items` are in **[square brackets]** which are needed in some commands
+
 
 ### Adding a ToDo Task: `todo`
 Format: `todo DESCRIPTION`
@@ -49,6 +50,7 @@ Adds a ToDo task to the list of tasks. A ToDo task is a basic task type with onl
 Examples:
 - `todo homework`
 - `todo CS2113 lecture quiz`
+
 
 ### Adding a Deadline Task: `deadline`
 Format: `deadline DESCRIPTION /by [time]`
@@ -64,6 +66,7 @@ Examples:
 - `deadline homework /by monday 3pm`
 - `deadline CS2113 iP /by 01-10-2021 23:59`
 
+
 ### Adding an Event Task: `event`
 Format: `event DESCRIPTION /at [time]`
 
@@ -78,20 +81,24 @@ Examples:
 - `event meeting /at tuesday`
 - `event CS2113 tP meeting /at 02-10-2021 22:00`
 
+
 ### Listing the task list: `list`
 Format: `list`
 
 Lists the task list so far with all the tasks and their completion status.
+
 
 ### Mark a task as done: `done`
 Format: `done TASK_INDEX`
 
 Marks a task with the specified index as done. The task that is done will appear in the list as `[TASK_TYPE][X] DESCRIPTION`.
 
+
 ### Delete a task: `delete`
 Format: `delete TASK_INDEX`
 
 Deletes a task from the task list.
+
 
 ### Find a task: `find`
 Format: `find KEYWORD`
@@ -102,6 +109,7 @@ Finds a task from the existing task list with the keyword specified.
 
 Examples:
 - `find book`
+
 
 ### Exit the program: bye
 Format: `bye`
