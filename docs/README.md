@@ -141,6 +141,19 @@ Here are the matching tasks in your list:
 ____________________________________________________________
 ```
 
+### `clear database` - Clears the database files
+Clears the tasklist and database.
+
+Format: `clear database`
+
+<br />
+
+### `help` - Displays help message
+Displays the available commands and the input format for them.
+
+Format: `help`
+
+<br />
 ### `bye` - Exits the program
 Exits the program.
 
