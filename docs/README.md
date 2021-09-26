@@ -34,6 +34,7 @@ Format : `todo {description of task}`
 Examples:
 * `todo Read Book`
 * `todo Excersise`
+
 #### 2. Add Event
 Format: `event {description of event} /at {time event is at}`
 
