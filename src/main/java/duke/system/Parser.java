@@ -10,6 +10,10 @@ import duke.command.ExitCommand;
 import duke.command.ListAllCommand;
 import duke.exception.*;
 
+/**
+ * A component of the system that specifically interprets
+ * user's input
+ */
 public class Parser {
 
     private String getCommandType(String inputLine) {
@@ -98,6 +102,12 @@ public class Parser {
         return fullCommand.substring("todo ".length());
     }
 
+    /**
+     * Interpret the user input and identify what is the user's command.
+     * @param fullCommand the user's original input
+     * @return commands corresponding to user's input
+     * @throws DukeException if there are problems such as wrong format or invalid input
+     */
     public Command parse(String fullCommand) throws DukeException {
         String commandType = getCommandType(fullCommand);
         switch (commandType) {

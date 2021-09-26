@@ -15,8 +15,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A system component in charge of reading/saving data from local file
+ */
 public class Storage {
 
+    /**
+     * Read data from the local file in a default path.
+     * @return ArrayList that contains all the tasks stored locally
+     * @throws DukeException if there is any file-related problems
+     */
     public ArrayList<Task> readData() throws DukeException {
         String filePath = "data.txt";
         File file = new File(filePath);
@@ -80,6 +88,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Back up all tasks in the local txt file in a default path
+     * @param tasks task list that holds all the tasks
+     * @throws IOException if there is problem in writing to local file
+     */
     public void writeData(ArrayList<Task> tasks) throws IOException {
 
         String filePath = "data.txt";
