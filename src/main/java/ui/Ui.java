@@ -12,60 +12,61 @@ public class Ui {
     /** ----------EXTRA FUNCTIONS MESSAGES---------- */
     protected static final String BIRTHDAY_MESSAGE = " ^o^ Happy birthday to you! ^o^" + System.lineSeparator();
     /** ----------DATABASE MESSAGE AND ERRORS---------- */
-    protected static final String CLEAR_DATABASE_MESSAGE = "Database wiped clean!" + System.lineSeparator();
-    protected static final String NO_DATABASE_FILE_MESSAGE = "No database file!" + System.lineSeparator();
-    protected static final String CORRUPTED_DATABASE_FILE_MESSAGE = "File is corrupted at Line ";
-    protected static final String CHECK_FOLDER_MESSAGE = "Checking for database folder..." + System.lineSeparator();
-    protected static final String CREATE_MISSING_FOLDER_MESSAGE = "Folder not present...creating new folder!" +
+    protected static final String CLEAR_DATABASE_MESSAGE = " Database wiped clean!" + System.lineSeparator();
+    protected static final String NO_DATABASE_FILE_MESSAGE = " No database file!" + System.lineSeparator();
+    protected static final String CORRUPTED_DATABASE_FILE_MESSAGE = " File is corrupted at Line ";
+    protected static final String CHECK_FOLDER_MESSAGE = " Checking for database folder..." + System.lineSeparator();
+    protected static final String CREATE_MISSING_FOLDER_MESSAGE = " Folder not present...creating new folder!" +
             System.lineSeparator();
-    protected static final String FOLDER_FOUND_MESSAGE =  "Folder located!" + System.lineSeparator();
-    protected static final String CHECK_DATABASE_FILE_MESSAGE = "Checking for database..." + System.lineSeparator();
-    protected static final String CREATE_MISSING_DATABASE_FILE_MESSAGE = "Database not present...creating new database!"
+    protected static final String FOLDER_FOUND_MESSAGE =  " Folder located!" + System.lineSeparator();
+    protected static final String CHECK_DATABASE_FILE_MESSAGE = " Checking for database..." + System.lineSeparator();
+    protected static final String CREATE_MISSING_DATABASE_FILE_MESSAGE = " Database not present...creating new database!"
             + System.lineSeparator();
-    protected static final String DATABASE_FILE_FOUND_MESSAGE =  "Database located!" + System.lineSeparator();
+    protected static final String DATABASE_FILE_FOUND_MESSAGE =  " Database located!" + System.lineSeparator();
     /** ----------LIST MESSAGE AND ERRORS---------- */
     protected static final String EMPTY_LIST_MESSAGE = " This list is empty and sad :(" + System.lineSeparator();
+    protected static final String LIST_MESSAGE = " Here is your task list:" + System.lineSeparator();
     /** ----------ADD TASK MESSAGES AND ERRORS---------- */
     protected static final String ADD_MESSAGE = " Got it. I've added this task:"  + System.lineSeparator() + "   ";
-    protected static final String ADD_ERROR_MESSAGE = "Error while adding task!"
+    protected static final String ADD_ERROR_MESSAGE = " Error while adding task!"
             + System.lineSeparator();
-    protected static final String MISSING_TASK_DESCRIPTION_MESSAGE = "Please add a task description!"
+    protected static final String MISSING_TASK_DESCRIPTION_MESSAGE = " Please add a task description!"
             + System.lineSeparator();
-    protected static final String MISSING_TASK_DEADLINE_MESSAGE = "Please add a task deadline!"
+    protected static final String MISSING_TASK_DEADLINE_MESSAGE = " Please add a task deadline!"
             + System.lineSeparator();
-    protected static final String MISSING_EVENT_TIME_RANGE_MESSAGE = "Please add an event time range!"
+    protected static final String MISSING_EVENT_TIME_RANGE_MESSAGE = " Please add an event time range!"
             + System.lineSeparator();
-    protected static final String MISSING_TASK_OR_DEADLINE_MESSAGE = "Please format your input as 'deadline [task]" +
+    protected static final String MISSING_TASK_OR_DEADLINE_MESSAGE = " Please format your input as 'deadline [task]" +
             " /by [deadline]'!" + System.lineSeparator();
-    protected static final String MISSING_TASK_OR_TIME_RANGE_MESSAGE = "Please format your input as 'event [task]" +
+    protected static final String MISSING_TASK_OR_TIME_RANGE_MESSAGE = " Please format your input as 'event [task]" +
             " /at [time range]'!" + System.lineSeparator();
-    protected static final String MISSING_BY_MESSAGE = "Please add '/by' in between your task and deadline!" +
+    protected static final String MISSING_BY_MESSAGE = " Please add '/by' in between your task and deadline!" +
             System.lineSeparator();
-    protected static final String MISSING_AT_MESSAGE = "Please add '/at' in between your task and time range!" +
+    protected static final String MISSING_AT_MESSAGE = " Please add '/at' in between your task and time range!" +
             System.lineSeparator();
-    protected static final String INVALID_COMMAND_MESSAGE = "I don't quite understand :/" + System.lineSeparator();
+    protected static final String INVALID_COMMAND_MESSAGE = " I don't quite understand :/" + System.lineSeparator();
     /** ----------REMOVE TASK MESSAGES AND ERRORS---------- */
     protected static final String NOTHING_TO_REMOVE_MESSAGE = " Please identify something to remove!" +
             System.lineSeparator();
     protected static final String DELETE_TASK_MESSAGE = " This task has been spirited away:" + System.lineSeparator();
-    protected static final String NO_SUCH_TASK_MESSAGE = "No such task! You're not THAT productive..." +
+    protected static final String NO_SUCH_TASK_MESSAGE = " No such task! You're not THAT productive..." +
             System.lineSeparator();
-    protected static final String REMOVE_COMMAND_ERROR_MESSAGE = "Please input an integer after remove!" +
+    protected static final String REMOVE_COMMAND_ERROR_MESSAGE = " Please input an integer after remove!" +
             System.lineSeparator();
     /** ----------DONE TASK MESSAGES AND ERRORS---------- */
-    protected static final String TASK_ALREADY_DONE_MESSAGE = "This task was already marked done!" + System.lineSeparator();
-    protected static final String NO_TASK_SPECIFIED_MESSAGE = "Please specify the task you would like to " +
+    protected static final String TASK_ALREADY_DONE_MESSAGE = " This task was already marked done!" + System.lineSeparator();
+    protected static final String NO_TASK_SPECIFIED_MESSAGE = " Please specify the task you would like to " +
             "mark as done!" + System.lineSeparator();
-    protected static final String DONE_COMMAND_ERROR_MESSAGE = "Please input an integer after done!" +
+    protected static final String DONE_COMMAND_ERROR_MESSAGE = " Please input an integer after done!" +
             System.lineSeparator();
-    protected static final String TASK_COMPLETE_MESSAGE = "Nice! You're a real champ for finishing this: " +
+    protected static final String TASK_COMPLETE_MESSAGE = " Nice! You're a real champ for finishing this: " +
             System.lineSeparator();
     /** ----------FIND TASK MESSAGES AND ERRORS---------- */
-    protected static final String NO_KEYWORD_SPECIFIED_MESSAGE = "Please specify the keyword you would like to " +
+    protected static final String NO_KEYWORD_SPECIFIED_MESSAGE = " Please specify the keyword you would like to " +
             "find!" + System.lineSeparator();
-    protected static final String FOUND_TASK_MESSAGE = "Here are the matching tasks in your list: " +
+    protected static final String FOUND_TASK_MESSAGE = " Here are the matching tasks in your list: " +
             System.lineSeparator();
-    protected static final String TASK_NOT_FOUND_MESSAGE = "No task with given keyword in description!" +
+    protected static final String TASK_NOT_FOUND_MESSAGE = " No task with given keyword in description!" +
             System.lineSeparator();
     /** ----------HELP MESSAGE---------- */
     protected static final String HELP_MESSAGE = " Here are the commands for the things I can do:" +
@@ -197,10 +198,17 @@ public class Ui {
     /* ----------LIST MESSAGE AND ERRORS METHODS---------- */
 
     /**
-     * Prints the empty list message with decorative lines.
+     * Prints the empty list error with decorative lines.
      */
     public void showEmptyListMessage() {
         System.out.print(LINES + EMPTY_LIST_MESSAGE + LINES);
+    }
+
+    /**
+     * Prints the list message with decorative line on top.
+     */
+    public void showListMessage() {
+        System.out.print(LINES + LIST_MESSAGE);
     }
     /* ----------ADD TASK MESSAGES AND ERRORS METHODS---------- */
 
@@ -343,7 +351,7 @@ public class Ui {
      * @param task Task that is completed.
      */
     public void showTaskCompleteMessage(Task task) {
-        System.out.print(LINES + TASK_COMPLETE_MESSAGE + task.toString() + System.lineSeparator() + LINES);
+        System.out.print(LINES + TASK_COMPLETE_MESSAGE + " " + task.toString() + System.lineSeparator() + LINES);
     }
     /* ----------FIND TASK MESSAGES AND ERRORS---------- */
 

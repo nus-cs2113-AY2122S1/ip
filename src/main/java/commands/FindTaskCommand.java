@@ -45,7 +45,7 @@ public class FindTaskCommand extends Command {
             } else {
                 ui.showFoundTaskMessage();
                 for (int taskIndex : foundTasksIndices) {
-                    System.out.println(taskIndex + "." + tasks.getTaskFromList(taskIndex - 1));
+                    System.out.println(" " + taskIndex + "." + tasks.getTaskFromList(taskIndex - 1));
                 }
                 ui.showLines();
             }

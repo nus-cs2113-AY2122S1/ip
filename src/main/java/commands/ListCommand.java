@@ -16,9 +16,9 @@ public class ListCommand extends Command {
         if (tasks.getListSize() == 0) {
             ui.showEmptyListMessage();
         } else {
-            ui.showLines();
+            ui.showListMessage();
             for (int i = 1; i <= tasks.getListSize(); i++) {
-                System.out.println(i + "." + tasks.getTaskFromList(i - 1));
+                System.out.println(" " + i + "." + tasks.getTaskFromList(i - 1));
             }
             ui.showLines();
         }
