@@ -23,7 +23,7 @@ public class Duke {
 
     private static int selectMode() {
         System.out.println("    Hello! I am Duke, and I have CLI and GUI modes. Please type 0 if you want to try CLI" +
-                "or 1 if you want to use GUI");
+                " or 1 if you want to use GUI");
         Scanner sc = new Scanner(System.in);
         while (true) {
             if (sc.hasNextInt()) {
