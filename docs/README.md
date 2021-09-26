@@ -4,7 +4,7 @@
 Hello there 👋 and welcome to **Duke**! **Duke** is a Task List designed to store various type of 
 task like todo, event and deadline which can be displayed to the user.  
 
-## Getting up
+## Getting Started
 - Download the [JAR file]().
 - This open a terminal and ensure that you switch your jdk to java 11 first.
 - The "text-art" folder that contains all the text-art needs to be included in the JAR directory. 
