@@ -7,6 +7,7 @@
 ### Feature
 
 ## Add a new task
+# This function will add three types of task, including todo, event and deadline into the list.
 # Format
 ```
 todo TODO_NAME
@@ -16,37 +17,36 @@ event EVENT_NAME /at DATE
 ```
 ```
 todo TODO_NAME /by DATE
-
 ```
-## Add a new task
+
+## Delete a task
+# This function will delete an existing task from the list.
 # Format
 ```
-todo TODO_NAME
+delete TASK_INDEX
 ```
+
+## List tasks
+# This function will show all tasks in the list.
+# Format
 ```
-event EVENT_NAME /at DATE
+list
 ```
+## Done
+# This function will make the task as done in the list.
+# Format
 ```
-todo TODO_NAME /by DATE
-
-### Feature-XYZ
-
-Description of the feature.
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
+done TASK_INDEX
 ```
-expected output
+
+## Find
+# This function will find a task from the list according to the key word.
+```
+find KEY_WORD
+```
+## Bye
+# This function will exit the app.
+# Format
+```
+bye
 ```
