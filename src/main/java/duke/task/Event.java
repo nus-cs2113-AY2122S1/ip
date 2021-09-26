@@ -1,20 +1,24 @@
 package duke.task;
 
+import duke.parser.Parser;
+
+import java.time.LocalDateTime;
+
 public class Event extends Task{
 
-    private String duration;
+    private LocalDateTime duration;
 
-    public Event(String description, String duration) {
+    public Event(String description, LocalDateTime duration) {
         super(description);
         this.duration = duration;
     }
 
-    public String getDuration() {
+    public LocalDateTime getDuration() {
         return duration;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at:" + duration + ")";
+        return "[E]" + super.toString() + "(at: " + Parser.printDateAndTimeAsString(duration) + ")";
     }
 }

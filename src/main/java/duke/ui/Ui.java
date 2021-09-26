@@ -19,6 +19,7 @@ public class Ui {
     private static final String DONE_TASK = "Nice! I've marked this task as done:";
     private static final String UNDONE_TASK = "I've undone this task for you:";
     private static final String REMOVE_TASK = "Noted. I've removed this task: ";
+    private static final String DELETE_ALL_TASKS = "I've deleted all tasks!";
     private static final String FAREWELL_MESSAGE = "Bye. Hope to see you again soon!";
     private static final String ERROR_MESSAGE = "I don't understand that. Please try again!";
 
@@ -48,6 +49,11 @@ public class Ui {
         System.out.print(HORIZONTAL_LINE + REMOVE_TASK + task
                 + System.lineSeparator() + "Now you have " + (tasks.size() - 1)
                 + " tasks in the list." + System.lineSeparator() + HORIZONTAL_LINE);
+    }
+
+    public static void printDeleteAllMessage() {
+        System.out.print(HORIZONTAL_LINE + DELETE_ALL_TASKS + System.lineSeparator()
+                + HORIZONTAL_LINE);
     }
 
     public static void printFarewellMessage() {
