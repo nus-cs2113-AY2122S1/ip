@@ -209,11 +209,11 @@ public class TaskManager {
      */
     public static String[] splitTaskComponents(String taskInfo) {
         String[] taskComponents;
-        taskComponents = taskInfo.split("/");
+        taskComponents = taskInfo.replace("/", "#/").split("#");
 
         for (int i = 0; i < taskComponents.length; i++) {
-            String taskComponent = taskComponents[i].replaceAll("by", "");
-            taskComponent = taskComponent.replaceAll("at", "");
+            String taskComponent = taskComponents[i].replaceAll("/by", "");
+            taskComponent = taskComponent.replaceAll("/at", "");
             taskComponents[i] = taskComponent.trim();
         }
 
