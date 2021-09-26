@@ -58,8 +58,8 @@ Terminates the Duke program.
 
 ### Auto-save data
 
-Any changes made to the task list are automatically saved to the file.
-This way, you do not have to worry about losing your data.
+Any changes made to the task list are automatically saved to the file 
+(on your hard disk). This way, you do not have to worry about losing your data.
 
 
 
@@ -127,7 +127,7 @@ ____________________________________________________________
 ```
 
 > **_NOTE:_**  If you wish to store DATE_TIME as a LocalDateTime
-> object, please use the format `YYYY-MM-DD HH:MM`
+> object, please provide the DATE_TIME using the format `YYYY-MM-DD HH:MM`
 
 ### List all `Task`: `list`
 
