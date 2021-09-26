@@ -1,8 +1,13 @@
 package duke.task;
 
+import duke.manager.TaskManager;
+
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDateTime by;
+    protected String byString;
 
     /**
      * Constructor to initialise the description
@@ -12,9 +17,10 @@ public class Deadline extends Task {
      *                    description
      * @param by          deadline for the task
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by, String byString) {
         super(description);
         this.by = by;
+        this.byString = byString;
     }
 
     /**
@@ -24,11 +30,11 @@ public class Deadline extends Task {
      */
     @Override
     public String getDescription() {
-        return "[D]" + super.getDescription() + " (by: " + by + ")";
+        return "[D]" + super.getDescription() + " (by: " + TaskManager.stringFormatter.format(by) + ")";
     }
 
     @Override
     public String fileDescription() {
-        return "D | " + super.fileDescription() + " | " + by;
+        return "D | " + super.fileDescription() + " | " + byString;
     }
 }
