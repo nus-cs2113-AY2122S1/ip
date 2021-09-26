@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 public class ServeGUI extends JFrame{
     private ButtonPanel btnPanel = new ButtonPanel();
@@ -14,7 +15,7 @@ public class ServeGUI extends JFrame{
 
     public ServeGUI () {
         this.setSize(800, 630);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         TitleBar title = new TitleBar();
         this.add(title, BorderLayout.NORTH);
@@ -22,7 +23,6 @@ public class ServeGUI extends JFrame{
 
         JScrollPane sp = new JScrollPane(list);
         this.add(sp, BorderLayout.CENTER);
-        this.setVisible(true);
     }
 
 

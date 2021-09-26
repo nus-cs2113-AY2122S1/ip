@@ -46,6 +46,11 @@ public class GUIParser {
             String taskType = this.taskTypeComboBox.getSelectedItem().toString(),
                     taskName = this.taskNameTextArea.getText(), time = this.taskTimeTextField.getText();
 
+            if (taskName.strip().equals("Put the task name here")) {
+                JOptionPane.showMessageDialog(new JFrame(), "Task name should not be empty!");
+                return;
+            }
+
             try {
                 switch (taskType) {
                 case "todo":

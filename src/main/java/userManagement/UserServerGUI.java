@@ -36,6 +36,7 @@ public class UserServerGUI {
         servePage = new ServeGUI();
         servePage.setVisible(false);
 
+
         this.sortTaskButton = servePage.getSortTaskButton();
         this.findTaskButton = servePage.getFindTaskButton();
         this.finishTaskButton = servePage.getFinishTaskButton();
