@@ -1,13 +1,21 @@
 package shima.parser;
 
-
-
+import shima.command.AddDeadlineCommand;
+import shima.command.AddEventCommand;
+import shima.command.AddToDoCommand;
+import shima.command.Command;
+import shima.command.DeleteCommand;
+import shima.command.DoneCommand;
+import shima.command.ExitCommand;
+import shima.command.FindCommand;
+import shima.command.HelpCommand;
+import shima.command.ListCommand;
+import shima.command.ListDateCommand;
+import shima.command.ViewPersonalityCommand;
 import shima.design.UserInterface;
 import shima.storage.Storage;
 
-import shima.command.*;
-import shima.design.UserInterface;
-import shima.storage.Storage;
+
 import shima.task.Deadline;
 import shima.task.Task;
 import shima.task.TaskList;
@@ -40,7 +48,6 @@ public class Parser {
     public static final String SLASH_MISSING_MSG = "Sorry, fail to create an Event, the time specific character '/' is missing";
     public static final String DASH_MISSING_MSG = "Sorry, fail to create an Event, the period specific character '-' is missing";
     public static final String EMPTY_TASK_INDEX_MSG = "Sorry, the input task number is missing, please try again! :(";
-
     public static final String EMPTY_KEYWORD_MSG = "Sorry, the keyword is empty! I do not know which task you are looking for :(";
     public static final String NO_MATCHING_TASK_MSG = "\tHmm... I do not find any task matches the keyword, please use another keyword!";
     public static final String EMPTY_DEADLINE_MSG = "Sorry, the deadline for the task is missing! I don't know how to memorize it:(";
@@ -51,6 +58,7 @@ public class Parser {
     public static final String COMMAND_DATE = "date";
     public static final String WRONG_DATE_TIME_FORMAT_MSG = "Sorry, the input date format is not correct! The correct format should be yyyy-MM-dd";
     public static final String INVALID_DATE_MSG = "Sorry, the input date should only contains yyyy-MM-dd";
+    public static final String COMMAND_FIND = "find";
 
 
     /**
@@ -69,27 +77,27 @@ public class Parser {
         switch (words[0].toLowerCase()) {
         case COMMAND_PROFILE:
             return new ViewPersonalityCommand();
-        case COMMAND_BYE:
-        case COMMAND_EXIT:
-            return new ExitCommand(tasks, storage, ui);
         case COMMAND_HELP:
             return new HelpCommand();
-        case COMMAND_LIST:
-            return new ListCommand(tasks);
-        case COMMAND_DELETE:
-            return new DeleteCommand(tasks, words);
         case COMMAND_TODO:
             return parseToDo(tasks, command, words, ui);
         case COMMAND_EVENT:
             return parseEvent(tasks, command, words, ui);
         case COMMAND_DEADLINE:
             return parseDeadline(tasks, command, words, ui);
+        case COMMAND_LIST:
+            return new ListCommand(tasks);
         case COMMAND_DONE:
             return parseDoneCommand(tasks, storage, words, ui);
-        case "find":
-            return parseFindCommand(tasks, command, words, ui);
+        case COMMAND_DELETE:
+            return new DeleteCommand(tasks, words);
         case COMMAND_DATE:
             return parseDateCommand(tasks, command, words, ui);
+        case COMMAND_FIND:
+            return parseFindCommand(tasks, command, words, ui);
+        case COMMAND_BYE:
+        case COMMAND_EXIT:
+            return new ExitCommand(tasks, storage, ui);
         default:
             ui.showMessage(INVALID_COMMAND_MSG, HELP_SUPPORT_MSG);
             return new Command();
@@ -106,23 +114,24 @@ public class Parser {
      */
     private static Command parseFindCommand(TaskList tasks, String command, String[] words, UserInterface ui) {
         String keyword = command.replaceFirst(words[0], "").trim();
-        if (keyword.isEmpty()){
+        if (keyword.isEmpty()) {
             ui.showMessage(EMPTY_KEYWORD_MSG);
             return new Command();
         }
         ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task t : tasks.getTasks()){
-            if (t.toString().contains(keyword)){
+        for (Task t : tasks.getTasks()) {
+            if (t.toString().contains(keyword)) {
                 matchingTasks.add(t);
             }
         }
-        if (matchingTasks.isEmpty()){
+        if (matchingTasks.isEmpty()) {
             ui.showMessage(NO_MATCHING_TASK_MSG);
             return new Command();
         }
         return new FindCommand(matchingTasks, ui);
+    }
 
-     /** Checks if the input date is valid or in correct format
+    /**Checks if the input date is valid or in correct format
      *
      * @param tasks   The list class object that stores all the tasks
      * @param command The input command typed by the user

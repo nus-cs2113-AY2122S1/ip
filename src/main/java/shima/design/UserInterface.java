@@ -3,7 +3,7 @@ package shima.design;
 import java.util.ArrayList;
 
 public class UserInterface {
-    public static final String CURR_VERSION = "Version 7.0";
+    public static final String CURR_VERSION = "Version 9.0";
 
     /**
      * Displays all the welcome screens and designs when the program starts
@@ -57,7 +57,7 @@ public class UserInterface {
         System.out.println("    ____) | |  | |_| |_| |  | |/ ____ \\| | \\ \\ _| |_| |\\  |");
         System.out.println("   |_____/|_|  |_|_____|_|  |_/_/    \\_\\_|  \\_\\_____|_| \\_|");
         //greeting
-        System.out.println("\nHi there! My name is Shima Rin and I am a chat robot that can help you do some wonderful jobs!");
+        System.out.println("\nHi there! My name is Shima Rin and I am a robot that can help you do some wonderful jobs!");
     }
 
     /**
@@ -68,15 +68,9 @@ public class UserInterface {
         ArrayList<String> versionDescriptions = new ArrayList<>();
         int maxDescriptionsLength = 0;
         versionDescriptions.add("* " + CURR_VERSION);
-        versionDescriptions.add("* To know more about me, you can view my profile by typing the command \"view -p\"");
-        versionDescriptions.add("* I can help you create a to-do list, you can perform tasks addition, deletion, and mark tasks as done");
-        versionDescriptions.add("* In addition, I will memorise all the tasks that you entered, so that you can refer back when you revisit me :)");
-        versionDescriptions.add("* You can type \"todo\" or \"deadline\" or \"event\" to create a task and I will help you save it automatically!");
-        versionDescriptions.add("* You can type \"list\" or \"ls\" to list all the tasks that are waiting to do");
-        versionDescriptions.add("* You can type \"done i\" where i is the index of the task to mark the specific task as done");
-        versionDescriptions.add("* You can type \"delete i\" where i is the index of the task to delete the task whenever necessary");
-        versionDescriptions.add("* You can type \"exit\" or \"bye\" to stop me and exit the program");
-        versionDescriptions.add("* You can type \"help\" or \"view -h\" for more information about how to use me (YES the bot), ");
+        versionDescriptions.add("* In this version, I am equipped with several functions, including PROFILE, HELP, TODO, DEADLINE, EVENT, LIST, DONE, DELETE, DATE, FIND and EXIT");
+        versionDescriptions.add("* To know more about how to use the command, you can type \"help\" to view the help menu written by me :P");
+        versionDescriptions.add("* I am able to understand your command in any case, meaning that you are free to enter command with any case :D");
         //Finds the length of the longest description to align all '*' displayed
         for (String str : versionDescriptions) {
             if (str.length() > maxDescriptionsLength) {
