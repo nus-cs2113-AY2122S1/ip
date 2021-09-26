@@ -7,6 +7,11 @@ public class DukeException extends Exception {
         this.type = type;
     }
 
+    /**
+     * Finds and returns the error message according to the exception type.
+     *
+     * @return Returns the error message.
+     */
     public String getMessage() {
         switch(this.type){
         case "no task selected":
@@ -21,6 +26,8 @@ public class DukeException extends Exception {
             return "Patchi: You need to add a search term! Œ(ˊnˋ)B";
         case "invalid command":
             return "I'm sorry, I don't understand what that means... Œ(ˊnˋ)B";
+        case "invalid timing":
+            return "Please enter your timing in the format: yyyy-mm-dd! Œ(ˊnˋ)B";
         default:
             return "Invalid exception type";
         }

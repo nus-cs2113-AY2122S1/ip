@@ -12,6 +12,13 @@ public class DeleteCommand extends Command{
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * Deletes a task from tasklist.
+     *
+     * @param tasks Tasklist object used to store tasks
+     * @param ui Ui object used to print messages
+     * @param storage Storage object used to manipulate data file
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException{
         tasks.deleteTask(taskIndex);

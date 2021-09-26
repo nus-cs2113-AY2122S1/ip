@@ -20,7 +20,9 @@ public class TaskList {
         return tasks;
     }
 
-    /** Lists all tasks. */
+    /**
+     * Lists all tasks.
+     */
     public void listTasks() {
         if (tasks.size() > 0) {
             ui.println("Patchi: Here is the list of tasks you currently have! Work hard~ Œ(˙O˙)B");
@@ -43,60 +45,73 @@ public class TaskList {
         }
     }
 
-   /** Adds a new Task of class Todo.
+    /**
+     * Adds a new Task of class Todo.
+     *
      * @param description Description of task.
-     * */
+     */
     public void addTodo(String description) {
         tasks.add(new Todo(description));
     }
 
-    /** Adds a new Task of class Deadline.
+    /**
+     * Adds a new Task of class Deadline.
+     *
      * @param description Description of task.
-     * @param by Deadline of task.
-     * */
-    public void addDeadline(String description, String by){
+     * @param by          Deadline of task.
+     */
+    public void addDeadline(String description, LocalDate by) {
         tasks.add(new Deadline(description, by));
     }
 
-    /** Adds a new Task of class Event.
+    /**
+     * Adds a new Task of class Event.
+     *
      * @param description Description of task.
-     * @param at Timing of task.
-     * */
+     * @param at          Timing of task.
+     */
     public void addEvent(String description, LocalDate at) {
         tasks.add(new Event(description, at));
     }
 
     /**
      * Marks a task as done.
+     *
      * @param taskIndex Index of task in tasks.
      * @throws DukeException If task doesn't exist.
      */
     public void markTaskAsDone(int taskIndex) throws DukeException {
-        if (tasks.size() > taskIndex) {
+        if (tasks.size() > taskIndex && taskIndex >= 0) {
             tasks.get(taskIndex).setDone(true);
-        }  else {
+        } else {
             throw new DukeException("task doesn't exist");
         }
     }
 
     /**
      * Deletes a task.
+     *
      * @param taskIndex Index of task in tasks.
      * @throws DukeException If task doesn't exist.
      */
     public void deleteTask(int taskIndex) throws DukeException {
-        if (tasks.size() > taskIndex) {
+        if (tasks.size() > taskIndex && taskIndex >= 0) {
             tasks.remove(taskIndex);
         } else {
             throw new DukeException("task doesn't exist");
         }
     }
 
-    public void findTasks(String searchTerm) throws DukeException {
+    /**
+     * Finds tasks that match a search term.
+     *
+     * @param searchTerm Search term to be used.
+     */
+    public void findTasks(String searchTerm) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
-        for(Task task : tasks) {
-            if(task.getDescription().indexOf(searchTerm) != -1) {
+        for (Task task : tasks) {
+            if (task.getDescription().indexOf(searchTerm) != -1) {
                 matchingTasks.add(task);
             }
         }
