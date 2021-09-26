@@ -329,7 +329,7 @@ Exits the application and closes **Duke**.
 
 Example: `bye`
 
-```shell
+```
 bye
 ____________________________________________________________
  Bye. Hope to see you again soon!
@@ -379,3 +379,4 @@ the data from your previous Duke home folder.
 | `bye`                                   | Exits the application                                         |
 
 ----------------------------------------------------------------------------------------------------------------------------------------
+
