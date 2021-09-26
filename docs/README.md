@@ -4,9 +4,28 @@
 
 ## Features 
 
-### Feature-ABC
+### Feature
 
-Description of the feature.
+## Add a new task
+# Format
+```
+todo TODO_NAME
+```
+```
+event EVENT_NAME /at DATE
+```
+```
+todo TODO_NAME /by DATE
+## Add a new task
+# Format
+```
+todo TODO_NAME
+```
+```
+event EVENT_NAME /at DATE
+```
+```
+todo TODO_NAME /by DATE
 
 ### Feature-XYZ
 
