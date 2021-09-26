@@ -53,10 +53,12 @@ public class Parser {
     public static final String EMPTY_DEADLINE_MSG = "Sorry, the deadline for the task is missing! I don't know how to memorize it:(";
     public static final String EMPTY_PERIOD_MSG = "Sorry, the date and period for the task is missing! I don't know how to memorize it :(";
     public static final String EXPIRED_DEADLINE_MSG = "Oops, the end date and time for the task is already expired, please give the task a new deadline!";
-    public static final String INCORRECT_DATE_TIME_FORMAT_MSG = "Oh no! The date and time format are incorrect, the format should be : /dd-MM-yyyy HH:mm";
-    public static final String INVALID_DATE_TIME_MSG = "Sorry, the input after the backslash '/' or '/by' should only contains date and time of format (dd-MM-yyyy HH:mm)";
+    public static final String INCORRECT_DATE_TIME_FORMAT_MSG = "Oh no! The date and time format are incorrect, the format should be : yyyy-MM-dd HH:mm";
+    public static final String INVALID_DATE_TIME_MSG = "Sorry, the input after the backslash '/' or '/by' should only contains " +
+            "date and time of format (yyyy-MM-dd HH:mm)";
     public static final String COMMAND_DATE = "date";
-    public static final String WRONG_DATE_TIME_FORMAT_MSG = "Sorry, the input date format is not correct! It should only contains date with format yyyy-MM-dd";
+    public static final String WRONG_DATE_TIME_FORMAT_MSG = "Sorry, either the input date format is invalid or incorrect! Take note that it" +
+            " should only contains date with format yyyy-MM-dd";
     public static final String INVALID_DATE_MSG = "Sorry, the input date should only contains yyyy-MM-dd";
     public static final String COMMAND_FIND = "find";
 
@@ -201,9 +203,6 @@ public class Parser {
      * @return Returns true if an instance of the subclass Event is created and successfully stored in the to-do list
      */
     private static boolean isCorrectEvent(String command, String[] words, String taskName, String time, UserInterface ui) {
-        if (time.toLowerCase().startsWith("at")) {
-            time = time.replaceFirst("(?i)at", "").trim();
-        }
         if (words.length == 1 || taskName.isEmpty()) {
             ui.showMessage(EMPTY_TASK_MSG);
             return false;
@@ -232,9 +231,6 @@ public class Parser {
      * @return Returns true if the subclass Deadline is created and successfully stored in the to-do list
      */
     private static boolean isCorrectDeadline(String command, String[] words, String taskName, String time, UserInterface ui) {
-        if (time.toLowerCase().startsWith("by")) {
-            time = time.replaceFirst("(?i)by", "").trim();
-        }
         if (words.length == 1 || taskName.isEmpty()) {
             ui.showMessage(EMPTY_TASK_MSG);
             return false;
@@ -287,12 +283,19 @@ public class Parser {
     private static String padDate(String time) {
         int indexOfDash = time.indexOf("-");
         if (Integer.parseInt(time.substring(indexOfDash + 1, indexOfDash + 2)) > 1) {
-            if (Integer.parseInt(time.substring(time.lastIndexOf("-") + 1, time.lastIndexOf("-") + 2)) > 1) {
-                time = time.substring(0, time.lastIndexOf("-") + 1) + "0" + time.substring(time.lastIndexOf("-") + 1);
-            }
             time = time.substring(0, indexOfDash + 1) + "0" + time.substring(indexOfDash + 1);
         }
-        return time;
+        try {
+            if (Integer.parseInt(time.substring(time.lastIndexOf("-") + 1, time.lastIndexOf("-") + 3).trim()) < 10) {
+                time = time.substring(0, time.lastIndexOf("-") + 1) + "0" + time.substring(time.lastIndexOf("-") + 1);
+            }
+        } catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {
+            time += "  ";
+            if (Integer.parseInt(time.substring(time.lastIndexOf("-") + 1, time.lastIndexOf("-") + 3).trim()) < 10) {
+                time = time.substring(0, time.lastIndexOf("-") + 1) + "0" + time.substring(time.lastIndexOf("-") + 1);
+            }
+        }
+        return time.trim();
     }
 
     /**
@@ -331,13 +334,16 @@ public class Parser {
      * @param tasks   The list class object that stores all the tasks
      * @param command The user input command
      * @param words   The array of words that compose the command
-     * @param ui      The user interface class object used to display message box     *
+     * @param ui      The user interface class object used to display message box
      * @return Returns the add command object if the input command is valid, returns empty command object otherwise
      */
     private static Command parseDeadline(TaskList tasks, String command, String[] words, UserInterface ui) {
         command = command.replaceFirst(words[0], "").trim();
         String time = command.substring(command.indexOf('/') + 1).trim();
         String taskName = command.split("/", 2)[0].trim();
+        if (time.toLowerCase().startsWith("by")) {
+            time = time.replaceFirst("(?i)by", "").trim();
+        }
         if (isCorrectDeadline(command, words, taskName, time, ui)) {
             time = padCorrectDateTimeFormat(time);
             return new AddDeadlineCommand(tasks, command, words, time);
@@ -358,6 +364,9 @@ public class Parser {
         command = command.replaceFirst(words[0], "").trim();
         String time = command.substring(command.indexOf('/') + 1).trim();
         String taskName = command.split("/", 2)[0].trim();
+        if (time.toLowerCase().startsWith("at")) {
+            time = time.replaceFirst("(?i)at", "").trim();
+        }
         if (isCorrectEvent(command, words, taskName, time, ui)) {
             return new AddEventCommand(tasks, command, words, taskName, time);
         }

@@ -169,7 +169,7 @@ public class TaskList {
         storage.saveTaskToFile(this);
         Task currentTask = tasks.get(tasks.size() - 1);
         ui.showMessage(" Class type [" + currentTask.getClassType() + "] \"" + currentTask + "\" has been added to the list!" +
-                "(" + tasks.size() + " tasks in total)");
+                " (" + tasks.size() + " tasks in total)");
     }
 
     /**
@@ -187,7 +187,7 @@ public class TaskList {
         storage.saveTaskToFile(this);
         Task currentTask = tasks.get(tasks.size() - 1);
         ui.showMessage(" Class type [" + currentTask.getClassType() + "] \"" + currentTask + "\" has been added to the list!" +
-                "(" + tasks.size() + " tasks in total)");
+                " (" + tasks.size() + " tasks in total)");
     }
 
     /**
@@ -207,7 +207,7 @@ public class TaskList {
         storage.saveTaskToFile(this);
         Task currentTask = tasks.get(tasks.size() - 1);
         ui.showMessage(" Class type [" + currentTask.getClassType() + "] \"" + currentTask + "\" has been added to the list!" +
-                "(" + tasks.size() + " tasks in total)");
+                " (" + tasks.size() + " tasks in total)");
     }
 
     /**
