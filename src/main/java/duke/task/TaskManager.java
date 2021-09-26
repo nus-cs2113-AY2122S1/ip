@@ -98,7 +98,8 @@ public class TaskManager {
     }
 
     public static void loadTasks() throws IllegalArgumentException, FileNotFoundException, WrongNumberOfArgumentsException {
-        for (String loadedTaskSplit[] : IoManager.loadFile()) {
+        for (String loadedTask : IoManager.loadFile()) {
+            String[] loadedTaskSplit = Parser.splitPipe(loadedTask);
             Type taskType = getTaskFromLoadedTask(loadedTaskSplit);
             boolean isDone = Integer.parseInt(loadedTaskSplit[1]) == 1;
             switch (taskType) {

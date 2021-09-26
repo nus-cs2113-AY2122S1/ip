@@ -19,6 +19,10 @@ public class IoManager {
     private static final String DIRECTORY = System.getProperty("user.dir") + '/' + SAVE_FOLDER;
     private static final String FILE_NAME = DIRECTORY + "/duke.txt";
 
+    private class ErrorMessage{
+
+    }
+
     public static boolean init() {
         try {
             Path path = Paths.get(DIRECTORY);
@@ -47,13 +51,12 @@ public class IoManager {
         return false;
     }
 
-    public static ArrayList<String[]> loadFile() throws FileNotFoundException {
-        ArrayList<String[]> loadedTasks = new ArrayList<>(TaskManager.MAX_TASKS);
+    public static ArrayList<String> loadFile() throws FileNotFoundException {
+        ArrayList<String> loadedTasks = new ArrayList<>(TaskManager.MAX_TASKS);
         File file = new File(FILE_NAME);
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
-            String loadedTask = scanner.nextLine();
-            loadedTasks.add(loadedTask.split("\\|"));
+            loadedTasks.add(scanner.nextLine());
         }
         scanner.close();
         return loadedTasks;

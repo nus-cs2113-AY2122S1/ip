@@ -7,6 +7,10 @@ public class Task {
     private String description;
     final Type type;
 
+    private class
+
+    private static final String MARK_AS_DONE_STRING = "Nice! I've marked this task as done:\n";
+
     public enum Type {
         DEADLINE(3, "by"),
         EVENT(3, "at"),
@@ -69,7 +73,7 @@ public class Task {
 
     void markAsDone() {
         isDone = true;
-        Message.printWithSpacers("Nice! I've marked this task as done:\n" + this);
+        Message.printWithSpacers(MARK_AS_DONE_STRING + this);
     }
 
     @Override
