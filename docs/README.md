@@ -122,18 +122,23 @@ Adds a *DEADLINE* task to the task list. By default, the task is set to **not do
 > Note: date_time needs to be given in a valid format.
 >* The correct format is **YYYY-MM-DD HH:MM**.
 >* Note: Every deadline creation statement _**requires**_ Date and Time given in the **correct format** as given above.
->* Some examples of valid and invalid date and time formats are-     * 2021-12-10 12:00 ->  **VALID**
-       * 2020-08-10 1000 -> **INVALID**
-       * 12-10-2024 12:00 -> **INVALID**
-       * 12-2024-09 12:00 -> **INVALID**
-       * 2022-09-0912:00 -> **INVALID**
-       * 2024-7-8 12:00 -> **INVALID**
-       * 2023-07-08 4 -> **INVALID**
-       * 2022-07-08 24:30 -> **INVALID**
-       * 2022-07-08 0:54 -> **INVALID**
-       * 22-07-08 00:54 -> **INVALID**
-       * 2022-07-08 00:54 ->  **VALID**
->* Note: The date of the month, the number of the month, the hours and minutes should be in **double digits**.     * For example: If date is 9 August 2021 , it should be written as 2021-08-09.     * Similarly, the year should be given as a four digit - **YYYY**.     * The timing should contain double digits for the hours and minutes separated by a **colon**. Timing without a colon is not acceptable. For example : 02:08 is **valid** whereas 2:08 and 0208 are **invalid** timing formats.     * The timing follows the 24-hour notation: `HH:MM`.
+>* Some examples of valid and invalid date and time formats are-
+>> - 2021-12-10 12:00 ->  **VALID**
+>>- 2020-08-10 1000 -> **INVALID**
+>>- 12-10-2024 12:00 -> **INVALID**
+>>- 12-2024-09 12:00 -> **INVALID**
+>>- 2022-09-0912:00 -> **INVALID**
+>>- 2024-7-8 12:00 -> **INVALID**
+>>- 2023-07-08 4 -> **INVALID**
+>>- 2022-07-08 24:30 -> **INVALID**
+>>- 2022-07-08 0:54 -> **INVALID**
+>>- 22-07-08 00:54 -> **INVALID**
+>>- 2022-07-08 00:54 ->  **VALID**
+>* Note: The date of the month, the number of the month, the hours and minutes should be in **double digits**.
+>> > - For example: If date is 9 August 2021 , it should be written as 2021-08-09.
+>>>- Similarly, the year should be given as a four digit - **YYYY**.
+>>> - The timing should contain double digits for the hours and minutes separated by a **colon**. Timing without a colon is not acceptable. For example : 02:08 is **valid** whereas 2:08 and 0208 are **invalid** timing formats.
+>>>- The timing follows the 24-hour notation: `HH:MM`.
 
 Example: `deadline read book /by 2021-10-13 16:00`
 
