@@ -18,8 +18,6 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (at: " + at.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm")) + ")";
     }
 
-    //at.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"))
-
     @Override
     public String getDescription() {
         return description + "," + at.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
