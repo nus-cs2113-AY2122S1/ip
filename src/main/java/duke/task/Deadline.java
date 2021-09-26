@@ -12,7 +12,7 @@ public class Deadline extends Task{
 
     @Override
     public String getDescription() {
-        return this.description + " /by " + this.dueDate;
+        return this.description + "/by" + this.dueDate;
     }
     @Override
     public String toString() {

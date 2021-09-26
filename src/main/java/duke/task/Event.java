@@ -12,7 +12,7 @@ public class Event extends Task{
 
     @Override
     public String getDescription() {
-        return this.description + " /at " + this.eventTime;
+        return this.description + "/at" + this.eventTime;
     }
 
     @Override
