@@ -1,5 +1,7 @@
 package duke;
 
+/* Importing some packages to help  store and read data from files */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -27,6 +29,9 @@ public class Storage {
     public static final String DELIMITER_ARROW = "=>";
     public static final String DELIMITER_SPACE = " ";
 
+    /**
+     * Storing some flag values
+     */
     public static final String TASK_COMPLETED = "1";
     public static final String TASK_INCOMPLETE = "0";
     public static final String TASK_MARKED_COMPLETE = "X";
@@ -56,7 +61,7 @@ public class Storage {
     /**
      * Load the tasks from the Duke.txt file into the current taskList
      *
-     * @throws FileNotFoundException if File is not found
+     * @throws FileNotFoundException if file is not found
      */
     public static void loadPreviousData(TaskList taskList) throws FileNotFoundException {
         File file = new File(FILE_PATH);
@@ -67,6 +72,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads a particular task from the Duke.txt file and stores it in the memory in the scheduledTasks Task List.
+     */
     public static void loadSavedTasksToList(String input, TaskList taskList) {
         String[] splitInput = input.split(DELIMITER_ARROW);
         String taskType = splitInput[0].trim();
@@ -86,6 +94,7 @@ public class Storage {
             taskList.scheduledTasks.add(new Event(taskDescription, timeDueAt));
             break;
         default:
+            break;
         }
 
         if (taskStatus.equals(TASK_COMPLETED)) {
@@ -94,6 +103,10 @@ public class Storage {
 
     }
 
+    /**
+     * Calls the function to save the tasks from the scheduledTasks task List into the file-> Duke.txt
+     * Catches exceptions if encountered and displays appropriate error messages.
+     */
     public static void callSaveTaskToList(ArrayList<Task> scheduledTasks) {
         try {
             saveTaskToDisk(scheduledTasks);
@@ -102,6 +115,14 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Writes the tasks to the file -> Duke.txt, from the scheduledTasks task list.
+     *
+     * @param lineToWrite     LineToWrite stores the String containing the task that will be stored in the file Duke.txt
+     * @param taskStatus      TaskStatus stores the completion status of the task
+     * @param taskDescription TaskDescription stores the description of the task.
+     */
     public static void saveTaskToDisk(ArrayList<Task> scheduledTasks) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         String lineToWrite = "";

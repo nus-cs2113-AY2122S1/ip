@@ -1,8 +1,11 @@
 package duke;
 
+/* Importing local files from other packages */
+
 import exception.DukeException;
 import exception.EmptyTaskDescriptionException;
 import exception.NoTaskFoundException;
+import ui.Ui;
 
 import java.io.IOException;
 
@@ -46,17 +49,17 @@ public class Parser {
                 TaskList.addTaskToList(userInput);
                 return true;
             }
-        } catch (
-                DukeException e) {
+        } catch (DukeException e) {
+            Ui.printLine();
             System.out.println(e.getMessage());
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
+            Ui.printLine();
             System.out.println("Could not save data to file");
-        } catch (
-                NoTaskFoundException e) {
+        } catch (NoTaskFoundException e) {
+            Ui.printLine();
             System.out.println(e.getMessage());
-        } catch (
-                EmptyTaskDescriptionException e) {
+        } catch (EmptyTaskDescriptionException e) {
+            Ui.printLine();
             System.out.println(e.getMessage());
         }
         return true;
