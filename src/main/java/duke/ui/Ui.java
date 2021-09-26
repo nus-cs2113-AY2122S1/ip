@@ -66,8 +66,20 @@ public class Ui {
                 + HORIZONTAL_LINE);
     }
 
-
     public static void printHorizontalLine() {
+        System.out.print(HORIZONTAL_LINE);
+    }
+
+    public static void printList(ArrayList<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
+        }
+    }
+
+    public static void printFilteredTaskList(ArrayList<Task> filteredTasks) {
+        System.out.print(HORIZONTAL_LINE + "Here are the matching tasks I found: "
+                + System.lineSeparator());
+        printList(filteredTasks);
         System.out.print(HORIZONTAL_LINE);
     }
 }
