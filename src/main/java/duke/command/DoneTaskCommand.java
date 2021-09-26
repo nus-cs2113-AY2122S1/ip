@@ -9,20 +9,20 @@ import duke.ui.Ui;
 /**
  * Command to mark a task as done.
  */
-public class DoneCommand extends Command {
+public class DoneTaskCommand extends Command {
     private final String line;
 
     /**
-     * Constructs a DoneCommand with the user input.
+     * Constructs a DoneTaskCommand with the user input.
      *
      * @param line The user input.
      */
-    public DoneCommand(String line) {
+    public DoneTaskCommand(String line) {
         this.line = line;
     }
 
     /**
-     * Executes the DoneCommand by marking the task
+     * Executes the DoneTaskCommand by marking the task
      * corresponding to taskId as done.
      *
      * @param taskManager TaskManager object used to mark task as done.

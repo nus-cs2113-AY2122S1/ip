@@ -1,7 +1,7 @@
 package duke.parser;
 
 import duke.command.DeleteTaskCommand;
-import duke.command.DoneCommand;
+import duke.command.DoneTaskCommand;
 import duke.command.QuitCommand;
 import duke.command.ListTasksCommand;
 import duke.command.FindTasksCommand;
@@ -56,7 +56,7 @@ public class Parser {
         case COMMAND_DELETE:
             return new DeleteTaskCommand(line);
         case COMMAND_DONE:
-            return new DoneCommand(line);
+            return new DoneTaskCommand(line);
         case COMMAND_FIND:
             return new FindTasksCommand(line);
         default:
