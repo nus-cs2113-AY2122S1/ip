@@ -19,6 +19,8 @@ public class ListCommand extends Command {
             this.listType = "event";
         } else if (command[1].equalsIgnoreCase("deadline")) {
             this.listType = "deadline";
+        } else if (command[1].equalsIgnoreCase("todo")) {
+            this.listType = "todo";
         } else {
             this.listType = "others";
         }
@@ -28,16 +30,20 @@ public class ListCommand extends Command {
         sortedList.clear();
         switch (listType) {
         case "list":
-            Interface.printList();
+            System.out.println("Here are the tasks in your list:");
+            Interface.printList(Duke.taskList);
             break;
         case "event":
         case "deadline":
+        case "todo":
             getListTypeTasks(listType);
             bubbleSortTask();
-            Interface.printSortedList();
+            System.out.println(listType + " list! Total number of " + listType + "s = "
+                    + sortedList.size());
+            Interface.printList(sortedList);
             break;
         case "others":
-            return new CommandResult("please specify type for list [list, list deadline, list event]");
+            return new CommandResult("please specify type for list [list, list deadline, list event,list todo ]");
         }
         return new CommandResult("--------END OF LIST-----------");
     }

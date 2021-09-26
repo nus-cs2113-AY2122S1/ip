@@ -1,6 +1,7 @@
 package duke.processes.commands;
 
 import duke.Duke;
+import duke.exceptions.DateTimeException;
 import duke.exceptions.TaskException;
 import duke.exceptions.TimeException;
 import duke.processes.tasks.Task;
@@ -49,7 +50,7 @@ public class AddCommand extends Command {
                     prepareEvent(response);
                 }
             }
-        } catch (TaskException | TimeException e ) {
+        } catch (TaskException | TimeException | DateTimeException e ) {
             System.out.println(e.getMessage());
             error = 1;
         } catch (StringIndexOutOfBoundsException e) {
@@ -64,7 +65,7 @@ public class AddCommand extends Command {
         taskDescription = response.substring(TODO_LENGTH);
     }
 
-    private void prepareEvent(String response) throws TimeException {
+    private void prepareEvent(String response) throws TimeException, DateTimeException {
         if (response.indexOf("/") <= 0) {
             throw new TimeException("when is it being held? " +
                     "[indicate by adding: /at-dd/MM/yyyy-HH:mm");
@@ -73,13 +74,16 @@ public class AddCommand extends Command {
         String date = response.substring(response.indexOf("/") + TIME_COMMAND);
         try {
             formattedDate = LocalDateTime.parse(date, formatter);
+            if (formattedDate.isBefore(LocalDateTime.now())) {
+                throw new DateTimeException("Unfortunately we cannot travel back in Time. Please key in a valid date");
+            }
         } catch (DateTimeParseException e) {
             throw new TimeException("please use this format for date and time: /at-dd/MM/yyyy-HH:mm ");
         }
         taskTime = date;
     }
 
-    private void prepareDeadline(String response) throws TimeException {
+    private void prepareDeadline(String response) throws TimeException, DateTimeException {
 
         if (response.indexOf("/") <= 0) {
             throw new TimeException("when is it being held? " +
@@ -89,6 +93,9 @@ public class AddCommand extends Command {
         String date = response.substring(response.indexOf("/") + TIME_COMMAND);
         try {
             formattedDate = LocalDateTime.parse(date, formatter);
+            if (formattedDate.isBefore(LocalDateTime.now())) {
+                throw new DateTimeException("Unfortunately we cannot travel back in Time. Please key in a valid date");
+            }
         } catch (DateTimeParseException e) {
             throw new TimeException("please use this format for date and time: /by-dd/MM/yyyy-HH:mm ");
         }

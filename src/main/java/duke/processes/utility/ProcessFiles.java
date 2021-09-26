@@ -38,7 +38,8 @@ public class ProcessFiles {
         } catch (IOException e) {
             System.out.println("File corrupted. pls try reload again, or start a new");
         } finally {
-            Interface.printList();
+            System.out.println("Here are the tasks in your list:");
+            Interface.printList(Duke.taskList);
             System.out.println(Interface.lineBreak);
         }
     }

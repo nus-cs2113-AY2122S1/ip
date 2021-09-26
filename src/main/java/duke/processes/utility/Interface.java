@@ -1,13 +1,13 @@
 package duke.processes.utility;
 
 
-import duke.Duke;
-import duke.processes.commands.ListCommand;
 import duke.processes.tasks.Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Interface {
     public static final String lineBreak = "..........................." +
@@ -49,41 +49,22 @@ public class Interface {
         System.out.println(Interface.lineBreak);
     }
 
-    public static void printList() {
-        int i = 1;
-        System.out.println("Here are the tasks in your list:");
-        for (Task task : Duke.taskList) {
-            System.out.print(i + ".[" + task.getTaskID() + "]" +
-                    "[" + task.getStatusIcon() +
-                    "] " + task.description + " ");
-            if (task.getTaskType().equalsIgnoreCase("event")) {
-                System.out.println("(at: " + task.getDate() + ")");
-            } else if (task.getTaskType().equalsIgnoreCase("deadline")) {
-                System.out.println("(by: " + task.getDate() + ")");
-            } else if (task.getTaskType().equalsIgnoreCase("todo")) {
-                System.out.println(task.getDate());
-            }
+    public static void printList(ArrayList<Task> tasks) {
+        AtomicInteger i = new AtomicInteger();
 
-            i++;
-        }
-    }
-
-    public static void printSortedList() {
-        int i = 1;
-        System.out.println("Here are the tasks in your list:");
-        for (Task task : ListCommand.sortedList) {
-            System.out.print(i + ".[" + task.getTaskID() + "]" +
-                    "[" + task.getStatusIcon() +
-                    "] " + task.description + " ");
-            if (task.getTaskType().equalsIgnoreCase("event")) {
-                System.out.println("(at: " + task.getDate() + ")");
-            } else if (task.getTaskType().equalsIgnoreCase("deadline")) {
-                System.out.println("(by: " + task.getDate() + ")");
-            } else if (task.getTaskType().equalsIgnoreCase("todo")) {
-                System.out.println(task.getDate());
-            }
-
-            i++;
-        }
+        tasks.stream()
+                .forEach(task -> {
+                    i.getAndIncrement();
+                    System.out.print(i + ".[" + task.getTaskID() + "]" +
+                            "[" + task.getStatusIcon() +
+                            "] " + task.description + " ");
+                    if (task.getTaskType().equalsIgnoreCase("event")) {
+                        System.out.println("(at: " + task.getDate() + ")");
+                    } else if (task.getTaskType().equalsIgnoreCase("deadline")) {
+                        System.out.println("(by: " + task.getDate() + ")");
+                    } else if (task.getTaskType().equalsIgnoreCase("todo")) {
+                        System.out.println(task.getDate());
+                    }
+                });
     }
 }
