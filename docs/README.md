@@ -36,6 +36,7 @@ task like todo, event and deadline which can be displayed to the user.
 ## Getting Started
 - Download the [JAR file](https://github.com/YEOWEIHNGWHYELAB/ip/releases/download/A-Release/IndividualProject.jar).
 - This open a terminal and ensure that you switch your jdk to java 11 first.
+- Please add an exception to the directory of your JAR on your anti-virus. 
 - The "text-art" folder can be created by extracting the [compressed folder](https://github.com/YEOWEIHNGWHYELAB/ip/releases/download/A-Release/text-art.zip) 
 (all text file in text-art folder must be of depth 1 from JAR base directory) that contains all the text-art 
 needs to be included in the JAR directory. It can also be manually downloaded from 
