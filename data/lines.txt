@@ -1,2 +1,2 @@
-1 [T][ ] task1
-2 [T][ ] task2
+1 [E][ ] task2（a at Sun 8pm)
+2 [D][ ] task3( by Sat 12pm)
