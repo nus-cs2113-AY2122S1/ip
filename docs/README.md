@@ -295,6 +295,10 @@ ____________________________________________________________
 ```
 
 ## Summary
+
+![Summary](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/Summary.png) 
+ 
+ <!-- 
 | no. | Command | Description |
 | --- | --- | --- |
 | 1 | todo | add todo task |
@@ -306,3 +310,4 @@ ____________________________________________________________
 | 7 | find | search for task |
 | 8 | help | list out all command |
 | 9 | bye | terminate app |
+-->
