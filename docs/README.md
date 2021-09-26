@@ -18,7 +18,7 @@ Duke is a desktop application for **keeping track of tasks** via a **Command Lin
 1. Ensure you have **Java 11** or above installed on your computer.
 2. Download the latest Duke.jar from [here](https://github.com/jerrelllzw/ip/releases).
 3. Copy the file to the folder you want to use as the _home folder_ for Duke.
-4. Open your command prompt and navigate to your **home folder** as chosen in step 3.
+4. Open your command prompt and navigate to your _home folder_ as chosen in step 3.
 5. Type `java -jar ip.jar` in the command prompt and press enter to run Duke.
 6. Type a command in Duke's command box and press enter to execute it.
 7. Refer to the **Features** below for details of each command.
@@ -27,7 +27,9 @@ Duke is a desktop application for **keeping track of tasks** via a **Command Lin
 
 **Notes about the command format:**
 * Words in UPPER_CASE are the parameters to be supplied by the user.
+e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`.
 * For commands that do not take in parameters, supplying a parameter will result in an error.
+e.g. entering `list 3` will result in an error.
 
 ### Adding a todo: `todo`
 
@@ -101,7 +103,7 @@ Marks a task as done.
 Format: `done TASK_NUMBER`
 
 Example:
-`done 2` Marks the second task in the task list "finish essay" as done.
+`done 2` Marks the second task "finish essay" in the task list as done.
 ```
 ____________________________________________________________
  Nice! I've marked this task as done:
@@ -122,7 +124,6 @@ ____________________________________________________________
  Here are the matching tasks in your list:
  1.[E][ ] school dance (at: Jan 28th 7-9pm)
 ____________________________________________________________
-
 ```
 
 ### Deleting a task: `delete`
@@ -156,6 +157,7 @@ ____________________________________________________________
 ```
 
 ## Command Summary
+
 | Command | Format |
 | ------------ | ------------- |
 | Todo | `todo TASK_DESCRIPTION` |
