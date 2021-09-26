@@ -56,36 +56,58 @@ public class Ui {
     public static final String GREETINGS = "____________________________________________________________\n" +
                                   "Hello! I am C3P0! Human-cyborg relations! \n" + " \n" + LOGO + "\n" +
                                   "What can I do for you my master?\n";
-    public void sayBye() {
+    public static final String TASK_ADDED = "Added to Galactic database:";
+    public static final String MARKED_DONE = "The following task has been marked as done Master!";
+    public static final String LOADING = "Accessing archives...";
+    public static final String DELETED_TASK = "Taking one last look Master, at this Task. Removing the following from my memory";
+
+
+    public static void sayBye() {
         System.out.println(ENDING_MESSAGE + LINE);
     }
 
-    public void greetUser() {
+    public static void sayTaskAdded() {
+        System.out.println(TASK_ADDED);
+    }
+
+    public static void sayMarkedDone() {
+        System.out.println(MARKED_DONE);
+    }
+
+    public static void sayGoodbyeTask() {
+        System.out.println(DELETED_TASK);
+    }
+
+    public static void sayLoadingList() {
+        System.out.println(LOADING);
+    }
+
+    public static void greetUser() {
         System.out.println(GREETINGS);
     }
 
-    public void promptUser() {
+    public static void promptUser() {
         System.out.println(LINE);
         System.out.print(USER_PROMPT_MESSAGE);
     }
 
-    public void printLine() {
+    public static void printLine() {
         System.out.println(LINE);
     }
 
-    public void printNumberFormatExceptionMessage() {
+    public static void printNumberFormatExceptionMessage() {
         System.out.println(NUMBER_FORMAT_EXCEPTION);
     }
 
-    public void printIOExceptionMessage() {
+    public static void printIOExceptionMessage() {
         System.out.println(INPUT_OUTPUT_EXCEPTION);
     }
 
-    public void printDateTimeExceptionMessage() {
+    public static void printDateTimeExceptionMessage() {
         System.out.println(DATE_TIME_PARSE_EXCEPTION);
     }
 
-    public void printFileNotFoundMessage() {
+    public static void printFileNotFoundMessage() {
         System.out.println(FILE_NOT_FOUND_EXCEPTION);
 
     }

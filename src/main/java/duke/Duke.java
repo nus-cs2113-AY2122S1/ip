@@ -17,34 +17,34 @@ public class Duke {
             tasks = new TaskList(storage.loadTasks(), storage);
             parser = new Parser(tasks);
         } catch (FileNotFoundException e) {
-            ui.printFileNotFoundMessage();
+            Ui.printFileNotFoundMessage();
         } catch (IOException e) {
-            ui.printIOExceptionMessage();
+            Ui.printIOExceptionMessage();
         }
     }
 
     public void sendCommand() {
         String line;
-        ui.greetUser();
+        Ui.greetUser();
         boolean isExit = false;
         while (!isExit) {
             try {
-                ui.promptUser();
+                Ui.promptUser();
                 line = ui.sendInput();
-                ui.printLine();
+                Ui.printLine();
                 parser.checkCommand(line);
                 isExit = parser.isBye;
             } catch (NumberFormatException e) {
-                ui.printNumberFormatExceptionMessage();
+                Ui.printNumberFormatExceptionMessage();
             } catch (DukeException e) {
                 //Catching DukeException errors
             } catch (IOException e) {
-                ui.printIOExceptionMessage();
+                Ui.printIOExceptionMessage();
             } catch (DateTimeParseException e) {
-                ui.printDateTimeExceptionMessage();
+                Ui.printDateTimeExceptionMessage();
             }
         }
-        ui.sayBye();
+        Ui.sayBye();
     }
 
     public static void main(String[] args) {

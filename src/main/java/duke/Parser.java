@@ -2,6 +2,11 @@ package duke;
 
 import java.io.IOException;
 
+/**
+ * To make sense of the user's commands by checking if the command is legal or not.
+ * If the command is not legal, the respective DukeException will be thrown.
+ * If the command is legal, the respective TaskList methods will be called.
+ */
 public class Parser {
 
     protected boolean isBye;
@@ -12,18 +17,31 @@ public class Parser {
         isBye = false;
     }
 
+    /**
+     * Checks if the given command is one word or multiple words, calls the respective methods.
+     *
+     * @param line user's input/command.
+     * @throws DukeException if the user's command does not fit the requirements to be considered a legal command
+     * @throws IOException if there is any issue with the input or output
+     */
     public void checkCommand(String line) throws DukeException, IOException {
         String[] input = line.split(" ");
-        String firstWord = input[0];
         if (input.length == 1) {
-            checkSingleCommand(firstWord);
+            checkSingleCommand(line);
         } else {
             checkMultiCommand(input);
         }
     }
 
-    public void checkSingleCommand(String firstWord) throws DukeException, IOException {
-        switch (firstWord) {
+    /**
+     * Determines the type of command given by the user, calls the respective TaskList methods to take action.
+     * If the command is not legal, the respective DukeException will be thrown.
+     *
+     * @param line The first word of the command given by the user
+     * @throws DukeException if the user's command does not fit the requirements to be considered a legal command
+     */
+    public void checkSingleCommand(String line) throws DukeException {
+        switch (line) {
         case "bye":
             isBye = true;
             break;
@@ -47,6 +65,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Determines the type of command given by the user, calls the respective TaskList methods to take action.
+     * If none of the cases are met, checkTypeOfTask will be called.
+     * If the command is not legal, the respective DukeException will be thrown.
+     *
+     * @param input The array of strings that represent the user's command
+     * @throws DukeException if the user's command does not fit the requirements to be considered a legal command
+     * @throws IOException if there is any issue with the input or output
+     */
     public void checkMultiCommand(String[] input) throws DukeException, IOException {
         String firstWord = input[0];
         String secondWord = input[1];
@@ -82,6 +109,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Determines the type of task the user wishes to add, calls the respective TaskList methods to take action.
+     * If the command is not legal, the respective DukeException will be thrown.
+     *
+     * @param input The array of strings that represent the user's command
+     * @throws DukeException if the user's command does not fit the requirements to be considered a legal command
+     * @throws IOException if there is any issue with the input or output
+     */
     public void checkTypeOfTask(String[] input) throws DukeException, IOException {
         int length = input.length;
         String firstWord = input[0];
