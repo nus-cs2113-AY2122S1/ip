@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data.task;
 
 /**
  * This class is used for tasks that start at a specific time and ends at a specific time.

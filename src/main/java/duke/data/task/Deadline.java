@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data.task;
 
 /**
  * This class is used for tasks that need to be done before a specific date/time.
@@ -23,7 +23,7 @@ public class Deadline extends Task {
     /**
      * Returns Deadline task formatted in the form "[D][ ] description (by: deadline)"
      *
-     * @return Formatted Event task string
+     * @return Formatted Deadline task string
      */
     @Override
     public String toString() {
