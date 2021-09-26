@@ -56,6 +56,11 @@ public class Duke {
         } while (!isDone);
     }
 
+    /**
+     * Executes the respective command.
+     *
+     * @param inputHandler The Parser object handling the user input.
+     */
     private static void executeCommand(Parser inputHandler){
         switch (inputHandler.getCommand()) {
         case COMMAND_BYE:
@@ -88,41 +93,79 @@ public class Duke {
         }
     }
 
+    /**
+     * Execute the bye command.
+     */
     private static void executeBye() {
         isDone = true;
         storage.saveData(tasks.getTasks());
         ui.printExitMessage();
     }
 
+    /**
+     * Execute the event command.
+     *
+     * @param description The event description.
+     * @param timeField The date of event.
+     */
     private static void executeEvent(String description, String timeField) {
         Task newTask = tasks.addEvent(description, timeField);
         ui.printAddTask(newTask, (tasks.getNumOfTasks()));
     }
 
+    /**
+     * Execute the deadline command.
+     *
+     * @param description The deadline description.
+     * @param timeField The due date of the deadline.
+     */
     private static void executeDeadline(String description, String timeField) {
         Task newTask = tasks.addDeadline(description, timeField);
         ui.printAddTask(newTask, (tasks.getNumOfTasks()));
     }
 
+    /**
+     * Execute the todo command.
+     *
+     * @param description The todo description.
+     */
     private static void executeTodo(String description) {
         Task newTask = tasks.addTodo(description);
         ui.printAddTask(newTask, (tasks.getNumOfTasks()));
     }
 
+    /**
+     * Execute the done command.
+     *
+     * @param taskIndex The item index to be marked done.
+     */
     private static void executeDone(int taskIndex) {
         Task doneTask = tasks.markDone(taskIndex);
         ui.printDoneTask(doneTask, taskIndex);
     }
 
+    /**
+     * Execute the delete command.
+     *
+     * @param taskIndex The item index to be deleted.
+     */
     private static void executeDelete(int taskIndex) {
         Task deletedTask = tasks.deleteTask(taskIndex);
         ui.printDeleteTask(deletedTask);
     }
 
+    /**
+     * Execute the find command.
+     *
+     * @param description The String to match.
+     */
     private static void executeFind(String description) {
         ui.printFindTask(tasks.getTasks(), description);
     }
 
+    /**
+     * Execute the list command.
+     */
     private static void executeList() {
         ui.printTaskList(tasks.getTasks());
     }

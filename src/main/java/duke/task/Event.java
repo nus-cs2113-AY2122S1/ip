@@ -1,9 +1,18 @@
 package duke.task;
 
+/**
+ * Represents an Event Task.
+ */
 public class Event extends Task{
     protected String at;
     private static final String ICON_EVENT = "E";
 
+    /**
+     * Create an Event object.
+     *
+     * @param description The description of the Event task.
+     * @param at The time of the Event task.
+     */
     public Event(String description, String at) {
         super(description);
         this.at = at;

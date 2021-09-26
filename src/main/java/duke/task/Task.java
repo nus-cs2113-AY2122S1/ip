@@ -7,7 +7,6 @@ package duke.task;
  * @version 1.0
  * @since 2021-08-25
  */
-
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -21,6 +20,9 @@ public abstract class Task {
         isDone = false;
     }
 
+    /**
+     * @return status icon represents whether the task is completed.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }

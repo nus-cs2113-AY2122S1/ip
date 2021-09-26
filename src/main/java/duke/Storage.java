@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Controls the persistent storage of tasks.
+ */
 public class Storage {
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
@@ -19,12 +22,24 @@ public class Storage {
     private final String filePath;
     private final String fileDirectory;
 
+    /**
+     * Creates a Storage object.
+     *
+     * @param filePath The relative path to the file.
+     * @param fileDirectory The relative path to the directory containing the file.
+     * @param ui The Ui object handling the user output.
+     */
     public Storage(String filePath, String fileDirectory, Ui ui) {
         this.filePath = filePath;
         this.fileDirectory = fileDirectory;
         this.ui = ui;
     }
 
+    /**
+     * Save the data into the file.
+     *
+     * @param tasks The ArrayList of tasks to be saved.
+     */
     public void saveData(ArrayList<Task> tasks) {
         try {
             writeToFile(tasks);
@@ -33,6 +48,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Write each line of the data into the file.
+     *
+     * @param tasks The ArrayList of tasks to be saved.
+     * @throws IOException Indicated that there is an IOException.
+     */
     private void writeToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
         for (Task task : tasks) {
@@ -43,6 +64,11 @@ public class Storage {
         fileWriter.close();
     }
 
+    /**
+     * Load saved data.
+     *
+     * @param tasks The TaskList object that is managing all the tasks.
+     */
     public void loadData(TaskList tasks) {
         try {
             File file = loadFile();
@@ -76,6 +102,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Load the file for reading.
+     *
+     * @return The file of saved data.
+     * @throws IOException Indicated that there is an IOException.
+     */
     private File loadFile() throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {

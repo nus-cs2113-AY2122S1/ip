@@ -6,6 +6,9 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Parse text from user input to Task format.
+ */
 public class ParseFromRawFormat extends Parser {
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_DELETE = "delete";
@@ -17,10 +20,24 @@ public class ParseFromRawFormat extends Parser {
     private static final String PREFIX_DEADLINE = "/by";
     private static final String PREFIX_EVENT = "/at";
 
+    /**
+     * Creates a ParseFromRawFormat object.
+     *
+     * @param input The raw user input.
+     * @throws EmptyDescriptionException Indicates that the user did not give a task description.
+     * @throws EmptyTimeFieldException Indicated that the user did not give a time field for event or deadline tasks.
+     */
     public ParseFromRawFormat(String input) throws EmptyDescriptionException, EmptyTimeFieldException {
         handleRawInputs(input);
     }
 
+    /**
+     * Converts the input from raw user input to Task format.
+     *
+     * @param input The raw user input.
+     * @throws EmptyDescriptionException Indicates that the user did not give a task description.
+     * @throws EmptyTimeFieldException Indicated that the user did not give a time field for event or deadline tasks.
+     */
     private void handleRawInputs(String input) throws EmptyDescriptionException, EmptyTimeFieldException {
         String[] inputSubstrings = input.strip().split(" ", 2);
 
@@ -62,6 +79,13 @@ public class ParseFromRawFormat extends Parser {
         }
     }
 
+    /**
+     * Format the date field.
+     *
+     * @param timeField The date provided by the user.
+     * @return The formatted date.
+     * @throws DateTimeException Indicated that the user gave an invalid date format.
+     */
     private LocalDate formatTimeField(String timeField) throws DateTimeException {
         LocalDate localDate = LocalDate.parse(timeField);
         if (localDate == null) {
