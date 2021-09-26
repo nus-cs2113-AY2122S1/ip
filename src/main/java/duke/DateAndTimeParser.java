@@ -2,37 +2,42 @@ package duke;
 /* Importing local files from other packages */
 
 import exception.DukeException;
+import ui.Ui;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeParseException;
 
-/**
- * Returns date and time in the string form.
- *
- * @return dateAndTime DateAndTime in the String form
- */
 public class DateAndTimeParser {
-    
+    /**
+     * Storing some error messages as Strings
+     */
     public static final String ERROR_PAST_DATE = "☹ OOPS!!! You cannot schedule a task for the past.";
 
+    /**
+     * Returns date and time in the string form.
+     *
+     * @return dateAndTime in the String format.
+     */
     public static String callProcessDateTime(String dateAndTime) {
         try {
             LocalDateTime localDateTime = LocalDateTime.parse(dateAndTime);
             dateAndTime = ProcessDateTime(localDateTime);
         } catch (DateTimeParseException e) {
+            Ui.printLine();
             dateAndTime = "";
             System.out.println("☹ OOPS!!! The date and time format is Invalid.\n" + e.getMessage());
         } catch (DateTimeException eg) {
+            Ui.printLine();
             dateAndTime = "";
             System.out.println("☹ OOPS!!! The date and time format is Invalid.\n" + eg.getMessage());
         } catch (DukeException ex) {
+            Ui.printLine();
             dateAndTime = "";
             System.out.println(ex.getMessage());
         }
         return dateAndTime;
-
     }
 
     /**
