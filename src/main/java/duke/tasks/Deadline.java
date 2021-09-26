@@ -1,6 +1,7 @@
 package duke.tasks;
 
-public class Deadline extends Todo {
+public class Deadline extends Task {
+    private TaskType type = TaskType.DEADLINE;
     protected String by;
 
     public Deadline(String description, String by) {
@@ -20,9 +21,9 @@ public class Deadline extends Todo {
         this.by = by;
     }
 
-    public void printTask() {
-        System.out.print("[D][" + getStatusIcon() + "] " + getDescription());
-        System.out.println("(by:" + by + ")");
+    @Override
+    public String printTask() {
+        return "[D][" + getStatusIcon() + "] " + getDescription() + " (by:" + by + ")";
     }
 
     @Override

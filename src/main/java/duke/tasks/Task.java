@@ -23,12 +23,16 @@ public class Task {
         return description;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     public void setDone() {
         isDone = true;
     }
 
-    public void printTask() {
-        System.out.println(description);
+    public String printTask() {
+        return "";
     }
 
     public String saveTask() {

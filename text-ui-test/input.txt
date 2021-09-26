@@ -3,6 +3,7 @@ todo eat cake
 deadline eat chocolate cake /by Friday 2pm
 event attend cake buffet /at Saturday 5pm
 done 1
+done a
 todo
 list
 cake

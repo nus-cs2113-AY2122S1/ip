@@ -1,6 +1,7 @@
 package duke.tasks;
 
-public class Event extends Todo{
+public class Event extends Task {
+    private TaskType type = TaskType.EVENT;
     protected String at;
 
     public Event(String description, String at) {
@@ -19,9 +20,9 @@ public class Event extends Todo{
         this.at = at;
     }
 
-    public void printTask() {
-        System.out.print("[E][" + getStatusIcon() + "] " + getDescription());
-        System.out.println("(at:" + at + ")");
+    @Override
+    public String printTask() {
+        return "[E][" + getStatusIcon() + "] " + getDescription() + "(at:" + at + ")";
     }
 
     @Override

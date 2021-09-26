@@ -1,20 +1,32 @@
-Hello! I'm Duke
+The file data/duke.txt is not found.A new file data/duke.txt has been created.
+Hello! I'm Duke.
 What can I do for you?
-Could you say that again?
+Command is empty.
+What can I do for you?
 Got it. I've added this task:
-[T][ ] eat cake
+eat cake
 Now you have 1 tasks in the list.
+What can I do for you?
 Got it. I've added this task:
-[D][ ] eat chocolate cake (by: Friday 2pm)
+eat chocolate cake
 Now you have 2 tasks in the list.
+What can I do for you?
 Got it. I've added this task:
-[E][ ] attend cake buffet (at: Saturday 5pm)
+attend cake buffet
 Now you have 3 tasks in the list.
+What can I do for you?
 Nice! I've marked this task as done:
-[T][X] eat cake
+eat cake
+What can I do for you?
+The description of done cannot be empty.
+What can I do for you?
 The description of todo cannot be empty.
+What can I do for you?
 Here are the tasks in your list:
-1.[T][X] eat cake
-2.[D][ ] eat chocolate cake (by: Friday 2pm)
-3.[E][ ] attend cake buffet (at: Saturday 5pm)
-Could you say that again?
+1. [T][X] eat cake
+2. [D][ ] eat chocolate cake  (by: Friday 2pm)
+3. [E][ ] attend cake buffet (at: Saturday 5pm)
+What can I do for you?
+Command is empty.
+What can I do for you?
+Bye. Hope to see you again soon!
