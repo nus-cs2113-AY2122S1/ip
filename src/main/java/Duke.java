@@ -25,6 +25,14 @@ public class Duke {
 
     public static boolean canRunDuke = true;
 
+    /**
+     * Checks if the done command entered is in the correct format with the correct information
+     *
+     * @param inputStr the input string the user entered containing the command and the description
+     * @param taskManager the taskManager class that handles all the task list functions
+     * @return returns true if the done command is in the correct format, throws exception otherwise
+     * @throws DukeException if there is no description after command, if there are no tasks undone in task list, if the task index entered does not exist, and if the task is already done
+     */
     private static boolean isValidDoneCommand(String inputStr, TaskManager taskManager) throws DukeException {
         if (Parser.isEmptyItem(inputStr)) {
             throw new DukeException("Oops, did you forget to enter the task to be marked as done?");
@@ -39,6 +47,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Checks if the todo command entered is in the correct format with the correct description
+     *
+     * @param inputStr the input string the user entered containing the command and the description
+     * @return returns true if the todo command is in the correct format, throws exception otherwise
+     * @throws DukeException if there is no description after command
+     */
     private static boolean isValidToDoCommand(String inputStr) throws DukeException {
         if (Parser.isEmptyItem(inputStr)) {
             throw new DukeException("Oops, the description of a ToDo cannot be empty!");
@@ -47,6 +62,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Checks if the deadline command entered is in the correct format with the correct description
+     *
+     * @param inputStr the input string the suer entered containing the command and the description
+     * @return returns true if the deadline command is in te correct format, throws exception otherwise
+     * @throws DukeException if there is no description after command, and if the time of the deadline is empty
+     */
     private static boolean isValidDeadlineCommand(String inputStr) throws DukeException {
         if (Parser.isEmptyItem(inputStr)) {
             throw new DukeException("Oops, the description of a deadline cannot be empty!");
@@ -57,6 +79,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Checks if the event command entered is in the correct format with the correct description
+     *
+     * @param inputStr the input string the user entered containing the command and the description
+     * @return returns true if the event command is in the correct format, throws exception otherwise
+     * @throws DukeException if there is no description after command, and if the time of the event is empty
+     */
     private static boolean isValidEventCommand(String inputStr) throws DukeException {
         if (Parser.isEmptyItem(inputStr)) {
             throw new DukeException("Oops, the description of an event cannot be empty!");
@@ -67,6 +96,14 @@ public class Duke {
         }
     }
 
+    /**
+     * Checks if the delete command entered is in the correct format with the correct description
+     *
+     * @param inputStr the input string the user entered containing the command and the description
+     * @param taskManager the taskManager class that handles all the task list functions
+     * @return returns true if the delete command is in the correct format, throws exception otherwise
+     * @throws DukeException if there is no task index entered after command, if there is no tasks in the list to be deleted, and if the task index entered does not exist
+     */
     private static boolean isValidDeleteCommand(String inputStr, TaskManager taskManager) throws DukeException {
         if (Parser.isEmptyItem(inputStr)) {
             throw new DukeException("Oops, did you forget to enter the task to be deleted?");
@@ -79,6 +116,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Checks if the find command entered is in the correct format with the correct description
+     *
+     * @param inputStr the input string the user entered containing the command and the description
+     * @return returns true if the find command is in the correct format, throws exception otherwise
+     * @throws DukeException if there is keyword entered after command
+     */
     private static boolean isValidFindCommand(String inputStr) throws DukeException {
         if (Parser.isEmptyItem(inputStr)) {
             throw new DukeException("Oops, did you forget to enter a keyword?");
