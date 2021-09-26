@@ -6,6 +6,9 @@ import xRoss.task.Deadline;
 import xRoss.task.Event;
 import xRoss.task.Todo;
 
+/**
+ * Represents interaction with user
+ */
 public class Ui {
 
     /**

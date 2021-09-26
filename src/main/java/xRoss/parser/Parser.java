@@ -3,10 +3,24 @@ package xRoss.parser;
 import xRoss.TaskManager;
 import xRoss.ui.Ui;
 
+
+/**
+ * Represents making sense of user input.
+ */
 public class Parser {
 
+    /**
+     * ui   Ui class instance used to invoke the relevant actions by chat bot.
+     */
     private static Ui ui = new Ui();
 
+    /**
+     * Makes sense of user input and invokes the relevant actions by the chat bot.
+     *
+     * @param taskManager   Representation of current task list.
+     * @param inputLine     Scanned user input.
+     * @return  Boolean value that keeps tracks of whether to exit the chat bot.
+     */
     public boolean parseCommand(TaskManager taskManager, String inputLine){
         boolean commandLoop = true;
 
