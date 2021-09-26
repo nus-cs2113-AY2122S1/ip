@@ -9,9 +9,9 @@ import commands.DeleteCommand;
 
 public class Messages {
 
-    public static final String GREETING = "Why are you here again. What do you want";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format.";
     public static final String MESSAGE_TASK_NOT_FOUND = "Error. Task not found.";
+    public static final String MESSAGE_LOADING_ERROR = "Error in loading file.";
 
     public static final String USER_GUIDE = "\n" + AddTodoCommand.MESSAGE_USAGE
             + "\n" + AddEventCommand.MESSAGE_USAGE

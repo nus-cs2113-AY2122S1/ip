@@ -1,5 +1,6 @@
 package storage;
 
+import common.DukeException;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -8,9 +9,12 @@ import task.Todo;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Storage {
+    public static final String ERROR_MESSAGE_UNKNOWN_TASK = "Unknown task encountered. Skipping.";
+
     private static File dataFile;
 
     public File getDataFile() {
@@ -21,7 +25,7 @@ public class Storage {
         dataFile = new File(filePath);
     }
 
-    public ArrayList<Task> load() throws StorageOperationException {
+    public ArrayList<Task> load() throws DukeException {
         if (!dataFile.exists()) {
             createFile();
         }
@@ -37,14 +41,14 @@ public class Storage {
             reader.close();
         } catch (FileNotFoundException f) {
             createFile();
-            throw new StorageOperationException("File not found. Creating new file");
+            throw new DukeException("File not found. Creating new file. ");
         } catch (IOException e) {
-            throw new StorageOperationException("Error writing to file: " + getDataFile().toPath());
+            throw new DukeException("Error writing to file: " + getDataFile().toPath());
         }
         return taskList;
     }
 
-    public void save(ArrayList<Task> taskList) {
+    public void save(ArrayList<Task> taskList) throws DukeException {
         if (!dataFile.exists()) {
             createFile();
         }
@@ -58,14 +62,13 @@ public class Storage {
             }
             bw.close();
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error saving to file");
+            throw new DukeException("Error saving to file. ");
         }
     }
 
-    private static void createFile() {
+    private static void createFile() throws DukeException {
         if (dataFile.exists()) {
-            System.out.println("File exists");
+            System.out.println("File exists. ");
             return;
         }
         try {
@@ -74,46 +77,57 @@ public class Storage {
             }
             dataFile.createNewFile();
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error in creating file");
+            throw new DukeException("Error. Could not create file. ");
         }
     }
 
-    private static Task convertFileStringToTask(String line) {
+    private static Task convertFileStringToTask(String line) throws DukeException {
         try {
-            final String[] split = line.trim().split("\\|");
-            char taskType = split[0].charAt(0);
-            int isComplete = Integer.parseInt(split[1].trim());
-            boolean isDone = isComplete == 1;
-            String description = split[2].trim();
+            String[] args = line.trim().split("\\|");
+            if (args.length < 3) {
+                throw new DukeException(ERROR_MESSAGE_UNKNOWN_TASK);
+            }
+            char taskType = args[0].charAt(0); // definitely not empty
+
+            int isCompleted = Integer.parseInt(args[1].trim()); // throws number format exception
+            if (isCompleted != 0 && isCompleted != 1) {
+                throw new DukeException(ERROR_MESSAGE_UNKNOWN_TASK);
+            }
+            boolean isDone = isCompleted == 1;
+
+            String description = args[2].trim();
+            if (description.isEmpty()) {
+                throw new DukeException(ERROR_MESSAGE_UNKNOWN_TASK);
+            }
+
             String dateStr;
             LocalDateTime dateTime;
 
             switch (taskType) {
             case 'D':
-                dateStr = split[3].trim();
+                if (args.length < 4) {
+                    throw new DukeException(ERROR_MESSAGE_UNKNOWN_TASK);
+                }
+                dateStr = args[3].trim();
                 dateTime = LocalDateTime.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 return new Deadline(description, isDone, dateTime);
             case 'E':
-                dateStr = split[3].trim();
+                if (args.length < 4) {
+                    throw new DukeException(ERROR_MESSAGE_UNKNOWN_TASK);
+                }
+                dateStr = args[3].trim();
                 dateTime = LocalDateTime.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 return new Event(description, isDone, dateTime);
             case 'T':
                 return new Todo(description, isDone);
             default:
-                System.out.println("Unknown task encountered. Skipping.");
-                return null;
+                throw new DukeException(ERROR_MESSAGE_UNKNOWN_TASK);
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
-            System.out.println("Error converting file string to task");
-        }
-        return null;
-    }
-
-    public static class StorageOperationException extends Exception {
-        public StorageOperationException(String message) {
-            super(message);
+        } catch (NumberFormatException | IndexOutOfBoundsException | DateTimeParseException e) {
+            throw new DukeException(ERROR_MESSAGE_UNKNOWN_TASK);
         }
     }
 }
+
+
+

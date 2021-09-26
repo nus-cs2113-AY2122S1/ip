@@ -6,8 +6,9 @@ import task.Task;
 public class DeleteCommand extends Command{
 
     public static final String COMMAND_WORD = "delete";
-    public static final String MESSAGE_USAGE = "\tdelete: Deletes the task corresponding to the task index.\n"
-            + "Example: delete {TASK_NUMBER}";
+    public static final String MESSAGE_USAGE = "delete: Deletes the task corresponding to the task index.\n"
+            + "Parameters: TASK_INDEX\n"
+            + "Example: delete 1";
     public static final String MESSAGE_SUCCESS = "Deleted task: %1$s";
 
     public DeleteCommand(int targetIndex) {

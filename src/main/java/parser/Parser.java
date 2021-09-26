@@ -1,6 +1,7 @@
 package parser;
 
 import commands.*;
+import common.DukeException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,13 +12,21 @@ import static common.Messages.*;
 import static ui.Ui.DISPLAYED_INDEX_OFFSET;
 
 public class Parser {
-    public static final String DATE_KEYWORD = "/d";
-    public static final String TIME_KEYWORD = "/t";
+    public static final String DATE_KEYWORD = "d/";
+    public static final String TIME_KEYWORD = "t/";
 
-    public Command parseCommand(String userInputString) {
+    public Command parseCommand(String userInputString) throws DukeException {
         final String[] commandTypeAndParams = splitCommandWordsAndArgs(userInputString, "\\s+");
         final String commandType = commandTypeAndParams[0];
         final String commandArgs = commandTypeAndParams[1];
+        if (commandArgs.isEmpty()
+                && !commandType.equals(ListCommand.COMMAND_WORD)
+                && !commandType.equals(FindCommand.COMMAND_WORD)
+                && !commandType.equals(HelpCommand.COMMAND_WORD)
+                && !commandType.equals(ClearCommand.COMMAND_WORD)
+                && !commandType.equals(ExitCommand.COMMAND_WORD)) {
+            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
         switch (commandType) {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -40,7 +49,7 @@ public class Parser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         default:
-            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT + HelpCommand.MESSAGE_USAGE);
+            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
         }
     }
 
@@ -52,50 +61,36 @@ public class Parser {
         return new String[]{split[0], ""};
     }
 
-    private static int parseArgsAsDisplayedIndex(String displayIndex) throws ParseException, NumberFormatException {
-        if (displayIndex.isEmpty()) {
-            throw new ParseException("Could not find index number to parse");
-        }
-        return Integer.parseInt(displayIndex.trim());
-    }
-
-    public static Command prepareAddTodo(String description) {
-        return new AddTodoCommand(description, false);
-    }
-
     public static String[] getTaskDateArgs(String commandArgs) {
         String[] descriptionAndDatetime = splitCommandWordsAndArgs(commandArgs, DATE_KEYWORD);
         String[] dateAndTime = splitCommandWordsAndArgs(descriptionAndDatetime[1].trim(), TIME_KEYWORD);
         return new String[]{descriptionAndDatetime[0], dateAndTime[0], dateAndTime[1]};
     }
 
-    public static Command prepareAddEvent(String[] eventArgs) {
-        try {
-            String description = eventArgs[0];
-            LocalDate date = parseArgsAsDate(eventArgs[1].trim());
-            LocalTime time = parseArgsAsTime(eventArgs[2].trim());
-            LocalDateTime dateTime = date.atTime(time);
-            return new AddEventCommand(description, false, dateTime);
-        } catch (ParseException e) {
-            return new IncorrectCommand("could not parse date for event.");
-        }
+    public static Command prepareAddTodo(String description) {
+        return new AddTodoCommand(description, false);
     }
 
-    public static Command prepareAddDeadline(String[] deadlineArgs) {
-        try {
-            String description = deadlineArgs[0];
-            LocalDate date = parseArgsAsDate(deadlineArgs[1].trim());
-            LocalTime time = parseArgsAsTime(deadlineArgs[2].trim());
-            LocalDateTime dateTime = LocalDateTime.of(date, time);
-            return new AddDeadlineCommand(description, false, dateTime);
-        } catch (ParseException e) {
-            return new IncorrectCommand("could not parse date for deadline.");
-        }
+    public static Command prepareAddEvent(String[] eventArgs) throws DukeException {
+        String description = eventArgs[0];
+        LocalDate date = parseArgsAsDate(eventArgs[1].trim());
+        LocalTime time = parseArgsAsTime(eventArgs[2].trim());
+        LocalDateTime dateTime = date.atTime(time);
+        return new AddEventCommand(description, false, dateTime);
     }
 
-    public static LocalDate parseArgsAsDate(String str) throws DateTimeParseException, ParseException {
+    public static Command prepareAddDeadline(String[] deadlineArgs) throws DukeException {
+
+        String description = deadlineArgs[0];
+        LocalDate date = parseArgsAsDate(deadlineArgs[1].trim());
+        LocalTime time = parseArgsAsTime(deadlineArgs[2].trim());
+        LocalDateTime dateTime = LocalDateTime.of(date, time);
+        return new AddDeadlineCommand(description, false, dateTime);
+    }
+
+    public static LocalDate parseArgsAsDate(String str) throws DateTimeParseException, DukeException {
         if (str.trim().isEmpty()) {
-            throw new ParseException("Could not find date to parse");
+            throw new DukeException("Could not find date to parse");
         }
         return LocalDate.parse(str.trim());
     }
@@ -107,27 +102,20 @@ public class Parser {
         return LocalTime.parse(str.trim());
     }
 
-    public static Command prepareDeleteTask(String displayIndex) {
-        try {
-            int taskIndex = parseArgsAsDisplayedIndex(displayIndex) - DISPLAYED_INDEX_OFFSET;
-            return new DeleteCommand(taskIndex);
-        } catch (ParseException e) {
-            return new IncorrectCommand("could not parse display index.");
+    private static int parseArgsAsDisplayedIndex(String displayIndex) throws DukeException, NumberFormatException {
+        if (displayIndex.isEmpty()) {
+            throw new DukeException("You did not enter a task index. Try again.");
         }
+        return Integer.parseInt(displayIndex.trim());
     }
 
-    private static Command prepareMarkAsDone(String displayIndex) {
-        try {
-            int taskIndex = parseArgsAsDisplayedIndex(displayIndex) - DISPLAYED_INDEX_OFFSET;
-            return new MarkAsDoneCommand(taskIndex);
-        } catch (ParseException e) {
-            return new IncorrectCommand("could not parse display index.");
-        }
+    public static Command prepareDeleteTask(String displayIndex) throws DukeException {
+        int taskIndex = parseArgsAsDisplayedIndex(displayIndex) - DISPLAYED_INDEX_OFFSET;
+        return new DeleteCommand(taskIndex);
     }
 
-    public static class ParseException extends Exception {
-        ParseException(String message) {
-            super(message);
-        }
+    private static Command prepareMarkAsDone(String displayIndex) throws DukeException {
+        int taskIndex = parseArgsAsDisplayedIndex(displayIndex) - DISPLAYED_INDEX_OFFSET;
+        return new MarkAsDoneCommand(taskIndex);
     }
 }

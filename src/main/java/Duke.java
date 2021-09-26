@@ -1,6 +1,7 @@
 import commands.Command;
 import commands.CommandResult;
 import commands.ExitCommand;
+import common.DukeException;
 import parser.Parser;
 import storage.Storage;
 import task.*;
@@ -16,25 +17,31 @@ public class Duke {
         this.storage = new Storage(filePath);
         try {
             this.tasks = new TaskManager(storage.load());
-        } catch (Storage.StorageOperationException e) {
+        } catch (DukeException e) {
+            ui.showLoadingError();
             tasks = new TaskManager();
         }
     }
 
     public void run() {
-        Command command;
+        Command c;
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
-            String userCommandText = ui.readCommand();
-            ui.showLine();
-            command = new Parser().parseCommand(userCommandText);
-            CommandResult result = executeCommand(command);
-            tasks.setTaskList(result.getRelevantTasks());
-            storage.save(tasks.getTaskList());
-            ui.showResultToUser(result);
-            isExit = ExitCommand.isExit(command);
-
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                c = new Parser().parseCommand(fullCommand);
+                CommandResult result = executeCommand(c);
+                tasks.setTaskList(result.getRelevantTasks());
+                storage.save(tasks.getTaskList());
+                ui.showResultToUser(result);
+                isExit = ExitCommand.isExit(c);
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
         }
         exit();
     }
@@ -44,7 +51,7 @@ public class Duke {
             command.setData(tasks);
             return command.execute();
         } catch (Exception e) {
-            ui.showToUser(e.getMessage());
+            ui.showError(e.getMessage());
             throw new RuntimeException(e);
         }
     }

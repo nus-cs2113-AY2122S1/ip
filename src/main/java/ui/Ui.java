@@ -10,22 +10,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import static common.Messages.GREETING;
+import static common.Messages.MESSAGE_LOADING_ERROR;
 
 public class Ui {
-    private static final String LOGO = " ____        _\n"
+    private static final String LOGO = " \n____        _\n"
             + "|  _ \\ _   _| | _____\n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    public static final int DISPLAYED_INDEX_OFFSET = 1;
+    public static final String GREETING = "Why are you here again. What do you want";
 
     public static final String INDENT = "\t";
-    public static final String NEW_LINE = "\n\t";
     public static final String INDENTED_NEW_LINE = "\n\t\t";
     public static final String DIVIDER = "_______________________________";
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
+
+    public static final int DISPLAYED_INDEX_OFFSET = 1;
 
     private final Scanner in;
     private final PrintStream out;
@@ -71,19 +72,25 @@ public class Ui {
         return taskStringsList.toArray(new String[0]);
     }
 
-    public void showToUser(String... message) {
+    private void showToUser(String... message) {
         for (String m : message) {
-            out.println(INDENT + m.replace("\n",NEW_LINE));
+            out.println(INDENT + m.replace("\n", INDENTED_NEW_LINE));
         }
-        showLine();
     }
 
     public void showWelcome() {
-        out.println(INDENT + LOGO.replace("\n", INDENTED_NEW_LINE));
-        out.println(INDENT + GREETING);
+        showToUser(LOGO,GREETING,DIVIDER);
     }
 
     public void showLine() {
         out.println(DIVIDER);
+    }
+
+    public void showLoadingError() {
+        showError(MESSAGE_LOADING_ERROR);
+    }
+
+    public void showError(String message) {
+        showToUser(message);
     }
 }

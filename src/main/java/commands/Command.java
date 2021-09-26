@@ -1,9 +1,8 @@
 package commands;
 
+import common.DukeException;
 import task.Task;
 import task.TaskManager;
-
-import static ui.Ui.DISPLAYED_INDEX_OFFSET;
 
 public abstract class Command {
     protected TaskManager taskManager;
@@ -32,5 +31,7 @@ public abstract class Command {
         return taskManager.getTaskList().get(targetIndex);
     }
 
-    public abstract CommandResult execute();
+    public CommandResult execute() throws DukeException {
+        throw new DukeException("This method is to be implemented by child classes.");
+    }
 }

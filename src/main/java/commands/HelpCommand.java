@@ -6,8 +6,8 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
-    public static final String MESSAGE_USAGE = "\nhelp: Shows program usage instructions.\n"
-            + "\tExample: help\n";
+    public static final String MESSAGE_USAGE = "help: Shows program usage instructions.\n"
+            + "Example: help";
 
     @Override
     public CommandResult execute() {
