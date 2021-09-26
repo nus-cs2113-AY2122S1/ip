@@ -20,5 +20,5 @@ public class DukeCommandStrings extends DukeConstants {
 
     /** Date and time formats recognized by Duke. */
     public static final String DATE_TIME_INPUT_FORMAT = "dd-MM-yyyy HH:mm";
-    public static final String DATE_TIME_OUTPUT_FORMAT = "EEE, LLL dd yyyy hh:mm a";
+    public static final String DATE_TIME_OUTPUT_FORMAT = "EEE, LLL dd yyyy, hh:mm a";
 }
