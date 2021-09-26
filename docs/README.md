@@ -4,6 +4,8 @@
 of events and deadlines**. It is a personalised **chatbox** that offers customised feedback 
 and helps you stay ahead of the curve.
 
+-------------------------------------------------
+
 ## Quick start guide
 
 ### To run the jar file
@@ -21,6 +23,7 @@ ____________________________________________________________
 ```
 7. Refer to Features for proper usage instructions and commands.
 
+-------------------------------------------------
 
 ## Command Summary
 
