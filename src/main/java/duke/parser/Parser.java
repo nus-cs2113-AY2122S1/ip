@@ -1,20 +1,19 @@
 package duke.parser;
 
-import duke.commands.Command;
-import duke.commands.ListCommand;
-import duke.commands.MarkDoneCommand;
-import duke.commands.AddTodoCommand;
-import duke.commands.AddDeadlineCommand;
-import duke.commands.AddEventCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.ByeCommand;
+import duke.commands.*;
 
+import duke.exceptions.DateTimeFormatException;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 
 import duke.exceptions.DukeException;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
     /**
@@ -80,6 +79,8 @@ public class Parser {
             return new AddEventCommand(command, arguments);
         case "delete":
             return new DeleteCommand(command, arguments);
+        case "schedule":
+            return new ScheduleCommand(command, arguments);
         case "bye":
             return new ByeCommand(command);
         default:
@@ -124,15 +125,18 @@ public class Parser {
         String date = getTaskDate(taskDetails);
 
         Task task;
+        LocalDateTime dateTime;
         switch (taskType) {
         case "T":
             task = new Todo(description);
             break;
         case "D":
-            task = new Deadline(description, date);
+            dateTime = LocalDateTime.parse(date);
+            task = new Deadline(description, dateTime);
             break;
         case "E":
-            task = new Event(description, date);
+            dateTime = LocalDateTime.parse(date);
+            task = new Event(description, dateTime);
             break;
         default:
             throw new DukeException();
@@ -142,4 +146,36 @@ public class Parser {
         }
         return task;
     }
+
+    public static LocalDateTime parseDateTime(String date) throws DateTimeFormatException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+            return dateTime;
+        } catch (DateTimeParseException e) {
+            throw new DateTimeFormatException();
+        }
+    }
+
+    public static String getFormattedDateTime(LocalDateTime dateTime) {
+        String formattedDateTime = dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        return formattedDateTime;
+    }
+
+    public static LocalDate parseDate(String date) throws DateTimeFormatException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parsedDate = LocalDate.parse(date, formatter);
+            return parsedDate;
+        } catch (DateTimeParseException e) {
+            throw new DateTimeFormatException();
+        }
+    }
+
+    public static String getFormattedDate(LocalDate date) {
+        String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return formattedDate;
+    }
+
+
 }
