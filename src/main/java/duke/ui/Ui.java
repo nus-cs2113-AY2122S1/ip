@@ -84,7 +84,17 @@ public class Ui {
     }
 
     public static void displayUnknownCommandResponse() {
-        String unknownCommandResponse = " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n";
-        printOutput(unknownCommandResponse);
+        String output = " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n";
+        printOutput(output);
+    }
+
+    public static void displayInvalidDateTimeFormatResponse() {
+        String output = " ☹ OOPS!!! Please follow date time format: yyyy-MM-dd HH:mm\n";
+        printOutput(output);
+    }
+
+    public static void displayInvalidDateFormatResponse() {
+        String output = " ☹ OOPS!!! Please follow date format: yyyy-MM-dd\n";
+        printOutput(output);
     }
 }

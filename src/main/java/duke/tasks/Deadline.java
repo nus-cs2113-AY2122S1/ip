@@ -1,24 +1,32 @@
 package duke.tasks;
 
+import duke.parser.Parser;
+
+import java.time.LocalDateTime;
+
 /**
  * Deadline is a Sub-class that inherits from Task Class
  * A Deadline object is represented by a description of the task and when the Deadline is due by.
  */
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime dateTime;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime dateTime) {
         super(description);
-        this.by = by;
+        this.dateTime = dateTime;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + Parser.getFormattedDateTime(dateTime) + ")";
     }
 
     @Override
     public String toFileFormat() {
-        return "D|" + super.toFileFormat() + "|" + by;
+        return "D|" + super.toFileFormat() + "|" + dateTime;
+    }
+
+    public String getDateString() {
+        return Parser.getFormattedDate(dateTime.toLocalDate());
     }
 }
