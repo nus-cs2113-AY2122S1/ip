@@ -4,17 +4,17 @@ Duke is a Personal Assistant Command Line Chatbot designed to help you manage yo
 
 * [Quick Start Guide](#Quick-Start-Guide)
 * [Features](#Features)
-  * [View Help](#View Help)
-  * [Add a Todo Task](#Add a Todo Task)
-  * [Add a Deadline Task](#Add a Deadline Task)
-  * [Add an Event Task](#Add an Event Task)
-  * [List all Tasks](#List all Tasks)
-  * [Mark Task as Done](#Mark Task as Done)
-  * [Delete a Task](#Delete a Task)
-  * [Find Tasks](#Find Tasks)
-  * [Exit Program](#Exit Program)
+  * [View Help](#View-Help)
+  * [Add a Todo Task](#Add-a-Todo-Task)
+  * [Add a Deadline Task](#Add-a-Deadline-Task)
+  * [Add an Event Task](#Add-an-Event-Task)
+  * [List all Tasks](#List-all-Tasks)
+  * [Mark Task as Done](#Mark-Task-as-Done)
+  * [Delete a Task](#Delete-a-Task)
+  * [Find Tasks](#Find-Tasks)
+  * [Exit Program](#Exit-Program)
 * [FAQ](#FAQ)
-* [Command Summary](#Command Summary)
+* [Command Summary](#Command-Summary)
 
 ## Quick Start Guide
 
@@ -251,7 +251,7 @@ Expected output:
 
 ### Command Summary
 Action | Format | Example
--------|--------|--------
+:---|:---|:---
 Help   |`help`  |`help`
 Add Todo |`todo [TASK_NAME]` | `todo buy groceries`
 Add Deadline | `deadline [TASK_NAME] /by [DATE_TIME]` | `return book /by 08 10 2021 1700`
