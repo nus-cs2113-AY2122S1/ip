@@ -135,11 +135,12 @@ Adds a *DEADLINE* task to the task list. By default, the task is set to **not do
     * 2022-07-08 0:54 -> **INVALID**
     * 22-07-08 00:54 -> **INVALID**
     * 2022-07-08 00:54 ->  **VALID**
-- Note: The date of the month, the number of the month, the hours and minutes should be in double digits.
+- Note: The date of the month, the number of the month, the hours and minutes should be in **double digits**.
     * For example: If date is 9 August 2021 , it should be written as 2021-08-09.
     * Similarly, the year should be given as a four digit - **YYYY**.
     * The timing should contain double digits for the hours and minutes separated by a **colon**. Timing without a colon
-      is not acceptable.
+      is not acceptable. For example : 02:08 is **valid** whereas 2:08 and 0208 are **invalid** timing formats.
+    * The timing follows the 24-hour notation.
 
 Example: `deadline read book /by 2021-10-13 16:00`
 
