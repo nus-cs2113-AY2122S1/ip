@@ -1,6 +1,6 @@
-#**IKAROS User Guide**
+# **IKAROS User Guide**
 
-##Overview
+## Overview
 **Ikaros is your very own desktop butler application, to managing tasks, deadlines and events,
 optimized for use through a Command Line Interface (CLI).**
 * Overview
@@ -8,15 +8,15 @@ optimized for use through a Command Line Interface (CLI).**
 * Quick Start
 * Features
 -------------------------------
-##First Time Installation:
+## First Time Installation:
 Prerequisite - ensure you have Java 11 or above installed in your Computer
 
 1. Download Ikaros.jar to your desired folder
 2. In the same folder run *java -jar IP.jar* on the console. (Do ensure you have Java JDK 11)
 
 Ikaros will create an *ikarosTaskData.txt* that will store your data for future reference when you launch the application for the first time.
-
-##Quick Start
+-------------------------------
+## Quick Start
 Ensure you have completed the first time installation before proceeding with the running of this program
 
 Upon Start up you will be greeted with a message similar to this displaying the day and the date
@@ -43,8 +43,8 @@ Following which, it will display the stored List  of tasks, and the user can beg
 > - Words in `<UPPERCASE_AND_ANGULAR_BRACKETS>` refers to the parameters required for the specific commands
 > - Words in angular brackets `<SEPERATED_BY/A_SLASH>` refer to either our parameters where one or the othere parameter can be used.
 > - The format for how each command should be keyed in will be `demarcated in this box`
-
-##Features
+-------------------------------
+## Features
 Below is a brief summary of the usable commands and features that can be utilised for Ikaros. 
 Click on the separate links to find out more about each feature.
 * Adding a Task
@@ -66,7 +66,7 @@ Click on the separate links to find out more about each feature.
 * Exiting the application: `bye`
 
 
-###Adding a Task
+### Adding a Task
 There are 3 different types of task that can be added (Todo, Deadline, Event). Tasks in the past cannot be added due to the lack of a time machine.
 > #### `add todo` -> adds a todo task
 >> * Format: `add todo <TASK_DESCRIPTION>`
@@ -95,7 +95,7 @@ This command will allow you to mark a task as done or un-mark it as un-done. Mul
 >> * Example: `undo 1`
 >> * Example: `undo 3,2,1`
 
-###Displaying a list of Tasks
+### Displaying a list of Tasks
 This command can be used to view the different tasks in your list. Specifying which type of task you want to view will show you a list of those types of tasks arranged according to their date in ascending order.
 > #### `list` -> lists all the Task in order of date and time added
 >> * Format: `list`
@@ -106,25 +106,25 @@ This command can be used to view the different tasks in your list. Specifying wh
 > #### `list event` -> lists all Todos in order of date and time the event will be held at (nearest date to furthest)
 >> * Format: `list event`
 
-###Update a Task
+### Update a Task
 This command allows you to update the description or date of a specific task base on its index in the main list. An update cannot be undone.
 > #### `update` -> updates a specific task
 >> * Format: `update <TASK_NUMBER> <DESCRIPTION/DATE>`
 >> * Example: `update 2 date`
 >> * Example: `update 5 description`
 
-###Find a Task
+### Find a Task
 This command allows you to Tasks related to a specific keyword.
 > #### `find` -> task that is related to the keyword
 >> * Format: `find <KEYWORD>`
 >> * Example: `find read`
 
-###Help
+### Help
 This command shows you, the list and the format of the usable commands while in the application
 > #### `help`
 >> * Format: `help`
 
-###Exiting the Application
+### Exiting the Application
 This command allows you to exit and close the program
 > #### 'bye'
 >> * Format: `bye`
