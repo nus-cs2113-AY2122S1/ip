@@ -53,6 +53,7 @@ public class DataStorage {
             this.filePath = Paths.get(filePath);
         } catch (InvalidFileTypeException ifte) {
             Ui.printInvalidFileTypeMessage();
+            System.exit(1);
         }
     }
 
@@ -71,6 +72,9 @@ public class DataStorage {
      * @param taskList task list into which the tasks are to be loaded
      */
     public void loadData(TaskList taskList) {
+        if(filePath == null) {
+            return;
+        }
         Scanner fileScanner = getScanner(filePath.toString());
         readData(fileScanner, taskList.getTaskList());
     }
@@ -87,6 +91,7 @@ public class DataStorage {
             writeData(taskList.getTaskList());
         } catch (IOException ioe) {
             System.out.println(FILE_WRITE_ERROR_MESSAGE + ioe.getMessage());
+            System.exit(1);
         }
     }
 
