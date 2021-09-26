@@ -3,7 +3,7 @@ Hello this is Smurf Village, you command line chat bot to get Smurfs working for
 
 ## Quick start
 1. Before starting, install the latest version of Java 11 on your computer.
-2. Download the latest release of Smurf Village here.
+2. Download the latest release of Smurf Village at https://github.com/leowyy99/ip/releases/download/A-Release/ip.jar
 3. Move the .jar file to your desired folder.
 4. Open a terminal in the folder with the .jar file and execute the command ```java -jar ip.jar```
 5. If the program runs as intended, you should see the following output:
