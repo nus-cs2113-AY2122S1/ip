@@ -31,7 +31,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.TaskStatus() + "] " + this.taskName;
+        return "[" + this.TaskStatus() + "] " + this.getTaskName();
     }
 }
 

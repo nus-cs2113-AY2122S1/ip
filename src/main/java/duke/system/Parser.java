@@ -3,6 +3,8 @@ package duke.system;
 import duke.command.*;
 import duke.exception.*;
 
+import java.time.LocalDate;
+
 public class Parser {
 
     private String getCommandType(String inputLine) {
@@ -17,13 +19,45 @@ public class Parser {
         return fullCommand.substring("deadline ".length(), fullCommand.indexOf("/by "));
     }
 
-
     private String getDeadlineTime(String fullCommand) {
-        return fullCommand.substring(fullCommand.indexOf("/by ") + "/by ".length());
+        String rawDeadlineDateTime = fullCommand.substring(fullCommand.indexOf("/by ") + "/by ".length());
+        String deadlineTime = rawDeadlineDateTime.split(" ")[1];
+        return deadlineTime;
+    }
+
+    private LocalDate getDeadlineDate(String fullCommand) {
+        String rawDeadlineDateTime = fullCommand.substring(fullCommand.indexOf("/by ") + "/by ".length());
+        String rawDeadlineDate = rawDeadlineDateTime.split(" ")[0];
+        LocalDate deadlineDate = LocalDate.parse(rawDeadlineDate);
+        return deadlineDate;
     }
 
     private String getEventName(String fullCommand) {
         return fullCommand.substring("event ".length(), fullCommand.indexOf("/at "));
+    }
+
+    private LocalDate[] getEventDates(String fullCommand) {
+        String rawEventDatesTimes = fullCommand.substring(fullCommand.indexOf("/at ") + "/at ".length());
+        String rawEventStartDateTime = rawEventDatesTimes.split(" to ")[0];
+        String rawEventEndDateTime = rawEventDatesTimes.split(" to ")[1];
+        String rawEventStartDate = rawEventStartDateTime.split(" ")[0];
+        String rawEventEndDate = rawEventEndDateTime.split(" ")[0];
+        LocalDate eventStartDate = LocalDate.parse(rawEventStartDate);
+        LocalDate eventEndDate = LocalDate.parse(rawEventEndDate);
+        return new LocalDate[] {eventStartDate, eventEndDate};
+    }
+
+    private String[] getEventTimes(String fullCommand) {
+        String rawEventDatesTimes = fullCommand.substring(fullCommand.indexOf("/at ") + "/at ".length());
+        String rawEventStartDateTime = rawEventDatesTimes.split(" to ")[0];
+        String rawEventEndDateTime = rawEventDatesTimes.split(" to ")[1];
+        String eventStartTime = rawEventStartDateTime.split(" ")[1];
+        String eventEndTime = rawEventEndDateTime.split(" ")[1];
+        return new String[] {eventStartTime, eventEndTime};
+    }
+
+    private String getTodoTime(String fullCommand) {
+        return fullCommand.substring("todo ".length());
     }
 
     private boolean isCompleteEventCommand(String fullCommand) {
@@ -124,16 +158,21 @@ public class Parser {
                 throw new WrongFormat();
             } else {
                 String deadlineName = getDeadlineName(fullCommand);
+                LocalDate deadlineDate = getDeadlineDate(fullCommand);
                 String deadlineTime = getDeadlineTime(fullCommand);
-                return new AddDeadlineCommand(deadlineName, deadlineTime);
+                return new AddDeadlineCommand(deadlineName, deadlineDate, deadlineTime);
             }
         case "event":
             if (!isCompleteEventCommand(fullCommand)) {
                 throw new WrongFormat();
             } else {
                 String eventName = getEventName(fullCommand);
-                String eventTime = getEventTime(fullCommand);
-                return new AddEventCommand(eventName, eventTime);
+                LocalDate eventStartDate = getEventDates(fullCommand)[0];
+                String eventStartTime = getEventTimes(fullCommand)[0];
+                LocalDate eventEndDate = getEventDates(fullCommand)[1];
+                String eventEndTime = getEventTimes(fullCommand)[1];
+                return new AddEventCommand(eventName, eventStartDate, eventStartTime,
+                        eventEndDate, eventEndTime);
             }
         case "todo":
             if (!isCompleteTodoCommand(fullCommand)) {
