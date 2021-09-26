@@ -25,6 +25,12 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 
+    public static void printFarewellMessage() {
+        System.out.println(LINE_SEPARATOR);
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(LINE_SEPARATOR);
+    }
+
     /**
      * Prints the message containing how many tasks are in the list
      *

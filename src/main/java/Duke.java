@@ -100,9 +100,7 @@ public class Duke {
         switch (command) {
         case COMMAND_EXIT:
             fileManager.writeArrayToFile(taskManager);
-            System.out.println(LINE_SEPARATOR);
-            System.out.println("Bye. Hope to see you again soon!");
-            System.out.println(LINE_SEPARATOR);
+            Ui.printFarewellMessage();
             canRunDuke = false;
             break;
         case COMMAND_LIST:
