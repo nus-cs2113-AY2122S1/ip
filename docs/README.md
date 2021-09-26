@@ -9,7 +9,25 @@
 
 [Features](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/docs#features)
 
+- [active-update](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#active-update)
+- [anti-duplicate](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#anti-duplicate)
+- [types-of-task](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#3-types-of-task)
+- [marking-task-as-done](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#marking-finished-task)
+- [search-task](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#search-for-task)
+
 [Commands](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/docs#usage)
+
+- [todo](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#todo---adds-a-todo-type-of-task)
+- [event](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#event---adds-a-event-type-of-task)
+- [deadline](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#deadline---adds-a-deadline-type-of-task)
+- [list](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#list---list-out-all-the-current-task)
+- [done](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#done---marks-a-particular-task-as-done)
+- [delete](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#delete---delete-a-particular-task)
+- [find](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#find---allows-user-to-search-for-a-task)
+- [list](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#help---list-out-the-list-of-command)
+- [bye](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#bye---terminates-the-app)
+
+[Summary](https://github.com/YEOWEIHNGWHYELAB/ip/blob/master/docs/README.md#summary)
 
 ## Introducing DUKE CS2113T
 Hello there 👋 and welcome to **Duke**! **Duke** is a Task List designed to store various type of 
