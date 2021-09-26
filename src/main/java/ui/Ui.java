@@ -2,6 +2,7 @@ package ui;
 
 import commands.CommandResult;
 
+import commands.PrintOptions;
 import constants.Message;
 import task.Task;
 
@@ -78,6 +79,7 @@ public class Ui {
         case ONLY_TASK:
             printCommandResultMessage(result,!NOTIFY_NUMBER_OF_TASK,PRINT_TASK);
             break;
+        case LIST_WITH_SPECIFIC_CONDITIONS:
         case LIST:
             printList(result);
             break;
@@ -95,8 +97,14 @@ public class Ui {
      * Prints the tasks based on the given format
      */
     private void printTask(CommandResult result) {
-        for (int i = 0; i < Task.getTotalTasks(); i++) {
-            printWordsWithIndentation(i + 1 + "." + result.tasks.getTask(i).getStatusIconAndDescription());
+        if(result.type == PrintOptions.LIST_WITH_SPECIFIC_CONDITIONS) {
+            for(int i = 0; i < result.tasks.getNumberOfTasks(); i++) {
+                printWordsWithIndentation(i + 1 + "." + result.tasks.getTask(i).getStatusIconAndDescription());
+            }
+        } else {
+            for(int i = 0; i < Task.getTotalTasks(); i++) {
+                printWordsWithIndentation(i + 1 + "." + result.tasks.getTask(i).getStatusIconAndDescription());
+            }
         }
     }
 

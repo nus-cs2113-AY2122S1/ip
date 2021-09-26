@@ -8,6 +8,9 @@ public class Parser {
 
     private static final String DEADLINE_DESCRIPTION_AND_DATE_SPLITTER = " /by ";
     private static final String EVENT_DESCRIPTION_AND_DATE_TIME_SPLITTER = " /at ";
+    private static final String FIND_FORMAT_ERROR = "Please type the find function in the format: " +
+            "'find (description)' :)";
+    private static final int FIND_STARTING_INDEX = 5;
     private static final int TODO_STARTING_INDEX = 5;
     private static final int DEADLINE_STARTING_INDEX = 9;
     private static final int EVENT_STARTING_INDEX = 6;
@@ -36,13 +39,21 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "done":
-            return new DoneCommand(input);
+            return new DoneCommand(input.strip());
         case "help":
             return new HelpCommand();
         case "delete":
-            return new DeleteCommand(input);
+            return new DeleteCommand(input.strip());
         case "bye":
             return new ExitCommand();
+        case "find":
+            try {
+                return new FindCommand(input.strip().substring(FIND_STARTING_INDEX));
+
+            } catch (StringIndexOutOfBoundsException error) {
+                return new IncorrectCommand(FIND_FORMAT_ERROR);
+
+            }
         default :
             return new IncorrectCommand(Message.TYPE_SUITABLE_COMMAND_MESSAGE);
         }
