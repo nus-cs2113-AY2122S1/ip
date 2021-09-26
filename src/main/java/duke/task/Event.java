@@ -15,7 +15,8 @@ public class Event extends Task {
      *
      * @param description string with the event
      *                    description
-     * @param on          date/time for the event
+     * @param on          date and time for the event in LocalDateTime
+     * @param onString    date and time for the task in String
      */
     public Event(String description, LocalDateTime on, String onString) {
         super(description);

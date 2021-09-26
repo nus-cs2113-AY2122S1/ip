@@ -15,7 +15,8 @@ public class Deadline extends Task {
      *
      * @param description string with the task
      *                    description
-     * @param by          deadline for the task
+     * @param by          deadline for the task in LocalDateTime
+     * @param byString    deadline for the task in String
      */
     public Deadline(String description, LocalDateTime by, String byString) {
         super(description);
