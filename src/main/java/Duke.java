@@ -1,6 +1,7 @@
 import commands.Command;
 import commands.CommandResult;
 import commands.ExitCommand;
+import commands.ListCommand;
 import common.DukeException;
 import parser.Parser;
 import storage.Storage;
@@ -23,9 +24,14 @@ public class Duke {
         }
     }
 
+    private void executeWelcome() {
+        ui.showWelcome();
+        ui.showResultToUser(executeCommand(new ListCommand()));
+    }
+
     public void run() {
         Command c;
-        ui.showWelcome();
+        executeWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {

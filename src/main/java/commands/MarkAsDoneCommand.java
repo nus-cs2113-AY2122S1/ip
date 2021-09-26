@@ -6,7 +6,7 @@ public class MarkAsDoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
     public static final String MESSAGE_USAGE = "done: Marks the task corresponding to the task number as complete.\n"
             + "Parameters: TASK_INDEX\n"
-            + "Example: done 2";
+            + "Example: done 2\n";
     public static final String MESSAGE_SUCCESS = "Completed: %1$s\n"+
             "Wow. You finally completed a task after lazying around all day.";
 

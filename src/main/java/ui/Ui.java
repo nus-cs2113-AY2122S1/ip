@@ -1,6 +1,6 @@
 package ui;
 
-import commands.CommandResult;
+import commands.*;
 import task.Task;
 
 import java.io.InputStream;
@@ -21,12 +21,25 @@ public class Ui {
     public static final String GREETING = "Why are you here again. What do you want";
 
     public static final String INDENT = "\t";
+    public static final String NEW_LINE = "\n\t";
     public static final String INDENTED_NEW_LINE = "\n\t\t";
     public static final String DIVIDER = "_______________________________";
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
 
     public static final int DISPLAYED_INDEX_OFFSET = 1;
+
+    public static final String USER_GUIDE = "\n" + AddTodoCommand.MESSAGE_USAGE
+            + "\n" + AddEventCommand.MESSAGE_USAGE
+            + "\n" + AddDeadlineCommand.MESSAGE_USAGE
+            + "\n" + ClearCommand.MESSAGE_USAGE
+            + "\n" + DeleteCommand.MESSAGE_USAGE
+            + "\n" + ExitCommand.MESSAGE_USAGE
+            + "\n" + FindCommand.MESSAGE_USAGE
+            + "\n" + HelpCommand.MESSAGE_USAGE
+            + "\n" + ListCommand.MESSAGE_USAGE
+            + "\n" + MarkAsDoneCommand.MESSAGE_USAGE;
+
 
     private final Scanner in;
     private final PrintStream out;
@@ -74,7 +87,7 @@ public class Ui {
 
     private void showToUser(String... message) {
         for (String m : message) {
-            out.println(INDENT + m.replace("\n", INDENTED_NEW_LINE));
+            out.println(INDENT + m.replace("\n", NEW_LINE));
         }
     }
 

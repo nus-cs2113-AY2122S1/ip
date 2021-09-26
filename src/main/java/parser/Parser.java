@@ -16,39 +16,43 @@ public class Parser {
     public static final String TIME_KEYWORD = "t/";
 
     public Command parseCommand(String userInputString) throws DukeException {
-        final String[] commandTypeAndParams = splitCommandWordsAndArgs(userInputString, "\\s+");
-        final String commandType = commandTypeAndParams[0];
-        final String commandArgs = commandTypeAndParams[1];
-        if (commandArgs.isEmpty()
-                && !commandType.equals(ListCommand.COMMAND_WORD)
-                && !commandType.equals(FindCommand.COMMAND_WORD)
-                && !commandType.equals(HelpCommand.COMMAND_WORD)
-                && !commandType.equals(ClearCommand.COMMAND_WORD)
-                && !commandType.equals(ExitCommand.COMMAND_WORD)) {
-            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
-        }
-        switch (commandType) {
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-        case FindCommand.COMMAND_WORD:
-            return new FindCommand(commandArgs);
-        case MarkAsDoneCommand.COMMAND_WORD:
-            return prepareMarkAsDone(commandArgs);
-        case AddTodoCommand.COMMAND_WORD:
-            return prepareAddTodo(commandArgs);
-        case AddEventCommand.COMMAND_WORD:
-            return prepareAddEvent(getTaskDateArgs(commandArgs));
-        case AddDeadlineCommand.COMMAND_WORD:
-            return prepareAddDeadline(getTaskDateArgs(commandArgs));
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-        case DeleteCommand.COMMAND_WORD:
-            return prepareDeleteTask(commandArgs);
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-        default:
+        try {
+            final String[] commandTypeAndParams = splitCommandWordsAndArgs(userInputString, "\\s+");
+            final String commandType = commandTypeAndParams[0].trim();
+            final String commandArgs = commandTypeAndParams[1].trim();
+            if (commandArgs.isEmpty()
+                    && !commandType.equals(ListCommand.COMMAND_WORD)
+                    && !commandType.equals(FindCommand.COMMAND_WORD)
+                    && !commandType.equals(HelpCommand.COMMAND_WORD)
+                    && !commandType.equals(ClearCommand.COMMAND_WORD)
+                    && !commandType.equals(ExitCommand.COMMAND_WORD)) {
+                return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
+            }
+            switch (commandType) {
+            case ListCommand.COMMAND_WORD:
+                return new ListCommand();
+            case FindCommand.COMMAND_WORD:
+                return new FindCommand(commandArgs);
+            case MarkAsDoneCommand.COMMAND_WORD:
+                return prepareMarkAsDone(commandArgs);
+            case AddTodoCommand.COMMAND_WORD:
+                return prepareAddTodo(commandArgs);
+            case AddEventCommand.COMMAND_WORD:
+                return prepareAddEvent(getTaskDateArgs(commandArgs));
+            case AddDeadlineCommand.COMMAND_WORD:
+                return prepareAddDeadline(getTaskDateArgs(commandArgs));
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
+            case DeleteCommand.COMMAND_WORD:
+                return prepareDeleteTask(commandArgs);
+            case ClearCommand.COMMAND_WORD:
+                return new ClearCommand();
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
+            default:
+                return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
+            }
+        } catch (DukeException e) {
             return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
         }
     }
@@ -61,18 +65,30 @@ public class Parser {
         return new String[]{split[0], ""};
     }
 
-    public static String[] getTaskDateArgs(String commandArgs) {
+    public static String[] getTaskDateArgs(String commandArgs) throws DukeException {
         String[] descriptionAndDatetime = splitCommandWordsAndArgs(commandArgs, DATE_KEYWORD);
+        String description = descriptionAndDatetime[0].trim();
         String[] dateAndTime = splitCommandWordsAndArgs(descriptionAndDatetime[1].trim(), TIME_KEYWORD);
-        return new String[]{descriptionAndDatetime[0], dateAndTime[0], dateAndTime[1]};
+        String date = dateAndTime[0].trim();
+        String time = dateAndTime[1].trim();
+        if (description.isEmpty()||date.isEmpty()) {
+            throw new DukeException("Error. Unable to get task date arguments. ");
+        }
+        return new String[]{description, date, time};
     }
 
     public static Command prepareAddTodo(String description) {
+        if (description.isEmpty()) {
+            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
         return new AddTodoCommand(description, false);
     }
 
     public static Command prepareAddEvent(String[] eventArgs) throws DukeException {
-        String description = eventArgs[0];
+        String description = eventArgs[0].trim();
+        if (description.isEmpty()) {
+            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
         LocalDate date = parseArgsAsDate(eventArgs[1].trim());
         LocalTime time = parseArgsAsTime(eventArgs[2].trim());
         LocalDateTime dateTime = date.atTime(time);
@@ -80,33 +96,47 @@ public class Parser {
     }
 
     public static Command prepareAddDeadline(String[] deadlineArgs) throws DukeException {
-
         String description = deadlineArgs[0];
+        if (description.isEmpty()) {
+            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
         LocalDate date = parseArgsAsDate(deadlineArgs[1].trim());
         LocalTime time = parseArgsAsTime(deadlineArgs[2].trim());
         LocalDateTime dateTime = LocalDateTime.of(date, time);
         return new AddDeadlineCommand(description, false, dateTime);
     }
 
-    public static LocalDate parseArgsAsDate(String str) throws DateTimeParseException, DukeException {
-        if (str.trim().isEmpty()) {
+    public static LocalDate parseArgsAsDate(String date) throws DukeException {
+        if (date.isEmpty()) {
             throw new DukeException("Could not find date to parse");
         }
-        return LocalDate.parse(str.trim());
+        try {
+            return LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Error parsing date. ");
+        }
     }
 
-    public static LocalTime parseArgsAsTime(String str) throws DateTimeParseException {
-        if (str.trim().isEmpty()) {
+    public static LocalTime parseArgsAsTime(String time) throws DukeException {
+        if (time.isEmpty()) {
             return LocalTime.MIN;
         }
-        return LocalTime.parse(str.trim());
+        try {
+            return LocalTime.parse(time);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Error parsing time. ");
+        }
     }
 
-    private static int parseArgsAsDisplayedIndex(String displayIndex) throws DukeException, NumberFormatException {
+    private static int parseArgsAsDisplayedIndex(String displayIndex) throws DukeException {
         if (displayIndex.isEmpty()) {
-            throw new DukeException("You did not enter a task index. Try again.");
+            throw new DukeException("Error. Task index not found. ");
         }
-        return Integer.parseInt(displayIndex.trim());
+        try {
+            return Integer.parseInt(displayIndex.trim());
+        } catch (NumberFormatException e) {
+            throw new DukeException("Error. Invalid task index.");
+        }
     }
 
     public static Command prepareDeleteTask(String displayIndex) throws DukeException {

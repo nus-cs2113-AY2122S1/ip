@@ -1,13 +1,13 @@
 package commands;
 
-import static common.Messages.USER_GUIDE;
+import static ui.Ui.USER_GUIDE;
 
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
     public static final String MESSAGE_USAGE = "help: Shows program usage instructions.\n"
-            + "Example: help";
+            + "Example: help\n";
 
     @Override
     public CommandResult execute() {

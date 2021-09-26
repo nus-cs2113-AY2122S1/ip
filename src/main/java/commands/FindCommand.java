@@ -9,7 +9,7 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
     public static final String MESSAGE_USAGE = "find: Finds a task by searching for a keyword. \n"
             + "Parameters: KEYWORD\n"
-            + "Example: find books";
+            + "Example: find books\n";
     public static final String MESSAGE_SUCCESS = "Here are the matching tasks: ";
     public static final String MESSAGE_NO_MATCHING_TASKS = "There are no tasks that match your keyword.";
 
