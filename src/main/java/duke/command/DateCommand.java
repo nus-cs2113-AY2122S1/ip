@@ -18,12 +18,12 @@ public class DateCommand extends Command{
     }
 
     /**
-     * Prints tasks with a valid date
+     * Prints found tasks with given date
      * @param tasks TaskList to be read
      */
     @Override
     public void execute(TaskList tasks) {
-        tasks.printTasksWithValidDate();
+        tasks.setTaskDateIfFound();
         saveListAndPrintDone(tasks);
     }
 }

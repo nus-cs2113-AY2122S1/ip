@@ -138,7 +138,7 @@ public class TaskList {
         return false;
     }
 
-    public void printTasksWithValidDate() {
+    public void setTaskDateIfFound() {
         for (Task t : taskList) {
             setTimeFromSavedList(t);
             }

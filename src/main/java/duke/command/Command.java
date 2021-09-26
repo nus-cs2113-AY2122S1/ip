@@ -30,7 +30,7 @@ public abstract class Command {
     }
 
     /**
-     * Returns <boolean>true</boolean> if user enters <code>stop</code> command.
+     * Returns true if user enters <code>stop</code> command.
      * Note that this is only applicable for commands with variable user input,
      *  rather than commands that only take in the prefix.
      *
