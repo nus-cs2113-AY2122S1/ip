@@ -1,7 +1,6 @@
 package duke.processes.utility;
 
 import duke.processes.commands.*;
-import duke.processes.utility.Interface;
 
 public class Parser {
 
@@ -23,6 +22,8 @@ public class Parser {
             return new HelpCommand();
         case "find":
             return new FindCommand(command, response);
+        case "update":
+            return new UpdateCommand(command);
         default:
             System.out.println("Im sorry i did not catch that maybe these instructions below will help"
                     + System.lineSeparator() + Interface.lineBreak);

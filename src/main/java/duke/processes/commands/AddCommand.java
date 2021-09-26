@@ -78,7 +78,7 @@ public class AddCommand extends Command {
                 throw new DateTimeException("Unfortunately we cannot travel back in Time. Please key in a valid date");
             }
         } catch (DateTimeParseException e) {
-            throw new TimeException("please use this format for date and time: /at-dd/MM/yyyy-HH:mm ");
+            throw new TimeException("please use this format for date and time: /at-dd/MM/yyyy-HHmm ");
         }
         taskTime = date;
     }
