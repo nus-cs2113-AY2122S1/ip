@@ -25,8 +25,8 @@ public class DoneCommand extends Command {
      * Executes the DoneCommand by marking the task
      * corresponding to taskId as done.
      *
-     * @param taskManager Used to mark task as done.
-     * @param ui          Used to print messages.
+     * @param taskManager TaskManager object used to mark task as done.
+     * @param ui          Ui object used to print messages.
      * @throws DukeException If taskId is invalid.
      */
     @Override

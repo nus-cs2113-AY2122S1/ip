@@ -25,8 +25,8 @@ public class DeleteTaskCommand extends Command {
      * Executes the DeleteTaskCommand by deleting the
      * task corresponding to the taskId.
      *
-     * @param taskManager Used to delete task.
-     * @param ui          Used to print messages.
+     * @param taskManager TaskManager object used to delete task.
+     * @param ui          Ui object used to print messages.
      * @throws DukeException If taskId is invalid.
      */
     @Override

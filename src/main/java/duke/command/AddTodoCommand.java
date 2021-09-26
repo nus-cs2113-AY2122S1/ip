@@ -27,8 +27,8 @@ public class AddTodoCommand extends Command {
      * Executes the AddTodoCommand by adding a Todo task to the
      * ArrayList of tasks.
      *
-     * @param taskManager Used to add the Todo task.
-     * @param ui          Used to print message.
+     * @param taskManager TaskManager object used to add the Todo task.
+     * @param ui          Ui object used to print message.
      * @throws DukeException If the command description is empty.
      */
     public void execute(TaskManager taskManager, Ui ui) throws DukeException {

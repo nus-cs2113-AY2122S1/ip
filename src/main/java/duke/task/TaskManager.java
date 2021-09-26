@@ -163,7 +163,7 @@ public class TaskManager {
      * prints all matching tasks.
      *
      * @param keyword Keyword used to filter tasks by.
-     * @param ui      Used to print all matching tasks.
+     * @param ui      Ui object used to print all matching tasks.
      * @throws DukeException If keyword is empty.
      */
     public void findTasks(String keyword, Ui ui) throws DukeException {

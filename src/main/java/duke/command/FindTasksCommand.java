@@ -25,8 +25,8 @@ public class FindTasksCommand extends Command {
      * Executes the FindTasksCommand by filtering tasks
      * based on the keyword.
      *
-     * @param taskManager Used to filter tasks based on keyword.
-     * @param ui          Passed to the findTasks method.
+     * @param taskManager TaskManager object used to filter tasks based on keyword.
+     * @param ui          Ui object passed to the findTasks method.
      * @throws DukeException If keyword is empty.
      */
     @Override

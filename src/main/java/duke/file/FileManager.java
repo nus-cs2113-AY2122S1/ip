@@ -67,7 +67,7 @@ public class FileManager {
     /**
      * Initialises Duke status by preloading the saved tasks from the file at filePath.
      *
-     * @param taskManager Used to preload the saved tasks from the file.
+     * @param taskManager TaskManager object used to preload the saved tasks from the file.
      * @throws IOException If an I/O error occurs.
      */
     // @@author brendanlsz-reused
@@ -84,7 +84,7 @@ public class FileManager {
     /**
      * Saves all the current tasks to the file at filePath.
      *
-     * @param taskManager Used to convert current tasks to a String.
+     * @param taskManager TaskManager object used to convert current tasks to a String.
      * @throws IOException If an I/O error occurs.
      */
     // @@author brendanlsz-reused
@@ -110,7 +110,7 @@ public class FileManager {
      * Then, print to the user a success message if successful, or an error
      * message otherwise.
      *
-     * @param taskManager Passed to the saveDukeStatus method.
+     * @param taskManager TaskManager object passed to the saveDukeStatus method.
      */
     public void saveDuke(TaskManager taskManager) {
         createDirectory();
@@ -127,7 +127,7 @@ public class FileManager {
     /**
      * Calls the saveDukeStatus method in order to save the current tasks.
      *
-     * @param taskManager Passed to the saveDukeStatus method.
+     * @param taskManager TaskManager object passed to the saveDukeStatus method.
      */
     public void saveDukeWithoutMessage(TaskManager taskManager) {
         createDirectory();
@@ -143,7 +143,7 @@ public class FileManager {
      * Initialises Duke by creating a directory and file if they do not exist, then
      * calls the initialiseDukeStatus method to initialise the status of Duke.
      *
-     * @param taskManager Passed to the initialiseDukeStatus method.
+     * @param taskManager TaskManager object passed to the initialiseDukeStatus method.
      */
     public void initialiseDuke(TaskManager taskManager) {
         createDirectory();

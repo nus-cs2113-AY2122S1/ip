@@ -28,8 +28,8 @@ public class AddEventCommand extends Command {
      * Executes the AddEventCommand by adding an Event to the
      * ArrayList of tasks.
      *
-     * @param taskManager Used to add the Event task.
-     * @param ui          Used to print message.
+     * @param taskManager TaskManager object used to add the Event task.
+     * @param ui          Ui object used to print message.
      * @throws DukeException If the command description is empty.
      */
     public void execute(TaskManager taskManager, Ui ui) throws DukeException {
