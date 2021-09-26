@@ -4,10 +4,62 @@
 Hello there 👋 and welcome to **Duke**! **Duke** is a Task List designed to store various type of 
 task like todo, event and deadline which can be displayed to the user.  
 
-## Setting up
+## Getting up
+- Download the JAR file [JAR Link]().
+- This open a terminal and ensure that you switch your jdk to java 11 first.
 - The "text-art" folder that contains all the text-art needs to be included in the JAR directory. 
 - data/duke.txt will be created in the JAR directory if it does not exist and the duke.txt must 
 be kept empty (unless it is of the correct format - generated from this app).
+
+## Welcome Screen
+
+3 welcome text art will be shown in sequence (as shown below).
+
+```
+____________________________________________________________
+ ________  ___  ___  ___  __    _______       ___    ___ 
+|\   ___ \|\  \|\  \|\  \|\  \ |\  ___ \     |\  \  /  /|
+\ \  \_|\ \ \  \\\  \ \  \/  /|\ \   __/|    \ \  \/  / /
+ \ \  \ \\ \ \  \\\  \ \   ___  \ \  \_|/__   \ \    / / 
+  \ \  \_\\ \ \  \\\  \ \  \\ \  \ \  \_|\ \   \/  /  /  
+   \ \_______\ \_______\ \__\\ \__\ \_______\__/  / /    
+    \|_______|\|_______|\|__| \|__|\|_______|\___/ /     
+                                            \|___|/      
+____________________________________________________________
+```
+```
+            .------.
+           /  ~ ~   \,------.      ______
+         ,'  ~ ~ ~  /  (@)   \   ,'      \
+       ,'          /`.    ~ ~ \ /         \
+     ,'           | ,'\  ~ ~ ~ X     \  \  \
+   ,'  ,'          V--<       (       \  \  \
+ ,'  ,'               (vv      \/\  \  \  |  |
+(__,'  ,'   /         (vv   ""    \  \  | |  |
+  (__,'    /   /       vv   """    \ |  / / /
+      \__,'   /  |     vv          / / / / /
+          \__/   / |  | \         / /,',','
+             \__/\_^  |  \       /,'',','\
+                    `-^.__>.____/  ' ,'   \
+                            // //---'      |
+          ===============(((((((=================
+                                     | \ \  \
+                                     / |  |  \
+                                    / /  / \  \
+                                    `.     |   \
+```
+```
+____________________________________________________________
+
+Hello! I'm Parrot Boi, What can I not do for you (I'm Lazy)? 
+
+c(＞ω＜)ゞ
+
+I'm currently in parrot to-do mode!
+
+Give me something to remember and I will annoy you XD    
+____________________________________________________________
+```
 
 ## Features 
 
@@ -28,6 +80,10 @@ Todo: Purely descriptive.
 Event: Description and time of occurrence in format of (yyyy-mm-dd HH:mm).
 
 Deadline: Description and time which the task is due in format of (yyyy-mm-dd HH:mm). 
+
+#### Marking finished Task
+
+You can mark any particular task in the list as completed. 
 
 #### Search for Task
 
