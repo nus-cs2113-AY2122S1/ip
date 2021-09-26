@@ -21,27 +21,30 @@ Duke is a java application to manage tasks via command line interface (CLI). Thi
 
 ## Quick Start
 1. Ensure that you have [java](https://aws.amazon.com/corretto/) (version 11 and above) installed in your computer.
-2. Download duke.jar from A-Release tag and store it into a folder.
-3. Store duke.jar file to the file that you would want to store
+2. Download miniDuke.jar from A-Release tag and store it into a folder.
+3. Store miniDuke.jar file to the file that you would want to store
 4. Open command prompt(for windows) or terminal(for mac and linux) and change directory to the folder .jar file is stored
 5. Run command ```java -jar duke.jar```
 6. Upon start, if you manage to see the message below in your console, you have successfully installed and run duke.jar
 
 ```
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+          (_)     (_) ____        _        
+ _ __ ___  _ _ __  _ |  _ \ _   _| | _____ 
+| '_ ` _ \| | '_ \| || | | | | | | |/ / _ \
+| | | | | | | | | | || |_| | |_| |   <  __/
+|_| |_| |_|_|_| |_|_||____/ \__,_|_|\_\___|
 There are too many students changing this logo away.
 Let's keep it this way to show the contribution Duke has done to
 thousands of students. (No matter positive or negative)
 F
+
+credits to address-book-level2 [https://github.com/se-edu/addressbook-level2]
     _________________________________________________________________
      Hello! I'm Duke
      What can I do for you?
     _________________________________________________________________
+
 ```
 ## Features 
 
