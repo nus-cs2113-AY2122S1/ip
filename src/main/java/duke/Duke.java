@@ -22,7 +22,6 @@ public class Duke {
         Ui.greetBye();
     }
 
-
     /**
      * Executes Duke until the user enters the command bye when the flag isWorking is set to false.
      * Sends the user's command for execution by calling the processCommand() function.
