@@ -5,6 +5,8 @@ package duke.task;
  */
 public class Todo extends Task{
 
+    private static final String ICON_TODO = "T";
+
     /**
      * Creates a Todo object.
      *
@@ -13,7 +15,6 @@ public class Todo extends Task{
     public Todo(String description) {
         super(description);
     }
-    private static final String ICON_TODO = "T";
 
     @Override
     public String getTaskIcon() {

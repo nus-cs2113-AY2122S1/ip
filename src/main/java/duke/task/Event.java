@@ -4,8 +4,9 @@ package duke.task;
  * Represents an Event Task.
  */
 public class Event extends Task{
-    protected String at;
+
     private static final String ICON_EVENT = "E";
+    protected String at;
 
     /**
      * Create an Event object.

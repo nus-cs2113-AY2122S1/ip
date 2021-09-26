@@ -13,6 +13,7 @@ import java.util.Scanner;
  * The user interface class to interact with the user.
  */
 public class Ui {
+
     private static final String SEPARATOR = "\t==============================================";
     private static final String LOGOART = "\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" +
             "\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" +

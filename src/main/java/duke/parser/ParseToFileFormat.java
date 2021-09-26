@@ -7,6 +7,7 @@ import duke.task.Todo;
  * Parse text from Task format to file format.
  */
 public class ParseToFileFormat extends Parser {
+
     /**
      * Creates a ParseToFileFormat object.
      *

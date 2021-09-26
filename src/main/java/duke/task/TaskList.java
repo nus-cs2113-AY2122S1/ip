@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Manage the task list.
  */
 public class TaskList {
+
     private ArrayList<Task> tasks;
     private int numOfTasks = 0;
 

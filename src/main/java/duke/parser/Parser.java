@@ -6,6 +6,7 @@ import java.time.LocalDate;
  * Parse text between file format, raw user input and task format.
  */
 public abstract class Parser {
+
     protected String command;
     protected String description;
     protected String timeField;

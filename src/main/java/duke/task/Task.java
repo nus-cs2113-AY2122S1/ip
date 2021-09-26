@@ -8,6 +8,7 @@ package duke.task;
  * @since 2021-08-25
  */
 public abstract class Task {
+
     protected String description;
     protected boolean isDone;
 

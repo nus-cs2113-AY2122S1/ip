@@ -16,6 +16,7 @@ import java.util.Scanner;
  * @since 2021-08-25
  */
 public class Duke {
+
     private static final String FILE_PATH = "data/userData.txt";
     private static final String FILE_DIRECTORY = "data";
     private static final String COMMAND_BYE = "bye";
@@ -26,7 +27,6 @@ public class Duke {
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_FIND = "find";
-
     private static boolean isDone = false;
     private static Ui ui;
     private static TaskList tasks;

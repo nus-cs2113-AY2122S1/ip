@@ -15,6 +15,7 @@ import java.util.Scanner;
  * Controls the persistent storage of tasks.
  */
 public class Storage {
+
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";

@@ -4,8 +4,9 @@ package duke.task;
  * Represents a Deadline Task.
  */
 public class Deadline extends Task{
-    protected String by;
+
     private static final String ICON_DEADLINE = "D";
+    protected String by;
 
     /**
      * Creates a Deadline object.

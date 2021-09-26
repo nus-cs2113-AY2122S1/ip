@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
  * Parse text from user input to Task format.
  */
 public class ParseFromRawFormat extends Parser {
+
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_TODO = "todo";
