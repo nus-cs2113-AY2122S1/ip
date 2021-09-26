@@ -19,14 +19,26 @@ public class Deadline extends Task {
         this.endTime = LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
+    /**
+     * Getter for private attribute endTime
+     * @return Returns the LocalDateTime type value attribute endTime
+     */
     public LocalDateTime getEndTime() {
         return endTime;
     }
 
+    /**
+     * Getter for the class type, retrieved from the enum TaskType
+     * @return Returns the type of the current class, 'D' for deadline
+     */
     public String getClassType() {
         return TaskType.D.toString();
     }
 
+    /**
+     * Method inherits from its superclass, display the LocalDateTime in string format
+     * @return Returns the LocalDateTime attribute endTime in string and fixed format
+     */
     public String getTime() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return endTime.format(dateTimeFormatter);

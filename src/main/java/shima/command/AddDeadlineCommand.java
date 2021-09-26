@@ -15,6 +15,11 @@ public class AddDeadlineCommand extends AddToDoCommand {
         this.time = time;
     }
 
+    /**
+     * Runs the command for creating new deadline task
+     *
+     * @throws IOException Throws this exception when there is error during accessing storage file
+     */
     public void runCommand() throws IOException {
         command = command.replaceFirst(words[0], "").trim();
         String taskName = command.split("/", 2)[0].trim();

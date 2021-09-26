@@ -10,7 +10,7 @@ import shima.command.ExitCommand;
 import shima.command.FindCommand;
 import shima.command.HelpCommand;
 import shima.command.ListCommand;
-import shima.command.ListDateCommand;
+import shima.command.DateCommand;
 import shima.command.ViewPersonalityCommand;
 import shima.design.UserInterface;
 import shima.storage.Storage;
@@ -56,7 +56,7 @@ public class Parser {
     public static final String INCORRECT_DATE_TIME_FORMAT_MSG = "Oh no! The date and time format are incorrect, the format should be : /dd-MM-yyyy HH:mm";
     public static final String INVALID_DATE_TIME_MSG = "Sorry, the input after the backslash '/' or '/by' should only contains date and time of format (dd-MM-yyyy HH:mm)";
     public static final String COMMAND_DATE = "date";
-    public static final String WRONG_DATE_TIME_FORMAT_MSG = "Sorry, the input date format is not correct! The correct format should be yyyy-MM-dd";
+    public static final String WRONG_DATE_TIME_FORMAT_MSG = "Sorry, the input date format is not correct! It should only contains date with format yyyy-MM-dd";
     public static final String INVALID_DATE_MSG = "Sorry, the input date should only contains yyyy-MM-dd";
     public static final String COMMAND_FIND = "find";
 
@@ -106,10 +106,11 @@ public class Parser {
 
     /**
      * Checks if the find command syntax and keyword are valid
-     * @param tasks The task list class object that stores all the tasks
+     *
+     * @param tasks   The task list class object that stores all the tasks
      * @param command The input command typed by the user
      * @param words   The array of words that compose the input command
-     * @param ui The user interface class object used to display message box
+     * @param ui      The user interface class object used to display message box
      * @return Returns a new find command object if the syntax is correct, return empty command otherwise
      */
     private static Command parseFindCommand(TaskList tasks, String command, String[] words, UserInterface ui) {
@@ -131,7 +132,8 @@ public class Parser {
         return new FindCommand(matchingTasks, ui);
     }
 
-    /**Checks if the input date is valid or in correct format
+    /**
+     * Checks if the input date is valid or in correct format
      *
      * @param tasks   The list class object that stores all the tasks
      * @param command The input command typed by the user
@@ -152,7 +154,7 @@ public class Parser {
                     resultList.add(deadline);
                 }
             }
-            return new ListDateCommand(resultList);
+            return new DateCommand(resultList);
         } catch (DateTimeParseException dateTimeParseException) {
             ui.showMessage(WRONG_DATE_TIME_FORMAT_MSG);
             return new Command();

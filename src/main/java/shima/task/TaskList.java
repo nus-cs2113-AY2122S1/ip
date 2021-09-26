@@ -29,31 +29,65 @@ public class TaskList {
         this.ui = ui;
     }
 
+    /**
+     * Getter used to access the array list attribute
+     *
+     * @return Returns the array list attribute value
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
     @Override
+    /**
+     * Mimics the toString behavior of the array list
+     */
     public String toString() {
         return tasks.toString();
     }
 
+    /**
+     * Mimics the behavior of the size() method of the array list
+     *
+     * @return Returns the size of the array list of the class attribute
+     */
     public int size() {
         return tasks.size();
     }
 
+    /**
+     * Mimics the behavior get() method of the array list to access element in the array list attribute
+     *
+     * @param index The index desired to access
+     * @return Returns the task element in the array list attribute
+     */
     public Task get(int index) {
         return tasks.get(index);
     }
 
+    /**
+     * Mimics the behavior of add() method of the array list to add new to-do type element to the array list attribute
+     *
+     * @param task The new task added
+     */
     public void add(ToDo task) {
         tasks.add(task);
     }
 
+    /**
+     * Mimics the behavior of add() method of the array list to add new deadline type element to the array list attribute
+     *
+     * @param task The new task added
+     */
     public void add(Deadline task) {
         tasks.add(task);
     }
 
+    /**
+     * Mimics the behavior of add() method of the array list to add new event type element to the array list attribute
+     *
+     * @param task The new task added
+     */
     public void add(Event task) {
         tasks.add(task);
     }

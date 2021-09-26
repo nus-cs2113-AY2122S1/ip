@@ -17,6 +17,11 @@ public class AddEventCommand extends AddToDoCommand {
         this.time = time;
     }
 
+    /**
+     * Runs the command for creating new event task
+     *
+     * @throws IOException Throws this exception when there is error during accessing storage file
+     */
     public void runCommand() throws IOException {
         tasks.createEvent(taskName, time);
     }

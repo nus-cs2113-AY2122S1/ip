@@ -14,6 +14,9 @@ public class ListCommand extends Command {
         this.tasks = tasks;
     }
 
+    /**
+     * Runs the command to print the to-do list
+     */
     public void runCommand() {
         tasks.printToDoList();
     }

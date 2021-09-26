@@ -19,17 +19,13 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Saves the task list to the storage file and close the program
+     * Runs the command for saving the task list to the storage file and close the program
      *
      * @throws IOException Throws this exception when there is error during saving data
      */
-    public void closeProgram() throws IOException {
+    public void runCommand() throws IOException {
         storage.updateStorage(tasks);
         ui.showMessage(GOODBYE_MSG);
         System.exit(0);
-    }
-
-    public void runCommand() throws IOException {
-        closeProgram();
     }
 }

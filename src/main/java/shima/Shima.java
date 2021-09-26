@@ -15,6 +15,11 @@ public class Shima {
     private TaskList tasks;
     private Storage storage;
 
+    /**
+     * Constructor for Shima class
+     *
+     * @param filePath The file path of the storage file
+     */
     public Shima(String filePath) {
         ui = new UserInterface(); //Displays welcome screen
         storage = new Storage(filePath, ui); //Initializes storage class object

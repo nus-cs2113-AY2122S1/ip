@@ -18,7 +18,6 @@ public class UserInterface {
      * Print the logo and greeting message
      */
     private void printLogo() {
-        //print the logo when the program starts
         System.out.println("\t              ##*                                 ");
         System.out.println("\t   .      . .&####%                               ");
         System.out.println("\t    #%%%%((&%######%**.                           ");
@@ -64,7 +63,6 @@ public class UserInterface {
      * Show the current version's functionality of the bot
      */
     private void printVersionDescription() {
-        //Uses list to store all the version information
         ArrayList<String> versionDescriptions = new ArrayList<>();
         int maxDescriptionsLength = 0;
         versionDescriptions.add("* " + CURR_VERSION);

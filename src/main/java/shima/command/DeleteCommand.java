@@ -11,6 +11,9 @@ public class DeleteCommand extends Command {
         this.words = words;
     }
 
+    /**
+     * Runs the command for deleting tasks
+     */
     public void runCommand() {
         tasks.deleteTasks(words);
     }

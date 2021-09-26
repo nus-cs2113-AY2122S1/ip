@@ -172,7 +172,7 @@ public class Storage {
         default:
             throw new ShimaException.StorageException();
         }
-        //If the task is done, set it to done
+        //Updates the status of the task (whether is done or not)
         if (tasksData[1].equals("Y")) {
             currentTask.setDone();
         }

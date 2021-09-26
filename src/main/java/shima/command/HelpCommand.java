@@ -1,6 +1,7 @@
 package shima.command;
 
 import shima.design.UserInterface;
+
 import java.util.ArrayList;
 
 public class HelpCommand extends Command {
@@ -10,10 +11,13 @@ public class HelpCommand extends Command {
     protected ArrayList<String> helpLists;
 
 
-    public HelpCommand(){
+    public HelpCommand() {
         this.helpLists = createHelpMenu();
     }
 
+    /**
+     * Runs the command for printing help menu
+     */
     public void runCommand() {
         printHelpMenu();
     }
@@ -63,7 +67,7 @@ public class HelpCommand extends Command {
                 "\t\tdelete 1 2 3\t<-- will delete the tasks with index 1, 2 and 3" + NEXT_LINE_INDENT + "\tdelete all\t<-- will delete all the tasks in the list" + System.lineSeparator());
         //Date command
         helpLists.add("To print only the task with a specific deadline, use the command \"date\" with syntax:" + NEXT_LINE_INDENT + "date [SPECIFIC_DATE (yyyy-MM-dd)]" + NEXT_LINE_INDENT +
-                "eg. date 2021-10-1\t<-- will display all the tasks with deadline date 2021-10-1"+ System.lineSeparator());
+                "eg. date 2021-10-1\t<-- will display all the tasks with deadline date 2021-10-1" + System.lineSeparator());
         //Find command
         helpLists.add("To check if there exist tasks that contain a specific keyword, use the command \"find\" with syntax" + NEXT_LINE_INDENT + "find [KEYWORD]" + NEXT_LINE_INDENT +
                 "eg. find assignment\t<-- will display all the tasks that contain the keyword \"assignment\"" + System.lineSeparator());

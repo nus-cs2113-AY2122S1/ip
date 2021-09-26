@@ -14,6 +14,9 @@ public class DoneCommand extends Command {
         this.words = words;
     }
 
+    /**
+     * Runs the command for marking task as done
+     */
     @Override
     public void runCommand() {
         tasks.markAsDone(tasks, words, storage);

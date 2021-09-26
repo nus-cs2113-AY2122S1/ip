@@ -25,7 +25,7 @@ public class AddToDoCommand extends Command {
     }
 
     /**
-     * Runs the add task command
+     * Runs the command for creating new to-do task
      *
      * @throws IOException Throws this exception when there is error occurs during accessing storage file
      */

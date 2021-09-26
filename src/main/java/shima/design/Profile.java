@@ -7,7 +7,7 @@ import java.util.Random;
  * The website available: "https://manytools.org/hacker-tools/convert-images-to-ascii-art/"
  */
 public class Profile {
-    //Pictures for view -p
+    //Pictures
     private static final String PICTURE_1 = "***********************************************************************************************************************\n" +
             "**                                                                                                                   **\n" +
             "**       (((((((((((((((((((((*#//////*///////*#/////*///////**//*****//******/*****///*,//((((((((((((((((((        **\n" +

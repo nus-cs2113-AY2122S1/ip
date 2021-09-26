@@ -10,6 +10,9 @@ public class ViewPersonalityCommand extends Command {
         profile = new Profile();
     }
 
+    /**
+     * Runs the command to print the profile of Shima bot
+     */
     @Override
     public void runCommand() {
         profile.printPersonality();
