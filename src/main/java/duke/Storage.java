@@ -7,12 +7,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Loads the previous tasks into the scheduledTasks(Task List) from the file (Duke.txt) at the start of the execution.
+ * Saves the tasks to the file when user creates them.
+ * Updates the file in case there is any deletion of the task.
+ * Updates the tasks as "done" when user marks them as done in the scheduledTasks Task List.
+ */
 public class Storage {
-
+    /**
+     * Initializing initials of the three types of tasks.
+     */
     public static final String INITIAL_TODO = "T";
     public static final String INITIAL_DEADLINE = "D";
     public static final String INITIAL_EVENT = "E";
 
+    /**
+     * Storing some Strings as delimiters.
+     */
     public static final String DELIMITER_ARROW = "=>";
     public static final String DELIMITER_SPACE = " ";
 
@@ -20,8 +31,15 @@ public class Storage {
     public static final String TASK_INCOMPLETE = "0";
     public static final String TASK_MARKED_COMPLETE = "X";
 
+    /**
+     * Storing the path of the file which will record the tasks for future reference.
+     */
     private static final String FILE_PATH = "duke.txt";
 
+    /**
+     * Calls the loadPreviousData() function and catches the encountered exceptions(if any).
+     * Creates a new file at the FILE_PATH if file is not found.
+     */
     public static void loadData(TaskList taskList) {
         try {
             loadPreviousData(taskList);
@@ -35,6 +53,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Load the tasks from the Duke.txt file into the current taskList
+     *
+     * @throws FileNotFoundException if File is not found
+     */
     public static void loadPreviousData(TaskList taskList) throws FileNotFoundException {
         File file = new File(FILE_PATH);
         Scanner sc = new Scanner(file);
@@ -69,6 +92,14 @@ public class Storage {
             taskList.scheduledTasks.get(TaskList.scheduledTasks.size() - 1).markAsDone();
         }
 
+    }
+
+    public static void callSaveTaskToList(ArrayList<Task> scheduledTasks) {
+        try {
+            saveTaskToDisk(scheduledTasks);
+        } catch (IOException e) {
+            System.out.println("Unable to save data to the disk");
+        }
     }
 
     public static void saveTaskToDisk(ArrayList<Task> scheduledTasks) throws IOException {
@@ -108,11 +139,4 @@ public class Storage {
         fw.close();
     }
 
-    public static void callSaveTaskToList(ArrayList<Task> scheduledTasks) {
-        try {
-            saveTaskToDisk(scheduledTasks);
-        } catch (IOException e) {
-            System.out.println("Unable to save data to the disk");
-        }
-    }
 }

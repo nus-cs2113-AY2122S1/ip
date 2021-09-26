@@ -47,7 +47,10 @@ public class TaskList {
     public static final String[] COMMANDS = new String[]{
             "help", "todo", "deadline", "event", "list", "done", "delete", "find", "bye"
     };
-    ;
+
+    /**
+     * Task type Array list to store the tasks the user will create
+     */
     public static ArrayList<Task> scheduledTasks;
     public static ArrayList<Task> filteredList;
 
@@ -202,9 +205,12 @@ public class TaskList {
 
 
     /**
-     * Deletes the task from the task list.
+     * Deletes the task from the specified index in the task list.
+     * Updates the task list in the Duke.txt file as well.
      *
      * @param deleteTask DeleteTask stores the task number which is supposed to be deleted.
+     * @throws DukeException        if the task deletion command is invalid
+     * @throws NoTaskFoundException if there is no task at the specified task number.
      */
     public static void deleteTask(String userInput) throws IOException, NoTaskFoundException, DukeException {
         Ui.printLine();
@@ -232,9 +238,9 @@ public class TaskList {
 
     /**
      * Lists all the tasks in the task list along with their task completion status.
-     * The tasks are enlisted which reveal if they are a "todo", "event" or a "deadline".
+     * The tasks are enlisted as such that they reveal if they are a "todo", "event" or a "deadline".
      *
-     * @param taskCompletionStatus TaskCompletionStatus stores true if the task is completed, false otherwise.
+     * @throws NoTaskFoundException if there are no tasks in the list.
      */
     public static void list() throws NoTaskFoundException {
         int i;
@@ -251,6 +257,5 @@ public class TaskList {
             }
         }
     }
-
 }
 

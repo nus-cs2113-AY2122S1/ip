@@ -21,7 +21,7 @@ public class Event extends Task {
     /**
      * Returns the string in a particular format.
      *
-     * @return Task description and event time in a particular format.
+     * @return Task description and event time in a particular String format.
      */
     @Override
     public String toString() {

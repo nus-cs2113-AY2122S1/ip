@@ -8,7 +8,15 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Returns date and time in the string form.
+ *
+ * @return dateAndTime DateAndTime in the String form
+ */
 public class DateAndTimeParser {
+    
+    public static final String ERROR_PAST_DATE = "☹ OOPS!!! You cannot schedule a task for the past.";
+
     public static String callProcessDateTime(String dateAndTime) {
         try {
             LocalDateTime localDateTime = LocalDateTime.parse(dateAndTime);
@@ -27,11 +35,24 @@ public class DateAndTimeParser {
 
     }
 
+    /**
+     * Returns date and time after converting it to particular format in the String form.
+     * For Example: It decodes the object 2022-08-09 13:00 and converts it to the String "AUGUST 9, 2022 01:00 p.m".
+     *
+     * @param dateAndTime DateAndTime stores the date and time in a particular form as a string.
+     * @param meridium    Meridum stores the anti/post meridium according to the date
+     * @param isBefore    IsBefore stores true if the date and time passed as the object is before today's date and timing and false otherwise.
+     * @return dateAndTime in the String form
+     * @throws DukeException if task is scheduled for the past.
+     */
     public static String ProcessDateTime(LocalDateTime localDateTime) throws DukeException {
         String dateAndTime = "";
-        String meridium = "a.m.";
+        String antiMeridium = "a.m.";
+        String meridium = antiMeridium;
+        String postMeridium = "p.m.";
 
         Month month = localDateTime.getMonth();
+
         int day = localDateTime.getDayOfMonth();
         int year = localDateTime.getYear();
         int hour = localDateTime.getHour();
@@ -49,14 +70,14 @@ public class DateAndTimeParser {
         if (hour > 12) {
             hour -= 12;
             hours = Integer.toString(hour);
-            meridium = "p.m.";
+            meridium = postMeridium;
         }
         if (hour < 10) {
             hours = "0" + hour;
         }
         if (isBefore) {
             dateAndTime = "";
-            throw new DukeException("☹ OOPS!!! You cannot schedule a task for the past.");
+            throw new DukeException(ERROR_PAST_DATE);
         } else {
             dateAndTime = month + " " + day + ", " + year + " " + hours + ":" + minutes + " " + meridium;
         }

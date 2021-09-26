@@ -13,7 +13,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns the string in a particular format.
+     * Returns the string in a particular String format.
      *
      * @return Task description in a particular format.
      */

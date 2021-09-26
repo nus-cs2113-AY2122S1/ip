@@ -11,7 +11,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Default Constructor to initialise the task description and task completion status.
+     * Default Constructor to initialise the task description, task completion status and the task type.
      */
     public Task() {
         this.description = "";
@@ -50,7 +50,7 @@ public class Task {
     }
 
     /**
-     * Returns the task status in a particular String format.
+     * Returns the task completion status in a particular String format.
      *
      * @return Task completion Status in a String format.
      */

@@ -19,7 +19,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * returns the string in a particular format.
+     * Returns the string in a particular format.
      *
      * @return Task description and deadline in a particular format.
      */
@@ -27,5 +27,4 @@ public class Deadline extends Task {
     public String toString() {
         return ("[D]" + super.toString() + " (by:" + this.by + ")");
     }
-
 }

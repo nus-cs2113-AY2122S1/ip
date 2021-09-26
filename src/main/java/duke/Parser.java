@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Parser {
 
-    /* Initializing Strings with commands */
+    /* Initializing Strings with Duke commands */
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DONE = "done";
@@ -16,6 +16,13 @@ public class Parser {
     public static final String COMMAND_FIND = "find";
     public static final String COMMAND_HELP = "help";
 
+
+    /**
+     * Returns true if the command is not bye and the program should continue for the next iteration as well. Returns false otherwise.
+     *
+     * @param userInput UserInput stores the command entered by the user.
+     * @return true if the command should continue for the next iteration. Returns false otherwise.
+     */
     public static boolean processCommand(String userInput) {
         try {
             if (userInput.startsWith(COMMAND_BYE)) {
