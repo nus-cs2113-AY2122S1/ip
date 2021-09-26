@@ -16,65 +16,73 @@ public class Parser {
         String[] input = line.split(" ");
         String firstWord = input[0];
         if (input.length == 1) {
-            switch (line) {
-            case "bye":
-                isBye = true;
-                break;
-            case "list":
-                if (tasks.positionCheck == 0) {
-                    throw new DukeException(Ui.EMPTY);
-                } else {
-                    tasks.printList();
-                    break;
-                }
-            case "done":
-                throw new DukeException(Ui.UNSPECIFIED_DONE);
-            case "delete":
-                throw new DukeException(Ui.UNSPECIFIED_DELETE);
-            case "find":
-                throw new DukeException(Ui.UNSPECIFIED_FIND);
-            case "date":
-                throw new DukeException(Ui.UNSPECIFIED_DATE);
-            default:
-                throw new DukeException(Ui.UNSPECIFIED_TASK);
-            }
+            checkSingleCommand(firstWord);
         } else {
-            String secondWord = input[1];
-            switch (firstWord) {
-            case "done":
-            case "delete":
-                int taskNumber = Integer.parseInt(input[1]);
-                int taskIndex = taskNumber - 1;
-                if (tasks.positionCheck <= 0) {
-                    throw new DukeException(Ui.EMPTY);
-                } else if ( (taskNumber > tasks.positionCheck ) || ( taskNumber <= 0) ) {
-                    throw new DukeException(Ui.INVALID);
-                } else if (firstWord.equals("done")) {
-                    tasks.markDone(taskIndex);
-                    break;
-                } else {
-                    tasks.deleteTask(taskIndex);
-                    break;
-                }
-            case "find":
-                String keyword = secondWord;
-                for (int i = 2 ; i < input.length ; i++ ) {
-                    keyword += " " + input[i];
-                }
-                tasks.printListForFindingTask(keyword);
-                break;
-            case "date":
-                tasks.printListForFindingDate(secondWord);
-                break;
-            default:
-                checkTypeOfTask(line);
-                break;
-            }
+            checkMultiCommand(input);
         }
     }
 
-    public void checkTypeOfTask(String line) throws DukeException, IOException {
-        String[] input = line.split(" ");
+    public void checkSingleCommand(String firstWord) throws DukeException, IOException {
+        switch (firstWord) {
+        case "bye":
+            isBye = true;
+            break;
+        case "list":
+            if (tasks.positionCheck == 0) {
+                throw new DukeException(Ui.EMPTY);
+            } else {
+                tasks.printList();
+                break;
+            }
+        case "done":
+            throw new DukeException(Ui.UNSPECIFIED_DONE);
+        case "delete":
+            throw new DukeException(Ui.UNSPECIFIED_DELETE);
+        case "find":
+            throw new DukeException(Ui.UNSPECIFIED_FIND);
+        case "date":
+            throw new DukeException(Ui.UNSPECIFIED_DATE);
+        default:
+            throw new DukeException(Ui.UNSPECIFIED_TASK);
+        }
+    }
+
+    public void checkMultiCommand(String[] input) throws DukeException, IOException {
+        String firstWord = input[0];
+        String secondWord = input[1];
+        switch (firstWord) {
+        case "done":
+        case "delete":
+            int taskNumber = Integer.parseInt(secondWord);
+            int taskIndex = taskNumber - 1;
+            if (tasks.positionCheck <= 0) {
+                throw new DukeException(Ui.EMPTY);
+            } else if ((taskNumber > tasks.positionCheck) || (taskNumber <= 0)) {
+                throw new DukeException(Ui.INVALID);
+            } else if (firstWord.equals("done")) {
+                tasks.markDone(taskIndex);
+                break;
+            } else {
+                tasks.deleteTask(taskIndex);
+                break;
+            }
+        case "find":
+            String keyword = secondWord;
+            for (int i = 2; i < input.length; i++) {
+                keyword += " " + input[i];
+            }
+            tasks.printListForFindingTask(keyword);
+            break;
+        case "date":
+            tasks.printListForFindingDate(secondWord);
+            break;
+        default:
+            checkTypeOfTask(input);
+            break;
+        }
+    }
+
+    public void checkTypeOfTask(String[] input) throws DukeException, IOException {
         int length = input.length;
         String firstWord = input[0];
         switch (firstWord) {

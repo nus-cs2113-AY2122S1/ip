@@ -1,3 +1,0 @@
-event afw /at 2034-12-18 05:00 | 1
-todo jog | 1
-deadline mm /by 2021-12-23 19:00 | 1

@@ -1,17 +1,8 @@
 package duke;
 
-import java.awt.*;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
 
 public class Duke {
     private Storage storage;
@@ -23,12 +14,12 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.loadTasks());
+            tasks = new TaskList(storage.loadTasks(), storage);
             parser = new Parser(tasks);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found. Automatic text file creation initiated master!");
+            ui.printFileNotFoundMessage();
         } catch (IOException e) {
-            System.out.print("There is an error in your input master! Please check it out!");
+            ui.printIOExceptionMessage();
         }
     }
 
@@ -44,19 +35,19 @@ public class Duke {
                 parser.checkCommand(line);
                 isExit = parser.isBye;
             } catch (NumberFormatException e) {
-                System.out.println(Ui.NUMBER_FORMAT_EXCEPTION);
+                ui.printNumberFormatExceptionMessage();
             } catch (DukeException e) {
                 //Catching DukeException errors
             } catch (IOException e) {
-                System.out.print("There is an error in your input master! Please check it out!");
+                ui.printIOExceptionMessage();
             } catch (DateTimeParseException e) {
-                System.out.println("Correct date format please!");
+                ui.printDateTimeExceptionMessage();
             }
         }
         ui.sayBye();
     }
 
-    public static void main(String[] args) throws DukeException, IOException {
+    public static void main(String[] args) {
         new Duke("Tasks.txt").sendCommand();
     }
 }

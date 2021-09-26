@@ -13,6 +13,7 @@ public class Ui {
     public String sendInput() {
         return in.nextLine();
     }
+
     public static final String EMPTY = "There is no data in your list master!";
     public static final String UNSPECIFIED_DONE = "Oh no master, I am not quite sure which task you would like me to mark as done!";
     public static final String UNSPECIFIED_DELETE = "Oh no master, I am not quite sure which task you would like me to delete!";
@@ -32,6 +33,9 @@ public class Ui {
                                                    " of communication, I am unable to comprehend your request. Please specify\n" +
                                                    " the type of task that you wish to add Master!");
     public static final String NUMBER_FORMAT_EXCEPTION = "Master, please type in a number to indicate the task you want me to perform the necessary actions for!";
+    public static final String INPUT_OUTPUT_EXCEPTION = "There is an error in your input master! Please check it out!";
+    public static final String DATE_TIME_PARSE_EXCEPTION = "Please enter the correct date and time format master! It is \"YYYY-MM-DD HH:MM\". e.g 2021-12-23 19:00";
+    public static final String FILE_NOT_FOUND_EXCEPTION = "File not found. Automatic text file creation initiated master!";
     public static final String STARTING_MESSAGE = "Accessing archives, loading in data, C3PO systems online!";
     public static final String ENDING_MESSAGE = "Goodbye master! May the force be with you!\n";
     public static final String USER_PROMPT_MESSAGE = "Type something: ";
@@ -67,5 +71,22 @@ public class Ui {
 
     public void printLine() {
         System.out.println(LINE);
+    }
+
+    public void printNumberFormatExceptionMessage() {
+        System.out.println(NUMBER_FORMAT_EXCEPTION);
+    }
+
+    public void printIOExceptionMessage() {
+        System.out.println(INPUT_OUTPUT_EXCEPTION);
+    }
+
+    public void printDateTimeExceptionMessage() {
+        System.out.println(DATE_TIME_PARSE_EXCEPTION);
+    }
+
+    public void printFileNotFoundMessage() {
+        System.out.println(FILE_NOT_FOUND_EXCEPTION);
+
     }
 }

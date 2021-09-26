@@ -17,8 +17,7 @@ public class Storage {
         this.filePath = new File(filePath).getAbsolutePath();
     }
 
-    public static void saveNewTask(String[] input) throws IOException {
-        String filePath = new File("Tasks.txt").getAbsolutePath();
+    public void saveNewTask(String[] input) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         String fullTaskAsString = "";
         for (String individualString : input) {
@@ -29,7 +28,7 @@ public class Storage {
         fw.close();
     }
 
-    public static void saveAllTasks(ArrayList<Task> commands) throws IOException {
+    public void saveAllTasks(ArrayList<Task> commands) throws IOException {
         String filePath = new File("Tasks.txt").getAbsolutePath();
         FileWriter fw = new FileWriter(filePath, false);
         String taskInFile;
@@ -54,7 +53,6 @@ public class Storage {
 
     public ArrayList<String> loadTasks() throws IOException {
         ArrayList<String> loadedTasks = new ArrayList<>();
-        String filePath = new File("Tasks.txt").getAbsolutePath();
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         String textFromFile;

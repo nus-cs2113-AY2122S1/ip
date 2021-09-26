@@ -11,13 +11,15 @@ public class TaskList {
     protected int positionCheck;
     protected int loadFlag;
     protected int taskNumber;
+    protected Storage storage;
 
 
-    public TaskList(ArrayList<String> loadedTasks) {
+    public TaskList(ArrayList<String> loadedTasks, Storage storage) {
         this.commands = new ArrayList<>();
         this.positionCheck = 0;
         this.loadFlag = 0;
         this.taskNumber = 0;
+        this.storage = storage;
         String[] taskFromFile;
         String[] taskInput;
         try {
@@ -66,7 +68,7 @@ public class TaskList {
                 if (loadFlag == 1) {
                     System.out.println("Added to Galactic database:" );
                     System.out.println(commands.get(positionCheck));
-                    Storage.saveNewTask(input);
+                    storage.saveNewTask(input);
                 }
                 positionCheck += 1;
                 return;
@@ -92,7 +94,7 @@ public class TaskList {
                 if (loadFlag == 1) {
                     System.out.println("Added to Galactic database:");
                     System.out.println(commands.get(positionCheck));
-                    Storage.saveNewTask(input);
+                    storage.saveNewTask(input);
                 }
                 positionCheck += 1;
                 return;
@@ -113,7 +115,7 @@ public class TaskList {
             if (loadFlag == 1) {
                 System.out.println("Added to Galactic database:");
                 System.out.println(commands.get(positionCheck));
-                Storage.saveNewTask(input);
+                storage.saveNewTask(input);
             }
             positionCheck += 1;
         }
@@ -172,7 +174,7 @@ public class TaskList {
         if (loadFlag == 1) {
             System.out.println("The following task has been marked as done Master!");
             System.out.println((doneTaskNumber + 1) + ". " + commands.get(doneTaskNumber));
-            Storage.saveAllTasks(commands);
+            storage.saveAllTasks(commands);
         }
     }
 
@@ -182,7 +184,7 @@ public class TaskList {
         commands.remove(commands.get(doneTaskNumber));
         positionCheck -= 1;
         System.out.println("Goodbye Task, may the force be with you. You have " + positionCheck + " task(s) left Master");
-        Storage.saveAllTasks(commands);
+        storage.saveAllTasks(commands);
     }
 
 }
