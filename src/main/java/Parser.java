@@ -42,7 +42,9 @@ public class Parser {
 
     /**
      * Processes the commands input by the user and the errors caused by incorrect input.
-     * Command List: EXIT, LIST, HELP, DONE, DELETE, TODO, DEADLINE, EVENT.
+     * Checks if the input has any of the commands in the list, and processes the parameters according to the
+     * respective command. If the parameters are incorrect, an error message will be printed.
+     * Command List: EXIT, LIST, HELP, DONE, DELETE, TODO, DEADLINE, EVENT, FIND.
      *
      * @param in the system scanner, required to move to next line.
      * @param line the input of the user.
@@ -123,9 +125,6 @@ public class Parser {
                     ui.printFindMissingParamError();
                 } catch (DukeMultipleParamException e) {
                     ui.printFindMultipleParamError();
-                }
-                catch (DateTimeParseException e) {
-                    ui.printDeadlineEventDateParamError();
                 }
             } else {
                 // throw error when no commands are found in input

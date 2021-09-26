@@ -15,7 +15,7 @@ public class Event extends Task {
     /**
      * Sets the EVENT date of the object.
      *
-     * @param newDate string of new date the object is occurring.
+     * @param newDate new date the object is occurring.
      */
 
     public void setAt(LocalDate newDate) {

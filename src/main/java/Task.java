@@ -51,6 +51,11 @@ public class Task {
         return eventDate;
     }
 
+    /**
+     * Gets the description of the task.
+     *
+     * @return description of the task.
+     */
     public String getDescription() {
         return description;
     }

@@ -33,6 +33,8 @@ public class Storage {
     /**
      * Initialize the save file. If a save file does not exist, then it will be automatically created.
      * The save file will then be read and loaded into the ArrayList of Tasks.
+     *
+     * @throws FileNotFoundException when the save file does not exist.
      */
     public void initSaveFile(ArrayList<Task> tasks) throws FileNotFoundException {
         File f = new File(FILE_PATH);
@@ -56,7 +58,7 @@ public class Storage {
     }
 
     /**
-     * Creates the save file.
+     * Creates the new save file, "duke.txt".
      *
      * @throws IOException when there is an error in creating the save file.
      */

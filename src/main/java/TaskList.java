@@ -106,6 +106,7 @@ public class TaskList {
      * @param tasks the ArrayList of Tasks where the EVENT task is to be added to.
      * @throws DukeMissingDescException when the description of the event task is not input by the user.
      * @throws DukeMissingParamException when the /at flag is not input.
+     * @throws DateTimeParseException when the date input is not in the correct format.
      */
     public void addEvent(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException, DateTimeParseException {
         if (line.length() == EVENT_LEN_OFFSET || line.substring(EVENT_SUBSTRING_OFFSET).isBlank()) {
@@ -165,6 +166,17 @@ public class TaskList {
         }   tasks.remove(tasks.get(numToRemove - DELETE_OFFSET));
     }
 
+    /**
+     * Prints out all tasks that contain the matching keyword. The method will look through the entire ArrayList of Tasks,
+     * and checks if any of the task's description contains the keyword input by the user. It will store the tasks in another
+     * ArrayList if there is a match, and print that ArrayList which contains all the matched tasks.
+     *
+     * @param line the input of the user.
+     * @param tasks the ArrayList of Tasks to check if the keyword matches any of it's task's description.
+     * @throws DukeMissingParamException when the keyword is not input by the user.
+     * @throws ArrayIndexOutOfBoundsException when the keyword is not input by the user.
+     * @throws DukeMultipleParamException when there are more than one keywords input by the user.
+     */
     public void findTasks(String line, ArrayList<Task> tasks) throws DukeMissingParamException, ArrayIndexOutOfBoundsException, DukeMultipleParamException {
         String input[] = line.split(" ");
         if (input.length == 1) {

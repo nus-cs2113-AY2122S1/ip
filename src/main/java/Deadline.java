@@ -15,7 +15,7 @@ public class Deadline extends Task {
     /**
      * Sets the deadline date of the object.
      *
-     * @param newDate string of new date the object is due by.
+     * @param newDate new date the object is due by.
      */
     public void setBy(LocalDate newDate) {
         this.by = newDate;
