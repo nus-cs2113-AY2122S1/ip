@@ -56,10 +56,10 @@ List all matching `Task` objects that contain a keyword.
 
 Terminates the Duke program.
 
-### Save data to file
+### Auto-save data
 
-Converts all current `Task` data to String form and saves this to
-`duke.txt`. This is done automatically.
+Any changes made to the task list are automatically saved to the file.
+This way, you do not have to worry about losing your data.
 
 
 
