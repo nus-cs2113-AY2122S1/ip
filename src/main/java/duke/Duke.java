@@ -10,6 +10,14 @@ import duke.parser.Parser;
 
 import java.util.Scanner;
 
+/**
+ * <h1>Duke</h1>
+ * The Duke program implements a command-line application
+ * that allows users to keep track of their tasks.
+ *
+ * @author Peh Zhenhao, Amos
+ * @version 0.2
+ */
 public class Duke {
 
     private final Scanner in;
@@ -20,6 +28,11 @@ public class Duke {
 
     private final String FILE_PATH = "data/duke.txt";
 
+    /**
+     * Sets up required objects needed for Duke to run.
+     * Creates new instances of Scanner, DukeInterface, DataManager, TaskManager, Parser
+     * and initializes any pre-existing tasks stored in duke.txt into {@code taskManager}.
+     */
     public Duke() {
         in = new Scanner(System.in);
         dukeUi = new DukeInterface();
@@ -27,10 +40,14 @@ public class Duke {
         taskManager = new TaskManager();
         parser = new Parser();
 
-        dukeUi.printLogo();
         taskManager.setTasks(dataManager.getLoadedTaskList());
     }
 
+    /**
+     * Prints cursor for user and reads user input typed into the terminal.
+     *
+     * @return user's terminal input.
+     */
     public String readInput() {
         dukeUi.printUserName();
         dukeUi.printCursor();
@@ -38,6 +55,13 @@ public class Duke {
         return input;
     }
 
+    /**
+     * Executes user command and returns the appropriate command result.
+     * If an exception occurs, returns a {@code CommandResult} object containing the error message.
+     *
+     * @param userCommand {@code Command} object to be executed.
+     * @return the {@code CommandResult} object after executing the command.
+     */
     public CommandResult runCommand(Command userCommand) {
         CommandResult commandResult = null;
         try {
@@ -48,15 +72,25 @@ public class Duke {
         return commandResult;
     }
 
-    public void saveTaskListChangesIfAny (CommandResult commandResult) {
+    /**
+     * Checks and saves any changes made to the user's tasklist to duke.txt.
+     *
+     * @param commandResult contains {@code isModified} variable to see if changes were made to the tasklist.
+     */
+    public void saveTaskListChangesIfAny(CommandResult commandResult) {
         if (commandResult.getIsModified() == true) {
             taskManager = commandResult.getTaskManager();
             dataManager.writeToFile(taskManager.getTasks());
         }
     }
 
+    /**
+     * Reads and executes user commands, and saves any changes made to the tasklist.
+     * until the {@code bye} command is entered by the user, which exits the program.
+     */
     public void startDuke() {
 
+        dukeUi.printLogo();
         dukeUi.printWelcomeMessage();
 
         Command userCommand;
