@@ -16,6 +16,8 @@ event EVENT_NAME /at DATE
 ```
 ```
 todo TODO_NAME /by DATE
+
+```
 ## Add a new task
 # Format
 ```
