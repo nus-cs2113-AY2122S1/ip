@@ -14,15 +14,21 @@ import duke.task.ToDo;
 import duke.task.Deadline;
 import duke.task.Event;
 
+/**
+ * Handles reading and writing of the user's tasklist to a local storage file (default: {@code duke.txt}).
+ */
 public class DataManager {
 
+    /**
+     * Represents the file path of the local storage file containing the user's tasklist entries.
+     */
     private final String filePath;
+    /**
+     * Represents the file object of the local storage file pointed by {@code filePath}.
+     */
     private final File dataFile;
 
     private final String FILE_SEPARATOR_REGEX = "\\s\\|\\s";
-    private final String TODO_FILE_FORMAT_REGEX = "T\\s\\|\\s[01]\\s\\|.+";
-    private final String DEADLINE_FILE_FORMAT_REGEX = "D\\s\\|\\s[01]\\s\\|.+\\s\\|.+";
-    private final String EVENT_FILE_FORMAT_REGEX = "E\\s\\|\\s[01]\\s\\|.+\\s\\|.+";
 
     private final String TODO_TYPE = "T";
     private final String DEADLINE_TYPE = "D";
@@ -33,11 +39,21 @@ public class DataManager {
     private final String FILE_CREATION_ERROR_MSG = "[!] File cannot be created!";
     private final String FILE_WRITE_ERROR_MSG = "[!] File cannot be written to!";
 
+    /**
+     * Constructor that initialises the String {@code filePath} and File {@code dataFile} variable.
+     * @param filePath file path pointing to the location of the local storage file containing the user's tasklist.
+     */
     public DataManager(String filePath) {
         this.filePath = filePath;
         this.dataFile = new File(filePath);
     }
 
+    /**
+     * Gets the user's tasklist entries from the local storage file as an {@code ArrayList<Task>} object.
+     * If the local storage file {@code dataFile} cannot be found, it creates a new empty storage file.
+     *
+     * @return {@code ArrayList<Task>} object of user's tasks retrieved from the local storage file.
+     */
     public ArrayList<Task> getLoadedTaskList() {
 
         ArrayList<Task> tasks = new ArrayList<>();
@@ -60,11 +76,22 @@ public class DataManager {
         return tasks;
     }
 
+    /**
+     * Creates a new local storage file, and it's parent directories.
+     *
+     * @throws IOException if the file path is unavailable.
+     */
     public void createFile() throws IOException {
         Files.createDirectories(Path.of(dataFile.getParent()));
         dataFile.createNewFile();
     }
 
+    /**
+     * Loads and returns the user's tasklist entries from the {@code dataFile} into an {@code ArrayList<Task>} object.
+     *
+     * @return {@code ArrayList<Task>} object containing the tasklist of the user.
+     * @throws FileNotFoundException if the {@code dataFile} does not exist.
+     */
     public ArrayList<Task> loadDataIntoTaskList() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner in = new Scanner(dataFile);
@@ -72,7 +99,6 @@ public class DataManager {
         while (in.hasNext()) {
             String task = in.nextLine();
             String[] taskArgs = task.split(FILE_SEPARATOR_REGEX, 4);
-
             String taskType = taskArgs[0];
             boolean isDone = taskArgs[1].equals("1");
             String taskDescription = taskArgs[2];
@@ -100,6 +126,10 @@ public class DataManager {
         return tasks;
     }
 
+    /**
+     * Writes tasklist {@code tasks} into the local storage file {@code dataFile}.
+     * @param tasks tasklist to be written to the {@code dataFile}.
+     */
     public void writeToFile(ArrayList<Task> tasks) {
 
         try {
