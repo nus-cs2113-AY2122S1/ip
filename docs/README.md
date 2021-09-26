@@ -1,4 +1,11 @@
-# User Guide
+# DUKEYAPPY User Guide 
+
+## Contents
+[Intro](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/docs#introducing-duke-cs2113t)
+[How to get Started](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/docs#getting-started)
+[Welcome-Screen](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/docs#welcome-screen)
+[Features](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/docs#features)
+[Commands](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/docs#usage)
 
 ## Introducing DUKE CS2113T
 Hello there 👋 and welcome to **Duke**! **Duke** is a Task List designed to store various type of 
@@ -7,7 +14,8 @@ task like todo, event and deadline which can be displayed to the user.
 ## Getting Started
 - Download the [JAR file]().
 - This open a terminal and ensure that you switch your jdk to java 11 first.
-- The "text-art" [folder](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/text-art) that contains all the text-art needs to be included in the JAR directory. 
+- The "text-art" [folder]() that contains all the text-art needs to be included in the JAR directory.
+It can also be manually downloaded from [text-art](https://github.com/YEOWEIHNGWHYELAB/ip/tree/master/text-art). 
 - data/duke.txt will be created in the JAR directory if it does not exist and the duke.txt must 
 be kept empty (unless it is of the correct format - generated from this app).
 
@@ -262,3 +270,16 @@ ____________________________________________________________
 Bye. Hope to not see you again soon! Me go sleep. Don't wake me!
 ____________________________________________________________
 ```
+
+## Summary
+| no. | Command | Description |
+| --- | --- | --- |
+| 1 | todo | add todo task |
+| 2 | event | add event task |
+| 3 | deadline | add deadline task |
+| 4 | list | list all task |
+| 5 | done | select a task to mark as done |
+| 6 | delete | delete a task |
+| 7 | find | search for task |
+| 8 | help | list out all command |
+| 9 | bye | terminate app |
