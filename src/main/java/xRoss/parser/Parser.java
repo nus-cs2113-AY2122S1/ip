@@ -17,11 +17,11 @@ public class Parser {
     /**
      * Makes sense of user input and invokes the relevant actions by the chat bot.
      *
-     * @param taskManager   Representation of current task list.
-     * @param inputLine     Scanned user input.
-     * @return  Boolean value that keeps tracks of whether to exit the chat bot.
+     * @param taskManager Representation of current task list.
+     * @param inputLine   Scanned user input.
+     * @return Boolean value that keeps tracks of whether to exit the chat bot.
      */
-    public boolean parseCommand(TaskManager taskManager, String inputLine){
+    public boolean parseCommand(TaskManager taskManager, String inputLine) {
         boolean commandLoop = true;
 
         if (inputLine.equals("bye")) {
@@ -30,9 +30,11 @@ public class Parser {
             ui.printTaskListResponse(taskManager);
         } else if (inputLine.startsWith("done")) {
             ui.printDoneResponse(taskManager, inputLine);
-        } else if (inputLine.startsWith("delete")){
+        } else if (inputLine.startsWith("find")) {
+            ui.printFindResponse(taskManager, inputLine);
+        } else if (inputLine.startsWith("delete")) {
             ui.printDeleteResponse(taskManager, inputLine);
-        }else if (inputLine.startsWith("todo")) {
+        } else if (inputLine.startsWith("todo")) {
             ui.printTodoResponse(taskManager, inputLine);
         } else if (inputLine.startsWith("deadline")) {
             ui.printDeadlineResponse(taskManager, inputLine);

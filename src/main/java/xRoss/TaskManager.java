@@ -142,6 +142,30 @@ public class TaskManager implements FileManager{
         saveToFile();
     }
 
+    public void findTasksWithExp(String exp) throws EmptyStringException{
+        if (tasksCount == 0) {
+            System.out.println("\tYou have no tasks in your task list at the moment.\n");
+            return;
+        }
+
+        if (exp.isEmpty()){
+            throw new EmptyStringException();
+        }
+
+        System.out.println("\tLooking for tasks with the following expression: " + exp);
+
+        int numberOfTasksFound = 0;
+
+        for (int i = 0; i < tasksCount; i++){
+            if (tasks.get(i).getName().contains(exp)){
+                System.out.print("\t\t" + (i + 1) + ".");
+                tasks.get(i).printTask();
+                numberOfTasksFound++;
+            }
+        }
+        System.out.println("\tI found " + numberOfTasksFound + " tasks containing your specified expression.");
+    }
+
     /**
      * Prints number of tasks and uncompleted tasks in current task list to system output.
      */
