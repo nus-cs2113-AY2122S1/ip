@@ -4,7 +4,7 @@
 ## Setup
 To run this application on your PC, please ensure you have done the following:
 1. Downloaded and set up [Java 11](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html) on you PC
-2. Downloaded the [jar file](https://www.https://github.com/tryyang2001/ip/releases/tag/A-Jar) for this application
+2. Downloaded the [jar file](https://github.com/tryyang2001/ip/releases/tag/A-Release) for this application
 3. Open **Terminal** and move to the directory of the jar.file
 4. Run the command at the directory of the jar file: `java -jar ip.jar`
 
