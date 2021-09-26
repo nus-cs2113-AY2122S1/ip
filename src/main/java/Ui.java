@@ -4,7 +4,7 @@
  */
 public class Ui {
 
-    public static final String LINE = "____________________________________________________________\n";
+    public static final String LINE = "------------------------------------------------------------\n";
     public static final String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"

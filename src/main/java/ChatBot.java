@@ -63,6 +63,8 @@ public class ChatBot {
                 executeCommand(tasks, parsedUserInput, command);
             } catch (DukeException d) {
                 DukeException.printSpaceError();
+            } catch (StringIndexOutOfBoundsException d) {
+                DukeException.printCommandError();
             }
         }
     }
