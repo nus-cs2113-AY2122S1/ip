@@ -13,7 +13,6 @@ public class Message {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    public static final String PROMPT_TASK_DESCRIPTION = "Please tell me what do you need to do :)";
     public static final String TYPE_SUITABLE_COMMAND_MESSAGE = "Sorry," +
             " I don't know what you mean, do type 'help' if you're unsure :)";
     public static final String IO_EXCEPTION_MESSAGE = "Oops, something unexpected happened while writing to file";

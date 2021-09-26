@@ -1,7 +1,5 @@
 package commands;
 
-import constants.Message;
-
 public class IncorrectCommand extends Command{
 
     private String message;
