@@ -9,6 +9,7 @@ import duke.commands.AddTodoCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.ScheduleCommand;
 import duke.commands.FindCommand;
+import duke.commands.HelpCommand;
 import duke.commands.ByeCommand;
 
 import duke.exceptions.DateTimeFormatException;
@@ -96,6 +97,8 @@ public class Parser {
             return new ScheduleCommand(command, arguments);
         case "find":
             return new FindCommand(command, arguments);
+        case "help":
+            return new HelpCommand(command);
         case "bye":
             return new ByeCommand(command);
         default:

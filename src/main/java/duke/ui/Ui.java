@@ -9,7 +9,7 @@ import java.util.Scanner;
  * Ui class handles all user interaction in Duke
  */
 public class Ui {
-    private static final String BORDER = "____________________________________________________________\n";
+    private static final String BORDER = "_________________________________________________________________\n";
     Scanner sc = new Scanner(System.in);
 
     /**
