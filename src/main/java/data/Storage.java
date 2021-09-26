@@ -17,6 +17,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage object contains all operations related
+ * to read and write operations on the data for the application
+ */
 public class Storage {
     protected String dataPath;
     protected static final String PATH_DELIMITER = "/";
@@ -27,6 +31,13 @@ public class Storage {
         this.dataPath = "data/data.txt";
     }
 
+    /**
+     * This method validates that the directories specified
+     * to contain the data.txt and the text file itself exists
+     * If not, it creates directories and new files to ensure
+     * that the complete path is valid
+     * @return File A valid file object that points to data.txt
+     */
     private File validatePath() {
         String[] directories = this.dataPath.split(PATH_DELIMITER);
         /*
@@ -57,6 +68,12 @@ public class Storage {
         return data;
     }
 
+    /**
+     * Reads and the content of data.txt specified, parses each entry
+     * categorising it as either a ToDo, Deadline or Event,
+     * storing them in an arraylist
+     * @return ArrayList<Task> This stores all tasks found within data.txt in an arraylist
+     */
     public ArrayList<Task> read() {
         File data = validatePath();
         ArrayList<Task> tasks = new ArrayList<>();
@@ -91,6 +108,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Given an arraylist of tasks, this method converts them into a text
+     * representation of the objects, and overwrites data.txt with the contents
+     * derived from the tasks.
+     * @param tasks This contains the list of updated tasks as specified by the user
+     */
     public void write(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(dataPath);
@@ -103,6 +126,11 @@ public class Storage {
         }
     }
 
+    /**
+     * This method converts tasks into a string format to be stored within data.txt
+     * @param current An individual task
+     * @return String The textual representation of the task
+     */
     private static String getTaskData(Task current) {
         if (current instanceof ToDo) {
             return "T" + TASK_DELIMITER +

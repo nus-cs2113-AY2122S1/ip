@@ -1,5 +1,9 @@
 package common;
 
+/**
+ * This class contains all error messages that are meant to be displayed
+ * when handling errors encountered on runtime
+ */
 public class Error {
     public static final String READ_IOEXCEPTION = "  (!) FATAL: Could not process data file, starting with empty data";
     public static final String WRITE_IOEXCEPTION = "  (!) FATAL: IO Error";
