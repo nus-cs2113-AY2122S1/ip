@@ -1,13 +1,6 @@
 package duke.system;
 
-import duke.command.AddDeadlineCommand;
-import duke.command.AddEventCommand;
-import duke.command.AddTodoCommand;
-import duke.command.Command;
-import duke.command.DeleteTaskCommand;
-import duke.command.DoneTaskCommand;
-import duke.command.ExitCommand;
-import duke.command.ListAllCommand;
+import duke.command.*;
 import duke.exception.*;
 
 import java.time.LocalDate;
@@ -123,6 +116,24 @@ public class Parser {
         return true;
     }
 
+    private String getEventTime(String fullCommand) {
+        return fullCommand.substring(fullCommand.indexOf("/at ") + "/at ".length());
+    }
+
+    private boolean isCompleteFindCommand(String fullCommand) {
+        if (fullCommand.length() <= "find ".length()) {
+            return false;
+        }
+        return true;
+    }
+    private String getKeywords(String fullCommand) {
+        return fullCommand.substring("find ".length());
+    }
+
+    private String getTodoTime(String fullCommand) {
+        return fullCommand.substring("todo ".length());
+    }
+
     public Command parse(String fullCommand) throws DukeException {
         String commandType = getCommandType(fullCommand);
         switch (commandType) {
@@ -179,9 +190,15 @@ public class Parser {
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 throw new WrongFormat();
             }
-
         case "exit":
             return new ExitCommand();
+        case "find":
+            if (!isCompleteFindCommand(fullCommand)) {
+                throw new WrongFormat();
+            } else {
+                String keywords = getKeywords(fullCommand);
+                return new FindTasksCommand(keywords);
+            }
         default:
             throw new InvalidInput();
         }
