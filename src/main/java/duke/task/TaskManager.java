@@ -136,7 +136,7 @@ public class TaskManager {
      *
      * @param taskIndex index of task in tasklist {@code tasks} to be marked as done.
      * @return a String that acknowledges the task marked as done and the current number of completed tasks.
-     * @throws DoneFormatException      if {@code taskIndex} is not an integer.
+     * @throws DoneFormatException      if {@code taskIndex} is not an integer or an empty string.
      * @throws InvalidTaskIdException   if {@code taskIndex} does not exist in tasklist {@code tasks}.
      * @throws TaskAlreadyDoneException if the task pointed by {@code taskIndex} is already marked as done.
      */
@@ -169,7 +169,7 @@ public class TaskManager {
      *
      * @param taskIndex index of task in tasklist {@code tasks} to be deleted.
      * @return a String that acknowledges the task deleted and the current number of tasks in the tasklist {@code task}.
-     * @throws DeleteFormatException  if {@code taskIndex} is not an integer.
+     * @throws DeleteFormatException  if {@code taskIndex} is not an integer or an empty string.
      * @throws InvalidTaskIdException if {@code taskIndex} does not exist in tasklist {@code tasks}.
      */
     public String deleteTask(String taskIndex) throws DeleteFormatException, InvalidTaskIdException {
