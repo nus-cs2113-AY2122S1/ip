@@ -1,6 +1,6 @@
-package Duke;
+package Task;
 
-import Duke.Task;
+import Task.Task;
 
 public class Todo extends Task {
 

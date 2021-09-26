@@ -1,2 +1,2 @@
-1 [T][ ] task1
+1 [T][X] task1
 2 [T][ ] task2
