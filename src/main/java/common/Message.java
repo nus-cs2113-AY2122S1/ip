@@ -1,5 +1,8 @@
 package common;
 
+/**
+ * This class contains informative messages that are output after users enter commands
+ */
 public class Message {
     public static final String MESSAGE_LOGO = " _____    _       _                 \n"
             + "|  ___|  | |     | |                \n"

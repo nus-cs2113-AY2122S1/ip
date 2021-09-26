@@ -1,6 +1,15 @@
 package commands;
 
+/**
+ * Contains methods to process a complete line of user-input commands
+ */
 public class Parser {
+    /**
+     * Based on category of command, create corresponding command object
+     * @param input Complete line of user-input command, including both
+     *              command keywords and additional arguments (if applicable)
+     * @return Command object of the relevant type
+     */
     public static Command parseCommand(String input) {
         Command preparedCmd;
         switch(categoriseCommand(input)) {
@@ -77,6 +86,13 @@ public class Parser {
         return new TodayCommand();
     }
 
+    /**
+     * Compares the input entered by users and checks for the
+     * valid presence of command keywords of each supported command,
+     * returning the type of command detected
+     * @param input Complete line of user input
+     * @return CommandType Detected type of command
+     */
     private static CommandType categoriseCommand(String input) {
         CommandType type;
         if (input.equals(ByeCommand.COMMAND_WORD)) {
