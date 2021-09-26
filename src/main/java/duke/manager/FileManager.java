@@ -9,10 +9,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileManager {
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final String FILE_PATH = "duketasks.txt";
 
     /**
@@ -74,12 +77,12 @@ public class FileManager {
             tasks.add(new Todo(taskDescription));
             break;
         case "D":
-            String deadlineBy = splitArr[3];
-            tasks.add(new Deadline(taskDescription, deadlineBy));
+            LocalDateTime deadlineBy = LocalDateTime.parse(splitArr[3].strip(), formatter);
+            tasks.add(new Deadline(taskDescription, deadlineBy, splitArr[3]));
             break;
         case "E":
-            String eventAt = splitArr[3];
-            tasks.add(new Event(taskDescription, eventAt));
+            LocalDateTime eventAt = LocalDateTime.parse(splitArr[3].strip(), formatter);
+            tasks.add(new Event(taskDescription, eventAt, splitArr[3]));
             break;
         default:
         }
