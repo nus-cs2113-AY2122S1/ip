@@ -5,9 +5,10 @@ import duke.exception.UnsavedFile;
 import duke.system.Storage;
 import duke.system.TaskList;
 import duke.system.Ui;
-import duke.task.Deadline;
+import duke.task.Event;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 
 /**
@@ -15,27 +16,23 @@ import java.io.IOException;
  */
 public class AddEventCommand extends Command {
     private final String eventName;
-    private final String eventTime;
+    private final LocalDate eventStartDate;
+    private final LocalDate eventEndDate;
+    private final String eventStartTime;
+    private final String eventEndTime;
 
-    /**
-     * The AddEventCommand constructor.
-     * @param eventName the name/description of the event task
-     * @param eventTime the time of the event
-     */
-    public AddEventCommand(String eventName, String eventTime) {
+    public AddEventCommand(String eventName, LocalDate eventStartDate, String eventStartTime,
+                 LocalDate eventEndDate, String eventEndTime) {
         this.eventName = eventName;
-        this.eventTime = eventTime;
+        this.eventStartDate = eventStartDate;
+        this.eventStartTime = eventStartTime;
+        this.eventEndDate = eventEndDate;
+        this.eventEndTime = eventEndTime;
     }
 
-    /**
-     * Add the event into the list.
-     * @param tasks the TaskList object that takes in the new event task
-     * @param ui the Ui object responsible for printing messages
-     * @param storage the Storage object responsible for saving data in a local txt file
-     * @throws UnsavedFile if fail to save data in the local file
-     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws UnsavedFile {
-        tasks.addTask(new Deadline(eventName, eventTime));
+        tasks.addTask(new Event(eventName, eventStartDate, eventStartTime,
+                eventEndDate, eventEndTime));
         int currentTaskIndex = tasks.getTaskListSize() - 1;
         ui.printAdded(tasks.getTaskDetails(currentTaskIndex));
         try {
