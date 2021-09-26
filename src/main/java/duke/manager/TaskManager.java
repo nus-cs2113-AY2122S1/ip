@@ -5,10 +5,14 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskManager {
+    public static DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, uuuu hh:mm a");
 
     /**
      * Prints a line on the console
@@ -89,15 +93,37 @@ public class TaskManager {
         try {
             message = message.substring(6);
             String[] eventData = message.split("/", 2);
-            tasks.add(new Event(eventData[0], eventData[1].substring(3)));
+            tasks.add(new Event(eventData[0], processDateAndTime(eventData[1].substring(3)), eventData[1].substring(3)));
             printAddedTask(tasks.get(tasks.size() - 1), tasks);
             FileManager.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
+            printLine();
             System.out.println("YOU IDIOT !!??!! The description of an event cannot be empty.");
+            printLine();
         } catch (ArrayIndexOutOfBoundsException e) {
+            printLine();
             System.out.println("YOU IDIOT !!??!! The input format should be : ");
             System.out.println("event description /on date or time");
+            printLine();
+        } catch (DateTimeParseException e) {
+            printLine();
+            System.out.println("Please enter both date and time in the format");
+            System.out.println("YYYY-MM-DD HH:MM");
+            printLine();
         }
+    }
+
+    /**
+     * Returns the LocalDateTime object after processing
+     * the input string
+     *
+     * @param message input string containing the date and time
+     * @return LocalDateTime object "yyyy-MM-dd HH:mm"
+     */
+    private static LocalDateTime processDateAndTime(String message) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime info = LocalDateTime.parse(message.strip(), formatter);
+        return info;
     }
 
     /**
@@ -110,7 +136,7 @@ public class TaskManager {
         try {
             message = message.substring(9);
             String[] deadlineData = message.split("/", 2);
-            tasks.add(new Deadline(deadlineData[0], deadlineData[1].substring(3)));
+            tasks.add(new Deadline(deadlineData[0], processDateAndTime(deadlineData[1].substring(3)), deadlineData[1].substring(3)));
             printAddedTask(tasks.get(tasks.size() - 1), tasks);
             FileManager.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
@@ -121,6 +147,11 @@ public class TaskManager {
             printLine();
             System.out.println("YOU IDIOT !!??!! The input format should be : ");
             System.out.println("deadline description /by date or time");
+            printLine();
+        } catch (DateTimeParseException e) {
+            printLine();
+            System.out.println("Please enter both date and time in the format");
+            System.out.println("YYYY-MM-DD HH:MM");
             printLine();
         }
     }
