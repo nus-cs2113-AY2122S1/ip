@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -37,7 +39,7 @@ public class Duke {
             + DOTTED_LINE;
 
     public static final String DONE_INVALID_NUMBER = DOTTED_LINE + System.lineSeparator()
-            + "Task number is invalid! Enter the correct task number!" + System.lineSeparator()
+            + "duke.Task number is invalid! Enter the correct task number!" + System.lineSeparator()
             + DOTTED_LINE;
 
 
