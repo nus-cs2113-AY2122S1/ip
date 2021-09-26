@@ -5,31 +5,45 @@ Duke is a **task management tool** designed to help individuals keep track of th
 This **command-line based app** features a personal assistant, Lizzy, that you can interact with in order
 to perform various actions.
 
-## Starting the program
+## Setting Up
 
-(Adapted start-up instructions from [addressbook-level2](https://github.com/se-edu/addressbook-level2/blob/master/docs/UserGuide.adoc))
+1. Ensure that you have Java 11 set up on your computer.
+2. Download the latest `ip.jar` file from [here.](https://github.com/Kureans/ip/releases/tag/A-Release)
+3. Copy the file into any folder of your choice.
+4. Open a new terminal into the chosen folder, and execute `java -jar ip.jar` to run the program. If
+successful, this should be what you see upon start-up:
 
-### Using IntelliJ
-
-- Find the project in the `Project Explorer` (usually located at the left side)
-
-  - If the `Project Explorer` is not visible, press `ALT+1` for Windows/Linux, `CMD+1` for macOS to open the Project Explorer tab
-
-- Go to the `src` folder and locate the `Duke` file
-
-- Right click the file and select `Run Duke.main()`
-
-- The program now should run on the `Console` (usually located at the bottom side)
-
-- Now you can interact with the program through the `Console`
-
-### Using Command Line
-
-- 'Build' the project using IntelliJ
-- Open the `Terminal`/`Command Prompt`
-- `cd` into the project's `out\production\ip` directory
-- Type `java duke.program.Duke`, then Enter to execute
-- Now you can interact with the program through the CLI
+```
+Howdy! It's
+      ___                   ___           ___           ___
+     /\__\      ___        /\  \         /\  \         |\__\
+    /:/  /     /\  \       \:\  \        \:\  \        |:|  |
+   /:/  /      \:\  \       \:\  \        \:\  \       |:|  |
+  /:/  /       /::\__\       \:\  \        \:\  \      |:|__|__
+ /:/__/     __/:/\/__/ _______\:\__\ _______\:\__\     /::::\__\
+ \:\  \    /\/:/  /    \::::::::/__/ \::::::::/__/    /:/~~/~
+  \:\  \   \::/__/      \:\~~\~~      \:\~~\~~       /:/  /
+   \:\  \   \:\__\       \:\  \        \:\  \        \/__/
+    \:\__\   \/__/        \:\__\        \:\__\
+     \/__/                 \/__/         \/__/
+                      ____...---...___
+___.....---"""                .                   ""--..____
+     .                  .            .
+ .             _.--._       /|
+        .    .'()..()`.    / /
+            ( `-.__.-' )  ( (    .
+   .         \        /    \ \
+       .      \      /      ) )        .
+            .' -.__.- `.-.-'_.'
+ .        .'  /-____-\  `.-'       .
+          \  /-.____.-\  /-.
+           \ \`-.__.-'/ /\|\|           .
+          .'  `.    .'  `.
+          |/\/\|    |/\/\|
+________________________________________
+Hey! I'm Lizzy the Lizard!
+What can I do for you?
+```
 
 ## Features 
 
