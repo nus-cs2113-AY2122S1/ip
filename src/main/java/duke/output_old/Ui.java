@@ -172,6 +172,23 @@ public class Ui {
     }
 
     /**
+     * Prints the tasks that match the given keywords
+     * @param tasks list of tasks
+     * @param keywords keywords to find in tasks
+     */
+    public void printMatchingTasks(ArrayList<Task> tasks, String keywords) {
+        System.out.println(NEWLINE + "Here are the matching tasks in your list:");
+        int count = 0;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keywords)) {
+                count++;
+                System.out.println(count + NUMBER_LIST_SEPARATOR + task);
+            }
+        }
+        System.out.print(NEWLINE);
+    }
+
+    /**
      * Prints a list of commands.
      */
     public void printHelpMessage() {

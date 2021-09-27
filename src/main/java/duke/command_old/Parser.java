@@ -17,6 +17,7 @@ public class Parser {
     public static final String EXIT = "exit";
     public static final String QUIT = "quit";
     public static final String GREETING = "hello";
+    public static final String FIND = "find";
 
     /**
      * Returns the command from the user's input.
@@ -50,6 +51,9 @@ public class Parser {
 
         case GREETING:
             return CommandType.GREETING;
+
+        case FIND:
+            return CommandType.FIND;
 
         case BYE:
             //Fallthrough
