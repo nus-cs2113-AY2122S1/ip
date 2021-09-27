@@ -3,10 +3,17 @@ package duke;
 import duke.util.Parser;
 import duke.util.Ui;
 
+/**
+ * This class represents the main chat bot
+ */
 public class Duke {
 
     private Ui ui;
 
+    /**
+     * Constructor method for <code>Duke</code>
+     *
+     */
     public Duke() {
         this.ui = new Ui();
     }
@@ -15,6 +22,12 @@ public class Duke {
         new Duke().run();
     }
 
+    /**
+     * Runs the command returned by the parser, then prints the output message
+     *
+     * @param command user's input command
+     * @return the output message as String
+     */
     public static String runCommand(String command) {
         String msg;
 
@@ -26,6 +39,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Main run routine for the chat bot
+     */
     public void run() {
         boolean isExit = false;
         String command;

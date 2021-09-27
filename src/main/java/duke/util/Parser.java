@@ -18,35 +18,51 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The class represents an utility to parse command from the user's input
+ */
 public class Parser {
-    static private final String COMMAND_LIST = "list";
-    static private final String COMMAND_TODO = "todo";
-    static private final String COMMAND_EVENT = "event";
-    static private final String COMMAND_DEADLINE = "deadline";
-    static private final String COMMAND_DONE = "done";
-    static private final String COMMAND_DELETE = "delete";
-    static private final String COMMAND_FIND = "find";
-    static private final String COMMAND_HELP = "help";
-    static private final String COMMAND_EXIT = "bye";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_DONE = "done";
+    private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
+    private static final String COMMAND_HELP = "help";
+    private static final String COMMAND_EXIT = "bye";
 
-    static private final String INVALID_COMMAND = "Not a recognisable command by me. Try \"help\" instead!";
+    private static final String INVALID_COMMAND = "Not a recognisable command by me. Try \"help\" instead!";
 
-    static private final String COMMAND_DEADLINE_SEPARATOR = "/by";
-    static private final String COMMAND_EVENT_SEPARATOR = "/at";
+    private static final String COMMAND_DEADLINE_SEPARATOR = "/by";
+    private static final String COMMAND_EVENT_SEPARATOR = "/at";
 
-    static private final String DATE_TIME_FORMAT = "dd MMM yyyy HH:mm";
-    static private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+    private static final String DATE_TIME_FORMAT = "dd MMM yyyy HH:mm";
+    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
 
-    static private final String SPACE_SEPARATOR = " ";
-    static private final String EMPTY_STRING = "";
+    private static final String SPACE_SEPARATOR = " ";
+    private static final String EMPTY_STRING = "";
 
-    static private final int EVENT_DEADLINE_ARGUMENT_COUNT = 2;
+    private static final int EVENT_DEADLINE_ARGUMENT_COUNT = 2;
 
-
+    /**
+     * Checks to see if the user has inputted an exit command
+     *
+     * @param command the user's input command
+     * @return true if the user's command is exit command, false otherwise
+     */
     public static boolean isExit(String command) {
         return (command.equals(COMMAND_EXIT));
     }
 
+
+    /**
+     * Parse the user's input command to the corresponding command
+     *
+     * @param command user's input command
+     * @return the corresponding command that follows the <code>Command</code> interface
+     * @throws DukeException if the command cannot be recognised
+     */
     public static Command parse(String command) throws DukeException {
         String[] words = command.split(SPACE_SEPARATOR);
 
