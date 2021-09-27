@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Files;
@@ -78,7 +79,14 @@ public class DataSaver {
         case "D":
             String deadlineDescription = taskDetails[2].trim();
             String by = taskDetails[3].trim();
-            LocalDateTime deadlineBy = DukeParser.parseDateTime(by, FORMAT_DATE_TIME_INPUT);
+            //remove T in index 10 of task in save file before formatting
+            char[] byCharArray = by.toCharArray();
+            if (byCharArray[10] == 'T') {
+                byCharArray[10] = ' ';
+            }
+            by = String.valueOf(byCharArray);
+
+            LocalDateTime deadlineBy = parseDateTime(by, FORMAT_DATE_TIME_INPUT);
             Deadline addedDeadline = new Deadline(deadlineDescription, deadlineBy);
             addDoneStatus(addedDeadline, taskDetails);
             taskList.add(addedDeadline);
@@ -86,7 +94,14 @@ public class DataSaver {
         case "E":
             String eventDescription = taskDetails[2].trim();
             String at = taskDetails[3].trim();
-            LocalDateTime eventAt = DukeParser.parseDateTime(at, FORMAT_DATE_TIME_INPUT);
+
+            char[] atCharArray = at.toCharArray();
+            if (atCharArray[10] == 'T') {
+                atCharArray[10] = ' ';
+            }
+            at = String.valueOf(atCharArray);
+
+            LocalDateTime eventAt = parseDateTime(at, FORMAT_DATE_TIME_INPUT);
             Event addedEvent = new Event(eventDescription, eventAt);
             addDoneStatus(addedEvent, taskDetails);
             taskList.add(addedEvent);
