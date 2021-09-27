@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class CommandHandler {
-
     public static final String DEADLINE_SEPARATOR = "/by ";
     public static final String EVENT_SEPARATOR = "/at ";
     public static final String TASK_SEPARATOR = " ";
@@ -24,6 +23,13 @@ public class CommandHandler {
         ui = new Ui();
     }
 
+    /**
+     * Carries out instructions based on input and commands received
+     * @param command command detected in input
+     * @param input user input
+     * @param tasksList task list editor containing list of tasks
+     * @param storage file editor
+     */
     public void handleCommand(CommandType command, String input, TaskList tasksList, Storage storage) {
         String[] words = input.split(" ");
         tasks = tasksList.getTasks();
@@ -64,7 +70,7 @@ public class CommandHandler {
                     Todo todo = new Todo(description);
                     tasksList.addTask(todo);
                     saveTasks(tasks, storage);
-                    ui.printAddedTask(tasks, todo, storage);
+                    ui.printAddedTask(tasks, todo);
                 }
             } catch (IndexOutOfBoundsException e) {
                 ui.printNoTaskNameMessage();
@@ -85,7 +91,7 @@ public class CommandHandler {
                     Deadline deadline = new Deadline(description, by);
                     tasksList.addTask(deadline);
                     saveTasks(tasks, storage);
-                    ui.printAddedTask(tasks, deadline, storage);
+                    ui.printAddedTask(tasks, deadline);
                 }
             } catch (IndexOutOfBoundsException e) {
                 ui.printNoDeadlineMessage();
@@ -106,7 +112,7 @@ public class CommandHandler {
                     Event event = new Event(description, at);
                     tasksList.addTask(event);
                     saveTasks(tasks, storage);
-                    ui.printAddedTask(tasks, event, storage);
+                    ui.printAddedTask(tasks, event);
                 }
             } catch (IndexOutOfBoundsException e) {
                 ui.printNoEventMessage();
@@ -118,7 +124,7 @@ public class CommandHandler {
                 int taskNumber = Integer.parseInt(words[1]) - 1;
                 Task task = tasksList.deleteTask(taskNumber);
                 saveTasks(tasks, storage);
-                ui.printDeletedTask(tasks, task, taskNumber, storage);
+                ui.printDeletedTask(tasks, task);
             } catch (IndexOutOfBoundsException e) {
                 ui.printTaskNumberOutOfBoundsMessage();
             } catch (NumberFormatException e) {
@@ -152,6 +158,11 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Save tasks in list to a file
+     * @param tasks list of tasks
+     * @param storage file editor
+     */
     public void saveTasks(ArrayList<Task> tasks, Storage storage) {
         try {
             storage.saveListToFile(tasks);

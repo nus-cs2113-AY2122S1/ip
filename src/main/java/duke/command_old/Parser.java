@@ -19,6 +19,11 @@ public class Parser {
     public static final String GREETING = "hello";
     public static final String FIND = "find";
 
+    /**
+     * Returns the command from the user's input.
+     * @param input user input
+     * @return command type, represented by an enumeration.
+     */
     public CommandType parseCommand(String input) {
         String[] words = input.split(" ");
         String inputCommand = words[0];
