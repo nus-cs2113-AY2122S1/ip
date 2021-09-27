@@ -74,7 +74,7 @@ Format: `todo TASK_NAME`
 
 Example of usage: 
 
-`todo shopping`
+- `todo shopping`
 
 Expected outcome:
 ```
