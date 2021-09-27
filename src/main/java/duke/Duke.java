@@ -54,6 +54,9 @@ public class Duke {
         return false;
     }
 
+    /*
+     * Do initialisation work
+     */
     private static void initialise() {
         String greeting = "Hello! I'm Duke";
         String assist = "What can I do for you?";
@@ -62,6 +65,9 @@ public class Duke {
         tasks = Storage.readFromFile();
     }
 
+    /*
+     * Do some post-operation work such as cleanup
+     */
     private static void finalise() {
         String farewell = "Bye. Hope to see you again soon!";
         System.out.println(farewell);

@@ -8,6 +8,10 @@ public abstract class Task implements Serializable {
     private boolean doneStatus = false;
     protected final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /*
+     * This is mainly to provide a unified interface to determine the type
+     * @return A unique string denoting the type
+     */
     protected String getType() {
         return "task";
     }
@@ -21,10 +25,18 @@ public abstract class Task implements Serializable {
         this.title = title;
     }
 
+    /*
+     * Get the title of a task
+     * @return The title
+     */
     public String getTitle() {
         return title;
     }
 
+    /*
+     * Set the title of a task
+     * @param title The new title to be set to
+     */
     public void setTitle(String title) {
         this.title = title;
     }
@@ -33,6 +45,11 @@ public abstract class Task implements Serializable {
         this.doneStatus = status;
     }
 
+    /*
+     * Get the icon reflecting the status whether the task is done
+     * @return the icon
+     * @see doneStatus
+     */
     public String getStatusIcon() {
         return this.doneStatus ? "x" : " ";
     }
