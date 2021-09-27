@@ -11,7 +11,11 @@ import static duke.storage.UserData.initFileWithDirectory;
 
 public class Duke {
 
-    public static void main(String[] args) throws IOException {
+    /**
+     * Main method that continues looping and accepting commands until user inputs 'bye'.
+     * @param args input rom the user through CLI.
+     */
+    public static void main(String[] args) {
         Program currProgram = new Program();
         HalUi newUi = new HalUi();
 

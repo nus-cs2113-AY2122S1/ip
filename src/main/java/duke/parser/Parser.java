@@ -14,6 +14,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the class which handles all text parsing functions in the programme
+ */
 public class Parser {
     private static int DEADLINE_INDEX = 9;
     private static int EVENT_INDEX = 5;
@@ -26,6 +29,15 @@ public class Parser {
 
     static HalUi ui = new HalUi();
 
+    /**
+     * Returns a list of String objects based on the text input.
+     * If the format of the input text does not follow requirements, exception is thrown.
+     *
+     * @param task Task the type of task corresponding to the input.
+     * @param input Input a string based on the text input by the user through CLI.
+     * @return a parsed list of string literals containing the description and timing components (if relevant).
+     * @throws HalException if format of input text is wrong.
+     */
     public List<String> parseTextInput(Task task, String input) throws HalException {
         if (task instanceof Deadline && !input.contains("/by")) {
             ui.printErrorMessage();
@@ -66,6 +78,8 @@ public class Parser {
         return returnVal;
     }
 
+   
+
     public String parseTextInput(String str) throws HalException {
         description = str.substring(FIND_INDEX).trim();
         if (description.equals("")) {
@@ -74,7 +88,14 @@ public class Parser {
         }
         return description;
     }
-
+  
+    /** 
+     * Returns an integer extracted from a string.
+     * If an integer cannot be parsed from the string, a NumberFormatException is thrown.
+     *
+     * @param task Task the input string containing an integer value
+     * @return the integer representing the integer of the task
+     */
     public int parseInt(String task) {
         try {
             int taskNum = Integer.parseInt(task.substring(task.indexOf(' ') + 1));
