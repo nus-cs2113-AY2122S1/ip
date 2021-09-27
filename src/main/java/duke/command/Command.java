@@ -1,55 +1,47 @@
 package duke.command;
 
-import duke.Parser;
-
-enum Command {
-    BYE("bye", 1, "(?i)%s"),
-    LIST("list", 1, "(?i)%s"),
-    DONE("done <task number>", 2, "(?i)%s\\s+\\d+$"),
-    DELETE("delete <task number>", 2, "(?i)%s\\s+\\d+$"),
-    FIND("find <description>", 2, "(?i)%s\\s+\\S+$");
-
+/**
+ * Abstract Class to represent a Command.
+ * <code>name</code> corresponds to name of command.
+ * <code>usage</code> corresponds to the mesasge that would be appended to <code>name</code> when displaying proper usage.
+ * <code>argument</code> corresponds to argument entered by user when using command.
+ */
+public abstract class Command {
     private static final String USAGE_MESSAGE = "Wrong argument(s). Usage: ";
 
-    private final String USAGE;
-    private final int NUMBER_OF_ARGS;
-    private final String REGEX;
+    private final String name;
+    private final String usage;
+    final String argument;
 
-    Command(String usage, int numberOfArgs, String regex) {
-        USAGE = usage;
-        NUMBER_OF_ARGS = numberOfArgs;
-        REGEX = regex;
+    Command(String name, String usage, String argument){
+        this.name = name;
+        this.usage = usage;
+        this.argument = argument;
     }
 
+    /**
+     * Returns usage message
+     * @return the usage message followed by the name of te command and anything to be appended after in <code>usage</code>.
+     */
     String getUsage() {
-        return USAGE_MESSAGE + USAGE;
-    }
-
-    static Command getCommand(String commandString){
-        return valueOf(commandString.toUpperCase());
+        return USAGE_MESSAGE + name + usage;
     }
 
     @Override
     public String toString(){
-        return super.toString().toLowerCase();
+        return name;
     }
 
-    private boolean matchesRegex(String userInput) {
-        return userInput.matches(String.format(REGEX, toString()));
-    }
+    /**
+     * Returns boolean on whether the command argument is valid
+     * @return boolean command is valid
+     */
+    abstract boolean isValid();
 
-    static boolean contains(String userInput) {
-        userInput = userInput.toUpperCase();
-        for (Command command : Command.values()) {
-            if (command.name().equals(userInput)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    boolean isValid(String userInput){
-        String[] userInputSplit = Parser.splitWhitespace(userInput);
-        return userInputSplit.length == NUMBER_OF_ARGS && matchesRegex(userInput);
-    }
+    /**
+     * code to be executed by function and returns a
+     * boolean on whether the program should continue running.
+     * @return boolean program should continue running
+     */
+    abstract boolean execute();
 }
