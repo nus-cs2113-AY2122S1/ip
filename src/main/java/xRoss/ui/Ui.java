@@ -6,8 +6,6 @@ import xRoss.task.Deadline;
 import xRoss.task.Event;
 import xRoss.task.Todo;
 
-import java.time.format.DateTimeParseException;
-
 /**
  * Represents interaction with user
  */
@@ -54,65 +52,61 @@ public class Ui {
      */
     public static void printCommandErrorMessage(String s) {
         switch (s) {
-        case "todo_format":
-            System.out.println("\tWrong Todo command format: "
-                    + "String argument expected for Todo name\n"
-                    + "\tCorrect format as follows:\n"
-                    + "\t\ttodo <name>\n");
-            break;
-        case "todo_empty_string":
-            System.out.println("\tString argument for Todo name cannot be empty\n"
-                    + "\tCorrect format as follows:\n"
-                    + "\t\ttodo <name>\n");
-            break;
-        case "deadline_format":
-            System.out.println("\tWrong Deadline command format: "
-                    + "String argument expected for Deadline name and date/time\n"
-                    + "\tCorrect format as follows:\n"
-                    + "\t\tdeadline <name> /by <due by date/time>\n");
-            break;
-        case "deadline_empty_string":
-            System.out.println(
-                    "\tString argument for Deadline name and date/time cannot be empty\n"
-                            + "\tCorrect format as follows:\n"
-                            + "\t\tdeadline <name> /by <due by date/time>\n");
-            break;
-        case "event_format":
-            System.out.println("\tWrong Event command format: "
-                    + "String argument expected for Event name and date/time\n"
-                    + "\tCorrect format as follows:\n"
-                    + "\t\tevent <name> /at <date/time of event>\n");
-            break;
-        case "event_empty_string":
-            System.out.println(
-                    "\tString argument for Event name and date/time cannot be empty\n"
-                            + "\tCorrect format as follows:\n"
-                            + "\t\tevent <name> /at <date/time of event>\n");
-            break;
-        case "done":
-            System.out.println("\tWrong Mark as Done command format: "
-                    + "Integer argument expected for task to be marked as done\n"
-                    + "\tCorrect format as follows:\n"
-                    + "\t\tdone <valid task number>\n");
-            break;
-        case "delete":
-            System.out.println("\tWrong Delete command format: "
-                    + "Integer argument expected for task to be deleted\n"
-                    + "\tCorrect format as follows:\n"
-                    + "\t\tdelete <valid task number>\n");
-            break;
-        case "date_format":
-            System.out.println("\tWrong Date/Time format: "
-                    + "Date/Time argument expected in the form of DD-MM-YYYY HHmm\n");
-            break;
-        default:
+            case "todo_format":
+                System.out.println("\tWrong Todo command format: "
+                        + "String argument expected for Todo name\n"
+                        + "\tCorrect format as follows:\n"
+                        + "\t\ttodo <name>\n");
+                break;
+            case "todo_empty_string":
+                System.out.println("\tString argument for Todo name cannot be empty\n"
+                        + "\tCorrect format as follows:\n"
+                        + "\t\ttodo <name>\n");
+                break;
+            case "deadline_format":
+                System.out.println("\tWrong Deadline command format: "
+                        + "String argument expected for Deadline name and date/time\n"
+                        + "\tCorrect format as follows:\n"
+                        + "\t\tdeadline <name> /by <due by date/time>\n");
+                break;
+            case "deadline_empty_string":
+                System.out.println(
+                        "\tString argument for Deadline name and date/time cannot be empty\n"
+                                + "\tCorrect format as follows:\n"
+                                + "\t\tdeadline <name> /by <due by date/time>\n");
+                break;
+            case "event_format":
+                System.out.println("\tWrong Event command format: "
+                        + "String argument expected for Event name and date/time\n"
+                        + "\tCorrect format as follows:\n"
+                        + "\t\tevent <name> /at <date/time of event>\n");
+                break;
+            case "event_empty_string":
+                System.out.println(
+                        "\tString argument for Event name and date/time cannot be empty\n"
+                                + "\tCorrect format as follows:\n"
+                                + "\t\tevent <name> /at <date/time of event>\n");
+                break;
+            case "done":
+                System.out.println("\tWrong Mark as Done command format: "
+                        + "Integer argument expected for task to be marked as done\n"
+                        + "\tCorrect format as follows:\n"
+                        + "\t\tdone <valid task number>\n");
+                break;
+            case "delete":
+                System.out.println("\tWrong Delete command format: "
+                        + "Integer argument expected for task to be deleted\n"
+                        + "\tCorrect format as follows:\n"
+                        + "\t\tdelete <valid task number>\n");
+                break;
+            default:
         }
     }
 
     /**
      * Prints response to "list" command to system output.
      *
-     * @param taskManager Representation of current task list.
+     * @param taskManager   Representation of current task list.
      */
     public static void printTaskListResponse(TaskManager taskManager) {
         printDividerLine();
@@ -123,8 +117,8 @@ public class Ui {
     /**
      * Prints response to "done" command to system output.
      *
-     * @param taskManager Representation of current task list.
-     * @param inputLine   Scanned system input.
+     * @param taskManager   Representation of current task list.
+     * @param inputLine     Scanned system input.
      */
     public static void printDoneResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
@@ -141,10 +135,10 @@ public class Ui {
     /**
      * Prints response to "delete" command to system output.
      *
-     * @param taskManager Representation of current task list.
-     * @param inputLine   Scanned system input.
+     * @param taskManager   Representation of current task list.
+     * @param inputLine     Scanned system input.
      */
-    public static void printDeleteResponse(TaskManager taskManager, String inputLine) {
+    public static void printDeleteResponse(TaskManager taskManager, String inputLine){
         printDividerLine();
         try {
             String[] taskNumberDone = inputLine.split("delete ");
@@ -159,8 +153,8 @@ public class Ui {
     /**
      * Prints response to "todo" command to system output.
      *
-     * @param taskManager Representation of current task list.
-     * @param inputLine   Scanned system input.
+     * @param taskManager   Representation of current task list.
+     * @param inputLine     Scanned system input.
      */
     public static void printTodoResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
@@ -179,8 +173,8 @@ public class Ui {
     /**
      * Prints response to "deadline" command to system output.
      *
-     * @param taskManager Representation of current task list.
-     * @param inputLine   Scanned system input.
+     * @param taskManager   Representation of current task list.
+     * @param inputLine     Scanned system input.
      */
     public static void printDeadlineResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
@@ -192,8 +186,6 @@ public class Ui {
             printCommandErrorMessage("deadline_format");
         } catch (EmptyStringException e) {
             printCommandErrorMessage("deadline_empty_string");
-        } catch (DateTimeParseException e) {
-            printCommandErrorMessage("date_format");
         }
         printDividerLine();
     }
@@ -201,8 +193,8 @@ public class Ui {
     /**
      * Prints response to "event" command to system output.
      *
-     * @param taskManager Representation of current task list.
-     * @param inputLine   Scanned system input.
+     * @param taskManager   Representation of current task list.
+     * @param inputLine     Scanned system input.
      */
     public static void printEventResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
@@ -214,8 +206,6 @@ public class Ui {
             printCommandErrorMessage("event_format");
         } catch (EmptyStringException e) {
             printCommandErrorMessage("event_empty_string");
-        } catch (DateTimeParseException e){
-            printCommandErrorMessage("date_format");
         }
         printDividerLine();
     }

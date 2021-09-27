@@ -2,31 +2,15 @@ package xRoss.task;
 
 import xRoss.exception.EmptyStringException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 /**
  * Represents tasks with deadlines.
  */
 public class Deadline extends Task {
 
     /**
-     * DateTime format for reading from user input and saving to file
-     */
-    final static DateTimeFormatter READ_SAVE_FORMATTER =
-            DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-
-    /**
-     * DateTime format for printing to system output
-     */
-    final static DateTimeFormatter DISPLAY_FORMATTER =
-            DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
-
-    /**
      * by   Deadline date/time
      */
-    protected LocalDateTime by;
+    protected String by;
 
     /**
      * Constructor for Deadline instance.
@@ -42,12 +26,12 @@ public class Deadline extends Task {
 
     /**Getter and Setter for by variable*/
 
-    public LocalDateTime getBy() {
+    public String getBy() {
         return by;
     }
 
-    public void setBy(String by) throws DateTimeParseException {
-        this.by = LocalDateTime.parse(by, READ_SAVE_FORMATTER);
+    public void setBy(String by) {
+        this.by = by;
     }
 
     /**
@@ -62,9 +46,7 @@ public class Deadline extends Task {
             System.out.print(" ");
         }
 
-        System.out.println("] " + super.getName() + " (by: "
-                + getBy().format(DISPLAY_FORMATTER)
-                + ")");
+        System.out.println("] " + super.getName() + " (by: " + getBy() + ")");
     }
 
     /**
@@ -75,9 +57,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "D" + super.toString()
-                + " | "
-                + getBy().format(READ_SAVE_FORMATTER)
-                + "\n";
+                + " | " + getBy() + "\n";
     }
 
 }
