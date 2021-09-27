@@ -49,11 +49,11 @@ public class Storage {
         Scanner scan = new Scanner(f);
         String taskType;
         String s;
-        int taskNumber = 1; //tracks how many tasks read from .txt file so far
+        int taskNumber = 1;
 
-        while(scan.hasNext())                                                                                           //todo hello | 1
-        {                                                                                                               //deadline hello /by Sunday | 1
-            String data = scan.nextLine();                                                                              //event project meeting /at Mon 2-4pm | 0
+        while(scan.hasNext())
+        {
+            String data = scan.nextLine();
             String[] arrayString = data.split(" \\| ");
             String[] arrayString2 = arrayString[0].split(" ");
             taskType = arrayString2[0];
