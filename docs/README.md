@@ -1,18 +1,18 @@
 # User Guide
-Karen is a **Command Line Interface (CLI) Chat Bot for managing your tasks.**, inspired by the TV show _SpongeBob 
+Karen is a **Command Line Interface (CLI) Chat Bot for managing your tasks.**, inspired by the TV show _SpongeBob
 SquarePants_.
 
 - [Features](#features)
-    - [Adding a To Do task: `todo`](#todo)
-    - [Adding an Event task: `event`](#event)
-    - [Adding a Deadline task: `deadline`](#deadline)
-    - [Listing all tasks: `list`](#list)
-    - [Marking a task as done: `done`](#done)
-    - [Deleting a task: `delete`](#delete)
-    - [Searching for tasks: `find`](#find)
-    - [Showing the tasks on a specific day: `show`](#show)
-    - [Exiting the program: `bye`](#exit)
-    - [Saving the data](#save)
+  - [Adding a To Do task: `todo`](#todo)
+  - [Adding an Event task: `event`](#event)
+  - [Adding a Deadline task: `deadline`](#deadline)
+  - [Listing all tasks: `list`](#list)
+  - [Marking a task as done: `done`](#done)
+  - [Deleting a task: `delete`](#delete)
+  - [Searching for tasks: `find`](#find)
+  - [Showing the tasks on a specific day: `show`](#show)
+  - [Exiting the program: `bye`](#exit)
+  - [Saving the data](#save)
 - [Command summary](#summary)
 
 --------------------------------------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ Adds a To Do task to the task list.
 
 :warning: `[TASK_DESCRIPTION]` cannot be empty.
 
-#####Example: 
+#####Example:
 
 ![](images/karen2.png)
 
@@ -162,10 +162,10 @@ The program stops running and exits.
 <br />
 
 ###  <a name="save"></a>Saving the data
-- Karen's data in the task list is saved in the user's local data storage automatically after any command that changes the data. 
+- Karen's data in the task list is saved in the user's local data storage automatically after any command that changes the data.
 
 - If Karen is running for the first time and there is no saved file in the local data
-storage, a new file will be created during the first run automatically.
+  storage, a new file will be created during the first run automatically.
 
 --------------------------------------------------------------------------------------------------------------------
 
