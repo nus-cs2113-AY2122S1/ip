@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * General Class for handling welcome/leaving messages and printing utility functions.
+ */
 public class Message {
     private static final String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
@@ -10,6 +13,10 @@ public class Message {
     private static final String END = "Bye. Hope to see you again soon!";
     private static final String SPACER = "____________________________________________________________\n";
 
+    /**
+     * Takes in a string and prints it in-between two lines of {@link #SPACER}.
+     * @param message String to print encapsulated in spacers.
+     */
     public static void printWithSpacers(String message) {
         //If message does not end in newline, insert newline
         if (message.charAt(message.length() - 1) != '\n') {
