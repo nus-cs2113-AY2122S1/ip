@@ -134,6 +134,12 @@ public abstract class MessagePrinter {
         dashes();
     }
 
+    public static void invalidDate() {
+        dashes();
+        System.out.println("Sir you modelled me to read dates in the format yyyy-mm-dd");
+        dashes();
+    }
+
     public static void ioexception(String error) {
         dashes();
         System.out.println("There was the error of type " + error + " when updating the storage.");
