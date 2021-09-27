@@ -11,14 +11,6 @@ public class Event extends Task {
         this.typeIcon = "E";
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     @Override
     public String toString() {
         return OPEN_BRACKET + typeIcon + CLOSE_BRACKET + super.toString() + " (at: " + date + ")";

@@ -12,31 +12,38 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Returns the list of tasks.
+     * @return list of tasks
+     */
     public ArrayList<Task> getTasks(){
         return tasks;
     }
 
-    public void setTasks(ArrayList<Task> tasksList) {
-        tasks = tasksList;
-    }
-
+    /**
+     * Adds a task.
+     * @param task task to be added
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Deletes a task.
+     * @param index task number of task to be deleted
+     * @return the task to be deleted
+     */
     public Task deleteTask(int index) {
         Task task = tasks.get(index);
         tasks.remove(task);
         return task;
     }
 
-    public Boolean isDone(int index) {
-        Task task = tasks.get(index);
-        return task.isDone();
-    }
-
+    /**
+     * Marks a task as done.
+     * @param index task number of task to be marked as done
+     */
     public void markDone(int index) {
-        Task task = tasks.get(index);
         tasks.get(index).markAsDone();
     }
 }

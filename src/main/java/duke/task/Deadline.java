@@ -11,14 +11,6 @@ public class Deadline extends Task {
         this.typeIcon = "D";
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     @Override
     public String toString() {
         return OPEN_BRACKET + typeIcon + CLOSE_BRACKET + super.toString() + " (by: " + date + ")";

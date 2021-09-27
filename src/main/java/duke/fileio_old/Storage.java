@@ -20,6 +20,11 @@ public class Storage {
     public static final String FIELD_SEPARATOR = " -separator- ";
     public static final String NEWLINE = "\n";
 
+    /**
+     * Saves the list of tasks to a file.
+     * @param tasks
+     * @throws IOException If an error occurs while saving to the file.
+     */
     public void saveListToFile(ArrayList<Task> tasks) throws IOException {
         File directory = new File(FILE_DIRECTORY);
         directory.mkdir();
@@ -36,6 +41,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Gets the list of tasks from a file.
+     * @param tasks list to save tasks to
+     * @throws FileNotFoundException If file does not exist
+     */
     public void getTasksFromFile(ArrayList<Task> tasks) throws FileNotFoundException {
         File f = new File(FILE_DIRECTORY + FILE_SEPARATOR + FILE_NAME); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
