@@ -1,4 +1,4 @@
-# User Guide <!-- omit in toc -->
+# H.A.L 9000 Task Manager User Guide <!-- omit in toc -->
 
 ## About H.A.L 9000
 
