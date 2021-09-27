@@ -27,7 +27,7 @@ public class Input {
      * @param taskList main list keeping track of user's tasks
      */
     public static void inputHandler(String userLine, ArrayList<Task> taskList) {
-        String[] splitString = Parser.parseUserInput(userLine);
+        String[] splitString = Parser.parseCommand(userLine);
         String taskKeyword = splitString[0];
         try {
             switch (taskKeyword) {
