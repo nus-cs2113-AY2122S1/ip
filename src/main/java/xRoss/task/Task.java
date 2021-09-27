@@ -10,7 +10,7 @@ public abstract class Task {
     /**
      * name     Task description
      * isDone   Boolean value denotes whether Task has been done
-     *
+     * <p>
      * Protected access to be inherited by subclasses.
      */
     protected String name;
@@ -19,11 +19,11 @@ public abstract class Task {
     /**
      * Constructor for Task instance.
      *
-     * @param name  Task description.
+     * @param name Task description.
      * @throws EmptyStringException Exception thrown if "name" param is an empty string.
      */
     public Task(String name) throws EmptyStringException {
-        if (name.isEmpty()){
+        if (name.isEmpty()) {
             throw new EmptyStringException();
         }
 
@@ -31,7 +31,9 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    /**Getters and Setters for name and isDone variables*/
+    /**
+     * Getters and Setters for name and isDone variables
+     */
 
     public String getName() {
         return name;
@@ -57,10 +59,10 @@ public abstract class Task {
     /**
      * Converts Task instance to its String representation.
      *
-     * @return  String representation of Task instance.
+     * @return String representation of Task instance.
      */
-    public String toString(){
-        return " | " + (isDone()? "1": "0")
+    public String toString() {
+        return " | " + (isDone() ? "1" : "0")
                 + " | " + getName();
     }
 }

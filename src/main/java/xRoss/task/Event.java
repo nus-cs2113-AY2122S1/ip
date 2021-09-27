@@ -31,8 +31,8 @@ public class Event extends Task {
     /**
      * Constructor for Event instance.
      *
-     * @param name  Event description
-     * @param at    Event date/time
+     * @param name Event description
+     * @param at   Event date/time
      * @throws EmptyStringException Exception thrown if "name" or "at" params are empty strings.
      */
     public Event(String name, String at) throws EmptyStringException {
@@ -40,7 +40,9 @@ public class Event extends Task {
         setAt(at);
     }
 
-    /**Getter and Setter for at variable*/
+    /**
+     * Getter and Setter for at variable
+     */
 
     public LocalDateTime getAt() {
         return at;
@@ -70,7 +72,7 @@ public class Event extends Task {
     /**
      * Converts Event instance to its String representation.
      *
-     * @return  String representation of Event instance.
+     * @return String representation of Event instance.
      */
     @Override
     public String toString() {

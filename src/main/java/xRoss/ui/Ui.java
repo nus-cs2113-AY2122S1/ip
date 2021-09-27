@@ -242,7 +242,7 @@ public class Ui {
             printCommandErrorMessage("event_format");
         } catch (EmptyStringException e) {
             printCommandErrorMessage("event_empty_string");
-        } catch(DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             printCommandErrorMessage("date_format");
         } finally {
             printDividerLine();

@@ -10,7 +10,7 @@ public class Todo extends Task {
     /**
      * Constructor for Todo instance.
      *
-     * @param name  Todo description.
+     * @param name Todo description.
      * @throws EmptyStringException Exception thrown if "name" param is an empty string.
      */
     public Todo(String name) throws EmptyStringException {
@@ -35,7 +35,7 @@ public class Todo extends Task {
     /**
      * Converts Todo instance to its String representation.
      *
-     * @return  String representation of Todo instance.
+     * @return String representation of Todo instance.
      */
     @Override
     public String toString() {

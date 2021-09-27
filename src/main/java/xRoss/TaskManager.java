@@ -54,7 +54,7 @@ public class TaskManager implements FileManager {
     /**
      * Adds new Task to task list.
      *
-     * @param task  New Task to be added to task list.
+     * @param task New Task to be added to task list.
      */
     public void addTask(Task task) {
         // add new task to task list
@@ -75,7 +75,7 @@ public class TaskManager implements FileManager {
     /**
      * Marks a specified Task in current task list as done.
      *
-     * @param inputTaskIndex    Index of Task in current task list to be marked as done.
+     * @param inputTaskIndex Index of Task in current task list to be marked as done.
      */
     public void markAsDone(int inputTaskIndex) {
         int taskIndex = inputTaskIndex - 1;
@@ -111,9 +111,9 @@ public class TaskManager implements FileManager {
     /**
      * Deletes a specified Task in the current task list.
      *
-     * @param inputTaskIndex    Index of Task in current task list to be deleted.
+     * @param inputTaskIndex Index of Task in current task list to be deleted.
      */
-    public void deleteTask(int inputTaskIndex){
+    public void deleteTask(int inputTaskIndex) {
         int taskIndex = inputTaskIndex - 1;
 
         // check if taskIndex is out of bounds of current task list
@@ -123,8 +123,8 @@ public class TaskManager implements FileManager {
             return;
         }
 
-         // deduct from completedTasksCount if task to be deleted is completed
-        if (tasks.get(taskIndex).isDone()){
+        // deduct from completedTasksCount if task to be deleted is completed
+        if (tasks.get(taskIndex).isDone()) {
             completedTasksCount--;
         }
 
@@ -143,13 +143,13 @@ public class TaskManager implements FileManager {
         saveToFile();
     }
 
-    public void findTasksWithExp(String exp) throws EmptyStringException{
+    public void findTasksWithExp(String exp) throws EmptyStringException {
         if (tasksCount == 0) {
             System.out.println("\tYou have no tasks in your task list at the moment.\n");
             return;
         }
 
-        if (exp.isEmpty()){
+        if (exp.isEmpty()) {
             throw new EmptyStringException();
         }
 
@@ -157,8 +157,8 @@ public class TaskManager implements FileManager {
 
         int numberOfTasksFound = 0;
 
-        for (int i = 0; i < tasksCount; i++){
-            if (tasks.get(i).getName().contains(exp)){
+        for (int i = 0; i < tasksCount; i++) {
+            if (tasks.get(i).getName().contains(exp)) {
                 System.out.print("\t\t" + (i + 1) + ".");
                 tasks.get(i).printTask();
                 numberOfTasksFound++;
@@ -189,16 +189,16 @@ public class TaskManager implements FileManager {
             // instantiate scanner to read file contents
             Scanner s = new Scanner(file);
 
-            while (s.hasNext()){
+            while (s.hasNext()) {
                 Task task = convertFileStrToTask(s.nextLine());
 
                 tasks.add(task);
                 tasksCount++;
-                if (task.isDone()){
+                if (task.isDone()) {
                     completedTasksCount++;
                 }
             }
-        } catch (FileNotFoundException e){ // file does not exist on first boot
+        } catch (FileNotFoundException e) { // file does not exist on first boot
             return;
         }
 
@@ -207,8 +207,8 @@ public class TaskManager implements FileManager {
     /**
      * Converts scanned file string to Task instance.
      *
-     * @param fileStr  Scanned file string.
-     * @return  Converted Task instance from scanned file string.
+     * @param fileStr Scanned file string.
+     * @return Converted Task instance from scanned file string.
      */
     private Task convertFileStrToTask(String fileStr) {
         // split string using " | " pattern
@@ -217,7 +217,7 @@ public class TaskManager implements FileManager {
         Task task = null;
 
         try {
-            switch (scannedTask[0]){
+            switch (scannedTask[0]) {
             case "T":
                 task = new Todo(scannedTask[2]);
                 break;
@@ -230,14 +230,14 @@ public class TaskManager implements FileManager {
             default:
                 System.out.println("Error in saved file string...");
             }
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Error in task type description in saved file string...");
-        } catch (EmptyStringException e){
+        } catch (EmptyStringException e) {
             System.out.println("Empty string in saved file string...");
         }
 
         // check if scanned task is done
-        if (scannedTask[1].equals("1")){
+        if (scannedTask[1].equals("1")) {
             task.setDone();
         }
 
@@ -253,18 +253,18 @@ public class TaskManager implements FileManager {
             File file = new File(filepath);
 
             // create new directory and file if they do not exist
-            if (!file.exists()){
+            if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
 
             // instantiate FileWriter object to overwrite specified text file
             FileWriter fileWriter = new FileWriter(filepath, false);
-            for (int i = 0; i < tasksCount; i++){
+            for (int i = 0; i < tasksCount; i++) {
                 fileWriter.write(tasks.get(i).toString());
             }
             fileWriter.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Something went wrong while saving the task list to file...");
         }
     }

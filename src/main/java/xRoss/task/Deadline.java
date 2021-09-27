@@ -31,8 +31,8 @@ public class Deadline extends Task {
     /**
      * Constructor for Deadline instance.
      *
-     * @param name  Deadline description
-     * @param by    Deadline date/time.
+     * @param name Deadline description
+     * @param by   Deadline date/time.
      * @throws EmptyStringException Exception thrown if "name" or "by" params are empty strings
      */
     public Deadline(String name, String by) throws EmptyStringException {
@@ -40,7 +40,9 @@ public class Deadline extends Task {
         setBy(by);
     }
 
-    /**Getter and Setter for by variable*/
+    /**
+     * Getter and Setter for by variable
+     */
 
     public LocalDateTime getBy() {
         return by;
@@ -70,7 +72,7 @@ public class Deadline extends Task {
     /**
      * Converts Deadline instance to its String representation.
      *
-     * @return  String representation of Deadline instance.
+     * @return String representation of Deadline instance.
      */
     @Override
     public String toString() {
