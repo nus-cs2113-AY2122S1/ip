@@ -5,6 +5,7 @@ import static duke.Parser.COMMAND_DEADLINE;
 import static duke.Parser.COMMAND_DELETE;
 import static duke.Parser.COMMAND_DONE;
 import static duke.Parser.COMMAND_EVENT;
+import static duke.Parser.COMMAND_FIND;
 import static duke.Parser.COMMAND_HELP;
 import static duke.Parser.COMMAND_LIST;
 import static duke.Parser.COMMAND_TODO;
@@ -33,6 +34,7 @@ public class Ui {
             COMMAND_DEADLINE + " <description> /by <date and time>\n" +
             COMMAND_EVENT + " <description> /at <date and time>\n" +
             COMMAND_DELETE + " <item no.>\n" +
+            COMMAND_FIND + "<search term>\n" +
             COMMAND_BYE;
 
     /**
