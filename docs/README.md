@@ -84,7 +84,19 @@ ____________________________________________________________
 ### Add Deadline Task: `deadline`
 Adds a deadline with a specific date and time for DUKE to keep track.
 
-Format: `deadline <TASK_DESCRIPTION> /at <YYYY-MM-DD HH:MM>`
+Format: `deadline <TASK_DESCRIPTION> /by <YYYY-MM-DD HH:MM>`
+
+Example: `deadline Submit CS2113 HW /by 2021-09-31 23:59`
+
+```
+deadline Submit CS2113 HW /by 2021-09-31 23:59
+____________________________________________________________
+Got it. I've added this task:
+[D][ ] Submit CS2113 HW  (by: Thursday, September 30, 2021 11:59 PM)
+Now you have 3 tasks in the list.
+____________________________________________________________
+
+```
 
 ### List all tasks: `list`
 Lists all the tasks added to Duke
