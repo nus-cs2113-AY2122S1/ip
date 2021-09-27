@@ -71,4 +71,9 @@ public class Parser {
         return LocalDateTime.parse(storedDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
+    public static String parseFindTaskKey(String userLine) {
+        String[] userFindInputs = userLine.split(" ");
+        return userFindInputs[1];
+    }
+
 }
