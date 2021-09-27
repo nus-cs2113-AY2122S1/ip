@@ -1,6 +1,6 @@
 # User Guide
 
-Duke is a simple command line app to manage and store your tasks.  
+Duke is a simple command line app to manage and store your tasks.
 
 ## Table of Contents
 
@@ -15,6 +15,8 @@ Duke is a simple command line app to manage and store your tasks.
   * [Delete a task - `delete`](#delete---delete-a-task)
   * [List commands - `help`](#help---view-help)
   * [Exit the app - `bye`](#bye---say-goodbye-to-duke)
+
+<br/>
 
 ## Quick Start
 
@@ -35,6 +37,8 @@ If you are starting the app for the first time, you may also see this:
 ```
 You don't have any saved tasks!
 ```
+
+<br/>
 
 ## Features
 
@@ -59,6 +63,8 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ```
 
+<br/>
+
 ### `event` - add an event
 
 Adds an event to the list.
@@ -79,6 +85,8 @@ Got it. I've added this task:
    [E][ ] attend lecture (at: Friday 4pm)
 Now you have 2 tasks in the list.
 ```
+
+<br/>
 
 ### `deadline` - add a deadline
 
@@ -101,6 +109,8 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ```
 
+<br/>
+
 ### `list` - list tasks
 
 Lists all tasks (to-dos, events, deadlines).
@@ -117,6 +127,8 @@ Here are the tasks in your list:
 2. [E][ ] attend lecture (at: Friday 4pm)
 3. [D][ ] attempt quiz (by: Sunday 11pm)
 ```
+
+<br/>
 
 ### `find` - search tasks
 
@@ -137,6 +149,8 @@ Here are the tasks in your list:
 2. [E][ ] attend lecture (at: Friday 4pm)
 ```
 
+<br/>
+
 ### `done` - mark a task as done
 
 Marks a task as completed.
@@ -155,6 +169,8 @@ Shows the completed task.
 Nice! I've marked the task as done:
    [T][X] read lecture notes
 ```
+
+<br/>
 
 ### `delete` - delete a task
 
@@ -175,6 +191,8 @@ Noted. I deleted this task:
    [T][X] read lecture notes
 Now you have 2 tasks in the list.
 ```
+
+<br/>
 
 ### `help` - view help
 
@@ -201,6 +219,8 @@ example: deadline English assignment /by Wed 5pm
 :
 :
 ```
+
+<br/>
 
 ### `bye` - say goodbye to Duke
 
