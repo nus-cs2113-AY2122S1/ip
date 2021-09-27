@@ -9,6 +9,7 @@ import duke.task.Task;
 import duke.task.ToDo;
 import duke.ui.HalUi;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.util.List;
@@ -22,8 +23,8 @@ public class Program {
     private static int numItems;
 
     ToDo dummyTodo = new ToDo(null);
-    Event dummyEvent = new Event(null, null);
-    Deadline dummyDeadline = new Deadline(null, null);
+    Event dummyEvent = new Event(null, "");
+    Deadline dummyDeadline = new Deadline(null, "");
 
     public Program() throws IOException {
         this.numItems = 0;
