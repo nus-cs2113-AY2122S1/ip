@@ -27,7 +27,7 @@ public class Parser {
     public static int parseDoneTask(String userLine, ArrayList<Task> taskList) {
         String[] extractDoneTask = userLine.toLowerCase().split(" ", 2);
         int taskNum = Integer.parseInt(extractDoneTask[1]);
-        if (taskNum < 0 || taskNum > taskList.size()) {
+        if (taskNum <= 0 || taskNum > taskList.size()) {
             throw new ArithmeticException();
         }
         return taskNum;
@@ -43,7 +43,7 @@ public class Parser {
     public static int parseDeleteTask(String userLine, ArrayList<Task> taskList) {
         String[] extractDeleteTask = userLine.toLowerCase().split(" ", 2);
         int taskNum = Integer.parseInt(extractDeleteTask[1]);
-        if (taskNum < 0 || taskNum > taskList.size()) {
+        if (taskNum <= 0 || taskNum > taskList.size()) {
             throw new ArithmeticException();
         }
         return taskNum;
