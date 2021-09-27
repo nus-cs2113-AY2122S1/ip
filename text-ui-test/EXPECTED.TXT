@@ -1,10 +1,6 @@
     ____________________________________________________________
-     Created new directory: 'data'
-     No data file found. Created new file: 'data\duke.txt'
-    ____________________________________________________________
-
-    ____________________________________________________________
      Hello! I'm Duke
+     No data file found. Will store data in new file: 'data\duke.txt'
      What can I do for you?
     ____________________________________________________________
 

@@ -1,14 +1,10 @@
 package duke;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.storage.Storage;
+import duke.storage.Storage.StorageException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -24,21 +20,14 @@ public class Duke {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    private static final Path DATA_DIRECTORY_PATH = Paths.get("data");
-    private static final String DATA_FILE_NAME = "duke.txt";
-    private static final Path DATA_FILE_PATH = DATA_DIRECTORY_PATH.resolve(DATA_FILE_NAME);
     public static final String DATA_FILE_SEPARATOR = " ` ";
 
-    private static final String MESSAGE_DATA_DIRECTORY_CREATED = "Created new directory: '" + DATA_DIRECTORY_PATH + "'";
-    private static final String MESSAGE_DATA_FILE_CREATED = "No data file found. Created new file: '"
-            + DATA_FILE_PATH + "'";
-    private static final String MESSAGE_DATA_FILE_FOUND = "Data file found. Using data from '" + DATA_FILE_PATH + "'";
-    private static final String MESSAGE_DATA_FILE_ACCESS_ERROR = "There was an error accessing the data file: '"
-            + DATA_FILE_PATH + "'";
-    private static final String MESSAGE_DATA_FILE_PARSE_ERROR = "There was an error parsing the data file:";
-    private static final String MESSAGE_TASK_FORMAT_ERROR = "Unrecognised task format.";
+    private static final String MESSAGE_GREETING = "Hello! I'm Duke" + LINE_SEPARATOR
+            + "%1$s" + LINE_SEPARATOR
+            + "What can I do for you?";
+    private static final String MESSAGE_DATA_FILE_NEW = "No data file found. Will store data in new file: '%1$s'";
+    private static final String MESSAGE_DATA_FILE_EXISTING = "Data file found. Using data from: '%1$s'";
 
-    private static final String MESSAGE_GREETING = "Hello! I'm Duke" + LINE_SEPARATOR + "What can I do for you?";
     private static final String MESSAGE_FAREWELL = "Bye. Hope to see you again soon!";
     private static final String MESSAGE_ERROR = "☹ OOPS!!! %1$s";
     private static final String MESSAGE_TASK_ADDED = "Got it. I've added this task:" + LINE_SEPARATOR
@@ -77,23 +66,39 @@ public class Duke {
     private static final int INDEX_ARGS = 1;
 
     /** Array of Task objects */
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks;
+
+    private static Storage storage;
 
     /**
      * Main entry point of Duke.
      */
     public static void main(String[] args) {
-        loadData();
-        printGreeting();
+        try {
+            storage = new Storage("data/duke.txt");
+            tasks = storage.loadData();
+        } catch (StorageException e) {
+            printResponseBlock(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        printGreeting(storage.getPath(), storage.isUsingNewFile());
         while (true) {
             final String userInput = getUserInput();
             final String feedback = executeCommand(userInput);
-            printResponseBlock(feedback);
+            try {
+                storage.saveData(tasks);
+                printResponseBlock(feedback);
+            } catch (StorageException e) {
+                printResponseBlock(e.getMessage());
+                throw new RuntimeException(e);
+            }
         }
     }
 
-    private static void printGreeting() {
-        printResponseBlock(MESSAGE_GREETING);
+    private static void printGreeting(String path, boolean isUsingNewFile) {
+        final String dataFileMessage = String.format(
+                (isUsingNewFile ? MESSAGE_DATA_FILE_NEW : MESSAGE_DATA_FILE_EXISTING), path);
+        printResponseBlock(String.format(MESSAGE_GREETING, dataFileMessage));
     }
 
     /**
@@ -102,7 +107,7 @@ public class Duke {
      *
      * @param text Text to be printed out.
      */
-    private static void printResponseBlock(String text) {
+    public static void printResponseBlock(String text) {
         System.out.println(INDENTED_HORIZONTAL_LINE);
         System.out.println(indent(text));
         System.out.println(INDENTED_HORIZONTAL_LINE);
@@ -115,95 +120,6 @@ public class Duke {
             lines[i] = " ".repeat(5) + lines[i];
         }
         return String.join(LINE_SEPARATOR, lines);
-    }
-
-    private static void loadData() {
-        boolean createdDataDirectory = DATA_DIRECTORY_PATH.toFile().mkdir();
-
-        File dataFile = DATA_FILE_PATH.toFile();
-        try {
-            if (dataFile.createNewFile()) {
-                printResponseBlock((createdDataDirectory ? MESSAGE_DATA_DIRECTORY_CREATED + LINE_SEPARATOR : "")
-                        + MESSAGE_DATA_FILE_CREATED);
-            } else {
-                printResponseBlock(MESSAGE_DATA_FILE_FOUND);
-                parseDataFromFile(dataFile);
-            }
-        } catch (IOException e) {
-            printResponseBlock(MESSAGE_DATA_FILE_ACCESS_ERROR + LINE_SEPARATOR + e.getMessage());
-            System.exit(0);
-        }
-    }
-
-    private static void parseDataFromFile(File dataFile) throws FileNotFoundException {
-        final Scanner scanner = new Scanner(dataFile);
-        try {
-            while (scanner.hasNext()) {
-                final String line = scanner.nextLine();
-                final String[] args = line.split(DATA_FILE_SEPARATOR);
-                Task task = decodeTaskFromString(args);
-                tasks.add(task);
-            }
-        } catch (DukeException e) {
-            printResponseBlock(MESSAGE_DATA_FILE_PARSE_ERROR + LINE_SEPARATOR + e.getMessage());
-            System.exit(0);
-        }
-    }
-
-    private static Task decodeTaskFromString(String[] args) throws DukeException {
-        if (args.length < 3) {
-            throw new DukeException(MESSAGE_TASK_FORMAT_ERROR);
-        }
-        final String taskTypeIcon = args[0];
-        final String statusString = args[1];
-        final String description = args[2];
-        Task task;
-        switch (taskTypeIcon) {
-        case ToDo.TASK_TYPE_ICON:
-            task = new ToDo(description);
-            break;
-        case Event.TASK_TYPE_ICON:
-            if (args.length < 4) {
-                throw new DukeException(MESSAGE_UNRECOGNISED_EVENT_FORMAT);
-            }
-            final String at = args[3];
-            task = new Event(description, at);
-            break;
-        case Deadline.TASK_TYPE_ICON:
-            if (args.length < 4) {
-                throw new DukeException(MESSAGE_UNRECOGNISED_DEADLINE_FORMAT);
-            }
-            final String by = args[3];
-            task = new Deadline(description, by);
-            break;
-        default:
-            throw new DukeException(String.format(MESSAGE_UNRECOGNISED_TASK_TYPE_ICON, taskTypeIcon));
-        }
-        if (statusString.equals("1")) {
-            task.setAsDone();
-        } else if (!statusString.equals("0")) {
-            throw new DukeException(String.format(MESSAGE_UNRECOGNISED_TASK_STATUS_ICON, statusString));
-        }
-        return task;
-    }
-
-    private static void saveData() {
-        try {
-            FileWriter fw = new FileWriter(DATA_FILE_PATH.toFile());
-            fw.write(formatTasksAsDataOutput());
-            fw.close();
-        } catch (IOException e) {
-            printResponseBlock(MESSAGE_DATA_FILE_ACCESS_ERROR + LINE_SEPARATOR + e.getMessage());
-            System.exit(0);
-        }
-    }
-
-    private static String formatTasksAsDataOutput() {
-        ArrayList<String> taskDataStrings = new ArrayList<>();
-        for (Task task : tasks) {
-            taskDataStrings.add(task.toDataString());
-        }
-        return String.join(LINE_SEPARATOR, taskDataStrings);
     }
 
     /**
@@ -294,14 +210,12 @@ public class Duke {
 
     private static String addTask(Task task) {
         tasks.add(task);
-        saveData();
         return String.format(MESSAGE_TASK_ADDED, task, tasks.size());
     }
 
     private static String deleteTask(String args) throws DukeException {
         Task task = getTaskFromStringId(args);
         tasks.remove(task);
-        saveData();
         return String.format(MESSAGE_TASK_DELETED, task, tasks.size());
     }
 
@@ -318,7 +232,6 @@ public class Duke {
     private static String markTaskAsDone(String args) throws DukeException {
         Task task = getTaskFromStringId(args);
         task.setAsDone();
-        saveData();
         return String.format(MESSAGE_TASK_MARKED_AS_DONE, task);
     }
 
