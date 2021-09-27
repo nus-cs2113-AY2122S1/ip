@@ -33,5 +33,16 @@ public class Ui {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    public static void printFilteredList(ArrayList<Task> filteredTask){
+        StringBuilder taskString = new StringBuilder();
+        for (int i =0; i< filteredTask.size();i++){
+            Task currentTask = filteredTask.get(i);
+            taskString.append(i+1).append(".").append(currentTask.toString()).append("\n");
+        }
+        Ui.printHorizontalLine();
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(taskString.toString());
+        Ui.printHorizontalLine();
+    }
 
 }
