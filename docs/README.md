@@ -1,6 +1,6 @@
 # User Guide
 
-This is a project named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to **_Duke_**! Below are instructions on how to use it.
 
 ## Setting up
 
@@ -18,12 +18,12 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 
 ### Using JAR file
 
-1. Download `Duke.jar` into the selected directory
-2. Open up `Terminal` or `Command prompt` and `cd` to the directory `Duke.jar` file is in
-3. Run the JAR file by typing `java -jar Duke.jar`. If you are setting up for the first time, a `data` folder will be created in the directory `Duke.jar` is in and a text file `Duke.txt` will be created in the `data` folder.
+1. Download `Duke.jar` into the selected directory.
+2. Open up `Terminal` or `Command prompt` and `cd` to the directory `Duke.jar` file is in.
+3. Run the JAR file by typing `java -jar Duke.jar`. If you are setting up for the first time, a `data` folder will be created in the directory `Duke.jar` is in containing a text file `Duke.txt`.
 
 ## Using Duke
-Upon running the program, the user will be greeted with the following message:
+Upon running the program, you will be greeted with the following message:
 ```
  ____        _
 |  _ \ _   _| | _____
@@ -36,10 +36,10 @@ What can I do for you?
 _____________________________
 ```
 
-After which, the user is able to explore the different features Duke has to offer:
+After which, you will be able to explore the different features Duke has to offer:
 >Notes about command formatting:
 >- `parameters` are in **UPPERCASE** which are compulsory
->- `additional items` are in **[square brackets]** which are needed in some commands
+>- `time parameters` are in **[square brackets]** which are needed in some commands
 
 
 ### Adding a ToDo Task: `todo`
