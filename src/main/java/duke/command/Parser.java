@@ -1,8 +1,4 @@
-package duke.command_old;
-
-import duke.task.Task;
-
-import java.util.ArrayList;
+package duke.command;
 
 public class Parser {
 

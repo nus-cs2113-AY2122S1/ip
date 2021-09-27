@@ -1,6 +1,5 @@
-package duke.output_old;
+package duke.ui;
 
-import duke.fileio_old.Storage;
 import duke.task.Task;
 
 import java.io.IOException;
@@ -130,9 +129,8 @@ public class Ui {
      * Prints a message when a task is marked as done.
      * @param tasks list of tasks
      * @param taskNumber task number of task to be marked as done
-     * @param storage file editor
      */
-    public void printMarkedAsDone(ArrayList<Task> tasks, int taskNumber, Storage storage) {
+    public void printMarkedAsDone(ArrayList<Task> tasks, int taskNumber) {
         System.out.println(NEWLINE + "Nice! I've marked the task as done:");
         System.out.println(TASK_PADDING + tasks.get(taskNumber) + NEWLINE);
     }

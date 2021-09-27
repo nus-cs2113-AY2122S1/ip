@@ -1,12 +1,12 @@
-package duke.command_old;
+package duke.command;
 
-import duke.fileio_old.Storage;
-import duke.output_old.Ui;
+import duke.storage.Storage;
+import duke.ui.Ui;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-import duke.tasklist_new.TaskList;
+import duke.tasklist.TaskList;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class CommandHandler {
                     ui.printTaskDoneMessage();
                 } else {
                     tasksList.markDone(taskNumber);
-                    ui.printMarkedAsDone(tasks, taskNumber, storage);
+                    ui.printMarkedAsDone(tasks, taskNumber);
                 }
             } catch (IndexOutOfBoundsException e) {
                 ui.printTaskNumberOutOfBoundsMessage();

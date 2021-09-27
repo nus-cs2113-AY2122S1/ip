@@ -1,11 +1,11 @@
 package duke;
 
-import duke.command_old.CommandType;
-import duke.command_old.CommandHandler;
-import duke.command_old.Parser;
-import duke.fileio_old.Storage;
-import duke.output_old.Ui;
-import duke.tasklist_new.TaskList;
+import duke.command.CommandType;
+import duke.command.CommandHandler;
+import duke.command.Parser;
+import duke.storage.Storage;
+import duke.ui.Ui;
+import duke.tasklist.TaskList;
 
 import java.io.FileNotFoundException;
 

@@ -1,4 +1,4 @@
-package duke.command_old;
+package duke.command;
 
 /** Types of commands currently in use. */
 public enum CommandType {
