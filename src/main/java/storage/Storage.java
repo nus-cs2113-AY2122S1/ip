@@ -1,6 +1,7 @@
 package storage;
 
 import duke.DukeException;
+
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -10,6 +11,7 @@ import tasklist.TaskList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
@@ -68,16 +70,17 @@ public class Storage {
     private void addTaskFromFile(Scanner s, TaskList tasks) throws IndexOutOfBoundsException {
         String[] parsedOutput = s.nextLine().split(SEPARATOR_FOR_FILE);
         switch(parsedOutput[0]){
-        case "T":
+        case ToDo.IDENTIFIER:
             tasks.addTask(new ToDo(parsedOutput[2]));
             updateTaskStatus(parsedOutput[1],tasks);
             break;
-        case "E":
-            tasks.addTask(new Event(parsedOutput[2], parsedOutput[3]));
+        case Event.IDENTIFIER:
+            tasks.addTask(new Event(parsedOutput[2], LocalDateTime.parse(parsedOutput[3]),
+                    LocalDateTime.parse(parsedOutput[4])));
             updateTaskStatus(parsedOutput[1],tasks);
             break;
-        case "D":
-            tasks.addTask(new Deadline(parsedOutput[2], parsedOutput[3]));
+        case Deadline.IDENTIFIER:
+            tasks.addTask(new Deadline(parsedOutput[2], LocalDateTime.parse(parsedOutput[3])));
             updateTaskStatus(parsedOutput[1],tasks);
             break;
         }

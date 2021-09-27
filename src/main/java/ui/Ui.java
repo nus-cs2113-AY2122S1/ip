@@ -2,6 +2,7 @@ package ui;
 
 import commands.CommandResult;
 
+import commands.PrintOptions;
 import constants.Message;
 import task.Task;
 
@@ -14,8 +15,6 @@ import java.util.Scanner;
 public class Ui {
 
     private final Scanner in;
-
-    public static final String INDENTATION = "      ";
     private static final Boolean NOTIFY_NUMBER_OF_TASK = true;
     private static final Boolean PRINT_TASK = true;
 
@@ -71,7 +70,7 @@ public class Ui {
     /**
      * Prints the result from the executed Commands in the given format.
      *
-     * @param result CommandResult which contains the content to be printed.
+     * @param result CommandResult which contains the contents to be printed.
      * @param notifyNumberOfTasks Determines whether the number of tasks in
      *                           the list needs to be printed.
      * @param printTask Determines whether the selected task needs to be printed.
@@ -93,7 +92,7 @@ public class Ui {
      * Selects the type of function needed to show the result of different executed Commands
      * This reduces the number of methods needed in the Ui class.
      *
-     * @param result CommandResult which contains the content to be printed.
+     * @param result CommandResult which contains the contents to be printed.
      */
     public void showResult(CommandResult result) {
         switch(result.type){
@@ -103,6 +102,7 @@ public class Ui {
         case ONLY_TASK:
             printCommandResultMessage(result,!NOTIFY_NUMBER_OF_TASK,PRINT_TASK);
             break;
+        case LIST_WITH_SPECIFIC_CONDITIONS:
         case LIST:
             printList(result);
             break;
@@ -118,9 +118,17 @@ public class Ui {
 
     /**
      * Prints the task's description with its completion status
+     *
+     * @param result A CommandResult object which passes the list that needs to be printed
      */
     private void printTask(CommandResult result) {
-        for (int i = 0; i < Task.getTotalTasks(); i++) {
+        int totalTasks;
+        if(result.type == PrintOptions.LIST_WITH_SPECIFIC_CONDITIONS) {
+            totalTasks = result.tasks.getNumberOfTasks();
+        } else {
+           totalTasks = Task.getTotalTasks();
+        }
+        for(int i = 0; i < totalTasks; i++) {
             printWordsWithIndentation(i + 1 + "." + result.tasks.getTask(i).getStatusIconAndDescription());
         }
     }

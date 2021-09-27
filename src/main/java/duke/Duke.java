@@ -1,6 +1,10 @@
 package duke;
 
-import commands.*;
+import commands.ExitCommand;
+import commands.CommandResult;
+import commands.Command;
+import commands.PrintOptions;
+
 import constants.Message;
 import parser.Parser;
 import storage.Storage;
@@ -35,28 +39,29 @@ public class Duke {
         } catch (IndexOutOfBoundsException error) {
             ui.printMessage(Message.INCORRECT_FORMAT);
             System.exit(1);
-
         } catch (IOException error) {
             ui.printMessage(Message.DEFAULT_ERROR_MESSAGE);
             System.exit(1);
-
         } catch (DukeException error) {
             ui.printMessage(Message.FILE_NOT_CREATED);
             ui.printMessage(Message.DONE);
-
         }
     }
 
     /**
      * Repeats the process of getting an input from the user, creating a Parser to parse
-     * the input, creating a Command object based on the input, then executing the command
-     * and showing the command output to the user. Stops when an ExitCommand is created.
+     * the input, creating a Command object based on the parsed input, then executing the
+     * command and showing the command output to the user.
+     * Stops when an ExitCommand is created.
      */
+    //@@se-edu vincentlauhl-reused
+    //Reused from https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/Main.java
+    //with minor modifications
     public void run(){
         Command command = null;
         while (!(command instanceof ExitCommand)){
             String input = ui.getUserCommand();
-            command = new Parser().parseInputForDifferentTask(input);
+            command = new Parser().parseInput(input);
             CommandResult result = executeCommand(command);
             ui.showResult(result);
         }
@@ -86,21 +91,16 @@ public class Duke {
     private CommandResult executeCommand(Command command) {
         String errorMessage;
         try {
-            command.passList(tasks);
+            command.passTaskList(tasks);
             return command.execute();
-
         } catch (IndexOutOfBoundsException error) {
             errorMessage = Message.giveSensibleRange(Task.getTotalTasks());
-
         } catch (NumberFormatException error) {
             errorMessage = Message.PROMPT_NUMBER;
-
         } catch (DefaultException error) {
             errorMessage = Message.DEFAULT_ERROR_MESSAGE;
-
         } catch (DukeException error) {
             errorMessage = Message.TYPE_SUITABLE_COMMAND_MESSAGE;
-
         }
         return new CommandResult(errorMessage, PrintOptions.DEFAULT);
     }

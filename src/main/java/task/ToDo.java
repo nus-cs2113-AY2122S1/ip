@@ -4,7 +4,7 @@ package task;
  * A Task class that saves the description of the task.
  */
 public class ToDo extends Task{
-    private static final String IDENTIFIER = "T";
+    public static final String IDENTIFIER = "T";
 
     public ToDo(String description) {
         this.description = description;

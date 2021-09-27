@@ -5,7 +5,7 @@ package commands;
  */
 public class IncorrectCommand extends Command{
 
-    private String message;
+    private final String message;
 
     public IncorrectCommand(String message) {
         this.message = message;
@@ -13,6 +13,7 @@ public class IncorrectCommand extends Command{
 
     /**
      * Sends the error message to the Ui
+     *
      * @return A CommandResult that tells the Ui to print the error message.
      */
     @Override
