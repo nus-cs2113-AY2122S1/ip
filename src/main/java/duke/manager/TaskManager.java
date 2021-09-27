@@ -4,6 +4,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,13 +26,6 @@ public class TaskManager {
     public static final String COMMAND_LIST = "list";
     public static DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, uuuu hh:mm a");
 
-
-    /**
-     * Prints a line on the console
-     */
-    public static void printLine() {
-        System.out.println("____________________________________________________________");
-    }
 
     /**
      * Determines the task type,
@@ -75,31 +69,31 @@ public class TaskManager {
      * Error for wrong task type
      */
     private static void taskError() {
-        printLine();
+        Ui.printLine();
         System.out.println(TASK_ERROR);
-        printLine();
+        Ui.printLine();
     }
 
     /**
      * The function prints the recently added task
      */
     private static void printAddedTask(Task task, ArrayList<Task> tasks) {
-        printLine();
+        Ui.printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(task.getDescription());
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        printLine();
+        Ui.printLine();
     }
 
     /**
      * The function prints the recently added task
      */
     private static void printDeletedTask(Task task, ArrayList<Task> tasks) {
-        printLine();
+        Ui.printLine();
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.getDescription());
         System.out.println("Now you have " + (tasks.size() - 1) + " tasks in the list.");
-        printLine();
+        Ui.printLine();
     }
 
     /**
@@ -116,19 +110,19 @@ public class TaskManager {
             printAddedTask(tasks.get(tasks.size() - 1), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
-            printLine();
+            Ui.printLine();
             System.out.println("YOU IDIOT !!??!! The description of an event cannot be empty.");
-            printLine();
+            Ui.printLine();
         } catch (ArrayIndexOutOfBoundsException e) {
-            printLine();
+            Ui.printLine();
             System.out.println("YOU IDIOT !!??!! The input format should be : ");
             System.out.println("event description /on date or time");
-            printLine();
+            Ui.printLine();
         } catch (DateTimeParseException e) {
-            printLine();
+            Ui.printLine();
             System.out.println("Please enter both date and time in the format");
             System.out.println("YYYY-MM-DD HH:MM");
-            printLine();
+            Ui.printLine();
         }
     }
 
@@ -159,19 +153,19 @@ public class TaskManager {
             printAddedTask(tasks.get(tasks.size() - 1), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
-            printLine();
+            Ui.printLine();
             System.out.println("YOU IDIOT !!??!! The description of a deadline cannot be empty.");
-            printLine();
+            Ui.printLine();
         } catch (ArrayIndexOutOfBoundsException d) {
-            printLine();
+            Ui.printLine();
             System.out.println("YOU IDIOT !!??!! The input format should be : ");
             System.out.println("deadline description /by date or time");
-            printLine();
+            Ui.printLine();
         } catch (DateTimeParseException e) {
-            printLine();
+            Ui.printLine();
             System.out.println("Please enter both date and time in the format");
             System.out.println("YYYY-MM-DD HH:MM");
-            printLine();
+            Ui.printLine();
         }
     }
 
@@ -187,9 +181,9 @@ public class TaskManager {
             printAddedTask(tasks.get(tasks.size() - 1), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
-            printLine();
+            Ui.printLine();
             System.out.println("OOPS!!! The description of a todo cannot be empty.");
-            printLine();
+            Ui.printLine();
         }
     }
 
@@ -199,14 +193,14 @@ public class TaskManager {
      * @param tasks the array of tasks
      */
     private static void printTasks(ArrayList<Task> tasks) {
-        printLine();
+        Ui.printLine();
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i).getDescription());
         }
         if (tasks.size() == 0) {
             System.out.println("Smartass, you need to add tasks before listing them !!!");
         }
-        printLine();
+        Ui.printLine();
     }
 
     /**
@@ -224,9 +218,9 @@ public class TaskManager {
             tasks.get(index).isDone();
             Storage.saveTasksToFile(tasks);
         } catch (NullPointerException e) {
-            printLine();
+            Ui.printLine();
             System.out.println("OH MY GOD, can you maybe type a task that exists ?");
-            printLine();
+            Ui.printLine();
         }
     }
 
@@ -272,20 +266,20 @@ public class TaskManager {
             String filter = message.substring(5);
             ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
                     .filter((t) -> t.getDescription().contains(filter)).collect(Collectors.toList());
-            printLine();
+            Ui.printLine();
             System.out.println("Here are the matching tasks in your list:");
             for (Task task : filteredTasks) {
                 System.out.println(task.getDescription());
             }
-            printLine();
+            Ui.printLine();
         } catch (NullPointerException e) {
-            printLine();
+            Ui.printLine();
             System.out.println("No tasks added yet");
-            printLine();
+            Ui.printLine();
         } catch (StringIndexOutOfBoundsException e) {
-            printLine();
+            Ui.printLine();
             System.out.println("find cannot be empty");
-            printLine();
+            Ui.printLine();
         }
     }
 
@@ -303,14 +297,14 @@ public class TaskManager {
             tasks.remove(index - 1);
             Storage.saveTasksToFile(tasks);
         } catch (NullPointerException e) {
-            printLine();
+            Ui.printLine();
             System.out.println("OH MY GOD, can you maybe type things properly ?");
             System.out.println("Its delete {index}");
-            printLine();
+            Ui.printLine();
         } catch (IndexOutOfBoundsException e) {
-            printLine();
+            Ui.printLine();
             System.out.println("Dude there's no task at that index");
-            printLine();
+            Ui.printLine();
         }
     }
 }

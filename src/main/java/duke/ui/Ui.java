@@ -1,7 +1,5 @@
 package duke.ui;
 
-import duke.manager.TaskManager;
-
 public class Ui {
 
     private final static String WELCOME_GREETING = "Howdy there! I'm Fluke";
@@ -12,19 +10,25 @@ public class Ui {
      * Prints a welcome message on the console
      */
     public static void welcomeMessage() {
-        TaskManager.printLine();
+        printLine();
         System.out.println(WELCOME_GREETING);
         System.out.println(WELCOME_ASK);
-        TaskManager.printLine();
+        printLine();
     }
 
     /**
      * Prints a bye message on the console
      */
     public static void byeMessage() {
-        TaskManager.printLine();
+        printLine();
         System.out.println(BYE_MESSAGE);
-        TaskManager.printLine();
+        printLine();
     }
 
+    /**
+     * Prints a line on the console
+     */
+    public static void printLine() {
+        System.out.println("____________________________________________________________");
+    }
 }
