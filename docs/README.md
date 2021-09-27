@@ -7,6 +7,7 @@ Duke is a **Task Management Application** that allows one to **keep track of var
 1. Ensure that Java Runtime Environment (JRE) 11 is installed on your system
 2. Download the Duke `ip.jar` file from [here]() to a directory of your choice on your system.
 3. Execute `java -jar ip.jar` in a terminal in the directory chosen previously. The expected output should be:
+
 ```
 	______________________________________________________________________
 
@@ -25,6 +26,8 @@ Duke is a **Task Management Application** that allows one to **keep track of var
 	Done reading DukeData/data.txt
 	______________________________________________________________________
 ```
+
+4. Start adding your tasks to Duke!
 
 
 ## Features 
@@ -196,7 +199,7 @@ Bye. Hope to see you again soon!
 ```
 
 ## Notes:
-The data in the task list is automatically saved into a file on your computer.
+The data in the task list is automatically saved in DukeData/data.txt, in the directory where ip.jar is.
 
 ## Command Summary
 
@@ -204,11 +207,11 @@ The data in the task list is automatically saved into a file on your computer.
 | :---         | :---                                                                                                               |
 | **Help**     | `help`                                                                                                             |
 | **List**     | `list`                                                                                                             |
-| **Todo**     | `todo <TASK_NAME>`<br/>eg., `todo play guitar`                                                                     |
-| **Deadline** | `deadline <TASK_NAME> /by <DATE_AND_OR_TIME>`<br/>eg., `deadline return library book /by Friday`                   |
-| **Event**    | `event <TASK_NAME> /at <DATE_AND_OR_TIME>`<br/>eg., `event circus /at Saturday 3pm`                                |
-| **Done**     | `done <TASK_NUMBER>`<br/>eg., `done 1`                                                                             |
-| **Find**     | `find <KEYWORD>`<br/>eg., `find circus`                                                                            |
-| **Delete**   | `delete <TASK_NUMBER>`<br/>eg., `delete 4`                                                                         |
+| **Todo**     | `todo <TASK_NAME>`<br/>eg. `todo play guitar`                                                                     |
+| **Deadline** | `deadline <TASK_NAME> /by <DATE_AND_OR_TIME>`<br/>eg. `deadline return library book /by Friday`                   |
+| **Event**    | `event <TASK_NAME> /at <DATE_AND_OR_TIME>`<br/>eg. `event circus /at Saturday 3pm`                                |
+| **Done**     | `done <TASK_NUMBER>`<br/>eg. `done 1`                                                                             |
+| **Find**     | `find <KEYWORD>`<br/>eg. `find circus`                                                                            |
+| **Delete**   | `delete <TASK_NUMBER>`<br/>eg. `delete 4`                                                                         |
 | **Exit**     | `bye`                                                                                                              |
 
