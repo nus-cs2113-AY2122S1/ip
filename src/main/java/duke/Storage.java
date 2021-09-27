@@ -182,7 +182,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
 
-                if (line.equals(stringToCheck)) {
+                if (line.equals(stringToCheck.trim())) {
                     scanner.close(); // Don't forget!
                     return true;
                 }
