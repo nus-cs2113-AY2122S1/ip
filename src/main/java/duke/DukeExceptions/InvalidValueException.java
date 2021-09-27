@@ -11,7 +11,7 @@ public class InvalidValueException extends DukeException {
                 + "\n\t____________________________________________________________\n\t");
     }
 
-    public String printMessage() {
+    public String toString() {
         return this.errorMessage;
     }
 }
