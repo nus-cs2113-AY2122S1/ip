@@ -169,12 +169,12 @@ Format: `exit`
 The list of tasks are saved in the hard disk automatically after the program is
 exited successfully using the `exit` command.
 
-{% warning %}
 
-**Warning:** You must exit the program using the `exit` command for the data to save
+
+> **Warning:** You must exit the program using the `exit` command for the data to save
 successfully. Exiting the program without using the `exit` command will **NOT** save your data.
 
-{% endwarning %}
+
 
 ---
 
