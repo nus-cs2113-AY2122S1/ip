@@ -13,7 +13,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 import duke.task.exception.EmptyDescriptionException;
-import duke.task.exception.EmptySearchTermException;
+import duke.exception.EmptySearchTermException;
 import duke.task.exception.EmptyTimeDetailException;
 import duke.task.exception.TimeSpecifierNotFoundException;
 import java.time.LocalDate;

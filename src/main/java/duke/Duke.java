@@ -10,7 +10,7 @@ import duke.command.Command;
 import duke.exception.UnknownCommandException;
 import duke.task.TaskList;
 import duke.task.exception.EmptyDescriptionException;
-import duke.task.exception.EmptySearchTermException;
+import duke.exception.EmptySearchTermException;
 import duke.task.exception.EmptyTimeDetailException;
 import duke.task.exception.InvalidTaskIndexException;
 import duke.task.exception.TaskListEmptyException;

@@ -1,4 +1,4 @@
-package duke.task.exception;
+package duke.exception;
 
 public class EmptySearchTermException extends Exception {
 
