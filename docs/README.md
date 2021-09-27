@@ -54,6 +54,17 @@ Adds a todo task for DUKE to keep track.
 
 Format: `todo <TASK_DESCRIPTION>`
 
+Example: `todo finish eating lunch`
+
+```
+todo finish eating lunch
+____________________________________________________________
+Got it. I've added this task:
+[T][ ] finish eating lunch
+Now you have 1 tasks in the list.
+____________________________________________________________
+```
+
 ### Add Event Task: `event`
 Adds an event with a specific date and time for DUKE to keep track.
 
