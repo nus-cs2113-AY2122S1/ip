@@ -1,7 +1,11 @@
 package duke.task;
 
+import duke.parser.Parser;
+
+import java.time.LocalDate;
+
 public class Deadline extends Task {
-    private String by;
+    private LocalDate by;
 
     /**
      * Constructor to create a Deadline task.
@@ -14,11 +18,12 @@ public class Deadline extends Task {
         setBy(by);
     }
 
+
     /**
      * Retrieves the date of the deadline.
      * @return String representing the deadline.
      */
-    public String getBy() {
+    public LocalDate getBy() {
         return by;
     }
 
@@ -27,11 +32,11 @@ public class Deadline extends Task {
      * @param deadline Date of the deadline
      */
     public void setBy(String deadline) {
-        this.by = deadline;
+        this.by = Parser.parseLocalDate(deadline);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + Parser.formatLocalDate(by) + ")";
     }
 }

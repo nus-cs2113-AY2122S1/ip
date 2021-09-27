@@ -1,7 +1,12 @@
 package duke.task;
 
+import duke.parser.Parser;
+
+import java.time.LocalDate;
+import java.util.Objects;
+
 public class Event extends Task {
-    private String at;
+    private LocalDate at;
 
     /**
      * Constructor to create an Event task. Constructor takes in the description and time in which the event will occur.
@@ -18,19 +23,20 @@ public class Event extends Task {
      * @param at Date when the event will occur.
      */
     public void setAt(String at) {
-        this.at = at;
+        this.at = Parser.parseLocalDate(at);
     }
 
     /**
      * Retrieves the date where the event will occur
      * @return String containing the date where the event will occur.
      */
-    public String getAt() {
+
+    public LocalDate getAt() {
         return this.at;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString() + " (at: " + Parser.formatLocalDate(at) + ")";
     }
 }

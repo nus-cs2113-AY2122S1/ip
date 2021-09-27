@@ -7,6 +7,10 @@ import duke.task.ToDo;
 import duke.ui.HalUi;
 import duke.util.HalException;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +26,7 @@ public class Parser {
     String description;
     String timing;
 
-    HalUi ui = new HalUi();
+    static HalUi ui = new HalUi();
 
     /**
      * Returns a list of String objects based on the text input.
@@ -89,6 +93,22 @@ public class Parser {
             ui.printEnterCommandMessage();
         }
         return -1;
+    }
+
+    //function takes in a string and converts to a local date. Defaults to current date if invalid format added
+    public static LocalDate parseLocalDate(String str) {
+        try {
+            LocalDate date = LocalDate.parse(str);
+            return date;
+        } catch (DateTimeParseException e) {
+            ui.printInvalidDateMessage();
+        }
+
+        return LocalDate.now();
+    }
+
+    public static String formatLocalDate(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern("EEEE, MMM d yyyy"));
     }
 
 }
