@@ -212,7 +212,7 @@ public class TextUi {
 
     public void printNoMatchedTaskFoundMessage(String keyWord) {
         drawDivider();
-        System.out.println("Karlett didn't find any task contaning \" " + keyWord + " \" /ᐠﹷ ‸ ﹷ ᐟ\\ﾉ");
+        System.out.println("Karlett didn't find any task contaning \"" + keyWord + "\" /ᐠﹷ ‸ ﹷ ᐟ\\ﾉ");
         drawDivider();
     }
 
