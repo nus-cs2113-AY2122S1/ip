@@ -13,6 +13,8 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.exception.InvalidTaskIndexException;
 import duke.task.exception.TaskListEmptyException;
+import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 public class Ui {
 
@@ -115,6 +117,19 @@ public class Ui {
                 "You have " + totalTasks + " tasks left in the list."});
     }
 
+    public void printFoundTask(ArrayList<Task> filteredTaskList) {
+        String[] output = new String[filteredTaskList.size() + 1];
+        output[0] = "Here are the matching tasks in your list:";
+
+        IntStream.range(0, filteredTaskList.size())
+                .forEach(i -> {
+                    Task t = filteredTaskList.get(i);
+                    output[i + 1] = (i + 1) + "." + t.toString();
+                });
+
+        blockPrint(output);
+    }
+
     /**
      * Print task save file not found error.
      */
@@ -199,5 +214,9 @@ public class Ui {
         blockPrint(new String[]{"Date format error in save file. Date format should be YYYY-MM-DD.",
                 "Exit the program to fix the date format.",
                 "The task save file will be overwritten if you choose to continue."});
+    }
+
+    public void printEmptySearchTermError() {
+        blockPrint(new String[]{"Search term cannot be empty."});
     }
 }

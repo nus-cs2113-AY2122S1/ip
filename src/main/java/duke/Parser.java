@@ -5,6 +5,7 @@ import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
+import duke.command.FindCommand;
 import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.exception.UnknownCommandException;
@@ -12,10 +13,12 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 import duke.task.exception.EmptyDescriptionException;
+import duke.task.exception.EmptySearchTermException;
 import duke.task.exception.EmptyTimeDetailException;
 import duke.task.exception.TimeSpecifierNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Parser {
@@ -28,6 +31,7 @@ public class Parser {
     protected static final String COMMAND_DEADLINE = "deadline";
     protected static final String COMMAND_EVENT = "event";
     protected static final String COMMAND_DELETE = "delete";
+    protected static final String COMMAND_FIND = "find";
     protected static final String TIME_SPECIFIER_BY = "/by";
     protected static final String TIME_SPECIFIER_AT = "/at";
 
@@ -47,7 +51,7 @@ public class Parser {
      */
     public Command parse(String fullCommand)
             throws NumberFormatException, UnknownCommandException, EmptyDescriptionException, EmptyTimeDetailException,
-            TimeSpecifierNotFoundException, DateTimeParseException {
+            TimeSpecifierNotFoundException, DateTimeParseException, EmptySearchTermException {
         String[] separatedCommand = fullCommand.split(" ");
         String userCommand = separatedCommand[0];
 
@@ -72,6 +76,10 @@ public class Parser {
         case COMMAND_DELETE:
             int deleteTaskIndex = Integer.parseInt(separatedCommand[1]) - 1;
             command = new DeleteCommand(deleteTaskIndex);
+            break;
+        case COMMAND_FIND:
+            String searchTerm = extractSearchTerm(separatedCommand);
+            command = new FindCommand(searchTerm);
             break;
         case COMMAND_HELP:
             command = new HelpCommand();
@@ -224,5 +232,14 @@ public class Parser {
         LocalDate at = extractTimeDetail(separatedCommand, atIndex + 1);
 
         return new AddCommand(new Event(description, at));
+    }
+
+    private String extractSearchTerm(String[] separatedCommand) throws EmptySearchTermException {
+        if (separatedCommand.length == 1) {
+            throw new EmptySearchTermException();
+        }
+
+        String[] searchTerm = Arrays.copyOfRange(separatedCommand, 1, separatedCommand.length);
+        return String.join(" ", searchTerm);
     }
 }
