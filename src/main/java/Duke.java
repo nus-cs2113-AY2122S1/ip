@@ -38,6 +38,8 @@ public class Duke {
             throw new DukeException("Oops, did you forget to enter the task to be marked as done?");
         } else if (taskManager.getNumberOfTasksUndone() == 0) {
             throw new DukeException("Oops, there are no tasks to be marked done!");
+        } else if (Parser.getItem(inputStr).contains("-")) {
+            throw new DukeException("Oops, task number cannot be negative!");
         } else if (taskManager.getNumberOfTasksAdded() < Integer.parseInt(Parser.getItem(inputStr))) {
             throw new DukeException("Oops, there is no task " + Integer.parseInt(Parser.getItem(inputStr)) + "!");
         } else if (taskManager.isTaskDone(inputStr)) {
@@ -109,6 +111,8 @@ public class Duke {
             throw new DukeException("Oops, did you forget to enter the task to be deleted?");
         } else if (taskManager.getNumberOfTasksAdded() == 0) {
             throw new DukeException("Oops, there are no tasks in the list yet!");
+        } else if (Parser.getItem(inputStr).contains("-")) {
+            throw new DukeException("Oops, task number cannot be negative!");
         } else if (taskManager.getNumberOfTasksAdded() < Integer.parseInt(Parser.getItem(inputStr))) {
             throw new DukeException("Oops, there is no task " + Integer.parseInt(Parser.getItem(inputStr)) + "!");
         } else {
