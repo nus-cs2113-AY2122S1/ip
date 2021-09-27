@@ -16,21 +16,21 @@ public class Duke {
 
     private final Scanner in = new Scanner(System.in);
 
-    /*public Duke(String filepath) {
-        this.tasksLs = new TaskList(new ArrayList<Task>());
-        this.storage = new Storage(filepath);
-        this.ui = new Ui();
-    }*/
-
+    /**
+     * A constructor to initiate Duke.
+     */
     public Duke() {
         this.tasksLs = new TaskList(new ArrayList<Task>());
         this.storage = new Storage("duke.txt");
         this.ui = new Ui();
     }
 
+    /**
+     * Runs Duke object until user exits with </bye>.
+     */
     private void run() {
-        String input = "";
         ui.greetMessage();
+        String input = "";
         try {
             tasksLs = storage.loadFile(tasksLs.getList());
         } catch (FileNotFoundException e) {
@@ -46,17 +46,26 @@ public class Duke {
                 storage.autoSave(tasksLs.getList());
                 closeDuke = input.trim().equals("bye");
             } catch (InvalidCommandException e) {
-                System.out.println(e.printMessage());
+                System.out.println(e.toString());
             } catch (EmptyCommand e) {
-                System.out.println(e.printMessage());
+                System.out.println(e.toString());
             }
         } while (!closeDuke);
     }
 
+    /**
+     * Prompts user for input.
+     *
+     * @return String input by user.
+     */
     private String getInput() {
         return in.nextLine();
     }
 
+    /**
+     * application.
+     * @param args to start Duke Application.
+     */
     public static void main(String[] args) {
         new Duke().run();
     }
