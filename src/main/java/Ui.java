@@ -1,4 +1,17 @@
-public class MessageManager {
+public class Ui {
+    // Prints welcome
+    public static void printWelcome() {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        String line = "________________________________________";
+        System.out.println(logo);
+        System.out.println(line);
+        System.out.println("Hello! I'm Duke\nWhat can I do for you?");
+        System.out.println(line);
+    }
 
     // Prints newest task
     public static void printNewTask(Task task, int size) {
@@ -30,7 +43,11 @@ public class MessageManager {
                 break;
             case "event":
                 System.out.println("event:\n Adds a task that starts at a specific time and ends at a specific time.");
-                System.out.println(" Format:\n event (task) /at (date/time)");
+                System.out.println("Format:\n event (task) /at (date/time)");
+                break;
+            case "delete":
+                System.out.println("delete:\n Deletes a task.");
+                System.out.println("Format:\n delete (index)");
                 break;
             case "list":
                 System.out.println("list:\n Shows all tasks.");
@@ -39,7 +56,7 @@ public class MessageManager {
                 System.out.println("bye:\n Terminates the program.");
                 break;
             case "help":
-                System.out.println("Type help (command) to show more.\nAvailable commands: done, todo, deadline, event, list, bye, help (displays this message)");
+                System.out.println("Type help (command) to show more.\nAvailable commands: done, todo, deadline, event, delete, list, bye, help (displays this message)");
                 break;
             default:
                 System.out.println("Formatting error");
