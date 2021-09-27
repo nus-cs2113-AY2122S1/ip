@@ -1,19 +1,26 @@
 package tasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    private String eventDate;
+    private LocalDate eventDate;
     public Event(boolean done, String name, String date) {
         super(done, name);
-        this.eventDate = date;
+        this.eventDate = LocalDate.parse(date);
     }
 
     public Event() {
         super(false, "Nothing");
-        this.eventDate = "never";
+        this.eventDate = LocalDate.parse("2021-12-31");
     }
 
-    public String getEventDate() {
+    public LocalDate getTaskDate() {
         return eventDate;
+    }
+
+    public String getStringEventDate() {
+        return eventDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
     }
 
     @Override
@@ -23,6 +30,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return getPrefix() + super.toString() + "(at: " + eventDate + ")";
+        return getPrefix() + super.toString() + "(at: " + getStringEventDate() + ")";
     }
 }

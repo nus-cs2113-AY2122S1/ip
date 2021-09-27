@@ -28,6 +28,9 @@ public class UpdateData {
      * Function that appends task details in correct format in file
      */
     public static void updateList(Task currTask) {
+        if (currTask == null) {
+            return;
+        }
         String taskName = currTask.getTaskName();
         String isDoneSymbol = currTask.isDone() ? "X" : "O";
         // check prefix
@@ -40,7 +43,7 @@ public class UpdateData {
         } else if (currTask.getPrefix().equals("[D]")) {
             try {
                 Deadline deadlineTask = (Deadline) currTask;
-                String deadline = deadlineTask.getDeadline();
+                String deadline = deadlineTask.getTaskDate().toString();
                 appendToFile("deadline | " + isDoneSymbol + " | " + taskName + " | " + deadline + System.lineSeparator());
             } catch (IOException e) {
                 MessagePrinter.ioexception(e.getMessage());
@@ -48,7 +51,7 @@ public class UpdateData {
         } else {
             try {
                 Event eventTask = (Event) currTask;
-                String eventDate = eventTask.getEventDate();
+                String eventDate = eventTask.getTaskDate().toString();
                 appendToFile("event | " + isDoneSymbol + " | " + taskName + " | " + eventDate + System.lineSeparator());
             } catch (IOException e) {
                 MessagePrinter.ioexception(e.getMessage());
