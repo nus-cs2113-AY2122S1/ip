@@ -18,6 +18,7 @@ public class Parser {
     private static int DEADLINE_INDEX = 9;
     private static int EVENT_INDEX = 5;
     private static int TODO_INDEX = 4;
+    private static int FIND_INDEX = 4;
     private static int TASK_STRING_OFFSET = 3;
 
     String description;
@@ -65,6 +66,15 @@ public class Parser {
         return returnVal;
     }
 
+    public String parseTextInput(String str) throws HalException {
+        description = str.substring(FIND_INDEX).trim();
+        if (description.equals("")) {
+            ui.printEmptyDescriptionMessage();
+            throw new HalException("Empty search term");
+        }
+        return description;
+    }
+
     public int parseInt(String task) {
         try {
             int taskNum = Integer.parseInt(task.substring(task.indexOf(' ') + 1));
@@ -75,6 +85,7 @@ public class Parser {
         }
         return -1;
     }
+
 
     //function takes in a string and converts to a local date. Defaults to current date if invalid format added
     public static LocalDate parseLocalDate(String str) {
