@@ -3,9 +3,11 @@ package commands;
 import constants.Message;
 
 public class DoneCommand extends Command{
+
     private String input;
     private static final int EXPECTED_LENGTH_FOR_DONE_INPUT = 2;
     private static final String TASK_COMPLETED_MESSAGE = "You've completed the task! Well done!";
+    public static final String DONE_COMMAND = "done";
 
     public DoneCommand(String input) {
         this.input = input;

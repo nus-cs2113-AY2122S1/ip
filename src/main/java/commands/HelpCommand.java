@@ -3,6 +3,8 @@ package commands;
 import static ui.Ui.INDENTATION;
 
 public class HelpCommand extends Command{
+
+    public static final String HELP_COMMAND = "help";
     private static final String HELP_MESSAGE = "list\n" +INDENTATION +
             "- Shows you the list of tasks you have\n\n" +INDENTATION +
             "todo (insert task description)\n" + INDENTATION +

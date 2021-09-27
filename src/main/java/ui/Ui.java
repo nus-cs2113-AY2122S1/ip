@@ -2,6 +2,7 @@ package ui;
 
 import commands.CommandResult;
 
+import commands.PrintOptions;
 import constants.Message;
 import task.Task;
 
@@ -79,7 +80,10 @@ public class Ui {
             printCommandResultMessage(result,!NOTIFY_NUMBER_OF_TASK,PRINT_TASK);
             break;
         case LIST:
-            printList(result);
+            printList(result,PrintOptions.LIST);
+            break;
+        case LIST_OF_SPECIFIC_DATE:
+            printList(result,PrintOptions.LIST_OF_SPECIFIC_DATE);
             break;
         case DEFAULT:
             printCommandResultMessage(result,!NOTIFY_NUMBER_OF_TASK,!PRINT_TASK);
@@ -94,16 +98,22 @@ public class Ui {
     /**
      * Prints the tasks based on the given format
      */
-    private void printTask(CommandResult result) {
-        for (int i = 0; i < Task.getTotalTasks(); i++) {
-            printWordsWithIndentation(i + 1 + "." + result.tasks.getTask(i).getStatusIconAndDescription());
+    private void printTask(CommandResult result,PrintOptions options) {
+        if(options == PrintOptions.LIST_OF_SPECIFIC_DATE) {
+            for (int i = 0; i < result.tasks.getNumberOfTasksOfSameDate(); i++) {
+                printWordsWithIndentation(i + 1 + "." + result.tasks.getTask(i).getStatusIconAndDescription());
+            }
+        } else {
+            for (int i = 0; i < Task.getTotalTasks(); i++) {
+                printWordsWithIndentation(i + 1 + "." + result.tasks.getTask(i).getStatusIconAndDescription());
+            }
         }
     }
 
-    private void printList(CommandResult result) {
+    private void printList(CommandResult result, PrintOptions options) {
         printIndentationAndDivider();
         printWordsWithIndentation(result.feedbackToUser);
-        printTask(result);
+        printTask(result,options);
         printIndentationAndDivider();
         System.out.println();
     }

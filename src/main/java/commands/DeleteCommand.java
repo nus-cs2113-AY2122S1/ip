@@ -6,7 +6,9 @@ import task.Task;
 import static commands.ListCommand.LIST_IS_EMPTY;
 
 public class DeleteCommand extends Command{
+
     private static final int EXPECTED_LENGTH_FOR_DELETE_INPUT = 2;
+    public static final String DELETE_COMMAND = "delete";
     public static final String TASK_REMOVED = "Alright, I've removed this task:";
     public static final String PROMPT_SENSIBLE_INDEX = "Please give a number between 1 and ";
     private String input;
