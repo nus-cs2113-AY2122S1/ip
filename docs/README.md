@@ -2,7 +2,6 @@
 Duke is a **Java Command Line Interface (CLI) program for managing your daily tasks, deadline, and events.** 
 <br>If you are a fast typer, Duke is a perfect program for you to organize your tasks efficiently. 
 
-
 * [Quick Start](#Quick-Start)
 * [Features](#Features)
     * [Get Duke Manual : `help`](#help---get-duke-manual)
@@ -32,12 +31,9 @@ Duke is a **Java Command Line Interface (CLI) program for managing your daily ta
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
-____________________________________________________________
  Hello! I'm Duke
  What can I do for you?
-____________________________________________________________
 ```
-
 
 ## Features
 
@@ -52,7 +48,6 @@ Example of usage and outcome:
    [T] [ ] buy bread
 ```
 
-
 ### `todo` - Add New Todo Item
 Adds a todo task to the manager.
 
@@ -66,8 +61,6 @@ Example of usage and outcome:
    [T] [ ] buy bread
 ```
 
-
-
 ### `deadline` - Add New Deadline Item
 Adds a new Deadline task with Date and Time to the manager.
 
@@ -80,8 +73,6 @@ Example of usage and outcome:
  Got it. I've added this task:
   [D] [ ] submit code (by: Nov 11 2021 18:00PM)
 ```
-
-
 
 ### `Event` - Add New Event Item
 Adds a new Event task with a Date amd Time to the manager.
