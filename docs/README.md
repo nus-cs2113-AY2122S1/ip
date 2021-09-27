@@ -120,6 +120,17 @@ Marks a task that DUKE is tracking as done.
 
 Format: `done <TASK_INDEX>` 
 
+Example: `done 2`
+
+```
+done 2
+
+____________________________________________________________
+Nice! I've marked this task as done:
+[E][X] Attend CG2027 lecture  (on: Tuesday, October 12, 2021 03:21 PM)
+____________________________________________________________
+```
+
 ### Delete a Task: `delete`
 Delete the task from Duke and duketasks.txt
 
