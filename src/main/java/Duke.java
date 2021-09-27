@@ -70,8 +70,8 @@ public class Duke {
                     Ui.emptyTodo();
                 }
             }
-            else {
-                if (!Objects.equals(parser.data(), "bye")) Ui.rephrase();
+            else if (!Objects.equals(parser.keyword(), "bye")) {
+                Ui.rephrase();
             }
         }
         Ui.bye();
