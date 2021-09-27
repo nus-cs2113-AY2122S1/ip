@@ -70,6 +70,17 @@ Adds an event with a specific date and time for DUKE to keep track.
 
 Format: `event <TASK_DESCRIPTION> /at <YYYY-MM-DD HH:MM>`
 
+Example: `event Attend CG2027 lecture /at 2021-10-12 15:21`
+
+```
+event Attend CG2027 lecture /at 2021-10-12 15:21
+____________________________________________________________
+Got it. I've added this task:
+[E][ ] Attend CG2027 lecture  (on: Tuesday, October 12, 2021 03:21 PM)
+Now you have 2 tasks in the list.
+____________________________________________________________
+```
+
 ### Add Deadline Task: `deadline`
 Adds a deadline with a specific date and time for DUKE to keep track.
 
