@@ -22,8 +22,6 @@ import duke.tasklist.TaskList;
  * data into the file.
  */
 public class Storage {
-    private static final String LINE_SEPARATOR = System.lineSeparator();
-
     private static final Path DATA_DIRECTORY_PATH = Paths.get("data");
     private static final String DATA_FILE_NAME = "duke.txt";
     private static final Path DATA_FILE_PATH = DATA_DIRECTORY_PATH.resolve(DATA_FILE_NAME);
@@ -36,9 +34,9 @@ public class Storage {
 
     private static final String MESSAGE_UNRECOGNISED_TASK_TYPE_ICON = "Unrecognised task type icon: '%1$s'";
     private static final String MESSAGE_UNRECOGNISED_TASK_STATUS_ICON = "Unrecognised task status icon: '%1$s'";
-    private static final String MESSAGE_UNRECOGNISED_EVENT_FORMAT = "Unrecognised event format. " + LINE_SEPARATOR
+    private static final String MESSAGE_UNRECOGNISED_EVENT_FORMAT = "Unrecognised event format.\n"
             + "Please ensure you provide the date/time of the event.";
-    private static final String MESSAGE_UNRECOGNISED_DEADLINE_FORMAT = "Unrecognised deadline format. " + LINE_SEPARATOR
+    private static final String MESSAGE_UNRECOGNISED_DEADLINE_FORMAT = "Unrecognised deadline format.\n"
             + "Please ensure you provide the date/time of the deadline.";
 
     private final Path path;
@@ -66,7 +64,7 @@ public class Storage {
             return parseData(taskDataStrings);
         } catch (IOException | DukeException e) {
             e.printStackTrace();
-            throw new StorageException(MESSAGE_DATA_FILE_PARSE_ERROR + LINE_SEPARATOR + e.getMessage());
+            throw new StorageException(MESSAGE_DATA_FILE_PARSE_ERROR + "\n" + e.getMessage());
         }
     }
 
@@ -122,7 +120,7 @@ public class Storage {
             Files.createDirectories(path.getParent());
             Files.write(path, formatTasksAsDataOutput(tasks));
         } catch (IOException e) {
-            throw new StorageException(MESSAGE_DATA_FILE_ACCESS_ERROR + path + LINE_SEPARATOR + e.getMessage());
+            throw new StorageException(MESSAGE_DATA_FILE_ACCESS_ERROR + path + "\n" + e.getMessage());
         }
     }
 
