@@ -153,3 +153,8 @@ Exits the program.
 
 Format: `bye`
 
+### Saving the data
+
+Tasks are saved in the hard disk when you exit Atlas. They will be loaded again the next time you run Atlas and you
+can view them by typing `list` after the program starts.
+
