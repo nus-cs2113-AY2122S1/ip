@@ -7,6 +7,12 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
     String[] splittedInput;
 
+    /**
+     * Checks if there are characters present after the "list" command.
+     *
+     * @param input The entire line of command entered by the user.
+     * @throws DukeException If there are characters present after the "list" command.
+     */
     public ListCommand(String input) throws DukeException {
         splittedInput = input.split(" ");
         if (splittedInput.length > 1) {
@@ -14,6 +20,9 @@ public class ListCommand extends Command {
         }
     }
 
+    /**
+     * Prints the entire task list.
+     */
     @Override
     public void execute() {
         UI.printListMessage(taskList);

@@ -9,12 +9,26 @@ public class EventCommand extends Command {
     private final String taskName;
     private final String dueDate;
 
+    /**
+     * Initialises the name and the due date of the task from the input command.
+     *
+     * @param input The entire line of command entered by the user.
+     * @throws DukeException If there is an error when getting the name or due date of the task.
+     */
     public EventCommand(String input) throws DukeException {
         int slashIndex = input.indexOf('/');
         this.taskName = getEventTaskName(input, slashIndex);
         this.dueDate = getDueDate(input, slashIndex);
     }
 
+    /**
+     * Returns the name of the task from the input given by the user.
+     *
+     * @param input The entire line of command entered by the user.
+     * @param slashIndex The index of the slash from the user's input.
+     * @return Returns name of the task in String format.
+     * @throws DukeException If the slash is not present in the input or if the task name is empty or filled with whitespaces.
+     */
     private static String getEventTaskName(String input, int slashIndex) throws DukeException {
         final int EVENT_WORD_LENGTH = 6;
         int taskNameLastIndex = slashIndex - 1; //the last index of the task name
@@ -34,12 +48,19 @@ public class EventCommand extends Command {
         return taskName;
     }
 
+    /**
+     * Adds an event task to the tasks list.
+     * Prints a message to notify the user of the new event task added.
+     */
     @Override
     public void execute() {
         taskList.addTask(new Event(taskName, dueDate));
         UI.printNewTaskMsg(taskList.getEntireList());
     }
 
+    /**
+     * Adds an event task to the tasks list without notifying the user.
+     */
     @Override
     public void executeFromFile() {
         taskList.addTask(new Event(taskName, dueDate));

@@ -11,6 +11,12 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Returns a single string of the deadline task
+     * with its icon, status, task name, preposition used and date and time of the deadline.
+     *
+     * @return The icon, status, task name, preposition used and date and time of the deadline, all in a single string.
+     */
     @Override
     public String toString() {
 
@@ -26,6 +32,11 @@ public class Deadline extends Task {
         return "[D]" + super.getStatusIcon() + super.toString() + " (" + preposition + ": " + date.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + " " + time + ")";
     }
 
+    /**
+     * Returns the task name followed by a slash and its due date after.
+     *
+     * @return The task name followed by a slash and then, its due date, in a single string.
+     */
     @Override
     public String getDescription() {
         return description + " /" + by;

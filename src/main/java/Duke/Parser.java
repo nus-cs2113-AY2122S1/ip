@@ -4,6 +4,14 @@ import Duke.Commands.*;
 
 public class Parser {
 
+    /**
+     * Interprets the input given by the user and returns a command type based on the first word from the input.
+     * If the first word is not a recognised command, an invalid command message would be thrown.
+     *
+     * @param input The entire line of command entered by the user.
+     * @return Returns a particular command type depending on the first word of the input.
+     * @throws DukeException If the first word of the input is not a recognised command.
+     */
     public static Command parseCommand(String input) throws DukeException {
         String[] splittedInput = input.split(" ");
         final String COMMAND = splittedInput[0];
@@ -28,6 +36,5 @@ public class Parser {
         default:
             return new InvalidCommand();
         }
-
     }
 }
