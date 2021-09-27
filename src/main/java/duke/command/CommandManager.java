@@ -7,47 +7,43 @@ import duke.task.TaskManager;
 import duke.task.Type;
 
 public class CommandManager {
-    private static final String NO_DESCRIPTION_MESSAGE = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+    private static final String UNKNOWN_COMMAND_MESSAGE = "OOPS!!! I'm sorry, but I don't know what that means :-(";
 
-    private static boolean runCommand(Command command, String argument){
-        switch (command) {
-        case BYE:
-            return false;
-        case LIST:
-            TaskManager.printTasks();
-            break;
-        case DONE:
-            TaskManager.taskDone(Integer.parseInt(argument) - 1);
-            break;
-        case DELETE:
-            TaskManager.deleteTask(Integer.parseInt(argument) - 1);
-            break;
-        case FIND:
-            TaskManager.findTasks(argument);
-            break;
+    private static Command getCommand(String commandString, String argumentString) throws InvalidCommandException {
+        switch (commandString.toLowerCase()) {
+        case Bye.NAME:
+            return new Bye(argumentString);
+        case List.NAME:
+            return new List(argumentString);
+        case Done.NAME:
+            return new Done(argumentString);
+        case Delete.NAME:
+            return new Delete(argumentString);
+        case Find.NAME:
+            return new Find(argumentString);
+        default:
+            throw new InvalidCommandException(UNKNOWN_COMMAND_MESSAGE);
         }
-        return true;
     }
 
     public static boolean handleCommand(String userInput) {
-        if (userInput.matches(Type.getTypesRegex())) {
+        if (userInput.matches(Type.getTaskTypesRegex())) {
             TaskManager.newTask(userInput);
             return true;
         }
-        String[] userInputSplit = Parser.splitWhitespace(userInput);
+        String commandString = Parser.getFirstArgument(userInput);
+        String argumentString = Parser.removeFirstArgument(userInput);
         try {
-            if (!Command.contains(userInputSplit[0])) {
-                throw new InvalidCommandException(NO_DESCRIPTION_MESSAGE);
-            }
-            Command command = Command.getCommand(userInputSplit[0]);
-            if (!command.isValid(userInput)) {
+            Command command = getCommand(commandString, argumentString);
+            if (!command.isValid()) {
                 throw new InvalidCommandException(command.getUsage());
             }
-            String argument = Parser.removeFirstArgument(userInput);
-            return runCommand(command, argument);
-        } catch (InvalidCommandException ive) {
+            return command.execute();
+        } catch (
+                InvalidCommandException ive) {
             Message.printWithSpacers(ive.getMessage());
         }
         return true;
     }
+
 }
