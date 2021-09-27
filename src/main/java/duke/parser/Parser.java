@@ -125,5 +125,4 @@ public class Parser {
     private static Command handleUnrecognisedCommand() throws DukeException {
         throw new DukeException(MESSAGE_UNRECOGNISED_COMMAND);
     }
-    }
 }
