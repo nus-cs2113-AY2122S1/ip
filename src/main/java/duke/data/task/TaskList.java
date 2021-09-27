@@ -1,10 +1,14 @@
 package duke.data.task;
 
+import duke.logic.commands.exceptions.TaskAlreadyDoneException;
 import duke.logic.commands.exceptions.TaskListEmptyException;
 import duke.logic.commands.exceptions.TaskNumOutOfBoundsException;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static duke.ui.Ui.EMPTY;
+import static duke.ui.Ui.LS;
 
 /**
  * ArrayList of Tasks
@@ -37,7 +41,6 @@ public class TaskList {
      */
     public void addTask(Task task) {
       internalTasks.add(task);
-      //TODO: call storage
     }
 
     /**
@@ -50,7 +53,6 @@ public class TaskList {
 
         try {
             internalTasks.remove(convertToIndexNum(taskNum));
-            //TODO: call storage
         } catch (IndexOutOfBoundsException e) {
             throw new TaskNumOutOfBoundsException();
         }
@@ -60,14 +62,15 @@ public class TaskList {
     /**
      * Marks task as done, given the task number
      */
-    public void markTaskAsDone(int taskNum) throws TaskListEmptyException, TaskNumOutOfBoundsException {
+    public void markTaskAsDone(int taskNum) throws TaskListEmptyException, TaskNumOutOfBoundsException,
+            TaskAlreadyDoneException {
+
         if (internalTasks.isEmpty()) {
             throw new TaskListEmptyException();
         }
 
         try {
             internalTasks.get(convertToIndexNum(taskNum)).markAsDone();
-            //TODO: call storage
         } catch (IndexOutOfBoundsException e) {
             throw new TaskNumOutOfBoundsException();
         }
@@ -83,8 +86,12 @@ public class TaskList {
     /**
      * Returns the task at specific task number
      */
-    public Task getTaskAtNum(int taskNum) {
-        return this.internalTasks.get(convertToIndexNum(taskNum));
+    public Task getTaskAtNum(int taskNum) throws TaskNumOutOfBoundsException {
+        try {
+            return this.internalTasks.get(convertToIndexNum(taskNum));
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskNumOutOfBoundsException();
+        }
     }
 
     /**
@@ -94,4 +101,16 @@ public class TaskList {
         return this.internalTasks.size();
     }
 
+    /**
+     * Returns all the tasks in string form
+     */
+    public String getStringOfAllTasks() {
+        String stringOfAllTasks = EMPTY;
+        int taskNum = 1;
+        for (Task task : internalTasks) {
+            stringOfAllTasks = stringOfAllTasks + taskNum + "." + task.toString() + LS;
+            taskNum++;
+        }
+        return stringOfAllTasks.trim();
+    }
 }

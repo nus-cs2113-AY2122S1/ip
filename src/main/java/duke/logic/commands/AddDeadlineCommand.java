@@ -26,4 +26,5 @@ public class AddDeadlineCommand extends Command {
         super.tasks.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString(), super.tasks.getNumTasks()));
     }
+
 }

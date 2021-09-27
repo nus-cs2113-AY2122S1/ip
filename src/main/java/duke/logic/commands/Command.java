@@ -1,11 +1,7 @@
 package duke.logic.commands;
 
 
-import duke.data.task.Task;
 import duke.data.task.TaskList;
-
-import static duke.ui.Ui.EMPTY;
-import static duke.ui.Ui.LS;
 
 /**
  * Abstract class used to represent executable Commands
@@ -23,17 +19,13 @@ public abstract class Command {
         this.tasks = tasks;
     }
 
-    /**
-     * Returns all the tasks in string form
-     */
-    public String getStringOfAllTasks() {
-        String stringOfAllTasks = EMPTY;
-        int taskNum = 1;
-        for (Task task : this.tasks.getTasks()) {
-            stringOfAllTasks = stringOfAllTasks + taskNum + "." + task.toString() + LS;
-            taskNum++;
-        }
-        return stringOfAllTasks;
+    public static boolean requiresStorageRewrite(Command command) {
+        return command instanceof AddDeadlineCommand
+                || command instanceof AddEventCommand
+                || command instanceof AddTodoCommand
+                || command instanceof DeleteTaskCommand
+                || command instanceof MarkTaskAsDoneCommand
+                || command instanceof ByeCommand;
     }
 
 }

@@ -12,6 +12,11 @@ public class Event extends Task {
         setDateAndTime(dateAndTime);
     }
 
+    public Event(String description, String dateAndTime, boolean isDone) {
+        super(description, isDone);
+        this.dateAndTime = dateAndTime;
+    }
+
     public String getDateAndTime() {
         return dateAndTime;
     }

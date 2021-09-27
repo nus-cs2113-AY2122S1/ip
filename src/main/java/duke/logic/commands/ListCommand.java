@@ -14,7 +14,7 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        String listOfTasks = super.getStringOfAllTasks();
+        String listOfTasks = super.tasks.getStringOfAllTasks();
         if (listOfTasks.equals(EMPTY)) {
             return new CommandResult(MESSAGE_NO_TASKS_YET);
         }

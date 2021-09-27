@@ -1,5 +1,6 @@
 package duke.logic.commands;
 
+import duke.logic.commands.exceptions.TaskAlreadyDoneException;
 import duke.logic.commands.exceptions.TaskListEmptyException;
 import duke.logic.commands.exceptions.TaskNumOutOfBoundsException;
 
@@ -13,7 +14,7 @@ public class MarkTaskAsDoneCommand extends Command {
     public static final String MESSAGE_INVALID_FORMAT = "Invalid format! Please input a task number to be marked as done, "
             + LS + "in the format " + MESSAGE_COMMAND_FORMAT + ", where X is the task number!";
     private static final String MESSAGE_SUCCESS = "Well done! I've marked this task as done. ^_^";
-    private static final String MESSAGE_TASK_NUM_INVALID = "Please input a valid task number from 1 to %d !";
+    private static final String MESSAGE_TASK_NUM_INVALID = "Please input a valid task number from 1 to %d!";
 
     private int taskNum;
 
@@ -30,6 +31,8 @@ public class MarkTaskAsDoneCommand extends Command {
             return new CommandResult(e.toString());
         } catch (TaskNumOutOfBoundsException e) {
             return new CommandResult(String.format(MESSAGE_TASK_NUM_INVALID, super.tasks.getNumTasks()));
+        } catch (TaskAlreadyDoneException e) {
+            return new CommandResult(e.toString());
         }
     }
 }

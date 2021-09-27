@@ -1,5 +1,7 @@
 package duke.data.task;
 
+import duke.logic.commands.exceptions.TaskAlreadyDoneException;
+
 /**
  * This class is used to create tasks.
  * Each Task must contain a description and can either be marked done or not done.
@@ -22,6 +24,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -30,13 +37,11 @@ public class Task {
         return (this.isDone ? ICON_DONE : ICON_NOT_DONE); //marks task done with "X"
     }
 
-    public String markAsDone() {
+    public void markAsDone() throws TaskAlreadyDoneException {
         if (!this.isDone) {
             this.isDone = true;
-            return "Well done! I've marked this task as done. ^_^";
         } else {
-            return "Task has already been marked as done! Good job!" + System.lineSeparator() +
-                    "Try marking another task as done! ^=^";
+            throw new TaskAlreadyDoneException();
         }
     }
 

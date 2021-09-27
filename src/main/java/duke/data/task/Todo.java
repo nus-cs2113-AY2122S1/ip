@@ -11,6 +11,10 @@ public class Todo extends Task {
         super(description);
     }
 
+    public Todo(String description, boolean isDone) {
+        super(description, isDone);
+    }
+
     /**
      * Returns Todo task formatted for application, in the form "[T][ ] description"
      *

@@ -6,21 +6,31 @@ import duke.logic.commands.Command;
 import duke.logic.commands.CommandResult;
 import duke.logic.parser.Parser;
 import duke.storage.Storage;
+import duke.storage.exceptions.CannotReadFromFileException;
+import duke.storage.exceptions.UnableToWriteToFileException;
 import duke.ui.Ui;
+
+import static duke.logic.commands.Command.requiresStorageRewrite;
 
 /**
  * Main class of the Dude bot
  */
 public class Main {
-    private Ui ui;
-    private TaskList tasks;
-    private Storage storage;
+    private static Ui ui;
+    private static TaskList tasks;
+    private static Storage storage;
 
 
     private void start() {
-        this.ui = new Ui();
-        this.tasks = new TaskList();
-        ui.showWelcome();
+        try {
+            this.ui = new Ui();
+            this.storage = new Storage();
+            ui.showWelcome();
+            this.tasks = storage.loadTasksFromFile();
+            ui.showTasksLoaded(tasks);
+        } catch (CannotReadFromFileException | UnableToWriteToFileException e) {
+            ui.showMessageFramedWithDivider(e.toString());
+        }
     }
 
     private void exit() {
@@ -29,8 +39,16 @@ public class Main {
     }
 
     private CommandResult executeCommand(Command command) {
-        command.setTasks(tasks);
-        return command.execute();
+        command.setTasks(this.tasks);
+        CommandResult result = command.execute();
+        if (requiresStorageRewrite(command)) {
+            try {
+                storage.rewriteTaskListToFile(tasks);
+            } catch (UnableToWriteToFileException e) {
+                ui.showMessageFramedWithDivider(e.toString());
+            }
+        }
+        return result;
     }
 
     private void enterTaskModeUntilByeCommand() {
@@ -40,7 +58,6 @@ public class Main {
             command = new Parser().parseCommand(userInput);
             CommandResult result = executeCommand(command);
             ui.showMessageFramedWithDivider(result.toString());
-
         } while (!ByeCommand.isBye(command));
     }
 

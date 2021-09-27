@@ -1,6 +1,5 @@
 package duke.ui;
 
-import duke.data.task.Task;
 import duke.data.task.TaskList;
 import duke.logic.commands.AddDeadlineCommand;
 import duke.logic.commands.AddEventCommand;
@@ -11,7 +10,6 @@ import duke.logic.commands.DeleteTaskCommand;
 import duke.logic.commands.ListCommand;
 import duke.logic.commands.MarkTaskAsDoneCommand;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -37,6 +35,8 @@ public class Ui {
             + DeleteTaskCommand.MESSAGE_COMMAND_DESCRIPTION + LS
             + CommandListCommand.MESSAGE_COMMAND_DESCRIPTION + LS
             + ByeCommand.MESSAGE_COMMAND_DESCRIPTION;
+    private static final String MESSAGE_DATA_LOADED = "Your old data has been successfully loaded!" + LS
+            + "You have %d tasks. Type " + ListCommand.MESSAGE_COMMAND_FORMAT + " to see current tasks!";
 
     private Scanner scanner;
 
@@ -88,26 +88,8 @@ public class Ui {
         System.exit(0);
     }
 
-    /**
-     * Prints task list
-     */
-    public void printTasks(TaskList taskList) {
-        final ArrayList<Task> tasks = taskList.getTasks();
-        int taskNum = 1;
-        if (tasks.isEmpty()) {
-            showMessageFramedWithDivider(MESSAGE_NO_TASKS_YET);
-        }
-        showMessage(DIVIDER, MESSAGE_INTRODUCE_TASKS);
-        for (Task task : tasks) {
-            System.out.println(taskNum + ". " + task);
-            taskNum++;
-        }
-        showMessage(DIVIDER);
+    public void showTasksLoaded(TaskList tasks) {
+        showMessage(String.format(MESSAGE_DATA_LOADED, tasks.getNumTasks()), DIVIDER);
     }
-
-
-    //TODO: print commandresult
-
-
 
 }

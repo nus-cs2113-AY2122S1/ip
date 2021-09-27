@@ -26,4 +26,5 @@ public class AddEventCommand extends Command {
         super.tasks.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, super.tasks.getNumTasks()));
     }
+
 }
