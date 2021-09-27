@@ -18,11 +18,21 @@ public class Storage {
 
     private static final String FILE_PATH = "data/atlasData.txt";
 
-
+    /**
+     * Processes tasks from the main ArrayList of tasks and stores them in the save file.
+     * Method stores tasks in the .txt file in the following format:
+     * T | 0 | task description and/or deadline
+     * The first index indicates the type of task, the second indicates whether a task is done by storing a 1 and
+     * 0 if undone. The last field contains the description and/or deadline containing the type of task. If the last
+     * field contains a deadline, the format of the last field will be: task description | deadline.
+     * If an error occurs while writing to the file, an error message is printed.
+     *
+     * @param tasks ArrayList of tasks
+     * @throws IOException throws an IOException
+     */
     public static void writeToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
 
-        // Solution below adapted from @@NonRNP
         for (Task task : tasks) {
             String taskAsString = String.valueOf(task);
             String taskType = taskAsString.substring(1, 2);
@@ -51,6 +61,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Checks if the directory and file to save the list of tasks in exists. If not, the directory
+     * or file will be created, depending on which is/are missing.
+     * Prints an error message if the file cannot be created successfully.
+     */
     public static void checkDirectoryExists() {
         try {
             File directory = new File(FILE_PATH);
@@ -72,7 +87,14 @@ public class Storage {
         }
     }
 
-    // function populates empty task ArrayList given contents of the Task file
+    /**
+     * Populates empty task ArrayList given contents of the save file.
+     * This method processes tasks from the save file format to the same format as a user would input
+     * into the command line, one by one.
+     *
+     * @param input string representing one task from the save file
+     * @param tasks ArrayList of tasks to be populated
+     */
     public static void fillArrayListFromFile(String input, ArrayList<Task> tasks) {
         String[] taskContent = input.split( "\\|");
         String taskType = taskContent[0].trim();
@@ -97,12 +119,20 @@ public class Storage {
             System.out.println("Something went wrong!");
             break;
         }
+
+        // Current task will always be at the end of the ArrayList, so the marking of a task as done can be done after
+        // exiting the switch statement
         if (isDone.equals("1")) {
             tasks.get(tasks.size() - 1).markAsDone();
         }
     }
 
-
+    /**
+     * Takes in the save file and passes tasks individually to be processed to be added to the list of tasks.
+     *
+     * @param tasks ArrayList of tasks to be populated.
+     * @throws FileNotFoundException throws a FileNotFoundException
+     */
     public static void readTaskFile(ArrayList<Task> tasks) throws FileNotFoundException {
         File taskFile = new File(FILE_PATH);
         Scanner scan = new Scanner(taskFile);
@@ -112,6 +142,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the save file for processing into the main ArrayList of tasks.
+     * Done at the very beginning when the program is run. Creates a file if the save file is not
+     * yet created (usually done when the program is run by a new user for the first time).
+     *
+     * @param tasks empty ArrayLIst of tasks to be populated.
+     */
     public static void loadTaskFile(ArrayList<Task> tasks) {
         try {
             readTaskFile(tasks);

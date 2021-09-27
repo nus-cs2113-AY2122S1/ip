@@ -1,7 +1,7 @@
 package duke.parser;
 
 
-import duke.exception.EmptyListException;
+import duke.exception.TaskNotFoundException;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 import duke.exception.InvalidTaskDescriptionException;
@@ -20,16 +20,30 @@ public class Parser {
     private static final String DATE_AND_TIME_FORMAT = "dd/MM/yyyy[ HH:mm]";
     private static final String PRINT_DATE_AND_TIME_FORMAT = "MMM dd yyyy HH:mm";
 
+    /**
+     * Extracts the command from input provided by the user.
+     *
+     * @param userInput input from user from the command line interface
+     * @return command extracted from user input
+     *
+     */
     public static String getCommand(String userInput) {
         String[] input = userInput.trim().toLowerCase().split(" ");
         return input[0];
     }
 
+    /**
+     * Processes extracted command and description from input provided by the user and executes the task if the input is valid.
+     * An error message will be printed if the extracted command is invalid, or if the description of the task is invalid,
+     * or if the user tries to find a task that does not exist in the list.
+     *
+     * @param userInput input from user from the command line interface
+     * @param tasks ArrayList of tasks
+     */
     public static void parseCommand(String userInput, ArrayList<Task> tasks) {
         try {
             String command = getCommand(userInput);
             switch (command) {
-                // abstract variables later depending on which class to put under
             case ("bye"):
                 Ui.printFarewellMessage();
                 break;
@@ -58,45 +72,85 @@ public class Parser {
                 Ui.printErrorMessage();
                 break;
             }
-        } catch (InvalidTaskDescriptionException | EmptyListException e) {
+        } catch (InvalidTaskDescriptionException | TaskNotFoundException e) {
             Ui.printHorizontalLine();
             System.out.println(e.getMessage());
             Ui.printHorizontalLine();
         }
     }
 
-    public static String getTaskType(String userInput) {
-        String[] description = userInput.trim().toLowerCase().split(" ");
-        return description[0];
-    }
-
+    /**
+     * Extracts a substring containing the description of a Todo task.
+     *
+     * @param userInput input from user from the command line interface
+     * @return string containing task description of a Todo
+     */
     public static String getTodoDescription(String userInput) {
         int descriptionPosition = userInput.trim().indexOf(" ");
         return userInput.trim().substring(descriptionPosition);
     }
 
+    /**
+     * Returns an int representing the starting position of the description and deadline of
+     * a Deadline or Event task.
+     *
+     * @param userInput input from user from the command line interface
+     * @return starting position of task description for Deadline or Event tasks
+     */
     public static int DeadlineOrEventDescriptionPosition(String userInput) {
         return userInput.trim().indexOf(" ");
     }
 
+    /**
+     * Returns an int representing the starting position of the deadline for a Deadline or Event
+     * task.
+     * This method distinguishes between a Deadline and Event task. For example, if a Deadline task
+     * if passed into this method, indexOf("/at") will have a value of -1 as the /at attribute is for
+     * an Event task. indexOf("/by"), for a Deadline task, is guaranteed to be more than 0.
+     *
+     * @param userInput input from user from the command line interface
+     * @return starting position of the date and/or time deadline for a Deadline or Event task.
+     */
     public static int DeadlineOrEventTimePosition(String userInput) {
         return Math.max(userInput.trim().indexOf("/by"), userInput.trim().indexOf("/at"));
     }
 
+    /**
+     * Extracts a substring containing the description of a Deadline or Event task.
+     *
+     * @param userInput input from user from the command line interface
+     * @return string containing Deadline or Event description
+     */
     public static String getDeadlineOrEventDescription(String userInput) {
         int descriptionPosition = DeadlineOrEventDescriptionPosition(userInput);
         int timePosition = DeadlineOrEventTimePosition(userInput);
         return userInput.substring(descriptionPosition, timePosition);
     }
 
+    /**
+     * Extracts date and time deadline from a Deadline task, or duration from an Event task.
+     *
+     * @param userInput input from user from the command line interface
+     * @return string containing date and time for a Deadline or Event task.
+     */
     public static String getDateAndTimeSubstring(String userInput) {
         int timePosition = DeadlineOrEventTimePosition(userInput);
         return userInput.substring(timePosition + 3).trim();
     }
 
-    //https://stackoverflow.com/questions/48280447/java-8-datetimeformatter-with-optional-part
+    /**
+     * Converts date and time from a string to a LocalDateTime object. The string must
+     * contain the date in the required format, while the time attribute is optional. Otherwise,
+     * an error message will be shown prompting the date and time to be entered in a specific format.
+     *
+     * @param input string containing date and time for a Deadline or Event task.
+     * @return LocalDateTime object representing date and time for given task.
+     */
     public static LocalDateTime convertSubStringToDateAndTime(String input) {
         LocalDateTime dateAndTime = null;
+        //@@author alwinangys-reused
+        //Reused from https://stackoverflow.com/questions/48280447/java-8-datetimeformatter-with-optional-part
+        // with minor modifications
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_AND_TIME_FORMAT);
             TemporalAccessor temporalAccessor = formatter.parseBest(input, LocalDateTime::from, LocalDate::from);
@@ -110,6 +164,7 @@ public class Parser {
             System.out.println("Enter date and or time in this format: dd/MM/yyyy HH:mm (time is optional)");
             Ui.printHorizontalLine();
         }
+        //@@author
         return dateAndTime;
     }
 
@@ -121,9 +176,17 @@ public class Parser {
         return dateAndTime.format(DateTimeFormatter.ofPattern(DATE_AND_TIME_FORMAT));
     }
 
+    /**
+     * Extracts task number when the user tries to do or undo tasks.
+     * +1 in taskNumberPosition is to account for the whitespace between the command and task number.
+     * -1 in the return value is to accommodate for the 0-based ArrayList of tasks.
+     *
+     * @param userInput input from user from the command line interface
+     * @return int representing task number.
+     */
     public static int getTaskNumber(String userInput) {
-        int taskNumberPosition = userInput.trim().indexOf(" ");
-        return Integer.parseInt(userInput.trim().substring(taskNumberPosition + 1)) - 1;
+        int taskNumberPosition = userInput.trim().indexOf(" ") + 1;
+        return Integer.parseInt(userInput.trim().substring(taskNumberPosition)) - 1;
     }
 
     public static boolean isValidTaskDescription(String userInput) {
@@ -148,6 +211,13 @@ public class Parser {
         return userInput.contains("/at");
     }
 
+    /**
+     * Extracts keyword to find any tasks containing the keyword. This method reuses
+     * getTodoDescription but under a different name to better suit the Find command.
+     *
+     * @param userInput input from user from the command line interface
+     * @return string containing keyword to search for tasks
+     */
     public static String getFindDescription(String userInput) {
         return getTodoDescription(userInput);
     }
