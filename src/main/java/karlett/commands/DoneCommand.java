@@ -16,9 +16,15 @@ public class DoneCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, TextUi ui, StorageFile storageFile) throws IOException {
-        tasks.get(index - 1).markAsDone(index - 1);
-        storageFile.updateTaskStatus(tasks, index - 1);
-        ui.printMarkAsDoneMessage(tasks.get(index - 1));
+        try {
+            tasks.get(index - 1).markAsDone(index - 1);
+            storageFile.updateTaskStatus(tasks, index - 1);
+            ui.printMarkAsDoneMessage(tasks.get(index - 1));
+        } catch (NumberFormatException ex) {
+            ui.printDoneFormatErrorMessage();
+        } catch (IndexOutOfBoundsException | NullPointerException en) {
+            ui.printOutOfBoundErrorMessage(tasks);
+        }
     }
 
     @Override

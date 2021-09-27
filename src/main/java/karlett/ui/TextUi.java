@@ -1,6 +1,5 @@
 package karlett.ui;
 
-import karlett.Duke;
 import karlett.commands.Command;
 import karlett.commands.ExitCommand;
 import karlett.storage.StorageFile;
@@ -195,6 +194,13 @@ public class TextUi {
         drawDivider();
         System.out.println("Meow~ Karlett has marked this task as done:\n" +
                 "  " + task);
+        drawDivider();
+    }
+
+    public void printIncorrectTimeFormat() {
+        drawDivider();
+        System.out.println("Please give Karltt a date and time in this format meow:\n" +
+                "    yyyy-MM-dd HH:mm");
         drawDivider();
     }
 }

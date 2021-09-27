@@ -1,28 +1,27 @@
 package karlett.task;
 
-import karlett.storage.TaskListEncoder;
-import karlett.tasklist.TaskList;
-import karlett.ui.TextUi;
-
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
+    private LocalDateTime by;
+
     public String getBy() {
-        return by;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        return by.format(formatter);
     }
 
-    protected String by;
-
     /* constructor used for user input */
-    public Deadline(String description, String by) throws IOException {
+    public Deadline(String description, LocalDateTime by) throws IOException {
         this.description = description;
         this.isDone = false;
         this.by = by;
     }
 
     /* constructor used for loading file data */
-    public Deadline(String description, String by, boolean isDone) throws IOException {
+    public Deadline(String description, LocalDateTime by, boolean isDone) throws IOException {
         this.description = description;
         this.isDone = isDone;
         this.by = by;
@@ -30,6 +29,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D] [" + this.getStatusIcon() + "] " + this.getDescription() + " (by: " + by + ")";
+        return "[D] [" + this.getStatusIcon() + "] "
+                + this.getDescription()
+                + " (by: " + this.getBy() + ")";
     }
 }
