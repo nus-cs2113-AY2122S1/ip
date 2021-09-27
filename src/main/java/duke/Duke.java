@@ -5,6 +5,7 @@ import duke.tasks.TaskList;
 
 import java.io.IOException;
 import duke.commands.Command;
+
 /**
  * Duke is a your friendly note taking bot.
  * Duke keeps track of all your tasks in a reader-friendly format,
@@ -14,9 +15,9 @@ import duke.commands.Command;
  * @version 1.0
  * Cool @since   2021-09-26
  */
+
 public class Duke {
 
-    private boolean exit = false;
     private TaskList taskList = new TaskList();
     private Ui ui;
     private Storage storage;
@@ -38,7 +39,7 @@ public class Duke {
     }
     protected void run() throws IOException {
         String userInput;
-        exit = true;
+        boolean exit = true;
         while (exit) {
                 try {
                     userInput = ui.readCommand();

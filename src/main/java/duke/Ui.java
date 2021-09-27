@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Prints all the outputs to the terminal.
  */
 public class Ui {
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     protected String readCommand() {
         return scanner.nextLine();
@@ -54,6 +54,13 @@ public class Ui {
         System.out.println("Got it. I've added this task: ");
         System.out.println(t);
         System.out.println("Now you have " + taskList.size() + " tasks in the list");
+        System.out.println("____________________________________________________________");
+    }
+
+    public  void find(TaskList possibleTasks, String description){
+        System.out.println("____________________________________________________________");
+        System.out.println("Tasks with keyword: " + description);
+        possibleTasks.print();
         System.out.println("____________________________________________________________");
     }
 }

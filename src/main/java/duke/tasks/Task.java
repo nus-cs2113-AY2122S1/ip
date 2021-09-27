@@ -11,10 +11,12 @@ public class Task {
      *
      * @param input Description of task.
      */
+
     public Task(String input){
         this.name = input;
         this.done = false;
-}
+    }
+
     public void taskDone(){
         this.done = true;
     }
@@ -22,6 +24,7 @@ public class Task {
     public String getStatus(){
         return (done ? "X" : " ");
     }
+
 
     public String getName(){
         return this.name;

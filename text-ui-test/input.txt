@@ -1,7 +1,7 @@
 todo Dmitri: Answer CS2113 tutorial questions
-deadline weekly CS2113 quiz /by Monday 9pm
+deadline weekly CS2113 quiz /by 23/12/32 9pm
 list
-event CS2113 lecture /at Friday 4 to 6 pm
+event CS2113 lecture /at 23/122/23 900
 done 1
 done 2
 done 3
