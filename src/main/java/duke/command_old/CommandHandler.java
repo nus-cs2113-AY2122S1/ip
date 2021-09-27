@@ -25,7 +25,7 @@ public class CommandHandler {
     }
 
     public void handleCommand(CommandType command, String input, TaskList tasksList, Storage storage) {
-        String[] inputTokens = input.split(" ");
+        String[] words = input.split(" ");
         tasks = tasksList.getTasks();
 
         switch (command) {
@@ -40,7 +40,7 @@ public class CommandHandler {
         case MARK_DONE:
             try {
                 //get 1-indexed task number and convert to 0-index
-                int taskNumber = Integer.parseInt(inputTokens[1]) - 1;
+                int taskNumber = Integer.parseInt(words[1]) - 1;
                 if (tasks.get(taskNumber).isDone()) {
                     ui.printTaskDoneMessage();
                 } else {
@@ -115,7 +115,7 @@ public class CommandHandler {
 
         case DELETE_TASK:
             try {
-                int taskNumber = Integer.parseInt(inputTokens[1]) - 1;
+                int taskNumber = Integer.parseInt(words[1]) - 1;
                 Task task = tasksList.deleteTask(taskNumber);
                 saveTasks(tasks, storage);
                 ui.printDeletedTask(tasks, task, taskNumber, storage);
@@ -140,6 +140,10 @@ public class CommandHandler {
 
         case DEFAULT:
             ui.printInvalidCommandMessage();
+            break;
+
+        case FIND:
+            ui.printMatchingTasks(tasks, words[1]);
             break;
 
         default:
