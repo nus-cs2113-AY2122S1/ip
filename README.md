@@ -43,7 +43,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ```
 5. Mark task complete
    ```sh
-   done x
+   done x 
    ```
 6. Delete task
    ```sh
@@ -62,9 +62,9 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
     find xxx
     ```
 10. Exit Duke
-   ```sh
-    bye
-   ```
+    ```sh
+     bye
+    ```
 
 ## Contact
 
