@@ -85,7 +85,7 @@ public class Duke {
     }
 
     /**
-     * Reads and executes user commands, and saves any changes made to the tasklist.
+     * Reads and executes user commands, and saves any changes made to the tasklist
      * until the {@code bye} command is entered by the user, which exits the program.
      */
     public void startDuke() {

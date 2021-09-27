@@ -16,7 +16,7 @@ public class DukeInterface {
             + "[A NUS CS2113T Project by: Peh Zhenhao, Amos]\n"
             + "+++++++++++++++++++++++++++++++++++++++++++++";
 
-    private final String WELCOME_MSG = "=> Hello! I'm Duke \uD83D\uDC3B\n"
+    private final String WELCOME_MSG = "=> Hello! I'm Duke :)\n"
             + "=> I'm so hungry, would you mind feeding me tasks?";
 
     /**

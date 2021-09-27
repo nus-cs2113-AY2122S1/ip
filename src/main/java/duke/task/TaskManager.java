@@ -24,11 +24,11 @@ public class TaskManager {
      */
     private ArrayList<Task> tasks;
 
-    private final String ADD_TASK_MSG = "Chomp-chomp! I've added this new task [\uD83D\uDCDD]:";
-    private final String SET_TASK_COMPLETE_MSG = "Burrrp! I've marked this task as done [\u2705]:";
-    private final String DELETE_TASK_MSG = "Blaargh! I've deleted this task from the list [\uD83D\uDCDD]:";
-    private final String FIND_TASK_MSG = "Ahh! Here are the matching tasks in your list [\uD83D\uDD0E]:";
-    private final String PRINT_TASKLIST_MSG = "Ahh! Here are the tasks in your list [\uD83D\uDCC5]:";
+    private final String ADD_TASK_MSG = "Chomp-chomp! I've added this new task:";
+    private final String SET_TASK_COMPLETE_MSG = "Burrrp! I've marked this task as done:";
+    private final String DELETE_TASK_MSG = "Blaargh! I've deleted this task from the list:";
+    private final String FIND_TASK_MSG = "Ahh! Here are the matching tasks in your list:";
+    private final String PRINT_TASKLIST_MSG = "Ahh! Here are the tasks in your list:";
 
     private final String TODO_FORMAT_REGEX = "";
     private final String DEADLINE_FORMAT_REGEX = ".+/by.+";

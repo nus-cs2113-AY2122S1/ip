@@ -6,7 +6,7 @@ package duke.command;
 public class HelpCommand extends Command {
 
     // Message containing list of all available Duke commands and their input formats required.
-    private final String HELP_MSG = "Here are the types of commands available [\uD83D\uDCAC]:\n"
+    private final String HELP_MSG = "Here are the types of commands available [?]:\n"
             + "1. Terminate Duke            -> bye \n"
             + "2. Print Available Commands  -> help \n"
             + "3. Print Tasklist            -> list \n"
