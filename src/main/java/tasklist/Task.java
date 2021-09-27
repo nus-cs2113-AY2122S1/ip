@@ -10,8 +10,11 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * This method checks whether the task is done or not
+     * @return [X] icon if task is done and [ ] empty icon is task is not done
+     */
     public String getStatusIcon() {
-        // mark done task with X
         return (isDone ? "[X] " : "[ ] ");
     }
 

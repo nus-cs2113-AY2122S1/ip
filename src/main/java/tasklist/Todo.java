@@ -7,8 +7,12 @@ public class Todo extends Task {
         this.type = "T";
     }
 
+    /**
+     * This method overrides the toString method in Task
+     * @return the type icon followed by the usual toString method of Task
+     */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[" + getType() + "]" + super.toString();
     }
 }
