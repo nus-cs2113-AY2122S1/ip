@@ -107,16 +107,33 @@ public class Parser {
         return eventInputs[1].split(" /at ");
     }
 
-    public static LocalDateTime parseDate(String userDateInput) throws DateTimeParseException {
-        return LocalDateTime.parse(userDateInput, DateTimeFormatter.ofPattern("[dd/MM/yyyy HHmm][dd-MM-yyyy HHmm]"));
+    /**
+     * Returns the date & time as a LocalDateTime type from string input by user.
+     * @param userDateTimeInput is the date & time input by user of String type
+     * @return date & time input by user as a LocalDateTime type
+     * @throws DateTimeParseException when date & time are input in the wrong format
+     */
+    public static LocalDateTime parseDateTime(String userDateTimeInput) throws DateTimeParseException {
+        return LocalDateTime.parse(userDateTimeInput, DateTimeFormatter.ofPattern("[dd/MM/yyyy HHmm][dd-MM-yyyy HHmm]"));
     }
 
-    public static LocalDateTime parseStoredDate(String storedDate) throws DateTimeParseException {
-        return LocalDateTime.parse(storedDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    /**
+     * Returns the date & time as a LocalDateTime type from string read from saved text file.
+     * @param storedDateTime is the date & time saved in text file from previous use of bot
+     * @return date & time from text file as a LocalDateTime type
+     * @throws DateTimeParseException when date & time are saved in the wrong format
+     */
+    public static LocalDateTime parseStoredDateTime(String storedDateTime) throws DateTimeParseException {
+        return LocalDateTime.parse(storedDateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
+    /**
+     * Returns the keyword user is finding for when searching for tasks.
+     * @param userLine input given by user
+     * @return keyword extracted from user line
+     */
     public static String parseFindTaskKey(String userLine) {
-        String[] userFindInputs = userLine.split(" ");
+        String[] userFindInputs = userLine.split(" ", 2);
         return userFindInputs[1];
     }
 

@@ -3,11 +3,9 @@ package tasklist;
 import exceptions.DeadlineException;
 import exceptions.EventException;
 import storage.Storage;
-import jarvis.Jarvis;
 import parser.Parser;
 import ui.Ui;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -81,7 +79,7 @@ public class TaskList {
      */
     public static void addDeadlineTask(String userLine, ArrayList<Task> taskList) throws DeadlineException {
         String[] deadlineDescriptions = Parser.parseDeadlineTask(userLine);
-        Deadline t = new Deadline(deadlineDescriptions[0], Parser.parseDate(deadlineDescriptions[1]));
+        Deadline t = new Deadline(deadlineDescriptions[0], Parser.parseDateTime(deadlineDescriptions[1]));
         taskList.add(t);
         Ui.printAddedTask(taskList.get(taskList.size() - 1), taskList);
         Storage.fillJarvisFile(taskList);
@@ -97,7 +95,7 @@ public class TaskList {
      */
     public static void addEventTask(String userLine, ArrayList<Task> taskList) throws EventException {
         String[] eventDescriptions = Parser.parseEventTask(userLine);
-        Event t = new Event(eventDescriptions[0], Parser.parseDate(eventDescriptions[1]));
+        Event t = new Event(eventDescriptions[0], Parser.parseDateTime(eventDescriptions[1]));
         taskList.add(t);
         Ui.printAddedTask(taskList.get(taskList.size() - 1), taskList);
         Storage.fillJarvisFile(taskList);
@@ -120,7 +118,7 @@ public class TaskList {
      * @param taskList main list keeping track of user's tasks
      */
     public static void addDeadlineFileTask(String description, String by, ArrayList<Task> taskList) {
-        Deadline t = new Deadline(description, Parser.parseStoredDate(by));
+        Deadline t = new Deadline(description, Parser.parseStoredDateTime(by));
         taskList.add(t);
     }
 
@@ -131,10 +129,17 @@ public class TaskList {
      * @param taskList main list keeping track of user's tasks
      */
     public static void addEventFileTask(String description, String at, ArrayList<Task> taskList) {
-        Event t = new Event(description, Parser.parseStoredDate(at));
+        Event t = new Event(description, Parser.parseStoredDateTime(at));
         taskList.add(t);
     }
 
+    /**
+     * Find tasks in task list that match the keyword user inputs. It will then print the
+     * list of matching tasks.
+     * @param userLine input given by user or line extracted from saved file
+     * @param taskList main list keeping track of user's tasks
+     * @throws ArithmeticException when task list is empty.
+     */
     public static void findKeyTasks(String userLine, ArrayList<Task> taskList) {
         String key = Parser.parseFindTaskKey(userLine);
         if (taskList.size() == 0) {

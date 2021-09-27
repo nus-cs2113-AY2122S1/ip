@@ -127,10 +127,13 @@ public class Ui {
                 + LINE);
     }
 
+    /**
+     * Prints an error message when input date & time are in the wrong format.
+     */
     public static void printDateTimeParseExceptionMessage() {
         System.out.println(LINE_W_NL
                 + "Apologies Sir, the date & time you entered is in the wrong format.\n"
-                + "Please re-enter the command with the date & time in the correct format [DD/MM/YYYY HHMM].\n"
+                + "Please re-enter the command with the date & time in the correct format [DD/MM/YYYY hhmm].\n"
                 + LINE);
     }
 }
