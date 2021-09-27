@@ -1,5 +1,6 @@
 package duke;
 
+import duke.DukeExceptions.InvalidValueException;
 import duke.task.Task;
 
 import java.util.ArrayList;
@@ -38,14 +39,20 @@ public class TaskList {
         return item;
     }
 
-    public String getDescription (String command) {
+    public String getDescription (String command) throws InvalidValueException {
+        if (!command.contains("/"))
+            throw new InvalidValueException("Missing detail demarcator: [/by ] or [/at ]");
         String desc = command.substring(command.indexOf(" ") + 1, command.indexOf("/"));
+        if (desc.trim().equals(""))
+            throw new InvalidValueException("Missing Description in command");
         return desc;
     }
 
-    public String getDate (String command) {
-        String date = command.substring(command.indexOf("/") + 4);
-        return date;
+    public String getMoreDetails(String command) throws InvalidValueException{
+        String moreDetails = command.substring(command.indexOf("/") + 4);
+        if (moreDetails.trim().equals(""))
+            throw new InvalidValueException("Missing Required Extra Details");
+        return moreDetails;
     }
 
     public Task getTask(int index) {

@@ -29,7 +29,7 @@ public class Ui {
 
     public String doneMessage(Task completedTask) {
         return (LINE
-                + "Nice, I've marked this task as Done:"
+                + "Nice, I've marked this task as Done:\n"
                 + "\t\t" + completedTask + "\n"
                 + LINE);
     }

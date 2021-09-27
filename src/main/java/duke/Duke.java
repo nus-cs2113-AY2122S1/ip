@@ -12,9 +12,9 @@ public class Duke {
 
     private Storage storage;
     private TaskList tasksLs;
-    private Ui ui;
+    private final Ui ui;
 
-    private Scanner in = new Scanner(System.in);
+    private final Scanner in = new Scanner(System.in);
 
     /*public Duke(String filepath) {
         this.tasksLs = new TaskList(new ArrayList<Task>());
@@ -27,7 +27,7 @@ public class Duke {
         this.storage = new Storage("duke.txt");
         this.ui = new Ui();
     }
-    
+
     private void run() {
         String input = "";
         ui.greetMessage();

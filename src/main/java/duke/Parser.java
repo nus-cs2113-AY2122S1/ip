@@ -1,8 +1,9 @@
 package duke;
 
+import duke.DukeExceptions.DukeException;
 import duke.DukeExceptions.EmptyCommand;
-import duke.DukeExceptions.IllegalToDoException;
 import duke.DukeExceptions.InvalidCommandException;
+import duke.DukeExceptions.InvalidValueException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -29,7 +30,7 @@ public class Parser {
             case "done":
                 return parseDone(userInput);
             case "delete":
-                return parseDelete(getIndex(userInput));
+                return parseDelete(userInput);
             case "todo":
                 return parseTodo(userInput);
             case "deadline":
@@ -39,9 +40,9 @@ public class Parser {
             case "list":
                 return parseList();
             default:
-                throw new InvalidCommandException("No command detected, check if you input commands correctly :)");
+                throw new InvalidCommandException();
             }
-        } catch (InvalidCommandException e) {
+        } catch (DukeException e) {
             return e.printMessage();
         }
     }
@@ -50,29 +51,37 @@ public class Parser {
         return ui.byeMessage();
     }
 
-    public String parseDone(String command) {
-        assert command.split(" ").length == 2 : "Format: [done] [number]";
+    public String parseDone(String command) throws InvalidValueException {
+        validate(command);
         Task completedTask = taskList.markAsDone(command);
         return ui.doneMessage(completedTask);
     }
 
-    public String parseDelete(int index) {
+    public String parseDelete(String command) throws InvalidValueException {
+        validate(command);
+        int index = getIndex(command);
         Task targetTask = taskList.deleteTask(index);
         return ui.deleteMessage(taskList.getList(), index, targetTask);
     }
 
-    public String parseTodo(String command) {
+    public String parseTodo(String command) throws InvalidValueException {
+        if (command.split(" ").length == 1)
+            throw new InvalidValueException("Todo: Missing Description, Please Try Again");
         taskList.addTask(new ToDo(taskList.getTodo(command)));
         return ui.acknowledgeAddition(taskList.getList());
     }
 
-    public String parseDeadline(String command) {
-        taskList.addTask(new Deadline(taskList.getDescription(command), taskList.getDate(command)));
+    public String parseDeadline(String command) throws InvalidValueException {
+        if (command.split(" ").length == 1)
+            throw new InvalidValueException("Deadline: Missing Description / Time");
+        taskList.addTask(new Deadline(taskList.getDescription(command), taskList.getMoreDetails(command)));
         return ui.acknowledgeAddition(taskList.getList());
     }
 
-    public String parseEvent(String command) {
-        taskList.addTask(new Event(taskList.getDescription(command), taskList.getDate(command)));
+    public String parseEvent(String command) throws InvalidValueException {
+        if (command.split(" ").length == 1)
+            throw new InvalidValueException("Event: Missing Description / Time");
+        taskList.addTask(new Event(taskList.getDescription(command), taskList.getMoreDetails(command)));
         return ui.acknowledgeAddition(taskList.getList());
     }
 
@@ -84,22 +93,27 @@ public class Parser {
         String index = command.substring(command.indexOf(" ") + 1);
         return Integer.parseInt(index.trim());
     }
-}
 
-//    String item = "";
-//    String command = getCommand(userInput);
-//        if (isEvent(command)) {
-//        item = notToDoItem(userInput);
-//    } else if (isDeadline(command)) {
-//        item = notToDoItem(userInput);
-//    } else if (isInvalidCommand(command)) {
-//        throw new InvalidCommandException();
-//    } else if (userInput.length() > 3) {
-//        item = getRequiredSubstring(userInput, " ", 1);
-//        if (item.trim().equals("") || item.equalsIgnoreCase("todo")) {
-//            throw new IllegalToDoException();
-//        }
-//    } else if (isEmpty(command)) {
-//        throw new EmptyCommand();
-//    }
-//        return item;
+    private boolean isNumeric(String validate) {
+        try {
+            Integer.parseInt(validate);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    private void validate(String command) throws InvalidValueException {
+        String[] temp;
+        temp = command.split(" ");
+        if (temp.length == 1) {
+            throw new InvalidValueException("Missing Item Number");
+        } else if (temp.length > 2) {
+            throw new InvalidValueException("Please be specific :) Expected 1 item number");
+        } else if (!isNumeric(temp[1])) {
+            throw new InvalidValueException("Oops, could you input item as a number please");
+        } else if (getIndex(command) > this.taskList.getList().size() | getIndex(command) < 1) {
+            throw new InvalidValueException(String.format("Input Number was more that [1 - %d] tasks in the list.", taskList.getList().size()));
+        }
+    }
+}
