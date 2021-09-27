@@ -7,14 +7,16 @@ you manage your daily tasks faster than traditional GUI application.
 - [Features](#features)
   - [Viewing help: `help`](#viewing-help--help)
   - [Adding a task:](#adding-a-task)
-    - [Todo:](#todo-todo)
-    - [Deadline:](#deadline-deadline)
-    - [Event:](#event-event)
-  - [Listing all tasks:](#listing-all-tasks-list)
-  - [Marking a task as done:](#marking-a-task-as-done-done)
-  - [Deleting a task:]()
-  - [Finding a task with a keyword:]()
-  - [Exiting the application:]()
+    - [Todo: `todo`](#todo-todo)
+    - [Deadline: `deadline`](#deadline-deadline)
+    - [Event: `event`](#event-event)
+  - [Listing all tasks: `list`](#listing-all-tasks-list)
+  - [Marking a task as done: `done`](#marking-a-task-as-done-done)
+  - [Deleting a task: `delete`](#deleting-a-task-delete)
+  - [Finding a task with a keyword: `find`](#finding-a-task-with-a-keyword-find)
+  - [Exiting the program: `bye`](#exiting-the-program-bye)
+- [FAQ]()
+- [Command Summary]()
 
 ## Quick Start
 1. Ensure you have Java `11` or above installed in your Computer.
@@ -62,10 +64,10 @@ Format: `help`
 Adds a **todo** task to the tasklist.
 
 Format: `todo [description]`
-- `[description]`: specifies the details of the todo
+- `[description]` specifies the details of the todo.
 
 Example: `todo read book`
-- Adds a todo task with description `read book` to the tasklist
+- Adds a todo task with description `read book` to the tasklist.
 
 Expected Outcome:
 ```
@@ -82,11 +84,11 @@ Expected Outcome:
 Adds a **deadline** task to the tasklist.
 
 Format: `deadline [description] /by [due date]`
-- `[description]`: specifies the details of the deadline
-- `[due date]`: specifies when the deadline is due 
+- `[description]` specifies the details of the deadline.
+- `[due date]` specifies when the deadline is due.
 
 Example: `deadline return book /by June 6th`
-- Adds a deadline task with description `return book` and due date `June 6th` to the tasklist
+- Adds a deadline task with description `return book` and due date `June 6th` to the tasklist.
 
 Expected Outcome:
 ```
@@ -102,12 +104,12 @@ Expected Outcome:
 ### Event: `event`
 Adds a **event** task to the tasklist.
 
-Format: `event <task description> /at <task date&time>`
-- `<task description>`: specifies the details of the event
-- `<task date&time>`: specifies when the event occurs
+Format: `event [description] /at [occurence]`
+- `[description]` specifies the details of the event.
+- `[occurence]` specifies when the event occurs.
 
 Example: `event project meeting /at Aug 6th 2-4pm`
-- Creates an event task with description `project meeting` and occurs at `Aug 6th 2-4pm` to the tasklist
+- Creates an event task with description `project meeting` and occurs at `Aug 6th 2-4pm` to the tasklist.
 
 Expected Outcome:
 ```
@@ -154,13 +156,13 @@ Expected Outcome:
 ### Marking a task as done: `done`
 Marks an existing task in the tasklist as **done**.
 
-Format: `done <task ID>`
-- Mark a task with the specified `<task ID>` as done.
+Format: `done [task ID]`
+- Mark a task with the specified `[task ID]` as done.
 - The task ID refers to the index number shown in the displayed tasklist when the `list` command is entered.
 - The task ID **must be a positive integer 1, 2, 3...**
 
-Example: done 1
-- Marks the task with task ID equals to 1 as done in the tasklist.
+Example: `done 1`
+- Marks the task with task ID equals to `1` as done in the tasklist.
 
 Expected Outcome:
 ```
@@ -176,13 +178,13 @@ Expected Outcome:
 ### Deleting a task: `delete`
 Deletes an existing task in the tasklist.
 
-Format: `delete <task ID>`
-- Deletes a task with the specified `<task ID>`.
+Format: `delete [task ID]`
+- Deletes a task with the specified `[task ID]`.
 - The task ID refers to the index number shown in the displayed tasklist when the `list` command is entered.
 - The task ID **must be a positive integer 1, 2, 3...**
 
-Example: delete 1
-- Deletes the task with task ID equals to 1 in the tasklist.
+Example: `delete 1`
+- Deletes the task with task ID equals to `1` in the tasklist.
 
 Expected Outcome:
 ```
@@ -195,10 +197,59 @@ Expected Outcome:
 => Now you have 2 tasks in your list.
 ```
 
+### Finding a task with a keyword: `find`
+Find tasks whose description contains a given keyword.
+
+Format: `find [keyword]`
+- The search is case-sensitive. e.g. `book` will not match `Book`
+- The order of the keywords matter. e.g. `return book` will not match `book return`
+- The keyword will match substrings. e.g. `oo` will match with `book`
+- Only the task description is searched.
+
+Example: `find book`
+- Finds all tasks that contains the substring `book`
+
+Expected Outcome:
+```
+[You]:
+=> find book
+
+[Duke]:
+=> Ahh! Here are the matching tasks in your list:
+1.[T][ ] read book
+2.[D][ ] return book (by: June 6th)
+=> It has successfully returned 2 result/s.
+```
+
+### Exiting the program: `bye`
+Displays goodbye message and exits the program.
+
+Format: `bye`
+
+Expected Outcome:
+```
+[You]:
+=> bye
+
+[Duke]:
+=> Come back soon, I'm still hungry!
+```
+
+## FAQ
 
 
-
-
+## Command Summary
+Action | Format | Example
+------------ | ------------- | -------------
+help | `help` | `help`
+todo | `todo [description]` | `todo read book`
+deadline | `deadline [description] /by [due date]` | `deadline return book /by June 6th`
+event | `event [description] /at [occurence]` | `event project meeting /at Aug 6th 2-4pm`
+list | `list` | `list`
+done | `done [task ID]` | `done 1`
+delete | `delete [task ID]` | `delete 1`
+find | `find [keyword]` | `find book`
+bye | `bye` | `bye`
 
 
 
