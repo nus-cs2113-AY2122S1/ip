@@ -1,12 +1,11 @@
 import java.util.Scanner;
 
 public class Duke {
-    private Storage storage;
     private Ui ui;
 
     public Duke(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath);
+        Storage storage = new Storage(filePath);
     }
 
     public void run() {

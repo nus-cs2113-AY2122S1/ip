@@ -29,37 +29,41 @@ public class Ui {
     // Prints help message
     public static void printHelp(String command) {
         switch (command) {
-            case "done":
-                System.out.println("done:\n Marks a specific task as done.");
-                System.out.println("Format:\n done (index)");
-                break;
-            case "todo":
-                System.out.println("todo:\n Adds a task without any date/time attached to it.");
-                System.out.println("Format:\n todo (task)");
-                break;
-            case "deadline":
-                System.out.println("deadline:\n Adds a task that needs to be done before a specific date/time.");
-                System.out.println("Format:\n deadline (task) /by (date/time)");
-                break;
-            case "event":
-                System.out.println("event:\n Adds a task that starts at a specific time and ends at a specific time.");
-                System.out.println("Format:\n event (task) /at (date/time)");
-                break;
+        case "done":
+            System.out.println("done:\n Marks a specific task as done.");
+            System.out.println("Format:\n done (index)");
+            break;
+        case "todo":
+            System.out.println("todo:\n Adds a task without any date/time attached to it.");
+            System.out.println("Format:\n todo (task)");
+            break;
+        case "deadline":
+            System.out.println("deadline:\n Adds a task that needs to be done before a specific date/time.");
+            System.out.println("Format:\n deadline (task) /by (date/time)");
+            break;
+        case "event":
+            System.out.println("event:\n Adds a task that starts at a specific time and ends at a specific time.");
+            System.out.println("Format:\n event (task) /at (date/time)");
+            break;
+        case "find":
+            System.out.println("find:\n Finds tasks containing a specific keyword.");
+            System.out.println("Format:\n find (keyword)");
+            break;
             case "delete":
-                System.out.println("delete:\n Deletes a task.");
-                System.out.println("Format:\n delete (index)");
-                break;
-            case "list":
-                System.out.println("list:\n Shows all tasks.");
-                break;
-            case "bye":
-                System.out.println("bye:\n Terminates the program.");
-                break;
-            case "help":
-                System.out.println("Type help (command) to show more.\nAvailable commands: done, todo, deadline, event, delete, list, bye, help (displays this message)");
-                break;
-            default:
-                System.out.println("Formatting error");
+            System.out.println("delete:\n Deletes a task.");
+            System.out.println("Format:\n delete (index)");
+            break;
+        case "list":
+            System.out.println("list:\n Shows all tasks.");
+            break;
+        case "bye":
+            System.out.println("bye:\n Terminates the program.");
+            break;
+        case "help":
+            System.out.println("Type help (command) to show more.\nAvailable commands: done, todo, deadline, event, delete, list, bye, help (displays this message)");
+            break;
+        default:
+            System.out.println("Formatting error");
         }
     }
 
