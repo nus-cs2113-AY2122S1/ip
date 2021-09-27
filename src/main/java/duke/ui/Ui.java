@@ -205,7 +205,7 @@ public class Ui {
         printCommandHelpMessage("find", "finds tasks containing keywords",
                 "find [keywords]", "find math assignment");
         printCommandHelpMessage("help", "lists all commands", "none", "none");
-        printCommandHelpMessage("exit, bye, quit", "exits the program", "none", "none");
+        printCommandHelpMessage("bye, exit, quit", "exits the program", "none", "none");
     }
 
     /**
