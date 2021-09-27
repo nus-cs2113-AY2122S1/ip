@@ -197,4 +197,30 @@ public class TextUi {
                 "  " + task);
         drawDivider();
     }
+
+    public void printEmptyKeywordMessage() {
+        drawDivider();
+        System.out.println("Karlett doesn't know what you need to find meow?(๑•́ᆽ•̀๑✿)");
+        drawDivider();
+    };
+
+    public void printInvalidKeywordMessage() {
+        drawDivider();
+        System.out.println("Please give Karlett one keyword only meow (๑•́ᆽ•̀๑✿)");
+        drawDivider();
+    }
+
+    public void printNoMatchedTaskFoundMessage(String keyWord) {
+        drawDivider();
+        System.out.println("Karlett didn't find any task contaning \" " + keyWord + " \" /ᐠﹷ ‸ ﹷ ᐟ\\ﾉ");
+        drawDivider();
+    }
+
+    public void printMatchedTasksMessage(TaskList matchedTasks) {
+        drawDivider();
+        System.out.println("Yayyy! Karlett found these matching tasks in your list:");
+        for (int i = 0; i < matchedTasks.getNumberOfTasks(); i++) {
+            System.out.println("ฅ" + (i + 1) + " " + matchedTasks.get(i));
+        }
+    }
 }

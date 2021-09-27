@@ -19,7 +19,6 @@ public class DeleteCommand extends Command {
         Task task = tasks.get(index - 1);
         storageFile.removeTaskInFile(tasks, index);
         tasks.remove(index);
-        tasks.decreaseNumberOfTasks();
         ui.printTaskDeletedMessage(tasks, task);
     }
 

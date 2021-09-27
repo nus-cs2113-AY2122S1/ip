@@ -26,30 +26,25 @@ public class TaskList {
         taskListEncoder = new TaskListEncoder(filePath);
     }
 
+    public TaskList() {
+        tasks = new ArrayList<Task>();
+        numberOfTasks = 0;
+    }
+
     public int getNumberOfTasks() {
         return numberOfTasks;
     }
 
     public void add(Task task) throws IOException {
         tasks.add(task);
-    }
-
-    public void increaseNumberOfTasks() throws IOException {
         numberOfTasks++;
-    }
-
-    public void increaseNumberOfTasks(boolean isDone) throws IOException {
-        numberOfTasks++;
-    }
-
-    public void decreaseNumberOfTasks() {
-        numberOfTasks--;
     }
 
     public void remove(int index) throws IOException {
         for (int i = index; i < tasks.size(); i++) {
             tasks.set(i - 1, tasks.get(i));
         }
+        numberOfTasks--;
     }
 
     public void printList() {

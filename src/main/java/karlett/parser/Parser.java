@@ -20,8 +20,8 @@ public class Parser {
         userInput = userInput.trim();
         String[] userInputInWords = userInput.split(" ");
         String command = userInputInWords[0];
-        String[] arguments = {};
-        arguments = Arrays.copyOfRange(userInputInWords, 1, userInputInWords.length);
+        String[] arguments = Arrays.copyOfRange
+                (userInputInWords, 1, userInputInWords.length);
         String taskDescription;
         String[] taskDescriptionInWords;
 
@@ -130,6 +130,17 @@ public class Parser {
                 ui.printOutOfBoundErrorMessage(tasks);
                 break;
             }
+        case "find":
+            if (arguments.length == 0) {
+                ui.printEmptyKeywordMessage();
+                break;
+            }
+            if (arguments.length >1) {
+                ui.printInvalidKeywordMessage();
+                break;
+            }
+            String keyWord = arguments[0];
+            return new FindCommand(keyWord);
         case "bye":
             return new ExitCommand();
         default:

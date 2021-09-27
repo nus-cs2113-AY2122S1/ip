@@ -23,7 +23,6 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, TextUi textUi, StorageFile storageFile) throws IOException {
-        tasks.increaseNumberOfTasks();
         Task task;
         switch (command) {
         case "deadline":
