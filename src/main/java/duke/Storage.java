@@ -6,19 +6,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * To load tasks from a text file and to save tasks within the text file.
+ * To load tasks from a text file and to save tasks within the same text file.
  */
 public class Storage {
 
     protected String filePath;
 
     public Storage(String filePath) {
-        this.filePath = new File(filePath).getAbsolutePath();
+        this.filePath = filePath;
     }
 
     /**
@@ -28,7 +27,7 @@ public class Storage {
      * @throws IOException if there is any issue with the input or output
      */
     public void saveNewTask(String[] input) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
+        FileWriter fw = new FileWriter(this.filePath, true);
         String fullTaskAsString = "";
         for (String individualString : input) {
             fullTaskAsString += individualString + " ";
@@ -45,7 +44,7 @@ public class Storage {
      * @throws IOException if there is any issue with the input or output
      */
     public void saveAllTasks(ArrayList<Task> commands) throws IOException {
-        String filePath = new File("Tasks.txt").getAbsolutePath();
+        String filePath = new File(this.filePath).getAbsolutePath();
         FileWriter fw = new FileWriter(filePath, false);
         String taskInFile;
         String done;
@@ -64,6 +63,7 @@ public class Storage {
             }
             String fullTaskAsString = taskInFile + " | " + done + "\n";
             Files.write(Paths.get(filePath), fullTaskAsString.getBytes(), StandardOpenOption.APPEND);
+            fw.close();
         }
     }
 
@@ -74,8 +74,9 @@ public class Storage {
      * @throws IOException if there is any issue with the input or output
      */
     public ArrayList<String> loadTasks() throws IOException {
+        String newFilePath = new File(this.filePath).getAbsolutePath();
         ArrayList<String> loadedTasks = new ArrayList<>();
-        File f = new File(filePath);
+        File f = new File(newFilePath);
         Scanner s = new Scanner(f);
         String textFromFile;
         while (s.hasNext()) {

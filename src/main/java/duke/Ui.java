@@ -2,10 +2,17 @@ package duke;
 
 import java.util.Scanner;
 
+/** To deal with interactions with the user such as the user sending commands
+ * and C3PO sending replies.
+ */
 public class Ui {
 
     protected Scanner in;
 
+    /**
+     * Instantiates the Ui object and allows the user to send their commands.
+     *
+     */
     public Ui() {
         this.in = new Scanner(System.in);
     }
@@ -61,36 +68,43 @@ public class Ui {
     public static final String LOADING = "Accessing archives...";
     public static final String DELETED_TASK = "Taking one last look Master, at this Task. Removing the following from my memory";
 
-
+    /** To say goodbye to the user before the program terminates */
     public static void sayBye() {
         System.out.println(ENDING_MESSAGE + LINE);
     }
 
+    /** To indicate to the user that a task has been added to their list */
     public static void sayTaskAdded() {
         System.out.println(TASK_ADDED);
     }
 
+    /** To indicate to the user that a task has been marked as done */
     public static void sayMarkedDone() {
         System.out.println(MARKED_DONE);
     }
 
+    /** To indicate to a user that a task will be deleted */
     public static void sayGoodbyeTask() {
         System.out.println(DELETED_TASK);
     }
 
+    /** To indicate that their tasks will be shown soon */
     public static void sayLoadingList() {
         System.out.println(LOADING);
     }
 
+    /** To welcome the user when they run the program */
     public static void greetUser() {
         System.out.println(GREETINGS);
     }
 
+    /** To prompt the user to key in a command */
     public static void promptUser() {
         System.out.println(LINE);
         System.out.print(USER_PROMPT_MESSAGE);
     }
 
+    /** To print a line to separate commands from the user and those from C3PO */
     public static void printLine() {
         System.out.println(LINE);
     }
@@ -109,6 +123,5 @@ public class Ui {
 
     public static void printFileNotFoundMessage() {
         System.out.println(FILE_NOT_FOUND_EXCEPTION);
-
     }
 }

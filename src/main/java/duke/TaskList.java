@@ -4,27 +4,33 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import static duke.Storage.*;
 
 /**
  * To create an ArrayList to represent the user's tasks and to perform operations on this list.
  */
 public class TaskList {
 
-    protected ArrayList<Task> commands;
+    protected ArrayList<Task> commands = new ArrayList<>();
     protected int positionCheck;
     protected int loadFlag;
     protected int taskNumber;
     protected Storage storage;
 
-
+    /**
+     * Instantiates the TaskList object and loads all the tasks from the text file into the ArrayList.
+     *
+     * @param loadedTasks The ArrayList of tasks from the text file
+     * @param storage The storage object
+     */
     public TaskList(ArrayList<String> loadedTasks, Storage storage) {
-        this.commands = new ArrayList<>();
         this.positionCheck = 0;
         this.loadFlag = 0;
         this.taskNumber = 0;
         this.storage = storage;
         String[] taskFromFile;
         String[] taskInput;
+        System.out.println(loadedTasks.size());
         try {
             for (String task : loadedTasks) {
                 taskFromFile = task.split(" \\| ");
@@ -53,6 +59,13 @@ public class TaskList {
         } catch (DateTimeParseException e) {
             System.out.println("Correct date format please!");
         }
+    }
+
+    public TaskList(Storage storage) {
+        this.positionCheck = 0;
+        this.loadFlag = 1;
+        this.taskNumber = 0;
+        this.storage = storage;
     }
 
     /**

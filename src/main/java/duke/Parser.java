@@ -12,9 +12,14 @@ public class Parser {
     protected boolean isBye;
     protected TaskList tasks;
 
+    /**
+     * Instantiates the Parser object.
+     *
+     * @param tasks The task object
+     */
     public Parser(TaskList tasks) {
         this.tasks = tasks;
-        isBye = false;
+        this.isBye = false;
     }
 
     /**
