@@ -33,11 +33,21 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Gets full task description of a {@code Deadline} task and the task type symbol.
+     *
+     * @return a String containing the task type symbol, description and isDone status.
+     */
     @Override
     public String getTaskDescription() {
         return "[D]" + super.getTaskDescription() + " (by: " + by + ")";
     }
 
+    /**
+     * Gets task information that matches the format of the {@code Deadline} tasks stored in duke.txt.
+     *
+     * @return a String in the format of duke.txt {@code Deadline} task entry.
+     */
     @Override
     public String getTaskFileFormat() {
         String isDoneString = "0";

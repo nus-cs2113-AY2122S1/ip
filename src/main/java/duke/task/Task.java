@@ -38,7 +38,7 @@ public abstract class Task {
     }
 
     /**
-     * Gets task description of task.
+     * Gets full task description of task.
      *
      * @return a String containing both task description and isDone status.
      */

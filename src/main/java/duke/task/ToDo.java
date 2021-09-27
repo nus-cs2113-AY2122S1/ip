@@ -24,11 +24,21 @@ public class ToDo extends Task {
         super(description, isDone);
     }
 
+    /**
+     * Gets full task description of a {@code ToDo} task and the task type symbol.
+     *
+     * @return a String containing the task type symbol, description and isDone status.
+     */
     @Override
     public String getTaskDescription() {
         return "[T]" + super.getTaskDescription();
     }
 
+    /**
+     * Gets task information that matches the format of the {@code ToDo} tasks stored in duke.txt.
+     *
+     * @return a String in the format of duke.txt {@code ToDo} task entry.
+     */
     @Override
     public String getTaskFileFormat() {
         String isDoneString = "0";

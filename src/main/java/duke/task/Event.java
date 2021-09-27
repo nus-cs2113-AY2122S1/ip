@@ -33,11 +33,21 @@ public class Event extends Task {
         this.at = at;
     }
 
+    /**
+     * Gets full task description of a {@code Event} task and the task type symbol.
+     *
+     * @return a String containing the task type symbol, description and isDone status.
+     */
     @Override
     public String getTaskDescription() {
         return "[E]" + super.getTaskDescription() + " (at: " + at + ")";
     }
 
+    /**
+     * Gets task information that matches the format of the {@code Event} tasks stored in duke.txt.
+     *
+     * @return a String in the format of duke.txt {@code Event} task entry.
+     */
     @Override
     public String getTaskFileFormat() {
         String isDoneString = "0";
