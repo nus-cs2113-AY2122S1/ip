@@ -1,4 +1,4 @@
-package duke.fileio;
+package duke.fileio_old;
 
 import duke.task.Deadline;
 import duke.task.Event;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TaskListFileEditor {
+public class Storage {
 
     public static final String FILE_DIRECTORY = "data";
     public static final String FILE_NAME = "duke.txt";

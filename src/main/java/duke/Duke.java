@@ -1,47 +1,45 @@
 package duke;
 
-import duke.command.Command;
-import duke.command.CommandHandler;
-import duke.command.CommandParser;
-import duke.fileio.TaskListFileEditor;
-import duke.output.OutputHandler;
-import duke.task.Task;
+import duke.command_old.CommandType;
+import duke.command_old.CommandHandler;
+import duke.command_old.Parser;
+import duke.fileio_old.Storage;
+import duke.output_old.Ui;
+import duke.tasklist_new.TaskList;
 
 import java.io.FileNotFoundException;
-//import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke {
 
-    public static final int COMMAND_INDEX = 0;
+    private TaskList tasks = new TaskList();
+    private Storage storage;
+    private Ui ui;
+    private Parser parser;
+    private CommandHandler commandHandler;
+
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage();
+        ui.printWelcomeMessage();
+        try {
+            storage.getTasksFromFile(tasks.getTasks());
+        } catch (FileNotFoundException e) {
+            ui.printFileNotFoundMessage();
+        }
+    }
+
+    public void run(){
+        parser = new Parser();
+        commandHandler = new CommandHandler();
+        CommandType command = CommandType.DEFAULT;
+        while (!command.equals(CommandType.EXIT)) {
+            String input = ui.getInput();
+            command = parser.parseCommand(input);
+            commandHandler.handleCommand(command, input, tasks, storage);
+        }
+    }
 
     public static void main(String[] args) {
-
-        ArrayList<Task> tasks = new ArrayList<>();
-        Scanner in = new Scanner(System.in);
-        TaskListFileEditor fileEditor = new TaskListFileEditor();
-
-        CommandParser commandParser = new CommandParser();
-        CommandHandler commandHandler = new CommandHandler();
-        OutputHandler outputHandler = new OutputHandler();
-
-        outputHandler.printWelcomeMessage();
-
-        //initialize the command to default
-        Command command = Command.DEFAULT;
-
-        try {
-            fileEditor.getTasksFromFile(tasks);
-        } catch (FileNotFoundException e) {
-            outputHandler.printFileNotFoundMessage();
-        }
-
-        while (!command.equals(Command.EXIT)) {
-            String input = in.nextLine();
-            String[] inputTokens = input.split(" ");
-            command = commandParser.parseCommand(inputTokens[COMMAND_INDEX]);
-            commandHandler.handleCommand(command, input, tasks);
-        }
+        new Duke().run();
     }
 }

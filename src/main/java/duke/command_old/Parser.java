@@ -1,6 +1,10 @@
-package duke.command;
+package duke.command_old;
 
-public class CommandParser {
+import duke.task.Task;
+
+import java.util.ArrayList;
+
+public class Parser {
 
     public static final String HELP = "help";
     public static final String LIST = "list";
@@ -14,41 +18,43 @@ public class CommandParser {
     public static final String QUIT = "quit";
     public static final String GREETING = "hello";
 
-    public Command parseCommand(String inputCommand) {
+    public CommandType parseCommand(String input) {
+        String[] words = input.split(" ");
+        String inputCommand = words[0];
         switch (inputCommand) {
         case LIST:
-            return Command.LIST_TASKS;
+            return CommandType.LIST_TASKS;
 
         case DONE:
-            return Command.MARK_DONE;
+            return CommandType.MARK_DONE;
 
         case ADD_TODO:
-            return Command.ADD_TODO;
+            return CommandType.ADD_TODO;
 
         case ADD_DEADLINE:
-            return Command.ADD_DEADLINE;
+            return CommandType.ADD_DEADLINE;
 
         case ADD_EVENT:
-            return Command.ADD_EVENT;
+            return CommandType.ADD_EVENT;
 
         case DELETE:
-            return Command.DELETE_TASK;
+            return CommandType.DELETE_TASK;
 
         case HELP:
-            return Command.HELP;
+            return CommandType.HELP;
 
         case GREETING:
-            return Command.GREETING;
+            return CommandType.GREETING;
 
         case BYE:
             //Fallthrough
         case EXIT:
             //Fallthrough
         case QUIT:
-            return Command.EXIT;
+            return CommandType.EXIT;
 
         default:
-            return Command.DEFAULT;
+            return CommandType.DEFAULT;
         }
     }
 }

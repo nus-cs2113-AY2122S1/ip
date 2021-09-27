@@ -1,11 +1,14 @@
-package duke.command;
+package duke.command_old;
 
-import duke.output.OutputHandler;
+import duke.fileio_old.Storage;
+import duke.output_old.Ui;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.tasklist_new.TaskList;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CommandHandler {
@@ -14,29 +17,23 @@ public class CommandHandler {
     public static final String EVENT_SEPARATOR = "/at ";
     public static final String TASK_SEPARATOR = " ";
 
-//    private boolean isListChanged = false;
+    Ui ui;
+    ArrayList<Task> tasks;
 
-//    public boolean isListChanged() {
-//        return isListChanged;
-//    }
+    public CommandHandler() {
+        ui = new Ui();
+    }
 
-    /**
-     * Print messages and changes the task list according to the commands given.
-     * @param command The command entered by the user
-     * @param input The input string read from the Scanner object
-     * @param tasks The list of tasks
-     */
-    public void handleCommand(Command command, String input, ArrayList<Task> tasks) {
-
-        OutputHandler outputHandler = new OutputHandler();
+    public void handleCommand(CommandType command, String input, TaskList tasksList, Storage storage) {
         String[] inputTokens = input.split(" ");
+        tasks = tasksList.getTasks();
 
         switch (command) {
         case LIST_TASKS:
             if (tasks.size() == 0) {
-                outputHandler.printNoTasksInListMessage();
+                ui.printNoTasksInListMessage();
             } else {
-                outputHandler.printTaskList(tasks);
+                ui.printTaskList(tasks);
             }
             break;
 
@@ -45,30 +42,32 @@ public class CommandHandler {
                 //get 1-indexed task number and convert to 0-index
                 int taskNumber = Integer.parseInt(inputTokens[1]) - 1;
                 if (tasks.get(taskNumber).isDone()) {
-                    outputHandler.printTaskDoneMessage();
+                    ui.printTaskDoneMessage();
                 } else {
-                    outputHandler.markAsDone(tasks, taskNumber);
+                    tasksList.markDone(taskNumber);
+                    ui.printMarkedAsDone(tasks, taskNumber, storage);
                 }
             } catch (IndexOutOfBoundsException e) {
-                outputHandler.printTaskNumberOutOfBoundsMessage();
+                ui.printTaskNumberOutOfBoundsMessage();
             } catch (NumberFormatException e) {
-                outputHandler.printInvalidTaskNumberMessage();
+                ui.printInvalidTaskNumberMessage();
             }
             break;
 
         case ADD_TODO:
             try {
                 int indexOfTask = input.indexOf(TASK_SEPARATOR);
-                String description = outputHandler.getTrimmedSubstring(input, indexOfTask, input.length());
+                String description = ui.getTrimmedSubstring(input, indexOfTask, input.length());
                 if (description.isBlank()) {
-                    outputHandler.printNoTaskNameMessage();
+                    ui.printNoTaskNameMessage();
                 } else {
                     Todo todo = new Todo(description);
-                    tasks.add(todo);
-                    outputHandler.printAddedTask(tasks, todo);
+                    tasksList.addTask(todo);
+                    saveTasks(tasks, storage);
+                    ui.printAddedTask(tasks, todo, storage);
                 }
             } catch (IndexOutOfBoundsException e) {
-                outputHandler.printNoTaskNameMessage();
+                ui.printNoTaskNameMessage();
             }
             break;
 
@@ -76,20 +75,20 @@ public class CommandHandler {
             try {
                 int indexOfTask = input.indexOf(TASK_SEPARATOR);
                 int indexOfEventDate = input.indexOf(DEADLINE_SEPARATOR);
-                //extract task and due date
-                String description = outputHandler.getTrimmedSubstring(input, indexOfTask, indexOfEventDate);
-                String by = outputHandler.getTrimmedSubstring(input,
+                String description = ui.getTrimmedSubstring(input, indexOfTask, indexOfEventDate);
+                String by = ui.getTrimmedSubstring(input,
                         indexOfEventDate + DEADLINE_SEPARATOR.length(),
                         input.length());
                 if (description.isBlank() || by.isBlank()) {
-                    outputHandler.printNoDeadlineMessage();
+                    ui.printNoDeadlineMessage();
                 } else {
                     Deadline deadline = new Deadline(description, by);
-                    tasks.add(deadline);
-                    outputHandler.printAddedTask(tasks, deadline);
+                    tasksList.addTask(deadline);
+                    saveTasks(tasks, storage);
+                    ui.printAddedTask(tasks, deadline, storage);
                 }
             } catch (IndexOutOfBoundsException e) {
-                outputHandler.printNoDeadlineMessage();
+                ui.printNoDeadlineMessage();
             }
             break;
 
@@ -97,53 +96,63 @@ public class CommandHandler {
             try {
                 int indexOfTask = input.indexOf(TASK_SEPARATOR);
                 int indexOfEventDate = input.indexOf(EVENT_SEPARATOR);
-                //extract task and due date
-                String description = outputHandler.getTrimmedSubstring(input, indexOfTask, indexOfEventDate);
-                String at = outputHandler.getTrimmedSubstring(input,
+                String description = ui.getTrimmedSubstring(input, indexOfTask, indexOfEventDate);
+                String at = ui.getTrimmedSubstring(input,
                         indexOfEventDate + EVENT_SEPARATOR.length(),
                         input.length());
                 if (description.isBlank() || at.isBlank()) {
-                    outputHandler.printNoEventMessage();
+                    ui.printNoEventMessage();
                 } else {
                     Event event = new Event(description, at);
-                    tasks.add(event);
-                    outputHandler.printAddedTask(tasks, event);
+                    tasksList.addTask(event);
+                    saveTasks(tasks, storage);
+                    ui.printAddedTask(tasks, event, storage);
                 }
             } catch (IndexOutOfBoundsException e) {
-                outputHandler.printNoEventMessage();
+                ui.printNoEventMessage();
             }
             break;
 
         case DELETE_TASK:
             try {
                 int taskNumber = Integer.parseInt(inputTokens[1]) - 1;
-                outputHandler.deleteTask(tasks, taskNumber);
+                Task task = tasksList.deleteTask(taskNumber);
+                saveTasks(tasks, storage);
+                ui.printDeletedTask(tasks, task, taskNumber, storage);
             } catch (IndexOutOfBoundsException e) {
-                outputHandler.printTaskNumberOutOfBoundsMessage();
+                ui.printTaskNumberOutOfBoundsMessage();
             } catch (NumberFormatException e) {
-                outputHandler.printInvalidTaskNumberMessage();
+                ui.printInvalidTaskNumberMessage();
             }
             break;
 
         case HELP:
-            outputHandler.printHelpMessage();
+            ui.printHelpMessage();
             break;
 
         case GREETING:
-            outputHandler.printGreetingMessage();
+            ui.printGreetingMessage();
             break;
 
         case EXIT:
-            outputHandler.printExitMessage();
+            ui.printExitMessage();
             break;
 
         case DEFAULT:
-            outputHandler.printInvalidCommandMessage();
+            ui.printInvalidCommandMessage();
             break;
 
         default:
-            outputHandler.printUnknownErrorMessage();
+            ui.printUnknownErrorMessage();
             break;
+        }
+    }
+
+    public void saveTasks(ArrayList<Task> tasks, Storage storage) {
+        try {
+            storage.saveListToFile(tasks);
+        } catch (IOException e) {
+            ui.printFileSaveError(e);
         }
     }
 }
