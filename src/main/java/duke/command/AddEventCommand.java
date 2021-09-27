@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.exception.DukeException;
 import duke.exception.UnsavedFile;
 import duke.system.Storage;
 import duke.system.TaskList;
@@ -21,6 +20,14 @@ public class AddEventCommand extends Command {
     private final String eventStartTime;
     private final String eventEndTime;
 
+    /**
+     * AddEventCommand constructor.
+     * @param eventName the name/description of the event task
+     * @param eventStartDate the starting date of the event task
+     * @param eventStartTime the starting time of the event task
+     * @param eventEndDate the ending date of the event task
+     * @param eventEndTime the ending time of the event task
+     */
     public AddEventCommand(String eventName, LocalDate eventStartDate, String eventStartTime,
                  LocalDate eventEndDate, String eventEndTime) {
         this.eventName = eventName;
@@ -30,6 +37,13 @@ public class AddEventCommand extends Command {
         this.eventEndTime = eventEndTime;
     }
 
+    /**
+     * Add the event task to the list
+     * @param tasks   the TaskList object that takes in the new deadline task
+     * @param ui      the Ui object responsible for printing messages
+     * @param storage the Storage object responsible for saving data in a local txt file
+     * @throws UnsavedFile if fail to save data to the local file
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws UnsavedFile {
         tasks.addTask(new Event(eventName, eventStartDate, eventStartTime,
                 eventEndDate, eventEndTime));

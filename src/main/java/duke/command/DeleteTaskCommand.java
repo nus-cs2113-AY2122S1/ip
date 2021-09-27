@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.exception.InvalidIndex;
-import duke.exception.InvalidInput;
 import duke.exception.UnsavedFile;
 import duke.system.Storage;
 import duke.system.TaskList;

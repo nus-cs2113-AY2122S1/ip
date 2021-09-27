@@ -1,8 +1,6 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.exception.InvalidInput;
-import duke.exception.UnsavedFile;
 import duke.system.Storage;
 import duke.system.TaskList;
 import duke.system.Ui;
@@ -18,7 +16,7 @@ public abstract class Command {
      * @param tasks the TaskList object that takes in the new deadline task
      * @param ui the Ui object responsible for printing messages
      * @param storage the Storage object responsible for saving data in a local txt file
-     * @throws DukeException if there is any problem arsing when executing the comnmand
+     * @throws DukeException if there is any problem arsing when executing the command
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 

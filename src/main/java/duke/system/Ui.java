@@ -8,6 +8,12 @@ import java.util.Scanner;
  * A system component responsible for interaction with the user.
  */
 public class Ui {
+    static final String DUKE_LOGO =
+            "      ____        _        \n" +
+            "     |  _ \\ _   _| | _____ \n" +
+            "     | | | | | | | |/ / _ \\\n" +
+            "     | |_| | |_| |   <  __/\n" +
+            "     |____/ \\__,_|_|\\_\\___|\n";
     static final String LINE_SEPARATOR = "     ____________________________________________________________________\n";
     static final String SPACING = "     ";
     static final String CANNOT_IDENTIFY =
@@ -17,14 +23,13 @@ public class Ui {
             + SPACING + "Hello! I'm Duke\n"
             + SPACING + "What can I do for you?\n"
             + LINE_SEPARATOR;
-    static final String NO_ARGUMENT_1 = "The";
-    static final String NO_ARGUMENT_2 = " command is incomplete.";
+    static final String COUNT_NUMBER = " tasks in total";
 
     /**
      * Print greeting message when the program starts.
      */
     public void printGreetings() {
-        System.out.println(GREETINGS);
+        System.out.println(DUKE_LOGO + GREETINGS);
     }
 
     /**
@@ -85,14 +90,15 @@ public class Ui {
 
     /**
      * List all the tasks in the list.
-     * @param taskList the task list holding tasks.
+     * @param tasks the task list holding tasks.
      */
-    public void list(ArrayList<Task> taskList) {
+    public void list(ArrayList<Task> tasks) {
         String listOutput = LINE_SEPARATOR;
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             listOutput += SPACING + (i + 1) + ". "
-                    + taskList.get(i).toString() + "\n";
+                    + tasks.get(i).toString() + "\n";
         }
+        listOutput += "\n" + SPACING + tasks.size() + COUNT_NUMBER + "\n";
         listOutput += LINE_SEPARATOR;
         System.out.println(listOutput);
 

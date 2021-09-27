@@ -7,6 +7,9 @@ import duke.system.Storage;
 import duke.system.TaskList;
 import duke.system.Ui;
 
+/**
+ * Represents the whole program.
+ */
 public class Duke {
 
     private final Storage storage;
@@ -14,23 +17,30 @@ public class Duke {
     private final Ui ui;
     private final Parser parser;
 
+    /**
+     * The main function that will firstly execute when the program starts
+     * @param args command-line arguments which comes with main(). Not used here.
+     */
     public static void main(String[] args) {
         new Duke().run();
     }
 
+    /**
+     *
+     */
     public Duke() {
-        TaskList tasks1;
-        ui = new Ui();
-        parser = new Parser();
-        storage = new Storage();
+        TaskList localTasks;
+        this.ui = new Ui();
+        this.parser = new Parser();
+        this.storage = new Storage();
         try {
-            tasks1 = new TaskList(storage.readData());
+            localTasks = new TaskList(storage.readData());
         } catch (DukeException e) {
             ui.printErrorMessage(e.getMessage());
-            tasks1 = new TaskList();
+            localTasks = new TaskList();
         }
 
-        tasks = tasks1;
+        this.tasks = localTasks;
     }
 
     public void run() {
@@ -46,7 +56,6 @@ public class Duke {
                 ui.printErrorMessage(e.getMessage());
             }
         }
-        ui.printBye();
     }
 
 }

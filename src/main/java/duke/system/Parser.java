@@ -2,8 +2,15 @@ package duke.system;
 
 import duke.command.*;
 import duke.exception.*;
+import duke.exception.UnknownError;
 
+import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+/**
+ * A component of the system in charge of interpreting user inputs
+ */
 public class Parser {
 
     private String getCommandType(String inputLine) {
@@ -55,7 +62,7 @@ public class Parser {
         return new String[] {eventStartTime, eventEndTime};
     }
 
-    private String getTodoTime(String fullCommand) {
+    private String getTodoName(String fullCommand) {
         return fullCommand.substring("todo ".length());
     }
 
@@ -63,7 +70,26 @@ public class Parser {
         if (!fullCommand.contains("/at ")) {
             return false;
         }
-        return true;
+        try {
+            int hoursStartIndex = 0;
+            int hoursEndIndex = 2;
+            int minutesStartIndex = 2;
+            LocalDate[] EventDates = getEventDates(fullCommand);
+            String[] EventTimes = getEventTimes(fullCommand);
+            for (String i: EventTimes) {
+                int hours = Integer.parseInt(i.substring(hoursStartIndex, hoursEndIndex));
+                int minutes = Integer.parseInt(i.substring(minutesStartIndex));
+                if (hours > 23 || hours < 0) {
+                    return false;
+                }
+                if (minutes > 59 || minutes < 0) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (DateTimeParseException | NumberFormatException | IndexOutOfBoundsException e) {
+            return false;
+        }
     }
 
     private boolean isCompleteTodoCommand(String fullCommand) {
@@ -113,11 +139,24 @@ public class Parser {
         if (!fullCommand.contains("/by ")) {
             return false;
         }
-        return true;
-    }
-
-    private String getEventTime(String fullCommand) {
-        return fullCommand.substring(fullCommand.indexOf("/at ") + "/at ".length());
+        try {
+            int hoursStartIndex = 0;
+            int hoursEndIndex = 2;
+            int minutesStartIndex = 2;
+            LocalDate DeadlineDate = getDeadlineDate(fullCommand);
+            String DeadlineTime = getDeadlineTime(fullCommand);
+            int hours = Integer.parseInt(DeadlineTime.substring(hoursStartIndex, hoursEndIndex));
+            int minutes = Integer.parseInt(DeadlineTime.substring(minutesStartIndex));
+            if (hours > 23 || hours < 0) {
+                return false;
+            }
+            if (minutes > 59 || minutes < 0) {
+                return false;
+            }
+            return true;
+        } catch (DateTimeParseException | NumberFormatException | IndexOutOfBoundsException e) {
+            return false;
+        }
     }
 
     private boolean isCompleteFindCommand(String fullCommand) {
@@ -130,77 +169,117 @@ public class Parser {
         return fullCommand.substring("find ".length());
     }
 
-    private String getTodoTime(String fullCommand) {
-        return fullCommand.substring("todo ".length());
+    private Command createListAllCommand(String fullCommand) throws WrongFormat {
+        if (!isCompleteListCommand(fullCommand)) {
+            throw new WrongFormat();
+        }
+        return new ListAllCommand();
     }
 
+    private Command createDoneTaskCommand(String fullCommand) throws WrongFormat {
+        if (!isCompleteDoneCommand(fullCommand)) {
+            throw new WrongFormat();
+        }
+        try {
+            int currentTaskIndex = getCurrentTaskIndex(fullCommand);
+            return new DoneTaskCommand(currentTaskIndex);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new WrongFormat();
+        }
+    }
+
+    private Command createAddDeadlineCommand(String fullCommand) throws WrongFormat {
+        if (!isCompleteDeadlineCommand(fullCommand)) {
+            throw new WrongFormat();
+        } else {
+            String deadlineName = getDeadlineName(fullCommand);
+            LocalDate deadlineDate = getDeadlineDate(fullCommand);
+            String deadlineTime = getDeadlineTime(fullCommand);
+            return new AddDeadlineCommand(deadlineName, deadlineDate, deadlineTime);
+        }
+    }
+
+    private Command createAddEventCommand(String fullCommand) throws WrongFormat {
+        if (!isCompleteEventCommand(fullCommand)) {
+            throw new WrongFormat();
+        } else {
+            String eventName = getEventName(fullCommand);
+            LocalDate eventStartDate = getEventDates(fullCommand)[0];
+            String eventStartTime = getEventTimes(fullCommand)[0];
+            LocalDate eventEndDate = getEventDates(fullCommand)[1];
+            String eventEndTime = getEventTimes(fullCommand)[1];
+            return new AddEventCommand(eventName, eventStartDate, eventStartTime,
+                    eventEndDate, eventEndTime);
+        }
+    }
+
+    private Command createAddTodoCommand(String fullCommand) throws WrongFormat {
+        if (!isCompleteTodoCommand(fullCommand)) {
+            throw new WrongFormat();
+        } else {
+            String todoName = getTodoName(fullCommand);
+            return new AddTodoCommand(todoName);
+        }
+    }
+
+    private Command createDeleteTaskCommand(String fullCommand) throws WrongFormat {
+        if (!isCompleteDeleteCommand(fullCommand)) {
+            throw new WrongFormat();
+        }
+        try {
+            int selectedTaskIndex = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
+            return new DeleteTaskCommand(selectedTaskIndex);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new WrongFormat();
+        }
+    }
+
+    private Command createExitCommand() {
+        return new ExitCommand();
+    }
+
+    private Command createFindTasksCommand(String fullCommand) throws WrongFormat {
+        if (!isCompleteFindCommand(fullCommand)) {
+            throw new WrongFormat();
+        } else {
+            String keywords = getKeywords(fullCommand);
+            return new FindTasksCommand(keywords);
+        }
+    }
+
+    /**
+     * Interprets user inputs and identify commands given by the user
+     * @param fullCommand raw user input
+     * @return commands to be executed
+     * @throws DukeException if there are problems with the input
+     */
     public Command parse(String fullCommand) throws DukeException {
-        String commandType = getCommandType(fullCommand);
-        switch (commandType) {
-        case "list":
-            if (!isCompleteListCommand(fullCommand)) {
-                throw new WrongFormat();
+        try {
+            String commandType = getCommandType(fullCommand);
+            switch (commandType) {
+            case "list":
+                return createListAllCommand(fullCommand);
+            case "done":
+                return createDoneTaskCommand(fullCommand);
+            case "deadline":
+                return createAddDeadlineCommand(fullCommand);
+            case "event":
+                return createAddEventCommand(fullCommand);
+            case "todo":
+                return createAddTodoCommand(fullCommand);
+            case "delete":
+                return createDeleteTaskCommand(fullCommand);
+            case "exit":
+                return createExitCommand();
+            case "find":
+                return createFindTasksCommand(fullCommand);
+            default:
+                throw new InvalidInput();
             }
-            return new ListAllCommand();
-        case "done":
-            if (!isCompleteDoneCommand(fullCommand)) {
-                throw new WrongFormat();
-            }
-            try {
-                int currentTaskIndex = getCurrentTaskIndex(fullCommand);
-                return new DoneTaskCommand(currentTaskIndex);
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                throw new WrongFormat();
-            }
-        case "deadline":
-            if (!isCompleteDeadlineCommand(fullCommand)) {
-                throw new WrongFormat();
-            } else {
-                String deadlineName = getDeadlineName(fullCommand);
-                LocalDate deadlineDate = getDeadlineDate(fullCommand);
-                String deadlineTime = getDeadlineTime(fullCommand);
-                return new AddDeadlineCommand(deadlineName, deadlineDate, deadlineTime);
-            }
-        case "event":
-            if (!isCompleteEventCommand(fullCommand)) {
-                throw new WrongFormat();
-            } else {
-                String eventName = getEventName(fullCommand);
-                LocalDate eventStartDate = getEventDates(fullCommand)[0];
-                String eventStartTime = getEventTimes(fullCommand)[0];
-                LocalDate eventEndDate = getEventDates(fullCommand)[1];
-                String eventEndTime = getEventTimes(fullCommand)[1];
-                return new AddEventCommand(eventName, eventStartDate, eventStartTime,
-                        eventEndDate, eventEndTime);
-            }
-        case "todo":
-            if (!isCompleteTodoCommand(fullCommand)) {
-                throw new WrongFormat();
-            } else {
-                String todoName = getTodoTime(fullCommand);
-                return new AddTodoCommand(todoName);
-            }
-        case "delete":
-            if (!isCompleteDeleteCommand(fullCommand)) {
-                throw new WrongFormat();
-            }
-            try {
-                int selectedTaskIndex = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
-                return new DeleteTaskCommand(selectedTaskIndex);
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                throw new WrongFormat();
-            }
-        case "exit":
-            return new ExitCommand();
-        case "find":
-            if (!isCompleteFindCommand(fullCommand)) {
-                throw new WrongFormat();
-            } else {
-                String keywords = getKeywords(fullCommand);
-                return new FindTasksCommand(keywords);
-            }
-        default:
-            throw new InvalidInput();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new WrongFormat();
+        } catch (Exception e) {
+            throw new UnknownError();
         }
     }
 }
