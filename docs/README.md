@@ -1,4 +1,4 @@
-#User Guide for Terminator
+User Guide for Terminator
 =============================
 - [User Guide for Terminator](#user-guide-for-terminator)
 - [Quick Start](#quick-start)
@@ -22,7 +22,7 @@ who want to take a look at their tasks to do on the fly.
 1. Ensure you have Java `11` or above installed in your computer.
 
 
-2. Download the latest version of Terminator from [here](TODO INSERT LINK HERE).
+2. Download the latest version of Terminator from [here](https://github.com/wutdequack/ip/releases/tag/A-Release).
 
 
 3. Copy the file to the folder you want to use as the home folder for Terminator.
