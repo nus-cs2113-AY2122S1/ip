@@ -1,6 +1,7 @@
 package duke;
 
 import duke.manager.TaskManager;
+import duke.ui.Ui;
 
 /**
  * TODO : Better Documentation
@@ -10,32 +11,15 @@ import duke.manager.TaskManager;
 
 public class Duke {
 
-    private final static String WELCOME_GREETING = "Howdy there! I'm Fluke";
-    private final static String WELCOME_ASK = "What can I do for you today master?";
-    private final static String BYE_MESSAGE = "Bye. Hope to serve you again master!";
+
 
     public static void main(String[] args) {
-        welcomeMessage();
+        Ui.welcomeMessage();
         TaskManager.processInput();
-        byeMessage();
+        Ui.byeMessage();
     }
 
-    /**
-     * Prints a welcome message on the console
-     */
-    private static void welcomeMessage() {
-        TaskManager.printLine();
-        System.out.println(WELCOME_GREETING);
-        System.out.println(WELCOME_ASK);
-        TaskManager.printLine();
-    }
 
-    /**
-     * Prints a bye message on the console
-     */
-    private static void byeMessage() {
-        TaskManager.printLine();
-        System.out.println(BYE_MESSAGE);
-        TaskManager.printLine();
-    }
+
+
 }
