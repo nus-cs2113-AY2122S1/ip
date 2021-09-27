@@ -249,7 +249,7 @@ as the search is case-sensitive.
 
 **Command format:**
 
-`list [query]`
+`find [query]`
 
 * `[query]` - Text to query for
 
@@ -313,4 +313,18 @@ Expected output:
 Thank you for using our application. We hope to see you again soon
 ----------------------------------------------------------------------------------------------------
 ```
+
+## **4. Command Summary**
+
+Action | Command Format | Example
+--- | --- | --- | 
+Todo | todo [description] | `todo Assignment`
+Deadline | deadline [description] /by [deadline] | `deadline CG2027 Assignment /by 2021-10-01 11:59`
+Event | event [description] /at [time] | `event lecture /at 2021-12-11 19:00`
+List | list | `list`
+Done | done [task number] | `done 2`
+Delete | delete [task number] | `delete 3`
+Find | find [query] | `find lecture`
+Save | save | `save`
+Exit | bye | `bye`
 
