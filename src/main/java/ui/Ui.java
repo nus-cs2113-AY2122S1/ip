@@ -14,6 +14,9 @@ public class Ui {
     public static final String LINE_W_NL = "____________________________________________________________\n";
     public static final String LINE = "____________________________________________________________";
 
+    /**
+     * Prints the logo and greets the user.
+     */
     public static void printGreetMessage() {
         System.out.println(JARVIS_LOGO
                 + LINE_W_NL
@@ -21,12 +24,16 @@ public class Ui {
                 + LINE);
     }
 
+
     public static void printByeMessage() {
         System.out.println(LINE_W_NL
                 + "As always Sir, a great pleasure watching you work!\n"
                 + LINE);
     }
 
+    /**
+     * Prints an error message when user inputs an unknown command.
+     */
     public static void printIndexOutOfBoundExceptionMessage() {
         System.out.println(LINE_W_NL
                 + "Apologies Sir, I don't quite get what you mean.\n"
@@ -34,6 +41,9 @@ public class Ui {
                 + LINE);
     }
 
+    /**
+     * Prints an error message when user inputs a command with missing details.
+     */
     public static void printNumberFormatExceptionMessage() {
         System.out.println(LINE_W_NL
                 + "Apologies Sir, your input is missing something.\n"
@@ -41,6 +51,11 @@ public class Ui {
                 + LINE);
     }
 
+    /**
+     * Prints an error message when list is empty or when the number input by user
+     * is out of range.
+     * @param listSize is the current size of the list of tasks
+     */
     public static void printArithmeticExceptionMessage(int listSize) {
         if (listSize == 0) {
             System.out.println(LINE_W_NL
@@ -54,6 +69,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints an error message when a deadline input is missing the date & time of deadline.
+     */
     public static void printDeadlineExceptionMessage() {
         System.out.println(LINE_W_NL
                 + "Apologies Sir, you did not mention the deadline.\n"
@@ -61,6 +79,9 @@ public class Ui {
                 + LINE);
     }
 
+    /**
+     * Prints an error message when an event input is missing the date & time of the event.
+     */
     public static void printEventExceptionMessage() {
         System.out.println(LINE_W_NL
                 + "Apologies Sir, you did not mention the venue.\n"
@@ -68,6 +89,11 @@ public class Ui {
                 + LINE);
     }
 
+    /**
+     * Prints a message when a new task has been added to the list along with the task.
+     * @param task is the new task that has been added
+     * @param taskList main list keeping track of user's tasks
+     */
     public static void printAddedTask(Task task, ArrayList<Task> taskList) {
         System.out.println(LINE_W_NL
                 + "Noted Sir. I've added this task:\n"
@@ -76,6 +102,11 @@ public class Ui {
                 + LINE);
     }
 
+    /**
+     * Prints a message when a task had been marked as done along with the task.
+     * @param taskList main list keeping track of user's tasks
+     * @param taskNum is the index of the task in the list of task
+     */
     public static void printMarkTaskDoneMessage(ArrayList<Task> taskList, int taskNum) {
         System.out.println(LINE_W_NL
                 + "Good one Sir! I've marked this task as done:\n"
@@ -83,6 +114,11 @@ public class Ui {
                 + LINE);
     }
 
+    /**
+     * Prints a message when a task has been deleted along with the task.
+     * @param taskList main list keeping track of user's tasks
+     * @param taskNum is the index of the task in the list of task
+     */
     public static void printDeleteMessage(ArrayList<Task> taskList, int taskNum) {
         System.out.println(LINE_W_NL
                 + "Noted Sir! I've removed this task:\n"
