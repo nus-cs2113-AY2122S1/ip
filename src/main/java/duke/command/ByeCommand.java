@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.exception.ErrorDoneException;
 import duke.storage.Storage;
 import duke.task.*;
 import duke.ui.Ui;
@@ -8,7 +7,6 @@ import duke.exception.ErrorCreateFileException;
 import java.io.IOException;
 
 public class ByeCommand extends Command {
-
     /**
      * Exit the program
      *
