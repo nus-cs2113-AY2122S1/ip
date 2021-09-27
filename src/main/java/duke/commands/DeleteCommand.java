@@ -28,6 +28,7 @@ public class DeleteCommand extends Command {
                 int taskIndex = taskNumber - 1;
                 Task taskToDelete = tasks.getTaskAtIndex(taskIndex);
                 tasks.removeTask(taskIndex);
+                Storage.saveData(tasks);
                 int taskListSize = tasks.sizeOfTaskList();
                 ui.displayDeleteMessage(taskToDelete, taskListSize);
             }

@@ -36,6 +36,7 @@ public class AddDeadlineCommand extends Command {
                 LocalDateTime dateTime = Parser.parseDateTime(by);
                 Deadline newDeadline = new Deadline(description, dateTime);
                 tasks.addTask(newDeadline);
+                Storage.saveData(tasks);
                 int taskListSize = tasks.sizeOfTaskList();
                 ui.acknowledgeAddedTask(newDeadline, taskListSize);
             } catch (StringIndexOutOfBoundsException e) {

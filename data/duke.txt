@@ -1,4 +1,0 @@
-D|false|return book|2021-09-27T18:00
-E|false|attend book event|2021-09-28T16:00
-D|false|buy new book|2021-09-27T10:00
-E|false|book conference|2021-09-27T15:30

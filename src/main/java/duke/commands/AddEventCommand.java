@@ -36,6 +36,7 @@ public class AddEventCommand extends Command {
                 LocalDateTime dateTime = Parser.parseDateTime(at);
                 Event newEvent = new Event(description, dateTime);
                 tasks.addTask(newEvent);
+                Storage.saveData(tasks);
                 int taskListSize = tasks.sizeOfTaskList();
                 ui.acknowledgeAddedTask(newEvent, taskListSize);
             } catch (StringIndexOutOfBoundsException e) {

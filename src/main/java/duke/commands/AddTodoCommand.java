@@ -24,6 +24,7 @@ public class AddTodoCommand extends Command {
         } else {
             Todo newTodo = new Todo(arguments);
             tasks.addTask(newTodo);
+            Storage.saveData(tasks);
             int taskListSize = tasks.sizeOfTaskList();
             ui.acknowledgeAddedTask(newTodo, taskListSize);
         }
