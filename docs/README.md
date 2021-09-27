@@ -152,6 +152,16 @@ Finds tasks with a `<SEARCH_STRING>` that contains the string inputted by the us
 
 Format: `find <SEARCH_STRING>`
 
+Example: `find lecture`
+
+```
+find lecture
+____________________________________________________________
+Here are the matching tasks in your list:
+[E][X] Attend CG2027 lecture  (on: Tuesday, October 12, 2021 03:21 PM)
+____________________________________________________________
+```
+
 ### End the Program: `bye`
 Duke bids farewell and closes the application.
 
