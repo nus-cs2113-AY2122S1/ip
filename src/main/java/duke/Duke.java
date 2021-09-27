@@ -29,8 +29,6 @@ public class Duke {
 
     private static final String MESSAGE_TODO_DESCRIPTION_EMPTY = "The description of a todo cannot be empty.";
     private static final String MESSAGE_UNRECOGNISED_COMMAND = "I'm sorry, but I don't know what that means :-(";
-    private static final String MESSAGE_UNRECOGNISED_TASK_TYPE_ICON = "Unrecognised task type icon: '%1$s'";
-    private static final String MESSAGE_UNRECOGNISED_TASK_STATUS_ICON = "Unrecognised task status icon: '%1$s'";
     private static final String MESSAGE_UNRECOGNISED_EVENT_FORMAT = "Unrecognised event format.\n"
             + "Please ensure you provide the date/time of the event.";
     private static final String MESSAGE_UNRECOGNISED_DEADLINE_FORMAT = "Unrecognised deadline format.\n"
@@ -52,23 +50,24 @@ public class Duke {
     private static final int INDEX_COMMAND = 0;
     private static final int INDEX_ARGS = 1;
 
-    /** Array of Task objects */
-    private static TaskList tasks;
     private static Storage storage;
+    private static TaskList tasks;
     private static Ui ui;
 
-    /**
-     * Main entry point of Duke.
-     */
-    public static void main(String[] args) {
+    // Code below inspired by https://nus-cs2113-ay2122s1.github.io/website/schedule/week7/project.html
+    public Duke(String filePath) {
         ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            storage = new Storage("data/duke.txt");
             tasks = storage.loadData();
         } catch (StorageException e) {
             ui.showToUser(e.getMessage());
             throw new RuntimeException(e);
         }
+    }
+
+    // Code below inspired by https://nus-cs2113-ay2122s1.github.io/website/schedule/week7/project.html
+    public void run() {
         ui.showGreeting(storage.getPath(), storage.isUsingNewFile());
         while (true) {
             final String userInput = getUserInput();
@@ -84,12 +83,19 @@ public class Duke {
     }
 
     /**
+     * Main entry point of Duke.
+     */
+    public static void main(String[] args) {
+        new Duke("data/duke.txt").run();
+    }
+
+    /**
      * Reads input commands from the user.
      * Ignores blank lines and trims input command.
      *
      * @return Trimmed input command.
      */
-    private static String getUserInput() {
+    private String getUserInput() {
         String line = SCANNER.nextLine();
         // Ignore blank lines
         while (line.trim().isEmpty()) {
@@ -104,7 +110,7 @@ public class Duke {
      * @param userInput Input command together with any arguments.
      * @return Feedback about what was executed.
      */
-    private static String executeCommand(String userInput) {
+    private String executeCommand(String userInput) {
         final String[] commandAndArgs = userInput.split(" ", 2);
         final String command = commandAndArgs[INDEX_COMMAND];
         final String args = commandAndArgs.length > INDEX_ARGS ? commandAndArgs[INDEX_ARGS] : "";
@@ -135,7 +141,7 @@ public class Duke {
         }
     }
 
-    private static String addTodo(String description) throws DukeException {
+    private String addTodo(String description) throws DukeException {
         if (description.isEmpty()) {
             throw new DukeException(MESSAGE_TODO_DESCRIPTION_EMPTY);
         }
@@ -143,7 +149,7 @@ public class Duke {
         return addTask(task);
     }
 
-    private static String addDeadline(String args) throws DukeException {
+    private String addDeadline(String args) throws DukeException {
         final String[] splitArgs = args.split(" " + DEADLINE_PREFIX_BY + " ");
         if (splitArgs.length < 2) {
             throw new DukeException(MESSAGE_UNRECOGNISED_DEADLINE_FORMAT);
@@ -154,7 +160,7 @@ public class Duke {
         return addTask(task);
     }
 
-    private static String addEvent(String args) throws DukeException {
+    private String addEvent(String args) throws DukeException {
         final String[] splitArgs = args.split(" " + EVENT_PREFIX_AT + " ");
         if (splitArgs.length < 2) {
             throw new DukeException(MESSAGE_UNRECOGNISED_EVENT_FORMAT);
@@ -165,19 +171,19 @@ public class Duke {
         return addTask(task);
     }
 
-    private static String addTask(Task task) {
+    private String addTask(Task task) {
         tasks.addTask(task);
         return String.format(MESSAGE_TASK_ADDED, task, tasks.getSize());
     }
 
-    private static String deleteTask(String args) throws DukeException {
+    private String deleteTask(String args) throws DukeException {
         Task task = getTaskFromStringId(args);
         tasks.removeTask(task);
         return String.format(MESSAGE_TASK_DELETED, task, tasks.getSize());
     }
 
     /** Returns the list of tasks (numbered) together with their status icons */
-    private static String listTasks() {
+    private String listTasks() {
         String[] formattedTasks = new String[tasks.getSize()];
         for (int i = 0; i < tasks.getSize(); i++) {
             formattedTasks[i] = String.format("%d.%s", i + 1, tasks.getTask(i));
@@ -186,13 +192,13 @@ public class Duke {
         return String.format(MESSAGE_TASK_LIST, taskListOutput);
     }
 
-    private static String markTaskAsDone(String args) throws DukeException {
+    private String markTaskAsDone(String args) throws DukeException {
         Task task = getTaskFromStringId(args);
         task.setAsDone();
         return String.format(MESSAGE_TASK_MARKED_AS_DONE, task);
     }
 
-    private static Task getTaskFromStringId(String args) throws DukeException {
+    private Task getTaskFromStringId(String args) throws DukeException {
         try {
             int taskId = Integer.parseInt(args) - 1;
             return tasks.getTask(taskId);
@@ -203,7 +209,7 @@ public class Duke {
         }
     }
 
-    private static String handleUnrecognisedCommand() throws DukeException {
+    private String handleUnrecognisedCommand() throws DukeException {
         throw new DukeException(MESSAGE_UNRECOGNISED_COMMAND);
     }
 }
