@@ -25,6 +25,8 @@ public class Parser {
                 throw new EmptyCommand();
             command = userInput.split(" ");
             switch (command[0].trim().toLowerCase()) {
+            case "help":
+                return parseHelp();
             case "bye":
                 return parseBye();
             case "done":
@@ -39,12 +41,17 @@ public class Parser {
                 return parseEvent(userInput);
             case "list":
                 return parseList();
+            case "find":
+                return parseFind(userInput);
             default:
                 throw new InvalidCommandException();
             }
         } catch (DukeException e) {
             return e.printMessage();
         }
+    }
+    public String parseHelp() {
+        return ui.helpList();
     }
 
     public String parseBye() {
@@ -67,7 +74,7 @@ public class Parser {
     public String parseTodo(String command) throws InvalidValueException {
         if (command.split(" ").length == 1)
             throw new InvalidValueException("Todo: Missing Description, Please Try Again");
-        taskList.addTask(new ToDo(taskList.getTodo(command)));
+        taskList.addTask(new ToDo(taskList.getItem(command)));
         return ui.acknowledgeAddition(taskList.getList());
     }
 
@@ -115,5 +122,12 @@ public class Parser {
         } else if (getIndex(command) > this.taskList.getList().size() | getIndex(command) < 1) {
             throw new InvalidValueException(String.format("Input Number was more that [1 - %d] tasks in the list.", taskList.getList().size()));
         }
+    }
+
+    public String parseFind(String command) throws InvalidValueException {
+        if (taskList.getList().size()==0)
+            return ui.printList(taskList);
+        String keyword = taskList.getItem(command);
+        return ui.findResults(keyword, taskList);
     }
 }

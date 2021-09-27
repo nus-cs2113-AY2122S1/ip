@@ -34,7 +34,7 @@ public class TaskList {
         return targetTask;
     }
 
-    public static String getTodo (String command) {
+    public static String getItem(String command) {
         String item = command.substring(command.indexOf(" ") + 1);
         return item;
     }
@@ -57,6 +57,16 @@ public class TaskList {
 
     public Task getTask(int index) {
         return list.get(index);
+    }
+
+    public String find(String keyword) {
+        int count = 0;
+        String result = "";
+        for (Task task : list) {
+            count += 1;
+            result += (task.getTask().contains(keyword)) ? String.format("\t%d. ", count) + task + "\n": "" ;
+        }
+        return result;
     }
 
     private static int getIndex(String command) {
