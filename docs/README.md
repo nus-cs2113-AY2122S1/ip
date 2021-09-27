@@ -16,24 +16,20 @@ Removes a current task from the list by calling the appropriate index.
 
 Marks a current task from the list as completed by calling the appropriate index.
 
-`done 3`
 
 
 ### Find
 
 Finds a particular phrase or sub-phrase among all current tasks.
 
-`find book`
 
 ### Bye
 
 Exits Duke.
 
-`bye`
 
 
 ## Usage
-
 
 ### `t` - Creates a Task
 
