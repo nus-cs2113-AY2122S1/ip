@@ -1,4 +1,1 @@
-deadline | X | read book | tomorrow
-todo | X | buy book
-deadline | X | sell book | tomorrow
-todo | X | wank
+deadline | X | read book | 2021-09-27
