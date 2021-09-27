@@ -13,7 +13,8 @@ import java.util.Scanner;
 // File Manager
 public class Storage {
 
-    public static int readFile() throws FileNotFoundException { // return ArrayList?
+    public static ArrayList<Task> readFile() throws FileNotFoundException {
+        ArrayList<Task> tasks = new ArrayList<>();
         File dir = new File("Duke");
         if (!dir.exists()) {
             dir.mkdir();
@@ -23,10 +24,9 @@ public class Storage {
             Scanner s = new Scanner(data);
             int currCount = 0;
             while (s.hasNext()) {
-                ArrayList<Task> tasks = parseDataFromFile(s.nextLine(), currCount);
+                parseDataFromFile(tasks, s.nextLine(), currCount); //Array List is passed by reference
                 currCount += 1;
             }
-            return currCount;
         }
         else {
             System.out.println("Creating new data file....");
@@ -37,11 +37,10 @@ public class Storage {
                 System.out.println("Unable to create new data file");
             }
         }
-        return 0; // initial value of currCount
+        return tasks;
     }
 
-    public static ArrayList<Task> parseDataFromFile(String nextLine, int currCount) {
-        ArrayList<Task> tasks = new ArrayList<>();
+    private static void parseDataFromFile(ArrayList<Task> tasks, String nextLine, int currCount) {
         String[] input = nextLine.split("\\|"); // necessary to escape regex meta character
         String[] trimmedInput = new String[input.length];
         for (int i = 0; i < input.length; i++) {
@@ -67,7 +66,6 @@ public class Storage {
             }
             break;
         }
-        return tasks;
     }
 
     public static void writeToFile(ArrayList<Task> tasks) {

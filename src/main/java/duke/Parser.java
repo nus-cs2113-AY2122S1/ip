@@ -28,8 +28,14 @@ public class Parser {
     private static final String DELETE_EXCEED_ERROR = "The task to be deleted does not exist in the list of tasks";
     private static final String COMMAND_ERROR = "Sorry, I don't understand what you are saying";
     private static ArrayList<Task> tasks = new ArrayList<>(MAX_TASKS);
+    private static int currCount;
 
-    public static void markAsDone(int currCount, String line) throws DukeException {
+    public Parser(ArrayList<Task> tasks, int currCount) {
+        Parser.tasks = tasks;
+        Parser.currCount = currCount;
+    }
+
+    public static void markAsDone(String line) throws DukeException {
         String[] input = line.split(" ");
         if (input.length < DONE_DELETE_MIN_LENGTH) {
             throw new DukeException(DONE_DESCRIPTION_ERROR);
@@ -46,7 +52,7 @@ public class Parser {
         Storage.writeToFile(tasks);
     }
 
-    public static int deleteTask(int currCount, String line) throws DukeException {
+    public static void deleteTask(String line) throws DukeException {
         String[] input = line.split(" ");
         if (input.length < DONE_DELETE_MIN_LENGTH) {
             throw new DukeException(DELETE_DESCRIPTION_ERROR);
@@ -64,7 +70,6 @@ public class Parser {
         Ui.printHorizontalLine();
         currCount -= 1;
         Storage.writeToFile(tasks);
-        return currCount;
     }
 
     public static void printList() {
@@ -78,7 +83,7 @@ public class Parser {
         Ui.printHorizontalLine();
     }
 
-    public static int completeAddTask(int currCount) {
+    public static void completeAddTask() {
         Ui.printHorizontalLine();
         System.out.println(" Got it. I've added this task:");
         System.out.println(" " + tasks.get(currCount).toString());
@@ -87,10 +92,9 @@ public class Parser {
         Ui.printHorizontalLine();
         currCount += 1;
         Storage.writeToFile(tasks);
-        return currCount;
     }
 
-    public static void processEventCommand(int currCount, String line) throws DukeException {
+    public static void processEventCommand(String line) throws DukeException {
         if (line.length() < EVENT_MIN_LENGTH) {
             throw new DukeException(EVENT_DESCRIPTION_ERROR);
         }
@@ -101,7 +105,7 @@ public class Parser {
         tasks.add(currCount, TaskList.addEvent(input[0], input[1].substring(EVENT_DEADLINE_TIME)));
     }
 
-    public static void processDeadlineCommand(int currCount, String line) throws DukeException {
+    public static void processDeadlineCommand(String line) throws DukeException {
         if (line.length() < DEADLINE_MIN_LENGTH) {
             throw new DukeException(DEADLINE_DESCRIPTION_ERROR);
         }
@@ -113,7 +117,7 @@ public class Parser {
         tasks.add(currCount, TaskList.addDeadline(input[0], input[1].substring(EVENT_DEADLINE_TIME)));
     }
 
-    public static void processTodoCommand(int currCount, String line) throws DukeException {
+    public static void processTodoCommand(String line) throws DukeException {
         if (line.length() < TODO_MIN_LENGTH) {
             throw new DukeException(TODO_DESCRIPTION_ERROR);
         }
@@ -121,24 +125,24 @@ public class Parser {
         tasks.add(currCount, TaskList.addTodo(line.substring(TODO_DESCRIPTION_START)));
     }
 
-    public static void executeCommands(int currCount) {
+    public static void executeCommands() {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         while (!line.equals("bye")) {
             try {
                 if (line.contains("done")) { // mark task as done
-                    markAsDone(currCount, line);
+                    markAsDone(line);
                 } else if (line.contains("delete")) { // delete task
-                    currCount = deleteTask(currCount, line);
+                    deleteTask(line);
                 } else if (line.contains("todo")) {
-                    processTodoCommand(currCount, line);
-                    currCount = completeAddTask(currCount);
+                    processTodoCommand(line);
+                    completeAddTask();
                 } else if (line.contains("deadline")) {
-                    processDeadlineCommand(currCount, line);
-                    currCount = completeAddTask(currCount);
+                    processDeadlineCommand(line);
+                    completeAddTask();
                 } else if (line.contains("event")) {
-                    processEventCommand(currCount, line);
-                    currCount = completeAddTask(currCount);
+                    processEventCommand(line);
+                    completeAddTask();
                 } else if (line.equals("list")){ // print the list
                     printList();
                 } else {
