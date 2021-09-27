@@ -18,7 +18,6 @@ import duke.task.exception.EmptyTimeDetailException;
 import duke.task.exception.TimeSpecifierNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Parser {
@@ -48,6 +47,8 @@ public class Parser {
      * @throws EmptyDescriptionException      Task description is empty.
      * @throws EmptyTimeDetailException       Time detail is not provided in the user command.
      * @throws TimeSpecifierNotFoundException Time specifier is not provided in the user command.
+     * @throws DateTimeParseException         Date provided is not in ISO8601 format.
+     * @throws EmptySearchTermException       Search term provided is empty.
      */
     public Command parse(String fullCommand)
             throws NumberFormatException, UnknownCommandException, EmptyDescriptionException, EmptyTimeDetailException,
@@ -204,6 +205,7 @@ public class Parser {
      * @throws EmptyDescriptionException      Description not provided in command.
      * @throws TimeSpecifierNotFoundException Time specifier not provided in command.
      * @throws EmptyTimeDetailException       Time detail not provided in command.
+     * @throws DateTimeParseException         Date provided is not in ISO8601 format.
      */
     private AddCommand prepareAddDeadline(String[] separatedCommand)
             throws TimeSpecifierNotFoundException, EmptyDescriptionException, EmptyTimeDetailException,
@@ -223,6 +225,7 @@ public class Parser {
      * @throws EmptyDescriptionException      Description not provided in command.
      * @throws TimeSpecifierNotFoundException Time specifier not provided in command.
      * @throws EmptyTimeDetailException       Time detail not provided in command.
+     * @throws DateTimeParseException         Date provided is not in ISO8601 format.
      */
     private AddCommand prepareAddEvent(String[] separatedCommand)
             throws TimeSpecifierNotFoundException, EmptyDescriptionException, EmptyTimeDetailException,
@@ -234,6 +237,13 @@ public class Parser {
         return new AddCommand(new Event(description, at));
     }
 
+    /**
+     * Extract search term from user command.
+     *
+     * @param separatedCommand String array of each word in user input.
+     * @return String search term.
+     * @throws EmptySearchTermException No search term was provided.
+     */
     private String extractSearchTerm(String[] separatedCommand) throws EmptySearchTermException {
         if (separatedCommand.length == 1) {
             throw new EmptySearchTermException();

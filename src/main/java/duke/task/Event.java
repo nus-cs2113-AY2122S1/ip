@@ -9,6 +9,12 @@ public class Event extends Task {
      */
     private LocalDate at;
 
+    /**
+     * Create a new Event task.
+     *
+     * @param description String description of the Deadline.
+     * @param at          LocalDate object of the due date.
+     */
     public Event(String description, LocalDate at) {
         super(description);
         super.setType("E");

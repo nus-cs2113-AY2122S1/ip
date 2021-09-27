@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    /** List of tasks to manage */
+    /**
+     * List of tasks to manage
+     */
     private final ArrayList<Task> taskList = new ArrayList<>();
 
     /**
@@ -25,6 +27,11 @@ public class TaskList {
         return (taskIndex >= 0) && (taskIndex < getTotalTasks());
     }
 
+    /**
+     * Returns the total number of tasks in the task list.
+     *
+     * @return Number of total tasks in the task list.
+     */
     public int getTotalTasks() {
         return taskList.size();
     }
@@ -33,9 +40,9 @@ public class TaskList {
      * Get the task with the specified index from the task list.
      *
      * @param taskIndex Index of the task in the task list.
-     * @throws TaskListEmptyException Task list is empty.
+     * @return The task according index provided.
+     * @throws TaskListEmptyException    Task list is empty.
      * @throws InvalidTaskIndexException Task index provided is not within task list size.
-     * @return Task.
      */
     public Task getTask(int taskIndex) throws TaskListEmptyException, InvalidTaskIndexException {
         if (getTotalTasks() == 0) {
@@ -61,7 +68,7 @@ public class TaskList {
      *
      * @param taskIndex Index of task.
      * @throws InvalidTaskIndexException Task index provided is not within task list size.
-     * @throws TaskListEmptyException Task list is empty.
+     * @throws TaskListEmptyException    Task list is empty.
      */
     public void markTaskAsDone(int taskIndex) throws InvalidTaskIndexException, TaskListEmptyException {
         if (!hasTaskIndex(taskIndex)) {
@@ -78,7 +85,7 @@ public class TaskList {
      *
      * @param taskIndex Index of task.
      * @throws InvalidTaskIndexException Task index provided is not within task list size.
-     * @throws TaskListEmptyException Task list is empty.
+     * @throws TaskListEmptyException    Task list is empty.
      */
     public void deleteTask(int taskIndex) throws InvalidTaskIndexException, TaskListEmptyException {
         if (!hasTaskIndex(taskIndex)) {

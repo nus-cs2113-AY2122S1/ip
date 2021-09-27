@@ -17,15 +17,30 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the type, status and description of the task.
+     *
+     * @return String of type, status and description of the task.
+     */
     @Override
     public String toString() {
         return "[" + getType() + "][" + getStatusIcon() + "] " + getDescription();
     }
 
+    /**
+     * Returns the description of the task with due date or event date if applicable.
+     *
+     * @return String description of the task.
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Returns the description of the task without due date or event date.
+     *
+     * @return String description of the task.
+     */
     public String getRawDescription() {
         return description;
     }
@@ -40,10 +55,19 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Returns task type.
+     *
+     * @return String of task's type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Set task's type.
+     * @param type String of task type.
+     */
     public void setType(String type) {
         this.type = type;
     }
