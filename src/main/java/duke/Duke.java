@@ -19,7 +19,7 @@ import java.util.Scanner;
  * from the {@code addressbook-level2} Java application on GitHub.
  * <p>
  * The code for {@code addressbook-level2} can be found at the following link:
- * <a href="#{@link}">{@link https://github.com/se-edu/addressbook-level2}</a>
+ * <a href="https://github.com/se-edu/addressbook-level2">{@link https://github.com/se-edu/addressbook-level2}</a>
  *
  * @author Peh Zhenhao, Amos
  * @version 0.2
