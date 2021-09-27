@@ -144,7 +144,6 @@ public abstract class InputParser {
         if (!input.contains(BY)) {
             return Errors.MISSING_BY;
         }
-
         // check if it contains a task name
         if (splitString.length <= 2) {
             return Errors.MISSING_TASK;
@@ -174,6 +173,17 @@ public abstract class InputParser {
         // check if there is a date after /by i.e. if last element is by
         if (input.endsWith(AT)) {
             return Errors.MISSING_EVENT;
+        }
+        return Errors.NONE;
+    }
+
+    public static Errors checkDeleteAndDoneCommand(String input) {
+        String[] splitString = input.split("\\s");
+        if (splitString.length <= 1) {
+            return Errors.INCOMPLETE_COMMAND;
+        }
+        if (Integer.parseInt(splitString[1]) < 0 || Integer.parseInt(splitString[1]) > 99) {
+            return Errors.OUT_OF_BOUNDS_INDEX;
         }
         return Errors.NONE;
     }

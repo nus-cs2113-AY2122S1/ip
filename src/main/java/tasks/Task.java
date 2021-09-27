@@ -1,6 +1,9 @@
 package tasks;
 
-public class Task {
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+public abstract class Task {
     protected boolean isDone;
     protected String taskName;
 
@@ -36,6 +39,9 @@ public class Task {
     public String getPrefix() {
         return "[ ]";
     }
+
+    // date for each instance;
+    public abstract LocalDate getTaskDate();
 
     // override tostring method
     @Override

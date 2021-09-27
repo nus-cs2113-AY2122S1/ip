@@ -74,7 +74,7 @@ public abstract class MessagePrinter {
     // if taskIndex is out of bounds
     public static void outOfBoundsTaskIndex() {
         dashes();
-        System.out.println("Apologies sir, there is no such task in your list.");
+        System.out.println("Apologies sir, the number you entered is not within the range of my memory.");
         dashes();
     }
 
@@ -131,6 +131,12 @@ public abstract class MessagePrinter {
     public static void missingDate(String type) {
         dashes();
         System.out.println("May I know the date for this " + type + " sir?");
+        dashes();
+    }
+
+    public static void invalidDate() {
+        dashes();
+        System.out.println("Sir you modelled me to read dates in the format yyyy-mm-dd");
         dashes();
     }
 

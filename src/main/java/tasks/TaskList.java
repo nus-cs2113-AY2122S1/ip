@@ -10,6 +10,8 @@ import parser.InputParser;
 import ui.MessagePrinter;
 import storage.UpdateData;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -17,7 +19,6 @@ public class TaskList {
 
     // Operations to add/delete tasks in list eg. addToDo, addDeadline
     /**
-     *
      * @throws EmptyListException
      * Function to print out the current Task List
      * Shift inside COMMANDS package as own Java class
@@ -32,7 +33,6 @@ public class TaskList {
     }
 
     /**
-     *
      * @param newTask Task object of new Task to add to list
      * @param taskName name of task to print out
      * Function to add a new task to the list
@@ -53,8 +53,6 @@ public class TaskList {
         MessagePrinter.removeTask(taskName, tasks.size());
     }
 
-    // catch exception for not enough parameters
-    // Extend addTask in (super(addTask))
     public static Task addToDo(String userInput, boolean isDone, boolean isLoad) throws EmptyTaskNameException {
         String[] splitString = userInput.split("\\s");
         if (splitString.length <= 1) {
@@ -71,7 +69,8 @@ public class TaskList {
             IncompleteCommandException,
             EmptyTaskNameException,
             MissingKeyWordException,
-            MissingDateException {
+            MissingDateException,
+            DateTimeParseException {
         // check validity of deadline string
         Errors checkDeadline = InputParser.checkDeadlineCommand(userInput);
         switch (checkDeadline) {
@@ -84,10 +83,15 @@ public class TaskList {
         case MISSING_DEADLINE:
             throw new MissingDateException("deadline");
         }
-        // get taskName
+        // get taskName and date
         String taskName = InputParser.getTaskName(userInput);
-        // get deadline; catch exception for no deadline
         String deadline = InputParser.getDate(userInput);
+        try {
+            LocalDate.parse(deadline);
+        } catch (DateTimeParseException e) {
+            MessagePrinter.invalidDate();
+            return null;
+        }
         Deadline newDeadline = new Deadline(isDone, taskName, deadline);
         addTask(newDeadline, taskName, isLoad);
         return newDeadline;
@@ -110,10 +114,15 @@ public class TaskList {
         case MISSING_EVENT:
             throw new MissingDateException("event");
         }
-        // get taskName
+        // get taskName and date
         String taskName = InputParser.getTaskName(userInput);
-        // get event date; catch exception for no event date
         String eventDate = InputParser.getDate(userInput);
+        try {
+            LocalDate.parse(eventDate);
+        } catch (DateTimeParseException e) {
+            MessagePrinter.invalidDate();
+            return null;
+        }
         Event newEvent = new Event(isDone, taskName, eventDate);
         addTask(newEvent, taskName, isLoad);
         return newEvent;
@@ -121,14 +130,15 @@ public class TaskList {
 
     // function to remove a task from the list of tasks
     // COMMAND "delete index"
-    public static void deleteTask(String userInput) throws IndexOutOfBoundsException, InvalidTaskIndexException {
-        int taskIndex = InputParser.getTaskIndex(userInput);
-
-        // catch exception for task being out of bounds
-        if (taskIndex < 0 || taskIndex > 99) {
+    public static void deleteTask(String userInput) throws IncompleteCommandException, InvalidTaskIndexException {
+        Errors checkTaskIndex = InputParser.checkDeleteAndDoneCommand(userInput);
+        switch (checkTaskIndex) {
+        case INCOMPLETE_COMMAND:
+            throw new IncompleteCommandException();
+        case OUT_OF_BOUNDS_INDEX:
             throw new IndexOutOfBoundsException();
         }
-
+        int taskIndex = InputParser.getTaskIndex(userInput);
         // change task to done
         Task currTask = tasks.get(taskIndex);
         if (currTask == null) {
@@ -139,15 +149,16 @@ public class TaskList {
         UpdateData.rewriteList(tasks);
     }
 
-    public static void markAsDone(String userInput) throws IndexOutOfBoundsException, InvalidTaskIndexException {
-        // get index of task to chang
-        int taskIndex = InputParser.getTaskIndex(userInput);
-
-        // catch exception for task being out of bounds
-        if (taskIndex < 0 || taskIndex > 99) {
+    public static void markAsDone(String userInput) throws IncompleteCommandException, InvalidTaskIndexException {
+        Errors checkTaskIndex = InputParser.checkDeleteAndDoneCommand(userInput);
+        switch (checkTaskIndex) {
+        case INCOMPLETE_COMMAND:
+            throw new IncompleteCommandException();
+        case OUT_OF_BOUNDS_INDEX:
             throw new IndexOutOfBoundsException();
         }
-
+        // get index of task to change
+        int taskIndex = InputParser.getTaskIndex(userInput);
         // change task to done
         Task currTask = tasks.get(taskIndex);
         if (currTask == null) {
