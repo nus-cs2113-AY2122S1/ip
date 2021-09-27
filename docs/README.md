@@ -13,7 +13,7 @@ you manage your daily tasks faster than traditional GUI application.
   - [Listing all tasks:](#listing-all-tasks-list)
   - [Marking a task as done:](#marking-a-task-as-done-done)
   - [Deleting a task:]()
-  - [Finding a task:]()
+  - [Finding a task with a keyword:]()
   - [Exiting the application:]()
 
 ## Quick Start
@@ -61,8 +61,8 @@ Format: `help`
 ### Todo: `todo`
 Adds a **todo** task to the tasklist.
 
-Format: `todo <task description>`
-- `task description`: details of the todo task
+Format: `todo [description]`
+- `[description]`: specifies the details of the todo
 
 Example: `todo read book`
 - Adds a todo task with description `read book` to the tasklist
@@ -81,9 +81,9 @@ Expected Outcome:
 ### Deadline: `deadline`
 Adds a **deadline** task to the tasklist.
 
-Format: `deadline <task description> /by <task date&time>`
-- `<task description>`: details of the deadline
-- `<task date&time>`: due date of the deadline
+Format: `deadline [description] /by [due date]`
+- `[description]`: specifies the details of the deadline
+- `[due date]`: specifies when the deadline is due 
 
 Example: `deadline return book /by June 6th`
 - Adds a deadline task with description `return book` and due date `June 6th` to the tasklist
@@ -103,8 +103,8 @@ Expected Outcome:
 Adds a **event** task to the tasklist.
 
 Format: `event <task description> /at <task date&time>`
-- `<task description>`: details of the event
-- `<task date&time>`: occurrence of the event
+- `<task description>`: specifies the details of the event
+- `<task date&time>`: specifies when the event occurs
 
 Example: `event project meeting /at Aug 6th 2-4pm`
 - Creates an event task with description `project meeting` and occurs at `Aug 6th 2-4pm` to the tasklist
@@ -124,15 +124,19 @@ Expected Outcome:
 Lists all tasks in the tasklist.
 
 Format: `list`
-- This command displays the following information for each task:
-  - **Task ID**: a number that identifies a task
-  - **Task Type**: an alphabet that identifies a task type
-    - Todo is represented by [T]
-    - Deadline is represented by [D]
-    - Event is represented by [E]
-  - **Task Completed Status**: an 'X' will be marked if the task is completed, else it will be empty.
-  - **Task Description**: details of the task
-  - **Task Due-dates**: due date or occurrence of a task (only applicable for deadline/event)
+- The command displays the following information for each task:
+  - **Task id**: 
+    - A positive integer i.e. `1.` to identify the task
+  - **Task type**:
+    - A task can be either Todo, Deadline or Event and is represented with the first letter of their task type
+    - `[T]` represents a Todo
+    - `[D]` represents a Deadline
+    - `[E]` represents a Event
+  - **Whether the task is done**:
+    - A completed task is identified as `[X]`
+    - An incomplete task is identified as `[ ]`
+  - **Task description**:
+    - General details of the task
 
 Expected Outcome:
 ```
@@ -151,10 +155,12 @@ Expected Outcome:
 Marks an existing task in the tasklist as **done**.
 
 Format: `done <task ID>`
-- `<task ID>`: a numerical ID of task to be marked as done
+- Mark a task with the specified `<task ID>` as done.
+- The task ID refers to the index number shown in the displayed tasklist when the `list` command is entered.
+- The task ID **must be a positive integer 1, 2, 3...**
 
 Example: done 1
-- Marks the task with task ID = 1 as done in the tasklist
+- Marks the task with task ID equals to 1 as done in the tasklist.
 
 Expected Outcome:
 ```
@@ -165,26 +171,18 @@ Expected Outcome:
 => Burrrp! I've marked this task as done:
    <[T][X] read book>
 => You have done 1/3 tasks in your list.
-
-[You]:
-=> list
-
-[Duke]:
-=> Ahh! Here are the tasks in your list:
-1.[T][X] read book
-2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting (at: Aug 6th 2-4pm)
-=> You have done 1/3 tasks in your list.
 ```
 
 ### Deleting a task: `delete`
 Deletes an existing task in the tasklist.
 
 Format: `delete <task ID>`
-- `<task ID>`: a numerical ID of task to be deleted
+- Deletes a task with the specified `<task ID>`.
+- The task ID refers to the index number shown in the displayed tasklist when the `list` command is entered.
+- The task ID **must be a positive integer 1, 2, 3...**
 
 Example: delete 1
-- Deletes the task with task ID = 1 in the tasklist
+- Deletes the task with task ID equals to 1 in the tasklist.
 
 Expected Outcome:
 ```
@@ -195,16 +193,9 @@ Expected Outcome:
 => Blaargh! I've deleted this task from the list:
    <[T][X] read book>
 => Now you have 2 tasks in your list.
-
-[You]:
-=> list
-
-[Duke]:
-=> Ahh! Here are the tasks in your list:
-1.[D][ ] return book (by: June 6th)
-2.[E][ ] project meeting (at: Aug 6th 2-4pm)
-=> You have done 0/2 tasks in your list.
 ```
+
+
 
 
 
