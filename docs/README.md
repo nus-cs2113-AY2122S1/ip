@@ -23,17 +23,6 @@ Duke is a **Java Command Line Interface (CLI) program for managing your daily ta
 4. Using your terminal, navigate to the directory where you save the `ip.jar` file.
 5. Run `java -jar ip.jar`
 6. You should see a welcome message.
-```
-   Hello from
- ____        _        
-|  _ \ _   _| | _____
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
- Hello! I'm Duke
- What can I do for you?
-```
 
 ## Features
 
