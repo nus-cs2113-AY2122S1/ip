@@ -42,6 +42,8 @@ public class HalUi {
     public static final String PRINT_FIND_FAIL_MESSAGE = "I could not find your task :(";
     public static final String INVALID_NUMBER_ERROR = "Your input wasn't an integer! Write a valid number";
     public static final String INVALID_RANGE_ERROR = "The index you specified is outside the size of the list";
+    public static final String INVALID_DATE_ERROR = "The date you entered is not in the following format: yyyy-mm-dd\n" +
+            "The current date has been set instead";
 
     Scanner sc = new Scanner(System.in);
 
@@ -113,6 +115,10 @@ public class HalUi {
 
     public void printNumItemsMessage(int num) {
         System.out.println("You now have " + num + " task(s) in your list!");
+    }
+
+    public void printInvalidDateMessage() {
+        System.out.println(INVALID_DATE_ERROR);
     }
 
     public void printDeleteMessage(Task tempTask) {

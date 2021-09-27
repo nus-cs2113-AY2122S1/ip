@@ -5,6 +5,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class StorageDataParser {
@@ -20,7 +21,7 @@ public class StorageDataParser {
         String taskDescription = "";
         String isDone = "";
         String taskType = "";
-        String taskTimings = "";
+        LocalDate taskTimings = LocalDate.now(); //defaults to current time
         StringBuilder savedString = new StringBuilder();
 
         for (int i = 0; i < listTasks.size(); i++) {
@@ -44,7 +45,7 @@ public class StorageDataParser {
                     .append(SPACE_AND_SEPARATOR)
                     .append(taskDescription)
                     .append(SPACE_AND_SEPARATOR)
-                    .append(taskTimings)
+                    .append(taskTimings.toString())
                     .append(System.lineSeparator());
         }
         return savedString.toString();
