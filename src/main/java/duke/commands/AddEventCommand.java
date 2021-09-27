@@ -5,9 +5,9 @@ import duke.tasks.TaskList;
 import duke.tasks.Event;
 import duke.parser.Parser;
 import duke.ui.Ui;
-import duke.exceptions.DateTimeFormatException;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Adds an Event Task
@@ -41,7 +41,7 @@ public class AddEventCommand extends Command {
                 ui.acknowledgeAddedTask(newEvent, taskListSize);
             } catch (StringIndexOutOfBoundsException e) {
                 ui.displayDelimiterErrorMessage();
-            } catch (DateTimeFormatException e) {
+            } catch (DateTimeParseException e) {
                 ui.displayInvalidDateTimeFormatResponse();
             }
         }

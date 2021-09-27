@@ -1,6 +1,5 @@
 package duke.commands;
 
-import duke.exceptions.DateTimeFormatException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.Deadline;
@@ -10,6 +9,7 @@ import duke.tasks.TaskList;
 import duke.ui.Ui;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -53,7 +53,7 @@ public class ScheduleCommand extends Command {
                     output = output + " " + i + "." + scheduledTasks.get(i - 1).toString() + "\n";
                 }
                 ui.printOutput(output);
-            } catch (DateTimeFormatException e) {
+            } catch (DateTimeParseException e) {
                 ui.displayInvalidDateFormatResponse();
             }
 

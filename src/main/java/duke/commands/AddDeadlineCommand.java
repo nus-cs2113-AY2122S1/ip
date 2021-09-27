@@ -5,9 +5,9 @@ import duke.tasks.TaskList;
 import duke.tasks.Deadline;
 import duke.parser.Parser;
 import duke.ui.Ui;
-import duke.exceptions.DateTimeFormatException;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Adds a Deadline Task
@@ -36,12 +36,14 @@ public class AddDeadlineCommand extends Command {
                 LocalDateTime dateTime = Parser.parseDateTime(by);
                 Deadline newDeadline = new Deadline(description, dateTime);
                 tasks.addTask(newDeadline);
+
                 Storage.saveData(tasks);
+
                 int taskListSize = tasks.sizeOfTaskList();
                 ui.acknowledgeAddedTask(newDeadline, taskListSize);
             } catch (StringIndexOutOfBoundsException e) {
                 ui.displayDelimiterErrorMessage();
-            } catch (DateTimeFormatException e) {
+            } catch (DateTimeParseException e) {
                 ui.displayInvalidDateTimeFormatResponse();
             }
         }

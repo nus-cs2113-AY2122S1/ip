@@ -12,7 +12,6 @@ import duke.commands.FindCommand;
 import duke.commands.HelpCommand;
 import duke.commands.ByeCommand;
 
-import duke.exceptions.DateTimeFormatException;
 import duke.exceptions.DukeException;
 import duke.tasks.Task;
 import duke.tasks.Todo;
@@ -22,7 +21,6 @@ import duke.tasks.Event;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Parser class handles all parsing of information.
@@ -173,14 +171,10 @@ public class Parser {
     }
 
         
-    public static LocalDateTime parseDateTime(String date) throws DateTimeFormatException {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-            return dateTime;
-        } catch (DateTimeParseException e) {
-            throw new DateTimeFormatException();
-        }
+    public static LocalDateTime parseDateTime(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+        return dateTime;
     }
 
     public static String getFormattedDateTime(LocalDateTime dateTime) {
@@ -188,14 +182,10 @@ public class Parser {
         return formattedDateTime;
     }
 
-    public static LocalDate parseDate(String date) throws DateTimeFormatException {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate parsedDate = LocalDate.parse(date, formatter);
-            return parsedDate;
-        } catch (DateTimeParseException e) {
-            throw new DateTimeFormatException();
-        }
+    public static LocalDate parseDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedDate = LocalDate.parse(date, formatter);
+        return parsedDate;
     }
 
     public static String getFormattedDate(LocalDate date) {
