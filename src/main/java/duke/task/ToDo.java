@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * ToDo object contains description of the ToDo
+ */
 public class ToDo extends Task {
     protected String description;
 

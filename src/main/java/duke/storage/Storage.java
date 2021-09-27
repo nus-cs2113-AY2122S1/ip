@@ -16,6 +16,12 @@ import java.util.Scanner;
 public class Storage {
     public static final String FILEPATH = "data/duke.txt";
 
+    /**
+     * Converts all task to string to write into duke.txt
+     *
+     * @param tasks ArrayList of tasks
+     * @throws IOException throws an IO exception
+     */
     public static void saveData(ArrayList<Task> tasks) throws IOException {
         checkDirectory();
         FileWriter file = new FileWriter(FILEPATH);
@@ -24,8 +30,13 @@ public class Storage {
         }
         file.close();
     }
+
+    /**
+     * Processes tasks from ArrayList of tasks and store in the save file
+     *
+     * @param tasks ArrayList of tasks
+     */
     public static void loadData(ArrayList<Task> tasks) {
-        //ArrayList<Task> tasks = new ArrayList<Task>();
         try {
             File file = new File(FILEPATH);
             Scanner s = new Scanner(file);
@@ -53,7 +64,7 @@ public class Storage {
                         task.setDone();
                     }
                     tasks.add(task);
-                } catch (InvalidFile e){
+                } catch (InvalidFile e) {
                     System.out.println("Invalid input in file");
                 }
             }
@@ -63,14 +74,19 @@ public class Storage {
         }
     }
 
-    public static void checkDirectory(){
-        try{
+    /**
+     * Check if directory exists
+     * If it does not exist then create a new file
+     * Print error message if file cannot be created
+     */
+    public static void checkDirectory() {
+        try {
             File directory = new File(FILEPATH);
-            if(!directory.exists()){
+            if (!directory.exists()) {
                 directory.getParentFile().mkdirs();
                 directory.createNewFile();
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
