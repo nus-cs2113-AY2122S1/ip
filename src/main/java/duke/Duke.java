@@ -10,11 +10,13 @@ import duke.command.Command;
 import duke.exception.UnknownCommandException;
 import duke.task.TaskList;
 import duke.task.exception.EmptyDescriptionException;
+import duke.task.exception.EmptySearchTermException;
 import duke.task.exception.EmptyTimeDetailException;
 import duke.task.exception.InvalidTaskIndexException;
 import duke.task.exception.TaskListEmptyException;
 import duke.task.exception.TimeSpecifierNotFoundException;
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
@@ -40,6 +42,8 @@ public class Duke {
             ui.printInvalidTaskIndexError();
         } catch (TaskListEmptyException e) {
             ui.printTaskListEmptyError();
+        } catch (DateTimeParseException e) {
+            ui.printSaveFileDateTimeFormatError();
         }
     }
 
@@ -69,7 +73,7 @@ public class Duke {
                 command.execute(taskList);
 
                 if (command instanceof ByeCommand) {
-                    return;
+                    break;
                 }
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 ui.printInvalidTaskIndexError();
@@ -81,8 +85,14 @@ public class Duke {
                 ui.printTimeDetailNotFoundError(timeSpecifier);
             } catch (TimeSpecifierNotFoundException e) {
                 ui.printTimeSpecifierNotFoundError(timeSpecifier);
+            } catch (DateTimeParseException e) {
+                ui.printDateTimeFormatError();
+            } catch (EmptySearchTermException e) {
+                ui.printEmptySearchTermError();
             }
         }
+
+        scanner.close();
     }
 
     public static void main(String[] args) {

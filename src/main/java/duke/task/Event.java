@@ -1,13 +1,15 @@
 package duke.task;
 
-import duke.task.Task;
+import java.time.LocalDate;
 
 public class Event extends Task {
 
-    /** Date and time of event. */
-    private String at;
+    /**
+     * Date and time of event.
+     */
+    private LocalDate at;
 
-    public Event(String description, String at) {
+    public Event(String description, LocalDate at) {
         super(description);
         super.setType("E");
         this.at = at;
@@ -18,7 +20,7 @@ public class Event extends Task {
         return super.getDescription() + " (at: " + getAt() + ")";
     }
 
-    public String getAt() {
+    public LocalDate getAt() {
         return at;
     }
 }

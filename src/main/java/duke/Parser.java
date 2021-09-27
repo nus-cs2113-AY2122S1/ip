@@ -5,6 +5,7 @@ import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
+import duke.command.FindCommand;
 import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.exception.UnknownCommandException;
@@ -12,8 +13,12 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 import duke.task.exception.EmptyDescriptionException;
+import duke.task.exception.EmptySearchTermException;
 import duke.task.exception.EmptyTimeDetailException;
 import duke.task.exception.TimeSpecifierNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Parser {
@@ -26,6 +31,7 @@ public class Parser {
     protected static final String COMMAND_DEADLINE = "deadline";
     protected static final String COMMAND_EVENT = "event";
     protected static final String COMMAND_DELETE = "delete";
+    protected static final String COMMAND_FIND = "find";
     protected static final String TIME_SPECIFIER_BY = "/by";
     protected static final String TIME_SPECIFIER_AT = "/at";
 
@@ -45,7 +51,7 @@ public class Parser {
      */
     public Command parse(String fullCommand)
             throws NumberFormatException, UnknownCommandException, EmptyDescriptionException, EmptyTimeDetailException,
-            TimeSpecifierNotFoundException {
+            TimeSpecifierNotFoundException, DateTimeParseException, EmptySearchTermException {
         String[] separatedCommand = fullCommand.split(" ");
         String userCommand = separatedCommand[0];
 
@@ -70,6 +76,10 @@ public class Parser {
         case COMMAND_DELETE:
             int deleteTaskIndex = Integer.parseInt(separatedCommand[1]) - 1;
             command = new DeleteCommand(deleteTaskIndex);
+            break;
+        case COMMAND_FIND:
+            String searchTerm = extractSearchTerm(separatedCommand);
+            command = new FindCommand(searchTerm);
             break;
         case COMMAND_HELP:
             command = new HelpCommand();
@@ -140,18 +150,20 @@ public class Parser {
      *
      * @param separatedCommand String array of each word in user input.
      * @param startIndex       Starting index of time detail in user input array.
-     * @return Time detail.
+     * @return LocalDate object of time detail.
      * @throws EmptyTimeDetailException Time detail not found in user input.
+     * @throws DateTimeParseException   Incorrect date format of time detail.
      */
-    private static String extractTimeDetail(String[] separatedCommand, int startIndex) throws EmptyTimeDetailException {
-        String timeDetail = String.join(" ",
+    private static LocalDate extractTimeDetail(String[] separatedCommand, int startIndex)
+            throws EmptyTimeDetailException, DateTimeParseException {
+        String timeDetailString = String.join(" ",
                 Arrays.copyOfRange(separatedCommand, startIndex, separatedCommand.length));
 
-        if (timeDetail.isBlank()) {
+        if (timeDetailString.isBlank()) {
             throw new EmptyTimeDetailException();
         }
 
-        return timeDetail;
+        return LocalDate.parse(timeDetailString);
     }
 
     /**
@@ -194,10 +206,11 @@ public class Parser {
      * @throws EmptyTimeDetailException       Time detail not provided in command.
      */
     private AddCommand prepareAddDeadline(String[] separatedCommand)
-            throws TimeSpecifierNotFoundException, EmptyDescriptionException, EmptyTimeDetailException {
+            throws TimeSpecifierNotFoundException, EmptyDescriptionException, EmptyTimeDetailException,
+            DateTimeParseException {
         int byIndex = getByIndex(separatedCommand);
         String description = extractDescription(separatedCommand, byIndex);
-        String by = extractTimeDetail(separatedCommand, byIndex + 1);
+        LocalDate by = extractTimeDetail(separatedCommand, byIndex + 1);
 
         return new AddCommand(new Deadline(description, by));
     }
@@ -212,11 +225,21 @@ public class Parser {
      * @throws EmptyTimeDetailException       Time detail not provided in command.
      */
     private AddCommand prepareAddEvent(String[] separatedCommand)
-            throws TimeSpecifierNotFoundException, EmptyDescriptionException, EmptyTimeDetailException {
+            throws TimeSpecifierNotFoundException, EmptyDescriptionException, EmptyTimeDetailException,
+            DateTimeParseException {
         int atIndex = getAtIndex(separatedCommand);
         String description = extractDescription(separatedCommand, atIndex);
-        String at = extractTimeDetail(separatedCommand, atIndex + 1);
+        LocalDate at = extractTimeDetail(separatedCommand, atIndex + 1);
 
         return new AddCommand(new Event(description, at));
+    }
+
+    private String extractSearchTerm(String[] separatedCommand) throws EmptySearchTermException {
+        if (separatedCommand.length == 1) {
+            throw new EmptySearchTermException();
+        }
+
+        String[] searchTerm = Arrays.copyOfRange(separatedCommand, 1, separatedCommand.length);
+        return String.join(" ", searchTerm);
     }
 }
