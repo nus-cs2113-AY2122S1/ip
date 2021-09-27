@@ -9,7 +9,7 @@ import duke.task.Event;
 import duke.task.Deadline;
 import java.time.LocalDate;
 
-final public class TaskParser {
+final public class Parser {
     static private List<Class<? extends Task>> taskTypes =
         new ArrayList<Class<? extends Task>>();
 
