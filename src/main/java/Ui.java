@@ -62,7 +62,7 @@ public class Ui {
             System.out.println("find:\n Finds tasks containing a specific keyword.");
             System.out.println("Format:\n find (keyword)");
             break;
-            case "delete":
+        case "delete":
             System.out.println("delete:\n Deletes a task.");
             System.out.println("Format:\n delete (index)");
             break;
@@ -73,7 +73,7 @@ public class Ui {
             System.out.println("bye:\n Terminates the program.");
             break;
         case "help":
-            System.out.println("Type help (command) to show more.\nAvailable commands: done, todo, deadline, event, delete, list, bye, help (displays this message)");
+            System.out.println("Type help (command) to show more.\nAvailable commands: done, todo, deadline, event, delete, find, list, bye, help (displays this message)");
             break;
         default:
             System.out.println("Formatting error");
