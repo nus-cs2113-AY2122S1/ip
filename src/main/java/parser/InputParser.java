@@ -1,10 +1,12 @@
 package parser;
+
 import FridayExceptions.EmptyListException;
 import FridayExceptions.MissingKeyWordException;
 import FridayExceptions.MissingDateException;
 import FridayExceptions.EmptyTaskNameException;
 import FridayExceptions.InvalidTaskIndexException;
 import FridayExceptions.IncompleteCommandException;
+import FridayExceptions.MissingQueryException;
 import enums.Commands;
 import enums.Errors;
 import storage.UpdateData;
@@ -22,6 +24,7 @@ public abstract class InputParser {
     private static final String DELETE = "delete";
     private static final String DONE = "done";
     private static final String DEADLINE = "deadline";
+    private static final String FIND = "find";
     private static final String BY= "/by";
     private static final String AT = "/at";
 
@@ -62,6 +65,9 @@ public abstract class InputParser {
                 case DELETE:
                     TaskList.deleteTask(userInput);
                     break;
+                case FIND:
+                    TaskList.findTasks(userInput);
+                    break;
                 case DONE:
                     TaskList.markAsDone(userInput);
                     break;
@@ -80,6 +86,8 @@ public abstract class InputParser {
                 MessagePrinter.missingKeyWord(e.getKeyword());
             } catch (MissingDateException e) {
                 MessagePrinter.missingDate(e.getType());
+            } catch(MissingQueryException e) {
+                MessagePrinter.missingQuery();
             }
         }
     }
@@ -97,6 +105,10 @@ public abstract class InputParser {
     // get index of task in tasks array to mark as done
     public static int getTaskIndex(String input) {
         return Integer.parseInt(input.substring(input.indexOf(" ") + 1)) - 1;
+    }
+
+    public static String getQuery(String input) {
+        return input.substring(input.indexOf(" ") + 1).trim();
     }
 
     // command parser handling all commands; returns enum of commands
@@ -128,6 +140,10 @@ public abstract class InputParser {
 
         if (input.startsWith(DONE)) {
             return Commands.DONE;
+        }
+
+        if (input.startsWith(FIND)) {
+            return Commands.FIND;
         }
 
         return Commands.INVALID;
@@ -185,6 +201,14 @@ public abstract class InputParser {
         }
         if (Integer.parseInt(splitString[1]) < 0 || Integer.parseInt(splitString[1]) > 99) {
             return Errors.OUT_OF_BOUNDS_INDEX;
+        }
+        return Errors.NONE;
+    }
+
+    public static Errors checkFindCommand(String input) {
+        String[] splitString = input.split("\\s");
+        if (splitString.length <= 1) {
+            return Errors.MISSING_QUERY;
         }
         return Errors.NONE;
     }

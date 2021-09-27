@@ -5,6 +5,7 @@ import FridayExceptions.MissingDateException;
 import FridayExceptions.EmptyTaskNameException;
 import FridayExceptions.InvalidTaskIndexException;
 import FridayExceptions.IncompleteCommandException;
+import FridayExceptions.MissingQueryException;
 import enums.Errors;
 import parser.InputParser;
 import ui.MessagePrinter;
@@ -48,7 +49,7 @@ public class TaskList {
 
     private static void removeTask(Task taskToRemove, String taskName) {
         tasks.remove(taskToRemove);
-        MessagePrinter.removeTask(taskName, tasks.size());
+        MessagePrinter.removedTask(taskName, tasks.size());
     }
 
     // catch exception for not enough parameters
@@ -156,5 +157,24 @@ public class TaskList {
         currTask.setDone(true);
         MessagePrinter.taskMarkedAsDone(currTask);
         UpdateData.rewriteList(tasks);
+    }
+
+    public static void findTasks(String userInput) throws MissingQueryException {
+        ArrayList<Task> filteredList = new ArrayList<Task>();
+
+        if (InputParser.checkFindCommand(userInput) == Errors.MISSING_QUERY) {
+            throw new MissingQueryException();
+        }
+
+        String query = InputParser.getQuery(userInput);
+
+        for (Task task : tasks) {
+            if (task.getTaskName().contains(query)) {
+                filteredList.add(task);
+            }
+        }
+
+        MessagePrinter.filteredTasks(filteredList);
+
     }
 }
