@@ -159,7 +159,7 @@ Expected Outcome:
 ```
 
 ### 2.4 Marking a task as done: `done`
-Marks an existing task in the tasklist as **done**.
+Marks an existing task in the tasklist as done.
 
 Format: `done [task ID]`
 - Mark a task with the specified `[task ID]` as done.
