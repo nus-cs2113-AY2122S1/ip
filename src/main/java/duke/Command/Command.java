@@ -16,6 +16,7 @@ public abstract class Command {
     protected static final String COMMAND_ADD_EVENT = "event";
     protected static final String COMMAND_ADD_DEADLINE = "deadline";
     protected static final String COMMAND_DELETE = "delete";
+    protected static final String COMMAND_FIND_WORD = "find";
     protected static final String EVENT_TIME = "at ";
     protected static final String DEADLINE_DATE = "by ";
     protected static final String MESSAGE_TASK_COMPLETE = "Nice! I've marked this task as done: ";
