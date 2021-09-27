@@ -16,6 +16,12 @@ public class Storage {
     private static final java.nio.file.Path FILE_PATH = java.nio.file.Paths.get(CURRENT_DIRECTORY);
     private static final TaskList FILE_TASK_LIST = new TaskList();
 
+    /**
+     * Initialises the task list according to the contents of the file.
+     * Returns the task list.
+     *
+     * @return Returns the task list initialised based on the contents of the file.
+     */
     public static TaskList initialiseFile() {
         try {
             //get the file, else create file if it does not exist.
@@ -31,11 +37,21 @@ public class Storage {
         return FILE_TASK_LIST;
     }
 
+    /**
+     * Clears the output and start a fresh command line screen.
+     */
     private static void clearOutput() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
+    /**
+     * Reads the file if it exists or creates the file if it does not.
+     * Returns a File type of the file containing the existing task lists.
+     *
+     * @return Returns a File type of the file containing the existing task lists.
+     * @throws IOException If the file cannot be read or created.
+     */
     private static File getTaskFile() throws IOException {
         File taskFile = new File(FILE_PATH + "/taskLists.txt");
         if (taskFile.createNewFile()) {
@@ -46,6 +62,12 @@ public class Storage {
         return taskFile;
     }
 
+    /**
+     * Reads and initialises the task list based on the content of the file.
+     *
+     * @param fileList The content of the file.
+     * @throws DukeException If there is an error initialising the task list.
+     */
     private static void readAndExtractFile(Scanner fileList) throws DukeException {
         while (fileList.hasNextLine()) {
             String data = fileList.nextLine();
@@ -55,7 +77,6 @@ public class Storage {
             String taskDescription = splittedData[2];
             String taskCommand;
             Command command;
-
             switch (taskType) {
             case "D":
                 taskCommand = "deadline " + taskDescription;
@@ -79,6 +100,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates and overwrite the existing file with a new task list.
+     * @param taskList A new updated task list.
+     * @throws IOException If the write operation to the file fails.
+     */
     public static void updateFile(TaskList taskList) throws IOException {
         FileWriter taskWriter = new FileWriter(FILE_PATH + "/taskLists.txt", false);
         for (Task task : taskList.getEntireList()) {
@@ -90,6 +116,13 @@ public class Storage {
         taskWriter.close();
     }
 
+    /**
+     * Returns the task status in a string.
+     * "1" if the task is marked as done and "0" otherwise.
+     *
+     * @param task Task whose status is queried.
+     * @return Returns the task status in a string format.
+     */
     private static String getTaskStatus(Task task) {
         if (task.getStatusIcon().equals("[X] ")) {
             return "1";
@@ -97,6 +130,12 @@ public class Storage {
         return "0";
     }
 
+    /**
+     * Returns the abbreviation of the task type.
+     *
+     * @param task Task whose task type is queried.
+     * @return Returns the abbreviation of the task according to its task type.
+     */
     private static String getTaskAbbreviation(Task task) {
         if (task instanceof Todo) {
             return "T";

@@ -8,6 +8,10 @@ public class InvalidCommand extends Command{
             + "\tPlease enter a valid input!" + System.lineSeparator()
             + "\ti.e. todo, deadline, event, list, done or bye.";
 
+    /**
+     * Throws an invalid input message.
+     * @throws DukeException When this command type is being initialised.
+     */
     public InvalidCommand() throws DukeException {
         throw new DukeException(INVALID_INPUT_MESSAGE);
     }
