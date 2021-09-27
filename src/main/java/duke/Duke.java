@@ -10,12 +10,19 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * The class that contains the main code for the execution of the Duke Program.
+ */
 public class Duke {
 
     private final Storage storage;
     private final Ui ui;
     private final TaskList tasks;
 
+    /**
+     * Creates a Duke object to run the application. It also tries to find and load
+     * the text file duke.txt.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage();
@@ -40,6 +47,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Repeats the process of getting an input from the user, creating a Parser to parse
+     * the input, creating a Command object based on the input, then executing the command
+     * and showing the command output to the user. Stops when an ExitCommand is created.
+     */
     public void run(){
         Command command = null;
         while (!(command instanceof ExitCommand)){
@@ -64,6 +76,13 @@ public class Duke {
         new Duke().run();
     }
 
+    /**
+     * Passes the tasks to the command and tries to execute the command. Returns
+     * appropriate error messages if execution fails.
+     *
+     * @param command Command that needs to be executed.
+     * @return Message and actions from the execution of the command.
+     */
     private CommandResult executeCommand(Command command) {
         String errorMessage;
         try {
@@ -71,7 +90,7 @@ public class Duke {
             return command.execute();
 
         } catch (IndexOutOfBoundsException error) {
-            errorMessage = Message.getSensibleRange(Task.getTotalTasks());
+            errorMessage = Message.giveSensibleRange(Task.getTotalTasks());
 
         } catch (NumberFormatException error) {
             errorMessage = Message.PROMPT_NUMBER;

@@ -1,9 +1,11 @@
 package commands;
 
 import duke.DefaultException;
-import duke.DukeException;
 import task.*;
 
+/**
+ * A Command class that contains methods for adding tasks to the ArrayList.
+ */
 public class AddCommand extends Command{
 
     private static final int EXPECTED_LENGTH_FOR_EVENT_AND_DEADLINE = 2;
@@ -18,6 +20,14 @@ public class AddCommand extends Command{
         this.type = type;
     }
 
+    /**
+     * Creates a task object and adds it to the ArrayList depending on the type of task.
+     *
+     * @return A CommandResult that tells the Ui to print the status of the execution
+     * and the task added.
+     * @throws DefaultException Throws a DefaultException if something unexpected happens.
+     */
+    @Override
     public CommandResult execute() throws  DefaultException {
         switch(type){
         case TODO:

@@ -2,6 +2,9 @@ package commands;
 
 import static ui.Ui.INDENTATION;
 
+/**
+ * A Command class that send the help message to the Ui
+ */
 public class HelpCommand extends Command{
     private static final String HELP_MESSAGE = "list\n" +INDENTATION +
             "- Shows you the list of tasks you have\n\n" +INDENTATION +
@@ -16,6 +19,11 @@ public class HelpCommand extends Command{
             "done (insert number)\n" + INDENTATION +
             "- Marks the task with the corresponding number as done";
 
+    /**
+     * Sends the help message to the Ui
+     * @return A CommandResult that tells the Ui to print the help message.
+     */
+    @Override
     public CommandResult execute() {
         return new CommandResult(HELP_MESSAGE,PrintOptions.DEFAULT);
     }

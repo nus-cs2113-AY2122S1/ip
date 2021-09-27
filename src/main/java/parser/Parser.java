@@ -1,9 +1,20 @@
 package parser;
 
-import commands.*;
+import commands.AddCommand;
+import commands.DoneCommand;
+import commands.ListCommand;
+import commands.IncorrectCommand;
+import commands.HelpCommand;
+import commands.ExitCommand;
+import commands.DeleteCommand;
+import commands.Command;
+
 import constants.Message;
 import task.TaskType;
 
+/**
+ * A class for parsing the input to determine the command to execute
+ */
 public class Parser {
 
     private static final String DEADLINE_DESCRIPTION_AND_DATE_SPLITTER = " /by ";
@@ -12,6 +23,15 @@ public class Parser {
     private static final int DEADLINE_STARTING_INDEX = 9;
     private static final int EVENT_STARTING_INDEX = 6;
 
+    /**
+     * Parses the input to determine the required Command object to be created.
+     * The command returned depends on the first word of the input before the
+     * first space. If the first word does not match any of the cases, a default
+     * error message is returned with the prompt to type 'help'.
+     *
+     * @param input Input from user
+     * @return Certain type of command depending on the input
+     */
     public Command parseInputForDifferentTask(String input) {
         String type = input.split(" ")[0].toLowerCase();
         switch(type) {
@@ -48,6 +68,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Further parses the input to create a different AddCommand Object for different task
+     * types. Returns an error message if something unexpected happens.
+     *
+     * @param input Input from the user
+     * @param type Type of task
+     * @return AddCommand object with a different parsed Output depending on the type of task
+     * @throws StringIndexOutOfBoundsException If the format of the input is incorrect
+     */
     private Command prepareAddCommand(String input,TaskType type) throws StringIndexOutOfBoundsException{
         String description;
         String parsedOutput[];
