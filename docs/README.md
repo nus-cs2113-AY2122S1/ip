@@ -34,10 +34,11 @@ Duke is an application for users to manage and track Tasks via a Command Line In
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
-____________________________________________________________
+_________________________________________________________________
  Hello! I'm Duke
  What can I do for you?
-____________________________________________________________
+ Type `help` to display help message
+_________________________________________________________________
 
 ```
 
@@ -277,7 +278,7 @@ _________________________________________________________________
 
 ### Data Storage
 Duke will automatically saves the data in 'data/duke.txt' after safely terminating Duke through the `bye` command. Duke will automatically load from 'data/duke.txt' on startup if it exists.
-
+  
 ### Data Editing
 Duke's data is saved in `data/duke.txt`. It is saved in a specifc format with fields delimited by a pipe `|`are saved by a pipe. It is **NOT** recommended to directly edit from this file unless you know exactly what you are doing. 
 
