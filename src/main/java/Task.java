@@ -1,8 +1,9 @@
 public class Task {
-    protected String item;
+    protected String description;
     protected boolean complete;
+
     public Task(String description) {
-        this.item = description;
+        this.description = description;
         this.complete = false;
     }
     public void markComplete() {
@@ -10,27 +11,20 @@ public class Task {
     }
     public String getStatus() {
         if (complete) {
-            return "X";
+            return "[X]";
         }
-        return " ";
+        return "[ ]";
     }
     public String getDescription() {
-        return item;
+        return description;
     }
-
-    public String getOriginalInput() {
-        return item;
-    }
-
     public String getType() {
-        return " ";
+        return "T";
     }
-
     public String toString() {
-        if (complete) {
-            return "[X] " + item;
-        }
-        return "[ ] " + item;
+        return "[T]" + getStatus() + description;
     }
-
+    public String getTime() {
+        return "";
+    }
 }

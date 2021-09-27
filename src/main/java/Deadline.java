@@ -1,22 +1,16 @@
 public class Deadline extends Task{
     protected String by;
-    protected String originalInput;
-    public Deadline(String description, String by, String originalInput) {
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
-        this.originalInput = originalInput;
     }
 
-    public String getOriginalInput() {
-        return originalInput;
+    public String getTime() {
+        return this.by;
     }
 
     public void setBy(String by) {
         this.by = by;
-    }
-
-    public String getBy() {
-        return by;
     }
 
     public String getType() {
@@ -24,6 +18,6 @@ public class Deadline extends Task{
     }
 
     public String toString() {
-        return "[D]" + super.toString() + " (" + by + ")";
+        return "[D]" + super.getStatus() + super.getDescription() + " (by:" + by + ")";
     }
 }
