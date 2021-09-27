@@ -14,11 +14,11 @@ public class Deadline extends Task {
      * Creates a task with the specified description and deadline.
      *
      * @param description Description of the task.
-     * @param by Deadline for the task.
+     * @param by          Deadline for the task.
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = by.trim();
     }
 
     @Override

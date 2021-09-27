@@ -14,11 +14,11 @@ public class Event extends Task {
      * Creates a task with the specified description and event date/time.
      *
      * @param description Description of the event.
-     * @param at Date and time of the event.
+     * @param at          Date and time of the event.
      */
     public Event(String description, String at) {
         super(description);
-        this.at = at;
+        this.at = at.trim();
     }
 
     @Override

@@ -1,7 +1,9 @@
 package duke;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
 
+import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.storage.Storage.StorageException;
 import duke.task.Deadline;
@@ -70,14 +72,16 @@ public class Duke {
     public void run() {
         ui.showGreeting(storage.getPath(), storage.isUsingNewFile());
         while (true) {
-            final String userInput = getUserInput();
-            final String feedback = executeCommand(userInput);
             try {
+                final String userInput = getUserInput();
+                final String feedback = executeCommand(userInput);
                 storage.saveData(tasks);
                 ui.showToUser(feedback);
             } catch (StorageException e) {
                 ui.showToUser(e.getMessage());
                 throw new RuntimeException(e);
+            } catch (DukeException e) {
+                ui.showToUser(String.format(MESSAGE_ERROR, e.getMessage()));
             }
         }
     }
@@ -110,63 +114,77 @@ public class Duke {
      * @param userInput Input command together with any arguments.
      * @return Feedback about what was executed.
      */
-    private String executeCommand(String userInput) {
-        final String[] commandAndArgs = userInput.split(" ", 2);
-        final String command = commandAndArgs[INDEX_COMMAND];
-        final String args = commandAndArgs.length > INDEX_ARGS ? commandAndArgs[INDEX_ARGS] : "";
+    private String executeCommand(String userInput) throws DukeException {
+        Matcher matcher = Parser.BASIC_COMMAND_FORMAT.matcher(userInput);
+        if (!matcher.matches()) {
+            throw new DukeException("Invalid command format!");
+        }
+        final String command = matcher.group(Parser.MATCH_GROUP_COMMAND);
+        final String args = matcher.group(Parser.MATCH_GROUP_ARGS).trim();
 
-        try {
-            switch (command) {
-            case COMMAND_EXIT:
-                ui.showFarewell();
-                System.exit(0);
-                // fallthrough
-            case COMMAND_ADD_TODO:
-                return addTodo(args);
-            case COMMAND_ADD_DEADLINE:
-                return addDeadline(args);
-            case COMMAND_ADD_EVENT:
-                return addEvent(args);
-            case COMMAND_DELETE_TASK:
-                return deleteTask(args);
-            case COMMAND_LIST_TASKS:
-                return listTasks();
-            case COMMAND_MARK_TASK_AS_DONE:
-                return markTaskAsDone(args);
-            default:
-                return handleUnrecognisedCommand();
-            }
-        } catch (DukeException e) {
-            return String.format(MESSAGE_ERROR, e.getMessage());
+        switch (command) {
+        case COMMAND_EXIT:
+            ui.showFarewell();
+            System.exit(0);
+            // fallthrough
+        case COMMAND_ADD_TODO:
+            return addTodo(args);
+        case COMMAND_ADD_DEADLINE:
+            return addDeadline(args);
+        case COMMAND_ADD_EVENT:
+            return addEvent(args);
+        case COMMAND_DELETE_TASK:
+            return deleteTask(args);
+        case COMMAND_LIST_TASKS:
+            return listTasks();
+        case COMMAND_MARK_TASK_AS_DONE:
+            return markTaskAsDone(args);
+        default:
+            return handleUnrecognisedCommand();
         }
     }
 
-    private String addTodo(String description) throws DukeException {
-        if (description.isEmpty()) {
+    private Matcher parseTask(String args) throws DukeException {
+        final Matcher matcher = Parser.TASK_ARGS_FORMAT.matcher(args);
+        if (!matcher.matches()) {
+            throw new DukeException("Invalid command format!");
+        }
+        return matcher;
+    }
+
+    private String addTodo(String args) throws DukeException {
+        final Matcher matcher;
+        try {
+            matcher = parseTask(args);
+        } catch (DukeException e) {
             throw new DukeException(MESSAGE_TODO_DESCRIPTION_EMPTY);
+        }
+        final String description = matcher.group(Parser.MATCH_GROUP_DESCRIPTION);
+        if (description == null || description.isBlank()) {
+            throw new DukeException("Invalid command format!");
         }
         Task task = new ToDo(description);
         return addTask(task);
     }
 
     private String addDeadline(String args) throws DukeException {
-        final String[] splitArgs = args.split(" " + DEADLINE_PREFIX_BY + " ");
-        if (splitArgs.length < 2) {
+        final Matcher matcher = parseTask(args);
+        final String description = matcher.group(Parser.MATCH_GROUP_DESCRIPTION);
+        final String by = matcher.group(Parser.MATCH_GROUP_BY);
+        if (description == null || description.isBlank() || by == null || by.isBlank()) {
             throw new DukeException(MESSAGE_UNRECOGNISED_DEADLINE_FORMAT);
         }
-        final String description = splitArgs[0];
-        final String by = splitArgs[1];
         Task task = new Deadline(description, by);
         return addTask(task);
     }
 
     private String addEvent(String args) throws DukeException {
-        final String[] splitArgs = args.split(" " + EVENT_PREFIX_AT + " ");
-        if (splitArgs.length < 2) {
+        final Matcher matcher = parseTask(args);
+        final String description = matcher.group(Parser.MATCH_GROUP_DESCRIPTION);
+        final String at = matcher.group(Parser.MATCH_GROUP_AT);
+        if (description == null || description.isBlank() || at == null || at.isBlank()) {
             throw new DukeException(MESSAGE_UNRECOGNISED_EVENT_FORMAT);
         }
-        final String description = splitArgs[0];
-        final String at = splitArgs[1];
         Task task = new Event(description, at);
         return addTask(task);
     }

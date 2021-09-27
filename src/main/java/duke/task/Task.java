@@ -17,7 +17,7 @@ public abstract class Task {
      * @param description Description of the task.
      */
     public Task(String description) {
-        this.description = description;
+        this.description = description.trim();
         isDone = false;
     }
 
