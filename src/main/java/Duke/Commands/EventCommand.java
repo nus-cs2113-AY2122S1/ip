@@ -36,7 +36,7 @@ public class EventCommand extends Command {
         if (slashIndex == -1) {
             throw new DukeException("☹ OOPS!!! The description of an event task requires a task name" + System.lineSeparator()
                     + "\tfollowed by a front slash, and then a specific time after." + System.lineSeparator()
-                    + "\ti.e. event team project meeting /on 2-10-2019 2-4pm");
+                    + "\ti.e. event team project meeting /on 02-10-2019 2-4pm");
         } else if (taskNameLastIndex <= EVENT_WORD_LENGTH) { //if the slash exists but the task name is empty
             throw new DukeException("☹ OOPS!!! The name of an event task cannot be empty.");
         }
