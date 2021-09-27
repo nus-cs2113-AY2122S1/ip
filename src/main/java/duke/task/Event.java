@@ -4,20 +4,22 @@ import java.time.LocalDate;
 
 public class Event extends Task {
 
+    private final String TASK_TYPE_EVENT = "E";
+
     /**
      * Date and time of event.
      */
     private LocalDate at;
 
     /**
-     * Create a new Event task.
+     * Creates a new Event task.
      *
      * @param description String description of the Deadline.
      * @param at          LocalDate object of the due date.
      */
     public Event(String description, LocalDate at) {
         super(description);
-        super.setType("E");
+        super.setType(TASK_TYPE_EVENT);
         this.at = at;
     }
 

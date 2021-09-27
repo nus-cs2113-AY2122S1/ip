@@ -4,20 +4,22 @@ import java.time.LocalDate;
 
 public class Deadline extends Task {
 
+    private final String TASK_TYPE_DEADLINE = "D";
+
     /**
      * Date and time of deadline.
      */
     private LocalDate by;
 
     /**
-     * Create a new Deadline task.
+     * Creates a new Deadline task.
      *
      * @param description String description of the Deadline.
      * @param by          LocalDate object of the due date.
      */
     public Deadline(String description, LocalDate by) {
         super(description);
-        super.setType("D");
+        super.setType(TASK_TYPE_DEADLINE);
         this.by = by;
     }
 

@@ -2,17 +2,23 @@ package duke.task;
 
 public class Task {
 
+    private final String TASK_ICON_NOT_DONE = " ";
+    private final String TASK_ICON_DONE = "X";
+
     private String description;
     private boolean isDone;
-    /** Type of task (Todo [T], Deadline [D], Event [E]). */
-    private String type = " ";
+    /**
+     * Type of task (Todo [T], Deadline [D], Event [E]).
+     */
+    private String type;
 
     /**
-     * Create a new Task object.
+     * Creates a new Task object.
      *
      * @param description Task description.
      */
     public Task(String description) {
+        this.type = null;
         this.description = description;
         this.isDone = false;
     }
@@ -51,8 +57,7 @@ public class Task {
      * @return Completion status icon.
      */
     public String getStatusIcon() {
-        // Mark done task with X
-        return (isDone ? "X" : " ");
+        return (isDone ? TASK_ICON_DONE : TASK_ICON_NOT_DONE);
     }
 
     /**
@@ -66,6 +71,7 @@ public class Task {
 
     /**
      * Set task's type.
+     *
      * @param type String of task type.
      */
     public void setType(String type) {
