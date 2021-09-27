@@ -6,7 +6,6 @@ import storage.Storage;
 
 
 public class MarkTaskAsDone extends Command {
-    protected Ui ui = new Ui();
     private final String input;
 
     /**
@@ -30,11 +29,11 @@ public class MarkTaskAsDone extends Command {
      * @param tasks task list to be updated when a task is marked as done.
      */
     @Override
-    public void execute(TaskList tasks) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            int index = Integer.parseInt(input.substring(5));
+            int index = Integer.parseInt(input.substring(5).trim());
             int taskCount = tasks.getListSize();
-            if (index > taskCount) {
+            if ((index > taskCount) || (index <= 0)) {
                 ui.showNoSuchTaskMessage();
             } else if (tasks.getTaskFromList(index - 1).getStatusIcon().equals("X")) {
                 ui.showTaskAlreadyDoneMessage();

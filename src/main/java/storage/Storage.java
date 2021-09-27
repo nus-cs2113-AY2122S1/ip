@@ -111,6 +111,7 @@ public class Storage {
             initList(s);
         } catch (JimException e) {
             ui.showCorruptedDatabaseFileMessage(tasks.getListSize() + 1);
+            System.exit(0);
         } catch (FileNotFoundException e) {
             ui.showNoDatabaseFileMessage();
             folderChecker(new File(FOLDER_PATH));

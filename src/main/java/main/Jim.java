@@ -26,17 +26,18 @@ public class Jim {
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;
-        try {
-            while (!isExit) {
+        while (!isExit) {
+            try {
                 String userCommand = ui.readCommand();
                 Command command = Parser.parseCommand(userCommand);
-                command.execute(tasks);
+                command.execute(tasks, ui, storage);
                 isExit = command.getIsExit();
+            } catch (JimException e) {
+                ui.showInvalidCommandMessage();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.showWrongCommandFormatMessage();
             }
-        } catch (JimException e) {
-            ui.showInvalidCommandMessage();
         }
-        System.exit(0);
     }
 
     public static void main(String[] args) {

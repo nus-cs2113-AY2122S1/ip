@@ -6,7 +6,6 @@ import storage.Storage;
 import tasks.Todo;
 
 public class AddTodoTask extends Command {
-    protected Ui ui = new Ui();
     private final String input;
 
     /**
@@ -25,11 +24,11 @@ public class AddTodoTask extends Command {
      * @param tasks task list to be updated when a todo task is added.
      */
     @Override
-    public void execute(TaskList tasks) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (input.trim().length() <= 4) {
             ui.showMissingTaskDescriptionMessage();
         } else {
-            tasks.addTaskToList(new Todo(input.trim().substring(5)));
+            tasks.addTaskToList(new Todo(input.substring(5).trim()));
             int taskIndex = tasks.getListSize() - 1;
             ui.showTaskAddedMessage(tasks.getTaskFromList(taskIndex), tasks.getListSize());
             int indexOfAddedTask = tasks.getListSize() - 1;

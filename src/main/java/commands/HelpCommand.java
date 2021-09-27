@@ -1,10 +1,10 @@
 package commands;
 
+import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
 public class HelpCommand extends Command{
-    private static final Ui ui = new Ui();
 
     /**
      * Shows the help message.
@@ -12,7 +12,7 @@ public class HelpCommand extends Command{
      * @param tasks task list that is included so help command can be extended from command.
      */
     @Override
-    public void execute(TaskList tasks) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showHelpMessage();
     }
 }

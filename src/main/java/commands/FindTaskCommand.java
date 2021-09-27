@@ -1,5 +1,6 @@
 package commands;
 
+import storage.Storage;
 import tasklist.TaskList;
 import tasks.Task;
 import ui.Ui;
@@ -7,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FindTaskCommand extends Command {
-    protected Ui ui = new Ui();
     private final String input;
 
     /**
@@ -27,7 +27,7 @@ public class FindTaskCommand extends Command {
      * @param tasks task list to be used to find the tasks.
      */
     @Override
-    public void execute(TaskList tasks) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (input.trim().length() <= 4) {
             ui.showNoKeywordSpecifiedMessage();
         } else {

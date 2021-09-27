@@ -2,9 +2,12 @@ package parser;
 
 import exceptions.JimException;
 import commands.*;
+import ui.Ui;
+
+import java.util.Locale;
 
 public class Parser {
-
+    private Ui ui = new Ui();
     /**
      * Parses the user input and returns the command that is being called.
      *
@@ -14,32 +17,46 @@ public class Parser {
      */
     public static Command parseCommand(String input) throws JimException {
         Command c;
-        String inputToParse = input.toLowerCase();
-        if (inputToParse.startsWith("todo")) {
+        String[] inputToParse = input.split(" ");
+        String commandWord = inputToParse[0].toLowerCase();
+        switch (commandWord) {
+        case "todo":
             c = new AddTodoTask(input);
-        } else if (inputToParse.startsWith("deadline")) {
+            break;
+        case "deadline":
             c = new AddDeadlineTask(input);
-        } else if (inputToParse.startsWith("event")) {
+            break;
+        case "event":
             c = new AddEventTask(input);
-        } else if (inputToParse.startsWith("done")) {
+            break;
+        case "done":
             c = new MarkTaskAsDone(input);
-        } else if (inputToParse.equals("list")) {
+            break;
+        case "list":
             c = new ListCommand();
-        } else if (inputToParse.startsWith("remove")) {
+            break;
+        case "remove":
             c = new RemoveTask(input);
-        } else if (inputToParse.startsWith("find")) {
+            break;
+        case "find":
             c = new FindTaskCommand(input);
-        } else if (inputToParse.equals("clear database")) {
+            break;
+        case "clear":
             c = new ClearDatabaseCommand();
-        } else if (inputToParse.contains("birthday")) {
+            break;
+        case "birthday":
             c = new BirthdayCommand();
-        } else if (inputToParse.equals("help")) {
+            break;
+        case "help":
             c = new HelpCommand();
-        } else if (inputToParse.equals("bye")) {
+            break;
+        case "bye":
             c = new ExitCommand();
-        } else {
+            break;
+        default:
             throw new JimException();
         }
         return c;
     }
+
 }

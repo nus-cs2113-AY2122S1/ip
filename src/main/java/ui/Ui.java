@@ -9,6 +9,8 @@ public class Ui {
     protected static final String GREETING_MESSAGE = " HeLLO! I'm Jim, a real person who definitely passes" +
             " reCaptchas!" + System.lineSeparator();
     protected static final String USER_INPUT_MESSAGE = " How can I help you: ";
+    protected static final String WRONG_COMMAND_FORMAT_MESSAGE = " Wrong command format! Please refer to the help " +
+            "menu by typing 'help'!" + System.lineSeparator();
     /** ----------EXTRA FUNCTIONS MESSAGES---------- */
     protected static final String BIRTHDAY_MESSAGE = " ^o^ Happy birthday to you! ^o^" + System.lineSeparator();
     /** ----------DATABASE MESSAGE AND ERRORS---------- */
@@ -74,12 +76,13 @@ public class Ui {
             "    1. todo [task] = adds a Todo task" + System.lineSeparator() +
             "    2. deadline [task] /by [deadline] = adds a Deadline task" + System.lineSeparator() +
             "    3. event [task] /at [time range] = adds an Event task" + System.lineSeparator() +
-            "    4. done [taskIndex] = marks the inputted task as done" + System.lineSeparator() +
-            "    5. list = lists out all tasks you have currently" + System.lineSeparator() +
-            "    6. find [keyword] = finds all tasks that contain the keyword in the description" + System.lineSeparator() +
-            "    7. clear database = wipes your database spick and span" + System.lineSeparator() +
-            "    8. help = shows the list of things I can do for you ^^ (aka this list)" + System.lineSeparator() +
-            "    9. bye = shuts me down... ;-;" + System.lineSeparator();
+            "    4. done [taskIndex] = marks the desired task as done" + System.lineSeparator() +
+            "    5. remove [taskIndex] = removes the desired task" + System.lineSeparator() +
+            "    6. list = lists out all tasks you have currently" + System.lineSeparator() +
+            "    7. find [keyword] = finds all tasks that contain the keyword in the description" + System.lineSeparator() +
+            "    8. clear = wipes your database spick and span" + System.lineSeparator() +
+            "    9. help = shows the list of things I can do for you ^^ (aka this list)" + System.lineSeparator() +
+            "    10. bye = shuts me down... ;-;" + System.lineSeparator();
     /** ----------EXIT MESSAGE---------- */
     protected static final String EXIT_MESSAGE = " Bye! Remember, stay out of fire, suuuuuuper high level " +
             "tactic yea?" + System.lineSeparator();
@@ -111,7 +114,7 @@ public class Ui {
      * Prints the welcome message with decorative lines.
      */
     public void showWelcomeMessage() {
-        System.out.print(LINES + VERSION + LINES + LINES + GREETING_MESSAGE + HELP_MESSAGE + LINES);
+        System.out.print(VERSION + LINES + GREETING_MESSAGE + HELP_MESSAGE + LINES);
     }
 
     /**
@@ -119,6 +122,13 @@ public class Ui {
      */
     public void showUserInputMessage() {
         System.out.print(USER_INPUT_MESSAGE);
+    }
+
+    /**
+     * Prints the wrong command format error message with decorative lines.
+     */
+    public void showWrongCommandFormatMessage() {
+        System.out.print(LINES + WRONG_COMMAND_FORMAT_MESSAGE + LINES);
     }
     /* ----------EXTRA FUNCTIONS MESSAGE METHODS---------- */
 

@@ -6,7 +6,6 @@ import tasklist.TaskList;
 import tasks.Task;
 
 public class RemoveTask extends Command {
-    protected Ui ui = new Ui();
     private final String input;
 
     /**
@@ -27,10 +26,11 @@ public class RemoveTask extends Command {
      *
      * @param tasks task list to be updated when a task is removed.
      */
-    public void execute(TaskList tasks) {
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            int index = Integer.parseInt(input.substring(7));
-            if (index > tasks.getListSize()) {
+            int index = Integer.parseInt(input.substring(7).trim());
+            if ((index > tasks.getListSize()) || (index <= 0)) {
                 ui.showNoSuchTaskMessage();
             } else {
                 Task thisTask = tasks.getTaskFromList(index - 1);
