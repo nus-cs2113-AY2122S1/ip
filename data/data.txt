@@ -1,4 +1,1 @@
-T | 0 | sadfsdf
-T | 0 | sadfsd
-T | 0 | sadfsadf
-E | 0 | sadfasdf /by sadfsdaf
+E | 1 | asdfsadf /sadfsadf

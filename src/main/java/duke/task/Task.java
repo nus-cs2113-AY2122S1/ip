@@ -1,4 +1,4 @@
-package src.main.java;
+package duke.task;
 
 public class Task {
     protected String description;
@@ -15,7 +15,9 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getWrittenIcon() { return (isDone ? "1" : "0"); }
+    public String getWrittenIcon() {
+        return (isDone ? "1" : "0");
+    }
 
     public char getTaskType() {
         return taskType;
@@ -31,6 +33,10 @@ public class Task {
 
     @Override
     public String toString() {
+        return description;
+    }
+
+    public String toFileFormat() {
         return description;
     }
 }
