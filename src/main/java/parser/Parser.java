@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Parser {
 
     /**
-     * This method parses the user input to extract the command
+     * Parses the user input to extract the command which is the first word.
      * @param userLine input given by user or line extracted from saved file
      * @return String[] a split between the command and task description from user
      */
@@ -18,7 +18,7 @@ public class Parser {
     }
 
     /**
-     * This method parses the user input to extract the task to be marked as done
+     * Parses the user input to extract the task to be marked as done.
      * @param userLine input given by user or line extracted from saved file
      * @param taskList main list keeping track of user's tasks
      * @return taskNum int of the task in the list to be marked as done
@@ -34,7 +34,7 @@ public class Parser {
     }
 
     /**
-     * This method parses the user input to extract the task to be deleted
+     * Parses the user input to extract the task to be deleted.
      * @param userLine input given by user or line extracted from saved file
      * @param taskList main list keeping track of user's tasks
      * @return taskNum int of the task in the list to be deleted
@@ -50,7 +50,7 @@ public class Parser {
     }
 
     /**
-     * This method parses the user input to extract the task description for todo command
+     * Parses the user input to extract the task description when todo command is called.
      * @param userLine input given by user or line extracted from saved file
      * @return str task description for todo task
      * @throws NumberFormatException if input is missing the description
@@ -64,7 +64,8 @@ public class Parser {
     }
 
     /**
-     * This method parses the user input to extract the task description and deadline date & time
+     * Parses the user input to extract the task description and deadline date & time when
+     * deadline command is called.
      * @param userLine input given by user or line extracted from saved file
      * @return String[] where index 0 is the task description and index 1 is deadline date & time
      * @throws NumberFormatException if input is missing the description and deadline date & time
@@ -83,7 +84,8 @@ public class Parser {
     }
 
     /**
-     * This method parses the user input to extract the task description and event date & time
+     * Parses the user input to extract the task description and event date & time
+     * when event command is called.
      * @param userLine input given by user or line extracted from saved file
      * @return String[] where index 0 is the task description and index 1 is event date & time
      * @throws NumberFormatException if input is missing the description and event date & time

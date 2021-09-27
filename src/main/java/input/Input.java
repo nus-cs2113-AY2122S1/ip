@@ -19,10 +19,9 @@ public class Input {
     public static final String COMMAND_DELETE = "delete";
 
     /**
-     * This method handles the inputs given by the user. It extracts the keyword from the input
-     * by calling the parseUserInput method from Parser and will handle the remaining input
-     * based on the command that has been extracted. The remaining input will be added to the
-     * user's list of task.
+     * Handles the inputs given by the user. Extracts the keyword from the input by calling
+     * the parseUserInput method from Parser and will handle the remaining input based on the
+     * command that has been extracted. The remaining input will be added to the user's list of task.
      * @param userLine input given by user or line extracted from saved file
      * @param taskList main list keeping track of user's tasks
      */

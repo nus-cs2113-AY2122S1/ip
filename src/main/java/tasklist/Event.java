@@ -10,9 +10,10 @@ public class Event extends Task {
     }
 
     /**
-     * This method overrides the toString method in Task
+     * Returns additional information which is the type icon and event date & time
+     * at the end when toString method is called.
      * @return the type icon followed by the usual toString method of Task and
-     * to print the event date & time at the end of the description
+     * the event date & time at the end
      */
     @Override
     public String toString() {
@@ -20,7 +21,7 @@ public class Event extends Task {
     }
 
     /**
-     * This method overrides the getDescription method in Task
+     * Adds additional character to support file format when saving event
      * @return adds a comma between 'description' and 'at' strings to follow
      * the CSV format when saving to text file
      */

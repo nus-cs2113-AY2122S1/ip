@@ -8,7 +8,8 @@ public class Todo extends Task {
     }
 
     /**
-     * This method overrides the toString method in Task
+     * Returns additional information which is the type icon when toString
+     * method is called.
      * @return the type icon followed by the usual toString method of Task
      */
     @Override

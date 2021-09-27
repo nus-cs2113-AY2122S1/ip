@@ -15,7 +15,7 @@ public class Ui {
     public static final String LINE = "____________________________________________________________";
 
     /**
-     * This method prints the logo and greets the user.
+     * Prints the logo and greets the user.
      */
     public static void printGreetMessage() {
         System.out.println(JARVIS_LOGO
@@ -32,7 +32,7 @@ public class Ui {
     }
 
     /**
-     * This method prints a message when user inputs an unknown command.
+     * Prints an error message when user inputs an unknown command.
      */
     public static void printIndexOutOfBoundExceptionMessage() {
         System.out.println(LINE_W_NL
@@ -42,7 +42,7 @@ public class Ui {
     }
 
     /**
-     * This method prints a message when user inputs a command with missing details.
+     * Prints an error message when user inputs a command with missing details.
      */
     public static void printNumberFormatExceptionMessage() {
         System.out.println(LINE_W_NL
@@ -52,7 +52,7 @@ public class Ui {
     }
 
     /**
-     * This method prints a message when list is empty or when the number input by user
+     * Prints an error message when list is empty or when the number input by user
      * is out of range.
      * @param listSize is the current size of the list of tasks
      */
@@ -70,7 +70,7 @@ public class Ui {
     }
 
     /**
-     * This method prints a message when a deadline input is missing the date & time of deadline.
+     * Prints an error message when a deadline input is missing the date & time of deadline.
      */
     public static void printDeadlineExceptionMessage() {
         System.out.println(LINE_W_NL
@@ -80,7 +80,7 @@ public class Ui {
     }
 
     /**
-     * This method prints a message when an event input is missing the date & time of the event.
+     * Prints an error message when an event input is missing the date & time of the event.
      */
     public static void printEventExceptionMessage() {
         System.out.println(LINE_W_NL
@@ -90,7 +90,7 @@ public class Ui {
     }
 
     /**
-     * This method prints a message when a new task has been added to the list.
+     * Prints a message when a new task has been added to the list along with the task.
      * @param task is the new task that has been added
      * @param taskList main list keeping track of user's tasks
      */
@@ -103,7 +103,7 @@ public class Ui {
     }
 
     /**
-     * This method prints a message when a task had been marked as done.
+     * Prints a message when a task had been marked as done along with the task.
      * @param taskList main list keeping track of user's tasks
      * @param taskNum is the index of the task in the list of task
      */
@@ -115,7 +115,7 @@ public class Ui {
     }
 
     /**
-     * This method prints a message when a task has been deleted.
+     * Prints a message when a task has been deleted along with the task.
      * @param taskList main list keeping track of user's tasks
      * @param taskNum is the index of the task in the list of task
      */

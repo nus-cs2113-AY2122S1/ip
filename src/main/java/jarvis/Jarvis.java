@@ -11,11 +11,11 @@ import java.util.Scanner;
 public class Jarvis {
 
     /**
-     * This method runs the Jarvis bot by first greeting the user. It will then create
-     * the list of task in an ArrayList followed by finding any saved task file that
-     * has been created from prior usage. Then, it will loop to take in inputs from
-     * the user and will send the inputs to the inputHandler method from Input class.
-     * If the user inputs "bye", the loop will exit and the bot will print a bye message.
+     * Runs the Jarvis bot by first greeting the user. It will then create
+     * the list of task followed by finding any saved task file that has been created
+     * from prior usage. Then, take in inputs from the user and send the inputs to the
+     * inputHandler. When the user inputs "bye", the loop will exit and the bot will
+     * print a bye message.
      */
     public void run() {
         Ui.printGreetMessage();

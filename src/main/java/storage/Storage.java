@@ -19,7 +19,7 @@ public class Storage {
     private static final String DIVIDER = ",";
 
     /**
-     * This method tries to find the file that saved the list of tasks from previous usage
+     * Attempt to find the file that saved the list of tasks from previous usage
      * of Jarvis bot. If file not found, a new directory and file will be created using the
      * given file path to store the tasks in a text file.
      * @param taskList main list keeping track of user's tasks
@@ -49,8 +49,7 @@ public class Storage {
     }
 
     /**
-     * This method will loop through the previous saved task text file to load tasks into
-     * the list of tasks.
+     * Load the previous saved task text file to into the list of tasks for current use.
      * @param taskList main list keeping track of user's tasks
      * @param jarvisFile the task text file retrieved from findTaskfile method
      */
@@ -71,9 +70,8 @@ public class Storage {
     }
 
     /**
-     * This method will input tasks from each line on the text file into the list of tasks.
-     * It uses a switch case to decide which type of task is in each line and will add it
-     * into the list of tasks.
+     * Input tasks from each line on the text file into the list of tasks depending
+     * on the type of task as stated in the text.
      * @param taskList main list keeping track of user's tasks
      * @param textLine is the current line of text in the text file
      * @param lineCount is the line number of the current line being loaded
@@ -99,9 +97,9 @@ public class Storage {
     }
 
     /**
-     * This method will write tasks from the current list of tasks onto the text file
-     * for it to be saved when the user exits from bot. The same file will be loaded up
-     * when the user starts the bot again in the future with the saved tasks loaded.
+     * Write tasks from the current list of tasks onto the text file for it to be
+     * saved when the user exits from bot. The same file will be loaded up when the
+     * user starts the bot again in the future with the saved tasks loaded.
      * @param taskList main list keeping track of user's tasks
      */
     public static void fillJarvisFile(ArrayList<Task> taskList) {

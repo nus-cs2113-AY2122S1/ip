@@ -14,7 +14,7 @@ public class TaskList {
     private static final String LINE_W_NL = Ui.LINE_W_NL;
 
     /**
-     * This method prints out all the tasks in the list when user inputs list keyword
+     * Prints out all the tasks in the list when user inputs list keyword as command.
      * @param taskList main list keeping track of user's tasks
      * @throws ArithmeticException if list is empty
      */
@@ -31,7 +31,7 @@ public class TaskList {
     }
 
     /**
-     * This method marks a task as done when user inputs that task is done.
+     * Marks a task as done when user inputs that task is done.
      * It will then print a message to show that the task is done.
      * @param userLine input given by user or line extracted from saved file
      * @param taskList main list keeping track of user's tasks
@@ -44,7 +44,7 @@ public class TaskList {
     }
 
     /**
-     * This method deletes a task when user inputs to delete that task.
+     * Deletes a task when user inputs to delete that task.
      * It will then print a message to show that the task has been deleted.
      * @param userLine input given by user or line extracted from saved file
      * @param taskList main list keeping track of user's tasks
@@ -57,7 +57,7 @@ public class TaskList {
     }
 
     /**
-     * This method adds a todo task from user input to the task list.
+     * Adds a todo task from user input to the task list.
      * It will then print a message to show that the todo task has been added.
      * @param userLine input given by user or line extracted from saved file
      * @param taskList main list keeping track of user's tasks
@@ -71,7 +71,7 @@ public class TaskList {
     }
 
     /**
-     * This method adds a deadline task from user input to the task list.
+     * Adds a deadline task from user input to the task list.
      * It will then print a message to show that the deadline task has been added.
      * @param userLine input given by user or line extracted from saved file
      * @param taskList main list keeping track of user's tasks
@@ -87,7 +87,7 @@ public class TaskList {
     }
 
     /**
-     * This method adds an event task from user input to the task list.
+     * Adds an event task from user input to the task list.
      * It will then print a message to show that the event task has been added.
      * @param userLine input given by user or line extracted from saved file
      * @param taskList main list keeping track of user's tasks
@@ -103,7 +103,7 @@ public class TaskList {
     }
 
     /**
-     * This method adds a todo task from saved file to the task list.
+     * Adds a todo task from saved file to the task list.
      * @param description is the task description
      * @param taskList main list keeping track of user's tasks
      */
@@ -113,7 +113,7 @@ public class TaskList {
     }
 
     /**
-     * This method adds a deadline task from saved file to the task list.
+     * Adds a deadline task from saved file to the task list.
      * @param description is the task description
      * @param by is the deadline for the task
      * @param taskList main list keeping track of user's tasks
@@ -124,7 +124,7 @@ public class TaskList {
     }
 
     /**
-     * This method adds an event task from saved file to the task list.
+     * Adds an event task from saved file to the task list.
      * @param description is the task description
      * @param at is when the event will happen
      * @param taskList main list keeping track of user's tasks
