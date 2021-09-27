@@ -3,22 +3,23 @@ Duke is a **desktop application for managing tasks, optimised for usage
 via a Command Line Interface (CLI).** If you can type fast, Duke can help
 you manage your daily tasks faster than traditional GUI application.
 
-- [Quick Start](#quick-start)
-- [Features](#features)
-  - [Viewing help: `help`](#viewing-help--help)
-  - [Adding a task:](#adding-a-task)
-    - [Todo: `todo`](#todo-todo)
-    - [Deadline: `deadline`](#deadline-deadline)
-    - [Event: `event`](#event-event)
-  - [Listing all tasks: `list`](#listing-all-tasks-list)
-  - [Marking a task as done: `done`](#marking-a-task-as-done-done)
-  - [Deleting a task: `delete`](#deleting-a-task-delete)
-  - [Finding a task with a keyword: `find`](#finding-a-task-with-a-keyword-find)
-  - [Exiting the program: `bye`](#exiting-the-program-bye)
-- [FAQ]()
-- [Command Summary]()
+- [1. Quick Start](#1-quick-start)
+- [2. Features](#2-features)
+  - [2.1 Viewing help: `help`](#2-1-viewing-help--help)
+  - [2.2 Adding a task:](#22-adding-a-task)
+    - [2.2.1 Todo: `todo`](#221-todo-todo)
+    - [2.2.2 Deadline: `deadline`](#222-deadline-deadline)
+    - [2.2.3 Event: `event`](#223-event-event)
+  - [2.3 Listing all tasks: `list`](#23-listing-all-tasks-list)
+  - [2.4 Marking a task as done: `done`](#24-marking-a-task-as-done-done)
+  - [2.5 Deleting a task: `delete`](#25-deleting-a-task-delete)
+  - [2.6 Finding a task with a keyword: `find`](#26-finding-a-task-with-a-keyword-find)
+  - [2.7 Exiting the program: `bye`](#27-exiting-the-program-bye)
+  - [2.8 Saving the data](#28-saving-the-data)
+- [3. FAQ](#3-faq)
+- [4. Command Summary](#4-command-summary)
 
-## Quick Start
+## 1. Quick Start
 1. Ensure you have Java `11` or above installed in your Computer.
 2. Download the latest `Duke.jar` from [here](www.google.com)
 3. Copy the file to the folder you want to use as the _home folder_ for Duke.
@@ -53,14 +54,14 @@ and press `Enter` on your keyboard to execute the command.
     - **`bye`** : Exit the Duke application.
 9. Refer to the [Features](#features) below for details of each command.
 
-## Features
-### Viewing help : `help`
+## 2. Features
+### 2. 1 Viewing help : `help`
 Displays all commands available for the Duke application. 
 
 Format: `help`
 
-### Adding a task:
-### Todo: `todo`
+### 2.2 Adding a task:
+### 2.2.1 Todo: `todo`
 Adds a **todo** task to the tasklist.
 
 Format: `todo [description]`
@@ -80,7 +81,7 @@ Expected Outcome:
 => Now you have 1 tasks in your list.
 ```
 
-### Deadline: `deadline`
+### 2.2.2 Deadline: `deadline`
 Adds a **deadline** task to the tasklist.
 
 Format: `deadline [description] /by [due date]`
@@ -101,7 +102,7 @@ Expected Outcome:
 => Now you have 2 tasks in your list.
 ```
 
-### Event: `event`
+### 2.2.3 Event: `event`
 Adds a **event** task to the tasklist.
 
 Format: `event [description] /at [occurence]`
@@ -122,7 +123,7 @@ Expected Outcome:
 => Now you have 3 tasks in your list.
 ```
 
-### Listing all tasks: `list`
+### 2.3 Listing all tasks: `list`
 Lists all tasks in the tasklist.
 
 Format: `list`
@@ -153,7 +154,7 @@ Expected Outcome:
 => You have done 0/3 tasks in your list.
 ```
 
-### Marking a task as done: `done`
+### 2.4 Marking a task as done: `done`
 Marks an existing task in the tasklist as **done**.
 
 Format: `done [task ID]`
@@ -175,7 +176,7 @@ Expected Outcome:
 => You have done 1/3 tasks in your list.
 ```
 
-### Deleting a task: `delete`
+### 2.5 Deleting a task: `delete`
 Deletes an existing task in the tasklist.
 
 Format: `delete [task ID]`
@@ -197,7 +198,7 @@ Expected Outcome:
 => Now you have 2 tasks in your list.
 ```
 
-### Finding a task with a keyword: `find`
+### 2.6 Finding a task with a keyword: `find`
 Find tasks whose description contains a given keyword.
 
 Format: `find [keyword]`
@@ -221,7 +222,7 @@ Expected Outcome:
 => It has successfully returned 2 result/s.
 ```
 
-### Exiting the program: `bye`
+### 2.7 Exiting the program: `bye`
 Displays goodbye message and exits the program.
 
 Format: `bye`
@@ -235,10 +236,23 @@ Expected Outcome:
 => Come back soon, I'm still hungry!
 ```
 
-## FAQ
+### 2.8 Saving the data
+For first time users, a default folder `data` is created upon running the Duke program. 
+A text file `duke.txt` is also generated in the `data` folder to serve as the local storage
+to store the user's task data.
 
+> **Note**: The `data` folder is created in the same directory as `Duke.jar`.
 
-## Command Summary
+The user's tasklist data are saved to `duke.txt` automatically after any command
+that modifies the tasklist. There is no need to manually save the data.
+
+## 3. FAQ
+**Q:** How do I transfer my data to another computer?
+
+**A:** Install the program on the other computer and replace the new empty `duke.txt`
+it creates with the `duke.txt` that contains the data of your previous `Duke.jar` program home folder.
+
+## 4. Command Summary
 Action | Format | Example
 ------------ | ------------- | -------------
 help | `help` | `help`
@@ -250,9 +264,3 @@ done | `done [task ID]` | `done 1`
 delete | `delete [task ID]` | `delete 1`
 find | `find [keyword]` | `find book`
 bye | `bye` | `bye`
-
-
-
-
-
-
