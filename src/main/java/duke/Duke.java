@@ -14,6 +14,12 @@ import java.util.Scanner;
  * <h1>Duke</h1>
  * The Duke program implements a command-line application
  * that allows users to keep track of their tasks.
+ * <p>
+ * Some inspiration for code abstraction and organisation were adapted
+ * from the {@code addressbook-level2} Java application on GitHub.
+ * <p>
+ * The code for {@code addressbook-level2} can be found at the following link:
+ * <a href="#{@link}">{@link https://github.com/se-edu/addressbook-level2}</a>
  *
  * @author Peh Zhenhao, Amos
  * @version 0.2
