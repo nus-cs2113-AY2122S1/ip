@@ -1,6 +1,5 @@
 package duke;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.storage.Storage;
@@ -9,6 +8,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+import duke.tasklist.TaskList;
 
 /**
  * A personal assistant chatbot.
@@ -66,7 +66,7 @@ public class Duke {
     private static final int INDEX_ARGS = 1;
 
     /** Array of Task objects */
-    private static ArrayList<Task> tasks;
+    private static TaskList tasks;
 
     private static Storage storage;
 
@@ -209,21 +209,21 @@ public class Duke {
     }
 
     private static String addTask(Task task) {
-        tasks.add(task);
-        return String.format(MESSAGE_TASK_ADDED, task, tasks.size());
+        tasks.addTask(task);
+        return String.format(MESSAGE_TASK_ADDED, task, tasks.getSize());
     }
 
     private static String deleteTask(String args) throws DukeException {
         Task task = getTaskFromStringId(args);
-        tasks.remove(task);
-        return String.format(MESSAGE_TASK_DELETED, task, tasks.size());
+        tasks.removeTask(task);
+        return String.format(MESSAGE_TASK_DELETED, task, tasks.getSize());
     }
 
     /** Returns the list of tasks (numbered) together with their status icons */
     private static String listTasks() {
-        String[] formattedTasks = new String[tasks.size()];
-        for (int i = 0; i < tasks.size(); i++) {
-            formattedTasks[i] = String.format("%d.%s", i + 1, tasks.get(i));
+        String[] formattedTasks = new String[tasks.getSize()];
+        for (int i = 0; i < tasks.getSize(); i++) {
+            formattedTasks[i] = String.format("%d.%s", i + 1, tasks.getTask(i));
         }
         String taskListOutput = String.join(LINE_SEPARATOR, formattedTasks);
         return String.format(MESSAGE_TASK_LIST, taskListOutput);
@@ -238,7 +238,7 @@ public class Duke {
     private static Task getTaskFromStringId(String args) throws DukeException {
         try {
             int taskId = Integer.parseInt(args) - 1;
-            return tasks.get(taskId);
+            return tasks.getTask(taskId);
         } catch (NumberFormatException e) {
             throw new DukeException(MESSAGE_INVALID_TASK_NUMBER);
         } catch (IndexOutOfBoundsException e) {

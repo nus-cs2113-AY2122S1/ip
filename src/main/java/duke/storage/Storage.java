@@ -12,6 +12,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+import duke.tasklist.TaskList;
 
 // Code below inspired by
 // https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/storage/StorageFile.java
@@ -55,10 +56,10 @@ public class Storage {
         return isUsingNewFile;
     }
 
-    public ArrayList<Task> loadData() throws StorageException {
+    public TaskList loadData() throws StorageException {
         if (!Files.exists(path) || !Files.isRegularFile(path)) {
             isUsingNewFile = true;
-            return new ArrayList<>();
+            return new TaskList();
         }
         try {
             List<String> taskDataStrings = Files.readAllLines(path);
@@ -69,12 +70,12 @@ public class Storage {
         }
     }
 
-    private static ArrayList<Task> parseData(List<String> taskDataStrings) throws DukeException {
-        final ArrayList<Task> tasks = new ArrayList<>();
+    private static TaskList parseData(List<String> taskDataStrings) throws DukeException {
+        final TaskList tasks = new TaskList();
         for (String taskString : taskDataStrings) {
             final String[] args = taskString.split(DATA_FILE_SEPARATOR);
             Task task = decodeTaskFromString(args);
-            tasks.add(task);
+            tasks.addTask(task);
         }
         return tasks;
     }
@@ -116,7 +117,7 @@ public class Storage {
         return task;
     }
 
-    public void saveData(ArrayList<Task> tasks) throws StorageException {
+    public void saveData(TaskList tasks) throws StorageException {
         try {
             Files.createDirectories(path.getParent());
             Files.write(path, formatTasksAsDataOutput(tasks));
@@ -125,7 +126,8 @@ public class Storage {
         }
     }
 
-    private static ArrayList<String> formatTasksAsDataOutput(ArrayList<Task> tasks) {
+    private static ArrayList<String> formatTasksAsDataOutput(TaskList taskList) {
+        ArrayList<Task> tasks = taskList.getAllTasks();
         ArrayList<String> taskDataStrings = new ArrayList<>();
         for (Task task : tasks) {
             taskDataStrings.add(task.toDataString());
