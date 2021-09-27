@@ -15,11 +15,42 @@ public class UserData {
     private static final String FILE_PATH = "data/hal.txt";
     public static final String EXCEPTION_FILE_NOT_FOUND = "File was not found :(";
     public static final String EXCEPTION_IO = "File could not be created for some reason... :(";
+    public static final String IOEXCEPTION_DIRECTORY = "Could not create directory:";
+    public static final int INITIAL_ARRAY_CAPACITY = 999;
     static StorageDataParser sr = new StorageDataParser();
     public static final String LINE_BREAK_SINGLE = "____________________________________________________________";
 
     /**
-     * Writes string version of Task object to a file object using FileWriter.
+     * Creates a file directory and file if they do not exist.
+     *
+     * @param directory Directory the absolute path to the data file.
+     * @throws IOException Thrown when directory couldn't be created.
+     */
+    public static void initFileWithDirectory(String directory) throws IOException {
+        File dir = new File(directory);
+        File dataFile = new File(FILE_PATH);
+
+        //if the directory doesn't exist, it will be created as "/data"
+        if (!dir.exists()) {
+            if (!dir.mkdir()) {
+                throw new IOException(IOEXCEPTION_DIRECTORY + directory);
+            }
+        }
+
+        //if the file doesn't exist, a new file will be automatically created in the data directory
+        if (!dataFile.exists()) {
+            try {
+                dataFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println(EXCEPTION_IO);
+                System.out.println(LINE_BREAK_SINGLE);
+            }
+        }
+    }
+
+    /**
+     * Writes string version of Task object to the file data/hal.txt.
      *
      * @param str Str represents a string format of a Task object.
      */
@@ -48,7 +79,7 @@ public class UserData {
 
         try {
             Scanner s = new Scanner(f);
-            tempTasks = new ArrayList<>(999);
+            tempTasks = new ArrayList<>(INITIAL_ARRAY_CAPACITY);
             while (s.hasNext()) {
                 tempTasks.add(sr.readListFromMemory(s.nextLine()));
             }
@@ -60,30 +91,5 @@ public class UserData {
         return null;
     }
 
-    /**
-     * Creates a file directory and file if they do not exist.
-     *
-     * @param directory Directory the absolute path to the data file.
-     */
-    public static void initFileWithDirectory(String directory) {
-        File dir = new File(directory);
-        File dataFile = new File(FILE_PATH);
 
-        //if the directory doesn't exist, it will be created
-        if (!dir.exists()) {
-            dir.mkdir();
-
-        }
-
-        //if the file doesn't exist, it will be created
-        if (!dataFile.exists()) {
-            try {
-                dataFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println(EXCEPTION_IO);
-                System.out.println(LINE_BREAK_SINGLE);
-            }
-        }
-    }
 }
