@@ -184,4 +184,20 @@ public class Ui {
     public void printInvalidTaskIndexError() {
         blockPrint(new String[]{"Invalid task index. Please provide a valid index."});
     }
+
+    /**
+     * Print date format error message.
+     */
+    public void printDateTimeFormatError() {
+        blockPrint(new String[]{"Date format error. Please enter date as YYYY-MM-DD."});
+    }
+
+    /**
+     * Print date format in save file error message.
+     */
+    public void printSaveFileDateTimeFormatError() {
+        blockPrint(new String[]{"Date format error in save file. Date format should be YYYY-MM-DD.",
+                "Exit the program to fix the date format.",
+                "The task save file will be overwritten if you choose to continue."});
+    }
 }

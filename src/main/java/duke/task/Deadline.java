@@ -1,11 +1,13 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 public class Deadline extends Task {
 
     /** Date and time of deadline. */
-    private String by;
+    private LocalDate by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         super.setType("D");
         this.by = by;
@@ -16,7 +18,7 @@ public class Deadline extends Task {
         return super.getDescription() + " (by: " + getBy() + ")";
     }
 
-    public String getBy() {
+    public LocalDate getBy() {
         return by;
     }
 }
