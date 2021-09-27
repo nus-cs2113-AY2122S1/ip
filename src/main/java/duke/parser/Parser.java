@@ -1,6 +1,17 @@
 package duke.parser;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import duke.DukeException;
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.DeadlineCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.DoneCommand;
+import duke.commands.EventCommand;
+import duke.commands.ListCommand;
+import duke.commands.ToDoCommand;
 
 public class Parser {
     // Code below inspired by
@@ -19,4 +30,100 @@ public class Parser {
             "(?<" + MATCH_GROUP_DESCRIPTION + ">[^/]+)"
                     + "( /by (?<" + MATCH_GROUP_BY + ">[^/]+))?"
                     + "( /at (?<" + MATCH_GROUP_AT + ">[^/]+))?");
+
+    private static final String MESSAGE_TODO_DESCRIPTION_EMPTY = "The description of a todo cannot be empty.";
+    private static final String MESSAGE_UNRECOGNISED_EVENT_FORMAT = "Unrecognised event format.\n"
+            + "Please ensure you provide the date/time of the event.";
+    private static final String MESSAGE_UNRECOGNISED_DEADLINE_FORMAT = "Unrecognised deadline format.\n"
+            + "Please ensure you provide the date/time of the deadline.";
+    private static final String MESSAGE_INVALID_TASK_NUMBER = "Please use a valid integer for the task number.";
+    private static final String MESSAGE_UNRECOGNISED_COMMAND = "I'm sorry, but I don't know what that means :-(";
+
+    /**
+     * @param userInput Input command together with any arguments.
+     * @return
+     * @throws DukeException
+     */
+    public static Command parseCommand(String userInput) throws DukeException {
+        Matcher matcher = Parser.BASIC_COMMAND_FORMAT.matcher(userInput);
+        if (!matcher.matches()) {
+            throw new DukeException("Invalid command format!");
+        }
+        final String command = matcher.group(Parser.MATCH_GROUP_COMMAND);
+        final String args = matcher.group(Parser.MATCH_GROUP_ARGS).trim();
+
+        switch (command) {
+        case ToDoCommand.COMMAND_WORD:
+            return prepareToDo(args);
+        case DeadlineCommand.COMMAND_WORD:
+            return prepareDeadline(args);
+        case EventCommand.COMMAND_WORD:
+            return prepareEvent(args);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommand(parseTaskId(args));
+        case DoneCommand.COMMAND_WORD:
+            return new DoneCommand(parseTaskId(args));
+        case ByeCommand.COMMAND_WORD:
+            return new ByeCommand();
+        default:
+            return handleUnrecognisedCommand();
+        }
+    }
+
+    private static Command prepareToDo(String args) throws DukeException {
+        final Matcher matcher;
+        try {
+            matcher = parseTask(args);
+        } catch (DukeException e) {
+            throw new DukeException(MESSAGE_TODO_DESCRIPTION_EMPTY);
+        }
+        final String description = matcher.group(MATCH_GROUP_DESCRIPTION);
+        if (description == null || description.isBlank()) {
+            throw new DukeException("Invalid command format!");
+        }
+        return new ToDoCommand(description);
+    }
+
+    private static Command prepareDeadline(String args) throws DukeException {
+        final Matcher matcher = parseTask(args);
+        final String description = matcher.group(MATCH_GROUP_DESCRIPTION);
+        final String by = matcher.group(MATCH_GROUP_BY);
+        if (description == null || description.isBlank() || by == null || by.isBlank()) {
+            throw new DukeException(MESSAGE_UNRECOGNISED_DEADLINE_FORMAT);
+        }
+        return new DeadlineCommand(description, by);
+    }
+
+    private static Command prepareEvent(String args) throws DukeException {
+        final Matcher matcher = parseTask(args);
+        final String description = matcher.group(MATCH_GROUP_DESCRIPTION);
+        final String at = matcher.group(MATCH_GROUP_AT);
+        if (description == null || description.isBlank() || at == null || at.isBlank()) {
+            throw new DukeException(MESSAGE_UNRECOGNISED_EVENT_FORMAT);
+        }
+        return new EventCommand(description, at);
+    }
+
+    private static Matcher parseTask(String args) throws DukeException {
+        final Matcher matcher = TASK_ARGS_FORMAT.matcher(args);
+        if (!matcher.matches()) {
+            throw new DukeException("Invalid command format!");
+        }
+        return matcher;
+    }
+
+    private static int parseTaskId(String args) throws DukeException {
+        try {
+            return Integer.parseInt(args) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException(MESSAGE_INVALID_TASK_NUMBER);
+        }
+    }
+
+    private static Command handleUnrecognisedCommand() throws DukeException {
+        throw new DukeException(MESSAGE_UNRECOGNISED_COMMAND);
+    }
+    }
 }
