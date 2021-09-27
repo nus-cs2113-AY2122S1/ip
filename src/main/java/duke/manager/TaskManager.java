@@ -114,7 +114,7 @@ public class TaskManager {
             String[] eventData = message.split("/", 2);
             tasks.add(new Event(eventData[0], processDateAndTime(eventData[1].substring(3)), eventData[1].substring(3)));
             printAddedTask(tasks.get(tasks.size() - 1), tasks);
-            FileManager.saveTasksToFile(tasks);
+            Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             printLine();
             System.out.println("YOU IDIOT !!??!! The description of an event cannot be empty.");
@@ -157,7 +157,7 @@ public class TaskManager {
             String[] deadlineData = message.split("/", 2);
             tasks.add(new Deadline(deadlineData[0], processDateAndTime(deadlineData[1].substring(3)), deadlineData[1].substring(3)));
             printAddedTask(tasks.get(tasks.size() - 1), tasks);
-            FileManager.saveTasksToFile(tasks);
+            Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             printLine();
             System.out.println("YOU IDIOT !!??!! The description of a deadline cannot be empty.");
@@ -185,7 +185,7 @@ public class TaskManager {
         try {
             tasks.add(new Todo(message.substring(5)));
             printAddedTask(tasks.get(tasks.size() - 1), tasks);
-            FileManager.saveTasksToFile(tasks);
+            Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             printLine();
             System.out.println("OOPS!!! The description of a todo cannot be empty.");
@@ -222,7 +222,7 @@ public class TaskManager {
             String[] arrOfStr = message.split(" ");
             int index = Integer.parseInt(arrOfStr[arrOfStr.length - 1]) - 1;
             tasks.get(index).isDone();
-            FileManager.saveTasksToFile(tasks);
+            Storage.saveTasksToFile(tasks);
         } catch (NullPointerException e) {
             printLine();
             System.out.println("OH MY GOD, can you maybe type a task that exists ?");
@@ -239,7 +239,7 @@ public class TaskManager {
     public static void processInput() {
 
         ArrayList<Task> tasks = new ArrayList<>();
-        FileManager.getStoredData(tasks);
+        Storage.getStoredData(tasks);
         Scanner scanner = new Scanner(System.in);
         String message = scanner.nextLine();
 
@@ -301,7 +301,7 @@ public class TaskManager {
             int index = Integer.parseInt(arrOfStr[1]);
             printDeletedTask(tasks.get(index - 1), tasks);
             tasks.remove(index - 1);
-            FileManager.saveTasksToFile(tasks);
+            Storage.saveTasksToFile(tasks);
         } catch (NullPointerException e) {
             printLine();
             System.out.println("OH MY GOD, can you maybe type things properly ?");
