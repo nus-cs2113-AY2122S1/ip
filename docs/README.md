@@ -140,13 +140,14 @@ In the scenario where the directory or file required is missing, the bot will au
 file for the user.
 
 ## Command Summary
-| Action  | Format  | Example  | 
-| ------  | ------  | -------  | 
-| Adding a Todo  | ```todo <description>```  | ```todo study for CS2113T```  | 
-| Adding a Deadline  | ```deadline <description>/by <date>```  | ```deadline submit CS2101 reflection /by 21 Sept```  | 
-| Adding an Event  | ```event <description>/at <time>```  | ```deadline submit CS2101 reflection /by 21 Sept```  | 
-| Listing all tasks  | ```list```  | ```list```  | 
-| Marking task as completed  | ```done <taskIndex>```  | ```done 1```  | 
-| Removing a task  | ```delete <taskIndex>```  | ```delete 2```  | 
-| Searching for a task  | ```find <keyword>```  | ```find study```  | 
-| Terminating the bot  | ```bye```  | ```bye```  | 
+
+| **Command** | **Usage**| 
+| ------- | -----| 
+| Add a todo | `todo <description>`| 
+| Add a deadline | `deadline <description> /by <date>`| 
+| Add an event | `event <description /at <time>`| 
+| List all tasks | `list`| 
+| Delete a task | `delete <taskIndex>`| 
+| Search for a task | `find <keyword>`| 
+| Mark a task as done | `done <taskIndex>`| 
+| Terminate bot | `bye`| 
