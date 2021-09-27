@@ -14,6 +14,8 @@ import duke.task.Todo;
 import duke.task.exception.EmptyDescriptionException;
 import duke.task.exception.EmptyTimeDetailException;
 import duke.task.exception.TimeSpecifierNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 public class Parser {
@@ -45,7 +47,7 @@ public class Parser {
      */
     public Command parse(String fullCommand)
             throws NumberFormatException, UnknownCommandException, EmptyDescriptionException, EmptyTimeDetailException,
-            TimeSpecifierNotFoundException {
+            TimeSpecifierNotFoundException, DateTimeParseException {
         String[] separatedCommand = fullCommand.split(" ");
         String userCommand = separatedCommand[0];
 
@@ -140,18 +142,20 @@ public class Parser {
      *
      * @param separatedCommand String array of each word in user input.
      * @param startIndex       Starting index of time detail in user input array.
-     * @return Time detail.
+     * @return LocalDate object of time detail.
      * @throws EmptyTimeDetailException Time detail not found in user input.
+     * @throws DateTimeParseException   Incorrect date format of time detail.
      */
-    private static String extractTimeDetail(String[] separatedCommand, int startIndex) throws EmptyTimeDetailException {
-        String timeDetail = String.join(" ",
+    private static LocalDate extractTimeDetail(String[] separatedCommand, int startIndex)
+            throws EmptyTimeDetailException, DateTimeParseException {
+        String timeDetailString = String.join(" ",
                 Arrays.copyOfRange(separatedCommand, startIndex, separatedCommand.length));
 
-        if (timeDetail.isBlank()) {
+        if (timeDetailString.isBlank()) {
             throw new EmptyTimeDetailException();
         }
 
-        return timeDetail;
+        return LocalDate.parse(timeDetailString);
     }
 
     /**
@@ -194,10 +198,11 @@ public class Parser {
      * @throws EmptyTimeDetailException       Time detail not provided in command.
      */
     private AddCommand prepareAddDeadline(String[] separatedCommand)
-            throws TimeSpecifierNotFoundException, EmptyDescriptionException, EmptyTimeDetailException {
+            throws TimeSpecifierNotFoundException, EmptyDescriptionException, EmptyTimeDetailException,
+            DateTimeParseException {
         int byIndex = getByIndex(separatedCommand);
         String description = extractDescription(separatedCommand, byIndex);
-        String by = extractTimeDetail(separatedCommand, byIndex + 1);
+        LocalDate by = extractTimeDetail(separatedCommand, byIndex + 1);
 
         return new AddCommand(new Deadline(description, by));
     }
@@ -212,10 +217,11 @@ public class Parser {
      * @throws EmptyTimeDetailException       Time detail not provided in command.
      */
     private AddCommand prepareAddEvent(String[] separatedCommand)
-            throws TimeSpecifierNotFoundException, EmptyDescriptionException, EmptyTimeDetailException {
+            throws TimeSpecifierNotFoundException, EmptyDescriptionException, EmptyTimeDetailException,
+            DateTimeParseException {
         int atIndex = getAtIndex(separatedCommand);
         String description = extractDescription(separatedCommand, atIndex);
-        String at = extractTimeDetail(separatedCommand, atIndex + 1);
+        LocalDate at = extractTimeDetail(separatedCommand, atIndex + 1);
 
         return new AddCommand(new Event(description, at));
     }

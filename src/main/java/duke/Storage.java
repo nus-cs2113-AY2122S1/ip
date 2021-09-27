@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Storage {
@@ -33,7 +35,8 @@ public class Storage {
      * @throws TaskListEmptyException    Task list is empty.
      * @throws InvalidTaskIndexException Task index provided is not within task list size.
      */
-    public TaskList loadTaskList() throws FileNotFoundException, TaskListEmptyException, InvalidTaskIndexException {
+    public TaskList loadTaskList() throws FileNotFoundException, TaskListEmptyException, InvalidTaskIndexException,
+            DateTimeParseException {
         TaskList taskList = new TaskList();
         File taskFile = new File(TASK_FILE_PATH);
 
@@ -54,7 +57,8 @@ public class Storage {
                     Todo todo = new Todo(taskDescription);
                     taskList.addTask(todo);
                 } else if (splitLine.length == 4) {
-                    String timeDetail = splitLine[3];
+                    String timeDetailString = splitLine[3];
+                    LocalDate timeDetail = LocalDate.parse(timeDetailString);
                     if (taskType.equals(TASK_TYPE_DEADLINE)) {
                         Deadline deadline = new Deadline(taskDescription, timeDetail);
                         taskList.addTask(deadline);
@@ -69,6 +73,8 @@ public class Storage {
                 }
             }
         }
+
+        scanner.close();
 
         return taskList;
     }
