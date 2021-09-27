@@ -50,23 +50,22 @@ public class Duke {
             }
             else if (Objects.equals(parser.keyword(), "d")) {
                 Deadline t = new Deadline(parser.splitDeadlineTask(), parser.splitDeadlineBy());
-                TaskList.addTask(t, 1);
+                TaskList.addTask(t, 'D');
                 Ui.addDeadline();
                 Storage.saveFile(TaskList.getTask(++localCount));
             }
             else if (Objects.equals(parser.keyword(), "e")) {
                 Event t = new Event(parser.splitEventTask(), parser.splitEventBy());
-                TaskList.addTask(t, 2);
+                TaskList.addTask(t, 'E');
                 Ui.addEvent();
                 Storage.saveFile(TaskList.getTask(++localCount));
             }
             else if (Objects.equals(parser.keyword(), "t")){
                 try {
                     Task t = new Task(parser.data());
-                    TaskList.addTask(t, 3);
+                    TaskList.addTask(t, 'T');
                     Ui.addTodo();
                     Storage.saveFile(TaskList.getTask(++localCount));
-//                    if (!Objects.equals(line, "bye")) System.out.println("added: " + formattedLine);
                 } catch (DukeException e) {
                     Ui.emptyTodo();
                 }

@@ -6,11 +6,11 @@ import java.util.ArrayList;
  * The TaskList class contains methods which modifies code from the Task Class.
  */
 public class TaskList {
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    public static ArrayList<Task> taskArray = new ArrayList<>();
     public static ArrayList<String> letter = new ArrayList<>();
-    public static ArrayList<String> done = new ArrayList<>();
+    public static ArrayList<String> doneArray = new ArrayList<>();
 
-    private static int i=0;
+    private static int i = 0;
 
     /**
      * Adds a Task into the TaskList by assigning it values into the 3 arrays.
@@ -18,12 +18,21 @@ public class TaskList {
      * @param t Task t.
      * @param type The class of the Task, whether it is a Deadline, Event or Task.
      */
-    public static void addTask(Task t, int type) {
-        tasks.add(t);
-        if (type == 1) letter.add("D");
-        else if (type == 2) letter.add("E");
-        else if (type == 3) letter.add("T");
-        done.add(" ");
+    public static void addTask(Task t, char type) {
+        taskArray.add(t);
+
+        switch(type) {
+            case 'D':
+                letter.add("D");
+                break;
+            case 'E':
+                letter.add("E");
+                break;
+            case 'T':
+                letter.add("T");
+                break;
+        }
+        doneArray.add(" ");
         i++;
     }
 
@@ -33,7 +42,7 @@ public class TaskList {
      * @param i Corresponding index of the Task.
      */
     public static void markDone(int i) {
-        done.set(i-1, "X");
+        doneArray.set(i-1, "X");
     }
 
     /**
@@ -42,18 +51,18 @@ public class TaskList {
      * @param i Corresponding index of the Task.
      */
     public static void remove(int i) {
-        done.remove(i-1);
+        doneArray.remove(i-1);
         letter.remove(i-1);
-        tasks.remove(i-1);
+        taskArray.remove(i-1);
     }
 
     /**
      * Prints all the Tasks in the TaskList.
      */
     public static void printTask() {
-        for (int j=1; j<=tasks.size(); j++)
+        for (int j = 1; j<= taskArray.size(); j++)
             System.out.println(j + ". " + "[" + letter.get(j-1) + "] "
-                    + "[" + done.get(j-1) + "] " + tasks.get(j-1).description());
+                    + "[" + doneArray.get(j-1) + "] " + taskArray.get(j-1).description());
     }
 
     /**
@@ -63,7 +72,7 @@ public class TaskList {
      * @return Description of the task.
      */
     public static String getDescription(int i) {
-        return tasks.get(i-1).description();
+        return taskArray.get(i-1).description();
     }
 
     /**
@@ -73,7 +82,7 @@ public class TaskList {
      * @return Description of the task including its status and index.
      */
     public static String getTask(int i) {
-        return i + " | " + letter.get(i - 1) + " | " + done.get(i - 1) +  " | " + getDescription(i);
+        return i + " | " + letter.get(i - 1) + " | " + doneArray.get(i - 1) +  " | " + getDescription(i);
     }
 
     /**
@@ -82,10 +91,10 @@ public class TaskList {
      *  @param data Corresponding substring of the Task to be searched.
      */
     public static void find(String data) {
-        for (int j=1; j<=tasks.size(); j++) {
-            if (tasks.get(j-1).description().contains(data)) {
+        for (int j = 1; j<= taskArray.size(); j++) {
+            if (taskArray.get(j-1).description().contains(data)) {
                 System.out.println(j + ". " + "[" + letter.get(j-1) + "] "
-                        + "[" + done.get(j-1) + "] " + tasks.get(j-1).description());
+                        + "[" + doneArray.get(j-1) + "] " + taskArray.get(j-1).description());
             }
         }
     }

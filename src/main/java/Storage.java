@@ -19,8 +19,8 @@ public class Storage {
      * @throws FileNotFoundException If file is not found
      */
     static void printFileContents() throws FileNotFoundException {
-        File f = new File(file); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        File f = new File(file);
+        Scanner s = new Scanner(f);
         while (s.hasNext()) {
             System.out.println(s.nextLine());
         }
