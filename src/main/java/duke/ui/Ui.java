@@ -202,6 +202,8 @@ public class Ui {
                 "done 2");
         printCommandHelpMessage("delete", "deletes a task from the list",
                 "delete [task number]", "delete 3");
+        printCommandHelpMessage("find", "finds tasks containing keywords",
+                "find [keywords]", "find math assignment");
         printCommandHelpMessage("help", "lists all commands", "none", "none");
         printCommandHelpMessage("exit, bye, quit", "exits the program", "none", "none");
     }
