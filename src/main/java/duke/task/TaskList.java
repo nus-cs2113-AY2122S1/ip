@@ -12,7 +12,7 @@ public class TaskList {
     private final ArrayList<Task> taskList = new ArrayList<>();
 
     /**
-     * Create task list.
+     * Creates task list.
      */
     public TaskList() {
     }
@@ -20,11 +20,13 @@ public class TaskList {
     /**
      * Checks if task index is within task list size.
      *
-     * @param taskIndex Index of task
-     * @return Returns true if index is within task list size, otherwise false.
+     * @param taskIndex Index of task.
+     * @return Boolean indicating if index is within task list size.
      */
     private boolean hasTaskIndex(int taskIndex) {
-        return (taskIndex >= 0) && (taskIndex < getTotalTasks());
+        boolean greaterThanZero = taskIndex >= 0;
+        boolean lessThanMaxTasks = taskIndex < getTotalTasks();
+        return greaterThanZero && lessThanMaxTasks;
     }
 
     /**
