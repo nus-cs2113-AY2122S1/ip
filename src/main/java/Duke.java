@@ -2,8 +2,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Duke {
-    private static ArrayList<String> Data = new ArrayList<>();
-    private static ArrayList<Task> Task = new ArrayList<>();
+    private static final ArrayList<Task> Task = new ArrayList<>();
     private static boolean hasData = false;
     private static StorageFile Store;
     private static ui ui;
@@ -20,7 +19,7 @@ public class Duke {
 
         Store.create();
         Store.read();
-        Data = Store.Data;
+        ArrayList<String> data = Store.Data;
         hasData = Store.hasData;
         ui.welcome();
 
@@ -32,21 +31,22 @@ public class Duke {
                     Task.add(count, new Todo(task));
                     count++;
                 }
-                if (Data.get(i).contains("[D]")) {
-                    String task = Data.get(i).substring(Data.get(i).lastIndexOf("]") + 1, Data.get(i).lastIndexOf("("));
+                if (data.get(i).contains("[D]")) {
+                    String task = data.get(i).substring(data.get(i).lastIndexOf("]") + 1, data.get(i).lastIndexOf("("));
                     task = "deadline" + task + "/";
+
                     date = Data.get(i).substring(Data.get(i).lastIndexOf("(") + 1, Data.get(i).lastIndexOf(")"));
                     Task.add(count, new Deadline(task, date, true));
                     count++;
                 }
-                if (Data.get(i).contains("[E]")) {
-                    String task = Data.get(i).substring(Data.get(i).lastIndexOf("]") + 1, Data.get(i).lastIndexOf("("));
+                if (data.get(i).contains("[E]")) {
+                    String task = data.get(i).substring(data.get(i).lastIndexOf("]") + 1, data.get(i).lastIndexOf("("));
                     task = "event" + task + "/";
-                    date = Data.get(i).substring(Data.get(i).lastIndexOf("(") + 1, Data.get(i).lastIndexOf(")"));
+                    date = data.get(i).substring(data.get(i).lastIndexOf("(") + 1, data.get(i).lastIndexOf(")"));
                     Task.add(count, new Event(task, date));
                     count++;
                 }
-                if (Data.get(i).contains("[X]")) {
+                if (data.get(i).contains("[X]")) {
                 Task.get(i).setDone();
                 }
            }

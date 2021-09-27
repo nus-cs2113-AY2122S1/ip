@@ -5,7 +5,7 @@ public class ui {
     }
 
     public void listExists() {
-        System.out.println("Looks like you already have some tasks. Type 'list' to view them!");
+        System.out.println("Looks like you already have some tasks. Type 'list' to view them!\n" + LINE);
     }
 
     public void taskDone(Task word) {
@@ -31,5 +31,9 @@ public class ui {
 
     public void bye() {
         System.out.println(LINE + "Bye. Hope to see you again soon!\n" + LINE);
+    }
+
+    public void wordNotFound() {
+        System.out.println("Task with given keyword does not exist!\n");
     }
 }

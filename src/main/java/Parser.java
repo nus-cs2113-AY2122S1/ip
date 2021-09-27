@@ -71,10 +71,33 @@ public class Parser {
                 System.out.println(LINE + invalid + LINE);
             }
 
-            else if (isFind(firstWord)  && wordLength <= 1) { //complete Tasks
-                invalid.setNotDelete();
+
+            else if (isFind(firstWord)  && wordLength <= 1) { //Find Tasks
+                invalid.setFindNoWord();
                 System.out.println(LINE + invalid + LINE);
             }
+
+            else if (isFind(firstWord) && wordLength > 1) { //Find tasks
+                int index = 1;
+                boolean wordExists = false;
+                System.out.println(LINE);
+                for (int i = 0; i < count; i++) {
+                    String currentTask = "" + Task.get(i);
+                    String keyword = wordArr[1];
+
+                    if (currentTask.contains(keyword)) {
+                        wordExists = true;
+                        System.out.print(index + ". ");
+                        System.out.println(Task.get(i) + " - Task no: " + (i+1));
+                        index++;
+                    }
+                }
+                if (!wordExists) {
+                    ui.wordNotFound();
+                }
+                System.out.println(LINE);
+            }
+
 
             else if (!isBye(userInput) && !isList(userInput)) { //Task words
                 if (isTodo(firstWord) && wordLength == 1) { //Todo is empty
@@ -140,12 +163,13 @@ public class Parser {
                 for (int i = 0; i < count; i++) {
                     System.out.print(i + 1 + ". ");
                     System.out.println(Task.get(i));
-
-                    String text = toString(Task.get(i), i+1);
-
-                    Store.write(i, text);
                 }
                 System.out.print(LINE);
+            }
+
+            for (int i = 0; i < count; i++) {
+                String text = toString(Task.get(i), i+1);
+                Store.write(i, text);
             }
 
         } while (!isBye(userInput)); //Exit
@@ -190,6 +214,8 @@ public class Parser {
         return word.equalsIgnoreCase("delete");
     }
 
-    public static boolean isFind (String word) { return word.equalsIgnoreCase("find"); }
+    public static boolean isFind(String word) {
+        return word.equalsIgnoreCase("find");
+    }
 
 }

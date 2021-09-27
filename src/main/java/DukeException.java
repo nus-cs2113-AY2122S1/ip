@@ -11,6 +11,7 @@ public class DukeException {
     protected boolean isEventNoDate;
     protected boolean isNotDelete;
     protected boolean isDeleteNoNumber;
+    protected boolean isFindNoWord;
     protected String Description;
 
     public DukeException(String description) {
@@ -25,6 +26,7 @@ public class DukeException {
         isEventNoDate = false;
         isNotDelete = false;
         isDeleteNoNumber = false;
+        isFindNoWord = false;
 
     }
 
@@ -46,6 +48,9 @@ public class DukeException {
         }
         else if (isDeleteNoNumber) {
             description = "Delete what??? Use the correct task number instead!\n" + "Use 'list' to access task number!\n";
+        }
+        else if (isFindNoWord) {
+            description = "Find what??? Use keywords to find the task you're looking for!\n";
         }
         else if (isTodoEmpty) {
             description = "Todo what???\n";
@@ -87,6 +92,10 @@ public class DukeException {
 
     public void setDeleteNoNumber() {
         isDeleteNoNumber = true;
+    }
+
+    public void setFindNoWord() {
+        isFindNoWord = true;
     }
 
     public void setTodoEmpty() {
