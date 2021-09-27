@@ -17,6 +17,7 @@ public class Parser {
     public static final String EXIT = "exit";
     public static final String QUIT = "quit";
     public static final String GREETING = "hello";
+    public static final String FIND = "find";
 
     public CommandType parseCommand(String input) {
         String[] words = input.split(" ");
@@ -45,6 +46,9 @@ public class Parser {
 
         case GREETING:
             return CommandType.GREETING;
+
+        case FIND:
+            return CommandType.FIND;
 
         case BYE:
             //Fallthrough

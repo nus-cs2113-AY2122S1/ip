@@ -104,6 +104,18 @@ public class Ui {
         System.out.print(NEWLINE);
     }
 
+    public void printMatchingTasks(ArrayList<Task> tasks, String keywords) {
+        System.out.println(NEWLINE + "Here are the matching tasks in your list:");
+        int count = 0;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keywords)) {
+                count++;
+                System.out.println(count + NUMBER_LIST_SEPARATOR + task);
+            }
+        }
+        System.out.print(NEWLINE);
+    }
+
     public void printHelpMessage() {
         System.out.println(NEWLINE + "Here are a list of commands:" + NEWLINE);
         printCommandHelpMessage("list", "lists all tasks", "none", "none");
