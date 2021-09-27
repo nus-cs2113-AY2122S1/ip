@@ -4,6 +4,9 @@ import task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * A class that stores an ArrayList of tasks and the related methods for the ArrayList.
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;
@@ -14,6 +17,9 @@ public class TaskList {
         this.numberOfTasks = 0;
     }
 
+    /**
+     * @return Returns the number of tasks in the list produced by execution of FindCommand.
+     */
     public int getNumberOfTasks() {
         return numberOfTasks;
     }
@@ -27,7 +33,14 @@ public class TaskList {
         Task.setTotalTasks(Task.getTotalTasks() + 1);
     }
 
-    public void addTaskForSpecificCases(Task task) {
+    /**
+     * Adds existing tasks to a new list when FindCommand is executed.
+     * This is to separate from the usual addTask method which increases
+     * the total number of tasks in the main ArrayList.
+     *
+     * @param task The task that needs to be printed after executing FindCommand.
+     */
+    public void addTaskForFindCommand(Task task) {
         tasks.add(task);
     }
 
@@ -36,7 +49,7 @@ public class TaskList {
         Task.setTotalTasks(Task.getTotalTasks() - 1);
     }
 
-    public Task getTask(int index) {
+    public Task getTask(int index) throws IndexOutOfBoundsException{
         return tasks.get(index);
     }
 }

@@ -2,6 +2,9 @@ package constants;
 
 import static commands.ListCommand.LIST_IS_EMPTY;
 
+/**
+ * Messages that do not belong to any Commands.
+ */
 public class Message {
 
     public static final String DIVIDER = "___________________________________________________________";
@@ -24,9 +27,15 @@ public class Message {
     public static final String INCORRECT_FORMAT = "Oops, file format is incorrect. Please correct it!";
     public static final String DONE = "Done!";
     public static final String GETTING_TASK = "Getting your tasks.....";
-    public static final String PROMPT_NUMBER = "Please give me a number :)";
+    public static final String PROMPT_NUMBER = "Please give me an integer :)";
 
-    public static String getSensibleRange(int number) {
+    /**
+     * A message that asks the user to give a number between 1 and the total number of tasks.
+     *
+     * @param number Total number of tasks
+     * @return Message
+     */
+    public static String giveSensibleRange(int number) {
         if(number < 1) {
             return LIST_IS_EMPTY;
         }

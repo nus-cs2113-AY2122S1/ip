@@ -8,6 +8,9 @@ import tasklist.TaskList;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * A Command class that contains methods for finding tasks with specific description or date.
+ */
 public class FindCommand extends Command{
 
     private final String input;
@@ -26,15 +29,22 @@ public class FindCommand extends Command{
         this.dateTime = dateTime;
     }
 
+    /**
+     * Searches through the ArrayList for tasks which contains the descriptions
+     * given or have the same date.
+     *
+     * @return A CommandResult that tells the Ui to print the status of the execution
+     * and the list of tasks with similar descriptions / dates (if successful).
+     */
     public CommandResult execute() {
-        int totalTasks = 0;
+        int totalTasks;
         String message;
         TaskList taskContainingInput = new TaskList();
         if(input == null) {
-            totalTasks = getTasksOfSpecificDate(totalTasks, taskContainingInput);
+            totalTasks = getTasksOfSpecificDate(taskContainingInput);
             message = LIST_OF_SPECIFIC_DATE;
         } else {
-            totalTasks = getTasksOfSpecificString(totalTasks, taskContainingInput);
+            totalTasks = getTasksOfSpecificString(taskContainingInput);
             message = LIST_CONTAINING_STRING_MESSAGE;
         }
         taskContainingInput.setNumberOfTask(totalTasks);
@@ -45,22 +55,37 @@ public class FindCommand extends Command{
                 taskContainingInput,PrintOptions.LIST_WITH_SPECIFIC_CONDITIONS);
     }
 
-    private int getTasksOfSpecificString(int totalTasks, TaskList taskContainingString) {
+    /**
+     * Iterates through the ArrayList to get tasks with specific descriptions
+     *
+     * @param taskContainingString The new TaskList created for adding tasks
+     *                             with specific descriptions
+     * @return The total number of tasks in the new TaskList
+     */
+    private int getTasksOfSpecificString(TaskList taskContainingString) {
+        int totalTasks = 0;
         for (int i = 0; i < Task.getTotalTasks(); i++) {
             if(tasks.getTask(i).getDescription().contains(input)){
-                taskContainingString.addTaskForSpecificCases(tasks.getTask(i));
+                taskContainingString.addTaskForFindCommand(tasks.getTask(i));
                 totalTasks++;
             }
         }
         return totalTasks;
     }
 
-    private int getTasksOfSpecificDate(int totalTasks,TaskList tasksOfSpecificDate) {
-
+    /**
+     * Iterates through the ArrayList to get tasks with a specific date
+     *
+     * @param tasksOfSpecificDate The new TaskList created for adding tasks
+     *                             with a specific date
+     * @return The total number of tasks in the new TaskList
+     */
+    private int getTasksOfSpecificDate(TaskList tasksOfSpecificDate) {
+        int totalTasks = 0;
         for (int i = 0; i <Task.getTotalTasks(); i++) {
             Task temp = tasks.getTask(i);
             if (taskWithSameDate(temp) != null) {
-                tasksOfSpecificDate.addTaskForSpecificCases(taskWithSameDate(temp));
+                tasksOfSpecificDate.addTaskForFindCommand(taskWithSameDate(temp));
                 totalTasks++;
             }
         }

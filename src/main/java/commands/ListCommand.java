@@ -2,7 +2,9 @@ package commands;
 
 import task.Task;
 
-
+/**
+ * A Command class that contains methods that asks the Ui to print out the ArrayList.
+ */
 public class ListCommand extends Command{
 
     public static final String LIST_IS_EMPTY = "You're a free man :)";
@@ -14,6 +16,13 @@ public class ListCommand extends Command{
         super();
     }
 
+    /**
+     * Sends the ArrayList to be printed to the Ui
+     *
+     * @return A CommandResult that tells the Ui to print the status of execution
+     * and the list (if not empty).
+     */
+    @Override
     public CommandResult execute(){
         if(Task.getTotalTasks() == NO_TASKS) {
             return new CommandResult(LIST_IS_EMPTY,PrintOptions.DEFAULT);

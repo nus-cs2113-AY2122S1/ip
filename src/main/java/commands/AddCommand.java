@@ -1,39 +1,56 @@
 package commands;
 
-import constants.Message;
+import static constants.Message.INDENTATION;
 import duke.DefaultException;
-import task.*;
+import task.Task;
+import task.Event;
+import task.Deadline;
+import task.ToDo;
+import task.TaskType;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A Command class that contains methods for adding tasks to the ArrayList.
+ */
 public class AddCommand extends Command{
 
     private static final int EXPECTED_LENGTH_FOR_DEADLINE = 2;
     private static final int EXPECTED_LENGTH_FOR_EVENT = 3;
-    private static final String PROMPT_CORRECT_FORMAT = "Sorry, you're missing some arguments," +
-            " do type 'help' if you're unsure :)";
+    public static final String DEADLINE_FORMAT_ERROR = "Please type the deadline in the format : \n" +
+            INDENTATION + "'deadline (description) /by yyyy-MM-ddThh:mm' :)";
+    public static final String EVENT_FORMAT_ERROR = "Please type the event in the format: \n" +
+            INDENTATION + "'event (description) /at yyyy-MM-ddThh:mm /to yyyy-MM-ddThh:mm' :)";
     private static final String DATE_TIME_FORMAT_ERROR_FOR_DEADLINE = "Please write the date and time in the" +
             " format : 'yyyy-mm-ddThh:mm:ss'  :)";
-    private static final String DATE_TIME_FORMAT_ERROR_FOR_EVENT = "Please write the date and time in the format : \n" +
-            Message.INDENTATION + "'yyyy-mm-ddThh:mm:ss /to yyy-mm-ddThh:mm'  :)";
+    private static final String DATE_TIME_FORMAT_ERROR_FOR_EVENT = "Please write the date and time in the format : \n"
+            + INDENTATION + "'yyyy-mm-ddThh:mm:ss /to yyy-mm-ddThh:mm'  :)";
     public static final String ADDED_TO_LIST = "I've added this to your list :D";
     public static final String TODO_COMMAND = "todo";
     public static final String EVENT_COMMAND = "event";
     public static final String DEADLINE_COMMAND = "deadline";
 
-    private final String[] parsedOutput;
+    private final String[] parsedOutputs;
     private final TaskType type;
 
-    public AddCommand(String[] parsedOutput, TaskType type) {
-        this.parsedOutput = parsedOutput;
+    public AddCommand(String[] parsedOutputs, TaskType type) {
+        this.parsedOutputs = parsedOutputs;
         this.type = type;
     }
 
-    public CommandResult execute() throws DefaultException, DateTimeParseException {
+    /**
+     * Creates a task object and adds it to the ArrayList depending on the type of task.
+     *
+     * @return A CommandResult that tells the Ui to print the status of the execution
+     * and the task added (if successful).
+     * @throws DefaultException Throws an exception if something unexpected happens.
+     */
+    @Override
+    public CommandResult execute() throws  DefaultException {
         switch(type){
         case TODO:
-            tasks.addTask(new ToDo(parsedOutput[0]));
+            tasks.addTask(new ToDo(parsedOutputs[0]));
             return new CommandResult(ADDED_TO_LIST,tasks.getTask(Task.getTotalTasks()-1),
                     PrintOptions.WITH_TASK_AND_NUMBER_OF_TASK);
         case EVENT:
@@ -45,32 +62,40 @@ public class AddCommand extends Command{
         }
     }
 
+    /**
+     * Tries to add a deadline to the ArrayList.
+     *
+     * @return A CommandResult that tells the Ui to print the status of the execution
+     * and the task added (if successful).
+     */
     private CommandResult getCommandResultForDeadline() {
-        if(parsedOutput.length < EXPECTED_LENGTH_FOR_DEADLINE) {
-            return new CommandResult(PROMPT_CORRECT_FORMAT,PrintOptions.DEFAULT);
+        if(parsedOutputs.length < EXPECTED_LENGTH_FOR_DEADLINE) {
+            return new CommandResult(DEADLINE_FORMAT_ERROR,PrintOptions.DEFAULT);
         }
         try {
-            tasks.addTask(new Deadline(parsedOutput[0], LocalDateTime.parse(parsedOutput[1])));
-
+            tasks.addTask(new Deadline(parsedOutputs[0], LocalDateTime.parse(parsedOutputs[1])));
         } catch (DateTimeParseException error) {
             return new CommandResult(DATE_TIME_FORMAT_ERROR_FOR_DEADLINE,PrintOptions.DEFAULT);
-
         }
         return new CommandResult(ADDED_TO_LIST,tasks.getTask(Task.getTotalTasks()-1),
                 PrintOptions.WITH_TASK_AND_NUMBER_OF_TASK);
     }
 
+    /**
+     * Tries to add an event to the ArrayList.
+     *
+     * @return A CommandResult that tells the Ui to print the status of the execution
+     * and the task added (if successful).
+     */
     private CommandResult getCommandResultForEvent() {
-        if(parsedOutput.length < EXPECTED_LENGTH_FOR_EVENT) {
-            return new CommandResult(PROMPT_CORRECT_FORMAT,PrintOptions.DEFAULT);
+        if(parsedOutputs.length < EXPECTED_LENGTH_FOR_EVENT) {
+            return new CommandResult(EVENT_FORMAT_ERROR,PrintOptions.DEFAULT);
         }
         try {
-            tasks.addTask(new Event(parsedOutput[0], LocalDateTime.parse(parsedOutput[1]),
-                    LocalDateTime.parse(parsedOutput[2])));
-
+            tasks.addTask(new Event(parsedOutputs[0], LocalDateTime.parse(parsedOutputs[1]),
+                    LocalDateTime.parse(parsedOutputs[2])));
         } catch (DateTimeParseException error) {
             return new CommandResult(DATE_TIME_FORMAT_ERROR_FOR_EVENT,PrintOptions.DEFAULT);
-
         }
         return new CommandResult(ADDED_TO_LIST,tasks.getTask(Task.getTotalTasks()-1),
                 PrintOptions.WITH_TASK_AND_NUMBER_OF_TASK);

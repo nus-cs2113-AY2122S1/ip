@@ -3,11 +3,15 @@ package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A Task Class that saves the description of the task and the period of
+ * date and time in which the task needs to be done.
+ */
 public class Event extends Task{
     public static final String AT = "at: ";
     protected LocalDateTime fromDateAndTime;
     protected LocalDateTime toDateAndTime;
-    private static final String IDENTIFIER = "E";
+    public static final String IDENTIFIER = "E";
 
     public Event(String description, LocalDateTime fromDateAndTime, LocalDateTime toDateAndTime) {
         this.description = description;
@@ -19,6 +23,7 @@ public class Event extends Task{
         return fromDateAndTime;
     }
 
+    @Override
     public String getStatusIconAndDescription() {
         String icon = (isDone ? "X" : " ");
         return addSquareBrackets(IDENTIFIER) + addSquareBrackets(icon) + " " + description + " " +
@@ -29,6 +34,7 @@ public class Event extends Task{
         return DateAndTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 
+    @Override
     public String getStatusIconAndDescriptionForFile() {
         String icon = (isDone ? "1" : "0");
         return  IDENTIFIER + SEPARATOR + icon + SEPARATOR + description + SEPARATOR + fromDateAndTime +

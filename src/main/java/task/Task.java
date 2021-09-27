@@ -1,5 +1,9 @@
 package task;
 
+
+/**
+ * An abstract class with the common methods and attributes for different types of Tasks.
+ */
 public abstract class Task {
     protected static final String SEPARATOR = " / ";
     protected boolean isDone;
@@ -7,6 +11,11 @@ public abstract class Task {
 
     private static int totalTasks = 0;
 
+    /**
+     * Gets the completion status and description of task when printing it as a list
+     *
+     * @return the status and description of a task in a specific format
+     */
     public abstract String getStatusIconAndDescription();
 
     public String getDescription() {
@@ -17,6 +26,11 @@ public abstract class Task {
         isDone = true;
     }
 
+    /**
+     * Gets the completion status and description of the task when saving them to a file
+     *
+     * @return the status and description of a task in a specific format
+     */
     public abstract String getStatusIconAndDescriptionForFile();
 
     public static int getTotalTasks() {
