@@ -176,6 +176,11 @@ Bye. Hope to serve you again master!
 ____________________________________________________________
 ```
 
+### Save Tasks to File:
+All the tasks added to duke is automatically added to a local
+file called `duketasks.txt` in the local directory. The file 
+is automatically updated if any changes are made.
+
 -------------------------------------------------
 ## Command Summary
 
