@@ -9,7 +9,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
+/**
+ * Stores all data into a formatted text file.
+ */
 public class Storage {
 
     protected String path;
@@ -17,7 +19,11 @@ public class Storage {
     public Storage(String path){
         this.path = path;
     }
-
+    /**
+     * Returns a list of saved tasks from "data.txt"
+     * Creates a file according to the file path if file is not found.
+     * Throws IOException if an error occurs.
+     */
     public TaskList read() throws IOException{
 
         File t = new File(this.path);
@@ -58,10 +64,14 @@ public class Storage {
                 System.out.println(e.getMessage());
             }
 
-
         return taskArrayList;
     }
-
+    /**
+     * Writes the contents of the list of Tasks in Duke to a .txt file "data.txt"
+     * The data is stored as a formatted text file.
+     *
+     * @param taskList list of Tasks in Duke to be stored.
+     */
     public void save(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(path);
 

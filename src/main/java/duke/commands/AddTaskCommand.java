@@ -14,6 +14,13 @@ public class AddTaskCommand extends Command{
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Constructor for command when user wants to add a new task. Task can be either a normal task, an Event or a Deadline
+     * @param tlist list for task to be added to
+     * @param t Task to be added. Either be a normal task, an Event or a Deadline
+     * @param ui Handles interaction with the user
+     * @param storage updates "data.txt" file
+     */
     public AddTaskCommand(TaskList tlist, Task t, Ui ui, Storage storage){
         this.tlist = tlist;
         this.t = t;
@@ -27,5 +34,4 @@ public class AddTaskCommand extends Command{
         storage.save(tlist);
 
     }
-
 }

@@ -5,15 +5,27 @@ import duke.tasks.TaskList;
 
 import java.io.IOException;
 import duke.commands.Command;
-import java.util.Scanner;
-
+/**
+ * Duke is a your friendly note taking bot.
+ * Duke keeps track of all your tasks in a reader-friendly format,
+ * even after you close the application
+ *
+ * @author  Dmitri Yam
+ * @version 1.0
+ * Cool @since   2021-09-26
+ */
 public class Duke {
 
     private boolean exit = false;
     private TaskList taskList = new TaskList();
     private Ui ui;
     private Storage storage;
-
+    /**
+     * Initialises a new object Duke
+     *
+     * @param path Location of data file to store tasks
+     * @throws IOException Throws IOException when there is an error
+     */
     public Duke(String path) throws IOException {
         this.ui = new Ui();
         ui.hello();
@@ -25,8 +37,7 @@ public class Duke {
         }
     }
 
-
-    public void run() throws IOException {
+    protected void run() throws IOException {
         String userInput;
         exit = true;
         while (exit) {
@@ -41,8 +52,8 @@ public class Duke {
         }
     }
 
-        public static void main (String[]args) throws IOException {
-            Duke d = new Duke("data.txt");
-            d.run();
-        }
+    public static void main (String[]args) throws IOException {
+        Duke d = new Duke("data.txt");
+        d.run();
+    }
 }

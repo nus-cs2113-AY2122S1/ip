@@ -3,9 +3,21 @@ package duke;
 import duke.commands.*;
 import duke.tasks.*;
 
-
+/**
+ * Reads and formats all inputs from the user.
+ */
 public class Parser {
-
+    /**
+     * Returns a Command depending on the input from the user.
+     * DukeException is thrown if it is unable to understand the command.
+     *
+     * @param input Innput from user from the commandline
+     * @param taskList List of Existing task the user has
+     * @param ui Duke object to handle responses to the user
+     * @param storage object used to save all current tasks in Duke
+     * @return Executable command.
+     * @throws DukeException throws an exception when there is an error with the user input.
+     */
     public static Command parse(String input, TaskList taskList, Ui ui, Storage storage) throws DukeException{
         if (input.contentEquals("bye")) {
             return new ByeCommand(ui);
