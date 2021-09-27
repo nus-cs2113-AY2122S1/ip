@@ -36,11 +36,11 @@ In this function, Sierra will be able to store and manage your tasks. Sierra wil
 3. Entering `deadline` followed by a task and then `/by` with a date and time in the format `ddmmyyyy time(in 24hr)` will make Sierra store the task as a 'deadline' task
 4. Entering `list` will make Sierra list down all the tasks you have recorded in her database.
 
-![Image of Tasks 1](/Images/Tasks 1.png)
+![Image of Tasks 1](/Images/Tasks1.png)
 5. Entering `find` will make Sierra list down all the tasks that have that particular keyword in (if any) with their corresponding identification number.
 6. Entering `delete` followed by a task's identification number will make Sierra delete the task from her database.
 7. Entering `done` followed by a task's identification number will make Sierra mark that task as complete in her database.
 
-![Image of Tasks 2](/Images/Tasks 2.png)
+![Image of Tasks 2](/Images/Tasks2.png)
 8. Entering `change` will return you back to the main menu.
 9. Entering `bye` will exit the application.
