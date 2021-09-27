@@ -16,6 +16,9 @@ bin/
 # data storage
 data/
 
+# Compiled class file
+*.class
+
 /text-ui-test/ACTUAL.txt
 text-ui-test/EXPECTED-UNIX.TXT
 /src/main/java/*.class
