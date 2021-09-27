@@ -1,6 +1,7 @@
 package xRoss;
 
 import xRoss.exception.EmptyStringException;
+import xRoss.storage.FileManager;
 import xRoss.task.Deadline;
 import xRoss.task.Event;
 import xRoss.task.Task;
@@ -17,7 +18,7 @@ import java.util.Scanner;
 /**
  * Represents collection of Tasks and methods to edit them in task list.
  */
-public class TaskManager implements FileManager{
+public class TaskManager implements FileManager {
 
     /**
      * tasks                ArrayList containing Tasks in task list
