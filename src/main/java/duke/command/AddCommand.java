@@ -14,6 +14,16 @@ public class AddCommand extends Command {
     public AddCommand(String order) {
         this.order = order;
     }
+
+    /**
+     * Add a task into the list
+     *
+     * @param list The list of all tasks
+     * @param doneList The list of all tasks which have been finished
+     * @param ui The ui that is used
+     * @throws EmptyTaskException If the description of task is empty,
+     *                            exception occurs
+     */
     @Override
     public void executeCommand(TaskList list, TaskDoneList doneList, Ui ui) throws EmptyTaskException {
         try {

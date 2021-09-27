@@ -1,6 +1,5 @@
 package duke.ui;
 
-import duke.task.List;
 import duke.task.TaskList;
 import duke.task.TaskDoneList;
 import java.util.ArrayList;
@@ -24,6 +23,9 @@ public class Ui {
         System.out.println(SPLIT_LINE);
     }
 
+    /**
+     * Print only all tasks which have been finished
+     */
     public void printDoneList(TaskDoneList doneList, Ui ui) {
         if (doneList.doneListSize() == 0) {
             ui.printSplitLine();
@@ -37,6 +39,9 @@ public class Ui {
         ui.printSplitLine();
     }
 
+    /**
+     * Print all tasks
+     */
     public static void printList(TaskList list, Ui ui) {
         if (list.listSize() == 0) {
             ui.printSplitLine();
@@ -57,6 +62,7 @@ public class Ui {
         ui.printSplitLine();
     }
 
+
     public void printAddCommand(TaskList list, Ui ui){
         ui.printSplitLine();
         System.out.println("    Got it. I've added this task:");
@@ -65,30 +71,47 @@ public class Ui {
         printSplitLine();
     }
 
+    /**
+     * Print error message when program cannot understand the command
+     */
     public void printDukeException(Ui ui) {
         ui.printSplitLine();
         System.out.println("    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         ui.printSplitLine();
     }
 
+    /**
+     * Print error message when the description of a task is empty
+     */
     public void printTaskError(Ui ui) {
         ui.printSplitLine();
         System.out.println("    ☹ OOPS!!! The description of a task cannot be empty.");
         ui.printSplitLine();
     }
 
+    /**
+     * Print error message when the index
+     * after 'delete' command is not correct
+     */
     public void printDeleteError(Ui ui) {
         ui.printSplitLine();
         System.out.println("    ☹ OOPS!!! You need to add a correct index after 'delete' ");
         ui.printSplitLine();
     }
 
+    /**
+     * Print error message when the index
+     * after 'done' command is not correct
+     */
     public void printDoneError(Ui ui) {
         ui.printSplitLine();
         System.out.println("    ☹ OOPS!!! You need to add a correct index after 'done' ");
         ui.printSplitLine();
     }
 
+    /**
+     * Print error message when the create-file process is failed
+     */
     public void printCreateFileError(Ui ui) {
         ui.printSplitLine();
         System.out.println("    ☹ OOPS!!! There are some errors when creating files");

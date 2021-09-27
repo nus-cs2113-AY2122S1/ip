@@ -7,10 +7,19 @@ import duke.ui.Ui;
 public class DeleteCommand extends Command {
     private String task;
 
-    public DeleteCommand(String String) {
-        this.task = String;
+    public DeleteCommand(String task) {
+        this.task = task;
     }
 
+    /**
+     * Delete the task in list according to the index input by user
+     *
+     * @param list The list of all tasks
+     * @param doneList The list of all tasks which have been finished
+     * @param ui The ui that is used
+     * @throws ErrorDoneException If the format of index input by user
+     *                            is not correct, exception occurs
+     */
     @Override
     public void executeCommand(TaskList list, TaskDoneList doneList, Ui ui) throws ErrorDeleteException {
         try {

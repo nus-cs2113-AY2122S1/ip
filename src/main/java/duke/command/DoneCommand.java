@@ -11,6 +11,15 @@ public class DoneCommand extends Command {
         this.task = task;
     }
 
+    /**
+     * Mark the task as done in list according to the index input by user
+     *
+     * @param list The list of all tasks
+     * @param doneList The list of all tasks which have been finished
+     * @param ui The ui that is used
+     * @throws ErrorDoneException If the format of index
+     *                            is not correct, exception occurs
+     */
     @Override
     public void executeCommand(TaskList list, TaskDoneList doneList, Ui ui) throws ErrorDoneException {
         try {

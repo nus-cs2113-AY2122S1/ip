@@ -9,18 +9,31 @@ public class TaskDoneList {
         doneList = new ArrayList<>();
     }
 
+    /**
+     * Get the finished task in the doneList corresponding to the index
+     *
+     * @param taskId The index of the task that need to be returned
+     * @return The task in the doneList corresponding to the index
+     */
     public List getDoneTask(int taskId) {
         return doneList.get(taskId);
     }
 
+    /**
+     * Add the finished task into doneList
+     *
+     * @param task The index of the task that need to be added
+     * @return True or false which indicates whether add the task successfully
+     */
     public boolean addDoneTask(List task) {
         return doneList.add(task);
     }
 
-    public List removeDoneTask(int taskId) {
-        return doneList.remove(taskId);
-    }
-
+    /**
+     * Get size of doneList
+     *
+     * @return The size of doneList
+     */
     public int doneListSize() {
         return doneList.size();
     }

@@ -1,5 +1,6 @@
 package duke.storage;
 
+import duke.exception.EmptyTaskException;
 import duke.task.*;
 import duke.ui.Ui;
 import java.io.*;
@@ -13,6 +14,15 @@ public class Storage {
         this.doneListFilePath = doneListFilePath;
     }
 
+    /**
+     * Read the context of files into list and doneList
+     *
+     * @param list The list of all tasks
+     * @param doneList The list of all tasks which have been finished
+     * @param ui The ui that is used
+     * @throws IOException If the path is invalid and some other errors occur,
+     * exception occurs.
+     */
     public void readFiles(TaskList list, TaskDoneList doneList, Ui ui) throws IOException {
         try {
             File listFile = new File(this.listFilePath);
@@ -114,6 +124,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Update all the remaining tasks into a file
+     *
+     * @param list The list of tasks known
+     * @throws IOException If the path is invalid and some other errors occur,
+     *                     exception occurs.
+     */
     public void createListFile(TaskList list) throws IOException {
         File dukeData = new File(this.listFilePath);
         if (!dukeData.exists()) {
@@ -126,6 +143,13 @@ public class Storage {
         out.close();
     }
 
+    /**
+     * Update all the remaining tasks which have been finished into a file
+     *
+     * @param doneList The list of tasks known
+     * @throws IOException If the path is invalid and some other errors occur,
+     *                     exception occurs.
+     */
     public void createDoneListFile(TaskDoneList doneList) throws IOException {
         File dukeDoneData = new File(this.doneListFilePath);
         if (!dukeDoneData.exists()) {

@@ -12,6 +12,14 @@ public class Parser {
         this.command = command;
     }
 
+    /**
+     * Determine the command type of the command which is input by the user
+     * If the command type is unknown, DukeException is thrown
+     *
+     * @param command  The input by the user
+     * @return the corresponding command type
+     * @throws DukeException if the command does not match any known command type
+     */
     public static String getCommandType(String command) throws DukeException{
         if (command.contains("done")) {
             return "DONE";
@@ -27,11 +35,20 @@ public class Parser {
             return "D";
         } else if (command.contains("event")) {
             return "E";
+        } else if (command.contains("find")) {
+            return "FIND";
         } else {
             throw new DukeException();
         }
     }
 
+    /**
+     * Parses the full command given by the user as input.
+     *
+     * @param command The input by the user that is to be parsed.
+     * @return Command that corresponds to the user input.
+     * @throws DukeException If the command is invalid.
+     */
     public static Command parse(String command) throws DukeException {
         try {
             String commandType = getCommandType(command);
@@ -44,6 +61,8 @@ public class Parser {
                 return new ByeCommand();
             case "LIST":
                 return new ListCommand();
+            case "FIND":
+                return new FindCommand(command);
             default:
                 return new AddCommand(command);
             }

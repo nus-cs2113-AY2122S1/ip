@@ -2,7 +2,6 @@ package duke;
 
 import java.util.Scanner;
 import java.lang.String;
-
 import duke.exception.*;
 import duke.storage.Storage;
 import duke.ui.Ui;
