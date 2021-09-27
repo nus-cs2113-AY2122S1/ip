@@ -10,13 +10,14 @@ import java.util.Scanner;
 
 public abstract class Ui {
     public static final String LINE = "    _____________________________________________________________________________\n\n";
-    public static final String KAREN_LOGO =
+    public static final String LINE_SPACE = "    ";
+    public static final String KAREN_ON_LOGO =
             "\n" +
                     "            ______________________\n" +
                     "         _~`o--------------------o: \n" +
                     "        /- ||                    ||\n" +
                     "      -!|. ||          /\\        ||\n" +
-                    "     ! ||. ||___ /\\   /  \\  /\\___||\n" +
+                    "     ! ||. |!___ /\\   /  \\  /\\___!|\n" +
                     "     | |!. ||   V  \\ /    \\/     ||\n" +
                     "      -!!__!|       V            ||\n" +
                     "       `\\. ||____________________||\n" +
@@ -33,9 +34,36 @@ public abstract class Ui {
                     "           /. _________________ .\\\n" +
                     "          [(_____________________)]\n" +
                     "             0                 0 \n" ;
-    public static final String WELCOME_MESSAGE = "    Hello there Plankton, what can I can do for you?\n";
+    public static final String KAREN_OFF_LOGO =
+            "            ______________________\n" +
+            "         _~`o--------------------o: \n" +
+            "        /- ||                    ||\n" +
+            "      -!|. ||                    ||\n" +
+            "     ! ||. |!____________________!|\n" +
+            "     | |!. ||                    ||\n" +
+            "      -!!__!|                    ||\n" +
+            "       `\\. ||____________________||\n" +
+            "         `~!o======='---'======= o!\n" +
+            "                     | |\n" +
+            "                     !_!\n" +
+            "                     | |\n" +
+            "                     !_!\n" +
+            "                    .! !.\n" +
+            "                   /___'_\\\n" +
+            "              ____!----'--!____\n" +
+            "             /    |    '  |    \\\n" +
+            "            /  - - \\- _'_/ - -  \\      \n" +
+            "           /. _________________ .\\\n" +
+            "          [(_____________________)]\n" +
+            "             0                 0 ";
+    public static final String PLANKTON_LOGO =
+" )_)  \n" +
+        " |0|  \n" +
+        "'!_!` \n" +
+        " ' '  " ;
+    public static final String WELCOME_MESSAGE = "Hello there Plankton, what can I can do for you?\n";
 
-    public static final String WELCOME_BACK_MESSAGE = "    Welcome back Plankton, anything else I can do for you?\n";
+    public static final String WELCOME_BACK_MESSAGE = "Welcome back Plankton, anything else I can do for you?\n";
 
     /**
      * Returns the user input.
@@ -45,7 +73,7 @@ public abstract class Ui {
      * @return user input that is trimmed with no leading spaces
      */
     public static String getUserInput() {
-        System.out.print(" > ");
+        System.out.print(PLANKTON_LOGO + " > ");
         Scanner in = new Scanner(System.in);
         String rawUserInput = in.nextLine().trim();
         return rawUserInput;
@@ -57,7 +85,7 @@ public abstract class Ui {
      * @param isFirstRun boolean to check if the program is running for the first time
      */
     public static void printStartMessage(boolean isFirstRun) {
-        System.out.println(KAREN_LOGO);
+        System.out.println(KAREN_ON_LOGO);
         if (isFirstRun) {
             printFormattedMessage(WELCOME_MESSAGE);
         } else {
@@ -71,7 +99,7 @@ public abstract class Ui {
      * @param message String to be printed out
      */
     public static void printFormattedMessage(String message) {
-        System.out.println(LINE + message + "\n" + LINE);
+        System.out.println(LINE + LINE_SPACE + message + "\n" + LINE);
     }
 
     /**
@@ -81,8 +109,8 @@ public abstract class Ui {
      * @param totalTasks number of tasks in taskList
      */
     public static void printTaskAddedMessage(Task task, int totalTasks) {
-        String message = String.format("    Okay! I've added this task: \n       [%s][%s] %s\n" +
-                "    Now you have %d tasks in your list.\n",
+        String message = String.format("Got it. I've added the task: \n" + LINE_SPACE + "   [%s][%s] %s\n" +
+                LINE_SPACE + "Now you have %d tasks in your list.\n",
                 task.getType(), task.getStatusIcon(), task.getFormattedDescription(), totalTasks);
         printFormattedMessage(message);
     }
@@ -94,8 +122,8 @@ public abstract class Ui {
      * @param totalTasks number of tasks in taskList
      */
     public static void printTaskDeletedMessage(Task task, int totalTasks) {
-        String message = String.format("    Okay! I've removed this task: \n       [%s][%s] %s\n" +
-                        "    Now you have %d tasks in your list.\n",
+        String message = String.format("Alright Plankton, I've removed the task: \n" + LINE_SPACE + "   [%s][%s] %s\n" +
+                        LINE_SPACE + "Now you have %d tasks in your list.\n",
                 task.getType(), task.getStatusIcon(), task.getFormattedDescription(), totalTasks);
         printFormattedMessage(message);
     }
@@ -110,14 +138,14 @@ public abstract class Ui {
         int listSize = tasks.size();
 
         if (listSize == 0) {
-            printFormattedMessage("    Your List is still Empty!\n");
+            printFormattedMessage("You have nothing in your task list so far!\n");
             return;
         }
 
-        String message = String.format("    Alright! Here is your list of tasks! \n\n    Task List:\n");
+        String message = String.format("Here you go Plankton \n\n" + LINE_SPACE + "Task List:\n");
 
         for (int i = 0; i < listSize; i ++) {
-           message = message + String.format("    %d. [%s][%s] %s\n",
+           message = message + String.format(LINE_SPACE + "%d. [%s][%s] %s\n",
                    i + 1, tasks.get(i).getType(), tasks.get(i).getStatusIcon(),
                    tasks.get(i).getFormattedDescription());
         }
@@ -133,16 +161,16 @@ public abstract class Ui {
      */
     public static void printFoundTasks(List<Task> tasks, String keyword) {
         if (tasks.size() == 0) {
-            printFormattedMessage("    There seems to have no matching tasks\n");
+            printFormattedMessage("You seem to have none of such tasks.\n");
             return;
         }
-        String message = "    Here are your tasks matching with:  " + keyword + "\n\n";
+        String message = "Found them. Here are your tasks matching with:  " + keyword + "\n\n";
         for (int i = 0; i < tasks.size(); i ++) {
-            message += String.format("      %d. [%s][%s] %s\n",
+            message += String.format(LINE_SPACE + "  %d. [%s][%s] %s\n",
                     i+1, tasks.get(i).getType(), tasks.get(i).getStatusIcon(), tasks.get(i).getFormattedDescription());
         }
 
-        message += String.format("\n    Total number of tasks: " + tasks.size() + "\n");
+        message += String.format("\n" + LINE_SPACE + "Total number of tasks: " + tasks.size() + "\n");
         printFormattedMessage(message);
     }
 
@@ -155,19 +183,20 @@ public abstract class Ui {
      */
     public static void printTasksOnDate (LocalDate date, List<Task> tasks) {
         if (tasks.size() == 0) {
-            printFormattedMessage("    You are free on that day!\n");
+            printFormattedMessage("You have nothing on that day Plankton\n");
             return;
         }
 
         String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy, E"));
-        String message = "    Okay Plankton, here are the tasks you have on " + formattedDate + ".\n\n     Task List:\n\n";
+        String message = "Okay Plankton, here are the tasks you have on " + formattedDate + ".\n\n" + LINE_SPACE + "" +
+                "Task List:\n\n";
 
         for (int i = 0; i < tasks.size(); i ++) {
-            message += String.format("      %d. [%s][%s] %s\n",
+            message += String.format(LINE_SPACE + "  %d. [%s][%s] %s\n",
                     i+1, tasks.get(i).getType(), tasks.get(i).getStatusIcon(), tasks.get(i).getFormattedDescription());
         }
 
-        message += String.format("\n    Total number of tasks: " + tasks.size() + "\n");
+        message += String.format("\n" + LINE_SPACE + "Total number of tasks: " + tasks.size() + "\n");
         printFormattedMessage(message);
     }
 
@@ -177,7 +206,7 @@ public abstract class Ui {
      * @param task Task object to be marked as done
      */
     public static void printTaskDoneMessage(Task task) {
-        String message = String.format("    Alright! I've marked this task as done!\n    [%s] %s\n",
+        String message = String.format("Alright, I've marked the task as done!\n" + LINE_SPACE + "[%s] %s\n",
                 task.getStatusIcon(), task.getFormattedDescription());
         printFormattedMessage(message);
     }
@@ -187,7 +216,7 @@ public abstract class Ui {
      * as done.
      */
     public static void printTaskAlreadyDoneMessage() {
-        String message = "    Task is already marked as done!\n";
+        String message = "That Task has already been marked as done Plankton\n";
         printFormattedMessage(message);
     }
 
@@ -195,7 +224,8 @@ public abstract class Ui {
      * This method prints a message when a Bye Command is given and the program has ended.
      */
     public static void printGoodByeMessage() {
-        String message = "    Bye, Plankton. \n";
+        System.out.println(KAREN_OFF_LOGO);
+        String message = "See you again, Plankton. \n";
         printFormattedMessage(message);
     }
 
@@ -203,7 +233,7 @@ public abstract class Ui {
      * This method prints a message when an invalid command has been given by user.
      */
     public static void printInvalidCommandMessage() {
-        String message = "    Invalid Command. Please try again.\n";
+        String message = "Come again? I don't quite understand that command Plankton.\n";
         printFormattedMessage(message);
     }
 
@@ -211,15 +241,16 @@ public abstract class Ui {
      * This method prints a message when a command with no description has been given by user.
      */
     public static void printNoDescriptionMessage() {
-        String message = "    Empty description! Please specify your command.\n";
+        String message = "Plankton you need to be a little bit clearer.\n";
         printFormattedMessage(message);
     }
 
     /**
      * This method prints a message when a command with incorrect formatting of description has been given by user.
+     * eg. "done 1 2', "event /at 21-03-2020"
      */
     public static void printIncorrectDescriptionFormatMessage() {
-        String message = "    Your Command Description has not been entered properly! Please try again.\n";
+        String message = "What's that? Can you rephrase yourself?\n";
         printFormattedMessage(message);
     }
 
@@ -227,7 +258,7 @@ public abstract class Ui {
      * This method prints a message when a non-number is given in a field where a number is expected.
      */
     public static void printNumberFormatMessage() {
-        String message = "    You have entered an invalid task number to be completed! Please give a number.\n";
+        String message = "I don't think that's even a number. Give a proper task number Plankton.\n";
         printFormattedMessage(message);
     }
 
@@ -235,7 +266,7 @@ public abstract class Ui {
      * This method prints a message when there is no Task object with the index given by user.
      */
     public static void printIndexOutOfBoundsMessage() {
-        String message = "    You have no such task number. Please enter a number within your list of tasks.\n";
+        String message = "You don't have any Tasks with that task number.\n";
         printFormattedMessage(message);
     }
 
@@ -243,7 +274,7 @@ public abstract class Ui {
      * This method prints a message when there are errors when accessing a File.
      */
     public static void printIOExceptionMessage() {
-        String message = "    Error when reading or writing to files.\n";
+        String message = "Oops, there's an error when I try to access your saved file.\n";
         printFormattedMessage(message);
     }
 
@@ -251,7 +282,7 @@ public abstract class Ui {
      * This method prints a message when there are errors when creating a File.
      */
     public static void printCreateFileErrorMessage() {
-        String message = "    Error creating file.\n";
+        String message = "Oops, there's an error creating a file for you.\n";
         printFormattedMessage(message);
     }
 
@@ -259,7 +290,7 @@ public abstract class Ui {
      * This methods a message when user inputs a date or time incorrectly.
      */
     public static void printDateTimeErrorMessage() {
-        String message = "    Invalid date entered.\n";
+        String message = "I don't think that's a valid date or time.\n";
         printFormattedMessage(message);
     }
 

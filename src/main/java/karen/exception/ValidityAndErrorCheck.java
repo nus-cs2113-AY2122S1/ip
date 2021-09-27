@@ -23,12 +23,15 @@ public abstract class ValidityAndErrorCheck {
             return;
         }
         String[] separatedDescription = rawUserInput.split(separator, 2);
+        // for eg. "event /at"
         if (separatedDescription.length == 1) {
             throw new IncorrectDescriptionFormatException();
         }
+        // for eg. "event 21-03-2020"
         if (!rawUserInput.contains(separator)) {
             throw new IncorrectDescriptionFormatException();
         }
+        // for eg. "event /at 21-03-2020"
         if (separatedDescription[0].equalsIgnoreCase(taskType)) {
             throw new IncorrectDescriptionFormatException();
         }
