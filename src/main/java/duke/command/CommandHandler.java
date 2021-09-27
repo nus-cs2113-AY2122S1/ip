@@ -51,6 +51,7 @@ public class CommandHandler {
                     ui.printTaskDoneMessage();
                 } else {
                     tasksList.markDone(taskNumber);
+                    saveTasks(tasks, storage);
                     ui.printMarkedAsDone(tasks, taskNumber);
                 }
             } catch (IndexOutOfBoundsException e) {
