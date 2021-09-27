@@ -178,7 +178,7 @@ public class Ui {
         System.out.println(NEWLINE + "Here are the matching tasks in your list:");
         int count = 0;
         for (Task task : tasks) {
-            if (task.getDescription().contains(keywords)) {
+            if (task.getDescription().toLowerCase().contains(keywords)) {
                 count++;
                 System.out.println(count + NUMBER_LIST_SEPARATOR + task);
             }
