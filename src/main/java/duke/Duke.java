@@ -4,9 +4,7 @@ import duke.manager.TaskManager;
 
 /**
  * TODO : Better Documentation
- *        Add more constants
  *        Update Tests
- *        Create more exceptions
  *        Add checkstyle
  */
 
