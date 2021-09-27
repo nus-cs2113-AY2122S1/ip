@@ -1,13 +1,12 @@
-package duke.parser;
+package hal.parser;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
-import duke.ui.HalUi;
-import duke.util.HalException;
+import hal.task.Deadline;
+import hal.task.Event;
+import hal.task.Task;
+import hal.task.ToDo;
+import hal.ui.HalUi;
+import hal.util.HalException;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -18,11 +17,11 @@ import java.util.List;
  * Represents the class which handles all text parsing functions in the programme
  */
 public class Parser {
-    private static int DEADLINE_INDEX = 9;
-    private static int EVENT_INDEX = 5;
-    private static int TODO_INDEX = 4;
-    private static int FIND_INDEX = 4;
-    private static int TASK_STRING_OFFSET = 3;
+    private static final int DEADLINE_INDEX = 9;
+    private static final int EVENT_INDEX = 5;
+    private static final int TODO_INDEX = 4;
+    private static final int FIND_INDEX = 4;
+    private static final int TASK_STRING_OFFSET = 3;
 
     String description;
     String timing;
@@ -78,8 +77,13 @@ public class Parser {
         return returnVal;
     }
 
-   
-
+    /**
+     * Returns a description string from a text input.
+     *
+     * @param str string of the user's text input through CLI
+     * @return description field of the user's input, ignoring whitespaces.
+     * @throws HalException if str is empty.
+     */
     public String parseTextInput(String str) throws HalException {
         description = str.substring(FIND_INDEX).trim();
         if (description.equals("")) {
@@ -93,8 +97,8 @@ public class Parser {
      * Returns an integer extracted from a string.
      * If an integer cannot be parsed from the string, a NumberFormatException is thrown.
      *
-     * @param task Task the input string containing an integer value
-     * @return the integer representing the integer of the task
+     * @param task Task the input string containing an integer value.
+     * @return the integer representing the integer of the task.
      */
     public int parseInt(String task) {
         try {
@@ -107,8 +111,14 @@ public class Parser {
         return -1;
     }
 
-
-    //function takes in a string and converts to a local date. Defaults to current date if invalid format added
+    /**
+     * Function takes in a string denoting a date specified in the format "yyyy-mm-dd".
+     * String gets parsed into a LocalDate if specified in the correct format, and gets returned.
+     * Else, today's LocalDate is returned.
+     *
+     * @param str String denoting a date specified in the format "yyyy-mm-dd".
+     * @return LocalDate object denotinng the specified date, or today's date if str is in the wrong format.
+     */
     public static LocalDate parseLocalDate(String str) {
         try {
             LocalDate date = LocalDate.parse(str);
@@ -120,6 +130,12 @@ public class Parser {
         return LocalDate.now();
     }
 
+    /**
+     * Converts a LocalDate object in the format "yyyy-mm-dd" to "EEEE, MMM d yyyy" using a DateTimeFormatter.
+     *
+     * @param date LocalDate object in the format "yyyy-mm-dd".
+     * @return LocalDate object in the format "EEEE, MMM d yyyy".
+     */
     public static String formatLocalDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("EEEE, MMM d yyyy"));
     }

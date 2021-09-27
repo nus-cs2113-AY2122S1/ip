@@ -1,6 +1,6 @@
-package duke.ui;
+package hal.ui;
 
-import duke.task.Task;
+import hal.task.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -26,12 +26,13 @@ public class HalUi {
     public final String INTRO_TEXT = "\nHello! I'm HAL 2113\n";
     public final String HELP_MENU_LINE_1 = "What can I do for you? You can enter the following commands\n";
     public final String HELP_MENU_LINE_2 = "1. 'todo task' (replace task with any agenda you wish to add to the list)\n";
-    public final String HELP_MENU_LINE_3 = "2. 'deadline task /by date' (eg. deadline task1 /by Sunday)\n";
-    public final String HELP_MENU_LINE_4 = "3. 'event task /at time' (eg. event running /at Sunday 2-4pm)\n";
+    public final String HELP_MENU_LINE_3 = "2. 'deadline task /by yyyy-mm-dd' (eg. deadline task1 /by 2021-09-31)\n";
+    public final String HELP_MENU_LINE_4 = "3. 'event task /at yyyy-mm-dd' (eg. event running /at 2021-09-31)\n";
     public final String HELP_MENU_LINE_5 = "4. 'list (to list all saved tasks)\n";
     public final String HELP_MENU_LINE_6 = "5. 'done <task index>' (to mark a completed task; eg. done 2)\n";
     public final String HELP_MENU_LINE_7 = "6. 'delete <task index>' (to delete a saved task; eg. delete 2)\n";
-    public final String HELP_MENU_LINE_8 = "7. 'bye' (to exit the program!)";
+    public final String HELP_MENU_LINE_8 = "7. 'find <\"task\">' (to find a saved task; eg find homework)\n";
+    public final String HELP_MENU_LINE_9 = "8. 'bye' (to exit the program!)";
 
     public static final String PRINT_TASK_ADDED_MESSAGE = "Got it! I've added this task: ";
     public static final String DONE_TASK_ERROR_MESSAGE = "No such task exist! Are you sure you keyed in the correct number?";
@@ -58,7 +59,7 @@ public class HalUi {
     public void printHelpMenu() {
         System.out.println(LINE_BREAK_SINGLE);
         System.out.println(HELP_MENU_LINE_1 + HELP_MENU_LINE_2 + HELP_MENU_LINE_3 + HELP_MENU_LINE_4
-                + HELP_MENU_LINE_5 + HELP_MENU_LINE_6 + HELP_MENU_LINE_7 + HELP_MENU_LINE_8);
+                + HELP_MENU_LINE_5 + HELP_MENU_LINE_6 + HELP_MENU_LINE_7 + HELP_MENU_LINE_8 + HELP_MENU_LINE_9);
         System.out.print(ENTER_COMMAND_TEXT);
     }
 
@@ -130,6 +131,11 @@ public class HalUi {
         System.out.println(tempTask.toString());
     }
 
+    /**
+     * Prints out all tasks. If no task exist, PRINT_FIND_FAIL_MESSAGE is printed.
+     *
+     * @param tempTask An ArrayList contained filtered Task objects.
+     */
     public void printFindTasksMessage(ArrayList<Task> tempTask) {
         int index = 1;
         if (!tempTask.isEmpty()) {

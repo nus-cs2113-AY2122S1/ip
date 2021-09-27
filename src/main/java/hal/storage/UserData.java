@@ -1,5 +1,5 @@
-package duke.storage;
-import duke.task.Task;
+package hal.storage;
+import hal.task.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Class that handles saving and loading data from local storage
+ * Class that handles saving and loading data from local storage.
  */
 public class UserData {
     private static final String FILE_PATH = "data/hal.txt";
@@ -22,9 +22,8 @@ public class UserData {
      * Writes string version of Task object to a file object using FileWriter.
      *
      * @param str Str represents a string format of a Task object.
-     * @throws IOException If file could not be created
      */
-    public static void writeToFile(String str) throws IOException {
+    public static void writeToFile(String str) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
             fileWriter.write(str);
@@ -73,6 +72,7 @@ public class UserData {
         //if the directory doesn't exist, it will be created
         if (!dir.exists()) {
             dir.mkdir();
+
         }
 
         //if the file doesn't exist, it will be created
@@ -83,7 +83,6 @@ public class UserData {
                 e.printStackTrace();
                 System.out.println(EXCEPTION_IO);
                 System.out.println(LINE_BREAK_SINGLE);
-
             }
         }
     }

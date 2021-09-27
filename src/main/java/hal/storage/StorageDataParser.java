@@ -1,9 +1,9 @@
-package duke.storage;
+package hal.storage;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import hal.task.Deadline;
+import hal.task.Event;
+import hal.task.Task;
+import hal.task.ToDo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,10 +13,10 @@ import java.util.ArrayList;
  * Parses the data so that they can be stored or read from memory.
  */
 public class StorageDataParser {
-    private String SPACE_AND_SEPARATOR = " | ";
-    private int TASK_TYPE_INDEX = 0;
-    private int DONE_TYPE_INDEX = 4;
-    private int DESCRIPTION_INDEX = 8;
+    private final String SPACE_AND_SEPARATOR = " | ";
+    private final int TASK_TYPE_INDEX = 0;
+    private final int DONE_TYPE_INDEX = 4;
+    private final int DESCRIPTION_INDEX = 8;
 
     /**
      * The function takes in an ArrayList of Task objects and converts them into a string.
@@ -91,27 +91,15 @@ public class StorageDataParser {
         //Generate task object
         if (taskType.equals("T")) {
             ToDo newToDo = new ToDo(taskDescription);
-            if (isDone.equals("1")) {
-                newToDo.setDone(true);
-            } else {
-                newToDo.setDone(false);
-            }
+            newToDo.setDone(isDone.equals("1"));
             return newToDo;
         } else if (taskType.equals("E")) {
             Event newEvent = new Event(taskDescription,taskTiming);
-            if (isDone.equals("1")) {
-                newEvent.setDone(true);
-            } else {
-                newEvent.setDone(false);
-            }
+            newEvent.setDone(isDone.equals("1"));
             return newEvent;
         } else if (taskType.equals("D")) {
             Deadline newDeadline = new Deadline(taskDescription,taskTiming);
-            if (isDone.equals("1")) {
-                newDeadline.setDone(true);
-            } else {
-                newDeadline.setDone(false);
-            }
+            newDeadline.setDone(isDone.equals("1"));
             return newDeadline;
         }
         return null;

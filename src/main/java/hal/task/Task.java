@@ -1,4 +1,4 @@
-package duke.task;
+package hal.task;
 
 /**
  * Represents a generic task. A Task object contains a description, a type and a boolean flag,

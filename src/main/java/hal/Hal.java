@@ -1,15 +1,15 @@
-package duke;
+package hal;
 
-import duke.ui.HalUi;
-import duke.util.HalException;
-import duke.util.Program;
+import hal.ui.HalUi;
+import hal.util.HalException;
+import hal.util.Program;
 
 import java.io.IOException;
 
 
-import static duke.storage.UserData.initFileWithDirectory;
+import static hal.storage.UserData.initFileWithDirectory;
 
-public class Duke {
+public class Hal {
 
     /**
      * Main method that continues looping and accepting commands until user inputs 'bye'.

@@ -1,9 +1,8 @@
-package duke.task;
+package hal.task;
 
-import duke.parser.Parser;
+import hal.parser.Parser;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Event extends Task {
     private LocalDate at;

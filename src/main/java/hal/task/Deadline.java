@@ -1,6 +1,6 @@
-package duke.task;
+package hal.task;
 
-import duke.parser.Parser;
+import hal.parser.Parser;
 
 import java.time.LocalDate;
 
@@ -17,7 +17,6 @@ public class Deadline extends Task {
         super(description, "D");
         setBy(by);
     }
-
 
     /**
      * Retrieves the date of the deadline.

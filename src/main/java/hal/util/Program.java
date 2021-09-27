@@ -1,13 +1,13 @@
-package duke.util;
+package hal.util;
 
-import duke.parser.Parser;
-import duke.storage.StorageDataParser;
-import duke.storage.UserData;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
-import duke.ui.HalUi;
+import hal.parser.Parser;
+import hal.storage.StorageDataParser;
+import hal.storage.UserData;
+import hal.task.Deadline;
+import hal.task.Event;
+import hal.task.Task;
+import hal.task.ToDo;
+import hal.ui.HalUi;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static duke.storage.UserData.readFromFile;
+import static hal.storage.UserData.readFromFile;
 
 /**
  * Program acts as a central core of Hal's task functions.
@@ -27,15 +27,15 @@ public class Program {
     private static int numItems;
 
     ToDo dummyTodo = new ToDo(null);
-    Event dummyEvent = new Event(null, "");
-    Deadline dummyDeadline = new Deadline(null, "");
+    Event dummyEvent = new Event(null, LocalDate.now().toString());
+    Deadline dummyDeadline = new Deadline(null, LocalDate.now().toString());
 
     /**
      * Constructor to create a Program instance.
      * Tasks saved in local storage is loaded into memory once the program is launched.
      */
     public Program() {
-        this.numItems = 0;
+        numItems = 0;
         loadSavedTasks();
     }
 
@@ -85,6 +85,7 @@ public class Program {
     public static void loadSavedTasks() {
         listTasks = readFromFile();
         int count = 0;
+        assert listTasks != null;
         for (Object obj : listTasks) {
             if ( obj != null ) {
                 count++;
@@ -164,6 +165,14 @@ public class Program {
         ui.printEnterCommandMessage();
     }
 
+    /**
+     * Outputs all tasks that matches the input string. The search is not case-sensitive.
+     * Search function only searches the description. Finding date or task type is not supported.
+     * Takes in a string in the format "find x", where x is the search term.
+     *
+     * @param str String containing search term.
+     * @throws HalException thrown when search term is empty.
+     */
     public void findTask(String str) throws HalException {
         String searchStr = messageParser.parseTextInput(str);
 
