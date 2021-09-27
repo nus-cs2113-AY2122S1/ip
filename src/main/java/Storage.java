@@ -3,6 +3,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Loads and writes all data into a text file.
+ */
+
 public class Storage {
     private static File save;
     private static Tasks loadFile;
@@ -11,6 +15,11 @@ public class Storage {
     public Storage(String filePath){
         path = filePath;
     }
+    /**
+     * Returns a list of saved tasks from "data/duke.txt"
+     * Creates a file according to the file path if file is not found.
+     * Throws IOException if an error occurs.
+     */
     public static Tasks load() {
         try {
             save = new File (path);
@@ -48,6 +57,12 @@ public class Storage {
         }
         return loadFile;
     }
+    /**
+     * Writes the contents of the list of Tasks in Duke to a .txt file "duke.txt"
+     * The data is stored as a formatted text file.
+     *
+     * @param tasks list of existing tasks in Duke to be stored.
+     */
     public void writeToFile(Tasks tasks) throws IOException {
         try {
             FileWriter fw = new FileWriter(save);
