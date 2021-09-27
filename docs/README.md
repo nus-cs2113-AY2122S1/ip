@@ -18,7 +18,7 @@ Duke is a chatbot designed to keep track of all your tasks via a Command Line In
   + [Deleting task](#deleting-task)
   + [Searching for tasks](#searching-for-tasks)
   + [Exiting the program](#exiting-the-program)
-  + [Warning](#warning)
++ [Warning](#warning)
 
 
 
