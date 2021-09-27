@@ -1,12 +1,6 @@
 package parser;
 
-import FridayExceptions.EmptyListException;
-import FridayExceptions.MissingKeyWordException;
-import FridayExceptions.MissingDateException;
-import FridayExceptions.EmptyTaskNameException;
-import FridayExceptions.InvalidTaskIndexException;
-import FridayExceptions.IncompleteCommandException;
-import FridayExceptions.MissingQueryException;
+import FridayExceptions.*;
 import enums.Commands;
 import enums.Errors;
 import storage.UpdateData;
@@ -27,6 +21,7 @@ public abstract class InputParser {
     private static final String FIND = "find";
     private static final String BY= "/by";
     private static final String AT = "/at";
+    private static final int TASK_INDEX = 1;
 
     /**
      * Main function managing all user inputs until program is terminated
@@ -74,6 +69,8 @@ public abstract class InputParser {
                 }
             } catch (IndexOutOfBoundsException e) {
                 MessagePrinter.outOfBoundsTaskIndex();
+            } catch (InvalidIndexException e) {
+                MessagePrinter.invalidIndex();
             } catch (InvalidTaskIndexException e) {
                 MessagePrinter.invalidTaskIndex();
             } catch (EmptyTaskNameException e) {
@@ -86,6 +83,8 @@ public abstract class InputParser {
                 MessagePrinter.missingKeyWord(e.getKeyword());
             } catch (MissingDateException e) {
                 MessagePrinter.missingDate(e.getType());
+            } catch(MissingIndexException e) {
+                MessagePrinter.missingIndex(e.getCommand());
             } catch(MissingQueryException e) {
                 MessagePrinter.missingQuery();
             }
@@ -196,9 +195,15 @@ public abstract class InputParser {
     public static Errors checkDeleteAndDoneCommand(String input) {
         String[] splitString = input.split("\\s");
         if (splitString.length <= 1) {
-            return Errors.INCOMPLETE_COMMAND;
+            return Errors.MISSING_INDEX;
         }
-        if (Integer.parseInt(splitString[1]) < 0 || Integer.parseInt(splitString[1]) > 99) {
+        int taskIndex;
+        try {
+            taskIndex = Integer.parseInt(splitString[TASK_INDEX]);
+        } catch (NumberFormatException e) {
+            return Errors.INVALID_INDEX;
+        }
+        if (taskIndex < 0 || taskIndex > 99) {
             return Errors.OUT_OF_BOUNDS_INDEX;
         }
         return Errors.NONE;

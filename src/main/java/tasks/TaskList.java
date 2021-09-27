@@ -3,9 +3,11 @@ import FridayExceptions.EmptyListException;
 import FridayExceptions.MissingKeyWordException;
 import FridayExceptions.MissingDateException;
 import FridayExceptions.EmptyTaskNameException;
+import FridayExceptions.InvalidIndexException;
 import FridayExceptions.InvalidTaskIndexException;
 import FridayExceptions.IncompleteCommandException;
 import FridayExceptions.MissingQueryException;
+import FridayExceptions.MissingIndexException;
 import enums.Errors;
 import parser.InputParser;
 import ui.MessagePrinter;
@@ -131,11 +133,17 @@ public class TaskList {
 
     // function to remove a task from the list of tasks
     // COMMAND "delete index"
-    public static void deleteTask(String userInput) throws IncompleteCommandException, InvalidTaskIndexException {
+    public static void deleteTask(String userInput) throws
+            MissingIndexException,
+            InvalidTaskIndexException,
+            InvalidIndexException,
+            IndexOutOfBoundsException {
         Errors checkTaskIndex = InputParser.checkDeleteAndDoneCommand(userInput);
         switch (checkTaskIndex) {
-        case INCOMPLETE_COMMAND:
-            throw new IncompleteCommandException();
+        case MISSING_INDEX:
+            throw new MissingIndexException("delete");
+        case INVALID_INDEX:
+            throw new InvalidIndexException();
         case OUT_OF_BOUNDS_INDEX:
             throw new IndexOutOfBoundsException();
         }
@@ -150,11 +158,17 @@ public class TaskList {
         UpdateData.rewriteList(tasks);
     }
 
-    public static void markAsDone(String userInput) throws IncompleteCommandException, InvalidTaskIndexException {
+    public static void markAsDone(String userInput) throws
+            MissingIndexException,
+            InvalidTaskIndexException,
+            InvalidIndexException,
+            IndexOutOfBoundsException {
         Errors checkTaskIndex = InputParser.checkDeleteAndDoneCommand(userInput);
         switch (checkTaskIndex) {
-        case INCOMPLETE_COMMAND:
-            throw new IncompleteCommandException();
+        case MISSING_INDEX:
+            throw new MissingIndexException("mark as done");
+        case INVALID_INDEX:
+            throw new InvalidIndexException();
         case OUT_OF_BOUNDS_INDEX:
             throw new IndexOutOfBoundsException();
         }

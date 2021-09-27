@@ -130,6 +130,12 @@ public abstract class MessagePrinter {
         dashes();
     }
 
+    public static void invalidIndex() {
+        dashes();
+        System.out.println("I was programmed to only work with numbers for this command by you sir.");
+        dashes();
+    }
+
     // message when no description after keyword is given
     public static void incompleteCommand() {
         dashes();
@@ -137,9 +143,9 @@ public abstract class MessagePrinter {
         dashes();
     }
 
-    public static void missingIndex() {
+    public static void missingIndex(String command) {
         dashes();
-        System.out.println("May I know the index of the of the task you want me to change sir?");
+        System.out.println("May I know the index of the of the task you want me to " + command + " sir?");
         dashes();
     }
 
@@ -164,7 +170,8 @@ public abstract class MessagePrinter {
 
     public static void invalidDate() {
         dashes();
-        System.out.println("Sir you modelled me to read dates in the format yyyy-mm-dd");
+        System.out.println("Sir you modelled me to read dates in the format yyyy-mm-dd.");
+        System.out.println("If you would kindly check the format or validity of your date");
         dashes();
     }
 
