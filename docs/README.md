@@ -203,7 +203,7 @@ Process finished with exit code 0
 ```
 
 ### Command Code Summary
-The table below summarizes all the commands available in this application.\
+The table below summarizes all the commands available in this application.
 Command | Usage | Syntax
 --------|-------|-------
 `profile`| views the profile with cute picture of the bot character | `profile`
