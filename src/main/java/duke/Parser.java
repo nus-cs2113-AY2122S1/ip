@@ -42,7 +42,11 @@ public class Parser {
                 throw new DukeException("Date and time cannot be empty!");
             }
             String[] dateAndTime = parsedInput[1].stripLeading().split(" ");
+            String[] dateCheck = dateAndTime[0].split("-");
             if(dateAndTime.length != 2){
+                throw new DukeException("Please use the correct format for date and time! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME] ");
+            }
+            if(dateCheck.length != 3){
                 throw new DukeException("Please use the correct format for date and time! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME] ");
             }
             Task t = new Event(parsedInput[0], dateAndTime[0], dateAndTime[1]);
@@ -57,7 +61,11 @@ public class Parser {
                 throw new DukeException("Date and time cannot be empty!");
             }
             String[] dateAndTime = parsedInput[1].stripLeading().split(" ");
+            String[] dateCheck = dateAndTime[0].split("-");
             if(dateAndTime.length != 2){
+                throw new DukeException("Please use the correct format for date and time! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME] ");
+            }
+            if(dateCheck.length != 3){
                 throw new DukeException("Please use the correct format for date and time! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME] ");
             }
             Task t = new Deadline(parsedInput[0], dateAndTime[0], dateAndTime[1]);

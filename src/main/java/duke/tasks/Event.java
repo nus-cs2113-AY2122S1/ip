@@ -1,4 +1,5 @@
 package duke.tasks;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,7 +13,8 @@ public class Event extends Task {
      * Represents an Event made by the user.
      *
      * @param name Description of Event.
-     * @param at Description of when the event is.
+      * @param dates Description of date of event.
+     * @param time Description of when the event is.
      */
     public Event(String name, String dates, String time){
         super(name);
