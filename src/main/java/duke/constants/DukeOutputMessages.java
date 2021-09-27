@@ -7,7 +7,7 @@ public class DukeOutputMessages extends DukeConstants {
     /** Messages to greet user upon entry and exit of program. */
     public static final String HEY_MESSAGE = WHITESPACE + "Hey there! I'm Duke." + System.lineSeparator() + " How may I help you?";
     public static final String BYE_MESSAGE = WHITESPACE + "Goodbye! Hope to see you again soon.";
-    public static final String HELLO_FROM = "Hello from" + System.lineSeparator();
+    public static final String HELLO_FROM = STRAIGHT_LINE + System.lineSeparator() + WHITESPACE + "Hello from" + System.lineSeparator();
     public static final String DUKE_LOGO = " ____        _        \n"
                                          + "|  _ \\ _   _| | _____ \n"
                                          + "| | | | | | | |/ / _ \\\n"
