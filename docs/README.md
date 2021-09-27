@@ -28,11 +28,11 @@ SquarePants_.
 
 Adds a To Do task to the task list.
 
-#####Format: `todo [TASK_DESCRIPTION]`
+Format: `todo [TASK_DESCRIPTION]`
 
 :warning: `[TASK_DESCRIPTION]` cannot be empty.
 
-#####Example:
+Example:
 
 ![](images/karen2.png)
 
@@ -42,7 +42,7 @@ Adds a To Do task to the task list.
 
 Adds an Event task to the task list.
 
-#####Format: `event [TASK_DESCRIPTION] \at [TASK_DATE] {TASK_TIME}`
+Format: `event [TASK_DESCRIPTION] \at [TASK_DATE] {TASK_TIME}`
 
 :warning: `[TASK_DESCRIPTION]` cannot be empty.
 
@@ -52,7 +52,8 @@ Adds an Event task to the task list.
 
 :warning: `[TASK_TIME]` if not empty must be in the format `hhmm`.
 
-#####Example:
+Example:
+
 ![](images/karen3.png)
 
 <br />
@@ -61,7 +62,7 @@ Adds an Event task to the task list.
 
 Adds a Deadline task to the task list.
 
-#####Format: `deadline [TASK_DESCRIPTION] \by [TASK_DATE] {TASK_TIME}`
+Format: `deadline [TASK_DESCRIPTION] \by [TASK_DATE] {TASK_TIME}`
 
 :warning: `[TASK_DESCRIPTION]` cannot be empty.
 
@@ -71,7 +72,8 @@ Adds a Deadline task to the task list.
 
 :warning: `[TASK_TIME]` if not empty must be in the format `hhmm`.
 
-#####Example:
+Example:
+
 ![](images/karen4.png)
 
 <br />
@@ -80,9 +82,9 @@ Adds a Deadline task to the task list.
 ###  <a name="list"></a>Listing all tasks: `list`
 Prints out all current tasks stored in the task list.
 
-#####Format: `list`
+Format: `list`
 
-######Examples:
+Examples:
 
 * If the task list is empty:
 
@@ -97,12 +99,12 @@ Prints out all current tasks stored in the task list.
 ###  <a name="done"></a>Marking a task as done: `done`
 Marks a task as completed in the task list using the given task's index.
 
-#####Format: `done [TASK_INDEX]`
+Format: `done [TASK_INDEX]`
 
 :warning: `[TASK_INDEX]` must be an integer between 1 and the size of the task list inclusive.
 
 
-#####Example:
+Example:
 
 ![](images/karen7.png)
 
@@ -111,12 +113,12 @@ Marks a task as completed in the task list using the given task's index.
 ###  <a name="delete"></a>Deleting a task: `delete`
 Removes a task from the task list using the given task's index.
 
-#####Format: `delete [TASK_INDEX]`
+Format: `delete [TASK_INDEX]`
 
 :warning: `[TASK_INDEX]` must be an integer between 1 and the size of the task list inclusive.
 
 
-#####Example:
+Example:
 
 ![](images/karen8.png)
 
@@ -125,11 +127,11 @@ Removes a task from the task list using the given task's index.
 ###  <a name="find"></a>Searching for tasks: `find`
 Prints out all the tasks whose description matches the given keyword.
 
-#####Format: `find [KEYWORD]`
+Format: `find [KEYWORD]`
 
 :warning: `[KEYWORD]` must not be empty.
 
-#####Example:
+Example:
 
 ![](images/karen9.png)
 
@@ -138,13 +140,13 @@ Prints out all the tasks whose description matches the given keyword.
 ###  <a name="show"></a>Showing the tasks on a specific day: `show`
 Prints out all the tasks that occurs on the given task date.
 
-#####Format: `show [TASK_DATE]`
+Format: `show [TASK_DATE]`
 
 :warning: `[TASK_DATE]` must not be empty.
 
 :warning: `[TASK_DATE]` must be in the format `DD-MM-YYYY`.
 
-#####Example:
+Example:
 
 ![](images/karen10.png)
 
@@ -153,9 +155,9 @@ Prints out all the tasks that occurs on the given task date.
 ###  <a name="bye"></a>Exiting the program: `bye`
 The program stops running and exits.
 
-#####Format: `bye`
+Format: `bye`
 
-#####Example:
+Example:
 
 ![](images/karen11.png)
 
