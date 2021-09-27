@@ -65,11 +65,23 @@ Marks a specified task in the current task list as done.
 
 Arguments:
 
-1. taskNumber - Corresponding number of current task list to be marked as done
+1. taskNumber - Corresponding task number in current task list to be marked as done
 
 Example of usage:
 ```
 done <taskNumber>
+```
+
+### Deleting tasks `delete`
+Deletes a specified task from the current task list.
+
+Arguments:
+
+1. taskNumber - Corresponding task number to be deleted from current task list
+
+Example of usage:
+```
+delete <taskNumber>
 ```
 
 ### Finding tasks `find`
