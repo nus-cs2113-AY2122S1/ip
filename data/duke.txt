@@ -1,3 +1,6 @@
 D||false||you ||toni
 T||false||dine 
 E||false||assmble bike ||oct 5
+E||false||take book ||tue
+D||false||but book ||tomorrow
+T||false||get book
