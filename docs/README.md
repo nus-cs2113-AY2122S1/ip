@@ -17,7 +17,6 @@ Removes a current task from the list by calling the appropriate index.
 Marks a current task from the list as completed by calling the appropriate index.
 
 
-
 ### Find
 
 Finds a particular phrase or sub-phrase among all current tasks.
