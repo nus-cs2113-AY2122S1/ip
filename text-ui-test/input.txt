@@ -1,9 +1,24 @@
-todo task1
-read a book
-deadline task2 /by Sunday 0530
-event task3 /at Saturday 4-6pm
-deadline download a game tomorrow
-done 3
-done 4
+list
+todo
+todo homework
+event
+event exam /by 2021-12-12
+event exam /at 2021-12-12
+deadline assignment /by Dec 12
+deadline /by 2021-12-12
+deadline assignment /by 2021-12-12
+done 1
+done -10
+done abc
+list
+find
+find book
+find assignment
+delete
+delete 10
+delete abc
+delete 1
 list
 bye
+
+
