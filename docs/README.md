@@ -4,6 +4,22 @@
 of events and deadlines**. It is a personalised **chatbox** that offers customised feedback 
 and helps you stay ahead of the curve.
 
+## Table of Contents
+
+- [Quick start]
+- [Features]
+    - [Help `help`]
+    - [Add Todo Task `todo`]
+    - [Add Event Task `event`]
+    - [Add Deadline Task `deadline`]
+    - [List All Tasks `list`]
+    - [Mark a Task as Done `done`]
+    - [Delete a Task `delete`]
+    - [Find a Task `find`]
+    - [End the Program `bye`]
+    - [Save Tasks to File]
+- [Command Summary](#command-summary)
+
 -------------------------------------------------
 
 ## Quick start
