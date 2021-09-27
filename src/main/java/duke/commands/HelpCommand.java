@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
                 + " list      |   list\n"
                 + " todo      |   todo <TASK_DESCRIPTION>\n"
                 + " deadline  |   deadline <TASK_DESCRIPTION> /by <yyyy-MM-dd HH:mm>\n"
-                + " event     |   event <TASK_DESCRIPTION> /at <yyyy-MM-dd>\n"
+                + " event     |   event <TASK_DESCRIPTION> /at <yyyy-MM-dd HH:mm>\n"
                 + " done      |   done <TASK_NUMBER>\n"
                 + " delete    |   delete <TASK_NUMBER>\n"
                 + " schedule  |   schedule <yyyy-MM-dd>\n"
