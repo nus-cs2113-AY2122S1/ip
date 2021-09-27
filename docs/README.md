@@ -6,17 +6,17 @@ and helps you stay ahead of the curve.
 
 ## Table of Contents
 
-- [Quick start]
-- [Features]
-    - [Help `help`]
-    - [Add Todo Task `todo`]
-    - [Add Event Task `event`]
-    - [Add Deadline Task `deadline`]
-    - [List All Tasks `list`]
-    - [Mark a Task as Done `done`]
-    - [Delete a Task `delete`]
-    - [Find a Task `find`]
-    - [End the Program `bye`]
+- [Quick start](#quick-start)
+- [Features](#features)
+    - [Help `help`](#help-help)
+    - [Add Todo Task `todo`](#add-todo-task-todo)
+    - [Add Event Task `event`](#add-event-task-event)
+    - [Add Deadline Task `deadline`](#add-deadline-task-deadline)
+    - [List All Tasks `list`](#list-all-tasks-list)
+    - [Mark a Task as Done `done`](#mark-a-task-as-done-done)
+    - [Delete a Task `delete`](#delete-a-task-delete)
+    - [Find a Task `find`](#find-a-task-find)
+    - [End the Program `bye`](#end-the-program-bye)
     - [Save Tasks to File]
 - [Command Summary](#command-summary)
 
