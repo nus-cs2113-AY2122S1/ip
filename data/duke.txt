@@ -1,4 +1,3 @@
 D||false||you ||toni
 T||false||dine 
 E||false||assmble bike ||oct 5
-D||false||quiz ||thurs

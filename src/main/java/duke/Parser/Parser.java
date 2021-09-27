@@ -28,6 +28,10 @@ public class Parser {
 
                 ui.printTasks(tasks);
 
+            }else if (userInput.contains("find")){
+
+                findTask(userInput.substring(5),tasks);
+
             } else if (userInput.length() >= 4 && userInput.substring(0, 4).equals("done")) {   // Mark the task that needs to be done as done in list
 
                 try {
@@ -105,4 +109,20 @@ public class Parser {
         }
         tasks.createTodo(userInput.substring(5));
     }
+
+    public void findTask(String keyword,TaskList tasks){
+
+        if(tasks.searchTask(keyword,tasks).isEmpty()){
+            System.out.println(SEPARATOR);
+            System.out.println("Sorry, it seems that you don't have task contains this keyword in your task list.");
+            System.out.println(SEPARATOR);
+        } else {
+            ui.printSelectedTasks(tasks.searchTask(keyword,tasks),keyword);
+
+        }
+
+
+
+    }
+
 }
