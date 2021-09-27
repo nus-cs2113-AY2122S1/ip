@@ -160,7 +160,6 @@ public abstract class InputParser {
         if (!input.contains(BY)) {
             return Errors.MISSING_BY;
         }
-
         // check if it contains a task name
         if (splitString.length <= 2) {
             return Errors.MISSING_TASK;

@@ -65,8 +65,6 @@ public abstract class MessagePrinter {
         dashes();
     }
 
-
-
     // after marking task as done
     public static void taskMarkedAsDone(Task currTask) {
         dashes();
@@ -161,6 +159,12 @@ public abstract class MessagePrinter {
     public static void missingQuery() {
         dashes();
         System.out.println("I require a specific keyword to query sir.");
+        dashes();
+    }
+
+    public static void invalidDate() {
+        dashes();
+        System.out.println("Sir you modelled me to read dates in the format yyyy-mm-dd");
         dashes();
     }
 

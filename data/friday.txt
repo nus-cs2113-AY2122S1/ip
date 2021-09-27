@@ -1,3 +1,6 @@
 deadline | X | read book | 2021-09-27
+<<<<<<< HEAD
 todo | X | buy book
 event | O | book fair | tomorrow
+=======
+>>>>>>> master
