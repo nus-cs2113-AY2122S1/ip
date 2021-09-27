@@ -65,9 +65,9 @@ public class TaskList {
             // Parse out task number from user input
             int taskNumber = parser.getTaskNumberFromInput(userLine);
             // Print respective message and delete the task
-            deleteTaskFromList(taskNumber);
             String taskString = getTaskStringFromIndex(taskNumber);
             ui.printDeleteMessage(taskString);
+            deleteTaskFromList(taskNumber);
         } catch (IndexOutOfBoundsException e) {
             ui.printOutOfBoundsMessage();
         }

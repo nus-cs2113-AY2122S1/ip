@@ -44,13 +44,13 @@ public class Messages {
     public static final String UPDATED_TASK_MESSAGE = "Noted. The following item has been deleted";
     public static final String POST_CRUD_QUERY_MESSAGE = "Is there anything else you would like me to do?";
     public static final String ADD_TASK_MESSAGE = "Added the following Task";
-    public static final String ADD_TASK_COUNTER_MESSAGE = "Added the following Task";
+    public static final String ADD_TASK_COUNTER_MESSAGE = "You have %d tasks in the list";
     public static final String ADD_TASK_QUERY_MESSAGE = "Hmmm... what should I do now?";
 
     /**File IO Messages**/
     public static final String FILE_DONT_EXIST_MESSAGE = "Directory (data) and/or File (data/records.txt) does not "
             + "exist!";
-    public static final String FILE_DATABASE_EXIST_MESSAGE = "New database created at ";
+    public static final String FILE_DATABASE_EXIST_MESSAGE = "New database created";
     public static final String FILE_PERMISSION_ERROR_MESSAGE = "Cannot create file here. Check your permissions!";
 
     /**Filter Tasks**/
