@@ -16,7 +16,9 @@ SquarePants_.
 - [Command summary](#summary)
 
 --------------------------------------------------------------------------------------------------------------------
+
 ![](images/karen1.png)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## <a name="features"></a>Features
@@ -50,6 +52,7 @@ Adds an Event task to the task list.
 :warning: `[TASK_TIME]` if not empty must be in the format `hhmm`.
 
 ######Example:
+
 ![](images/karen3.png)
 
 <br />
@@ -69,6 +72,7 @@ Adds a Deadline task to the task list.
 :warning: `[TASK_TIME]` if not empty must be in the format `hhmm`.
 
 ######Example:
+
 ![](images/karen4.png)
 
 <br />
