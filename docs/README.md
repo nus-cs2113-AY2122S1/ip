@@ -3,7 +3,7 @@ Hello there! This is Duke, your personal **Command Line Interface (CLI) chatbot 
 
 ## Quick Start 
 1. Ensure you have Java ```11``` or above installed in your computer.
-2. Download the latest version of ```Duke.jar``` here.
+2. Download the latest version of ```Duke.jar``` [here](https://github.com/MAZJ124/ip).
 3. Copy the file over to the **home folder** you intend to use for your bot.
 4. Navigate to the home folder specified previously using any terminal interface.
 5. Execute the command `java -jar Duke.jar` and the bot will start running. You should be seeing something similar to the example given below.
@@ -145,7 +145,7 @@ file for the user.
 | ------- | -----| 
 | Add a todo | `todo <description>`| 
 | Add a deadline | `deadline <description> /by <date>`| 
-| Add an event | `event <description /at <time>`| 
+| Add an event | `event <description> /at <time>`| 
 | List all tasks | `list`| 
 | Delete a task | `delete <taskIndex>`| 
 | Search for a task | `find <keyword>`| 
