@@ -38,7 +38,7 @@ public abstract class Task {
     }
 
     /**
-     * Gets the string format of the date attached to the task.
+     * Retrieves the string format of the date from the date and time attached to the task.
      *
      * @return Date attached to the {@code Deadline} or {@code Event}, empty string if task is
      * {@code ToDo}
