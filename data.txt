@@ -1,1 +1,2 @@
-T|X|fwefds
+E|X| birthday |1999-03-17|1900
+T|X|fff

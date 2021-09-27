@@ -4,10 +4,12 @@ public class Task {
     protected String name;
     protected boolean done;
 
+
     public Task(String input){
         this.name = input;
         this.done = false;
-}
+    }
+
     public void taskDone(){
 
         this.done = true;
@@ -16,6 +18,7 @@ public class Task {
 
         return (done ? "X" : " ");
     }
+
 
     public String getName(){
         return this.name;
