@@ -1,5 +1,6 @@
 package storage;
 
+import exceptions.DeadlineException;
 import jarvis.Jarvis;
 import tasklist.Task;
 import ui.Ui;
@@ -17,6 +18,12 @@ public class Storage {
     public static final String JARVIS_TXT = "jarvis/jarvis.txt";
     private static final String DIVIDER = ",";
 
+    /**
+     * This method tries to find the file that saved the list of tasks from previous usage
+     * of Jarvis bot. If file not found, a new directory and file will be created using the
+     * given file path to store the tasks in a text file.
+     * @param taskList main list keeping track of user's tasks
+     */
     public static void findTaskFile(ArrayList<Task> taskList) {
         File jarvisFile = new File(JARVIS_TXT);
         try {
@@ -41,6 +48,12 @@ public class Storage {
         }
     }
 
+    /**
+     * This method will loop through the previous saved task text file to load tasks into
+     * the list of tasks.
+     * @param taskList main list keeping track of user's tasks
+     * @param jarvisFile the task text file retrieved from findTaskfile method
+     */
     public static void loadTasks(ArrayList<Task> taskList, File jarvisFile) {
         int lineCount = 0;
         try {
@@ -57,6 +70,14 @@ public class Storage {
 
     }
 
+    /**
+     * This method will input tasks from each line on the text file into the list of tasks.
+     * It uses a switch case to decide which type of task is in each line and will add it
+     * into the list of tasks.
+     * @param taskList main list keeping track of user's tasks
+     * @param textLine is the current line of text in the text file
+     * @param lineCount is the line number of the current line being loaded
+     */
     public static void inputTask(ArrayList<Task> taskList, String textLine, int lineCount) {
         String[] lineInputs = textLine.split(DIVIDER);
         switch(lineInputs[0]){
@@ -77,6 +98,12 @@ public class Storage {
         }
     }
 
+    /**
+     * This method will write tasks from the current list of tasks onto the text file
+     * for it to be saved when the user exits from bot. The same file will be loaded up
+     * when the user starts the bot again in the future with the saved tasks loaded.
+     * @param taskList main list keeping track of user's tasks
+     */
     public static void fillJarvisFile(ArrayList<Task> taskList) {
         try {
             FileWriter writer = new FileWriter(JARVIS_TXT);
