@@ -1,9 +1,13 @@
 package tasklist;
 
-public class Deadline extends Task {
-    protected String by;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String by) {
+public class Deadline extends Task {
+    protected LocalDateTime by;
+
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
         this.type = "D";
@@ -17,7 +21,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[" + getType() + "]" + super.toString() + " (by: " + by + ")";
+        return "[" + getType() + "]" + super.toString() + " (by: "
+                + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm")) + ")";
     }
 
     /**
@@ -27,6 +32,6 @@ public class Deadline extends Task {
      */
     @Override
     public String getDescription() {
-        return description + "," + by;
+        return description + "," + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 }

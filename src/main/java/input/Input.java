@@ -7,6 +7,7 @@ import tasklist.Task;
 import tasklist.TaskList;
 import ui.Ui;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Input {
@@ -17,6 +18,7 @@ public class Input {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
 
     /**
      * Handles the inputs given by the user. Extracts the keyword from the input by calling
@@ -48,6 +50,9 @@ public class Input {
             case COMMAND_DELETE:
                 TaskList.deleteTask(userLine, taskList);
                 break;
+            case COMMAND_FIND:
+                TaskList.findKeyTasks(userLine, taskList);
+                break;
             default:
                 throw new IndexOutOfBoundsException();
             }
@@ -61,6 +66,8 @@ public class Input {
             Ui.printDeadlineExceptionMessage();
         } catch (EventException e) {
             Ui.printEventExceptionMessage();
+        } catch (DateTimeParseException e) {
+            Ui.printDateTimeParseExceptionMessage();
         }
     }
 }

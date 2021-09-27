@@ -4,6 +4,10 @@ import exceptions.DeadlineException;
 import exceptions.EventException;
 import tasklist.Task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Parser {
@@ -101,6 +105,19 @@ public class Parser {
             throw new EventException();
         }
         return eventInputs[1].split(" /at ");
+    }
+
+    public static LocalDateTime parseDate(String userDateInput) throws DateTimeParseException {
+        return LocalDateTime.parse(userDateInput, DateTimeFormatter.ofPattern("[dd/MM/yyyy HHmm][dd-MM-yyyy HHmm]"));
+    }
+
+    public static LocalDateTime parseStoredDate(String storedDate) throws DateTimeParseException {
+        return LocalDateTime.parse(storedDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
+
+    public static String parseFindTaskKey(String userLine) {
+        String[] userFindInputs = userLine.split(" ");
+        return userFindInputs[1];
     }
 
 }
