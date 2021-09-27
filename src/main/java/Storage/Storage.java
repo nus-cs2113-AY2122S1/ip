@@ -12,9 +12,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading and saving of data into local storage
+ */
 public class Storage {
 
     private static ArrayList<Task> taskList = new ArrayList<>();
+
+    /**
+     * Loads saved data
+     * @return List of saved tasks
+     */
     public static ArrayList<Task> loadTasks() throws FileNotFoundException {
         File f = new File("../data/duke.txt");
         Scanner scanner = new Scanner(f);
@@ -44,6 +52,10 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves current tasks onto local storage
+     * @param taskList list of tasks needed to be saved
+     */
     public static void saveTasks(ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter("../data/duke.txt");
         for (int i = 0; i < taskList.size(); i++) {

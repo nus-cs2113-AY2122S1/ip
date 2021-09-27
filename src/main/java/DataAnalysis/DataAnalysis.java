@@ -10,8 +10,16 @@ import Ui.UserInterface;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Analyses user input
+ */
 public class DataAnalysis {
 
+    /**
+     * Lists current set of tasks
+     * @param ui user interface
+     * @param taskList list of tasks
+     */
     public void listTasks(UserInterface ui, ArrayList<Task> taskList) {
         ui.printOutput("Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
@@ -20,6 +28,12 @@ public class DataAnalysis {
         ui.printOutput("");
     }
 
+    /**
+     * Takes in user input, understands and executes the command, and displays followup message on User Interface
+     * @param ui user interface
+     * @param storage instance of Storage used to find specific keyword
+     * @param taskList list of tasks
+     */
     public void processInput(UserInterface ui, Storage storage, ArrayList<Task> taskList) {
         int descriptionIndex = 0;
         int taskCount = taskList.size();
@@ -57,29 +71,29 @@ public class DataAnalysis {
                 task = line.substring(line.indexOf(' '));
                 taskDate = "";
                 taskList.add(new Todo(task, false));
-                ui.printOutput(taskList.get(taskCount).toString() + "Now you have " + ++taskCount + " tasks on the list.\n");
+                ui.printOutput(taskList.get(taskCount).toString() + "Now you have " + ++taskCount + " task(s) on the list.\n");
 
             } else if (commandWord.equals("deadline")) {
                 task = line.substring(line.indexOf(' ') + 1, line.indexOf('/') - 1);
                 taskDate = line.substring(line.indexOf('/') + 4);
                 taskList.add(new Deadline(task, false, taskDate));
-                ui.printOutput(taskList.get(taskCount).toString() + "Now you have " + ++taskCount + " tasks on the list.\n");
+                ui.printOutput(taskList.get(taskCount).toString() + "Now you have " + ++taskCount + " task(s) on the list.\n");
 
             } else if (commandWord.equals("event")) {
                 task = line.substring(line.indexOf(' ') + 1, line.indexOf('/') - 1);
                 taskDate = line.substring(line.indexOf('/') + 4);
                 taskList.add(new Event(task, false, taskDate));
-                ui.printOutput(taskList.get(taskCount).toString() + "Now you have " + ++taskCount + " tasks on the list.\n");
+                ui.printOutput(taskList.get(taskCount).toString() + "Now you have " + ++taskCount + " task(s) on the list.\n");
 
             } else if (commandWord.equals("delete")) {
                 descriptionIndex = Integer.parseInt(splicedLine[1]);
                 line = taskList.get(descriptionIndex - 1).getDescription();
                 ui.printOutput("Noted. I\'ve removed this task:\n" + "   [" + taskList.get(descriptionIndex - 1).getTaskType() +
-                        "][" + taskList.get(descriptionIndex - 1).getStatusIcon() + "] " + line + "Now you have " + --taskCount + " tasks on the list.\n");
+                        "][" + taskList.get(descriptionIndex - 1).getStatusIcon() + "] " + line + "Now you have " + --taskCount + " task(s) on the list.\n");
                 taskList.remove(taskList.get(descriptionIndex - 1));
 
             } else if (commandWord.equals("find")) {
-                String wordToFind = " " + splicedLine[1] + " ";
+                String wordToFind = splicedLine[1];
                 String description;
                 int j = 0;
                 ui.printOutput("Here are the matching tasks in your list:\n");

@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * A task
+ */
 public class Task {
 
     protected String description;

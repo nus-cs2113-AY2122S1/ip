@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * An event task
+ */
 public class Event extends Task {
 
     protected String at;

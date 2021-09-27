@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * A todo task
+ */
 public class Todo extends Task {
 
     public Todo(String description, boolean isDone) {
