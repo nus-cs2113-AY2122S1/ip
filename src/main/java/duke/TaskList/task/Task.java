@@ -1,6 +1,4 @@
-package duke.task;
-
-import duke.command.TaskManager;
+package duke.TaskList.task;
 
 public class Task {
 

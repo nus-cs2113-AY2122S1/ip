@@ -1,4 +1,6 @@
-import duke.command.DisplayManager;
+package duke.Error;
+
+import duke.Ui.DisplayManager;
 
 public class DukeException extends Exception{
     public DukeException(String errorMessage) {

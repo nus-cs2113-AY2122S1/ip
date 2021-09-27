@@ -1,6 +1,7 @@
-import duke.command.DisplayManager;
-import duke.command.FileManager;
-import duke.command.TaskManager;
+import duke.Error.DukeException;
+import duke.Ui.DisplayManager;
+import duke.Storage.FileManager;
+import duke.TaskList.task.TaskManager;
 
 import java.util.Scanner;
 
@@ -25,7 +26,7 @@ public class Duke {
         displayManager.printEndGreet();
     }
 
-    public static void processReply(TaskManager taskManager, String line) throws DukeException{
+    public static void processReply(TaskManager taskManager, String line) throws DukeException {
         String[] inputs = line.split(" ", 2);
         String taskInfo;
         String command = inputs[INDEX_COMMAND];

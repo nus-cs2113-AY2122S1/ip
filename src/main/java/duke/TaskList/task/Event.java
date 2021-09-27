@@ -1,6 +1,6 @@
-package duke.task;
+package duke.TaskList.task;
 
-import duke.command.DisplayManager;
+import duke.Ui.DisplayManager;
 
 public class Event extends Task{
 
