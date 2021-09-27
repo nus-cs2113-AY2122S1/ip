@@ -75,7 +75,7 @@ _________________________________________________________________
  list      |   list
  todo      |   todo <TASK_DESCRIPTION>
  deadline  |   deadline <TASK_DESCRIPTION> /by <yyyy-MM-dd HH:mm>
- event     |   event <TASK_DESCRIPTION> /at <yyyy-MM-dd>
+ event     |   event <TASK_DESCRIPTION> /at <yyyy-MM-dd HH:mm>
  done      |   done <TASK_NUMBER>
  delete    |   delete <TASK_NUMBER>
  schedule  |   schedule <yyyy-MM-dd>
