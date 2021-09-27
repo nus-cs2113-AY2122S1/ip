@@ -39,7 +39,7 @@ public class Storage {
     /**
      * Method that loads the offline txt file tasks into the bot.
      *
-     * @throws FileNotFoundException if file does not exist
+     * @throws FileNotFoundException if file does not exist in path specified
      * @throws DukeException custom error message
      */
     public static void loadData() throws FileNotFoundException, DukeException {
