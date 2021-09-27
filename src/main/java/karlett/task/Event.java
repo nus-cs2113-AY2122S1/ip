@@ -19,9 +19,6 @@ public class Event extends Task {
         this.description = description;
         this.isDone = false;
         this.at = at;
-        TaskList.increaseNumberOfTasks();
-        TextUi.printNewTaskAddedMessage(this);
-        TaskListEncoder.appendNewEventToFile(this);
     }
 
     /* constructor used for loading file data */
@@ -29,7 +26,6 @@ public class Event extends Task {
         this.description = description;
         this.isDone = isDone;
         this.at = at;
-        TaskList.increaseNumberOfTasks();
     }
 
     @Override

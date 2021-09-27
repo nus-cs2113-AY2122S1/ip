@@ -1,5 +1,6 @@
 package karlett.tasklist;
 
+import karlett.storage.TaskListDecoder;
 import karlett.storage.TaskListEncoder;
 import karlett.task.Task;
 import karlett.ui.TextUi;
@@ -9,42 +10,61 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    public static int numberOfTasks = 0;
-    ArrayList<Task> list;
+    private int numberOfTasks;
+    private ArrayList<Task> tasks;
+    private TaskListEncoder taskListEncoder;
 
-    public TaskList() {
-        list = new ArrayList<>();
-        numberOfTasks = 0;
+    public TaskList(ArrayList<Task> tasksArrayList, String filePath) {
+        tasks = tasksArrayList;
+        numberOfTasks = tasksArrayList.size();
+        taskListEncoder = new TaskListEncoder(filePath);
     }
 
-    public static int getNumberOfTasks() {
+    public TaskList(String filePath) {
+        tasks = new ArrayList<Task>();
+        numberOfTasks = 0;
+        taskListEncoder = new TaskListEncoder(filePath);
+    }
+
+    public int getNumberOfTasks() {
         return numberOfTasks;
     }
 
-    public static void increaseNumberOfTasks() {
+    public void add(Task task) throws IOException {
+        tasks.add(task);
+    }
+
+    public void increaseNumberOfTasks() throws IOException {
         numberOfTasks++;
     }
 
-    public static void remove(ArrayList<Task> list, int index) throws IOException {
-        TaskListEncoder.removeTaskInFile(index - 1);
-        Task t = list.get(index - 1);
-        for (int i = index; i < list.size(); i++) {
-            list.set(i - 1, list.get(i));
-        }
-        list.trimToSize();
-        numberOfTasks--;
-        TextUi.printTaskDeletedMessage(t);
+    public void increaseNumberOfTasks(boolean isDone) throws IOException {
+        numberOfTasks++;
     }
 
-    public static void printList(ArrayList<Task> list) {
+    public void decreaseNumberOfTasks() {
+        numberOfTasks--;
+    }
+
+    public void remove(int index) throws IOException {
+        for (int i = index; i < tasks.size(); i++) {
+            tasks.set(i - 1, tasks.get(i));
+        }
+    }
+
+    public void printList() {
         TextUi.drawDivider();
         if (numberOfTasks == 0) {
             System.out.println("You have done everything! Time to relax with Karlett meow ʕ♡ﻌ♡ʔ");
         } else {
             for (int i = 0; i < numberOfTasks; i++) {
-                System.out.println("ฅ" + (i + 1) + " " + list.get(i));
+                System.out.println("ฅ" + (i + 1) + " " + tasks.get(i));
             }
         }
         TextUi.drawDivider();
+    }
+
+    public Task get(int i) {
+        return tasks.get(i);
     }
 }

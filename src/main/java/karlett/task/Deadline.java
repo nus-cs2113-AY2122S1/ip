@@ -19,9 +19,6 @@ public class Deadline extends Task {
         this.description = description;
         this.isDone = false;
         this.by = by;
-        TaskList.increaseNumberOfTasks();
-        TextUi.printNewTaskAddedMessage(this);
-        TaskListEncoder.appendNewDeadlineToFile(this);
     }
 
     /* constructor used for loading file data */
@@ -29,7 +26,6 @@ public class Deadline extends Task {
         this.description = description;
         this.isDone = isDone;
         this.by = by;
-        TaskList.increaseNumberOfTasks();
     }
 
     @Override

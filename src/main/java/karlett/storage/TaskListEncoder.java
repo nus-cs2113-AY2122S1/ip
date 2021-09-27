@@ -5,75 +5,73 @@ import karlett.task.Event;
 import karlett.task.Task;
 import karlett.tasklist.TaskList;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class TaskListEncoder {
 
-    public static void removeTaskInFile(int index) throws IOException {
+    private File file;
+    private String filePath;
+
+
+    public TaskListEncoder(String path) {
+        filePath = path;
+        file = new File(filePath);
+    }
+
+    public void removeTaskInFile(TaskList tasks, int index) throws IOException {
         String fileContent = "";
         String line = "";
         BufferedReader reader = null;
         FileWriter writer = null;
-        reader = new BufferedReader(new FileReader(StorageFile.filePath));
-        for (int i = 0; i < TaskList.getNumberOfTasks(); i++) {
+        reader = new BufferedReader(new FileReader(filePath));
+        for (int i = 0; i < tasks.getNumberOfTasks(); i++) {
             line = reader.readLine();
             if (i == index) {
                 continue;
             }
             fileContent = fileContent + line + System.lineSeparator();
         }
-        writer = new FileWriter(StorageFile.filePath);
+        writer = new FileWriter(filePath);
         writer.write(fileContent);
         reader.close();
         writer.close();
     }
 
-    public static void modifyTaskStatusInFile(int index) throws IOException {
-        String fileContent = "";
+    public void updateTaskStatusInFile(TaskList tasks, int index) throws IOException {
+        StringBuilder fileContent = new StringBuilder();
         String line = "";
         BufferedReader reader = null;
         FileWriter writer = null;
-        reader = new BufferedReader(new FileReader(StorageFile.filePath));
+        reader = new BufferedReader(new FileReader(filePath));
         for (int i = 0; i < index; i++) {
             line = reader.readLine();
-            fileContent = fileContent + line + System.lineSeparator();
+            fileContent.append(line).append(System.lineSeparator());
         }
         line = reader.readLine();
         String updatedTask = line.replaceFirst("0", "1");
-        fileContent = fileContent + updatedTask + System.lineSeparator();
-        for (int i = index + 1; i < TaskList.getNumberOfTasks(); i++) {
+        fileContent.append(updatedTask).append(System.lineSeparator());
+        for (int i = index + 1; i < tasks.getNumberOfTasks(); i++) {
             line = reader.readLine();
-            fileContent = fileContent + line + System.lineSeparator();
+            fileContent.append(line).append(System.lineSeparator());
         }
-        writer = new FileWriter(StorageFile.filePath);
-        writer.write(fileContent);
+        writer = new FileWriter(filePath);
+        writer.write(fileContent.toString());
         reader.close();
         writer.close();
     }
 
-    public static void appendNewTaskToFile(Task task) throws IOException {
-        FileWriter fw = new FileWriter(StorageFile.filePath, true);
-        String textToAppend = "T | 0 | " + task.getDescription() + "\n";
-        fw.write(textToAppend);
-        fw.close();
-    }
-
-    public static void appendNewDeadlineToFile(Deadline deadline) throws IOException {
-        FileWriter fw = new FileWriter(StorageFile.filePath, true);
-        String textToAppend = "D | 0 | " + deadline.getDescription() +
-                " | " + deadline.getBy() + "\n";
-        fw.write(textToAppend);
-        fw.close();
-    }
-
-    //@Override
-    public static void appendNewEventToFile(Event event) throws IOException {
-        FileWriter fw = new FileWriter(StorageFile.filePath, true);
-        String textToAppend = "E | 0 | " + event.getDescription() +
-                " | " + event.getAt() + "\n";
+    public void appendNewTaskToFile(Task task) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        String textToAppend;
+        if (task instanceof Deadline) {
+            textToAppend = "D | 0 | " + ((Deadline) task).getDescription() +
+                    " | " + ((Deadline) task).getBy() + "\n";
+        } else if (task instanceof Event) {
+            textToAppend = "E | 0 | " + ((Event) task).getDescription() +
+                    " | " + ((Event) task).getAt() + "\n";
+        } else {
+            textToAppend = "T | 0 | " + task.getDescription() + "\n";
+        }
         fw.write(textToAppend);
         fw.close();
     }

@@ -10,21 +10,18 @@ public class Task {
 
     protected String description;
     protected boolean isDone;
+    private TaskList tasks;
 
     /* constructor used for user input */
     public Task(String description) throws IOException {
         this.description = description;
         this.isDone = false;
-        TaskList.increaseNumberOfTasks();
-        TaskListEncoder.appendNewTaskToFile(this);
-        TextUi.printNewTaskAddedMessage(this);
     }
 
     /* constructor used for loading file data */
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone) throws IOException {
         this.description = description;
         this.isDone = isDone;
-        TaskList.increaseNumberOfTasks();
     }
 
     public Task() {
@@ -40,19 +37,10 @@ public class Task {
 
     public void markAsDone(int index) throws IOException {
         this.isDone = true;
-        TaskListEncoder.modifyTaskStatusInFile(index);
-        TextUi.printMarkAsDoneMessage(this);
     }
 
     @Override
     public String toString() {
         return "[T] [" + this.getStatusIcon() + "] " + this.getDescription();
-    }
-
-    public static void exit() {
-        TextUi.drawDivider();
-        System.out.println("Bye~Bye~ヾ(￣▽￣) Hope to see you again soon meow.");
-        TextUi.drawDivider();
-        System.exit(0);
     }
 }
