@@ -3,6 +3,7 @@
  */
 public class Todo extends Task {
     public static final char TASK_TYPE = 'T';
+    public static final String SIGNATURE = "todo";
 
     /**
      * Constructor for the Todo class.
@@ -11,7 +12,6 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
-        taskSignature = "todo";
     }
 
     /**
@@ -33,6 +33,6 @@ public class Todo extends Task {
      */
     @Override
     public String getEncodedFormat() {
-        return Character.toString(completeStatus) + taskSignature + description;
+        return Character.toString(completeStatus) + SIGNATURE + description;
     }
 }

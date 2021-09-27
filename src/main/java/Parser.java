@@ -2,6 +2,11 @@
  * Parser class interprets the user's command.
  */
 public class Parser {
+    public static final String COMMAND_DONE = "done";
+    public static final String COMMAND_BYE = "bye";
+    public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
 
     /**
      * Parses the input command given by the user to determine which functionality to execute.
@@ -13,36 +18,38 @@ public class Parser {
         String instruction = inputParts[0];
 
         switch (instruction) {
-        case "done":
+        case COMMAND_DONE:
             TaskList.markComplete(Integer.parseInt(inputParts[1]), true);
             break;
-        case "bye":
+        case COMMAND_BYE:
             Ui.bye();
             break;
-        case "list":
+        case COMMAND_LIST:
             TaskList.list();
             break;
-        case "delete":
+        case COMMAND_DELETE:
             TaskList.deleteTask(Integer.parseInt(inputParts[1]));
             break;
-        case "find":
+        case COMMAND_FIND:
             TaskList.findTask(inputParts[1]);
             break;
         default:
-            attemptStore(input);
+            store(input);
             break;
         }
     }
 
     /**
-     * Attempts the store feature on the given user input. If the input does not correspond to todo, deadline or event,
-     * a DukeException is caught. This signifies a wrong input command or an incomplete description of the given task.
+     * Attempts to store the given user input as a task. If the input does not correspond to todo, deadline or event,
+     * a DukeException is caught, indicating failed storing. This signifies a wrong input command or an incomplete
+     * description of the given task.
      *
      * @param input Input command given by the user
      */
-    private static void attemptStore(String input) {
+    private static void store(String input) {
         try {
-            TaskList.storeTask(input, true);
+            Task newTask = TaskList.createTask(input);
+            TaskList.storeTask(newTask, true);
         } catch (DukeException e) {
             Ui.echo("OOPS!!! I'm sorry, but I don't know what that means :-(");
         } catch (IndexOutOfBoundsException e) {

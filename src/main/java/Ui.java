@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * Ui class handles interactions with the user.
  */
@@ -42,5 +44,15 @@ public class Ui {
         System.out.println(input);
         System.out.println(LINE);
 
+    }
+
+    /**
+     * Scans standard input for user entered data.
+     *
+     * @return The raw user input as a String.
+     */
+    public static String getInput() {
+        Scanner scan = new Scanner(System.in);
+        return scan.nextLine();
     }
 }

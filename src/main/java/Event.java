@@ -3,6 +3,8 @@
  */
 public class Event extends Task {
     public static final char TASK_TYPE = 'E';
+    public static final String SIGNATURE = "event";
+    public static final String DELIMITER = "/at";
     private String at;
 
     /**
@@ -13,7 +15,6 @@ public class Event extends Task {
      */
     public Event(String description, String at) {
         super(description);
-        taskSignature = "event";
         this.at = at;
     }
 
@@ -36,6 +37,6 @@ public class Event extends Task {
      */
     @Override
     public String getEncodedFormat() {
-        return Character.toString(completeStatus) + taskSignature + description + "/at" + at;
+        return Character.toString(completeStatus) + SIGNATURE + description + DELIMITER + at;
     }
 }

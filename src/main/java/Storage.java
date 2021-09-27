@@ -12,7 +12,7 @@ import java.io.FileNotFoundException;
 public class Storage {
 
     private static final String STORAGE_PATH = "duke.txt";
-    private static final int OK_EXIT_CODE = 0;
+    private static final int FILE_ERROR_EXIT_CODE = 0;
     public static final char COMPLETE_CHARACTER = 'X';
 
     /**
@@ -24,7 +24,7 @@ public class Storage {
     private static void loadStoredTasks(File storedTasks) throws FileNotFoundException {
         Scanner scanner = new Scanner(storedTasks);
         try {
-            scanner.nextLine(); //Moves past prefix \n of file
+            scanner.nextLine();
         } catch (NoSuchElementException e) {
             System.out.println(STORAGE_PATH + " is empty");
         }
@@ -35,11 +35,12 @@ public class Storage {
             String taskDescription = line.substring(1);
 
             try {
-                TaskList.storeTask(taskDescription, false);
+                Task newTask = TaskList.createTask(taskDescription);
+                TaskList.storeTask(newTask, false);
 
             } catch (DukeException e) {
                 System.out.println(STORAGE_PATH + " is corrupted. Please delete duke.txt and restart the program.");
-                System.exit(OK_EXIT_CODE);
+                System.exit(FILE_ERROR_EXIT_CODE);
             }
             if (completionStatus == COMPLETE_CHARACTER) {
                 int TaskListSize = TaskList.getTaskListSize();
@@ -62,10 +63,10 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             System.out.println("An error in reading " + STORAGE_PATH + " occurred.");
-            System.exit(OK_EXIT_CODE);
+            System.exit(FILE_ERROR_EXIT_CODE);
         } catch (IOException e) {
             System.out.println("An error in creating " + STORAGE_PATH + " occurred.");
-            System.exit(OK_EXIT_CODE);
+            System.exit(FILE_ERROR_EXIT_CODE);
         }
     }
 

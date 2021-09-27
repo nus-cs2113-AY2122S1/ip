@@ -15,27 +15,49 @@ public class TaskList {
         return inputTasks;
     }
 
+    private static Todo createTodo(String input) {
+        return new Todo(input.substring(Todo.SIGNATURE.length()).trim());
+    }
+
+    private static Event createEvent(String input) {
+        String[] inputSlices = input.substring(Event.SIGNATURE.length()).trim().split(Event.DELIMITER);
+        return new Event(inputSlices[0].trim(), inputSlices[1].trim());
+    }
+
+    private static Deadline createDeadline(String input) {
+        String[] inputSlices = input.substring(Deadline.SIGNATURE.length()).trim().split(Deadline.DELIMITER);
+        return new Deadline(inputSlices[0].trim(), inputSlices[1].trim());
+    }
+
     /**
-     * Parses a given input String and stores it as a new task corresponding to todo/event/deadline.
+     * Instantiates a new Task object corresponding to todo/event/deadline by parsing user input.
      *
-     * @param input              Command entered by the user.
-     * @param shouldAppendToFile Flag to indicate whether the parsed task should be appended to file.
+     * @param input Command entered by the user.
+     * @return A new Task object containing data from user input.
      * @throws DukeException If neither todo, deadline or event correspond to the input String.
      */
-    public static void storeTask(String input, boolean shouldAppendToFile) throws DukeException {
+    public static Task createTask(String input) throws DukeException {
         Task newTask;
-        if (input.startsWith("todo")) {
-            newTask = new Todo(input.substring("todo".length()).trim());
-        } else if (input.startsWith("deadline")) {
-            String[] inputSlices = input.substring("deadline".length()).trim().split("/");
-            newTask = new Deadline(inputSlices[0].trim(), inputSlices[1].substring("by".length()).trim());
-        } else if (input.startsWith("event")) {
-            String[] inputSlices = input.substring("event".length()).trim().split("/");
-            newTask = new Event(inputSlices[0].trim(), inputSlices[1].substring("at".length()).trim());
+        if (input.startsWith(Todo.SIGNATURE)) {
+            newTask = createTodo(input);
+        } else if (input.startsWith(Deadline.SIGNATURE)) {
+            newTask = createDeadline(input);
+        } else if (input.startsWith(Event.SIGNATURE)) {
+            newTask = createEvent(input);
         } else {
             throw new DukeException();
         }
 
+        return newTask;
+    }
+
+    /**
+     * Stores a given task corresponding to todo/event/deadline.
+     *
+     * @param newTask            Latest Task to be stored.
+     * @param shouldAppendToFile Flag to indicate whether the newTask should be appended to file.
+     */
+    public static void storeTask(Task newTask, boolean shouldAppendToFile) {
         inputTasks.add(newTask);
 
         acknowledgeMessage = "Got it. I've added this task: \n  " + inputTasks.get(inputTasks.size() - 1) + "\n"
@@ -70,9 +92,9 @@ public class TaskList {
     }
 
     /**
-     * Prints all tasks in inputTasks that contain a given query String in their descriptions
+     * Prints all tasks in inputTasks that contain a given query String in their descriptions.
      *
-     * @param query Substring to search for within each task's description
+     * @param query Substring to search for within each task's description.
      */
     public static void findTask(String query) {
         System.out.println(Ui.getLine());
@@ -89,7 +111,7 @@ public class TaskList {
     }
 
     /**
-     * Prints all tasks in inputTasks
+     * Prints all tasks in inputTasks.
      */
     public static void list() {
         System.out.println(Ui.getLine());

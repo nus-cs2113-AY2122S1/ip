@@ -3,6 +3,8 @@
  */
 public class Deadline extends Task {
     public static final char TASK_TYPE = 'D';
+    public static final String SIGNATURE = "deadline";
+    public static final String DELIMITER = "/by";
     private String by;
 
     /**
@@ -13,7 +15,6 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        taskSignature = "deadline";
         this.by = by;
     }
 
@@ -36,6 +37,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getEncodedFormat() {
-        return Character.toString(completeStatus) + taskSignature + description + "/by" + by;
+        return Character.toString(completeStatus) + SIGNATURE + description + DELIMITER + by;
     }
+
 }
