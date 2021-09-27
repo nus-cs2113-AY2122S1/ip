@@ -1,15 +1,31 @@
 package duke.ui;
 
+import java.util.Scanner;
+
 public class Ui {
     private static final String INDENTED_HORIZONTAL_LINE = " ".repeat(4) + "_".repeat(60);
     /** Platform independent line separator */
     private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     private static final String MESSAGE_GREETING = "Hello! I'm Duke\n" + "%1$s\n" + "What can I do for you?";
     private static final String MESSAGE_DATA_FILE_NEW = "No data file found. Will store data in new file: '%1$s'";
     private static final String MESSAGE_DATA_FILE_EXISTING = "Data file found. Using data from: '%1$s'";
 
-    private static final String MESSAGE_FAREWELL = "Bye. Hope to see you again soon!";
+    /**
+     * Reads input commands from the user.
+     * Ignores blank lines and trims input command.
+     *
+     * @return Trimmed input command.
+     */
+    public String getUserInput() {
+        String line = SCANNER.nextLine();
+        // Ignore blank lines
+        while (line.trim().isEmpty()) {
+            line = SCANNER.nextLine();
+        }
+        return line.trim();
+    }
 
     /**
      * Prints out the specified text formatted as a response block.
@@ -36,9 +52,5 @@ public class Ui {
             lines[i] = " ".repeat(5) + lines[i];
         }
         return String.join(LINE_SEPARATOR, lines);
-    }
-
-    public void showFarewell() {
-        showToUser(MESSAGE_FAREWELL);
     }
 }
