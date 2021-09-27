@@ -136,6 +136,6 @@ public class Parser {
      * @throws DateTimeParseException when the given date cannot be parsed into a LocalDate object properly.
      */
     private LocalDate parseDate(String date) throws DateTimeParseException {
-        return LocalDate.parse(date.trim(), DateTimeFormatter.ofPattern("[ddMMyyyy][dd/MM/yyyy][dd-MM-yyyy]"));
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("[ddMMyyyy][dd/MM/yyyy][dd-MM-yyyy]"));
     }
 }

@@ -57,16 +57,16 @@ public class Storage {
                 Scanner in = new Scanner(saveDataFile);
                 while (in.hasNext()) {
                     String nextLine = in.nextLine();
-                    String[] inputs = nextLine.split("\\|");
+                    String[] inputs = nextLine.split("\\|", 4);
                     switch (inputs[0]) {
                     case "T":
                         tasks.add(new ToDo(inputs[2]));
                         break;
                     case "E":
-                        tasks.add(new Event(inputs[2], parseDate(inputs[1])));
+                        tasks.add(new Event(inputs[2], parseDate(inputs[3])));
                         break;
                     case "D":
-                        tasks.add(new Deadline(inputs[2], parseDate(inputs[1])));
+                        tasks.add(new Deadline(inputs[2], parseDate(inputs[3])));
                         break;
                     default:
                         throw new MissingInputException();
@@ -112,6 +112,6 @@ public class Storage {
      * @throws DateTimeParseException when the given date cannot be parsed into a LocalDate object properly.
      */
     private LocalDate parseDate(String date) throws DateTimeParseException {
-        return LocalDate.parse(date.trim(), DateTimeFormatter.ofPattern("[ddMMyyyy][dd/MM/yyyy][dd-MM-yyyy]"));
+        return LocalDate.parse(date.trim());
     }
 }
