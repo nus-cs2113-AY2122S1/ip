@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles saving file data and writing new file data
+ */
 public class Storage {
     protected String filepath;
     protected static File save;
@@ -13,7 +16,13 @@ public class Storage {
         this.filepath = filename;
     }
 
-    static void load() throws IOException {
+    /**
+     * Reads the data stored in the current save file.
+     * If filepath or file does not exist, create new path and file.
+     *
+     * @throws IOException If save file information is invalid.
+     */
+    static void loadFromFile() throws IOException {
         File directory = new File("data");
         if (!directory.exists()) {
             directory.mkdir();
@@ -45,15 +54,25 @@ public class Storage {
         }
     }
 
-    static void writeToFile() throws IOException {
-        String type, status, description;
-        FileWriter fw = new FileWriter(save);
-        for (int i = 0; i < TaskList.numberOfTasks; i++) {
-            type = TaskList.taskList.get(i).getType();
-            status = TaskList.taskList.get(i).getStatusIcon();
-            description = TaskList.taskList.get(i).getOriginalDescription();
-            fw.write(type + " | " + status + " | " + description + System.lineSeparator());
+    /**
+     * Reads the current taskList and writes each task into the save file.
+     */
+    static void writeToFile() {
+        try {
+            String type, status, description;
+            FileWriter fw = new FileWriter(save);
+            for (int i = 0; i < TaskList.numberOfTasks; i++) {
+                type = TaskList.taskList.get(i).getType();
+                status = TaskList.taskList.get(i).getStatusIcon();
+                description = TaskList.taskList.get(i).getOriginalDescription();
+                fw.write(type + " | " + status + " | " + description + System.lineSeparator());
+            }
+            fw.close();
         }
-        fw.close();
+        catch (IOException e) {
+            Ui.printDividerLine();
+            System.out.println("Error saving file! Please try again");
+            Ui.printDividerLine();
+        }
     }
 }

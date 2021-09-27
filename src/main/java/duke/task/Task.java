@@ -2,10 +2,16 @@ package duke.task;
 
 import java.time.LocalDateTime;
 
+/**
+ * General task parent class.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Creates an incomplete task with description.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

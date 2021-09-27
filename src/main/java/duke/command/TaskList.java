@@ -8,28 +8,26 @@ import duke.task.ToDo;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
+/**
+ * Performs task list related functions
+ */
 public class TaskList {
     static ArrayList<Task> taskList = null;
     static int numberOfTasks = 0;
     static String type, status, description;
 
     public TaskList() {
-        taskList = new ArrayList<Task>();
-
-        String str = "23/04/1999 0830 123213";
-        try {
-            LocalDateTime dateTime = Parser.parseDate(str);
-        } catch (Exception e) {
-            System.out.println("☹ OOPS!!! Invalid date");
-
-        }
-
-        //System.out.println(dateTime.format(outputFormatter));
+        taskList = new ArrayList<>();
     }
 
+    /**
+     * Handles add task functions and add todo, deadline or event.
+     * For deadline and event, additional checks are performed to verify
+     * correct format is followed for preposition and dates.
+     *
+     * @throws IOException If input information is invalid
+     */
     static void addTask(String taskType, String taskDescription) throws IOException {
 
         if (taskDescription == null) {
@@ -91,6 +89,9 @@ public class TaskList {
         Storage.writeToFile();
     }
 
+    /**
+     * Prints out the current list of tasks
+     */
     static void displayList() {
         Ui.printDividerLine();
         if (numberOfTasks == 0) {
@@ -106,7 +107,10 @@ public class TaskList {
         Ui.printDividerLine();
     }
 
-    static void markTaskComplete(int taskNumber) throws IOException {
+    /**
+     * Mark selected task as complete.
+     */
+    static void markTaskComplete(int taskNumber) {
         taskNumber--;
         taskList.get(taskNumber).markAsDone();
         Ui.printDividerLine();
@@ -116,7 +120,10 @@ public class TaskList {
         Storage.writeToFile();
     }
 
-    static void deleteTask(int taskNumber) throws IOException {
+    /**
+     * Delete selected task .
+     */
+    static void deleteTask(int taskNumber) {
         taskNumber--;
         taskList.remove(taskNumber);
         numberOfTasks--;
@@ -128,6 +135,10 @@ public class TaskList {
 
     }
 
+    /**
+     * Print out tasks that occur before specified date.
+     * Perform additional checks to verify time format is correct.
+     */
     static void beforeDate(String dateString) {
         LocalDateTime dateTime;
         Ui.printDividerLine();
@@ -149,6 +160,10 @@ public class TaskList {
         Ui.printDividerLine();
     }
 
+    /**
+     * Print out tasks that occur after specified date.
+     * Perform additional checks to verify time format is correct.
+     */
     static void afterDate(String dateString) {
         LocalDateTime dateTime;
         Ui.printDividerLine();
@@ -169,6 +184,10 @@ public class TaskList {
         }
         Ui.printDividerLine();
     }
+
+    /**
+     * Print out tasks that include the substring given
+     */
     static void find(String keyword) {
         Ui.printDividerLine();
         System.out.println("Here are the matching tasks in your list:");
