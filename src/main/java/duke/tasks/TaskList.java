@@ -11,6 +11,7 @@ public class TaskList {
     public String REMOVED = "Noted. I've removed this task:";
     public String ACKNOWLEDGED = "Nice! I've marked this task as done:";
     public String LIST_START = "Here are the tasks in your list:";
+    public String FIND_START = "Here are the matching tasks in your list:";
 
     public String TaskListResponse(String line, int index){
         return line + "\n" + tasks.get(index).getDescription();
@@ -99,6 +100,24 @@ public class TaskList {
             tasks.remove(index);
             return response +"\n" + printTaskCount();
         }
+    }
+
+    public String findTask(String line) throws NotFoundException {
+        String foundList = FIND_START;
+
+        int tasksFound = 0;
+
+        for (int i = 1; i <= tasks.size(); ++i) {
+            if (tasks.get(i - 1).getDescription().toLowerCase().contains(line.toLowerCase())) {
+                tasksFound += 1;
+                foundList = foundList + "\n" + i + ". " + tasks.get(i - 1).printTask();
+            }
+        }
+
+        if (tasksFound == 0){
+            throw new NotFoundException();
+        }
+        return foundList;
     }
 
     public void clearList(){

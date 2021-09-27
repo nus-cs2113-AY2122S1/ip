@@ -10,6 +10,6 @@ public class ListCommand extends Command {
     @Override
     public CommandOutput execute() throws Exception {
         String response = taskList.printList();
-        return new CommandOutput(response, false, taskList);
+        return new CommandOutput(response, false);
     }
 }

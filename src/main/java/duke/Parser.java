@@ -3,6 +3,7 @@ package duke;
 import duke.commands.Command;
 import duke.commands.ListCommand;
 import duke.commands.AddCommand;
+import duke.commands.FindCommand;
 import duke.commands.NoCommand;
 import duke.commands.DoneCommand;
 import duke.commands.DeleteCommand;
@@ -15,6 +16,7 @@ public class Parser {
     public final String TODO = "todo";
     public final String DEADLINE = "deadline";
     public final String EVENT = "event";
+    public final String FIND = "find";
     public final String DONE = "done";
     public final String DELETE = "delete";
     public final String BYE = "bye";
@@ -31,6 +33,8 @@ public class Parser {
             return new AddCommand(taskList, userCommand, TaskType.DEADLINE);
         } else if (command.equals(EVENT)) {
             return new AddCommand(taskList, userCommand, TaskType.EVENT);
+        } else if (command.equals(FIND)) {
+            return new FindCommand(taskList, userCommand);
         } else if (command.equals(DONE)) {
             return new DoneCommand(taskList, userCommand);
         } else if (command.equals(DELETE)) {
