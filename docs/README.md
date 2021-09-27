@@ -41,7 +41,7 @@ Exits the current program.
 
 `todo [task description]`
 
-####Example of usage: 
+#### Example of usage: 
 
 `todo tidy up the room`
 
