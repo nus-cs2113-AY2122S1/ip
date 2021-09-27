@@ -29,7 +29,7 @@ If you are someone who can type fast, Duke is the perfect application for you to
 5. Run Duke by entering `java -jar Duke.jar`. 
 6. A folder `dukeData` will be created by default in the home folder containing `Duke.jar`. The folder will contain a
    `tasks.txt` file which is Duke's storage file.
-> ####📝 Note about Duke's storage file:
+> #### 📝 Note about Duke's storage file:
 > If you wish to create Duke's storage file in a specific folder, you can do this by specifying the file path along with the 
 > command run in Step 5. 
 > 
