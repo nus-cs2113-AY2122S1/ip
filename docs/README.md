@@ -167,6 +167,15 @@ Duke bids farewell and closes the application.
 
 Format: `bye`
 
+Example: `bye`
+
+```
+bye
+____________________________________________________________
+Bye. Hope to serve you again master!
+____________________________________________________________
+```
+
 -------------------------------------------------
 ## Command Summary
 
