@@ -40,7 +40,7 @@ Now you have 1 tasks in your list
 
 ### Adding a Deadline: ```deadline```
 Add a Deadline into the task list.  
-Deadlines should contain the task description and date.
+Deadlines should contain the task description and date.  
 Format: ```deadline <description>/by <date>```  
 Example: 
 ```
@@ -83,7 +83,7 @@ Here are all the tasks in your list:
 
 ### Marking a task as completed: ```done```  
 Mark a specific task as completed.   
-Index from the user should be a valid value in the list of tasks.
+Index from the user should be a valid value in the list of tasks.  
 Format: ```done <taskIndex>```  
 Example: 
 ```
@@ -146,7 +146,7 @@ file for the user.
 | Adding a Deadline  | ```deadline <description>/by <date>```  | ```deadline submit CS2101 reflection /by 21 Sept```  |
 | Adding an Event  | ```event <description>/at <time>```  | ```deadline submit CS2101 reflection /by 21 Sept```  |
 | Listing all tasks  | ```list```  | ```list```  |
-| Marking task as completed  | ```done <taskIndex>```  | ````done 1````  |
+| Marking task as completed  | ```done <taskIndex>```  | ```done 1```  |
 | Removing a task  | ```delete <taskIndex>```  | ```delete 2```  |
-| Searching for a task  | ```find <keyword>```  | ````find study```` |
+| Searching for a task  | ```find <keyword>```  | ```find study``` |
 | Terminating the bot  | ```bye```  | ```bye```  |
