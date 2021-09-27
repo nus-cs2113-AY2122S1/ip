@@ -2,15 +2,31 @@ package xRoss.task;
 
 import xRoss.exception.EmptyStringException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents Tasks with specified date/time
  */
 public class Event extends Task {
 
     /**
+     * DateTime format for reading from user input and saving to file
+     */
+    final static DateTimeFormatter READ_SAVE_FORMATTER =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+
+    /**
+     * DateTime format for printing to system output
+     */
+    final static DateTimeFormatter DISPLAY_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
+
+    /**
      * at   Event date/time
      */
-    protected String at;
+    protected LocalDateTime at;
 
     /**
      * Constructor for Event instance.
@@ -26,12 +42,12 @@ public class Event extends Task {
 
     /**Getter and Setter for at variable*/
 
-    public String getAt() {
+    public LocalDateTime getAt() {
         return at;
     }
 
-    public void setAt(String at) {
-        this.at = at;
+    public void setAt(String at) throws DateTimeParseException {
+        this.at = LocalDateTime.parse(at, READ_SAVE_FORMATTER);
     }
 
     /**
@@ -46,7 +62,9 @@ public class Event extends Task {
             System.out.print(" ");
         }
 
-        System.out.println("] " + super.getName() + " (at: " + getAt() + ")");
+        System.out.println("] " + super.getName() + " (at: "
+                + getAt().format(DISPLAY_FORMATTER)
+                + ")");
     }
 
     /**
@@ -57,6 +75,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "E" + super.toString()
-                + " | " + getAt() + "\n";
+                + " | "
+                + getAt().format(READ_SAVE_FORMATTER)
+                + "\n";
     }
 }

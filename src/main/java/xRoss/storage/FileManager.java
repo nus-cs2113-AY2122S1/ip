@@ -1,4 +1,4 @@
-package xRoss;
+package xRoss.storage;
 
 /**
  * Interface containing methods to save to and read from a specified text file.

@@ -6,6 +6,8 @@ import xRoss.task.Deadline;
 import xRoss.task.Event;
 import xRoss.task.Todo;
 
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents interaction with user
  */
@@ -104,6 +106,10 @@ public class Ui {
                     + "String argument cannot be empty\n"
                     + "\tCorrect format as follows:\n"
                     + "\t\tfind <expression to find>\n");
+        case "date_format":
+            System.out.println("\tWrong Date/Time format: "
+                    + "Date/Time argument expected in the form of DD-MM-YYYY HHmm\n");
+            break;
         default:
         }
     }
@@ -213,6 +219,8 @@ public class Ui {
             printCommandErrorMessage("deadline_format");
         } catch (EmptyStringException e) {
             printCommandErrorMessage("deadline_empty_string");
+        } catch (DateTimeParseException e) {
+            printCommandErrorMessage("date_format");
         } finally {
             printDividerLine();
         }
@@ -234,6 +242,8 @@ public class Ui {
             printCommandErrorMessage("event_format");
         } catch (EmptyStringException e) {
             printCommandErrorMessage("event_empty_string");
+        } catch(DateTimeParseException e){
+            printCommandErrorMessage("date_format");
         } finally {
             printDividerLine();
         }
