@@ -136,6 +136,17 @@ Delete the task from Duke and duketasks.txt
 
 Format: `delete <TASK_INDEX>` 
 
+Example: `delete 1`
+
+```
+delete 1
+____________________________________________________________
+Noted. I've removed this task:
+[T][ ] finish eating lunch
+Now you have 2 tasks in the list.
+____________________________________________________________
+```
+
 ### Find a Task: `find`
 Finds tasks with a `<SEARCH_STRING>` that contains the string inputted by the user.
 
