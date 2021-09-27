@@ -16,7 +16,8 @@ public class ListCommand extends Command {
     public ListCommand(String input) throws DukeException {
         splittedInput = input.split(" ");
         if (splittedInput.length > 1) {
-            throw new DukeException("☹ OOPS!!! Sorry but list command shouldn't consist of anything else other than \"list\" itself.");
+            throw new DukeException("☹ OOPS!!! Sorry but list command shouldn't consist of anything" + System.lineSeparator()
+                    + "\telse other than \"list\" itself.");
         }
     }
 

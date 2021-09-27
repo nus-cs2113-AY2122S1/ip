@@ -15,7 +15,8 @@ public class ByeCommand extends Command {
     public ByeCommand(String input) throws DukeException {
         splittedInput = input.split(" ");
         if (splittedInput.length > 1) {
-            throw new DukeException("☹ OOPS!!! Sorry but bye command shouldn't consist of anything else other than \"bye\" itself.");
+            throw new DukeException("☹ OOPS!!! Sorry but bye command shouldn't consist of anything" + System.lineSeparator()
+                    + "\telse other than \"bye\" itself.");
         }
     }
 
