@@ -39,15 +39,12 @@ public class Input {
                 break;
             case COMMAND_TODO:
                 TaskList.addTodoTask(userLine, taskList);
-                Ui.printAddedTask(taskList.get(taskList.size() - 1), taskList);
                 break;
             case COMMAND_DEADLINE:
                 TaskList.addDeadlineTask(userLine, taskList);
-                Ui.printAddedTask(taskList.get(taskList.size() - 1), taskList);
                 break;
             case COMMAND_EVENT:
                 TaskList.addEventTask(userLine, taskList);
-                Ui.printAddedTask(taskList.get(taskList.size() - 1), taskList);
                 break;
             case COMMAND_DELETE:
                 TaskList.deleteTask(userLine, taskList);
