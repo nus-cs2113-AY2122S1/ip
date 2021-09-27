@@ -1,12 +1,12 @@
 # User Guide
-**Shima**, aka _Duke_ for its previous name, is an **assistance bot** that provides a platform for users to note down important to-do tasks, deadlines or events. It is a **Command Line Interface (CLI)** based application developed for deskptop user. Meaning, **Shima** only accepts commands that are typed using keyboard. It is fast, convenient and efficient for editing, deleting and managing tasks.
+**Shima**, aka _Duke_ for its previous name, is an **assistance bot** that provides a platform for users to note down important to-do tasks, deadlines or events. It is a **Command Line Interface (CLI)** based application developed for deskptop user, meaning that **Shima** only accepts commands that are typed using keyboard. For users who frequently use it, **Shima** is fast, convenient and efficient compared to ordinary Graphic User Interface (GUI).
 
 ## Setup
 To run this application on your PC, please ensure you have done the following:
 1. Downloaded and set up [Java 11](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html) on you PC
-2. Downloaded the [jar file](https://github.com/tryyang2001/ip/releases/tag/A-Release) for this application
-3. Open **Terminal** and move to the directory of the jar.file
-4. Run the command at the directory of the jar file: `java -jar ip.jar`
+2. Downloaded the [jar file](https://github.com/tryyang2001/ip/releases/tag/A-Release) for the application (It is safe, no worry :)
+3. Open **Terminal**, **Command Prompt** or equivalent on your PC and locate the directory of the **jar.file**
+4. Run the command `java -jar ip.jar` at the directory of the jar file
 
 ### Quick start
 
@@ -54,7 +54,7 @@ Hi there! My name is Shima Rin and I am a robot that can help you do some wonder
 ```
 
 ### Features
-
+Features below describe the syntax and behavior of each command. Notice that codes that are in bracket **()** are **not mandatory** field, while codes that are in square bracket **[]** are **mandatory**.  
 ### View bot profile - `profile`
 To view the profile of the cute bot, type the command `profile`
 
@@ -75,7 +75,7 @@ Expected output:
   ```
 
 ### Add a new event task - `event`
-To add a new event task, use the command `event` with syntax: `event [TASK_DESCRIPTION] /(at) [START_TIME] - [END_TIME]\
+To add a new event task, use the command `event` with syntax: `event [TASK_DESCRIPTION] /(at) [START_TIME] [-] [END_TIME]\
 Eg:
 ```
 event swimming /at 2 - 4 pm
@@ -203,12 +203,13 @@ Process finished with exit code 0
 ```
 
 ### Command Code Summary
+The table below summarizes all the commands available in this application.\
 Command | Usage | Syntax
 --------|-------|-------
 `profile`| views the profile with cute picture of the bot character | `profile`
 `help`|views the help menu from the application | `help`
 `todo`|adds a new to-do task to the to-do list | `todo [TASK_DESCRIPTION]`
-`event`|adds a new event task to the to-do list | `event [TASK_DESCRIPTION] /(at) [START_TIME] - [END_TIME]`
+`event`|adds a new event task to the to-do list | `event [TASK_DESCRIPTION] /(at) [START_TIME] [-] [END_TIME]`
 `deadline`|adds a new deadline task to the to-do list | `deadline [TASK_DESCRIPTION] /(by) [END_DATE yyyy-MM-dd] [END_TIME utc HH:mm]`
 `list` | views the to-do list | `list`
 `done` | marks tasks as done | `done [TASK_INDEX/INDICES]`
