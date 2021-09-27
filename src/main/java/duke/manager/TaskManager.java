@@ -199,14 +199,14 @@ public class TaskManager {
         Scanner scanner = new Scanner(System.in);
         String message = scanner.nextLine();
 
-        while (!message.equals(COMMAND_BYE)) {
-            if (message.equals(COMMAND_LIST)) {
+        while (commandNotBye(message)) {
+            if (isCommandList(message)) {
                 Ui.printTasks(tasks);
-            } else if (message.contains(COMMAND_FIND)) {
+            } else if (isCommandFind(message)) {
                 findTask(tasks, message);
-            } else if (message.contains(COMMAND_DONE)) {
+            } else if (isCommandDone(message)) {
                 markDone(tasks, message);
-            } else if (message.contains(COMMAND_DELETE)) {
+            } else if (isCommandDelete(message)) {
                 deleteTask(tasks, message);
             } else {
                 addTask(tasks, message);
@@ -214,6 +214,26 @@ public class TaskManager {
             message = scanner.nextLine();
         }
         scanner.close();
+    }
+
+    private static boolean isCommandDelete(String message) {
+        return message.contains(COMMAND_DELETE);
+    }
+
+    private static boolean isCommandDone(String message) {
+        return message.contains(COMMAND_DONE);
+    }
+
+    private static boolean isCommandFind(String message) {
+        return message.contains(COMMAND_FIND);
+    }
+
+    private static boolean isCommandList(String message) {
+        return message.equals(COMMAND_LIST);
+    }
+
+    private static boolean commandNotBye(String message) {
+        return !message.equals(COMMAND_BYE);
     }
 
     /**
