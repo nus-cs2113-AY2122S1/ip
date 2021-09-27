@@ -1,8 +1,9 @@
 package duke.TaskList.task;
 
+import duke.TaskList.task.Task;
 import duke.Ui.DisplayManager;
 
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     public ToDo(String description) {
         super(description);

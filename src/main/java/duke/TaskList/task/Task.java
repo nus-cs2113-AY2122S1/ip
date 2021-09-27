@@ -1,5 +1,7 @@
 package duke.TaskList.task;
 
+import duke.TaskList.TaskManager;
+
 public class Task {
 
     protected String description;

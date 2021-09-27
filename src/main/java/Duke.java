@@ -1,7 +1,7 @@
 import duke.Error.DukeException;
 import duke.Ui.DisplayManager;
 import duke.Storage.FileManager;
-import duke.TaskList.task.TaskManager;
+import duke.TaskList.TaskManager;
 
 import java.util.Scanner;
 

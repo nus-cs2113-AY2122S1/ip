@@ -1,5 +1,9 @@
-package duke.TaskList.task;
+package duke.TaskList;
 
+import duke.TaskList.task.Deadline;
+import duke.TaskList.task.Event;
+import duke.TaskList.task.Task;
+import duke.TaskList.task.ToDo;
 import duke.Ui.DisplayManager;
 import duke.Storage.FileManager;
 

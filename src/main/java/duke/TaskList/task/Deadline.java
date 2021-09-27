@@ -2,7 +2,7 @@ package duke.TaskList.task;
 
 import duke.Ui.DisplayManager;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     private String dateTime;
 

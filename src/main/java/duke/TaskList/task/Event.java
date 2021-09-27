@@ -2,7 +2,7 @@ package duke.TaskList.task;
 
 import duke.Ui.DisplayManager;
 
-public class Event extends Task{
+public class Event extends Task {
 
     private String dateTime;
 
