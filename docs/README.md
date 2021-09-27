@@ -1,6 +1,6 @@
 # User Guide
-Duke is a Command Line Interface (CLI) application that assists you in
-keeping track of your everyday tasks. 
+Duke is a **Command Line Interface (CLI) application** that assists you in
+**keeping track of your everyday tasks**. 
 
 ## Quick start guide
 ### To set up in IntelliJ
@@ -64,7 +64,7 @@ Any changes made to the task list are automatically saved to the file
 
 
 ## Usage
-> **_NOTE:_** Words in UPPER_CASE are required parameters from the user
+> **_NOTE:_** Words in UPPER_CASE are required parameters from you
 
 ### Adding a `Todo`: `todo`
 
@@ -127,8 +127,9 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-> **_NOTE:_**  If you wish to store DATE_TIME as a LocalDateTime
-> object, please provide the DATE_TIME using the format `YYYY-MM-DD HH:MM`
+> **_NOTE:_** If you wish to store DATE_TIME as a LocalDateTime
+> object for `Deadline` and `Event` tasks, please input 
+> DATE_TIME using the format `YYYY-MM-DD HH:MM`
 
 ### List `Task`: `list`
 
@@ -210,8 +211,8 @@ ____________________________________________________________
 
 ### Exit: `bye`
 
-Terminates the Duke program. Upon terminating the program, the current
-`Task` data is automatically saved to the file.
+Exits the Duke program. Upon exiting the program, the current
+`Task` data is automatically saved to the file (on your hard disk).
 
 Format: `bye`
 
