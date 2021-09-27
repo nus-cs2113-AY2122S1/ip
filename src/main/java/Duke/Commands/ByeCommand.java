@@ -21,7 +21,6 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void execute() {
-    }
+    public void execute() {}
 
 }
