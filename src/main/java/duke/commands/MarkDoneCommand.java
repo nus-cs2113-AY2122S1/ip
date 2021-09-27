@@ -17,10 +17,7 @@ public class MarkDoneCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        if (arguments.equals("")) {
-            String output = " ☹ OOPS!!! You did not specify a task number.\n";
-            ui.printOutput(output);
-        } else { // Need to handle non-integer inputs
+        try {
             int taskNumber = Integer.parseInt(arguments);
             if (taskNumber <= 0 || taskNumber > tasks.sizeOfTaskList()) {
                 ui.displayTaskDoesNotExistMessage();
@@ -29,7 +26,8 @@ public class MarkDoneCommand extends Command {
                 tasks.getTaskAtIndex(taskIndex).markAsDone();
                 ui.displayDoneMessage(tasks, taskIndex);
             }
+        } catch (NumberFormatException e) {
+            ui.displaySpecifyIntegerResponse();
         }
-
     }
 }

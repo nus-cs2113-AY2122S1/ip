@@ -24,7 +24,8 @@ public class Ui {
         System.out.println(LOGO);
 
         String output = " Hello! I'm Duke\n"
-                + " What can I do for you?\n";
+                + " What can I do for you?\n"
+                + " Type `help` to display help message\n";
         printOutput(output);
     }
 
@@ -85,6 +86,21 @@ public class Ui {
 
     public static void displayUnknownCommandResponse() {
         String output = " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n";
+        printOutput(output);
+    }
+
+    public static void displayEmptyDescriptionResponse() {
+        String output = " ☹ OOPS!!! The description of a task cannot be empty.\n";
+        printOutput(output);
+    }
+
+    public static void displayEmptyKeywordResponse() {
+        String output = " ☹ OOPS!!! Please input a keyword to find task\n";
+        printOutput(output);
+    }
+
+    public static void displaySpecifyIntegerResponse() {
+        String output = " ☹ OOPS!!! Please specify an integer.\n";
         printOutput(output);
     }
 

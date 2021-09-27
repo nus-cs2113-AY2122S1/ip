@@ -25,8 +25,7 @@ public class AddEventCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (arguments.equals("")) {
-            String output = " ☹ OOPS!!! The description of an event cannot be empty.\n";
-            ui.printOutput(output);
+            ui.displayEmptyDescriptionResponse();
         } else {
             String delimiter = "/at";
             try {

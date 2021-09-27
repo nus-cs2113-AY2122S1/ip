@@ -20,15 +20,20 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        int taskNumber = Integer.parseInt(arguments);
-        if (taskNumber <= 0 || taskNumber > tasks.sizeOfTaskList()) {
-            ui.displayTaskDoesNotExistMessage();
-        } else {
-            int taskIndex = taskNumber - 1;
-            Task taskToDelete = tasks.getTaskAtIndex(taskIndex);
-            tasks.removeTask(taskIndex);
-            int taskListSize = tasks.sizeOfTaskList();
-            ui.displayDeleteMessage(taskToDelete, taskListSize);
+        try {
+            int taskNumber = Integer.parseInt(arguments);
+            if (taskNumber <= 0 || taskNumber > tasks.sizeOfTaskList()) {
+                ui.displayTaskDoesNotExistMessage();
+            } else {
+                int taskIndex = taskNumber - 1;
+                Task taskToDelete = tasks.getTaskAtIndex(taskIndex);
+                tasks.removeTask(taskIndex);
+                int taskListSize = tasks.sizeOfTaskList();
+                ui.displayDeleteMessage(taskToDelete, taskListSize);
+            }
+        } catch (NumberFormatException e) {
+            ui.displaySpecifyIntegerResponse();
         }
+
     }
 }

@@ -27,8 +27,7 @@ public class ScheduleCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> scheduledTasks = new ArrayList<>();
         if (arguments.equals("")) {
-            String output = " ☹ OOPS!!! Please specify a date: yyyy-MM-dd.\n";
-            ui.printOutput(output);
+            ui.displayInvalidDateFormatResponse();
         } else {
             try {
                 LocalDate parsedDate = Parser.parseDate(arguments);

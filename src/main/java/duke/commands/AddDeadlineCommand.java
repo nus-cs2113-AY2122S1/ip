@@ -25,8 +25,7 @@ public class AddDeadlineCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (arguments.equals("")) {
-            String output = " ☹ OOPS!!! The description of a deadline cannot be empty.\n";
-            ui.printOutput(output);
+            ui.displayEmptyDescriptionResponse();
         } else {
             String delimiter = "/by";
             try {

@@ -20,8 +20,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (arguments.equals("")) {
-            String output = " ☹ OOPS!!! Please input a keyword to find task\n";
-            ui.printOutput(output);
+            ui.displayEmptyKeywordResponse();
         } else {
             String output = " Here are the matching tasks in your list:\n";
             int numbering = 1;

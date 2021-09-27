@@ -20,8 +20,7 @@ public class AddTodoCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (arguments.equals("")) {
-            String output = " ☹ OOPS!!! The description of a todo cannot be empty.\n";
-            ui.printOutput(output);
+            ui.displayEmptyDescriptionResponse();
         } else {
             Todo newTodo = new Todo(arguments);
             tasks.addTask(newTodo);
