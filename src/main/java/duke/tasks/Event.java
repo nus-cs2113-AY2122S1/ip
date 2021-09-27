@@ -5,10 +5,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class Event extends Task {
-
+    
     protected LocalDate localDate;
     protected String time;
-
+     /**
+     * Represents an Event made by the user.
+     *
+     * @param name Description of Event.
+     * @param at Description of when the event is.
+     */
     public Event(String name, String dates, String time){
         super(name);
         this.time = time;

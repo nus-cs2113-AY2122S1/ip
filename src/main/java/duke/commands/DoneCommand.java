@@ -12,6 +12,14 @@ public class DoneCommand extends Command{
     private Task t;
     private Ui ui;
     private Storage storage;
+
+    /**
+     * Constructor for command when the user marks a task as done.
+     * @param tlist List where task is found
+     * @param index Index of task to be marked done
+     * @param ui Handles interaction with user.
+     * @param storage updates "data.txt" file
+     */
     public DoneCommand(TaskList tlist, int index, Ui ui,Storage storage){
         this.tlist = tlist;
         tlist.get(index).taskDone();

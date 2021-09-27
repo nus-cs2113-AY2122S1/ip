@@ -7,8 +7,14 @@ public class Deadline extends Task {
 
     protected LocalDate localDate;
     protected String time;
-
+    /**
+     * Represents a Deadline made by the user.
+     *
+     * @param name Description of Deadline.
+     * @param by Description of when the Deadline is.
+     */
     public Deadline(String name, String dates, String time){
+
         super(name);
         this.localDate = LocalDate.parse(dates);
         this.time = time;

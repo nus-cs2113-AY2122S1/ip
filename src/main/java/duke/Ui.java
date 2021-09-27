@@ -2,7 +2,9 @@ package duke;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import java.util.Scanner;
-
+/**
+ * Prints all the outputs to the terminal.
+ */
 public class Ui {
     private final Scanner scanner = new Scanner(System.in);
 

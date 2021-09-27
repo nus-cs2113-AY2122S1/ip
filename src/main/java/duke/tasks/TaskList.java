@@ -1,11 +1,14 @@
 package duke.tasks;
 import duke.tasks.Task;
 import java.util.ArrayList;
-
+/**
+ * Represents the list of Tasks made by the user.
+ */
 public class TaskList {
 
     private ArrayList<Task> taskList;
 
+    //Contructor for TaskList
     public TaskList(){
         this.taskList = new ArrayList<>();
     }
