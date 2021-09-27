@@ -1,29 +1,21 @@
 public class Event extends Task{
     protected String at;
-    protected String originalInput;
 
-    public Event (String description, String at, String originalInput) {
+    public Event (String description, String at) {
         super(description);
         this.at = at;
-        this.originalInput = originalInput;
-    }
-
-    public String getOriginalInput() {
-        return originalInput;
     }
 
     public void setAt(String at) {
         this.at = at;
     }
-    public String getAt() {
-        return at;
+    public String getTime() {
+        return this.at;
     }
-
     public String getType() {
         return "E";
     }
-
     public String toString() {
-        return "[E]" + super.toString() + " (" + at + ")";
+        return "[E]" + super.getStatus() + super.getDescription() + " (at:" + at + ")";
     }
 }
