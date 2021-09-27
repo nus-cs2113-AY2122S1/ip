@@ -16,6 +16,11 @@ import java.nio.file.Paths;
 
 public class Duke {
 
+    private static char TODO_TASK = 'T';
+    private static char DEADLINE_TASK = 'D';
+    private static char EVENT_TASK = 'E';
+    private static int taskStartIndex = 7; //7 is the starting index for the actual task, in the data file
+
     public static String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
@@ -64,14 +69,65 @@ public class Duke {
             + "No preloaded file found! Please input your own data.\n"
             + "____________________________________________________________\n";
 
+
+    private static void addNewEvent(String line) throws EmptyTaskException, InvalidCommandException {
+        int indexOfSlash = line.indexOf("/");
+        String actualTask = extractEventTask(line, indexOfSlash);
+        String eventAt = extractTiming(line, indexOfSlash);
+        if (actualTask.isBlank()) {
+            throw new EmptyTaskException();
+        }
+        if (!line.contains("/at")) {
+            throw new InvalidCommandException();
+        }
+        taskList.add(new Event(actualTask, eventAt));
+    }
+
+    private static void addNewDeadline(String line) throws EmptyTaskException, InvalidCommandException {
+        int indexOfSlash = line.indexOf("/");
+        String actualTask = extractDeadlineTask(line, indexOfSlash);
+        String deadlineBy = extractTiming(line, indexOfSlash);
+        if (actualTask.isBlank()) {
+            throw new EmptyTaskException();
+        }
+        if (!line.contains("/by")) {
+            throw new InvalidCommandException();
+        }
+        taskList.add(new Deadline(actualTask, deadlineBy));
+    }
+
+    private static void addNewTodo(String line) throws EmptyTaskException {
+        String actualTask = extractTodoTask(line);
+        if (actualTask.isBlank()) {
+            throw new EmptyTaskException();
+        }
+        taskList.add(new Todo(actualTask));
+    }
+
+    private static String extractTiming(String line, int indexOfSlash) {
+        return line.substring(indexOfSlash + 4);
+    }
+
+    private static String extractEventTask(String line, int indexOfSlash) {
+        return line.substring(5, indexOfSlash - 1).trim();
+    }
+
+    private static String extractDeadlineTask(String line, int indexOfSlash) {
+        return line.substring(8, indexOfSlash - 1).trim();
+    }
+
+    private static String extractTodoTask(String line) {
+        return line.substring(4).trim();
+    }
+
     private static char getTaskType(Task task) {
         if (task instanceof Todo) {
-            return 'T';
+            return TODO_TASK;
         }
         if (task instanceof Deadline) {
-            return 'D';
+            return DEADLINE_TASK;
         }
-        return 'E';
+        return EVENT_TASK;
     }
 
     private static void updateData(String filePath) throws IOException {
@@ -84,23 +140,30 @@ public class Duke {
             return;
         }
 
+        //WRITING to file for first line
         Task currentTask = taskList.get(0);
         char taskType = getTaskType(currentTask);
         int isDone = (currentTask.getStatus()) ? 1 : 0;
-        String fullTask = currentTask.toString().substring(7);
+        String fullTask = getTaskInStringFromFile(currentTask);
 
         fw.write(taskType + " | " + isDone + " | " + fullTask + System.lineSeparator());
 
+
+        //subsequent lines append
         for (int i = 1; i < taskList.size(); i++) {
             currentTask = taskList.get(i);
             taskType = getTaskType(currentTask);
             isDone = (currentTask.getStatus()) ? 1 : 0;
-            fullTask = currentTask.toString().substring(7);
+            fullTask = getTaskInStringFromFile(currentTask);
             fa.write(taskType + " | " + isDone + " | " + fullTask + System.lineSeparator());
         }
 
         fw.close();
         fa.close();
+    }
+
+    private static String getTaskInStringFromFile(Task currentTask) {
+        return currentTask.toString().substring(taskStartIndex);
     }
 
     private static void readData(String filePath) throws FileNotFoundException {
@@ -110,34 +173,37 @@ public class Duke {
 
             String taskInfo = s.nextLine();
 
+            Task newTask;
             if (taskInfo.startsWith("T")) {
-                Task newTask = new Todo(taskInfo.substring(8));
-                taskList.add(newTask);
-                if (taskInfo.charAt(4) == '1') {
-                    newTask.markAsDone();
-                }
-
-            } else if (taskInfo.startsWith("D")) {
-                int indexOfColon = taskInfo.indexOf(":");
-                int indexOfOpenBracket = taskInfo.indexOf("(");
-                int indexOfCloseBracket = taskInfo.indexOf(")");
-                Task newTask = new Deadline(taskInfo.substring(8, indexOfOpenBracket - 1), taskInfo.substring(indexOfColon + 2, indexOfCloseBracket));
-                taskList.add(newTask);
-                if (taskInfo.charAt(4) == '1') {
-                    newTask.markAsDone();
-                }
+                newTask = new Todo(fileGetTodoTask(taskInfo));
 
             } else {
-                int indexOfColon = taskInfo.indexOf(":");
-                int indexOfOpenBracket = taskInfo.indexOf("(");
-                int indexOfCloseBracket = taskInfo.indexOf(")");
-                Task newTask = new Event(taskInfo.substring(8, indexOfOpenBracket - 1), taskInfo.substring(indexOfColon + 2, indexOfCloseBracket));
-                taskList.add(newTask);
-                if (taskInfo.charAt(4) == '1') {
-                    newTask.markAsDone();
-                }
+                newTask = createNewDeadlineOrEvent(taskInfo);
+            }
+            taskList.add(newTask);
+            if (fileTaskIsDone(taskInfo)) {
+                newTask.markAsDone();
             }
         }
+    }
+
+    //creates a new deadline or event, depending on what the line starts with
+    private static Task createNewDeadlineOrEvent(String taskInfo) {
+        int indexOfColon = taskInfo.indexOf(":");
+        int indexOfOpenBracket = taskInfo.indexOf("(");
+        int indexOfCloseBracket = taskInfo.indexOf(")");
+        if (taskInfo.startsWith("D")) {
+            return new Deadline(taskInfo.substring(8, indexOfOpenBracket - 1), taskInfo.substring(indexOfColon + 2, indexOfCloseBracket));
+        }
+        return new Event(taskInfo.substring(8, indexOfOpenBracket - 1), taskInfo.substring(indexOfColon + 2, indexOfCloseBracket));
+    }
+
+    private static String fileGetTodoTask(String taskInfo) {
+        return taskInfo.substring(8);
+    }
+
+    private static boolean fileTaskIsDone(String taskInfo) {
+        return taskInfo.charAt(4) == '1';
     }
 
 
@@ -182,34 +248,11 @@ public class Duke {
         } else if (isProperTask) {
             //checks for task commands
             if (isTodoTask) {
-                String actualTask = line.substring(4).trim();
-                if (actualTask.isBlank()) {
-                    throw new EmptyTaskException();
-                }
-                taskList.add(new Todo(actualTask));
+                addNewTodo(line);
             } else if (isDeadlineTask) {
-                int indexOfSlash = line.indexOf("/");
-                String actualTask = line.substring(8, indexOfSlash - 1).trim();
-                String deadlineBy = line.substring(indexOfSlash + 4);
-                if (actualTask.isBlank()) {
-                    throw new EmptyTaskException();
-                }
-                if (!line.contains("/by")) {
-                    throw new InvalidCommandException();
-                }
-                taskList.add(new Deadline(actualTask, deadlineBy));
-
+                addNewDeadline(line);
             } else {
-                int indexOfSlash = line.indexOf("/");
-                String actualTask = line.substring(5, indexOfSlash - 1).trim();
-                String eventAt = line.substring(indexOfSlash + 4);
-                if (actualTask.isBlank()) {
-                    throw new EmptyTaskException();
-                }
-                if (!line.contains("/at")) {
-                    throw new InvalidCommandException();
-                }
-                taskList.add(new Event(actualTask, eventAt));
+                addNewEvent(line);
             }
 
             System.out.println("____________________________________________________________\n"
@@ -254,6 +297,8 @@ public class Duke {
         }
     }
 
+
+
     public static void main(String[] args) throws IOException {
         System.out.println(greeting);
 
@@ -262,10 +307,8 @@ public class Duke {
         //read in duke.txt
         try {
             readData(dukeData.getPath());
-
         } catch (FileNotFoundException e) {
             System.out.println(fileNotFound);
-
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("An error has occurred!");
         }
@@ -288,13 +331,10 @@ public class Duke {
             try {
                 processLine(line);
                 updateData(dukeData.getPath());
-
             } catch (UnknownCommandException | StringIndexOutOfBoundsException | InvalidCommandException e) {
                 System.out.println(invalidTaskError);
-
             } catch (EmptyTaskException e) {
                 System.out.println(emptyTaskError);
-
             } catch (IOException e) {
                 System.out.println("An error has occurred!");
             }
