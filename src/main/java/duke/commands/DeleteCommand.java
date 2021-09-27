@@ -3,6 +3,7 @@ package duke.commands;
 import duke.tasks.TaskList;
 
 public class DeleteCommand extends Command {
+
     public DeleteCommand(TaskList taskList, String userCommand) {
         super(taskList, userCommand);
     }

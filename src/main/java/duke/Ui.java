@@ -2,6 +2,7 @@ package duke;
 
 public class Ui {
 
+    //prints program output
     public static void printMessage(String line) {
         if (line.isEmpty()) {
             return;

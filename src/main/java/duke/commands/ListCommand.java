@@ -3,6 +3,7 @@ package duke.commands;
 import duke.tasks.TaskList;
 
 public class ListCommand extends Command {
+
     public ListCommand(TaskList taskList) {
         super(taskList, "");
     }

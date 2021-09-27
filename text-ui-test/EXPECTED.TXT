@@ -1,8 +1,6 @@
 The file data/duke.txt is not found.A new file data/duke.txt has been created.
 Hello! I'm Duke.
 What can I do for you?
-Command is empty.
-What can I do for you?
 Got it. I've added this task:
 eat cake
 Now you have 1 tasks in the list.
@@ -18,9 +16,9 @@ What can I do for you?
 Nice! I've marked this task as done:
 eat cake
 What can I do for you?
-The description of done cannot be empty.
-What can I do for you?
-The description of todo cannot be empty.
+Here are the matching tasks in your list:
+1. [T][X] eat cake
+2. [D][ ] eat chocolate cake  (by: Friday 2pm)
 What can I do for you?
 Here are the tasks in your list:
 1. [T][X] eat cake

@@ -3,6 +3,7 @@ package duke.commands;
 import duke.tasks.TaskList;
 
 public class DoneCommand extends Command {
+
     public DoneCommand(TaskList taskList, String userCommand) {
         super(taskList, userCommand);
     }

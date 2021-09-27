@@ -3,6 +3,7 @@ package duke.commands;
 import duke.tasks.TaskList;
 
 public class FindCommand extends Command {
+
     public FindCommand(TaskList taskList, String userCommand){
         super(taskList, userCommand);
     }

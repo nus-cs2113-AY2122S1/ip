@@ -5,6 +5,7 @@ import duke.exceptions.*;
 import java.util.ArrayList;
 
 public class TaskList {
+
     public ArrayList<Task> tasks = new ArrayList<>();
 
     public String ADDED = "Got it. I've added this task:";
@@ -25,6 +26,7 @@ public class TaskList {
         return "Now you have " + tasks.size() + " tasks in the list.";
     }
 
+    //displays the list to the user
     public String printList() throws EmptyListException {
         if (tasks.size() == 0) {
             throw new EmptyListException();
@@ -39,6 +41,7 @@ public class TaskList {
     public TaskList() {
     }
 
+    //executes program to mark a task as done
     public String taskDone(String line)
             throws DoneFormatException, AlreadyDoneException, DoneRangeException {
         if (!line.matches("\\d+")) {
@@ -55,6 +58,7 @@ public class TaskList {
         }
     }
 
+    //adds a todo task to the list
     public String addTodo(String line) throws TodoException {
         if (line.equals("") || line.equals("todo")) {
             throw new TodoException();
@@ -64,6 +68,7 @@ public class TaskList {
         }
     }
 
+    //adds a deadline task to the list
     public String addDeadline(String line) throws DeadlineException {
         if (!line.matches("(.*)/by(.*)")) {
             throw new DeadlineException();
@@ -76,6 +81,7 @@ public class TaskList {
         }
     }
 
+    //adds an event task to the list
     public String addEvent(String line) throws EventException {
         if (!line.matches("(.*)/at(.*)")) {
             throw new EventException();
@@ -88,6 +94,7 @@ public class TaskList {
         }
     }
 
+    //deletes task from the list
     public String deleteTask(String line) throws DeleteFormatException, DeleteRangeException {
         if (!line.matches("\\d+")) {
             throw new DeleteFormatException();
@@ -102,11 +109,10 @@ public class TaskList {
         }
     }
 
+    //finds matching tasks in the list
     public String findTask(String line) throws NotFoundException {
         String foundList = FIND_START;
-
         int tasksFound = 0;
-
         for (int i = 1; i <= tasks.size(); ++i) {
             if (tasks.get(i - 1).getDescription().toLowerCase().contains(line.toLowerCase())) {
                 tasksFound += 1;
@@ -120,6 +126,7 @@ public class TaskList {
         return foundList;
     }
 
+    //clears existing list
     public void clearList(){
         tasks.clear();
     }

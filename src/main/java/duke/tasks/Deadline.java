@@ -1,6 +1,7 @@
 package duke.tasks;
 
 public class Deadline extends Task {
+
     private TaskType type = TaskType.DEADLINE;
     protected String by;
 

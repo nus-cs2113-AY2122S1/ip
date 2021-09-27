@@ -22,6 +22,7 @@ public class Duke {
         Ui.printMessage(response.response);
     }
 
+    //attempts to execute the user command
     public CommandOutput executeCommand(Command command) {
         try {
                 return command.execute();
@@ -30,6 +31,7 @@ public class Duke {
         }
     }
 
+    //runs the program
     public void run() {
         ui.printGreeting();
         String line;

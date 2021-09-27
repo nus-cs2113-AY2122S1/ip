@@ -1,8 +1,7 @@
 package duke.tasks;
 
-import duke.tasks.TaskList;
-
 public class TaskListResponse {
+
     public TaskList taskList;
     public String response;
 

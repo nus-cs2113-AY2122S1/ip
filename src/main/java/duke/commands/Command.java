@@ -3,6 +3,7 @@ package duke.commands;
 import duke.tasks.TaskList;
 
 public abstract class Command {
+
     protected TaskList taskList;
     protected String userCommand;
 
@@ -11,5 +12,6 @@ public abstract class Command {
         this.userCommand = userCommand;
     }
 
+    //attempts to execute program according to user command
     public abstract  CommandOutput execute() throws Exception;
 }

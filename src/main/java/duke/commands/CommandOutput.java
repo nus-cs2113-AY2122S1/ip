@@ -3,6 +3,7 @@ package duke.commands;
 import duke.tasks.TaskList;
 
 public class CommandOutput {
+
     private String response;
     private boolean updated;
     private TaskList taskList;

@@ -27,6 +27,7 @@ public class Storage {
         this.f = new File(filePath);
     }
 
+    //load tasks from save file if save file exists
     public void loadTasks(TaskList taskList) throws FileNotFoundException, FileFormatException {
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
@@ -50,12 +51,14 @@ public class Storage {
         }
     }
 
+    //creates a save file
     public void createFile() throws IOException {
         Path pathToFile = Paths.get("data/duke.txt");
         Files.createDirectories(pathToFile.getParent());
         f.createNewFile();
     }
 
+    //program output for save file
     public TaskListResponse initialiseTasks() {
         TaskList taskList = new TaskList();
         String response = "";
@@ -76,6 +79,7 @@ public class Storage {
         return new TaskListResponse(taskList, response);
     }
 
+    //writing to save file
     private void writeToFile(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter("data/duke.txt");
         for (Task list : taskList.tasks) {
@@ -84,6 +88,7 @@ public class Storage {
         fw.close();
     }
 
+    //program output for writing to save file
     public String write(TaskList taskList) {
         try {
             writeToFile(taskList);
