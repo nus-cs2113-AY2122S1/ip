@@ -26,21 +26,7 @@ public class Duke {
         //Task[] Tasks = new Task[MAX_TASK];
         ArrayList<Task> Tasks = new ArrayList<>(MAX_TASK);
         String file = "data/tasks.txt";
-        try {
-            File dukeFile = new File(file);
-            File directory = dukeFile.getParentFile();
-            if(!directory.exists()){
-                directory.mkdir();
-            }
-            if(!dukeFile.exists()){
-                dukeFile.createNewFile();
-            }
-            readFile(Tasks,file);
-            printFileContents(file);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        }
-
+        Tasks = getFile(file, MAX_TASK);
         Scanner sc= new Scanner(System.in); //System.in is a standard input stream
         boolean isExit = true;
         int maxlength = 0;
@@ -56,8 +42,7 @@ public class Duke {
                     printList(Tasks, maxlength);
                 } else if (str.contains("todo")) {
                     checkTodoString(str);
-                    if (str.length() - 5 + 9 > maxlength)
-                        maxlength = str.length() - 5 + 9;//- length of "todo " + "1. [X][X]"
+                    maxlength = checkLength(str, maxlength, -5+9);//- length of "todo " + "1. [X][X]"
                     str = str.substring(5, str.length());
                     Todo t = new Todo(str);
                     addToList(t, Tasks, Tasks.size());
@@ -66,8 +51,7 @@ public class Duke {
                     checkDeadlineString(str);
                     checkFormat(str);
                     String time = str.substring(str.indexOf("/") + 3, str.length());
-                    if (str.length() - 9 + 11 > maxlength)
-                        maxlength = str.length() - 9 + 11;//- length of "deadline " + "1. [X][X]" + "(xx:" + ")"
+                    maxlength = checkLength(str, maxlength, -9+11);//- length of "deadline " + "1. [X][X]" + "(xx:" + ")"
                     Deadline t = new Deadline(str.substring(9, str.indexOf("/") - 1), time);
                     addToList(t, Tasks, Tasks.size());
                     printTask(t, Tasks.size());
@@ -75,22 +59,18 @@ public class Duke {
                     checkEventString(str);
                     checkFormat(str);
                     String time = str.substring(str.indexOf("/") + 3, str.length());
-                    if (str.length() - 6 + 11 > maxlength) maxlength = str.length() - 6 + 11;
+                    maxlength = checkLength(str, maxlength, -6+11);
                     Event t = new Event(str.substring(6, str.indexOf("/") - 1), time);
                     addToList(t, Tasks, Tasks.size());
                     printTask(t, Tasks.size());
                 } else if (str.contains("delete")) {
-                    String numberOnly = str.replaceAll("[^0-9]", "");
-                    if(numberOnly.length() == 0) numberOnly = "0"; // to avoid empty string error
-                    int num = Integer.parseInt(numberOnly);
+                    int num = getStringNumber(str);
                     checkNum(num, Tasks.size());
                     Task t = Tasks.get(num - 1);
                     Tasks.remove(num - 1);
                     printDelete(t, Tasks.size());
                 } else if (str.contains("done")) {
-                    String numberOnly = str.replaceAll("[^0-9]", "");
-                    if(numberOnly.length() == 0) numberOnly = "0"; // to avoid empty string error
-                    int num = Integer.parseInt(numberOnly);
+                    int num = getStringNumber(str);
                     checkNum(num, Tasks.size());
                     Tasks.get(num - 1).setDone(true);
                     printDone(Tasks.get(num - 1));
@@ -114,34 +94,42 @@ public class Duke {
             }
         }
 
+        writeFile(Tasks, file);
+    }
+
+    private static int getStringNumber(String str){
+        String numberOnly = str.replaceAll("[^0-9]", "");
+        if(numberOnly.length() == 0) numberOnly = "0"; // to avoid empty string error
+        int num = Integer.parseInt(numberOnly);
+        return num;
+    }
+
+    private static int checkLength(String str, int maxlength, int num){
+        if (str.length() + num > maxlength) {
+            maxlength = str.length() + num;
+        }
+        return maxlength;
+    }
+
+    public static ArrayList<Task> getFile(String file, int MAX_TASK){
+        ArrayList<Task> Tasks = new ArrayList<>(MAX_TASK);
         try {
-            FileWriter fileWriter =new FileWriter(file);
-            fileWriter.write("");
-            fileWriter.flush();
-            fileWriter.close();
+            File dukeFile = new File(file);
+            File directory = dukeFile.getParentFile();
+            if(!directory.exists()){
+                directory.mkdir();
+            }
+            if(!dukeFile.exists()){
+                dukeFile.createNewFile();
+            }
+            readFile(Tasks,file);
+            printFileContents(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        String textToAdd = "";
-        for(int i = 0; i < Tasks.size(); i++){
-            switch (Tasks.get(i).getType()){
-            case TODO:
-                textToAdd += "T | " + (Tasks.get(i).isDone() ? "1" : "0") + " | " + Tasks.get(i).getDescription() + System.lineSeparator();
-                break;
-            case DEADLINE:
-                textToAdd += "D | " + (Tasks.get(i).isDone() ? "1" : "0") + " | " + Tasks.get(i).getDescription() + " | " + Tasks.get(i).getBy() + System.lineSeparator();
-                break;
-            case EVENT:
-                textToAdd += "E | " + (Tasks.get(i).isDone() ? "1" : "0") + " | " + Tasks.get(i).getDescription() + " | " + Tasks.get(i).getBy() + System.lineSeparator();
-                break;
-            }
-        }
-        try {
-            writeToFile(file, textToAdd);
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
+        return Tasks;
     }
 
     public static ArrayList<Task> readFile(ArrayList<Task> Tasks, String filePath) throws FileNotFoundException{
@@ -175,6 +163,38 @@ public class Duke {
         }
         return Tasks;
     }
+
+    private static void writeFile(ArrayList<Task> Tasks, String file){
+        try {
+            FileWriter fileWriter =new FileWriter(file);
+            fileWriter.write("");
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String textToAdd = "";
+        for(int i = 0; i < Tasks.size(); i++){
+            switch (Tasks.get(i).getType()){
+            case TODO:
+                textToAdd += "T | " + (Tasks.get(i).isDone() ? "1" : "0") + " | " + Tasks.get(i).getDescription() + System.lineSeparator();
+                break;
+            case DEADLINE:
+                textToAdd += "D | " + (Tasks.get(i).isDone() ? "1" : "0") + " | " + Tasks.get(i).getDescription() + " | " + Tasks.get(i).getBy() + System.lineSeparator();
+                break;
+            case EVENT:
+                textToAdd += "E | " + (Tasks.get(i).isDone() ? "1" : "0") + " | " + Tasks.get(i).getDescription() + " | " + Tasks.get(i).getBy() + System.lineSeparator();
+                break;
+            }
+        }
+        try {
+            writeToFile(file, textToAdd);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
     private static void printFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
