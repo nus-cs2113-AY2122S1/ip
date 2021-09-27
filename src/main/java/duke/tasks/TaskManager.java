@@ -113,8 +113,7 @@ public class TaskManager {
      * @param args the string the user inputs
      **/
     public static void markTaskAsDone(String args) {
-        int stringLength = args.length();
-        int doneTaskNumber = Integer.parseInt(args.substring(stringLength - 1));
+        int doneTaskNumber = Integer.parseInt(args.substring(4).trim());
         taskList.get(doneTaskNumber - 1).markAsDone();
         numberOfTasksUndone--;
 
@@ -128,8 +127,7 @@ public class TaskManager {
      * @return returns true if the task is already marked as done, false otherwise
      */
     public static boolean isTaskDone(String args) {
-        int stringLength = args.length();
-        int taskNumber = Integer.parseInt(args.substring(stringLength - 1));
+        int taskNumber = Integer.parseInt(args.substring(4).trim());
         if (taskList.get(taskNumber - 1).getStatusIcon().equals("X")) {
             return true;
         }
