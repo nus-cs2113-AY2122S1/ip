@@ -70,6 +70,13 @@ public class Ui {
         blockPrint(new String[]{HELP_MESSAGE});
     }
 
+    /**
+     * Print index and status of tasks in the task list.
+     *
+     * @param taskList Current task list.
+     * @throws TaskListEmptyException    Task list is empty.
+     * @throws InvalidTaskIndexException Task index is invalid.
+     */
     public void listTasks(TaskList taskList) throws TaskListEmptyException, InvalidTaskIndexException {
         String[] taskListMessage = new String[taskList.getTotalTasks() + 1];
         taskListMessage[0] = "Here are the tasks in your list:";
@@ -117,6 +124,11 @@ public class Ui {
                 "You have " + totalTasks + " tasks left in the list."});
     }
 
+    /**
+     * Print tasks from a filtered task list.
+     *
+     * @param filteredTaskList ArrayList of tasks with search term in the description.
+     */
     public void printFoundTask(ArrayList<Task> filteredTaskList) {
         String[] output = new String[filteredTaskList.size() + 1];
         output[0] = "Here are the matching tasks in your list:";
@@ -216,6 +228,9 @@ public class Ui {
                 "The task save file will be overwritten if you choose to continue."});
     }
 
+    /**
+     * Print empty search term error message.
+     */
     public void printEmptySearchTermError() {
         blockPrint(new String[]{"Search term cannot be empty."});
     }

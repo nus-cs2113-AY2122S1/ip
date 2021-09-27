@@ -34,6 +34,7 @@ public class Storage {
      * @throws FileNotFoundException     Task file does not exist.
      * @throws TaskListEmptyException    Task list is empty.
      * @throws InvalidTaskIndexException Task index provided is not within task list size.
+     * @throws DateTimeParseException    Date provided is not in ISO8601 format.
      */
     public TaskList loadTaskList() throws FileNotFoundException, TaskListEmptyException, InvalidTaskIndexException,
             DateTimeParseException {
