@@ -103,6 +103,18 @@ Lists all the tasks added to Duke
 
 Format: `list`
 
+Example: `list`
+
+```
+list
+____________________________________________________________
+1. [T][ ] finish eating lunch
+2. [E][ ] Attend CG2027 lecture  (on: Tuesday, October 12, 2021 03:21 PM)
+3. [D][ ] Submit CS2113 HW  (by: Thursday, September 30, 2021 11:59 PM)
+____________________________________________________________
+
+```
+
 ### Mark a Task as Done: `done`
 Marks a task that DUKE is tracking as done.
 
