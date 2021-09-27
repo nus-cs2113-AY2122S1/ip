@@ -101,6 +101,11 @@ public class Ui {
                     + "\tCorrect format as follows:\n"
                     + "\t\tdelete <valid task number>\n");
             break;
+        case "find":
+            System.out.println("\tWrong Find command format: "
+                    + "String argument cannot be empty\n"
+                    + "\tCorrect format as follows:\n"
+                    + "\t\tfind <expression to find>\n");
         case "date_format":
             System.out.println("\tWrong Date/Time format: "
                     + "Date/Time argument expected in the form of DD-MM-YYYY HHmm\n");
@@ -124,7 +129,7 @@ public class Ui {
      * Prints response to "done" command to system output.
      *
      * @param taskManager Representation of current task list.
-     * @param inputLine   Scanned system input.
+     * @param inputLine   Scanned user input.
      */
     public static void printDoneResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
@@ -134,15 +139,35 @@ public class Ui {
             taskManager.markAsDone(Integer.parseInt(taskNumberDone[1]));
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             printCommandErrorMessage("done");
+        } finally {
+            printDividerLine();
         }
+    }
+
+    /**
+     * Prints response to "find" command to system output.
+     *
+     * @param taskManager Representation of current task list.
+     * @param inputLine   Scanned user input.
+     */
+    public void printFindResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
+        try {
+            String[] expToFind = inputLine.split("find ");
+
+            taskManager.findTasksWithExp(expToFind[1].trim());
+        } catch (IndexOutOfBoundsException | EmptyStringException e) {
+            printCommandErrorMessage("find");
+        } finally {
+            printDividerLine();
+        }
     }
 
     /**
      * Prints response to "delete" command to system output.
      *
      * @param taskManager Representation of current task list.
-     * @param inputLine   Scanned system input.
+     * @param inputLine   Scanned user input.
      */
     public static void printDeleteResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
@@ -152,15 +177,16 @@ public class Ui {
             taskManager.deleteTask(Integer.parseInt(taskNumberDone[1]));
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             printCommandErrorMessage("delete");
+        } finally {
+            printDividerLine();
         }
-        printDividerLine();
     }
 
     /**
      * Prints response to "todo" command to system output.
      *
      * @param taskManager Representation of current task list.
-     * @param inputLine   Scanned system input.
+     * @param inputLine   Scanned user input.
      */
     public static void printTodoResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
@@ -172,15 +198,16 @@ public class Ui {
             printCommandErrorMessage("todo_format");
         } catch (EmptyStringException e) {
             printCommandErrorMessage("todo_empty_string");
+        } finally {
+            printDividerLine();
         }
-        printDividerLine();
     }
 
     /**
      * Prints response to "deadline" command to system output.
      *
      * @param taskManager Representation of current task list.
-     * @param inputLine   Scanned system input.
+     * @param inputLine   Scanned user input.
      */
     public static void printDeadlineResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
@@ -194,15 +221,16 @@ public class Ui {
             printCommandErrorMessage("deadline_empty_string");
         } catch (DateTimeParseException e) {
             printCommandErrorMessage("date_format");
+        } finally {
+            printDividerLine();
         }
-        printDividerLine();
     }
 
     /**
      * Prints response to "event" command to system output.
      *
      * @param taskManager Representation of current task list.
-     * @param inputLine   Scanned system input.
+     * @param inputLine   Scanned user input.
      */
     public static void printEventResponse(TaskManager taskManager, String inputLine) {
         printDividerLine();
@@ -214,10 +242,11 @@ public class Ui {
             printCommandErrorMessage("event_format");
         } catch (EmptyStringException e) {
             printCommandErrorMessage("event_empty_string");
-        } catch (DateTimeParseException e){
+        } catch(DateTimeParseException e){
             printCommandErrorMessage("date_format");
+        } finally {
+            printDividerLine();
         }
-        printDividerLine();
     }
 
     /**
@@ -229,5 +258,4 @@ public class Ui {
         System.out.println("\tI did not quite understand what you meant there, so I'll just echo your input...\n");
         printDividerLine();
     }
-
 }

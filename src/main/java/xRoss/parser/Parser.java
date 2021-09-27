@@ -17,28 +17,41 @@ public class Parser {
     /**
      * Makes sense of user input and invokes the relevant actions by the chat bot.
      *
-     * @param taskManager   Representation of current task list.
-     * @param inputLine     Scanned user input.
-     * @return  Boolean value that keeps tracks of whether to exit the chat bot.
+     * @param taskManager Representation of current task list.
+     * @param inputLine   Scanned user input.
+     * @return Boolean value that keeps tracks of whether to exit the chat bot.
      */
-    public boolean parseCommand(TaskManager taskManager, String inputLine){
+    public boolean parseCommand(TaskManager taskManager, String inputLine) {
         boolean commandLoop = true;
 
-        if (inputLine.equals("bye")) {
+        String[] userCommand = inputLine.split(" ", 2);
+
+        switch (userCommand[0]) {
+        case "bye":
             commandLoop = false;
-        } else if (inputLine.equals("list")) {
+            break;
+        case "list":
             ui.printTaskListResponse(taskManager);
-        } else if (inputLine.startsWith("done")) {
+            break;
+        case "done":
             ui.printDoneResponse(taskManager, inputLine);
-        } else if (inputLine.startsWith("delete")){
+            break;
+        case "find":
+            ui.printFindResponse(taskManager, inputLine);
+            break;
+        case "delete":
             ui.printDeleteResponse(taskManager, inputLine);
-        }else if (inputLine.startsWith("todo")) {
+            break;
+        case "todo":
             ui.printTodoResponse(taskManager, inputLine);
-        } else if (inputLine.startsWith("deadline")) {
+            break;
+        case "deadline":
             ui.printDeadlineResponse(taskManager, inputLine);
-        } else if (inputLine.startsWith("event")) {
+            break;
+        case "event":
             ui.printEventResponse(taskManager, inputLine);
-        } else {
+            break;
+        default:
             ui.printEcho(inputLine);
         }
 
