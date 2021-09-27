@@ -1,4 +1,4 @@
-package duke.task;
+package duke.tasklist.task;
 
 public class Events extends Task {
     protected String time;
