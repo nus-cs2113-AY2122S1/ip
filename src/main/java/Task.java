@@ -4,6 +4,13 @@ public class Task {
     private char type;
     private boolean done;
 
+    /**
+     * Constructor for the Task class.
+     * @param task The given task.
+     * @param trail The trail.
+     * @param type The type.
+     * @param done Status.
+     */
     public Task(String task, String trail, char type, boolean done) {
         this.task = task;
         this.trail = trail;

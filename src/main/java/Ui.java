@@ -1,5 +1,7 @@
 public class Ui {
-    // Prints welcome
+    /**
+     * Prints welcome message.
+     */
     public static void printWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -13,20 +15,31 @@ public class Ui {
         System.out.println(line);
     }
 
-    // Prints newest task
+    /**
+     * Prints new task.
+     * @param task The task.
+     * @param size Number of tasks in the list.
+     */
     public static void printNewTask(Task task, int size) {
         System.out.println("Got it. I've added this task:\n " +
                 taskToString(task) +
                 "\nNow you have " + size + " tasks in the list.");
     }
 
-    // Converts task to string
+    /**
+     * Converts a task into string.
+     * @param task The task.
+     * @return The string.
+     */
     public static String taskToString(Task task) {
         return "[" + task.getType() + "][" + (task.isDone() ? "X" : " ") + "] "
                 + task.getTask() + (task.getType() == 'T' ? "" : " (" + (task.getType() == 'D' ? "by: " : "at: ")+ task.getTrail() + ")");
     }
 
-    // Prints help message
+    /**
+     * Prints help message.
+     * @param command The given help command.
+     */
     public static void printHelp(String command) {
         switch (command) {
         case "done":
@@ -66,5 +79,4 @@ public class Ui {
             System.out.println("Formatting error");
         }
     }
-
 }

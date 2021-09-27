@@ -3,6 +3,10 @@ import java.io.*;
 public class Storage {
     private static File file;
 
+    /**
+     * Constructor for class Storage.
+     * @param path File path for the save file.
+     */
     public Storage(String path) {
         try {
             file = new File(path);
@@ -13,7 +17,9 @@ public class Storage {
         readFromFile();
     }
 
-    // Write into file
+    /**
+     * Writes into the save file.
+     */
     public static void writeIntoFile() {
         try {
             FileWriter myWriter = new FileWriter(file);
@@ -33,7 +39,9 @@ public class Storage {
         }
     }
 
-    // Read from file
+    /**
+     * Reads from the save file.
+     */
     public static void readFromFile() {
         try {
             FileReader fileReader = new FileReader(file);

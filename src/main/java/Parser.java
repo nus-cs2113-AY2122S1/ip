@@ -1,6 +1,8 @@
-import java.io.File;
-
 public class Parser {
+    /**
+     * Handles the command given from the console.
+     * @param curCommand The raw command.
+     */
     public static void handleCommand(String curCommand) {
         String[] commands = curCommand.split(" ", 2);
         if (commands.length > 1) {
@@ -10,7 +12,10 @@ public class Parser {
         }
     }
 
-    // Handle multiple commands
+    /**
+     * Handles the case if there are multiple command parameters.
+     * @param commands The commands array.
+     */
     public static void handleMultiCommands(String[] commands) {
         switch (commands[0]) {
         case "done":
@@ -74,7 +79,10 @@ public class Parser {
         }
     }
 
-    // Handle single command
+    /**
+     * Handles the case if there is one command parameter.
+     * @param curCommand The command.
+     */
     public static void handleSingleCommand(String curCommand) {
         switch (curCommand) {
         case "list":
@@ -94,7 +102,11 @@ public class Parser {
         }
     }
 
-    // Checks if a string is a positive numeric value
+    /**
+     * Converts string into positive numeric if possible.
+     * @param str The string.
+     * @return The string converted to positive integer (if possible) or -1 if not possible.
+     */
     public static int getPositiveNumeric(String str) {
         try {
             return Integer.parseInt(str);
