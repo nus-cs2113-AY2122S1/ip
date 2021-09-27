@@ -122,7 +122,7 @@ public class TaskList {
         } catch (InvalidDoOrUndoException e) {
             System.out.println(e.getMessage());
             Ui.printHorizontalLine();
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             Ui.printHorizontalLine();
             System.out.println("No such task number exists!");
             Ui.printHorizontalLine();
