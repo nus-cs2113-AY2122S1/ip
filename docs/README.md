@@ -189,9 +189,10 @@ ____________________________________________________________________________
 
 Lists all tasks that contain the search term.
 
-Example of usage: `find rise`
 * Search is case-insensitive.
 * Lists all tasks that contain the search term.
+
+Example of usage: `find rise`
 
 Expected outcome:
 
@@ -217,29 +218,6 @@ ____________________________________________________________________________
 	2. [D][ ] Submit IP  (by: Oct 1 2021)
 ____________________________________________________________________________
 ```
-### `done` - Mark Task as Done
-
-Marks the task with the given `INDEX` as done. `INDEX` has to be positive and refer to a valid task.
-
-Format:
-`done INDEX`
-* `INDEX` has to be positive and refer to a valid task.
-
-Example of usage:
-
-* `done 1`
-
-Expected outcome:
-
-Shika will mark the task as done and print a message.
-
-```
-____________________________________________________________________________
-> You've done: 
-	1. [T][X] IP 
-____________________________________________________________________________
-```
-
 <br>
 
 ## Command Summary
