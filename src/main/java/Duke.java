@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 /**
  * The main class of the whole program
@@ -22,13 +23,15 @@ public class Duke {
             Ui.printDivider();
             return;
         }
-        //TODO: Further testing to see if this try block is necessary
-//        try {
-        Parser.parseAndExecuteCommand();
-//        } catch (NoSuchElementException e) {
-//            Ui.printlnTab("Bye. Hope to see you again soon!");
-//            Ui.printDivider();
-//        }
+        try {
+            Parser.parseAndExecuteCommand();
+
+            /* When input redirecting an empty file to Duke */
+        } catch (NoSuchElementException e) {
+            Ui.printlnTab("☹ OOPS!!! You have input redirected an empty file to me!");
+            Ui.printlnTab("Ending Program...");
+            Ui.printDivider();
+        }
     }
 
     public static void main(String[] args) {

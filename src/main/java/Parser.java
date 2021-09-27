@@ -23,6 +23,12 @@ public class Parser {
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_HELP_SHORT = "h";
     private static final String COMMAND_FIND = "find";
+    private static final int TASK_ISDONE_INT = 1;
+    private static final int TASK_ISNOT_DONE_INT = 0;
+    private static final int TASK_DETAILS_LETTER_INDEX = 0;
+    private static final int TASK_DETAILS_DONE_INDEX = 1;
+    private static final int TASK_DETAILS_DESCRIPTION_INDEX = 2;
+    private static final int TASK_DETAILS_DATE_INDEX = 3;
     private static final Scanner in = new Scanner(System.in);
     private static String userInput;
 
@@ -98,16 +104,13 @@ public class Parser {
 
     }
 
-
-    //command keyword removed
-
     /**
      * Remove command keyword from userInput string
      * eg. "todo clean room"  -> "clean room"
      *
      * @param commandType type of command
      * @param userInput   string read from standard input that user entered
-     * @return userInput string without the command word at the start of string
+     * @return strippedUserInput string without the command word at the start of string
      * @throws BlankDescriptionException if resulting strippedUserInput string is blank
      */
     public static String stripCommandWord(CommandEnum commandType, String userInput) throws BlankDescriptionException {
@@ -115,13 +118,13 @@ public class Parser {
 
         switch (commandType) {
         case TODO:
-            strippedUserInput = userInput.substring(TODO_START_INDEX).strip(); // remove "todo" from userInput
+            strippedUserInput = userInput.substring(TODO_START_INDEX).strip();
             break;
         case DEADLINE:
-            strippedUserInput = userInput.substring(DEADLINE_START_INDEX).strip(); // remove "deadline" from userInput
+            strippedUserInput = userInput.substring(DEADLINE_START_INDEX).strip();
             break;
         case EVENT:
-            strippedUserInput = userInput.substring(EVENT_START_INDEX).strip(); // remove event
+            strippedUserInput = userInput.substring(EVENT_START_INDEX).strip();
             break;
         case DONE:
             strippedUserInput = userInput.substring(DONE_NUMBER_INDEX).strip();
@@ -132,6 +135,8 @@ public class Parser {
         case FIND:
             strippedUserInput = userInput.substring(FIND_START_INDEX).strip();
             break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + commandType);
         }
 
         if (strippedUserInput.isBlank()) {
@@ -160,7 +165,7 @@ public class Parser {
         /*
         taskDetails[] should have length of 2
         containing Task description (index 0) and Task date (index 1)
-        special case of length 2 when "/by timing" which is still invalid
+        special error case of length 2 when "/by timing" which is  invalid
         is checked by .isBlank()
          */
         if (taskDetails.length != 2
@@ -188,16 +193,16 @@ public class Parser {
         }
         String[] taskDetails = line.split(" \\| ");
 
-        String taskLetter = taskDetails[0];
+        String taskLetter = taskDetails[TASK_DETAILS_LETTER_INDEX];
+        String isDoneString = taskDetails[TASK_DETAILS_DONE_INDEX];
 
-        String isDoneString = taskDetails[1];
         int isDoneInt = Integer.parseInt(isDoneString);
-        if (isDoneInt != Integer.parseInt("1") && isDoneInt != Integer.parseInt("0")) {
+        if (isDoneInt != TASK_ISDONE_INT && isDoneInt != TASK_ISNOT_DONE_INT) {
             throw new InvalidIntegerException();
         }
-        boolean isDone = (isDoneInt == 1);
+        boolean isDone = (isDoneInt == TASK_ISDONE_INT);
 
-        String description = taskDetails[2];
+        String description = taskDetails[TASK_DETAILS_DESCRIPTION_INDEX];
         String date;
 
         switch (taskLetter) {
@@ -206,14 +211,14 @@ public class Parser {
             break;
 
         case "D":
-            date = taskDetails[3];
+            date = taskDetails[TASK_DETAILS_DATE_INDEX];
             String[] deadlineDetails = {description, date};
 
             Duke.taskList.addDeadline(deadlineDetails, isDone);
             break;
 
         case "E":
-            date = taskDetails[3];
+            date = taskDetails[TASK_DETAILS_DATE_INDEX];
             String[] eventDetails = {description, date};
             Duke.taskList.addEvent(eventDetails, isDone);
             break;

@@ -51,6 +51,9 @@ public class TaskList {
             case EVENT:
                 taskDetails = Parser.getTaskDetails(CommandEnum.EVENT, userInputWithoutTaskCommand);
                 addEvent(taskDetails, isDone);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + taskType);
             }
             addTaskSuccess();
             Storage.writeToFile();
@@ -229,6 +232,7 @@ public class TaskList {
 
         } else {
             String findKeyPhrase = Parser.stripCommandWord(CommandEnum.FIND, userInput);
+            /* Lowercase so that searches will be case-insensitive */
             String findKeyPhraseLowerCase = findKeyPhrase.toLowerCase();
             if (findKeyPhrase.isBlank()) {
                 throw new BlankDescriptionException();
@@ -236,6 +240,7 @@ public class TaskList {
 
             String foundTasksString = "";
             for (int i = 0; i < tasks.size(); i++) {
+                /* Lowercase so that searches will be case-insensitive */
                 String taskDescriptionLowerCase = tasks.get(i).getDescription().toLowerCase();
                 if (taskDescriptionLowerCase.contains(findKeyPhraseLowerCase)) {
                     foundTasksString += String.format("%d.%s", (i + 1), tasks.get(i)) + "\n\t";
