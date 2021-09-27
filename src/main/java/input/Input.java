@@ -1,4 +1,4 @@
-package command;
+package input;
 
 import exceptions.DeadlineException;
 import exceptions.EventException;
@@ -9,7 +9,7 @@ import ui.Ui;
 
 import java.util.ArrayList;
 
-public class Command {
+public class Input {
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_DONE = "done";
@@ -18,7 +18,15 @@ public class Command {
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DELETE = "delete";
 
-    public static void commandHandler(String userLine, ArrayList<Task> taskList) {
+    /**
+     * This method handles the inputs given by the user. It extracts the keyword from the input
+     * by calling the parseUserInput method from Parser and will handle the remaining input
+     * based on the command that has been extracted. The remaining input will be added to the
+     * user's list of task.
+     * @param userLine input given by user or line extracted from saved file
+     * @param taskList main list keeping track of user's tasks
+     */
+    public static void inputHandler(String userLine, ArrayList<Task> taskList) {
         String[] splitString = Parser.parseUserInput(userLine);
         String taskKeyword = splitString[0];
         try {
