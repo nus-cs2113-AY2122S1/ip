@@ -13,6 +13,9 @@ public class Parser {
 
     /**
      * Method that determines the control flow of the duke bot based on user input
+     *
+     * @throws DukeException custom error message when list is asked to be printed but empty
+     * @throws DateTimeParseException if format entered by user is not correct
      */
     public static void inputSort() throws DukeException {
         while (quitFlag == 0) {

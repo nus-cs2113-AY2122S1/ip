@@ -13,6 +13,8 @@ public class Ui {
 
     /**
      * Method that prints a greeting and loads previously saved tasks into the bot.
+     *
+     * @throws DukeException custom error message if file not found
      */
     public static void start() throws DukeException {
         try {
