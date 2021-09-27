@@ -71,6 +71,11 @@ public class Parser {
                 System.out.println(LINE + invalid + LINE);
             }
 
+            else if (isFind(firstWord)  && wordLength <= 1) { //complete Tasks
+                invalid.setNotDelete();
+                System.out.println(LINE + invalid + LINE);
+            }
+
             else if (!isBye(userInput) && !isList(userInput)) { //Task words
                 if (isTodo(firstWord) && wordLength == 1) { //Todo is empty
                     invalid.setTodoEmpty();
@@ -159,13 +164,9 @@ public class Parser {
         return word.equalsIgnoreCase("list");
     }
 
-    public static boolean isDone(String word) {
-        return word.equalsIgnoreCase("done");
-    }
+    public static boolean isDone(String word) { return word.equalsIgnoreCase("done"); }
 
-    public static boolean isTodo(String word) {
-        return word.equalsIgnoreCase("todo");
-    }
+    public static boolean isTodo(String word) { return word.equalsIgnoreCase("todo"); }
 
     public static boolean isDeadline(String word) {
         return word.equalsIgnoreCase("deadline");
@@ -179,7 +180,8 @@ public class Parser {
         try {
             Integer.parseInt(input);
             return true;
-        } catch (final NumberFormatException e) {
+        }
+        catch (final NumberFormatException e) {
             return false;
         }
     }
@@ -187,5 +189,7 @@ public class Parser {
     public static boolean isDelete(String word) {
         return word.equalsIgnoreCase("delete");
     }
+
+    public static boolean isFind (String word) { return word.equalsIgnoreCase("find"); }
 
 }

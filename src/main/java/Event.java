@@ -5,6 +5,7 @@ public class Event extends Task {
     protected String Date;
 
 
+
     public Event(String description, String date) {
         super(description);
         Description = description;
