@@ -90,11 +90,11 @@ public class Parser {
     /**
      * Returns a Task object based on a given line from the data file.
      *
-     * @param line   A line from the data file.
+     * @param line A line from the data file.
      * @return Task object containing the task's description.
      * @throws InvalidFile If the file is not in a correct format.
      */
-    public static Task fileParser(String line) throws InvalidFile{
+    public static Task fileParser(String line) throws InvalidFile {
         String[] dataSplit = line.split("\\|"); // Split by |
 
         if (dataSplit.length < 3) { // Ensure that there should be at least 3 elements
@@ -108,6 +108,10 @@ public class Parser {
 
         if (dataSplit.length > 3) { // There is a date
             date = DateParser.stringToDateTime(dataSplit[3]);
+        }
+
+        if (!taskType.equals("T") && date == null) { // Invalid date
+            throw new InvalidFile();
         }
 
         Task task;

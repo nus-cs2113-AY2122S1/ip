@@ -5,7 +5,7 @@ package ui;
  */
 
 public class Ui {
-    private final int noOfPlus = 120;
+    private final int noOfPlus = 115;
 
     /**
      * Prints out a statement with borders.

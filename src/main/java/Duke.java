@@ -42,6 +42,7 @@ public class Duke {
 
         // Loops till bye is received
         while (true) {
+            System.out.print("> ");
             // Reads user input
             userInput = in.nextLine();
             try {

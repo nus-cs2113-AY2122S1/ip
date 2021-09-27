@@ -2,6 +2,9 @@ package parser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 /**
@@ -50,10 +53,15 @@ public class DateParser {
             if (date == null) { // Ensure that date is not null
                 throw new ParseException("Unknown date", 0);
             }
+
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            dateTimeFormatter.parse(date); // To check if date was in valid format
+
             Date parsedDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+
             // To ensure date is in the correct format even if day/month has 1 digit
             return new SimpleDateFormat("dd/MM/yyyy").format(parsedDate);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException | ParseException e) {
             // For invalid date formats
         }
         return null;
@@ -70,8 +78,11 @@ public class DateParser {
             if (date == null) { // Ensure that date is not null
                 throw new ParseException("Unknown date", 0);
             }
+
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            dateTimeFormatter.parse(date); // To check if date was in valid format
             return new SimpleDateFormat("dd/MM/yyyy HHmm").parse(date);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException | ParseException e) {
             // For invalid date formats
         }
         return null;

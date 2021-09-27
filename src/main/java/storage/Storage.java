@@ -64,9 +64,10 @@ public class Storage {
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            ui.customPrint("Data file does not exist!");
+            ui.customPrint("Data file does not exist! Creating a new one...");
         } catch (InvalidFile invalidFile) {
             ui.customPrint("File contains invalid data!");
+            System.exit(0);
         }
         return tasks;
     }
