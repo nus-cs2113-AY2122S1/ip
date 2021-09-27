@@ -4,7 +4,7 @@ Duke is a chatbot designed to keep track of all your tasks via a Command Line In
 
 
 
-[TOC]
+<!-- TOC -->
 
 ## Requirements
 
