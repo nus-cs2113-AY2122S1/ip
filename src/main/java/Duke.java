@@ -6,6 +6,7 @@ public class Duke {
     private static boolean hasData = false;
     private static StorageFile Store;
     private static ui ui;
+//    private static processData processData;
 
     public static void main(String[] args) throws FileNotFoundException {
         String date;
@@ -14,6 +15,7 @@ public class Duke {
 
         Store = new StorageFile(fileName);
         ui = new ui();
+//        processData = new processData(Task, Data, count);
 
         Store.create();
         Store.read();
@@ -22,17 +24,19 @@ public class Duke {
         ui.welcome();
 
         if (hasData) {
-            for (int i = 0; i < data.size(); i++) { //transfers data into task array
-                if (data.get(i).contains("[T]")) {
-                    String task = "todo " + data.get(i).substring(10);
+
+            for (int i = 0; i < Data.size(); i++) { //transfers data into task array
+                if (Data.get(i).contains("[T]")) {
+                    String task = "todo " + Data.get(i).substring(10);
                     Task.add(count, new Todo(task));
                     count++;
                 }
                 if (data.get(i).contains("[D]")) {
                     String task = data.get(i).substring(data.get(i).lastIndexOf("]") + 1, data.get(i).lastIndexOf("("));
                     task = "deadline" + task + "/";
-                    date = data.get(i).substring(data.get(i).lastIndexOf("(") + 1, data.get(i).lastIndexOf(")"));
-                    Task.add(count, new Deadline(task, date));
+
+                    date = Data.get(i).substring(Data.get(i).lastIndexOf("(") + 1, Data.get(i).lastIndexOf(")"));
+                    Task.add(count, new Deadline(task, date, true));
                     count++;
                 }
                 if (data.get(i).contains("[E]")) {
@@ -48,7 +52,6 @@ public class Duke {
            }
             ui.listExists();
         }
-
 
         Parser parser = new Parser(Task, count, Store);
         parser.run();

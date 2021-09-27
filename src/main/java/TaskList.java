@@ -7,7 +7,7 @@ public class TaskList {
     }
 
     public void addDeadline(ArrayList<Task> Task, int count, String userInput, String date) {
-        Task.add(count, new Deadline(userInput, date));
+        Task.add(count, new Deadline(userInput, date, false));
     }
 
     public void addEvent(ArrayList<Task> Task, int count, String userInput, String date) {

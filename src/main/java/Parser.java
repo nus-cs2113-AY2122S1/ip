@@ -71,6 +71,7 @@ public class Parser {
                 System.out.println(LINE + invalid + LINE);
             }
 
+
             else if (isFind(firstWord)  && wordLength <= 1) { //Find Tasks
                 invalid.setFindNoWord();
                 System.out.println(LINE + invalid + LINE);
@@ -96,6 +97,7 @@ public class Parser {
                 }
                 System.out.println(LINE);
             }
+
 
             else if (!isBye(userInput) && !isList(userInput)) { //Task words
                 if (isTodo(firstWord) && wordLength == 1) { //Todo is empty
@@ -186,13 +188,9 @@ public class Parser {
         return word.equalsIgnoreCase("list");
     }
 
-    public static boolean isDone(String word) {
-        return word.equalsIgnoreCase("done");
-    }
+    public static boolean isDone(String word) { return word.equalsIgnoreCase("done"); }
 
-    public static boolean isTodo(String word) {
-        return word.equalsIgnoreCase("todo");
-    }
+    public static boolean isTodo(String word) { return word.equalsIgnoreCase("todo"); }
 
     public static boolean isDeadline(String word) {
         return word.equalsIgnoreCase("deadline");
@@ -206,7 +204,8 @@ public class Parser {
         try {
             Integer.parseInt(input);
             return true;
-        } catch (final NumberFormatException e) {
+        }
+        catch (final NumberFormatException e) {
             return false;
         }
     }
