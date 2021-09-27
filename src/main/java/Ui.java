@@ -3,6 +3,10 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Prints all program responses to the terminal.
+ */
+
 public class Ui {
     private static String logo = "                       ./((((((((((((((/.                    \n" +
             "                  /(((/.  .,*////*,.   *((((                \n" +
@@ -31,7 +35,7 @@ public class Ui {
             "      @@.  %@,    @@   @@   #@(      @@&@.    #@*         @&\n" +
             " */**.    */.      /*  **    ./*      */      ,*.  ,******  ";
 
-    public static void showLine() {
+    private static void showLine() {
         System.out.println("\t____________________________________________________________\n");
     }
 
@@ -53,7 +57,10 @@ public class Ui {
         }
         return out;
     }
-
+    /**
+     * Reads and returns user input
+     * @return user input
+     */
     public static String readCommand() {
         Scanner sc= new Scanner(System.in);
         String input = sc.nextLine();
@@ -65,12 +72,21 @@ public class Ui {
         System.out.println("\tHello Sir,\n" + "\tWhat can I do for you?\n"); // greet
         showLine();
     }
+    /**
+     * Prints all existing tasks in Duke
+     * @param tasks List of Existing tasks
+     */
     public void printList(Tasks tasks){
         showLine();
         System.out.println("List so far: ");
         tasks.print();
         showLine();
     }
+    /**
+     * Prints tasks that have descriptions containing the input keyword
+     * @param tasks List of Existing tasks
+     * @param keyword User input keyword to search for corresponding tasks containing the keyword
+     */
     public void printMatching(Tasks tasks, String keyword){
         showLine();
         System.out.println("Here are the matching tasks in your list: ");
@@ -101,7 +117,7 @@ public class Ui {
 
     public void done(Task task, Tasks tasks){
         showLine();
-        System.out.println("\tAs you wish sir. I have marked this task as done:\n\t[X] " + task + "\n\tNow you have " + tasks.size() + " tasks in the list, " + tasks.tasksIncomplete() + " incomplete tasks.");
+        System.out.println("\tAs you wish sir. I have marked this task as done:\n\t" + task + "\n\tNow you have " + tasks.size() + " tasks in the list, " + tasks.tasksIncomplete() + " incomplete tasks.");
         showLine();
     }
 

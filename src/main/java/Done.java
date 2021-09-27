@@ -6,6 +6,13 @@ public class Done extends Command {
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Constructor for command when the user marks a task as done.
+     * @param tasks List of all existing tasks.
+     * @param index Index of task to be marked done
+     * @param ui Handles interaction with user.
+     * @param storage updates "data/duke.txt" file
+     */
     public Done(Tasks tasks, int index, Ui ui, Storage storage) {
         tasks.get(index).markComplete();
         this.tasks = tasks;

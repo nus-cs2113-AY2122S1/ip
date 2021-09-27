@@ -3,7 +3,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 
+/**
+ * Processes all user inputs.
+ */
+
 public class Parser {
+    /**
+     * Returns a Command depending on the input from the user.
+     * DukeException is thrown if it is unable to understand the command.
+     *
+     * @param input Input from user
+     * @param tasks List of Existing tasks
+     * @param ui Ui object to handle responses to the user
+     * @param storage object used to save existing tasks
+     * @return Executable command.
+     * @throws DukeException throws an exception when there is an error with the user input.
+     */
     public static Command parse(String input, Tasks tasks, Ui ui, Storage storage) throws DukeException{
         if (input.contentEquals("bye")) {
             return new Bye(ui);
