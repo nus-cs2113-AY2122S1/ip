@@ -7,6 +7,7 @@ import tasklist.Task;
 import tasklist.TaskList;
 import ui.Ui;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Command {
@@ -61,6 +62,8 @@ public class Command {
             Ui.printDeadlineExceptionMessage();
         } catch (EventException e) {
             Ui.printEventExceptionMessage();
+        } catch (DateTimeParseException e) {
+            Ui.printDateTimeParseExceptionMessage();
         }
     }
 }

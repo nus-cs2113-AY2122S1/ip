@@ -90,4 +90,11 @@ public class Ui {
                 + "You now have " + (taskList.size()-1) + " tasks in the list Sir!\n"
                 + LINE);
     }
+
+    public static void printDateTimeParseExceptionMessage() {
+        System.out.println(LINE_W_NL
+                + "Apologies Sir, the date & time you entered is in the wrong format.\n"
+                + "Please re-enter the command with the date & time in the correct format [DD/MM/YYYY HHMM].\n"
+                + LINE);
+    }
 }
