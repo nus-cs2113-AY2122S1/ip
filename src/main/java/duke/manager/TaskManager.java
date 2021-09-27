@@ -75,28 +75,6 @@ public class TaskManager {
     }
 
     /**
-     * The function prints the recently added task
-     */
-    private static void printAddedTask(Task task, ArrayList<Task> tasks) {
-        Ui.printLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.getDescription());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        Ui.printLine();
-    }
-
-    /**
-     * The function prints the recently added task
-     */
-    private static void printDeletedTask(Task task, ArrayList<Task> tasks) {
-        Ui.printLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.getDescription());
-        System.out.println("Now you have " + (tasks.size() - 1) + " tasks in the list.");
-        Ui.printLine();
-    }
-
-    /**
      * The function adds the todo task input by the user
      *
      * @param tasks   the array of tasks
@@ -107,7 +85,7 @@ public class TaskManager {
             message = message.substring(6);
             String[] eventData = message.split("/", 2);
             tasks.add(new Event(eventData[0], processDateAndTime(eventData[1].substring(3)), eventData[1].substring(3)));
-            printAddedTask(tasks.get(tasks.size() - 1), tasks);
+            Ui.printAddedTask(tasks.get(tasks.size() - 1), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             Ui.printLine();
@@ -150,7 +128,7 @@ public class TaskManager {
             message = message.substring(9);
             String[] deadlineData = message.split("/", 2);
             tasks.add(new Deadline(deadlineData[0], processDateAndTime(deadlineData[1].substring(3)), deadlineData[1].substring(3)));
-            printAddedTask(tasks.get(tasks.size() - 1), tasks);
+            Ui.printAddedTask(tasks.get(tasks.size() - 1), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             Ui.printLine();
@@ -178,29 +156,13 @@ public class TaskManager {
     private static void addTodo(ArrayList<Task> tasks, String message) {
         try {
             tasks.add(new Todo(message.substring(5)));
-            printAddedTask(tasks.get(tasks.size() - 1), tasks);
+            Ui.printAddedTask(tasks.get(tasks.size() - 1), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             Ui.printLine();
             System.out.println("OOPS!!! The description of a todo cannot be empty.");
             Ui.printLine();
         }
-    }
-
-    /**
-     * Prints all the tasks
-     *
-     * @param tasks the array of tasks
-     */
-    private static void printTasks(ArrayList<Task> tasks) {
-        Ui.printLine();
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).getDescription());
-        }
-        if (tasks.size() == 0) {
-            System.out.println("Smartass, you need to add tasks before listing them !!!");
-        }
-        Ui.printLine();
     }
 
     /**
@@ -239,7 +201,7 @@ public class TaskManager {
 
         while (!message.equals(COMMAND_BYE)) {
             if (message.equals(COMMAND_LIST)) {
-                printTasks(tasks);
+                Ui.printTasks(tasks);
             } else if (message.contains(COMMAND_FIND)) {
                 findTask(tasks, message);
             } else if (message.contains(COMMAND_DONE)) {
@@ -293,7 +255,7 @@ public class TaskManager {
         try {
             String[] arrOfStr = message.strip().split(" ");
             int index = Integer.parseInt(arrOfStr[1]);
-            printDeletedTask(tasks.get(index - 1), tasks);
+            Ui.printDeletedTask(tasks.get(index - 1), tasks);
             tasks.remove(index - 1);
             Storage.saveTasksToFile(tasks);
         } catch (NullPointerException e) {
