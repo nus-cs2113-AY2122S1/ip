@@ -9,10 +9,18 @@ public class Deadline extends Task {
         setBy(by);
     }
 
+    /*
+     * Get the deadline of the task
+     * @return The deadline
+     */
     public LocalDate getBy() {
         return by;
     }
 
+    /*
+     * Set the deadline of the task
+     * @param The new deadline to be set
+     */
     public void setBy(LocalDate by) {
         this.by = by;
     }
