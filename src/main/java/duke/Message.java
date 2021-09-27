@@ -18,12 +18,12 @@ public class Message {
         System.out.print(SPACER + message + SPACER);
     }
 
-    public static void begin() {
+    public static void printWelcome() {
         System.out.print(LOGO);
         printWithSpacers(INTRO);
     }
 
-    public static void end() {
+    public static void printEnd() {
         printWithSpacers(END);
     }
 

@@ -19,7 +19,7 @@ abstract class TimedTask extends Task {
     private static String[] parseUserInput(Type taskType, String userInput) throws WrongNumberOfArgumentsException {
         String[] inputs = userInput.split(Parser.WHITESPACE_REGEX + '/' + taskType.PREPOSITION + Parser.WHITESPACE_REGEX);
         if (inputs.length != 2) {
-            throw new WrongNumberOfArgumentsException(inputs[0], taskType.PREPOSITION);
+            throw new WrongNumberOfArgumentsException(taskType);
         }
         return inputs;
     }

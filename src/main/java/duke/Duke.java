@@ -1,5 +1,6 @@
 package duke;
 
+import duke.command.CommandManager;
 import java.util.Scanner;
 
 public class Duke {
@@ -7,16 +8,16 @@ public class Duke {
     private static final Scanner IN = new Scanner(System.in);
 
     public static void main(String[] args) {
-        if(!IoManager.init()){
+        if(!IoManager.initialiseSaveFile()){
             return;
         }
-        Message.begin();
+        Message.printWelcome();
 
         String userInput;
         do {
             userInput = IN.nextLine();
-        } while (Command.handleCommand(userInput));
+        } while (CommandManager.handleCommand(userInput));
 
-        Message.end();
+        Message.printEnd();
     }
 }

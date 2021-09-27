@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exception.LoadTaskException;
 import duke.exception.WrongNumberOfArgumentsException;
 import duke.task.TaskManager;
 import java.io.File;
@@ -19,11 +20,7 @@ public class IoManager {
     private static final String DIRECTORY = System.getProperty("user.dir") + '/' + SAVE_FOLDER;
     private static final String FILE_NAME = DIRECTORY + "/duke.txt";
 
-    private class ErrorMessage{
-
-    }
-
-    public static boolean init() {
+    public static boolean initialiseSaveFile() {
         try {
             Path path = Paths.get(DIRECTORY);
             Files.createDirectories(path);
@@ -45,7 +42,7 @@ public class IoManager {
             Message.printWithSpacers(String.format("Program could not find save file in directory %s", DIRECTORY));
         } catch (IOException ioe) {
             Message.printWithSpacers("IO exception occurred during Directory/File creation.");
-        } catch (IllegalArgumentException | WrongNumberOfArgumentsException e) {
+        } catch (IllegalArgumentException | LoadTaskException e) {
             Message.printWithSpacers(String.format("Save file '%s' has been corrupted!", FILE_NAME));
         }
         return false;

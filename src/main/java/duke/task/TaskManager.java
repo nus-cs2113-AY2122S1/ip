@@ -3,7 +3,7 @@ package duke.task;
 import duke.Message;
 import duke.IoManager;
 import duke.Parser;
-import duke.task.Task.Type;
+import duke.exception.LoadTaskException;
 import duke.exception.ListEmptyException;
 import duke.exception.NoDescriptionException;
 import duke.exception.WrongNumberOfArgumentsException;
@@ -54,30 +54,32 @@ public class TaskManager {
                 .run(() -> printTaskDeleted(tasks.remove(id)));
     }
 
-    private static String parseUserInput(String userInput) throws NoDescriptionException {
-        String[] userInputSplit = Parser.splitWhitespace(userInput);
-        if (userInputSplit.length == 1) {
-            throw new NoDescriptionException(userInput);
-        }
-        //Remove command from userInput.
-        return userInput.replaceAll('^' + userInputSplit[0] + Parser.WHITESPACE_REGEX, "");
+    private static Type getCommandFromUserInput(String userInput) {
+        String commandString = Parser.getFirstArgument(userInput);
+        return Type.valueOf(commandString.toUpperCase());
     }
 
-    private static Type getCmdFromUserInput(String userInput) {
-        String commandString = Parser.getFirstArg(userInput);
-        return Type.valueOf(commandString.toUpperCase());
+    private static String getCommandArguments(String userInput) throws NoDescriptionException {
+        String arguments = Parser.removeFirstArgument(userInput);
+        if (arguments.length() == 0) {
+            throw new NoDescriptionException(userInput);
+        }
+        //Removes command from userInput.
+        return arguments;
     }
 
     public static void newTask(String userInput) {
         try {
-            Type command = getCmdFromUserInput(userInput);
-            userInput = parseUserInput(userInput);
+            Type command = getCommandFromUserInput(userInput);
+            userInput = getCommandArguments(userInput);
+            Task createdTask;
             if (command == Type.TODO) {
-                tasks.add(new Todo(userInput));
+                createdTask = new Todo(userInput);
             } else {
-                tasks.add(TimedTask.newTimedTask(command, userInput));
+                createdTask = TimedTask.newTimedTask(command, userInput);
             }
-            printTaskDone(tasks.get(tasks.size() - 1));
+            tasks.add(createdTask);
+            printTaskCreated(createdTask);
             saveTasks();
         } catch (NoDescriptionException nde) {
             Message.printWithSpacers(nde.getMessage());
@@ -86,21 +88,20 @@ public class TaskManager {
         }
     }
 
-    private static Type getTaskFromLoadedTask(String[] loadedTaskSplit) throws IllegalArgumentException, WrongNumberOfArgumentsException {
-        Type taskType = loadedTaskSplit[0].length() == 1 ? Type.getType(loadedTaskSplit[0].charAt(0)) : null;
-        if (taskType == null) {
-            throw new IllegalArgumentException();
-        }
-        if (taskType.NUM_ARGS != loadedTaskSplit.length - 1) {
-            throw new WrongNumberOfArgumentsException();
+    private static Type getTaskTypeFromLoadedTask(String[] loadedTaskSplit) throws LoadTaskException {
+        Type taskType = Type.getType(loadedTaskSplit[0]);
+        boolean isInvalidTask = taskType == null;
+        boolean hasWrongNumberOfArguments  = taskType.NUM_ARGS != loadedTaskSplit.length - 1;
+        if (isInvalidTask || hasWrongNumberOfArguments) {
+            throw new LoadTaskException();
         }
         return taskType;
     }
 
-    public static void loadTasks() throws IllegalArgumentException, FileNotFoundException, WrongNumberOfArgumentsException {
+    public static void loadTasks() throws IllegalArgumentException, FileNotFoundException, LoadTaskException {
         for (String loadedTask : IoManager.loadFile()) {
             String[] loadedTaskSplit = Parser.splitPipe(loadedTask);
-            Type taskType = getTaskFromLoadedTask(loadedTaskSplit);
+            Type taskType = getTaskTypeFromLoadedTask(loadedTaskSplit);
             boolean isDone = Integer.parseInt(loadedTaskSplit[1]) == 1;
             switch (taskType) {
             case DEADLINE:
@@ -128,7 +129,7 @@ public class TaskManager {
         return String.format("%s\nNow you have %d tasks in the list.", task, tasks.size());
     }
 
-    private static void printTaskDone(Task task) {
+    private static void printTaskCreated(Task task) {
         Message.printWithSpacers("Got it, I've added this task:\n" + getTaskModifiedString(task));
     }
 
