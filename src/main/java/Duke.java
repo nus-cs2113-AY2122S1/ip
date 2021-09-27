@@ -1,10 +1,23 @@
+/**
+ * Duke class acts as the main class of the program.
+ */
 public class Duke {
+
+    /**
+     * Entry point of program upon startup.
+     *
+     * @param args User input argument.
+     */
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        Storage.setupStorage();
+        Ui.greet();
+
+        String input;
+        do {
+            input = Ui.getInput();
+            Parser.parseInput(input);
+
+        } while (!input.startsWith(Parser.COMMAND_BYE));
+
     }
 }
