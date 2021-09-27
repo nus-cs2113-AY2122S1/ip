@@ -38,6 +38,9 @@ public class Storage {
 
     /**
      * Method that loads the offline txt file tasks into the bot.
+     *
+     * @throws FileNotFoundException if file does not exist
+     * @throws DukeException custom error message
      */
     public static void loadData() throws FileNotFoundException, DukeException {
         String path = new File("userData.txt").getAbsolutePath();

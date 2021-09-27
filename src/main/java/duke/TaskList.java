@@ -26,6 +26,7 @@ public class TaskList {
      * Terminates the program.
      *
      * @param input that user gives
+     * @throws DukeException custom error message if bye command not entered in correct format by user
      */
     public static void sayBye(String input) throws DukeException{
         if (input.length() != 3) {
@@ -39,6 +40,8 @@ public class TaskList {
 
     /**
      * Prints out all the tasks, their types and statuses stored by the bot.
+     *
+     * @throws DukeException custom error message when user asks to print list but is empty
      */
     public static void sayList() throws DukeException{
         if (taskCount == 0) {
@@ -56,6 +59,8 @@ public class TaskList {
      * Marks a specific task stored as done.
      *
      * @param input that user gives containing the position of task
+     * @throws DukeException custom error message when user enters task number in array out of bounds
+     * @throws DukeException custom error message when user tries to mark a task as done which doesn't exist
      */
     public static void sayDone(String input) throws DukeException {
         if (taskCount != 0) {
@@ -150,6 +155,7 @@ public class TaskList {
      * Deletes a specific task.
      *
      * @param input that user gives containing the position of task
+     * @throws DukeException custom error message when user deletes task number in array out of bounds
      */
     public static void sayDelete(String input) throws DukeException {
         if (taskCount != 0) {
