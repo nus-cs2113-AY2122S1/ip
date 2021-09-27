@@ -17,7 +17,7 @@ and helps you stay ahead of the curve.
     - [Delete a Task `delete`](#delete-a-task-delete)
     - [Find a Task `find`](#find-a-task-find)
     - [End the Program `bye`](#end-the-program-bye)
-    - [Save Tasks to File]
+    - [Save Tasks to File](#save-tasks-to-file)
 - [Command Summary](#command-summary)
 
 -------------------------------------------------
