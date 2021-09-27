@@ -9,6 +9,9 @@ public abstract class Task {
 
     public abstract String getStatusIconAndDescription();
 
+    public String getDescription() {
+        return description;
+    }
 
     public void markAsDone() {
         isDone = true;

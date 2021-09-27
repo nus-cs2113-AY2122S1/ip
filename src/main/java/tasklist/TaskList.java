@@ -7,30 +7,28 @@ import java.util.ArrayList;
 public class TaskList {
 
     private ArrayList<Task> tasks;
-    private int numberOfTasksOfSameDate;
+    private int numberOfTasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
-        this.numberOfTasksOfSameDate = 0;
+        this.numberOfTasks = 0;
     }
 
-    public int getNumberOfTasksOfSameDate() {
-        return numberOfTasksOfSameDate;
+    public int getNumberOfTasks() {
+        return numberOfTasks;
     }
 
-    public void setNumberOfTaskForTheSameDate(int numberOfTasks) {
-        this.numberOfTasksOfSameDate = numberOfTasks;
+    public void setNumberOfTask(int numberOfTasks) {
+        this.numberOfTasks = numberOfTasks;
     }
 
     public void addTask(Task task) {
         tasks.add(task);
         Task.setTotalTasks(Task.getTotalTasks() + 1);
-
     }
 
-    public void addTaskForListOfSpecificDate(Task task) {
+    public void addTaskForSpecificCases(Task task) {
         tasks.add(task);
-
     }
 
     public void deleteTask(int index) throws IndexOutOfBoundsException {

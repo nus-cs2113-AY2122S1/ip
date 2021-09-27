@@ -79,11 +79,9 @@ public class Ui {
         case ONLY_TASK:
             printCommandResultMessage(result,!NOTIFY_NUMBER_OF_TASK,PRINT_TASK);
             break;
+        case LIST_WITH_SPECIFIC_CONDITIONS:
         case LIST:
-            printList(result,PrintOptions.LIST);
-            break;
-        case LIST_OF_SPECIFIC_DATE:
-            printList(result,PrintOptions.LIST_OF_SPECIFIC_DATE);
+            printList(result);
             break;
         case DEFAULT:
             printCommandResultMessage(result,!NOTIFY_NUMBER_OF_TASK,!PRINT_TASK);
@@ -98,22 +96,22 @@ public class Ui {
     /**
      * Prints the tasks based on the given format
      */
-    private void printTask(CommandResult result,PrintOptions options) {
-        if(options == PrintOptions.LIST_OF_SPECIFIC_DATE) {
-            for (int i = 0; i < result.tasks.getNumberOfTasksOfSameDate(); i++) {
+    private void printTask(CommandResult result) {
+        if(result.type == PrintOptions.LIST_WITH_SPECIFIC_CONDITIONS) {
+            for(int i = 0; i < result.tasks.getNumberOfTasks(); i++) {
                 printWordsWithIndentation(i + 1 + "." + result.tasks.getTask(i).getStatusIconAndDescription());
             }
         } else {
-            for (int i = 0; i < Task.getTotalTasks(); i++) {
+            for(int i = 0; i < Task.getTotalTasks(); i++) {
                 printWordsWithIndentation(i + 1 + "." + result.tasks.getTask(i).getStatusIconAndDescription());
             }
         }
     }
 
-    private void printList(CommandResult result, PrintOptions options) {
+    private void printList(CommandResult result) {
         printIndentationAndDivider();
         printWordsWithIndentation(result.feedbackToUser);
-        printTask(result,options);
+        printTask(result);
         printIndentationAndDivider();
         System.out.println();
     }

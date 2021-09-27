@@ -2,6 +2,7 @@ package parser;
 
 import commands.*;
 import constants.Message;
+import duke.DukeException;
 import task.TaskType;
 
 import java.time.LocalDate;
@@ -12,11 +13,17 @@ public class Parser {
     private static final String TODO_FORMAT_ERROR = "Please type the todo in the format: 'todo (description)' :)";
     private static final String DEADLINE_FORMAT_ERROR = "Please type the deadline in the format:" +
             "'deadline (description) /by yyyy-MM-ddThh:mm' :)";
-    private static final String EVENT_FORMAT_ERROR = "Please type the event in the format: " +
-            "'event (description) /at yyyy-MM-ddThh:mm /to yyyy-MM-ddThh:mm' :)";
+    private static final String EVENT_FORMAT_ERROR = "Please type the event in the format: \n" +
+            Message.INDENTATION + "'event (description) /at yyyy-MM-ddThh:mm /to yyyy-MM-ddThh:mm' :)";
     private static final String DATE_FORMAT_ERROR = "Please write the date in the format of 'yyyy-MM-dd' :)";
     private static final String DEADLINE_DESCRIPTION_AND_DATE_SPLITTER = " /by ";
     private static final String EVENT_DESCRIPTION_AND_DATE_TIME_SPLITTER = " /at ";
+    private static final String FIND_FORMAT_ERROR = "Please type the find input in the format: \n" +
+            Message.INDENTATION + "- 'find /d yyyy-MM-dd' to find tasks with a specific date \n" +
+            Message.INDENTATION + "- 'find (description)' to find tasks with a specific description :)";
+    private static final int EXPECTED_LENGTH_FOR_DELETE_INPUT = 2;
+    private static final int EXPECTED_LENGTH_FOR_DONE_INPUT = 2;
+    private static final int FIND_STARTING_INDEX = 5;
     private static final String EVENT_FROM_AND_TO_DATE_TIME_SPLITTER = " /to ";
     private static final int TODO_STARTING_INDEX = 5;
     private static final int DEADLINE_STARTING_INDEX = 9;
@@ -51,21 +58,45 @@ public class Parser {
 
             }
         case ListCommand.LIST_COMMAND:
+            return new ListCommand();
+        case DoneCommand.DONE_COMMAND:
             try {
-                return prepareListCommand(input);
+                return prepareDoneCommand(input);
+
+            } catch (DukeException error) {
+                return new IncorrectCommand(Message.PROMPT_TASK_NUMBER);
+
+            } catch (NumberFormatException error) {
+                return new IncorrectCommand(Message.PROMPT_NUMBER);
+
+            }
+        case HelpCommand.HELP_COMMAND:
+            return new HelpCommand();
+        case DeleteCommand.DELETE_COMMAND:
+            try {
+                return prepareDeleteCommand(input);
+
+            } catch (DukeException error) {
+                return new IncorrectCommand(Message.PROMPT_TASK_NUMBER);
+
+            } catch (NumberFormatException error) {
+                return new IncorrectCommand(Message.PROMPT_NUMBER);
+
+            }
+        case ExitCommand.EXIT_COMMAND:
+            return new ExitCommand();
+        case FindCommand.FIND_COMMAND:
+            try {
+                return prepareFindCommand(input.strip().substring(FIND_STARTING_INDEX));
 
             } catch (DateTimeParseException error) {
                 return new IncorrectCommand(DATE_FORMAT_ERROR);
 
+            } catch (Exception error) {
+                return new IncorrectCommand(FIND_FORMAT_ERROR);
+
             }
-        case DoneCommand.DONE_COMMAND:
-            return new DoneCommand(input);
-        case HelpCommand.HELP_COMMAND:
-            return new HelpCommand();
-        case DeleteCommand.DELETE_COMMAND:
-            return new DeleteCommand(input);
-        case ExitCommand.EXIT_COMMAND:
-            return new ExitCommand();
+
         default :
             return new IncorrectCommand(Message.TYPE_SUITABLE_COMMAND_MESSAGE);
         }
@@ -109,11 +140,28 @@ public class Parser {
         return parsedOutput;
     }
 
-    private Command prepareListCommand(String input) throws DateTimeParseException {
-        if(input.split(" ").length == WITH_DATE) {
-            return new ListCommand(LocalDate.parse(input.split(" ")[1]));
+    private FindCommand prepareFindCommand(String input) throws IndexOutOfBoundsException{
+        String[] parsedOutput = input.split(" ");
+        if(parsedOutput[0].equals("/d")) {
+            return new FindCommand(LocalDate.parse(parsedOutput[1]));
         } else {
-            return new ListCommand();
+            return new FindCommand(parsedOutput[0]);
         }
+    }
+
+    private DoneCommand prepareDoneCommand(String input) throws DukeException, NumberFormatException{
+        if(input.split(" ").length < EXPECTED_LENGTH_FOR_DONE_INPUT) {
+            throw new DukeException();
+        }
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+        return new DoneCommand(index);
+    }
+
+    private DeleteCommand prepareDeleteCommand(String input) throws DukeException, NumberFormatException {
+        if(input.split(" ").length < EXPECTED_LENGTH_FOR_DELETE_INPUT) {
+            throw new DukeException();
+        }
+        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+        return new DeleteCommand(index);
     }
 }
