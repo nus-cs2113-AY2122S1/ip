@@ -77,6 +77,23 @@ public class DataAnalysis {
                 ui.printOutput("Noted. I\'ve removed this task:\n" + "   [" + taskList.get(descriptionIndex - 1).getTaskType() +
                         "][" + taskList.get(descriptionIndex - 1).getStatusIcon() + "] " + line + "Now you have " + --taskCount + " tasks on the list.\n");
                 taskList.remove(taskList.get(descriptionIndex - 1));
+
+            } else if (commandWord.equals("find")) {
+                String wordToFind = " " + splicedLine[1] + " ";
+                String description;
+                int j = 0;
+                ui.printOutput("Here are the matching tasks in your list:\n");
+                for (int i = 0; i < taskCount; i++) {
+                    description = taskList.get(i).getDescription();
+                    if (description.contains(wordToFind)) {
+                        System.out.println((j + 1) + ". [" + taskList.get(i).getTaskType() + "]" + "[" + taskList.get(i).getStatusIcon() + "] " + description);
+                        j++;
+                    }
+                }
+                if (j == 0) {
+                    ui.printOutput("Oops! There are no matches :(\n");
+                }
+                ui.printOutput("");
             } else {
                 ui.printOutput("Oops! I don't know what that means :-(\n");
             }
