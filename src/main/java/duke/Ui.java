@@ -54,4 +54,11 @@ public class Ui {
         System.out.println("Now you have " + taskList.size() + " tasks in the list");
         System.out.println("____________________________________________________________");
     }
+
+    public  void find(TaskList possibleTasks, String description){
+        System.out.println("____________________________________________________________");
+        System.out.println("Tasks with keyword: " + description);
+        possibleTasks.print();
+        System.out.println("____________________________________________________________");
+    }
 }

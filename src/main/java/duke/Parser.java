@@ -3,6 +3,8 @@ package duke;
 import duke.commands.*;
 import duke.tasks.*;
 
+import javax.swing.*;
+
 
 public class Parser {
 
@@ -69,7 +71,13 @@ public class Parser {
             return new DeleteCommand(taskList, task_index - 1, ui, storage);
         }else if (input.startsWith("list")) {
             return new ListCommand(taskList, ui);
-        } else{
+        } else if (input.startsWith("find")) {
+            String[] parsedInput = input.split(" ");
+            if(parsedInput.length != 2){
+                throw new DukeException("Please follow the format: find [DESCRIPTION]");
+            }
+            return new FindCommand(taskList, ui, parsedInput[1]);
+        }else{
             throw new DukeException("Sorry I dont understand");
         }
     }

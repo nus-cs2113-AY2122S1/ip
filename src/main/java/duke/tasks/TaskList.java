@@ -29,6 +29,17 @@ public class TaskList {
         }
     }
 
+    public TaskList find(String description){
+        TaskList possibleTasks = new TaskList();
+
+        for (Task task : this.taskList) {
+            if (task.getName().contains(description)) {
+                possibleTasks.add(task);
+            }
+        }
+        return possibleTasks;
+    }
+
     public void  remove(Task t){
         taskList.remove(t);
     }
