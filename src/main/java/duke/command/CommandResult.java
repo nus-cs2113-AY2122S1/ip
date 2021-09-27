@@ -48,18 +48,30 @@ public class CommandResult {
         this.dukeMessage = dukeMessage;
     }
 
+    /**
+     * Gets {@code TaskManager} object containing the user's tasklist after executing a {@code Command} object.
+     */
     public TaskManager getTaskManager() {
         return this.taskManager;
     }
 
+    /**
+     * Gets {@code dukeMessage} to be displayed to user after executing a {@code Command} object.
+     */
     public String getDukeMessage() {
         return this.dukeMessage;
     }
 
+    /**
+     * Gets {@code isModified} to check if {@code TaskManager} was changed after executing a {@code Command} object.
+     */
     public boolean getIsModified() {
         return this.isModified;
     }
 
+    /**
+     * Gets {@code isExited} to check if the {@code Command} object executed results in the termination of Duke.
+     */
     public boolean getIsExited() {
         return this.isExited;
     }
