@@ -13,6 +13,10 @@ public class Deadline extends Task {
         return by.format(formatter);
     }
 
+    public boolean isOnTheDay(LocalDateTime time) {
+        return time.equals(by);
+    }
+
     /* constructor used for user input */
     public Deadline(String description, LocalDateTime by) throws IOException {
         this.description = description;

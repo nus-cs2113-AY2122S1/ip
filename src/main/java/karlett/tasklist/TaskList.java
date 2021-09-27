@@ -1,6 +1,5 @@
 package karlett.tasklist;
 
-import karlett.storage.TaskListDecoder;
 import karlett.storage.TaskListEncoder;
 import karlett.task.Task;
 import karlett.ui.TextUi;
@@ -24,6 +23,11 @@ public class TaskList {
         tasks = new ArrayList<Task>();
         numberOfTasks = 0;
         taskListEncoder = new TaskListEncoder(filePath);
+    }
+
+    public TaskList() {
+        tasks = new ArrayList<Task>();
+        numberOfTasks = 0;
     }
 
     public int getNumberOfTasks() {

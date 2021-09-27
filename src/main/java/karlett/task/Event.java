@@ -33,4 +33,8 @@ public class Event extends Task {
                 + this.getDescription()
                 + " (at: " + this.getAt() + ")";
     }
+
+    public boolean isOnTheDay(LocalDateTime time) {
+        return time.equals(at);
+    }
 }

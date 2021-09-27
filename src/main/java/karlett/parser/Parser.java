@@ -60,10 +60,10 @@ public class Parser {
             /*-----------------------valid input cases------------------------*/
             taskDescriptionInWords = Arrays.copyOf(arguments, indexOfBy);
             taskDescription = String.join(" ", taskDescriptionInWords);
-            String[] taskDeadlineWords = Arrays.copyOfRange(arguments,
+            String[] taskDeadlineInWords = Arrays.copyOfRange(arguments,
                     indexOfBy + 1, arguments.length);
 
-            String taskDeadlineInString = String.join(" ", taskDeadlineWords);
+            String taskDeadlineInString = String.join(" ", taskDeadlineInWords);
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             try {
                 LocalDateTime taskDeadline = LocalDateTime.parse(taskDeadlineInString, inputFormatter);
@@ -122,6 +122,17 @@ public class Parser {
                 break;
             }
             return new ListCommand();
+        case "on":
+            String[] inputTimeInWords = Arrays.copyOfRange(arguments, 0, arguments.length);
+            String inputTimeInString = String.join(" ", inputTimeInWords);
+            DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            try {
+                LocalDateTime time = LocalDateTime.parse(inputTimeInString, inputTimeFormatter);
+                return new OnCommand(time);
+            } catch (DateTimeParseException e) {
+                ui.printIncorrectTimeFormat();
+                break;
+            }
         case "done":
             return new DoneCommand(Integer.parseInt(arguments[0]));
         case "delete":
