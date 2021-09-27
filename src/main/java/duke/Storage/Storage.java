@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import duke.task.*;
 import duke.task.TaskList;
 
@@ -67,7 +69,8 @@ public class Storage {
         Task saveTask;
         if(lineDivision[0].equals("D")){
 
-            saveTask = new Deadline(lineDivision[2],lineDivision[3],Boolean.parseBoolean(lineDivision[1]));
+            LocalDate byTime = LocalDate.parse(lineDivision[3]);
+            saveTask = new Deadline(lineDivision[2],byTime,Boolean.parseBoolean(lineDivision[1]));
 
         } else if (lineDivision[0].equals("E")){
 
