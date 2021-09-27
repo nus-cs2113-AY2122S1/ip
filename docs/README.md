@@ -140,8 +140,8 @@ In the scenario where the directory or file required is missing, the bot will au
 file for the user.
 
 ## Command Summary
-| Action  | Format | Example  |
-| ------  | ------ | -------  |
+| Action  | Format | Example |
+| ------  | ------ | ------- |
 | Adding a Todo  | ```todo <description>```  | ```todo study for CS2113T```  |
 | Adding a Deadline  | ```deadline <description>/by <date>```  | ```deadline submit CS2101 reflection /by 21 Sept```  |
 | Adding an Event  | ```event <description>/at <time>```  | ```deadline submit CS2101 reflection /by 21 Sept```  |
