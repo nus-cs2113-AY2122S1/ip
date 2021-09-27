@@ -52,7 +52,7 @@ and press `Enter` on your keyboard to execute the command.
     - **`todo read book`** : Adds a `Todo` task with description `read book` to the tasklist.
     - **`list`** : Lists all tasks in the tasklist.
     - **`bye`** : Exit the Duke application.
-9. Refer to the [Features](#features) below for details of each command.
+9. Refer to the [Features](#2-features) below for details of each command.
 
 ## 2. Features
 ### 2. 1 Viewing help : `help`
@@ -69,6 +69,7 @@ Format: `todo [description]`
 
 Example: `todo read book`
 - Adds a todo task with description `read book` to the tasklist.
+- Specifies new number of tasks in tasklist.
 
 Expected Outcome:
 ```
@@ -90,6 +91,7 @@ Format: `deadline [description] /by [due date]`
 
 Example: `deadline return book /by June 6th`
 - Adds a deadline task with description `return book` and due date `June 6th` to the tasklist.
+- Specifies new number of tasks in tasklist.
 
 Expected Outcome:
 ```
@@ -111,6 +113,7 @@ Format: `event [description] /at [occurence]`
 
 Example: `event project meeting /at Aug 6th 2-4pm`
 - Creates an event task with description `project meeting` and occurs at `Aug 6th 2-4pm` to the tasklist.
+- Specifies new number of tasks in tasklist.
 
 Expected Outcome:
 ```
@@ -131,15 +134,16 @@ Format: `list`
   - **Task id**: 
     - A positive integer i.e. `1.` to identify the task
   - **Task type**:
-    - A task can be either Todo, Deadline or Event and is represented with the first letter of their task type
-    - `[T]` represents a Todo
-    - `[D]` represents a Deadline
-    - `[E]` represents a Event
+    - A task can be either **Todo, Deadline or Event** and is represented with the first letter of their task type
+    - `[T]` represents a **Todo**
+    - `[D]` represents a **Deadline**
+    - `[E]` represents a **Event**
   - **Whether the task is done**:
     - A completed task is identified as `[X]`
     - An incomplete task is identified as `[ ]`
   - **Task description**:
     - General details of the task
+- And specifies number of completed tasks.
 
 Expected Outcome:
 ```
@@ -164,6 +168,7 @@ Format: `done [task ID]`
 
 Example: `done 1`
 - Marks the task with task ID equals to `1` as done in the tasklist.
+- Specifies number of completed tasks.
 
 Expected Outcome:
 ```
@@ -186,6 +191,7 @@ Format: `delete [task ID]`
 
 Example: `delete 1`
 - Deletes the task with task ID equals to `1` in the tasklist.
+- Specifies new number of tasks in tasklist.
 
 Expected Outcome:
 ```
@@ -208,7 +214,8 @@ Format: `find [keyword]`
 - Only the task description is searched.
 
 Example: `find book`
-- Finds all tasks that contains the substring `book`
+- Finds all tasks that contains the substring `book` in their task description.
+- Specifies number of successful search results returned.
 
 Expected Outcome:
 ```
@@ -244,13 +251,16 @@ to store the user's task data.
 > **Note**: The `data` folder is created in the same directory as `Duke.jar`.
 
 The user's tasklist data are saved to `duke.txt` automatically after any command
-that modifies the tasklist. There is no need to manually save the data.
+that modifies the tasklist. e.g. adding a task, deleting a task, marking a task as done.
+
+There is no need to manually save the data.
 
 ## 3. FAQ
 **Q:** How do I transfer my data to another computer?
 
 **A:** Install the program on the other computer and replace the new empty `duke.txt`
-it creates with the `duke.txt` that contains the data of your previous `Duke.jar` program home folder.
+it creates with the `duke.txt` that you wish to transfer from your previous `Duke.jar`
+home folder.
 
 ## 4. Command Summary
 Action | Format | Example
