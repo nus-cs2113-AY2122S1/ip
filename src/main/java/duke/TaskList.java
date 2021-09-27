@@ -87,8 +87,8 @@ public class TaskList {
                 throw new DukeException("The description of a todo cannot be empty.");
             }
 
-            if (dukeTaskText.saveToDo(taskName) == true) {
-                tasks.add(new ToDo(taskName));
+            if (dukeTaskText.saveToDo(taskName.trim()) == true) {
+                tasks.add(new ToDo(taskName.trim()));
                 numberOfTasks += 1;
 
                 tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
@@ -154,8 +154,8 @@ public class TaskList {
             throw new DukeException("Deadline be in the format of: yyyy-mm-dd HH:mm");
         }
 
-        if (dukeTaskText.saveDeadline(taskName, by) == true) {
-            tasks.add(new Deadline(taskName, by));
+        if (dukeTaskText.saveDeadline(taskName.trim() + " ", by) == true) {
+            tasks.add(new Deadline(taskName.trim() + " ", by));
             numberOfTasks += 1;
 
             tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
@@ -231,8 +231,8 @@ public class TaskList {
             throw new DukeException("Event time be in the format of: yyyy-mm-dd HH:mm");
         }
 
-        if (dukeTaskText.saveEvent(taskName, at) == true) {
-            tasks.add(new Event(taskName, at));
+        if (dukeTaskText.saveEvent(taskName.trim() + " ", at) == true) {
+            tasks.add(new Event(taskName.trim() + " ", at));
             numberOfTasks += 1;
 
             tasks.get(numberOfTasks - 1).printAddingStatus(numberOfTasks - 1);
