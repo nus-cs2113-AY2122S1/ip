@@ -1,6 +1,6 @@
 # User Guide
 
-Welcome to **_Duke_**! Below are instructions on how to use it.
+Welcome to **_Duke_**! Duke is a virtual assistant to help you keep track and manage your tasks via a CLI (Command Line Interface). Below are instructions on how to use it.
 
 ## Setting up
 
@@ -38,7 +38,7 @@ _____________________________
 
 After which, you will be able to explore the different features Duke has to offer:
 >Notes about command formatting:
->- `parameters` are in **UPPERCASE** which are compulsory
+>- `parameters` are in **UPPER_CASE** which are compulsory
 >- `time parameters` are in **[square brackets]** which are needed in some commands
 
 
@@ -87,6 +87,17 @@ Format: `list`
 
 Lists the task list so far with all the tasks and their completion status.
 
+Expected output:
+```
+list
+_____________________________
+1. [T][ ] read book
+2. [E][X] meeting (at: 3pm)
+3. [D][ ] essay (by: 23.59)
+4. [E][ ] seminar (at: Apr 21 2021)
+Total tasks undone: 3
+_____________________________
+```
 
 ### Mark a task as done: `done`
 Format: `done TASK_INDEX`
@@ -110,6 +121,13 @@ Finds a task from the existing task list with the keyword specified.
 Examples:
 - `find book`
 
+Expected output:
+```
+find book
+_____________________________
+[T][ ] read book
+_____________________________
+```
 
 ### Exit the program: `bye`
 Format: `bye`
