@@ -42,6 +42,12 @@ public abstract class Command {
         this.commandArguments = commandArguments;
     }
 
+    /**
+     * Executes the command and returns the result.
+     *
+     * @return the command result of the execution.
+     * @throws Exception if the command is executed by the abstract {@Command} parent class.
+     */
     public abstract CommandResult executeCommand() throws Exception;
 
 }
