@@ -26,4 +26,8 @@ public class Task {
         char isDoneChar = this.isDone ? '1': '0';
         return " | " + isDoneChar + " | " + this.description;
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }

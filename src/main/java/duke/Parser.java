@@ -21,11 +21,12 @@ public class Parser {
     private static final String DEADLINE_EMPTY_ERROR = "The deadline must contain a '/by'";
     private static final String DEADLINE_DESCRIPTION_ERROR = "The deadline description cannot be empty";
     private static final int EVENT_DEADLINE_TIME = 3;
-    private static final int DONE_DELETE_MIN_LENGTH = 2;
+    private static final int DONE_DELETE_FIND_MIN_LENGTH = 2;
     private static final String DONE_DESCRIPTION_ERROR = "The task to be marked as done cannot be empty";
     private static final String DONE_EXCEED_ERROR = "The task to be marked as done does not exist in the list of tasks";
     private static final String DELETE_DESCRIPTION_ERROR = "The task to be deleted cannot be empty";
     private static final String DELETE_EXCEED_ERROR = "The task to be deleted does not exist in the list of tasks";
+    private static final String FIND_DESCRIPTION_ERROR = "The task to find cannot be empty";
     private static final String COMMAND_ERROR = "Sorry, I don't understand what you are saying";
     private static ArrayList<Task> tasks = new ArrayList<>(MAX_TASKS);
     private static int currCount;
@@ -37,7 +38,7 @@ public class Parser {
 
     public static void markAsDone(String line) throws DukeException {
         String[] input = line.split(" ");
-        if (input.length < DONE_DELETE_MIN_LENGTH) {
+        if (input.length < DONE_DELETE_FIND_MIN_LENGTH) {
             throw new DukeException(DONE_DESCRIPTION_ERROR);
         }
         int index = Integer.parseInt(input[1]) - 1;
@@ -54,7 +55,7 @@ public class Parser {
 
     public static void deleteTask(String line) throws DukeException {
         String[] input = line.split(" ");
-        if (input.length < DONE_DELETE_MIN_LENGTH) {
+        if (input.length < DONE_DELETE_FIND_MIN_LENGTH) {
             throw new DukeException(DELETE_DESCRIPTION_ERROR);
         }
         int index = Integer.parseInt(input[1]) - 1;
@@ -72,14 +73,41 @@ public class Parser {
         Storage.writeToFile(tasks);
     }
 
-    public static void printList() {
-        Ui.printHorizontalLine();
-        System.out.println(" Here are the tasks in your list:");
+    public static void findTask(String line) throws DukeException {
+        String[] input = line.split(" ");
+        if (input.length < DONE_DELETE_FIND_MIN_LENGTH) {
+            throw new DukeException(FIND_DESCRIPTION_ERROR);
+        }
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task elem: tasks) {
+            if (elem.getDescription().contains(input[1])) {
+                matchingTasks.add(elem);
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            Ui.printHorizontalLine();
+            System.out.println(" There are no matching tasks in your list");
+            Ui.printHorizontalLine();
+        } else {
+            Ui.printHorizontalLine();
+            System.out.println(" Here are the matching tasks in your list:");
+            printList(matchingTasks);
+            Ui.printHorizontalLine();
+        }
+    }
+
+    public static void printList(ArrayList<Task> list) {
         int taskCount = 1;
-        for (Task elem : tasks) {
+        for (Task elem : list) {
             System.out.println(" " + taskCount + ". " + elem.toString());
             taskCount += 1;
         }
+    }
+
+    public static void printTaskList() {
+        Ui.printHorizontalLine();
+        System.out.println(" Here are the tasks in your list:");
+        printList(tasks);
         Ui.printHorizontalLine();
     }
 
@@ -129,23 +157,34 @@ public class Parser {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         while (!line.equals("bye")) {
+            String[] lineArray = line.split(" ");
             try {
-                if (line.contains("done")) { // mark task as done
+                switch (lineArray[0]) {
+                case "done":
                     markAsDone(line);
-                } else if (line.contains("delete")) { // delete task
+                    break;
+                case "delete":
                     deleteTask(line);
-                } else if (line.contains("todo")) {
+                    break;
+                case "todo":
                     processTodoCommand(line);
                     completeAddTask();
-                } else if (line.contains("deadline")) {
+                    break;
+                case "deadline":
                     processDeadlineCommand(line);
                     completeAddTask();
-                } else if (line.contains("event")) {
+                    break;
+                case "event":
                     processEventCommand(line);
                     completeAddTask();
-                } else if (line.equals("list")){ // print the list
-                    printList();
-                } else {
+                    break;
+                case "find":
+                    findTask(line);
+                    break;
+                case "list":
+                    printTaskList();
+                    break;
+                default:
                     throw new DukeException(COMMAND_ERROR);
                 }
             } catch (DukeException e) {
