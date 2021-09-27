@@ -85,20 +85,20 @@ public class Storage {
     /**
      * Loads a task as an object in the program
      */
-    private static void loadStoredTasks(String input, ArrayList<Task> tasks) {
-        String taskType = computeTaskType(input);
-        String taskIsDone = computeTaskIsDone(input);
-        String taskDescription = computeTaskDescription(input);
+    private static void loadStoredTasks(String fileInput, ArrayList<Task> tasks) {
+        String taskType = computeTaskType(fileInput);
+        String taskIsDone = computeTaskIsDone(fileInput);
+        String taskDescription = computeTaskDescription(fileInput);
 
         switch (taskType) {
         case TASK_TODO:
             createTodoObject(tasks, taskDescription);
             break;
         case TASK_DEADLINE:
-            createDeadlineObject(tasks, taskDateTime(input), taskDescription);
+            createDeadlineObject(tasks, taskDateTime(fileInput), taskDescription);
             break;
         case TASK_EVENT:
-            createEventObject(tasks, taskDateTime(input), taskDescription);
+            createEventObject(tasks, taskDateTime(fileInput), taskDescription);
             break;
         default:
         }
