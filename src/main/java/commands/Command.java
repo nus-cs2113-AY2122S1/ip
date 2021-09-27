@@ -11,7 +11,7 @@ public abstract class Command {
         this.tasks = new TaskList();
     }
     public abstract CommandResult execute() throws DukeException, DefaultException;
-    public void passList (TaskList tasks) {
+    public void passTaskList(TaskList tasks) {
         this.tasks = tasks;
     }
 }

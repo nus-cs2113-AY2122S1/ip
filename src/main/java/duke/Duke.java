@@ -1,6 +1,10 @@
 package duke;
 
-import commands.*;
+import commands.ExitCommand;
+import commands.CommandResult;
+import commands.Command;
+import commands.PrintOptions;
+
 import constants.Message;
 import parser.Parser;
 import storage.Storage;
@@ -40,11 +44,14 @@ public class Duke {
         }
     }
 
+    //@@se-edu vincentlauhl-reused
+    //Reused from https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/Main.java
+    //with minor modifications
     public void run(){
         Command command = null;
         while (!(command instanceof ExitCommand)){
             String input = ui.getUserCommand();
-            command = new Parser().parseInputForDifferentTask(input);
+            command = new Parser().parseInput(input);
             CommandResult result = executeCommand(command);
             ui.showResult(result);
         }
@@ -67,7 +74,7 @@ public class Duke {
     private CommandResult executeCommand(Command command) {
         String errorMessage;
         try {
-            command.passList(tasks);
+            command.passTaskList(tasks);
             return command.execute();
 
         } catch (IndexOutOfBoundsException error) {
