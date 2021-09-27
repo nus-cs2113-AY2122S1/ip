@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static duke.storage.UserData.readFromFile;
 
@@ -69,6 +70,8 @@ public class Program {
             addTasks(string,dummyTodo);
         } else if (string.startsWith("delete")) {
             deleteTask(string);
+        } else if (string.startsWith("find")) {
+            findTask(string);
         } else {
             throw new HalException("I'm sorry, but I don't know what that means :((");
         }
@@ -161,7 +164,17 @@ public class Program {
         ui.printEnterCommandMessage();
     }
 
-    /**
+    public void findTask(String str) throws HalException {
+        String searchStr = messageParser.parseTextInput(str);
+
+        ArrayList<Task> result = (ArrayList<Task>) listTasks.stream()
+                .filter(task -> task.getDescription().contains(searchStr))
+                .collect(Collectors.toList());
+        ui.printFindTasksMessage(result);
+        ui.printEnterCommandMessage();
+    }
+
+  /**
      * Deletes a task from the list based on the specified task index.
      * Takes in a string in the format "delete x", where x is the order of the task in the list.
      * If the specified index does not exist, or an invalid format is entered, exceptions are thrown.
