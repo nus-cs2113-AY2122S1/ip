@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /** Represents user interfaces between duke and user */
 public class Ui {
-    protected final String DIVIDER = "-----------------------------------------";
+    protected final String DIVIDER = "==============================================";
 
     /** Prints the welcome message at start of program. */
     public void printWelcomeMessage() {
