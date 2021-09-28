@@ -5,7 +5,7 @@ import duke.Parser.Parser;
 import duke.Storage.Storage;
 import duke.TaskList.TaskList;
 import duke.Ui.Ui;
-//Level 8
+//Level 7
 /**
  * Main Class of the Duke program
  * Handle the integration of classes to provide the necessary functions to the user
