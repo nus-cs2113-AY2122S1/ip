@@ -2,8 +2,6 @@ import java.util.Scanner;
 
 public class Duke {
 
-    //public static String filePath = Paths.get(System.getProperty("user.dir"), "data/duke.txt").normalize().toString();
-
     public static void executeRequest() {
         String line;
         Scanner in = new Scanner(System.in);

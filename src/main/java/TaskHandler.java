@@ -1,6 +1,8 @@
 public class TaskHandler {
 
     protected static final String DONE_INDICATOR = "1";
+    protected static final String DEADLINE_SEPARATOR = "/by";
+    protected static final String EVENT_SEPARATOR = "/on";
 
     public static void markTaskAsDone(String line) throws DukeException, NumberFormatException{
         if (Parser.hasNoDoneIndex(line)) {
@@ -21,25 +23,25 @@ public class TaskHandler {
 
     public static void addDeadline(String line) throws DukeException {
         if (Parser.hasNoBody(line) ||
-                Parser.hasNoDescription(line, Parser.DEADLINE_DATE_SEPARATOR)) {
+                Parser.hasNoDescription(line, DEADLINE_SEPARATOR)) {
             throw new DukeException(DukeException.ERROR_NO_DEADLINE_DESCRIPTION);
         }
-        if (Parser.hasNoDeadlineDate(line)) {
+        if (Parser.hasNoDate(line, DEADLINE_SEPARATOR)) {
             throw new DukeException(DukeException.ERROR_NO_DEADLINE_DATE);
         }
-        TaskList.addDeadline(Parser.parseDeadlineDescription(line), Parser.parseDeadlineDate(line));
+        TaskList.addDeadline(Parser.parseDescription(line, DEADLINE_SEPARATOR), Parser.parseDate(line, DEADLINE_SEPARATOR));
         Ui.printAddedTask();
     }
 
     public static void addEvent(String line) throws DukeException {
         if (Parser.hasNoBody(line) ||
-                Parser.hasNoDescription(line, Parser.EVENT_DATE_SEPARATOR)) {
+                Parser.hasNoDescription(line, EVENT_SEPARATOR)) {
             throw new DukeException(DukeException.ERROR_NO_EVENT_DESCRIPTION);
         }
-        if (Parser.hasNoEventDate(line)) {
+        if (Parser.hasNoDate(line, EVENT_SEPARATOR)) {
             throw new DukeException(DukeException.ERROR_NO_EVENT_DATE);
         }
-        TaskList.addEvent(Parser.parseEventDescription(line), Parser.parseEventDate(line));
+        TaskList.addEvent(Parser.parseDescription(line, EVENT_SEPARATOR), Parser.parseDate(line, EVENT_SEPARATOR));
         Ui.printAddedTask();
     }
 
