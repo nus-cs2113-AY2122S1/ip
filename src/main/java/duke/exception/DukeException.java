@@ -21,6 +21,12 @@ public class DukeException extends Exception {
         Ui.printLine();
     }
 
+    public static void stringIndexTodoError() {
+        Ui.printLine();
+        System.out.println("OOPS!!! The description of a todo cannot be empty.");
+        Ui.printLine();
+    }
+
     public static void nullPointerDoneError() {
         Ui.printLine();
         System.out.println("OH MY GOD, can you maybe type a task that exists ?");
