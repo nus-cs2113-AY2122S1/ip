@@ -18,7 +18,7 @@ public class Parser {
      * @param taskInfo contains the information of the task
      * @return taskComponents -> index 0: description, and index 1: dateTime
      */
-    public static String[] splitTaskComponents(String taskInfo) {
+    public String[] splitTaskComponents(String taskInfo) {
         String[] taskComponents;
         taskComponents = taskInfo.replace("/", "#/").split("#");
 

@@ -1,4 +1,7 @@
 import duke.Error.DukeException;
+import duke.TaskList.command.Command;
+import duke.TaskList.command.DeleteCommand;
+import duke.TaskList.command.SetDoneCommand;
 import duke.Ui.DisplayManager;
 import duke.Storage.FileManager;
 import duke.TaskList.TaskManager;
@@ -28,10 +31,11 @@ public class Duke {
     }
 
     public static void processReply(TaskManager taskManager, Parser parser, String line) throws DukeException {
+        Command command;
         String taskInfo;
-        String command = parser.extractCommand(line);
+        String commandType = parser.extractCommand(line);
 
-        switch (command) {
+        switch (commandType) {
         case COMMAND_LIST_TASK:
             taskManager.getAndPrintTaskList();
             break;
@@ -65,7 +69,8 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("The description of " + command + " cannot be empty.");
             }
-            taskManager.setAsDone(taskInfo);
+            command = new SetDoneCommand(taskManager, taskInfo);
+            //taskManager.setAsDone(taskInfo);
             break;
         case COMMAND_DELETE_TASK:
             try {
@@ -73,11 +78,14 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("The description of " + command + " cannot be empty.");
             }
-            taskManager.deleteTask(taskInfo);
+            command = new DeleteCommand(taskManager, taskInfo);
+            //taskManager.deleteTask(taskInfo);
             break;
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
+            return;
         }
+        command.execute();
     }
 
     public static void reply(Scanner in, TaskManager taskManager, Parser parser) {
@@ -96,8 +104,8 @@ public class Duke {
         }
     }
 
-    public static void loadDataFile(TaskManager taskManager) {
-        FileManager.loadData(taskManager);
+    public static void loadDataFile(TaskManager taskManager, Parser parser) {
+        FileManager.loadData(taskManager, parser);
     }
 
     public static void main(String[] args) {
@@ -107,7 +115,7 @@ public class Duke {
         DisplayManager displayManager = new DisplayManager();
 
         greetStart(displayManager);
-        loadDataFile(taskManager);
+        loadDataFile(taskManager, parser);
         reply(in, taskManager, parser);
         greetEnd(displayManager);
     }

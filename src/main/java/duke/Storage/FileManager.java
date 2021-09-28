@@ -3,6 +3,7 @@ package duke.Storage;
 import duke.TaskList.TaskManager;
 import duke.Ui.DisplayManager;
 import duke.TaskList.task.Task;
+import duke.Ui.Parser;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,7 +21,7 @@ public class FileManager {
     public static final int INDEX_DESCRIPTION = 2;
     public static final int INDEX_DATETIME = 3;
 
-    public static void parseFile(TaskManager taskManager) throws IOException{
+    public static void parseFile(TaskManager taskManager, Parser parser) throws IOException{
         File dataDirectory = new File(FILE_DIRECTORY);
         File dataFile = new File(FILE_PATH);
 
@@ -34,11 +35,11 @@ public class FileManager {
         while (fileScanner.hasNext()) {
             String data = fileScanner.nextLine();
             String[] dataComponents = data.split("\\|");
-            addSavedTask(taskManager, dataComponents);
+            addSavedTask(taskManager, parser, dataComponents);
         }
     }
 
-    public static void addSavedTask(TaskManager taskManager, String[] dataComponents) {
+    public static void addSavedTask(TaskManager taskManager, Parser parser, String[] dataComponents) {
         String dataTaskType = dataComponents[INDEX_TYPE];
         String taskInfo;
         boolean taskStatus = dataComponents[INDEX_STATUS].trim().equals("1");
@@ -55,11 +56,11 @@ public class FileManager {
             break;
         case "D":
             taskInfo = dataComponents[INDEX_DESCRIPTION] + " /by " + dataComponents[INDEX_DATETIME];
-            taskManager.addSavedDeadline(taskInfo, taskStatus);
+            taskManager.addSavedDeadline(parser, taskInfo, taskStatus);
             break;
         case "E":
             taskInfo = dataComponents[INDEX_DESCRIPTION] + " /at " + dataComponents[INDEX_DATETIME];
-            taskManager.addSavedEvent(taskInfo, taskStatus);
+            taskManager.addSavedEvent(parser, taskInfo, taskStatus);
             break;
         default:
             break;
@@ -76,9 +77,9 @@ public class FileManager {
         fileWriter.close();
     }
 
-    public static void loadData(TaskManager taskManager) {
+    public static void loadData(TaskManager taskManager, Parser parser) {
         try {
-            parseFile(taskManager);
+            parseFile(taskManager, parser);
         } catch (IOException e) {
             DisplayManager.printErrorLoadingData();
         }
