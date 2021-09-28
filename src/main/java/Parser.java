@@ -1,4 +1,5 @@
 public class Parser {
+
     /**
      * Handles the command given from the console.
      * @param curCommand The raw command.
@@ -23,9 +24,12 @@ public class Parser {
             if (doneIndex > 0 && doneIndex <= TaskList.getTasksInstance().size()) {
                 TaskList.getTasksInstance().get(doneIndex - 1).setDone(true);
             }
-            System.out.println(doneIndex > 0 && doneIndex <= TaskList.getTasksInstance().size()
-                    ? "Nice! I've marked this task as done:\n " + Ui.taskToString(TaskList.getTasksInstance().get(doneIndex - 1))
-                    : "Formatting error");
+            if (doneIndex > 0 && doneIndex <= TaskList.getTasksInstance().size()) {
+                System.out.println("Nice! I've marked this task as done:\n " + Ui.taskToString(TaskList.getTasksInstance().get(doneIndex - 1)));
+            }
+            else {
+                new DukeException(0);
+            }
             Storage.writeIntoFile();
             break;
         case "todo":
@@ -40,7 +44,7 @@ public class Parser {
                 Ui.printNewTask(TaskList.getTasksInstance().get(TaskList.getTasksInstance().size() - 1), TaskList.getTasksInstance().size());
             }
             else {
-                System.out.println("Formatting error");
+                new DukeException(0);
             }
             Storage.writeIntoFile();
             break;
@@ -51,7 +55,7 @@ public class Parser {
                 Ui.printNewTask(TaskList.getTasksInstance().get(TaskList.getTasksInstance().size() - 1), TaskList.getTasksInstance().size());
             }
             else {
-                System.out.println("Formatting error");
+                new DukeException(0);
             }
             Storage.writeIntoFile();
             break;
@@ -68,14 +72,17 @@ public class Parser {
             break;
         case "delete":
             int deleteIndex = getPositiveNumeric(commands[1]);
-            System.out.println(deleteIndex > 0 && deleteIndex <= TaskList.getTasksInstance().size()
-                    ? "Noted. I've removed this task:\n " + Ui.taskToString(TaskList.getTasksInstance().get(deleteIndex - 1)) + "\nNow you have " + (TaskList.getTasksInstance().size() - 1) + " tasks in the list.\n"
-                    : "Formatting error");
+            if (deleteIndex > 0 && deleteIndex <= TaskList.getTasksInstance().size()) {
+                System.out.println("Noted. I've removed this task:\n " + Ui.taskToString(TaskList.getTasksInstance().get(deleteIndex - 1)) + "\nNow you have " + (TaskList.getTasksInstance().size() - 1) + " tasks in the list.\n");
+            }
+            else {
+                new DukeException(0);
+            }
             TaskList.getTasksInstance().remove(deleteIndex - 1);
             Storage.writeIntoFile();
             break;
         default:
-            System.out.println("Input error");
+            new DukeException(1);
         }
     }
 
@@ -98,7 +105,7 @@ public class Parser {
             Ui.printHelp("help");
             break;
         default:
-            System.out.println("Input error");
+            new DukeException(1);
         }
     }
 

@@ -1,4 +1,5 @@
 public class Ui {
+
     /**
      * Prints welcome message.
      */
