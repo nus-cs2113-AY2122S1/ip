@@ -4,7 +4,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -17,8 +16,20 @@ import static duke.TaskList.getEventTask;
 import static duke.TaskList.printTask;
 import static duke.TaskList.deleteTask;
 
+
+/**
+ * Class that deals with making sense of the user command.
+ */
 public class Parser {
 
+    /**
+     * Make sense of the user command and store them into different lists.
+     *
+     * @param line        User command input.
+     * @param taskList    List containing tasks with the due date and time.
+     * @param stringList  List containing details of tasks only
+     * @param dueDateList List containing due date and time only.
+     */
     public static void parse(String line, TaskList taskList, ArrayList<String> stringList,
                              ArrayList<String> dueDateList) {
         try {
@@ -81,10 +92,10 @@ public class Parser {
                     Ui.printLine();
                 }
 
-            } else if (line.startsWith("find")){
-                try{
+            } else if (line.startsWith("find")) {
+                try {
                     taskList.printMatchingTask(line.substring(5));
-                } catch (IndexOutOfBoundsException e){
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("Please check again and format your input as 'find <keyword>'");
                     Ui.printLine();
                 }

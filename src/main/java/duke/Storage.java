@@ -15,16 +15,27 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class that deals with loading and saving tasks in an external file.
+ */
 public class Storage {
 
     protected static String filePath;
 
     private static final String DATE_TIME_FORMAT = "dd-MM-yyyy HH:mm";
 
+    /**
+     * Storage class constructor.
+     *
+     * @param filePath File path of external file.
+     */
     public Storage(String filePath) {
         Storage.filePath = filePath;
     }
 
+    /**
+     * Creates a new file in the file path if the file does not exist.
+     */
     public void createFile() {
         File f = new File(filePath);
         try {
@@ -37,6 +48,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads in data from an external file, makes sense of them, store them in a task list
+     * and return the task list.
+     *
+     * @return task list the data are stored in.
+     * @throws DukeException If file is not found.
+     */
     public TaskList load() throws DukeException {
         createFile();
         TaskList taskList = new TaskList();
@@ -62,13 +80,13 @@ public class Storage {
                     String taskDisplay = line.substring(8, deadlineIndex);
                     taskList.addToStringList(taskDisplay);
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
-                    LocalDateTime formatDateTime = LocalDateTime.parse(line.substring(deadlineIndex + 1),formatter);
+                    LocalDateTime formatDateTime = LocalDateTime.parse(line.substring(deadlineIndex + 1), formatter);
                     String formattedDateTime = formatDateTime.format(DateTimeFormatter
                             .ofLocalizedDateTime(FormatStyle.MEDIUM));
                     String doBy = "(" + formattedDateTime + ")";
                     Deadline deadlineTask = new Deadline(taskDisplay, 'D', doBy);
                     taskList.addToTaskList(deadlineTask);
-                    taskList.addToDueDateList(line.substring(deadlineIndex +1));
+                    taskList.addToDueDateList(line.substring(deadlineIndex + 1));
                     taskList.addToFormattedDueDateList(formattedDateTime);
 
                     if (line.charAt(4) == '1') {
@@ -79,13 +97,13 @@ public class Storage {
                     String taskDisplay = line.substring(8, eventIndex);
                     taskList.addToStringList(taskDisplay);
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
-                    LocalDateTime formatDateTime = LocalDateTime.parse(line.substring(eventIndex + 1),formatter);
+                    LocalDateTime formatDateTime = LocalDateTime.parse(line.substring(eventIndex + 1), formatter);
                     String formattedDateTime = formatDateTime.format(DateTimeFormatter
                             .ofLocalizedDateTime(FormatStyle.MEDIUM));
                     String doBy = "(" + formattedDateTime + ")";
                     Event eventTask = new Event(taskDisplay, 'E', doBy);
                     taskList.addToTaskList(eventTask);
-                    taskList.addToDueDateList(line.substring(eventIndex +1));
+                    taskList.addToDueDateList(line.substring(eventIndex + 1));
                     taskList.addToFormattedDueDateList(formattedDateTime);
 
                     if (line.charAt(4) == '1') {
@@ -99,18 +117,39 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Loads data into a new external file of the specific file path.
+     *
+     * @param filePath  File path of external file.
+     * @param textToAdd Data to load into the file
+     * @throws IOException If file is not found.
+     */
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
 
+    /**
+     * Adds data into an existing external file of the specific file path
+     *
+     * @param filePath     File path of external file.
+     * @param textToAppend Data to add into the file.
+     * @throws IOException If file is not found.
+     */
     private static void appendToFile(String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
         fw.write(textToAppend);
         fw.close();
     }
 
+    /**
+     * Formats and loads data into an external file.
+     *
+     * @param taskList    List containing tasks with the due date and time.
+     * @param stringList  List containing details of tasks only
+     * @param dueDateList List containing due date and time only.
+     */
     public static void writeData(TaskList taskList, ArrayList<String> stringList, ArrayList<String> dueDateList) {
         try {
             if (taskList.getTask(0).getTaskType() == 'T') {
