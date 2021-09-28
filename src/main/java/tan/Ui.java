@@ -49,6 +49,8 @@ public class Ui {
      * Prints all the task & their current status
      * in the list else, informs the user if the list
      * is empty.
+     *
+     * @param listOfTasks The list of task to be printed.
      */
     public static void printListOfTask(List<Task> listOfTasks) {
         if (listOfTasks.size() == 0) {
