@@ -114,18 +114,78 @@ Exit the program and automatically save all the tasks.
 
 ### <span id="summary-cli">Command Summary</span>
 
-Action | Command Format | Example
---- | --- | --- | 
-Add a todo task | todo <task description>  | `todo return book`
-Add a deadline task | deadline <task description> /<YYYY-MM-DD> [HH:MM] | `deadline cs2113 ip /2021-09-28 18:00` <br/> `deadline cs2113 ip /2021-09-28`
-Add an event task | event <task description> /<YYYY-MM-DD> <HH:MM> | `event cs2113 lecture /2021-10-01 14:00`
-Delete a task | delete taskIndex | `delete 2`
-Complete a task | done taskIndex | `done 1`
-find a task | find <keyword> | `find cs2113`
-List all tasks | list | `list`
-Sort tasks | sort | `sort`
-Get help | help | `help`
-Exit | bye | `bye`
+<table>
+<tr>
+<th> Action </th>
+<th> Command Format </th>
+<th> Example </th>
+</tr>
+
+<tr>
+<th> Add a todo task </th>
+<th> todo &lt;task description&gt;  </th>
+<th> <strong><i>todo return book</i></strong> </th>
+</tr>
+
+<tr>
+<th> Add a deadline task </th>
+<th> deadline &lt;task description&gt; &lt;YYYY-MM-DD&gt; [HH:MM]  </th>
+<th> <strong><i>deadline cs2113 ip /2021-09-28 18:00 <br/>deadline cs2113 ip /2021-09-28</i></strong> </th>
+</tr>
+
+<tr>
+<th> Add an event task </th>
+<th> event &lt;task description&gt; /&lt;YYYY-MM-DD&gt; &lt;HH:MM&gt;  </th>
+<th> <strong><i>event cs2113 lecture /2021-10-01 14:00</i></strong> </th>
+</tr>
+
+
+<tr>
+<th> Delete a task </th>
+<th> delete &lt;taskIndex&gt; </th>
+<th> <strong><i>delete 2</i></strong> </th>
+</tr>
+
+
+<tr>
+<th> Complete a task </th>
+<th> done &lt;taskIndex&gt; </th>
+<th> <strong><i>delete 1</i></strong> </th>
+</tr>
+
+<tr>
+<th> Find a task </th>
+<th> find &lt;keyword&gt; </th>
+<th> <strong><i>find cs2113</i></strong> </th>
+</tr>
+
+<tr>
+<th> List all tasks </th>
+<th> list </th>
+<th> <strong><i>list</i></strong> </th>
+</tr>
+
+
+<tr>
+<th> Sort tasks </th>
+<th> sort </th>
+<th> <strong><i>sort</i></strong> </th>
+</tr>
+
+<tr>
+<th> Get help </th>
+<th> help </th>
+<th> <strong><i>help</i></strong> </th>
+</tr>
+
+<tr>
+<th> Exit </th>
+<th> bye </th>
+<th> <strong><i>bye</i></strong> </th>
+</tr>
+
+
+</table>
 
 ## <span id="GUI-Guide">Graphical User Interface(GUI) Guide</span>
 
