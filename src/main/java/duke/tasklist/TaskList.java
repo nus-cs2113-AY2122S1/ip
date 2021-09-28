@@ -11,6 +11,12 @@ import java.util.ArrayList;
 
 public class TaskList {
 
+    /**
+     * Deletes a task
+     *
+     * @param inputCommand string containing "delete" and string containing description of task to delete
+     * @param tasks ArrayList of tasks
+     */
     public static void deleteTask(String inputCommand, ArrayList<Task> tasks) {
         Ui.printHorizontalLine();
         try {
@@ -27,7 +33,12 @@ public class TaskList {
         Ui.printHorizontalLine();
     }
 
-
+    /**
+     * Adds an event task to the ArrayList of tasks
+     *
+     * @param inputCommand string containing "event" and description of event tasks
+     * @param tasks ArrayList of tasks
+     */
     public static void addEvent(String inputCommand, ArrayList<Task> tasks) {
         Ui.printHorizontalLine();
         try {
@@ -44,6 +55,12 @@ public class TaskList {
         Ui.printHorizontalLine();
     }
 
+    /**
+     * Adds a deadline task to the ArrayList of tasks
+     *
+     * @param inputCommand string containing "deadline" and description of deadline tasks
+     * @param tasks ArrayList of tasks
+     */
     public static void addDeadline(String inputCommand, ArrayList<Task> tasks) {
         Ui.printHorizontalLine();
         try {
@@ -60,6 +77,12 @@ public class TaskList {
         Ui.printHorizontalLine();
     }
 
+    /**
+     * Adds a Todo task to the ArrayList of tasks
+     *
+     * @param inputCommand string containing "todo" and description of todo tasks
+     * @param tasks ArrayList of tasks
+     */
     public static void addToDo(String inputCommand, ArrayList<Task> tasks) {
         Ui.printHorizontalLine();
         try {
@@ -73,6 +96,13 @@ public class TaskList {
         Ui.printHorizontalLine();
     }
 
+
+    /**
+     * Mark a task as done
+     *
+     * @param inputCommand string containing "done" task number to be mark as done
+     * @param tasks ArrayList of tasks
+     */
     public static void markAsDone(String inputCommand, ArrayList<Task> tasks) {
         Ui.printHorizontalLine();
         try {
@@ -87,6 +117,11 @@ public class TaskList {
         Ui.printHorizontalLine();
     }
 
+    /**
+     * show the list of all tasks
+     *
+     * @param tasks ArrayList of tasks
+     */
     public static void showList(ArrayList<Task> tasks) {
         Ui.printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
@@ -95,7 +130,13 @@ public class TaskList {
         }
         Ui.printHorizontalLine();
     }
-
+  
+    /**
+     * find all the task with the search term
+     *
+     * @param inputCommand string containing "find" and the search term to find
+     * @param tasks ArrayList of tasks
+     */
     public static void findTask(String inputCommand, ArrayList<Task> tasks){
         String taskDescriptionToFind = inputCommand.substring(5);
         ArrayList<Task> filteredTask = (ArrayList<Task>) tasks.stream()

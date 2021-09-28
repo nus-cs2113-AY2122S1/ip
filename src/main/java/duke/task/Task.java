@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * Represent a generic task.
+ * Task contains description of tasks and Boolean isDone to show whether the task is completed
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
