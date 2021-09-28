@@ -5,7 +5,6 @@ import karlett.tasklist.TaskList;
 import karlett.ui.TextUi;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class FindCommand extends Command {
 
@@ -15,6 +14,14 @@ public class FindCommand extends Command {
         keyWord = input;
     }
 
+    /**
+     * Find any task with a description that contains the key word.
+     *
+     * @param tasks a TaskList that is already stored
+     * @param ui text user interface
+     * @param storageFile file to which command can write to
+     * @throws IOException input or output exception
+     */
     @Override
     public void execute(TaskList tasks, TextUi ui, StorageFile storageFile) throws IOException {
         TaskList matchedTasks = new TaskList();
