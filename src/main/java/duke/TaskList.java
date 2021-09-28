@@ -90,7 +90,7 @@ public class TaskList {
      */
     public String getDescription(String command) throws InvalidValueException {
         if (!command.contains("/"))
-            throw new InvalidValueException("Missing detail demarcator: [/by ] or [/at ]");
+            throw new InvalidValueException("Missing detail demarcator: </by > or </at >");
         String desc = command.substring(command.indexOf(" ") + 1, command.indexOf("/"));
         if (desc.trim().equals(""))
             throw new InvalidValueException("Missing Description in command");

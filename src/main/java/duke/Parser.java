@@ -68,7 +68,7 @@ public class Parser {
     }
 
     /**
-     * execute "help" command
+     * execute <help> command
      *
      * @return list of all commands available
      */
@@ -77,7 +77,7 @@ public class Parser {
     }
 
     /**
-     * Execute "bye" command.
+     * Execute <bye> command.
      *
      * @return "bye" message.
      */
@@ -86,7 +86,7 @@ public class Parser {
     }
 
     /**
-     * Execute "done" command.
+     * Execute <done> command.
      *
      * @param command Input from user.
      * @return "done" message.
@@ -99,7 +99,7 @@ public class Parser {
     }
 
     /**
-     * Execute "delete" command.
+     * Execute <delete> command.
      *
      * @param command Input from user.
      *                * @return "deleted" message.
@@ -113,7 +113,7 @@ public class Parser {
     }
 
     /**
-     * Execute "Todo" command.
+     * Execute <Todo> command.
      *
      * @param command Input from user.
      * @return String acknowledging new addition.
@@ -127,7 +127,7 @@ public class Parser {
     }
 
     /**
-     * Execute "deadlinee" command.
+     * Execute <deadline> command.
      *
      * @param command Input from user.
      * @return String acknowledging new addition.
@@ -137,13 +137,13 @@ public class Parser {
         if (command.split(" ").length == 1)
             throw new InvalidValueException("Deadline: Missing Description / Time");
         if (command.split("/").length == 3)
-            throw new InvalidValueException("Please input Date in the following format: dd/mm/yyyy");
+            throw new InvalidValueException("Please input Date in the following format: <dd/mm/yyyy>");
         taskList.addTask(new Deadline(taskList.getDescription(command), taskList.getMoreDetails(command)));
         return ui.acknowledgeAddition(taskList.getList());
     }
 
     /**
-     * Execute "event" command.
+     * Execute <event> command.
      *
      * @param command Input from user.
      * @return String acknowledging new addition.
@@ -153,7 +153,7 @@ public class Parser {
         if (command.split(" ").length == 1)
             throw new InvalidValueException("Event: Missing Description / Time");
         if (command.split("/").length == 3)
-            throw new InvalidValueException("Please input Date in the following format: dd/mm/yyyy");
+            throw new InvalidValueException("Please input Date in the following format: <dd/mm/yyyy>");
         taskList.addTask(new Event(taskList.getDescription(command), taskList.getMoreDetails(command)));
         return ui.acknowledgeAddition(taskList.getList());
     }
