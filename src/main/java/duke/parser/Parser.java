@@ -5,6 +5,7 @@ import duke.command.AddEventCommand;
 import duke.command.AddToDoCommand;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.exception.DukeException;
 import duke.tasklist.TaskList;
@@ -33,6 +34,9 @@ public class Parser {
         case DELETE:
             new DeleteCommand(taskList, userInput);
             break;
+        case FIND:
+            new FindCommand(taskList, userInput);
+            break;
         case BYE:
             break;
         default:
@@ -41,7 +45,7 @@ public class Parser {
     }
 
     public enum CommandType {
-        LIST, BYE, DONE, TODO, DEADLINE, EVENT, DELETE, NULL
+        LIST, BYE, DONE, TODO, DEADLINE, EVENT, DELETE, FIND, NULL
     }
 
     public static CommandType getCommandType(String userInput) {
@@ -61,6 +65,8 @@ public class Parser {
             return CommandType.EVENT;
         case "delete":
             return CommandType.DELETE;
+        case "find":
+            return CommandType.FIND;
         default:
             return CommandType.NULL;
         }
