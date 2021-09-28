@@ -1,6 +1,10 @@
 package duke.templar;
 
-public class ToDo extends Task {
+/**
+ * Defines the type of task known as todo, with a description
+ */
+public class ToDo extends Task
+{
 
     public ToDo(String description) {
         super(description);

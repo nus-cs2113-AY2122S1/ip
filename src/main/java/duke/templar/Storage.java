@@ -12,24 +12,41 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Storage {
+/**
+ * Loads and interprets the saved task list from the previous run
+ * as well as writes the next save once the user ends the session
+ */
+public class Storage
+{
 
     private final File saveFile;
     private final String filePath;
 
-    public Storage(String filePath) {
+    public Storage(String filePath)
+    {
         this.filePath = filePath;
         this.saveFile = new File(filePath);
     }
 
-
-    public void createFile() throws IOException {
+    /**
+     * creates new file to save the new task list in
+     * @throws IOException
+     */
+    public void createFile() throws IOException
+    {
         Files.createDirectories(Path.of(saveFile.getParent()));
         saveFile.createNewFile();
 
     }
 
-    public Parser loadSave (ArrayList<Task> tasks) throws FileNotFoundException {
+    /**
+     * Makes sense of the current saved file for the user to view on the command line
+     * @param tasks
+     * @return the parser used
+     * @throws FileNotFoundException
+     */
+    public Parser loadSave (ArrayList<Task> tasks) throws FileNotFoundException
+    {
 
         Parser TM = new Parser(tasks);
         try {
@@ -79,6 +96,11 @@ public class Storage {
         return TM;
     }
 
+    /**
+     * Writes the new task list to the created file
+     * @param TM
+     * @throws IOException
+     */
     public void writeSave(Parser TM) throws IOException {
         try {
             FileWriter fileWriter = new FileWriter(filePath);

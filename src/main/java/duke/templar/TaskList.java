@@ -4,38 +4,57 @@ import duke.exception.NoSuchTaskException;
 
 import java.util.ArrayList;
 
-public class TaskList {
+/**
+ * Contains the task list as well as operations to handle tasks
+ * namely adding, deleting, finding and marking as done.
+ */
+public class TaskList
+{
 
-    public static Task[] foundTasks;
-    public TaskList() {
+    public TaskList()
+    {
 
     }
 
+    /**
+     * Adds a new task to the task list
+     * @param newTask
+     * @param tasks
+     */
     public static void addTask(Task newTask, ArrayList<Task> tasks) {
         tasks.add(newTask);
     }
 
-    /*
+    /**
      * method returns which task (in tasks array) has been completed and also prints the result
-     *
-     * @params taskNumber the input string
-     * @params tasks the array of tasks
-     *
-     * @return the task (in tasks array) that has been marked done
+     * @param taskNumber
+     * @param tasks
+     * @return completedTaskIndex
      */
     public static int doneTask(int taskNumber, ArrayList<Task> tasks) {
-        tasks.get(taskNumber - 1).setDone(true); //mark task as done
+        int completedTaskIndex = taskNumber - 1;
+        tasks.get(completedTaskIndex).setDone(true); //mark task as done
         Ui.printTaskDone(taskNumber, tasks);
-        return taskNumber - 1;
+        return completedTaskIndex;
 
     }
 
-
+    /**
+     * Deletes specified task
+     * @param taskNumber
+     * @param tasks
+     */
     public static void deleteTask(int taskNumber, ArrayList<Task> tasks) {
         System.out.println("TARGET REMOVED: " + taskNumber + ". " + tasks.get(taskNumber - 1));
         tasks.remove(taskNumber - 1);
     }
 
+    /**
+     * Finds specified task
+     * @param s
+     * @param tasks
+     * @throws NoSuchTaskException
+     */
     public static void findTask(String s, ArrayList<Task> tasks) throws NoSuchTaskException {
         String line;
         int j = 0;

@@ -2,15 +2,24 @@ package duke.templar;
 
 import java.util.ArrayList;
 
-public class Ui {
+/**
+ * Handles all interactions with the user on the command line
+ */
+public class Ui
+{
 
     public static final String MESSAGE_DIVIDER = "____________________________________________________________";
 
-    public Ui() {
+    public Ui()
+    {
 
     }
 
-    public static void printHelloMsg() {
+    /**
+     * Prints hello message on command line
+     */
+    public static void printHelloMsg()
+    {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -23,54 +32,83 @@ public class Ui {
         System.out.println(MESSAGE_DIVIDER);
     }
 
-    public static void printService() {
+    /**
+     * Prints prompt for user to enter next command
+     */
+    public static void printService()
+    {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("[The Templar:]");
         System.out.println("What further assistance do you require?");
         System.out.println(MESSAGE_DIVIDER);
     }
 
+    /**
+     * Prints user's alias
+     */
     public static void printHero() {
         System.out.println("[Hero:]");
     }
 
-    public static void printGoodbyeMsg() {
+    /**
+     * Prints goodbye message on command line once session ends
+     */
+    public static void printGoodbyeMsg()
+    {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("[The Templar:]\n" + "DUKE shall carry out his mission. Farewell, Hero.");
         System.out.println(MESSAGE_DIVIDER);
     }
 
-    public static void printFileNotFoundExceptionMsg() {
+    /**
+     * Prints exception message if no file exists yet
+     */
+    public static void printFileNotFoundExceptionMsg()
+    {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("[Templar:] ");
         System.out.println("It appears your file cannot be found, Hero. Lets create one, shall we?");
         System.out.println(MESSAGE_DIVIDER);
     }
 
-    public static void printCreateFailMsg() {
+    /**
+     * Prints exception message if file failed to create
+     */
+    public static void printCreateFailMsg()
+    {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("[Templar:] ");
         System.out.println("Your file failed to create, Hero.");
         System.out.println(MESSAGE_DIVIDER);
     }
 
-    public static void printWriteFailMsg() {
+    /**
+     * Prints exception message if file fails to write
+     */
+    public static void printWriteFailMsg()
+    {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("[Templar:] ");
         System.out.println("Your file failed to write, Hero.");
         System.out.println(MESSAGE_DIVIDER);
     }
 
-    public static void printTaskDone(int taskNumber, ArrayList<Task> tasks) {
+    /**
+     * Prints a message to show that specified task has been marked as done
+     * @param taskNumber
+     * @param tasks
+     */
+    public static void printTaskDone(int taskNumber, ArrayList<Task> tasks)
+    {
         System.out.println("TARGET NEUTRALISED: " + taskNumber + ". " + tasks.get(taskNumber - 1));
     }
 
-    /*
-    method prints the current updated task list when called
-    *
-    @params tasks the array of tasks
+    /**
+    * Prints the current task list when called
+    * @param tasks
      */
-    public static void printList(ArrayList<Task> tasks) {
+    public static void printList(ArrayList<Task> tasks)
+    {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("PENDING HIT LIST:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -82,7 +120,14 @@ public class Ui {
 
     }
 
-    public static void printTaskAcquired(Task newTask, ArrayList<Task> tasks) {
+    /**
+     * Prints confirmation that the new task is added to the list as well
+     * as the current total number of tasks
+     * @param newTask
+     * @param tasks
+     */
+    public static void printTaskAcquired(Task newTask, ArrayList<Task> tasks)
+    {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("[DUKE:]");
         System.out.println("...understood.");
@@ -91,7 +136,12 @@ public class Ui {
         System.out.println(MESSAGE_DIVIDER);
     }
 
-    public static void printCommands(String[] validCommands) {
+    /**
+     * Prints the valid commands the user can input to the program
+     * @param validCommands
+     */
+    public static void printCommands(String[] validCommands)
+    {
         System.out.println("VALID COMMANDS ARE:");
         for (int i = 1; i < validCommands.length; i++) {
             System.out.print(validCommands[i] +" ");
@@ -99,7 +149,11 @@ public class Ui {
         System.out.print("\n");
     }
 
-    public static void printFoundTasks() {
+    /**
+     * Prints a message to show tasks that correspond to the users search
+     */
+    public static void printFoundTasks()
+    {
         System.out.println(MESSAGE_DIVIDER);
         System.out.println("TASKS FOUND ARE:");
     }

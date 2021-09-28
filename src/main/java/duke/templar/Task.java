@@ -1,22 +1,38 @@
 package duke.templar;
 
-public class Task {
+/**
+ * The parent class of task that is extended by todo, event, and deadline
+ * that sets and gets the task's completion status
+ */
+public class Task
+{
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description)
+    {
         this.description = description;
         this.isDone = false;
     }
 
-    public String getDoneStatus() {
+    /**
+     * Sets a marker to indicate task's completion status
+     * @return marker "x" || " "
+     */
+    public String getDoneStatus()
+    {
         if (isDone) {
             return "x";
         }
         return " ";
     }
 
-    public void setDone(boolean done) {
+    /**
+     * Sets task as done
+     * @param done
+     */
+    public void setDone(boolean done)
+    {
         this.isDone = done;
     }
 

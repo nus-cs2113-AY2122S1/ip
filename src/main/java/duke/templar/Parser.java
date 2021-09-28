@@ -1,11 +1,21 @@
 package duke.templar;
 
-import duke.exception.*;
+import duke.exception.NoSuchTaskException;
+import duke.exception.CommandInvalidException;
+import duke.exception.EventInvalidFormatException;
+import duke.exception.TaskNumberInvalidException;
+import duke.exception.DeadlineInvalidFormatException;
+import duke.exception.TodoInvalidFormatException;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Parser {
+/**
+ * Parses the input to make sense of the user command by
+ * comparing it against a fixed set of valid commands
+ */
+public class Parser
+{
     boolean valid;
     public final ArrayList<Task> tasks;
     int[] taskDone = new int[100]; //this array stores 1 or 0 - task done or not
@@ -26,20 +36,18 @@ public class Parser {
         this.tasks = tasks;
     }
 
-    /*
-    * method processes the input to determine which class of task it is and then create the correct object accordingly
-    * as well as print the appropriate output to accompany task
-    *
-    * @params line the input string
-    * @params tasks the array of type Task to store all the tasks
-    * @params taskCount the number of tasks currently in the list
-    *
-    * @throws todoInvalidFormatException for invalid todo
-    * @throws eventInvalidFormatException for invalid event
-    * @throws deadlineInvalidFormatException for invalid deadline
-    * @throws taskNumberInvalidException for alphabetical done input
-    * @throws noSuchTaskException for done input of task not in list
-    */
+    /**
+     * Processes the input to determine which class of task it is and then create the correct object accordingly
+     * as well as print the appropriate output to accompany task
+     * @param line
+     * @param tasks
+     * @throws CommandInvalidException
+     * @throws DeadlineInvalidFormatException
+     * @throws TodoInvalidFormatException
+     * @throws EventInvalidFormatException
+     * @throws TaskNumberInvalidException
+     * @throws NoSuchTaskException
+     */
     public void processInput(String line, ArrayList<Task> tasks) throws CommandInvalidException, DeadlineInvalidFormatException, TodoInvalidFormatException, EventInvalidFormatException, TaskNumberInvalidException, NoSuchTaskException
     {
         valid = false; //default case
@@ -154,12 +162,22 @@ public class Parser {
     }
 
 
-
+    /**
+     * Converts the string into a LocalDateTime variable with the right format
+     * @param deadlineDate
+     * @param format
+     * @return parsed deadlineDate
+     */
     public static LocalDateTime parseDateTime(String deadlineDate, String format) {
         DateTimeFormatter properFormat = DateTimeFormatter.ofPattern(format);
-        return LocalDateTime.parse(deadlineDate, properFormat); //converts the string into a localdatetime variable with the right format
+        return LocalDateTime.parse(deadlineDate, properFormat);
     }
 
+    /**
+     * Performs a boolean check if the input is numerical
+     * @param input
+     * @return boolean
+     */
     public static boolean isNumerical(String input) {
         try {
             Integer.parseInt(input);

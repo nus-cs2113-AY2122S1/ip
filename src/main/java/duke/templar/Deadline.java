@@ -3,10 +3,16 @@ package duke.templar;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task {
+/**
+ * Defines the type of task known as Deadline, with a description and a date
+ */
+public class Deadline extends Task
+{
     protected LocalDateTime deadlineDate;
 
-    public Deadline(String deadlineDescription, LocalDateTime deadlineDate) {
+
+    public Deadline(String deadlineDescription, LocalDateTime deadlineDate)
+    {
         super(deadlineDescription);
         this.deadlineDate = deadlineDate;
     }
