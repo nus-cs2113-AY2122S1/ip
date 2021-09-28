@@ -204,7 +204,7 @@ ________________________________________________________________
 
 Mark a Task as undone base on Index in List
 
-Format `undone <INDEX>`
+Format `uncheck <INDEX>`
 
 * **INDEX:** Index of Task as shown from the task list
 
