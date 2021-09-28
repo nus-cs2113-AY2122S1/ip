@@ -13,6 +13,15 @@ public class DukeException extends Exception {
         case 1:
             System.out.println("Input error");
             break;
+        case 2:
+            System.out.println("Failed to load or create a save file");
+            break;
+        case 3:
+            System.out.println("Failed to read save file");
+            break;
+        case 4:
+            System.out.println("Failed to write into save file");
+            break;
         default:
             break;
         }

@@ -34,6 +34,6 @@ public class Duke {
      */
     public static void main(String[] args) {
         String dir = System.getProperty("user.dir");
-        new Duke(dir + "\\data\\duke.txt").run();
+        new Duke(dir + "\\duke.txt").run();
     }
 }
