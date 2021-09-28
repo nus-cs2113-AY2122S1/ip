@@ -31,6 +31,7 @@ public class TaskManager {
     public static final String DELIMITER_DEADLINE = "/by";
     public static final int DESCRIPTION_INDEX_EVENT = 6;
     public static final int INDEX_TASKTYPE = 0;
+    public static final int INDEX_DESCRIPTION_DEADLINE = 9;
 
 
     /**
@@ -80,7 +81,7 @@ public class TaskManager {
     private static void addEvent(ArrayList<Task> tasks, String message) {
         try {
             tasks.add(createEvent(message));
-            Ui.printAddedTask(tasks.get(taskSize(tasks)), tasks);
+            Ui.printAddedTask(getLatestTask(tasks), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             DukeException.stringIndexEventError();
@@ -94,9 +95,9 @@ public class TaskManager {
     private static Event createEvent(String message) {
         String eventString = getEventString(message);
         String[] eventData = splitString(eventString, DELIMITER_EVENT);
-        String eventDescription = eventData[INDEX_TASKTYPE];
+        String eventDescription = eventData[INDEX_TASKTYPE].strip();
         LocalDateTime eventDateTime = DateAndTimeParser.processDateAndTime(eventData[1]);
-        String eventDateTimeString = eventData[1];
+        String eventDateTimeString = eventData[1].strip();
         return new Event(eventDescription, eventDateTime, eventDateTimeString);
     }
 
@@ -116,10 +117,8 @@ public class TaskManager {
      */
     private static void addDeadline(ArrayList<Task> tasks, String message) {
         try {
-            String deadlineString = message.substring(9);
-            String[] deadlineData = splitString(deadlineString, DELIMITER_DEADLINE);
-            tasks.add(new Deadline(deadlineData[0], DateAndTimeParser.processDateAndTime(deadlineData[1].substring(3)), deadlineData[1].substring(3)));
-            Ui.printAddedTask(tasks.get(taskSize(tasks)), tasks);
+            tasks.add(createDeadline(message));
+            Ui.printAddedTask(getLatestTask(tasks), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             DukeException.stringIndexDeadlineError();
@@ -128,6 +127,23 @@ public class TaskManager {
         } catch (DateTimeParseException e) {
             DukeException.dateTimeParseError();
         }
+    }
+
+    private static Task getLatestTask(ArrayList<Task> tasks) {
+        return tasks.get(taskSize(tasks));
+    }
+
+    private static Deadline createDeadline(String message) {
+        String deadlineString = getDeadlineString(message);
+        String[] deadlineData = splitString(deadlineString, DELIMITER_DEADLINE);
+        String deadlineDescription = deadlineData[0].strip();
+        LocalDateTime deadlineDateTime = DateAndTimeParser.processDateAndTime(deadlineData[1]);
+        String deadlineDateTimeString = deadlineData[1].strip();
+        return new Deadline(deadlineDescription, deadlineDateTime, deadlineDateTimeString);
+    }
+
+    private static String getDeadlineString(String message) {
+        return message.substring(INDEX_DESCRIPTION_DEADLINE);
     }
 
     private static int taskSize(ArrayList<Task> tasks) {
@@ -143,7 +159,7 @@ public class TaskManager {
     private static void addTodo(ArrayList<Task> tasks, String message) {
         try {
             tasks.add(new Todo(message.substring(5)));
-            Ui.printAddedTask(tasks.get(taskSize(tasks)), tasks);
+            Ui.printAddedTask(getLatestTask(tasks), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             DukeException.stringIndexTodoError();        }
