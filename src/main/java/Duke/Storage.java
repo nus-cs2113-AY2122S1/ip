@@ -1,6 +1,6 @@
 package Duke;
 
-import Duke.Task.TaskManager;
+import Duke.Task.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class DataDetective {
+public class Storage {
 
     public String fileLocation = Paths.get(System.getProperty("user.dir"), "data/duke.txt").normalize().toString();
 
@@ -54,23 +54,23 @@ public class DataDetective {
             String description = next.substring(4);
             switch(taskIcon.trim()) {
             case "T":
-                TaskManager.addToDo(description);
+                TaskList.addToDo(description);
                 if (lines[2].equals("X")) {
-                    TaskManager.thisDone(curr);
+                    TaskList.thisDone(curr);
                 }
                 counter++;
                 break;
             case "D":
-                TaskManager.addDeadline(description);
+                TaskList.addDeadline(description);
                 if (lines[2].equals("X")) {
-                    TaskManager.thisDone(curr);
+                    TaskList.thisDone(curr);
                 }
                 counter++;
                 break;
             case "E":
-                TaskManager.addEvent(description);
+                TaskList.addEvent(description);
                 if (lines[2].equals("X")) {
-                    TaskManager.thisDone(curr);
+                    TaskList.thisDone(curr);
                 }
                 counter++;
                 break;
@@ -88,8 +88,8 @@ public class DataDetective {
         FileWriter fw = new FileWriter(fileLocation, false);
         fw.write("");
 
-        for (int i = 0; i < TaskManager.input.List.size(); i++) {
-            text = TaskManager.input.List.get(i).getTaskIcon() + "|" + TaskManager.input.List.get(i).getStatusIcon() + "|" + TaskManager.input.List.get(i).getOriginalDescription() + System.lineSeparator();
+        for (int i = 0; i < TaskList.input.List.size(); i++) {
+            text = TaskList.input.List.get(i).getTaskIcon() + "|" + TaskList.input.List.get(i).getStatusIcon() + "|" + TaskList.input.List.get(i).getOriginalDescription() + System.lineSeparator();
             writeToFile(fileLocation, text);
         }
     }

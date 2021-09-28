@@ -2,11 +2,11 @@ package Duke.Task;
 
 import Duke.Exception.DukeException;
 import Duke.Information;
-import Duke.printMessage;
+import Duke.Ui;
 
-public class TaskManager {
+public class TaskList {
     public static Information input = new Information();
-    private static printMessage message = new printMessage();
+    private static Ui message = new Ui();
 
     public static void printList() {
         for (int i = 0; i < input.List.size(); i++) {

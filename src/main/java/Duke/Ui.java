@@ -1,6 +1,6 @@
 package Duke;
 
-public class printMessage {
+public class Ui {
 
     public void printIntro() {
         String logo = " _____     _____    _____     _____\n"
@@ -33,7 +33,7 @@ public class printMessage {
 
     public void printHelp() {
         System.out.println("Hello, here are all the commands available");
-        System.out.println("1. \"List\" to view all tasks in the todo list");
+        System.out.println("1. \"list\" to view all tasks in the todo list");
         System.out.println("2. \"todo\" to add a task to the todo list");
         System.out.println("3. \"deadline\", task details, \"/by\" time, in order to add a task to the list with a deadline");
         System.out.println("4. \"event\", task details, \"/at\" time, in order to add an event to the list along with the time it occurs.");

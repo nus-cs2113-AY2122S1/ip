@@ -1,5 +1,6 @@
-T| |water plants
+T|X|water plants
 T| |buy snacks
 D|X|project /by sunday
 E| |clubbing /at the moon
-D| |go for a jog /by Tues 4pm
+T| |go to supermarket
+D|X|go for a jog /by tues afternoon
