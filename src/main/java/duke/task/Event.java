@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Event object contains description of the event and date and time of the event
+ */
 public class Event extends Task {
     protected String description;
     protected String at;

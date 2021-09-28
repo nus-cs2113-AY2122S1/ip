@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Deadline object contains description of the Deadline and date of the Deadline
+ */
 public class Deadline extends Task {
     protected String by;
 
