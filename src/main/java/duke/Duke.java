@@ -55,14 +55,14 @@ public class Duke {
                 System.out.println("  'event <description> /at <event date>'");
                 inputLine = INPUT_COMMAND.nextLine();
             } catch (EmptyTaskNumber e) {
-                System.out.println("  OOPS! Please specify the completed task number!");
-                System.out.println("  Example: 'done 1'");
+                System.out.println("  OOPS! Please specify the task number!");
+                System.out.println("  Example: 'done 1' or 'delete 2'");
                 inputLine = INPUT_COMMAND.nextLine();
             } catch (NumberFormatException e) {
                 System.out.println("  OOPS! Please put only integer as the task number!");
                 System.out.println("  Example: 'done 1'");
                 inputLine = INPUT_COMMAND.nextLine();
-            } catch (NullPointerException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("  OOPS! You must have typed the wrong number. Please type in again correctly!");
                 inputLine = INPUT_COMMAND.nextLine();
             }
@@ -104,9 +104,21 @@ public class Duke {
             }
             markAsDone(tasksArrayList, inputLine);
             break;
+        case COMMAND_DELETE_WORD:
+            deleteTask(tasksArrayList, inputLine);
+            break;
         default:
             throw new IllegalCommand();
         }
+    }
+
+    public static void deleteTask(ArrayList<Task> tasksArrayList, String inputLine) {
+        int taskIndex = Integer.parseInt(inputLine.split("delete ")[1])-1;
+        Task taskToDelete = tasksArrayList.get(taskIndex);
+        System.out.println("  Noted. I've removed this task:");
+        System.out.println("  " + tasksArrayList.get(taskIndex));
+        tasksArrayList.remove(taskToDelete);
+        System.out.printf("  Now you have %d tasks in the list. Anything else?\n", tasksArrayList.size());
     }
 
     public static void markAsDone(ArrayList<Task> tasksArrayList, String inputLine) {
