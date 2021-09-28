@@ -47,6 +47,7 @@ public class Duke {
             try {
                 Parser.processUserInput(commandType, userInput, taskList);
                 storage.saveData(taskList);
+                ui.printDivider();
             } catch(DukeException e) {
                 ui.printInvalidCommand();
             }
