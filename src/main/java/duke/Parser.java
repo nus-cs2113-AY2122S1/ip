@@ -3,6 +3,10 @@ import duke.exception.*;
 
 import java.util.Scanner;
 
+/**
+ * A class containing the methods necessary to parse the user input to specific commands
+ * and executes these commands according to their purposes.
+ */
 public class Parser {
     public static final int TODO_LENGTH = 4;
     public static final int EVENT_LENGTH = 5;
@@ -36,6 +40,10 @@ public class Parser {
     public static boolean isDeadLine() {
         return input.startsWith("deadline");
     }
+  
+    public static boolean isFind() {
+        return input.startsWith("find");
+    }
 
     public static boolean isToDo() {
         return input.startsWith("todo");
@@ -43,14 +51,19 @@ public class Parser {
 
     public static boolean isDelete() { return input.startsWith("delete"); }
 
-    public static boolean isFind() {
-        return input.startsWith("find");
-    }
-
+    /**
+     * Verifies if the todo command has valid input.
+     * @return Nothing
+     */
     public static boolean isInvalidToDo() {
         return input.substring(TODO_LENGTH).equals("");
     }
 
+    /**
+     * Verifies if the Deadline command has valid input time
+     * Ensures the Deadline has the necessary part "/by"
+     * @return Nothing
+     */
     public static boolean isInvalidDeadLine() {
         String inputTemp = input.substring(DEADLINE_LENGTH).trim();
         boolean isEmpty = inputTemp.equals("");
@@ -59,6 +72,11 @@ public class Parser {
 
     }
 
+    /**
+     * Verifies if the Event command has valid input time
+     * Ensures the Event has the necessary part "/at"
+     * @return Nothing
+     */
     public static boolean isInvalidEvent() {
         String inputTemp = input.substring(EVENT_LENGTH).trim();
         boolean isEmpty = inputTemp.equals("");
@@ -66,10 +84,14 @@ public class Parser {
         return (isEmpty || task.length == 0 || task.length == 1);
     }
 
-
     /**
-     * Convert the string that user inputs to a specific task object
-     * Categorize them into todos, deadlines, and events
+     * Convert the user input string to a specific task object
+     * Categorize them into todos, deadlines, and events.
+     * @return a specific task object
+     * @throws InvalidDeadlineTimeException
+     * @throws InvalidEventTimeException
+     * @throws EmptyToDoException
+     * @throws InvalidCommandException
      */
     public static Task convertInputToTask()
             throws InvalidDeadlineTimeException, InvalidEventTimeException, EmptyToDoException, InvalidCommandException {
@@ -95,7 +117,18 @@ public class Parser {
             throw new InvalidCommandException();
     }
 
-
+    /**
+     * Method that executes specific functions in TaskList according to the command received from user
+     * @param input the user input string
+     * @param c the command that parsed from user input to be executed
+     * @throws TaskIndexOutOfBound
+     * @throws InvalidDeadlineTimeException
+     * @throws InvalidEventTimeException
+     * @throws EmptyToDoException
+     * @throws InvalidCommandException
+     * @throws EmptyDoneIndexException
+     * @throws InvalidInputException
+     */
     public static void runCommand(String input, Command c)
             throws TaskIndexOutOfBound, InvalidDeadlineTimeException, InvalidEventTimeException, EmptyToDoException, InvalidCommandException, EmptyDoneIndexException, InvalidInputException{
         switch (c) {

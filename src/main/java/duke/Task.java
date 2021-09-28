@@ -1,5 +1,10 @@
 package duke;
 
+/**
+ * A Task super class for all its subclass to perform polymorphism
+ * in order to let the method in the TaskList can correctly process lots of different types of functionalities
+ * Includes functions to mark tasks as done.
+ */
 public class Task {
     public static final int TASK_CONTENT_POSITION = 1;
     protected String task;
@@ -20,7 +25,10 @@ public class Task {
         }
     }
 
-    public void markAsDone() {
+    /**
+     * Marks the task as done
+     */
+    public void markAsDone(){
         isDone = true;
 
     }
