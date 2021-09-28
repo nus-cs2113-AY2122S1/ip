@@ -121,9 +121,12 @@ public class Parser {
      * @param userInput input from user from the command line interface
      * @return string containing Deadline or Event description
      */
-    public static String getDeadlineOrEventDescription(String userInput) {
+    public static String getDeadlineOrEventDescription(String userInput) throws InvalidTaskDescriptionException {
         int descriptionPosition = DeadlineOrEventDescriptionPosition(userInput);
         int timePosition = DeadlineOrEventTimePosition(userInput);
+        if (!isValidPosition(timePosition)) {
+            throw new InvalidTaskDescriptionException("Add a /by for deadline and /at for event! Try again!");
+        }
         return userInput.substring(descriptionPosition, timePosition);
     }
 
@@ -195,12 +198,7 @@ public class Parser {
     }
 
     public static boolean isValidDeadlineOrEventDescription(String userInput, String description) {
-        if (!isValidDeadlineFormat(userInput) && !isValidEventFormat(userInput)) {
-            return false;
-        } else if (description.isEmpty()) {
-            return false;
-        }
-        return true;
+        return isValidDeadlineFormat(userInput) || isValidEventFormat(userInput);
     }
 
     public static boolean isValidDeadlineFormat(String userInput) {
@@ -224,5 +222,9 @@ public class Parser {
 
     public static boolean isDeleteAll(String userInput) {
         return userInput.trim().equalsIgnoreCase("delete all");
+    }
+
+    public static boolean isValidPosition(int position) {
+        return position != -1;
     }
 }

@@ -50,6 +50,12 @@ public class TaskList {
         String timeAsString = Parser.getDateAndTimeSubstring(input);
         LocalDateTime time = Parser.convertSubStringToDateAndTime(timeAsString.trim());
 
+        // This will allow for the DateTimeParseException message to be printed from convertSubStringToDateAndTime,
+        // otherwise the program will attempt to add a new task with a null LocalDateTime object.
+        if (time == null) {
+            return;
+        }
+
         if (!Parser.isValidDeadlineOrEventDescription(input, description)) {
             throw new InvalidTaskDescriptionException("Invalid or missing task detail!");
         }
