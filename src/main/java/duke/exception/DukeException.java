@@ -21,6 +21,12 @@ public class DukeException extends Exception {
         Ui.printLine();
     }
 
+    public static void nullPointerDoneError() {
+        Ui.printLine();
+        System.out.println("OH MY GOD, can you maybe type a task that exists ?");
+        Ui.printLine();
+    }
+
     public static void nullPointerFindError() {
         Ui.printLine();
         System.out.println("No tasks added yet");
