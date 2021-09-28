@@ -1,9 +1,12 @@
 package duke.templar;
 
+import duke.exception.NoSuchTaskException;
+
 import java.util.ArrayList;
 
 public class TaskList {
 
+    public static Task[] foundTasks;
     public TaskList() {
 
     }
@@ -31,6 +34,29 @@ public class TaskList {
     public static void deleteTask(int taskNumber, ArrayList<Task> tasks) {
         System.out.println("TARGET REMOVED: " + taskNumber + ". " + tasks.get(taskNumber - 1));
         tasks.remove(taskNumber - 1);
+    }
+
+    public static void findTask(String s, ArrayList<Task> tasks) throws NoSuchTaskException {
+        String line;
+        int j = 0;
+        try {
+            Ui.printFoundTasks();
+            for (int i = 0; i < tasks.size(); i++) {
+                line = tasks.get(i).toString();
+                if (line.contains(s)) {
+                    System.out.println("-" + tasks.get(i).toString());
+                    j++;
+                }
+            }
+
+            if (j == 0) {
+                throw new NoSuchTaskException();
+            }
+
+        }
+        catch (NoSuchTaskException e) {
+            e.printNoSuchTaskException();
+        }
     }
 
 }

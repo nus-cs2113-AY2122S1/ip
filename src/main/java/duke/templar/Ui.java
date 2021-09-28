@@ -99,5 +99,9 @@ public class Ui {
         System.out.print("\n");
     }
 
+    public static void printFoundTasks() {
+        System.out.println(MESSAGE_DIVIDER);
+        System.out.println("TASKS FOUND ARE:");
+    }
 
 }
