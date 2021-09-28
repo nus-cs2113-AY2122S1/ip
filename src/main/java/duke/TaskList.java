@@ -3,10 +3,6 @@ package duke;
 import duke.DukeExceptions.InvalidValueException;
 import duke.task.Task;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -113,16 +109,6 @@ public class TaskList {
         if (moreDetails.trim().equals("") | moreDetails.trim().contains("\t"))
             throw new InvalidValueException("Missing Required Extra Details");
         return moreDetails;
-    }
-
-    /**
-     * Retrieves the task numbered the same as index in the TaskList.
-     *
-     * @param index of task to retrieve.
-     * @return task
-     */
-    public Task getTask(int index) {
-        return list.get(index);
     }
 
     /**

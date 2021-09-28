@@ -9,8 +9,8 @@ import duke.task.ToDo;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    private TaskList taskList;
-    private Ui ui;
+    private final TaskList taskList;
+    private final Ui ui;
 
     /**
      * Constructor to create Parser object.
@@ -62,6 +62,8 @@ public class Parser {
             return e.toString();
         } catch (DateTimeParseException e) {
             return ui.dateTimeFormat();
+        } catch (StringIndexOutOfBoundsException e) {
+            return new InvalidValueException("Please check if you input Date / Time").toString();
         }
     }
 
@@ -120,7 +122,7 @@ public class Parser {
     public String parseTodo(String command) throws InvalidValueException {
         if (command.split(" ").length == 1)
             throw new InvalidValueException("Todo: Missing Description, Please Try Again");
-        taskList.addTask(new ToDo(taskList.getItem(command)));
+        taskList.addTask(new ToDo(TaskList.getItem(command)));
         return ui.acknowledgeAddition(taskList.getList());
     }
 
@@ -220,7 +222,7 @@ public class Parser {
     public String parseFind(String command) {
         if (taskList.getList().size() == 0)
             return ui.printList(taskList);
-        String keyword = taskList.getItem(command);
+        String keyword = TaskList.getItem(command);
         return ui.findResults(keyword, taskList);
     }
 }

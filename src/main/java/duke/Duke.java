@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Duke {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasksLs;
     private final Ui ui;
 
@@ -19,9 +19,9 @@ public class Duke {
     /**
      * A constructor to initiate Duke.
      */
-    public Duke() {
+    public Duke(String filepath) {
         this.tasksLs = new TaskList(new ArrayList<Task>());
-        this.storage = new Storage("duke.txt");
+        this.storage = new Storage(filepath);
         this.ui = new Ui();
     }
 
@@ -66,6 +66,6 @@ public class Duke {
      * @param args to start Duke Application.
      */
     public static void main(String[] args) {
-        new Duke().run();
+        new Duke("duke.txt").run();
     }
 }
