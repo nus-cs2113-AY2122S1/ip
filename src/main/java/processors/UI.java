@@ -6,6 +6,7 @@ import exceptions.DoneException;
 import exceptions.DeadlineException;
 import exceptions.DeleteException;
 import exceptions.DukeException;
+import exceptions.UncheckException;
 import tasks.Task;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class UI {
 
     private static final String ADD_TASK_REPLY = "     Got it. I've added this task:\n";
     private static final String TASK_COMPLETED = "     Nice! I've marked this task as done:\n";
+    private static final String TASK_UNCHECK = "     Alright! I've marked this task as undone:\n";
     private static final String LINE = "________________________________________________________________";
     private static final String LINE_DIVIDER = "________________________________________________________________\n";
     private static final String GAP = "     ";
@@ -34,6 +36,12 @@ public class UI {
 
     public void printDoneMessage(Task task) {
         String output = LINE_DIVIDER + TASK_COMPLETED + GAP + "[X] "
+                + task.getDescription() + "\n" + LINE;
+        System.out.println(output);
+    }
+
+    public void printUncheckMessage(Task task) {
+        String output = LINE_DIVIDER + TASK_UNCHECK + GAP + "[ ] "
                 + task.getDescription() + "\n" + LINE;
         System.out.println(output);
     }
@@ -153,6 +161,12 @@ public class UI {
     public void printSecurityException(SecurityException e) {
         String output = LINE_DIVIDER + e.getMessage()
                 + "Invalid Delete Request. Format: delete (number)\n" + LINE_DIVIDER;
+        System.out.println(output);
+    }
+
+    public void printUncheckException(UncheckException e) {
+        String output = LINE_DIVIDER + e.printStatement()
+                + "Invalid Uncheck Request. Format: uncheck (number)\n" + LINE_DIVIDER;
         System.out.println(output);
     }
 

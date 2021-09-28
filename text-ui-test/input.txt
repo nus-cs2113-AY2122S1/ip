@@ -1,11 +1,17 @@
 todo Read Bible
 todo Devotion
-deadline CS2113T /by Tuesday
-event Project Meeting /at Monday 9-11pm
+deadline CS2113T /by Tuesday 2359
+event Project Meeting /at Monday 2100
 list
 done 3
+save
 done 1
 done 4
+save
+list
+uncheck 2
+uncheck 4
+save
 list
 delete 3
 delete 1

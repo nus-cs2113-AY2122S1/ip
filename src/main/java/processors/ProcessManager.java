@@ -1,12 +1,25 @@
 package processors;
 
-import commands.*;
+import commands.ByeCommand;
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeleteCommand;
+import commands.DoneCommand;
+import commands.EventCommand;
+import commands.FindCommand;
+import commands.HelpCommand;
+import commands.InvalidCommand;
+import commands.ListCommand;
+import commands.SavedCommand;
+import commands.TodoCommand;
+import commands.UncheckCommand;
 import exceptions.EventException;
 import exceptions.TodoException;
 import exceptions.DoneException;
 import exceptions.DeadlineException;
 import exceptions.DeleteException;
 import exceptions.DukeException;
+import exceptions.UncheckException;
 
 import java.io.IOException;
 
@@ -22,6 +35,7 @@ public class ProcessManager {
     public FindCommand findCommand = new FindCommand();
     public ByeCommand byeCommand = new ByeCommand();
     public HelpCommand helpCommand = new HelpCommand();
+    public UncheckCommand uncheckCommand = new UncheckCommand();
 
     public UI ui = new UI();
 
@@ -77,7 +91,6 @@ public class ProcessManager {
             } catch (IOException e) {
                 ui.printIOException(e);
             }
-            return true;
         } else if (command instanceof FindCommand) {
             findCommand.execute(taskList, line);
         } else if (command instanceof ByeCommand) {
@@ -89,6 +102,12 @@ public class ProcessManager {
             return false;
         } else if (command instanceof HelpCommand) {
             helpCommand.execute();
+        } else if (command instanceof UncheckCommand) {
+            try {
+                uncheckCommand.execute(taskList, line);
+            } catch (UncheckException e) {
+                ui.printUncheckException(e);
+            }
         }
         return true;
     }
