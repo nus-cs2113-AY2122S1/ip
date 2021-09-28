@@ -1,5 +1,5 @@
 /**
- * This class deals with parsing user inputs.
+ * This class deals with parsing user inputs (making sense of the user command).
  */
 public class Parser {
 
@@ -41,7 +41,7 @@ public class Parser {
     }
 
     /**
-     * Extract the index of task to be marked as done.
+     * Extract the index of task to be marked as done from user input.
      *
      * @param line String of user input
      * @return index of the task to be marked as done
@@ -102,10 +102,10 @@ public class Parser {
     }
 
     /**
-     * Check if there is no due date for a Deadline to be added, in user input.
+     * Check if there is no date for a Deadline/Event to be added, from user input.
      *
-     * @param line
-     * @return true if there is no Deadline date
+     * @param line String of user input
+     * @return true if there is no date
      *          false if there is a date
      */
     public static boolean hasNoDate(String line, String separator) {
@@ -113,31 +113,69 @@ public class Parser {
         return words.length == 1;
     }
 
+    /**
+     * Extract the date of a Deadline/Event to be added, from user input
+     *
+     * @param line String of user input
+     * @param separator String indicator that separates description and date for Event or Deadline (e.g., "/on")
+     * @return date of Deadline/Event
+     */
     public static String parseDate(String line, String separator) {
         String[] words = parseBody(line).split(separator);
         return words[INDEX_DATE].trim();
     }
 
+    /**
+     * Extract the description of a Deadline/Event to be added, from user input
+     *
+     * @param line String of user input
+     * @param separator String indicator that separates description and date for Event or Deadline (e.g., "/on")
+     * @return description of Deadline/Event
+     */
     public static String parseDescription(String line, String separator) {
         String[] words = parseBody(line).split(separator);
         return words[INDEX_DESCRIPTION].trim();
     }
 
+    /**
+     * Extract the Task type from saved data file.
+     *
+     * @param line A line from the saved data file
+     * @return Task type
+     */
     public static String parseCommandFromFile(String line) {
         String[] words = line.trim().split(Storage.SPACER);
         return words[INDEX_COMMAND].trim();
     }
 
+    /**
+     * Extract the Task description from saved data file.
+     *
+     * @param line A line from the saved data file
+     * @return Task description
+     */
     public static String parseDescriptionFromFile(String line) {
         String[] words = line.trim().split(Storage.SPACER);
         return words[INDEX_DESCRIPTION_FROM_FILE].trim();
     }
 
+    /**
+     * Extract the Task date from saved data file.
+     *
+     * @param line A line from the saved data file
+     * @return Task date
+     */
     public static String parseDateFromFile(String line) {
         String[] words = line.trim().split(Storage.SPACER);
         return words[INDEX_DATE_FROM_FILE].trim();
     }
 
+    /**
+     * Extract the Task done indicator from saved data file.
+     *
+     * @param line A line from the saved data file
+     * @return Indicator of whether the Task is done or not
+     */
     public static String parseIsDoneFromFile(String line) {
         String[] words = line.trim().split(Storage.SPACER);
         return words[INDEX_IS_DONE_FROM_FILE].trim();

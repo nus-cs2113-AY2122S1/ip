@@ -1,7 +1,14 @@
 import java.util.Scanner;
 
+/**
+ * This class is the main class of the program Duke.
+ */
 public class Duke {
 
+    /**
+     * Execute users' requests from user inputs.
+     * Continues until user enters "bye".
+     */
     public static void executeRequest() {
         String line;
         Scanner in = new Scanner(System.in);

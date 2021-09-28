@@ -1,9 +1,19 @@
+/**
+ * This class deals with operations on Tasks.
+ */
 public class TaskHandler {
 
     protected static final String DONE_INDICATOR = "1";
     protected static final String DEADLINE_SEPARATOR = "/by";
     protected static final String EVENT_SEPARATOR = "/on";
 
+    /**
+     * Marks a Task specified by the user as done.
+     *
+     * @param line String of user input
+     * @throws DukeException If there is no index of the task or the index is out of bound
+     * @throws NumberFormatException If the index is not a number
+     */
     public static void markTaskAsDone(String line) throws DukeException, NumberFormatException{
         if (Parser.hasNoDoneIndex(line)) {
             throw new DukeException(DukeException.ERROR_NO_INDEX);
@@ -21,6 +31,12 @@ public class TaskHandler {
         TaskList.getTask(taskIndex - 1).markAsDone();
     }
 
+    /**
+     * Adds a Deadline task specified by the user.
+     *
+     * @param line String of user input
+     * @throws DukeException If there is no description or no date
+     */
     public static void addDeadline(String line) throws DukeException {
         if (Parser.hasNoBody(line) ||
                 Parser.hasNoDescription(line, DEADLINE_SEPARATOR)) {
@@ -33,6 +49,12 @@ public class TaskHandler {
         Ui.printAddedTask();
     }
 
+    /**
+     * Adds an Event task specified by the user.
+     *
+     * @param line String of user input
+     * @throws DukeException If there is no description or no date
+     */
     public static void addEvent(String line) throws DukeException {
         if (Parser.hasNoBody(line) ||
                 Parser.hasNoDescription(line, EVENT_SEPARATOR)) {
@@ -45,6 +67,12 @@ public class TaskHandler {
         Ui.printAddedTask();
     }
 
+    /**
+     * Adds a Todo task specified by the user.
+     *
+     * @param line String of user input
+     * @throws DukeException If there is no description
+     */
     public static void addTodo(String line) throws DukeException {
         if (Parser.hasNoTodoDescription(line)) {
             throw new DukeException(DukeException.ERROR_NO_TODO_DESCRIPTION);
@@ -53,6 +81,13 @@ public class TaskHandler {
         Ui.printAddedTask();
     }
 
+    /**
+     * Deletes a task specified by the user.
+     *
+     * @param line String of user input
+     * @throws DukeException If there is no index of the task or the index is out of bound
+     * @throws NumberFormatException If the index is not a number
+     */
     public static void deleteTask(String line) throws DukeException, NumberFormatException{
         if (Parser.hasNoDoneIndex(line)) {
             throw new DukeException(DukeException.ERROR_NO_INDEX);
@@ -71,6 +106,11 @@ public class TaskHandler {
         TaskList.removeTask(taskIndex - 1);
     }
 
+    /**
+     * Throw exception when the user input has wrong command format.
+     *
+     * @throws DukeException If the command has wrong format
+     */
     public static void handleWrongCommand() throws DukeException{
         throw new DukeException(DukeException.ERROR_INVALID_COMMAND);
     }
