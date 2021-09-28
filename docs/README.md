@@ -163,6 +163,7 @@ Example:
 Exits the program
 
 ## Command Summary
+
 |Action | Format, Example
 |:-------| :------
 bye|-
