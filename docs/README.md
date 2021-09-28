@@ -36,6 +36,7 @@ Duke is a Command Line Application to help you manage your tasks.
 Add a Todo task into the list.
 <br>
 Format: `todo TASK_NAME`
+* `TASK_NAME` must be present.
 
 Example of usage:
 <br>
@@ -56,6 +57,8 @@ Expected output:
 Add a Deadline task that has a deadline date/time into the list.
 <br>
 Format: `deadline TASK_NAME /by TASK_DEADLINE`
+* `TASK_NAME`, `/by` and `TASK_DEADLINE` must be present.
+* `/by` must be surrounded by one space both on its left and right.
 
 Example of usage:
 <br>
@@ -76,6 +79,8 @@ Expected output:
 Add an event task that has additional information into the list.
 <br>
 Format: `event TASK_NAME /at TASK_INFO`
+* `TASK_NAME`, `/at` and `TASK_INFO` must be present.
+* `/at` must be surrounded by one space both on its left and right.
 
 Example of usage:
 <br>
@@ -96,6 +101,8 @@ Expected output:
 Mark any task in the list as done.
 <br>
 Format: `done TASK_INDEX`
+* `TASK_INDEX` must be present.
+* `TASK_INDEX` must be an integer between 1 and tasks list size inclusive.
 
 Example of usage:
 <br>
@@ -105,7 +112,7 @@ Expected output:
 ```
     ____________________________________________________________
      Nice! I've marked this task as done:
-       [D][X] Do Cs2113 homework (by: Sunday 2359)
+       [D][X] Do CS2113 homework (by: Sunday 2359)
     ____________________________________________________________
 ```
 
@@ -124,7 +131,7 @@ Expected output:
 ```
     ____________________________________________________________
      1.[T][ ] Read Book
-     2.[D][X] Do Cs2113 homework (by: Sunday 2359)
+     2.[D][X] Do CS2113 homework (by: Sunday 2359)
      3.[E][ ] Career Fair (at: NUS)
     ____________________________________________________________
 ```
@@ -134,6 +141,8 @@ Expected output:
 Delete a task in the list.
 <br>
 Format: `delete TASK_INDEX`
+* `TASK_INDEX` must be present.
+* `TASK_INDEX` must be an integer between 1 and tasks list size inclusive.
 
 Example of usage:
 <br>
@@ -153,7 +162,8 @@ Expected output:
 ### Find a Task : `find`
 Find all tasks in the list that match the filter word(s) given.
 <br>
-Format: `find FILTER_WORD`
+Format: `find [FILTER_WORD]`
+* `FILTER_WORD` is optional, but it is more meaningful to include a filter word.
 
 Example of usage:
 <br>
