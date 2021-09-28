@@ -4,6 +4,8 @@ import Duke.Exception.DukeException;
 import Duke.Information;
 import Duke.Ui;
 
+import java.util.ArrayList;
+
 public class TaskList {
     public static Information input = new Information();
     private static Ui message = new Ui();
@@ -94,6 +96,32 @@ public class TaskList {
             message.printLineBreak();
         } catch (DukeException | NumberFormatException | IndexOutOfBoundsException e) {
             message.printListError();
+            message.printLineBreak();
+        }
+    }
+
+    public static void findTask(String word) {
+        ArrayList<Task> matchingWordList = new ArrayList<>();
+        try {
+            if (word.isEmpty() || word.equals(" ")) {
+                throw new DukeException();
+            }
+            for (int i = 0; i < input.List.size(); i++) {
+                if (input.List.get(i).getDescription().contains(word)) {
+                    matchingWordList.add(input.List.get(i));
+                }
+            }
+            if (!matchingWordList.isEmpty()) {
+                System.out.println("These are the matching tasks in your list: ");
+                for (int i = 0; i < matchingWordList.size(); i++) {
+                    System.out.println((i + 1) + ".[" + matchingWordList.get(i).getTaskIcon() + "]" + "[" + matchingWordList.get(i).getStatusIcon() + "] " + matchingWordList.get(i).getDescription());
+                }
+                message.printLineBreak();
+            } else {
+                System.out.println("There does not seem to be a task like that in your list :(");
+                }
+            } catch (DukeException e) {
+            message.printMissingKeyword();
             message.printLineBreak();
         }
     }

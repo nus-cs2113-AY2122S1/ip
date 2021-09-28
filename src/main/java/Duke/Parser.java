@@ -51,6 +51,9 @@ public class Parser {
                 TaskList.deleteTask(instructionTask);
                 Storage.saveData();
                 break;
+            case "find":
+                TaskList.findTask(instructionTask);
+                break;
             default: // When no specific command is selected, the input is added automatically to the list of tasks.
                 message.printIntructionsUnclear();
                 message.printLineBreak();
