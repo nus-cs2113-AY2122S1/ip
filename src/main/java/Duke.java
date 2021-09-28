@@ -16,11 +16,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Duke {
+    /**
+     * Key components of Duke program
+     */
     private static Ui ui;
     private static Parser parser;
     private static Storage storage;
     private static TaskList tasks;
 
+    /**
+     * Initialize the components of Duke
+     */
     public static void initializeProgram() {
         ui = new Ui();
         tasks = new TaskList(ui);

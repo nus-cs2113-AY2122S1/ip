@@ -9,10 +9,20 @@ import java.util.Scanner;
 public class Parser {
     private Ui ui;
     public static final String SEPARATOR = "-----------------------------------";
+
+    /**
+     * Constructor for Parser with ui
+     * @param ui The ui used to set Parser.
+     */
     public Parser(Ui ui) {
         this.ui = ui;
     }
 
+    /**
+     * Process the command retrieved from user input.
+     * @param userInput The full user input.
+     * @param tasks The list of tasks.
+     */
     public void processCommand(String userInput, TaskList tasks){
         //while (!userInput.equals("bye")) {
             if (userInput.equals("echo")) {
@@ -85,6 +95,12 @@ public class Parser {
         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
+    /**
+     * Process the deadline command to create a new deadline task in task list
+     * @param userInput The full user input.
+     * @param tasks The list of tasks.
+     * @throws DukeException If user input does not contain "/by" which means the command is invalid
+     */
     public void processDeadline(String userInput,TaskList tasks) throws DukeException{
         if(!userInput.contains("/by") || userInput.length()<= 8){
             throw new DukeException("☹ OOPS!!! The description or the date of a deadline cannot be empty.");
@@ -94,6 +110,12 @@ public class Parser {
             tasks.createDeadline(userInput.substring(9,slashIndexDeadline),userInput.substring(slashByIndex + 4));
     }
 
+    /**
+     * Process the event command to create a new event task in the task list.
+     * @param userInput The full user input.
+     * @param tasks The list of tasks.
+     * @throws DukeException If user input does not contain "/by" which means the command is invalid
+     */
     public void processEvent(String userInput,TaskList tasks) throws DukeException{
         if(!userInput.contains("/at") || userInput.length()<= 5){
             throw new DukeException("☹ OOPS!!! The description or the date of an event cannot be empty.");
@@ -103,6 +125,12 @@ public class Parser {
         tasks.createEvent(userInput.substring(6,slashIndexEvent),userInput.substring(slashAtIndex+4));
     }
 
+    /**
+     * Process the todo command to create a new todo task in the task list.
+     * @param userInput The full user input
+     * @param tasks The task list.
+     * @throws DukeException If user input only contains "todo" or even shorter which are invalid conditions
+     */
     public void processTodo(String userInput, TaskList tasks) throws DukeException{
         if(userInput.length()<= 4){
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -110,6 +138,11 @@ public class Parser {
         tasks.createTodo(userInput.substring(5));
     }
 
+    /**
+     * Find the task containing user's keyword.
+     * @param keyword The keyword that user type in.
+     * @param tasks The list of tasks.
+     */
     public void findTask(String keyword,TaskList tasks){
 
         if(tasks.searchTask(keyword,tasks).isEmpty()){

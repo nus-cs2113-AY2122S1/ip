@@ -17,10 +17,17 @@ import duke.Ui.Ui;
 
 public class Storage {
 
+    /**
+     * Default constructor.
+     */
     public Storage(){
 
     }
 
+    /**
+     * Save the task list as .txt file.
+     * @param tasks The list of tasks.
+     */
     public static void saveFile(TaskList tasks){
         File saveDirection = new File("data");
         saveDirection.mkdir();
@@ -45,6 +52,10 @@ public class Storage {
 
     }
 
+    /**
+     * Open the task list that user saved last time.
+     * @param tasks The list of tasks.
+     */
     public static void openTaskFromFile(TaskList tasks){
         File saveDirection = new File("data");
         saveDirection.mkdir();
