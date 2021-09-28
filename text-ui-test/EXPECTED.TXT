@@ -1,7 +1,44 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
+ ____        _
+|  _ \ _   _| | _____
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
-
+	__________________________________________________
+	Hello! I'm Duke, your friendly agenda chatbot!
+	Is there anything I can do for you today?
+	__________________________________________________
+	__________________________________________________
+	Added todo: Wei Yin: Answer CS2113 Tutorial Questions
+	__________________________________________________
+	__________________________________________________
+	Added deadline: weekly 2113 quiz (by: Monday)
+	__________________________________________________
+	__________________________________________________
+	 Here are the tasks in your list:
+	1. [T][ ] Wei Yin: Answer CS2113 Tutorial Questions
+	2. [D][ ] weekly 2113 quiz (by: Monday)
+	__________________________________________________
+	__________________________________________________
+	Hey bud, the command you printed is invalid.
+	Here's some examples of valid commands:
+	- todo Read book
+	- event Book club /at Monday 2pm
+	- deadline Return book /by Friday
+	__________________________________________________
+	__________________________________________________
+	Added event: CS2113 lecture (at: Friday 4 to 6 pm)
+	__________________________________________________
+	__________________________________________________
+	Nice! You completed this task:
+	  [X] Wei Yin: Answer CS2113 Tutorial Questions
+	__________________________________________________
+	__________________________________________________
+	 Here are the tasks in your list:
+	1. [T][X] Wei Yin: Answer CS2113 Tutorial Questions
+	2. [D][ ] weekly 2113 quiz (by: Monday)
+	3. [E][ ] CS2113 lecture (at: Friday 4 to 6 pm)
+	__________________________________________________
+	__________________________________________________
+	Bye. Have a productive day!
+	__________________________________________________
