@@ -145,7 +145,8 @@ Prints all tasks in the task list.
 **Arguments:**
 None
 
-**Format:** `list`
+**Format:** 
+- `list`
 
 **Example of usage:**
 
