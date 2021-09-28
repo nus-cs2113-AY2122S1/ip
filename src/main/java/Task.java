@@ -25,8 +25,8 @@ public abstract class Task {
 
     public void markAsDone() {
         isDone = true;
-        System.out.print(Duke.INDENT + "Nice! I've marked this task as done: " +
-                Duke.LINE_SEPARATOR_AND_INDENT + " ");
+        System.out.print(Ui.INDENT + "Nice! I've marked this task as done: " +
+                Ui.LINE_SEPARATOR_AND_INDENT + " ");
         System.out.println(this);
     }
 
