@@ -1,6 +1,6 @@
 # User Guide
 
-Duke is a *desktop app for managing your tasks, optimized for use via a Command Line Interface* (CLI). If you can type
+Duke is a **desktop app for managing your tasks, optimized for use via a Command Line Interface** (CLI). If you can type
 fast, Duke can get your task management done faster than traditional GUI apps. It is the perfect app for busy people!
 
 1. Features
@@ -16,7 +16,7 @@ fast, Duke can get your task management done faster than traditional GUI apps. I
 ## Features
 
 
-####Command format:
+**Command format:**
 
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. (eg. `todo` `TASK_DESCRIPTION`, `TASK_DESCRIPTION` is 
