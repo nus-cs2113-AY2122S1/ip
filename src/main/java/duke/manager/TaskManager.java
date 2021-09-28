@@ -25,6 +25,8 @@ public class TaskManager {
     public static final String COMMAND_LIST = "list";
     public static final String DELIMITER_SPACE = " ";
     public static final String DELIMITER_SLASH = "/";
+    public static final String DELIMITER_EVENT = "/at";
+    public static final String DELIMITER_DEADLINE = "/by";
 
 
     /**
