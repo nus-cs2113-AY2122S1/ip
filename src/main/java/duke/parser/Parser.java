@@ -33,11 +33,11 @@ public class Parser {
     private static final String COMMAND_FIND = "find";
 
     /**
-     * Returns the corresponding command object (to be executed) based
+     * Returns the corresponding Command object (to be executed) based
      * on user input.
      *
      * @param line The user input.
-     * @return A command object corresponding to the user input.
+     * @return A Command object corresponding to the user input.
      * @throws DukeException If the user input is not a valid command.
      */
     public Command execute(String line) throws DukeException {
