@@ -7,7 +7,6 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class TaskList {
 
@@ -96,17 +95,4 @@ public class TaskList {
         }
         Ui.printHorizontalLine();
     }
-
-    public static void findTask(String inputCommand, ArrayList<Task> tasks){
-        String taskDescriptionToFind = inputCommand.substring(5);
-        ArrayList<Task> filteredTask = (ArrayList<Task>) tasks.stream()
-                .filter((task) -> task.getDescription().toLowerCase().contains(taskDescriptionToFind))
-                .collect(Collectors.toList());
-        if(filteredTask.isEmpty()){
-            System.out.println("I cannot find any matching tasks");
-        }
-        Ui.printFilteredList(filteredTask);
-    }
-
-
 }
