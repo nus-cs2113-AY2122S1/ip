@@ -60,20 +60,20 @@ and press `Enter` on your keyboard to execute the command.
 ### 2. 1 Viewing help : `help`
 Displays all commands available for the Duke application. 
 
-Format: `help`
+**Format:** `help`
 
 ### 2.2 Adding a task:
 ### 2.2.1 Todo: `todo`
 Adds a **todo** task to the tasklist.
 
-Format: `todo [description]`
+**Format:** `todo [description]`
 - `[description]` specifies the details of the todo.
 
-Example: `todo read book`
+**Example:** `todo read book`
 - Adds a todo task with description `read book` to the tasklist.
 - Specifies new number of tasks in tasklist.
 
-Expected Outcome:
+**Expected Outcome:**
 ```
 [You]:
 => todo read book
@@ -87,15 +87,15 @@ Expected Outcome:
 ### 2.2.2 Deadline: `deadline`
 Adds a **deadline** task to the tasklist.
 
-Format: `deadline [description] /by [due date]`
+**Format:** `deadline [description] /by [due date]`
 - `[description]` specifies the details of the deadline.
 - `[due date]` specifies when the deadline is due.
 
-Example: `deadline return book /by June 6th`
+**Example:** `deadline return book /by June 6th`
 - Adds a deadline task with description `return book` and due date `June 6th` to the tasklist.
 - Specifies new number of tasks in tasklist.
 
-Expected Outcome:
+**Expected Outcome:**
 ```
 [You]:
 => deadline return book /by June 6th
@@ -109,15 +109,15 @@ Expected Outcome:
 ### 2.2.3 Event: `event`
 Adds a **event** task to the tasklist.
 
-Format: `event [description] /at [occurence]`
+**Format:** `event [description] /at [occurence]`
 - `[description]` specifies the details of the event.
 - `[occurence]` specifies when the event occurs.
 
-Example: `event project meeting /at Aug 6th 2-4pm`
+**Example:** `event project meeting /at Aug 6th 2-4pm`
 - Creates an event task with description `project meeting` and occurs at `Aug 6th 2-4pm` to the tasklist.
 - Specifies new number of tasks in tasklist.
 
-Expected Outcome:
+**Expected Outcome:**
 ```
 [You]:
 => event project meeting /at Aug 6th 2-4pm
@@ -131,15 +131,15 @@ Expected Outcome:
 ### 2.3 Listing all tasks: `list`
 Lists all tasks in the tasklist.
 
-Format: `list`
+**Format:** `list`
 - The command displays the following information for each task:
   - **Task id**: 
     - A positive integer i.e. `1.` to identify the task
   - **Task type**:
-    - A task can be either **Todo, Deadline or Event** and is represented with the first letter of their task type
-    - `[T]` represents a **Todo**
-    - `[D]` represents a **Deadline**
-    - `[E]` represents a **Event**
+    - A task can be either Todo, Deadline or Event and is represented with the first letter of their task type
+    - `[T]` represents a Todo
+    - `[D]` represents a Deadline
+    - `[E]` represents a Event
   - **Whether the task is done**:
     - A completed task is identified as `[X]`
     - An incomplete task is identified as `[ ]`
@@ -147,7 +147,7 @@ Format: `list`
     - General details of the task
 - And specifies number of completed tasks.
 
-Expected Outcome:
+**Expected Outcome:**
 ```
 [You]:
 => list
@@ -163,16 +163,16 @@ Expected Outcome:
 ### 2.4 Marking a task as done: `done`
 Marks an existing task in the tasklist as done.
 
-Format: `done [task ID]`
+**Format:** `done [task ID]`
 - Mark a task with the specified `[task ID]` as done.
 - The task ID refers to the index number shown in the displayed tasklist when the `list` command is entered.
 - The task ID **must be a positive integer 1, 2, 3...**
 
-Example: `done 1`
+**Example:** `done 1`
 - Marks the task with task ID equals to `1` as done in the tasklist.
 - Specifies number of completed tasks.
 
-Expected Outcome:
+**Expected Outcome:**
 ```
 [You]:
 => done 1
@@ -186,16 +186,16 @@ Expected Outcome:
 ### 2.5 Deleting a task: `delete`
 Deletes an existing task in the tasklist.
 
-Format: `delete [task ID]`
+**Format:** `delete [task ID]`
 - Deletes a task with the specified `[task ID]`.
 - The task ID refers to the index number shown in the displayed tasklist when the `list` command is entered.
 - The task ID **must be a positive integer 1, 2, 3...**
 
-Example: `delete 1`
+**Example:** `delete 1`
 - Deletes the task with task ID equals to `1` in the tasklist.
 - Specifies new number of tasks in tasklist.
 
-Expected Outcome:
+**Expected Outcome:**
 ```
 [You]:
 => delete 1
@@ -209,17 +209,17 @@ Expected Outcome:
 ### 2.6 Finding a task with a keyword: `find`
 Find tasks whose description contains a given keyword.
 
-Format: `find [keyword]`
+**Format:** `find [keyword]`
 - The search is case-sensitive. e.g. `book` will not match `Book`
 - The order of the keywords matter. e.g. `return book` will not match `book return`
 - The keyword will match substrings. e.g. `oo` will match with `book`
 - Only the task description is searched.
 
-Example: `find book`
+**Example:** `find book`
 - Finds all tasks that contains the substring `book` in their task description.
 - Specifies number of successful search results returned.
 
-Expected Outcome:
+**Expected Outcome:**
 ```
 [You]:
 => find book
@@ -234,9 +234,9 @@ Expected Outcome:
 ### 2.7 Exiting the program: `bye`
 Displays goodbye message and exits the program.
 
-Format: `bye`
+**Format:** `bye`
 
-Expected Outcome:
+**Expected Outcome:**
 ```
 [You]:
 => bye
@@ -265,14 +265,14 @@ it creates with the `duke.txt` that you wish to transfer from your previous `Duk
 home folder.
 
 ## 4. Command Summary
-Action | Format | Example
---- | --- | --- |
-help | `help` | `help` |
-todo | `todo [description]` | `todo read book` |
-deadline | `deadline [description] /by [due date]` | `deadline return book /by June 6th` |
-event | `event [description] /at [occurence]` | `event project meeting /at Aug 6th 2-4pm` |
-list | `list` | `list` |
-done | `done [task ID]` | `done 1` |
-delete | `delete [task ID]` | `delete 1` |
-find | `find [keyword]` | `find book` |
-bye | `bye` | `bye` |
+Action   | Format                                  | Example                                   |
+-------- | --------------------------------------- | ----------------------------------------- |
+help     | `help`                                  | `help`                                    |
+todo     | `todo [description]`                    | `todo read book`                          |
+deadline | `deadline [description] /by [due date]` | `deadline return book /by June 6th`       |
+event    | `event [description] /at [occurence]`   | `event project meeting /at Aug 6th 2-4pm` |
+list     | `list`                                  | `list`                                    |
+done     | `done [task ID]`                        | `done 1`                                  |
+delete   | `delete [task ID]`                      | `delete 1`                                |
+find     | `find [keyword]`                        | `find book`                               |
+bye      | `bye`                                   | `bye`                                     |
