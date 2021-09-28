@@ -18,6 +18,8 @@ public class Duke {
 
     /**
      * A constructor to initiate Duke.
+     *
+     * @param filepath Filepath when initiating.
      */
     public Duke(String filepath) {
         this.tasksLs = new TaskList(new ArrayList<Task>());

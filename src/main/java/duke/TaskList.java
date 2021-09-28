@@ -77,8 +77,29 @@ public class TaskList {
      * @param command target items (Description or find target).
      * @return target items.
      */
-    public static String getItem(String command) {
-        return command.substring(command.indexOf(" ") + 1);
+    public static String getItem(String command) throws InvalidValueException {
+        String item = "";
+        if (command.contains(" "))
+            item = command.substring((command.indexOf(" ") + 1)).trim();
+        if (item.equals(""))
+            throw new InvalidValueException("You forgot to include Task description");
+        return item;
+    }
+
+    /**
+     * Retrieves keyword from command
+     *
+     * @param command Input from user
+     * @return Keyword required to find
+     * @throws InvalidValueException Whenever user never inputs keywords
+     */
+    public static String getKeyword(String command) throws InvalidValueException {
+        String keyword = "";
+        if (command.contains(" "))
+            keyword = command.substring((command.indexOf(" ") + 1)).trim();
+        if (keyword.equals(""))
+            throw new InvalidValueException("Find: Missing keyword to search, Please Try Again");
+        return keyword;
     }
 
     /**
@@ -91,8 +112,8 @@ public class TaskList {
     public String getDescription(String command) throws InvalidValueException {
         if (!command.contains("/"))
             throw new InvalidValueException("Missing detail demarcator: </by > or </at >");
-        String desc = command.substring(command.indexOf(" ") + 1, command.indexOf("/"));
-        if (desc.trim().equals(""))
+        String desc = command.substring(command.indexOf(" ") + 1, command.indexOf("/")).trim();
+        if (desc.equals(""))
             throw new InvalidValueException("Missing Description in command");
         return desc;
     }

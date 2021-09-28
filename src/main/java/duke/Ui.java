@@ -5,17 +5,17 @@ import duke.task.Task;
 import java.util.ArrayList;
 
 public class Ui {
-    public static final String LOGO = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
-    public static final String LINE = "\t____________________________________________________________\n\t";
+    public static final String LOGO = "\t ____        _        \n"
+            + "\t|  _ \\ _   _| | _____ \n"
+            + "\t| | | | | | | |/ / _ \\\n"
+            + "\t| |_| | |_| |   <  __/\n"
+            + "\t|____/ \\__,_|_|\\_\\___|\n";
+    public static final String LINE = "\t____________________________________________________________\n\t\t";
     public static final String BYE = LINE
             + "Bye. try not to procrastinate!\n"
             + LINE;
     public static final String GREETING = LINE
-            + "Hello! I'm Anderson\n\t"
+            + "Hello! I'm Anderson\n\t\t"
             + "What do you need to do?\n"
             + LINE;
 
@@ -48,7 +48,7 @@ public class Ui {
                     + LINE);
         }
         return (LINE
-                + "Nice, I've marked this task as Done:\n"
+                + "Nice, I've marked this task as Done:\n\t"
                 + "\t\t" + completedTask + "\n"
                 + LINE);
     }
@@ -63,7 +63,7 @@ public class Ui {
      */
     public String deleteMessage(ArrayList<Task> taskList, int taskNumber, Task targetTask) {
         return (LINE + "Noted! I've removed this task:" +
-                String.format("\n\t%d.", taskNumber) + targetTask + String.format("\n\tNow you have %d tasks in the list.\n", taskList.size()) + LINE);
+                String.format("\n\t\t%d.", taskNumber) + targetTask + String.format("\n\t\tNow you have %d tasks in the list.\n", taskList.size()) + LINE);
     }
 
     /***
@@ -81,9 +81,9 @@ public class Ui {
             outputString = (LINE + "Here are the tasks in your list:\n");
             for (Task task : taskList.getList()) {
                 count++;
-                outputString += ("\t" + count + "." + task + "\n");
+                outputString += ("\t\t" + count + "." + task + "\n");
             }
-            outputString += String.format("\n\tAs of now, %d task(s) remain not marked Done.\n", taskList.notDoneCount()) + LINE;
+            outputString += String.format("\n\t\tAs of now, %d task(s) remain not marked Done.\n", taskList.notDoneCount()) + LINE;
         }
         return outputString;
     }
@@ -97,8 +97,8 @@ public class Ui {
     public String acknowledgeAddition(ArrayList<Task> taskArrayList) {
         return (LINE
                 + "Got it. I've added this task:\n"
-                + String.format("\t%d.", taskArrayList.size()) + taskArrayList.get(taskArrayList.size() - 1) + "\n"
-                + String.format("\tNow you have %d tasks in the list.\n", taskArrayList.size())
+                + String.format("\t\t%d.", taskArrayList.size()) + taskArrayList.get(taskArrayList.size() - 1) + "\n"
+                + String.format("\t\tNow you have %d tasks in the list.\n", taskArrayList.size())
                 + LINE);
     }
 
@@ -106,12 +106,14 @@ public class Ui {
         return (LINE +
                 "Here are the list of commands Available in Duke:\n" +
                 LINE +
-                "bye : closes Programme\n\t" +
-                "list : lists out every Task stored in the savefile\n\t" +
-                "todo : Adds a new ToDo to the Task List\n\t" +
-                "deadline : Adds a new Deadline to the Task List\n\t" +
-                "event : Adds a new Event to the Task List\n\t" +
-                "find : Lists all tasks that contains a keyword\n" +
+                "bye : closes Programme\n\t\t" +
+                "list : lists out every Task stored in the savefile\n\t\t" +
+                "todo : Adds a new ToDo to the Task List\n\t\t" +
+                "deadline : Adds a new Deadline to the Task List\n\t\t" +
+                "event : Adds a new Event to the Task List\n\t\t" +
+                "find : Lists all tasks that contains a keyword\n\t\t" +
+                "done : Mark a task as done\n\t\t" +
+                "delete : Delete task from Task List\n" +
                 LINE);
     }
 
@@ -124,6 +126,11 @@ public class Ui {
      */
     public String findResults(String keyword, TaskList taskList) {
         String results = taskList.find(keyword);
+        if (results.equals("")) {
+            return (LINE +
+                    "No description matches [" + keyword + "]:\n" +
+                    LINE);
+        }
         return (LINE +
                 "Find Results of [" + keyword + "]:\n" +
                 results +
@@ -136,9 +143,9 @@ public class Ui {
      * @return Correct format for Date/Time input.
      */
     public String dateTimeFormat() {
-        return ("\t____________________________________________________________\n\t"
+        return (LINE
                 + "Date / Time input format should be: dd/mm/yyyy hhmmss"
-                + "\n\t____________________________________________________________\n\t");
+                + LINE);
     }
 
 }

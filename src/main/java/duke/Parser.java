@@ -219,10 +219,10 @@ public class Parser {
      * @param command Input from user.
      * @return List of all items found with keyword.
      */
-    public String parseFind(String command) {
+    public String parseFind(String command) throws InvalidValueException {
         if (taskList.getList().size() == 0)
             return ui.printList(taskList);
-        String keyword = TaskList.getItem(command);
+        String keyword = TaskList.getKeyword(command);
         return ui.findResults(keyword, taskList);
     }
 }
