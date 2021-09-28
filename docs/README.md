@@ -1,6 +1,6 @@
 # User Guide
 
-Duke is an application for users to manage and track Tasks via a Command Line Interface (CLI). Duke is built with data persistence, meaning data is stored such that information is not lost between sessions.
+Duke is an application for users to manage and track Tasks via a Command Line Interface (CLI). It is useful for users that wish to have an organized and consolidated view of list of things that you plan to do. Duke is also built with data persistence, meaning data is stored such that information is not lost between sessions.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
