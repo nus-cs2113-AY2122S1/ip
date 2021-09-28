@@ -61,15 +61,15 @@ public class FileReader {
             String[] split = taskLine.split("\\|");
             switch(split[0].strip()) {
             case "T" :
-                return new Todo(split[2].strip(), split[1].strip().equals("1"));
+                return new Todo(split[2].strip(), split[1].strip().equals("true"));
 
             case "D":
                 return new Deadline(split[2].strip(), LocalDateTime.parse(split[3].strip()).toLocalDate(),
-                        LocalDateTime.parse(split[3].strip()).toLocalTime(), split[1].strip().equals("1"));
+                        LocalDateTime.parse(split[3].strip()).toLocalTime(), split[1].strip().equals("true"));
 
             case "E":
                 return new Event(split[2].strip(), LocalDateTime.parse(split[3].strip()),
-                        split[1].strip().equals("1"));
+                        split[1].strip().equals("true"));
 
             default:
                 return null;
