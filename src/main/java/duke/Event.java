@@ -1,6 +1,9 @@
 package duke;
 import duke.Task;
 
+/**
+ * An Event subclass similar to the Task class with its own getTask method
+ */
 public class Event extends Task {
     public static final String MARK_IS_EVENT = "[E]";
     public Event(String event){

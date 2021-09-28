@@ -1,9 +1,9 @@
 package duke;
 
+/**
+ * A class the display the Ui messages to users.
+ */
 public class Ui {
-    /**
-     * Show the "Duke" logo and some greeting-message
-     */
     public static void showWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
