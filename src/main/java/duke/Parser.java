@@ -1,7 +1,15 @@
 package duke;
 
+/**
+ * This class deals with making sense of the user command and calling the necessary methods to execute the user command
+ */
 public class Parser {
 
+    /**
+     * This method determines what command the User inputs and calls the necessary methods and creates the necessary Task objects
+     * to be stored in the Task ArrayList
+     * @param command The input from the User
+     */
     public static void distinguishCommand(String command) {
         //split into word array
         String[] words = command.split(" ");

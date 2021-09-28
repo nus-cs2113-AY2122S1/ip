@@ -1,6 +1,8 @@
 package duke;
 
-
+/**
+ * Represents the various messages that will be shown to the User
+ */
 public class Ui {
 
     public void showWelcomeMessage() {

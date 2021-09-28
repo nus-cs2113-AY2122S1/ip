@@ -9,17 +9,21 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
 
-
-    //constructor for duke class
+    /**
+     * Constructor class for Duke
+     * Initialises a UI, Storage and TaskList class for Duke
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage();
         tasks = new TaskList(storage.load());
-        //if method is static, other class cannot call it. But why?
 
     }
 
-
+    /**
+     * Takes in user input repeatedly
+     * If user inputs "bye", the program is terminated
+     */
     public void run() {
         ui.showWelcomeMessage();
 

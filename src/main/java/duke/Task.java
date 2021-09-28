@@ -1,5 +1,10 @@
 package duke;
 
+/**
+ * Represents a task
+ * A task object stores 2 characteristics: a description, and whether it is completed
+ * Task class is inherited by 3 other classes Todos, Events, and Deadlines class
+ */
 public class Task {
 
     //variables
@@ -26,6 +31,9 @@ public class Task {
     }
 
     //other methods
+    /**
+     * @return String representation of the Task in the format [ ] description
+     */
     @Override
     public String toString() {
         if(getDone()) {

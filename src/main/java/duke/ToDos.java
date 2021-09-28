@@ -1,7 +1,10 @@
 package duke;
 
-import duke.Task;
 
+/**
+ * Represents an activity that is not time sensitive
+ * A Todos object stores 2 characteristics: a description, and whether it is completed
+ */
 public class ToDos extends Task {
 
     //variables
@@ -9,6 +12,9 @@ public class ToDos extends Task {
         super(description);
     }
 
+    /**
+     * @return String representation of the Todos in the format [T][ ] description
+     */
     //methods
     @Override
     public String toString() {
