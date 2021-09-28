@@ -1,4 +1,4 @@
-#Austin User Guide
+# Austin User Guide
 
 Hi! Austin is a **Command Line Interface(CLI)**, friendly chat-bot
 application which helps the user in keeping track and scheduling todos, 
