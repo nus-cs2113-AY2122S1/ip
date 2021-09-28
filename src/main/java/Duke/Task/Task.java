@@ -1,7 +1,6 @@
 package Duke.Task;
 
 public class Task {
-    protected static final String DATE_FORMAT = "MMM dd yyyy";
     protected boolean isDone;
     protected String description;
     private int id;

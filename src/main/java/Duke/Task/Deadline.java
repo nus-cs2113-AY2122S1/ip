@@ -29,7 +29,7 @@ public class Deadline extends Task{
 
     @Override
     public String getDescription() {
-        return description + " (By: " + date.format(DateTimeFormatter.ofPattern(Task.DATE_FORMAT)) + " " + time.format(DateTimeFormatter.ofPattern("h:mm a")) + ")";//"%s (By:%s)", description, when);
+        return description + " (By: " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " " + time.format(DateTimeFormatter.ofPattern("h:mm a")) + ")";//"%s (By:%s)", description, when);
     }
     @Override
     public String getTaskIcon() {
