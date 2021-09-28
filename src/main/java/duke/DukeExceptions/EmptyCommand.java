@@ -2,7 +2,7 @@ package duke.DukeExceptions;
 
 public class EmptyCommand extends DukeException {
 
-    public String printMessage() {
+    public String toString() {
         return ("\t____________________________________________________________\n" +
                 "\tNo command detected. Command was empty :)\n" +
                 "\t____________________________________________________________\n" +

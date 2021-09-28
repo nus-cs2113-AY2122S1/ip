@@ -16,7 +16,7 @@ public class InvalidCommandException extends DukeException {
                 + errorMessage
                 + "\n\t____________________________________________________________\n\t");
     }
-    public String printMessage() {
+    public String toString() {
         return (this.thisError);
     }
 }

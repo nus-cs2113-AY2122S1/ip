@@ -1,18 +1,16 @@
 package duke;
 
-import duke.DukeExceptions.DukeException;
-import duke.DukeExceptions.EmptyCommand;
-import duke.DukeExceptions.InvalidCommandException;
-import duke.DukeExceptions.InvalidValueException;
+import duke.DukeExceptions.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     private TaskList taskList;
     private Ui ui;
-    private String[] command;
 
     Parser(TaskList taskList, Ui ui) {
         this.taskList = taskList;
@@ -23,7 +21,7 @@ public class Parser {
         try {
             if (userInput.trim().equals(""))
                 throw new EmptyCommand();
-            command = userInput.split(" ");
+            String[] command = userInput.split(" ");
             switch (command[0].trim().toLowerCase()) {
             case "help":
                 return parseHelp();
@@ -46,8 +44,8 @@ public class Parser {
             default:
                 throw new InvalidCommandException();
             }
-        } catch (DukeException e) {
-            return e.printMessage();
+        } catch (DukeException | DateTimeParseException e) {
+            return e.toString();
         }
     }
     public String parseHelp() {

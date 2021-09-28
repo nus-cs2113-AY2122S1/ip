@@ -45,10 +45,8 @@ public class Duke {
                 System.out.println(parsed);
                 storage.autoSave(tasksLs.getList());
                 closeDuke = input.trim().equals("bye");
-            } catch (InvalidCommandException e) {
-                System.out.println(e.printMessage());
-            } catch (EmptyCommand e) {
-                System.out.println(e.printMessage());
+            } catch (InvalidCommandException | EmptyCommand e) {
+                System.out.println(e);
             }
         } while (!closeDuke);
     }

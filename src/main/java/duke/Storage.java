@@ -80,7 +80,7 @@ public class Storage {
             if (task != null) {
                 String completionStatus = task.isDone() ? "1" : "0";
                 dukeUpdate = dukeUpdate + task.getType() + " | " + completionStatus + " | " + task.getTask();
-                dukeUpdate = (task instanceof Deadline || task instanceof Event) ? dukeUpdate + " | " + task.getTime() : dukeUpdate;
+                dukeUpdate = (task instanceof Deadline || task instanceof Event) ? dukeUpdate + " | " + task.getMoreDetails() : dukeUpdate;
                 dukeUpdate = dukeUpdate + "\n";
             }
         }
