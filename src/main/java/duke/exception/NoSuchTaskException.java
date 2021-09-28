@@ -5,7 +5,6 @@ public class NoSuchTaskException extends Exception {
 
     public void printNoSuchTaskException() {
         System.out.println(MESSAGE_DIVIDER);
-        System.out.println("⚠️ no such active mission exists - try \"done (task number)\", Hero. ⚠️");
-        System.out.println(MESSAGE_DIVIDER);
+        System.out.println("⚠️ no such active mission exists - try again, Hero. ⚠️");
     }
 }

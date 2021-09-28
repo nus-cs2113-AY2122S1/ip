@@ -17,6 +17,7 @@ public class Parser {
         "list" ,
         "done" ,
         "delete",
+        "find",
         "bye"
     };
 
@@ -124,6 +125,9 @@ public class Parser {
                 } else {
                     throw new NoSuchTaskException();
                 }
+            } else if (line.startsWith("find")) {
+                String[] keyword = line.split(" ");
+                TaskList.findTask(keyword[1],tasks);
             } if (!line.startsWith("bye")) {
                 Ui.printService();
             }
@@ -148,6 +152,8 @@ public class Parser {
             noSuchTaskException.printNoSuchTaskException();
         }
     }
+
+
 
     public static LocalDateTime parseDateTime(String deadlineDate, String format) {
         DateTimeFormatter properFormat = DateTimeFormatter.ofPattern(format);

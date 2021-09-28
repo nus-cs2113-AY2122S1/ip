@@ -1,1 +1,4 @@
 [D][ ] increment (by: Oct 01 2021 6.00PM) 
+[T][ ] increment      
+[T][ ] class later      
+[T][ ] drink water     
