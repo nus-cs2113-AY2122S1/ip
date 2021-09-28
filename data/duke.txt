@@ -1,10 +1,1 @@
-D||false||you ||2021-07-06
-T||false||dine 
-E||false||assmble bike ||oct 5
-<<<<<<< HEAD
-E||false||take book ||tue
-D||false||but book ||tomorrow
-T||false||get book
-=======
-D||false||quiz ||1991-12-31
->>>>>>> master
+
