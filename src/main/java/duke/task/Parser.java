@@ -3,7 +3,6 @@ package duke.task;
 import duke.DukeException;
 
 public class Parser {
-
     private static final String FAREWELL = "     Bye. Hope to see you again soon!";
     private static final String TO_DO = "todo";
     private static final String DEADLINE = "deadline";
@@ -12,9 +11,10 @@ public class Parser {
     private static final String LIST = "list";
     private static final String DONE = "done";
     private static final String DELETE = "delete";
+    private static final String FIND = "find";
     private static final String ADD_SUCCESS = "     Nice! I've marked this task as done: ";
     private static final String DELETE_SUCCESS = "     Noted. I've removed this task:";
-
+    private static final String SHOW_MATCHES = "     Here are the matching tasks in your list:";
 
     public static boolean parse(String input) {
         String[] params = input.split(" ");
@@ -42,6 +42,11 @@ public class Parser {
                 System.out.println(DELETE_SUCCESS);
                 TaskManager.deleteTask(params);
                 break;
+            case FIND:
+                System.out.println(SHOW_MATCHES);
+                String query = params[1];
+                TaskManager.find(query);
+                break;
             default:
                 System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -52,6 +57,4 @@ public class Parser {
         }
         return false;
     }
-
-
 }
