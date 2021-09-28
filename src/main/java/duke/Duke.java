@@ -50,7 +50,7 @@ public class Duke {
             } catch (NumberFormatException e) {
                 Ui.printNumberFormatExceptionMessage();
             } catch (DukeException e) {
-                //Catching DukeException errors
+                // DukeException errors will be printed 
             } catch (IOException e) {
                 Ui.printIOExceptionMessage();
             } catch (DateTimeParseException e) {
