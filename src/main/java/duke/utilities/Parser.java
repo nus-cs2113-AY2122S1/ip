@@ -1,19 +1,15 @@
 package duke.utilities;
 
-import duke.commands.ByeCommand;
-import duke.commands.Command;
-import duke.commands.DeadlineCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.DoneCommand;
-import duke.commands.EventCommand;
-import duke.commands.HelpCommand;
-import duke.commands.ListCommand;
-import duke.commands.ToDoCommand;
+import duke.Duke;
+import duke.commands.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+/**
+ * Makes sense of the user inputs and returns the required commands for subsequent executions
+ */
 public class Parser {
 
     /**
@@ -22,59 +18,99 @@ public class Parser {
     private static final String ENTRY_AT = "/at";
     private static final String ENTRY_BY = "/by";
     private static final String SPACING = " ";
+    private static final String ERROR_FORMAT_INVALID = "Command format is invalid. Please try again.";
+    private static final String SAVE_AT = "(at:";
+    private static final String SAVE_BY = "(by:";
     private static final int COUNT_SPACE = 1;
 
 
     private static boolean checkAtEntry(String entry) {
-        if (entry.equals(ENTRY_AT) || entry.equals("(at:")) {
+        if (entry.equals(ENTRY_AT) || entry.equals(SAVE_AT)) {
             return true;
         }
         return false;
     }
 
     private static boolean checkByEntry(String entry) {
-        if (entry.equals(ENTRY_BY) || entry.equals("(by:")) {
+        if (entry.equals(ENTRY_BY) || entry.equals(SAVE_BY)) {
             return true;
         }
         return false;
     }
 
     /**
-     * Scans for the command (keyword)
+     * Scans for the command
      *
      * @param input input of user
      * @return the command to be executed
+     * @throws DukeException when the format is invalid
      */
-    public static String scanCommand(String input) {
+    public static String scanCommand(String input) throws DukeException {
         String[] words = input.toLowerCase().split(SPACING);
-        return words[0];
-    }
+        String command = words[0];
 
-    public static Command getCommand(String input, Ui ui) {
+        boolean isInvalid = words.length <= 1
+                && !command.equals(ByeCommand.COMMAND_WORD)
+                && !command.equals(ListCommand.COMMAND_WORD)
+                && !command.equals(HelpCommand.COMMAND_WORD);
 
-        String commandWord = scanCommand(input);
-
-        switch(commandWord) {
-        case ByeCommand.COMMAND_WORD:
-            return new ByeCommand();
-        case DeadlineCommand.COMMAND_WORD:
-            return new DeadlineCommand();
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommand();
-        case DoneCommand.COMMAND_WORD:
-            return new DoneCommand();
-        case EventCommand.COMMAND_WORD:
-            return new EventCommand();
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-        case ToDoCommand.COMMAND_WORD:
-            return new ToDoCommand();
-        case HelpCommand.COMMAND_WORD:
-        default:
-            return new HelpCommand();
+        //Guard for invalid command format
+        if (isInvalid) {
+            System.out.println(command);
+            throw new DukeException(ERROR_FORMAT_INVALID);
         }
+
+        return command;
     }
 
+    /**
+     * Retrieves the command to execute for a given input by the user
+     *
+     * @param input Input of user
+     * @return The Command class that executes its respective function
+     */
+    public static Command getCommand(String input) {
+
+        try {
+            String commandWord = scanCommand(input);
+
+            switch (commandWord) {
+            case ByeCommand.COMMAND_WORD:
+                return new ByeCommand();
+            case DeadlineCommand.COMMAND_WORD:
+                return new DeadlineCommand();
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommand();
+            case DoneCommand.COMMAND_WORD:
+                return new DoneCommand();
+            case EventCommand.COMMAND_WORD:
+                return new EventCommand();
+            case FindCommand.COMMAND_WORD:
+                return new FindCommand();
+            case ListCommand.COMMAND_WORD:
+                return new ListCommand();
+            case ToDoCommand.COMMAND_WORD:
+                return new ToDoCommand();
+            case HelpCommand.COMMAND_WORD:
+            default:
+                return new HelpCommand();
+            }
+        } catch (DukeException dukeE) {
+            System.out.println(ERROR_FORMAT_INVALID);
+        }
+
+        //defaults to help
+        return new HelpCommand();
+    }
+
+    /**
+     * Converts the type of task into the one defined by the user
+     *
+     * @param input Input by user
+     * @param type Type to be converted to
+     * @return Task of the correct type for storing
+     * @throws DukeException If the given input has an invalid format
+     */
     public static Task getTaskType(String input, String type) throws DukeException {
         Task temp = new Task("");
         switch (type) {
@@ -103,31 +139,26 @@ public class Parser {
      * @return either the due date of deadline or event time
      */
     public static String getTimeOfEvent(String input, boolean isSavingInput) throws DukeException {
-        int startIdx = getStartIdx(input, isSavingInput) + COUNT_SPACE;
+        int startIdx = getTimeStartIdx(input, isSavingInput) + COUNT_SPACE;
         int endIdx = isSavingInput ? input.length() - 1 : input.length();
         String timeOfEvent = input.substring(startIdx, endIdx);
         return timeOfEvent;
+
     }
 
-    private static int getStartIdx(String input, boolean isSavingInput) throws DukeException {
+    private static int getTimeStartIdx(String input, boolean isSavingInput) throws DukeException {
         String[] words = input.split(SPACING);
         // Accounting for space and semicolon
         int startIdx = isSavingInput ? 1 : 0;
-        for (int i = 0; i < words.length; i++) {
-            if (i == words.length - 1) {
-                throw new DukeException("No description found!");
-            }
 
-            if (checkAtEntry(words[i])) {
+        for (String word : words) {
+            if (checkAtEntry(word) || checkByEntry(word)) {
                 startIdx += ENTRY_AT.length();
                 break;
-            } else if (checkByEntry(words[i])) {
-                startIdx += ENTRY_BY.length();
-                break;
             }
-
-            startIdx += words[i].length() + COUNT_SPACE;
+            startIdx += word.length() + COUNT_SPACE;
         }
+
         return startIdx;
     }
 
@@ -137,33 +168,41 @@ public class Parser {
      * @param input input of the user
      * @return description of task
      */
-    public static String getDescription(String input, boolean isSavingFile) throws DukeException, StringIndexOutOfBoundsException {
+    public static String getDescription(String input, boolean isSavingFile) throws DukeException {
         String[] words = input.split(SPACING);
-
-        boolean isMissingDescription = (words.length <= 1 && !isSavingFile);
-
-        if (isMissingDescription) {
-            throw new DukeException("No description found!");
-        }
 
         int spaceCount = 1;
 
         // If saving the file, we can start from the start and need not account for the command
         int startIdx = isSavingFile ? 0 : words[0].length() + spaceCount;
+        int endIdx = getDescEndIdx(words, spaceCount);
+
+        if (startIdx >= endIdx ) {
+            throw new DukeException("Missing description");
+        }
+
+        return input.substring(startIdx, endIdx);
+    }
+
+    private static int getDescEndIdx(String[] words, int spaceCount) {
         int endIdx = 0;
-
-        for (int i = 0; i < words.length; i++) {
-
-            // true if /by or (by: ...) is detected
-            boolean isEndOfDescription = (words[i].charAt(0) == '/' || words[i].charAt(0) == '(');
+        for (String word : words) {
+            boolean isEndOfDescription = (checkAtEntry(word) || checkByEntry(word));
             if (isEndOfDescription) {
                 break;
             }
-            endIdx += words[i].length() + spaceCount;
+            endIdx += word.length() + spaceCount;
         }
-        return input.substring(startIdx, endIdx - spaceCount);
+        return endIdx - spaceCount;
     }
 
+    /**
+     * Parses the task into a string for storing
+     *
+     * @param task The task to be stored
+     * @return The string that is stored in data
+     * @throws DukeException Unlikely but in case there is an error in the given Task
+     */
     public static String parseLineForSaving(Task task) throws DukeException {
         String timeOfEvent = new String();
         String command = new String();
