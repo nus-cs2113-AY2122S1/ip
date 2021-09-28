@@ -5,6 +5,8 @@ import karlett.task.Event;
 import karlett.task.Task;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class TaskListDecoder {
@@ -36,11 +38,16 @@ public class TaskListDecoder {
         } else {
             indexOfDelimeter = task.indexOf('|', 8);
             taskDescription = task.substring(8, indexOfDelimeter).trim();
-            String time = task.substring(indexOfDelimeter + 1).trim();
+            String time = task.substring(indexOfDelimeter + 1)
+                    .trim().replace('T', ' ');
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+
+            LocalDateTime taskTime = LocalDateTime.parse(time, formatter);
+
             if (taskType == 'D') {
-                tasks.add(tasks.size(), new Deadline(taskDescription, time, isDone));
+                tasks.add(tasks.size(), new Deadline(taskDescription, taskTime, isDone));
             } else {
-                tasks.add(tasks.size(), new Event(taskDescription, time, isDone));
+                tasks.add(tasks.size(), new Event(taskDescription, taskTime, isDone));
             }
         }
         return tasks;

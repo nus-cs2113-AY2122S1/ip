@@ -1,12 +1,17 @@
 package karlett.task;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    public String getAt() {
-        return at;
-    }
+    private LocalDateTime at;
 
-    protected String at;
+    public String getAt() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        return at.format(formatter);
+    }
 
     /**
      * Return an event object, setting its task
@@ -16,7 +21,7 @@ public class Event extends Task {
      * @param description details of an event
      * @param at time of the event
      */
-    public Event(String description, String at) {
+    public Event(String description, LocalDateTime at) throws IOException {
         this.description = description;
         this.isDone = false;
         this.at = at;
@@ -31,7 +36,7 @@ public class Event extends Task {
      * @param at time of the event
      * @param isDone task status of the event
      */
-    public Event(String description, String at, boolean isDone) {
+    public Event(String description, LocalDateTime at, boolean isDone) throws IOException {
         this.description = description;
         this.isDone = isDone;
         this.at = at;
@@ -39,6 +44,12 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E] [" + this.getStatusIcon() + "] " + this.getDescription() + " (at: " + at + ")";
+        return "[E] [" + this.getStatusIcon() + "] "
+                + this.getDescription()
+                + " (at: " + this.getAt() + ")";
+    }
+
+    public boolean isOnTheDay(LocalDateTime time) {
+        return time.equals(at);
     }
 }

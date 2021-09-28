@@ -5,6 +5,9 @@ import karlett.tasklist.TaskList;
 import karlett.ui.TextUi;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 public class Parser {
@@ -22,8 +25,8 @@ public class Parser {
         userInput = userInput.trim();
         String[] userInputInWords = userInput.split(" ");
         String command = userInputInWords[0];
-        String[] arguments = {};
-        arguments = Arrays.copyOfRange(userInputInWords, 1, userInputInWords.length);
+        String[] arguments = Arrays.copyOfRange
+                (userInputInWords, 1, userInputInWords.length);
         String taskDescription;
         String[] taskDescriptionInWords;
 
@@ -63,10 +66,18 @@ public class Parser {
             /*-----------------------valid input cases------------------------*/
             taskDescriptionInWords = Arrays.copyOf(arguments, indexOfBy);
             taskDescription = String.join(" ", taskDescriptionInWords);
-            String[] taskDeadlineWords = Arrays.copyOfRange(arguments,
+            String[] taskDeadlineInWords = Arrays.copyOfRange(arguments,
                     indexOfBy + 1, arguments.length);
-            String taskDeadline = String.join(" ", taskDeadlineWords);
-            return new AddCommand(command, taskDescription, taskDeadline);
+
+            String taskDeadlineInString = String.join(" ", taskDeadlineInWords);
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            try {
+                LocalDateTime taskDeadline = LocalDateTime.parse(taskDeadlineInString, inputFormatter);
+                return new AddCommand(command, taskDescription, taskDeadline);
+            } catch (DateTimeParseException e) {
+                ui.printIncorrectTimeFormat();
+                break;
+            }
         case "event":
             if (arguments.length == 0) {
                 ui.printEmptyTaskErrorMessage();
@@ -95,42 +106,45 @@ public class Parser {
             /*-----------------------valid input cases------------------------*/
             taskDescriptionInWords = Arrays.copyOf(arguments, indexOfAt);
             taskDescription = String.join(" ", taskDescriptionInWords);
-            String[] taskTimeWords = Arrays.copyOfRange(arguments,
+            String[] taskTimeInWords = Arrays.copyOfRange(arguments,
                     indexOfAt + 1, arguments.length);
-            String taskTime = String.join(" ", taskTimeWords);
-            return new AddCommand(command, taskDescription, taskTime);
+            String taskTimeInString = String.join(" ", taskTimeInWords);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            try {
+                LocalDateTime taskTime = LocalDateTime.parse(taskTimeInString, formatter);
+                return new AddCommand(command, taskDescription, taskTime);
+            } catch (DateTimeParseException e) {
+                ui.printIncorrectTimeFormat();
+                break;
+            }
         case "list":
-            /*if (arguments.length != 0) {
-                ui.printPendingConfirmationToListMessage();
-                String userConfirmation = in.nextLine().toLowerCase(Locale.ROOT);
-                if (userConfirmation.equals("y")) {
-                    return new ListCommand();
-                }
-                return new
-            }*/
             return new ListCommand();
+        case "on":
+            String[] inputTimeInWords = Arrays.copyOfRange(arguments, 0, arguments.length);
+            String inputTimeInString = String.join(" ", inputTimeInWords);
+            DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            try {
+                LocalDateTime time = LocalDateTime.parse(inputTimeInString, inputTimeFormatter);
+                return new OnCommand(time);
+            } catch (DateTimeParseException e) {
+                ui.printIncorrectTimeFormat();
+                break;
+            }
+        case "find":
+            if (arguments.length == 0) {
+                ui.printEmptyKeywordMessage();
+                break;
+            }
+            if (arguments.length >1) {
+                ui.printInvalidKeywordMessage();
+                break;
+            }
+            String keyWord = arguments[0];
+            return new FindCommand(keyWord);
         case "done":
-            try {
-                int index = Integer.parseInt(arguments[0]);
-                return new DoneCommand(index);
-            } catch (NumberFormatException ex) {
-                ui.printDoneFormatErrorMessage();
-                break;
-            } catch (IndexOutOfBoundsException ex) {
-                ui.printOutOfBoundErrorMessage(tasks);
-                break;
-            }
+            return new DoneCommand(Integer.parseInt(arguments[0]));
         case "delete":
-            try {
-                int index = Integer.parseInt(arguments[0]);
-                return new DeleteCommand(index);
-            } catch (NumberFormatException ex) {
-                ui.printDeleteFormatErrorMessage();
-                break;
-            } catch (IndexOutOfBoundsException ex) {
-                ui.printOutOfBoundErrorMessage(tasks);
-                break;
-            }
+            return new DeleteCommand(Integer.parseInt(arguments[0]));
         case "bye":
             return new ExitCommand();
         default:

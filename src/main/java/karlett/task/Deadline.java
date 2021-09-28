@@ -1,14 +1,21 @@
 package karlett.task;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
+    private LocalDateTime by;
+
     public String getBy() {
-        return by;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        return by.format(formatter);
     }
 
-    protected String by;
+    public boolean isOnTheDay(LocalDateTime time) {
+        return time.equals(by);
+    }
 
     /**
      * Return a Deadline object, setting its task
@@ -18,7 +25,7 @@ public class Deadline extends Task {
      * @param description details of a deadline task
      * @param by deadline of a deadline task
      */
-    public Deadline(String description, String by) throws IOException {
+    public Deadline(String description, LocalDateTime by) throws IOException {
         this.description = description;
         this.isDone = false;
         this.by = by;
@@ -33,7 +40,7 @@ public class Deadline extends Task {
      * @param by deadline of a deadline task
      * @param isDone task status of the event
      */
-    public Deadline(String description, String by, boolean isDone) throws IOException {
+    public Deadline(String description, LocalDateTime by, boolean isDone) throws IOException {
         this.description = description;
         this.isDone = isDone;
         this.by = by;
@@ -41,6 +48,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D] [" + this.getStatusIcon() + "] " + this.getDescription() + " (by: " + by + ")";
+        return "[D] [" + this.getStatusIcon() + "] "
+                + this.getDescription()
+                + " (by: " + this.getBy() + ")";
     }
 }

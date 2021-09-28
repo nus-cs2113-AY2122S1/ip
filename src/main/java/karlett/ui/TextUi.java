@@ -8,6 +8,7 @@ import karlett.tasklist.TaskList;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -190,5 +191,44 @@ public class TextUi {
         System.out.println("Meow~ Karlett has marked this task as done:\n" +
                 "  " + task);
         drawDivider();
+    }
+
+    public void printEmptyKeywordMessage() {
+        drawDivider();
+        System.out.println("Karlett doesn't know what you need to find meow?(๑•́ᆽ•̀๑✿)");
+        drawDivider();
+    };
+
+    public void printInvalidKeywordMessage() {
+        drawDivider();
+        System.out.println("Please give Karlett one keyword only meow (๑•́ᆽ•̀๑✿)");
+        drawDivider();
+    }
+
+    public void printNoMatchedTaskFoundMessage(String keyWord) {
+        drawDivider();
+        System.out.println("Karlett didn't find any task contaning \"" + keyWord + "\" /ᐠﹷ ‸ ﹷ ᐟ\\ﾉ");
+        drawDivider();
+    }
+
+    public void printIncorrectTimeFormat() {
+        drawDivider();
+        System.out.println("Please give Karltt a date and time in this format meow:\n" +
+                "    yyyy-MM-dd HH:mm");
+        drawDivider();
+    }
+
+    public void printNoMatchedTaskFoundMessage(LocalDateTime time) {
+        drawDivider();
+        System.out.println("Karlett didn't find any task at \" " + time + " \" /ᐠﹷ ‸ ﹷ ᐟ\\ﾉ");
+        drawDivider();
+    }
+
+    public void printMatchedTasksMessage(TaskList matchedTasks) {
+        drawDivider();
+        System.out.println("Yayyy! Karlett found these matching tasks in your list:");
+        for (int i = 0; i < matchedTasks.getNumberOfTasks(); i++) {
+            System.out.println("ฅ" + (i + 1) + " " + matchedTasks.get(i));
+        }
     }
 }
