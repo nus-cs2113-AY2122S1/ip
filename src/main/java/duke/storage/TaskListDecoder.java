@@ -11,7 +11,15 @@ import duke.task.ToDos;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Decodes the storage data file into an {@code TaskList} object.
+ */
 public class TaskListDecoder {
+    /**
+     * Decodes {@code encodedTaskList} into an {@code TaskList} containing the decoded tasks.
+     *
+     * @throws IllegalValueException if any of the fields in any encoded task string is invalid.
+     */
     public static TaskList decodeTaskList(List<String> encodedTaskList) throws IllegalValueException {
         final List<Task> decodedTasks = new ArrayList<>();
         for (String encodedTask : encodedTaskList) {
@@ -21,10 +29,15 @@ public class TaskListDecoder {
 
     }
 
-    public static Task decodeTaskFromString(String s) throws IllegalValueException {
+    /**
+     * Decodes {@code encodedTask} into a {@code Task}.
+     *
+     * @throws IllegalValueException if any field in the {@code encodedTask} is invalid.
+     */
+    public static Task decodeTaskFromString(String encodedTask) throws IllegalValueException {
 
         try{
-            String[] taskComponent = s.split(" \\| ");
+            String[] taskComponent = encodedTask.split(" \\| ");
             char taskType = taskComponent[0].charAt(0);
             int isDone = Integer.parseInt(taskComponent[1].trim());
             String taskDetails = taskComponent[2].trim();

@@ -4,6 +4,9 @@ import duke.data.TaskList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+/**
+ * Shows help instructions.
+ */
 public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
 

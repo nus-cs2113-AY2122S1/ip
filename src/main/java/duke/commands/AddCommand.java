@@ -1,16 +1,14 @@
 package duke.commands;
 
-import duke.data.Duke;
 import duke.data.TaskList;
-import duke.exception.DukeException;
 import duke.exception.StorageOperationException;
 import duke.storage.Storage;
-import duke.task.Deadline;
-import duke.task.Events;
 import duke.task.Task;
-import duke.task.ToDos;
 import duke.ui.Ui;
 
+/**
+ * Adds a task to the list.
+ */
 public class AddCommand extends Command{
     private final Task newTask;
     public static final String COMMAND_WORD_1 = "todo";
@@ -36,10 +34,23 @@ public class AddCommand extends Command{
             + "⮞ Example: " + COMMAND_WORD_3
             + " project meeting /at Mon 2-4pm";
 
+    /**
+     * Convenience constructor using processed Task data
+     *
+     * @param task A new task
+     */
     public AddCommand(Task task){
         this.newTask = task;
     }
 
+    /**
+     * Adds a task to the list
+     *
+     * @param tasks Recorded list of tasks
+     * @param ui Used ui
+     * @param storage Used storage
+     * @throws StorageOperationException
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws StorageOperationException {
         tasks.addTask(newTask);
         System.out.println("Got it. I've added this task: ");

@@ -6,6 +6,9 @@ import duke.exception.StorageOperationException;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+/**
+ * Marks a task as done using its last displayed index from the list.
+ */
 public class DoneCommand extends Command{
     private final int doneIndex;
     public static final String COMMAND_WORD = "done";
