@@ -56,7 +56,7 @@ public class TaskList {
             return;
         }
 
-        if (!Parser.isValidDeadlineOrEventDescription(input, description)) {
+        if (!Parser.isValidDeadlineOrEventDescription(input)) {
             throw new InvalidTaskDescriptionException("Invalid or missing task detail!");
         }
 

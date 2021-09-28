@@ -197,7 +197,7 @@ public class Parser {
         return description.length > 1;
     }
 
-    public static boolean isValidDeadlineOrEventDescription(String userInput, String description) {
+    public static boolean isValidDeadlineOrEventDescription(String userInput) {
         return isValidDeadlineFormat(userInput) || isValidEventFormat(userInput);
     }
 
