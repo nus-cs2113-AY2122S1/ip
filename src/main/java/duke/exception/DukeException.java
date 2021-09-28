@@ -29,6 +29,14 @@ public class DukeException extends Exception {
         System.out.println(TaskManager.TASK_ERROR);
         Ui.printLine();
     }
+
+    public static void dateTimeParseError() {
+        Ui.printLine();
+        System.out.println("Please enter both date and time in the format");
+        System.out.println("YYYY-MM-DD HH:MM");
+        Ui.printLine();
+    }
+
     public static void stringIndexTodoError() {
         Ui.printLine();
         System.out.println("OOPS!!! The description of a todo cannot be empty.");
