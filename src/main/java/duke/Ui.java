@@ -5,12 +5,12 @@ import duke.task.Task;
 import java.util.ArrayList;
 
 public class Ui {
-    public static final String LOGO = "\t ____        _        \n"
-            + "\t|  _ \\ _   _| | _____ \n"
-            + "\t| | | | | | | |/ / _ \\\n"
-            + "\t| |_| | |_| |   <  __/\n"
-            + "\t|____/ \\__,_|_|\\_\\___|\n";
-    public static final String LINE = "\t____________________________________________________________\n\t\t";
+    public static final String LOGO = "\t\t\t\t ____        _        \n"
+            + "\t\t\t\t|  _ \\ _   _| | _____ \n"
+            + "\t\t\t\t| | | | | | | |/ / _ \\\n"
+            + "\t\t\t\t| |_| | |_| |   <  __/\n"
+            + "\t\t\t\t|____/ \\__,_|_|\\_\\___|\n";
+    public static final String LINE = "\t______________________________________________________________________\n\t\t";
     public static final String BYE = LINE
             + "Bye. try not to procrastinate!\n"
             + LINE;

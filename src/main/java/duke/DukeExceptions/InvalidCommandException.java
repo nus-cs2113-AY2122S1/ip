@@ -7,11 +7,11 @@ public class InvalidCommandException extends DukeException {
      * Default Constructor.
      */
     public InvalidCommandException() {
-        this.thisError = ("\t____________________________________________________________\n"
+        this.thisError = ("\t______________________________________________________________________\n"
                 + "\tOOOPS!!! I'm sorry, but I don't know what that means. EPIC SADS :-(\n"
-                + "\t____________________________________________________________\n"
+                + "\t______________________________________________________________________\n"
                 + "\tKey in [help] to list available commands\n"
-                + "\t____________________________________________________________\n\t");
+                + "\t______________________________________________________________________\n\t");
     }
 
     /**
@@ -20,9 +20,9 @@ public class InvalidCommandException extends DukeException {
      * @param errorMessage error Message to train Elgle.
      */
     public InvalidCommandException(String errorMessage) {
-        this.thisError = ("\t____________________________________________________________\n\t"
+        this.thisError = ("\t______________________________________________________________________\n\t"
                 + errorMessage
-                + "\n\t____________________________________________________________\n\t");
+                + "\n\t______________________________________________________________________\n\t");
     }
 
     public String toString() {
