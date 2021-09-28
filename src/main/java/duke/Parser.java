@@ -6,7 +6,9 @@ import duke.task.TaskList;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// Command Manager
+/**
+ * Class that handles commands given to Duke, including associated errors
+ */
 public class Parser {
     private static final int MAX_TASKS = 100;
     private static final int TODO_MIN_LENGTH = 6;
