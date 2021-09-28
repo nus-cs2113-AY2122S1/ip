@@ -6,6 +6,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -95,6 +96,7 @@ public class TaskList {
         Ui.printHorizontalLine();
     }
 
+
     /**
      * Mark a task as done
      *
@@ -128,4 +130,22 @@ public class TaskList {
         }
         Ui.printHorizontalLine();
     }
+  
+    /**
+     * find all the task with the search term
+     *
+     * @param inputCommand string containing "find" and the search term to find
+     * @param tasks ArrayList of tasks
+     */
+    public static void findTask(String inputCommand, ArrayList<Task> tasks){
+        String taskDescriptionToFind = inputCommand.substring(5);
+        ArrayList<Task> filteredTask = (ArrayList<Task>) tasks.stream()
+                .filter((task) -> task.getDescription().toLowerCase().contains(taskDescriptionToFind))
+                .collect(Collectors.toList());
+        if(filteredTask.isEmpty()){
+            System.out.println("I cannot find any matching tasks");
+        }
+        Ui.printFilteredList(filteredTask);
+    }
+
 }
