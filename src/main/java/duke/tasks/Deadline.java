@@ -11,7 +11,8 @@ public class Deadline extends Task {
      * Represents a Deadline made by the user.
      *
      * @param name Description of Deadline.
-     * @param by Description of when the Deadline is.
+     * @param dates Description of date of Deadline.
+     *  @param time Description of when the Deadline is.
      */
     public Deadline(String name, String dates, String time){
 
@@ -28,7 +29,7 @@ public class Deadline extends Task {
     }
 
     public String toString(){
-        return "[D][" + super.getStatus() + "]" + super.name + "by "
+        return "[D][" + super.getStatus() + "]" + super.name + "by: "
                 + localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +" " + time;
     }
 }

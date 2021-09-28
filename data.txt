@@ -1,3 +1,4 @@
-T|X|fwefds
-T| |fewfdsf
-E|X| read book |1999-03-22|1933
+E| | study |2021-09-11|0800
+D| | buy snacks |2021-09-11|0800
+T|X|study econs
+D| | eee |1923-03-12|2300

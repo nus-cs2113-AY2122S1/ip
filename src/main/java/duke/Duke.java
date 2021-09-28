@@ -4,6 +4,8 @@ import duke.tasks.DukeException;
 import duke.tasks.TaskList;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
+
 import duke.commands.Command;
 
 /**
@@ -41,14 +43,16 @@ public class Duke {
         String userInput;
         boolean exit = true;
         while (exit) {
-                try {
-                    userInput = ui.readCommand();
-                    Command c = Parser.parse(userInput, taskList, ui,storage);
-                    c.run();
-                    exit = c.exit();
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
+            try {
+                userInput = ui.readCommand();
+                Command c = Parser.parse(userInput, taskList, ui, storage);
+                c.run();
+                exit = c.exit();
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }catch (DateTimeParseException e){
+                System.out.println("Please use the correct format! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME]");
+            }
         }
     }
 

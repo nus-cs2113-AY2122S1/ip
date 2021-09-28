@@ -3,11 +3,14 @@ package duke;
 import duke.commands.*;
 import duke.tasks.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
  * Reads and formats all inputs from the user.
  */
-
-import javax.swing.*;
 
 public class Parser {
     /**
@@ -36,18 +39,21 @@ public class Parser {
             input = input.replaceFirst("event", "");
             String[] parsedInput = input.split("/at");
             if(parsedInput.length < 2){
-                throw new DukeException("Please use the correct format! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME]");
+                throw new DukeException("Please use the correct format! [EVENT DESCRIPTION] /at [YEAR-MONTH-DAY] [TIME]");
             }
             if (parsedInput[1].stripLeading().isEmpty()) {
                 throw new DukeException("Date and time cannot be empty!");
-            }
+        }
             String[] dateAndTime = parsedInput[1].stripLeading().split(" ");
             String[] dateCheck = dateAndTime[0].split("-");
             if(dateAndTime.length != 2){
-                throw new DukeException("Please use the correct format for date and time! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME] ");
+                throw new DukeException("Please use the correct format for date and time! [EVENT DESCRIPTION] /at [YEAR-MONTH-DAY] [TIME] ");
             }
             if(dateCheck.length != 3){
-                throw new DukeException("Please use the correct format for date and time! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME] ");
+                throw new DukeException("Please use the correct format for date and time! [EVENT DESCRIPTION] /at [YEAR-MONTH-DAY] [TIME] ");
+            }
+            if(Integer.parseInt(dateAndTime[1]) > 2400){
+                throw new DukeException("PLease enter a number between 0 and 2400 when describing the time");
             }
             Task t = new Event(parsedInput[0], dateAndTime[0], dateAndTime[1]);
             return new AddTaskCommand(taskList, t, ui,storage);
@@ -55,7 +61,7 @@ public class Parser {
             input = input.replaceFirst("deadline", "");
             String[] parsedInput = input.split("/by");
             if(parsedInput.length < 2){
-                throw new DukeException("Please use the correct format! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME]");
+                throw new DukeException("Please use the correct format! [DEADLINE DESCRIPTION] /by [YEAR-MONTH-DAY] [TIME]");
             }
             if (parsedInput[1].stripLeading().isEmpty()) {
                 throw new DukeException("Date and time cannot be empty!");
@@ -63,10 +69,13 @@ public class Parser {
             String[] dateAndTime = parsedInput[1].stripLeading().split(" ");
             String[] dateCheck = dateAndTime[0].split("-");
             if(dateAndTime.length != 2){
-                throw new DukeException("Please use the correct format for date and time! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME] ");
+                throw new DukeException("Please use the correct format for date and time! [DEADLINE DESCRIPTION] /by [YEAR-MONTH-DAY] [TIME] ");
             }
             if(dateCheck.length != 3){
-                throw new DukeException("Please use the correct format for date and time! [EVENT NAME] /by [YEAR-MONTH-DAY] [TIME] ");
+                throw new DukeException("Please use the correct format for date and time! [DEADLINE DESCRIPTION] /by [YEAR-MONTH-DAY] [TIME] ");
+            }
+            if(Integer.parseInt(dateAndTime[1]) > 2400){
+                throw new DukeException("PLease enter a number between 0 and 2400 when describing the time");
             }
             Task t = new Deadline(parsedInput[0], dateAndTime[0], dateAndTime[1]);
             return new AddTaskCommand(taskList, t, ui,storage);

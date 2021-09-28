@@ -13,7 +13,7 @@ public class Event extends Task {
      * Represents an Event made by the user.
      *
      * @param name Description of Event.
-      * @param dates Description of date of event.
+     *@param dates Description of date of event.
      * @param time Description of when the event is.
      */
     public Event(String name, String dates, String time){
