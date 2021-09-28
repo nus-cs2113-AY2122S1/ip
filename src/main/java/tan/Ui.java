@@ -5,6 +5,10 @@ import tan.tasktype.Task;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This Class holds all the functions that deals
+ * with the UI such as printing, reading.
+ */
 public class Ui {
     final static String BORDER = "------------------------------------------------------------------------";
     private static final Scanner SC = new Scanner(System.in);

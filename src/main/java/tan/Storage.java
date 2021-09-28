@@ -30,6 +30,11 @@ import static java.nio.file.StandardOpenOption.CREATE;
  * and write from top of file again.
  * Use Flush to push to current writing in buffer to file.
  */
+
+/**
+ * This class manages the functions to deal with
+ * saving & loading from the data file.
+ */
 public class Storage {
     protected static BufferedReader csvReader;
     protected static BufferedWriter csvWriter;

@@ -6,8 +6,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.regex.PatternSyntaxException;
 
-public class Parser {
 
+/**
+ * This class contains all the functions that deals
+ * with parsing of variables.
+ */
+public class Parser {
     /**
      * Returns the command of the user's input.
      * Basically returns the first "word" of the string.

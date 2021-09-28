@@ -12,6 +12,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class holds all the function that deals with the task
+ * list.
+ */
 public class TaskList {
 
     protected static List<Task> listOfTasks = new LinkedList<>();
