@@ -1,6 +1,19 @@
-# Duke project template
+# Duke project
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a project for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+
+## Functions available
+
+Function | Description
+---------|------------
+todo **[description]** | Adds a todo task with description
+deadline **[description]** /by **[deadline time]** | Adds a deadline task with description and deadline
+event **[description]** /at **[event time]** | Adds an event task with description and event time
+delete **[index]** | Deletes index of task
+done **[index]** | Mark index of task as done
+find **[keyword]** | Find the specified keyword from the list of tasks
+list | Display the current list of tasks
+bye | Exits the program
 
 ## Setting up in Intellij
 
@@ -15,10 +28,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    In the same dialog, set the **Project language level** field to the `SDK default` option.
 3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   Hello I'm Duke
+   What can I do for you?
+   -----------------------------------------
    ```
