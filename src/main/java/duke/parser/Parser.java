@@ -224,6 +224,12 @@ public class Parser {
         return userInput.trim().equalsIgnoreCase("delete all");
     }
 
+    /**
+     * Used in conjunction with DeadlineOrEventTimePosition method. As that method employs Math.max(),
+     * if the userInput does not contain either /by or /at, Math.max() will return -1.
+     * @param position index of the userInput where /by or /at is located, if it exists
+     * @return true if position is any value other than -1
+     */
     public static boolean isValidPosition(int position) {
         return position != -1;
     }
