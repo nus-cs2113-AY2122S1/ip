@@ -1,4 +1,1 @@
-event 6 /at 6pm | 1
-todo task for hw | 0
-event finish tasks /at 7pm | 0
-deadline task due /by 6:30 | 0
+event run /at 2024-12-25 19:00 | 1
