@@ -4,19 +4,17 @@ import duke.data.TaskList;
 import duke.exception.IllegalValueException;
 import duke.exception.InvalidStorageFilePathException;
 import duke.exception.StorageOperationException;
-import duke.task.Task;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
+/**
+ * Represents the file used to store task list.
+ */
 public class Storage {
 
     /** Default file path used if the user doesn't provide the file name. */
@@ -24,10 +22,16 @@ public class Storage {
 
     private final Path path;
 
+    /**
+     * @throws InvalidStorageFilePathException if the default path is invalid
+     */
     public Storage() throws InvalidStorageFilePathException {
         this(DEFAULT_STORAGE_FILEPATH);
     }
 
+    /**
+     * @throws InvalidStorageFilePathException if the given file path is invalid
+     */
     public Storage(String filePath) throws InvalidStorageFilePathException {
         this.path = Paths.get(filePath);
         if (!isValidPath(path)) {
@@ -35,10 +39,19 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns true if the given path is acceptable as a storage file.
+     * The file path is considered acceptable if it ends with '.txt'
+     */
     private static boolean isValidPath(Path filePath) {
         return filePath.toString().endsWith(".txt");
     }
 
+    /**
+     * Saves the {@code tasks} data to the storage file.
+     *
+     * @throws StorageOperationException if there were errors converting and/or storing data to file.
+     */
     public void save(TaskList tasks) throws StorageOperationException {
         try {
             List<String> encodedTaskList = TaskListEncoder.encodeTaskList(tasks);
@@ -48,6 +61,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the {@code TaskList} data from this storage file, and then returns it.
+     * Returns an empty {@code TaskList} if the file does not exist, or is not a regular file.
+     *
+     * @throws StorageOperationException if there were errors reading and/or converting data from file.
+     */
     public TaskList load() throws StorageOperationException {
 
         if (!Files.exists(this.path) || !Files.isRegularFile(this.path)) {

@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * Text Ui of the Duke application.
+ */
 public class Ui {
     // Constants
     public static final String LOGO = " __     __         _       _     \n"
@@ -37,6 +40,11 @@ public class Ui {
         this.out = out;
     }
 
+    /**
+     * Prompts for the command and reads the text entered by the user.
+     *
+     * @return full line command entered by the user
+     */
     public String readCommand(){
         return in.nextLine();
     }

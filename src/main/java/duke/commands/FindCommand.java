@@ -5,6 +5,10 @@ import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+/**
+ * Finds and lists all tasks in the list whose descriptions contain the argument keyword.
+ * Keyword matching is case-insensitive.
+ */
 public class FindCommand extends Command {
     private final String keyword;
     public static final String COMMAND_WORD = "find";
@@ -14,10 +18,18 @@ public class FindCommand extends Command {
             + "✪ Parameters: KEYWORD\n"
             + "⮞ Example: " + COMMAND_WORD + " book";
 
+    /**
+     * Convenience constructor storing the keyword.
+     *
+     * @param keyword for searching
+     */
     public FindCommand(String keyword){
         this.keyword = keyword;
     }
 
+    /**
+     * Retrieves all tasks in the list whose descriptions contain the argument keyword.
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList matchingTasks = tasks.search(this.keyword);
 

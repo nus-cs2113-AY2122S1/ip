@@ -8,8 +8,14 @@ import duke.storage.Storage;
 import duke.ui.Ui;
 
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
+/**
+ * Entry point of the Duke application.
+ * Initializes the application and starts the interaction with the user.
+ *
+ * @author Jiang Yuxin
+ * @since 28/09/2021
+ */
 public class Duke {
     // Constants
     public static final String FILE_NAME = "data/duke.txt";
@@ -35,6 +41,7 @@ public class Duke {
 
     }
 
+    /** Runs the program until termination. */
     public void run(){
         ui.showWelcome();
         boolean isExit = false;

@@ -6,6 +6,9 @@ import duke.exception.StorageOperationException;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+/**
+ * Deletes a task identified using its last displayed index from the list.
+ */
 public class DeleteCommand extends Command {
     private final int deleteIndex;
     public static final String COMMAND_WORD = "delete";

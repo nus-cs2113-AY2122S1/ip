@@ -4,6 +4,9 @@ import duke.data.TaskList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+/**
+ * lists all tasks in the list to the user.
+ */
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
