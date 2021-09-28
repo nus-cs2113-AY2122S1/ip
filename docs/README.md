@@ -141,3 +141,26 @@ Description of the outcome.
 ```
 View all tasks in the task list.
 ```
+
+## Find all tasks with keywords
+
+### `Keyword` - find
+
+Example of usage:
+
+`find cs2113`
+
+Expected outcome:
+
+```
+Here are the matching tasks in your list:
+1.[T][ ] cs2113 iP
+2.[E][ ] cs2113 lecture (at: Friday 4pm)
+3.[D][ ] cs2113 ip (by: 2359hrs)
+```
+
+Description of the outcome.
+
+```
+Find all tasks in the task list with the key words
+```
