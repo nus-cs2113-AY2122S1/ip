@@ -18,6 +18,7 @@ public class Parser{
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_DATE_TASK = "date";
+    private static final String COMMAND_FIND_WORD = "find";
     private static final String EMPTY_STRING = "";
     private static final String COMMAND_GUIDE_INDICATOR = "!";
     private static final String SPLITTER = ";";
@@ -54,6 +55,9 @@ public class Parser{
         }
         if (userInput.startsWith(COMMAND_DATE_TASK)) {
             return COMMAND_DATE_TASK;
+        }
+        if(userInput.startsWith(COMMAND_FIND_WORD)){
+            return COMMAND_FIND_WORD;
         }
         return null;
     }
@@ -188,6 +192,13 @@ public class Parser{
                     e.handleException();
                 }
                 break;
+            case COMMAND_FIND_WORD:
+                FindKeywordCommand findKeywordCommand = new FindKeywordCommand(inputCommand, listManager);
+                try {
+                    findKeywordCommand.executeCommand();
+                }catch (CommandException e){
+                    e.handleException();
+                }
             }
         }catch(NullPointerException e){
             System.out.println(ErrorStaticString.ERROR_UNKNOWN_COMMAND);

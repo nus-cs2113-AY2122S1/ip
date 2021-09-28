@@ -16,6 +16,7 @@ public class TaskList implements TaskListInterface {
     private static final String MESSAGE_TASK_ADDED = "Got it. I've added this task: ";
     private static final String MESSAGE_TASK_IN_LIST = " tasks in the list.";
     private static final String MESSAGE_LIST_TASK = "Here are the tasks in your list:";
+    private static final String MESSAGE_FIND_TASK = "Here are the matching tasks in your list:";
     private static final String MESSAGE_TASK_NOW = "Now you have ";
     private static final String MESSAGE_DELETE = "Noted. I've removed this task: ";
     private static final String MESSAGE_SPACER = ". ";
@@ -31,6 +32,14 @@ public class TaskList implements TaskListInterface {
 
     private void printer(ArrayList<Task> listToPrint){
         System.out.println(MESSAGE_LIST_TASK);
+        for(int i = 0; i < listToPrint.size(); i++){
+            int itemIndex= i + 1;
+            System.out.println(itemIndex + MESSAGE_SPACER + listToPrint.get(i).toString());
+        }
+    }
+
+    private void printerForFind(ArrayList<Task> listToPrint){
+        System.out.println(MESSAGE_FIND_TASK);
         for(int i = 0; i < listToPrint.size(); i++){
             int itemIndex= i + 1;
             System.out.println(itemIndex + MESSAGE_SPACER + listToPrint.get(i).toString());
@@ -57,7 +66,22 @@ public class TaskList implements TaskListInterface {
         if(!haveDate){
             throw new CommandException(ErrorStaticString.ERROR_EMPTY_DATE_INPUT);
         }
-        printer(listOfTaskWithDate);
+        printerForFind(listOfTaskWithDate);
+    }
+
+    public void printWord(String wordSearch) throws CommandException{
+        boolean haveWord = false;
+        ArrayList<Task> listOfTaskWithWord = new ArrayList<>();
+        for(Task t : list){
+            if(t.getDescription().contains(wordSearch)){
+                listOfTaskWithWord.add(t);
+                haveWord = true;
+            }
+        }
+        if(!haveWord){
+            throw new CommandException(ErrorStaticString.ERROR_EMPTY_LIST);
+        }
+        printerForFind(listOfTaskWithWord);
     }
 
     public void printToDo() throws CommandException {
