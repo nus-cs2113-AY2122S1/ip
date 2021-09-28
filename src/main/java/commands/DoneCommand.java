@@ -6,7 +6,6 @@ import processors.UI;
 
 public class DoneCommand extends Command {
     private static final Integer DONE_LENGTH = 4;
-    private static final Integer TASK_DATE_DIVIDER = 4;
     private static final Integer TASK_DESCRIPTION_DIVIDER = 1;
     private static final Integer ARRAY_INDEX_FINDER = 1;
     private static final String DONE_DELETE_KEYWORD = " ";
@@ -20,10 +19,6 @@ public class DoneCommand extends Command {
      * @throws DoneException when the input line is invalid
      */
     public void execute(TaskList taskList, String line) throws DoneException {
-        if (line.length() == TASK_DATE_DIVIDER) {
-            throw new DoneException("Request Does Not Contain A Number");
-        }
-
         if (line.length() == DONE_LENGTH) {
             throw new DoneException("Done Request Does Not Contain A Number");
         }

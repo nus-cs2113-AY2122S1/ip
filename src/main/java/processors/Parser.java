@@ -1,6 +1,18 @@
 package processors;
 
-import commands.*;
+import commands.ByeCommand;
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeleteCommand;
+import commands.DoneCommand;
+import commands.EventCommand;
+import commands.FindCommand;
+import commands.HelpCommand;
+import commands.InvalidCommand;
+import commands.ListCommand;
+import commands.SavedCommand;
+import commands.TodoCommand;
+import commands.UncheckCommand;
 
 public class Parser {
     private static final String BYE = "bye";
@@ -13,6 +25,7 @@ public class Parser {
     private static final String FIND = "find";
     private static final String SAVE = "save";
     private static final String HELP = "help";
+    private static final String UNCHECK = "uncheck";
 
     public DeadlineCommand deadlineCommand = new DeadlineCommand();
     public EventCommand eventCommand = new EventCommand();
@@ -25,6 +38,7 @@ public class Parser {
     public FindCommand findCommand = new FindCommand();
     public ByeCommand byeCommand = new ByeCommand();
     public HelpCommand helpCommand = new HelpCommand();
+    public UncheckCommand uncheckCommand = new UncheckCommand();
 
     /**
      * Function takes the input line and identify the type of Command it is
@@ -53,6 +67,8 @@ public class Parser {
             return findCommand;
         } else if (line.startsWith(SAVE)) {
             return savedCommand;
+        } else if (line.startsWith(UNCHECK)) {
+            return uncheckCommand;
         } else {
             return invalidCommand;
         }

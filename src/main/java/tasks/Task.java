@@ -34,5 +34,9 @@ public abstract class Task {
         isDone = true;
     }
 
+    public void setIsFalse() {
+        isDone = false;
+    }
+
     public abstract void saveTask(String filePath) throws IOException;
 }
