@@ -1,3 +1,6 @@
+/**
+ * Class inheriting from Task that has a description and deadline attribute
+ */
 public class Deadline extends Task{
     protected String by;
 

@@ -1,3 +1,6 @@
+/**
+ * Abstract class representing the general structure of a Task
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

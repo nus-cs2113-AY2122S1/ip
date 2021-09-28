@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Continually parses through the user's commands then determines the next course of action by calling the appropriate class
+ */
 public class Parser {
     public static void parse() {
         String toBeWritten = null;

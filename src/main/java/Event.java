@@ -1,3 +1,6 @@
+/**
+ * Class inheriting from Task that has a description and date/time attribute
+ */
 public class Event extends Task{
     protected String eventDateTime;
 

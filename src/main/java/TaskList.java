@@ -1,10 +1,23 @@
 import java.util.ArrayList;
 
+/**
+ * Taking over from Parser, this class contains the operations to modify tasks
+ */
 public class TaskList {
     public static ArrayList<Task> entries = new ArrayList<>();
 
     public static int entriesCount = 0;
 
+    /**
+     * Returns the message to be written to the file
+     * Adds a ToDo Task into the entries ArrayList
+     * If the user input is invalid, the DukeException is thrown
+     *
+     * @param userCommandDetails Details of the user's command
+     * @param toBeWritten Message to be written to the file
+     * @return toBeWritten Message to be written to the file
+     * @throws DukeException If the userCommandDetails is empty or is invalid
+     */
     public static String addToDo(String userCommandDetails, String toBeWritten) {
         try {
             if (userCommandDetails.isEmpty() || userCommandDetails.equals("invalid")) {
@@ -20,6 +33,16 @@ public class TaskList {
         return toBeWritten;
     }
 
+    /**
+     * Returns the message to be written to the file
+     * Adds a Deadline Task into the entries ArrayList
+     * If the user input is invalid, the DukeException is thrown
+     *
+     * @param userCommandDetails Details of the user's command
+     * @param toBeWritten Message to be written to the file
+     * @return toBeWritten Message to be written to the file
+     * @throws DukeException If the userCommandDetails is empty or is invalid
+     */
     public static String addDeadline(String userCommandDetails, String toBeWritten) {
         try {
             int deadlineIndex = userCommandDetails.indexOf("/by");
@@ -38,6 +61,16 @@ public class TaskList {
         return toBeWritten;
     }
 
+    /**
+     * Returns the message to be written to the file
+     * Adds an Event Task into the entries ArrayList
+     * If the user input is invalid, the DukeException is thrown
+     *
+     * @param userCommandDetails Details of the user's command
+     * @param toBeWritten Message to be written to the file
+     * @return toBeWritten Message to be written to the file
+     * @throws DukeException If the userCommandDetails is empty or is invalid
+     */
     public static String addEvent(String userCommandDetails, String toBeWritten) {
         try {
             int eventDateTimeIndex = userCommandDetails.indexOf("/at");
@@ -56,6 +89,9 @@ public class TaskList {
         return toBeWritten;
     }
 
+    /**
+     * Prints every element in the entries ArrayList sequentially to give the user a list of all their tasks
+     */
     public static void list() {
         Ui.printLongLine();
         System.out.println("Here are the tasks in your list:");
@@ -67,6 +103,11 @@ public class TaskList {
         Ui.printLongLine();
     }
 
+    /**
+     * Marks an X in the isDone checkbox of the completed task to show the user that the task is complete
+     *
+     * @param userIn User's input
+     */
     public static void done(String userIn) {
         Ui.printLongLine();
         String stringTaskIndex = userIn.substring(userIn.indexOf(" ") + 1);
@@ -78,6 +119,11 @@ public class TaskList {
         Ui.printLongLine();
     }
 
+    /**
+     * Removes a particular task from the entries ArrayList
+     *
+     * @param userIn User's input
+     */
     public static void delete(String userIn) {
         Ui.printLongLine();
         String stringTaskIndex = userIn.substring(userIn.indexOf(" ") + 1);
@@ -94,6 +140,11 @@ public class TaskList {
         Ui.printLongLine();
     }
 
+    /**
+     * Parses through every element of the entries ArrayList to find a match with the user's input
+     *
+     * @param userCommandDetails Details of the user's command
+     */
     public static void find(String userCommandDetails) {
         Ui.printLongLine();
         int i = 0;
