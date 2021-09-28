@@ -6,7 +6,7 @@
 
 Allows you to add different types of tasks to your list
 
-### marking Tasks as complete
+### Marking Tasks as complete
 
 Allows you to mark tasks as complete.
 
@@ -16,7 +16,7 @@ Allows you to search for specific tasks within your list
 
 ## Usage
 
-### `list` - lists all the tasks in your list
+### `list`
 
 Displays all the tasks stored in your list.
 
@@ -36,18 +36,18 @@ Description of the outcome.
 expected output
 ```
 ------------------------------------------------------
-### `todo` - Adding a todo
+### `todo`
 
-Describe the action and its outcome.
+Adds a todo task to the list
 
 Example of usage: 
 
-`todo (activity description)`
+`todo return book`
 
 Expected outcome:
 
     Got it. I've added this task:
-      [T][ ] rturn book
+      [T][ ] return book
     Now you have 7 tasks in the list.
     
 Description of the outcome.
@@ -56,7 +56,7 @@ Description of the outcome.
 expected output
 ```
 ------------------------------------------------------
-### `event` - Adding an event
+### `event`
 
 Adds a event task to the list.
 
@@ -76,7 +76,7 @@ Description of the outcome.
 expected output
 ```
 ------------------------------------------------------
-### `deadline` - Adding a deadline
+### `deadline`
 
 Adds a deadline task to the list.
 
@@ -96,7 +96,7 @@ Description of the outcome.
 expected output
 ```
 ------------------------------------------------------
-### `done` -
+### `done`
 
 Marks a task in the list as completed.
 
@@ -115,7 +115,7 @@ Description of the outcome.
 expected output
 ```
 ------------------------------------------------------
-### `delete` - Deletes a task from your list
+### `delete`
 
 Deletes a task from your list
 
@@ -135,9 +135,9 @@ Description of the outcome.
 expected output
 ```
 ------------------------------------------------------
-### `find` - lists all the tasks in your list
+### `find` 
 
-Displays all the tasks stored in your list.
+Displays tasks from your list that matches your search
 
 Example of usage: 
 
