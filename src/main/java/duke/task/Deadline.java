@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.manager.TaskManager;
+import duke.manager.DateAndTimeParser;
 
 import java.time.LocalDateTime;
 
@@ -31,7 +31,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getDescription() {
-        return "[D]" + super.getDescription() + " (by: " + TaskManager.stringFormatter.format(by) + ")";
+        return "[D]" + super.getDescription() + " (by: " + DateAndTimeParser.stringFormatter.format(by) + ")";
     }
 
     @Override
