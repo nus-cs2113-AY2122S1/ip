@@ -18,11 +18,11 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList matchingTasks = tasks.search(this.keyword);
 
         if (matchingTasks.getSize() == 0) {
-            System.out.println("There is no matching task.");
+            System.out.println("I'm sorry, but there is no matching task.");
         } else {
             System.out.println("Here are the matching tasks in your list:");
             matchingTasks.printList();
