@@ -47,7 +47,7 @@ public class TaskManager {
     /**
      * Adds a task to the ArrayList tasks.
      *
-     * @param task The task object to be added.
+     * @param task The Task object to be added.
      */
     public void addTask(Task task) {
         tasks.add(task);
@@ -57,7 +57,7 @@ public class TaskManager {
      * Deletes a task from the ArrayList tasks.
      *
      * @param id The ID of the task to be removed.
-     * @return The task object that has been removed.
+     * @return The Task object that has been removed.
      */
     public Task deleteTask(int id) {
         Task task = tasks.get(id);
@@ -69,7 +69,7 @@ public class TaskManager {
      * Marks a task as done.
      *
      * @param id The ID of the task to be marked as done.
-     * @return The task object that has been marked as done.
+     * @return The Task object that has been marked as done.
      */
     public Task markAsDone(int id) {
         Task task = tasks.get(id);
