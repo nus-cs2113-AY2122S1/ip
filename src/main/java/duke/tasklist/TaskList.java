@@ -28,7 +28,7 @@ public class TaskList {
      *
      * @param index index of task
      */
-    public void storageDoneTask(int index) {
+    public void doneTask(int index) {
         tasks.get(index).setDone();
     }
 

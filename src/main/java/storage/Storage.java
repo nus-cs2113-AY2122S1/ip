@@ -75,7 +75,7 @@ public class Storage {
                         throw new DukeException("Unable to parse file: " + filePath);
                     }
                     if (savedData[1].equals("1")) {
-                        taskList.storageDoneTask(numTaskAdded);
+                        taskList.doneTask(numTaskAdded);
                     }
                     numTaskAdded++;
                 } catch (ArrayIndexOutOfBoundsException e) {
