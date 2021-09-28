@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -50,7 +51,8 @@ public class Storage {
                         String[] thirdDeadlineSplit = secondDeadlineSplit[1].split("\\)", 2); //settles date
                         String deadlineDescription = secondDeadlineSplit[0];
                         String deadlineDate = thirdDeadlineSplit[0];
-                        Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
+                        LocalDateTime deadlineFormatted = Parser.parseDateTime(deadlineDate, "MMM dd yyyy h.mma");
+                        Deadline newDeadline = new Deadline(deadlineDescription, deadlineFormatted);
                         TM.tasks.add(newDeadline);
                     }
                     else if (line.contains("[E]")) {

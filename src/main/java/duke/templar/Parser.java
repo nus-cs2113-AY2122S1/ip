@@ -2,7 +2,8 @@ package duke.templar;
 
 import duke.exception.*;
 import java.util.ArrayList;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
     boolean valid;
@@ -63,7 +64,8 @@ public class Parser {
                 }
                 String deadlineDescription = secondSplit[0];
                 String deadlineDate = secondSplit[1];
-                Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
+                LocalDateTime deadlineFormatted = parseDateTime(deadlineDate, "dd-MM-yyyy HH:mm");
+                Deadline newDeadline = new Deadline(deadlineDescription, deadlineFormatted);
                 TaskList.addTask(newDeadline,tasks);
                 Ui.printTaskAcquired(newDeadline, tasks);
 
@@ -145,6 +147,11 @@ public class Parser {
         catch (NoSuchTaskException noSuchTaskException) {
             noSuchTaskException.printNoSuchTaskException();
         }
+    }
+
+    public static LocalDateTime parseDateTime(String deadlineDate, String format) {
+        DateTimeFormatter properFormat = DateTimeFormatter.ofPattern(format);
+        return LocalDateTime.parse(deadlineDate, properFormat); //converts the string into a localdatetime variable with the right format
     }
 
     public static boolean isNumerical(String input) {
