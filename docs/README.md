@@ -250,7 +250,7 @@ directly by editing that data file.
 
 ## Command Summary
 Action | Command Parameters
- --- | --- 
+------ | ------
  `bye` | - 
  `deadline` | `deadline <name> /by <date in dd/MM/yyyy HHmm>` 
  `delete` | `delete <task id>` 
