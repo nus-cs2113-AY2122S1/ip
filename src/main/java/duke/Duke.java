@@ -16,7 +16,7 @@ public class Duke {
     /**
      * To create new Ui, Storage, Tasklist and Parser object, and load data from the text file.
      *
-     * @param filePath The name of the text file
+     * @param filePath the name of the text file
      */
     public Duke(String filePath) {
         ui = new Ui();

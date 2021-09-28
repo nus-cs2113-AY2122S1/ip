@@ -11,26 +11,25 @@ import static duke.Storage.*;
  */
 public class TaskList {
 
-    protected ArrayList<Task> commands = new ArrayList<>();
+    protected ArrayList<Task> commands;
     protected int positionCheck;
     protected int loadFlag;
-    protected int taskNumber;
     protected Storage storage;
 
     /**
      * Instantiates the TaskList object and loads all the tasks from the text file into the ArrayList.
      *
-     * @param loadedTasks The ArrayList of tasks from the text file
-     * @param storage The storage object
+     * @param loadedTasks the ArrayList of tasks from the text file
+     * @param storage the storage object
      */
     public TaskList(ArrayList<String> loadedTasks, Storage storage) {
+        this.commands = new ArrayList<>();
         this.positionCheck = 0;
         this.loadFlag = 0;
-        this.taskNumber = 0;
         this.storage = storage;
         String[] taskFromFile;
         String[] taskInput;
-        System.out.println(loadedTasks.size());
+        int taskNumber = 0;
         try {
             for (String task : loadedTasks) {
                 taskFromFile = task.split(" \\| ");
@@ -49,7 +48,7 @@ public class TaskList {
                 if (taskFromFile[1].equals("1")) {
                     markDone(taskNumber);
                 }
-                this.taskNumber += 1;
+                taskNumber += 1;
             }
             this.loadFlag = 1;
         } catch (DukeException e) {
@@ -57,22 +56,22 @@ public class TaskList {
         } catch (IOException e) {
             System.out.print("There is an error in your input master! Please check it out!");
         } catch (DateTimeParseException e) {
-            System.out.println("Correct date format please!");
+            Ui.printDateTimeExceptionMessage();
         }
     }
 
     public TaskList(Storage storage) {
+        this.commands = new ArrayList<>();
         this.positionCheck = 0;
         this.loadFlag = 1;
-        this.taskNumber = 0;
         this.storage = storage;
     }
 
     /**
      * To add a deadline task to the ArrayList of tasks.
      *
-     * @param input The array of strings that represent the user's command
-     * @param length The length of input
+     * @param input the array of strings that represent the user's command
+     * @param length the length of input
      * @throws DukeException if the user's command does not fit the requirements to be considered a legal command
      * @throws IOException if there is any issue with the input or output
      * @throws DateTimeParseException if the date or time is not written in the proper format
@@ -106,8 +105,8 @@ public class TaskList {
     /**
      * To add an event task to the ArrayList of tasks.
      *
-     * @param input The array of strings that represent the user's command
-     * @param length The length of input
+     * @param input the array of strings that represent the user's command
+     * @param length the length of input
      * @throws DukeException if the user's command does not fit the requirements to be considered a legal command
      * @throws IOException if there is any issue with the input or output
      * @throws DateTimeParseException if the date or time is not written in the proper format
@@ -141,8 +140,8 @@ public class TaskList {
     /**
      * To add a todo task to the ArrayList of tasks.
      *
-     * @param input The array of strings that represent the user's command
-     * @param length The length of input
+     * @param input the array of strings that represent the user's command
+     * @param length the length of input
      * @throws DukeException if the user's command does not fit the requirements to be considered a legal command
      * @throws IOException if there is any issue with the input or output
      */
@@ -177,7 +176,7 @@ public class TaskList {
     /**
      * Prints all events and deadlines in the ArrayList of tasks that occur on a specified date.
      *
-     * @param dateString The specified date
+     * @param dateString the specified date
      */
     public void printListForFindingDate(String dateString) {
         Ui.sayLoadingList();
@@ -205,7 +204,7 @@ public class TaskList {
     /**
      * Prints all tasks in the ArrayList of tasks that contain a keyword
      *
-     * @param keyword The keyword to use filter out tasks
+     * @param keyword the keyword to use filter out tasks
      */
     public void printListForFindingTask(String keyword) {
         Ui.sayLoadingList();
@@ -225,7 +224,7 @@ public class TaskList {
     /**
      * To mark a task as done.
      *
-     * @param doneTaskNumber The position in the ArrayList of tasks of the task to mark as done
+     * @param doneTaskNumber the position in the ArrayList of tasks of the task to mark as done
      * @throws IOException if there is any issue with the input or output
      */
     public void markDone(int doneTaskNumber) throws IOException {
@@ -240,7 +239,7 @@ public class TaskList {
     /**
      * To delete a task.
      *
-     * @param doneTaskNumber The position in the ArrayList of tasks of the task to delete
+     * @param doneTaskNumber the position in the ArrayList of tasks of the task to delete
      * @throws IOException if there is any issue with the input or output
      */
     public void deleteTask(int doneTaskNumber) throws IOException {

@@ -15,7 +15,7 @@ public class Parser {
     /**
      * Instantiates the Parser object.
      *
-     * @param tasks The task object
+     * @param tasks the task object
      */
     public Parser(TaskList tasks) {
         this.tasks = tasks;
@@ -31,8 +31,9 @@ public class Parser {
      */
     public void checkCommand(String line) throws DukeException, IOException {
         String[] input = line.split(" ");
+        String firstWord = input[0];
         if (input.length == 1) {
-            checkSingleCommand(line);
+            checkSingleCommand(firstWord);
         } else {
             checkMultiCommand(input);
         }
@@ -42,11 +43,11 @@ public class Parser {
      * Determines the type of command given by the user, calls the respective TaskList methods to take action.
      * If the command is not legal, the respective DukeException will be thrown.
      *
-     * @param line The first word of the command given by the user
+     * @param firstWord the first word of the command given by the user
      * @throws DukeException if the user's command does not fit the requirements to be considered a legal command
      */
-    public void checkSingleCommand(String line) throws DukeException {
-        switch (line) {
+    public void checkSingleCommand(String firstWord) throws DukeException {
+        switch (firstWord) {
         case "bye":
             isBye = true;
             break;
@@ -75,7 +76,7 @@ public class Parser {
      * If none of the cases are met, checkTypeOfTask will be called.
      * If the command is not legal, the respective DukeException will be thrown.
      *
-     * @param input The array of strings that represent the user's command
+     * @param input the array of strings that represent the user's command
      * @throws DukeException if the user's command does not fit the requirements to be considered a legal command
      * @throws IOException if there is any issue with the input or output
      */
@@ -106,7 +107,11 @@ public class Parser {
             tasks.printListForFindingTask(keyword);
             break;
         case "date":
-            tasks.printListForFindingDate(secondWord);
+            if (input.length > 2) {
+                throw new DukeException(Ui.UNSPECIFIED_DATE);
+            } else {
+                tasks.printListForFindingDate(secondWord);
+            }
             break;
         default:
             checkTypeOfTask(input);
@@ -118,7 +123,7 @@ public class Parser {
      * Determines the type of task the user wishes to add, calls the respective TaskList methods to take action.
      * If the command is not legal, the respective DukeException will be thrown.
      *
-     * @param input The array of strings that represent the user's command
+     * @param input the array of strings that represent the user's command
      * @throws DukeException if the user's command does not fit the requirements to be considered a legal command
      * @throws IOException if there is any issue with the input or output
      */
