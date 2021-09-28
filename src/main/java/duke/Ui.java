@@ -1,6 +1,6 @@
 package duke;
 
-public class Init {
+public class Ui {
     /**
      * Show the "Duke" logo and some greeting-message
      */

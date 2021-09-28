@@ -5,16 +5,16 @@ import java.io.IOException;
 
 public class Duke {
     public static void main(String[] args) {
-        Init.showWelcomeMessage();
+        Ui.showWelcomeMessage();
         try {
-            Save.loadData();
+            Storage.loadData();
         } catch(IOException e) {
             System.out.println(e.getMessage());
         }
 
         while(true) {
             Parser.input = Parser.getInput();
-            Parser.taskList = Save.taskList;   //load data if there is any
+            Parser.taskList = Storage.taskList;   //load data if there is any
             Command c;
             if (Parser.isList()) {
                 c = Command.LIST;
@@ -29,7 +29,7 @@ public class Duke {
             } else if (Parser.isToDo()) {
                 c = Command.TODO;
             } else if (Parser.isBye()){
-                Init.bye();
+                Ui.bye();
                 break;
             } else {
                 c = Command.INVALID;
@@ -53,10 +53,10 @@ public class Duke {
                 System.out.println(e);
             }
 
-            Save.saveData(Parser.taskList.getAllTasksListFormatted(), Save.filePath);
-            Save.saveData(Parser.taskList.getAllTasksListOriginal(), Save.originalInputPath);
+            Storage.saveData(Parser.taskList.getAllTasksListFormatted(), Storage.filePath);
+            Storage.saveData(Parser.taskList.getAllTasksListOriginal(), Storage.originalInputPath);
 
-            Init.lineSeparator();
+            Ui.lineSeparator();
         }
     }
 }

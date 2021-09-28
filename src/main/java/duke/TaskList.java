@@ -5,7 +5,7 @@ import duke.exception.EmptyDoneIndexException;
 
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
     public static final int MAX_TASKS = 100;
     public  ArrayList<Task> tasks = new ArrayList<>();
 

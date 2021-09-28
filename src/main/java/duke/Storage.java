@@ -4,14 +4,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.security.KeyStore;
 import java.util.Scanner;
 
-public class Save {
+public class Storage {
     public static final int LENGTH_MARKER = 4;
     public static String filePath = "data.txt";
     public static String originalInputPath = "inputFile.txt";
-    public static TaskManager taskList = new TaskManager();
+    public static TaskList taskList = new TaskList();
     // load data to this taskList and pass the reference of the taskList to the one in Duke.java
 
     public static void saveData(String dataToWrite, String path) {

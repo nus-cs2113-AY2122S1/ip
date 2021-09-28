@@ -1,3 +1,0 @@
-[E][X] meeting (at: Friday)
-[E][X] speech (at: Monday)
-[E][ ] quiz (at: Thursday)

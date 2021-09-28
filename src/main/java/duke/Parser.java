@@ -10,7 +10,7 @@ public class Parser {
 
     public static Scanner in = new Scanner(System.in);
     public static String input;
-    public static TaskManager taskList = new TaskManager();
+    public static TaskList taskList = new TaskList();
 
     public static String getInput() {
         String input = in.nextLine();
