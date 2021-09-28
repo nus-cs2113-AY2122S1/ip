@@ -1,7 +1,91 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+________________________________________
+Greetings, human! I'm Duke. 
+What can I do for you?
+________________________________________
+________________________________________
+Gotcha. I've added this task:
+[T][ ] meet my mom
+You have a total of 1 tasks now.
+________________________________________
+________________________________________
+DukeException: Command given cannot be recognized.
+________________________________________
+________________________________________
+Gotcha. I've added this task:
+[D][ ] CS2113 coding exercise (by: Oct 15 2021)
+You have a total of 2 tasks now.
+________________________________________
+________________________________________
+DukeException: Date given has the wrong format.
+________________________________________
+________________________________________
+1. [T][ ] meet my mom
+2. [D][ ] CS2113 coding exercise (by: Oct 15 2021)
+________________________________________
+________________________________________
+Task CS2113 coding exercise marked as complete.
+________________________________________
+________________________________________
+DukeException: Index outside range.
+________________________________________
+________________________________________
+DukeException: Index is not a valid integer.
+________________________________________
+________________________________________
+DukeException: Deadline command does not include '/' character.
+________________________________________
+________________________________________
+Gotcha. I've added this task:
+[D][ ] carboncents disagree meeting (by: Sep 05 2021)
+You have a total of 3 tasks now.
+________________________________________
+________________________________________
+DukeException: Description of event is blank.
+________________________________________
+________________________________________
+DukeException: Description of deadline is blank.
+________________________________________
+________________________________________
+Gotcha. I've added this task:
+[E][ ] tour de france (at: Nov 03 2021)
+You have a total of 4 tasks now.
+________________________________________
+________________________________________
+DukeException: Task already completed.
+________________________________________
+________________________________________
+DukeException: Index outside range.
+________________________________________
+________________________________________
+1. [T][ ] meet my mom
+2. [D][X] CS2113 coding exercise (by: Oct 15 2021)
+3. [D][ ] carboncents disagree meeting (by: Sep 05 2021)
+4. [E][ ] tour de france (at: Nov 03 2021)
+________________________________________
+________________________________________
+Alright. I've deleted this task:
+[D][X] CS2113 coding exercise (by: Oct 15 2021)
+You have a total of 3 tasks now.
+________________________________________
+________________________________________
+DukeException: Index outside range.
+________________________________________
+________________________________________
+DukeException: Index is not a valid integer.
+________________________________________
+________________________________________
+1. [T][ ] meet my mom
+2. [D][ ] carboncents disagree meeting (by: Sep 05 2021)
+3. [E][ ] tour de france (at: Nov 03 2021)
+________________________________________
+________________________________________
+Here are the tasks matching your key:
+1. [T][ ] meet my mom
+2. [D][ ] carboncents disagree meeting (by: Sep 05 2021)
+________________________________________
+________________________________________
+No tasks match your key.
+________________________________________
+________________________________________
+Closing Duke. Have a nice day!
+________________________________________

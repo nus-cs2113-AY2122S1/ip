@@ -1,0 +1,23 @@
+todo meet my mom
+water plants
+deadline CS2113 coding exercise /by 2021-10-15
+event saw con 2021 /at 4-6pm tomorrow
+list
+done 2
+done -1024
+done abcdefg
+deadline error management by Sunday
+deadline carboncents disagree meeting /by 2021-09-05
+event ////////
+deadline / / / / / / / /
+event tour de france /at 2021-11-03
+done 2
+done 5
+list
+delete 2
+delete 44
+delete lmnop
+list
+find meet
+find z
+bye
