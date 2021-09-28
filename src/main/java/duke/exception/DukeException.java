@@ -21,6 +21,14 @@ public class DukeException extends Exception {
         Ui.printLine();
     }
 
+    /**
+     * Error for wrong task type
+     */
+    public static void taskError() {
+        Ui.printLine();
+        System.out.println(TaskManager.TASK_ERROR);
+        Ui.printLine();
+    }
     public static void stringIndexTodoError() {
         Ui.printLine();
         System.out.println("OOPS!!! The description of a todo cannot be empty.");
