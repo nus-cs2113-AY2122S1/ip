@@ -82,11 +82,11 @@ Expected outcome:
 The task selected is removed from the task list.
 
 ```
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Noted. I've removed this task:
 [D][ ] project (by: Sep 30 2021 1200)
 Now you have 0 tasks in the list.
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ```
 
 ### `Done` - Marks a task complete.
@@ -104,10 +104,10 @@ Expected outcome:
 The task selected is marked as completed.
 
 ```
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Nice! I've marked this task as done:
 [D][X] project (by: Sep 30 2021 1200)
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ```
 
 ### `Event` - Creates an Event.
@@ -125,11 +125,11 @@ Expected outcome:
 The event named open house is created with date and time 15/10/2021 0900.
 
 ```
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Got it. I've added this task:
 [E][ ] open house (at: Oct 15 2021 0900)
 Now you have 2 tasks in the list.
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ```
 
 ### `Find` - Search for tasks.
@@ -147,10 +147,10 @@ Expected outcome:
 The event named open house is returned.
 
 ```
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Here are the tasks in your list:
 1.[E][ ] open house (at: Oct 15 2021 0900)
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ```
 
 ### `Help` - Displays the help message.
@@ -164,7 +164,7 @@ Expected outcome:
 The description and syntax of the commands are returned.
 
 ```
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Welcome to the help page.
 Bye: Exits the program.
 Deadline: Adds a task with deadline. Command Syntax: deadline <name> /by <date in dd/MM/yyyy HHmm>
@@ -176,7 +176,7 @@ Help: Displays the help message.
 List: Lists all tasks.
 Todo: Creates a Todo task. Command Syntax: todo <task name>
 What's On: Lists all tasks occurring on the specified day. Command Syntax: whatson <date in dd/MM/yyyy>
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ```
 
 ### `List` - List all tasks.
@@ -190,11 +190,11 @@ Expected outcome:
 All tasks in the task list are listed.
 
 ```
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Here are the tasks in your list:
 1.[D][X] project (by: Sep 30 2021 1200)
 2.[E][ ] open house (at: Oct 15 2021 0900)
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ```
 
 ### `Todo` - Creates a Todo list.
@@ -212,11 +212,11 @@ Expected outcome:
 The task buy bread is added to the task list.
 
 ```
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Got it. I've added this task:
 [T][ ] buy bread
 Now you have 3 tasks in the list.
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ```
 
 ### `What's On` - List tasks on a day.
@@ -233,10 +233,10 @@ Expected outcome:
 All tasks on the specific date is returned.
 
 ```
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Here are the tasks in your list:
 1.[E][ ] open house (at: Oct 15 2021 0900)
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ```
 
 ### Saving the data
@@ -246,19 +246,18 @@ Duke will automatically save the data after any command that changes the data. T
 Duke's data are saved by a pipe `|` delimited file at `data/duke.txt`. Advanced users are welcome to update the data
 directly by editing that data file.
 
-`!Caution: If your changes to the data file makes its format invalid, Duke will discard all data and start with an 
-empty data file at the next run.`
+`!Caution: If your changes to the data file makes its format invalid, Duke will not run until the issue is rectified.
 
 ## Command Summary
-| Action | Command Parameters |
-| --- | --- |
-| `bye` | - |
-| `deadline` | `deadline <name> /by <date in dd/MM/yyyy HHmm>` |
-| `delete` | `delete <task id>` |
-| `done` | `done <task id>`|
-| `event` | `event <event name> /at <date in dd/MM/yyyy HHmm>` |
-| `find` | `find <string to search>` |
-| `help` | - |
-| `list` | - |
-| `todo` | `todo <task name>` |
-| `whatson` | `whatson <date in dd/MM/yyyy>` |
+Action | Command Parameters
+ --- | --- 
+ `bye` | - 
+ `deadline` | `deadline <name> /by <date in dd/MM/yyyy HHmm>` 
+ `delete` | `delete <task id>` 
+ `done` | `done <task id>`
+ `event` | `event <event name> /at <date in dd/MM/yyyy HHmm>`
+ `find` | `find <string to search>`
+ `help` | -
+ `list` | -
+ `todo` | `todo <task name>`
+ `whatson` | `whatson <date in dd/MM/yyyy>`

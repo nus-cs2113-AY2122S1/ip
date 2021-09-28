@@ -70,7 +70,7 @@ public class Storage {
             }
             createFile(ui);
         } catch (InvalidFile invalidFile) {
-            ui.customPrint("File contains invalid data!");
+            ui.customPrint("File contains invalid data! Please fix it before running Duke again.");
             System.exit(0);
         }
         return tasks;
