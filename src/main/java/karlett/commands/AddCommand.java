@@ -22,9 +22,16 @@ public class AddCommand extends Command {
         time = timeInfo;
     }
 
+    /**
+     * Add the task (todo/deadline/event) to the TaskList and the storage file.
+     *
+     * @param tasks a TaskList that is already stored
+     * @param textUi text user interface
+     * @param storageFile file to which command can write to
+     * @throws IOException input or output exception
+     */
     @Override
     public void execute(TaskList tasks, TextUi textUi, StorageFile storageFile) throws IOException {
-        tasks.increaseNumberOfTasks();
         Task task;
         switch (command) {
         case "deadline":
@@ -33,7 +40,7 @@ public class AddCommand extends Command {
         case "event":
             task = new Event(taskDescription, time);
             break;
-        default: // "todo case"
+        default: // "todo"
             task = new Task(taskDescription);
         };
         tasks.add(task);

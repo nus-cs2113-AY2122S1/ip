@@ -1,8 +1,6 @@
 package karlett.task;
 
-import karlett.storage.TaskListEncoder;
 import karlett.tasklist.TaskList;
-import karlett.ui.TextUi;
 
 import java.io.IOException;
 
@@ -12,14 +10,29 @@ public class Task {
     protected boolean isDone;
     private TaskList tasks;
 
-    /* constructor used for user input */
-    public Task(String description) throws IOException {
+    /**
+     * Return a Task object, setting its task
+     * status to false by default. This constructor
+     * is used for user input.
+     *
+     * @param description details of a task
+     */
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
     /* constructor used for loading file data */
-    public Task(String description, boolean isDone) throws IOException {
+
+    /**
+     * Return a Task object, setting its task status
+     * according to the task status given. This constructor
+     * is used for loading file data.
+     *
+     * @param description details of a task
+     * @param isDone task status of the task
+     */
+    public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }

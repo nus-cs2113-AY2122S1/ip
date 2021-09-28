@@ -43,6 +43,13 @@ public class TextUi {
         return s.nextLine();
     }
 
+    /**
+     * If file is not found, user has the option to let Karlett create a new file
+     * or exit the program.
+     *
+     * @param filePath path to a file from which data is loaded
+     * @throws IOException input or output exception
+     */
     public void printFileNotFoundMessage(String filePath) throws IOException {
         System.out.print("Uh-oh...Karlett can't find the file in " + filePath + "(=ಠᆽಠ=)\n");
         printFileNotFoundInstructions();
@@ -56,11 +63,6 @@ public class TextUi {
                 storageFile.getFile().createNewFile();
                 printNewFileCreatedMessage(filePath);
                 break;
-            /*case 2:
-                System.out.print("Please tell me the new file path meow: ");
-                String newFilePath = in.next();
-                StorageFile.loadData();
-                break;*/
             case 2:
                 Command c = new ExitCommand();
                 c.execute(null,null,null);
@@ -83,7 +85,6 @@ public class TextUi {
     public static void printFileNotFoundInstructions() {
         System.out.println("What can Karlett do for you meow? (Please key in 1/2)\n" +
                 "  1 Create a new text file called \"karlett.txt\" for me please.\n" +
-                //"  2 Load data from another file path for me please.\n" +
                 "  2 Exit the program now.\n");
     }
 
@@ -150,12 +151,6 @@ public class TextUi {
         drawDivider();
     }
 
-    public static void printPendingConfirmationToListMessage() {
-        drawDivider();
-        System.out.println("Do you want Karlett to list the tasks?(๑•́ᆽ•̀๑✿) [y/n]");
-        drawDivider();
-    }
-
     public void printEmptyTaskErrorMessage() {
         drawDivider();
         System.out.println("Karlett doesn't know what you need to do meow?(๑•́ᆽ•̀๑✿)");
@@ -198,6 +193,24 @@ public class TextUi {
         drawDivider();
     }
 
+    public void printEmptyKeywordMessage() {
+        drawDivider();
+        System.out.println("Karlett doesn't know what you need to find meow?(๑•́ᆽ•̀๑✿)");
+        drawDivider();
+    };
+
+    public void printInvalidKeywordMessage() {
+        drawDivider();
+        System.out.println("Please give Karlett one keyword only meow (๑•́ᆽ•̀๑✿)");
+        drawDivider();
+    }
+
+    public void printNoMatchedTaskFoundMessage(String keyWord) {
+        drawDivider();
+        System.out.println("Karlett didn't find any task contaning \"" + keyWord + "\" /ᐠﹷ ‸ ﹷ ᐟ\\ﾉ");
+        drawDivider();
+    }
+
     public void printIncorrectTimeFormat() {
         drawDivider();
         System.out.println("Please give Karltt a date and time in this format meow:\n" +
@@ -218,5 +231,4 @@ public class TextUi {
             System.out.println("ฅ" + (i + 1) + " " + matchedTasks.get(i));
         }
     }
-
 }

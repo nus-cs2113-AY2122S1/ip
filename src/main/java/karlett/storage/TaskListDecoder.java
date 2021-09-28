@@ -14,6 +14,16 @@ public class TaskListDecoder {
     public TaskListDecoder() {
     }
 
+    /**
+     * Interpret details of the input string representing a task, including its type, description,
+     * possibly deadline/time and status. Turn it into a Task object and add to the array list of
+     * tasks.
+     *
+     * @param tasks an array list of tasks
+     * @param task a string that represents a task
+     * @return an updated array list with the new task added
+     * @throws IOException output or input exception
+     */
     public ArrayList<Task> processFileData(ArrayList<Task> tasks, String task) throws IOException {
         char taskType;
         char taskStatus;

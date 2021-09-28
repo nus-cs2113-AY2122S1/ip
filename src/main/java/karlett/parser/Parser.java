@@ -9,18 +9,24 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
-import java.util.Locale;
-import java.util.Scanner;
 
 public class Parser {
     private static TextUi ui = new TextUi();
 
+    /**
+     * Make sense of the user input and return a command correspondingly.
+     *
+     * @param userInput a String of words
+     * @param tasks a TaskList that is already stored
+     * @return a Command corresponding to the user input
+     * @throws IOException input or output exception
+     */
     public static Command parse(String userInput, TaskList tasks) throws IOException {
         userInput = userInput.trim();
         String[] userInputInWords = userInput.split(" ");
         String command = userInputInWords[0];
-        String[] arguments = {};
-        arguments = Arrays.copyOfRange(userInputInWords, 1, userInputInWords.length);
+        String[] arguments = Arrays.copyOfRange
+                (userInputInWords, 1, userInputInWords.length);
         String taskDescription;
         String[] taskDescriptionInWords;
 
@@ -112,15 +118,6 @@ public class Parser {
                 break;
             }
         case "list":
-            if (arguments.length != 0) {
-                ui.printPendingConfirmationToListMessage();
-                Scanner in = new Scanner(System.in);
-                String userConfirmation = in.nextLine().toLowerCase(Locale.ROOT);
-                if (userConfirmation.equals("y")) {
-                    return new ListCommand();
-                }
-                break;
-            }
             return new ListCommand();
         case "on":
             String[] inputTimeInWords = Arrays.copyOfRange(arguments, 0, arguments.length);
@@ -133,6 +130,17 @@ public class Parser {
                 ui.printIncorrectTimeFormat();
                 break;
             }
+        case "find":
+            if (arguments.length == 0) {
+                ui.printEmptyKeywordMessage();
+                break;
+            }
+            if (arguments.length >1) {
+                ui.printInvalidKeywordMessage();
+                break;
+            }
+            String keyWord = arguments[0];
+            return new FindCommand(keyWord);
         case "done":
             return new DoneCommand(Integer.parseInt(arguments[0]));
         case "delete":
