@@ -3,7 +3,9 @@
 Welcome to Ryan! A task-tracker on a CLI interface that is able to keep your tasks locally.
 
 [Quick Start](#quick-start)
+
 [Features](#features)
+
 - [Viewing list of commands: help](#viewing-list-of-commands-help)
 - [Input to-do task: todo](#input-to-do-task-todo)
 - [Input event task: event](#input-event-task-event)
