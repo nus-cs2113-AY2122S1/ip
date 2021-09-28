@@ -7,26 +7,25 @@ public class Task {
     private static final String MARK_NO_CATEGORY = "[N]";
     protected static final String MARK_AS_DONE = "[X]";
     protected static final String MARK_AS_NOT_DONE = "[ ]";
-    public Task(String task){
+    public Task(String task) {
         this.task = task.split(" ", 2)[TASK_CONTENT_POSITION];
         this.isDone = false;
     }
 
-    public String getTask(){
-        if(isDone){
+    public String getTask() {
+        if (isDone) {
             return MARK_NO_CATEGORY + MARK_AS_DONE + " " + task;
-        }
-        else{
+        } else {
             return MARK_NO_CATEGORY + MARK_AS_NOT_DONE + " " + task;
         }
     }
 
-    public void markAsDone(){
+    public void markAsDone() {
         isDone = true;
 
     }
 
-    public boolean isDone(){
+    public boolean isDone() {
         return isDone;
     }
 }
