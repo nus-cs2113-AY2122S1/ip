@@ -21,6 +21,18 @@ public class DukeException extends Exception {
         Ui.printLine();
     }
 
+    public static void nullPointerFindError() {
+        Ui.printLine();
+        System.out.println("No tasks added yet");
+        Ui.printLine();
+    }
+
+    public static void stringIndexFindError() {
+        Ui.printLine();
+        System.out.println("find cannot be empty");
+        Ui.printLine();
+    }
+
     public static void indexBoundDeleteError() {
         Ui.printLine();
         System.out.println("Dude there's no task at that index");
