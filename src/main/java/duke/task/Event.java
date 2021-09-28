@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.manager.TaskManager;
+import duke.manager.DateAndTimeParser;
 
 import java.time.LocalDateTime;
 
@@ -31,7 +31,7 @@ public class Event extends Task {
      */
     @Override
     public String getDescription() {
-        return "[E]" + super.getDescription() + " (on: " + TaskManager.stringFormatter.format(on) + ")";
+        return "[E]" + super.getDescription() + " (on: " + DateAndTimeParser.stringFormatter.format(on) + ")";
     }
 
     @Override
