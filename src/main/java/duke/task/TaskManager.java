@@ -27,7 +27,7 @@ public class TaskManager {
      *
      * @param task Task to be checked
      */
-    public void add(String task) throws DukeException {
+    public static void add(String task) throws DukeException {
         String[] command = task.split(" ");
         if (command.length < 2) {
             throw new DukeException();
@@ -82,7 +82,7 @@ public class TaskManager {
     }
 
     //set task as done
-    public void checkDone(String[] command) {
+    public static void checkDone(String[] command) {
         //catch if input after done is integer
         try {
             Integer.parseInt(command[1]);
@@ -92,7 +92,7 @@ public class TaskManager {
         taskList.get(Integer.parseInt(command[1]) - 1).taskDone(true);
     }
 
-    public String getDescription(String task) {
+    public static String getDescription(String task) {
         String description;
         int separator;
         if (getCommand(task).equals(TO_DO)) {
@@ -114,7 +114,7 @@ public class TaskManager {
      * @param command
      * @return Type of Task
      */
-    public String getCommand(String command) {
+    public static String getCommand(String command) {
         String[] task = command.split(" ");
         String taskType = task[0];
 
@@ -123,7 +123,7 @@ public class TaskManager {
 
 
 
-    public void printSize() {
+    public static void printSize() {
         if (getSize() == 0) {
             System.out.println("     Now you have 0 task in the list.");
         } else if (getSize() == 1) {
@@ -139,15 +139,15 @@ public class TaskManager {
      * @param index index of task in taskList ArrayList
      * @return Name of Task
      */
-    public String getName(int index) {
+    public static String getName(int index) {
         return taskList.get(index - 1).toString();
     }
 
-    public int getSize() {
+    public static int getSize() {
         return taskList.size();
     }
 
-    public void list() {
+    public static void list() {
         try {
             if (taskList.size() == 0) {
                 System.out.println("     ☹ OOPS!!! List is empty");
@@ -170,7 +170,7 @@ public class TaskManager {
      * @param description command entered.
      * @return Date of event or deadline.
      */
-    public String getDate(String description) {
+    public static String getDate(String description) {
         String date;
         String taskType = getCommand(description);
         int indexOfSeparator;
@@ -196,7 +196,7 @@ public class TaskManager {
         return date;
     }
 
-    public void deleteTask(String[] input) {
+    public static void deleteTask(String[] input) {
         int taskToDelete = Integer.parseInt(input[1]);
         Task thisTask = taskList.get(taskToDelete - 1);
         System.out.println("       " + thisTask);

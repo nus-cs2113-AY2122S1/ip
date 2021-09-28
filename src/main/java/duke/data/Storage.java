@@ -72,7 +72,7 @@ public class Storage {
 
             textToAppend = taskType + " | " + status + " | " + description;
             if (task instanceof Event || task instanceof Deadline) {
-                textToAppend += " |" + timing;
+                textToAppend += " | " + timing;
             }
             textToAppend += "\n";
             appendToFile(filePath, textToAppend);
@@ -96,12 +96,5 @@ public class Storage {
             createFile();
         }
     }
-
-
-
-
-
-
-
-
+    
 }

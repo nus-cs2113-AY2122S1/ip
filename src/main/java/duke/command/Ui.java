@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.data.Storage;
+import duke.task.Parser;
 import duke.task.TaskManager;
 import duke.DukeException;
 
@@ -36,56 +37,53 @@ public class Ui {
     private static final String DELETE = "delete";
     private static final String ADD_SUCCESS = "     Nice! I've marked this task as done: ";
     private static final String DELETE_SUCCESS = "     Noted. I've removed this task:";
-    //private static final String PATH_NAME = "data/output.txt";
 
     public Ui(TaskManager taskManager, Scanner scanner) {
         this.taskManager = taskManager;
         this.scanner = scanner;
-        //this.storage = storage;
     }
 
     public void start() {
         Storage.loadData();
         System.out.println(GREETINGS);
+
         boolean isExit = false;
         while (!isExit) {
             String input = scanner.nextLine();
-            String[] command = input.split(" ");
-            String firstWord = command[0];
-
             System.out.print(LINE);
-            try {
-                switch (firstWord) {
-                case BYE:
-                    System.out.println(FAREWELL);
-                    isExit = true;
-                    break;
-                case LIST:
-                    taskManager.list();
-                    break;
-                case DONE:
-                    int taskNumber = Integer.parseInt(command[1]);
-                    System.out.println(ADD_SUCCESS);
-                    taskManager.checkDone(command);
-                    System.out.println("       " + taskManager.getName(taskNumber));
-                    break;
-                case TO_DO:
-                case DEADLINE:
-                case EVENT:
-                    taskManager.add(input);
-                    break;
-                case DELETE:
-                    System.out.println(DELETE_SUCCESS);
-                    taskManager.deleteTask(command);
-                    break;
-                default:
-                    System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                }
-            } catch (DukeException e) {
-                System.out.println("     ☹ OOPS!!! The description of a " + firstWord + " cannot be empty.");
-            } catch (NumberFormatException e) {
-                System.out.println("     ☹ OOPS!!! The task's index should be an integer.");
-            }
+            isExit = Parser.parse(input);
+//            try {
+//                switch (command) {
+//                case BYE:
+//                    System.out.println(FAREWELL);
+//                    isExit = true;
+//                    break;
+//                case LIST:
+//                    taskManager.list();
+//                    break;
+//                case DONE:
+//                    int taskNumber = Integer.parseInt(params[1]);
+//                    System.out.println(ADD_SUCCESS);
+//                    taskManager.checkDone(params);
+//                    System.out.println("       " + taskManager.getName(taskNumber));
+//                    break;
+//                case TO_DO:
+//                case DEADLINE:
+//                case EVENT:
+//                    taskManager.add(input);
+//                    break;
+//                case DELETE:
+//                    System.out.println(DELETE_SUCCESS);
+//                    taskManager.deleteTask(params);
+//                    break;
+//                default:
+//                    System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+//                }
+//            } catch (DukeException e) {
+//                System.out.println("     ☹ OOPS!!! The description of a " + command + " cannot be empty.");
+//            } catch (NumberFormatException e) {
+//                System.out.println("     ☹ OOPS!!! The task's index should be an integer.");
+//            }
             System.out.print(LINE);
             Storage.saveData();
         }
