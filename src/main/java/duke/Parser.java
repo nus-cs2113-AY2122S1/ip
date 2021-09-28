@@ -41,7 +41,7 @@ public class Parser {
         return input.startsWith("todo");
     }
 
-    public static boolean isDelete() { return input.startsWith("delete"); }
+    public static boolean isDelete() {return input.startsWith("delete"); }
 
     public static boolean isFind() {
         return input.startsWith("find");

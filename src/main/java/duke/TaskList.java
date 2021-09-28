@@ -20,7 +20,7 @@ public class TaskList {
     public boolean searchTask(Task task) {
         boolean taskFound = false;
         for (int i=0; i<tasks.size(); i++) {
-            if (tasks.get(i).getTask().equals(task.getTask()) && !tasks.get(i).isDone()) {   
+            if (tasks.get(i).getTask().equals(task.getTask()) && !tasks.get(i).isDone()) {
                 taskFound = true;
             }
         }
