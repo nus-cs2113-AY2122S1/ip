@@ -24,10 +24,12 @@ What can I do for you?
 * **Command Summary**
 
 
-##Features
+## Features
+
 * Code in `UPPER_CASE` represent input fields that must be supplied by users for commands to work
 
 ### Add a Todo task item: `todo`
+
 Add a `todo` type task into the task list.
 
 Format: `todo DESCPRIPTION` 
@@ -43,6 +45,7 @@ Got it. I've added this task:
 Now you have 1 task in the list
 ```
 ### Add an Event task item: `event`
+
 Add an `event` type task into the task list.
 
 Format: `event DESCPRIPTION /[at:] OCCURING_AT`
@@ -153,6 +156,7 @@ Here are the tasks in your list:
 2. [D][ ] CS2113 Assignment (tomorrow 4pm)
 ```
 ### Exiting the program: `bye`
+
 Use for terminating the program
 
 Format:
@@ -167,7 +171,7 @@ Bye. Hope to see you again soon!
 
 
 ## Command Summary
-* 
+
 Action | Format,Examples
 ------ | ---------------
 Add todo | `todo DESCPRIPTION` 
