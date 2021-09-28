@@ -5,8 +5,11 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class TaskList {
     protected ArrayList<Task> tasks;
@@ -28,10 +31,31 @@ public class TaskList {
      */
     public void printTasks() {
         System.out.println("Here are the tasks in your list:");
-        int currentIndex = 1;
-        for (Task task : tasks) {
-            System.out.println(currentIndex + ". " + task.toString());
-            currentIndex++;
+        Ui.printTasks(tasks);
+    }
+
+    /**
+     * Search in tasks for keyword input by user
+     *
+     * @param userInput user input
+     */
+    public void findTask(String userInput) {
+        try {
+            String keyword = userInput.split(" ")[1];
+            ArrayList<Task> foundTasks = (ArrayList<Task>) tasks.stream()
+                    .filter(t -> t.getDescription().toLowerCase(Locale.ROOT).contains(keyword))
+                    .collect(Collectors.toList());
+
+            boolean noMatch = foundTasks.isEmpty();
+            if (noMatch) {
+                Ui.printNoMatchTask();
+                return;
+            }
+
+            System.out.println("Here are the matching tasks in your list:");
+            Ui.printTasks(foundTasks);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please enter keyword of task to search");
         }
     }
 
