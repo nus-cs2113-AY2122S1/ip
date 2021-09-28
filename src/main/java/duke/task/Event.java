@@ -24,6 +24,7 @@ public class Event extends Task {
     public String getTime() {
         return timing;
     }
+
     @Override
     public String toString() {
         return "[" + getIcon() + "]" + super.toString() + getTiming();
