@@ -105,6 +105,9 @@ public class Duke {
             markAsDone(tasksArrayList, inputLine);
             break;
         case COMMAND_DELETE_WORD:
+            if (!inputLine.contains(" ")) {
+                throw new EmptyTaskNumber();
+            }
             deleteTask(tasksArrayList, inputLine);
             break;
         default:
