@@ -4,6 +4,28 @@ public class TaskList {
     private static ArrayList<Task> tasksList;
     private static final String HOR_LINE = "-".repeat(60);
 
+    public static void findTasks(String word) {
+        System.out.println("\t" + HOR_LINE);
+        System.out.println("\tTasks found for keyword, " + word.toUpperCase());
+        int originalOption = 1;
+        boolean isFound = false;
+        for (Task t: tasksList) {
+            String taskDescription = t.description;
+            if (taskDescription.toLowerCase().contains(word)) {
+                System.out.println("\t" + originalOption + "| " +
+                        t.getTypeIcon() + t.getStatusIcon() + t.description);
+                isFound = true;
+            }
+            originalOption++;
+        }
+
+        if (!isFound) {
+            System.out.println("\t0 RECORDS FOUND.");
+        }
+
+        System.out.println("\t" + HOR_LINE + System.lineSeparator());
+    }
+
     /**
      * Prints task list.
      */
