@@ -140,13 +140,25 @@ public class Parser {
         return task;
     }
 
-    public static String getTaskType(String taskDetails) {
+    /**
+     * Parse data of task from file to get task type
+     *
+     * @param taskDetails Detail of task from file
+     * @return Type of task
+     */
+    private static String getTaskType(String taskDetails) {
         String[] splitTaskDetails = taskDetails.split("\\|");
         String taskType = splitTaskDetails[0];
         return taskType;
     }
 
-    public static Boolean getTaskStatus(String taskDetails) {
+    /**
+     * Parse data of task from file to get task status
+     *
+     * @param taskDetails Detail of task from file
+     * @return Status of task
+     */
+    private static Boolean getTaskStatus(String taskDetails) {
         String[] splitTaskDetails = taskDetails.split("\\|");
         Boolean taskStatus = false;
         if (splitTaskDetails[1].equals("true")) {
@@ -155,13 +167,25 @@ public class Parser {
         return taskStatus;
     }
 
-    public static String getTaskDescription(String taskDetails) {
+    /**
+     * Parse data of task from file to get task description
+     *
+     * @param taskDetails Detail of task from file
+     * @return Description of task
+     */
+    private static String getTaskDescription(String taskDetails) {
         String[] splitTaskDetails = taskDetails.split("\\|");
         String description = splitTaskDetails[2];
         return description;
     }
 
-    public static String getTaskDate(String taskDetails) {
+    /**
+     * Parse data of task from file to get task date
+     *
+     * @param taskDetails Detail of task from file
+     * @return Date of task
+     */
+    private static String getTaskDate(String taskDetails) {
         String[] splitTaskDetails = taskDetails.split("\\|");
         String date = "";
         if (splitTaskDetails.length > 3) {
@@ -170,27 +194,51 @@ public class Parser {
         return date;
     }
 
-        
+    /**
+     * Parse user input of date time into specific format of yyyy-MM-dd HH:mm.
+     * Used by event and deadline tasks.
+     *
+     * @param date Date given by user
+     * @return LocalDateTime object
+     */
     public static LocalDateTime parseDateTime(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
         return dateTime;
     }
 
+    /**
+     * Converts the LocalDateTime object into a more reader friendly format.
+     *
+     * @param dateTime Date parsed
+     * @return Reader friendly string format of datetime
+     */
     public static String getFormattedDateTime(LocalDateTime dateTime) {
         String formattedDateTime = dateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
         return formattedDateTime;
     }
 
+    /**
+     * Parse user input of date into specific format of yyyy-MM-dd.
+     * Used by schedule command.
+     *
+     * @param date Date given by user
+     * @return LocalDate object
+     */
     public static LocalDate parseDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate parsedDate = LocalDate.parse(date, formatter);
         return parsedDate;
     }
 
+    /**
+     * Converts the LocalDate object into a more reader friendly format
+     *
+     * @param date Date parsed
+     * @return Reader friendly string format of date
+     */
     public static String getFormattedDate(LocalDate date) {
         String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return formattedDate;
     }
-
 }

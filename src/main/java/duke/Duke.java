@@ -8,7 +8,7 @@ import duke.tasks.TaskList;
 import duke.ui.Ui;
 
 /**
- * Initializes application Duke and tries to load data from storage
+ * Initializes Duke program and tries to load data from storage
  * Prompts for user input and executes commands accordingly
  */
 public class Duke {
@@ -26,6 +26,10 @@ public class Duke {
         new Duke().run();
     }
 
+    /**
+     * Prompt user for input to execute commands.
+     * Program will terminate when `bye` command is received.
+     */
     public void run() {
         ui.displayGreetingMessage();
         boolean isExit = false;

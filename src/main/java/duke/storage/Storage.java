@@ -35,7 +35,7 @@ public class Storage {
      * @throws IOException If unable to write into file
      */
     private static void writeToFile(String data) throws IOException {
-        FileWriter fw = new FileWriter("data/duke.txt");
+        FileWriter fw = new FileWriter(FILE_PATH);
         fw.write(data);
         fw.close();
     }

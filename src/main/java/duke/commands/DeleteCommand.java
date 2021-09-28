@@ -29,12 +29,12 @@ public class DeleteCommand extends Command {
                 Task taskToDelete = tasks.getTaskAtIndex(taskIndex);
                 tasks.removeTask(taskIndex);
                 Storage.saveData(tasks);
+
                 int taskListSize = tasks.sizeOfTaskList();
                 ui.displayDeleteMessage(taskToDelete, taskListSize);
             }
         } catch (NumberFormatException e) {
             ui.displaySpecifyIntegerResponse();
         }
-
     }
 }

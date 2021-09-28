@@ -25,6 +25,7 @@ public class MarkDoneCommand extends Command {
                 int taskIndex = taskNumber - 1;
                 tasks.getTaskAtIndex(taskIndex).markAsDone();
                 Storage.saveData(tasks);
+
                 ui.displayDoneMessage(tasks, taskIndex);
             }
         } catch (NumberFormatException e) {

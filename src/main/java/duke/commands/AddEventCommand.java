@@ -37,6 +37,7 @@ public class AddEventCommand extends Command {
                 Event newEvent = new Event(description, dateTime);
                 tasks.addTask(newEvent);
                 Storage.saveData(tasks);
+
                 int taskListSize = tasks.sizeOfTaskList();
                 ui.acknowledgeAddedTask(newEvent, taskListSize);
             } catch (StringIndexOutOfBoundsException e) {

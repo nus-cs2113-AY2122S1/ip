@@ -34,7 +34,7 @@ public class ScheduleCommand extends Command {
                 String formattedDate = Parser.getFormattedDate(parsedDate);
 
                 for (int i = 1; i < tasks.sizeOfTaskList() + 1; i++) {
-                    Task task = tasks.getTaskAtIndex(i-1);
+                    Task task = tasks.getTaskAtIndex(i - 1);
                     if (task instanceof Deadline) {
                         String deadlineDate = ((Deadline) task).getDateString();
                         if (formattedDate.equals(deadlineDate)) {
@@ -56,8 +56,6 @@ public class ScheduleCommand extends Command {
             } catch (DateTimeParseException e) {
                 ui.displayInvalidDateFormatResponse();
             }
-
         }
-
     }
 }
