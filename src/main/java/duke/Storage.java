@@ -9,13 +9,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileManager {
+public class Storage {
     private static final String DELIMITER = "---";
     private static final String TODO = "T";
     private static final String DEADLINE = "D";
     private static final String EVENT = "E";
 
-    public static void loadFile() {
+//    protected static String filePath;
+//
+//    public Storage(String filePath) {
+//        this.filePath = filePath;
+//    }
+
+    public static void load() {
+//        TaskList tasks = new TaskList();
         File directory = new File("data");
         try {
             if (!directory.exists()) {
@@ -26,11 +33,13 @@ public class FileManager {
             while (s.hasNext()) {
                 parseText(s.nextLine());
                 if (!s.hasNext()) {
-                    Ui.printTaskLoadedSuccessMessage();
+                    Ui.showTaskLoadedSuccessMessage();
+                    return;
                 }
             }
+            Ui.showBlankLoadFileMessage();
         } catch (FileNotFoundException e) {
-            Ui.printLoadFileNotFoundMessage();
+            Ui.showLoadingError();
         } catch (DukeException e) {
             e.printStackTrace();
         }
@@ -46,12 +55,13 @@ public class FileManager {
         String taskIsDone = words[1];
         String taskName= words[2];
         String taskDetails = "Hello there. Welcome to my FileManager.java!";
+
         if (taskType.equals(DEADLINE) || taskType.equals(EVENT)) {
             taskDetails = words[3];
         }
 
         if (taskType.equals(TODO) || taskType.equals(DEADLINE) || taskType.equals(EVENT)) {
-            TaskManager.addTaskFromFile(taskType, taskIsDone, taskName, taskDetails);
+            TaskList.addTaskFromFile(taskType, taskIsDone, taskName, taskDetails);
         } else {
             throw new DukeException("Unidentified task type.");
         }
