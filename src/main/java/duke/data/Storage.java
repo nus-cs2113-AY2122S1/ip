@@ -18,15 +18,24 @@ public class Storage {
 
     private static final String PATH_NAME = "data/output.txt";
 
+    /**
+     * Creates file inside its directory.
+     */
     public static void createFile(){
         try {
-            Path path = Paths.get(PATH_NAME); //
+            Path path = Paths.get(PATH_NAME);
             Files.createDirectories(path.getParent());
         } catch (IOException e) {
             System.out.println("Error in creating file");
         }
     }
 
+    /**
+     * Reads content from file and adds into TaskList.
+     *
+     * @param filePath Path where file is read from.
+     * @throws FileNotFoundException If file not found.
+     */
     public static void readFromFile(String filePath) throws FileNotFoundException {
         File file = new File(filePath);
         Scanner scanner = new Scanner(file);
@@ -53,12 +62,25 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends to end of file.
+     *
+     * @param filePath Path to append file to.
+     * @param textToAppend Text to be appended.
+     * @throws IOException If an I/O exception has occurred.
+     */
     public static void appendToFile(String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
         fw.write(textToAppend);
         fw.close();
     }
 
+    /**
+     * Writes to file.
+     *
+     * @param filePath Path to write file to.
+     * @throws IOException If an I/O exception has occurred.
+     */
     public static void writeToFile(String filePath) throws IOException {
         String textToAppend;
         FileWriter fw = new FileWriter(filePath, false);
@@ -79,6 +101,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves data into file.
+     */
     public static void saveData() {
         try {
             Path path = Paths.get(PATH_NAME);
@@ -89,6 +114,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads data from file.
+     */
     public static void loadData() {
         try {
             readFromFile(PATH_NAME);

@@ -16,6 +16,12 @@ public class Parser {
     private static final String DELETE_SUCCESS = "     Noted. I've removed this task:";
 
 
+    /**
+     * Parses input and executes respective command.
+     *
+     * @param input Input to be parsed.
+     * @return False if "bye" command not entered.
+     */
     public static boolean parse(String input) {
         String[] params = input.split(" ");
         String command = params[0];
@@ -30,7 +36,7 @@ public class Parser {
             case DONE:
                 int taskNumber = Integer.parseInt(params[1]);
                 System.out.println(ADD_SUCCESS);
-                TaskManager.checkDone(params);
+                TaskManager.setDone(params);
                 System.out.println("       " + TaskManager.getName(taskNumber));
                 break;
             case TO_DO:
