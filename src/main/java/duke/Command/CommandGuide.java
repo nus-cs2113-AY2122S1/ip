@@ -1,14 +1,22 @@
 package duke.Command;
 
-import duke.ArtBot.Logo;
-
+/**
+ * Represent multiple simple one word commands that mainly just print out messages
+ */
 public class CommandGuide extends Command{
 
-
+    /**
+     * Constructor for CommandGuide
+     *
+     * @param taskInput Command input by user
+     */
     public CommandGuide(String taskInput){
         super(taskInput);
     }
 
+    /**
+     * Print out a fixed message depending on user input or hand over processing of input to ArtCommand
+     */
     @Override
     public void executeCommand(){
         if(taskInput.startsWith(COMMAND_ECHO_ART)){

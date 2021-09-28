@@ -8,15 +8,30 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represent a command that filter out task with a specific date and print to user
+ */
 public class FindDateCommand extends Command{
 
     private final TaskList taskList;
 
+    /**
+     * Constructor for FindDateCommand
+     *
+     * @param taskInput Command input by user to process
+     * @param taskList Tasklist to interact with list of task
+     */
     public FindDateCommand(String taskInput, TaskList taskList){
         super(taskInput);
         this.taskList = taskList;
     }
 
+    /**
+     * Filter out date to search and convert to LocalDate object
+     * Pass searching of date to TaskList
+     *
+     * @throws CommandException if list is empty or if date to search is empty
+     */
     @Override
     public void executeCommand() throws CommandException {
         if(taskList.getListSize() == 0){
@@ -34,6 +49,13 @@ public class FindDateCommand extends Command{
         }
     }
 
+    /**
+     * Find first instance of a date by finding a string in a pattern
+     * Pattern:4int-2int-2int
+     *
+     * @param stringToSearch String that contain date
+     * @return Null if no date is found or return a matcher object that found date
+     */
     private Matcher findDate(String stringToSearch){
         Pattern pattern = Pattern.compile(DATE_PATTERN);
         Matcher matcher = pattern.matcher(stringToSearch);
@@ -43,6 +65,11 @@ public class FindDateCommand extends Command{
         return null;
     }
 
+    /**
+     * Extract string containing date
+     *
+     * @return string containing date or Empty String if no date found
+     */
     private String convertStringToDate(){
         Matcher dateMatcher = findDate(taskInput);
         if(dateMatcher != null){
