@@ -30,6 +30,8 @@ public class Parser {
                     TaskList.addEvent(inputCommand, tasks);
                 } else if (inputCommand.contains("delete")){
                     TaskList.deleteTask(inputCommand, tasks);
+                } else if (inputCommand.contains("find")){
+                    TaskList.findTask(inputCommand, tasks);
                 } else if(inputCommand.contains("bye")){
                     try {
                         Storage.saveData(tasks);
@@ -49,4 +51,3 @@ public class Parser {
         }
     }
 }
-
