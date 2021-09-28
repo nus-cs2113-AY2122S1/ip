@@ -1,11 +1,12 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
@@ -111,6 +112,7 @@ public class TaskList {
             System.out.println("\tHere's your list of tasks:");
             for (int i = 0; i < numOfTasks; i++) {
                 System.out.println("\t" + (i + 1) + "." + userLists.get(i).toString());
+                System.out.println(userLists.get(i).getStatusIcon() + "|");
             }
         }
     }
@@ -123,4 +125,11 @@ public class TaskList {
         return "0";
     }
 
+    public static void findEntry(String[] userInput) {
+        String searchQuery = userInput[1];
+        List<Task> matches =userLists.stream()
+                .filter(t -> t.getDescription().contains(searchQuery))
+                .collect(Collectors.toList());
+        UI.printFoundEntries(matches);
+    }
 }
