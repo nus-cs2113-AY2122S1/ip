@@ -1,4 +1,8 @@
 package duke;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents an activity occurring at a certain time
@@ -7,10 +11,10 @@ package duke;
 public class Events extends Task {
 
     //variables
-    protected  String timeAllocation;
+    protected LocalDateTime timeAllocation;
 
     //constructors
-    public Events(String description, String timeAllocation) {
+    public Events(String description, LocalDateTime timeAllocation) {
         super(description);
         this.timeAllocation = timeAllocation;
     }
@@ -21,7 +25,7 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return("[E]" + super.toString() + " (at: " + timeAllocation + ")");
+        return("[E]" + super.toString() + " (at: " + timeAllocation.format(DateTimeFormatter.ofPattern("HH:mm MMM dd yyyy")) + ")");
     }
 
 

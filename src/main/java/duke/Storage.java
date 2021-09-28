@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 //for writing to file
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -90,10 +91,10 @@ public class Storage {
                 textDescription = "T" + "|" + getDoneNumber(todo.getDone()) + "|" + todo.getDescription();
             } else if ( className.equals("duke.Deadlines")) {
                 Deadlines deadline = (Deadlines) task;
-                textDescription = "D" + "|" + getDoneNumber(deadline.getDone()) + "|" + task.getDescription()+ " /by " + deadline.by;
+                textDescription = "D" + "|" + getDoneNumber(deadline.getDone()) + "|" + task.getDescription()+ " /by " + deadline.by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
             } else if (className.equals("duke.Events") ) {
                 Events event = (Events) task;
-                textDescription = "E" + "|" + getDoneNumber(event.getDone()) + "|" + task.getDescription() + " /at " + event.timeAllocation;
+                textDescription = "E" + "|" + getDoneNumber(event.getDone()) + "|" + task.getDescription() + " /at " + event.timeAllocation.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
             }
 
             fw.write(textDescription +  System.lineSeparator());
