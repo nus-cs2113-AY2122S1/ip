@@ -12,7 +12,16 @@ import duke.tasklist.TaskList;
 
 import java.util.Locale;
 
+/** Represents the parser that parses commands input from the user */
 public class Parser {
+    /**
+     * Parse the correct command based on the different command type
+     *
+     * @param commandType command type
+     * @param userInput user input
+     * @param taskList list of task
+     * @throws DukeException handles the duke exception error
+     */
     public static void processUserInput(CommandType commandType, String userInput,
                                         TaskList taskList) throws DukeException {
         switch (commandType) {
@@ -48,6 +57,12 @@ public class Parser {
         LIST, BYE, DONE, TODO, DEADLINE, EVENT, DELETE, FIND, NULL
     }
 
+    /**
+     * Determines the type of command the user entered
+     *
+     * @param userInput user input
+     * @return type of command
+     */
     public static CommandType getCommandType(String userInput) {
         String command = userInput.split(" ")[0].toLowerCase(Locale.ROOT);
         switch (command) {
