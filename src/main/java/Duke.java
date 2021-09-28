@@ -41,7 +41,6 @@ public class Duke {
                 throw new DukeException("The description of " + commandType + " cannot be empty.");
             }
             command = new ToDoCommand(taskManager, taskInfo);
-            //taskManager.addToDoTask(taskInfo);
             break;
         case COMMAND_ADD_DEADLINE:
             try {
@@ -50,7 +49,6 @@ public class Duke {
                 throw new DukeException("The description of " + commandType + " cannot be empty.");
             }
             command = new DeadlineCommand(taskManager, parser, taskInfo);
-            //taskManager.addDeadlineTask(parser, taskInfo);
             break;
         case COMMAND_ADD_EVENT:
             try {
@@ -59,7 +57,6 @@ public class Duke {
                 throw new DukeException("The description of " + commandType + " cannot be empty.");
             }
             command = new EventCommand(taskManager, parser, taskInfo);
-            //taskManager.addEventTask(parser, taskInfo);
             break;
         case COMMAND_FINISH_TASK:
             try {
@@ -68,7 +65,6 @@ public class Duke {
                 throw new DukeException("The description of " + commandType + " cannot be empty.");
             }
             command = new SetDoneCommand(taskManager, taskInfo);
-            //taskManager.setAsDone(taskInfo);
             break;
         case COMMAND_DELETE_TASK:
             try {
@@ -77,7 +73,6 @@ public class Duke {
                 throw new DukeException("The description of " + commandType + " cannot be empty.");
             }
             command = new DeleteCommand(taskManager, taskInfo);
-            //taskManager.deleteTask(taskInfo);
             break;
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
