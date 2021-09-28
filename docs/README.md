@@ -14,7 +14,6 @@ Duke is an application for users to manage and track Tasks via a Command Line In
   - [Check Schedule on Date: `schedule`](#schedule---list-all-tasks-on-specific-date)
   - [Search for Keyword in Tasks: `find`](#find---search-tasks)
   - [Quit the program: `bye`](#bye---quits-the-program)
-  - 
   - [Data Storage](#data-storage)
   - [Data Editing](#data-editing)
 - [Command Summary](#command-summary)
@@ -277,10 +276,10 @@ _________________________________________________________________
 
 
 ### Data Storage
-Duke will automatically saves the data in 'data/duke.txt' after safely terminating Duke through the `bye` command. Duke will automatically load from 'data/duke.txt' on startup if it exists.
+Duke will automatically save data in 'data/duke.txt' after any operation that modifies the task list. Duke will automatically load from 'data/duke.txt' on startup if it exists. Data is saved in a specifc format with fields delimited by a pipe `|`are saved by a pipe. [TASK_TYPE|IS_DONE|TASK_DESCRIPTION|DATETIME(if applicable)]
   
 ### Data Editing
-Duke's data is saved in `data/duke.txt`. It is saved in a specifc format with fields delimited by a pipe `|`are saved by a pipe. It is **NOT** recommended to directly edit from this file unless you know exactly what you are doing. 
+It is possible to directly edit the data file but it is **NOT** recommended unless you know exactly what you are doing. It may result in unintended behaviour if data file is tampered with while the program is running.
 
 <div markdown="span" class="alert alert-warning">:exclamation: CAUTION:
 If your changes to the data file makes its format invalid, Duke will crash and will not be able to start up. In that case, either fix the format or in the worst case, discard all data by deleting data/duke.txt`
