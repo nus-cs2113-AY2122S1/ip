@@ -63,4 +63,25 @@ public class Ui {
                  + LINE);
      }
 
+     public String helpList() {
+        return (LINE +
+                "Here are the list of commands Available in Duke:\n\t" +
+                LINE +
+                "bye : closes Programme\n\t" +
+                "list : lists out every Task stored in the savefile\n\t" +
+                "todo : Adds a new ToDo to the Task List\n\t" +
+                "deadline : Adds a new Deadline to the Task List\n\t" +
+                "event : Adds a new Event to the Task List\n\t" +
+                "find : Lists all tasks that contains a keyword\n\t" +
+                LINE);
+     }
+
+     public String findResults(String keyword, TaskList taskList) {
+        String results = taskList.find(keyword);
+        return (LINE +
+                "Find Results of [" + keyword + "]:\n" +
+                results +
+                LINE);
+     }
+
 }

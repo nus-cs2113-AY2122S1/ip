@@ -94,6 +94,16 @@ public class TaskList {
         return list.get(index);
     }
 
+    public String find(String keyword) {
+        int count = 0;
+        String result = "";
+        for (Task task : list) {
+            count += 1;
+            result += (task.getTask().contains(keyword)) ? String.format("\t%d. ", count) + task + "\n": "" ;
+        }
+        return result;
+    }
+
     private static int getIndex(String command) {
         String index = command.substring(command.indexOf(" ") + 1);
         return Integer.parseInt(index.trim());
