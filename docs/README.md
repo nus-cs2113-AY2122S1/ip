@@ -26,6 +26,7 @@ you manage your daily tasks faster than traditional GUI application.
 4. Open a terminal window in the _home folder_.
 5. Type `java -jar Duke.jar` into the terminal to start Duke. 
 6. The following display should appear in a few seconds:
+
 ```
 +++++++++++++++++++++++++++++++++++++++++++++
   __         __
@@ -45,6 +46,7 @@ you manage your daily tasks faster than traditional GUI application.
 [You]:
 => 
 ```
+
 7. You may now enter commands into Duke. Type a command beside the cursor `=>`
 and press `Enter` on your keyboard to execute the command.
 8. Some example commands you can try:
