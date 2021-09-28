@@ -249,6 +249,7 @@ directly by editing that data file.
 `!Caution: If your changes to the data file makes its format invalid, Duke will not run until the issue is rectified.`
 
 ## Command Summary
+
 Action | Command Parameters
 ------ | ------
  `bye` | - 
