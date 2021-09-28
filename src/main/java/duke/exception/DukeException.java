@@ -21,6 +21,18 @@ public class DukeException extends Exception {
         Ui.printLine();
     }
 
+    public static void indexBoundDeleteError() {
+        Ui.printLine();
+        System.out.println("Dude there's no task at that index");
+        Ui.printLine();
+    }
+
+    public static void nullPointerDeleteError() {
+        Ui.printLine();
+        System.out.println("OH MY GOD, can you maybe type things properly ?");
+        System.out.println("Its delete {index}");
+        Ui.printLine();
+    }
 
     public static void stringIndexEventError() {
         Ui.printLine();
