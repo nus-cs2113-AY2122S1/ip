@@ -14,14 +14,19 @@ fast, Duke can get your task management done faster than traditional GUI apps. I
 2. Command Summary
 ## Features
 
+
 ####Command format:
+
+
 1. Words in `UPPER_CASE` are the parameters to be supplied by the user. (eg. `todo` `TASK_DESCRIPTION`, `TASK_DESCRIPTION` is 
 the description of the 
 task supplied by the user.)
 2. Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) is not acceptable.
    e.g. if the command specifies `list 123`, there will be an error.
 
+
 ###Adding a todo
+
 
 Adds a todo to your list of tasks.
 
@@ -33,7 +38,9 @@ Example input:
 
 `todo deliver parcel`
 
+
 ###Adding an Event
+
 
 Adds an event to your list of tasks.
 
@@ -45,7 +52,9 @@ Example input:
 
 `event concert /at friday night`
 
+
 ###Adding a Deadline
+
 
 Adds a deadline to your list of tasks.
 
@@ -57,13 +66,17 @@ Example input:
 
 `deadline complete report /by monday`
 
+
 ###Listing Tasks
+
 
 Shows a list of all tasks.
 
 Format: `list`
 
+
 ###Mark Task as Done
+
 
 Marks the task with the corresponding number in the list as done.
 
@@ -73,7 +86,9 @@ Example input:
 
 `done 1`
 
+
 ###Delete Task
+
 
 Deletes the task with the corresponding number in the list.
 
@@ -83,7 +98,9 @@ Example input:
 
 `delete 1`
 
+
 ###Find Task
+
 
 Finds all tasks containing user input keyword in their descriptions
 
@@ -93,13 +110,17 @@ Example input:
 
 `find lunch`
 
+
 ###Bye
+
 
 Exits the program.
 
 Format: `bye`
 
+
 ## Command Summary
+
 
 Action | Format, Examples
 ------ | ----------------
