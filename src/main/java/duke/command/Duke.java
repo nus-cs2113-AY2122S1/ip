@@ -169,8 +169,9 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        sayHi();
+        Ui ui = new Ui();
+        ui.sayHi();
         running();
-        sayBye();
+        ui.sayBye();
     }
 }
