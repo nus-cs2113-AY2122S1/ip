@@ -6,6 +6,8 @@ Line Interface (CLI).
 ## Setting up
 
 Prerequisites: JDK 11, update IntelliJ to the most recent version.
+1. Download `atlas.jar` into an empty folder.
+2. Using a terminal (e.g. `cmd`), run Atlas with the following command: `java -jar atlas.jar`.
 
 
 ## Using Atlas
@@ -24,6 +26,10 @@ ____________________________________________________________
 Hello! I'm Atlas!
 What can I do for you today?
 ____________________________________________________________
+```
+If you run Atlas for the very first time on your computer, you should see the following message before:
+```
+File not yet created, I'll create one for you now!
 ```
 
 ## Features
