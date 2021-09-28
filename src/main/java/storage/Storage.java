@@ -64,7 +64,11 @@ public class Storage {
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            ui.customPrint("Data file does not exist! Creating a new one...");
+            ui.customPrint("Data file does not exist! I will create new one.");
+            if (!filePath.exists()) {
+                createDirectory();
+            }
+            createFile(ui);
         } catch (InvalidFile invalidFile) {
             ui.customPrint("File contains invalid data!");
             System.exit(0);
@@ -78,6 +82,18 @@ public class Storage {
     public void createDirectory() {
         File dataDirectory = new File(filePath.getParent());
         dataDirectory.mkdirs();
+    }
+
+    /**
+     * Creates the file if it doesn't exist.
+     */
+    public void createFile(Ui ui) {
+        try {
+            FileWriter myFile = new FileWriter(filePath);
+            myFile.close();
+        } catch (IOException ex) {
+            ui.customPrint("Could not create file!");
+        }
     }
 
 }
