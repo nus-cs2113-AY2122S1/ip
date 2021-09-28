@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import static duke.Storage.*;
 
 /**
  * To create an ArrayList to represent the user's tasks and to perform operations on this list.
