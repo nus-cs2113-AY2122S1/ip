@@ -11,14 +11,14 @@ public class Ui {
     }
 
     public static void printGreeting() {
-        printMessage("Hello! I'm Duke.");
+        printMessage("Hello there! Kao here! ⸜(˃ ᵕ ˂ )⸝");
     }
 
     public static void printPrompt() {
-        printMessage("What can I do for you?");
+        printMessage( "How can Kao be of assistance? ( •̀ ᗜ •́ )");
     }
 
     public static void printExit() {
-        printMessage("Bye. Hope to see you again soon!");
+        printMessage("Bye bye! Kao will be waiting for you ｡:ﾟ( ´°ω°｀ )ﾟ:｡");
     }
 }

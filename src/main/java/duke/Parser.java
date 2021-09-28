@@ -21,7 +21,7 @@ public class Parser {
     public final String DELETE = "delete";
     public final String BYE = "bye";
 
-    //executes program according to user command
+    //executes program and updates task list according to user command
     public Command parseCommand(TaskList taskList, String line) {
         final String[] splitLine = line.split(" ", 2);
         final String command = splitLine[0];

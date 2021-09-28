@@ -8,11 +8,11 @@ public class TaskList {
 
     public ArrayList<Task> tasks = new ArrayList<>();
 
-    public String ADDED = "Got it. I've added this task:";
-    public String REMOVED = "Noted. I've removed this task:";
-    public String ACKNOWLEDGED = "Nice! I've marked this task as done:";
-    public String LIST_START = "Here are the tasks in your list:";
-    public String FIND_START = "Here are the matching tasks in your list:";
+    public String ADDED = "Kao got it! (  ｡•̀ᴗ-)✧ Kao has added this task:";
+    public String REMOVED = "Alright! ( ・∀・ )ノ Kao removed this task:";
+    public String ACKNOWLEDGED = "Nice job! (  >ω<)☆ Kao marked this task as done:";
+    public String LIST_START = "Right away! ε=ε=┌( >_<)┘ \nKao retrieved the tasks in your list:";
+    public String FIND_START = "Kao got it! ε=ε=┌( `ー´)┘ \nKao retrieved the matching tasks in your list:";
 
     public String TaskListResponse(String line, int index){
         return line + "\n" + tasks.get(index).getDescription();

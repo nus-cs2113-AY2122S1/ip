@@ -65,15 +65,15 @@ public class Storage {
         try {
             loadTasks(taskList);
         } catch (FileNotFoundException e0){
-            response = response + "The file data/duke.txt is not found.";
+            response = response + "Kao cannot find the file data/duke.txt ( ;ŏ﹏ŏ ) ";
             try {
                 createFile();
             } catch (IOException e1) {
-                response = response + "There has been an error creating a new file. ";
+                response = response + "Kao has encountered an error creating a new file ( °ㅂ°╬  )";
             }
-            response = response + "A new file data/duke.txt has been created.";
+            response = response + "Kao will create a new file data/duke.txt for you!";
         } catch (FileFormatException e2) {
-            response = response + "There is a formatting error with the save file.";
+            response = response + "Kao is facing a formatting error with the save file ヽ(  `д´  )ノ";
             taskList.clearList();
         }
         return new TaskListResponse(taskList, response);
@@ -93,7 +93,7 @@ public class Storage {
         try {
             writeToFile(taskList);
         } catch (IOException e) {
-            return "There has been an error writing to file.";
+            return "Kao has faced an error writing to file ( ; ω ; )";
         }
         return "";
     }
