@@ -38,7 +38,7 @@ public class Ui {
     }
 
     /**
-     * Prints help message.
+     * Prints the corresponding help message.
      * @param command The given help command.
      */
     public static void printHelp(String command) {
