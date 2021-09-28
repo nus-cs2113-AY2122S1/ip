@@ -14,8 +14,6 @@ public class Storage {
                 System.out.println("No save file found, creating a new file");
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println(path);
             new DukeException(2);
         }
         readFromFile();
