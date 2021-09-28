@@ -4,6 +4,8 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import static duke.Storage.writeData;
@@ -48,9 +50,10 @@ public class Parser {
                     Deadline deadlineTask = getDeadlineTask(line);
                     printTask(deadlineTask);
                     writeData(taskList, stringList, dueDateList);
-                } catch (StringIndexOutOfBoundsException e) {
+                } catch (StringIndexOutOfBoundsException | DateTimeParseException e) {
                     System.out.println("☹ OOPS!!! The format of deadline is wrong");
-                    System.out.println("Please format your input as 'deadline <task>/<due date>'");
+                    System.out.println("Please format your input as 'deadline <task>/<due date in dd-MM-yyyy " +
+                            "and time in HH:mm>'");
                     Ui.printLine();
                 }
 
@@ -59,16 +62,19 @@ public class Parser {
                     Event eventTask = getEventTask(line);
                     printTask(eventTask);
                     writeData(taskList, stringList, dueDateList);
-                } catch (StringIndexOutOfBoundsException e) {
+                } catch (StringIndexOutOfBoundsException | DateTimeParseException e) {
                     System.out.println("☹ OOPS!!! The format of event is wrong");
-                    System.out.println("Please format your input as 'event <task>/<event date and time>'");
+                    System.out.println("Please format your input as 'event <task>/<event date in dd-MM-yyyy " +
+                            "and time in HH:mm>'");
                     Ui.printLine();
                 }
 
             } else if (line.startsWith("delete")) {
                 try {
                     deleteTask(line);
-                    writeData(taskList, stringList, dueDateList);
+                    if (taskList.getListCount() != 0) {
+                        writeData(taskList, stringList, dueDateList);
+                    }
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("☹ OOPS!!! The task number is not valid");
                     System.out.println("Please check again and format your input as 'delete <task number>'");

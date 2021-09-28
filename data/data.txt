@@ -1,1 +1,4 @@
-E | 1 | asdfsadf /sadfsadf
+T | 0 | asdfsdaf
+E | 0 | sdafsdf /11-03-1999 10:00
+E | 0 | asdfdsaf /11-03-1999 10:11
+E | 0 | asdfad /11-03-1000 10:00

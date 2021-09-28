@@ -5,13 +5,18 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 public class TaskList {
     protected static ArrayList<String> stringList = new ArrayList<>();
     protected static ArrayList<Task> taskList = new ArrayList<>();
+    protected static ArrayList<String> formattedDueDateList = new ArrayList<>();
     protected static ArrayList<String> dueDateList = new ArrayList<>();
 
+    private static final String DATE_TIME_FORMAT = "dd-MM-yyyy HH:mm";
 
     public int getListCount() {
         return taskList.size();
@@ -23,6 +28,10 @@ public class TaskList {
 
     public void addToStringList(String string) {
         stringList.add(string);
+    }
+
+    public void addToFormattedDueDateList(String dueDate) {
+        formattedDueDateList.add(dueDate);
     }
 
     public void addToDueDateList(String dueDate) {
@@ -68,7 +77,8 @@ public class TaskList {
         String taskDisplay = line.substring(5);
 
         stringList.add(taskList.size(), taskDisplay);
-        dueDateList.add(taskList.size(), null);
+        dueDateList.add(taskList.size(),null);
+        formattedDueDateList.add(taskList.size(), null);
         Todo todoTask = new Todo(taskDisplay, taskType);
         taskList.add(taskList.size(), todoTask);
         return todoTask;
@@ -77,11 +87,15 @@ public class TaskList {
     public static Deadline getDeadlineTask(String line) {
         int startingIndex = line.indexOf("/");
         String taskDisplay = line.substring(9, startingIndex);
-        String doBy = "(" + line.substring(startingIndex + 1) + ")";
         char taskType = line.toUpperCase().charAt(0);
 
         stringList.add(taskList.size(), taskDisplay);
-        dueDateList.add(taskList.size(), line.substring(startingIndex + 1));
+        dueDateList.add(taskList.size(),line.substring(startingIndex + 1));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+        LocalDateTime formatDateTime = LocalDateTime.parse(line.substring(startingIndex + 1),formatter);
+        String formattedDateTime = formatDateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
+        formattedDueDateList.add(taskList.size(), formattedDateTime);
+        String doBy = "(" + formattedDateTime + ")";
         Deadline deadlineTask = new Deadline(taskDisplay, taskType, doBy);
         taskList.add(taskList.size(), deadlineTask);
         return deadlineTask;
@@ -90,11 +104,15 @@ public class TaskList {
     public static Event getEventTask(String line) {
         int startingIndex = line.indexOf("/");
         String taskDisplay = line.substring(6, startingIndex);
-        String doBy = "(" + line.substring(startingIndex + 1) + ")";
         char taskType = line.toUpperCase().charAt(0);
 
         stringList.add(taskList.size(), taskDisplay);
-        dueDateList.add(taskList.size(), line.substring(startingIndex + 1));
+        dueDateList.add(taskList.size(),line.substring(startingIndex + 1));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+        LocalDateTime formatDateTime = LocalDateTime.parse(line.substring(startingIndex + 1),formatter);
+        String formattedDateTime = formatDateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
+        formattedDueDateList.add(taskList.size(), formattedDateTime);
+        String doBy = "(" + formattedDateTime + ")";
         Event eventTask = new Event(taskDisplay, taskType, doBy);
         taskList.add(taskList.size(), eventTask);
         return eventTask;
@@ -113,6 +131,7 @@ public class TaskList {
         Ui.printLine();
         taskList.remove(taskIndex);
         dueDateList.remove(taskIndex);
+        formattedDueDateList.remove(taskIndex);
         stringList.remove(taskIndex);
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
