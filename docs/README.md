@@ -74,6 +74,7 @@ Adds a **todo** task to the tasklist.
 - Specifies new number of tasks in tasklist.
 
 **Expected Outcome:**
+
 ```
 [You]:
 => todo read book
@@ -96,6 +97,7 @@ Adds a **deadline** task to the tasklist.
 - Specifies new number of tasks in tasklist.
 
 **Expected Outcome:**
+
 ```
 [You]:
 => deadline return book /by June 6th
@@ -118,6 +120,7 @@ Adds a **event** task to the tasklist.
 - Specifies new number of tasks in tasklist.
 
 **Expected Outcome:**
+
 ```
 [You]:
 => event project meeting /at Aug 6th 2-4pm
@@ -148,6 +151,7 @@ Lists all tasks in the tasklist.
 - And specifies number of completed tasks.
 
 **Expected Outcome:**
+
 ```
 [You]:
 => list
@@ -173,6 +177,7 @@ Marks an existing task in the tasklist as done.
 - Specifies number of completed tasks.
 
 **Expected Outcome:**
+
 ```
 [You]:
 => done 1
@@ -196,6 +201,7 @@ Deletes an existing task in the tasklist.
 - Specifies new number of tasks in tasklist.
 
 **Expected Outcome:**
+
 ```
 [You]:
 => delete 1
@@ -220,6 +226,7 @@ Find tasks whose description contains a given keyword.
 - Specifies number of successful search results returned.
 
 **Expected Outcome:**
+
 ```
 [You]:
 => find book
@@ -237,6 +244,7 @@ Displays goodbye message and exits the program.
 **Format:** `bye`
 
 **Expected Outcome:**
+
 ```
 [You]:
 => bye
@@ -265,6 +273,7 @@ it creates with the `duke.txt` that you wish to transfer from your previous `Duk
 home folder.
 
 ## 4. Command Summary
+
 Action   | Format                                  | Example                                   |
 -------- | --------------------------------------- | ----------------------------------------- |
 help     | `help`                                  | `help`                                    |
