@@ -54,7 +54,7 @@ There are three possible task types that can be added.
 2. add a `deadline` task: `deadline <task description> /<YYYY-MM-DD> [HH:MM]`
 ###### example:
 ![img](deadline.png) <br/>
-3. add a `event` task: `event <task description> /<YYYY-MM-DD> \<HH:MM\>`
+3. add a `event` task: `event <task description> /<YYYY-MM-DD> <HH:MM>`
 ###### example: 
 ![img](event.png)
 
@@ -117,8 +117,8 @@ Exit the program and automatically save all the tasks.
 Action | Command Format | Example
 --- | --- | --- | 
 Add a todo task | todo <task description>  | `todo return book`
-Add a deadline task | deadline <task description> /<YYYY-MM-DD> \[HH:MM\] | `deadline cs2113 ip /2021-09-28 18:00` <br/> `deadline cs2113 ip /2021-09-28`
-Add an event task | event <task description> /<YYYY-MM-DD> \<HH:MM\> | `event cs2113 lecture /2021-10-01 14:00`
+Add a deadline task | deadline <task description> /<YYYY-MM-DD> [HH:MM] | `deadline cs2113 ip /2021-09-28 18:00` <br/> `deadline cs2113 ip /2021-09-28`
+Add an event task | event <task description> /<YYYY-MM-DD> <HH:MM> | `event cs2113 lecture /2021-10-01 14:00`
 Delete a task | delete taskIndex | `delete 2`
 Complete a task | done taskIndex | `done 1`
 find a task | find <keyword> | `find cs2113`
