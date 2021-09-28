@@ -55,34 +55,18 @@ public class Database{
                     Scanner lineData = new Scanner(fileLine);
                     lineData.useDelimiter("\\|");
                     String commandType = lineData.next().trim();
-                    String isDone = lineData.next().trim();
+                    String doneStatus = lineData.next().trim();
                     String taskDescription = lineData.next().trim();
 
                     switch (commandType) {
                     case "T":
-                        Todo savedTodo = new Todo(taskDescription);
-                        if (isDone.equals("1")) {
-                            savedTodo.setDone();
-                        }
-                        tasksCopy.addTask(savedTodo);
+                        loadTodoTask(taskDescription, doneStatus, tasksCopy);
                         break;
                     case "D":
-                        String deadLineDate = lineData.next().trim();
-                        LocalDate deadLineDateFormatted = LocalDate.parse(deadLineDate);
-                        Deadline savedDeadLine = new Deadline(taskDescription, deadLineDateFormatted);
-                        if (isDone.equals("1")) {
-                            savedDeadLine.setDone();
-                        }
-                        tasksCopy.addTask(savedDeadLine);
+                        loadDeadlineTask(lineData, taskDescription, doneStatus, tasksCopy);
                         break;
                     case "E":
-                        String eventDate = lineData.next().trim();
-                        LocalDate eventDateFormatted = LocalDate.parse(eventDate);
-                        Event savedEvent = new Event(taskDescription, eventDateFormatted);
-                        if (isDone.equals("1")) {
-                            savedEvent.setDone();
-                        }
-                        tasksCopy.addTask(savedEvent);
+                        loadEventTask(lineData, taskDescription, doneStatus, tasksCopy);
                         break;
                     }
                 }
@@ -91,6 +75,57 @@ public class Database{
             System.out.println("Oops! An error cropped up while loading file!");
         }
         return tasksCopy;
+    }
+
+    /**
+     * loads a Todo task from file into program list.
+     *
+     * @param taskDescription the description of the task in the file
+     * @param doneStatus a string, either 1 or 0, denoting whether the task is done(1 means done)
+     * @param tasksCopy TaskList to store restored tasks
+     */
+    public static void loadTodoTask(String taskDescription, String doneStatus, TaskList tasksCopy) {
+        Todo savedTodo = new Todo(taskDescription);
+        if (doneStatus.equals("1")) {
+            savedTodo.setDone();
+        }
+        tasksCopy.addTask(savedTodo);
+    }
+
+    /**
+     * loads a Deadline task from file into program list.
+     *
+     * @param  lineData a Scanner
+     * @param taskDescription the description of the task in the file
+     * @param doneStatus a string, either 1 or 0, denoting whether the task is done(1 means done)
+     * @param tasksCopy TaskList to store restored tasks
+     */
+    public static void loadDeadlineTask(Scanner lineData, String taskDescription, String doneStatus, TaskList tasksCopy) {
+        String deadLineDate = lineData.next().trim();
+        LocalDate deadLineDateFormatted = LocalDate.parse(deadLineDate);
+        Deadline savedDeadLine = new Deadline(taskDescription, deadLineDateFormatted);
+        if (doneStatus.equals("1")) {
+            savedDeadLine.setDone();
+        }
+        tasksCopy.addTask(savedDeadLine);
+    }
+
+    /**
+     * loads an Event task from file into program list.
+     *
+     * @param  lineData a Scanner
+     * @param taskDescription the description of the task in the file
+     * @param doneStatus a string, either 1 or 0, denoting whether the task is done(1 means done)
+     * @param tasksCopy TaskList to store restored tasks
+     */
+    public static void loadEventTask(Scanner lineData, String taskDescription, String doneStatus, TaskList tasksCopy) {
+        String eventDate = lineData.next().trim();
+        LocalDate eventDateFormatted = LocalDate.parse(eventDate);
+        Event savedEvent = new Event(taskDescription, eventDateFormatted);
+        if (doneStatus.equals("1")) {
+            savedEvent.setDone();
+        }
+        tasksCopy.addTask(savedEvent);
     }
 
     /**

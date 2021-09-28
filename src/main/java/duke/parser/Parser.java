@@ -12,13 +12,14 @@ import duke.command.IncorrectCommand;
 import duke.command.ListCommand;
 import duke.command.ToDoCommand;
 import duke.exception.DateError;
+import duke.exception.DukeException;
+import duke.exception.DeadlineCommandError;
 import duke.exception.DeleteCommandError;
 import duke.exception.DoneCommandError;
-import duke.exception.DukeException;
 import duke.exception.EventCommandError;
 import duke.exception.FindCommandError;
 import duke.exception.ToDoCommandError;
-import duke.exception.DeadlineCommandError;
+import duke.exception.EmptyCommandError;
 
 import java.time.LocalDate;
 
@@ -39,12 +40,12 @@ public class Parser {
      * @throws DukeException  If userInput is in wrong format.
      */
     public Command parseCommand(String userInput) throws DukeException{
-        String[] words = userInput.trim().split(" ", 2);  // split the input into command and arguments
-        if (words.length == 0) {
+        String[] inputArgs = userInput.trim().split(" ", 2);  // split the input into command and arguments
+        if (inputArgs.length == 0) {
             return new IncorrectCommand();
         }
 
-        final String commandWord = words[0];
+        final String commandWord = inputArgs[0];
         final String arguments = userInput.replaceFirst(commandWord, "").trim();
 
         switch (commandWord) {
@@ -103,10 +104,7 @@ public class Parser {
      */
     private Command prepareToDoOrFindCommand(String command, String args) throws  DukeException{
         if (args.isEmpty()) {
-            if (command.equals("todo")) {
-                throw new ToDoCommandError();
-            }
-            throw new FindCommandError();
+            throw new EmptyCommandError();
         }
         try {
             if (command.equals("todo")) {
@@ -138,6 +136,7 @@ public class Parser {
             }
             throw  new DeadlineCommandError();
         }
+        //see if event command followed by /at and if deadline command followed by /by
         if (command.equals("event") && isWrongEscapeWord(parts[1],"at")) {
             throw new EventCommandError();
         }

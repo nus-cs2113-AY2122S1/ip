@@ -40,7 +40,7 @@ public class Message {
      * @return a Line.
      */
     public static String printLine() {
-        String line = "____________________________________________________________";
+        String line = "__________________________________________________________________________________";
         return line;
     }
 

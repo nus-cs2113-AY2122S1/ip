@@ -16,7 +16,6 @@ public class Logic {
     private static UserInterface userInterface;
     private Database database;
     protected static String fileAddress;
-    //protected static ArrayList<Task> tasks;
     private TaskList taskList;
 
     /**
