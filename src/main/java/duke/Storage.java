@@ -11,7 +11,7 @@ public class Storage {
     public static String filePath = "data.txt";
     public static String originalInputPath = "inputFile.txt";
     public static TaskList taskList = new TaskList();
-    // load data to this taskList and pass the reference of the taskList to the one in Duke.java
+
 
     public static void saveData(String dataToWrite, String path) {
         try {

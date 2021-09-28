@@ -17,7 +17,6 @@ public class Parser {
         return input;
     }
 
-    //Classify the input to a specific command
     public static boolean isList() {
         return input.equals("list");
     }
@@ -44,7 +43,6 @@ public class Parser {
 
     public static boolean isDelete() { return input.startsWith("delete"); }
 
-    //check if there is input exception
     public static boolean isInvalidToDo() {
         return input.substring(TODO_LENGTH).equals("");
     }
