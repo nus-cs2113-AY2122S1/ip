@@ -10,6 +10,10 @@ public class Task {
         this.isCompleted = true;
     }
 
+    public void setTaskAsUndone() {
+        this.isCompleted = false;
+    }
+
     public boolean isCompleted() {
         return this.isCompleted;
     }

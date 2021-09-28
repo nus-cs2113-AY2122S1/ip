@@ -30,14 +30,27 @@ public class Parser {
             throws InvalidTaskTypeException {
         String[] userInputSplit = userInput.split(USER_INPUT_SPLITTER);
         String taskType = userInputSplit[0];
-        if (taskType.equals(TASK_TYPE_DEADLINE) || taskType.equals(TASK_TYPE_TODO) ||
-                taskType.equals(TASK_TYPE_EVENT) || taskType.equals(TASK_EXIT) ||
-                taskType.equals(TASK_LIST) || taskType.equals(TASK_TYPE_DONE)
-                || taskType.equals(TASK_TYPE_DELETE) || taskType.equals(TASK_TYPE_FIND)) {
-            return taskType;
-        } else {
-            throw new InvalidTaskTypeException();
+        switch (taskType) {
+            case TASK_TYPE_DEADLINE:
+                break;
+            case TASK_TYPE_TODO:
+                break;
+            case TASK_TYPE_EVENT:
+                break;
+            case TASK_EXIT:
+                break;
+            case TASK_LIST:
+                break;
+            case TASK_TYPE_DONE:
+                break;
+            case TASK_TYPE_DELETE:
+                break;
+            case TASK_TYPE_FIND:
+                break;
+            default:
+                throw new InvalidTaskTypeException();
         }
+        return taskType;
     }
 
     /**
@@ -135,31 +148,41 @@ public class Parser {
      * We throw this exception when the task description is empty
      * */
     public Command parseUserInput(String userInput)
-            throws InvalidTaskTypeException, EmptyDescriptionException {
+            throws InvalidTaskTypeException, EmptyDescriptionException, InvalidDateIndicatorException {
         String taskType = getTaskTypeFromUserInput(userInput);
+        Command returnCommandFromInput;
         switch (taskType) {
             case TASK_TYPE_TODO:
-                return generateTaskCommand(taskType, userInput);
+                returnCommandFromInput = generateTaskCommand(taskType, userInput);
+                break;
             case TASK_TYPE_DEADLINE:
-                return generateTaskCommand(taskType, userInput);
+                returnCommandFromInput = generateTaskCommand(taskType, userInput);
+                break;
             case TASK_TYPE_EVENT:
-                return generateTaskCommand(taskType, userInput);
+                returnCommandFromInput = generateTaskCommand(taskType, userInput);
+                break;
             case TASK_EXIT:
-                return new ByeCommand();
+                returnCommandFromInput = new ByeCommand();
+                break;
             case TASK_LIST:
-                return new ListCommand();
+                returnCommandFromInput = new ListCommand();
+                break;
             case TASK_TYPE_DONE:
                 int doneTaskNumber = getTaskNumber(userInput);
-                return new DoneCommand(doneTaskNumber);
+                returnCommandFromInput = new DoneCommand(doneTaskNumber);
+                break;
             case TASK_TYPE_DELETE:
                 int deleteTaskNumber = getTaskNumber(userInput);
-                return new DeleteCommand(deleteTaskNumber);
+                returnCommandFromInput = new DeleteCommand(deleteTaskNumber);
+                break;
             case TASK_TYPE_FIND:
                 String taskToFind = getTaskToFind(userInput);
-                return new FindCommand(taskToFind);
+                returnCommandFromInput = new FindCommand(taskToFind);
+                break;
             default:
                 throw new InvalidTaskTypeException();
         }
+        return returnCommandFromInput;
     }
 
     /**
@@ -170,39 +193,26 @@ public class Parser {
      * We throw this exception when the task type has not been defined in duke
      * */
     private Command generateTaskCommand(String taskType, String userInput)
-            throws InvalidTaskTypeException {
+            throws InvalidTaskTypeException, EmptyDescriptionException, InvalidDateIndicatorException {
+        String task = getTask(userInput);
+        Command commandGenerated;
         switch (taskType) {
             case TASK_TYPE_TODO:
-                try {
-                    String task = getTask(userInput);
-                    return new AddCommand(taskType, task);
-                } catch (EmptyDescriptionException e) {
-                    e.printExceptionMessage();
-                }
+                commandGenerated =  new AddCommand(taskType, task);
+                break;
             case TASK_TYPE_DEADLINE:
-                try {
-                    String task = getTask(userInput);
-                    String mainTask = getMainTaskFromTask(task, DEADLINE_DATE_INDICATOR);
-                    String taskDate = getDateFromTask(task, DEADLINE_DATE_INDICATOR);
-                    return new AddCommand(taskType, mainTask, taskDate);
-                } catch (EmptyDescriptionException e) {
-                    e.printExceptionMessage();
-                } catch (InvalidDateIndicatorException e) {
-                    e.printExceptionMessage();
-                }
+                String deadlineTask = getMainTaskFromTask(task, DEADLINE_DATE_INDICATOR);
+                String deadlineDate = getDateFromTask(task, DEADLINE_DATE_INDICATOR);
+                commandGenerated = new AddCommand(taskType, deadlineTask, deadlineDate);
+                break;
             case TASK_TYPE_EVENT:
-                try {
-                    String task = getTask(userInput);
-                    String mainTask = getMainTaskFromTask(task, EVENT_DATE_INDICATOR);
-                    String taskDate = getDateFromTask(task, EVENT_DATE_INDICATOR);
-                    return new AddCommand(taskType, mainTask, taskDate);
-                } catch (EmptyDescriptionException e) {
-                    e.printExceptionMessage();
-                } catch (InvalidDateIndicatorException e) {
-                    e.printExceptionMessage();
-                }
+                String eventTask = getMainTaskFromTask(task, EVENT_DATE_INDICATOR);
+                String eventDate = getDateFromTask(task, EVENT_DATE_INDICATOR);
+                commandGenerated = new AddCommand(taskType, eventTask, eventDate);
+                break;
             default:
                 throw new InvalidTaskTypeException();
         }
+        return commandGenerated;
     }
 }

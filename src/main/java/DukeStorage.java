@@ -11,6 +11,13 @@ public class DukeStorage {
     private static final String TASK_IS_DEADLINE = "D";
     private static final String TASK_COMPLETED_INT = "1";
     private static final String TASK_NOT_COMPLETED_INT = "0";
+    private static final String DATA_DIRECTORY = "../data";
+    private static final String TEXT_FILE_DIRECTORY = DATA_DIRECTORY + "/duke.txt";
+    private static final String TASK_SPLITTER = " [|] ";
+    private static final int INDEX_TASK_TYPE = 0;
+    private static final int INDEX_TASK_COMPLETION = 1;
+    private static final int INDEX_TASK_DESCRIPTION = 2;
+    private static final int INDEX_TASK_DATE = 3;
 
     private ArrayList<Task> tasks = new ArrayList<Task>();
 
@@ -18,9 +25,19 @@ public class DukeStorage {
         updateDukeStorageOnStartUp();
     }
 
+    private FileWriter createNewDukeTextFile() {
+        FileWriter dukeTextFile = null;
+        try {
+            dukeTextFile = new FileWriter(TEXT_FILE_DIRECTORY);
+        } catch (IOException e) {
+            System.out.println("Unable to create duke.txt file in data directory");
+        }
+        return dukeTextFile;
+    }
+
     private void updateDukeStorageOnStartUp() {
         try {
-            File dukeTextFile = new File("../data/duke.txt");
+            File dukeTextFile = new File(TEXT_FILE_DIRECTORY);
             Scanner dukeTextFileReader = new Scanner(dukeTextFile);
             while (dukeTextFileReader.hasNextLine()) {
                 String currentTaskString = dukeTextFileReader.nextLine();
@@ -29,8 +46,16 @@ public class DukeStorage {
             }
             dukeTextFileReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Duke text file not found. Creating a new duke text file.");
+            System.out.println("Duke text file not found. Creating a new duke text file.\n");
             createNewDataDirectory();
+        } catch (InvalidTaskTypeException e) {
+            System.out.println("Incorrect task type saved. Duke text file is corrupted.");
+            System.out.println("We will create a new empty duke text file.\n");
+            FileWriter newDukeTextFile = createNewDukeTextFile();
+        } catch(ArrayIndexOutOfBoundsException e) {
+            System.out.println("Incorrect format of task saved. Duke text file is corrupted.");
+            System.out.println("We will create a new empty duke text file.\n");
+            FileWriter newDukeTextFile = createNewDukeTextFile();
         }
     }
 
@@ -41,45 +66,55 @@ public class DukeStorage {
         return this.tasks;
     }
 
-    private Task getTaskFromDatabase(String taskString) {
-        String[] currentTaskSplit = taskString.split(" [|] ");
-        String taskIndicator = currentTaskSplit[0];
-        String taskIsCompleted = currentTaskSplit[1];
-        String taskDescription = currentTaskSplit[2];
-
+    private Task getTaskFromDatabase(String taskString)
+            throws InvalidTaskTypeException, ArrayIndexOutOfBoundsException {
+        String[] currentTaskSplit = taskString.split(TASK_SPLITTER);
+        String taskIndicator = currentTaskSplit[INDEX_TASK_TYPE];
+        String taskIsCompleted = currentTaskSplit[INDEX_TASK_COMPLETION];
+        String taskDescription = currentTaskSplit[INDEX_TASK_DESCRIPTION];
+        Task taskToReturn;
         switch (taskIndicator) {
             case TASK_IS_TODO:
                 Todo todoReturn = new Todo(taskDescription);
                 if (taskIsCompleted.equals(TASK_COMPLETED_INT)) {
                     todoReturn.setTaskAsDone();
+                } else {
+                    todoReturn.setTaskAsUndone();
                 }
-                return todoReturn;
+                taskToReturn = todoReturn;
+                break;
             case TASK_IS_DEADLINE:
-                String deadlineDate = currentTaskSplit[3];
+                String deadlineDate = currentTaskSplit[INDEX_TASK_DATE];
                 Deadline deadlineReturn = new Deadline(taskDescription, deadlineDate);
                 if (taskIsCompleted.equals(TASK_COMPLETED_INT)) {
                     deadlineReturn.setTaskAsDone();
+                } else {
+                    deadlineReturn.setTaskAsUndone();
                 }
-                return deadlineReturn;
+                taskToReturn = deadlineReturn;
+                break;
             case TASK_IS_EVENT:
-                String eventDate = currentTaskSplit[3];
+                String eventDate = currentTaskSplit[INDEX_TASK_DATE];
                 Event eventReturn = new Event(taskDescription, eventDate);
                 if (taskIsCompleted.equals(TASK_COMPLETED_INT)) {
                     eventReturn.setTaskAsDone();
+                } else {
+                    eventReturn.setTaskAsUndone();
                 }
-                return eventReturn;
+                taskToReturn = eventReturn;
+                break;
+            default:
+                throw new InvalidTaskTypeException();
         }
-        return null;
+        return taskToReturn;
     }
 
     private void createNewDataDirectory() {
-        File dataDirectory = new File("../data");
-        dataDirectory.mkdirs();
-        try {
-            FileWriter dukeTextFile = new FileWriter("../data/duke.txt");
-        } catch (IOException e) {
-            System.out.println("Unable to create duke.txt file in data directory");
-        }
+        // We create the file object for the data directory
+        File dataDirectory = new File(DATA_DIRECTORY);
+
+        // We create the data directory
+        boolean dukeTextFileCreated = dataDirectory.mkdirs();
     }
 
     private String getTaskCompletionInInt(Task task) {
@@ -122,7 +157,7 @@ public class DukeStorage {
      * */
     public void updateStorage(TaskList taskList) {
         try {
-            FileWriter dukeTextFile = new FileWriter("../data/duke.txt");
+            FileWriter dukeTextFile = createNewDukeTextFile();;
             for (int i = 0; i < taskList.getNumberOfTask(); i++) {
                 Task currentTask = taskList.getTaskFromIndex(i);
                 String taskString = cleanTaskToSave(currentTask);
@@ -135,7 +170,8 @@ public class DukeStorage {
                     "Data directory not found. \n" +
                     "Creating a new data directory.");
             createNewDataDirectory();
-            System.out.println("Done creating new data directory.\n");
+            FileWriter newDukeTextFile = createNewDukeTextFile();
+            System.out.println("Done creating new data directory.");
             updateStorage(taskList);
         }
     }

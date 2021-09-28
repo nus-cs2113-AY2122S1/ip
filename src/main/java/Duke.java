@@ -25,6 +25,8 @@ public class Duke {
                 e.printExceptionMessage();
             } catch (EmptyDescriptionException e) {
                 e.printExceptionMessage();
+            } catch (InvalidDateIndicatorException e) {
+                e.printExceptionMessage();
             } finally {
                 ui.printNextLine();
             }
