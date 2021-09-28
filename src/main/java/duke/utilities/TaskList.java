@@ -30,6 +30,13 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Adds a task to the TaskList from user input
+     *
+     * @param input Input of user
+     * @param ui Prints the task that has just been added
+     * @param type Type of file to be added
+     */
     public void addTask(String input, Ui ui, String type) throws DukeException {
         Task temp = Parser.getTaskType(input, type);
         tasks.add(temp);
@@ -37,6 +44,14 @@ public class TaskList {
         ui.printTaskNumber(tasks);
     }
 
+    /**
+     * Adds a task to the TaskList from saved file
+     *
+     * @param input Input from file
+     * @param isDone Checks the task has been completed
+     * @param type Type of file to be added
+     * @throws DukeException If file format is corrupted/invalid
+     */
     public void addTask(String input, boolean isDone, String type) throws DukeException {
         Task temp = Parser.getTaskType(input, type);
         if (isDone) {
@@ -45,6 +60,12 @@ public class TaskList {
         tasks.add(temp);
     }
 
+    /**
+     * Deletes a task from TaskList
+     *
+     * @param input The task index to be deleted
+     * @param ui Prints which task is removed
+     */
     public void deleteTask(String input, Ui ui) {
         int taskIdx = findTaskNumber(input);
         try {
@@ -58,9 +79,10 @@ public class TaskList {
     }
 
     /**
-     * Sets specific task in array as done
+     * Sets task in TaskList as done
      *
-     * @param input input of user
+     * @param input The task index to be set as done
+     * @param ui Prints the task set as done
      */
     public void setTaskAsDone(String input, Ui ui) {
         int taskIdx = findTaskNumber(input);

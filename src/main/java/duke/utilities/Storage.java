@@ -11,6 +11,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * For storing and retrieving data on the chatbot
+ */
 public class Storage {
 
     protected String filePath;
@@ -19,6 +22,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads a file if it exists, else makes a new one
+     *
+     * @return An arraylist containing the tasks loaded from file
+     * @throws DukeException When the save data is corrupted/invalid
+     */
     public ArrayList<Task> loadFile() throws DukeException {
         checkForFile();
         TaskList data = readFromFile();
@@ -37,7 +46,7 @@ public class Storage {
         }
     }
 
-    public TaskList readFromFile() throws DukeException {
+    private TaskList readFromFile() throws DukeException {
         File file = new File(filePath);
         TaskList temp = new TaskList();
         try {
@@ -79,6 +88,11 @@ public class Storage {
         return "1".equals(word);
     }
 
+    /**
+     * Stores the ArrayList into the given directory
+     *
+     * @param tasks ArrayList to be stored in the .txt
+     */
     public void saveToFile(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(filePath);
