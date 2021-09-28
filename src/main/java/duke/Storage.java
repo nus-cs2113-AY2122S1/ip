@@ -19,10 +19,22 @@ public class Storage {
 
     public static final String SAVEFILE_SEPERATOR = "\\|";
 
+    /**
+     * Constructor to create Storage object.
+     *
+     * @param filepath intended filepath to store data.
+     */
     Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Read file and extract file into TaskList.
+     *
+     * @param taskList Most Recent ArrayList taskList.
+     * @return Latest TaskList.
+     * @throws FileNotFoundException if file has never been created.
+     */
     public TaskList loadFile(ArrayList<Task> taskList) throws FileNotFoundException {
         File f = new File(this.filepath);
         Scanner s = new Scanner(f);
@@ -33,6 +45,9 @@ public class Storage {
         return currentData;
     }
 
+    /**
+     * Creates a new file.
+     */
     public void createFile() {
         File f = new File(this.filepath);
         try {
@@ -42,6 +57,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Convert stored line of data into current TaskList.
+     *
+     * @param taskDetails Saved data from save file.
+     * @param taskList Current ArrayList task List.
+     * @return Current TaskList.
+     */
     private static TaskList loadCommands(String taskDetails, ArrayList<Task> taskList) {
         String[] taskBreakdown = taskDetails.split(SAVEFILE_SEPERATOR);
         String taskType = taskBreakdown[0].trim();
@@ -68,15 +90,27 @@ public class Storage {
         return new TaskList(taskList);
     }
 
+    /**
+     * Input stored data into save file.
+     *
+     * @param filePath filePath of save file.
+     * @param textToAdd String to be written.
+     * @throws IOException when Run into execution.
+     */
     private void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter dukeIn = new FileWriter(filePath);
         dukeIn.write(textToAdd);
         dukeIn.close();
     }
 
-    public void autoSave(ArrayList<Task> unfilteredTasks) {
+    /**
+     * Automatically ArrayList Tasks.
+     *
+     * @param taskArrayList current ArrayList.
+     */
+    public void autoSave(ArrayList<Task> taskArrayList) {
         String dukeUpdate = "";
-        for (Task task : unfilteredTasks) {
+        for (Task task : taskArrayList) {
             if (task != null) {
                 String completionStatus = task.isDone() ? "1" : "0";
                 dukeUpdate = dukeUpdate + task.getType() + " | " + completionStatus + " | " + task.getTask();
