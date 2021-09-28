@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import duke.Ui.Ui;
 import duke.exception.DukeException;
 import duke.task.Task;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -38,7 +40,8 @@ public class TaskList {
     }
 
     public void createDeadline(String command,String by) {
-        Deadline deadline = new Deadline(command,by);
+        LocalDate byTime = LocalDate.parse(by);
+        Deadline deadline = new Deadline(command,byTime);
         tasks.add(deadline);
         Ui.printAddDeadlineMessage(deadline,tasks);
         Storage.saveFile(this);
@@ -70,7 +73,4 @@ public class TaskList {
             Ui.printMarkAsDoneMessage(done);
         }
     }
-
-
-
 }
