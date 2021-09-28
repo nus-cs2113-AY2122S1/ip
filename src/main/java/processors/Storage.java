@@ -20,6 +20,9 @@ public class Storage {
 
     public UI ui = new UI();
 
+    private final String rootPath = new File(".").getAbsolutePath();
+    private final String fullPath = rootPath + FILEPATH;
+
     /**
      * Used to call loadingTasks method and check for any exceptions that may be presented
      * and greets user based on whether programme has been previously ran
@@ -52,7 +55,7 @@ public class Storage {
      * @throws SecurityException if file cannot be accessed
      */
     public Boolean loadingTasks(ArrayList<Task> taskList) throws IOException, SecurityException {
-        File file = new File(FILEPATH);
+        File file = new File(fullPath);
         try {
             if (file.exists()) {
                 Scanner fileScan = new Scanner(file);
@@ -131,11 +134,11 @@ public class Storage {
      * @throws IOException when an error has occurred while trying to save the file
      */
     public void saveTasks(TaskList taskList) throws IOException {
-        FileWriter fileWrite = new FileWriter(FILEPATH);
+        FileWriter fileWrite = new FileWriter(fullPath);
         fileWrite.close();
         for (Task task : taskList.taskList) {
             try {
-                task.saveTask(FILEPATH);
+                task.saveTask(fullPath);
             } catch (IOException e) {
                 throw new IOException("Error Occurred While Saving File");
             }
