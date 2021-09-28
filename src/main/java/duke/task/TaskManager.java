@@ -59,8 +59,8 @@ public class TaskManager {
         System.out.println(ADDED_TASK + new ToDo(description));
     }
 
-    public static void loadToDoFromFile(String description) {
-        taskList.add(new ToDo(description));
+    public static void loadToDoFromFile(String description, boolean isDone) {
+        taskList.add(new ToDo(description, isDone));
     }
 
     public static void addDeadline(String description, String time) {
@@ -68,8 +68,8 @@ public class TaskManager {
         System.out.println(ADDED_TASK + new Deadline(description, time));
     }
 
-    public static void loadDeadlineFromFile(String description, String time) {
-        taskList.add(new Deadline(description, time));
+    public static void loadDeadlineFromFile(String description, String time, boolean isDone) {
+        taskList.add(new Deadline(description, time, isDone));
     }
 
     public static void addEvent(String description, String time) {
@@ -77,18 +77,19 @@ public class TaskManager {
         System.out.println(ADDED_TASK + new Event(description, time));
     }
 
-    public static void loadEventFromFile(String description, String time) {
-        taskList.add(new Event(description, time));
+    public static void loadEventFromFile(String description, String time, boolean isDone) {
+        taskList.add(new Event(description, time, isDone));
     }
 
-
+    //set task as done
     public void checkDone(String[] command) {
+        //catch if input after done is integer
         try {
             Integer.parseInt(command[1]);
         } catch (NumberFormatException e) {
             throw new NumberFormatException();
         }
-        taskList.get(Integer.parseInt(command[1]) - 1).taskDone();
+        taskList.get(Integer.parseInt(command[1]) - 1).taskDone(true);
     }
 
     public String getDescription(String task) {
@@ -107,8 +108,6 @@ public class TaskManager {
         }
         return description;
     }
-
-
 
     /**
      *  Returns type of Task given command
@@ -147,7 +146,6 @@ public class TaskManager {
     public int getSize() {
         return taskList.size();
     }
-
 
     public void list() {
         try {

@@ -6,33 +6,52 @@ import duke.task.Task;
 import duke.task.TaskManager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Storage {
 
-    public static void load(String filePath) throws IOException {
-        File newFile = new File(filePath);
-        Scanner scanner = new Scanner(newFile);
+    private static final String PATH_NAME = "data/output.txt";
 
+    public static void createFile(){
+        try {
+            Path path = Paths.get(PATH_NAME); //
+            Files.createDirectories(path.getParent());
+        } catch (IOException e) {
+            System.out.println("Error in creating file");
+        }
+    }
+
+    public static void readFromFile(String filePath) throws FileNotFoundException {
+        File file = new File(filePath);
+        Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
-            String[] array = line.split(" | ");
-            switch (array[0]) {
+            String[] details = line.split("\\|");
+            String taskType = details[0].trim();
+            boolean isDone = details[1].trim().equals("1");
+            String description = details[2].trim();
+            String timing;
+            switch (taskType) {
             case "T":
-                TaskManager.loadToDoFromFile(array[2]);
+                TaskManager.loadToDoFromFile(description, isDone);
                 break;
             case "D":
-                TaskManager.loadDeadlineFromFile(array[2], array[3]);
+                timing = details[3].trim();
+                TaskManager.loadDeadlineFromFile(description, timing, isDone);
                 break;
             case "E":
-                TaskManager.loadEventFromFile(array[2], array[3]);
+                timing = details[3].trim();
+                TaskManager.loadEventFromFile(description, timing, isDone);
                 break;
             }
         }
     }
-
 
     public static void appendToFile(String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
@@ -41,11 +60,10 @@ public class Storage {
     }
 
     public static void writeToFile(String filePath) throws IOException {
-        File file = new File(filePath);
-        if (file.createNewFile()) {
-            System.out.println("File created");
-        }
         String textToAppend;
+        FileWriter fw = new FileWriter(filePath, false);
+        fw.write(""); //clear the file
+        fw.close();
         for (Task task: TaskManager.taskList) {
             String taskType = task.getIcon();
             String status = task.getStatus();
@@ -54,12 +72,35 @@ public class Storage {
 
             textToAppend = taskType + " | " + status + " | " + description;
             if (task instanceof Event || task instanceof Deadline) {
-                textToAppend += " | " + timing;
+                textToAppend += " |" + timing;
             }
             textToAppend += "\n";
             appendToFile(filePath, textToAppend);
         }
     }
+
+    public static void saveData() {
+        try {
+            Path path = Paths.get(PATH_NAME);
+            Files.createDirectories(path.getParent());
+            writeToFile(PATH_NAME);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadData() {
+        try {
+            readFromFile(PATH_NAME);
+        } catch (FileNotFoundException e) {
+            createFile();
+        }
+    }
+
+
+
+
+
 
 
 

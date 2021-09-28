@@ -5,6 +5,11 @@ public class ToDo extends Task {
         super(description);
     }
 
+    public ToDo(String description, boolean isDone) {
+        this(description);
+        super.taskDone(isDone);
+    }
+
     public String getIcon() {
         return "T";
     }

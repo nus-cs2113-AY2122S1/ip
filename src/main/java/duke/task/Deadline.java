@@ -9,6 +9,11 @@ public class Deadline extends Task {
         this.timing = by;
     }
 
+    public Deadline(String description, String by, boolean isDone) {
+        this(description, by);
+        super.taskDone(isDone);
+    }
+
     public String getIcon() {
         return "D";
     }
