@@ -25,6 +25,9 @@ public class DukeStorage {
         updateDukeStorageOnStartUp();
     }
 
+    /**
+     * @return File writer object to overwrite the duke text file
+     * */
     private FileWriter createNewDukeTextFile() {
         FileWriter dukeTextFile = null;
         try {
@@ -35,6 +38,11 @@ public class DukeStorage {
         return dukeTextFile;
     }
 
+    /**
+     * We call this method when duke starts up for the first time.
+     * We try to load the tasks stored in the duke text file
+     * into the task list for current duke session.
+     * */
     private void updateDukeStorageOnStartUp() {
         try {
             File dukeTextFile = new File(TEXT_FILE_DIRECTORY);
@@ -47,7 +55,7 @@ public class DukeStorage {
             dukeTextFileReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("Duke text file not found. Creating a new duke text file.\n");
-            createNewDataDirectory();
+            FileWriter newDukeTextFile = createNewDukeTextFile();
         } catch (InvalidTaskTypeException e) {
             System.out.println("Incorrect task type saved. Duke text file is corrupted.");
             System.out.println("We will create a new empty duke text file.\n");
@@ -66,6 +74,14 @@ public class DukeStorage {
         return this.tasks;
     }
 
+    /**
+     * @param taskString The task stored in the duke text file
+     * @return The task based on the current task stored in the duke text file.
+     * @throws InvalidTaskTypeException
+     * We throw this exception if the task type has not been defined.
+     * @throws ArrayIndexOutOfBoundsException
+     * We throw this except if the task saved in the duke text file has the wrong format.
+     * */
     private Task getTaskFromDatabase(String taskString)
             throws InvalidTaskTypeException, ArrayIndexOutOfBoundsException {
         String[] currentTaskSplit = taskString.split(TASK_SPLITTER);
@@ -109,14 +125,21 @@ public class DukeStorage {
         return taskToReturn;
     }
 
+    /**
+     * We call this method to create a new data directory
+     * */
     private void createNewDataDirectory() {
-        // We create the file object for the data directory
+        // We instantiate the file object for the data directory
         File dataDirectory = new File(DATA_DIRECTORY);
 
         // We create the data directory
         boolean dukeTextFileCreated = dataDirectory.mkdirs();
     }
 
+    /**
+     * @param task The task to check if it is completed.
+     * We return 1 if task is completed else we return 0.
+     * */
     private String getTaskCompletionInInt(Task task) {
         String taskCompletionInteger;
         if (task.isCompleted()) {
@@ -127,6 +150,11 @@ public class DukeStorage {
         return taskCompletionInteger;
     }
 
+    /**
+     * @param task The task to save
+     * We return the task after putting
+     * it in the correct format to save.
+     * */
     private String cleanTaskToSave(Task task) {
         String taskStringToSave = "";
         if (task instanceof Todo) {

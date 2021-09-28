@@ -6,6 +6,7 @@ public class TaskList {
     private final static String TASK_TYPE_TODO = "todo";
     private final static String TASK_TYPE_EVENT = "event";
     private final static String TASK_TYPE_DEADLINE = "deadline";
+    private final static String REGEX_WORD_BOUNDARY = "\\b";
     private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
@@ -28,6 +29,14 @@ public class TaskList {
     }
 
     /**
+     * @param task The task to print.
+     * @param taskNumber The task number.
+     * */
+    private void printTaskNumberAndTask(int taskNumber, Task task) {
+        System.out.println(taskNumber + "." + task.toString());
+    }
+
+    /**
      * We print out the all the tasks in the list of tasks
      * */
     public void getAllTask() {
@@ -35,7 +44,7 @@ public class TaskList {
         for (int i = 0; i < this.tasks.size(); i ++) {
             Task currentTask = this.tasks.get(i);
             taskNumber = i + 1;
-            System.out.println(taskNumber + "." + currentTask.toString());
+            printTaskNumberAndTask(taskNumber, currentTask);
         }
     }
 
@@ -81,6 +90,8 @@ public class TaskList {
                 this.tasks.add(event);
                 event.printAddTaskMessage();
                 break;
+            default:
+                System.out.println();
         }
     }
 
@@ -89,7 +100,8 @@ public class TaskList {
      * We print out a list of all the tasks found based on the user input
      * */
     public void findTask(String taskToFind) {
-        String patternToFind = "\\b" + taskToFind + "\\b";
+        String patternToFind = REGEX_WORD_BOUNDARY +
+                taskToFind + REGEX_WORD_BOUNDARY;
         Pattern pattern = Pattern.compile(patternToFind);
         int taskNumber = 0;
         for (int i = 0; i < this.tasks.size(); i ++) {
@@ -99,7 +111,7 @@ public class TaskList {
             boolean taskFound = matcher.find();
             if (taskFound) {
                 taskNumber += 1;
-                System.out.println(taskNumber + "." + currentTask.toString());
+                printTaskNumberAndTask(taskNumber, currentTask);
             }
         }
     }

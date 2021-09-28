@@ -6,6 +6,6 @@ public class EmptyDescriptionException extends Exception {
 
     public void printExceptionMessage() {
         System.out.println("OOPS!!! The description of a " +
-                this.taskType + " cannot be empty.\n");
+                this.taskType + " cannot be empty.");
     }
 }

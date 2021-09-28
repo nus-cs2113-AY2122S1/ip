@@ -13,6 +13,13 @@ public class Parser {
     private final static String EVENT_DATE_INDICATOR = "/at";
     private final static String DEADLINE_DATE_INDICATOR = "/by";
 
+    private final static int ARRAY_OF_LENGTH_2 = 2;
+    private static final int INDEX_TASK_TYPE = 0;
+    private static final int INDEX_MAIN_TASK = 0;
+    private static final int INDEX_TASK_DATE = 1;
+    private static final int INDEX_TASK_NUMBER = 1;
+    private static final int TASK_NUMBER_OFFSET = 1;
+
     // We split the input given by the user with a single white space
     private final static String USER_INPUT_SPLITTER = " ";
 
@@ -29,7 +36,7 @@ public class Parser {
     private String getTaskTypeFromUserInput(String userInput)
             throws InvalidTaskTypeException {
         String[] userInputSplit = userInput.split(USER_INPUT_SPLITTER);
-        String taskType = userInputSplit[0];
+        String taskType = userInputSplit[INDEX_TASK_TYPE];
         switch (taskType) {
             case TASK_TYPE_DEADLINE:
                 break;
@@ -62,8 +69,8 @@ public class Parser {
     private String getTask(String userInput)
             throws EmptyDescriptionException {
         String[] userInputSplitArray = userInput.split(USER_INPUT_SPLITTER);
-        if (userInputSplitArray.length < 2) {
-            String taskType = userInputSplitArray[0];
+        if (userInputSplitArray.length < ARRAY_OF_LENGTH_2) {
+            String taskType = userInputSplitArray[INDEX_TASK_TYPE];
             throw new EmptyDescriptionException(taskType);
         } else {
             String task = "";
@@ -92,17 +99,17 @@ public class Parser {
         // If the taskDescriptionSplitByDate has length less than 2,
         // it means that the date indicator is not present.
         // We throw the InvalidDateIndicatorException in this case.
-        if (taskDescriptionSplitByDate.length < 2) {
+        if (taskDescriptionSplitByDate.length < ARRAY_OF_LENGTH_2) {
             throw new InvalidDateIndicatorException();
         } else {
-            String mainTask = taskDescriptionSplitByDate[0];
+            String mainTask = taskDescriptionSplitByDate[INDEX_MAIN_TASK];
             return mainTask;
         }
     }
 
     /**
      * @param task The task given by the user
-     * @param dateIndicator The seperator to get the date out from the task
+     * @param dateIndicator The separator to get the date out from the task
      * @return The date given by the user
      * @throws InvalidDateIndicatorException
      * We throw this exception when the not date indicator is given by the user
@@ -110,10 +117,10 @@ public class Parser {
     private String getDateFromTask(String task, String dateIndicator)
             throws InvalidDateIndicatorException {
         String[] taskDescriptionSplitByDate = task.split(dateIndicator);
-        if (taskDescriptionSplitByDate.length < 2) {
+        if (taskDescriptionSplitByDate.length < ARRAY_OF_LENGTH_2) {
             throw new InvalidDateIndicatorException();
         } else {
-            String date = taskDescriptionSplitByDate[1];
+            String date = taskDescriptionSplitByDate[INDEX_TASK_DATE];
             return date;
         }
     }
@@ -124,8 +131,10 @@ public class Parser {
      * */
     private int getTaskNumber(String userInput) {
         String[] userInputArray = userInput.split(USER_INPUT_SPLITTER);
-        int taskNumber = Integer.parseInt(userInputArray[1]);
-        taskNumber = taskNumber - 1;
+        int taskNumber = Integer.parseInt(userInputArray[INDEX_TASK_NUMBER]);
+
+        // We subtract 1 from taskNumber because arraylist index starts from 0
+        taskNumber = taskNumber - TASK_NUMBER_OFFSET;
         return taskNumber;
     }
 
@@ -146,6 +155,8 @@ public class Parser {
      * We throw this exception when the task type has not been defined in duke
      * @throws EmptyDescriptionException
      * We throw this exception when the task description is empty
+     * @throws InvalidDateIndicatorException
+     * We throw this exception when the date indicator in the task description is not found
      * */
     public Command parseUserInput(String userInput)
             throws InvalidTaskTypeException, EmptyDescriptionException, InvalidDateIndicatorException {
