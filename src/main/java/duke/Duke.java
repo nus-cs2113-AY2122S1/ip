@@ -27,7 +27,7 @@ public class Duke {
         exitProgram();
     }
 
-    public static void executeProgram(Task[] tasksList, int taskCount) {
+    public static void executeProgramWithErrorHandlings(Task[] tasksList, int taskCount) {
         String inputLine = INPUT_COMMAND.nextLine();
         ;
         while (!inputLine.equals(COMMAND_EXIT_WORD)) {
