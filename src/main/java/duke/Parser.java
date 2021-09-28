@@ -51,6 +51,13 @@ public class Parser {
                 System.out.println("    OOPS!!! The description of a event cannot be empty.");
             }
             break;
+        case "find":
+            try {
+                TaskList.findTask(command.substring(5));
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("    OOPS!!! The description of a event cannot be empty.");
+            }
+            break;
         default:
             System.out.println("    OOPS!!! I'm sorry, but I don't know what that means :-(");
 
