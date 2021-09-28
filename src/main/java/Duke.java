@@ -9,11 +9,22 @@ import ui.Ui;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Austin is a task list application which stores tasks in three types:
+ * todo, event and deadline. It has the ability to read, write and delete tasks.
+ * It is also possible to mark the tasks as "done" or "not done",
+ * print deadline tasks due today and event tasks happening today, and
+ * filters the task list based on the keyword.
+ */
 public class Duke {
     private Ui ui;
     private TaskList taskList;
     private Storage storage;
 
+    /**
+     * Initialises the user interface and loads the tasks stored in the file.
+     * New file will be created if there is a problem in accessing it.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage();

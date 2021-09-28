@@ -29,6 +29,7 @@ public class Storage {
      * Opens the text file for reading if it exists. If the file does not exist in
      * the directory, a new file is created. A new directory is created if the specified
      * directory is not available.
+     *
      * @return The file which is used to store tasks
      * @throws IOException If there is an error due to file management
      */
@@ -46,9 +47,10 @@ public class Storage {
 
     /**
      * Calls a private method to load tasks from text file to the array list.
+     *
      * @return The arraylist of Task objects stored in the file
      * @throws IOException If there is a problem in opening or
-     * creating the file
+     *                     creating the file
      */
     public ArrayList<Task> load() throws IOException,
             DateTimeParseException {
@@ -57,9 +59,10 @@ public class Storage {
 
     /**
      * Adds tasks stored in the file into the array.
+     *
      * @return The arraylist of Task objects stored in the file
      * @throws IOException If there is a problem in opening or
-     * creating the file
+     *                     creating the file
      */
     private ArrayList<Task> addTasksFromFile() throws IOException,
             DateTimeParseException {
@@ -91,6 +94,7 @@ public class Storage {
 
     /**
      * Updates the text file when called.
+     *
      * @throws IOException If there is an error while accessing the text file
      * @param taskList List of Task objects
      */
@@ -104,6 +108,7 @@ public class Storage {
 
     /**
      * Clears the contents of the text file.
+     *
      * @throws IOException If there is an error while accessing the text file
      */
     public void clearFileContents() throws IOException {

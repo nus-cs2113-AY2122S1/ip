@@ -10,25 +10,38 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-/** Performs operations in the task list */
+/**
+ * This class holds all the tasks which user has added and has methods
+ * to manipulate the task list.
+ */
 public class TaskList {
     private static ArrayList<Task> tasks;
 
+    /**
+     * Constructs a new task list.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a task list by adding the loaded tasks from the file.
+     *
+     * @param loadedTasks Tasks loaded from the file
+     */
     public TaskList(ArrayList<Task> loadedTasks) {
         tasks = loadedTasks;
     }
 
+    /**
+     * @return ArrayList containing all the tasks
+     */
     public static ArrayList<Task> getTasks() {
         return tasks;
     }
 
     /**
-     * Obtains the number of tasks in the task list
-     * @return The number of tasks
+     * @return The number of tasks in the task list
      */
     public static int tasksCount() {
         return tasks.size();
@@ -36,6 +49,7 @@ public class TaskList {
 
     /**
      * Extracts the task object from the array list.
+     *
      * @param taskIndex Index of the selected task
      * @return Selected Task object
      */
@@ -46,6 +60,7 @@ public class TaskList {
     /**
      * Extracts the selected task and creates a string by adding all its details
      * to make it printable.
+     *
      * @param taskIndex Index of the selected task
      * @return String containing all the task details
      */
@@ -56,9 +71,10 @@ public class TaskList {
     /**
      * Extracts the selected task and creates a string by in a specific format
      * in order to store it in the file.
+     *
      * @param taskIndex Index of the selected task
      * @return String containing all the task details which is used
-     * to store it in the file
+     *          to store it in the file
      */
     public static String getTaskItemInFileFormat(int taskIndex) {
         return getTaskItem(taskIndex).toFileFormat();
@@ -101,7 +117,7 @@ public class TaskList {
      * in the command.
      *
      * @throws AustinTaskAlreadyNotCompletedException If the task is already marked as
-     * "not done"
+     *                                                incomplete
      * @throws IndexOutOfBoundsException If the task index is out of range
      */
     public void markAsNotDone(int taskIndex) throws
@@ -138,7 +154,8 @@ public class TaskList {
 
     /**
      * Adds the deadline task into the list.
-     *  @param description Description of the task
+     *
+     * @param description Description of the task
      * @param by Deadline date and time
      */
     public void addDeadlineTask(String description, LocalDateTime by) {
@@ -147,7 +164,8 @@ public class TaskList {
     }
 
     /**
-     * Removes a task from the list
+     * Removes a task from the list.
+     *
      * @param taskIndex Index of the task to be deleted
      * @throws IndexOutOfBoundsException If the task index is out of range
      */
@@ -159,7 +177,8 @@ public class TaskList {
 
     /**
      * Removes all the tasks from the list and in the file.
-     * @throws AustinClearListException If there are no tasks in the list
+     *
+     * @throws AustinClearListException It happens if
      */
     public void clearTasks() throws AustinClearListException {
         if (tasks.size() == 0) {
@@ -169,11 +188,12 @@ public class TaskList {
     }
 
     /**
-     * Filters out the tasks based on the keyword imput by the user.
+     * Filters out the tasks based on the keyword input by the user.
+     *
      * @param keyword Keyword input by the user
      * @throws AustinEmptyListException If there are no tasks in the list
      */
-    public void findTasks(String keyword) throws AustinEmptyListException {
+    public ArrayList<Task> findTasks(String keyword) throws AustinEmptyListException {
         if (tasks.size() == 0) {
             throw new AustinEmptyListException();
         }
@@ -181,12 +201,6 @@ public class TaskList {
                 .filter((task) -> task.getDescription().toLowerCase()
                         .contains(keyword.toLowerCase()))
                 .collect(Collectors.toList());
-        if (result.size() == 0) {
-            System.out.println("There are no matching tasks based on the " +
-                    "keyword you have given.");
-        } else {
-            System.out.println("Here are the matching tasks in your list:");
-            Ui.printList(result);
-        }
+        return result;
     }
 }

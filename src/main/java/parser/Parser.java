@@ -12,7 +12,7 @@ import command.FindTasksCommand;
 import command.HelpCommand;
 import command.ListCommand;
 import command.MarkAsDoneCommand;
-import command.MarkAsNotDoneCommand;
+import command.MarkAsIncompleteCommand;
 import exception.AustinEmptyDescriptionException;
 import exception.AustinEmptyKeywordException;
 import exception.AustinEmptyTimeDetailsException;
@@ -24,10 +24,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/** Parses and validates the user's command before returning the command to execute */
+/**
+ * Parses and validates the user's command before returning the command to execute
+ */
 public class Parser {
     /**
      * Parses the command input by the user.
+     *
      * @param line User's command
      * @return Command to execute
      * @throws AustinException In case if the validation fails
@@ -56,8 +59,8 @@ public class Parser {
             return validateAddDeadlineCommand(line);
         case (MarkAsDoneCommand.COMMAND_KEYWORD):
             return validateMarkAsDoneCommand(line);
-        case (MarkAsNotDoneCommand.COMMAND_KEYWORD):
-            return validateMarkAsNotDoneCommand(line);
+        case (MarkAsIncompleteCommand.COMMAND_KEYWORD):
+            return validateMarkAsIncompleteCommand(line);
         case (DeleteTaskCommand.COMMAND_KEYWORD):
             return validateDeleteTaskCommand(line);
         case (ClearTasksCommand.COMMAND_KEYWORD):
@@ -71,9 +74,10 @@ public class Parser {
 
     /**
      * Validates the "find" command called by the user.
+     *
      * @param line User's command
      * @return "find" command to execute
-     * @throws AustinEmptyKeywordException
+     * @throws AustinEmptyKeywordException If the keyword is missing
      */
     private static FindTasksCommand validateFindTasksCommand(String line) throws
             AustinEmptyKeywordException {
@@ -87,10 +91,11 @@ public class Parser {
 
     /**
      * Validates the "agenda" command called by the user.
+     *
      * @param line User's command
      * @return "agenda" command to execute
      * @throws AustinInvalidCommandFormatException If there are additional characters
-     * apart from the command
+     *                                             apart from the command
      */
     private static AgendaCommand validateAgendaCommand(String line) throws
             AustinInvalidCommandFormatException {
@@ -102,10 +107,11 @@ public class Parser {
 
     /**
      * Validates the "list" command called by the user.
+     *
      * @param line User's command
      * @return "list" command to execute
      * @throws AustinInvalidCommandFormatException If there are additional characters
-     * apart from the command
+     *                                             apart from the command
      */
     private static ListCommand validateListCommand(String line) throws
             AustinInvalidCommandFormatException {
@@ -117,10 +123,11 @@ public class Parser {
 
     /**
      * Validates the "help" command called by the user.
+     *
      * @param line User's command
      * @return "help" command to execute
      * @throws AustinInvalidCommandFormatException If there are additional characters
-     * apart from the command
+     *                                             apart from the command
      */
     private static HelpCommand validateHelpCommand(String line) throws
             AustinInvalidCommandFormatException {
@@ -132,6 +139,7 @@ public class Parser {
 
     /**
      * Validates the "todo" command called by the user.
+     *
      * @param line User's command
      * @return "todo" command to execute
      * @throws AustinEmptyDescriptionException If the description of the task is empty
@@ -139,7 +147,7 @@ public class Parser {
     private static AddTodoTaskCommand validateAddTodoCommand(String line) throws
             AustinEmptyDescriptionException {
         try {
-            String description = removeFirstWord(line);
+            String description = removeFirstWord(line).trim();
             return new AddTodoTaskCommand(description);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new AustinEmptyDescriptionException();
@@ -148,6 +156,7 @@ public class Parser {
 
     /**
      * Validates the "event" command called by the user.
+     *
      * @param line User's command
      * @return "event" command to execute
      * @throws AustinInvalidCommandFormatException If the format of the command is invalid
@@ -166,7 +175,7 @@ public class Parser {
                         AddEventTaskCommand.COMMAND_KEYWORD);
             }
             int index = details.indexOf("|");
-            String description = details.substring(0, index);
+            String description = details.substring(0, index).trim();
             String at = details.substring(index + 1).trim();
             if (at.isEmpty()) {
                 throw new AustinEmptyTimeDetailsException();
@@ -181,6 +190,7 @@ public class Parser {
 
     /**
      * Validates the "deadline" command called by the user.
+     *
      * @param line User's command
      * @return "deadline" command to execute
      * @throws AustinInvalidCommandFormatException If the format of the command is invalid
@@ -199,7 +209,7 @@ public class Parser {
                         AddDeadlineTaskCommand.COMMAND_KEYWORD);
             }
             int index = details.indexOf("|");
-            String description = details.substring(0, index);
+            String description = details.substring(0, index).trim();
             String by = details.substring(index + 1).trim();
             if (by.isEmpty()) {
                 throw new AustinEmptyTimeDetailsException();
@@ -214,6 +224,7 @@ public class Parser {
 
     /**
      * Validates the "done" command called by the user.
+     *
      * @param line User's command
      * @return "done" command to execute
      * @throws NumberFormatException If the task index is of different type
@@ -227,19 +238,21 @@ public class Parser {
 
     /**
      * Validates the "undo" command called by the user.
+     *
      * @param line User's command
      * @return "undo" command to execute
      * @throws NumberFormatException If the task index is of different type
      * @throws ArrayIndexOutOfBoundsException If the task index is missing
      */
-    private static MarkAsNotDoneCommand validateMarkAsNotDoneCommand(String line) throws
+    private static MarkAsIncompleteCommand validateMarkAsIncompleteCommand(String line) throws
             NumberFormatException, ArrayIndexOutOfBoundsException {
         int index = Integer.parseInt(removeFirstWord(line)) - 1;
-        return new MarkAsNotDoneCommand(index);
+        return new MarkAsIncompleteCommand(index);
     }
 
     /**
      * Validates the "delete" command called by the user.
+     *
      * @param line User's command
      * @return "delete" command to execute
      * @throws NumberFormatException If the task index is of different type
@@ -253,10 +266,11 @@ public class Parser {
 
     /**
      * Validates the "clear" command called by the user.
+     *
      * @param line User's command
      * @return "clear" command to execute
      * @throws AustinInvalidCommandFormatException If there are additional characters
-     * apart from the command
+     *                                             apart from the command
      */
     private static ClearTasksCommand validateClearTasksCommand(String line)
             throws AustinInvalidCommandFormatException {
@@ -269,10 +283,11 @@ public class Parser {
 
     /**
      * Validates the "bye" command called by the user.
+     *
      * @param line User's command
      * @return "bye" command to execute
      * @throws AustinInvalidCommandFormatException If there are additional characters
-     * apart from the command
+     *                                             apart from the command
      */
     private static ExitCommand validateExitCommand(String line)
             throws AustinInvalidCommandFormatException {
@@ -285,6 +300,7 @@ public class Parser {
 
     /**
      * Returns the first word of the user's command.
+     *
      * @param line User's command
      * @return The command keyword
      */
@@ -295,10 +311,11 @@ public class Parser {
     /**
      * Removes the first word of the user's command to extract details
      * like description and time.
+     *
      * @param line User's command
      * @return Command without the keyword
      * @throws ArrayIndexOutOfBoundsException If there are no details
-     * apart from the keyword
+     *                                        apart from the keyword
      */
     private static String removeFirstWord(String line) throws
             ArrayIndexOutOfBoundsException {

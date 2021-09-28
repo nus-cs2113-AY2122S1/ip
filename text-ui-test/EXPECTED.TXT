@@ -38,54 +38,54 @@ Anything else?
 In case, if you are unsure of any commands, please type "help".
 ___________________COMMAND ACTIVATED__________________
 Noted. I have successfully added this task:
-[D] [ ] CS2113 project  (by: Oct 01 2021 2359)
+[D] [ ] CS2113 project (by: Oct 01 2021 2359)
 Now, you have 2 tasks in the list.
 ___________________COMMAND EXECUTED___________________
 Anything else?
 In case, if you are unsure of any commands, please type "help".
 ___________________COMMAND ACTIVATED__________________
 Noted. I have successfully added this task:
-[E] [ ] CS2113 finals  (at: Nov 30 2021 0900)
+[E] [ ] CS2113 finals (at: Nov 30 2021 0900)
 Now, you have 3 tasks in the list.
 ___________________COMMAND EXECUTED___________________
 Anything else?
 In case, if you are unsure of any commands, please type "help".
 ___________________COMMAND ACTIVATED__________________
 Here are the matching tasks in your list:
-1. [D] [ ] CS2113 project  (by: Oct 01 2021 2359)
+1. [D] [ ] CS2113 project (by: Oct 01 2021 2359)
 ___________________COMMAND EXECUTED___________________
 Anything else?
 In case, if you are unsure of any commands, please type "help".
 ___________________COMMAND ACTIVATED__________________
 Below are the list of tasks in your list:
 1. [T] [ ] CS2113 A-UserGuide
-2. [D] [ ] CS2113 project  (by: Oct 01 2021 2359)
-3. [E] [ ] CS2113 finals  (at: Nov 30 2021 0900)
+2. [D] [ ] CS2113 project (by: Oct 01 2021 2359)
+3. [E] [ ] CS2113 finals (at: Nov 30 2021 0900)
 Currently, you have 3 tasks in your list.
 ___________________COMMAND EXECUTED___________________
 Anything else?
 In case, if you are unsure of any commands, please type "help".
 ___________________COMMAND ACTIVATED__________________
 Amazing! I have marked this task as done:
-[D] [X] CS2113 project  (by: Oct 01 2021 2359)
+[D] [X] CS2113 project (by: Oct 01 2021 2359)
 ___________________COMMAND EXECUTED___________________
 Anything else?
 In case, if you are unsure of any commands, please type "help".
 ___________________COMMAND ACTIVATED__________________
 Noted. I have deleted the following task:
-[D] [X] CS2113 project  (by: Oct 01 2021 2359)
+[D] [X] CS2113 project (by: Oct 01 2021 2359)
 ___________________COMMAND EXECUTED___________________
 Anything else?
 In case, if you are unsure of any commands, please type "help".
 ___________________COMMAND ACTIVATED__________________
 Amazing! I have marked this task as done:
-[E] [X] CS2113 finals  (at: Nov 30 2021 0900)
+[E] [X] CS2113 finals (at: Nov 30 2021 0900)
 ___________________COMMAND EXECUTED___________________
 Anything else?
 In case, if you are unsure of any commands, please type "help".
 ___________________COMMAND ACTIVATED__________________
-Noted. I have marked this task as "not done":
-[E] [ ] CS2113 finals  (at: Nov 30 2021 0900)
+Noted. I have marked this task as incomplete:
+[E] [ ] CS2113 finals (at: Nov 30 2021 0900)
 ___________________COMMAND EXECUTED___________________
 Anything else?
 In case, if you are unsure of any commands, please type "help".

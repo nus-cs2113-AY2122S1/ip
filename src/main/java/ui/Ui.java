@@ -10,7 +10,9 @@ import java.util.Scanner;
 import static task.TaskList.getTaskItemInString;
 import static task.TaskList.tasksCount;
 
-/** Interacts with user by printing messages and task details */
+/**
+ * Interacts with user by printing messages and task details
+ */
 public class Ui {
     private final String logo =
                     "        ___      __    __       _______.___________.__  .__   __.\n" +
@@ -39,7 +41,7 @@ public class Ui {
     private static final String ACKNOWLEDGE_DONE_MESSAGE =
             "Amazing! I have marked this task as done:";
     private static final String ACKNOWLEDGE_NOT_DONE_MESSAGE =
-            "Noted. I have marked this task as \"not done\":";
+            "Noted. I have marked this task as incomplete:";
     private static final String ACKNOWLEDGE_DELETE_MESSAGE =
             "Noted. I have deleted the following task:";
     private static final String ACKNOWLEDGE_ADD_MESSAGE =
@@ -77,6 +79,7 @@ public class Ui {
 
     /**
      * Prints message after executing the command
+     *
      * @param isExit To check if "bye" command is called
      */
     public void showFinishingLine(boolean isExit) {
@@ -100,6 +103,7 @@ public class Ui {
 
     /**
      * Prints exception message when the IO exception is triggered.
+     *
      * @param e IOException triggered
      */
     public void showIOError(IOException e) {
@@ -108,6 +112,7 @@ public class Ui {
 
     /**
      * Prints the exception message when the AustinException is triggered
+     *
      * @param e AustinException triggered
      */
     public void showError(AustinException e) {
@@ -139,6 +144,9 @@ public class Ui {
         System.out.println(DATE_TIME_PARSE_EXCEPTION_MESSAGE_WHILE_LOADING);
     }
 
+    /**
+     * Prints message when the date and time details are given in wrong format.
+     */
     public void showDateTimeParseExceptionError() {
         System.out.println("Oops. The date and time given are in the wrong format.\n"
                 + "Please follow the correct format (d/m/yyyy hhmm).");
@@ -146,6 +154,7 @@ public class Ui {
 
     /**
      * Prints message stating the number of the tasks in the list.
+     *
      * @param count Number of tasks in the list
      */
     public static void printCurrentStatus(int count) {
@@ -161,6 +170,7 @@ public class Ui {
     /**
      * Prints message stating the number of the tasks in the list. This is called
      * immediately after adding a new task into the list.
+     *
      * @param count Number of tasks in the list after adding
      */
     public void printCurrentStatusAfterAdding(int count) {
@@ -178,6 +188,7 @@ public class Ui {
 
     /**
      * Prints specific task item in a string format.
+     *
      * @param taskIndex Index of the task in the array list
      */
     public static void printTaskItem(int taskIndex) {
@@ -186,6 +197,7 @@ public class Ui {
 
     /**
      * Prints confirmation message after the task is marked as done.
+     *
      * @param taskIndex Index of the task in the list
      */
     public void acknowledgeDone(int taskIndex) {
@@ -194,7 +206,8 @@ public class Ui {
     }
 
     /**
-     * Prints confirmation message after the task is marked as "not done".
+     * Prints confirmation message after the task is marked as incomplete.
+     *
      * @param taskIndex Index of the task in the list
      */
     public void acknowledgeUndo(int taskIndex) {
@@ -204,6 +217,7 @@ public class Ui {
 
     /**
      * Prints confirmation message deleting the task.
+     *
      * @param removedTask Deleted task
      */
     public void acknowledgeDelete(Task removedTask) {
@@ -230,6 +244,7 @@ public class Ui {
 
     /**
      * Prints all the tasks from the list in a string format.
+     *
      * @param tasks List containing task objects
      */
     public static void printList(ArrayList<Task> tasks) {
@@ -242,6 +257,7 @@ public class Ui {
 
     /**
      * Prints deadline tasks due today and event tasks happening today.
+     *
      * @param todayTasks List containing the deadline and event tasks
      */
     public void printAgenda(ArrayList<Task> todayTasks) {
