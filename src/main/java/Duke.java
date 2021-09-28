@@ -197,6 +197,23 @@ public class Duke {
         storage.updateOutputFile(taskList);
     }
 
+    /**
+     * Find Task by Keyword
+     * @param taskList
+     * @param keyword
+     * @param savedTask
+     */
+    private static void findTaskByKeyword(TaskList taskList, String keyword, LinkedList<Task> savedTask){
+        TaskList keywordTaskList = new TaskList(savedTask);
+        for(int i = 0; i < taskList.countTaskInList(); i++){
+            if(taskList.findTask(i).toString().contains(keyword)){
+                keywordTaskList.addTasks(taskList.findTask(i));
+            } else {
+                return;
+            }
+        }
+    }
+
 
     /**
      * Used to check if the input command is valid or not.
