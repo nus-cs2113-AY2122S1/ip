@@ -1,5 +1,19 @@
 # User Guide
 Duke is an interaction program that used for managing tasks via Command Line Interface (CLI).
+
+## Menu
+1. Features
+2. Usage
+   - Adding a Todo Task
+   - Adding a Deadline Task
+   - Adding an Event Task
+   - Marking a Task's Status as Done
+   - Listing Out the Whole Task List
+   - Deleting a Task From Task List
+   - Finding Tasks
+   - Exiting the Program
+3. Command List
+
 ## Features 
 
 ### Add a Todo Task
