@@ -98,12 +98,12 @@ Exits the program.
     ![Bye Screenshot](https://github.com/markuslyq/ip/blob/master/images/bye%20screenshot.png?raw=true) 
 
 ## Command Summary 
-Action | Second Header
------------- | -------------
-Add Todo task | `todo TASK_NAME` [ i.e. `todo sell bread` ]
-Add Deadline task | `deadline TASK_NAME /preposition DATE/TIME` [ i.e. `deadline submit report /by 11-10-2019 5pm` ]
-Add Event task | `event TASK_NAME /preposition DATE/TIME` [ i.e. `event team project meeting /on 02-10-2019 2-4pm` ]
-Delete | `delete TASK_INDEX` [ i.e. `delete 1` ]
-Find | `find SEARCH_PARAMETERS` [i.e. `find Oct` ]
-Mark task as done | `done TASK_INDEX` [ i.e. `done 2` ]
-View | `list`
+|Action | Second Header|
+|------------ | -------------|
+|Add Todo task | `todo TASK_NAME` [ i.e. `todo sell bread` ]|
+|Add Deadline task | `deadline TASK_NAME /preposition DATE/TIME` [ i.e. `deadline submit report /by 11-10-2019 5pm` ]|
+|Add Event task | `event TASK_NAME /preposition DATE/TIME` [ i.e. `event team project meeting /on 02-10-2019 2-4pm` ]|
+|Delete | `delete TASK_INDEX` [ i.e. `delete 1` ]|
+|Find | `find SEARCH_PARAMETERS` [i.e. `find Oct` ]|
+|Mark task as done | `done TASK_INDEX` [ i.e. `done 2` ]|
+|View | `list`|
