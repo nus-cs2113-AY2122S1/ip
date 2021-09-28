@@ -10,7 +10,6 @@ import duke.ui.Ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -176,12 +175,16 @@ public class TaskManager {
     private static void markDone(ArrayList<Task> tasks, String message) {
         try {
             String[] arrOfStr = message.split(DELIMITER_SPACE);
-            int index = Integer.parseInt(arrOfStr[arrOfStr.length - 1]) - 1;
+            int index = getIndex(arrOfStr);
             tasks.get(index).isDone();
             Storage.saveTasksToFile(tasks);
         } catch (NullPointerException e) {
             DukeException.nullPointerDoneError();
         }
+    }
+
+    private static int getIndex(String[] arrOfStr) {
+        return Integer.parseInt(arrOfStr[arrOfStr.length - 1]) - 1;
     }
 
     /**
@@ -250,12 +253,7 @@ public class TaskManager {
             String filter = message.substring(5);
             ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
                     .filter((t) -> t.getDescription().contains(filter)).collect(Collectors.toList());
-            Ui.printLine();
-            System.out.println("Here are the matching tasks in your list:");
-            for (Task task : filteredTasks) {
-                System.out.println(task.getDescription());
-            }
-            Ui.printLine();
+            Ui.printMatchingTasks(filteredTasks);
         } catch (NullPointerException e) {
             DukeException.nullPointerFindError();
         } catch (StringIndexOutOfBoundsException e) {
