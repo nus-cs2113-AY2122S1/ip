@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * Duke is a your friendly note taking bot.
+ * Duke is a friendly note-taking bot.
  * Duke keeps track of all your tasks in a reader-friendly format,
  * even after you close the application
  *

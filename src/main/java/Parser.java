@@ -72,7 +72,7 @@ public class Parser {
                 throw new DukeException("Sorry find ____ cannot  be empty");
             }
             return new Find(tasks, ui, keyword);
-        } else if (input.startsWith("list")) {
+        } else if (input.contentEquals("list")) {
             return new List(tasks, ui);
         } else{
             throw new DukeException("Sorry I do not understand");

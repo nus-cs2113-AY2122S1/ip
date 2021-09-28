@@ -93,7 +93,7 @@ public class Ui {
         int num = 1;
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getDescription().contains(keyword)) {
-                System.out.println(num + "." + tasks.get(i));
+                System.out.println(num + ". " + tasks.get(i));
                 num++;
             }
         }
