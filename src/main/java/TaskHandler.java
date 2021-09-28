@@ -28,7 +28,7 @@ public class TaskHandler {
             throw new DukeException(DukeException.ERROR_NO_DEADLINE_DATE);
         }
         TaskList.addDeadline(Parser.parseDeadlineDescription(line), Parser.parseDeadlineDate(line));
-        TaskList.printAddedTask();
+        Ui.printAddedTask();
     }
 
     public static void addEvent(String line) throws DukeException {
@@ -40,7 +40,7 @@ public class TaskHandler {
             throw new DukeException(DukeException.ERROR_NO_EVENT_DATE);
         }
         TaskList.addEvent(Parser.parseEventDescription(line), Parser.parseEventDate(line));
-        TaskList.printAddedTask();
+        Ui.printAddedTask();
     }
 
     public static void addTodo(String line) throws DukeException {
@@ -48,7 +48,7 @@ public class TaskHandler {
             throw new DukeException(DukeException.ERROR_NO_TODO_DESCRIPTION);
         }
         TaskList.addTodo(Parser.parseBody(line));
-        TaskList.printAddedTask();
+        Ui.printAddedTask();
     }
 
     public static void deleteTask(String line) throws DukeException, NumberFormatException{
@@ -65,7 +65,7 @@ public class TaskHandler {
             throw new DukeException(DukeException.ERROR_INDEX_OUT_OF_BOUND);
 
         }
-        TaskList.printDeletedTask(taskIndex - 1);
+        Ui.printDeletedTask(taskIndex - 1);
         TaskList.removeTask(taskIndex - 1);
     }
 

@@ -13,7 +13,7 @@ public class Duke {
             try {
                 switch (Parser.parseCommand(line)) {
                 case "list":
-                    TaskList.printTaskList();
+                    Ui.printTaskList();
                     break;
                 case "done":
                     TaskHandler.markTaskAsDone(line);
