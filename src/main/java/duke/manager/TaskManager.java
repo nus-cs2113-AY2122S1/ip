@@ -7,8 +7,10 @@ import duke.task.Task;
 import duke.task.Todo;
 import duke.ui.Ui;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -27,6 +29,8 @@ public class TaskManager {
     public static final String DELIMITER_SLASH = "/";
     public static final String DELIMITER_EVENT = "/at";
     public static final String DELIMITER_DEADLINE = "/by";
+    public static final int DESCRIPTION_INDEX_EVENT = 6;
+    public static final int INDEX_TASKTYPE = 0;
 
 
     /**
@@ -40,7 +44,7 @@ public class TaskManager {
      */
     private static String taskType(String message) {
         String[] type = message.split(DELIMITER_SPACE);
-        return type[0];
+        return type[INDEX_TASKTYPE];
     }
 
 
@@ -75,9 +79,7 @@ public class TaskManager {
      */
     private static void addEvent(ArrayList<Task> tasks, String message) {
         try {
-            message = message.substring(6);
-            String[] eventData = message.split(DELIMITER_SLASH, 2);
-            tasks.add(new Event(eventData[0], DateAndTimeParser.processDateAndTime(eventData[1].substring(3)), eventData[1].substring(3)));
+            tasks.add(createEvent(message));
             Ui.printAddedTask(tasks.get(taskSize(tasks)), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
@@ -89,6 +91,23 @@ public class TaskManager {
         }
     }
 
+    private static Event createEvent(String message) {
+        String eventString = getEventString(message);
+        String[] eventData = splitString(eventString, DELIMITER_EVENT);
+        String eventDescription = eventData[INDEX_TASKTYPE];
+        LocalDateTime eventDateTime = DateAndTimeParser.processDateAndTime(eventData[1]);
+        String eventDateTimeString = eventData[1];
+        return new Event(eventDescription, eventDateTime, eventDateTimeString);
+    }
+
+    private static String[] splitString(String eventString, String DELIMITER) {
+        return eventString.split(DELIMITER, 2);
+    }
+
+    private static String getEventString(String message) {
+        return message.substring(DESCRIPTION_INDEX_EVENT);
+    }
+
     /**
      * The function adds the deadline task input by the user
      *
@@ -97,8 +116,8 @@ public class TaskManager {
      */
     private static void addDeadline(ArrayList<Task> tasks, String message) {
         try {
-            message = message.substring(9);
-            String[] deadlineData = message.split(DELIMITER_SLASH, 2);
+            String deadlineString = message.substring(9);
+            String[] deadlineData = splitString(deadlineString, DELIMITER_DEADLINE);
             tasks.add(new Deadline(deadlineData[0], DateAndTimeParser.processDateAndTime(deadlineData[1].substring(3)), deadlineData[1].substring(3)));
             Ui.printAddedTask(tasks.get(taskSize(tasks)), tasks);
             Storage.saveTasksToFile(tasks);
