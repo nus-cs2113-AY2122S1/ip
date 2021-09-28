@@ -1,6 +1,8 @@
 package duke.tasks;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Represents the ArrayList of all Tasks.
@@ -40,5 +42,20 @@ public class TaskList {
             data += task.toFileFormat() + System.lineSeparator();
         }
         return data;
+    }
+
+    /**
+     * Sort all tasks by dateTime to help user prioritise task urgency.
+     * Todo task by its creation dateTime.
+     * Deadline task by its specified dateTime.
+     * Event task by its specified dateTime.
+     */
+    public void sortByDateTime() {
+        Collections.sort(tasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                return o1.getDateTime().compareTo(o2.getDateTime());
+            }
+        });
     }
 }

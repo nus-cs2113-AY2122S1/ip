@@ -14,6 +14,7 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        tasks.sortByDateTime();
         String output = " Here are the tasks in your list:\n";
         for (int i = 1; i < tasks.sizeOfTaskList() + 1; i++) {
             output = output + " " + i + "." + tasks.getTaskAtIndex(i - 1).toString() + "\n";

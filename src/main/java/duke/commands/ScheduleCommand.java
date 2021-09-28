@@ -33,6 +33,7 @@ public class ScheduleCommand extends Command {
                 LocalDate parsedDate = Parser.parseDate(arguments);
                 String formattedDate = Parser.getFormattedDate(parsedDate);
 
+                tasks.sortByDateTime();
                 for (int i = 1; i < tasks.sizeOfTaskList() + 1; i++) {
                     Task task = tasks.getTaskAtIndex(i - 1);
                     if (task instanceof Deadline) {

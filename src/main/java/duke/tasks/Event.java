@@ -29,4 +29,9 @@ public class Event extends Task {
     public String getDateString() {
         return Parser.getFormattedDate(dateTime.toLocalDate());
     }
+
+    @Override
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
 }
