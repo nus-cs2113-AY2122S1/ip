@@ -18,6 +18,10 @@ public class Task {
         this.isDone = true;
     }
 
+    public boolean containsKeyword(String keyword) {
+        return description.toLowerCase().contains(keyword.toLowerCase());
+    }
+
     public String parseToStore() {
         int doneStatus = this.isDone ? 1 : 0;
         return String.format(" %d | %s", doneStatus, this.description);
