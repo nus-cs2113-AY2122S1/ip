@@ -80,8 +80,8 @@ How the list will look like:
 
 ![list example](ip_list_example.png)
 
-Each task has their index, done status and the task itself. A task that is set as done will have an `X` just like
-task 2.
+Each task has, in the following order, their index, task type, done status and the task itself. A task that is set as 
+done will have an `X` just like task 2.
 
 ### Setting a Task as Done: `done`
 Sets a task that DUKE is tracking as done.
@@ -130,7 +130,16 @@ Format: `bye`
 
 ### Saving Tasks to Hard Drive (Automatic)
 When the program starts, it looks for a data file called `DukeData.txt` and loads all the data there into the program.
-If there is no `DukeData.txt` file, one will be created in the same folder as `ip.jar`.
+
+`DukeData.txt` will store 3 essential information for each task:
+- Task type.
+- Task done status.
+- Task itself (for Deadlines and Events, this will be further split into 2 parts where the first part is
+`TASK_DESCRIPTION` and the second part is `DEADLINE` or `EVENT_DETAILS`)
+
+Task entries in `DukeData.txt` that have missing information will be considered corrupted and will not be loaded.
+If there is no `DukeData.txt` file, an empty one will be created in the same folder as `ip.jar`. 
+
 
 After every command input by you, all the tasks in the program will be saved into `DukeData.txt` to ensure data
 integrity when DUKE crashes. If there are errors, you will be notified. No notification will be shown if there
