@@ -67,6 +67,7 @@ public class TaskManager {
         }
         System.out.println("Here are your item(s): ");
         for (int i = 0; i < numOfTasks; i++) {
+            // Adding 1 to i in order to create list starting from 1.
             System.out.println(i + 1 + "." + tasks.get(i));
         }
     }
@@ -164,7 +165,7 @@ public class TaskManager {
         }
 
         ArrayList<Task> relatedTasks = (ArrayList<Task>) tasks.stream()
-                .filter((t) -> t.getDescription().toLowerCase().contains(term))
+                .filter((t) -> t.getDescription().toLowerCase().contains(term.trim()))
                 .collect(Collectors.toList());
 
         if (relatedTasks.isEmpty()) {
@@ -172,6 +173,7 @@ public class TaskManager {
         } else {
             System.out.println("Here are the matching task(s) in your list: ");
             for (int i = 0; i < relatedTasks.size(); i++) {
+                // Adding 1 to i in order to create list starting from 1.
                 System.out.println(i + 1 + "." + relatedTasks.get(i));
             }
         }
