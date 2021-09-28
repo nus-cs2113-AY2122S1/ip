@@ -21,17 +21,17 @@ public class Parser {
     }
 
     public static String parseBody(String line) {
-        String[] words = line.split(" ", 2);
+        String[] words = line.trim().split(" ", 2);
         return words[INDEX_BODY].trim();
     }
 
     public static String parseDoneIndex(String line) {
-        String[] words = line.split(" ", 2);
+        String[] words = line.trim().split(" ", 2);
         return words[INDEX_DONE_NUMBER].trim();
     }
 
     public static boolean hasNoBody(String line) {
-        String[] words = line.split(" ", 2);
+        String[] words = line.trim().split(" ", 2);
         return words.length == 1;
     }
 
@@ -86,22 +86,22 @@ public class Parser {
     }
 
     public static String parseCommandFromFile(String line) {
-        String[] words = line.split(Storage.SPACER);
+        String[] words = line.trim().split(Storage.SPACER);
         return words[INDEX_COMMAND].trim();
     }
 
     public static String parseDescriptionFromFile(String line) {
-        String[] words = line.split(Storage.SPACER);
+        String[] words = line.trim().split(Storage.SPACER);
         return words[INDEX_DESCRIPTION_FROM_FILE].trim();
     }
 
     public static String parseDateFromFile(String line) {
-        String[] words = line.split(Storage.SPACER);
+        String[] words = line.trim().split(Storage.SPACER);
         return words[INDEX_DATE_FROM_FILE].trim();
     }
 
     public static String parseIsDoneFromFile(String line) {
-        String[] words = line.split(Storage.SPACER);
+        String[] words = line.trim().split(Storage.SPACER);
         return words[INDEX_IS_DONE_FROM_FILE].trim();
     }
 }
