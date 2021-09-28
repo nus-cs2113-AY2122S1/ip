@@ -1,28 +1,27 @@
 package duke.data.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * This class is used for tasks that need to be done before a specific date/time.
- * E.g: submit iP by thurs 2359
+ * E.g: submit iP by 23/12/2001 2359
  */
 public class Deadline extends Task {
-    protected String deadline;
+    protected LocalDateTime dateAndTime;
 
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, LocalDateTime dateAndTime) {
         super(description);
-        setDeadline(deadline);
+        this.dateAndTime = dateAndTime;
     }
 
-    public Deadline(String description, String deadline, boolean isDone) {
+    public Deadline(String description, LocalDateTime dateAndTime, boolean isDone) {
         super(description, isDone);
-        this.deadline = deadline;
+        this.dateAndTime = dateAndTime;
     }
 
-    public String getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
+    public String getFormattedDateAndTime() {
+        return this.dateAndTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h.ma"));
     }
 
     /**
@@ -32,7 +31,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return DEADLINE_LOGO + super.toString() + " (by: " + deadline + ")";
+        return DEADLINE_LOGO + super.toString() + " (by: " + getFormattedDateAndTime() + ")";
     }
 
     /**
@@ -42,6 +41,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toTextFileString() {
-        return DEADLINE_ACRONYM + " | " + super.toTextFileString() + " | " + deadline;
+        return DEADLINE_ACRONYM + " | " + super.toTextFileString() + " | " + dateAndTime;
     }
 }

@@ -13,15 +13,19 @@ import duke.logic.commands.MarkTaskAsDoneCommand;
 import duke.logic.commands.exceptions.InvalidCommandFormatException;
 import duke.logic.commands.exceptions.MissingTaskDescriptionException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import static duke.ui.Ui.EMPTY;
+import static duke.ui.Ui.MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST;
+import static duke.ui.Ui.MESSAGE_ERROR_DATE_FORMAT_WRONG;
 
 /**
  *
  * Method of parsing commands partially adapted from https://github.com/se-edu/addressbook-level2
  */
 public class Parser {
-
-     private static final String ERROR_MESSAGE_COMMAND_DOES_NOT_EXIST = "Command does not exist @_@";
 
     /**
      * Returns a String array where 0th index is command string and 1st index is the remaining parameters
@@ -52,7 +56,7 @@ public class Parser {
      * @return String array [description, info]
      */
     private String[] splitParamsIntoDescriptionAndInfo(String params) throws MissingTaskDescriptionException {
-        final String[] splitParams = params.trim().split("/");
+        final String[] splitParams = params.trim().split("/", 2);
         String[] descriptionAndInfo = new String[2];
         //description string
         descriptionAndInfo[0] = splitParams[0].trim();
@@ -65,21 +69,27 @@ public class Parser {
     }
 
     /**
-     * Returns the date of the task in String form
-     * Date is assumed to be after the command prefix strings "at" or "by"
-     * If invalid command prefix is given or no date is provided, throw InvalidCommandFormatException
+     * Returns the date of the task in LocalDateTime form
+     * Date string is assumed to be after the command prefix strings "at" or "by"
+     * If  throw InvalidCommandFormatException
      *
      * @param commandPrefix Prefix to extract date with
      * @param info String containing prefix and date
-     * @return Date in String form
+     * @return Date in LocalDateTime form
+     * @throws InvalidCommandFormatException If invalid command prefix is given or no date is provided
+     * @throws DateTimeParseException If date string is not in the correct pattern dd/MM/yyyy HHmm
      */
-    public static String extractDate(String commandPrefix, String info) throws InvalidCommandFormatException {
+    public static LocalDateTime extractDateIntoDateTime(String commandPrefix, String info) throws InvalidCommandFormatException, DateTimeParseException {
+        LocalDateTime dateAndTime;
         final String[] words = info.split(" ", 2);
         if (!words[0].equals(commandPrefix) || words.length == 1) {
             throw new InvalidCommandFormatException();
         } else {
-            return words[1];
+            System.out.println(words[1]);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            dateAndTime = LocalDateTime.parse(words[1], formatter);
         }
+        return dateAndTime;
     }
 
     private Command parseAddTodo (String params) {
@@ -99,12 +109,14 @@ public class Parser {
             descriptionAndInfo = splitParamsIntoDescriptionAndInfo(params);
             final String description = descriptionAndInfo[0];
             final String info = descriptionAndInfo[1];
-            String date = extractDate(AddDeadlineCommand.COMMAND_PREFIX, info);
-            return new AddDeadlineCommand(description, date);
+            LocalDateTime dateAndTime = extractDateIntoDateTime(AddDeadlineCommand.COMMAND_PREFIX, info);
+            return new AddDeadlineCommand(description, dateAndTime);
         } catch (MissingTaskDescriptionException e) {
             return new IncorrectCommand(e.toString());
         } catch (InvalidCommandFormatException e) {
             return new IncorrectCommand(AddDeadlineCommand.MESSAGE_INVALID_FORMAT);
+        } catch (DateTimeParseException e) {
+            return new IncorrectCommand(MESSAGE_ERROR_DATE_FORMAT_WRONG);
         }
     }
 
@@ -114,12 +126,14 @@ public class Parser {
             descriptionAndInfo = splitParamsIntoDescriptionAndInfo(params);
             final String description = descriptionAndInfo[0];
             final String info = descriptionAndInfo[1];
-            String date = extractDate(AddEventCommand.COMMAND_PREFIX, info);
-            return new AddEventCommand(description, date);
+            LocalDateTime dateAndTime = extractDateIntoDateTime(AddEventCommand.COMMAND_PREFIX, info);
+            return new AddEventCommand(description, dateAndTime);
         } catch (MissingTaskDescriptionException e) {
             return new IncorrectCommand(e.toString());
         } catch (InvalidCommandFormatException e) {
             return new IncorrectCommand(AddEventCommand.MESSAGE_INVALID_FORMAT);
+        } catch (DateTimeParseException e) {
+            return new IncorrectCommand(MESSAGE_ERROR_DATE_FORMAT_WRONG);
         }
     }
 
@@ -169,7 +183,7 @@ public class Parser {
         case CommandListCommand.COMMAND_WORD:
             return new CommandListCommand();
         default:
-            return new IncorrectCommand(ERROR_MESSAGE_COMMAND_DOES_NOT_EXIST);
+            return new IncorrectCommand(MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST);
         }
     }
 

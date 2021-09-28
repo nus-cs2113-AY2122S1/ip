@@ -1,27 +1,30 @@
 package duke.data.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
- * This class is used for tasks that start at a specific time and ends at a specific time.
- * E.g: team meeting at 9pm
+ * This class is used for tasks that start at a specific date and time
+ * E.g: team meeting at 23/12/2012 2pm
  */
 public class Event extends Task {
-    protected String dateAndTime;
+    protected LocalDateTime dateAndTime;
 
-    public Event(String description, String dateAndTime) {
+    public Event(String description, LocalDateTime dateAndTime) {
         super(description);
         setDateAndTime(dateAndTime);
     }
 
-    public Event(String description, String dateAndTime, boolean isDone) {
+    public Event(String description, LocalDateTime dateAndTime, boolean isDone) {
         super(description, isDone);
         this.dateAndTime = dateAndTime;
     }
 
-    public String getDateAndTime() {
-        return dateAndTime;
+    public String getFormattedDateAndTime() {
+        return this.dateAndTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h.ma"));
     }
 
-    public void setDateAndTime(String dateAndTime) {
+    public void setDateAndTime(LocalDateTime dateAndTime) {
         this.dateAndTime = dateAndTime;
     }
 
@@ -32,7 +35,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return EVENT_LOGO + super.toString() + " (at: " + dateAndTime + ")";
+        return EVENT_LOGO + super.toString() + " (at: " + getFormattedDateAndTime() + ")";
     }
 
     /**
