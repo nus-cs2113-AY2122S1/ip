@@ -38,10 +38,15 @@ public class Ui {
     /**
      * Acknowledge marking task as done.
      *
-     * @param completedTask
-     * @return
+     * @param completedTask Task targeted to be marked.
+     * @return Message on completion of marking done.
      */
-    public String doneMessage(Task completedTask) {
+    public String doneMessage(String completedTask) {
+        if (completedTask.equals("Done Previously")) {
+            return (LINE
+                    + "This task has previously been completed\n"
+                    + LINE);
+        }
         return (LINE
                 + "Nice, I've marked this task as Done:\n"
                 + "\t\t" + completedTask + "\n"
@@ -78,7 +83,7 @@ public class Ui {
                  count++;
                  outputString += ("\t" + count + "." + task + "\n");
              }
-             outputString += LINE;
+             outputString += String.format("\n\tAs of now, %d task(s) remain not marked Done.\n", taskList.notDoneCount()) + LINE;
          }
          return outputString;
      }
@@ -99,23 +104,41 @@ public class Ui {
 
      public String helpList() {
         return (LINE +
-                "Here are the list of commands Available in Duke:\n\t" +
+                "Here are the list of commands Available in Duke:\n" +
                 LINE +
                 "bye : closes Programme\n\t" +
                 "list : lists out every Task stored in the savefile\n\t" +
                 "todo : Adds a new ToDo to the Task List\n\t" +
                 "deadline : Adds a new Deadline to the Task List\n\t" +
                 "event : Adds a new Event to the Task List\n\t" +
-                "find : Lists all tasks that contains a keyword\n\t" +
+                "find : Lists all tasks that contains a keyword\n" +
                 LINE);
      }
 
+    /**
+     * Retrieves list of tasks containing keywords.
+     *
+     * @param keyword Extracted keyword from user.
+     * @param taskList Current TaskList object.
+     * @return list of tasks containing keywords.
+     */
      public String findResults(String keyword, TaskList taskList) {
         String results = taskList.find(keyword);
         return (LINE +
                 "Find Results of [" + keyword + "]:\n" +
                 results +
                 LINE);
+     }
+
+    /**
+     * Retrieves correct format for Date/Time input.
+     *
+     * @return Correct format for Date/Time input.
+     */
+    public String dateTimeFormat() {
+        return ("\t____________________________________________________________\n\t"
+                + "Date / Time input format should be: dd/mm/yyyy hhmmss"
+                + "\n\t____________________________________________________________\n\t");
      }
 
 }

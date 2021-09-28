@@ -58,10 +58,18 @@ public class Parser {
             default:
                 throw new InvalidCommandException();
             }
-        } catch (DukeException | DateTimeParseException e) {
+        } catch (DukeException e) {
             return e.toString();
+        } catch (DateTimeParseException e) {
+            return ui.dateTimeFormat();
         }
     }
+
+    /**
+     * execute "help" command
+     *
+     * @return list of all commands available
+     */
     public String parseHelp() {
         return ui.helpList();
     }
@@ -84,8 +92,8 @@ public class Parser {
      */
     public String parseDone(String command) throws InvalidValueException {
         validate(command);
-        Task completedTask = taskList.markAsDone(command);
-        return ui.doneMessage(completedTask);
+        String statusMessage = taskList.markAsDone(command);
+        return ui.doneMessage(statusMessage);
     }
 
     /**
@@ -126,6 +134,8 @@ public class Parser {
     public String parseDeadline(String command) throws InvalidValueException {
         if (command.split(" ").length == 1)
             throw new InvalidValueException("Deadline: Missing Description / Time");
+        if (command.split("/").length == 3)
+            throw new InvalidValueException("Please input Date in the following format: dd/mm/yyyy");
         taskList.addTask(new Deadline(taskList.getDescription(command), taskList.getMoreDetails(command)));
         return ui.acknowledgeAddition(taskList.getList());
     }
@@ -140,6 +150,8 @@ public class Parser {
     public String parseEvent(String command) throws InvalidValueException {
         if (command.split(" ").length == 1)
             throw new InvalidValueException("Event: Missing Description / Time");
+        if (command.split("/").length == 3)
+            throw new InvalidValueException("Please input Date in the following format: dd/mm/yyyy");
         taskList.addTask(new Event(taskList.getDescription(command), taskList.getMoreDetails(command)));
         return ui.acknowledgeAddition(taskList.getList());
     }
@@ -198,7 +210,13 @@ public class Parser {
         }
     }
 
-    public String parseFind(String command) throws InvalidValueException {
+    /**
+     * Execute "find" command.
+     *
+     * @param command Input from user.
+     * @return List of all items found with keyword.
+     */
+    public String parseFind(String command)  {
         if (taskList.getList().size()==0)
             return ui.printList(taskList);
         String keyword = taskList.getItem(command);

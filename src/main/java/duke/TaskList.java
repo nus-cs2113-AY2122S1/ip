@@ -21,6 +21,14 @@ public class TaskList {
         this.list = list;
     }
 
+    public int notDoneCount() {
+        int unmarked = 0;
+        for (Task task : list) {
+            unmarked += (task.isDone()) ? 0 : 1;
+        }
+        return unmarked;
+    }
+
     /**
      * Adds task to TaskList.
      *
@@ -45,12 +53,14 @@ public class TaskList {
      * @param command input by user.
      * @return task specified as done.
      */
-    public Task markAsDone(String command) {
+    public String markAsDone(String command) {
         int index = getIndex(command) - 1;
         Task completedTask = list.get(index);
+        if (completedTask.isDone())
+            return "Done Previously";
         completedTask.markAsDone();
         list.get(index).markAsDone();
-        return completedTask;
+        return completedTask.toString();
     }
 
     /**
@@ -71,7 +81,7 @@ public class TaskList {
      * @param command target items (Description or find target).
      * @return target items.
      */
-    public static String getTodo (String command) {
+    public static String getItem(String command) {
         return command.substring(command.indexOf(" ") + 1);
     }
 
@@ -100,40 +110,8 @@ public class TaskList {
      */
     public String getMoreDetails(String command) throws InvalidValueException{
         String moreDetails = command.substring(command.indexOf("/") + 4);
-        if (moreDetails.trim().equals(""))
+        if (moreDetails.trim().equals("") | moreDetails.trim().contains("\t"))
             throw new InvalidValueException("Missing Required Extra Details");
-        if (moreDetails.trim().contains("/")) {
-            moreDetails = getCorrectFormat(moreDetails);
-        }
-        return moreDetails;
-    }
-
-    private String getCorrectFormat(String moreDetails) {
-
-        StringBuilder toParse = new StringBuilder();
-        String[] dateTime = moreDetails.split(" ");
-        String[] tempDate = dateTime[0].trim().split("/");
-
-        for (int i=2; i > 0; i--) {
-            toParse.append(tempDate[i]).append("-");
-        }
-        LocalDate date = LocalDate.parse(toParse + tempDate[0]);
-        moreDetails = date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " ";
-
-        if (dateTime.length > 1) {
-            toParse = new StringBuilder();
-            int missingDigits = 6 - dateTime[1].trim().length();
-            for (int i = 0; i < dateTime[1].trim().length(); i++) {
-                char c = dateTime[1].charAt(i);
-                toParse.append((i != 0 && i % 2 == 0) ? ":" + c : c);
-            }
-            for (int i=0 ; i<missingDigits;i++){
-                toParse.append((missingDigits % 2 == i % 2) ? ":0" : "0");
-            }
-            LocalTime time = LocalTime.parse(toParse.toString());
-            moreDetails += time.format(DateTimeFormatter.ofPattern("hh:mm a"));
-        }
-
         return moreDetails;
     }
 
@@ -150,7 +128,7 @@ public class TaskList {
     /**
      * Retrieve list of items containing the keyword.
      *
-     * @param keywaord Keyword input by user.
+     * @param keyword Keyword input by user.
      * @return result List of items found with keyword.
      */
     public String find(String keyword) {
@@ -162,6 +140,7 @@ public class TaskList {
         }
         return result;
     }
+
     /**
      * Retrieve user input item as integer.
      *
