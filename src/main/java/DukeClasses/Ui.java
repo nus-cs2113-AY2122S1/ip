@@ -1,3 +1,5 @@
+package DukeClasses;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -61,4 +63,11 @@ public class Ui {
         Scanner in = new Scanner(System.in);
         return in.nextLine();
     }
+    public void showInstructions() {
+        System.out.println(instructions);
+    }
+    public void printFileNotFoundError() {
+        System.out.println(fileNotFound);
+    }
+
 }

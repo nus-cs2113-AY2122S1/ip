@@ -1,3 +1,6 @@
+package DukeClasses;
+
+import DukeClasses.TaskList;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -18,9 +21,9 @@ public class Storage {
     private static char EVENT_TASK = 'E';
     private static int taskStartIndex = 7; //7 is the starting index for the actual task, in the data file
 
-    File dukeData = new File("Duke.txt");
+    public File dukeData = new File("Duke.txt");
 
-    private static char getTaskType(Task task) {
+    private char getTaskType(Task task) {
         if (task instanceof Todo) {
             return TODO_TASK;
         }
@@ -31,7 +34,7 @@ public class Storage {
     }
 
     //creates a new deadline or event, depending on what the line starts with
-    private static Task createNewDeadlineOrEvent(String taskInfo) {
+    private Task createNewDeadlineOrEvent(String taskInfo) {
         int indexOfColon = taskInfo.indexOf(":");
         int indexOfOpenBracket = taskInfo.indexOf("(");
         int indexOfCloseBracket = taskInfo.indexOf(")");
@@ -41,15 +44,15 @@ public class Storage {
         return new Event(taskInfo.substring(8, indexOfOpenBracket - 1), taskInfo.substring(indexOfColon + 2, indexOfCloseBracket));
     }
 
-    private static String fileGetTodoTask(String taskInfo) {
+    private String fileGetTodoTask(String taskInfo) {
         return taskInfo.substring(8);
     }
 
-    private static boolean fileTaskIsDone(String taskInfo) {
+    private boolean fileTaskIsDone(String taskInfo) {
         return taskInfo.charAt(4) == '1';
     }
 
-    public static void updateData(TaskList tasks, String filePath) throws IOException {
+    public void updateData(TaskList tasks, String filePath) throws IOException {
         FileWriter fw = new FileWriter(filePath); //to write first line
         FileWriter fa = new FileWriter(filePath, true); //append the rest
 
@@ -81,11 +84,11 @@ public class Storage {
         fa.close();
     }
 
-    private static String getTaskInStringFromFile(Task currentTask) {
+    private String getTaskInStringFromFile(Task currentTask) {
         return currentTask.toString().substring(taskStartIndex);
     }
 
-    public static ArrayList<Task> readData(String filePath) throws FileNotFoundException {
+    public ArrayList<Task> readData(String filePath) throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(filePath);
         Scanner s = new Scanner(f);

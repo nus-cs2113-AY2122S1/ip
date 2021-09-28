@@ -1,17 +1,14 @@
+import Commands.*;
+import DukeClasses.Parser;
+import DukeClasses.Storage;
+import DukeClasses.TaskList;
+import DukeClasses.Ui;
 import Exceptions.EmptyTaskException;
 import Exceptions.InvalidCommandException;
 import Exceptions.UnknownCommandException;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
+
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 
 public class Duke {
@@ -27,10 +24,9 @@ public class Duke {
         ui = new Ui();
         storage = new Storage();
         try {
-            tasks = new TaskList(Storage.readData("Duke.txt"));
-        } catch (FileNotFoundException e) {
-            System.out.println(ui.fileNotFound);
-        } catch (StringIndexOutOfBoundsException e) {
+            tasks = new TaskList(storage.readData(filePath));
+            ui.printFileNotFoundError();
+        } catch (StringIndexOutOfBoundsException | FileNotFoundException e) {
             System.out.println("An error has occurred!");
         }
     }
@@ -38,39 +34,29 @@ public class Duke {
     public void run() {
         ui.greetUser();
 
-        File dukeData = new File("Duke.txt");
-
         String fullCommand;
 
         boolean isExit = false;
 
         //user input loop
         while (!isExit) {
-            fullCommand = ui.readCommand();
-
-            //checks for exit command
-            if (fullCommand.equals("bye")) {
-                ui.sayGoodbye();
-                return;
-            }
-
-            //process the other commands
             try {
-                Parser.processLine(tasks, fullCommand);
-                storage.updateData(tasks, dukeData.getPath());
+                fullCommand = ui.readCommand();
+                Command c = Parser.parse(fullCommand);
+                //Parser.processLine(tasks, fullCommand);
+                c.executeCommand(tasks, ui, storage);
+                isExit = c.isExit();
             } catch (UnknownCommandException | StringIndexOutOfBoundsException | InvalidCommandException e) {
-                System.out.println(ui.invalidTaskError);
+                System.out.println(Ui.invalidTaskError);
             } catch (EmptyTaskException e) {
-                System.out.println(ui.emptyTaskError);
+                System.out.println(Ui.emptyTaskError);
             } catch (IOException e) {
                 System.out.println("An error has occurred!");
-            } finally {
-                ui.showLine();
             }
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
         new Duke("Duke.txt").run();
     }
 }
