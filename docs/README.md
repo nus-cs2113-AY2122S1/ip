@@ -89,7 +89,7 @@ Sets a task that DUKE is tracking as done.
 Format: `done INDEX_OF_TASK`
 
 - Sets task at specified `INDEX_OF_TASK` as done.
-- The index refers to the index number shown in the displayed tasks list.
+- The `INDEX_OF_TASK` refers to the index number shown in the displayed tasks list.
 - The index must be a **positive integer** 1, 2, 3, …
 - If the index of task given is out of range, nothing will happen and a warning will be given.
 
@@ -101,7 +101,7 @@ Deletes a task. DUKE will then stop tracking that particular task.
 Format: `delete INDEX_OF_TASK`
 
 - Deletes the task at specified `INDEX_OF_TASK`.
-- The index refers to the index number shown in the displayed tasks list.
+- The `INDEX_OF_TASK` refers to the index number shown in the displayed tasks list.
 - The index must be a **positive integer** 1, 2, 3, …
 - If the index of task given is out of range, nothing will happen and a warning will be given.
 
@@ -129,20 +129,20 @@ Ends the program.
 Format: `bye`
 
 ### Saving Tasks to Hard Drive (Automatic)
-When the program starts, it looks for a data file called `DukeData.txt` and loads all the data there into the program.
+When DUKE starts, it looks for a data file called `DukeData.txt` and loads in all the data.
 
 `DukeData.txt` will store 3 essential information for each task:
 - Task type.
 - Task done status.
 - Task itself (for Deadlines and Events, this will be further split into 2 parts where the first part is
-`TASK_DESCRIPTION` and the second part is `DEADLINE` or `EVENT_DETAILS`)
+`TASK_DESCRIPTION` and the second part is `DEADLINE` or `EVENT_DETAILS`).
 
 Task entries in `DukeData.txt` that have missing information will be considered corrupted and will not be loaded.
 If there is no `DukeData.txt` file, an empty one will be created in the same folder as `ip.jar`. 
 
 
-After every command input by you, all the tasks in the program will be saved into `DukeData.txt` to ensure data
-integrity when DUKE crashes. If there are errors, you will be notified. No notification will be shown if there
+After every command input by you, all the tasks DUKE is currently tracking will be saved into `DukeData.txt` to ensure 
+data integrity when DUKE crashes. If there are errors, you will be notified. No notification will be shown if there
 are no errors.
 
 Right before the program ends, another final save will be done. You will be notified if it is
