@@ -28,6 +28,8 @@ public class Duke {
                 c = Command.EVENT;
             } else if (Parser.isToDo()) {
                 c = Command.TODO;
+            } else if (Parser.isFind()) {
+                c = Command.FIND;
             } else if (Parser.isBye()){
                 Ui.bye();
                 break;
