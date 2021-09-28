@@ -13,6 +13,7 @@ fast, Duke can get your task management done faster than traditional GUI apps. I
    7. Finding a task with a keyword: `find`
 2. Command Summary
 ## Features
+
 ####Command format:
 1. Words in `UPPER_CASE` are the parameters to be supplied by the user. (eg. `todo` `TASK_DESCRIPTION`, `TASK_DESCRIPTION` is 
 the description of the 
@@ -99,6 +100,7 @@ Exits the program.
 Format: `bye`
 
 ## Command Summary
+
 Action | Format, Examples
 ------ | ----------------
 todo | `todo TASK_DESCRIPTION` eg. `todo deliver parcel`
