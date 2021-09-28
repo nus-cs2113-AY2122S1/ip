@@ -1,13 +1,13 @@
 # DUKEY-APPY User Guide 
 
 ## Contents
-[Intro](#introducing-duke-cs2113t)
+1) [Intro](#introducing-duke-cs2113t)
 
-[How to get Started](#getting-started)
+2) [How to get Started](#getting-started)
 
-[Welcome-Screen](#welcome-screen)
+3) [Welcome-Screen](#welcome-screen)
 
-[Features](#features)
+4) [Features](#features)
 
 - [active-update](#active-update)
 - [anti-duplicate](#anti-duplicate)
@@ -15,7 +15,7 @@
 - [marking-task-as-done](#marking-finished-task)
 - [search-task](#search-for-task)
 
-[Commands](#usage)
+5) [Commands](#usage)
 
 - [todo](#todo---adds-a-todo-type-of-task)
 - [event](#event---adds-a-event-type-of-task)
@@ -27,7 +27,7 @@
 - [list](#help---list-out-the-list-of-command)
 - [bye](#bye---terminates-the-app)
 
-[Summary](#summary)
+6) [Summary](#summary)
 
 ## Introducing DUKE CS2113T
 Hello there 👋 and welcome to **Duke**! **Duke** is a Task List designed to store various type of 
