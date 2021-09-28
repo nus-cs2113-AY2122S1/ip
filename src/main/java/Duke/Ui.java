@@ -31,6 +31,8 @@ public class Ui {
 
     public void printIntructionsUnclear() { System.out.println("Instructions Unclear! Type \"help\" for a list of available commands."); }
 
+    public void printMissingKeyword() { System.out.println("Woops! This function requires a keyword");}
+
     public void printHelp() {
         System.out.println("Hello, here are all the commands available");
         System.out.println("1. \"list\" to view all tasks in the todo list");
