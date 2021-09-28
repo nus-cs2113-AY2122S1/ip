@@ -19,12 +19,9 @@ public class Ui {
     }
 
     public void showLine(){
-        System.out.println(Logo.divider);
-    }
-
-    public void showLineWithoutNewLine(){
         System.out.println(Logo.dividerWithoutNewLine);
     }
+
 
     public String readCommand(){
         Scanner in = new Scanner(System.in);

@@ -1,6 +1,5 @@
 package duke.Command;
 
-import duke.ArtBot.Logo;
 import duke.ErrorHandling.CommandException;
 import duke.ErrorHandling.ErrorStaticString;
 import duke.TaskList.TaskList;

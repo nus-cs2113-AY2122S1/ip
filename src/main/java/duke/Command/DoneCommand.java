@@ -1,8 +1,10 @@
 package duke.Command;
 
-import duke.ArtBot.Logo;
 import duke.ErrorHandling.CommandException;
+import duke.ErrorHandling.ErrorStaticString;
 import duke.TaskList.TaskList;
+
+import java.util.ArrayList;
 
 public class DoneCommand extends Command{
 
@@ -14,17 +16,23 @@ public class DoneCommand extends Command{
     }
 
     @Override
-    public void executeCommand(){
+    public void executeCommand() throws CommandException{
         String removeCommand = taskInput.replaceFirst(COMMAND_COMPLETE_TASK,EMPTY_STRING).trim();
+        if(removeCommand.isEmpty()){
+            throw new CommandException(ErrorStaticString.ERROR_DONE_TASK_EMPTY);
+        }
         String[] taskDoneArray = removeCommand.split(SEPARATOR);
         System.out.println(MESSAGE_TASK_COMPLETE);
+        ArrayList<Integer> intArray = new ArrayList<>();
         for (String s: taskDoneArray) {
-            int taskDoneIndex = Integer.parseInt(s);
-            try {
-                listManager.completeTask(taskDoneIndex - 1, false);
-            }catch (CommandException e){
-                e.handleException();
+            int taskDoneIndex = Integer.parseInt(s) - 1;
+            intArray.add(taskDoneIndex);
+            if(taskDoneIndex > listManager.getListSize() || taskDoneIndex < 0){
+                throw new CommandException(ErrorStaticString.ERROR_DONE_TASK_NOT_IN_LIST);
             }
+        }
+        for(Integer i: intArray){
+            listManager.completeTask(i, false);
         }
     }
 }
