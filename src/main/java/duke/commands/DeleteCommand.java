@@ -12,7 +12,7 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX\n"
+            + "✪ Parameters: INDEX\n"
             + "⮞ Example: " + COMMAND_WORD + " 1";
 
     public DeleteCommand(int index) {

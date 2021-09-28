@@ -11,7 +11,7 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose descriptions contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD\n"
+            + "✪ Parameters: KEYWORD\n"
             + "⮞ Example: " + COMMAND_WORD + " book";
 
     public FindCommand(String keyword){

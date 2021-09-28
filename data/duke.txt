@@ -1,6 +1,5 @@
 T | 1 | go to sleep
 T | 1 | running
 D | 0 | cs2113 | tonight
-E | 0 | wsc meeting arrangement | tmr must
 T | 0 | veryyyy good
 T | 0 | cs2030 lab * n

@@ -10,11 +10,19 @@ import java.util.Scanner;
 
 public class Ui {
     // Constants
-    public static final String LOGO = " ____        _        \n"
-                                    + "|  _ \\ _   _| | _____ \n"
-                                    + "| | | | | | | |/ / _ \\\n"
-                                    + "| |_| | |_| |   <  __/\n"
-                                    + "|____/ \\__,_|_|\\_\\___|\n";
+    public static final String LOGO = " __     __         _       _     \n"
+                                    + " \\ \\   / /        (_)     ( )    " + "  " + " ____        _        \n"
+                                    + "  \\ \\_/ /   ___  ___ _ __ |/ ___ " + "  " + "|  _ \\ _   _| | _____ \n"
+                                    + "   \\   / | | \\ \\/ / | '_ \\  / __|" + "  " + "| | | | | | | |/ / _ \\\n"
+                                    + "    | || |_| |>  <| | | | | \\__ \\" + "  " + "| |_| | |_| |   <  __/\n"
+                                    + "    |_| \\__,_/_/\\_\\_|_| |_| |___/" + "  " + "|____/ \\__,_|_|\\_\\___|\n";
+
+    public static final String MEME = "                  ░░░░░░░▄█▄▄▄█▄░░░░░░░\n"
+                                    + "                  ▄▀░░░░▄▌─▄─▄─▐▄░░░░▀▄\n"
+                                    + "                  █▄▄█░░▀▌─▀─▀─▐▀░░█▄▄█\n"
+                                    + "                  ░▐▌░░░░▀▀███▀▀░░░░▐▌\n"
+                                    + "                  ████░▄█████████▄░████\n";
+
     public static final String DIVIDER = "____________________________________________________________";
 
     private final Scanner in;
@@ -33,8 +41,11 @@ public class Ui {
         return in.nextLine();
     }
 
+    public void showLogo(){
+        System.out.println(DIVIDER + "\n" + "Hello from\n" + MEME + LOGO + DIVIDER);
+    }
+
     public void showWelcome(){
-        System.out.println("Hello from\n" + LOGO);
         String greet = " Hello! I'm Yuxin's Duke\n"
                      + " What can I do for you?\n";
         System.out.println(DIVIDER + "\n" + greet + DIVIDER);

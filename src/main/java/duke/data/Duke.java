@@ -22,6 +22,7 @@ public class Duke {
     // Constructor
     public Duke(String filePath) throws InvalidStorageFilePathException {
         ui = new Ui();
+        ui.showLogo();
         storage = new Storage(filePath);
 
         try{
