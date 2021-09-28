@@ -179,7 +179,7 @@ public class TaskList {
      */
     public void printListForFindingDate(String dateString) {
         Ui.sayLoadingList();
-        System.out.println("Generating all the tasks that contain \"" + dateString + "\"...");
+        System.out.println("Generating all the tasks that occur on \"" + dateString + "\"...");
         int i = 1;
         LocalDate date = LocalDate.parse(dateString);
         for (Task num : commands) {

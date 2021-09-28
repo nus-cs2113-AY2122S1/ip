@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * The entire program begins here. All class objects are created here.
  */
-public class Duke {
+public class C3PO {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -18,7 +18,7 @@ public class Duke {
      *
      * @param filePath the name of the text file
      */
-    public Duke(String filePath) {
+    public C3PO(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -61,6 +61,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("Tasks.txt").sendCommand();
+        new C3PO("Tasks.txt").sendCommand();
     }
 }

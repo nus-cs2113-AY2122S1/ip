@@ -61,7 +61,7 @@ public class Ui {
                                     + "      | | |\n"
                                     + "     /_]_[_\\\n";
     public static final String GREETINGS = "____________________________________________________________\n" +
-                                  "Hello! I am C3P0! Human-cyborg relations! \n" + " \n" + LOGO + "\n" +
+                                  "Hello! I am C-3P0! Human-cyborg relations! \n" + " \n" + LOGO + "\n" +
                                   "What can I do for you my master?\n";
     public static final String TASK_ADDED = "Added to Galactic database:";
     public static final String MARKED_DONE = "The following task has been marked as done Master!";
