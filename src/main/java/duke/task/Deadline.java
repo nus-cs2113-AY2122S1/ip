@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a task type as Deadline task.
@@ -9,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
     protected String by;
-    protected LocalDate formalFormDate = null;
+    protected LocalDate validDate;
     protected boolean isValid = false;
 
     /**
@@ -21,10 +22,27 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
-        formalFormDate = LocalDate.parse(by);
-        if (formalFormDate != null) {
+        LocalDate convertedDate = convertDate(by);
+        if (convertedDate != null) {
             isValid = true;
+            validDate = convertedDate;
         }
+    }
+
+    /**
+     * Converts the user input date to standard format
+     *
+     * @param by String of user input date
+     * @return convertedDate LocalDate of the standard format date
+     */
+    public LocalDate convertDate(String by) {
+        LocalDate convertedDate = null;
+        try {
+            convertedDate = LocalDate.parse(by);
+        } catch (DateTimeParseException e) {
+
+        }
+        return convertedDate;
     }
 
     /**
@@ -44,7 +62,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (isValid) {
-            return "[D]" + super.toString() + " (by: " + formalFormDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+            return "[D]" + super.toString() + " (by: " + validDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         }
         return "[D]" + super.toString() + " (by: " + by + ")";
     }

@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a task type as Event task.
@@ -9,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
 
     protected String at;
-    protected LocalDate formalFormDate = null;
+    protected LocalDate validDate = null;
     protected boolean isValid = false;
 
     /**
@@ -21,10 +22,27 @@ public class Event extends Task {
     public Event(String description, String at) {
         super(description);
         this.at = at;
-        formalFormDate = LocalDate.parse(at);
-        if (formalFormDate != null) {
+        LocalDate convertedDate = convertDate(at);
+        if (convertedDate != null) {
             isValid = true;
+            validDate = convertedDate;
         }
+    }
+
+    /**
+     * Converts the user input date to standard format
+     *
+     * @param at String of user input date
+     * @return convertedDate LocalDate of the standard format date
+     */
+    public LocalDate convertDate(String at) {
+        LocalDate convertedDate = null;
+        try {
+            convertedDate = LocalDate.parse(at);
+        } catch (DateTimeParseException e) {
+
+        }
+        return convertedDate;
     }
 
     /**
@@ -44,7 +62,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         if (isValid) {
-            return "[E]" + super.toString() + " (at: " + formalFormDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+            return "[E]" + super.toString() + " (at: " + validDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         }
         return "[E]" + super.toString() + " (at: " + at + ")";
     }
