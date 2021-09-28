@@ -4,7 +4,24 @@ import duke.task.Task;
 import java.util.ArrayList;
 
 public class Ui {
+
     public static final String INDENT = "    │ ";
+
+    public static void printHelp(String userInput) {
+        System.out.println(INDENT + "Okay. For the last time, don't make me remind you again.");
+        System.out.println(INDENT);
+        System.out.println(INDENT + "               todo <name>: Add a todo task to the list.");
+        System.out.println(INDENT + "deadline <name> /by <time>: Add a task with specified deadline.");
+        System.out.println(INDENT + "   event <name> /at <time>: Add an event with the specified time.");
+        System.out.println(INDENT + "        done <task_number>: Mark a task as done.");
+        System.out.println(INDENT + "      delete <task_number>: Remove a task from the list.");
+
+        if(!userInput.equals("")) {
+            System.out.println(INDENT);
+            System.out.println(INDENT + "Oh and you typed extra garbage after \"help\":");
+            System.out.println(INDENT + userInput);
+        }
+    }
 
     /**
      * Prints the top horizontal line to demarcate text from Tired.
@@ -53,12 +70,11 @@ public class Ui {
                 + INDENT + "Ha! As if I care! Goodbye!!                                        │");
     }
 
-    public static void printWrongTaskType(String firstWord, String remainingWords) {
-        System.out.println(INDENT + "Look what you typed:\n" + INDENT + firstWord + remainingWords);
+    public static void printWrongTaskType(String text) {
+        System.out.println(INDENT + "Look what you typed:\n" + INDENT + text);
         System.out.println(INDENT);
         System.out.println(INDENT + "Please don't embarrass yourself any further.\n"
                 + INDENT + "Use the right commands. Type \"help\" if you don't know.");
-        System.out.println(INDENT + "~\"help\" command still under development.~");
     }
 
     public static void printMissingText() {
@@ -80,6 +96,10 @@ public class Ui {
         System.out.println(INDENT + "Loaded previously saved file.                                      │");
     }
 
+    public static void printBlankLoadFileFound() {
+        System.out.println(INDENT + "Notice: previously saved file empty.                               │");
+    }
+
     public static void printLoadFileNotFound() {
         System.out.println(INDENT+ "Load file: not found.                                              │\n"
                 + INDENT + "Tasks added in this session will be automatically saved upon exit. │");
@@ -95,7 +115,7 @@ public class Ui {
 
     public static void printTaskDone(ArrayList<Task> tasks, int taskNumber) {
         System.out.println(INDENT + "About time. I've mark that task as done:");
-        System.out.println(INDENT + "[" + tasks.get(taskNumber).getStatusIcon() + "]"
+        System.out.println(INDENT + "[" + tasks.get(taskNumber).getStatusIcon() + "] "
                 + tasks.get(taskNumber).getTaskName());
     }
 
@@ -105,7 +125,7 @@ public class Ui {
 
     public static void printTaskDeleted(ArrayList<Task> tasks, int taskNumber) {
         System.out.println(INDENT + "Lazy eh? Gotcha fam, removed the task:");
-        System.out.println(INDENT + "[" + tasks.get(taskNumber).getStatusIcon() + "]"
+        System.out.println(INDENT + "[" + tasks.get(taskNumber).getStatusIcon() + "] "
                 + tasks.get(taskNumber).getTaskName());
         System.out.println(INDENT + "You left " + (tasks.size() - 1) + " tasks in the list.");
 
@@ -131,44 +151,57 @@ public class Ui {
     /**
      *  Prints error message to user. Prompts user to input correct command.
      */
-    public static void printWrongTaskTypeError(String firstWord, String remainingWords) {
+    public static void showWrongTaskTypeError(String text) {
         printTopLine();
-        printWrongTaskType(firstWord, remainingWords);
+        printWrongTaskType(text);
         printBottomLine();
     }
 
     /**
      * Prints error message for when user leaves out important information in input.
      */
-    public static void printMissingTextError() {
+    public static void showMissingTextError() {
         printTopLine();
         printMissingText();
         printBottomLine();
     }
 
-    public static void printNumberFormatError() {
+    public static void showNumberFormatError() {
         printTopLine();
         printNumberExpected();
         printBottomLine();
     }
 
-    public static void printTaskLoadedSuccessMessage() {
+    public static void showHelpMessage(String userInput) {
+        printTopLine();
+        printHelp(userInput);
+        printBottomLine();
+    }
+
+    public static void showTaskLoadedSuccessMessage() {
         printTopLine();
         printTaskLoadedSuccessfully();
         printBottomLine();
     }
 
-    public static void printLoadFileNotFoundMessage() {
+
+    public static void showBlankLoadFileMessage() {
+        printTopLine();
+        printBlankLoadFileFound();
+        printBottomLine();
+    }
+
+    public static void showLoadingError() {
         printTopLine();
         printLoadFileNotFound();
         printBottomLine();
     }
 
     /**
-     * Prints greeting message to user when code is ran.
+     * Loads previously save file (if any) and prints greeting message to user when code is ran.
      */
     public static void greetUser() {
-        FileManager.loadFile();
+        Storage.load();
 
         printLogo();
         printTopLine();
