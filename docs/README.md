@@ -31,7 +31,8 @@ Welcome to Ryan! A task-tracker on a CLI interface that is able to keep your tas
 Lists the commands currently available in Ryan.
 ### Input to-do task: `todo`
 Adds a to-do task.
-Format: `todo DESCRIPTION`
+
+Format: `todo <DESCRIPTION>`
 * Records the to-do item into the list
 * DESCRIPTION can be of any alphanumerical digit or special character
 
@@ -47,7 +48,8 @@ Example:
 ```
 ### Input event task: `event`
 Adds a todo task.
-Format: `event DESCRIPTION /at EVENT_TIMING`
+
+Format: `event <DESCRIPTION> /at <EVENT_TIMING>`
 * Records the event into the list
 * DESCRIPTION can be of any alphanumerical digit or special character except */at* or */by*
 * EVENT_TIMING can be of any input as defined by your own choice of words
@@ -63,8 +65,9 @@ Example:
 
 ```
 ### Input deadline task: `deadline`
-Adds a todo task.
-Format: `deadline DESCRIPTION /by DEADLINE_TIMING`
+Adds a todo task. 
+
+Format: `deadline <DESCRIPTION> /by <DEADLINE_TIMING>`
 * Records the deadline into the list
 * DESCRIPTION can be of any alphanumerical digit or special character except */at* or */by*
 * EVENT_TIMING can be of any input as defined by your own choice of words
@@ -94,9 +97,10 @@ Example:
 ```
 ### Set task as done: `done`
 Marks a task as done (completed)
-Format: done TASK_NUM
-* Marks the task with its respective task number as done.
-* TASK_NO can only be an integer that is within the number of tasks in the list
+
+Format: `done <TASK_NUM>`
+* Marks the task with its respective task number as done
+* TASK_NUM can only be an integer that is within the number of tasks in the list
 
 Example:
 ```
@@ -117,9 +121,10 @@ Example:
 ```
 ### Delete a task: `delete`
 Deletes the task from the list
-Format: delete TASK_NUM
-* Marks the task with its respective task number as done.
-* TASK_NO can only be an integer that is within the number of tasks in the list
+
+Format: `delete <TASK_NUM>`
+* Deletes the task from the list
+* TASK_NUM can only be an integer that is within the number of tasks in the list
 
 Example:
 ```
@@ -140,7 +145,8 @@ Example:
 ### Find tasks: `find`
 
 Finds tasks that contains the keyword in the list
-Format: find KEYWORD
+
+Format: `find <KEYWORD>`
 * Searches the list for tasks that contains the keyword given
 * KEYWORD can only be a single word
 
@@ -157,14 +163,14 @@ Example:
 Exits the program
 
 ## Command Summary
-Action | Format | Example
--------| -------|-------
-bye|-|-
-deadline|deadline DESCRIPTION /by DEADLINE_TIMING|deadline finish assignment 4 /by Thursday 2359
-delete |delete TASK_NUM | delete 2
-done | done TASK_NUM | done 2
-event | event DESCRIPTION /at EVENT_TIMING|event collect laundry /at 10pm
-find | find KEYWORD | find laundry
-help | - | -
-list | - | -
-todo | todo DESCRIPTION | todo look up prices of salmon
+|Action | Format, Example
+|:-------| :------
+bye|-
+deadline|`deadline <DESCRIPTION> /by <DEADLINE_TIMING>`, `deadline finish assignment 4 /by Thursday 2359`
+delete |`delete <TASK_NUM>`, `delete 2`
+done | `done <TASK_NUM>`, `done 2`
+event | `event <DESCRIPTION> /at <EVENT_TIMING>`, `event collect laundry /at 10pm`
+find | `find <KEYWORD>`, `find laundry`
+help | -
+list | -
+todo | `todo <DESCRIPTION>`, `todo look up prices of salmon`
