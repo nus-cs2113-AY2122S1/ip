@@ -1,7 +1,223 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Welcome to
+ ______        _
+(______)      | |
+ _     _ _   _| |  _ _____
+| |   | | | | | |_/ ) ___ |
+| |__/ /| |_| |  _ (| ____|
+|_____/ |____/|_| \_)_____)
+Hello there! I'm Duke, your very helpful personal assistant chat bot.
+Enter "help" to see what I can do for you!
+____________________________________________________________
+Okay! Now your list is empty, you're FREE!
+____________________________________________________________
+Wow! I found these tasks in your list:
+____________________________________________________________
+Hello World!
+____________________________________________________________
+Wow! I found these tasks in your list:
+____________________________________________________________
+Yay! I have added the following task for you:
+[T][ ] Buy flowers for girlfriend
+You have 1 tasks in your list now!
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [T][ ] Buy flowers for girlfriend
+____________________________________________________________
+Yay! I have added the following task for you:
+[D][ ] Finish iP project (by: Aug 22 2021, 23:59)
+You have 2 tasks in your list now!
+____________________________________________________________
+Good job! You have finished the following:
+[T][X] Buy flowers for girlfriend
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [T][X] Buy flowers for girlfriend
+2. [D][ ] Finish iP project (by: Aug 22 2021, 23:59)
+____________________________________________________________
+Good job! You have finished the following:
+[D][X] Finish iP project (by: Aug 22 2021, 23:59)
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [T][X] Buy flowers for girlfriend
+2. [D][X] Finish iP project (by: Aug 22 2021, 23:59)
+____________________________________________________________
+Yay! I have added the following task for you:
+[E][ ] Attend Bob's wedding (at: Sep 18 2021, 19:00)
+You have 3 tasks in your list now!
+____________________________________________________________
+Yay! I have added the following task for you:
+[E][ ] Team Meeting (at: Sep 16 2021, 09:30)
+You have 4 tasks in your list now!
+____________________________________________________________
+Yay! I have added the following task for you:
+[T][ ] Finish CG2027 videos /by Monday 8pm
+You have 5 tasks in your list now!
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [T][X] Buy flowers for girlfriend
+2. [D][X] Finish iP project (by: Aug 22 2021, 23:59)
+3. [E][ ] Attend Bob's wedding (at: Sep 18 2021, 19:00)
+4. [E][ ] Team Meeting (at: Sep 16 2021, 09:30)
+5. [T][ ] Finish CG2027 videos /by Monday 8pm
+____________________________________________________________
+Good job! You have finished the following:
+[E][X] Team Meeting (at: Sep 16 2021, 09:30)
+____________________________________________________________
+Good job! You have finished the following:
+[T][X] Finish CG2027 videos /by Monday 8pm
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [T][X] Buy flowers for girlfriend
+2. [D][X] Finish iP project (by: Aug 22 2021, 23:59)
+3. [E][ ] Attend Bob's wedding (at: Sep 18 2021, 19:00)
+4. [E][X] Team Meeting (at: Sep 16 2021, 09:30)
+5. [T][X] Finish CG2027 videos /by Monday 8pm
+____________________________________________________________
+This has been a great test so far!
+____________________________________________________________
+Below is the list of commands and input formats I am currently able to understand:
+1. list - Lists all your current tasks.
+2. clear - Clears all your existing tasks in your list.
+3. todo [task description] - Adds a task to your list.
+4. deadline [task description] /by [due date] - Adds a task with a due date to your list.
+5. event [event description] /at [date and time] - Adds an upcoming event to your list.
+6. done [task number] - Marks the task as done. Use the list to check the task number!
+7. delete [task number] - Deletes the task. Use the list to check the task number!
+8. date [yyyy-mm-dd] - Finds tasks with the date specified attached to it.
+9. find [keyword] - Finds tasks with the keyword specified in its description.
+10. echo [input] - Echoes whatever your input is.
+11. help - View this menu again.
+12. bye - Stop talking to me and exit the program.
+____________________________________________________________
+Sorry... I did not understand that, can you try again?
+Or you can enter "help" to see what I can do for you!
+____________________________________________________________
+Sorry... I did not understand that, can you try again?
+Or you can enter "help" to see what I can do for you!
+____________________________________________________________
+If you can see this, then it's all good.
+____________________________________________________________
+Yay! I have added the following task for you:
+[T][ ] Make more space
+You have 6 tasks in your list now!
+____________________________________________________________
+Yay! I have added the following task for you:
+[D][ ] Do project report (by: Oct 10 2021, 14:00)
+You have 7 tasks in your list now!
+____________________________________________________________
+Yay! I have added the following task for you:
+[E][ ] Cry (at: Nov 11 2021, 03:00)
+You have 8 tasks in your list now!
+____________________________________________________________
+Yay! I have added the following task for you:
+[E][ ] Cry again (at: Aug 22 2021, 04:30)
+You have 9 tasks in your list now!
+____________________________________________________________
+Good job! You have finished the following:
+[E][X] Cry again (at: Aug 22 2021, 04:30)
+____________________________________________________________
+Good job! You have finished the following:
+[D][X] Do project report (by: Oct 10 2021, 14:00)
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [T][X] Buy flowers for girlfriend
+2. [D][X] Finish iP project (by: Aug 22 2021, 23:59)
+3. [E][ ] Attend Bob's wedding (at: Sep 18 2021, 19:00)
+4. [E][X] Team Meeting (at: Sep 16 2021, 09:30)
+5. [T][X] Finish CG2027 videos /by Monday 8pm
+6. [T][ ] Make more space
+7. [D][X] Do project report (by: Oct 10 2021, 14:00)
+8. [E][ ] Cry (at: Nov 11 2021, 03:00)
+9. [E][X] Cry again (at: Aug 22 2021, 04:30)
+____________________________________________________________
+Alright, I have deleted the following task for you:
+[T][X] Finish CG2027 videos /by Monday 8pm
+You have 8 tasks in your list now!
+____________________________________________________________
+OH NO! The task number is invalid, I can't find any tasks matching that number...
+Enter "list" to check the task number!
+____________________________________________________________
+Alright, I have deleted the following task for you:
+[T][X] Buy flowers for girlfriend
+You have 7 tasks in your list now!
+____________________________________________________________
+Here are the matching tasks in your list:
+1. [E][ ] Cry (at: Nov 11 2021, 03:00)
+2. [E][X] Cry again (at: Aug 22 2021, 04:30)
+____________________________________________________________
+Here are your tasks that are occurring on the date specified:
+1. [D][X] Finish iP project (by: Aug 22 2021, 23:59)
+2. [E][X] Cry again (at: Aug 22 2021, 04:30)
+____________________________________________________________
+Start exception handling test
+____________________________________________________________
+OH NO! Please provide a keyword to find your tasks...
+____________________________________________________________
+OH NO! Please key in your date in the format yyyy-mm-dd...
+____________________________________________________________
+OH NO! You need to specify the task number...
+Enter "list" to check the task number!
+____________________________________________________________
+OH NO! That wasn't a number...
+____________________________________________________________
+OH NO! The task number is invalid, I can't find any tasks matching that number...
+Enter "list" to check the task number!
+____________________________________________________________
+OH NO! The task number is invalid, I can't find any tasks matching that number...
+Enter "list" to check the task number!
+____________________________________________________________
+Wow! I found these tasks in your list:
+1. [D][X] Finish iP project (by: Aug 22 2021, 23:59)
+2. [E][ ] Attend Bob's wedding (at: Sep 18 2021, 19:00)
+3. [E][X] Team Meeting (at: Sep 16 2021, 09:30)
+4. [T][ ] Make more space
+5. [D][X] Do project report (by: Oct 10 2021, 14:00)
+6. [E][ ] Cry (at: Nov 11 2021, 03:00)
+7. [E][X] Cry again (at: Aug 22 2021, 04:30)
+____________________________________________________________
+Okay! Now your list is empty, you're FREE!
+____________________________________________________________
+Wow! I found these tasks in your list:
+____________________________________________________________
+OH NO! I can't echo if you don't say anything...
+____________________________________________________________
+OH NO! You need to provide a description for your todo...
+____________________________________________________________
+OH NO! You need to provide a description for your deadline task...
+____________________________________________________________
+OH NO! You need to specify a due date for your deadline task...
+____________________________________________________________
+OH NO! You need to specify a due date for your deadline task...
+____________________________________________________________
+OH NO! You need to provide a description for your deadline task...
+____________________________________________________________
+OH NO! You need to provide a description for your deadline task...
+____________________________________________________________
+OH NO! You need to provide a description for your event...
+____________________________________________________________
+OH NO! You need to specify a date and time for your event...
+____________________________________________________________
+OH NO! You need to specify a date and time for your event...
+____________________________________________________________
+OH NO! You need to provide a description for your event...
+____________________________________________________________
+OH NO! You need to provide a description for your event...
+____________________________________________________________
+OH NO! You need to specify the task number...
+Enter "list" to check the task number!
+____________________________________________________________
+OH NO! That wasn't a number...
+____________________________________________________________
+OH NO! The task number is invalid, I can't find any tasks matching that number...
+Enter "list" to check the task number!
+____________________________________________________________
+Please do not use "|" in your input...
+____________________________________________________________
+OH NO! Please key in your date in the format [yyyy-mm-dd]T[hh:mm]...
+____________________________________________________________
+OH NO! Please key in your date in the format [yyyy-mm-dd]T[hh:mm]...
+____________________________________________________________
+OH NO! Please key in your date in the format [yyyy-mm-dd]T[hh:mm]...
+____________________________________________________________
+Bye! Have a great day ahead and see you again soon.
+____________________________________________________________
