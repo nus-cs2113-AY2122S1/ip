@@ -81,6 +81,13 @@ public class Parser {
                     Ui.printLine();
                 }
 
+            } else if (line.startsWith("find")){
+                try{
+                    taskList.printMatchingTask(line.substring(5));
+                } catch (IndexOutOfBoundsException e){
+                    System.out.println("Please check again and format your input as 'find <keyword>'");
+                    Ui.printLine();
+                }
             } else {
                 throw new DukeException();
             }

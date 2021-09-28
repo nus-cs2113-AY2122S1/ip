@@ -138,4 +138,21 @@ public class TaskList {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
         Ui.printLine();
     }
+
+    public void printMatchingTask(String keyword) {
+        //ArrayList<Task> matchingTaskList = new ArrayList<>();
+        int matchingTaskCount = 0;
+        for (int i = 0; i < getListCount(); i++) {
+            if (stringList.get(i).contains(keyword)){
+                //matchingTaskList.add(taskList.get(i));
+                matchingTaskCount++;
+                System.out.println(matchingTaskCount + "." + taskList.get(i));
+            }
+        }
+        Ui.printLine();
+        if (matchingTaskCount == 0){
+            System.out.println("No matching task found.");
+            Ui.printLine();
+        }
+    }
 }
