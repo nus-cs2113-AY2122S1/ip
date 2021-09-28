@@ -44,10 +44,10 @@ public class FileRead extends Storage{
                 listManager.addTodo(splitString[FILE_TASK_DESCRIPTION_POSITION], true);
                 break;
             case FILE_EVENT_STATUS:
-                listManager.addEvent(splitString[FILE_TASK_DESCRIPTION_POSITION],splitString[FILE_TASK_DETAILS_POSITION], true);
+                listManager.addEvent(splitString[FILE_TASK_DESCRIPTION_POSITION],splitString[FILE_TASK_DETAIL_POSITION], true);
                 break;
             case FILE_DEADLINE_STATUS:
-                listManager.addDeadline(splitString[FILE_TASK_DETAILS_POSITION],splitString[FILE_TASK_DETAILS_POSITION], true);
+                listManager.addDeadline(splitString[FILE_TASK_DESCRIPTION_POSITION],splitString[FILE_TASK_DETAIL_POSITION],true);
             }
             if (splitString[FILE_TASK_COMPLETE_POSITION].equals(FILE_COMPLETE_STATUS)){
                 try {

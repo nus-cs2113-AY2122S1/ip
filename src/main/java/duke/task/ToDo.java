@@ -15,6 +15,6 @@ public class ToDo extends Task{
 
     @Override
     public String toFile(){
-        return TASK_SYMBOL + SEPARATOR + super.toFile() + System.lineSeparator();
+        return TASK_SYMBOL + SEPARATOR + super.toFile();
     }
 }

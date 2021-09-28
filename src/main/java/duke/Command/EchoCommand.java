@@ -12,7 +12,7 @@ public class EchoCommand extends Command{
     }
 
     public void executeCommand() throws CommandException {
-        String removeCommand = taskInput.replaceFirst(COMMAND_ECHO_ART, EMPTY_STRING).trim();
+        String removeCommand = taskInput.replaceFirst(COMMAND_ECHO, EMPTY_STRING).trim();
         if(removeCommand.isEmpty()){
             throw new CommandException(ErrorStaticString.ERROR_EMPTY_ECHO_INPUT);
         }

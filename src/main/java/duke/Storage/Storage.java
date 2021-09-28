@@ -20,7 +20,8 @@ public class Storage {
     protected static final int FILE_TASK_TYPE_POSITION = 0;
     protected static final int FILE_TASK_COMPLETE_POSITION = 1;
     protected static final int FILE_TASK_DESCRIPTION_POSITION = 2;
-    protected static final int FILE_TASK_DETAILS_POSITION = 3;
+    protected static final int FILE_TASK_DETAIL_POSITION = 3;
+
 
     protected File file;
 
@@ -41,8 +42,12 @@ public class Storage {
     }
 
     public void appendTask(Task t){
+        StringBuilder stringBuilder = new StringBuilder();
         FileWrite fileWrite = new FileWrite();
-        fileWrite.writeToFile(t.toFile(), true);
+        stringBuilder.append(t.toFile());
+        stringBuilder.append(System.lineSeparator());
+        String stringToWrite = stringBuilder.toString();
+        fileWrite.writeToFile(stringToWrite, true);
     }
 
     public void writeTask(ArrayList<Task> list){

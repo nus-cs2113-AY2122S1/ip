@@ -2,7 +2,6 @@ package duke.Command;
 
 import duke.ErrorHandling.CommandException;
 import duke.ErrorHandling.ErrorStaticString;
-import duke.Storage.Storage;
 import duke.TaskList.TaskList;
 
 public class AddDeadlineCommand extends Command{
@@ -25,7 +24,7 @@ public class AddDeadlineCommand extends Command{
         if(deadlineDescription.isEmpty()){
             throw new CommandException(ErrorStaticString.ERROR_EMPTY_DEADLINE_INPUT);
         }
-        String deadlineDate = taskDescription.replaceFirst(deadlineDescription, EMPTY_STRING).replaceFirst(DEADLINE_DATE,EMPTY_STRING).strip();
-        listManager.addDeadline(deadlineDescription,deadlineDate, false);
+        String inputWithoutDescription = taskDescription.replaceFirst(deadlineDescription, EMPTY_STRING).replaceFirst(DEADLINE_DATE,EMPTY_STRING).strip();
+        listManager.addDeadline(deadlineDescription, inputWithoutDescription, false);
     }
 }

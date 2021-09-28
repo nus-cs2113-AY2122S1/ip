@@ -5,8 +5,8 @@ import duke.ArtBot.Logo;
 public class CommandGuide extends Command{
 
 
-    public CommandGuide(String userInput){
-        super(userInput);
+    public CommandGuide(String taskInput){
+        super(taskInput);
     }
 
     @Override
@@ -18,16 +18,16 @@ public class CommandGuide extends Command{
         }
         switch(taskInput) {
         case COMMAND_HELP:
-            System.out.println(Logo.divider + MESSAGE_HELP + Logo.dividerWithoutNewLine);
+            System.out.println(MESSAGE_HELP);
             break;
         case COMMAND_LIST_HELP:
-            System.out.println(Logo.divider + MESSAGE_LIST_HELP + Logo.dividerWithoutNewLine);
+            System.out.println(MESSAGE_LIST_HELP);
             break;
         case COMMAND_EVENT_HELP:
-            System.out.println(Logo.divider + MESSAGE_EVENT_HELP + Logo.dividerWithoutNewLine);
+            System.out.println(MESSAGE_EVENT_HELP);
             break;
         case COMMAND_DEADLINE_HELP:
-            System.out.println(Logo.divider + MESSAGE_DEADLINE_HELP + Logo.dividerWithoutNewLine);
+            System.out.println(MESSAGE_DEADLINE_HELP);
             break;
         }
     }
