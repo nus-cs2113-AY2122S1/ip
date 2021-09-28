@@ -5,7 +5,7 @@ import duke.Parser.Parser;
 import duke.Storage.Storage;
 import duke.TaskList.TaskList;
 import duke.Ui.Ui;
-
+//A-JavaDoc
 /**
  * Main Class of the Duke program
  * Handle the integration of classes to provide the necessary functions to the user
