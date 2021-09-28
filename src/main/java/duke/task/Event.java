@@ -31,7 +31,7 @@ public class Event extends Task {
      */
     @Override
     public String getDescription() {
-        return "[E]" + super.getDescription() + " (on: " + DateAndTimeParser.stringFormatter.format(on) + ")";
+        return "[E]" + super.getDescription() + " (on: " + DateAndTimeParser.outputFormatter.format(on) + ")";
     }
 
     @Override
