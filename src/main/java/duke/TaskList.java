@@ -1,7 +1,12 @@
 package duke;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class TaskList {
 
@@ -114,7 +119,12 @@ public class TaskList {
                 }
             }
         }
-        Deadlines newDeadline = new Deadlines(deadlineDescription.substring(1), by.substring(1));
+
+        String stringDateTime = by.substring(1);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(stringDateTime, format);
+
+        Deadlines newDeadline = new Deadlines(deadlineDescription.substring(1), dateTime);
         return newDeadline;
 
     }
@@ -136,12 +146,16 @@ public class TaskList {
                 }
             }
         }
-        Events newEvent = new Events(eventDescription.substring(1), timeAllocation.substring(1));
+
+        String stringDateTime = timeAllocation.substring(1);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(stringDateTime, format);
+
+
+        Events newEvent = new Events(eventDescription.substring(1), dateTime);
         return newEvent;
 
     }
-
-
 
 
 
