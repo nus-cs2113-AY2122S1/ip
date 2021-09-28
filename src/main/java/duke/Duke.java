@@ -42,7 +42,7 @@ public class Duke {
                 }
                 inputLine = INPUT_COMMAND.nextLine();
             } catch (EmptyToDoDescription e) {
-                System.out.println("  OOPS! The description of a todo cannot be empty!");
+                System.out.println("  OOPS! The description of a todo cannot be empty and must be separated using white space!");
                 System.out.println("  Please input again with the correct format!");
                 inputLine = INPUT_COMMAND.nextLine();
             } catch (IllegalDeadlineInput e) {
