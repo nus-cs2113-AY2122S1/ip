@@ -73,4 +73,20 @@ public class TaskList {
             Ui.printMarkAsDoneMessage(done);
         }
     }
+
+
+    public static ArrayList<Task> searchTask(String keyword,TaskList tasks){
+        ArrayList<Task> result = new ArrayList<>();
+        for(int i = 0;i< tasks.getSize();i++){
+            if(tasks.getIndexTask(i).containKeyword(keyword)){
+                result.add(tasks.getIndexTask(i));
+            }
+        }
+        return result;
+    }
+
+
+
+
+
 }

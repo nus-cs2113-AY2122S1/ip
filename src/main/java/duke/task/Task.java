@@ -27,6 +27,10 @@ public class Task {
         }
     }
 
+    public boolean containKeyword(String keyword){
+        return command.contains(keyword);
+    }
+
     public boolean isDone() {
         return isDone;
     }
