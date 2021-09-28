@@ -52,8 +52,7 @@ public class TaskList {
             position ++;
         }
     }
-
-
+    
     /**
      * This method marks a Task in the list as "completed" according to the user input
      * @param word The String representation of the position of the specific Task in the list input by the User
