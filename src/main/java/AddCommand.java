@@ -32,7 +32,7 @@ public class AddCommand extends Command {
             throw new DukeException("\t☹ INVALID COMMAND\n" +
                     "\tPlease begin commands with\n" +
                     "\t'event', 'deadline', 'todo',\n" +
-                    "\t'done', 'remove', or 'delete', and\n" +
+                    "\t'done', 'find', 'remove', or 'delete', and\n" +
                     "\tinput description after a whitespace.");
         }
     }

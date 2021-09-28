@@ -56,6 +56,8 @@ public class Parser {
             return new SwitchCommand();
         } else if (cmd.equalsIgnoreCase("bye") | cmd.equalsIgnoreCase("exit")){
             return new ExitCommand();
+        } else if (cmd.startsWith("find ")) {
+            return new FindCommand(cmd);
         } else {
             return new AddCommand(cmd);
         }

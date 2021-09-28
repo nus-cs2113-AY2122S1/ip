@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Ui {
     private static final String HOR_LINE = "_".repeat(60);
