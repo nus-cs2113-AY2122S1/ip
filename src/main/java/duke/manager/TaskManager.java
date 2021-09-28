@@ -6,8 +6,6 @@ import duke.task.Task;
 import duke.task.Todo;
 import duke.ui.Ui;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -24,7 +22,8 @@ public class TaskManager {
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_LIST = "list";
-    public static DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, uuuu hh:mm a");
+    public static final String DELIMITER_SPACE = " ";
+    public static final String DELIMITER_SLASH = "/";
 
 
     /**
@@ -37,7 +36,7 @@ public class TaskManager {
      * @return The first word of the string.
      */
     private static String taskType(String message) {
-        String[] type = message.split(" ");
+        String[] type = message.split(DELIMITER_SPACE);
         return type[0];
     }
 
@@ -83,9 +82,9 @@ public class TaskManager {
     private static void addEvent(ArrayList<Task> tasks, String message) {
         try {
             message = message.substring(6);
-            String[] eventData = message.split("/", 2);
-            tasks.add(new Event(eventData[0], processDateAndTime(eventData[1].substring(3)), eventData[1].substring(3)));
-            Ui.printAddedTask(tasks.get(tasks.size() - 1), tasks);
+            String[] eventData = message.split(DELIMITER_SLASH, 2);
+            tasks.add(new Event(eventData[0], DateAndTimeParser.processDateAndTime(eventData[1].substring(3)), eventData[1].substring(3)));
+            Ui.printAddedTask(tasks.get(taskSize(tasks)), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             Ui.printLine();
@@ -105,19 +104,6 @@ public class TaskManager {
     }
 
     /**
-     * Returns the LocalDateTime object after processing
-     * the input string
-     *
-     * @param message input string containing the date and time
-     * @return LocalDateTime object "yyyy-MM-dd HH:mm"
-     */
-    private static LocalDateTime processDateAndTime(String message) throws DateTimeParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime info = LocalDateTime.parse(message.strip(), formatter);
-        return info;
-    }
-
-    /**
      * The function adds the deadline task input by the user
      *
      * @param tasks   the array of tasks
@@ -126,9 +112,9 @@ public class TaskManager {
     private static void addDeadline(ArrayList<Task> tasks, String message) {
         try {
             message = message.substring(9);
-            String[] deadlineData = message.split("/", 2);
-            tasks.add(new Deadline(deadlineData[0], processDateAndTime(deadlineData[1].substring(3)), deadlineData[1].substring(3)));
-            Ui.printAddedTask(tasks.get(tasks.size() - 1), tasks);
+            String[] deadlineData = message.split(DELIMITER_SLASH, 2);
+            tasks.add(new Deadline(deadlineData[0], DateAndTimeParser.processDateAndTime(deadlineData[1].substring(3)), deadlineData[1].substring(3)));
+            Ui.printAddedTask(tasks.get(taskSize(tasks)), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             Ui.printLine();
@@ -147,6 +133,10 @@ public class TaskManager {
         }
     }
 
+    private static int taskSize(ArrayList<Task> tasks) {
+        return tasks.size() - 1;
+    }
+
     /**
      * The function adds the event input by the user
      *
@@ -156,7 +146,7 @@ public class TaskManager {
     private static void addTodo(ArrayList<Task> tasks, String message) {
         try {
             tasks.add(new Todo(message.substring(5)));
-            Ui.printAddedTask(tasks.get(tasks.size() - 1), tasks);
+            Ui.printAddedTask(tasks.get(taskSize(tasks)), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             Ui.printLine();
@@ -175,7 +165,7 @@ public class TaskManager {
      */
     private static void markDone(ArrayList<Task> tasks, String message) {
         try {
-            String[] arrOfStr = message.split(" ");
+            String[] arrOfStr = message.split(DELIMITER_SPACE);
             int index = Integer.parseInt(arrOfStr[arrOfStr.length - 1]) - 1;
             tasks.get(index).isDone();
             Storage.saveTasksToFile(tasks);
@@ -277,7 +267,7 @@ public class TaskManager {
      */
     private static void deleteTask(ArrayList<Task> tasks, String message) {
         try {
-            String[] arrOfStr = message.strip().split(" ");
+            String[] arrOfStr = message.strip().split(DELIMITER_SPACE);
             int index = Integer.parseInt(arrOfStr[1]);
             Ui.printDeletedTask(tasks.get(index - 1), tasks);
             tasks.remove(index - 1);
