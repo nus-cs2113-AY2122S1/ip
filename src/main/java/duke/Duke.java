@@ -62,6 +62,7 @@ public class Duke {
 
     /**
      * application.
+     *
      * @param args to start Duke Application.
      */
     public static void main(String[] args) {

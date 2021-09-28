@@ -16,7 +16,7 @@ public class Parser {
      * Constructor to create Parser object.
      *
      * @param taskList TaskList that is currently in use.
-     * @param ui Ui object.
+     * @param ui       Ui object.
      */
     Parser(TaskList taskList, Ui ui) {
         this.taskList = taskList;
@@ -29,7 +29,7 @@ public class Parser {
      * @param userInput String input from user.
      * @return Executed command ui.
      * @throws InvalidCommandException if there are no recognisable command.
-     * @throws EmptyCommand if the input is empty.
+     * @throws EmptyCommand            if the input is empty.
      */
     public String parse(String userInput) throws InvalidCommandException, EmptyCommand {
         try {
@@ -100,8 +100,8 @@ public class Parser {
      * Execute "delete" command.
      *
      * @param command Input from user.
-     *      * @return "deleted" message.
-     *      * @throws InvalidValueException if user input is in the wrong format.
+     *                * @return "deleted" message.
+     *                * @throws InvalidValueException if user input is in the wrong format.
      */
     public String parseDelete(String command) throws InvalidValueException {
         validate(command);
@@ -158,6 +158,7 @@ public class Parser {
 
     /**
      * Execute "list" command.
+     *
      * @return List in form of String.
      */
     public String parseList() {
@@ -216,8 +217,8 @@ public class Parser {
      * @param command Input from user.
      * @return List of all items found with keyword.
      */
-    public String parseFind(String command)  {
-        if (taskList.getList().size()==0)
+    public String parseFind(String command) {
+        if (taskList.getList().size() == 0)
             return ui.printList(taskList);
         String keyword = taskList.getItem(command);
         return ui.findResults(keyword, taskList);

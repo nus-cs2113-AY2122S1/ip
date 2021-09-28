@@ -61,7 +61,7 @@ public class Storage {
      * Convert stored line of data into current TaskList.
      *
      * @param taskDetails Saved data from save file.
-     * @param taskList Current ArrayList task List.
+     * @param taskList    Current ArrayList task List.
      * @return Current TaskList.
      */
     private static TaskList loadCommands(String taskDetails, ArrayList<Task> taskList) {
@@ -93,7 +93,7 @@ public class Storage {
     /**
      * Input stored data into save file.
      *
-     * @param filePath filePath of save file.
+     * @param filePath  filePath of save file.
      * @param textToAdd String to be written.
      * @throws IOException when Run into execution.
      */
