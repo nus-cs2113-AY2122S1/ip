@@ -15,14 +15,17 @@ public class TaskList {
 
     //attributes
     static ArrayList<Task> list;
+    static ArrayList<Task> searchList;
     int taskCount = 0;
 
     //constructor
     public TaskList() {
         list = new ArrayList<>();
+        searchList = new ArrayList<>();
     }
     public TaskList(ArrayList<Task> list) {
         this.list = list;
+        searchList = new ArrayList<>();
     }
 
 
@@ -40,7 +43,18 @@ public class TaskList {
         }
     }
 
-    /**
+
+    public static void printSearchList() {
+        int position = 1;
+        System.out.println("    Here are the matching tasks in your list:");
+        for( int i = 0 ; i < searchList.size() ; i ++ ) {
+            System.out.println( "    " + position  + "." + searchList.get(i));
+            position ++;
+        }
+    }
+
+
+      /**
      * This method marks a Task in the list as "completed" according to the user input
      * @param word The String representation of the position of the specific Task in the list input by the User
      */
@@ -95,6 +109,20 @@ public class TaskList {
         System.out.println("    Now you have " + (size - 1) + " tasks in the list.");
     }
 
+    public static void findTask(String phrase) {
+
+        for(Task task: list) {
+            if(task.description.contains(phrase)) {
+                searchList.add(task);
+            }
+        }
+
+        //print the search list
+        printSearchList();
+        searchList.clear();
+
+
+    }
 
     /**
      * This method takes in a String representation of a Deadline Task, extracts out the description and deadline,
