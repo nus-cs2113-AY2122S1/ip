@@ -10,9 +10,13 @@ public class Storage {
     public Storage(String path) {
         try {
             file = new File(path);
-            file.createNewFile();
+            if(file.createNewFile()) {
+                System.out.println("No save file found, creating a new file");
+            }
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println(path);
+            new DukeException(2);
         }
         readFromFile();
     }
@@ -35,7 +39,7 @@ public class Storage {
 
             myWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            new DukeException(4);
         }
     }
 
@@ -54,7 +58,7 @@ public class Storage {
                 TaskList.getTasksInstance().add(new Task(saved[0], saved[1], saved[2].charAt(0), saved[3].equals("1")));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            new DukeException(3);
         }
     }
 }
