@@ -75,7 +75,7 @@ Description of the outcome.
 Added a new deadline task to the task list
 ```
 
-## done
+## Mark a task as done
 
 ### `Keyword` - done
 
@@ -98,7 +98,7 @@ Description of the outcome.
 Mark a task as done based on the task number given.
 ```
 
-## Delete task
+## Delete a task
 
 ### `Keyword` - delete
 
@@ -121,7 +121,7 @@ Description of the outcome.
 Delete a task based on the task number given.
 ```
 
-## View all task in the task list
+## View all tasks
 
 ### `Keyword` - list
 
