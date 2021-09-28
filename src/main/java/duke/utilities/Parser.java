@@ -1,14 +1,7 @@
 package duke.utilities;
 
-import duke.commands.ByeCommand;
-import duke.commands.Command;
-import duke.commands.DeadlineCommand;
-import duke.commands.DeleteCommand;
-import duke.commands.DoneCommand;
-import duke.commands.EventCommand;
-import duke.commands.HelpCommand;
-import duke.commands.ListCommand;
-import duke.commands.ToDoCommand;
+import duke.Duke;
+import duke.commands.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -92,6 +85,8 @@ public class Parser {
                 return new DoneCommand();
             case EventCommand.COMMAND_WORD:
                 return new EventCommand();
+            case FindCommand.COMMAND_WORD:
+                return new FindCommand();
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
             case ToDoCommand.COMMAND_WORD:
