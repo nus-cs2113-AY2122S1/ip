@@ -55,10 +55,6 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
-    public void showLoadingError(){
-
-    }
-
     public void showError(String errorInformation){
         System.out.println("OOPS!!! " + errorInformation + "  :-(");
     }
