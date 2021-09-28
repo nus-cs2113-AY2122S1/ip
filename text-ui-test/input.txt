@@ -1,0 +1,11 @@
+list
+deadline do homework /by Sunday 2359
+event carnival in the morning /at Saturday 8am
+list
+todo clean toilet
+done 2
+done 1
+done 3
+return book
+list
+bye
