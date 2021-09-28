@@ -1,3 +1,5 @@
+package storage;
+
 import task.type.Deadline;
 import task.type.Event;
 import task.type.Task;
@@ -66,18 +68,18 @@ public class Storage {
         boolean isDone = splitTask[1].equals("1");
         String description = splitTask[2].trim();
 
-        switch (taskType){
+        switch (taskType) {
             case "T":
-                task = new Todo(description, isDone);
-                break;
+            task = new Todo(description, isDone);
+            break;
             case "E":
-                String at = splitTask[3].trim();
-                task = new Event(description, at, isDone);
-                break;
+            String at = splitTask[3].trim();
+            task = new Event(description, at, isDone);
+            break;
             case "D":
-                String by = splitTask[3].trim();
-                task = new Deadline(description, by, isDone);
-                break;
+            String by = splitTask[3].trim();
+            task = new Deadline(description, by, isDone);
+            break;
         }
         return task;
     }
