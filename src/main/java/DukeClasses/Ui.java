@@ -13,16 +13,19 @@ public class Ui {
             + "No preloaded file found! Please input your own data.\n"
             + "____________________________________________________________\n";
 
-    public static String instructions = "Hello! Welcome to Duke. I am your personal task tracker.\n"
+    public static String instructions =  "____________________________________________________________\n"
+            + "Hello! Welcome to Duke. I am your personal task tracker.\n"
             + "As of now, I can help you track Todos, Deadlines and Events. "
             + "Mark your tasks with either \"todo\", \"deadline\" or \"event\" at the start. \n"
             + "For deadlines and events, after your task, please enter either \"by (your deadline)\" "
             + "or \"at (your event timing)\".\n"
             + "To see all your tasks, enter \"list\". \n"
+            + "To filter your tasks using keywords, enter \"find (keyword)\". \n"
             + "To mark a task as done, enter \"done (task number)\". \n"
             + "To delete a task, enter \"delete (task number)\". \n"
             + "To exit this program, enter \"bye\". \n"
-            + "And that's all! Hope you find me helpful! :) \n";
+            + "And that's all! Hope you find me helpful! :) \n"
+            + "____________________________________________________________\n";
 
     public static String helpMessage = "Enter \"help\" if you need help using me! \n";
 

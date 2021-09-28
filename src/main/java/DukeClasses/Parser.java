@@ -31,6 +31,8 @@ public class Parser {
             command = new HelpCommand();
         } else if (line.startsWith("delete ")) {
             command = new DeleteCommand(Integer.parseInt(line.substring(7)) - 1);
+        } else if (line.startsWith("find ")) {
+            command = new FindCommand(line.substring(5));
         } else {
             throw new UnknownCommandException();
         }

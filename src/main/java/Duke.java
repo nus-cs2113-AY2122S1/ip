@@ -17,9 +17,6 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
-
-    //main function to process input
-
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage();
@@ -43,7 +40,6 @@ public class Duke {
             try {
                 fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
-                //Parser.processLine(tasks, fullCommand);
                 c.executeCommand(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (UnknownCommandException | StringIndexOutOfBoundsException | InvalidCommandException e) {
