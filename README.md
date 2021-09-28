@@ -200,6 +200,24 @@ ________________________________________________________________
      [X] Dinner
 ________________________________________________________________
 ```
+## Uncheck - Mark a Task as Undone
+
+Mark a Task as undone base on Index in List
+
+Format `undone <INDEX>`
+
+* **INDEX:** Index of Task as shown from the task list
+
+Example `uncheck 3`
+
+Expected Outcome: 
+
+```
+________________________________________________________________
+     Alright! I've marked this task as undone:
+     [ ] Dinner
+________________________________________________________________
+```
 
 ## Delete - Remove a Task
 
