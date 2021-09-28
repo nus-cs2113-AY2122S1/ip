@@ -27,25 +27,25 @@ you manage your daily tasks faster than traditional GUI application.
 5. Type `java -jar Duke.jar` into the terminal to start Duke. 
 6. The following display should appear in a few seconds:
 
-```
-+++++++++++++++++++++++++++++++++++++++++++++
-  __         __
- /  \.-"""-./  \     ____        _
- \    -   -    /    |  _ \ _   _| | _____
-  |   o   o   |     | | | | | | | |/ / _ \
-  \  .-'''-.  /     | |_| | |_| |   <  __/
-   '-\__Y__/-'      |____/ \__,_|_|\_\___|
-      `---`
-[A NUS CS2113T Project by: Peh Zhenhao, Amos]
-+++++++++++++++++++++++++++++++++++++++++++++
-
-[Duke]:
-=> Hello! I'm Duke :)
-=> I'm so hungry, would you mind feeding me tasks?
-
-[You]:
-=> 
-```
+    ```
+    +++++++++++++++++++++++++++++++++++++++++++++
+      __         __
+     /  \.-"""-./  \     ____        _
+     \    -   -    /    |  _ \ _   _| | _____
+      |   o   o   |     | | | | | | | |/ / _ \
+      \  .-'''-.  /     | |_| | |_| |   <  __/
+       '-\__Y__/-'      |____/ \__,_|_|\_\___|
+          `---`
+    [A NUS CS2113T Project by: Peh Zhenhao, Amos]
+    +++++++++++++++++++++++++++++++++++++++++++++
+    
+    [Duke]:
+    => Hello! I'm Duke :)
+    => I'm so hungry, would you mind feeding me tasks?
+    
+    [You]:
+    => 
+    ```
 
 7. You may now enter commands into Duke. Type a command beside the cursor `=>`
 and press `Enter` on your keyboard to execute the command.
@@ -266,13 +266,13 @@ home folder.
 
 ## 4. Command Summary
 Action | Format | Example
------------- | ------------- | -------------
-help | `help` | `help`
-todo | `todo [description]` | `todo read book`
-deadline | `deadline [description] /by [due date]` | `deadline return book /by June 6th`
-event | `event [description] /at [occurence]` | `event project meeting /at Aug 6th 2-4pm`
-list | `list` | `list`
-done | `done [task ID]` | `done 1`
-delete | `delete [task ID]` | `delete 1`
-find | `find [keyword]` | `find book`
-bye | `bye` | `bye`
+--- | --- | --- |
+help | `help` | `help` |
+todo | `todo [description]` | `todo read book` |
+deadline | `deadline [description] /by [due date]` | `deadline return book /by June 6th` |
+event | `event [description] /at [occurence]` | `event project meeting /at Aug 6th 2-4pm` |
+list | `list` | `list` |
+done | `done [task ID]` | `done 1` |
+delete | `delete [task ID]` | `delete 1` |
+find | `find [keyword]` | `find book` |
+bye | `bye` | `bye` |
