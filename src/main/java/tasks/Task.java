@@ -8,9 +8,9 @@ import java.util.ArrayList;
  */
 
 public class Task {
-    public static final String taskDoesNotExist = "The task ID does not exist!";
-    public static final String noTasks = "You have no tasks in your list!";
-    public static final String hereAreYourTasks = "Here are the tasks in your list:\n";
+    public static final String TASK_DOES_NOT_EXIST = "The task ID does not exist!";
+    public static final String NO_TASKS = "You have no tasks in your list!";
+    public static final String HERE_ARE_YOUR_TASKS = "Here are the tasks in your list:\n";
 
     protected String description;
     protected boolean isDone;

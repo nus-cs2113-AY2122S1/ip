@@ -15,9 +15,9 @@ import java.util.Date;
  */
 
 public class EventCommand extends Command {
-    private static final String atNotProvided = "I could not find '/at dd/MM/YYYY HHmm' in your command!";
-    private static final String eventTitleNotProvided = "I could not find the title of your event!";
-    public static final String commandSyntax = "Command Syntax: event <event name> /at <date in dd/MM/yyyy HHmm>";
+    private static final String AT_NOT_PROVIDED = "I could not find '/at dd/MM/YYYY HHmm' in your command!";
+    private static final String EVENT_TITLE_NOT_PROVIDED = "I could not find the title of your event!";
+    public static final String COMMAND_SYNTAX = "Command Syntax: event <event name> /at <date in dd/MM/yyyy HHmm>";
 
     public String eventName;
     public String at;
@@ -30,7 +30,7 @@ public class EventCommand extends Command {
 
     @Override
     public String help() {
-        return commandSyntax;
+        return COMMAND_SYNTAX;
     }
 
     @Override
@@ -38,9 +38,9 @@ public class EventCommand extends Command {
         Date dateObj = DateParser.stringToDateTime(at);
         // Handle case it user did not provide date
         if (dateObj == null) {
-            ui.customPrint(atNotProvided + "\n" + help());
+            ui.customPrint(AT_NOT_PROVIDED + "\n" + help());
         } else if (eventName.equals("")) {
-            ui.customPrint(eventTitleNotProvided + "\n" + help());
+            ui.customPrint(EVENT_TITLE_NOT_PROVIDED + "\n" + help());
         } else {
             Event event = new Event(eventName, dateObj);
             tasks.add(event);

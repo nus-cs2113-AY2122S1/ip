@@ -15,9 +15,9 @@ import java.util.Date;
  */
 
 public class DeadlineCommand extends Command {
-    private static final String byNotProvided = "I could not find '/by dd/MM/YYYY HHmm' in your command!";
-    private static final String deadlineTitleNotProvided = "I could not find the title of your deadline!";
-    public static final String commandSyntax = "Command Syntax: deadline <name> /by <date in dd/MM/yyyy HHmm>";
+    private static final String BY_NOT_PROVIDED = "I could not find '/by dd/MM/YYYY HHmm' in your command!";
+    private static final String DEADLINE_TITLE_NOT_PROVIDED = "I could not find the title of your deadline!";
+    public static final String COMMAND_SYNTAX = "Command Syntax: deadline <name> /by <date in dd/MM/yyyy HHmm>";
 
     public String description;
     public String date;
@@ -30,7 +30,7 @@ public class DeadlineCommand extends Command {
 
     @Override
     public String help() {
-        return commandSyntax;
+        return COMMAND_SYNTAX;
     }
 
     @Override
@@ -38,9 +38,9 @@ public class DeadlineCommand extends Command {
         Date dateObj = DateParser.stringToDateTime(date);
         // Handle case it user did not provide date
         if (dateObj == null) {
-            ui.customPrint(byNotProvided + "\n" + help());
+            ui.customPrint(BY_NOT_PROVIDED + "\n" + help());
         } else if (description.equals("")) {
-            ui.customPrint(deadlineTitleNotProvided + "\n" + help());
+            ui.customPrint(DEADLINE_TITLE_NOT_PROVIDED + "\n" + help());
         } else {
             Deadline deadline = new Deadline(description, dateObj);
             tasks.add(deadline);

@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 
 public class WhatsOnCommand extends Command {
-    public static final String commandSyntax = "Command Syntax: whatson <date in dd/MM/yyyy>";
+    public static final String COMMAND_SYNTAX = "Command Syntax: whatson <date in dd/MM/yyyy>";
     String date;
 
     public WhatsOnCommand(String command, String date) {
@@ -25,7 +25,7 @@ public class WhatsOnCommand extends Command {
 
     @Override
     public String help() {
-        return "Invalid syntax.\n" + commandSyntax;
+        return "Invalid syntax.\n" + COMMAND_SYNTAX;
     }
 
     @Override
@@ -54,9 +54,9 @@ public class WhatsOnCommand extends Command {
 
             // Checks if tasks exists
             if (filteredTasks.size() == 0) {
-                taskString.append(Task.noTasks);
+                taskString.append(Task.NO_TASKS);
             } else {
-                taskString.append(Task.hereAreYourTasks);
+                taskString.append(Task.HERE_ARE_YOUR_TASKS);
             }
             for (int i = 0; i < filteredTasks.size(); i++) {
                 Task currentTask = filteredTasks.get(i);

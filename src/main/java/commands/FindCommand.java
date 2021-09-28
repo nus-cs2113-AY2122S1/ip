@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 
 public class FindCommand extends Command{
-    public static final String commandSyntax = "Command Syntax: find <string to search>";
+    public static final String COMMAND_SYNTAX = "Command Syntax: find <string to search>";
 
     public String searchTerm;
 
@@ -23,7 +23,7 @@ public class FindCommand extends Command{
 
     @Override
     public String help() {
-        return commandSyntax;
+        return COMMAND_SYNTAX;
     }
 
     @Override
@@ -40,9 +40,9 @@ public class FindCommand extends Command{
 
         // Checks if tasks exists
         if (filteredTasks.size() == 0) {
-            taskString.append(Task.noTasks);
+            taskString.append(Task.NO_TASKS);
         } else {
-            taskString.append(Task.hereAreYourTasks);
+            taskString.append(Task.HERE_ARE_YOUR_TASKS);
         }
         for (int i = 0; i < filteredTasks.size(); i++) {
             Task currentTask = filteredTasks.get(i);

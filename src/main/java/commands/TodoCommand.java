@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 
 public class TodoCommand extends Command {
-    private static final String todoError = "☹ OOPS!!! The description of a todo cannot be empty.";
-    public static final String commandSyntax = "Command Syntax: todo <task name>";
+    private static final String TODO_ERROR = "☹ OOPS!!! The description of a todo cannot be empty.";
+    public static final String COMMAND_SYNTAX = "Command Syntax: todo <task name>";
 
     public String description;
 
@@ -25,12 +25,12 @@ public class TodoCommand extends Command {
 
     @Override
     public String help() {
-        return commandSyntax;
+        return COMMAND_SYNTAX;
     }
 
     public void execute(Ui ui, ArrayList<Task> tasks, Storage storage) {
         if (description.equals("")) {
-            ui.customPrint(todoError + "\n" + commandSyntax);
+            ui.customPrint(TODO_ERROR + "\n" + COMMAND_SYNTAX);
         } else {
             Todo todo = new Todo(description);
             tasks.add(todo);

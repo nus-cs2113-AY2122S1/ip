@@ -13,9 +13,9 @@ import java.util.ArrayList;
  */
 
 public class DeleteCommand extends Command {
-    private static final String removeTaskMessage = "Noted. I've removed this task:\n%1$s\nNow you have %2$o tasks"
+    private static final String REMOVE_TASK_MESSAGE = "Noted. I've removed this task:\n%1$s\nNow you have %2$o tasks"
             + " in the list.";
-    public static final String commandSyntax = "Command Syntax: delete <task id>";
+    public static final String COMMAND_SYNTAX = "Command Syntax: delete <task id>";
 
     String id;
 
@@ -26,18 +26,18 @@ public class DeleteCommand extends Command {
 
     @Override
     public String help() {
-        return commandSyntax;
+        return COMMAND_SYNTAX;
     }
 
     @Override
     public void execute(Ui ui, ArrayList<Task> tasks, Storage storage) {
         if (!CheckId.isValidTaskId(id, tasks)) { // Invalid task id
-            ui.customPrint(Task.taskDoesNotExist + "\n" + help());
+            ui.customPrint(Task.TASK_DOES_NOT_EXIST + "\n" + help());
         } else {
             int taskId = Integer.parseInt(id) - 1;
             Task removedTask = tasks.get(taskId);
             tasks.remove(taskId);
-            ui.customPrint(String.format(removeTaskMessage, removedTask, tasks.size()));
+            ui.customPrint(String.format(REMOVE_TASK_MESSAGE, removedTask, tasks.size()));
             storage.saveData(ui, tasks);
         }
     }

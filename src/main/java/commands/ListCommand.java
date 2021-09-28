@@ -21,9 +21,9 @@ public class ListCommand extends Command {
         String taskString = "";
         // Checks if tasks exists
         if (tasks.size() == 0) {
-            taskString += Task.noTasks;
+            taskString += Task.NO_TASKS;
         } else {
-            taskString += Task.hereAreYourTasks;
+            taskString += Task.HERE_ARE_YOUR_TASKS;
         }
         for (int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
