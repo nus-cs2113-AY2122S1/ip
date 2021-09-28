@@ -295,6 +295,7 @@ ________________________________________________________________
 | `event <DESCRIPTION> /at <DATE>`                      | Add an event task                                                     |
 | `find <DESCRIPTION>`                                  | Show all task related to search terms                                 |
 | `done <INDEX`                                         | Mark a task as done                                                   |
+| `uncheck <INDEX`                                      | Mark a task as undone                                                 |
 | `delete <INDEX>`                                      | Remove a task                                                         |
 | `save`                                                | Save all task into local file                                         |
 | `bye`                                                 | Exits the application                                                 |
