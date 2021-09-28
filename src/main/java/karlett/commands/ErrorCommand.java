@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class ErrorCommand extends Command {
 
+    /* An error command does not execute anything. */
     @Override
     public void execute(TaskList tasks, TextUi ui, StorageFile storageFile) throws IOException {
 

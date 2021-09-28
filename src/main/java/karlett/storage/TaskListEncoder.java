@@ -12,12 +12,25 @@ public class TaskListEncoder {
     private File file;
     private String filePath;
 
-
+    /**
+     * Return a TaskListEncoder object that
+     * can store data in a file.
+     *
+     * @param path path to the file to which
+     *             date will be written
+     */
     public TaskListEncoder(String path) {
         filePath = path;
         file = new File(filePath);
     }
 
+    /**
+     * Remove a task in the file.
+     *
+     * @param tasks a TaskList representing that in the file
+     * @param index index of the task in the TaskList counting from 0
+     * @throws IOException handle output or input exception
+     */
     public void removeTaskInFile(TaskList tasks, int index) throws IOException {
         String fileContent = "";
         String line = "";
@@ -37,6 +50,14 @@ public class TaskListEncoder {
         writer.close();
     }
 
+    /**
+     * Change the task status of a task at a specific index from 0 to
+     * 1 in the file.
+     *
+     * @param tasks a TaskList representing that in the file
+     * @param index index of the task in the TaskList counting from 0
+     * @throws IOException handle output or input exception
+     */
     public void updateTaskStatusInFile(TaskList tasks, int index) throws IOException {
         StringBuilder fileContent = new StringBuilder();
         String line = "";
@@ -60,6 +81,12 @@ public class TaskListEncoder {
         writer.close();
     }
 
+    /**
+     * Add a new task at the end of the file.
+     *
+     * @param task a task that is to be appended in the file
+     * @throws IOException input or output exception
+     */
     public void appendNewTaskToFile(Task task) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         String textToAppend;

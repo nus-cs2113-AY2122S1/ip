@@ -1,21 +1,23 @@
 package karlett.parser;
 
-import karlett.Duke;
 import karlett.commands.*;
-import karlett.task.Deadline;
-import karlett.task.Event;
-import karlett.task.Task;
 import karlett.tasklist.TaskList;
 import karlett.ui.TextUi;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Locale;
-import java.util.Scanner;
 
 public class Parser {
     private static TextUi ui = new TextUi();
 
+    /**
+     * Make sense of the user input and return a command correspondingly.
+     *
+     * @param userInput a String of words
+     * @param tasks a TaskList that is already stored
+     * @return a Command corresponding to the user input
+     * @throws IOException input or output exception
+     */
     public static Command parse(String userInput, TaskList tasks) throws IOException {
         userInput = userInput.trim();
         String[] userInputInWords = userInput.split(" ");
@@ -111,7 +113,6 @@ public class Parser {
             try {
                 int index = Integer.parseInt(arguments[0]);
                 return new DoneCommand(index);
-                //Duke.list.get(index - 1).markAsDone(index - 1);
             } catch (NumberFormatException ex) {
                 ui.printDoneFormatErrorMessage();
                 break;

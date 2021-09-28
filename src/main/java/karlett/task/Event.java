@@ -1,11 +1,5 @@
 package karlett.task;
 
-import karlett.storage.TaskListEncoder;
-import karlett.tasklist.TaskList;
-import karlett.ui.TextUi;
-
-import java.io.IOException;
-
 public class Event extends Task {
 
     public String getAt() {
@@ -14,15 +8,30 @@ public class Event extends Task {
 
     protected String at;
 
-    /* constructor used for user input */
-    public Event(String description, String at) throws IOException {
+    /**
+     * Return an event object, setting its task
+     * status to false by default. This constructor
+     * is used for user input.
+     *
+     * @param description details of an event
+     * @param at time of the event
+     */
+    public Event(String description, String at) {
         this.description = description;
         this.isDone = false;
         this.at = at;
     }
 
-    /* constructor used for loading file data */
-    public Event(String description, String at, boolean isDone) throws IOException {
+    /**
+     * Return an Event object, setting its task status
+     * according to the task status given. This constructor
+     * is used for loading file data.
+     *
+     * @param description details of an event
+     * @param at time of the event
+     * @param isDone task status of the event
+     */
+    public Event(String description, String at, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
         this.at = at;

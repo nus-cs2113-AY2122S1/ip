@@ -1,9 +1,5 @@
 package karlett.task;
 
-import karlett.storage.TaskListEncoder;
-import karlett.tasklist.TaskList;
-import karlett.ui.TextUi;
-
 import java.io.IOException;
 
 public class Deadline extends Task {
@@ -14,14 +10,29 @@ public class Deadline extends Task {
 
     protected String by;
 
-    /* constructor used for user input */
+    /**
+     * Return a Deadline object, setting its task
+     * status to false by default. This constructor
+     * is used for user input.
+     *
+     * @param description details of a deadline task
+     * @param by deadline of a deadline task
+     */
     public Deadline(String description, String by) throws IOException {
         this.description = description;
         this.isDone = false;
         this.by = by;
     }
 
-    /* constructor used for loading file data */
+    /**
+     * Return a Deadline object, setting its task status
+     * according to the task status given. This constructor
+     * is used for loading file data.
+     *
+     * @param description details of a deadline task
+     * @param by deadline of a deadline task
+     * @param isDone task status of the event
+     */
     public Deadline(String description, String by, boolean isDone) throws IOException {
         this.description = description;
         this.isDone = isDone;
