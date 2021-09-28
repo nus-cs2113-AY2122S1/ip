@@ -6,59 +6,9 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 import java.util.Scanner;
-import java.io.File;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 
 
 public class Duke {
-    private static int loadFromFile(String filePath, Task[] tasks) {
-        int taskNumber = 0;
-        try {
-            File f = new File(filePath);
-            if (!f.createNewFile()) {
-                Scanner s = new Scanner(f);
-                while (s.hasNext()) {
-                    String task = s.nextLine();
-                    String[] words = task.split(" \\| ");
-                    if (words[0].equals("T")) {
-                        tasks[taskNumber] = new ToDo(Integer.parseInt(words[1]), words[2]);
-                        taskNumber++;
-                    } else if (words[0].equals("D")) {
-                        tasks[taskNumber] = new Deadline(Integer.parseInt(words[1]), words[2], words[3]);
-                        taskNumber++;
-                    } else if (words[0].equals("E")) {
-                        tasks[taskNumber] = new Event(Integer.parseInt(words[1]), words[2], words[3]);
-                        taskNumber++;
-                    }
-                }
-            }
-            return taskNumber;
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    private static void saveToFile(String filePath, Task[] tasks, int taskNumber) {
-        try {
-            FileWriter fw = new FileWriter(filePath);
-            for (int i = 0; i < taskNumber; i++) {
-                if (tasks[i].getType().equals("todo")) {
-                    fw.write("T" + " | " + tasks[i].getStatusNumber() + " | " + tasks[i].getDescription() + System.lineSeparator());
-                } else if (tasks[i].getType().equals("deadline")) {
-                    fw.write("D" + " | " + tasks[i].getStatusNumber() + " | " + tasks[i].getDescription() + " | " + tasks[i].getTime() + System.lineSeparator());
-                } else if (tasks[i].getType().equals("event")) {
-                    fw.write("E" + " | " + tasks[i].getStatusNumber() + " | " + tasks[i].getDescription() + " | " + tasks[i].getTime() + System.lineSeparator());
-                }
-            }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-    }
 
     public static void listOut(Task[] tasks, int taskNumber) {
         for (int i = 0; i < taskNumber; i++) {
@@ -182,13 +132,14 @@ public class Duke {
     public static void running() {
         Task[] tasks = new Task[100];
         int taskNumber = 0;
-        taskNumber = loadFromFile("data/tasks.txt", tasks);
+        Storage s = new Storage("data/tasks.txt", tasks);
+        taskNumber = s.loadFromFile("data/tasks.txt", tasks);
         String line;
         Scanner in = new Scanner(System.in);
         while (true) {
             line = in.nextLine();
             if (line.equals("bye")) {
-                saveToFile("data/tasks.txt", tasks, taskNumber);
+                s.saveToFile("data/tasks.txt", tasks, taskNumber);
                 return;
             }
             if (line.equals("list")) {
