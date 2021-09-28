@@ -12,6 +12,22 @@ Save and load tasks automatically without any hassle.
 
 ## Usage
 
+### `list` - Shows all tasks.
+
+Example of usage: 
+
+```
+list
+    ____________________________________________________________
+     Here are the tasks in your list:
+     1.[T][X] read book
+     2.[D][X] return book (by: June 6th)
+     3.[E][ ] project meeting (at: Aug 6th 2-4pm)
+     4.[T][X] join sports club
+     5.[T][ ] borrow book
+    ____________________________________________________________
+```
+
 ### `done` - Marks a specific task as done.
 
 ### Format: 
@@ -23,14 +39,6 @@ done (index)
 Example of usage: 
 
 ```
-list
-    ____________________________________________________________
-     Here are the tasks in your list:
-     1.[T][X] read book
-     2.[T][ ] return book
-     3.[T][ ] buy bread
-    ____________________________________________________________
-
 done 2
     ____________________________________________________________
      Nice! I've marked this task as done: 
@@ -73,5 +81,73 @@ deadline return book /by Sunday
      Got it. I've added this task: 
        [D][ ] return book (by: Sunday)
      Now you have 6 tasks in the list.
+    ____________________________________________________________
+```
+
+### `event` - Adds a task that starts at a specific time and ends at a specific time.
+
+### Format: 
+
+```
+event (task) /at (date/time)
+```
+
+Example of usage: 
+
+```
+event project meeting /at Mon 2-4pm
+    ____________________________________________________________
+     Got it. I've added this task: 
+       [E][ ] project meeting (at: Mon 2-4pm)
+     Now you have 7 tasks in the list.
+    ____________________________________________________________
+```
+
+### `find` - Finds tasks containing a specific keyword.
+
+### Format: 
+
+```
+find (keyword)
+```
+
+Example of usage: 
+
+```
+find book
+    ____________________________________________________________
+     Here are the matching tasks in your list:
+     1.[T][X] read book
+     2.[D][X] return book (by: June 6th)
+    ____________________________________________________________
+```
+
+### `delete` - Deletes a task.
+
+### Format: 
+
+```
+delete (index)
+```
+
+Example of usage: 
+
+```
+delete 3
+    ____________________________________________________________
+     Noted. I've removed this task: 
+       [E][ ] project meeting (at: Aug 6th 2-4pm)
+     Now you have 4 tasks in the list.
+    ____________________________________________________________
+```
+
+### `bye` - Terminates the program.
+
+Example of usage: 
+
+```
+bye
+    ____________________________________________________________
+     Bye. Hope to see you again soon!
     ____________________________________________________________
 ```
