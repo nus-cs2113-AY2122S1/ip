@@ -9,12 +9,17 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
 
     protected static String filePath;
+
+    private static final String DATE_TIME_FORMAT = "dd-MM-yyyy HH:mm";
 
     public Storage(String filePath) {
         Storage.filePath = filePath;
@@ -47,6 +52,7 @@ public class Storage {
                     Todo todoTask = new Todo(taskDisplay, 'T');
                     taskList.addToTaskList(todoTask);
                     taskList.addToDueDateList(null);
+                    taskList.addToFormattedDueDateList(null);
 
                     if (line.charAt(4) == '1') {
                         taskList.markAsCompleted(taskList.getListCount() - 1);
@@ -55,10 +61,15 @@ public class Storage {
                     int deadlineIndex = line.indexOf("/");
                     String taskDisplay = line.substring(8, deadlineIndex);
                     taskList.addToStringList(taskDisplay);
-                    String doBy = "(" + line.substring(deadlineIndex + 1) + ")";
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+                    LocalDateTime formatDateTime = LocalDateTime.parse(line.substring(deadlineIndex + 1),formatter);
+                    String formattedDateTime = formatDateTime.format(DateTimeFormatter
+                            .ofLocalizedDateTime(FormatStyle.MEDIUM));
+                    String doBy = "(" + formattedDateTime + ")";
                     Deadline deadlineTask = new Deadline(taskDisplay, 'D', doBy);
                     taskList.addToTaskList(deadlineTask);
-                    taskList.addToDueDateList(line.substring(deadlineIndex + 1));
+                    taskList.addToDueDateList(line.substring(deadlineIndex +1));
+                    taskList.addToFormattedDueDateList(formattedDateTime);
 
                     if (line.charAt(4) == '1') {
                         taskList.markAsCompleted(taskList.getListCount() - 1);
@@ -67,10 +78,15 @@ public class Storage {
                     int eventIndex = line.indexOf("/");
                     String taskDisplay = line.substring(8, eventIndex);
                     taskList.addToStringList(taskDisplay);
-                    String doBy = "(" + line.substring(eventIndex + 1) + ")";
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+                    LocalDateTime formatDateTime = LocalDateTime.parse(line.substring(eventIndex + 1),formatter);
+                    String formattedDateTime = formatDateTime.format(DateTimeFormatter
+                            .ofLocalizedDateTime(FormatStyle.MEDIUM));
+                    String doBy = "(" + formattedDateTime + ")";
                     Event eventTask = new Event(taskDisplay, 'E', doBy);
                     taskList.addToTaskList(eventTask);
-                    taskList.addToDueDateList(line.substring(eventIndex + 1));
+                    taskList.addToDueDateList(line.substring(eventIndex +1));
+                    taskList.addToFormattedDueDateList(formattedDateTime);
 
                     if (line.charAt(4) == '1') {
                         taskList.markAsCompleted(taskList.getListCount() - 1);
