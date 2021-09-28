@@ -12,14 +12,12 @@ import java.util.Scanner;
 
 public class Storage {
     protected String filePath;
-    protected Task[] tasks;
 
-    public Storage(String filePath, Task[] tasks) {
+    public Storage(String filePath) {
         this.filePath = filePath;
-        this.tasks = tasks;
     }
 
-    public static int loadFromFile(String filePath, Task[] tasks) {
+    public void loadFromFile(TaskList taskList) {
         int taskNumber = 0;
         try {
             File f = new File(filePath);
@@ -30,41 +28,42 @@ public class Storage {
                     String[] words = task.split(" \\| ");
                     switch (words[0]) {
                     case "T":
-                        tasks[taskNumber] = new ToDo(Integer.parseInt(words[1]), words[2]);
+                        taskList.tasks[taskNumber] = new ToDo(Integer.parseInt(words[1]), words[2]);
                         taskNumber++;
                         break;
                     case "D":
-                        tasks[taskNumber] = new Deadline(Integer.parseInt(words[1]), words[2], words[3]);
+                        taskList.tasks[taskNumber] = new Deadline(Integer.parseInt(words[1]), words[2], words[3]);
                         taskNumber++;
                         break;
                     case "E":
-                        tasks[taskNumber] = new Event(Integer.parseInt(words[1]), words[2], words[3]);
+                        taskList.tasks[taskNumber] = new Event(Integer.parseInt(words[1]), words[2], words[3]);
                         taskNumber++;
                         break;
                     }
                 }
             }
-            return taskNumber;
+            taskList.taskNumber = taskNumber;
+            return;
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
-            return 0;
+            return;
         }
     }
 
-    public static void saveToFile(String filePath, Task[] tasks, int taskNumber) {
+    public static void saveToFile(String filePath, TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(filePath);
-            for (int i = 0; i < taskNumber; i++) {
-                switch (tasks[i].getType()) {
+            for (int i = 0; i < taskList.taskNumber; i++) {
+                switch (taskList.tasks[i].getType()) {
                 case "todo":
-                    fw.write("T" + " | " + tasks[i].getStatusNumber() + " | " + tasks[i].getDescription() + System.lineSeparator());
+                    fw.write("T" + " | " + taskList.tasks[i].getStatusNumber() + " | " + taskList.tasks[i].getDescription() + System.lineSeparator());
                     break;
                 case "deadline":
-                    fw.write("D" + " | " + tasks[i].getStatusNumber() + " | " + tasks[i].getDescription() + " | " + tasks[i].getTime() + System.lineSeparator());
+                    fw.write("D" + " | " + taskList.tasks[i].getStatusNumber() + " | " + taskList.tasks[i].getDescription() + " | " + taskList.tasks[i].getTime() + System.lineSeparator());
                     break;
                 case "event":
-                    fw.write("E" + " | " + tasks[i].getStatusNumber() + " | " + tasks[i].getDescription() + " | " + tasks[i].getTime() + System.lineSeparator());
+                    fw.write("E" + " | " + taskList.tasks[i].getStatusNumber() + " | " + taskList.tasks[i].getDescription() + " | " + taskList.tasks[i].getTime() + System.lineSeparator());
                     break;
                 }
             }
