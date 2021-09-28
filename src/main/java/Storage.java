@@ -22,11 +22,15 @@ public class Storage {
      */
     public static Tasks load() {
         try {
+            File directory = new File("data");
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
             save = new File (path);
-            loadFile = new Tasks();
             if (!save.exists()) {
                 save.createNewFile();
             }
+            loadFile = new Tasks();
             Scanner s = new Scanner(save);
             int i = 1;
             while (s.hasNext()) {
@@ -35,17 +39,17 @@ public class Storage {
                 String completion = parts[1].trim();
                 String description = parts[2].trim();
                 switch (type) {
-                    case "T":
-                        loadFile.add(new Task(description));
-                        break;
-                    case "D":
-                        String by = parts[3].trim();
-                        loadFile.add(new Deadline(description, by));
-                        break;
-                    case "E":
-                        String at = parts[3].trim();
-                        loadFile.add(new Event(description, at));
-                        break;
+                case "T":
+                    loadFile.add(new Task(description));
+                    break;
+                case "D":
+                    String by = parts[3].trim();
+                    loadFile.add(new Deadline(description, by));
+                    break;
+                case "E":
+                    String at = parts[3].trim();
+                    loadFile.add(new Event(description, at));
+                    break;
                 }
                 if (completion.equals("[X]")) {
                     loadFile.get(i - 1).markComplete();
