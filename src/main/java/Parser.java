@@ -16,22 +16,22 @@ public class Parser {
     protected static final String EVENT_DATE_SEPARATOR = "/on";
 
     public static String parseCommand(String line) {
-        String[] words = line.split(" ");
+        String[] words = line.trim().split(" ");
         return words[INDEX_COMMAND].trim();
     }
 
     public static String parseBody(String line) {
-        String[] words = line.split(" ", 2);
+        String[] words = line.trim().split(" ", 2);
         return words[INDEX_BODY].trim();
     }
 
     public static String parseDoneIndex(String line) {
-        String[] words = line.split(" ", 2);
+        String[] words = line.trim().split(" ", 2);
         return words[INDEX_DONE_NUMBER].trim();
     }
 
     public static boolean hasNoBody(String line) {
-        String[] words = line.split(" ", 2);
+        String[] words = line.trim().split(" ", 2);
         return words.length == 1;
     }
 

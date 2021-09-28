@@ -38,6 +38,9 @@ public class Duke {
                     TaskHandler.deleteTask(line);
                     Storage.saveData();
                     break;
+                case "find":
+                    TaskHandler.findTask(line);
+                    break;
                 default:
                     TaskHandler.handleWrongCommand();
                     break;

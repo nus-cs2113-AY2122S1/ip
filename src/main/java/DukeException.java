@@ -21,6 +21,8 @@ public class DukeException extends Exception {
             "Or there should be a space in between /by and date.";
     protected static final String ERROR_INVALID_COMMAND = Ui.INDENT +
             "OOPS!! I don't understand what that means :-(";
+    protected static final String ERROR_NO_KEYWORD = Ui.INDENT +
+            "OOPS!! The search keyword can't be empty";
 
     public DukeException(String errorMessage) {
         super(errorMessage);

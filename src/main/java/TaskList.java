@@ -40,4 +40,5 @@ public class TaskList {
         System.out.println(Ui.INDENT + "Got it. I've removed this task:" + Ui.LINE_SEPARATOR_AND_INDENT +
                 getTask(index) + Ui.LINE_SEPARATOR_AND_INDENT + "Now you have " + (tasks.size() - 1) + " tasks in the list.");
     }
+
 }

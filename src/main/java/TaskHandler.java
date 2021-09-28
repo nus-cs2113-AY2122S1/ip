@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class TaskHandler {
 
     protected static final String DONE_INDICATOR = "1";
@@ -51,7 +53,7 @@ public class TaskHandler {
         TaskList.printAddedTask();
     }
 
-    public static void deleteTask(String line) throws DukeException, NumberFormatException{
+    public static void deleteTask(String line) throws DukeException, NumberFormatException {
         if (Parser.hasNoDoneIndex(line)) {
             throw new DukeException(DukeException.ERROR_NO_INDEX);
         }
@@ -67,6 +69,27 @@ public class TaskHandler {
         }
         TaskList.printDeletedTask(taskIndex - 1);
         TaskList.removeTask(taskIndex - 1);
+    }
+
+    public static void findTask(String line) throws DukeException{
+        if (Parser.hasNoBody(line)) {
+            throw new DukeException(DukeException.ERROR_NO_KEYWORD);
+        }
+        String keyword = Parser.parseBody(line);
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : TaskList.tasks) {
+            if (task.description.contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        printSearchedTasks(foundTasks);
+    }
+
+    public static void printSearchedTasks(ArrayList<Task> foundTasks) {
+        System.out.println(Ui.INDENT + "Here are the matching tasks in your list:");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            System.out.println(Ui.INDENT + (i + 1) + "." + foundTasks.get(i));
+        }
     }
 
     public static void handleWrongCommand() throws DukeException{
