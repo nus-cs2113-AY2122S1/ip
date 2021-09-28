@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * A DeadLine subclass similar to the Task class with its own getTask method
+ */
 public class DeadLine extends Task {
     public static final String MARK_HAS_DEADLINE = "[D]";
     public DeadLine(String deadline) {

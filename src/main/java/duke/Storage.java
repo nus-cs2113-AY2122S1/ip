@@ -6,6 +6,12 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+
+/**
+ * A class containing methods necessary for file saving and loading every time when using Duke
+ * Previous tasks will be automatically loaded into Duke when user opens Duke programme
+ * Two saved files, "data.txt" saves the taskList as displayed one; "inputFile.txt" saves the taskList as the original user input string.
+ */
 public class Storage {
     public static final int LENGTH_MARKER = 4;
     public static String filePath = "data.txt";
@@ -13,6 +19,11 @@ public class Storage {
     public static TaskList taskList = new TaskList();
     // load data to this taskList and pass the reference of the taskList to the one in Duke.java
 
+    /**
+     * Saves the content of tasks into a txt file
+     * @param dataToWrite string of all tasks to write in a file
+     * @param path file path to save the txt file
+     */
     public static void saveData(String dataToWrite, String path) {
         try {
             FileWriter fw = new FileWriter(path);
@@ -23,6 +34,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads all the tasks and their status from previously saved Duke file
+     * calls loadAllTasksList() method
+     * @throws IOException
+     */
     public static void loadData() throws IOException {
         File f = new File(filePath);
         File inputFile = new File(originalInputPath);
@@ -30,7 +46,7 @@ public class Storage {
             System.out.println("Welcome! This is the first time for you to use Duke! Enjoy!");
         } else {
             try{
-                loadAllTasksList();   //add tasks and do the marking
+                loadAllTasksList();
                 System.out.println("Welcome bake to Duke, your task list saved was successfully loaded!");
             } catch (FileNotFoundException e) {
                 System.out.println(e.getMessage());
@@ -38,6 +54,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads all tasks saved before to the taskList
+     * @throws FileNotFoundException
+     */
     public static void loadAllTasksList() throws FileNotFoundException {
         File f = new File(filePath);
         File inputFile = new File(originalInputPath);

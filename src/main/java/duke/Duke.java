@@ -3,6 +3,11 @@ import duke.exception.*;
 
 import java.io.IOException;
 
+
+/**
+ * The main programme for the Duke programme
+ * Integrates all classes together。
+ */
 public class Duke {
     public static void main(String[] args) {
         Ui.showWelcomeMessage();

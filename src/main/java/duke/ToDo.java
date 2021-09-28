@@ -2,6 +2,9 @@ package duke;
 
 import duke.Task;
 
+/**
+ * A Todo subclass similar to the Task class with its own getTask method.
+ */
 public class ToDo extends Task {
     public static final String MARK_TO_DO = "[T]";
     public ToDo(String todo){
