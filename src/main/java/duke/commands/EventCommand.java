@@ -13,6 +13,15 @@ public class EventCommand extends Command {
     public EventCommand() {
     }
 
+    /**
+     * Executes the commands that adds a event task
+     *
+     * @param input Input of user
+     * @param tasks TaskList of all the tasks
+     * @param ui Ui of the bot
+     * @param storage Storage of the bot
+     * @throws DukeException If it is unable to add event item successfully
+     */
     @Override
     public void execute(String input, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.addTask(input, ui, "E");

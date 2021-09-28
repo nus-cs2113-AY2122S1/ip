@@ -43,7 +43,7 @@ public class Duke {
                 ui.printDivider();
                 String input = in.nextLine();
                 ui.printDivider();
-                Command command = Parser.getCommand(input, ui);
+                Command command = Parser.getCommand(input);
                 command.execute(input, tasks, ui, storage);
                 isExit = command.isExit(command);
             } while (!isExit);

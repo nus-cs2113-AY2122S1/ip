@@ -73,6 +73,8 @@ public class Ui {
 
     /**
      * Prints the list of tasks stored
+     *
+     * @params tasks ArrayList to be printed
      */
     public void printList(ArrayList<Task> tasks) {
         int counter = 1;
@@ -94,10 +96,6 @@ public class Ui {
             task = TASK_SINGLE;
         }
         System.out.println(PRINT_TASK_MESSAGE_FRONT + tasks.size() + SPACING + task + PRINT_TASK_MESSAGE_BACK);
-    }
-
-    public void printNoInput() {
-        System.out.println(MESSAGE_NO_INPUT);
     }
 
     public void printHelp() {
