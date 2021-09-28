@@ -19,7 +19,7 @@ public class DateAndTimeParser {
      * @return LocalDateTime object "yyyy-MM-dd HH:mm"
      */
     static LocalDateTime processDateAndTime(String message) throws DateTimeParseException {
-        LocalDateTime info = LocalDateTime.parse(message.strip(), inputFormatter);
-        return info;
+        LocalDateTime dateTime = LocalDateTime.parse(message.strip(), inputFormatter);
+        return dateTime;
     }
 }
