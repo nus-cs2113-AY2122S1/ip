@@ -5,12 +5,27 @@ import duke.task.Task;
 import java.util.ArrayList;
 
 public class Ui {
-    final private static String HORIZONTAL_LINE = "_________________________________________________________________";
-    final private static String DELETE_TASK_COMMENT = "Noted. I've removed this task:";
-    final private static String MARK_TASK_COMMENT = "Nice! I've marked this task as done:";
-    final private static String LIST_TASK_COMMENT = "Here are the tasks in your list:";
-    final private static String LIST_UPCOMING_TASKS = "Here are the upcoming deadlines in your list within the next three days:";
-    final private static String ADDED_TASK_COMMENT = "Got it. I've added this task:";
+    final public static String HORIZONTAL_LINE = "_________________________________________________________________";
+    final public static String DELETE_TASK_COMMENT = "Noted. I've removed this task:";
+    final public static String MARK_TASK_COMMENT = "Nice! I've marked this task as done:";
+    final public static String LIST_TASK_COMMENT = "Here are the tasks in your list:";
+    final public static String LIST_UPCOMING_TASKS = "Here are the upcoming deadlines in your list within the next three days:";
+    final public static String ADDED_TASK_COMMENT = "Got it. I've added this task:";
+    final public static String GOODBYE_COMMENT = "Bye. Hope to see you again soon!";
+    final public static String ERROR_MARK_TASK_DESCRIPTION = "Please do not leave your task number empty :-(";
+    final public static String ERROR_UNKNOWN_INPUT = ":-( OOPS!!! I'm sorry, but I don't know what that means :-(";
+    final public static String ERROR_EMPTY_TODO_DESCRIPTION = "Please do not leave your todo description empty :-(";
+    final public static String ERROR_EMPTY_DEADLINE_DESCRIPTION = "Please do not leave your deadline description empty :-(";
+    final public static String ERROR_EMPTY_EVENT_DESCRIPTION = "Please do not leave your event description empty :-(";
+    final public static String ERROR_EMPTY_DELETE_DESCRIPTION = "Please do not leave your delete task number empty :-(";
+    final public static String ERROR_MISSING_FIND_DESCRIPTION = "What are you finding?? :o";
+    final public static String ERROR_WRONG_HANDLE_TODO_DESCRIPTION = "Check for missing fields in your description!";
+    final public static String ERROR_WRONG_HANDLE_EVENT_DESCRIPTION = "Include /at handler and insert date of event!";
+    final public static String ERROR_WRONG_HANDLE_DEADLINE_DESCRIPTION = "Include /by handler and insert deadline!";
+    final public static String ERROR_MARK_TASK_UNKNOWN_INPUT = "Please enter as follows: done (INT in number)";
+    final public static String ERROR_DELETE_TASK_UNKNOWN_INPUT = "Please enter as follows: delete (INT in number)";
+    final public static String ERROR_OUT_OF_BOUNDS = "That task does not exist! Stop fooling around!";
+    final public static String ERROR_WRONG_DEADLINE = "Please input your deadline in the format: d/M/yyyy HHmm :-)";
 
     public Ui() {
     }

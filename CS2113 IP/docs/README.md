@@ -21,7 +21,7 @@ cd Duke
 java -jar CS2113_IP.jar
 ```
 
-5. Type the command in the command line and press *Enter* to execute the command. Some examples of commands you can try:
+6. Type the command in the command line and press *Enter* to execute the command. Some examples of commands you can try:
     - `list` List all tasks stored in the database
     - `todo TASK_NAME` Adds a task to Duke
     - `event EVENT_NAME /at Sunday, 2pm` Adds an event and the event's time to Duke.
@@ -29,7 +29,7 @@ java -jar CS2113_IP.jar
     - `done 1` Marks the 1st task in the list as completed.
     - `bye` Exits the app.
 
-6. Refer to the *Features* below for details of each command.
+7. Refer to the *Features* below for details of each command.
 
 ________
 
