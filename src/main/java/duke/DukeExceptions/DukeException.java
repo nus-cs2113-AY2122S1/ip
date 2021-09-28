@@ -1,6 +1,6 @@
 package duke.DukeExceptions;
 
-public class DukeException extends Exception{
+public class DukeException extends Exception {
     /**
      * convert to new default Exception message.
      *

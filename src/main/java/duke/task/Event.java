@@ -15,7 +15,7 @@ public class Event extends Task {
      * Constructor to create Event object.
      *
      * @param description Event description.
-     * @param at Event timings.
+     * @param at          Event timings.
      */
     public Event(String description, String at) {
         super(description);
@@ -24,7 +24,7 @@ public class Event extends Task {
             String formattedBy = getCorrectFormat(at);
             String[] tempStr = formattedBy.split(" ");
             this.date = LocalDate.parse(tempStr[0]);
-            if (tempStr.length==2)
+            if (tempStr.length == 2)
                 this.time = LocalTime.parse(tempStr[1]);
         }
     }
@@ -35,13 +35,13 @@ public class Event extends Task {
      * @param by stored by String.
      * @return correct format to parse into LocalDate and Local Time.
      */
-    private String getCorrectFormat(String by){
+    private String getCorrectFormat(String by) {
 
         StringBuilder toParse = new StringBuilder();
         String[] dateTime = by.split(" ");
         String[] tempDate = dateTime[0].trim().split("/");
         String toStore = "";
-        if (tempDate.length == 3){
+        if (tempDate.length == 3) {
             for (int i = 2; i > 0; i--) {
                 toParse.append(tempDate[i]).append("-");
             }
@@ -56,7 +56,7 @@ public class Event extends Task {
                 char c = dateTime[1].charAt(i);
                 toParse.append((i != 0 && i % 2 == 0) ? ":" + c : c);
             }
-            for (int i=0 ; i<missingDigits;i++){
+            for (int i = 0; i < missingDigits; i++) {
                 /** fill in missing '0's and ':'s int correct orientation */
                 toParse.append((missingDigits % 2 == i % 2) ? ":0" : "0");
             }
@@ -67,7 +67,7 @@ public class Event extends Task {
 
     private String displayDateTime() {
         String outputString = date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " ";
-        if (time!=null) {
+        if (time != null) {
             outputString += time.format(DateTimeFormatter.ofPattern("hh:mm a"));
         }
         return outputString + ")";

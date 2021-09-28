@@ -34,7 +34,7 @@ public class TaskList {
      *
      * @param newTask that user wants to add.
      */
-    public void addTask (Task newTask) {
+    public void addTask(Task newTask) {
         this.list.add(newTask);
     }
 
@@ -92,7 +92,7 @@ public class TaskList {
      * @return description of task.
      * @throws InvalidValueException when missing </> demarcators, or missing description in command.
      */
-    public String getDescription (String command) throws InvalidValueException {
+    public String getDescription(String command) throws InvalidValueException {
         if (!command.contains("/"))
             throw new InvalidValueException("Missing detail demarcator: [/by ] or [/at ]");
         String desc = command.substring(command.indexOf(" ") + 1, command.indexOf("/"));
@@ -108,7 +108,7 @@ public class TaskList {
      * @return extra details required.
      * @throws InvalidValueException when missing extra details required in command.
      */
-    public String getMoreDetails(String command) throws InvalidValueException{
+    public String getMoreDetails(String command) throws InvalidValueException {
         String moreDetails = command.substring(command.indexOf("/") + 4);
         if (moreDetails.trim().equals("") | moreDetails.trim().contains("\t"))
             throw new InvalidValueException("Missing Required Extra Details");
@@ -136,7 +136,7 @@ public class TaskList {
         String result = "";
         for (Task task : list) {
             count += 1;
-            result += (task.getTask().contains(keyword)) ? String.format("\t%d. ", count) + task + "\n": "" ;
+            result += (task.getTask().contains(keyword)) ? String.format("\t%d. ", count) + task + "\n" : "";
         }
         return result;
     }
