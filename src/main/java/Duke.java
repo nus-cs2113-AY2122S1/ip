@@ -11,7 +11,7 @@ public class Duke {
         Logo duke = new Logo();
         System.out.println(duke);
         Scanner in = new Scanner(System.in);
-        System.out.print("Type something: ");
+        System.out.print("Type something!: ");
         String line = in.nextLine();
         Manager m = new Manager();
 
