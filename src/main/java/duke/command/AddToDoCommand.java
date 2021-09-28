@@ -10,7 +10,6 @@ public class AddToDoCommand extends Command {
      * @param taskList list of task
      * @param userInput user input
      */
-
     public AddToDoCommand(TaskList taskList, String userInput) {
         taskList.addToDoTask(userInput);
         Ui.printAddSuccess(taskList);

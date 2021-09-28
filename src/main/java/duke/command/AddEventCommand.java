@@ -10,7 +10,6 @@ public class AddEventCommand extends Command {
      * @param taskList list of task
      * @param userInput user input
      */
-
     public AddEventCommand(TaskList taskList, String userInput) {
         taskList.addEventTask(userInput);
         Ui.printAddSuccess(taskList);

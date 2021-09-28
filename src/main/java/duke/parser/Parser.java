@@ -5,13 +5,23 @@ import duke.command.AddEventCommand;
 import duke.command.AddToDoCommand;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.exception.DukeException;
 import duke.tasklist.TaskList;
 
 import java.util.Locale;
 
+/** Represents the parser that parses commands input from the user */
 public class Parser {
+    /**
+     * Parse the correct command based on the different command type
+     *
+     * @param commandType command type
+     * @param userInput user input
+     * @param taskList list of task
+     * @throws DukeException handles the duke exception error
+     */
     public static void processUserInput(CommandType commandType, String userInput,
                                         TaskList taskList) throws DukeException {
         switch (commandType) {
@@ -33,6 +43,9 @@ public class Parser {
         case DELETE:
             new DeleteCommand(taskList, userInput);
             break;
+        case FIND:
+            new FindCommand(taskList, userInput);
+            break;
         case BYE:
             break;
         default:
@@ -41,9 +54,15 @@ public class Parser {
     }
 
     public enum CommandType {
-        LIST, BYE, DONE, TODO, DEADLINE, EVENT, DELETE, NULL
+        LIST, BYE, DONE, TODO, DEADLINE, EVENT, DELETE, FIND, NULL
     }
 
+    /**
+     * Determines the type of command the user entered
+     *
+     * @param userInput user input
+     * @return type of command
+     */
     public static CommandType getCommandType(String userInput) {
         String command = userInput.split(" ")[0].toLowerCase(Locale.ROOT);
         switch (command) {
@@ -61,6 +80,8 @@ public class Parser {
             return CommandType.EVENT;
         case "delete":
             return CommandType.DELETE;
+        case "find":
+            return CommandType.FIND;
         default:
             return CommandType.NULL;
         }
