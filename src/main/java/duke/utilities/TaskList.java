@@ -3,16 +3,13 @@ package duke.utilities;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
     private final String SPACING = " ";
     private final String MESSAGE_TASK_ADDED = "Added task:\n    ";
-    private final String ERROR_WRONG_EVENT_FORMAT = "The input was wrong :( "
-            + "Please type 'event <description> /at <time of event>'";
-    private final String ERROR_WRONG_DEADLINE_FORMAT = "The input was wrong :( "
-            + "Please type 'deadline <description> /by <time of event>'";
-    private final String ERROR_WRONG_TODO_FORMAT = "The input was wrong :( Please type 'todo <description>'";
+    private final String ERROR_WRONG_FIND_FORMAT = "Find format wrong! Please try again";
     private final String PRINT_REMOVE_MESSAGE = "Task removed :\n    ";
     private final String MESSAGE_OUT_OF_RANGE = "No such task found! Try a range of 1 to ";
     private final String PRINT_DONE_MESSAGE_FRONT = "I have marked\n     ";
@@ -53,7 +50,8 @@ public class TaskList {
         try {
             Task temp = tasks.get(taskIdx);
             tasks.remove(taskIdx);
-            ui.print(System.lineSeparator() + PRINT_REMOVE_MESSAGE + temp);
+            ui.print(PRINT_REMOVE_MESSAGE + temp);
+            ui.printTaskNumber(tasks);
         } catch (IndexOutOfBoundsException e) {
             ui.print(MESSAGE_OUT_OF_RANGE + tasks.size());
         }
@@ -83,5 +81,27 @@ public class TaskList {
         String[] words = input.split(SPACING);
         int taskNumber = Integer.parseInt(words[1]) - accountForArray;
         return taskNumber;
+    }
+
+    /**
+     * Searches for the tasks that have the same keyword
+     *
+     * @param input Keyword of the user
+     * @param ui Prints the list of matches found in the TaskList
+     */
+    public void findTasks(String input, Ui ui) {
+        String[] words = input.split(" ");
+
+        if (words.length != 2) {
+            System.out.println(ERROR_WRONG_FIND_FORMAT);
+            return;
+        }
+
+        String keyword = words[1].toLowerCase();
+        ArrayList<Task> matches = (ArrayList<Task>) tasks.stream()
+                .filter(t -> t.getDescription().toLowerCase().contains(keyword))
+                .collect(Collectors.toList());
+
+        ui.printMatchingList(matches);
     }
 }

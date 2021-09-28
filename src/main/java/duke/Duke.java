@@ -43,7 +43,7 @@ public class Duke {
                 ui.printDivider();
                 String input = in.nextLine();
                 ui.printDivider();
-                Command command = Parser.getCommand(input, ui);
+                Command command = Parser.getCommand(input);
                 command.execute(input, tasks, ui, storage);
                 isExit = command.isExit(command);
             } while (!isExit);
@@ -51,47 +51,6 @@ public class Duke {
             dukeE.printStackTrace();
         }
     }
-
-//    private void startChat2() {
-//        Scanner in = new Scanner(System.in);
-//        boolean isActive = true;
-//        try {
-//            while (isActive) {
-//                storage.saveToFile(tasks.getTasks());
-//                ui.printDivider();
-//                String input = in.nextLine();
-//                ui.printDivider();
-//                switch (Parser.getCommand(input)) {
-//                case "bye":
-//                    isActive = false;
-//                    break;
-//                case "list":
-//                    ui.printList(tasks.getTasks());
-//                    break;
-//                case "todo":
-//                    tasks.addTask(input, ui, "T");
-//                    break;
-//                case "event":
-//                    tasks.addTask(input, ui,"E");
-//                    break;
-//                case "deadline":
-//                    tasks.addTask(input, ui, "D");
-//                    break;
-//                case "done":
-//                    tasks.setTaskAsDone(input, ui);
-//                    break;
-//                case "delete":
-//                    tasks.deleteTask(input, ui);
-//                    break;
-//                default:
-//                    ui.printNoInput();
-//                    break;
-//                }
-//            }
-//        } catch (DukeException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();

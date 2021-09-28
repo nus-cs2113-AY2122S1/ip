@@ -59,7 +59,7 @@ public class Storage {
         temp.addTask(task, isDone, type);
     }
 
-    private String checkType(String task) {
+    private String checkType(String task) throws DukeException {
         String type = new String();
         switch (Parser.scanCommand(task)) {
         case "todo":
