@@ -45,9 +45,11 @@ ________________________________________________________________
 I am your very own schedule assistant here to enhance your everyday life
 Type help to see what i can do!
 ```
+
 ________________________________________________________________
 
 # Features
+
 ________________________________________________________________
 
 ## Help - Show All Valid Commands
@@ -198,6 +200,24 @@ ________________________________________________________________
      [X] Dinner
 ________________________________________________________________
 ```
+## Uncheck - Mark a Task as Undone
+
+Mark a Task as undone base on Index in List
+
+Format `uncheck <INDEX>`
+
+* **INDEX:** Index of Task as shown from the task list
+
+Example `uncheck 3`
+
+Expected Outcome: 
+
+```
+________________________________________________________________
+     Alright! I've marked this task as undone:
+     [ ] Dinner
+________________________________________________________________
+```
 
 ## Delete - Remove a Task
 
@@ -275,6 +295,7 @@ ________________________________________________________________
 | `event <DESCRIPTION> /at <DATE>`                      | Add an event task                                                     |
 | `find <DESCRIPTION>`                                  | Show all task related to search terms                                 |
 | `done <INDEX`                                         | Mark a task as done                                                   |
+| `uncheck <INDEX`                                      | Mark a task as undone                                                 |
 | `delete <INDEX>`                                      | Remove a task                                                         |
 | `save`                                                | Save all task into local file                                         |
 | `bye`                                                 | Exits the application                                                 |
