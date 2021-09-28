@@ -12,16 +12,17 @@ fast, Duke can get your task management done faster than traditional GUI apps. I
    6. Deleting a task: `delete`
    7. Finding a task with a keyword: `find`
 2. Command Summary
+
 ## Features
 
 
 ####Command format:
 
 
-1. Words in `UPPER_CASE` are the parameters to be supplied by the user. (eg. `todo` `TASK_DESCRIPTION`, `TASK_DESCRIPTION` is 
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. (eg. `todo` `TASK_DESCRIPTION`, `TASK_DESCRIPTION` is 
 the description of the 
 task supplied by the user.)
-2. Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) is not acceptable.
+* Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) is not acceptable.
    e.g. if the command specifies `list 123`, there will be an error.
 
 
