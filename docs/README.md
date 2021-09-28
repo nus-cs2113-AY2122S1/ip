@@ -1,6 +1,6 @@
 # Individual Project (iP) User Guide
 
-This iP, also known as DUKE, is a desktop application that helps users to keep track of 3 types of tasks via a
+This iP, also known as DUKE, is a desktop application that helps you to keep track of 3 types of tasks via a
 Command Line Interface (CLI). The 3 types of tasks are:
 - ToDos
 - Deadlines
@@ -74,7 +74,7 @@ Shows a list of all tasks DUKE is currently tracking.
 Format: `list`
 
 - All the tasks shown will be indexed starting from 1.
-- If there are no tasks, DUKE will let the user know.
+- If there are no tasks, DUKE will inform you.
 
 How the list will look like:
 
@@ -108,15 +108,16 @@ Format: `delete INDEX_OF_TASK`
 Example: `list` followed by `delete 3` deletes the third task and DUKE will not track it anymore.
 
 ### Finding a Task: `find`
-Finds tasks with `TASK_DESCRIPTION` that contain a keyword given by user.
+Finds tasks with `TASK_DESCRIPTION` that contain the given keyword.
 
 Format: `find KEYWORD`
 
 - The search is case-insensitive. e.g, `ball` will match `Ball`.
 - Only accepts 1 keyword else a warning will be thrown.
+- Leading and trailing spaces of `KEYWORD` will be removed.
 - Only `TASK_DESCRIPTION` field of tasks is searched.
 - Non-full words can be matched e.g., `ball` will match `football`.
-- DUKE will notify user if there are no related tasks.
+- DUKE will notify you if there are no related tasks.
 
 Example: `find ball` returns `pump ball`, `football`, `basketball` and `Ball race`
 
@@ -131,16 +132,16 @@ Format: `bye`
 When the program starts, it looks for a data file called `DukeData.txt` and loads all the data there into the program.
 If there is no `DukeData.txt` file, one will be created in the same folder as `ip.jar`.
 
-After every command input by user, all the tasks in the program will be saved into `DukeData.txt` to ensure data
-integrity when DUKE crashes. If there are errors, user will be notified. No notification will be shown if there
+After every command input by you, all the tasks in the program will be saved into `DukeData.txt` to ensure data
+integrity when DUKE crashes. If there are errors, you will be notified. No notification will be shown if there
 are no errors.
 
-Right before the program ends, another final save will be done. User will be notified if it is
+Right before the program ends, another final save will be done. You will be notified if it is
 a success or a failure.
 
 ### Change of Date Format (Automatic)
 Dates given in the form of `yyyy-mm-dd` (e.g., 2121-11-12) will be printed in the form of `MMM dd yyyy`
-(e.g., Nov 12 2121). This is done to increase readability for the user.
+(e.g., Nov 12 2121). This is done to increase readability.
 
 This feature is only available for dates keyed in as:
 - `DESCRIPTION` for Deadline tasks
