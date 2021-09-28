@@ -3,6 +3,10 @@ package duke;
 import duke.DukeExceptions.InvalidValueException;
 import duke.task.Task;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -68,8 +72,7 @@ public class TaskList {
      * @return target items.
      */
     public static String getTodo (String command) {
-        String item = command.substring(command.indexOf(" ") + 1);
-        return item;
+        return command.substring(command.indexOf(" ") + 1);
     }
 
     /**
@@ -99,6 +102,38 @@ public class TaskList {
         String moreDetails = command.substring(command.indexOf("/") + 4);
         if (moreDetails.trim().equals(""))
             throw new InvalidValueException("Missing Required Extra Details");
+        if (moreDetails.trim().contains("/")) {
+            moreDetails = getCorrectFormat(moreDetails);
+        }
+        return moreDetails;
+    }
+
+    private String getCorrectFormat(String moreDetails) {
+
+        StringBuilder toParse = new StringBuilder();
+        String[] dateTime = moreDetails.split(" ");
+        String[] tempDate = dateTime[0].trim().split("/");
+
+        for (int i=2; i > 0; i--) {
+            toParse.append(tempDate[i]).append("-");
+        }
+        LocalDate date = LocalDate.parse(toParse + tempDate[0]);
+        moreDetails = date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " ";
+
+        if (dateTime.length > 1) {
+            toParse = new StringBuilder();
+            int missingDigits = 6 - dateTime[1].trim().length();
+            for (int i = 0; i < dateTime[1].trim().length(); i++) {
+                char c = dateTime[1].charAt(i);
+                toParse.append((i != 0 && i % 2 == 0) ? ":" + c : c);
+            }
+            for (int i=0 ; i<missingDigits;i++){
+                toParse.append((missingDigits % 2 == i % 2) ? ":0" : "0");
+            }
+            LocalTime time = LocalTime.parse(toParse.toString());
+            moreDetails += time.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        }
+
         return moreDetails;
     }
 
@@ -112,6 +147,21 @@ public class TaskList {
         return list.get(index);
     }
 
+    /**
+     * Retrieve list of items containing the keyword.
+     *
+     * @param keywaord Keyword input by user.
+     * @return result List of items found with keyword.
+     */
+    public String find(String keyword) {
+        int count = 0;
+        String result = "";
+        for (Task task : list) {
+            count += 1;
+            result += (task.getTask().contains(keyword)) ? String.format("\t%d. ", count) + task + "\n": "" ;
+        }
+        return result;
+    }
     /**
      * Retrieve user input item as integer.
      *

@@ -17,11 +17,11 @@ public class Deadline extends Task {
     }
 
     /**
-     * Retrieve timings of deadlines.
+     * Retrieve MoreDetails (timings) of deadlines.
      *
      * @return timings of the Deadline.
      */
-    public String getTime() {
+    public String getMoreDetails() {
         return this.by;
     }
 

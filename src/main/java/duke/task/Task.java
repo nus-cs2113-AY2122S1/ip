@@ -1,15 +1,9 @@
 package duke.task;
 
-import duke.TaskList;
-import duke.Ui;
-
 public class Task {
     protected String task;
     protected boolean isDone;
     protected String type;
-
-    private Ui ui;
-    private TaskList taskList;
 
     /**
      * Constructor to create Task object
@@ -40,11 +34,11 @@ public class Task {
     }
 
     /**
-     * Retrieve timings (if any) of deadlines or events.
+     * Retrieve more details, usually timings (if any) of deadlines or events.
      *
      * @return timings (if any) of the task.
      */
-    public String getTime() {
+    public String getMoreDetails() {
         return "";
     }
 

@@ -1,18 +1,16 @@
 package duke;
 
-import duke.DukeExceptions.DukeException;
-import duke.DukeExceptions.EmptyCommand;
-import duke.DukeExceptions.InvalidCommandException;
-import duke.DukeExceptions.InvalidValueException;
+import duke.DukeExceptions.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     private TaskList taskList;
     private Ui ui;
-    private String[] command;
 
     /**
      * Constructor to create Parser object.
@@ -37,8 +35,10 @@ public class Parser {
         try {
             if (userInput.trim().equals(""))
                 throw new EmptyCommand();
-            command = userInput.split(" ");
+            String[] command = userInput.split(" ");
             switch (command[0].trim().toLowerCase()) {
+            case "help":
+                return parseHelp();
             case "bye":
                 return parseBye();
             case "done":
@@ -53,12 +53,17 @@ public class Parser {
                 return parseEvent(userInput);
             case "list":
                 return parseList();
+            case "find":
+                return parseFind(userInput);
             default:
                 throw new InvalidCommandException();
             }
-        } catch (DukeException e) {
+        } catch (DukeException | DateTimeParseException e) {
             return e.toString();
         }
+    }
+    public String parseHelp() {
+        return ui.helpList();
     }
 
     /**
@@ -107,7 +112,7 @@ public class Parser {
     public String parseTodo(String command) throws InvalidValueException {
         if (command.split(" ").length == 1)
             throw new InvalidValueException("Todo: Missing Description, Please Try Again");
-        taskList.addTask(new ToDo(taskList.getTodo(command)));
+        taskList.addTask(new ToDo(taskList.getItem(command)));
         return ui.acknowledgeAddition(taskList.getList());
     }
 
@@ -191,5 +196,12 @@ public class Parser {
         } else if (getIndex(command) > this.taskList.getList().size() | getIndex(command) < 1) {
             throw new InvalidValueException(String.format("Input Number was more that [1 - %d] tasks in the list.", taskList.getList().size()));
         }
+    }
+
+    public String parseFind(String command) throws InvalidValueException {
+        if (taskList.getList().size()==0)
+            return ui.printList(taskList);
+        String keyword = taskList.getItem(command);
+        return ui.findResults(keyword, taskList);
     }
 }

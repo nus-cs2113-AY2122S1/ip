@@ -17,11 +17,11 @@ public class Event extends Task {
     }
 
     /**
-     * Retrieve timings of events.
+     * Retrieve More details (timings) of events.
      *
      * @return timings of the Event.
      */
-    public String getTime() {
+    public String getMoreDetails() {
         return this.at;
     }
 
