@@ -22,9 +22,10 @@ public class Task {
     }
 
     /**
-     * Returns Status of task in String format.
-     *
-     * @return Status of task in String format.
+     * Returns status of Task in String format.
+     * Tasks that are done will return "[X]" while those that are not will return "[ ]".
+     * 
+     * @return Status of Task in String format.
      */
     public String getStatus() {
         if (isDone) {

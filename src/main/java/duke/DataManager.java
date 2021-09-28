@@ -57,7 +57,7 @@ public class DataManager {
     }
 
     /**
-     * Returns lateral location of the specified position.
+     * Adds Task entry into DUKE program that is currently running.
      *
      * @param dataParts Strings to be passed into TaskManager functions.
      * @throws DukeBlankDescriptionsException If dataParts[DESCRIPTION_INDEX] is blank.
