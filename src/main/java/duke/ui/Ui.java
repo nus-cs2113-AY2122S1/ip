@@ -73,4 +73,13 @@ public class Ui {
         }
         printLine();
     }
+
+    public static void printMatchingTasks(ArrayList<Task> filteredTasks) {
+        printLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task : filteredTasks) {
+            System.out.println(task.getDescription());
+        }
+        printLine();
+    }
 }
