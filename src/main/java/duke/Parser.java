@@ -43,6 +43,10 @@ public class Parser {
 
     public static boolean isDelete() { return input.startsWith("delete"); }
 
+    public static boolean isFind() {
+        return input.startsWith("find");
+    }
+
     public static boolean isInvalidToDo() {
         return input.substring(TODO_LENGTH).equals("");
     }
@@ -103,6 +107,9 @@ public class Parser {
             break;
         case DELETE:
             taskList.deleteTask(input);
+            break;
+        case FIND:
+            taskList.findByKeyWord(input);
             break;
         case INVALID:
             throw new InvalidInputException();

@@ -7,23 +7,33 @@ import java.util.ArrayList;
 
 public class TaskList {
     public static final int MAX_TASKS = 100;
+    public static final int KEY_WORD_BEGIN_INDEX = 5;
     public  ArrayList<Task> tasks = new ArrayList<>();
 
-    public void addTask(Task task){
+    public void addTask(Task task) {
         tasks.add(task);
         System.out.println("Got it. I've added this task: ");
         System.out.println("  " + task.getTask());
         System.out.println("Now you have " + tasks.size() + " tasks on the list.");
     }
 
-    public boolean searchTask(Task task){
+    public boolean searchTask(Task task) {
         boolean taskFound = false;
-        for(int i=0; i<tasks.size(); i++){
-            if(tasks.get(i).getTask().equals(task.getTask()) && !tasks.get(i).isDone()){
+        for (int i=0; i<tasks.size(); i++) {
+            if (tasks.get(i).getTask().equals(task.getTask()) && !tasks.get(i).isDone()) {   
                 taskFound = true;
             }
         }
         return taskFound;
+    }
+
+    public void findByKeyWord(String taskToFind) {
+        String keyword = taskToFind.substring(KEY_WORD_BEGIN_INDEX);
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getTask().contains(keyword)) {
+                System.out.println(tasks.get(i).getTask());
+            }
+        }
     }
 
     public void deleteTask(String taskDelete) throws TaskIndexOutOfBound,EmptyDoneIndexException {
@@ -42,8 +52,6 @@ public class TaskList {
         System.out.println(tasks.get(indexOfTask-1).getTask());
     }
 
-    // Since I find that codes for tasksDone and removeTasks can be duplicated, so I refactor the common part to this function
-    // The exception can also be treated together since they are the same kind of exception
     private int getIndexOfTask(String taskDone) throws TaskIndexOutOfBound, EmptyDoneIndexException {
         String[] words = taskDone.split(" ");
         if (words.length == 0 || words.length == 1) {
