@@ -1,15 +1,9 @@
 package duke.task;
 
-import duke.TaskList;
-import duke.Ui;
-
 public class Task {
     protected String task;
     protected boolean isDone;
     protected String type;
-
-    private Ui ui;
-    private TaskList taskList;
 
     public Task(String task) {
         this.task = task;
@@ -24,7 +18,7 @@ public class Task {
         return isDone;
     }
 
-    public String getTime() {
+    public String getMoreDetails() {
         return "";
     }
 

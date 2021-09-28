@@ -10,7 +10,7 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public String getTime() {
+    public String getMoreDetails() {
         return this.by;
     }
 

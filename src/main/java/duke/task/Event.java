@@ -10,7 +10,7 @@ public class Event extends Task {
         this.at = at;
     }
 
-    public String getTime() {
+    public String getMoreDetails() {
         return this.at;
     }
 
