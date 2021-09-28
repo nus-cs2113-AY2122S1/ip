@@ -53,11 +53,13 @@ public class Event extends Task {
         return timing;
     }
 
+
     /**
      * Returns string representing event.
      *
      * @return String representing event.
      */
+
     @Override
     public String toString() {
         return "[" + getIcon() + "]" + super.toString() + getTiming();

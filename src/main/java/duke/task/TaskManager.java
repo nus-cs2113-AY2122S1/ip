@@ -3,6 +3,7 @@ package duke.task;
 import duke.DukeException;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskManager {
     public static ArrayList<Task> taskList;
@@ -21,6 +22,7 @@ public class TaskManager {
     public TaskManager() {
         this.taskList = new ArrayList<>();
     }
+
 
     /**
      * Adds task to taskList based on their task Type.
@@ -119,6 +121,7 @@ public class TaskManager {
         taskList.add(new Event(description, time, isDone));
     }
 
+
     /**
      * Sets task to done.
      *
@@ -137,20 +140,21 @@ public class TaskManager {
     /**
      * Gets description of given task.
      *
-     * @param task Task where description is needed.
+     * @param input Task where description is needed.
      * @return Description of task.
      */
-    public static String getDescription(String task) {
+
+    public static String getDescription(String input) {
         String description;
         int separator;
-        if (getCommand(task).equals(TO_DO)) {
-            description = task.substring(TODO_STRING_LENGTH);
-        } else if (getCommand(task).equals(DEADLINE)) {
-            separator = task.indexOf(BY_SEPARATOR);
-            description = task.substring(DEADLINE_STRING_LENGTH, separator - 1);
-        } else if (getCommand(task).equals(EVENT)) {
-            separator = task.indexOf(AT_SEPARATOR);
-            description = task.substring(EVENT_STRING_LENGTH, separator - 1);
+        if (getCommand(input).equals(TO_DO)) {
+            description = input.substring(TODO_STRING_LENGTH);
+        } else if (getCommand(input).equals(DEADLINE)) {
+            separator = input.indexOf(BY_SEPARATOR);
+            description = input.substring(DEADLINE_STRING_LENGTH, separator - 1);
+        } else if (getCommand(input).equals(EVENT)) {
+            separator = input.indexOf(AT_SEPARATOR);
+            description = input.substring(EVENT_STRING_LENGTH, separator - 1);
         } else {
             description = null;
         }
@@ -174,6 +178,7 @@ public class TaskManager {
     /**
      * Prints number of tasks in list
      */
+
     public static void printSize() {
         if (getSize() == 0) {
             System.out.println("     Now you have 0 task in the list.");
@@ -217,7 +222,7 @@ public class TaskManager {
                 System.out.println("     " + (i + 1) + "." + t);
             }
         } catch (IndexOutOfBoundsException i) {
-            System.out.println("Error! Please contact admin");
+            System.out.println("Error! Index out of bounds");
         }
 
     }
@@ -264,5 +269,20 @@ public class TaskManager {
         System.out.println("       " + thisTask);
         taskList.remove(taskToDelete - 1);
         printSize();
+    }
+
+    public static ArrayList<Task> filterTasksByString(ArrayList<Task> tasks, String filterString) {
+        ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getDescription().contains(filterString))
+                .collect(Collectors.toList());
+        return filteredList;
+    }
+
+    public static void find(String input) {
+        ArrayList<Task> filteredList = TaskManager.filterTasksByString(taskList, input);
+        for (int i = 0; i < filteredList.size(); i++) {
+            Task t = filteredList.get(i);
+            System.out.println("     " + (i + 1) + "." + t);
+        }
     }
 }
