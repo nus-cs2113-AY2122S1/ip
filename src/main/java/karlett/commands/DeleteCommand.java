@@ -16,10 +16,16 @@ public class DeleteCommand extends Command {
     }
     @Override
     public void execute(TaskList tasks, TextUi ui, StorageFile storageFile) throws IOException {
-        Task task = tasks.get(index - 1);
-        storageFile.removeTaskInFile(tasks, index);
-        tasks.remove(index);
-        ui.printTaskDeletedMessage(tasks, task);
+        try {
+            Task task = tasks.get(index - 1);
+            storageFile.removeTaskInFile(tasks, index);
+            tasks.remove(index);
+            ui.printTaskDeletedMessage(tasks, task);
+        } catch (NumberFormatException ex) {
+            ui.printDeleteFormatErrorMessage();
+        } catch (IndexOutOfBoundsException | NullPointerException ex) {
+            ui.printOutOfBoundErrorMessage(tasks);
+        }
     }
 
     @Override

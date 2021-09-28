@@ -1,6 +1,5 @@
 package karlett.ui;
 
-import karlett.Duke;
 import karlett.commands.Command;
 import karlett.commands.ExitCommand;
 import karlett.storage.StorageFile;
@@ -9,6 +8,7 @@ import karlett.tasklist.TaskList;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -213,6 +213,19 @@ public class TextUi {
     public void printNoMatchedTaskFoundMessage(String keyWord) {
         drawDivider();
         System.out.println("Karlett didn't find any task contaning \"" + keyWord + "\" /ᐠﹷ ‸ ﹷ ᐟ\\ﾉ");
+        drawDivider();
+    }
+
+    public void printIncorrectTimeFormat() {
+        drawDivider();
+        System.out.println("Please give Karltt a date and time in this format meow:\n" +
+                "    yyyy-MM-dd HH:mm");
+        drawDivider();
+    }
+
+    public void printNoMatchedTaskFoundMessage(LocalDateTime time) {
+        drawDivider();
+        System.out.println("Karlett didn't find any task at \" " + time + " \" /ᐠﹷ ‸ ﹷ ᐟ\\ﾉ");
         drawDivider();
     }
 

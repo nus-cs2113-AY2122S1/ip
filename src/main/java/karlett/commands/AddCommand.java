@@ -8,14 +8,15 @@ import karlett.tasklist.TaskList;
 import karlett.ui.TextUi;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class AddCommand extends Command {
 
     String command;
     String taskDescription;
-    String time;
+    LocalDateTime time;
 
-    public AddCommand(String commandWord, String description, String timeInfo) {
+    public AddCommand(String commandWord, String description, LocalDateTime timeInfo) {
         command = commandWord;
         taskDescription = description;
         time = timeInfo;
