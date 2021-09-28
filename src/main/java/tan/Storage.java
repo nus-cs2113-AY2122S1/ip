@@ -21,16 +21,6 @@ import java.util.List;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 
-
-/**
- * Key Notes:
- * Call setWriterAndReader to set the csvReader & csvWriter.
- * Then use respective reader/writer to perform task.
- * If you close csvWriter, you have to set the writer again
- * and write from top of file again.
- * Use Flush to push to current writing in buffer to file.
- */
-
 /**
  * This class manages the functions to deal with
  * saving & loading from the data file.
