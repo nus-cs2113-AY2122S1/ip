@@ -9,7 +9,7 @@ public class Deadline extends Task {
      * @return Date/time task is due.
      */
     public String extractDeadline(String inp) {
-        // Deadline commands by user will contain "/by" substring.
+        // Deadline commands by user will contain "/by " substring.
         this.keywordIdx = inp.indexOf("/");
         return inp.substring(keywordIdx + 4);
     }
