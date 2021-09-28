@@ -25,9 +25,10 @@ public class TaskManager {
 
 
     /**
-     * Adds task to taskList ArrayList
+     * Adds task to taskList based on their task Type.
      *
-     * @param task Task to be checked
+     * @param task Command input.
+     * @throws DukeException If there is no input after command.
      */
     public static void add(String task) throws DukeException {
         String[] command = task.split(" ");
@@ -56,35 +57,78 @@ public class TaskManager {
         printSize();
     }
 
+    /**
+     * Adds ToDo to taskList given description.
+     *
+     * @param description Description of ToDo.
+     */
     public static void addToDo(String description) {
         taskList.add(new ToDo(description));
         System.out.println(ADDED_TASK + new ToDo(description));
     }
 
+    /**
+     * Loads ToDo from file to taskList without printing.
+     *
+     * @param description Description of ToDo.
+     * @param isDone Previous status of ToDo from file.
+     */
     public static void loadToDoFromFile(String description, boolean isDone) {
         taskList.add(new ToDo(description, isDone));
     }
 
+    /**
+     * Adds Deadline to taskList given description.
+     *
+     * @param description Description of deadline.
+     * @param time Time of deadline.
+     */
     public static void addDeadline(String description, String time) {
         taskList.add(new Deadline(description, time));
         System.out.println(ADDED_TASK + new Deadline(description, time));
     }
 
+    /**
+     * Loads Deadline from file to taskList without printing.
+     *
+     * @param description Description of Deadline.
+     * @param time Time of Deadline.
+     * @param isDone Previous status of Deadline from file.
+     */
     public static void loadDeadlineFromFile(String description, String time, boolean isDone) {
         taskList.add(new Deadline(description, time, isDone));
     }
 
+    /**
+     * Adds Event to taskList given description.
+     *
+     * @param description Description of event.
+     * @param time Time of event.
+     */
     public static void addEvent(String description, String time) {
         taskList.add(new Event(description, time));
         System.out.println(ADDED_TASK + new Event(description, time));
     }
 
+    /**
+     * Loads Event from file to taskList without printing.
+     *
+     * @param description Description of Event.
+     * @param time Time of Event.
+     * @param isDone Previous status of Event from file.
+     */
     public static void loadEventFromFile(String description, String time, boolean isDone) {
         taskList.add(new Event(description, time, isDone));
     }
 
-    public static void checkDone(String[] command) {
-        //catch if input after done is integer
+
+    /**
+     * Sets task to done.
+     *
+     * @param command Array of command for the task.
+     * @throws NumberFormatException If input is not in numeric type.
+     */
+    public static void setDone(String[] command) throws NumberFormatException{
         try {
             Integer.parseInt(command[1]);
         } catch (NumberFormatException e) {
@@ -92,6 +136,13 @@ public class TaskManager {
         }
         taskList.get(Integer.parseInt(command[1]) - 1).taskDone(true);
     }
+
+    /**
+     * Gets description of given task.
+     *
+     * @param input Task where description is needed.
+     * @return Description of task.
+     */
 
     public static String getDescription(String input) {
         String description;
@@ -111,16 +162,22 @@ public class TaskManager {
     }
 
     /**
-     *  Returns type of Task given command
-     * @param command
-     * @return Type of Task
+     * Returns type of Task given command.
+     *
+     * @param input Input used to obtain task type.
+     * @return Type of Task.
      */
-    public static String getCommand(String command) {
-        String[] task = command.split(" ");
+    public static String getCommand(String input) {
+        String[] task = input.split(" ");
         String taskType = task[0];
 
         return taskType;
     }
+
+
+    /**
+     * Prints number of tasks in list
+     */
 
     public static void printSize() {
         if (getSize() == 0) {
@@ -142,10 +199,17 @@ public class TaskManager {
         return taskList.get(index - 1).toString();
     }
 
+    /**
+     * Returns size of list.
+     * @return Size of list
+     */
     public static int getSize() {
         return taskList.size();
     }
 
+    /**
+     * Lists out all the tasks in taskList
+     */
     public static void list() {
         try {
             if (taskList.size() == 0) {
@@ -195,6 +259,10 @@ public class TaskManager {
         return date;
     }
 
+    /**
+     * Deletes task given task index
+     * @param input Input with the index of task to be deleted
+     */
     public static void deleteTask(String[] input) {
         int taskToDelete = Integer.parseInt(input[1]);
         Task thisTask = taskList.get(taskToDelete - 1);

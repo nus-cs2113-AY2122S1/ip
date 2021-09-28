@@ -30,6 +30,9 @@ public class Ui {
         this.scanner = scanner;
     }
 
+    /**
+     * Starts the program.
+     */
     public void start() {
         Storage.loadData();
         System.out.println(GREETINGS);
