@@ -12,7 +12,4 @@ public class CommandResult {
         return this.messageToBeShown;
     }
 
-    //TODO: Create separate constructor for list vers
-
-    //
 }

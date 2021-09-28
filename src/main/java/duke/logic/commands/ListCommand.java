@@ -1,6 +1,5 @@
 package duke.logic.commands;
 
-import static duke.ui.Ui.EMPTY;
 import static duke.ui.Ui.LS;
 import static duke.ui.Ui.MESSAGE_NO_TASKS_YET;
 import static duke.ui.Ui.QUOTATION;
@@ -14,10 +13,11 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        String listOfTasks = super.tasks.getStringOfAllTasks();
-        if (listOfTasks.equals(EMPTY)) {
+        if (super.tasks.isEmpty()) {
             return new CommandResult(MESSAGE_NO_TASKS_YET);
         }
-        return new CommandResult(String.format(MESSAGE_INTRODUCE_TASKS, listOfTasks));
+
+        String listOfTasksInString = super.tasks.getStringOfAllTasks();
+        return new CommandResult(String.format(MESSAGE_INTRODUCE_TASKS, listOfTasksInString));
     }
 }
