@@ -24,58 +24,11 @@ public class TaskList {
     }
 
     /**
-     * Print list of tasks when requested by user.
-     */
-    public void printTasks() {
-        System.out.println("Here are the tasks in your list:");
-        int currentIndex = 1;
-        for (Task task : tasks) {
-            System.out.println(currentIndex + ". " + task.toString());
-            currentIndex++;
-        }
-    }
-
-    /**
-     * Marks task status as done
-     *
-     * @param userInput user input
-     */
-    public void doneTask(String userInput) {
-        try {
-            int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            tasks.get(index).setDone();
-            System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(index).toString());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please enter index of task done");
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            System.out.println("Please enter index within range 1 to " + tasks.size());
-        }
-    }
-
-    /**
-     * Deletes task from list of tasks
-     *
-     * @param userInput user input
-     */
-    public void deleteTask(String userInput) {
-        try {
-            int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            Task removedTask = tasks.get(index);
-            tasks.remove(index);
-            System.out.println("Noted. I've removed this task:\n  " + removedTask.toString());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please enter index of task to be removed");
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            System.out.println("Please enter index within range 1 to " + tasks.size());
-        }
-    }
-
-    /**
      * Marks status of task to done when parsing txt file.
      *
      * @param index index of task
      */
-    public void storageDoneTask(int index) {
+    public void doneTask(int index) {
         tasks.get(index).setDone();
     }
 
@@ -94,7 +47,7 @@ public class TaskList {
      * @param userInput user input
      * @return description of task
      */
-    public String validateToDo(String userInput) {
+    private String validateToDo(String userInput) {
         String description = "";
         try {
             String[] words = userInput.split(" ", 2);
@@ -124,7 +77,7 @@ public class TaskList {
      * @param userInput user input
      * @return description and dateline of task
      */
-    public String[] validateDeadline(String userInput) {
+    private String[] validateDeadline(String userInput) {
         String[] information = new String[2];
         information[0] = "";
         information[1] = "";
@@ -171,7 +124,7 @@ public class TaskList {
      * @param userInput user input
      * @return description and event of task
      */
-    public String[] validateEvent(String userInput) {
+    private String[] validateEvent(String userInput) {
         String[] information = new String[2];
         information[0] = "";
         information[1] = "";
