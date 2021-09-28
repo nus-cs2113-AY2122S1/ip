@@ -2,17 +2,32 @@ package duke.ArtBot;
 
 import duke.ErrorHandling.CommandException;
 import duke.ErrorHandling.ErrorStaticString;
-
 import java.util.ArrayList;
 
+/**
+ * Convert a string into graffiti form and print it out
+ */
 public class ArtBot implements ArtInterface {
 
     private final String userInput;
 
+    /**
+     * Constructor for ArtBot
+     * Assign string to be drawn
+     *
+     * @param userInput String to be drawn
+     */
     public ArtBot(String userInput){
         this.userInput = userInput;
     }
 
+    /**
+     * Each Drawn version of a letter take up 5 line
+     * Convert letter into drawn version of string
+     *
+     * @param letter Letter to convert into array of string
+     * @return Array of string representing a letter
+     */
     private String[] getLogo(String letter){
         String[] letterArt;
         switch(letter) {
@@ -131,6 +146,13 @@ public class ArtBot implements ArtInterface {
         return letterArt;
     }
 
+    /**
+     * Convert each letter of string into drawn form
+     *
+     * @param inputArrayOfLetter array of Char(letters)
+     * @return list of string array where each string array is drawn version of a letter
+     * @throws CommandException if char is anything other than A-Z,0-9
+     */
     private ArrayList<String[]> getLetterInArtForm(String[] inputArrayOfLetter) throws CommandException{
         ArrayList<String[]> listToStoreLetterInArtForm = new ArrayList<>();
         for(String s:inputArrayOfLetter){
@@ -143,6 +165,12 @@ public class ArtBot implements ArtInterface {
         return listToStoreLetterInArtForm;
     }
 
+    /**
+     * Merge same index of string in each string array
+     * First String in First String Array with First String in Second String Array and so on...
+     * @param arrayToMerge list of String Array to merge
+     * @return String Array of 5 String after all have been merged
+     */
     private String[] mergeArray(ArrayList<String[]> arrayToMerge){
         String[] arrayToReturn = new String[5];
         for(int i = 0; i < 5; i++){
@@ -156,12 +184,20 @@ public class ArtBot implements ArtInterface {
         return arrayToReturn;
     }
 
+    /**
+     * Print a array of 5 Strings
+     *
+     * @param array Array to print
+     */
     private void printArray(String[] array){
         for(int i = 0; i < 5; i++){
             System.out.println(array[i]);
         }
     }
 
+    /**
+     * Handle interaction of other classes to echo a string in drawn form
+     */
     public void drawArt() {
         String[] letterArray = userInput.split("(?!^)");
         ArrayList<String[]> letterInArtFormList = null;

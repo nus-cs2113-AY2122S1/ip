@@ -1,6 +1,5 @@
 package duke.Storage;
 
-import duke.ErrorHandling.CommandException;
 import duke.ErrorHandling.ErrorStaticString;
 import duke.TaskList.TaskList;
 import duke.task.Task;
@@ -9,18 +8,35 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handle reading from file and
+ * Making sense of String from file
+ */
 public class FileRead extends Storage{
 
-    private File file;
-    private TaskList listManager;
-    private ArrayList<Task> taskList;
+    private final File file;
+    private final TaskList listManager;
+    private final ArrayList<Task> taskList;
 
+    /**
+     * Constructor for FileRead
+     * Creates new arraylist to store task from text file in
+     * Create Tasklist interact with arraylist after processing string in text file
+     *
+     * @param file file to read from
+     */
     public FileRead(File file){
         taskList = new ArrayList<>();
         listManager = new TaskList(taskList);
         this.file = file;
     }
 
+    /**
+     * Read from file and store each line into arraylist
+     *
+     * @param inputFile file to read from
+     * @return list of String from file
+     */
     private ArrayList<String> readFile(File inputFile){
         ArrayList<String> list = new ArrayList<>();
         try {
@@ -34,6 +50,11 @@ public class FileRead extends Storage{
         return list;
     }
 
+    /**
+     * Process String from files into task
+     *
+     * @return list of task from file
+     */
     public ArrayList<Task> convertFileToTask() {
         ArrayList<String> stringList = readFile(file);
         int taskIndex = 0;
@@ -50,11 +71,7 @@ public class FileRead extends Storage{
                 listManager.addDeadline(splitString[FILE_TASK_DESCRIPTION_POSITION],splitString[FILE_TASK_DETAIL_POSITION],true);
             }
             if (splitString[FILE_TASK_COMPLETE_POSITION].equals(FILE_COMPLETE_STATUS)){
-                try {
-                    listManager.completeTask(taskIndex, true);
-                } catch (CommandException e) {
-                    e.handleException();
-                }
+                listManager.completeTask(taskIndex, true);
             }
             taskIndex += 1;
         }

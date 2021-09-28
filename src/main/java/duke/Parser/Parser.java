@@ -4,9 +4,11 @@ import duke.Command.*;
 import duke.ErrorHandling.CommandException;
 import duke.ErrorHandling.ErrorStaticString;
 import duke.TaskList.TaskList;
-
 import java.util.Objects;
 
+/**
+ * Main Class handling the processing of input by user
+ */
 public class Parser{
 
     private static final String COMMAND_VIEW_LIST = "list";
@@ -19,6 +21,7 @@ public class Parser{
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_DATE_TASK = "date";
     private static final String COMMAND_FIND_WORD = "find";
+    private static final String COMMAND_CLEAR_WORD = "clear";
     private static final String EMPTY_STRING = "";
     private static final String COMMAND_GUIDE_INDICATOR = "!";
     private static final String SPLITTER = ";";
@@ -26,11 +29,23 @@ public class Parser{
     private String userInput;
     private final TaskList listManager;
 
+    /**
+     * Constructor for Parser
+     *
+     * @param userInput User input to process
+     * @param listManager Tasklist to interact with list of task
+     */
     public Parser(String userInput, TaskList listManager){
         this.userInput = userInput;
         this.listManager = listManager;
     }
 
+    /**
+     * Extract Command Category by checking starting string in input
+     *
+     * @param userInput Single line of String containing one command
+     * @return String representing task category
+     */
     private String taskCategory(String userInput) {
         if (userInput.startsWith(COMMAND_VIEW_LIST)) {
             return COMMAND_VIEW_LIST;
@@ -59,9 +74,17 @@ public class Parser{
         if(userInput.startsWith(COMMAND_FIND_WORD)){
             return COMMAND_FIND_WORD;
         }
+        if(userInput.startsWith(COMMAND_CLEAR_WORD)){
+            return COMMAND_CLEAR_WORD;
+        }
         return null;
     }
 
+    /**
+     * Check if there is ToDo Command in input
+     *
+     * @return if ToDo Command is present
+     */
     private boolean isTodo(){
         if(userInput.contains(COMMAND_ADD_TODO)){
             userInput = userInput.replaceAll(COMMAND_ADD_TODO,SPLITTER + COMMAND_ADD_TODO);
@@ -69,6 +92,12 @@ public class Parser{
         }
         return false;
     }
+
+    /**
+     * Check if there is Event Command in input
+     *
+     * @return if Event Command is present
+     */
     private boolean isEvent(){
         if(userInput.contains(COMMAND_ADD_EVENT)){
             userInput = userInput.replaceAll(COMMAND_ADD_EVENT,SPLITTER + COMMAND_ADD_EVENT);
@@ -76,6 +105,12 @@ public class Parser{
         }
         return false;
     }
+
+    /**
+     * Check if there is DeadLine Command in input
+     *
+     * @return if DeadLine Command is present
+     */
     private boolean isDeadline(){
         if(userInput.contains(COMMAND_ADD_DEADLINE)){
             userInput = userInput.replaceAll(COMMAND_ADD_DEADLINE,SPLITTER + COMMAND_ADD_DEADLINE);
@@ -84,14 +119,31 @@ public class Parser{
         return false;
     }
 
+    /**
+     * Check if Command input is list
+     *
+     * @return if Command is list
+     */
     private boolean isList(){
         return userInput.startsWith(COMMAND_VIEW_LIST);
     }
 
+    /**
+     * Check if Command input is exit
+     *
+     * @return if Command is exit
+     */
     public boolean isExit(){
         return userInput.startsWith(COMMAND_EXIT);
     }
 
+    /**
+     * Does initial checking of input before handing further checking to another function
+     * Check if input is empty
+     * Check if input begin with "!"
+     *
+     * @throws CommandException if input empty
+     */
     public void handleInput() throws CommandException{
         if(userInput.isEmpty()){
             throw new CommandException(ErrorStaticString.ERROR_NULL);
@@ -104,6 +156,12 @@ public class Parser{
         }
     }
 
+    /**
+     * Check if Command is adding task to list
+     * if adding task to list, split command according to adding command word
+     * Allows for adding of multiple tasks in one line
+     * Splitting input into multiple commands if command is for adding in task
+     */
     private void splitInputIfThereMoreThanOneCommand() {
         userInput = userInput.replaceAll(SPLITTER,EMPTY_STRING);
         boolean isAddingTask = false;
@@ -123,6 +181,12 @@ public class Parser{
         }
     }
 
+    /**
+     * Handle One Command by Creating an instance of the Command
+     * Hand execution of Command to the individual instance of Command
+     *
+     * @param inputCommand String representing one Command, and it's input for the command
+     */
     private void handleCommand(String inputCommand){
         String commandCategory = taskCategory(inputCommand);
         try {
@@ -199,6 +263,11 @@ public class Parser{
                 }catch (CommandException e){
                     e.handleException();
                 }
+                break;
+            case COMMAND_CLEAR_WORD:
+                ClearCommand clearCommand = new ClearCommand(inputCommand, listManager);
+                clearCommand.executeCommand();
+                break;
             }
         }catch(NullPointerException e){
             System.out.println(ErrorStaticString.ERROR_UNKNOWN_COMMAND);

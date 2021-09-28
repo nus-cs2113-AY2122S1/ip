@@ -3,18 +3,34 @@ package duke.Command;
 import duke.ErrorHandling.CommandException;
 import duke.ErrorHandling.ErrorStaticString;
 import duke.TaskList.TaskList;
-
 import java.util.ArrayList;
 
+/**
+ * Represent a command that set task as completed
+ */
 public class DoneCommand extends Command{
 
     private final TaskList listManager;
 
+    /**
+     * Constructor for DoneCommand
+     *
+     * @param userInput Command input by user to process
+     * @param listManager Tasklist to interact with list of task
+     */
     public DoneCommand(String userInput, TaskList listManager){
         super(userInput);
         this.listManager = listManager;
     }
 
+    /**
+     * Handle setting multiple tasks as completed
+     * Filter out Command and split index of task into array of string by ","
+     * Convert index of task in string into integer
+     * Set each task as done in TaskList class
+     *
+     * @throws CommandException if task to set as complete is empty or if task to set as complete does not exist
+     */
     @Override
     public void executeCommand() throws CommandException{
         String removeCommand = taskInput.replaceFirst(COMMAND_COMPLETE_TASK,EMPTY_STRING).trim();

@@ -1,5 +1,8 @@
 package duke.ArtBot;
 
+/**
+ * Store Images formed by Strings
+ */
 public class Logo {
     public static final String divider = "____________________________________________________________\n";
     public static final String dividerWithoutNewLine = "____________________________________________________________";
