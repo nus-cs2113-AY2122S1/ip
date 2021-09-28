@@ -44,12 +44,17 @@ public class Parser {
                         System.out.println("Something went wrong: " + e.getMessage());
                     }
                     break;
+
                 case "list":
                     TaskList.list();
                     break;
 
                 case "done":
                     TaskList.done(userIn);
+                    break;
+
+                case "find":
+                    TaskList.find(userCommandDetails);
                     break;
 
                 case "delete":
@@ -61,7 +66,7 @@ public class Parser {
                     isContinueLoop = false;
                     break;
                 default:
-                    Ui.invalidCommand(userCommand);
+                    Ui.invalidCommand(userIn);
                     break;
             }
         }

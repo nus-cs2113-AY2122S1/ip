@@ -1,3 +1,7 @@
-[T] [ ] eat
-[D] [ ] eat
-[E] [ ] finish himework
+[T] [ ] list
+[T] [ ] bathe
+[T] [ ] bathe list
+[T] [ ] math
+[T] [ ] math test
+[T] [ ] english test
+[D] [ ] testing

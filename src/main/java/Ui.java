@@ -22,7 +22,7 @@ public class Ui {
 
     public static void invalidCommand(String userCommand) {
         printLongLine();
-        System.out.println(userCommand + " is an invalid command, try again");
+        System.out.println("Hey! That's an invalid command, try again");
         printLongLine();
     }
 

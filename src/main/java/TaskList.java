@@ -93,4 +93,22 @@ public class TaskList {
         entriesCount -= 1;
         Ui.printLongLine();
     }
+
+    public static void find(String userCommandDetails) {
+        Ui.printLongLine();
+        int i = 0;
+        for(Task entry : entries){
+            if (entry.getDescription().contains(userCommandDetails)) {
+                if (i == 0) {
+                    System.out.println("Here are the matching tasks in your list:\n");
+                }
+                System.out.println((i+1) + ". " + "[" + entry.getSymbol() + "] [" + entry.getStatusIcon() + "] " + entry.getDescription());
+                i++;
+            }
+        }
+        if (i == 0) {
+            System.out.println("Sorry, keyword couldn't be found...");
+        }
+        Ui.printLongLine();
+    }
 }
