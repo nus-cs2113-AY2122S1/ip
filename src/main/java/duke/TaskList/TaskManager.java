@@ -6,6 +6,7 @@ import duke.TaskList.task.Task;
 import duke.TaskList.task.ToDo;
 import duke.Ui.DisplayManager;
 import duke.Storage.FileManager;
+import duke.Ui.Parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,9 +38,9 @@ public class TaskManager {
         }
     }
 
-    public void addDeadlineTask(String taskInfo) {
+    public void addDeadlineTask(Parser parser, String taskInfo) {
         try {
-            String[] taskComponents = splitTaskComponents(taskInfo);
+            String[] taskComponents = parser.splitTaskComponents(taskInfo);
             Task newTask = new Deadline(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
             tasks.add(newTask);
             DisplayManager.printCreateTask(newTask);
@@ -49,9 +50,9 @@ public class TaskManager {
         }
     }
 
-    public void addEventTask(String taskInfo) {
+    public void addEventTask(Parser parser, String taskInfo) {
         try {
-            String[] taskComponents = splitTaskComponents(taskInfo);
+            String[] taskComponents = parser.splitTaskComponents(taskInfo);
             Task newTask = new Event(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
             tasks.add(newTask);
             DisplayManager.printCreateTask(newTask);
@@ -69,8 +70,8 @@ public class TaskManager {
         }
     }
 
-    public void addSavedDeadline(String taskInfo, boolean taskIsDone) {
-        String[] taskComponents = splitTaskComponents(taskInfo);
+    public void addSavedDeadline(Parser parser, String taskInfo, boolean taskIsDone) {
+        String[] taskComponents = parser.splitTaskComponents(taskInfo);
         Task savedTask = new Deadline(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
         tasks.add(savedTask);
         if (taskIsDone) {
@@ -78,8 +79,8 @@ public class TaskManager {
         }
     }
 
-    public void addSavedEvent(String taskInfo, boolean taskIsDone) {
-        String[] taskComponents = splitTaskComponents(taskInfo);
+    public void addSavedEvent(Parser parser, String taskInfo, boolean taskIsDone) {
+        String[] taskComponents = parser.splitTaskComponents(taskInfo);
         Task savedTask = new Event(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
         tasks.add(savedTask);
         if (taskIsDone) {
@@ -203,23 +204,6 @@ public class TaskManager {
         } else {
             DisplayManager.printMultipleTasks(tasks);
         }
-    }
-
-    /**
-     * @param taskInfo contains the information of the task
-     * @return taskComponents -> index 0: description, and index 1: dateTime
-     */
-    public static String[] splitTaskComponents(String taskInfo) {
-        String[] taskComponents;
-        taskComponents = taskInfo.replace("/", "#/").split("#");
-
-        for (int i = 0; i < taskComponents.length; i++) {
-            String taskComponent = taskComponents[i].replaceAll("/by", "");
-            taskComponent = taskComponent.replaceAll("/at", "");
-            taskComponents[i] = taskComponent.trim();
-        }
-
-        return taskComponents;
     }
 
     public static int[] filterIndexes(String taskInfo) {

@@ -2,6 +2,7 @@ import duke.Error.DukeException;
 import duke.Ui.DisplayManager;
 import duke.Storage.FileManager;
 import duke.TaskList.TaskManager;
+import duke.Ui.Parser;
 
 import java.util.Scanner;
 
@@ -26,10 +27,9 @@ public class Duke {
         displayManager.printEndGreet();
     }
 
-    public static void processReply(TaskManager taskManager, String line) throws DukeException {
-        String[] inputs = line.split(" ", 2);
+    public static void processReply(TaskManager taskManager, Parser parser, String line) throws DukeException {
         String taskInfo;
-        String command = inputs[INDEX_COMMAND];
+        String command = parser.extractCommand(line);
 
         switch (command) {
         case COMMAND_LIST_TASK:
@@ -37,7 +37,7 @@ public class Duke {
             break;
         case COMMAND_ADD_TODO:
             try {
-                taskInfo = inputs[INDEX_TASK_INFO];
+                taskInfo = parser.extractTaskInfo(line);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("The description of " + command + " cannot be empty.");
             }
@@ -45,23 +45,23 @@ public class Duke {
             break;
         case COMMAND_ADD_DEADLINE:
             try {
-                taskInfo = inputs[INDEX_TASK_INFO];
+                taskInfo = parser.extractTaskInfo(line);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("The description of " + command + " cannot be empty.");
             }
-            taskManager.addDeadlineTask(taskInfo);
+            taskManager.addDeadlineTask(parser, taskInfo);
             break;
         case COMMAND_ADD_EVENT:
             try {
-                taskInfo = inputs[INDEX_TASK_INFO];
+                taskInfo = parser.extractTaskInfo(line);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("The description of " + command + " cannot be empty.");
             }
-            taskManager.addEventTask(taskInfo);
+            taskManager.addEventTask(parser, taskInfo);
             break;
         case COMMAND_FINISH_TASK:
             try {
-                taskInfo = inputs[INDEX_TASK_INFO];
+                taskInfo = parser.extractTaskInfo(line);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("The description of " + command + " cannot be empty.");
             }
@@ -69,7 +69,7 @@ public class Duke {
             break;
         case COMMAND_DELETE_TASK:
             try {
-                taskInfo = inputs[INDEX_TASK_INFO];
+                taskInfo = parser.extractTaskInfo(line);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("The description of " + command + " cannot be empty.");
             }
@@ -80,13 +80,13 @@ public class Duke {
         }
     }
 
-    public static void reply(Scanner in, TaskManager taskManager) {
+    public static void reply(Scanner in, TaskManager taskManager, Parser parser) {
         String line;
 
         line = in.nextLine();
         while (!line.equals(COMMAND_EXIT)) {
             try {
-                processReply(taskManager, line);
+                processReply(taskManager, parser, line);
             } catch (DukeException e) {
                 DisplayManager.printHorizontalSeparator();
                 System.out.println(e);
@@ -103,11 +103,12 @@ public class Duke {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
+        Parser parser = new Parser();
         DisplayManager displayManager = new DisplayManager();
 
         greetStart(displayManager);
         loadDataFile(taskManager);
-        reply(in, taskManager);
+        reply(in, taskManager, parser);
         greetEnd(displayManager);
     }
 }
