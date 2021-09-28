@@ -158,14 +158,14 @@ public class TaskManager {
             System.out.println("No search term given!");
             return;
         }
-
-        if (!Parser.isOneWord(term)) {
+        
+        if (!Parser.isOneWord(term.trim())) {
             System.out.println("Please give only 1 keyword.");
             return;
         }
 
         ArrayList<Task> relatedTasks = (ArrayList<Task>) tasks.stream()
-                .filter((t) -> t.getDescription().toLowerCase().contains(term.trim()))
+                .filter((t) -> t.getDescription().toLowerCase().contains(term.trim().toLowerCase()))
                 .collect(Collectors.toList());
 
         if (relatedTasks.isEmpty()) {

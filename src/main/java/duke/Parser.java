@@ -130,10 +130,11 @@ public class Parser {
      * @throws DukeMissingDataException If data cannot be split into 3 parts.
      */
     public static String[] splitToDataParts(String data) throws DukeMissingDataException {
-        String[] dataParts = data.split(",");
+        String[] dataParts = data.split(",", 3);
         if (dataParts.length < TOTAL_DATA_PARTS) {
             throw new DukeMissingDataException();
         }
+        
         for (int i = 0; i < TOTAL_DATA_PARTS; i++) {
             dataParts[i] = dataParts[i].trim();
         }
