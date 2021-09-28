@@ -12,7 +12,9 @@ import java.util.ArrayList;
  */
 public class TaskList {
     public static final int MAX_TASKS = 100;
+    public static final int KEY_WORD_BEGIN_INDEX = 5;
     public  ArrayList<Task> tasks = new ArrayList<>();
+
 
     /**
      * Adds a new task (including deadline, event, todo) to the taskList
@@ -40,12 +42,21 @@ public class TaskList {
         return taskFound;
     }
 
-    /**
-     * Deletes a task from the taskList
-     * @param taskDelete the task user wants to delete
-     * @throws TaskIndexOutOfBound
-     * @throws EmptyDoneIndexException
-     */
+    public void findByKeyWord(String taskToFind) {
+        String keyword = taskToFind.substring(KEY_WORD_BEGIN_INDEX);
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getTask().contains(keyword)) {
+                System.out.println(tasks.get(i).getTask());
+            }
+        }
+    }
+
+   /**
+    * Deletes a task from the taskList
+    * @param taskDelete the task user wants to delete
+    * @throws TaskIndexOutOfBound
+    * @throws EmptyDoneIndexException
+    */
     public void deleteTask(String taskDelete) throws TaskIndexOutOfBound,EmptyDoneIndexException {
         int indexOfTask = getIndexOfTask(taskDelete);
         Task taskToDelete = tasks.get(indexOfTask - 1);

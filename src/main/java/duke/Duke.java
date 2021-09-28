@@ -19,20 +19,22 @@ public class Duke {
 
         while(true) {
             Parser.input = Parser.getInput();
-            Parser.taskList = Storage.taskList;   //load data if there is any
+            Parser.taskList = Storage.taskList;
             Command c;
             if (Parser.isList()) {
                 c = Command.LIST;
             } else if (Parser.isDone()) {
                 c = Command.DONE;
             } else if(Parser.isDelete()) {
-                c = Command.DELETE;    // for level-6 just simply add one command here, no need for other changes
+                c = Command.DELETE;
             } else if (Parser.isDeadLine()) {
                 c = Command.DEADLINE;
             } else if (Parser.isEvent()) {
                 c = Command.EVENT;
             } else if (Parser.isToDo()) {
                 c = Command.TODO;
+            } else if (Parser.isFind()) {
+                c = Command.FIND;
             } else if (Parser.isBye()){
                 Ui.bye();
                 break;

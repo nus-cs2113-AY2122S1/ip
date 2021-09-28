@@ -40,6 +40,10 @@ public class Parser {
     public static boolean isDeadLine() {
         return input.startsWith("deadline");
     }
+  
+    public static boolean isFind() {
+        return input.startsWith("find");
+    }
 
     public static boolean isToDo() {
         return input.startsWith("todo");
@@ -136,6 +140,9 @@ public class Parser {
             break;
         case DELETE:
             taskList.deleteTask(input);
+            break;
+        case FIND:
+            taskList.findByKeyWord(input);
             break;
         case INVALID:
             throw new InvalidInputException();

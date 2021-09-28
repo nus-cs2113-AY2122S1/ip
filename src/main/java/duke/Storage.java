@@ -17,7 +17,7 @@ public class Storage {
     public static String filePath = "data.txt";
     public static String originalInputPath = "inputFile.txt";
     public static TaskList taskList = new TaskList();
-    // load data to this taskList and pass the reference of the taskList to the one in Duke.java
+
 
     /**
      * Saves the content of tasks into a txt file
