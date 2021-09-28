@@ -7,7 +7,7 @@ public class Task {
     protected String type;
 
     /**
-     * Constructor for new object of Task class.
+     * Constructs new object of Task class.
      *
      * @param description Name of task.
      */
@@ -18,7 +18,7 @@ public class Task {
     }
 
     /**
-     * Setter to change status of task to done.
+     * Sets status of task to done.
      */
     public void setDone() {
         this.isDone = true;

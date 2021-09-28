@@ -1,7 +1,16 @@
 public class DoneCommand extends Command{
+    /** Random large negative number assigned to taskIndex, but updated with actual task's index in TaskList ArrayList */
     protected int taskIndex = -100;
     final static String ERROR_BOUNDARY = ">>".repeat(30);
 
+    /**
+     * Checks Task as completed by calling completeTask() method from
+     * TaskList object.
+     * Else, prints out error message if input index is wrong.
+     *
+     * @param tl TaskList object storing all user-created tasks.
+     */
+    @Override
     public void execute(TaskList tl) {
         if (taskIndex >= 0 & taskIndex < tl.getLength()) {
             tl.completeTask(taskIndex);

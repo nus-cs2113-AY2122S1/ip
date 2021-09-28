@@ -1,11 +1,12 @@
 public class AddCommand extends Command {
+    /** A Task object is stored for adding to list */
     protected Task newTask = null;
 
     /**
-     * Depending on the starting keyword present in user input, creates respective
-     * Task subclass object and stores it inside the storedTasks array.
+     * Creates respective Task subclass object
+     * depending on the starting keyword present in user input.
      *
-     * @param userInput String command input by user.
+     * @param userInput String command input by user or parsed from local file.
      */
     public static Task createTask(String userInput) throws DukeException {
         if (userInput.startsWith("event ")) {
@@ -21,12 +22,13 @@ public class AddCommand extends Command {
                 throw new DukeException("\t*** Remember to indicate deadline after '/by ' in description.");
             }
         } else if (userInput.startsWith("todo ")) {
-            if (!userInput.substring(4).isBlank()){
+            if (!userInput.substring("todo".length()).isBlank()){
                 return new Todo(userInput);
             } else {
                 throw new DukeException("\t*** OOPS!!! The description of a todo cannot be empty.");
             }
         } else {
+            // If the starting substring does not conform to expected keywords, throw an error msg.
             throw new DukeException("\t☹ INVALID COMMAND\n" +
                     "\tPlease begin commands with\n" +
                     "\t'event', 'deadline', 'todo',\n" +
@@ -35,6 +37,13 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds task to program list by calling record() mathod
+     * from TaskList class.
+     *
+     * @param tl TaskList object which stores all user-created tasks.
+     */
+    @Override
     public void execute(TaskList tl) {
         if (newTask != null) {
             tl.record(newTask);

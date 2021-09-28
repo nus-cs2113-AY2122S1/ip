@@ -7,6 +7,9 @@ public class DukeException extends Exception {
         this.errorMessage = message;
     }
 
+    /**
+     * Prints out errorMessage string.
+     */
     public void printErrorMessage() {
         System.out.println(ERROR_BOUNDARY);
         System.out.println(this.errorMessage);

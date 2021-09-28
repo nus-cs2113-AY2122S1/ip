@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class TaskList {
+    /** Task objects created/deleted are updated to this variable. */
     private static ArrayList<Task> tasksList;
     private static final String HOR_LINE = "-".repeat(60);
 
@@ -64,14 +65,30 @@ public class TaskList {
         printList();
     }
 
+    /**
+     * Returns task object at a particular index in tasksList.
+     *
+     * @param idx Index of particular task object.
+     * @return Task object needed.
+     */
     public static Task atIndex(int idx) {
         return tasksList.get(idx);
     }
 
+    /**
+     * Adds Task object to tasksList.
+     *
+     * @param t Task object to be added.
+     */
     public static void record(Task t) {
         tasksList.add(t);
     }
 
+    /**
+     * Returns length of current tasksList.
+     *
+     * @return No. of Task objects in tasksList.
+     */
     public static int getLength() {
         return tasksList.toArray().length;
     }

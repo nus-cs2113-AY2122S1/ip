@@ -1,5 +1,7 @@
 public class Deadline extends Task {
+    /** Due time/date of Deadline task as String. */
     protected String due;
+    /** Index of string at which slash in /by input string appears. */
     protected int keywordIdx = 0;
 
     /**
