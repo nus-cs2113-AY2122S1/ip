@@ -5,29 +5,29 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * A class used for interaction with users
+ * A class used for interaction with users.
  */
 public class Ui {
     private Scanner in;
 
     /**
-     * Constructor of the Class
+     * Constructor of the Class.
      */
     public Ui() {
         in = new Scanner(System.in);
     }
 
     /**
-     * Returns user input as String
+     * Returns user input as String.
      *
-     * @return String of user input
+     * @return String of user input.
      */
     public String getCommand() {
         return in.nextLine();
     }
 
     /**
-     * Prints DUKE logo and greeting message
+     * Prints DUKE logo and greeting message.
      */
     public static void greet() {
         // the function is used to greet user in the very first beginning
@@ -44,9 +44,9 @@ public class Ui {
     }
 
     /**
-     * Prints out the whole task list with their status icons
+     * Prints out the whole task list with their status icons.
      *
-     * @param tasks ArrayList of tasks
+     * @param tasks ArrayList of tasks.
      */
     public static void printList(ArrayList<Task> tasks) {
         printSign();
@@ -59,9 +59,9 @@ public class Ui {
     }
 
     /**
-     * Prints out the total number of the tasks and what is added to do
+     * Prints out the total number of the tasks and what is added to do.
      *
-     * @param tasks ArrayList of tasks
+     * @param tasks ArrayList of tasks.
      */
     public static void printTotalNumOfTasks(ArrayList<Task> tasks) {
         printSign();
@@ -72,7 +72,7 @@ public class Ui {
     }
 
     /**
-     * Exits the program once user key in "bye"
+     * Exits the program once user key in "bye".
      */
     public static void exit() {
         printSign();
@@ -81,7 +81,7 @@ public class Ui {
     }
 
     /**
-     * Prints out a divider line consist of "-"
+     * Prints out a divider line consist of "-".
      */
     public static void printSign() {
         for (int i = 1; i <= 40; i++) {
@@ -91,7 +91,7 @@ public class Ui {
     }
 
     /**
-     * Prints out the message that indicates invalid input
+     * Prints out the message that indicates invalid input.
      */
     public static void printInvalidMessage() {
         printSign();

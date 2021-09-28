@@ -7,11 +7,11 @@ import duke.ui.Ui;
 public class Bye extends Command{
 
     /**
-     * Exits Duke and saves all the newly added tasks
+     * Exits Duke and saves all the newly added tasks.
      *
-     * @param tasks TaskList including all tasks
-     * @param ui User Interface
-     * @param storage Storage to load and save the data file
+     * @param tasks TaskList including all tasks.
+     * @param ui User Interface.
+     * @param storage Storage to load and save the data file.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -20,9 +20,9 @@ public class Bye extends Command{
     }
 
     /**
-     * Returns true to indicate the program stops running
+     * Returns true to indicate the program stops running.
      *
-     * @return boolean true
+     * @return boolean true.
      */
     @Override
     public boolean isExit() {

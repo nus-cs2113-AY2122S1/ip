@@ -8,9 +8,9 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor of Task class
+     * Constructor of Task class.
      *
-     * @param description the content of the task
+     * @param description the content of the task.
      */
     public Task(String description) {
 
@@ -19,9 +19,9 @@ public class Task {
     }
 
     /**
-     * Returns the description of the task
+     * Returns the description of the task.
      *
-     * @return String the description of the task
+     * @return String the description of the task.
      */
     public String getDescription() {
 
@@ -29,9 +29,9 @@ public class Task {
     }
 
     /**
-     * Returns the current status of the task
+     * Returns the current status of the task.
      *
-     * @return String "1" if the task is done, otherwise returns "0"
+     * @return String "1" if the task is done, otherwise returns "0".
      */
     public String getStatusIcon() {
 
@@ -39,7 +39,7 @@ public class Task {
     }
 
     /**
-     * Marks the task status as done
+     * Marks the task status as done.
      */
     public void markAsDone() {
 
@@ -47,9 +47,9 @@ public class Task {
     }
 
     /**
-     * Returns a String representation containing status icon and description
+     * Returns a String representation containing status icon and description.
      *
-     * @return String representation of a task
+     * @return String representation of a task.
      */
     @Override
     public String toString() {

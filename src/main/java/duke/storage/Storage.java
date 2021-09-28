@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * A class used for load and save data file
+ * A class used for load and save data file.
  */
 public class Storage {
     public static final String root = System.getProperty("user.dir");
@@ -23,9 +23,9 @@ public class Storage {
     public static final Path dirPath = Paths.get(root, "data");
 
     /**
-     * Constructor of class
+     * Constructor of class.
      *
-     * Creates new directory and file if dirPath and filePath is not found
+     * Creates new directory and file if dirPath and filePath is not found.
      */
     public Storage() {
         File dataDirectory = new File(dirPath.toString());
@@ -43,9 +43,9 @@ public class Storage {
     }
 
     /**
-     * Loads the previous saved data file
+     * Loads the previous saved data file.
      *
-     * @return tasks ArrayList saved in previous data file
+     * @return tasks ArrayList saved in previous data file.
      * @throws FileNotFoundException
      */
     public ArrayList<Task> loadData() throws FileNotFoundException {
@@ -82,9 +82,9 @@ public class Storage {
     }
 
     /**
-     * Saves new tasks to data file
+     * Saves new tasks to data file.
      *
-     * @param tasks ArrayList of tasks to be saved
+     * @param tasks ArrayList of tasks to be saved.
      */
     public static void saveData(ArrayList<Task> tasks) {
         try {

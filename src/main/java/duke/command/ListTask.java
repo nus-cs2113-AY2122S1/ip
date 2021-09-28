@@ -5,16 +5,16 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * A class represents a command type of List Task
+ * A class represents a command type of List Task.
  */
 public class ListTask extends Command{
 
     /**
-     * Lists all tasks in the ArrayList tasks
+     * Lists all tasks in the ArrayList tasks.
      *
-     * @param tasks TaskList including all tasks
-     * @param ui User Interface
-     * @param storage Storage to load and save the data file
+     * @param tasks TaskList including all tasks.
+     * @param ui User Interface.
+     * @param storage Storage to load and save the data file.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -22,9 +22,9 @@ public class ListTask extends Command{
     }
 
     /**
-     * Returns false to indicate the program continues running
+     * Returns false to indicate the program continues running.
      *
-     * @return boolean false
+     * @return boolean false.
      */
     @Override
     public boolean isExit() {
