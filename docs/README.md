@@ -246,7 +246,7 @@ Duke will automatically save the data after any command that changes the data. T
 Duke's data are saved by a pipe `|` delimited file at `data/duke.txt`. Advanced users are welcome to update the data
 directly by editing that data file.
 
-`!Caution: If your changes to the data file makes its format invalid, Duke will not run until the issue is rectified.
+`!Caution: If your changes to the data file makes its format invalid, Duke will not run until the issue is rectified.`
 
 ## Command Summary
 Action | Command Parameters
