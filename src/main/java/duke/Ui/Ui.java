@@ -51,7 +51,7 @@ public class Ui {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    /**
+     /**
      * Print all the filtered task
      *
      * @param filteredTask ArrayList of filtered task
