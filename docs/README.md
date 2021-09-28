@@ -9,23 +9,23 @@
 
 4) [Features](#features)
 
-- [active-update](#active-update)
-- [anti-duplicate](#anti-duplicate)
-- [types-of-task](#3-types-of-task)
-- [marking-task-as-done](#marking-finished-task)
-- [search-task](#search-for-task)
+ - [active-update](#active-update)
+ - [anti-duplicate](#anti-duplicate)
+ - [types-of-task](#3-types-of-task)
+ - [marking-task-as-done](#marking-finished-task)
+ - [search-task](#search-for-task)
 
 5) [Commands](#usage)
 
-- [todo](#todo---adds-a-todo-type-of-task)
-- [event](#event---adds-a-event-type-of-task)
-- [deadline](#deadline---adds-a-deadline-type-of-task)
-- [list](#list---list-out-all-the-current-task)
-- [done](#done---marks-a-particular-task-as-done)
-- [delete](#delete---delete-a-particular-task)
-- [find](#find---allows-user-to-search-for-a-task)
-- [list](#help---list-out-the-list-of-command)
-- [bye](#bye---terminates-the-app)
+ - [todo](#todo---adds-a-todo-type-of-task)
+ - [event](#event---adds-a-event-type-of-task)
+ - [deadline](#deadline---adds-a-deadline-type-of-task)
+ - [list](#list---list-out-all-the-current-task)
+ - [done](#done---marks-a-particular-task-as-done)
+ - [delete](#delete---delete-a-particular-task)
+ - [find](#find---allows-user-to-search-for-a-task)
+ - [list](#help---list-out-the-list-of-command)
+ - [bye](#bye---terminates-the-app)
 
 6) [Summary](#summary)
 
