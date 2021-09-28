@@ -12,11 +12,6 @@ import java.util.Scanner;
 
 public class Parser {
     private static ArrayList<Task> tasks = new ArrayList<Task>();
-
-    /**
-     * Processed the command given in the input
-     * Print error message if command is invalid
-     */
     public static void task() {
         Scanner in = new Scanner(System.in);
         String inputCommand = in.nextLine();
@@ -33,18 +28,18 @@ public class Parser {
                     TaskList.addDeadline(inputCommand, tasks);
                 } else if (inputCommand.contains("event")) {
                     TaskList.addEvent(inputCommand, tasks);
-                } else if (inputCommand.contains("delete")) {
+                } else if (inputCommand.contains("delete")){
                     TaskList.deleteTask(inputCommand, tasks);
-                } else if (inputCommand.contains("find")) {
+                } else if (inputCommand.contains("find")){
                     TaskList.findTask(inputCommand, tasks);
-                } else if (inputCommand.contains("bye")) {
+                } else if(inputCommand.contains("bye")){
                     try {
                         Storage.saveData(tasks);
-                    } catch (IOException e) {
+                    } catch (IOException e){
                         System.out.println("Invalid file");
                     }
                     Ui.printBye();
-                } else {
+                } else{
                     throw new DukeException();
                 }
             } catch (DukeException e) {

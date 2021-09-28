@@ -1,8 +1,5 @@
 package duke.task;
 
-/**
- * Event object contains description of the event and date and time of the event
- */
 public class Event extends Task {
     protected String description;
     protected String at;
@@ -11,7 +8,6 @@ public class Event extends Task {
         super(description);
         this.at = at;
     }
-
     public String getAt() {
         return this.at;
     }
