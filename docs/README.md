@@ -26,7 +26,7 @@ task supplied by the user.)
    e.g. if the command specifies `list 123`, there will be an error.
 
 
-###Adding a todo
+**Adding a todo**
 
 
 Adds a todo to your list of tasks.
@@ -40,7 +40,7 @@ Example input:
 `todo deliver parcel`
 
 
-###Adding an Event
+**Adding an Event**
 
 
 Adds an event to your list of tasks.
@@ -54,7 +54,7 @@ Example input:
 `event concert /at friday night`
 
 
-###Adding a Deadline
+**Adding a Deadline**
 
 
 Adds a deadline to your list of tasks.
@@ -68,7 +68,7 @@ Example input:
 `deadline complete report /by monday`
 
 
-###Listing Tasks
+**Listing Tasks**
 
 
 Shows a list of all tasks.
@@ -76,7 +76,7 @@ Shows a list of all tasks.
 Format: `list`
 
 
-###Mark Task as Done
+**Mark Task as Done**
 
 
 Marks the task with the corresponding number in the list as done.
@@ -88,7 +88,7 @@ Example input:
 `done 1`
 
 
-###Delete Task
+**Delete Task**
 
 
 Deletes the task with the corresponding number in the list.
@@ -100,7 +100,7 @@ Example input:
 `delete 1`
 
 
-###Find Task
+**Find Task**
 
 
 Finds all tasks containing user input keyword in their descriptions
@@ -112,7 +112,7 @@ Example input:
 `find lunch`
 
 
-###Bye
+**Bye**
 
 
 Exits the program.
