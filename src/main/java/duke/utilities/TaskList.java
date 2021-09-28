@@ -13,7 +13,7 @@ public class TaskList {
     private final String PRINT_REMOVE_MESSAGE = "Task removed :\n    ";
     private final String MESSAGE_OUT_OF_RANGE = "No such task found! Try a range of 1 to ";
     private final String PRINT_DONE_MESSAGE_FRONT = "I have marked\n     ";
-    private final String PRINT_DONE_MESSAGE_BACK = "\n as done!";
+    private final String PRINT_DONE_MESSAGE_BACK = "\nas done!";
 
 
     private ArrayList<Task> tasks = new ArrayList<>();
