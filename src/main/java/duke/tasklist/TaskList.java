@@ -5,11 +5,8 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
-import duke.ui.Ui;
 
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.stream.Collectors;
 
 public class TaskList {
     protected ArrayList<Task> tasks;
@@ -24,74 +21,6 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return tasks;
-    }
-
-    /**
-     * Print list of tasks when requested by user.
-     */
-    public void printTasks() {
-        System.out.println("Here are the tasks in your list:");
-        Ui.printTasks(tasks);
-    }
-
-    /**
-     * Search in tasks for keyword input by user
-     *
-     * @param userInput user input
-     */
-    public void findTask(String userInput) {
-        try {
-            String keyword = userInput.split(" ")[1];
-            ArrayList<Task> foundTasks = (ArrayList<Task>) tasks.stream()
-                    .filter(t -> t.getDescription().toLowerCase(Locale.ROOT).contains(keyword))
-                    .collect(Collectors.toList());
-
-            boolean noMatch = foundTasks.isEmpty();
-            if (noMatch) {
-                Ui.printNoMatchTask();
-                return;
-            }
-
-            System.out.println("Here are the matching tasks in your list:");
-            Ui.printTasks(foundTasks);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please enter keyword of task to search");
-        }
-    }
-
-    /**
-     * Marks task status as done
-     *
-     * @param userInput user input
-     */
-    public void doneTask(String userInput) {
-        try {
-            int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            tasks.get(index).setDone();
-            System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(index).toString());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please enter index of task done");
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            System.out.println("Please enter index within range 1 to " + tasks.size());
-        }
-    }
-
-    /**
-     * Deletes task from list of tasks
-     *
-     * @param userInput user input
-     */
-    public void deleteTask(String userInput) {
-        try {
-            int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            Task removedTask = tasks.get(index);
-            tasks.remove(index);
-            System.out.println("Noted. I've removed this task:\n  " + removedTask.toString());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please enter index of task to be removed");
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            System.out.println("Please enter index within range 1 to " + tasks.size());
-        }
     }
 
     /**
@@ -118,7 +47,7 @@ public class TaskList {
      * @param userInput user input
      * @return description of task
      */
-    public String validateToDo(String userInput) {
+    private String validateToDo(String userInput) {
         String description = "";
         try {
             String[] words = userInput.split(" ", 2);
@@ -148,7 +77,7 @@ public class TaskList {
      * @param userInput user input
      * @return description and dateline of task
      */
-    public String[] validateDeadline(String userInput) {
+    private String[] validateDeadline(String userInput) {
         String[] information = new String[2];
         information[0] = "";
         information[1] = "";
@@ -195,7 +124,7 @@ public class TaskList {
      * @param userInput user input
      * @return description and event of task
      */
-    public String[] validateEvent(String userInput) {
+    private String[] validateEvent(String userInput) {
         String[] information = new String[2];
         information[0] = "";
         information[1] = "";

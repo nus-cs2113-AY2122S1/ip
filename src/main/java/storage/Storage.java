@@ -6,6 +6,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.task.ToDo;
+import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -83,7 +84,7 @@ public class Storage {
                     System.out.println(e.getMessage());
                 }
             }
-            taskList.printTasks();
+            Ui.printTasks(taskList.getTasks());
         } catch (IOException e) {
             System.out.println("IO exception error when loading data " + filePath);
         }
