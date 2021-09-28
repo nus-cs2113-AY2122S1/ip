@@ -60,7 +60,7 @@ public class TaskList {
             input.List.add(new Deadline(theTask, theDeadline));
             System.out.println("Nice! The task has been added to your deadlines");
             message.printLineBreak();
-        } catch (DukeException e) {
+        } catch (DukeException | NumberFormatException | IndexOutOfBoundsException e) {
             message.printMissingDeadline();
             message.printLineBreak();
         }

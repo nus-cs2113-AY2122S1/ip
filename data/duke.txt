@@ -1,6 +1,5 @@
-T|X|water plants
-T| |buy snacks
-D|X|project /by sunday
-E| |clubbing /at the moon
-T| |go to supermarket
-D|X|go for a jog /by tues afternoon
+T| |one
+D|X|eat dinner /by 2021-09-28:2130
+D| |running /by 2021-09-28:0530
+E| |Dentist /at SKGH Sunday 5pm
+D| |Bypass surgery /by 2022-01-01:0000
