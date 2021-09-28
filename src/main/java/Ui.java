@@ -2,8 +2,11 @@ import java.io.IOException;
 
 public class Ui {
     private static final String HOR_LINE = "_".repeat(60);
+    /** mode is 1 if in ECHO mode and 2 if in TASK mode. */
     protected static int mode = 0;
+    /** Saves latest tasks list when switching to ECHO mode. */
     protected static TaskList previousTL;
+    /** Storage object created at startup. */
     protected static Storage localStorage;
 
     public final int ECHO_MODE = 1;
@@ -12,17 +15,22 @@ public class Ui {
     private static final String TASK_WELCOME_MSG = "\tTASK MODE - Enter items to include in to-do list.\n";
     private static final String ECHO_WELCOME_MSG = "\tECHO MODE - Commands entered will be echoed back.\n";
 
+    /**
+     * Prints welcome message for mode entered.
+     *
+     * @param modeSelected ECHO_MODE or TASK_MODE.
+     */
     public void printModeEntered(int modeSelected) {
-        if (modeSelected == 1) {
+        if (modeSelected == ECHO_MODE) {
             System.out.println(ECHO_WELCOME_MSG);
         }
-        else if (modeSelected == 2) {
+        else if (modeSelected == TASK_MODE) {
             System.out.println(TASK_WELCOME_MSG);
         }
     }
 
     /**
-     * Function introduces chatbot and asks user for preferred mode and enters that mode.
+     * Introduces chatbot and asks user for preferred mode and enters that mode.
      * Mode 1 - Echo; 2 - Task; Otherwise - Returns Error Message and stops program.
      */
     public void greet() {
@@ -42,7 +50,7 @@ public class Ui {
     }
 
     /**
-     * Function prints Lennox chatbot logo.
+     * Prints Lennox chatbot logo.
      */
     public void printLogo() {
         String logo = "\t,--.\n" +
@@ -71,7 +79,7 @@ public class Ui {
         System.out.println("\tYou have entered: " + cmd);
         System.out.println("\t" + HOR_LINE + System.lineSeparator());
     }
-//
+
     /**
      * Function switches between Echo and Task modes.
      *
@@ -88,10 +96,10 @@ public class Ui {
             runTaskMode(previousTL);
         }
     }
-//
+
     /**
-     * Executes Echo mode, where commands of user are echoed back.
-     * When "change" is typed in by user, switches program to Task mode.
+     * Executes ECHO mode, where commands of user are echoed back.
+     * When "switch" is typed in by user, switches program to Task mode.
      */
     public void runEchoMode() {
         String echoString = null;
@@ -109,12 +117,13 @@ public class Ui {
             runEchoMode();
         }
     }
-//
+
     /**
      * Prints acknowledgement message that item has been added to list
      * and also mentions the total no. of tasks in list currently.
      *
      * @param currTask Task object that was just created after user input.
+     * @param tasksList TaskList object in which task are stored in.
      */
     public static void printAddedResponse(Task currTask, TaskList tasksList) {
         System.out.println("\t" + HOR_LINE);
@@ -124,18 +133,23 @@ public class Ui {
         System.out.println("\t" + HOR_LINE + System.lineSeparator());
     }
 
+    /**
+     * Prints confirmation message that Task has been marked complete.
+     *
+     * @param taskNo Index at which task appears in tasksList.
+     * @param tasksList TaskList object in which task are stored in.
+     */
     public void printTaskCompleteResponse(int taskNo, TaskList tasksList) {
         System.out.println("\t" + HOR_LINE);
         System.out.printf("\tThat's great! %s has been checked as completed!\n", tasksList.atIndex(taskNo).description);
         System.out.println("\t" + HOR_LINE + System.lineSeparator());
     }
-//
+
     /**
-     * Executes Task mode, where user's commands are added into to-do list.
-     * When "list" entered, prints out current to-do list.
-     * When "completed <task id>" or "done <task id>" entered, updates that task status.
-     * When "remove <task id>" or "delete <task id>" entered, removes that task from list.
-     * When "change" is typed in by user, switches program to Echo mode.
+     * Executes Task mode. Parses user command to detemine appropriate
+     * action.
+     *
+     * @param tasks TaskList object in which task are stored in.
      */
     public void runTaskMode(TaskList tasks) {
         Command c = Parser.parseTaskCommand();
@@ -151,23 +165,34 @@ public class Ui {
                 printTaskCompleteResponse(((DoneCommand) c).taskIndex, tasks);
             }
         } else if (c instanceof SwitchCommand) {
+            // Update mode to ECHO mode.
             mode = ((SwitchCommand)c).toEcho;
         }
 
         try {
+            // Save current task objects in list to local file.
             localStorage.saveToFile(tasks);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         if (mode == TASK_MODE & !(c instanceof ExitCommand)) {
+            // Continue to run TASK mode if not exiting.
             runTaskMode(localStorage.getUpdatedTasks());
         } else if (!(c instanceof ExitCommand)){
+            // Store current TaskList object so as to load back when switched back to TASK mode.
             previousTL = tasks;
+            // Switch to ECHO mode.
             switchMode(mode);
         }
     }
 
+    /**
+     * Prints goodbye message if user confirms to exit.
+     * Else, prints out message for user to continue with program.
+     *
+     * @param isExit true if user confirms to exit, false otherwise.
+     */
     public void printExitResponse(boolean isExit) {
         if (isExit) {
             // The end.
@@ -182,9 +207,8 @@ public class Ui {
     }
 
     /**
-     * Double confirms if user wants to exit.
+     * Clarifies if user wants to exit and exits program.
      * If no, gets user back to Task/Echo mode user was in.
-     * If yes, ends program with farewell message.
      */
     public void exit() {
         String preference = Parser.parseExitPref();
@@ -198,11 +222,17 @@ public class Ui {
             }
             exit();
         } else if (!preference.equalsIgnoreCase("y")){
+            // Clarify and re-enter exit scope.
             System.out.println("\tSorry, is it a y(es) or a n(o)?");
             exit();
         }
     }
 
+    /**
+     * Returns mode in which program is currently operating.
+     *
+     * @return mode 1 for ECHO mode or 2 for TASK mode.
+     */
     public int getMode() {
         return mode;
     }

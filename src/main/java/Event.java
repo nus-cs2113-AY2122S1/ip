@@ -1,5 +1,7 @@
 public class Event extends Task {
+    /** Time at which event will occur, stored as String. */
     protected String time;
+    /** Index at which slash of /at appears in input command string. */
     protected int keywordIdx = 0;
 
     /**

@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    // All Task items created will be saved to ip/lennox.txt local file.
+    /** All Task items created will be saved to ip/lennox.txt local file. */
     private static String fileName;
+    /** Latest task list is stored. */
     private TaskList updatedTasks;
 
     /**
@@ -78,12 +79,18 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Gets latest updated task list stored in this class.
+     *
+     * @return updatedTasks Latest task list.
+     */
     public TaskList getUpdatedTasks() {
         return updatedTasks;
     }
 
     public Storage(String filePath) {
         fileName = filePath;
+        // Create new TaskList object that will be used throughout program runtime.
         updatedTasks = new TaskList();
         // Read in list from previous session if it exists
         try {
