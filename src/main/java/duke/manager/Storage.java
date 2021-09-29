@@ -29,10 +29,14 @@ public class Storage {
 
 
     /**
-     * Initial function for getting stored tasks
-     * in the duketasks.txt file
+     * Transfers the stored tasks from the
+     * duketasks.txt file to the program.
+     * Creates a new file if one does not
+     * exist
      *
      * @param tasks Arraylist of tasks
+     * @throws FileNotFoundException If no file found
+     * @throws Exception             If cannot access the file
      */
     public static void getStoredData(ArrayList<Task> tasks) {
         try {
@@ -48,12 +52,6 @@ public class Storage {
         System.out.println("Error in opening duketasks.txt");
     }
 
-    /**
-     * Loads tasks from
-     * duketasks.txt file
-     *
-     * @param tasks Arraylist of tasks
-     */
     private static void loadTasksFromFile(ArrayList<Task> tasks) throws FileNotFoundException {
         File storedTasks = new File(FILE_PATH);
         Scanner scanner = new Scanner(storedTasks);
@@ -62,11 +60,6 @@ public class Storage {
         }
     }
 
-    /**
-     * Creates a file
-     * duketasks.txt if it does
-     * not already exist
-     */
     private static void createFile() {
         try {
             File newFile = new File(FILE_PATH);
@@ -81,9 +74,6 @@ public class Storage {
         System.out.println("Cannot create file");
     }
 
-    /**
-     * Loads a task as an object in the program
-     */
     private static void loadStoredTasks(String fileInput, ArrayList<Task> tasks) {
         String taskType = computeTaskType(fileInput);
         String taskIsDone = computeTaskIsDone(fileInput);
@@ -151,7 +141,8 @@ public class Storage {
     /**
      * Saves tasks from program to duketasks.txt file
      *
-     * @param tasks
+     * @param tasks Array of tasks
+     * @throws IOException If cannot access file
      */
     public static void saveTasksToFile(ArrayList<Task> tasks) {
         try {
