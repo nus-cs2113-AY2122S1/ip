@@ -2,19 +2,19 @@
 Duke is a Personal Assistant Chatbot that helps a person to keep track of various things using a Command Line Interface(CLI). If you can type fast, Duke is able to track and manage your tasks faster compared to a hypoethetical Graphical User Interface (GUI) version of the app. 
 
 ## Quick Start 
-1.Description of the Quick start.
-1.
-1.
-1.
-1.
-1.
+1. Description of the Quick start.
+2. test
+3. test
+4. test
+5. test
+6. test
 
 ## Features
-`**Command Format**`
-`* blahblahblah`
-`* blahblahblah`
-`* blahblahblah`
-`* blahblahblah`
+**`Command Format`**
+*` blahblahblah`
+*` blahblahblah`
+*` blahblahblah`
+*` blahblahblah`
 
 ### Listing all tasks: `list`
 Shows a list of all tasks.
