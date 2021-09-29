@@ -34,7 +34,6 @@ public class Duke {
      * Prompts input from user and processes it indefinitely until "BYE" is received.
      */
     private void run() {
-        this.ui = new Ui();
         ui.printWelcomeMessage();
         // String to store user's input
         String userInput = "";
