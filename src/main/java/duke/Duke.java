@@ -13,11 +13,10 @@ public class Duke {
         Ui.showWelcomeMessage();
         try {
             Storage.loadData();
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
-        while(true) {
+        while (true) {
             Parser.input = Parser.getInput();
             Parser.taskList = Storage.taskList;
             Command c;
@@ -41,10 +40,9 @@ public class Duke {
             } else {
                 c = Command.INVALID;
             }
-
             try {
                 Parser.runCommand(Parser.input, c);
-            } catch(TaskIndexOutOfBound e) {
+            } catch (TaskIndexOutOfBound e) {
                 System.out.println(e.getMessage());
             } catch (EmptyToDoException e) {
                 System.out.println(e);
@@ -59,10 +57,8 @@ public class Duke {
             } catch (InvalidInputException e) {
                 System.out.println(e);
             }
-
             Storage.saveData(Parser.taskList.getAllTasksListFormatted(), Storage.filePath);
             Storage.saveData(Parser.taskList.getAllTasksListOriginal(), Storage.originalInputPath);
-
             Ui.lineSeparator();
         }
     }

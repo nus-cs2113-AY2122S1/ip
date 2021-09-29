@@ -11,16 +11,15 @@ public class Event extends Task {
     }
 
     @Override
-    public String getTask(){
+    public String getTask() {
         int indexDivider = task.indexOf("/");
         String taskContent = task.substring(0,indexDivider).trim();
         String timeContent = task.substring(indexDivider + 1).trim();
         String[] timeSplit = timeContent.split(" ", 2);
         String time = timeSplit[1].trim();
-        if(isDone){
+        if (isDone) {
             return MARK_IS_EVENT + MARK_AS_DONE + " " + taskContent +  " (at: " + time + ")";
-        }
-        else{
+        } else {
             return MARK_IS_EVENT + MARK_AS_NOT_DONE + " " + taskContent +  " (at: " + time + ")";
         }
     }

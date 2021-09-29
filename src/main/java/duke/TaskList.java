@@ -20,7 +20,7 @@ public class TaskList {
      * Adds a new task (including deadline, event, todo) to the taskList
      * @param task a specific task object, can be deadline, event, todo
      */
-    public void addTask(Task task){
+    public void addTask(Task task) {
         tasks.add(task);
         System.out.println("Got it. I've added this task: ");
         System.out.println("  " + task.getTask());
@@ -32,7 +32,7 @@ public class TaskList {
      * @param task the task user wants to add
      * @return Nothing
      */
-    public boolean searchTask(Task task){
+    public boolean searchTask(Task task) {
         boolean taskFound = false;
         for (int i=0; i<tasks.size(); i++) {
             if (tasks.get(i).getTask().equals(task.getTask()) && !tasks.get(i).isDone()) {
@@ -92,7 +92,7 @@ public class TaskList {
             throw new EmptyDoneIndexException();
         }
         int indexOfTask = Integer.parseInt(words[1]);
-        if(indexOfTask < 1 || indexOfTask > tasks.size()){
+        if (indexOfTask < 1 || indexOfTask > tasks.size()) {
             throw new TaskIndexOutOfBound("Ops! your task index is out of bound!");
         }
         return indexOfTask;
@@ -103,7 +103,7 @@ public class TaskList {
      */
     public void listTasks(){
         System.out.println("List of tasks:");
-        for(int i=0; i<tasks.size(); i++){
+        for (int i=0; i<tasks.size(); i++) {
             int id = i + 1;
             System.out.println(id + "." + tasks.get(i).getTask());
         }
@@ -115,7 +115,7 @@ public class TaskList {
      */
     public String getAllTasksListFormatted() {
         String data = "";
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             data = data + tasks.get(i).getTask() + "\n";
         }
         return data;
@@ -127,10 +127,9 @@ public class TaskList {
      */
     public String getAllTasksListOriginal() {
         String data = "";
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             data = data + tasks.get(i) + "\n";
         }
         return data;
     }
-
 }

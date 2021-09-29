@@ -98,11 +98,10 @@ public class Storage {
         Parser.input = s;
         if(Parser.isEvent()) {
             return Command.EVENT;
-        } else if(Parser.isDeadLine()) {
+        } else if (Parser.isDeadLine()) {
             return Command.DEADLINE;
         } else {
             return Command.TODO;
         }
     }
-
 }

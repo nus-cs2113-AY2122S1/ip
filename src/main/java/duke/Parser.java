@@ -49,7 +49,9 @@ public class Parser {
         return input.startsWith("todo");
     }
 
-    public static boolean isDelete() {return input.startsWith("delete"); }
+    public static boolean isDelete() {
+        return input.startsWith("delete");
+    }
 
     /**
      * Verifies if the todo command has valid input.
@@ -69,7 +71,6 @@ public class Parser {
         boolean isEmpty = inputTemp.equals("");
         String[] task = inputTemp.split("/by");
         return (isEmpty || task.length == 0 || task.length == 1);
-
     }
 
     /**
@@ -95,26 +96,27 @@ public class Parser {
      */
     public static Task convertInputToTask()
             throws InvalidDeadlineTimeException, InvalidEventTimeException, EmptyToDoException, InvalidCommandException {
-        if(isDeadLine()){
-            if(isInvalidDeadLine()) {
+        if (isDeadLine()) {
+            if (isInvalidDeadLine()) {
                 throw new InvalidDeadlineTimeException();
             }
             return new DeadLine(input);
         }
-        if(isEvent()){
-            if(isInvalidEvent()) {
+        if (isEvent()) {
+            if (isInvalidEvent()) {
                 throw new InvalidEventTimeException();
             }
             return new Event(input);
         }
-        if(isToDo()){
-            if(isInvalidToDo()) {
+        if (isToDo()) {
+            if (isInvalidToDo()) {
                 throw new EmptyToDoException();
             }
             return new ToDo(input);
         }
-        else
+        else {
             throw new InvalidCommandException();
+        }
     }
 
     /**
@@ -130,7 +132,7 @@ public class Parser {
      * @throws InvalidInputException
      */
     public static void runCommand(String input, Command c)
-            throws TaskIndexOutOfBound, InvalidDeadlineTimeException, InvalidEventTimeException, EmptyToDoException, InvalidCommandException, EmptyDoneIndexException, InvalidInputException{
+            throws TaskIndexOutOfBound, InvalidDeadlineTimeException, InvalidEventTimeException, EmptyToDoException, InvalidCommandException, EmptyDoneIndexException, InvalidInputException {
         switch (c) {
         case LIST:
             taskList.listTasks();

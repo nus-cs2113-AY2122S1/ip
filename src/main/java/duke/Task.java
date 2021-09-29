@@ -30,7 +30,6 @@ public class Task {
      */
     public void markAsDone(){
         isDone = true;
-
     }
 
     public boolean isDone() {

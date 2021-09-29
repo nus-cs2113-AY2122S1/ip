@@ -14,24 +14,23 @@ public class Ui {
         greet();
     }
 
-    public static void greet(){
+    public static void greet() {
         lineSeparator();
         System.out.println("Hello! I am your memo keeper Duke! \nWhat can I do for you?");
         lineSeparator();
     }
 
-    public static void echo(String userInput){
+    public static void echo(String userInput) {
         lineSeparator();
         System.out.println(userInput);
         lineSeparator();
     }
 
-    public static void bye(){
+    public static void bye() {
         System.out.println("Bye. Hope to see you again, don't forget to complete your task!");
     }
 
     public static void lineSeparator() {
         System.out.println("-*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*--*-*-*-*-");
     }
-
 }

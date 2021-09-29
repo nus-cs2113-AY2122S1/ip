@@ -12,11 +12,10 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String getTask(){
+    public String getTask() {
         if(isDone){
             return MARK_TO_DO + MARK_AS_DONE + " " + task;
-        }
-        else{
+        } else {
             return MARK_TO_DO + MARK_AS_NOT_DONE + " " + task;
         }
     }
