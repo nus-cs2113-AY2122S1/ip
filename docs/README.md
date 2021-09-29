@@ -148,13 +148,13 @@ Bye. Hope to see you again soon!
 ```
 
 ## Command Summary
-**Action** | **Format** | **Examples**
----------- | ---------- | ------------
-**todo** | `todo <TASK_DESCRIPTION>` | `todo Laundry`
-**event** | `event <TASK_DESCRIPTION>/<DATE_AND_TIME>` | `event CS2113T Lecture /01-10-2021 16:00`
-**deadline** | `deadline <TASK_DESCRIPTION>/<DATE_AND_TIME>` | `deadline IP /01-10-2021 23:59`
-**list** | `list` | `list`
-**done** | `done <TASK_NUMER>` | `done 1`
-**delete** | `delete <TASK_NUMER>` | `delete 2`
-**find** | `find <KEYWORD>` | `find Laundry`
-**bye** | `bye` | `bye`
+| **Action** | **Format** | **Examples** |
+| ---------- | ---------- | ------------ |
+| **todo** | `todo <TASK_DESCRIPTION>` | `todo Laundry` |
+| **event** | `event <TASK_DESCRIPTION>/<DATE_AND_TIME>` | `event CS2113T Lecture /01-10-2021 16:00` |
+| **deadline** | `deadline <TASK_DESCRIPTION>/<DATE_AND_TIME>` | `deadline IP /01-10-2021 23:59` |
+| **list** | `list` | `list` |
+| **done** | `done <TASK_NUMER>` | `done 1` |
+| **delete** | `delete <TASK_NUMER>` | `delete 2` |
+| **find** | `find <KEYWORD>` | `find Laundry` |
+| **bye** | `bye` | `bye` |
