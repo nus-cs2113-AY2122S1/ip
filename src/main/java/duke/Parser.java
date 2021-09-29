@@ -53,7 +53,7 @@ public class Parser {
      *
      * @param userLineInput Line input by the user.
      * @return Event task created from the user line input
-     * @throws DukeException if "/by" is used instead of "/at"
+     * @throws DukeExceptions if "/by" is used instead of "/at"
      */
     public static Task getEventTask(String userLineInput) throws DukeExceptions {
         int infoIndex = userLineInput.indexOf("/");
@@ -72,7 +72,7 @@ public class Parser {
      * Creates a deadline task based on the input of the user and returns the new task.
      * @param userLineInput Line input by the user.
      * @return Event task created from the user line input
-     * @throws DukeException if "/at" is used instead of "/by"
+     * @throws DukeExceptions if "/at" is used instead of "/by"
      */
     public static Task getDeadlineTask(String userLineInput) throws DukeExceptions {
         int infoIndex = userLineInput.indexOf("/");

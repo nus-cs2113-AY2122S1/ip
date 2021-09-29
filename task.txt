@@ -2,3 +2,4 @@ D | 1 | return book /by June 6th
 T | 1 | join sports club
 T | 1 | eat
 E | 0 | study /at noon
+D | 0 | assignment /by 12/11/19 2359
