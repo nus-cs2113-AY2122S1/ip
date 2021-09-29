@@ -18,6 +18,7 @@ public class Command {
     private static final int CMD_DONE = 5;
     private static final int CMD_DELETE = 6;
     private static final int CMD_SHOW_DATE = 7;
+    private static final int CMD_FIND = 8;
     private static final int CMD_TERMINATE = 0;
     private static final String TODO = "todo";
     private static final String EVENT = "event";
@@ -27,6 +28,7 @@ public class Command {
     private static final String BY = "/by";
     private static final String AT = "/at";
     private static final String SHOW_DATE = "show date";
+    private static final String FIND = "find";
 
     protected int command;
     protected boolean isExit = false;
@@ -91,8 +93,21 @@ public class Command {
                     if (item.getDeadline().isEqual(deadline)) {
                         System.out.print(index + ".");
                         System.out.println(item);
+                        index++;
                     }
-                    index++;
+                }
+                break;
+            case CMD_FIND:
+                index = 1;
+                String key = userInput.replace(FIND, "").trim();
+                System.out.println(Ui.border);
+                System.out.println("Here are the all the task in your list with keyword: " + key);
+                for (Task item : storage.items) {
+                    if (item.getDescription().contains(key)) {
+                        System.out.print(index + ".");
+                        System.out.println(item);
+                        index++;
+                    }
                 }
                 break;
             case CMD_DONE:
