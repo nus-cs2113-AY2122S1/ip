@@ -1,8 +1,7 @@
-todo eat cake
-deadline eat chocolate cake /by Friday 2pm
-event attend cake buffet /at Saturday 5pm
+todo Eat cake
+deadline Eat chocolate cake /by Friday 2pm
+event Attend cake buffet /at Saturday 5pm
 done 1
 find eat
 list
-cake
 bye

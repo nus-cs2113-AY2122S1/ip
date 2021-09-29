@@ -1,30 +1,37 @@
-The file data/duke.txt is not found.A new file data/duke.txt has been created.
-Hello! I'm Duke.
-What can I do for you?
-Got it. I've added this task:
-eat cake
+Kao cannot find the file data/duke.txt ( ;ŏ﹏ŏ ) Kao will create a new file data/duke.txt for you!
+Hello there! Kao here! ⸜(˃ ᵕ ˂ )⸝
+How can Kao be of assistance? ( •̀ ᗜ •́ )
+todo Eat cake
+Kao got it! (  ｡•̀ᴗ-)✧ Kao has added this task:
+Eat cake
 Now you have 1 tasks in the list.
-What can I do for you?
-Got it. I've added this task:
-eat chocolate cake
+How can Kao be of assistance? ( •̀ ᗜ •́ )
+deadline Eat chocolate cake /by Friday 2pm
+Kao got it! (  ｡•̀ᴗ-)✧ Kao has added this task:
+Eat chocolate cake
 Now you have 2 tasks in the list.
-What can I do for you?
-Got it. I've added this task:
-attend cake buffet
+How can Kao be of assistance? ( •̀ ᗜ •́ )
+event Attend cake buffet /at Saturday 5pm
+Kao got it! (  ｡•̀ᴗ-)✧ Kao has added this task:
+Attend cake buffet
 Now you have 3 tasks in the list.
-What can I do for you?
-Nice! I've marked this task as done:
-eat cake
-What can I do for you?
-Here are the matching tasks in your list:
-1. [T][X] eat cake
-2. [D][ ] eat chocolate cake  (by: Friday 2pm)
-What can I do for you?
-Here are the tasks in your list:
-1. [T][X] eat cake
-2. [D][ ] eat chocolate cake  (by: Friday 2pm)
-3. [E][ ] attend cake buffet (at: Saturday 5pm)
-What can I do for you?
-Command is empty.
-What can I do for you?
-Bye. Hope to see you again soon!
+How can Kao be of assistance? ( •̀ ᗜ •́ )
+done 1
+Nice job! (  >ω<)☆ Kao marked this task as done:
+Eat cake
+How can Kao be of assistance? ( •̀ ᗜ •́ )
+find eat
+Kao got it! ε=ε=┌( `ー´)┘
+Kao retrieved the matching tasks in your list:
+1. [T][X] Eat cake
+2. [D][ ] Eat chocolate cake  (by: Friday 2pm)
+How can Kao be of assistance? ( •̀ ᗜ •́ )
+list
+Right away! ε=ε=┌( >_<)┘
+Kao retrieved the tasks in your list:
+1. [T][X] Eat cake
+2. [D][ ] Eat chocolate cake  (by: Friday 2pm)
+3. [E][ ] Attend cake buffet (at: Saturday 5pm)
+How can Kao be of assistance? ( •̀ ᗜ •́ )
+bye
+Bye bye! Kao will be waiting for you ｡:ﾟ( ´°ω°｀ )ﾟ:｡
