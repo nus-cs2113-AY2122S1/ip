@@ -2,6 +2,10 @@ package Duke;
 
 public class Ui {
 
+    /**
+     * The Class representing all the visual responses by Duke to the user
+     */
+
     public void printIntro() {
         String logo = " _____     _____    _____     _____\n"
                 + "|     |   |        |     |   |     |\n"
