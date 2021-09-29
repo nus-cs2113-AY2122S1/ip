@@ -84,7 +84,7 @@ public class TaskList {
         //print statements
         System.out.println("    Got it. I've added this task:");
         System.out.println("      " + list.get(size - 1));
-        System.out.println("    Now you have " + (size + 1) + " tasks in the list.");
+        System.out.println("    Now you have " + (size) + " tasks in the list.");
     }
 
     /**
