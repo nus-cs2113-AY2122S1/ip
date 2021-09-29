@@ -10,23 +10,29 @@ Duke is a Command Line Interface program that let users keep track of their task
 
 Command | Use
 ------- | ---
-ToDo | Add **ToDo** Task
-Deadline | Add **Deadline** Task
-Event | Add **Event** Task
-Done | Set a Task as completed
-Delete | Remove a Task
-List | View Task
-Find | Find a Task with **Keyword**
-Date | Find a Task with a specific **Date**
-Echo | Repeat Input
-Bye | Exit Program
+`ToDo` | Add **ToDo** Task
+`Deadline` | Add **Deadline** Task
+`Event` | Add **Event** Task
+`Done` | Set a Task as completed
+`Delete` | Remove a Task
+`List` | View Task
+`Find` | Find a Task with **Keyword**
+`Date` | Find a Task with a specific **Date**
+`Echo` | Repeat Input
+`Bye` | Exit Program
 
 ## Notes
 
 ## Features
 
 ### Adding a ToDo Task
+Add a ToDo Task to your list of tasks. 
+ToDo Task are tasks without specific dates and times 
+For tasks that can be completed anytime.
 
+Command: `todo TASK_DESCRIPTION`
+
+Examples:
 ### Adding a DeadLine Task
 
 ### Adding a Event Task
