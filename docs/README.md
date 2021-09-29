@@ -24,7 +24,7 @@ ___
 ## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
-2. Download the latest copy of `rpgshell.jar` from here.
+2. Download the latest copy of `rpgshell.jar` from [here](https://github.com/3m0W33D/ip/releases/download/A-Release/rpgshell.jar).
 3. Copy the file to the _home_ folder that you want to use for your ShellRPG
 4. Open a command prompt `cmd.exe` or `powershell.exe`
    and navigate to the _home_ folder where the `rpgshell.jar` is located.
@@ -57,7 +57,7 @@ ___
 
 ### Adding a Todo: `todo`
 
-Adds a Todo task to ShellRPG. Todo tasks only contains a task description.
+Adds a Todo task to ShellRPG list of tasks. Todo tasks only contains a task description.
 
 Format: `todo <Task Description>`
 
@@ -75,7 +75,7 @@ ____________________________________________________________
 
 ### Adding a Deadline: `deadline`
 
-Adds a Deadline task to ShellRPG. Deadline tasks contains a task description and the date to
+Adds a Deadline task to ShellRPG list of tasks. Deadline tasks contains a task description and the date to
 indicate when the deadline should be completed by.
 
 Format: `deadline <Task Description> /by <Date>`
@@ -95,7 +95,7 @@ ____________________________________________________________
 
 ### Adding a Event: `event`
 
-Adds an Event task to ShellRPG. Event tasks contains a task description and the date and the time to
+Adds an Event task to ShellRPG list of tasks. Event tasks contains a task description and the date and the time to
 indicate when the event should be happening.
 
 Format: `event <Task Description> /at <Datetime>`
@@ -115,7 +115,7 @@ ____________________________________________________________
 
 ### Listing all tasks: `list`
 
-Shows a list of all task stored by ShellRPG.
+Show the list of all task stored by ShellRPG.
 
 Format: `list`
 
@@ -134,9 +134,10 @@ ____________________________________________________________
 
 ### Marking a task as done: `done`
 
-Updates a task as completed in ShellRPG. Index should be a valid number from the list of tasks.
+Update a task as completed in ShellRPG list of tasks.
 
 Format: `done <Task Index>`
+> ⚠️`<Task Index>` needs to be a valid index. Must be an already created task.  
 
 Example usage and outcome:
 
@@ -151,9 +152,10 @@ ____________________________________________________________
 
 ### Deleting a task: `delete`
 
-Deletes a task from ShellRPG. Index should be a valid number from the list of tasks.
+Delete a task from ShellRPG list of tasks. 
 
 Format: `delete <Task Index>`
+> ⚠️`<Task Index>` needs to be a valid index. Must be an already created task.  
 
 Example usage and outcome:
 
@@ -169,7 +171,7 @@ ____________________________________________________________
 
 ### Searching for a task: `find`
 
-Finds for the searched `Keyword` in all the tasks description.
+Search for the `Keyword` in all of ShellRPG list of task's description.
 
 Format: `find <Keyword>`
 
@@ -200,7 +202,7 @@ Bye. Hope to see you again soon!
 ____________________________________________________________
 ```
 
-### Save data to file
+### Automatic saving
 
 The tasks in ShellRPG are automatically saved to a save file `[JAR_LOCATION]/data/duke.txt` after
 the execution of every command. Advanced users are welcome to update data directly by editing
@@ -209,6 +211,24 @@ that `duke.txt`
 > ❗ **Caution**: if the save file is detected to be corrupted
 > or does not conform to ShellRPG's saved file format, ShellRPG will not run.  
 
+### Editing save file
+Todo: `<Type>|<Completion status>|<Description>`
+
+E.g. `T | 0 | Complete Homework`
+
+Deadline and Event: `<Type>|<Completion status>|<Description>|<Date/Datetime>`
+
+E.g. `Deadline: D | 0 | Assignment Submission | 2021-10-10`
+
+E.g. `Event: E| 0 | Midterms Test|2021-10-11 2359`
+
+> 💡 `Completion Status` must be either `0` for incomplete or `1` for completed  
+> 
+> 💡 `<Date/Datetime>` must be in the format `yyyy-MM-dd/yyyy-MM-dd hhmm`
+> 
+> 💡 `Todo` must have exactly 2 `|` and `Deadline/Events` must have exactly 3 `|` 
+> or else the file will fail to parse.  
+> Read above to check for failure to parse.
 ___
 
 ## FAQ
