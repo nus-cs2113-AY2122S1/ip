@@ -43,6 +43,7 @@ public class Parser {
             + "Please ensure you provide the date/time of the deadline.";
     private static final String MESSAGE_INVALID_TASK_NUMBER = "Please use a valid integer for the task number.";
     private static final String MESSAGE_UNRECOGNISED_COMMAND = "I'm sorry, but I don't know what that means :-(";
+    private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format!";
 
     /**
      * Parses user input as a command.
@@ -54,7 +55,7 @@ public class Parser {
     public static Command parseCommand(String userInput) throws DukeException {
         Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput);
         if (!matcher.matches()) {
-            throw new DukeException("Invalid command format!");
+            throw new DukeException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
         final String command = matcher.group(CAPTURING_GROUP_COMMAND);
         final String args = matcher.group(CAPTURING_GROUP_ARGS).trim();
@@ -88,7 +89,7 @@ public class Parser {
         }
         final String description = matcher.group(CAPTURING_GROUP_DESCRIPTION);
         if (description == null || description.isBlank()) {
-            throw new DukeException("Invalid command format!");
+            throw new DukeException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
         return new ToDoCommand(description);
     }
@@ -116,7 +117,7 @@ public class Parser {
     private static Matcher parseTask(String args) throws DukeException {
         final Matcher matcher = TASK_ARGS_FORMAT.matcher(args);
         if (!matcher.matches()) {
-            throw new DukeException("Invalid command format!");
+            throw new DukeException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
         return matcher;
     }
