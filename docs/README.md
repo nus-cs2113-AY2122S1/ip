@@ -5,16 +5,16 @@ Duke is a java application to manage tasks via command line interface (CLI). Thi
 ## Contents of User Guide
 - [Quick start](#user-content-quick-start)
 - [Features](#features)
-  1. [`help` - View help](#user-content-help---view-help)
-  2. [`list` - List all the tasks created](#user-content-list---list-all-the-tasks-created)
-  3. [`todo` - Create a todo task](#user-content-todo---create-a-todo-task)
-  4. [`deadline` - Create a deadline task](#user-content-deadline---create-a-deadline-task)
-  5. [`event` - Create an event task](#user-content-event---create-an-event-task)
-  6. [`done` - Check corresponding task as done](#user-content-done---check-corresponding-task-as-done)
-  7. [`delete` - Delete corresponding task from list](#user-content-delete---delete-corresponding-task-from-list)
-  8. [`find` - Find description tasks with the given input](#user-content-find---find-description-tasks-with-the-given-input)
+  1. [`help` - View help](#help---view-help)
+  2. [`list` - List all the tasks created](#list---list-all-the-tasks-created)
+  3. [`todo` - Create a todo task](#todo---create-a-todo-task)
+  4. [`deadline` - Create a deadline task](#deadline---create-a-deadline-task)
+  5. [`event` - Create an event task](#event---create-an-event-task)
+  6. [`done` - Check corresponding task as done](#done---check-corresponding-task-as-done)
+  7. [`delete` - Delete corresponding task from list](#delete---delete-corresponding-task-from-list)
+  8. [`find` - Find description tasks with the given input](#find---find-description-tasks-with-the-given-input)
   9. [`sort time` - Sort tasks based on date](#sort-time---sort-tasks-based-on-date)
-  10. [`bye` - Exit program](#user-content-bye---exit-program)
+  10. [`bye` - Exit program](#bye---exit-program)
 - [Frequently Asked Questions(FAQ)](#frequently-asked-questionsfaq)
 - [Command Summary](#command-summary)
 ---
@@ -327,13 +327,13 @@ Output:
 
 |  Commands   |                      Description                       |
 |-------------|--------------------------------------------------------|
-[bye](#user-content-bye---exit-program)| Exits the program
-[deadline](#user-content-deadline---create-a-deadline-task)| Create a deadline task
-[delete](#user-content-delete---delete-corresponding-task-from-list)| Delete corresponding task from list
-[done](#user-content-done---check-corresponding-task-as-done)| Check corresponding task as done
-[event](#user-content-event---create-an-event-task)| Create an event task
-[find](#user-content-find---find-description-tasks-with-the-given-input)| Find tasks that contains the relevant keyword
-[help](#user-content-help---view-help) | Shows all available commands for the program
-[list](#user-content-list---list-all-the-tasks-created)| show all the tasks in the list
+[bye](#bye---exit-program)| Exits the program
+[deadline](#content-deadline---create-a-deadline-task)| Create a deadline task
+[delete](content-delete---delete-corresponding-task-from-list)| Delete corresponding task from list
+[done](#content-done---check-corresponding-task-as-done)| Check corresponding task as done
+[event](#content-event---create-an-event-task)| Create an event task
+[find](#content-find---find-description-tasks-with-the-given-input)| Find tasks that contains the relevant keyword
+[help](#content-help---view-help) | Shows all available commands for the program
+[list](#content-list---list-all-the-tasks-created)| show all the tasks in the list
 [sort time](#sort-time---sort-tasks-based-on-date)| sort all tasks with date and time based on date and time ascending
-[todo](#user-content-todo---create-a-todo-task)| create a todo task
+[todo](#content-todo---create-a-todo-task)| create a todo task
