@@ -21,8 +21,6 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
-    //main function to process input
-
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage();

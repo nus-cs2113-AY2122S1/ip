@@ -17,6 +17,7 @@ public class Ui {
             + "No preloaded file found! Please input your own data.\n"
             + "____________________________________________________________\n";
 
+
     /** Quick summary of instructions to using this application*/
     public static String instructions = "____________________________________________________________\n"
             + "Hello! Welcome to Duke. I am your personal task tracker.\n"
@@ -25,6 +26,7 @@ public class Ui {
             + "For deadlines and events, after your task, please enter either \"by (your deadline)\" "
             + "or \"at (your event timing)\".\n"
             + "To see all your tasks, enter \"list\". \n"
+            + "To filter your tasks using keywords, enter \"find (keyword)\". \n"
             + "To mark a task as done, enter \"done (task number)\". \n"
             + "To delete a task, enter \"delete (task number)\". \n"
             + "To exit this program, enter \"bye\". \n"
