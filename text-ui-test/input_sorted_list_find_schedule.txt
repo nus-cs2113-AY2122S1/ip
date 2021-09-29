@@ -1,0 +1,14 @@
+purge
+list
+event E1 /at 2021-09-30 15:00
+event E2 /at 2021-09-30 10:00
+deadline D1 /by 2021-09-29 15:00
+deadline D2 /by 2021-09-30 23:59
+list
+schedule 2021-09-30
+done 3
+schedule 2021-09-30
+find E
+find D
+bye
+
