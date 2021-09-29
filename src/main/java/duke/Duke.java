@@ -1,13 +1,18 @@
 package duke;
 
-import duke.exception.InvalidCommandException;
-import duke.task.TaskManager;
-import duke.task.TaskType;
+import duke.command.Command;
+import duke.exception.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
 import java.security.InvalidParameterException;
-import java.util.Locale;
-import java.util.Scanner;
 
 public class Duke {
+
+    private Ui ui;
+    private TaskList tasks;
+    private Storage storage;
 
     /* User input is seperated by an empty space */
     public static final String USER_INPUT_SEPERATOR = " ";
@@ -38,79 +43,38 @@ public class Duke {
             + "BYE (End program)\n"
             + "HELP (List out available commands)";
 
-
-    /**
-     * Prints given string in the middle of 2 horizontal lines.
-     *
-     * @param message String to be printed
-     */
-    public static void printMessage(String message) {
-        System.out.println(LINE);
-        System.out.println(message);
-        System.out.println(LINE);
+    public Duke(String filePath){
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.loadData());
+        } catch (DukeException e) {
+            ui.printErrorMessage(e.getMessage());
+        }
     }
 
-    public static void main(String[] args) throws InvalidParameterException {
-
-        // Print welcome message to user
-        printMessage(WELCOME_MESSAGE);
-
-        // Create task manager to manage task given by user
-        TaskManager taskManager = new TaskManager();
-        taskManager.loadData();
-
-        // Create a scanner to read user input
-        Scanner in = new Scanner(System.in);
-
+    public void run(){
+        ui.printWelcomeMessage();
         // Boolean to allow continuous listening of user input
-        boolean exit = false;
-
+        boolean isExit = false;
         // Listen for user input and do commands given by user till user wants to exit program
-        while (!exit) {
-            String userInput = in.nextLine();
-            String[] userInputArray = userInput.split(USER_INPUT_SEPERATOR, 2);
-            String userCommand = userInputArray[0].toUpperCase(Locale.ROOT);
+        while (!isExit) {
             try {
-                switch (userCommand) {
-                case USER_COMMAND_LIST:
-                    taskManager.listTask();
-                    break;
-                case USER_COMMAND_BYE:
-                    exit = true;
-                    break;
-                case USER_COMMAND_DEADLINE:
-                    taskManager.addTask(userInputArray, TaskType.DEADLINE);
-                    break;
-                case USER_COMMAND_EVENT:
-                    taskManager.addTask(userInputArray, TaskType.EVENT);
-                    break;
-                case USER_COMMAND_TODO:
-                    taskManager.addTask(userInputArray, TaskType.TODO);
-                    break;
-                case USER_COMMAND_DONE:
-                    taskManager.completeTask(Integer.parseInt(userInputArray[1]));
-                    break;
-                case USER_COMMAND_DELETE:
-                    taskManager.deleteTask(Integer.parseInt(userInputArray[1]));
-                    break;
-                case USER_COMMAND_HELP:
-                    printMessage(HELP_MESSAGE);
-                    break;
-
-                default:
-                    throw new InvalidCommandException("Invalid Command Given.\n" + HELP_MESSAGE);
-                }
-            } catch (InvalidCommandException e) {
-                printMessage(e.getMessage());
-            } catch (NumberFormatException e) {
-                printMessage("Please give a number for the following command: " + userCommand + " <number>");
-            } catch (IndexOutOfBoundsException e) {
-                printMessage(
-                        "Please give command in the following format, you are missing something.\n" + HELP_MESSAGE);
+                String fullCommand = ui.readCommand();
+                ui.printHorizontalLines();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.printErrorMessage(e.getMessage());
+            }finally {
+                ui.printHorizontalLines();
             }
         }
-        taskManager.saveData();
-        printMessage(EXIT_MESSAGE);
+    }
 
+
+    public static void main(String[] args) throws InvalidParameterException {
+        new Duke("data/tasks.txt").run();
     }
 }
