@@ -1,2 +1,2 @@
-D|false|test|2021-10-11
-E|false|test|reub
+D|true|Submit IP|2021-10-01
+E|false|Itachi birthday|Thursday 12pm - 7pm

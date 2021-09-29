@@ -12,8 +12,11 @@ import duke.task.ToDo;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 
-
+/**
+ * This class contains static methods that handle all the various commands Duke is capable of executing
+ */
 public class Command {
     /**
      * This function prints the list of tasks present. If empty, shows a prompt saying no tasks to list
@@ -156,7 +159,7 @@ public class Command {
         ArrayList<Task> foundTasks = new ArrayList<>();
         try {
             for (Task task : taskList) {
-                if (task.getDataForFind().contains(patternToSearch)) {
+                if (task.getDataForFind().toLowerCase().contains(patternToSearch.toLowerCase(Locale.ROOT))) {
                     foundTasks.add(task);
                 }
             }

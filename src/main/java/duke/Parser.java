@@ -1,10 +1,18 @@
 package duke;
 
 import duke.data.Storage;
-import duke.exception.*;
+import duke.exception.DukeInvalidInputException;
+import duke.exception.DukeTimeFormatException;
+import duke.exception.DukeParameterException;
+import duke.exception.DukeCommandException;
+import duke.exception.DukeTaskNotFoundException;
 
 import java.util.ArrayList;
 
+/**
+ * This class contains methods that deal with the parsing of user input into its components (command and parameters)
+ * and also with the handling of user input once the input has been broken down
+ */
 public class Parser {
 
     public static final String HELP = "help";
@@ -59,7 +67,7 @@ public class Parser {
     public static void handleInput(ArrayList<String> arguments) throws DukeCommandException, DukeParameterException, DukeInvalidInputException, DukeTaskNotFoundException, DukeTimeFormatException {
         //arguments[0] is the command that was inputted by the user
         //arguments[1], arguments[2] (For the case of deadline, events) are the parameters that were given to the command
-        switch (arguments.get(0)) {
+        switch (arguments.get(0).toLowerCase()) {
         case HELP:
             Ui.printHelpMessage();
             break;
@@ -83,7 +91,9 @@ public class Parser {
             break;
 
         case TODO:
+            //Fallthrough
         case DEADLINE:
+            //Fallthrough
         case EVENT:
             Command.executeAdd(arguments);
             Storage.write();

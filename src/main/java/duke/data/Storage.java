@@ -10,6 +10,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * This class deals with the text file where the data is being stored.
+ * Has methods for reading from file and writing to task list and also writing from task list to file
+ */
 public class Storage {
     private static final String DIRECTORY_NAME = "data";
     private static final String FILE_NAME = "tasks.txt";

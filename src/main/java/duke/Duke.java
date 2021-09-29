@@ -1,7 +1,11 @@
 package duke;
 
 import duke.data.Storage;
-import duke.exception.*;
+import duke.exception.DukeInvalidInputException;
+import duke.exception.DukeTimeFormatException;
+import duke.exception.DukeParameterException;
+import duke.exception.DukeCommandException;
+import duke.exception.DukeTaskNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,6 +18,10 @@ public class Duke {
         Ui.printExitMessage();
     }
 
+    /**
+     * This function acts as the driving loop for the program where it continuously
+     * takes in user inputs and handles them till an exit command is given
+     */
     private static void run() {
         Scanner input = new Scanner(System.in);
         String userInput = input.nextLine();

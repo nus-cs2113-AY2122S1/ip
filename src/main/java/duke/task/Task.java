@@ -19,17 +19,21 @@ public class Task {
         this.isDone = true;
     }
 
-    @Override
-    public String toString() {
-        String done = isDone ? "X" : " " ;
-        return "[" + type + "]"+ "["+ done +"] " + description;
-    }
-
+    /**
+     * Formats the data in the required format to be written into text file
+     * @return a string containing all the details of the task in required format
+     */
     public String formatData() {
         return type + "|" + isDone + "|" + description;
     }
 
     public String getDataForFind() {
         return this.description;
+    }
+
+    @Override
+    public String toString() {
+        String done = isDone ? "X" : " " ;
+        return "[" + type + "]"+ "["+ done +"] " + description;
     }
 }

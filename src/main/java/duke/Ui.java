@@ -5,6 +5,9 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * This class contains all the messages Duke would output to the user and acts as the ui
+ */
 public class Ui {
     private static final String DOTTED_LINE = "______________________________________________________________________________\n";
 
