@@ -23,12 +23,8 @@ public class Storage {
      * @throws IOException if any of the file operations fail
      */
     public static void initializeStorage() throws IOException {
-        if (dukeDir.mkdir()) {
-            Ui.printlnTab("Created " + dukeDirPath + " directory!");
-        }
-        if (dataFile.createNewFile()) {
-            Ui.printlnTab("Created " + dataPath + " storage file!");
-        }
+        dukeDir.mkdir();
+        dataFile.createNewFile();
 
         try {
             readFile();
