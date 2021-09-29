@@ -45,7 +45,7 @@ public class TaskList {
      */
     public static void sayList() throws DukeException{
         if (taskCount == 0) {
-            throw new DukeException("Hold your horses, you didn't even tell me about your wishes yet!");
+            throw new DukeException(line + "\n" + "Hold your horses, you didn't even tell me about your wishes yet!" + "\n" + line + "\n");
         } else {
             System.out.println(line);
             for (int i = 0; i < taskCount; i++) {

@@ -10,6 +10,11 @@ import static duke.Storage.loadData;
 public class Ui {
 
     public static String line = "------------------------------------------------------------------------------------------\n";
+    public static String logo = " ____        _        \n"
+            + "|  _ \\ _   _| | _____ \n"
+            + "| | | | | | | |/ / _ \\\n"
+            + "| |_| | |_| |   <  __/\n"
+            + "|____/ \\__,_|_|\\_\\___|\n";
 
     /**
      * Method that prints a greeting and loads previously saved tasks into the bot.
@@ -19,14 +24,11 @@ public class Ui {
     public static void start() throws DukeException {
         try {
             loadData();
-            String logo = " ____        _        \n"
-                    + "|  _ \\ _   _| | _____ \n"
-                    + "| | | | | | | |/ / _ \\\n"
-                    + "| |_| | |_| |   <  __/\n"
-                    + "|____/ \\__,_|_|\\_\\___|\n";
+
             System.out.println(line + "Hello! I'm Duke.\n" + logo + "What can i do for you?\n" + line);
         } catch (FileNotFoundException e) {
-            System.out.println("Saved file could not be found. I've used one of your wishes to create a new file for you! Thank me later.");
+            System.out.println(line + "\n" + "Saved file could not be found. I've used one of your wishes to create a new file for you! Thank me later.");
+            System.out.println(line + "Hello! I'm Duke.\n" + logo + "What can i do for you?\n" + line);
         }
     }
 }

@@ -31,7 +31,7 @@ public class Parser {
                 try {
                     sayList();
                 } catch (DukeException e) {
-                    System.out.println("Hold your horses, you didn't even tell me about your wishes yet!");
+                    System.out.println(line + "\n" + "Hold your horses, you didn't even tell me about your wishes yet!" + "\n" + line + "\n");
                 }
                 break;
             case "done":
