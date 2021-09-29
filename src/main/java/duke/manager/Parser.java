@@ -1,5 +1,10 @@
 package duke.manager;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -7,12 +12,19 @@ import duke.task.Task;
 import duke.task.Todo;
 import duke.ui.Ui;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class Parser {
+
+    public static final int INDEX_FIND = 5;
+    public static final int INDEX_DESCRIPTION_TODO = 5;
+    public static final String DELIMITER_SPACE = " ";
+    public static final String DELIMITER_SLASH = "/";
+    public static final String DELIMITER_EVENT = "/at";
+    public static final String DELIMITER_DEADLINE = "/by";
+    public static final int DESCRIPTION_INDEX_EVENT = 6;
+    public static final int INDEX_TASKTYPE = 0;
+    public static final int INDEX_DESCRIPTION_DEADLINE = 9;
+
     /**
      * Determines the task type,
      * assuming it is the first
@@ -23,8 +35,8 @@ public class Parser {
      * @return The first word of the string.
      */
     static String taskType(String message) {
-        String[] type = message.split(TaskManager.DELIMITER_SPACE);
-        return type[TaskManager.INDEX_TASKTYPE];
+        String[] type = message.split(DELIMITER_SPACE);
+        return type[INDEX_TASKTYPE];
     }
 
     /**
@@ -49,19 +61,19 @@ public class Parser {
 
     private static Event createEvent(String message) {
         String eventString = getEventString(message);
-        String[] eventData = splitString(eventString, TaskManager.DELIMITER_EVENT);
-        String eventDescription = eventData[TaskManager.INDEX_TASKTYPE].strip();
+        String[] eventData = splitString(eventString, DELIMITER_EVENT);
+        String eventDescription = eventData[INDEX_TASKTYPE].strip();
         LocalDateTime eventDateTime = DateAndTimeParser.processDateAndTime(eventData[1]);
         String eventDateTimeString = eventData[1].strip();
         return new Event(eventDescription, eventDateTime, eventDateTimeString);
     }
 
-    static String[] splitString(String eventString, String DELIMITER) {
-        return eventString.split(DELIMITER, 2);
+    static String[] splitString(String eventString, String delimiter) {
+        return eventString.split(delimiter, 2);
     }
 
     private static String getEventString(String message) {
-        return message.substring(TaskManager.DESCRIPTION_INDEX_EVENT);
+        return message.substring(DESCRIPTION_INDEX_EVENT);
     }
 
     static Task getLatestTask(ArrayList<Task> tasks) {
@@ -94,7 +106,7 @@ public class Parser {
 
     private static Deadline createDeadline(String message) {
         String deadlineString = getDeadlineString(message);
-        String[] deadlineData = splitString(deadlineString, TaskManager.DELIMITER_DEADLINE);
+        String[] deadlineData = splitString(deadlineString, DELIMITER_DEADLINE);
         String deadlineDescription = deadlineData[0].strip();
         LocalDateTime deadlineDateTime = DateAndTimeParser.processDateAndTime(deadlineData[1]);
         String deadlineDateTimeString = deadlineData[1].strip();
@@ -102,7 +114,7 @@ public class Parser {
     }
 
     private static String getDeadlineString(String message) {
-        return message.substring(TaskManager.INDEX_DESCRIPTION_DEADLINE);
+        return message.substring(INDEX_DESCRIPTION_DEADLINE);
     }
 
     /**
@@ -113,11 +125,12 @@ public class Parser {
      */
     static void addTodo(ArrayList<Task> tasks, String message) {
         try {
-            tasks.add(new Todo(message.substring(5)));
+            tasks.add(new Todo(message.substring(INDEX_DESCRIPTION_TODO)));
             Ui.printAddedTask(getLatestTask(tasks), tasks);
             Storage.saveTasksToFile(tasks);
         } catch (StringIndexOutOfBoundsException e) {
-            DukeException.stringIndexTodoError();        }
+            DukeException.stringIndexTodoError();
+        }
     }
 
     /**
@@ -130,7 +143,7 @@ public class Parser {
      */
     static void markDone(ArrayList<Task> tasks, String message) {
         try {
-            String[] arrOfStr = message.split(TaskManager.DELIMITER_SPACE);
+            String[] arrOfStr = message.split(DELIMITER_SPACE);
             int index = getIndex(arrOfStr);
             tasks.get(index).isDone();
             Storage.saveTasksToFile(tasks);
@@ -140,7 +153,8 @@ public class Parser {
     }
 
     private static int getIndex(String[] arrOfStr) {
-        return Integer.parseInt(arrOfStr[arrOfStr.length - 1]) - 1;
+        int lastElementIndex = arrOfStr.length - 1;
+        return Integer.parseInt(arrOfStr[lastElementIndex]) - 1;
     }
 
     /**
@@ -152,7 +166,7 @@ public class Parser {
      */
     static void findTask(ArrayList<Task> tasks, String message) {
         try {
-            String filter = message.substring(5);
+            String filter = message.substring(INDEX_FIND);
             ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
                     .filter((t) -> t.getDescription().contains(filter)).collect(Collectors.toList());
             Ui.printMatchingTasks(filteredTasks);
@@ -171,7 +185,7 @@ public class Parser {
      */
     static void deleteTask(ArrayList<Task> tasks, String message) {
         try {
-            String[] arrOfStr = message.strip().split(TaskManager.DELIMITER_SPACE);
+            String[] arrOfStr = message.strip().split(DELIMITER_SPACE);
             int index = Integer.parseInt(arrOfStr[1]);
             Ui.printDeletedTask(tasks.get(index - 1), tasks);
             tasks.remove(index - 1);
