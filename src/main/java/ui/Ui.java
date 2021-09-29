@@ -263,8 +263,9 @@ public class Ui {
     public void printAgenda(ArrayList<Task> todayTasks) {
         if (todayTasks.size() == 0) {
             System.out.println("There are no deadlines and events today.");
+        } else {
+            System.out.println("Today's agenda:");
+            printList(todayTasks);
         }
-        System.out.println("Today's agenda:");
-        printList(todayTasks);
     }
 }
