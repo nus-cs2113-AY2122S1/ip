@@ -1,31 +1,19 @@
-
-
-todo
-borrow book / today
-stop
+Username
+Password
 add
 read book
-stop
-add
-return book / June 6th
+return book /by 2021-06-06
+project meeting /at 2021-08-06 2-4 PM
 join sports club
-stop
-event
-project meeting / Aug 6th 2-4pm
+borrow book
 stop
 list
-todo
-return book / Sunday
-stop
-list
-event
-project meeting / Mon 2-4pm
-stop
+deadline
+5 Sunday
 list
 done
-1 3 4 5
-list
-done
-2 6 7
+1 3 5
+delete
+2
 list
 bye

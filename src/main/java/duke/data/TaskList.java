@@ -1,11 +1,11 @@
 package duke.data;
 
-import duke.Type.Deadline;
-import duke.Type.Event;
-import duke.Type.Task;
+import duke.type.Deadline;
+import duke.type.Event;
+import duke.type.Task;
 
 import duke.startup.Parser;
-import duke.Ui.Ui;
+import duke.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -86,6 +86,22 @@ public class TaskList {
         }
     }
 
+    /**
+     *  Delete tasks without user input
+     * @param toDeleteIndex indexes to delete
+     */
+    public void deleteTasks(int... toDeleteIndex) {
+        int lastIndex = 0;
+        try {
+            for (int i : toDeleteIndex) {
+                System.out.println("remove " + (i + 1) + ": " + taskList.get(i).getDescription());
+                lastIndex = i;
+                taskList.remove(i);
+            }
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            Ui.printNotInRange(lastIndex);
+        }
+    }
     /**
      * Marks a set of tasks as completed
      */

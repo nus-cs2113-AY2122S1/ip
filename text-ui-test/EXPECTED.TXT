@@ -1,53 +1,32 @@
 Username [dukeBot]: Password [bukeDot]:                  ...                 
-Hello dukeBot!
+Hello Username!
 I'm Duke
 What can I do for you?
                  ...                 
  /          / 
-1. [D] [ ] borrow book (by: today) 
-2. [T] [ ] read book
-3. [T] [ ] return book / June 6th
+1. [T] [ ] read book
+2. [T] [ ] return book /by 2021-06-06
+3. [T] [ ] project meeting /at 2021-08-06 2-4 PM
 4. [T] [ ] join sports club
-5. [E] [ ] project meeting (at: Aug 6th 2-4pm) 
+5. [T] [ ] borrow book
  /          / 
  /          / 
-1. [D] [ ] borrow book (by: today) 
-2. [T] [ ] read book
-3. [T] [ ] return book / June 6th
+1. [T] [ ] read book
+2. [T] [ ] return book /by 2021-06-06
+3. [T] [ ] project meeting /at 2021-08-06 2-4 PM
 4. [T] [ ] join sports club
-5. [E] [ ] project meeting (at: Aug 6th 2-4pm) 
-6. [D] [ ] return book (by: Sunday) 
+5. [T] [ ] borrow book
  /          / 
- /          / 
-1. [D] [ ] borrow book (by: today) 
-2. [T] [ ] read book
-3. [T] [ ] return book / June 6th
-4. [T] [ ] join sports club
-5. [E] [ ] project meeting (at: Aug 6th 2-4pm) 
-6. [D] [ ] return book (by: Sunday) 
-7. [E] [ ] project meeting (at: Mon 2-4pm) 
- /          / 
-remove borrow book, return book / June 6th, join sports club, project meeting, 
+remove read book, project meeting /at 2021-08-06 2-4 PM, borrow book, 
  / done tasks, good job! / 
+Command not recognized. Please enter a command again!
+Command not recognized. Please enter a command again!
  /          / 
-1. [D] [✓] borrow book (by: today) 
-2. [T] [ ] read book
-3. [T] [✓] return book / June 6th
-4. [T] [✓] join sports club
-5. [E] [✓] project meeting (at: Aug 6th 2-4pm) 
-6. [D] [ ] return book (by: Sunday) 
-7. [E] [ ] project meeting (at: Mon 2-4pm) 
- /          / 
-remove read book, return book, project meeting, 
- / done tasks, good job! / 
- /          / 
-1. [D] [✓] borrow book (by: today) 
-2. [T] [✓] read book
-3. [T] [✓] return book / June 6th
-4. [T] [✓] join sports club
-5. [E] [✓] project meeting (at: Aug 6th 2-4pm) 
-6. [D] [✓] return book (by: Sunday) 
-7. [E] [✓] project meeting (at: Mon 2-4pm) 
+1. [T] [✓] read book
+2. [T] [ ] return book /by 2021-06-06
+3. [T] [✓] project meeting /at 2021-08-06 2-4 PM
+4. [T] [ ] join sports club
+5. [T] [✓] borrow book
  /          / 
                  ...                 
 Bye. Hope to see you  again soon!

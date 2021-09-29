@@ -1,8 +1,8 @@
 package duke.command;
 
-import duke.Type.Mascot;
+import duke.type.Mascot;
 import duke.data.TaskList;
-import duke.Ui.Ui;
+import duke.ui.Ui;
 
 /**
  * Command to have a Mascot echo user input.

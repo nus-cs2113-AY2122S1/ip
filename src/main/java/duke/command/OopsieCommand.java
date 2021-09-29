@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.data.TaskList;
-import duke.Ui.Ui;
+import duke.ui.Ui;
 
 /**
  * Default command to inform the user of an incorrect command syntax

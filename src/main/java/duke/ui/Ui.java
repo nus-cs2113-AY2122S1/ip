@@ -1,4 +1,4 @@
-package duke.Ui;
+package duke.ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -66,7 +66,7 @@ public class Ui {
     }
 
     public static void printNotInRange(int index) {
-        System.out.println("... sorry, task " + (index + 1) + " is not in range. Try the 'done' command again!");
+        System.out.println("... sorry, task " + (index + 1) + " is not in range. Try the command again with a valid index!");
     }
 
     public static void printDoneFormat() {
@@ -90,5 +90,15 @@ public class Ui {
     public static void printDateFormat() {
         System.out.println("The format for a date is : YYYY-MM-DD");
         System.out.println("for instance, 1999-11-30!");
+    }
+
+    public static String[] readInputToStringArray() {
+        String userInput = Ui.readLine();
+        return userInput.split(" ");
+    }
+
+    public static String stringWithoutFirstWord(String original) {
+        String[] splitText= original.split(" ", 2);
+        return splitText[1];
     }
 }

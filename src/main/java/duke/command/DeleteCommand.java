@@ -26,4 +26,10 @@ public class DeleteCommand extends Command {
         tasks.deleteTasks();
         saveListAndPrintDone(tasks);
     }
+
+    public static void deleteWithoutInput(TaskList tasks, int ... indexes) {
+        for (int index : indexes) {
+            tasks.deleteTasks();
+        }
+    }
 }

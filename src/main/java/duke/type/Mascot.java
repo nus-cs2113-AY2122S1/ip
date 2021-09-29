@@ -1,4 +1,4 @@
-package duke.Type;
+package duke.type;
 
 /**
  * Represents a virtual chatbot to echo user input

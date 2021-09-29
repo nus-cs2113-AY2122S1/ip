@@ -7,6 +7,9 @@ Let's record all your 'tasks' in a 'list'!
 ### Feature-Add
 
 Adds task to your list
+### Feature-Deadline
+
+Updates a todo to deadline
 ### Feature-Done
 
 Marks a set of tasks as done
@@ -62,6 +65,17 @@ List populated with given tasks
 ```
 finished adding
 ```
+### `deadline` - updates deadline for a todo
+
+Modifies a todo into a deadline
+Format: [INDEX] [DEADLINE]
+Examples of usage:
+
+```
+deadline
+3 today 6pm
+```
+
 ### `done` - marks tasks as done
 
 Marks a set of tasks as done, read in one line

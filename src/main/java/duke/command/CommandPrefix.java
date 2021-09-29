@@ -15,7 +15,8 @@ public enum CommandPrefix {
     OOPSIE("oopsie", ""),
     FIND("find", "find tasks with matching keyword"),
     DATE("date", "search tasks with matching date"),
-    HELP("help", "prints feature list");
+    HELP("help", "prints feature list"),
+    DEADLINE("deadline", "adds a deadline to a todo");
 
     public final String command;
     public final String description;

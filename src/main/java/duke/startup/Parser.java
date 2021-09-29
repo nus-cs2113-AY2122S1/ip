@@ -1,10 +1,10 @@
 package duke.startup;
 
-import duke.Type.Deadline;
-import duke.Type.Event;
-import duke.Type.Task;
-import duke.Type.Todo;
-import duke.Type.Divider;
+import duke.type.Deadline;
+import duke.type.Event;
+import duke.type.Task;
+import duke.type.Todo;
+import duke.type.Divider;
 import duke.command.*;
 
 public class Parser {
@@ -80,6 +80,8 @@ public class Parser {
             return new DateCommand();
         } else if (stringToRead.startsWith(CommandPrefix.HELP.getPrefix())) {
             return new HelpCommand();
+        } else if (stringToRead.startsWith(CommandPrefix.DEADLINE.getPrefix())) {
+            return new DeadlineCommand();
         } else {
             return new OopsieCommand();
         }

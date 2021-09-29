@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.data.TaskList;
-import duke.Ui.Ui;
+import duke.ui.Ui;
 
 /**
  * Command to find tasks by keyword from both the task list and save file.

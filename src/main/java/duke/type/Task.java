@@ -1,4 +1,4 @@
-package duke.Type;
+package duke.type;
 
 import duke.date.DateValidator;
 import duke.date.DateValidatorUsingDateFormat;
