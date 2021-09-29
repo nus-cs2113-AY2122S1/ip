@@ -23,7 +23,7 @@ public class Duke {
             }
             if (lineInput[0].equals("list")) {
                 showTask(listIn,totalNumber);
-            } else if (lineInput[0].equals("done")){
+            } else if (lineInput[0].equals("done")) {
                 doneTask(listIn,lineInput);
             } else if (lineInput[0].equals("event") || lineInput[0].equals("deadline") || lineInput[0].equals("todo")) {
                 recordTask(listIn,lineIn,totalNumber,lineInput[0]);
@@ -33,6 +33,7 @@ public class Duke {
         System.out.println("Byebye! Have a wonderful day!");
         System.out.println("...................................................");
     }
+
     private static void showTask(Task[] listIn, int totalNumber) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < totalNumber; i++) {
