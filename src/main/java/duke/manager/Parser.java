@@ -155,10 +155,18 @@ public class Parser {
             Storage.saveTasksToFile(tasks);
         } catch (NullPointerException e) {
             DukeException.nullPointerDoneError();
+        } catch (IndexOutOfBoundsException e) {
+            DukeException.indexBoundDeleteError();
+        } catch (NumberFormatException e) {
+            numberFormatException();
         }
     }
 
-    private static int getIndex(String[] arrOfStr) {
+    private static void numberFormatException() {
+        System.out.println("Please provide an index");
+    }
+
+    private static int getIndex(String[] arrOfStr) throws IndexOutOfBoundsException {
         int lastElementIndex = arrOfStr.length - 1;
         return Integer.parseInt(arrOfStr[lastElementIndex]) - 1;
     }
@@ -200,6 +208,8 @@ public class Parser {
             DukeException.nullPointerDeleteError();
         } catch (IndexOutOfBoundsException e) {
             DukeException.indexBoundDeleteError();
+        } catch (NumberFormatException e) {
+            numberFormatException();
         }
     }
 }
