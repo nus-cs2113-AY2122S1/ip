@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class ExecuteFind extends Command {
     private String keyword;
 
-    public ExecuteFind(String keyword) {
-        this.keyword = keyword;
+    public ExecuteFind(String filter) {
+        this.keyword = filter;
     }
 
     @Override
