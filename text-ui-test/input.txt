@@ -21,6 +21,8 @@ done 4
 list
 delete 3
 list
+find book
+find room
 todo
 blah
 bye
