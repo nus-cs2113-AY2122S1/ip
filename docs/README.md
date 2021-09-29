@@ -45,7 +45,8 @@ be kept empty (unless it is of the correct format - generated from this app).
 
 ## Welcome Screen
 
-3 welcome text art will be shown in sequence (as shown below).
+3 welcome text art will be shown in sequence (as shown below). These Text can
+be changed by editing the text-art content through the use of a text-editor. 
 
 ```
 ____________________________________________________________
