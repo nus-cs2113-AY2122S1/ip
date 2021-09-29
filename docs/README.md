@@ -4,7 +4,7 @@ helps you to manage your tasks.
 
 ## Contents of User Guide
 - [Features] (#user-content-features)
-  1. [`list` - List all tasks] (#user-content-listing-all-tasks)
+  1. [`list` - List all tasks] (#listing-all-tasks)
   2. [`todo` - Create a todo task] (#user-content-adding-a-todo)
   3. [`deadline` - Create a deadline task] (#user-content-adding-a-deadline)
   4. [`event` - Create an event task] (#user-content-adding-an-event)
