@@ -86,7 +86,7 @@ Expected outcome: Since the keyword is [T], the program will search for all todo
 
     ____________________________________________________________
      1.[T][ ] eat lunch 
-	 2.[T][X] do homework
+     2.[T][X] do homework
     ____________________________________________________________
 
 8) help - List out all the commands available
