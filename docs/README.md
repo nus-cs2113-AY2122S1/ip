@@ -16,13 +16,21 @@
 
 ## Features 
 
-### Feature-ABC
+### List all tasks: `list`
 
-Description of the feature.
+Shows a list of all tasks in the task list.
 
-### Feature-XYZ
 
-Description of the feature.
+### Add a todo task: `todo`
+
+Adds a todo task to the task list.
+
+Format: `todo <DESCRIPTION>`
+
+Examples:
+* todo Homework
+* todo Assignment
+
 
 ## Usage
 
