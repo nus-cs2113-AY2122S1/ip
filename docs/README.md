@@ -6,10 +6,12 @@
 3. Create a folder and place `Duke.jar` inside.
 4. Open Command Prompt/Terminal and navigate to the folder containing `Duke.jar`.
 5. Run `java -jar Duke.jar` to start the app. The following message should appear:
-       ------------------------------------------------------------
-       Hello! I'm Duke
-       What can I do for you?
-       ------------------------------------------------------------
+   ```
+   ------------------------------------------------------------
+   Hello! I'm Duke
+   What can I do for you?
+   ------------------------------------------------------------
+   ```
 6. Type in your command. See [Features](#features) for more information.
 
 ## Features 
