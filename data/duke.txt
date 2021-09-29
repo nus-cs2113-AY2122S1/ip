@@ -1,3 +1,1 @@
-[T]|true|go for lecture
-[D]|false|quiz /by Friday
-[E]|true|dinner /at NUS, Thursday
+[E]|false|Wayne attend CS2113 lecture /at Friday 17 Sep 2021 from 4-6pm
