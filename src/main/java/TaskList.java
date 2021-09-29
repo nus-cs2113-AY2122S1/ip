@@ -67,6 +67,10 @@ public class TaskList {
         return counter;
     }
 
+    /**
+     * Delete Task from the list.
+     * @param index
+     */
     public void deleteTask(int index){
         savedTasks.remove(index);
     }
