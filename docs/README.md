@@ -24,7 +24,7 @@ What can I do for you?
   * Exiting the program: `bye`
 * **Command Summary**
 
-## Quick Start ##
+## Quick Start 
 
 1. Download the `.jar` file [here](https://github.com/kyun99/ip/releases).
 2. Open a terminal and execute `java -jar ip.jar` in the directory `ip.jar` is in.
