@@ -1,8 +1,16 @@
 import duke.exception.*;
 import duke.task.*;
 
+/**
+ * Parser deals with the command that user typed in
+ */
 public class Parser {
-    public static Commandtype processCommand(String str, int maxlength) {
+    /**
+     * process the user command
+     * @param str the string the user typed in
+     * @return the command type
+     */
+    public static Commandtype processCommand(String str) {
         Commandtype type;
         if (str.equals("bye")) {
             type = Commandtype.BYE;

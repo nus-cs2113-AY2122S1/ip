@@ -10,13 +10,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage read in the file and send it to the database
+ */
 public class Storage {
     private static String path;
 
+    /**
+     * initialise storage
+     * @param filePath the storage path
+     */
     public Storage (String filePath) {
         this.path = filePath;
     }
 
+    /**
+     * get the file
+     * @return the task list in the file
+     */
     public static TaskList getFile(){
         final TaskList taskLists = new TaskList();
         //ArrayList<Task> Tasks = new ArrayList<>(MAX_TASK);
@@ -39,6 +50,13 @@ public class Storage {
         return taskLists;
     }
 
+    /**
+     * read and convert the task list in the file
+     * @param Tasks the task list to read
+     * @param path the file path
+     * @return the task list
+     * @throws FileNotFoundException
+     */
     public static TaskList readFile(TaskList Tasks, String path) throws FileNotFoundException{
         File f = new File(path);
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -50,27 +68,31 @@ public class Storage {
                 //for(String st: strT) System.out.println(st);
                 Todo t = new Todo(strT[2]);
                 if(Integer.parseInt(strT[1]) == 1) t.setDone(true);
-                addToList(t, Tasks, Tasks.size());
+                addToList(t, Tasks);
                 break;
             case "D":
                 String[] strD = str.split(" \\| ");
                 //for(String st: strD) System.out.println(st);
                 Deadline d = new Deadline(strD[2], strD[3]);
                 if(Integer.parseInt(strD[1]) == 1) d.setDone(true);
-                addToList(d, Tasks, Tasks.size());
+                addToList(d, Tasks);
                 break;
             case "E":
                 String[] strE = str.split(" \\| ");
                 //for(String st: strE) System.out.println(st);
                 Event e = new Event(strE[2], strE[3]);
                 if(Integer.parseInt(strE[1]) == 1) e.setDone(true);
-                addToList(e, Tasks, Tasks.size());
+                addToList(e, Tasks);
                 break;
             }
         }
         return Tasks;
     }
 
+    /**
+     * write the task list to the file
+     * @param Tasks the task list
+     */
     public static void writeFile(TaskList Tasks){
         try {
             FileWriter fileWriter =new FileWriter(path);
@@ -102,6 +124,11 @@ public class Storage {
         }
     }
 
+    /**
+     * print out the file contents
+     * @param path the file path
+     * @throws FileNotFoundException
+     */
     private static void printFileContents(String path) throws FileNotFoundException {
         File f = new File(path); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -111,13 +138,24 @@ public class Storage {
         }
     }
 
+    /**
+     * write the task to the file
+     * @param path the file path
+     * @param textToAdd the text to add in the file
+     * @throws IOException
+     */
     private static void writeToFile(String path, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(path);
         fw.write(textToAdd);
         fw.close();
     }
 
-    public static void addToList(Task t, TaskList list, int num){
+    /**
+     * add task to the list
+     * @param t the task
+     * @param list the task list
+     */
+    public static void addToList(Task t, TaskList list){
         list.add(t);
     }
 }
