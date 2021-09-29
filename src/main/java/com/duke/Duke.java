@@ -155,7 +155,7 @@ public class Duke {
             dukePrint(list.get(index).toString());
             fileTask.rewriteFile(list);
         } catch (NumberFormatException e) {
-            dukePrint("\tplease enter the index of the task");
+            dukePrint("please enter the index of the task");
         } catch(NullPointerException | IndexOutOfBoundsException e) {
             dukePrint("number entered is invalid");
         } catch (IOException e) {
@@ -179,7 +179,7 @@ public class Duke {
             dukePrint("Now you have " + list.size() + " tasks in the list.");
             endLine();
         } catch (NumberFormatException e) {
-            dukePrint("\tPlease enter the index of the task.");
+            dukePrint("Please enter the index of the task.");
             listOut();
         } catch(NullPointerException | IndexOutOfBoundsException e) {
             dukePrint("Number entered is invalid.");

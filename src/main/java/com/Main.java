@@ -43,14 +43,52 @@ public class Main {
                     break;
                 }
                 if(line.contains("deadline")) {
-                    String time = line.substring(line.indexOf("/")+1);
-                    line = line.substring(9,line.indexOf("/"));
+
+                    String SEPARATOR="";
+                    if(line.contains("by")) {
+                        SEPARATOR = "by";
+                    }
+                    else if(line.contains("@")) {
+                        SEPARATOR = "@";
+                    }
+                    else if(line.contains("/")) {
+                        SEPARATOR = "/";
+                    }
+                    else{
+                        duke.unknownAction();
+                        break;
+                    }
+                    String time = line.substring(line.indexOf(SEPARATOR)+1);
+                    line = line.substring(9,line.indexOf(SEPARATOR));
                     duke.addList(new Deadline(line,time));
                     break;
                 }
                 if(line.contains("event")) {
-                    String time = line.substring(line.indexOf("/")+1);
-                    line = line.substring(6,line.indexOf("/"));
+                    int SEPARATOR_START_INDEX=0;
+                    int SEPARATOR_END_INDEX=0;
+                    int DESCRIPTION_INDEX=6;
+                    if(line.contains("by")) {
+                        SEPARATOR_START_INDEX = line.indexOf("by");
+                        SEPARATOR_END_INDEX= SEPARATOR_START_INDEX+1;
+                    }
+                    else if(line.contains("at")) {
+                        SEPARATOR_START_INDEX = line.indexOf("at");
+                        SEPARATOR_END_INDEX= SEPARATOR_START_INDEX+1;
+                    }
+                    else if(line.contains("@")) {
+                        SEPARATOR_START_INDEX = line.indexOf("@");
+                        SEPARATOR_END_INDEX= SEPARATOR_START_INDEX;
+                    }
+                    else if(line.contains("/")) {
+                        SEPARATOR_START_INDEX = line.indexOf("/");
+                        SEPARATOR_END_INDEX= SEPARATOR_START_INDEX;
+                    }
+                    else{
+                        duke.unknownAction();
+                        break;
+                    }
+                    String time = line.substring(SEPARATOR_END_INDEX+1);
+                    line = line.substring(DESCRIPTION_INDEX,SEPARATOR_START_INDEX);
                     duke.addList(new Event(line,time));
                     break;
                 }
