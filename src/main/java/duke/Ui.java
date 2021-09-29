@@ -102,6 +102,10 @@ public class Ui {
                 + INDENT + "Tasks added in this session will be automatically saved upon exit. │");
     }
 
+    public static void printLoadFileCorrupted() {
+        System.out.println(INDENT + "One corrupted data found. Corrupted data will be removed upon exit.│");
+    }
+
     public static void printTaskDoesNotExist() {
         System.out.println(INDENT + "Wha- Hey! Task does not exist!");
     }
@@ -237,16 +241,21 @@ public class Ui {
         printBottomLine();
     }
 
-
     public static void showBlankLoadFileMessage() {
         printTopLine();
         printBlankLoadFileFound();
         printBottomLine();
     }
 
-    public static void showLoadingError() {
+    public static void showLoadingFileMissing() {
         printTopLine();
         printLoadFileNotFound();
+        printBottomLine();
+    }
+
+    public static void showLoadFileCorrupted() {
+        printTopLine();
+        printLoadFileCorrupted();
         printBottomLine();
     }
 

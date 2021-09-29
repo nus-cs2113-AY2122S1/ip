@@ -15,14 +15,11 @@ public class Storage {
     private static final String DEADLINE = "D";
     private static final String EVENT = "E";
 
-//    protected static String filePath;
-//
-//    public Storage(String filePath) {
-//        this.filePath = filePath;
-//    }
-
+    /**
+     * Loads previously saved file for tasks on startup.
+     * If it does not exist, a new file will be created.
+     */
     public static void load() {
-//        TaskList tasks = new TaskList();
         File directory = new File("data");
         try {
             if (!directory.exists()) {
@@ -39,18 +36,39 @@ public class Storage {
             }
             Ui.showBlankLoadFileMessage();
         } catch (FileNotFoundException e) {
-            Ui.showLoadingError();
+            Ui.showLoadingFileMissing();
         } catch (DukeException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Splits a line from load file into information parseComponents can understand.
+     *
+     * @param line A String of one sentence scanned from the load file.
+     * @throws DukeException Format of string is unexpected.
+     */
     public static void parseText(String line) throws DukeException {
         String[] words = line.split(DELIMITER);
-        parseComponents(words);
+        try {
+            parseComponents(words);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            Ui.showLoadFileCorrupted();
+        }
     }
 
+    /**
+     * Adds tasks from load file using information parsed from parseText.
+     *
+     * @param words String array containing the different information regarding a task.
+     * @throws DukeException Format of taskType is unexpected.
+     */
     public static void parseComponents(String[] words) throws DukeException {
+
+        if (words.length < 3 || words.length > 4) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+
         String taskType = words[0];
         String taskIsDone = words[1];
         String taskName= words[2];
@@ -61,12 +79,21 @@ public class Storage {
         }
 
         if (taskType.equals(TODO) || taskType.equals(DEADLINE) || taskType.equals(EVENT)) {
-            TaskList.addTaskFromFile(taskType, taskIsDone, taskName, taskDetails);
+            try {
+                TaskList.addTaskFromFile(taskType, taskIsDone, taskName, taskDetails);
+            } catch (DukeException e) {
+                Ui.showLoadFileCorrupted();
+            }
         } else {
             throw new DukeException("Unidentified task type.");
         }
     }
 
+    /**
+     * Saves the tasks input by user during the session to duke.txt.
+     *
+     * @param tasks ArrayList containing tasks the user wishes to save.
+     */
     public static void saveTaskToFile(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter("data/duke.txt");
@@ -81,6 +108,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Formats information about a task into a string readable by the load() method.
+     *
+     * @param tasks ArrayList containing tasks the user wishes to save.
+     * @param taskIndex Index of the task in the ArrayList.
+     * @return A string format to be saved in file.
+     * @throws IOException Writing to save file is erroneous.
+     */
     public static String getTaskForSaving(ArrayList<Task> tasks, int taskIndex) throws IOException {
         return tasks.get(taskIndex).toSaveFile(DELIMITER) + "\n";
     }
