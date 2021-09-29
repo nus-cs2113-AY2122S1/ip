@@ -188,7 +188,7 @@ public class DisplayManager {
         }
     }
 
-    public static void printErrorLoadingData() {
+    public void printErrorLoadingData() {
         printHorizontalSeparator();
         System.out.println( DISPLAY_MESSAGE_INDENT + "Error while trying to load data file");
         printHorizontalSeparator();
