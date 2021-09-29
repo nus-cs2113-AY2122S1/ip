@@ -21,6 +21,11 @@ public class DataSaver {
     private static final String FILE_PATH = "savedData\\duke.txt";
     private static final String DIVIDER = " | ";
 
+    /**
+     * Loads saved tasks in the file to task list
+     *
+     * @param taskList the array list which will store all saved user tasks
+     */
     public static void manageLoad(ArrayList<Task> taskList) {
         File file = new File(FILE_PATH);
         Scanner scan = null;
@@ -32,6 +37,9 @@ public class DataSaver {
         loadFileContents(taskList, scan);
     }
 
+    /**
+     * Creates new file if there was no save file in the directory
+     */
     public static void createNewFile() {
         try {
             Files.createDirectories(Paths.get(DIRECTORY_PATH));
@@ -41,6 +49,12 @@ public class DataSaver {
         }
     }
 
+    /**
+     * Loads the tasks from the text file to task list, the array list
+     *
+     * @param taskList the array list which will store the user tasks
+     * @param scan the scanned save file
+     */
     public static void loadFileContents(ArrayList<Task> taskList, Scanner scan) {
         while (scan != null && scan.hasNext()) {
             String newTask = scan.nextLine();
@@ -52,6 +66,13 @@ public class DataSaver {
         }
     }
 
+    /**
+     * Add newly scanned saved task to task list, the array list
+     *
+     * @param taskList the array list which will store the user tasks
+     * @param newTask the newly scanned saved task
+     * @throws DukeException if the newly scanned saved task is of an invalid format
+     */
     public static void addToTaskList(ArrayList<Task> taskList, String newTask) throws DukeException {
         String[] taskDetails = newTask.split("\\|");
 
@@ -75,6 +96,12 @@ public class DataSaver {
         }
     }
 
+    /**
+     * Checks if the task details contain the correct task status
+     *
+     * @param taskDetails the task details stored in save file
+     * @return true if task status is valid, false otherwise
+     */
     public static boolean checkValidDetails(String[] taskDetails) {
         String status = taskDetails[1].trim();
         if (!status.equals(DONE_STATUS) && !status.equals(NOT_DONE_STATUS)) {
@@ -84,6 +111,12 @@ public class DataSaver {
         return taskDetails.length == 3 || taskDetails.length == 4;
     }
 
+    /**
+     * Assigned the task status according to the saved details
+     *
+     * @param addedTask the task whose status will be updated
+     * @param taskDetails the task details stored in save file
+     */
     public static void addDoneStatus(Task addedTask, String[] taskDetails) {
         String status = taskDetails[1].trim();
         if (status.equals(DONE_STATUS)) {
@@ -91,6 +124,11 @@ public class DataSaver {
         }
     }
 
+    /**
+     * Saves tasks from the task list to the text file
+     *
+     * @param taskList the array list containing user tasks to be saved
+     */
     public static void manageSave(ArrayList<Task> taskList) {
         try {
             saveFileContents(taskList);
@@ -99,12 +137,25 @@ public class DataSaver {
         }
     }
 
+    /**
+     * Saves the tasks from the task list to the text file
+     *
+     * @param taskList the array list containing user tasks
+     * @throws IOException
+     */
     public static void saveFileContents(ArrayList<Task> taskList) throws IOException {
         FileWriter writeFile = new FileWriter(FILE_PATH);
         configureTask(taskList, writeFile);
         writeFile.close();
     }
 
+    /**
+     * Save the tasks to the text file in a proper and parsed format
+     *
+     * @param taskList the array list containing user tasks
+     * @param writeFile the text file to save the tasks to
+     * @throws IOException
+     */
     public static void configureTask(ArrayList<Task> taskList, FileWriter writeFile) throws IOException {
         for (Task task : taskList) {
             if (task != null) {
@@ -117,11 +168,23 @@ public class DataSaver {
         }
     }
 
+    /**
+     * Save the task type section using the correct format
+     *
+     * @param task the task to be saved in the text file
+     * @param parsedTask the new saved task format in the text file
+     */
     public static void parseType(Task task, StringBuilder parsedTask) {
         String type = task.getType();
         parsedTask.append(type).append(DIVIDER);
     }
 
+    /**
+     * Save the task status section using the correct format
+     *
+     * @param task the task to be saved in the text file
+     * @param parsedTask the new saved task format in the text file
+     */
     public static void parseStatus(Task task, StringBuilder parsedTask) {
         if (task.getIsDone()) {
             parsedTask.append("1").append(DIVIDER);
@@ -130,6 +193,12 @@ public class DataSaver {
         }
     }
 
+    /**
+     * Save the task description, if any, using the correct format
+     *
+     * @param task the task to be saved in the text file
+     * @param parsedTask the new saved task format in the text file
+     */
     public static void parseDescription(Task task, StringBuilder parsedTask) {
         parsedTask.append(task.getDescription()).append(DIVIDER);
         if (task instanceof Deadline) {

@@ -14,6 +14,12 @@ import static Duke.UI.DukeConstants.FORMAT_DATE_TIME_INPUT;
 
 public class TaskListTypes {
 
+    /**
+     * Load a todo-type task from the text file to the task list
+     *
+     * @param taskList the array list which stores all user tasks
+     * @param taskDetails the details of the todo task to be stored
+     */
     public static void addTodoToTaskList (ArrayList<Task> taskList, String[] taskDetails) {
         String todoDescription = taskDetails[2].trim();
         Todo addedTodo = new Todo(todoDescription);
@@ -21,6 +27,12 @@ public class TaskListTypes {
         taskList.add(addedTodo);
     }
 
+    /**
+     * Load a deadline-type task from the text file to the task list
+     *
+     * @param taskList the array list which stores all user tasks
+     * @param taskDetails the details of the deadline task to be stored
+     */
     public static void addDeadlineToTaskList (ArrayList<Task> taskList, String[] taskDetails) {
         String deadlineDescription = taskDetails[2].trim();
         String by = taskDetails[3].trim();
@@ -37,6 +49,12 @@ public class TaskListTypes {
         taskList.add(addedDeadline);
     }
 
+    /**
+     * Load an event-type task from the text file to the task list
+     *
+     * @param taskList the array list which stores all user tasks
+     * @param taskDetails the details of the event task to be stored
+     */
     public static void addEventToTaskList (ArrayList<Task> taskList, String[] taskDetails) {
         String eventDescription = taskDetails[2].trim();
         String at = taskDetails[3].trim();
