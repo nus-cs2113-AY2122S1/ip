@@ -135,7 +135,7 @@ public class TaskList {
         }
         return searchResult;
     }
-    
+
     public int getSize() {
         return tasks.size();
     }

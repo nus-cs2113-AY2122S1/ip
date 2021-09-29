@@ -23,6 +23,11 @@ public class PrintBot {
         print(LINE);
     }
 
+    /*
+     * Prints to the screen a welcome message immediately after
+     * the user has keyed in the correct trigger sentence
+     * (I solemnly swear that I am up to no good.).
+     */
     public void greet() {
         String logo = "  _                                         _   _            \n" +
                 " | |__   __ _ _ __ _ __ _   _   _ __   ___ | |_| |_ ___ _ __ \n" +
@@ -39,26 +44,40 @@ public class PrintBot {
                         "                 --THE MARAUDER'S MAP--");
     }
 
+    /*
+     * Prints to screen a message when user types in "hello".
+     */
     public void hello() {
         print("I see you are lost. \n" +
                 "Read the charm beneath out loud, and I shall serve you.");
         print("- \"I solemnly swear that I am up to no good.\" ");
     }
 
+    /*
+     * Prints to screen a farewell message when user types in "bye".
+     * The duke program exits after this method.
+     */
     public void exit() {
         line();
         print("Mischief managed.");
         line();
     }
 
-
+    /*
+     * Prints to screen the task that has been added
+     * and the updated amount of tasks in the list.
+     */
     public void addTask(Task t, int taskCount) {
         print("|| Got it. I've added this task");
         print("|| \t" + t.toString());
         print("|| Now you have " + taskCount + " tasks in the list.");
     }
 
-
+    /*
+     * Prints to screen the task that has been marked
+     * as Done just now. Shows the task's position in
+     * the list as well.
+     */
     public void markDone(int id, boolean isDone, Task t) throws InvalidIndexException, EmptyListException {
         int i = id - 1;
         if (isDone) {
@@ -67,6 +86,10 @@ public class PrintBot {
         }
     }
 
+    /*
+     * Tells the user if the input word exists inside the task list.
+     * Print out the id and description of all results.
+     */
     public void searchList(ArrayList<String> searchResult) {
         if (searchResult.isEmpty()) {
             print("No task found.");
@@ -86,12 +109,20 @@ public class PrintBot {
         print(data);
     }
 
+    /*
+     * Prints the information of the task that
+     * has just been deleted from the list.
+     */
     public void delete(Task t, int taskCount) {
         System.out.println("Noted. I've removed this task: ");
         System.out.println("|| \t" + t.toString());
         System.out.println("|| Now you have " + taskCount + " in the list.");
     }
 
+    /*
+     * Prints four sentences, one by one if the user continues to
+     * get the activation phrase wrong.
+     */
     public void printFalseCharmMsg (int n) {
         if (n == 0) {
             System.out.println("Mr Moony presents his compliments to Professor Snape \n" +
