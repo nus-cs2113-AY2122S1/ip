@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 /**
  * Deadline is a Sub-class that inherits from Task Class
- * A Deadline object is represented by a description of the task and when the Deadline is due by.
+ * A Deadline object is represented by a description of the task and when the Deadline Task is due by.
  */
 public class Deadline extends Task {
     protected LocalDateTime dateTime;

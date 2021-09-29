@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 /**
- * Adds a Deadline Task
+ * Creates a Deadline Task and adds it into TaskList.
  * If no arguments provided by user, then error message is printed.
  * Calls splitByDelimiter from Parser to process command and arguments.
  */
