@@ -24,7 +24,7 @@ ___
 ## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
-2. Download the latest copy of `rpgshell.jar` from [here](https://github.com/3m0W33D/ip/releases/download/A-Release/rpgshell.jar).
+2. Download the latest copy of `rpgshell.jar` from [here](https://github.com/3m0W33D/ip/releases/tag/A-Release).
 3. Copy the file to the _home_ folder that you want to use for your ShellRPG
 4. Open a command prompt `cmd.exe` or `powershell.exe`
    and navigate to the _home_ folder where the `rpgshell.jar` is located.
