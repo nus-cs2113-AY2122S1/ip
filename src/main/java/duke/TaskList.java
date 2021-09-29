@@ -47,7 +47,6 @@ public class TaskList {
     }
 
     public static void addTaskFromFile(String taskType, String taskIsDone, String taskName, String taskDetails) {
-        Task task;
         boolean isDone = false;
 
         if (taskIsDone.equals("1")) {
@@ -189,15 +188,39 @@ public class TaskList {
         }
     }
 
+    public static void findTask(String userInput) throws DukeException {
+        ArrayList<Task> tempTasks = new ArrayList<>();
+        if (!userInput.isBlank()) {
+            userInput = userInput.toLowerCase();
+        } else {
+            throw new DukeException("Query is missing.");
+        }
+
+        if (tasks.size() != 0) {
+            for (Task task : tasks) {
+                Task lowerCaseTask = task;
+                lowerCaseTask.setTaskName(task.getTaskName().toLowerCase());
+                if (lowerCaseTask.getTaskName().contains(userInput)) {
+                    tempTasks.add(task);
+                }
+            }
+            if (tempTasks.size() != 0) {
+                Ui.showQueryList(tempTasks);
+            } else {
+                Ui.showQueryNotFound();
+            }
+
+        } else {
+            throw new DukeException("List is empty.");
+        }
+    }
+
     /**
      * Engages user base on what the user has typed.
      * Passes execution to parse();
      */
     public static void engageUser() {
-        try {
-            Parser.parse();
-        } catch (DukeException e) {
-            Ui.showWrongTaskTypeError("Unexpected task type.");
-        }
+            Scanner input = new Scanner(System.in);
+            Parser.parse(input);
     }
 }
