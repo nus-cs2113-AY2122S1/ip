@@ -1,13 +1,14 @@
 # Duke project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
-- [**User Guide**](https://yuxinn-j.github.io/ip/)
 
 ## Duke Overview
 
 Project Duke is a educational software project designed to take you through the steps of building a small software incrementally, while applying as many Java and SE techniques as possible along the way.
 
 **The project aims to build a product named Duke, a Personal Assistant Chatbot that helps a person to keep track of various things.** The name Duke was chosen as a placeholder name, in honor of [Duke, the Java Mascot](https://www.oracle.com/java/duke.html). You may give it any other name and personality you wish.
+
+> 🥳 [**User Guide**](https://yuxinn-j.github.io/ip/)
 
 ## Setting up in Intellij
 
