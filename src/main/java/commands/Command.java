@@ -1,13 +1,19 @@
 package commands;
 
-import common.DukeException;
 import task.Task;
 import task.TaskManager;
 
+/**
+ * Represents an executable command.
+ */
 public abstract class Command {
     protected TaskManager taskManager;
     private int targetIndex = -1;
 
+    /**
+     * Supplies the data the command will operate on.
+     * @param taskManager contains the task list.
+     */
     public void setData(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
@@ -15,8 +21,13 @@ public abstract class Command {
     protected Command() {
     }
 
-    public Command(int targetDisplayIndex) {
-        this.setTargetIndex(targetDisplayIndex);
+    /**
+     * Constructor that sets the target index.
+     * Used for MarkAsDoneCommand and DeleteCommand
+     * @param targetIndex target index of the task that we want to perform an operation on
+     */
+    public Command(int targetIndex) {
+        this.setTargetIndex(targetIndex);
     }
 
     public int getTargetIndex() {
@@ -27,11 +38,17 @@ public abstract class Command {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Extracts the target task.
+     * @return the target task.
+     * @throws IndexOutOfBoundsException if the target index is out of bounds of the task list.
+     */
     protected Task getTargetTask() throws IndexOutOfBoundsException {
         return taskManager.getTaskList().get(targetIndex);
     }
 
-    public CommandResult execute() throws DukeException {
-        throw new DukeException("This method is to be implemented by child classes.");
-    }
+    /**
+     * Executes the command and returns the result
+     */
+    public abstract CommandResult execute();
 }

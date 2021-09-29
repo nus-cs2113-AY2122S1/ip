@@ -1,16 +1,9 @@
 package common;
 
-import commands.AddDeadlineCommand;
-import commands.AddEventCommand;
-import commands.AddTodoCommand;
-import commands.MarkAsDoneCommand;
-import commands.DeleteCommand;
-
-
 public class Messages {
 
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format.";
-    public static final String MESSAGE_TASK_NOT_FOUND = "Error. Task not found.";
-    public static final String MESSAGE_LOADING_ERROR = "Error in loading file.";
-
+    public static final String MESSAGE_INVALID_COMMAND = "Invalid command format. ";
+    public static final String MESSAGE_TASK_NOT_FOUND = "Error. The task index should be between 1 and %1$d. ";
+    public static final String MESSAGE_LOADING_ERROR = "Error in loading file.\n";
+    public static final String MESSAGE_GET_HELP = "Type \"help\" for the user guide. \n";
 }

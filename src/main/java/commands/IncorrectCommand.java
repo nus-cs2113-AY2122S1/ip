@@ -1,5 +1,8 @@
 package commands;
 
+/**
+ * Represents an incorrect command.
+ */
 public class IncorrectCommand extends Command {
 
     public final String feedbackToUser;

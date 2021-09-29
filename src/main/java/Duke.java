@@ -5,9 +5,13 @@ import commands.ListCommand;
 import common.DukeException;
 import parser.Parser;
 import storage.Storage;
-import task.*;
+import task.TaskManager;
 import ui.Ui;
 
+/**
+ * Entry point of the Duke application.
+ * Initialises the application and starts the interaction with the user.
+ */
 public class Duke {
     private final Storage storage;
     private TaskManager tasks;
@@ -24,11 +28,17 @@ public class Duke {
         }
     }
 
+    /**
+     * Displays welcome message and saved task list.
+     */
     private void executeWelcome() {
         ui.showWelcome();
         ui.showResultToUser(executeCommand(new ListCommand()));
     }
 
+    /**
+     * Runs the program until termination.
+     */
     public void run() {
         Command c;
         executeWelcome();
@@ -52,6 +62,11 @@ public class Duke {
         exit();
     }
 
+    /**
+     * Executes the command and returns the result.
+     * @param command user command.
+     * @return result of the command.
+     */
     private CommandResult executeCommand(Command command) {
         try {
             command.setData(tasks);

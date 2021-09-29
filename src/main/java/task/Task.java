@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * Represents a task.
+ */
 public abstract class Task {
 
     protected String description;

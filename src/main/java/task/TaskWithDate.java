@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 
 import static ui.Ui.DATE_TIME_FORMATTER;
 
+/**
+ * Represents the abstract class for tasks that have a date parameter.
+ */
 public abstract class TaskWithDate extends Task{
     protected LocalDateTime dateTime;
 
@@ -21,6 +24,11 @@ public abstract class TaskWithDate extends Task{
         return getStatusIcon() + " " + super.toString() + " (" + DATE_TIME_FORMATTER.format(dateTime) + ")";
     }
 
+    /**
+     * Checks if one taskWithDate is after the other based on the date.
+     * @param taskWithDate to compare
+     * @return task with a later date
+     */
     public boolean isAfter(TaskWithDate taskWithDate) {
         return this.dateTime.isAfter(taskWithDate.getDateTime());
     }

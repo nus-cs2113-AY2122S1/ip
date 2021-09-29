@@ -1,6 +1,18 @@
 package ui;
 
-import commands.*;
+
+import commands.AddDeadlineCommand;
+import commands.AddEventCommand;
+import commands.AddTodoCommand;
+import commands.ClearCommand;
+import commands.DeleteCommand;
+import commands.ExitCommand;
+import commands.FindCommand;
+import commands.HelpCommand;
+import commands.ListCommand;
+import commands.MarkAsDoneCommand;
+import commands.CommandResult;
+
 import task.Task;
 
 import java.io.InputStream;
@@ -8,7 +20,6 @@ import java.io.PrintStream;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import static common.Messages.MESSAGE_LOADING_ERROR;
 
@@ -18,18 +29,23 @@ public class Ui {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    public static final String GREETING = "Why are you here again. What do you want";
+    private static final String GREETING = "Why are you here again. What do you want";
 
-    public static final String INDENT = "\t";
-    public static final String NEW_LINE = "\n\t";
-    public static final String INDENTED_NEW_LINE = "\n\t\t";
-    public static final String DIVIDER = "_______________________________";
+    private static final String INDENT = "\t";
+    private static final String NEW_LINE = "\n\t";
+    private static final String DIVIDER = "_______________________________";
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
 
     public static final int DISPLAYED_INDEX_OFFSET = 1;
 
-    public static final String USER_GUIDE = "\n" + AddTodoCommand.MESSAGE_USAGE
+    /**
+     * User guide for all the commands.
+     */
+    public static final String USER_GUIDE = "----------------USER GUIDE----------------\n"
+            + "\nAll parameters are compulsory, unless otherwise stated. "
+            +"Else, command entered is invalid.\n"
+            + "\n" + AddTodoCommand.MESSAGE_USAGE
             + "\n" + AddEventCommand.MESSAGE_USAGE
             + "\n" + AddDeadlineCommand.MESSAGE_USAGE
             + "\n" + ClearCommand.MESSAGE_USAGE
@@ -53,6 +69,10 @@ public class Ui {
         this(System.in, System.out);
     }
 
+    /**
+     * Reads in raw user input.
+     * @return user input string
+     */
     public String readCommand() {
         String input = in.nextLine();
         while (input.trim().isEmpty()) {
@@ -61,18 +81,16 @@ public class Ui {
         return input;
     }
 
+    /**
+     * Shows relevant tasks in an indexed list as well as a message.
+     * @param result command result
+     */
     public void showResultToUser(CommandResult result) {
         final ArrayList<Task> relevantTasks = result.getRelevantTasks();
         if (relevantTasks != null) {
             showToUser(getIndexedListViewOfTasks(relevantTasks));
         }
-        showToUser(result.feedbackToUser, DIVIDER);
-    }
-
-    public static ArrayList<Task> filterTasksByString(ArrayList<Task> taskList, String filterString) {
-        return (ArrayList<Task>) taskList.stream()
-                .filter((t) -> t.getDescription().contains(filterString))
-                .collect(Collectors.toList());
+        showToUser(result.feedbackToUser);
     }
 
     private String[] getIndexedListViewOfTasks(ArrayList<Task> relevantTasks) {
@@ -91,18 +109,31 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows welcome page.
+     */
     public void showWelcome() {
         showToUser(LOGO,GREETING,DIVIDER);
     }
 
+    /**
+     * Shows a line.
+     */
     public void showLine() {
         out.println(DIVIDER);
     }
 
+    /**
+     * Shows a loading error message.
+     */
     public void showLoadingError() {
         showError(MESSAGE_LOADING_ERROR);
     }
 
+    /**
+     * Shows error message.
+     * @param message error message
+     */
     public void showError(String message) {
         showToUser(message);
     }

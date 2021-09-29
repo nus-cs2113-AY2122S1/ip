@@ -1,18 +1,26 @@
 package commands;
 
-import common.Messages;
 import task.Task;
 
+import static common.Messages.MESSAGE_TASK_NOT_FOUND;
+
+/**
+ * Deletes a task in the task list using the task index.
+ */
 public class DeleteCommand extends Command{
 
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_USAGE = "delete: Deletes the task corresponding to the task index.\n"
-            + "Parameters: TASK_INDEX\n"
-            + "Example: delete 1\n";
+            + "\tParameters: TASK_INDEX\n"
+            + "\tExample: delete 1\n";
     public static final String MESSAGE_SUCCESS = "Deleted task: %1$s";
 
-    public DeleteCommand(int targetIndex) {
-        super(targetIndex);
+    /**
+     * Constructor that sets the target index of the task we want to delete.
+     * @param taskIndex the index of the task we want to delete.
+     */
+    public DeleteCommand(int taskIndex) {
+        super(taskIndex);
     }
 
     @Override
@@ -22,7 +30,7 @@ public class DeleteCommand extends Command{
             taskManager.deleteTask(toDelete);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete.toString()));
         } catch (IndexOutOfBoundsException e) {
-            return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
+            return new CommandResult(String.format(MESSAGE_TASK_NOT_FOUND, taskManager.getTaskList().size()));
         }
     }
 }
