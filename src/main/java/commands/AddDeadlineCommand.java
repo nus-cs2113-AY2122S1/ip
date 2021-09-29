@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class AddDeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
     public static final String MESSAGE_USAGE = "deadline: Adds a deadline to the task list.\n"
-            + "\tParameters: DESCRIPTION d/DATE t/TIME\n"
+            + "\tParameters: DESCRIPTION d/DATE [t/TIME]\n"
             + "\tTIME parameter is optional. If TIME is not given, default time will be set to 12:00AM\n"
             + "\tExample: deadline homework d/2020-12-31 t/09:00\n";
     public static final String MESSAGE_SUCCESS = "New deadline added: %1$s";
