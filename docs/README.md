@@ -21,10 +21,10 @@ you manage your daily tasks faster than traditional GUI application.
 
 ## 1. Quick Start
 1. Ensure you have Java `11` or above installed in your Computer.
-2. Download the latest `Duke.jar` from [here](www.google.com)
+2. Download the latest `Duke_A0217143N.jar` from [here](https://github.com/APZH/ip/releases/tag/A-Release)
 3. Copy the file to the folder you want to use as the _home folder_ for Duke.
 4. Open a terminal window in the _home folder_.
-5. Type `java -jar Duke.jar` into the terminal to start Duke. 
+5. Type `java -jar Duke_A0217143N.jar` into the terminal to start Duke. 
 6. The following display should appear in a few seconds:
 
     ```
@@ -258,7 +258,7 @@ For first time users, a default folder `data` is created upon running the Duke p
 A text file `duke.txt` is also generated in the `data` folder to serve as the local storage
 to store the user's task data.
 
-> **Note**: The `data` folder is created in the same directory as `Duke.jar`.
+> **Note**: The `data` folder is created in the same directory as `Duke_A0217143N.jar`.
 
 The user's tasklist data are saved to `duke.txt` automatically after any command
 that modifies the tasklist. e.g. adding a task, deleting a task, marking a task as done.
