@@ -20,7 +20,7 @@ and helps you stay ahead of the curve.
     - [End the Program `bye`](#end-the-program-bye)
     - [Save Tasks to File](#save-tasks-to-file)
 - [Command Summary](#command-summary)
-- [Frequently Asked Questions (FAQ)]
+- [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
 
 <br />
 
@@ -131,7 +131,10 @@ ____________________________________________________________
 <br />
 
 ### Mark a Task as Done: `done`
-Marks a task that DUKE is tracking as done.
+Marks a task that DUKE is tracking as done. "X" is displayed to mark the task
+as done. 
+
+>* Note: The index refers to the **list index** beginning from 1 and not **array index** beginning from 0.
 
 Format: `done <TASK_INDEX>` 
 
@@ -151,6 +154,8 @@ ____________________________________________________________
 ### Delete a Task: `delete`
 Delete the task from Duke and duketasks.txt
 
+>* Note: The index refers to the **list index** beginning from 1 and not **array index** beginning from 0.
+
 Format: `delete <TASK_INDEX>` 
 
 Example: `delete 1`
@@ -168,6 +173,7 @@ ____________________________________________________________
 
 ### Find a Task: `find`
 Finds tasks with a `<SEARCH_STRING>` that contains the string inputted by the user.
+The command can accept dates in both string and numeric formats.
 
 Format: `find <SEARCH_STRING>`
 
