@@ -14,10 +14,26 @@ public class TaskList {
         taskNumber = 0;
     }
 
-
     public void listOut() {
         for (int i = 0; i < taskNumber; i++) {
             System.out.println((i + 1) + "." + tasks[i]);
+        }
+    }
+
+    public void find(String line) {
+        Ui ui = new Ui();
+        try {
+            int j = 1;
+            String keyword = line.substring(5);
+            ui.find();
+            for (int i = 0; i < taskNumber; i++) {
+                if (tasks[i].getDescription().contains(keyword)) {
+                    System.out.println(j + "." + tasks[i]);
+                    j++;
+                }
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            ui.findFailed();
         }
     }
 

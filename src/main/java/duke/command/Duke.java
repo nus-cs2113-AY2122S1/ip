@@ -17,6 +17,8 @@ public class Duke {
 
             if (line.equals("list")) {
                 taskList.listOut();
+            } else if (line.startsWith("find")) {
+                taskList.find(line);
             } else if (line.startsWith("done")) {
                 taskList.markDone(line);
             } else if (line.startsWith("delete")) {

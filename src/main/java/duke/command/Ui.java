@@ -8,6 +8,14 @@ public class Ui {
         System.out.println("What can I do for you?");
     }
 
+    public static void find() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
+    public static void findFailed() {
+        System.out.println("OOPS!!! The description of a find cannot be empty.");
+    }
+
     public static void markDone(int index, Task[] tasks) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + tasks[index].getStatusIcon() + " " + tasks[index].getDescription());
