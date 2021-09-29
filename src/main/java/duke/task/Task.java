@@ -11,6 +11,10 @@ public abstract class Task {
 
     public abstract String getTaskDetailsInFileFormat();
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
