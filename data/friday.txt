@@ -1,5 +1,5 @@
 todo | O | buy book
-deadline | O | read book | 2021-09-28
 event | O | book fair | 2021-09-30
 todo | O | research on new book
 deadline | O | find book | 2021-10-01
+event | O | wank | 2021-09-30

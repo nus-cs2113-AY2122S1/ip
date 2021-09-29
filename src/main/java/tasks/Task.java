@@ -1,8 +1,11 @@
 package tasks;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
+/**
+ * Parent class representing a Task user stores.
+ * Contains taskName and isDone flag indicating whether a task is done or not
+ */
 public abstract class Task {
     protected boolean isDone;
     protected String taskName;
@@ -35,15 +38,13 @@ public abstract class Task {
         this.taskName = taskName;
     }
 
-    // get Prefix
-    public String getPrefix() {
-        return "[ ]";
-    }
+    // get Prefix for child classes
+    public abstract String getPrefix();
 
     // date for each instance;
     public abstract LocalDate getTaskDate();
 
-    // override tostring method
+    // override toString method
     @Override
     public String toString() {
         System.out.print(">");

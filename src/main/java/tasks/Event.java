@@ -3,6 +3,11 @@ package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Child Event class extending Parent Task class
+ * Has additional attribute eventDate indicating the day of stored event
+ * Marked with unique prefix [E]
+ */
 public class Event extends Task {
     private LocalDate eventDate;
     public Event(boolean done, String name, String date) {

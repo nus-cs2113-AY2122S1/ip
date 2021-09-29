@@ -17,14 +17,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Main class handling functions called when user enters a command
+ * ArrayList containing all tasks of user initiated here
+ */
 public class TaskList {
     private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     // Operations to add/delete tasks in list eg. addToDo, addDeadline
     /**
+     * Function called when user enters list command
+     * If no tasks, throws EmptyListException which will print out a message stating that there are no tasks
+     * in the users list
      * @throws EmptyListException
-     * Function to print out the current Task List
-     * Shift inside COMMANDS package as own Java class
      */
     // function to update Task array on adding and deleting task
     public static void getList() throws EmptyListException{
@@ -36,10 +41,11 @@ public class TaskList {
     }
 
     /**
+     * Adds a new Task to tasks ArrayList
+     * Prints out message indicating task successfully added
      * @param newTask Task object of new Task to add to list
      * @param taskName name of task to print out
-     * Function to add a new task to the list
-     * Shift inside COMMANDS package as default add class; extended
+     * @param isLoad flag indicating whether function was called on loading of data or otherwise
      */
     private static void addTask(Task newTask, String taskName, boolean isLoad) {
         // add to array list
@@ -51,11 +57,26 @@ public class TaskList {
         MessagePrinter.addedTask(taskName);
     }
 
+    /**
+     * Removes a specified task from tasks ArrayList
+     * Prints our message showing user current list upon removal
+     * @param taskToRemove
+     * @param taskName
+     */
     private static void removeTask(Task taskToRemove, String taskName) {
         tasks.remove(taskToRemove);
         MessagePrinter.removedTask(taskName, tasks.size());
     }
 
+    /**
+     * Function handling adding of tasks indicated as todo
+     * @param userInput String containing users input; parsed to get task name
+     * @param isDone indicator for whether task is done or not. If called when user adds via command line, default
+     *               value is false. If called when loading data from storage, will be set to value indicated in storage
+     * @param isLoad indicator for whether function was called from data storage or from user input
+     * @return Task object referring to current todo added
+     * @throws EmptyTaskNameException If user did not provide a name for task
+     */
     public static Task addToDo(String userInput, boolean isDone, boolean isLoad) throws EmptyTaskNameException {
         String[] splitString = userInput.split("\\s");
         if (splitString.length <= 1) {
@@ -68,6 +89,19 @@ public class TaskList {
         return newTodo;
     }
 
+    /**
+     * Function handling adding of tasks indicated as deadline
+     * @param userInput String containing users input; parsed to get task name and deadline date
+     * @param isDone indicator for whether task is done or not. If called when user adds via command line, default
+     *               value is false. If called when loading data from storage, will be set to value indicated in storage
+     * @param isLoad indicator for whether function was called from data storage or from user input
+     * @return Task object referring to current deadline added
+     * @throws IncompleteCommandException If only deadline command without any specifications provided
+     * @throws EmptyTaskNameException if task name is missing
+     * @throws MissingKeyWordException if /by is missing
+     * @throws MissingDateException if date of deadline not provided
+     * @throws DateTimeParseException if date and time not in correct format
+     */
     public static Task addDeadline(String userInput, boolean isDone, boolean isLoad) throws
             IncompleteCommandException,
             EmptyTaskNameException,
@@ -100,6 +134,18 @@ public class TaskList {
         return newDeadline;
     }
 
+    /**
+     * Function handling adding of tasks indicated as event
+     * @param userInput String containing users input; parsed to get task name and event date
+     * @param isDone indicator for whether task is done or not. If called when user adds via command line, default
+     *               value is false. If called when loading data from storage, will be set to value indicated in storage
+     * @param isLoad indicator for whether function was called from data storage or from user input
+     * @return Task object referring to current event added
+     * @throws IncompleteCommandException If only deadline command without any specifications provided
+     * @throws EmptyTaskNameException if task name is missing
+     * @throws MissingKeyWordException if /by is missing
+     * @throws MissingDateException if date and time not in correct format
+     */
     public static Task addEvent(String userInput, boolean isDone, boolean isLoad) throws
             IncompleteCommandException,
             EmptyTaskNameException,
@@ -131,8 +177,14 @@ public class TaskList {
         return newEvent;
     }
 
-    // function to remove a task from the list of tasks
-    // COMMAND "delete index"
+    /**
+     * Function to delete task based on index indicated by user
+     * @param userInput String from user to be parsed in InputParser to get index of task to delete
+     * @throws MissingIndexException If index of task to delete not specified by user
+     * @throws InvalidTaskIndexException If user does not provide a valid index eg. double, string
+     * @throws InvalidIndexException If no tasks at index specified by user
+     * @throws IndexOutOfBoundsException If index is less than 0 or more than 99
+     */
     public static void deleteTask(String userInput) throws
             MissingIndexException,
             InvalidTaskIndexException,
@@ -158,6 +210,14 @@ public class TaskList {
         UpdateData.rewriteList(tasks);
     }
 
+    /**
+     * Function to mark task as done based on index indicated by user
+     * @param userInput String from user to be parsed in InputParser to get index of task to mark as done
+     * @throws MissingIndexException If index of task to mark as done not specified by user
+     * @throws InvalidTaskIndexException If user does not provide a valid index eg. double, string
+     * @throws InvalidIndexException If no tasks at index specified by user
+     * @throws IndexOutOfBoundsException If index is less than 0 or more than 99
+     */
     public static void markAsDone(String userInput) throws
             MissingIndexException,
             InvalidTaskIndexException,
@@ -184,6 +244,11 @@ public class TaskList {
         UpdateData.rewriteList(tasks);
     }
 
+    /**
+     * Function to search tasks ArrayList containing query from user in task name
+     * @param userInput String from user input to be parsed in InputParser to get query from user
+     * @throws MissingQueryException If no query is specified by user
+     */
     public static void findTasks(String userInput) throws MissingQueryException {
         ArrayList<Task> filteredList = new ArrayList<Task>();
 
