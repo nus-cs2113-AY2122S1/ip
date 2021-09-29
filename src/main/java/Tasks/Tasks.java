@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Tasks {
     protected String done, type, description;
 

@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Event extends Tasks {
     protected String type = "E";
     protected String at = "";
