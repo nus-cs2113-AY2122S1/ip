@@ -20,10 +20,10 @@ Karlett is a desktop app for keeping track of task lists, optimized for use via 
 > Notes about the command format:
 >
 > 1. Words in UPPER_CASE are the parameters to be supplied by the user.
-> <br />e.g. in todo TASK DESCRIPTIONS, TASK DESCRIPTIONS is a parameter which can be used as todo run 5km every day.
+> <br />e.g. in `todo TASK DESCRIPTIONS`, `TASK DESCRIPTIONS` is a parameter which can be used as `todo run 5km every day`.
 >
-> 2. Extraneous parameters for commands that do not take in parameters (i.e. list, exit) will be ignored.
-> <br />e.g. if the command specifies list 123, it will be interpreted as list.
+> 2. Extraneous parameters for commands that do not take in parameters (i.e. `list`, `exit`) will be ignored.
+> <br />e.g. if the command specifies `list 123`, it will be interpreted as `list`.
 
 ### Loading the data
 
