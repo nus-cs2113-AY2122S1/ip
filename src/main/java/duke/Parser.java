@@ -6,6 +6,7 @@ import duke.commands.DeleteCommand;
 import duke.commands.DoneCommand;
 import duke.commands.EventCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.TodoCommand;
 import duke.exceptions.InvalidCommandException;
@@ -27,6 +28,8 @@ public class Parser {
             return new EventCommand(fullCommand);
         } else if (fullCommand.startsWith("delete")) {
             return new DeleteCommand(fullCommand);
+        } else if (fullCommand.startsWith("find")) {
+            return new FindCommand(fullCommand);
         } else {
             throw new InvalidCommandException();
         }
