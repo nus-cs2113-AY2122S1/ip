@@ -41,13 +41,15 @@ public class Parser {
      *
      * @param input is the command given by the user
      * @return the deadline object created under Task
-     * @throws ItachiException if /by is not present in the command or if no description is present after the deadline command
+     * @throws ItachiException if /by is not present in the command or
+     *                         if no description is present after the deadline command
      */
     public static Task getDeadlineDetails(String input) throws ItachiException {
         if (input.substring(INDEX_AFTER_DEADLINE).isBlank()) {
             throw new ItachiException("Task description is missing");
         } else if (!input.contains("/by")) {
-            throw new ItachiException("DEADLINE task description is missing \"/by\" [Format: deadline task description /by deadline YYYY-MM-DD]");
+            throw new ItachiException("DEADLINE task description is missing \"/by\" " +
+                    "[Format: deadline task description /by deadline YYYY-MM-DD]");
         }
 
         // To extract description between the eight-letter word "deadline" and "/by"
@@ -65,13 +67,15 @@ public class Parser {
      *
      * @param input is the command given by the user
      * @return the event object created under Task
-     * @throws ItachiException if /at is not present in the command or if no description is present after the event command
+     * @throws ItachiException if /at is not present in the command or
+     *                         if no description is present after the event command
      */
     public static Task getEventDetails(String input) throws ItachiException {
         if (input.substring(INDEX_AFTER_EVENT).isBlank()) {
             throw new ItachiException("Task description is missing");
         } else if (!input.contains("/at")) {
-            throw new ItachiException("EVENT task description is missing \"/at\" [Format: event task description /at event time/day/place]");
+            throw new ItachiException("EVENT task description is missing \"/at\" " +
+                    "[Format: event task description /at event time/day/place]");
         }
 
         // To extract description between the five-letter word "event" and "/at"

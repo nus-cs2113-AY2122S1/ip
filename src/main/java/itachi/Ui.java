@@ -44,13 +44,15 @@ public class Ui {
 
     public static void printAddTaskMessage(Task task) {
         printLineSeparator();
-        System.out.println("Got it. I've added this task:\n" + task + "\nNow you have " + list.size() + " tasks in the list.");
+        System.out.println("Got it. I've added this task:\n" + task + "\nNow you have "
+                + list.size() + " tasks in the list.");
         printLineSeparator();
     }
 
     public static void printDeleteTaskMessage(int taskIndex) {
         Ui.printLineSeparator();
-        System.out.println("Noted. I've deleted this task:\n" + list.get(taskIndex) + "\nNow you have " + (list.size() - 1) + " tasks in the list.");
+        System.out.println("Noted. I've deleted this task:\n" + list.get(taskIndex) + "\nNow you have "
+                + (list.size() - 1) + " tasks in the list.");
         Ui.printLineSeparator();
     }
 
@@ -73,7 +75,8 @@ public class Ui {
         Ui.printLineSeparator();
     }
 
-    public static void printMatchingTasks(String keyword, String taskDescription, int i, ArrayList<Task> listOfTasksFound) {
+    public static void printMatchingTasks(String keyword, String taskDescription,
+                                          int i, ArrayList<Task> listOfTasksFound) {
         if (taskDescription.contains(keyword)) {
             System.out.println((i + 1) + ". " + list.get(i));
             listOfTasksFound.add(list.get(i));

@@ -24,9 +24,11 @@ public class TaskManager {
      * @param input    is the command given by the user
      * @param taskList is a TaskList object
      * @param storage  is a Storage object
-     * @throws ItachiException if delete/done/find command is not provided with an index/keyword or an invalid command is given or wrong date/time format is written
+     * @throws ItachiException if delete/done/find command is not provided with an index/keyword
+     *                         or an invalid command is given or wrong date/time format is written
      */
-    public static void parseUserCommand(String command, String input, TaskList taskList, Storage storage) throws ItachiException {
+    public static void parseUserCommand(String command, String input, TaskList taskList, Storage storage)
+            throws ItachiException {
         switch (command) {
         case "bye":
             // Changes the loop condition to true to exit from the program
@@ -43,7 +45,8 @@ public class TaskManager {
                 // Passes the current list of tasks in the txt file to find a task
                 new FindCommand(keyword).executeUserCommand(taskList, storage);
             } catch (IndexOutOfBoundsException e) {
-                throw new ItachiException("I do not know which task you want me to FIND. Give the task keyword my friend");
+                throw new ItachiException("I do not know which task you want me to FIND. " +
+                        "Give the task keyword my friend");
             } catch (ItachiException f) {
                 Ui.printErrorMessage(f);
             }
@@ -55,7 +58,8 @@ public class TaskManager {
                 // Passes the index and current list from the txt file to delete a task
                 new DeleteCommand(indexOfDelete).executeUserCommand(taskList, storage);
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                throw new ItachiException("I do not know which task you want me to DELETE. Give the task number my friend");
+                throw new ItachiException("I do not know which task you want me to DELETE. " +
+                        "Give the task number my friend");
             }
             break;
         case "done":
@@ -66,7 +70,8 @@ public class TaskManager {
                 // Passes the index and current list from the txt file to mark a task as done
                 new DoneCommand(indexOfDone).executeUserCommand(taskList, storage);
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                throw new ItachiException("I do not know which task you want me to MARK. Give the task number my friend");
+                throw new ItachiException("I do not know which task you want me to MARK. " +
+                        "Give the task number my friend");
             }
             break;
         case "todo":
@@ -94,7 +99,8 @@ public class TaskManager {
             new AddCommand(event).executeUserCommand(taskList, storage);
             break;
         default:
-            throw new ItachiException("I'm sorry, I do not know what you are trying to say: Please refer to the User Guide");
+            throw new ItachiException("I'm sorry, I do not know what you are trying to say: " +
+                    "Please refer to the User Guide");
         }
     }
 }

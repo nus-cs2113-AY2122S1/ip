@@ -68,7 +68,8 @@ public class Storage {
      * Creates task from txt file and stores them in Task objects respectively
      *
      * @param taskWords data present in the txt file
-     * @throws ItachiException if the lines in the txt file do not start with T/D/E or if negative/unwanted array index is being accessed
+     * @throws ItachiException if the lines in the txt file do not start with T/D/E or
+     *                         if negative/unwanted array index is being accessed
      */
     public void addData(String taskWords) throws ItachiException {
         try {
