@@ -280,7 +280,7 @@ public class TaskList {
      * @return True if it is out of range, False otherwise.
      */
     public static boolean isOutOfRange(int index) {
-        return (index > listOfTasks.size() || index < 0);
+        return (index > listOfTasks.size() - 1 || index < 0);
     }
 
 }
