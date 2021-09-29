@@ -1,4 +1,4 @@
-#User Guide
+# User Guide
 
 Jarvis is a **desktop app for managing tasks via a Command Line Interface (CLI)**.
 
