@@ -41,6 +41,7 @@ public class Duke {
         CommandResult feedback;
         while (isRunning) {
             do {
+                ByeCommand.isRunning = true;
                 response = Interface.readInput();
                 System.out.println(Interface.lineBreak);
                 command = Parser.parseCommand(response);
@@ -53,7 +54,8 @@ public class Duke {
                 isRunning = false;
             } else {
                 System.out.println(Interface.lineBreak + System.lineSeparator() +
-                        "No problem, what further assistance " + "do you require?");
+                        "No problem, what further assistance " + "do you require?" + System.lineSeparator() +
+                        Interface.lineBreak);
             }
         }
     }

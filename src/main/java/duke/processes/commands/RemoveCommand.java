@@ -30,7 +30,7 @@ public class RemoveCommand extends Command {
 
         try {
             result = remove(tasksToRemove);
-            return new CommandResult(result + " tasks removed" + System.lineSeparator() + Duke.taskList.size()
+            return new CommandResult(result + " removed" + System.lineSeparator() + Duke.taskList.size()
                     + " tasks remaining");
         } catch (RemoveException e) {
             return new CommandResult(e.getMessage());
@@ -48,19 +48,19 @@ public class RemoveCommand extends Command {
     public static String remove(String[] command) throws RemoveException {
 
         try {
-            String[] tasks = command[1].split(",");
-            int j = 0;
-            for (String s : tasks) {
-                int i = Integer.parseInt(s) - 1;
-                if (i > Duke.taskList.size()) {
-                    throw new RemoveException("That task does not exist");
-                }
-                Duke.taskList.remove(i - 1);
-                j++;
+            String task;
+            int j;
+            j = Integer.parseInt(command[1]) - 1;
+            if (j > Duke.taskList.size()) {
+                throw new RemoveException("That task does not exist");
             }
-            return String.valueOf(j);
+            task = Duke.taskList.get(j).description;
+            Duke.taskList.remove(j);
+            return task;
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             return "Please specify a task [use numbers to indicate the task]";
+        } catch (IndexOutOfBoundsException e) {
+            return "That task does not exist";
         }
     }
 }
