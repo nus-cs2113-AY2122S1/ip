@@ -9,61 +9,62 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract class Ui {
-    public static final String LINE = "    _____________________________________________________________________________\n\n";
+    public static final String LINE = "    _____________________________________________________________________________"
+            + System.lineSeparator() + System.lineSeparator();
     public static final String LINE_SPACE = "    ";
     public static final String KAREN_ON_LOGO =
-            "\n" +
-                    "            ______________________\n" +
-                    "         _~`o--------------------o: \n" +
-                    "        /- ||                    ||\n" +
-                    "      -!|. ||          /\\        ||\n" +
-                    "     ! ||. |!___ /\\   /  \\  /\\___!|\n" +
-                    "     | |!. ||   V  \\ /    \\/     ||\n" +
-                    "      -!!__!|       V            ||\n" +
-                    "       `\\. ||____________________||\n" +
-                    "         `~!o======='---'======= o!\n" +
-                    "                     | |\n" +
-                    "                     !_!\n" +
-                    "                     | |\n" +
-                    "                     !_!\n" +
-                    "                    .! !.\n" +
-                    "                   /___'_\\\n" +
-                    "              ____!----'--!____\n" +
-                    "             /    |    '  |    \\\n" +
-                    "            /  - - \\- _'_/ - -  \\      \n" +
-                    "           /. _________________ .\\\n" +
-                    "          [(_____________________)]\n" +
-                    "             0                 0 \n" ;
+            System.lineSeparator() +
+                    "            ______________________" + System.lineSeparator() +
+                    "         _~`o--------------------o: " + System.lineSeparator() +
+                    "        /- ||                    ||" + System.lineSeparator() +
+                    "      -!|. ||          /\\        ||" + System.lineSeparator() +
+                    "     ! ||. |!___ /\\   /  \\  /\\___!|" + System.lineSeparator() +
+                    "     | |!. ||   V  \\ /    \\/     ||" + System.lineSeparator() +
+                    "      -!!__!|       V            ||" + System.lineSeparator() +
+                    "       `\\. ||____________________||" + System.lineSeparator() +
+                    "         `~!o======='---'======= o!" + System.lineSeparator() +
+                    "                     | |" + System.lineSeparator() +
+                    "                     !_!" + System.lineSeparator() +
+                    "                     | |" + System.lineSeparator() +
+                    "                     !_!" + System.lineSeparator() +
+                    "                    .! !." + System.lineSeparator() +
+                    "                   /___'_\\" + System.lineSeparator() +
+                    "              ____!----'--!____" + System.lineSeparator() +
+                    "             /    |    '  |    \\" + System.lineSeparator() +
+                    "            /  - - \\- _'_/ - -  \\      " + System.lineSeparator() +
+                    "           /. _________________ .\\" + System.lineSeparator() +
+                    "          [(_____________________)]" + System.lineSeparator() +
+                    "             0                 0 " + System.lineSeparator();
     public static final String KAREN_OFF_LOGO =
-            "            ______________________\n" +
-            "         _~`o--------------------o: \n" +
-            "        /- ||                    ||\n" +
-            "      -!|. ||                    ||\n" +
-            "     ! ||. |!____________________!|\n" +
-            "     | |!. ||                    ||\n" +
-            "      -!!__!|                    ||\n" +
-            "       `\\. ||____________________||\n" +
-            "         `~!o======='---'======= o!\n" +
-            "                     | |\n" +
-            "                     !_!\n" +
-            "                     | |\n" +
-            "                     !_!\n" +
-            "                    .! !.\n" +
-            "                   /___'_\\\n" +
-            "              ____!----'--!____\n" +
-            "             /    |    '  |    \\\n" +
-            "            /  - - \\- _'_/ - -  \\      \n" +
-            "           /. _________________ .\\\n" +
-            "          [(_____________________)]\n" +
+            "            ______________________" + System.lineSeparator() +
+            "         _~`o--------------------o: " + System.lineSeparator() +
+            "        /- ||                    ||" + System.lineSeparator() +
+            "      -!|. ||                    ||" + System.lineSeparator() +
+            "     ! ||. |!____________________!|" + System.lineSeparator() +
+            "     | |!. ||                    ||" + System.lineSeparator() +
+            "      -!!__!|                    ||" + System.lineSeparator() +
+            "       `\\. ||____________________||" + System.lineSeparator() +
+            "         `~!o======='---'======= o!" + System.lineSeparator() +
+            "                     | |" + System.lineSeparator() +
+            "                     !_!" + System.lineSeparator() +
+            "                     | |" + System.lineSeparator() +
+            "                     !_!" + System.lineSeparator() +
+            "                    .! !." + System.lineSeparator() +
+            "                   /___'_\\" + System.lineSeparator() +
+            "              ____!----'--!____" + System.lineSeparator() +
+            "             /    |    '  |    \\" + System.lineSeparator() +
+            "            /  - - \\- _'_/ - -  \\      " + System.lineSeparator() +
+            "           /. _________________ .\\" + System.lineSeparator() +
+            "          [(_____________________)]" + System.lineSeparator() +
             "             0                 0 ";
     public static final String PLANKTON_LOGO =
-" )_)  \n" +
-        " |0|  \n" +
-        "'!_!` \n" +
+" )_)  " + System.lineSeparator() +
+        " |0|  " + System.lineSeparator() +
+        "'!_!` " + System.lineSeparator() +
         " ' '  " ;
-    public static final String WELCOME_MESSAGE = "Hello there Plankton, what can I can do for you?\n";
+    public static final String WELCOME_MESSAGE = "Hello there Plankton, what can I can do for you?" + System.lineSeparator();
 
-    public static final String WELCOME_BACK_MESSAGE = "Welcome back Plankton, anything else I can do for you?\n";
+    public static final String WELCOME_BACK_MESSAGE = "Welcome back Plankton, anything else I can do for you?" + System.lineSeparator();
 
     /**
      * Returns the user input.
@@ -99,7 +100,7 @@ public abstract class Ui {
      * @param message String to be printed out
      */
     public static void printFormattedMessage(String message) {
-        System.out.println(LINE + LINE_SPACE + message + "\n" + LINE);
+        System.out.println(LINE + LINE_SPACE + message + "" + System.lineSeparator() + LINE);
     }
 
     /**
@@ -109,8 +110,8 @@ public abstract class Ui {
      * @param totalTasks number of tasks in taskList
      */
     public static void printTaskAddedMessage(Task task, int totalTasks) {
-        String message = String.format("Got it. I've added the task: \n" + LINE_SPACE + "   [%s][%s] %s\n" +
-                LINE_SPACE + "Now you have %d tasks in your list.\n",
+        String message = String.format("Got it. I've added the task: " + System.lineSeparator() + LINE_SPACE + "   [%s][%s] %s" + System.lineSeparator() +
+                LINE_SPACE + "Now you have %d tasks in your list." + System.lineSeparator(),
                 task.getType(), task.getStatusIcon(), task.getFormattedDescription(), totalTasks);
         printFormattedMessage(message);
     }
@@ -122,8 +123,8 @@ public abstract class Ui {
      * @param totalTasks number of tasks in taskList
      */
     public static void printTaskDeletedMessage(Task task, int totalTasks) {
-        String message = String.format("Alright Plankton, I've removed the task: \n" + LINE_SPACE + "   [%s][%s] %s\n" +
-                        LINE_SPACE + "Now you have %d tasks in your list.\n",
+        String message = String.format("Alright Plankton, I've removed the task: " + System.lineSeparator() + LINE_SPACE + "   [%s][%s] %s" + System.lineSeparator() +
+                        LINE_SPACE + "Now you have %d tasks in your list." + System.lineSeparator(),
                 task.getType(), task.getStatusIcon(), task.getFormattedDescription(), totalTasks);
         printFormattedMessage(message);
     }
@@ -138,14 +139,14 @@ public abstract class Ui {
         int listSize = tasks.size();
 
         if (listSize == 0) {
-            printFormattedMessage("You have nothing in your task list so far!\n");
+            printFormattedMessage("You have nothing in your task list so far!" + System.lineSeparator());
             return;
         }
 
-        String message = String.format("Here you go Plankton \n\n" + LINE_SPACE + "Task List:\n");
+        String message = String.format("Here you go Plankton " + System.lineSeparator() + System.lineSeparator() + LINE_SPACE + "Task List:" + System.lineSeparator());
 
         for (int i = 0; i < listSize; i ++) {
-           message = message + String.format(LINE_SPACE + "%d. [%s][%s] %s\n",
+           message = message + String.format(LINE_SPACE + "%d. [%s][%s] %s" + System.lineSeparator(),
                    i + 1, tasks.get(i).getType(), tasks.get(i).getStatusIcon(),
                    tasks.get(i).getFormattedDescription());
         }
@@ -161,16 +162,16 @@ public abstract class Ui {
      */
     public static void printFoundTasks(List<Task> tasks, String keyword) {
         if (tasks.size() == 0) {
-            printFormattedMessage("You seem to have none of such tasks.\n");
+            printFormattedMessage("You seem to have none of such tasks." + System.lineSeparator());
             return;
         }
-        String message = "Found them. Here are your tasks matching with:  " + keyword + "\n\n";
+        String message = "Found them. Here are your tasks matching with:  " + keyword + "" + System.lineSeparator() + System.lineSeparator();
         for (int i = 0; i < tasks.size(); i ++) {
-            message += String.format(LINE_SPACE + "  %d. [%s][%s] %s\n",
+            message += String.format(LINE_SPACE + "  %d. [%s][%s] %s" + System.lineSeparator(),
                     i+1, tasks.get(i).getType(), tasks.get(i).getStatusIcon(), tasks.get(i).getFormattedDescription());
         }
 
-        message += String.format("\n" + LINE_SPACE + "Total number of tasks: " + tasks.size() + "\n");
+        message += String.format("" + System.lineSeparator() + LINE_SPACE + "Total number of tasks: " + tasks.size() + "" + System.lineSeparator());
         printFormattedMessage(message);
     }
 
@@ -183,20 +184,20 @@ public abstract class Ui {
      */
     public static void printTasksOnDate (LocalDate date, List<Task> tasks) {
         if (tasks.size() == 0) {
-            printFormattedMessage("You have nothing on that day Plankton\n");
+            printFormattedMessage("You have nothing on that day Plankton" + System.lineSeparator());
             return;
         }
 
         String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy, E"));
-        String message = "Okay Plankton, here are the tasks you have on " + formattedDate + ".\n\n" + LINE_SPACE + "" +
-                "Task List:\n\n";
+        String message = "Okay Plankton, here are the tasks you have on " + formattedDate + "." + System.lineSeparator() + System.lineSeparator() + LINE_SPACE + "" +
+                "Task List:" + System.lineSeparator() + System.lineSeparator();
 
         for (int i = 0; i < tasks.size(); i ++) {
-            message += String.format(LINE_SPACE + "  %d. [%s][%s] %s\n",
+            message += String.format(LINE_SPACE + "  %d. [%s][%s] %s" + System.lineSeparator(),
                     i+1, tasks.get(i).getType(), tasks.get(i).getStatusIcon(), tasks.get(i).getFormattedDescription());
         }
 
-        message += String.format("\n" + LINE_SPACE + "Total number of tasks: " + tasks.size() + "\n");
+        message += String.format("" + System.lineSeparator() + LINE_SPACE + "Total number of tasks: " + tasks.size() + "" + System.lineSeparator());
         printFormattedMessage(message);
     }
 
@@ -206,7 +207,7 @@ public abstract class Ui {
      * @param task Task object to be marked as done
      */
     public static void printTaskDoneMessage(Task task) {
-        String message = String.format("Alright, I've marked the task as done!\n" + LINE_SPACE + "[%s] %s\n",
+        String message = String.format("Alright, I've marked the task as done!" + System.lineSeparator() + LINE_SPACE + "[%s] %s" + System.lineSeparator(),
                 task.getStatusIcon(), task.getFormattedDescription());
         printFormattedMessage(message);
     }
@@ -216,7 +217,7 @@ public abstract class Ui {
      * as done.
      */
     public static void printTaskAlreadyDoneMessage() {
-        String message = "That Task has already been marked as done Plankton\n";
+        String message = "That Task has already been marked as done Plankton" + System.lineSeparator();
         printFormattedMessage(message);
     }
 
@@ -225,7 +226,7 @@ public abstract class Ui {
      */
     public static void printGoodByeMessage() {
         System.out.println(KAREN_OFF_LOGO);
-        String message = "See you again, Plankton. \n";
+        String message = "See you again, Plankton. " + System.lineSeparator();
         printFormattedMessage(message);
     }
 
@@ -233,7 +234,7 @@ public abstract class Ui {
      * This method prints a message when an invalid command has been given by user.
      */
     public static void printInvalidCommandMessage() {
-        String message = "Come again? I don't quite understand that command Plankton.\n";
+        String message = "Come again? I don't quite understand that command Plankton." + System.lineSeparator();
         printFormattedMessage(message);
     }
 
@@ -241,7 +242,7 @@ public abstract class Ui {
      * This method prints a message when a command with no description has been given by user.
      */
     public static void printNoDescriptionMessage() {
-        String message = "Plankton you need to be a little bit clearer.\n";
+        String message = "Plankton you need to be a little bit clearer." + System.lineSeparator();
         printFormattedMessage(message);
     }
 
@@ -250,7 +251,7 @@ public abstract class Ui {
      * eg. "done 1 2', "event /at 21-03-2020"
      */
     public static void printIncorrectDescriptionFormatMessage() {
-        String message = "What's that? Can you rephrase yourself?\n";
+        String message = "What's that? Can you rephrase yourself?" + System.lineSeparator();
         printFormattedMessage(message);
     }
 
@@ -258,7 +259,7 @@ public abstract class Ui {
      * This method prints a message when a non-number is given in a field where a number is expected.
      */
     public static void printNumberFormatMessage() {
-        String message = "I don't think that's even a number. Give a proper task number Plankton.\n";
+        String message = "I don't think that's even a number. Give a proper task number Plankton." + System.lineSeparator();
         printFormattedMessage(message);
     }
 
@@ -266,7 +267,7 @@ public abstract class Ui {
      * This method prints a message when there is no Task object with the index given by user.
      */
     public static void printIndexOutOfBoundsMessage() {
-        String message = "You don't have any Tasks with that task number.\n";
+        String message = "You don't have any Tasks with that task number." + System.lineSeparator();
         printFormattedMessage(message);
     }
 
@@ -274,7 +275,7 @@ public abstract class Ui {
      * This method prints a message when there are errors when accessing a File.
      */
     public static void printIOExceptionMessage() {
-        String message = "Oops, there's an error when I try to access your saved file.\n";
+        String message = "Oops, there's an error when I try to access your saved file." + System.lineSeparator();
         printFormattedMessage(message);
     }
 
@@ -282,7 +283,7 @@ public abstract class Ui {
      * This method prints a message when there are errors when creating a File.
      */
     public static void printCreateFileErrorMessage() {
-        String message = "Oops, there's an error creating a file for you.\n";
+        String message = "Oops, there's an error creating a file for you." + System.lineSeparator();
         printFormattedMessage(message);
     }
 
@@ -290,7 +291,7 @@ public abstract class Ui {
      * This methods a message when user inputs a date or time incorrectly.
      */
     public static void printDateTimeErrorMessage() {
-        String message = "I don't think that's a valid date or time.\n";
+        String message = "I don't think that's a valid date or time." + System.lineSeparator();
         printFormattedMessage(message);
     }
 
