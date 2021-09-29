@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -67,7 +68,8 @@ public class Storage {
      * @throws IndexOutOfBoundsException Throws an exception if the format of tasks
      * saved on the files are different.
      */
-    private void addTaskFromFile(Scanner s, TaskList tasks) throws IndexOutOfBoundsException {
+    private void addTaskFromFile(Scanner s, TaskList tasks) throws IndexOutOfBoundsException,
+            DateTimeParseException {
         String[] parsedOutput = s.nextLine().split(SEPARATOR_FOR_FILE);
         switch(parsedOutput[0]){
         case ToDo.IDENTIFIER:

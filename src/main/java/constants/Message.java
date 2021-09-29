@@ -18,13 +18,16 @@ public class Message {
             + "|____/ \\__,_|_|\\_\\___|\n";
     public static final String TYPE_SUITABLE_COMMAND_MESSAGE = "Sorry," +
             " I don't know what you mean, do type 'help' if you're unsure :)";
-    public static final String IO_EXCEPTION_MESSAGE = "Oops, something unexpected happened while writing to file";
+    public static final String FILE_WRITING_ERROR_MESSAGE = "Oops, something unexpected happened while " +
+            "writing to file";
+    public static final String FILE_READING_ERROR_MESSAGE = "Oops, something unexpected happened while " +
+            "reading the file";
     public static final String PROMPT_TASK_NUMBER = "Please tell me which task you want to select :)";
     public static final String PROMPT_SENSIBLE_INDEX = "Please give a number between 1 and ";
     public static final String DEFAULT_ERROR_MESSAGE = "Oops, something went wrong!";
+    public static final String FILE_ERROR_MESSAGE = "Oops, there might be something wrong with the file.";
     public static final String FILE_NOT_CREATED = "Looks like you don't have a file for your tasks, " +
             "let me create one now.....";
-    public static final String INCORRECT_FORMAT = "Oops, file format is incorrect. Please correct it!";
     public static final String DONE = "Done!";
     public static final String GETTING_TASK = "Getting your tasks.....";
     public static final String PROMPT_NUMBER = "Please give me an integer :)";

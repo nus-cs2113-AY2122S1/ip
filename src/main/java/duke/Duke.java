@@ -36,15 +36,14 @@ public class Duke {
         try {
             storage.loadTextFile(tasks);
             ui.printMessage(Message.DONE);
-        } catch (IndexOutOfBoundsException error) {
-            ui.printMessage(Message.INCORRECT_FORMAT);
-            System.exit(1);
-        } catch (IOException error) {
-            ui.printMessage(Message.DEFAULT_ERROR_MESSAGE);
-            System.exit(1);
         } catch (DukeException error) {
             ui.printMessage(Message.FILE_NOT_CREATED);
             ui.printMessage(Message.DONE);
+        } catch (IOException error) {
+            ui.printMessage(Message.FILE_READING_ERROR_MESSAGE);
+        } catch (Exception error) {
+            ui.printMessage(Message.FILE_ERROR_MESSAGE);
+            System.exit(1);
         }
     }
 
@@ -72,7 +71,7 @@ public class Duke {
         try {
             storage.saveTasksToFile(tasks);
         } catch (IOException error) {
-            ui.printMessage(Message.IO_EXCEPTION_MESSAGE);
+            ui.printMessage(Message.FILE_WRITING_ERROR_MESSAGE);
         }
         System.exit(0);
     }
