@@ -16,7 +16,8 @@ miniDuke is a chatbot that can manage and track tasks via command line interface
   9. [`sort time` - Sort tasks based on date](#sort-time---sort-tasks-based-on-date)
   10. [`bye` - Exit program](#bye---exit-program)
 - [Frequently Asked Questions(FAQ)](#frequently-asked-questionsfaq)
-- [Command Summary](#command-summary)
+- [Command Summary](#command-summary-1)
+
 ---
 
 ## Quick Start
@@ -329,11 +330,11 @@ Output:
 |-------------|--------------------------------------------------------|
 [bye](#bye---exit-program)| Exits the program
 [deadline](#content-deadline---create-a-deadline-task)| Create a deadline task
-[delete](content-delete---delete-corresponding-task-from-list)| Delete corresponding task from list
-[done](#content-done---check-corresponding-task-as-done)| Check corresponding task as done
-[event](#content-event---create-an-event-task)| Create an event task
-[find](#content-find---find-description-tasks-with-the-given-input)| Find tasks that contains the relevant keyword
-[help](#content-help---view-help) | Shows all available commands for the program
-[list](#content-list---list-all-the-tasks-created)| show all the tasks in the list
+[delete](#delete---delete-corresponding-task-from-list)| Delete corresponding task from list
+[done](#done---check-corresponding-task-as-done)| Check corresponding task as done
+[event](#event---create-an-event-task)| Create an event task
+[find](#find---find-description-tasks-with-the-given-input)| Find tasks that contains the relevant keyword
+[help](#help---view-help) | Shows all available commands for the program
+[list](#list---list-all-the-tasks-created)| show all the tasks in the list
 [sort time](#sort-time---sort-tasks-based-on-date)| sort all tasks with date and time based on date and time ascending
 [todo](#content-todo---create-a-todo-task)| create a todo task
