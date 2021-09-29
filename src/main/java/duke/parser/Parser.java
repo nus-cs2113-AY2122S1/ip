@@ -1,16 +1,14 @@
 package duke.parser;
 
 import duke.command.Command;
-import duke.exception.CommandDoesNotExistException;
-import duke.exception.CommandInvalidException;
-import duke.exception.EmptyDescriptionException;
-import duke.exception.ShowDateIsEmptyException;
+import duke.exception.*;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
 public class Parser {
     private static final int LENGTH_OF_DONE = 4;
     private static final int LENGTH_OF_TODO = 4;
+    private static final int LENGTH_OF_FIND = 4;
     private static final int LENGTH_OF_EVENT = 5;
     private static final int LENGTH_OF_DELETE = 6;
     private static final int LENGTH_OF_DEADLINE = 8;
@@ -24,6 +22,7 @@ public class Parser {
     private static final int CMD_DONE = 5;
     private static final int CMD_DELETE = 6;
     private static final int CMD_SHOW_DATE = 7;
+    private static final int CMD_FIND = 8;
     private static final int CMD_TERMINATE = 0;
     private static final String LIST = "list";
     private static final String SHOW_DATE = "show date";
@@ -31,6 +30,7 @@ public class Parser {
     private static final String EVENT = "event";
     private static final String DEADLINE = "deadline";
     private static final String DONE = "done";
+    private static final String FIND = "find";
     private static final String BYE = "bye";
     private static final String DELETE = "delete";
     private static final String BY = "/by";
@@ -63,6 +63,8 @@ public class Parser {
             c.setCommand(CMD_DELETE);
         } else if (fullCommand.length() >= LENGTH_OF_SHOW_DATE && fullCommand.substring(0, LENGTH_OF_SHOW_DATE).contains(SHOW_DATE)) {
             c.setCommand(CMD_SHOW_DATE);
+        } else if (fullCommand.length() >= LENGTH_OF_FIND && fullCommand.substring(0, LENGTH_OF_FIND).contains(FIND)) {
+            c.setCommand(CMD_FIND);
         } else if (fullCommand.matches(BYE)) {
             c.setCommand(CMD_TERMINATE);
         } else {
@@ -114,6 +116,17 @@ public class Parser {
                     }
                 } catch (ShowDateIsEmptyException e) {
                     ui.printEmptyDateError();
+                    return true;
+                }
+                return false;
+            case CMD_FIND:
+                try {
+                    String key = userInput.replace(FIND, "");
+                    if (key.isBlank()) {
+                        throw new FindIsEmptyException();
+                    }
+                } catch (FindIsEmptyException e) {
+                    ui.printFindFieldEmpty();
                     return true;
                 }
                 return false;
