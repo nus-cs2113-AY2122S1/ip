@@ -12,130 +12,130 @@ Bot automatically save on exit and retrieve items on next log in
 
 ## Usage
 
-### `list` - Describe action
+### `todo` - Set up basic todo item
 
-Describe the action and its outcome.
-
-Example of usage: 
-
-`list (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
-
-### `done` - Describe action
-
-Describe the action and its outcome.
 
 Example of usage: 
 
-`done (optional arguments)`
+`todo (item name)`
 
 Expected outcome:
 
-Description of the outcome.
+A basic todo item is set up
 
 ```
-expected output
+Got it. I've added this task:
+[T][ ] homework
 ```
 
-### `deadline` - Describe action
-
-Describe the action and its outcome.
+### `list` - list out all reminders
 
 Example of usage: 
 
-`deadline (optional arguments)`
+`list`
 
 Expected outcome:
 
-Description of the outcome.
+All the reminders are listed in a readable format, with indication of type of reminder and if reminder is done
 
 ```
-expected output
+1.[T][ ] homework
+2.[D][ ] sw1  (by: Feb 19 2021 1800)
+3.[E][ ] Prom (at: noon)
 ```
 
-### `event` - Describe action
+### `done` - Mark reminder as done
 
-Describe the action and its outcome.
 
 Example of usage: 
 
-`event (optional arguments)`
+`done (number)`
 
 Expected outcome:
 
-Description of the outcome.
+The reminder which is to be marked would be marked as done, indicated by the X in the second checkbox
 
 ```
-expected output
+Nice! I've marked this task as done:
+[D][X] sw1  (by: Feb 19 2021 1800)
 ```
 
-### `todo` - Describe action
+### `deadline` - Set a Deadline
 
-Describe the action and its outcome.
 
 Example of usage: 
 
-`todo (optional arguments)`
+`deadline sw1 /by 19/02/2021 1800`
 
 Expected outcome:
 
-Description of the outcome.
+set deadline reminder
 
 ```
-expected output
+Got it. I've added this task:
+[D][ ] sw1  (by: Feb 19 2021 1800)
 ```
 
-### `delete` - Describe action
+### `event` - Set an Event
 
-Describe the action and its outcome.
 
 Example of usage: 
 
-`delete (optional arguments)`
+`event prom /at noon`
 
 Expected outcome:
 
-Description of the outcome.
+An event is set up with a timing set
 
 ```
-expected output
+Got it. I've added this task:
+[E][ ] prom  (at: noon)
+ Now you have 4 tasks in the list.
 ```
 
-### `find` - Describe action
 
-Describe the action and its outcome.
+### `delete` - Deletes a reminder
+
 
 Example of usage: 
 
-`find (optional arguments)`
+`delete (number)`
 
 Expected outcome:
 
-Description of the outcome.
+Item deleted would be reflected
 
 ```
-expected output
+Noted. I've removed this task:
+[T][ ] homework
+Now you have 4 tasks in the list.
 ```
 
-### `bye` - Describe action
+### `find` - Find an item by keyword
 
-Describe the action and its outcome.
 
 Example of usage: 
 
-`bye (optional arguments)`
+`find (keyword)`
 
 Expected outcome:
 
-Description of the outcome.
-
+The reminders matching would be listed
 ```
-expected output
+Here are the matching tasks in your list:
+1.[E][ ] prom  (at: noon)
+```
+
+### `bye` - Terminates session
+
+
+Example of usage: 
+
+`bye`
+
+Expected outcome:
+
+Terminates the chatbot and saves reminders to file to be retrieved later
+```
+Bye. Hope to see you again soon!
 ```
