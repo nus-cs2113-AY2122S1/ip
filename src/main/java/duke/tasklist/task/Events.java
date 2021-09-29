@@ -15,6 +15,12 @@ public class Events extends Task {
         this.date = LocalDate.parse(at.split(" ")[0], DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         this.time = LocalTime.parse(readTime(at));
     }
+    /**
+     * Reformat the time parameter input to one that is readable by the library
+     *
+     * @param str is the string input by the user after '/at'
+     * @return a string that is reformatted to the right format for LocalTime.parse()
+     */
     private String readTime(String str) {
         String hour = str.split(" ")[1].substring(0, 2);
         String colon = ":";
@@ -30,13 +36,13 @@ public class Events extends Task {
     }
 
     private String formatTime(LocalTime time) {
-        return time.format(DateTimeFormatter.ofPattern("hh mm"));
+        return time.format(DateTimeFormatter.ofPattern("hh mm a"));
     }
     @Override
     public LocalDate getDeadline() {
         return this.date;
     }
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + formatDate(this.date) + " " + formatTime(this.time) + ")";
+        return "[E]" + super.toString() + " (at: " + formatDate(this.date) + ", " + formatTime(this.time) + ")";
     }
 }

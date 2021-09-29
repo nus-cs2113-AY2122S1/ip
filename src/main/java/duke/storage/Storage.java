@@ -2,7 +2,6 @@ package duke.storage;
 
 import duke.tasklist.TaskList;
 import duke.tasklist.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -22,6 +21,10 @@ public class Storage {
         this.fileName = fileName;
     }
 
+    /**
+     * Check and create save folder and save file if it does not exist
+     *
+     */
     public void create() {
         File saveFile = new File(fileName);
         File saveDir = new File(fileDir);
@@ -41,6 +44,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Save the current list of tasks to save file
+     *
+     */
     public void save() {
         Task[] saveLists = new Task[items.size()];
         items.toArray(saveLists);
@@ -61,7 +68,10 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Loads the tasks list from save file
+     *
+     */
     public void load(TaskList task) throws FileNotFoundException {
         File saveFile = new File(fileName);
         Scanner s = new Scanner(saveFile);

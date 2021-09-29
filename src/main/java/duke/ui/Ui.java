@@ -2,7 +2,6 @@ package duke.ui;
 
 import duke.tasklist.TaskList;
 import duke.tasklist.task.Task;
-
 import java.util.Scanner;
 
 public class Ui {
@@ -15,10 +14,13 @@ public class Ui {
                     + "|_____| | | |_____|  \\ \\____/ /\n";
     public static final String border = "____________________________________________________________\n";
 
+    /**
+     * Check and create save folder and save file if it does not exist
+     *
+     */
     public void showLine() {
         System.out.println(border);
     }
-
     public void showError() {
         System.out.println("Error occurred! Please try again.");
     }
@@ -75,6 +77,12 @@ public class Ui {
         System.out.println(border);
         System.out.println("\uD83D\uDE00 " + "OOPS!!! I'm sorry, please input a keyword for the task " +
                 "you would like to search for");
+        System.out.println(border);
+    }
+    public void printWrongDateFormatError() {
+        System.out.println(border);
+        System.out.println("\uD83D\uDE00 " + "OOPS!!! I'm sorry, please input the correct date format: " +
+                        "yyyy/dd/mm");
         System.out.println(border);
     }
     public String readCommand(Scanner in) {
