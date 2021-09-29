@@ -11,59 +11,27 @@ ____________________________________________________________
 ____________________________________________________________
 
 ____________________________________________________________
- Got it. I've added this task:
-   [D] [ ] watch lecture (by: today)
- Now you have 1 tasks in the list.
+Something went wrong: Text 'today' could not be parsed at index 0
 ____________________________________________________________
 
 ____________________________________________________________
- Got it. I've added this task:
-   [E] [ ] movie (at: 7)
- Now you have 2 tasks in the list.
+Something went wrong: Text '7' could not be parsed at index 0
 ____________________________________________________________
 
 ____________________________________________________________
- Here are the tasks in your list:
- 1. [D] [ ] watch lecture (by: today)
- 2. [E] [ ] movie (at: 7)
-____________________________________________________________
-
-____________________________________________________________
- Nice! I've marked this task as done:
-   [D] [X] watch lecture (by: today)
-____________________________________________________________
-
-____________________________________________________________
-Your done command is invalid!
-To input a done command, type "done (task index)"!
-____________________________________________________________
-
-____________________________________________________________
-Your event command is invalid!
-To input a event command, type "event (description) /at (when)"!
-____________________________________________________________
-
-____________________________________________________________
-Your event command is invalid!
-To input a event command, type "event (description) /at (when)"!
-____________________________________________________________
-
-____________________________________________________________
-Your deadline command is invalid!
-To input a valid deadline command, type "deadline (description) /by (deadline)"!
+ No Tasks here yet. Go include some tasks!
 ____________________________________________________________
 
 ____________________________________________________________
  Got it. I've added this task:
    [T] [ ] buy bread
- Now you have 3 tasks in the list.
+ Now you have 1 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
- Here are the tasks in your list:
- 1. [D] [X] watch lecture (by: today)
- 2. [E] [ ] movie (at: 7)
- 3. [T] [ ] buy bread
+ Got it. I've added this task:
+   [D] [ ] group project (by: Oct 10 2021 18:00PM)
+ Now you have 2 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
@@ -73,9 +41,114 @@ ____________________________________________________________
 
 ____________________________________________________________
  Here are the tasks in your list:
- 1. [D] [X] watch lecture (by: today)
- 2. [E] [ ] movie (at: 7)
- 3. [T] [X] buy bread
+ 1. [T] [X] buy bread
+ 2. [D] [ ] group project (by: Oct 10 2021 18:00PM)
+____________________________________________________________
+
+____________________________________________________________
+ Got it. I've added this task:
+   [E] [ ] sports day (at: Feb 12 2022 09:00AM)
+ Now you have 3 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+Your done command is invalid!
+To input a done command, type "done (task index)"!
+____________________________________________________________
+
+____________________________________________________________
+Something went wrong: Text 'invalid' could not be parsed at index 0
+____________________________________________________________
+
+____________________________________________________________
+Your event command is invalid!
+To input a event command, type "event (description) /at (yyyy-MM-dd HH:mm)"!
+____________________________________________________________
+
+____________________________________________________________
+Your deadline command is invalid!
+To input a valid deadline command, type "deadline (description) /by (yyyy-MM-dd HH:mm)"!
+____________________________________________________________
+
+____________________________________________________________
+ Here are the tasks in your list:
+ 1. [T] [X] buy bread
+ 2. [D] [ ] group project (by: Oct 10 2021 18:00PM)
+ 3. [E] [ ] sports day (at: Feb 12 2022 09:00AM)
+____________________________________________________________
+
+____________________________________________________________
+ Nice! I've marked this task as done:
+   [E] [X] sports day (at: Feb 12 2022 09:00AM)
+____________________________________________________________
+
+____________________________________________________________
+ Here are the tasks in your list:
+ 1. [T] [X] buy bread
+ 2. [D] [ ] group project (by: Oct 10 2021 18:00PM)
+ 3. [E] [X] sports day (at: Feb 12 2022 09:00AM)
+____________________________________________________________
+
+____________________________________________________________
+Here are the matching tasks in your list to "sports"
+ 1. [E] [X] sports day (at: Feb 12 2022 09:00AM)
+____________________________________________________________
+
+____________________________________________________________
+There are no matching tasks in your list!
+____________________________________________________________
+
+____________________________________________________________
+ Noted! I've removed this task:
+   [D] [ ] group project (by: Oct 10 2021 18:00PM)
+ Now you have 2 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+ Here are the tasks in your list:
+ 1. [T] [X] buy bread
+ 2. [E] [X] sports day (at: Feb 12 2022 09:00AM)
+____________________________________________________________
+
+____________________________________________________________
+ Noted! I've removed this task:
+   [E] [X] sports day (at: Feb 12 2022 09:00AM)
+ Now you have 1 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+Your delete command is invalid!
+To input a delete command, type "delete (task index)"!
+____________________________________________________________
+
+____________________________________________________________
+Your delete command is invalid!
+To input a delete command, type "delete (task index)"!
+____________________________________________________________
+
+____________________________________________________________
+ Here are the tasks in your list:
+ 1. [T] [X] buy bread
+____________________________________________________________
+
+____________________________________________________________
+ Noted! I've removed this task:
+   [T] [X] buy bread
+ Now you have 0 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+ No Tasks here yet. Go include some tasks!
+____________________________________________________________
+
+____________________________________________________________
+ Type list to display your list of todos.
+ Type todo {description} to add a task into your list.
+ Type event {description} /at {yyyy-MM-dd HH:mm} to add an event into your list.
+ Type deadline {description} /by {yyyy-MM-dd HH:mm} to add a deadline into your list.
+ Type delete {index} to delete a task from your list of todos.
+ Type done {index} to mark a task as done in your list of todos.
+ Type bye to exit Duke.
 ____________________________________________________________
 
 ____________________________________________________________

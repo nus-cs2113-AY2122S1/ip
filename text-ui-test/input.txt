@@ -1,13 +1,27 @@
 deadline watch lecture /by today
 event movie /at 7
 list
-done 1
-done 3
-event
-event soccer / at 4 Sep
-deadline eat dinner / by tonight
 todo buy bread
+deadline group project /by 2021-10-10 18:00
+done 1
+list
+event sports day /at 2022-02-12 09:00
+done 5
+deadline no description /by invalid
+event none / at invalid syntax
+deadline none / by invalid syntax
 list
 done 3
 list
+find sports
+find life
+delete 2
+list
+delete 2
+delete 2
+delete
+list
+delete 1
+list
+help
 bye
