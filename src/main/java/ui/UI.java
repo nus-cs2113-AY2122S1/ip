@@ -81,6 +81,19 @@ public class UI {
         printWithLines("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
+    public static void printListFoundTasks(ArrayList<Task> tasksList) {
+        printHorizontalLine();
+        if (!tasksList.isEmpty()) {
+            int i = 1;
+            for (Task item : tasksList) {
+                System.out.println((i++) + ". " + item);
+            }
+        } else {
+            System.out.println("Sorry ☹. There were no matching tasks!");
+        }
+        printHorizontalLine();
+    }
+
     public static void printListTasks(ArrayList<Task> taskList) {
         System.out.println("____________________________________________________________");
         int i = 1;

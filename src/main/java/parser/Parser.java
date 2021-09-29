@@ -75,6 +75,12 @@ public class Parser {
             return new ExecuteEventAndDeadline(TYPE, description, at);
         }
 
+        if (input.startsWith("find")) {
+            String keyword;
+            keyword = input.split("find")[1].trim();
+            return new ExecuteFind(keyword);
+        }
+
         return new ErrorUnknownCommand(input);
     }
 }
