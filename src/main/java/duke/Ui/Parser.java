@@ -47,8 +47,9 @@ public class Parser {
     }
 
     /**
-     * @param taskInfo contains the information of the task
-     * @return taskComponents -> index 0: description, and index 1: dateTime
+     * Splits the task description from dateTime for 'deadline' and 'event' task types.
+     * @param taskInfo contains the information of the task.
+     * @return Array of strings where index 0: description, and index 1: dateTime.
      */
     public String[] splitTaskComponents(String taskInfo) {
         String[] taskComponents;

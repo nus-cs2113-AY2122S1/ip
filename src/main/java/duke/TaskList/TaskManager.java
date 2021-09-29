@@ -50,7 +50,7 @@ public class TaskManager {
      * Creates a new 'Deadline' type task and adds it into the list of tasks.
      * Displays a message to the user upon completion.
      * @param parser Parser object used for parsing operations.
-     * @param taskInfo String containing the description and date time of the task.
+     * @param taskInfo String containing the description and dateTime of the task.
      */
     public void addDeadlineTask(Parser parser, String taskInfo) {
         try {
@@ -68,7 +68,7 @@ public class TaskManager {
      * Creates a new 'Event' type task and adds it into the list of tasks.
      * Displays a message to the user upon completion.
      * @param parser Parser object used for parsing operations.
-     * @param taskInfo String containing the description and date time of the task.
+     * @param taskInfo String containing the description and dateTime of the task.
      */
     public void addEventTask(Parser parser, String taskInfo) {
         try {
