@@ -23,9 +23,9 @@ public class AddCommand extends Command{
     public static final String EVENT_FORMAT_ERROR = "Please type the event in the format: \n" +
             INDENTATION + "'event (description) /at yyyy-MM-ddThh:mm /to yyyy-MM-ddThh:mm' :)";
     private static final String DATE_TIME_FORMAT_ERROR_FOR_DEADLINE = "Please write the date and time in the" +
-            " format : 'yyyy-mm-ddThh:mm:ss'  :)";
+            " format : 'yyyy-mm-ddThh:mm'  :)";
     private static final String DATE_TIME_FORMAT_ERROR_FOR_EVENT = "Please write the date and time in the format : \n"
-            + INDENTATION + "'yyyy-mm-ddThh:mm:ss /to yyy-mm-ddThh:mm'  :)";
+            + INDENTATION + "'yyyy-mm-ddThh:mm /to yyy-mm-ddThh:mm'  :)";
     public static final String ADDED_TO_LIST = "I've added this to your list :D";
     public static final String TODO_COMMAND = "todo";
     public static final String EVENT_COMMAND = "event";
@@ -74,11 +74,11 @@ public class AddCommand extends Command{
         }
         try {
             tasks.addTask(new Deadline(parsedOutputs[0], LocalDateTime.parse(parsedOutputs[1])));
+            return new CommandResult(ADDED_TO_LIST,tasks.getTask(Task.getTotalTasks()-1),
+                    PrintOptions.WITH_TASK_AND_NUMBER_OF_TASK);
         } catch (DateTimeParseException error) {
             return new CommandResult(DATE_TIME_FORMAT_ERROR_FOR_DEADLINE,PrintOptions.DEFAULT);
         }
-        return new CommandResult(ADDED_TO_LIST,tasks.getTask(Task.getTotalTasks()-1),
-                PrintOptions.WITH_TASK_AND_NUMBER_OF_TASK);
     }
 
     /**
@@ -94,11 +94,11 @@ public class AddCommand extends Command{
         try {
             tasks.addTask(new Event(parsedOutputs[0], LocalDateTime.parse(parsedOutputs[1]),
                     LocalDateTime.parse(parsedOutputs[2])));
+            return new CommandResult(ADDED_TO_LIST,tasks.getTask(Task.getTotalTasks()-1),
+                    PrintOptions.WITH_TASK_AND_NUMBER_OF_TASK);
         } catch (DateTimeParseException error) {
             return new CommandResult(DATE_TIME_FORMAT_ERROR_FOR_EVENT,PrintOptions.DEFAULT);
         }
-        return new CommandResult(ADDED_TO_LIST,tasks.getTask(Task.getTotalTasks()-1),
-                PrintOptions.WITH_TASK_AND_NUMBER_OF_TASK);
     }
 
 

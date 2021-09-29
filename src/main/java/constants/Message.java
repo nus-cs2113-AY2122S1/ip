@@ -30,7 +30,7 @@ public class Message {
     public static final String PROMPT_NUMBER = "Please give me an integer :)";
 
     /**
-     * A message that asks the user to give a number between 1 and the total number of tasks.
+     * Asks the user to give a number between 1 and the total number of tasks.
      *
      * @param number Total number of tasks
      * @return Message

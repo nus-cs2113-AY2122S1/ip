@@ -55,8 +55,7 @@ public class Ui {
     }
 
     /**
-     * Used to print messages to the user not issued by a CommandResult
-     * in the given format.
+     * Prints messages to the user not issued by a CommandResult in the given format.
      *
      * @param message The message that needs to be printed
      */

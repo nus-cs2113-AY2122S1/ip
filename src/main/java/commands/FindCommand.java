@@ -103,6 +103,8 @@ public class FindCommand extends Command{
     }
 
     private Boolean sameDate (LocalDateTime date) {
-        return (date.getYear() == dateTime.getYear() && date.getDayOfYear() == dateTime.getDayOfYear());
+        Boolean isSameYear = date.getYear() == dateTime.getYear();
+        Boolean isSameDayOfYear = date.getDayOfYear() == dateTime.getDayOfYear();
+        return (isSameYear && isSameDayOfYear);
     }
 }

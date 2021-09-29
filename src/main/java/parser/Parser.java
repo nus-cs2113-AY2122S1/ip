@@ -112,7 +112,7 @@ public class Parser {
     }
 
     /**
-     * Further parses the input to create a different AddCommand Object for different task
+     * Parses the input further to create a different AddCommand Object for different task
      * types. Returns an error message if something unexpected happens.
      *
      * @param input Input from the user
@@ -156,7 +156,7 @@ public class Parser {
     }
 
     /**
-     * Further parses the input to create a different FindCommand object for finding task with
+     * Parses the input further to create a different FindCommand object for finding task with
      * a specific description / date.
      *
      * @param input Parsed input from the user.
@@ -175,7 +175,7 @@ public class Parser {
     }
 
     /**
-     * Further parses the input to create a DoneCommand with the index of the task to be
+     * Parses the input further to create a DoneCommand with the index of the task to be
      * marked as done.
      *
      * @param input Parsed input from the user.
@@ -195,7 +195,7 @@ public class Parser {
     }
 
     /**
-     * Further parses the input to create a DoneCommand with the index of the task to be
+     * Parses the input further to create a DoneCommand with the index of the task to be
      * marked as done.
      *
      * @param input Parsed input from the user.
