@@ -3,11 +3,6 @@ package duke;
 import duke.manager.TaskManager;
 import duke.ui.Ui;
 
-/**
- * TODO :
- *        Update Tests
- *        Add more exceptions
- */
 
 public class Duke {
 
