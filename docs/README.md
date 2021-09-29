@@ -12,16 +12,23 @@ What can I do for you?
 
 ```
 
+* **User Guide**
 * **Features**
-    * Add a Todo task item: `todo`
-    * Add an Event task item: `event`
-    * Add a Deadline task item: `deadline`
-    * Show all tasks: `list`
-    * Find specific tasks: `find`
-    * Delete a task item: `delete`
-    * Mark a task item as completed: `done`
-    * Exiting the program: `bye`
+  * Add a Todo task item: `todo`
+  * Add an Event task item: `event`
+  * Add a Deadline task item: `deadline`
+  * Show all tasks: `list`
+  * Find specific tasks: `find`
+  * Delete a task item: `delete`
+  * Mark a task item as completed: `done`
+  * Exiting the program: `bye`
 * **Command Summary**
+
+## Quick Start ##
+
+1. Download the `.jar` file [here](https://github.com/kyun99/ip/releases).
+2. Open a terminal and execute `java -jar ip.jar` in the directory `ip.jar` is in.
+
 
 
 ## Features

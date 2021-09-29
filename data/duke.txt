@@ -1,2 +1,5 @@
 duke.tasks.Task,true,CS2113 ip
-duke.tasks.Deadline,false,CS2113 Assignment,tomorrow 4pm
+duke.tasks.Deadline,true,CS2113 Assignment,tomorrow 4pm
+duke.tasks.Task,false,work
+duke.tasks.Event,false,work,tmr
+duke.tasks.Task,false,work
