@@ -45,6 +45,9 @@ public class Parser {
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
+     * @throws StringIndexOutOfBoundsException if message is blank
+     * @throws ArrayIndexOutOfBoundsException  tasks is empty
+     * @throws DateTimeParseException          date format is incorrect
      */
     public static void addEvent(ArrayList<Task> tasks, String message) {
         try {
@@ -94,6 +97,9 @@ public class Parser {
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
+     * @throws StringIndexOutOfBoundsException If message is blank
+     * @throws ArrayIndexOutOfBoundsException  If tasks is empty
+     * @throws DateTimeParseException          If date format is incorrect
      */
     public static void addDeadline(ArrayList<Task> tasks, String message) {
         try {
@@ -130,6 +136,7 @@ public class Parser {
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
+     * @throws StringIndexOutOfBoundsException If message is blank
      */
     public static void addTodo(ArrayList<Task> tasks, String message) {
         try {
@@ -149,6 +156,9 @@ public class Parser {
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
+     * @throws IndexOutOfBoundsException If message is blank
+     * @throws NullPointerException      If no index provided
+     * @throws NumberFormatException     If index is not integer
      */
     public static void markDone(ArrayList<Task> tasks, String message) {
         try {
@@ -180,6 +190,8 @@ public class Parser {
      *
      * @param tasks   the array of tasks
      * @param message the input string
+     * @throws NullPointerException  If no search string is provided
+     * @throws NumberFormatException If input format is wrong
      */
     public static void findTask(ArrayList<Task> tasks, String message) {
         try {
@@ -199,6 +211,9 @@ public class Parser {
      *
      * @param tasks   the array of tasks
      * @param message the input string
+     * @throws IndexOutOfBoundsException If message is blank
+     * @throws NullPointerException      If no index provided
+     * @throws NumberFormatException     If index is not integer
      */
     public static void deleteTask(ArrayList<Task> tasks, String message) {
         try {
