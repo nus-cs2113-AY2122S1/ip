@@ -67,23 +67,28 @@ public class Duke {
                 deleteTask(inputWords);
                 handleCommand();
                 break;
+            case "find":
+                findTask(inputWords);
+                handleCommand();
+                break;
             default:
                 throw new InvalidCommandException();
             }
         } catch (InvalidCommandException e) {
             printLine();
             System.out.println("OOPS! I'm sorry, but I don't know what that means! :(");
-            System.out.println("Available commands: deadline, todo, event, done, list, delete, bye");
+            System.out.println("Available commands: deadline, todo, event, done, list, delete, find, bye");
             printLine();
             handleCommand();
         } catch (EmptyCommandArgumentException e) {
             printLine();
-            System.out.println("OOPS! The description of deadline/event/todo/delete cannot be empty! " +
+            System.out.println("OOPS! The description of the command word cannot be empty! " +
                     "Please follow this format:");
             System.out.println("deadline <your task here> /by <your deadline time>");
             System.out.println("event <your task here> /at <your event time period>");
             System.out.println("todo <your task here>");
             System.out.println("delete <task number>");
+            System.out.println("find <keyword>");
             printLine();
             handleCommand();
         } catch (InvalidCommandSeparatorException e) {
@@ -300,6 +305,30 @@ public class Duke {
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
+    }
+
+    public void findTask(String[] inputWords) throws EmptyCommandArgumentException {
+        if (inputWords.length < 2) {
+            throw new EmptyCommandArgumentException();
+        }
+
+        printLine();
+        System.out.println("Here are the matching tasks in your list:");
+
+        int counter = 1;
+        for (int i = 0; i < taskList.size(); i++) {
+            String currentTaskDescription = taskList.get(i).getDescription();
+
+            if (currentTaskDescription.contains(inputWords[1])) {
+                System.out.println(counter + ". " + taskList.get(i));
+                counter++;
+            }
+        }
+
+        if (counter == 1) {
+            System.out.println("No matching tasks found.");
+        }
+        printLine();
     }
 
     public static void main(String[] args) {
