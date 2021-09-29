@@ -14,14 +14,14 @@ public class Parser {
 
         } else if (line.split(" ")[0].equals("deadline") /*&& line.contains("/by")*/) {
             try {
-                TaskList.setDeadline(line.split("deadline ")[1], line.split("/by")[1]);
+                TaskList.setDeadline(line.split("deadline ")[1], line.split("/by ")[1]);
             } catch (Exception DukeException) {
                 Ui.displayDeadlineError();
             }
 
         } else if (line.split(" ")[0].equals("event") /*&& line.contains("/at")*/) {
             try{
-                TaskList.setEvent(line.split("event ")[1], line.split("/at")[1]);
+                TaskList.setEvent(line.split("event ")[1], line.split("/at ")[1]);
             } catch(Exception DukeException){
                 Ui.displayEventError();
             }

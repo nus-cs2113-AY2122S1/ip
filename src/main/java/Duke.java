@@ -4,6 +4,8 @@ import duke.Storage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 
@@ -11,6 +13,7 @@ public class Duke {
 
     public static void main(String[] args) throws IOException {
         Ui.helloWorld();
+
         String line = "";
         Scanner in = new Scanner(System.in);
 
