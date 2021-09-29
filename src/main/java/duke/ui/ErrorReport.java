@@ -2,10 +2,13 @@ package duke.ui;
 
 import duke.util.Alarm;
 
-import static duke.Duke.tasks;
-
-
 public class ErrorReport {
+
+    public static void outOfRangeException(int taskCount) {
+        System.out.println("Can't find the item in your list.");
+        System.out.println("Give me a number from 1 to " + taskCount + ".");
+    }
+
     public static void alarm(Alarm typeOfAlarm) {
         switch(typeOfAlarm) {
         case INVALID_COMMAND:
@@ -35,10 +38,6 @@ public class ErrorReport {
             break;
         case INVALID_ID:
             System.out.println("Not a number.");
-            break;
-        case OUT_OF_RANGE:
-            System.out.println("Can't find the item in your list.");
-            System.out.println("Give me a number from 1 to " + tasks.size() + ".");
             break;
         case EMPTY_LIST:
             System.out.println("No items in list yet.");

@@ -1,18 +1,17 @@
 package duke.ui;
 
-import duke.exception.DukeException;
 import duke.exception.EmptyListException;
 import duke.exception.InvalidIndexException;
 import duke.task.*;
-import duke.util.DukeActions;
 
-import static duke.Duke.tasks;
+import java.util.Random;
+
 
 /*
  * This class prints the results of manipulation
  * from ActionBot to the CLI User Interface.
  */
-public class PrintBot implements DukeActions {
+public class PrintBot {
     static final String LINE = "--------------------------------";
 
     public static void print(String input) {
@@ -46,47 +45,57 @@ public class PrintBot implements DukeActions {
     }
 
     public void exit() {
+        line();
         print("Mischief managed.");
+        line();
     }
 
-    public void printList() throws EmptyListException {
-        print("Here are the tasks in your list:\n");
-        int id = 1;
-        for (Task t : tasks) {
-            System.out.println(id + ". " + t);
-            id++;
-        }
-    }
 
-    @Override
-    public void addTask(Task t) {
+    public void addTask(Task t, int taskCount) {
         print("|| Got it. I've added this task");
         print("|| \t" + t.toString());
-        print("|| Now you have " + tasks.size() + " tasks in the list.");
+        print("|| Now you have " + taskCount + " tasks in the list.");
     }
 
-    @Override
-    public void markDone(int id, boolean isDone) throws InvalidIndexException, EmptyListException {
+
+    public void markDone(int id, boolean isDone, Task t) throws InvalidIndexException, EmptyListException {
         int i = id - 1;
         if (isDone) {
             print("Nice!I've marked this task as done:");
-            print(id + ". " + tasks.get(i).toString());
+            print(id + ". " + t.toString());
         }
     }
 
 
-    public void loadingData() {
+    public static void loadingData() {
         print("Please wait. Loading data ..... ");
     }
 
-    @Override
-    public void loadData(String data) {
+
+    public static void loadData(String data) {
         print(data);
     }
 
-    public void delete(Task t) {
+    public void delete(Task t, int taskCount) {
         System.out.println("Noted. I've removed this task: ");
         System.out.println("|| \t" + t.toString());
-        System.out.println("|| Now you have " + tasks.size() + " in the list.");
+        System.out.println("|| Now you have " + taskCount + " in the list.");
+    }
+
+    public void printFalseCharmMsg (int n) {
+        if (n == 0) {
+            System.out.println("Mr Moony presents his compliments to Professor Snape \n" +
+                    "and begs him to keep his abnormally large nose \n" +
+                    "out of other people's business. ");
+        } else if (n == 1) {
+            System.out.println("Mr Prongs agrees with Mr Moony \n" +
+                    "and would like to add that Professor Snape is an ugly git.");
+        } else if (n == 2) {
+            System.out.println("Mr Padfoot would like to register \n" +
+                    "his astonishment that an idiot like that ever became a Professor.");
+        } else if (n == 3) {
+            System.out.println("Mr Wormtail bids Professor Snape good day, \n" +
+                    "and advises him to wash his hair, the slime-ball.\"");
+        }
     }
 }
