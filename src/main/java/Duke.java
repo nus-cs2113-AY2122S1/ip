@@ -43,13 +43,14 @@ public class Duke {
                     TaskHandler.deleteTask(line);
                     Storage.saveData();
                     break;
+                case "find":
+                    TaskHandler.findTask(line);
+                    break;
                 default:
                     TaskHandler.handleWrongCommand();
                     break;
                 }
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            } catch (NumberFormatException e) {
                 System.out.println(e.getMessage());
             }
             System.out.println(Ui.LINE);

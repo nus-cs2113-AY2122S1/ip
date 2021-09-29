@@ -24,7 +24,7 @@ public class Parser {
      * @return command specified by user input
      */
     public static String parseCommand(String line) {
-        String[] words = line.split(" ");
+        String[] words = line.trim().split(" ");
         return words[INDEX_COMMAND].trim();
     }
 

@@ -13,6 +13,7 @@ public class Ui {
             LINE_SEPARATOR_AND_INDENT + " To add a deadline: deadline /by deadline_date" +
             LINE_SEPARATOR_AND_INDENT + " To mark a task as done: done task_index" +
             LINE_SEPARATOR_AND_INDENT + " To delete a task: delete task_index" +
+            LINE_SEPARATOR_AND_INDENT + " To find a task using keyword: find keyword_name" +
             LINE_SEPARATOR_AND_INDENT + " To view the list: list" +
             LINE_SEPARATOR_AND_INDENT + " To get help: help" +
             LINE_SEPARATOR_AND_INDENT + " To end the program: bye";

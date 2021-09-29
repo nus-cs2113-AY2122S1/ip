@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 /**
  * This class deals with operations on Tasks.
  */
@@ -104,6 +105,27 @@ public class TaskHandler {
         }
         Ui.printDeletedTask(taskIndex - 1);
         TaskList.removeTask(taskIndex - 1);
+    }
+
+    public static void findTask(String line) throws DukeException{
+        if (Parser.hasNoBody(line)) {
+            throw new DukeException(DukeException.ERROR_NO_KEYWORD);
+        }
+        String keyword = Parser.parseBody(line);
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : TaskList.tasks) {
+            if (task.description.contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        printSearchedTasks(foundTasks);
+    }
+
+    public static void printSearchedTasks(ArrayList<Task> foundTasks) {
+        System.out.println(Ui.INDENT + "Here are the matching tasks in your list:");
+        for (int i = 0; i < foundTasks.size(); i++) {
+            System.out.println(Ui.INDENT + (i + 1) + "." + foundTasks.get(i));
+        }
     }
 
     /**
