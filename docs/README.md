@@ -132,10 +132,7 @@ Bye. Hope to see you again soon!
 ```
 
 ### Saving data locally
-Tasks stored in the task list will be stored into a text file under ```<home_directory>/data.duke.txt``` everytime the 
-bot gets terminated.  
-Similarly, the bot will also read from the same file everytime the bot starts to run and load the task list with all 
-the previously saved tasks.  
+Tasks added or changed by users will be automatically updated into a local text file at the file path ```data/duke.txt```.  
 In the scenario where the directory or file required is missing, the bot will automatically create such a directory and 
 file for the user.
 
