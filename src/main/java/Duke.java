@@ -1,5 +1,6 @@
 import duke.Error.DukeException;
-import duke.TaskList.command.*;
+import duke.TaskList.command.Command;
+import duke.TaskList.command.ExitCommand;
 import duke.Ui.DisplayManager;
 import duke.Storage.FileManager;
 import duke.TaskList.TaskManager;
