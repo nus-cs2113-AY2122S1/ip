@@ -79,11 +79,11 @@ There are 3 different types of task that can be added (Todo, Deadline, Event). T
 >> * Example: `add event Dukes Birthday Celebration /at-10/12/2021-1900`
 
 ### Removing a Task
-This command will remove the specific task corresponding with the input number from your tasks list. Multiple tasks can be removed at once. Take note that there is no space between the task_numbers.
+This command will remove the specific task corresponding with the input number from your tasks list. Only a single task can be removed at a time.
 > #### `remove` -> removes task
 >> * Format: `remove <TASK_NUMBER,TASK_NUMBER,...>`
 >> * Example: `remove 3`
->> * Example: `remove 3,4,5`
+
 ### Marking a Task
 This command will allow you to mark a task as done or mark it as un-done. Multiple tasks can be marked at once. Take note that there is no space between the task_numbers.
 > #### `done` -> mark task as done
