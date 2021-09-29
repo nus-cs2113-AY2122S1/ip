@@ -1,9 +1,17 @@
 # User Guide
 Duke is a Personal Assistant Chatbot that helps a person to keep track of various things using a Command Line Interface(CLI). If you can type fast, Duke is able to track and manage your tasks faster compared to a hypoethetical Graphical User Interface (GUI) version of the app. 
 
-[Quick Start](https://xingjie99.github.io/ip/#)
-[Features](https://xingjie99.github.io/ip/#)
-  [Quick Start](https://xingjie99.github.io/ip/#)
+* [Quick Start](https://xingjie99.github.io/ip/#quick-start)
+* [Features](https://xingjie99.github.io/ip/#features)
+  - [Adding a Todo task](https://xingjie99.github.io/ip/#adding-a-todo-task-todo)
+  - [Adding an Event task](https://xingjie99.github.io/ip/#adding-an-event-task-event)
+  - [Adding a Deadline task](https://xingjie99.github.io/ip/#adding-a-deadline-task-deadline)
+  - [Listing all tasks](https://xingjie99.github.io/ip/#listing-all-tasks-list)
+  - [Mark as done](https://xingjie99.github.io/ip/#mark-as-done-done)
+  - [Deleting task](https://xingjie99.github.io/ip/#deleting-task-delete)
+  - [Finding Tasks](https://xingjie99.github.io/ip/#finding-tasks-find)
+  - [Exiting program](https://xingjie99.github.io/ip/#exiting-program-bye)
+* [Command Summary](https://xingjie99.github.io/ip/#command-summary)
 
 ## Quick Start 
 1. Description of the Quick start.
