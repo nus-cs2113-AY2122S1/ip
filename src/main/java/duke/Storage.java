@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
-
 import static duke.TaskList.formatter;
 
 public class Storage {
@@ -48,6 +47,7 @@ public class Storage {
                     break;
                 case "D":
                     pendingTasks = new Deadline(taskTypeSplit[2], LocalDateTime.parse(taskTypeSplit[3]));
+
                     TaskList.List[pendingTasksCounter]=pendingTasks;
                     if (taskTypeSplit[1].equals("X")) {
                         TaskList.List[pendingTasksCounter].setDone("X");
