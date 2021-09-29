@@ -1,2 +1,4 @@
-T |   |  eat sleep
-D |   |  eat lunch | 3am
+T |   |  eat lunch
+T |   |  eat dinner
+D |   |  submit ea | 3am
+D |   |  submit ho ho ho | 9am

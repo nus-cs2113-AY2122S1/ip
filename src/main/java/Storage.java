@@ -37,7 +37,7 @@ public class Storage {
         }
     }
 
-    public void saveFile(ArrayList<Task> schedule, int totalTasks) throws IOException{
+    public void saveFile(ArrayList<Task> schedule, int totalTasks) {
         try {
             writeFile(schedule, totalTasks);
         } catch (IOException e) {
@@ -52,7 +52,6 @@ public class Storage {
             fw.write(schedule.get(i).fileForm());
         }
         fw.close();
-
     }
 
 }

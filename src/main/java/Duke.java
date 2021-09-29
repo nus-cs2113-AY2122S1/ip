@@ -34,6 +34,8 @@ public class Duke {
                 m.addEvent(content);
             } else if (command.equalsIgnoreCase("delete")) {
                 m.delete(line);
+            } else if (command.equalsIgnoreCase("find")) {
+                m.finding(content);
             }
             else {
                 System.out.println("Oops, please reenter your command");

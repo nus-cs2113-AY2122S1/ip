@@ -121,4 +121,32 @@ public class Manager {
         System.out.println(t);
         System.out.println("Now you have " + this.totalTasks + " tasks in the list.");
     }
+
+
+    public void finding(String word) {
+        ArrayList<Task> found = new ArrayList<>();
+
+        int totalFound = 0;
+
+        for (int i = 0; i < totalTasks; i ++) {
+            String description = schedule.get(i).getDescription();
+            if (description.contains(word)) {
+                found.add(totalFound, schedule.get(i));
+                totalFound++;
+            }
+        }
+
+        printFound(found, totalFound);
+    }
+
+    public void printFound(ArrayList<Task> found, int totalFound) {
+        System.out.println("Here are matching tasks in your list: ");
+
+        for(int i = 0; i < totalFound; ++i) {
+            System.out.print(i + 1);
+            System.out.print(". ");
+            System.out.println(found.get(i));
+        }
+
+    }
 }
