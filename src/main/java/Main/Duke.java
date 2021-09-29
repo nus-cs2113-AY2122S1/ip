@@ -15,6 +15,8 @@ import UI.UI;
 public class Duke {
     public static boolean isLoading = true;
     public static boolean isExit = false;
+    final public static String commandfilePath = "savedCommands.txt";
+    final public static String datafilePath = "savedData.txt";
 
     protected Storage storage;
     List <Task> tasks;
@@ -48,7 +50,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Duke duke = new Duke ("savedCommands.txt", "savedData.txt");
+        Duke duke = new Duke (commandfilePath, datafilePath);
         duke.run(duke.tasks, duke.storage);
         duke.storage.saveData(duke.tasks);
     }

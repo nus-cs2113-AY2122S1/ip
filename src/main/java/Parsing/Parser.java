@@ -7,10 +7,14 @@ import Exception.DukeException;
  */
 public class Parser {
 
+    private static boolean isTask (String input) {
+        return input.contains("todo") || input.contains("deadline") || input.contains("event");
+    }
+
     protected static void checkDescription (String input) throws DukeException {
-        if ( (input.contains("todo") || input.contains("deadline") || input.contains("event"))
-                && input.split(" ").length == 1) {
-            throw new DukeException("Description cannot be empty"); }
+        if (isTask(input) && input.split(" ").length == 1) {
+            throw new DukeException("Description cannot be empty");
+        }
     }
 
     /**
