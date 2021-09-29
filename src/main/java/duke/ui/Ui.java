@@ -25,7 +25,7 @@ public class Ui {
             "    done XXX - Toggles the status of the task with ID XXX between done and incomplete\n" +
             "    delete XXX - Deletes task with ID XXX from the list\n" +
             "    find XXX - Shows tasks containing the given keyword(s) (can be more than or equal to 1)\n" +
-            "    date YYY - Shows tasks due by or happening on the date and time YYY\n" +
+            "    date YYY - Shows tasks due by or happening on the date YYY (without time)\n" +
             "    bye - Exits Duke\n" +
             "\n" +
             "NOTE: All dates and times YYY must be entered in the following format:\n" +
