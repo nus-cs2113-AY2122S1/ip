@@ -73,6 +73,8 @@ ____________________________________________________________
 ### Add Event Task: `event`
 Adds an event with a specific date and time for DUKE to keep track.
 
+>* Note: Every event statement _**requires**_ Date and Time in the **correct format** as given below.
+
 Format: `event <TASK_DESCRIPTION> /at <YYYY-MM-DD HH:MM>`
 
 Example: `event Attend CG2027 lecture /at 2021-10-12 15:21`
@@ -90,6 +92,8 @@ ____________________________________________________________
 
 ### Add Deadline Task: `deadline`
 Adds a deadline with a specific date and time for DUKE to keep track.
+
+>* Note: Every deadline statement _**requires**_ Date and Time in the **correct format** as given below.
 
 Format: `deadline <TASK_DESCRIPTION> /by <YYYY-MM-DD HH:MM>`
 
