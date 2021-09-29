@@ -12,6 +12,8 @@ public class AddTodoCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT =  Ui.QUOTATION + COMMAND_WORD + " X" + Ui.QUOTATION;
     public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : Add task X with deadline Y";
     private static final String MESSAGE_SUCCESS = "Added to list: %1$s " + Ui.LS + "Current number of tasks: %2$d";
+    public static final String MESSAGE_INVALID_FORMAT = "Please specify a name for the task!";
+
 
     private Todo toAdd;
 

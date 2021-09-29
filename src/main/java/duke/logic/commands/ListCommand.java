@@ -2,9 +2,6 @@ package duke.logic.commands;
 
 import duke.ui.Ui;
 
-import static duke.ui.Ui.EMPTY;
-import static duke.ui.Ui.MESSAGE_NO_TASKS_YET;
-
 /**
  *  Represents the command that when executed, lists all the tasks in the current TaskList
  */
@@ -16,10 +13,11 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        String listOfTasks = super.tasks.getStringOfAllTasks();
-        if (listOfTasks.equals(EMPTY)) {
-            return new CommandResult(MESSAGE_NO_TASKS_YET);
+        if (super.tasks.isEmpty()) {
+            return new CommandResult(Ui.MESSAGE_NO_TASKS_YET);
         }
-        return new CommandResult(String.format(MESSAGE_INTRODUCE_TASKS, listOfTasks));
+
+        String listOfTasksInString = super.tasks.getStringOfAllTasks();
+        return new CommandResult(String.format(MESSAGE_INTRODUCE_TASKS, listOfTasksInString));
     }
 }

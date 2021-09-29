@@ -8,6 +8,9 @@ import duke.data.task.Todo;
 import duke.storage.exceptions.InvalidStorageDataException;
 import duke.ui.Ui;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +38,8 @@ public class TaskListDecoder {
                 taskList.add(decodeTaskFromString(encodedTask));
             } catch (InvalidStorageDataException e) {
                 ui.showMessageFramedWithDivider(e.toString());
+            } catch (DateTimeParseException e) {
+                ui.showMessageFramedWithDivider(new InvalidStorageDataException(encodedTask).toString());
             }
         }
         return new TaskList(taskList);
@@ -47,10 +52,10 @@ public class TaskListDecoder {
      * @return Subclass of Task that represents the specific task that is encoded
      * @throws InvalidStorageDataException If encoded task string is of invalid syntax
      */
-    private static Task decodeTaskFromString(String encodedTask) throws InvalidStorageDataException {
-        Task task;
-        boolean isDone;
-        String[] words = encodedTask.split(" \\| "); //Length = 3 for Todo; 4 for Deadline, Event
+    private static Task decodeTaskFromString(String encodedTask) throws InvalidStorageDataException, DateTimeParseException {
+        final Task task;
+        final boolean isDone;
+        final String[] words = encodedTask.split(" \\| "); //Length = 3 for Todo; 4 for Deadline, Event
 
         switch (words[1]) {
         case "0":
@@ -67,12 +72,17 @@ public class TaskListDecoder {
         case Task.TODO_ACRONYM:
             return new Todo(words[2], isDone);
         case Task.DEADLINE_ACRONYM:
-            return new Deadline(words[2], words[3], isDone);
+            return new Deadline(words[2], parseDateTimeFromString(words[3]), isDone);
         case Task.EVENT_ACRONYM:
-            return new Event(words[2], words[3], isDone);
+            return new Event(words[2], parseDateTimeFromString(words[3]), isDone);
         default: //if first letter is not any of the valid task acronyms
             throw new InvalidStorageDataException(encodedTask);
         }
+    }
+
+    private static LocalDateTime parseDateTimeFromString(String dateAndTimeString) throws DateTimeParseException {
+        final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        return LocalDateTime.parse(dateAndTimeString);
     }
 
 

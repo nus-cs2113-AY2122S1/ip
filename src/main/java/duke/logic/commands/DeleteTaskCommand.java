@@ -16,6 +16,7 @@ public class DeleteTaskCommand extends Command {
     private static final String MESSAGE_SUCCESS = "Alrightys! I have removed the following task: %1$s "
             + Ui.LS + "Current number of tasks: %2$d";
 
+
     private int taskNum;
 
     public DeleteTaskCommand(int taskNum) {
