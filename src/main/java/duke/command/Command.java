@@ -5,6 +5,10 @@ import duke.tasklist.TaskList;
 import duke.tasklist.task.Task;
 import duke.ui.Ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+
 public class Command {
     private static final int CMD_NOT_FOUND = 0;
     private static final int CMD_TODO = 1;
@@ -13,6 +17,7 @@ public class Command {
     private static final int CMD_LIST = 4;
     private static final int CMD_DONE = 5;
     private static final int CMD_DELETE = 6;
+    private static final int CMD_SHOW_DATE = 7;
     private static final int CMD_TERMINATE = 0;
     private static final String TODO = "todo";
     private static final String EVENT = "event";
@@ -21,6 +26,7 @@ public class Command {
     private static final int INDEX_NUM_DELETE = 7;
     private static final String BY = "/by";
     private static final String AT = "/at";
+    private static final String SHOW_DATE = "show date";
 
     protected int command;
     protected boolean isExit = false;
@@ -74,6 +80,19 @@ public class Command {
                         System.out.println(item);
                         j++;
                     }
+                }
+                break;
+            case CMD_SHOW_DATE:
+                int index = 1;
+                LocalDate deadline = LocalDate.parse(getUserInput().replace(SHOW_DATE, "").trim(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+                System.out.println(Ui.border);
+                System.out.println("Here are the all the task in your list to be done by:" + deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
+                for (Task item : storage.items) {
+                    if (item.getDeadline().isEqual(deadline)) {
+                        System.out.print(index + ".");
+                        System.out.println(item);
+                    }
+                    index++;
                 }
                 break;
             case CMD_DONE:

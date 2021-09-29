@@ -4,6 +4,7 @@ import duke.command.Command;
 import duke.exception.CommandDoesNotExistException;
 import duke.exception.CommandInvalidException;
 import duke.exception.EmptyDescriptionException;
+import duke.exception.ShowDateIsEmptyException;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
@@ -13,6 +14,7 @@ public class Parser {
     private static final int LENGTH_OF_EVENT = 5;
     private static final int LENGTH_OF_DELETE = 6;
     private static final int LENGTH_OF_DEADLINE = 8;
+    private static final int LENGTH_OF_SHOW_DATE = 9;
     private static final int MIN_SPLIT_SIZE = 2;
     private static final int CMD_NOT_FOUND = -1;
     private static final int CMD_TODO = 1;
@@ -21,8 +23,10 @@ public class Parser {
     private static final int CMD_LIST = 4;
     private static final int CMD_DONE = 5;
     private static final int CMD_DELETE = 6;
+    private static final int CMD_SHOW_DATE = 7;
     private static final int CMD_TERMINATE = 0;
     private static final String LIST = "list";
+    private static final String SHOW_DATE = "show date";
     private static final String TODO = "todo";
     private static final String EVENT = "event";
     private static final String DEADLINE = "deadline";
@@ -57,6 +61,8 @@ public class Parser {
             c.setCommand(CMD_DEADLINE);
         } else if (fullCommand.length() >= LENGTH_OF_DELETE && fullCommand.substring(0, LENGTH_OF_DELETE).contains(DELETE)) {
             c.setCommand(CMD_DELETE);
+        } else if (fullCommand.length() >= LENGTH_OF_SHOW_DATE && fullCommand.substring(0, LENGTH_OF_SHOW_DATE).contains(SHOW_DATE)) {
+            c.setCommand(CMD_SHOW_DATE);
         } else if (fullCommand.matches(BYE)) {
             c.setCommand(CMD_TERMINATE);
         } else {
@@ -97,6 +103,17 @@ public class Parser {
                     }
                 } catch (EmptyDescriptionException e) {
                     ui.printEmptyDescriptionError(DEADLINE);
+                    return true;
+                }
+                return false;
+            case CMD_SHOW_DATE:
+                try {
+                    String key = userInput.replace(SHOW_DATE, "");
+                    if (key.isBlank()) {
+                        throw new ShowDateIsEmptyException();
+                    }
+                } catch (ShowDateIsEmptyException e) {
+                    ui.printEmptyDateError();
                     return true;
                 }
                 return false;

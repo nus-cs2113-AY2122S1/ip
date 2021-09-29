@@ -65,6 +65,13 @@ public class Ui {
         System.out.println("\uD83D\uDE00 " + "OOPS!!! I'm sorry, the command is invalid.");
         System.out.println(border);
     }
+    public void printEmptyDateError() {
+        System.out.println(border);
+        System.out.println("\uD83D\uDE00 " + "OOPS!!! I'm sorry, please input the date you would like to search for " +
+                           "in yyyy/mm/dd format" );
+        System.out.println(border);
+
+    }
     public String readCommand(Scanner in) {
         return in.nextLine();
     }
