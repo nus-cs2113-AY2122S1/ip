@@ -25,26 +25,28 @@ public class Parser {
     public static final int INDEX_DESCRIPTION_DEADLINE = 9;
 
     /**
-     * Determines the task type,
-     * assuming it is the first
-     * word in the message and
+     * Determines the task type, assuming it
+     * is the first word in the message and
      * returns it
      *
      * @param message The input by the user.
      * @return The first word of the string.
      */
-    static String taskType(String message) {
+    public static String taskType(String message) {
         String[] type = message.split(DELIMITER_SPACE);
         return type[INDEX_TASKTYPE];
     }
 
     /**
-     * The function adds the todo task input by the user
+     * Converts the input string to an object by processing
+     * the string to a description String and DateTime
+     * object and storing it as a new Event object in
+     * ArrayList tasks
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
      */
-    static void addEvent(ArrayList<Task> tasks, String message) {
+    public static void addEvent(ArrayList<Task> tasks, String message) {
         try {
             tasks.add(createEvent(message));
             Ui.printAddedTask(getLatestTask(tasks), tasks);
@@ -67,7 +69,7 @@ public class Parser {
         return new Event(eventDescription, eventDateTime, eventDateTimeString);
     }
 
-    static String[] splitString(String eventString, String delimiter) {
+    private static String[] splitString(String eventString, String delimiter) {
         return eventString.split(delimiter, 2);
     }
 
@@ -75,7 +77,7 @@ public class Parser {
         return message.substring(DESCRIPTION_INDEX_EVENT);
     }
 
-    static Task getLatestTask(ArrayList<Task> tasks) {
+    private static Task getLatestTask(ArrayList<Task> tasks) {
         return tasks.get(taskSize(tasks));
     }
 
@@ -84,12 +86,15 @@ public class Parser {
     }
 
     /**
-     * The function adds the deadline task input by the user
+     * Converts the input string to an object by processing
+     * the string to a description String and DateTime
+     * object and storing it as a new Deadline object in
+     * ArrayList tasks
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
      */
-    static void addDeadline(ArrayList<Task> tasks, String message) {
+    public static void addDeadline(ArrayList<Task> tasks, String message) {
         try {
             tasks.add(createDeadline(message));
             Ui.printAddedTask(getLatestTask(tasks), tasks);
@@ -117,12 +122,14 @@ public class Parser {
     }
 
     /**
-     * The function adds the event input by the user
+     * Converts the input string to an object by processing
+     * the string to a description String and storing it
+     * as a new Event object in ArrayList tasks
      *
      * @param tasks   the array of tasks
      * @param message the input string containing
      */
-    static void addTodo(ArrayList<Task> tasks, String message) {
+    public static void addTodo(ArrayList<Task> tasks, String message) {
         try {
             tasks.add(new Todo(message.substring(INDEX_DESCRIPTION_TODO)));
             Ui.printAddedTask(getLatestTask(tasks), tasks);
@@ -140,7 +147,7 @@ public class Parser {
      * @param tasks   the array of tasks
      * @param message the input string containing
      */
-    static void markDone(ArrayList<Task> tasks, String message) {
+    public static void markDone(ArrayList<Task> tasks, String message) {
         try {
             String[] arrOfStr = message.split(DELIMITER_SPACE);
             int index = getIndex(arrOfStr);
@@ -163,7 +170,7 @@ public class Parser {
      * @param tasks   the array of tasks
      * @param message the input string
      */
-    static void findTask(ArrayList<Task> tasks, String message) {
+    public static void findTask(ArrayList<Task> tasks, String message) {
         try {
             String filter = message.substring(INDEX_FIND);
             ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
@@ -182,7 +189,7 @@ public class Parser {
      * @param tasks   the array of tasks
      * @param message the input string
      */
-    static void deleteTask(ArrayList<Task> tasks, String message) {
+    public static void deleteTask(ArrayList<Task> tasks, String message) {
         try {
             String[] arrOfStr = message.strip().split(DELIMITER_SPACE);
             int index = Integer.parseInt(arrOfStr[1]);
