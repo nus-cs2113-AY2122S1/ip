@@ -1,9 +1,9 @@
 1) todo - Adds a todo type of Task
-Adds a todo task with the specified description (after “todo”) and a notification will be shown on the terminal to show its been successfully added. The task will also by default be marked as not “done”.
+Adds a todo task with the specified description (after <todo>) and a notification will be shown on the terminal to show its been successfully added. The task will also by default be marked as not <done>.
 
 Example of usage: todo Play Apex and Valorant With Friends
 
-Expected outcome: Since “Play Apex and Valorant With Friends” is the description, it is shown on the notification below. And the Task is not “done” [ ]. It will also show the current number of task.
+Expected outcome: Since <Play Apex and Valorant With Friends> is the description, it is shown on the notification below. And the Task is not <done> [ ]. It will also show the current number of task.
 
     ____________________________________________________________
     Got it. I've added this task:
@@ -16,7 +16,7 @@ Adds a event task with the specified description and at DateTime. The format mus
 
 Example of usage: event go school for CCA /at 2021-04-23 13:50
 
-Expected outcome: Since “go school for CCA” is the description, and that “2021-04-23 13:50” is the at DateTime. It will be shown as the following below with the description along with “MMM d yyyy HH:mm a” format of displaying DateTime. The task marked as not “done” by default [ ]. It is also of the type [E]. It will also show the current number of task.
+Expected outcome: Since <go school for CCA> is the description, and that <2021-04-23 13:50> is the at DateTime. It will be shown as the following below with the description along with <MMM d yyyy HH:mm a> format of displaying DateTime. The task marked as not <done> by default [ ]. It is also of the type [E]. It will also show the current number of task.
 
     ____________________________________________________________
     Got it. I've added this task: 
@@ -29,7 +29,7 @@ Adds a deadline task with the specified description and by DateTime. The format 
 
 Example of usage: deadline watch anime /by 2021-04-23 12:00
 
-Expected outcome: Since “watch anime” is the description, and that “2021-04-23 12:00” is the at DateTime. It will be shown as the following below with the description along with “MMM d yyyy HH:mm a” format of displaying DateTime. The task marked as not “done” by default [ ]. It is also of the type [D]. It will also show the current number of task.
+Expected outcome: Since <watch anime> is the description, and that <2021-04-23 12:00> is the at DateTime. It will be shown as the following below with the description along with <MMM d yyyy HH:mm a> format of displaying DateTime. The task marked as not <done> by default [ ]. It is also of the type [D]. It will also show the current number of task.
 
     ____________________________________________________________
     Got it. I've added this task:
@@ -53,11 +53,11 @@ Expected outcome: List out all the task and numbered from 1 to the last task num
     ____________________________________________________________
 
 5) done - Marks a particular Task as done
-Allows the user to mark a particular task as “done” via its index from the “list” display. It must strictly be in the format of: done
+Allows the user to mark a particular task as <done> via its index from the <list> display. It must strictly be in the format of: done
 
 Example of usage: done 3
 
-Expected outcome: It will show a notification of the task being marked as done and this change will also be shown in the “list” command when it is entered.
+Expected outcome: It will show a notification of the task being marked as done and this change will also be shown in the <list> command when it is entered.
 
     ____________________________________________________________
     Nice! I've marked this task as done: 
@@ -65,11 +65,11 @@ Expected outcome: It will show a notification of the task being marked as done a
     ____________________________________________________________
 
 6) delete - Delete a particular Task
-Allows the user to delete a particular task via its index from the “list” display.
+Allows the user to delete a particular task via its index from the <list> display.
 
 Example of usage: delete 5
 
-Expected outcome: It will show a notification of the task being deleted and the deletion will also take immediate effect. Calling “list” command will show that the task is no longer present. It will also show that the number of task have decreased to 4.
+Expected outcome: It will show a notification of the task being deleted and the deletion will also take immediate effect. Calling <list> command will show that the task is no longer present. It will also show that the number of task have decreased to 4.
 
     ____________________________________________________________
      Noted. I've removed this task: 
