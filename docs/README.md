@@ -5,7 +5,7 @@ Hello this is Duke, your friendly command-line-interface to help manage your tas
 
 Prerequisites: Latest version of Java 11 on your computer
 
-1. Download Duke at [here](https://itsleeqian.github.io/ip/)
+1. Download Duke at [here](https://github.com/itsleeqian/ip/releases/download/A-Release/ip.jar)
 2. Move the .jar file to your desired folder.
 3. Open a terminal in the folder containing the .jar file, and execute the following command ```java -jar ip.jar```
 4. If the program is running as intended, you should see the following:
