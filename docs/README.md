@@ -16,7 +16,7 @@ miniDuke is a chatbot that can manage and track tasks via command line interface
   9. [`sort time` - Sort tasks based on date](#sort-time---sort-tasks-based-on-date)
   10. [`bye` - Exit program](#bye---exit-program)
 - [Frequently Asked Questions(FAQ)](#frequently-asked-questionsfaq)
-- [Command Summary](#command-summary-1)
+- [Command Summary](#command-summary)
 
 ---
 
