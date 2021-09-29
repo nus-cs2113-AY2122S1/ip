@@ -4,11 +4,9 @@ import duke.TaskList.TaskManager;
 
 public class Command {
     protected TaskManager taskManager;
-    protected String component;
 
-    public Command(TaskManager taskManager, String component) {
+    public Command(TaskManager taskManager) {
         this.taskManager = taskManager;
-        this.component = component;
     }
 
     public void execute() {}

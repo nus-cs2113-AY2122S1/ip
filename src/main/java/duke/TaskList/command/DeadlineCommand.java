@@ -6,6 +6,7 @@ import duke.Ui.Parser;
 public class DeadlineCommand extends Command{
 
     protected Parser parser;
+    protected String component;
 
     /**
      * Creates a new DeadlineTask object, sets TaskManager and Parser object, and command component.
@@ -14,8 +15,9 @@ public class DeadlineCommand extends Command{
      * @param component String containing details of deadline task to add.
      */
     public DeadlineCommand(TaskManager taskManager, Parser parser, String component) {
-        super(taskManager, component);
+        super(taskManager);
         this.parser = parser;
+        this.component = component;
     }
 
     /**

@@ -6,6 +6,7 @@ import duke.Ui.Parser;
 public class EventCommand extends Command{
 
     protected Parser parser;
+    protected String component;
 
     /**
      * Creates a EventCommand object, sets TaskManager object and command components.
@@ -14,8 +15,9 @@ public class EventCommand extends Command{
      * @param component String containing details of event to add.
      */
     public EventCommand(TaskManager taskManager, Parser parser, String component) {
-        super(taskManager, component);
+        super(taskManager);
         this.parser = parser;
+        this.component = component;
     }
 
     /**
