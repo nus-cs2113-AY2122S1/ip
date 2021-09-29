@@ -5,8 +5,17 @@ import Exceptions.EmptyTaskException;
 import Exceptions.InvalidCommandException;
 import Exceptions.UnknownCommandException;
 
+/**
+ * Parses user input
+ */
 public class Parser {
 
+    /**
+     * Parses the user's whole input to extract the command and relevant details
+     * @param line user's input
+     * @return Command object of user
+     * @throws UnknownCommandException if user does not enter an existing command
+     */
     public static Command parse(String line) throws UnknownCommandException {
         boolean isTodoTask = line.startsWith("todo");
         boolean isDeadlineTask = line.startsWith("deadline");
@@ -37,5 +46,33 @@ public class Parser {
             throw new UnknownCommandException();
         }
         return command;
+    }
+
+    /**
+     * Parses the time from event and deadline commands
+     */
+    public static String extractTiming(String line, int indexOfSlash) {
+        return line.substring(indexOfSlash + 4);
+    }
+
+    /**
+     * Parses the task description from event commands
+     */
+    public static String extractEventTask(String line, int indexOfSlash) {
+        return line.substring(5, indexOfSlash - 1).trim();
+    }
+
+    /**
+     * Parses the task description from deadline commands
+     */
+    public static String extractDeadlineTask(String line, int indexOfSlash) {
+        return line.substring(8, indexOfSlash - 1).trim();
+    }
+
+    /**
+     * Parses the task description from todo commands
+     */
+    public static String extractTodoTask(String line) {
+        return line.substring(4).trim();
     }
 }

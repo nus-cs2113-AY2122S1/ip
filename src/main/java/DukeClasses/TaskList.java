@@ -5,6 +5,10 @@ import Exceptions.InvalidCommandException;
 import Tasks.*;
 import java.util.ArrayList;
 
+
+/**
+ * Contains the ArrayList of Tasks, and has related operations
+ */
 public class TaskList {
 
     protected ArrayList<Task> list;
@@ -17,10 +21,16 @@ public class TaskList {
         return this.list;
     }
 
+    /**
+     * Adds a new Event object into the ArrayList list
+     * @param line the line that the user inputs
+     * @throws EmptyTaskException If task is left blank
+     * @throws InvalidCommandException If task is not formatted correctly; i.e. no /at
+     */
     public void addNewEvent(String line) throws EmptyTaskException, InvalidCommandException {
         int indexOfSlash = line.indexOf("/");
-        String actualTask = extractEventTask(line, indexOfSlash);
-        String eventAt = extractTiming(line, indexOfSlash);
+        String actualTask = Parser.extractEventTask(line, indexOfSlash);
+        String eventAt = Parser.extractTiming(line, indexOfSlash);
         if (actualTask.isBlank()) {
             throw new EmptyTaskException();
         }
@@ -30,10 +40,16 @@ public class TaskList {
         list.add(new Event(actualTask, eventAt));
     }
 
+    /**
+     * Adds a new Deadline object into the ArrayList list
+     * @param line the line that the user inputs
+     * @throws EmptyTaskException If task is left blank
+     * @throws InvalidCommandException If task is not formatted correctly; i.e. no /by
+     */
     public void addNewDeadline(String line) throws EmptyTaskException, InvalidCommandException {
         int indexOfSlash = line.indexOf("/");
-        String actualTask = extractDeadlineTask(line, indexOfSlash);
-        String deadlineBy = extractTiming(line, indexOfSlash);
+        String actualTask = Parser.extractDeadlineTask(line, indexOfSlash);
+        String deadlineBy = Parser.extractTiming(line, indexOfSlash);
         if (actualTask.isBlank()) {
             throw new EmptyTaskException();
         }
@@ -43,28 +59,17 @@ public class TaskList {
         list.add(new Deadline(actualTask, deadlineBy));
     }
 
+    /**
+     * Adds a new Todo object into the ArrayList list
+     * @param line the line that the user inputs
+     * @throws EmptyTaskException If task is left blank
+     */
     public void addNewTodo(String line) throws EmptyTaskException {
-        String actualTask = extractTodoTask(line);
+        String actualTask = Parser.extractTodoTask(line);
         if (actualTask.isBlank()) {
             throw new EmptyTaskException();
         }
         list.add(new Todo(actualTask));
-    }
-
-    public String extractTiming(String line, int indexOfSlash) {
-        return line.substring(indexOfSlash + 4);
-    }
-
-    public String extractEventTask(String line, int indexOfSlash) {
-        return line.substring(5, indexOfSlash - 1).trim();
-    }
-
-    public String extractDeadlineTask(String line, int indexOfSlash) {
-        return line.substring(8, indexOfSlash - 1).trim();
-    }
-
-    public String extractTodoTask(String line) {
-        return line.substring(4).trim();
     }
 
 }

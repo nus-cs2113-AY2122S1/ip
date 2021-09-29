@@ -2,6 +2,9 @@ package DukeClasses;
 
 import java.util.Scanner;
 
+/**
+ * UI of the application.
+ */
 public class Ui {
 
     public static String logo = " ____        _        \n"
@@ -9,11 +12,14 @@ public class Ui {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
+
     public static String fileNotFound = "____________________________________________________________\n"
             + "No preloaded file found! Please input your own data.\n"
             + "____________________________________________________________\n";
 
-    public static String instructions =  "____________________________________________________________\n"
+
+    /** Quick summary of instructions to using this application*/
+    public static String instructions = "____________________________________________________________\n"
             + "Hello! Welcome to Duke. I am your personal task tracker.\n"
             + "As of now, I can help you track Todos, Deadlines and Events. "
             + "Mark your tasks with either \"todo\", \"deadline\" or \"event\" at the start. \n"
@@ -40,7 +46,7 @@ public class Ui {
             + "Bye. Hope to see you again soon!\n"
             + "____________________________________________________________\n";
 
-
+    /** */
     public static String emptyTaskError = "____________________________________________________________\n"
             + "Please do not leave the description of the task empty!\n"
             + helpMessage
@@ -59,9 +65,11 @@ public class Ui {
     public void sayGoodbye() {
         System.out.println(goodbye);
     }
-    public void showLine() {
-        System.out.println("____________________________________________________________\n");
-    }
+
+    /**
+     * Reads in the user input and returns it
+     * @return the string that the user inputs
+     */
     public String readCommand() {
         Scanner in = new Scanner(System.in);
         return in.nextLine();

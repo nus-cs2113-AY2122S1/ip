@@ -7,6 +7,9 @@ import Exceptions.EmptyTaskException;
 
 import java.io.IOException;
 
+/**
+ * Command that represents the user looking for instructions on using Duke
+ */
 public class HelpCommand extends Command {
 
     @Override
