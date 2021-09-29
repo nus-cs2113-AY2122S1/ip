@@ -39,7 +39,7 @@ public class TextUi {
 
     public String readCommand() {
         System.out.println();
-        System.out.println("What can Karlett do for you meow? (ﾐⓛᆽⓛﾐ)✧");
+        System.out.println("What can Karlett do for you meow? (●Φ ౪ Φ●)");
         return s.nextLine();
     }
 
@@ -230,5 +230,19 @@ public class TextUi {
         for (int i = 0; i < matchedTasks.getNumberOfTasks(); i++) {
             System.out.println("ฅ" + (i + 1) + " " + matchedTasks.get(i));
         }
+    }
+
+    public void printIncorrectIndexFormatMessage(TaskList tasks) {
+        drawDivider();
+        System.out.println("Please give Karlett a number as the task index meow~\n" +
+                "Here are the tasks:");
+        if (tasks.getNumberOfTasks() == 0) {
+            System.out.println("You have done everything! Time to relax with Karlett meow ʕ♡ﻌ♡ʔ");
+        } else {
+            for (int i = 0; i < tasks.getNumberOfTasks(); i++) {
+                System.out.println("ฅ" + (i + 1) + " " + tasks.get(i));
+            }
+        }
+        drawDivider();
     }
 }

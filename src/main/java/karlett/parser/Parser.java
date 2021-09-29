@@ -142,9 +142,19 @@ public class Parser {
             String keyWord = arguments[0];
             return new FindCommand(keyWord);
         case "done":
-            return new DoneCommand(Integer.parseInt(arguments[0]));
+            try {
+                return new DoneCommand(Integer.parseInt(arguments[0]));
+            } catch (NumberFormatException e) {
+                ui.printIncorrectIndexFormatMessage(tasks);
+                break;
+            }
         case "delete":
-            return new DeleteCommand(Integer.parseInt(arguments[0]));
+            try {
+                return new DeleteCommand(Integer.parseInt(arguments[0]));
+            } catch (NumberFormatException e) {
+                ui.printIncorrectIndexFormatMessage(tasks);
+                break;
+            }
         case "bye":
             return new ExitCommand();
         default:
