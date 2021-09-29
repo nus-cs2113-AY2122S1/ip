@@ -7,7 +7,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor to initialise Task description
+     * Initialises Task description
      * and make isDone false
      *
      * @param description string with the task
@@ -29,7 +29,7 @@ public class Task {
     }
 
     /**
-     * Returns the formatted Description of the task.
+     * Returns the formatted Description of the task
      *
      * @return returns a String with the task description
      */
@@ -38,7 +38,7 @@ public class Task {
     }
 
     /**
-     * Returns the formatted Description of the task for saving in a file.
+     * Returns the formatted Description of the task for saving in a file
      *
      * @return returns a String with the task description
      */
@@ -50,7 +50,7 @@ public class Task {
     /**
      * Makes the boolean isDone true,
      * indicating that the task is done
-     * and prints the task.
+     * and prints the task
      */
     public void isDone() {
         this.isDone = true;
