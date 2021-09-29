@@ -20,6 +20,7 @@
 
 Shows a list of all tasks in the task list.
 <br/>
+<br/>
 ### Add a todo task: `todo`
 
 Adds a todo task to the task list.
@@ -29,6 +30,7 @@ Format: `todo <DESCRIPTION>`
 Examples:
 * todo Homework
 * todo Assignment
+<br/>
 <br/>
 ## Usage
 
