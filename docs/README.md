@@ -171,7 +171,7 @@ Action | Format, Examples
 --------|------------------
 **Add Todo** | `todo DESCRIPTION` <br> e.g. `todo read book`
 **Add Deadline** | `deadline DESCRIPTION /by DATE TIME` <br> e.g. `deadline return book /by 31/10/2021 2100`
-**Add Event** | `event DESCRIPTION /by DATE TIME` <br> e.g. `event attend lecture /at 27/10/2021 1400
+**Add Event** | `event DESCRIPTION /by DATE TIME` <br> e.g. `event attend lecture /at 27/10/2021 1400`
 **List** | `list`
 **Done Task** | `done INDEX`<br> e.g. `done 2`
 **Delete Task** | `delete INDEX`<br> e.g. `delete 2`
