@@ -12,7 +12,7 @@ public class ListCommand extends Command {
     protected String listType;
 
     /**
-     * Constructor for ListCommand. Parses through the different commands typed by the user
+     * Parses through the different commands typed by the user
      * and initializes the listType variable
      *
      * @param command an array of strings of the users response
@@ -96,7 +96,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * utility method to help to swap tasks in the sortedList
+     * swaps tasks in the sortedList
      *
      * @param i index of the task being swapped
      */

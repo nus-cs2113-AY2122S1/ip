@@ -10,7 +10,7 @@ public class FindCommand extends Command {
     public static String keyword;
 
     /**
-     * Constructor that checks to see if the user has entered the command in the correct format.
+     * Checks to see if the user has entered the command in the correct format.
      * initializes the keyword that the user is searching for.
      *
      * @param command  an array of strings of the users response

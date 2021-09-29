@@ -4,9 +4,6 @@ import duke.processes.utility.Interface;
 
 public class HelpCommand extends Command {
 
-    /**
-     * Constructor for HelpCommand
-     */
     public HelpCommand() {
     }
 

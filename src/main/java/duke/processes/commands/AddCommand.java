@@ -31,7 +31,7 @@ public class AddCommand extends Command {
     protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy-HHmm");
 
     /**
-     * Constructor used when AddCommand is used. Checks to see if the format of
+     * Checks to see if the format of
      * the UserInput is correct and throws an error message if it is incorrect.
      * Additionally, parses to see which type of task is added and prepares the
      * required data for that Task type to by calling the prepare methods. Changes

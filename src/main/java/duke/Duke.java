@@ -15,7 +15,7 @@ public class Duke {
     public static ArrayList<Task> taskList = new ArrayList<>();
 
     /**
-     * main code to run the overall processes of the entire program. Uses the runIkaros
+     * Runs the overall processes of the entire program. Uses the runIkaros
      * function to run the bulk of the task assistant ikaros
      *
      * @param args an array of sequence of characters (Strings) that are passed to the

@@ -5,7 +5,7 @@ public class CommandResult {
     public String feedbackToUser;
 
     /**
-     * Constructor that sets the String feedback to User to indicate whether
+     * Sets the String feedback to User to indicate whether
      * command was executed successfully
      *
      * @param s message returned after execution of different Commands

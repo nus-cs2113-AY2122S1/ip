@@ -84,7 +84,7 @@ public class Interface {
     }
 
     /**
-     * Bid Farewell to the user
+     * Bids Farewell to the user
      */
     public static void goodbyeMessage() {
 

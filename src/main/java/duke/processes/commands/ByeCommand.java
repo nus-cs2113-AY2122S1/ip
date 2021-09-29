@@ -4,9 +4,6 @@ public class ByeCommand extends Command {
 
     public static boolean isRunning = true;
 
-    /**
-     * Constructor for ByeCommand to instantiate the command
-     */
     public ByeCommand() {
     }
 

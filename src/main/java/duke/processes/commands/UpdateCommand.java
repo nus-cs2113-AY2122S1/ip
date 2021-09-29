@@ -17,7 +17,7 @@ public class UpdateCommand extends Command {
     protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy-HHmm");
 
     /**
-     * Constructor for update command that initializes the type of date to be updated
+     * updates command that initializes the type of date to be updated
      * (listType) and the array string of the users commands (userCommand). Flags the listType
      * as invalid if the user did not type the command in the correct format.
      *

@@ -7,7 +7,7 @@ public class DoneUndoCommand extends Command {
     public static String[] userCommand;
 
     /**
-     * Constructor to set the UserCommand to the given Command
+     * Sets the UserCommand to the given Command
      *
      * @param command an array of String of the Users response
      */

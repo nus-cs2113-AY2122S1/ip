@@ -2,9 +2,6 @@ package duke.processes.commands;
 
 public class Command {
 
-    /**
-     * Constructor for Command task
-     */
     public Command() {
     }
 
