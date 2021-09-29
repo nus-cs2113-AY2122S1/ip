@@ -22,5 +22,5 @@ public class Event extends Task{
         return "(at: " + date + ")";
     }
 
-
+    public String getDateOnly() { return date; }
 }

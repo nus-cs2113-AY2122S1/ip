@@ -36,4 +36,6 @@ public class Task {
     public String getDate() {
         return " ";
     }
+
+    public String getDateOnly() { return " "; }
 }

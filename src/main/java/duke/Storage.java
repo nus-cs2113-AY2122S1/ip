@@ -86,7 +86,7 @@ public class Storage {
                 fw.write(tasks.list.get(i).getLetter() + "/"
                         + tasks.list.get(i).getStatusIcon() + "/"
                         + tasks.list.get(i).getDescription() + "/"
-                        + tasks.list.get(i).getDate() + System.lineSeparator());
+                        + tasks.list.get(i).getDateOnly() + System.lineSeparator());
             }
             fw.close();
         } catch (IOException e) {

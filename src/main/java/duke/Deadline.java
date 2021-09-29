@@ -22,4 +22,6 @@ public class Deadline extends Task{
         return "(by: " + date + ")";
     }
 
+    public String getDateOnly() { return date; }
+
 }
