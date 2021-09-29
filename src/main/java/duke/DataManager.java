@@ -63,6 +63,7 @@ public class DataManager {
      * @param dataParts Strings to be passed into TaskManager functions.
      * @throws DukeBlankDescriptionsException If dataParts[DESCRIPTION_INDEX] is blank.
      * @throws DukeInvalidTaskIndexException  If wrong Task index is passed into TaskManager.setDone(int taskIndex).
+     * @throws DukeCorruptedDataException If data entries being loaded from DukeData.txt contain foreign content.
      */
     private static void addTaskEntry(String[] dataParts) throws DukeBlankDescriptionsException
             , DukeInvalidTaskIndexException, DukeCorruptedDataException {
