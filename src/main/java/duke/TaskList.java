@@ -5,6 +5,7 @@ import Tasks.Event;
 import Tasks.Tasks;
 import Tasks.Todo;
 
+
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
@@ -16,6 +17,8 @@ public class TaskList {
     protected static final Tasks[] List = new Tasks[100];
     protected static int listSize = 0;
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+
+
 
     public static void deleteTask(int deleteNo) {
         int noTasksBefore = listSize;
@@ -39,17 +42,15 @@ public class TaskList {
 
     public static void setDeadline(String item, String timing) {
         LocalDateTime dateTime = LocalDateTime.parse(timing, formatter);
-        List[listSize] = new Deadline(item, dateTime);
 
+        List[listSize] = new Deadline(item, dateTime);
         System.out.println("Got it. I've added this task:");
         listLast();
         listSize++;
         System.out.println(" Now you have " + listSize + " tasks in the list.");
 
 
-
         //System.out.println(dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")));
-
 
     }
 

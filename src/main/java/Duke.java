@@ -13,6 +13,7 @@ public class Duke {
 
     public static void main(String[] args) throws IOException {
         Ui.helloWorld();
+
         String line = "";
         Scanner in = new Scanner(System.in);
 
