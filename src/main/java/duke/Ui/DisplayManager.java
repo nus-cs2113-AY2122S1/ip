@@ -150,7 +150,9 @@ public class DisplayManager {
      * @param validIndexes Array of integers containing indexes of tasks that are valid to set as done.
      * @param doneIndexes Array of integers containing indexes of tasks already done before.
      */
-    public static void printSetAsDoneResult(ArrayList<Task> tasks, int[] outOfRangeIndexes, int[] validIndexes, int[] doneIndexes) {
+    public static void printSetAsDoneResult(
+            ArrayList<Task> tasks, int[] outOfRangeIndexes, int[] validIndexes, int[] doneIndexes) {
+
         int outOfRangeCount, validIndexCount, doneIndexCount;
 
         if (outOfRangeIndexes == null) {
