@@ -23,6 +23,7 @@ public class Ui {
     public static final String LS = System.lineSeparator();
     public static final String QUOTATION = "\"";
     public static final String EMPTY = "";
+    public static final String DATE_TIME_FORMAT = "dd/MM/yyyy HHmm";
     public static final String MESSAGE_WELCOME_DUDE = "Hello! I'm Dude ^__^";
     public static final String MESSAGE_BYE = "Bye! Hope to see you again soon! ~^u^~ ";
     public static final String MESSAGE_NO_TASKS_YET = "No tasks yet, add a task now!";
@@ -37,8 +38,13 @@ public class Ui {
             + SearchTaskCommand.MESSAGE_COMMAND_DESCRIPTION + LS
             + CommandListCommand.MESSAGE_COMMAND_DESCRIPTION + LS
             + ByeCommand.MESSAGE_COMMAND_DESCRIPTION;
+    public static final String MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST = "Command does not exist @_@";
+    public static final String MESSAGE_ERROR_DATE_FORMAT_WRONG = "Please input the date and time in the format " +
+            QUOTATION + DATE_TIME_FORMAT + QUOTATION + "!" + LS + "E.g: 12/12/2012 2359";
     private static final String MESSAGE_DATA_LOADED = "Your old data has been successfully loaded!" + LS
             + "You have %d tasks. Type " + ListCommand.MESSAGE_COMMAND_FORMAT + " to see current tasks!";
+
+
 
     private Scanner scanner;
 
