@@ -99,7 +99,7 @@ Format: `event DESCRIPTION / EVENT TIME`
 
 Example of usage:
 
-* `event Itachi birthday / Thursday 12pm - 7pm`
+* `event CS2113T Tut / Wednesday 11am - 12pm`
 
 
 Expected outcome:
@@ -110,7 +110,7 @@ Duke will add the event to the task list and print a message.
 ____________________________________________________________________________
 
 Got it. I've added this task: 
-[E][ ] Itachi birthday (at: Thursday 12pm - 7pm)
+[E][ ] CS2113T Tut (at: Wednesday 11am - 12pm)
 You now have 3 items in the list.
 ____________________________________________________________________________
 ```
@@ -182,7 +182,7 @@ Duke will list all tasks.
 ____________________________________________________________________________
 
 1.[D][X] Submit IP (by: Oct 01 2021)
-2.[E][ ] Itachi birthday (at: Thursday 12pm - 7pm)
+2.[E][ ] CS2113T Tut (at: Wednesday 11am - 12pm)
 ____________________________________________________________________________
 ```
 <br>
@@ -191,7 +191,7 @@ ____________________________________________________________________________
 
 Lists all tasks that contain the search term.
 
-Example of usage: `find birthday`
+Example of usage: `find tut`
 * Search is case-insensitive.
 * Lists all tasks that contain the search term.
 
@@ -200,7 +200,7 @@ Expected outcome:
 ```
 ____________________________________________________________________________
 
-1.[E][ ] Itachi birthday (at: Thursday 12pm - 7pm)
+[E][ ] CS2113T Tut (at: Wednesday 11am - 12pm)
 ____________________________________________________________________________
 ```
 
