@@ -19,8 +19,7 @@
 ### List all tasks: `list`
 
 Shows a list of all tasks in the task list.
-
-
+<br/>
 ### Add a todo task: `todo`
 
 Adds a todo task to the task list.
@@ -30,8 +29,7 @@ Format: `todo <DESCRIPTION>`
 Examples:
 * todo Homework
 * todo Assignment
-
-
+<br/>
 ## Usage
 
 ### `Keyword` - Describe action
