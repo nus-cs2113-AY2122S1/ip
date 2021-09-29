@@ -33,6 +33,6 @@ public class Deadline extends Task {
     public Deadline(String deadlineDescription) {
         super(deadlineDescription, "deadline");
         this.due = extractDeadline(deadlineDescription);
-        super.description = deadlineDescription.substring(9, this.keywordIdx) + getDueString();
+        super.description = deadlineDescription.substring("deadline ".length(), this.keywordIdx) + getDueString();
     }
 }

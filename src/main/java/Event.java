@@ -33,6 +33,6 @@ public class Event extends Task {
     public Event(String eventDescription) {
         super(eventDescription, "event");
         this.time = extractTime(eventDescription);
-        super.description = eventDescription.substring(6, this.keywordIdx) + getTimeString();
+        super.description = eventDescription.substring("event ".length(), this.keywordIdx) + getTimeString();
     }
 }
