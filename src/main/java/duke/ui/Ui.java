@@ -14,7 +14,22 @@ public class Ui {
 
     private final static String NEW_HELLO = "Hi! I'm Duke. I've created your data file for you!";
     private final static String RETURNING_HELLO = "Welcome back!";
-    private final static String PROMPT_COMMAND = "What would you like me to do?";
+    private final static String PROMPT_COMMAND = "What would you like me to do? Use \"help\" if you're unsure!";
+
+    private final static String HELP_MESSAGE = "Here are the commands I can currently execute:\n" +
+            "\n" +
+            "    todo XXX - Adds a Todo task XXX to the tasklist\n" +
+            "    deadline XXX /by YYY - Adds a Deadline task XXX to the list, due by YYY\n" +
+            "    event XXX /at YYY - Adds an Event task XXX to the list, happening on YYY\n" +
+            "    list - Shows all current tasks with their ID and status (done or incomplete)\n" +
+            "    done XXX - Toggles the status of the task with ID XXX between done and incomplete\n" +
+            "    delete XXX - Deletes task with ID XXX from the list\n" +
+            "    find XXX - Shows tasks containing the given keyword(s) (can be more than or equal to 1)\n" +
+            "    date YYY - Shows tasks due by or happening on the date and time YYY\n" +
+            "    bye - Exits Duke\n" +
+            "\n" +
+            "NOTE: All dates and times YYY must be entered in the following format:\n" +
+            "dd/mm/yyyy hhmm (time is in 24-hour format)";
 
     private final static String LIST_MESSAGE = "Here are your current tasks and their status:";
     private static final String EMPTY_LIST_MESSAGE = "Your tasklist is currently empty!";
@@ -31,7 +46,7 @@ public class Ui {
     private final static String ILLEGAL_COMMAND_MESSAGE = "That's not a known command format!";
     private final static String IOEXCEPTION_MESSAGE = "Something went wrong while creating/loading your data: ";
     private final static String INDEX_OUT_OF_BOUNDS_MESSAGE = "That's not a valid task number!";
-    private static final String DATE_TIME_PARSE_MESSAGE = "That date and/or time was in the wrong format!";
+    private static final String DATE_TIME_ERROR_MESSAGE = "That date and/or time was in the wrong format!";
     private static final String NO_RESULTS_MESSAGE_START = "I could not find any results for \"";
     private static final String NO_RESULTS_MESSAGE_END = "\"!";
 
@@ -76,6 +91,12 @@ public class Ui {
             println((tasks.indexOf(task) + 1) + ". " + task);
         }
         println(PROMPT_COMMAND);
+        printDivider();
+    }
+
+    public static void printHelp() {
+        printDivider();
+        println(HELP_MESSAGE);
         printDivider();
     }
 
@@ -198,7 +219,7 @@ public class Ui {
     /** Notifies the user that the date and/or time they entered was of the wrong format. */
     public static void printDateTimeParseMessage() {
         printDivider();
-        println(DATE_TIME_PARSE_MESSAGE);
+        println(DATE_TIME_ERROR_MESSAGE);
         printDivider();
     }
 }
