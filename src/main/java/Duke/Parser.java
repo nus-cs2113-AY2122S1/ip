@@ -6,13 +6,26 @@ import java.util.Scanner;
 
 public class Parser {
 
+    /**
+     * The main loop of the code where information is parsed from the user through user input.
+     *
+     * A parseCommand object contains these attributes
+     * - The description representing the task to be added
+     * - A time or date if it is a deadline or event
+     * - A checkmark for if the task is done or not
+     * - A status icon for the type of task it is
+     *
+     * Loop runs until the user enters the "bye" command
+     *
+     */
+
+
     static void parseCommand() {
 
         boolean condition = true;
         Ui message = new Ui();
         Scanner myObj = new Scanner(System.in);
 
-        //The main loop where all the input cases are run through, if there was no specific command given, the statement is added as a task to the list.
         while(condition) {
             String userInput = myObj.nextLine();
             String instruction = userInput.contains(" ") ? userInput.substring(0, userInput.indexOf(" ")) : userInput;
@@ -51,10 +64,10 @@ public class Parser {
                 TaskList.deleteTask(instructionTask);
                 Storage.saveData();
                 break;
-            case "find":
+            case "find": // Finds a task from the list using a keyword
                 TaskList.findTask(instructionTask);
                 break;
-            default: // When no specific command is selected, the input is added automatically to the list of tasks.
+            default: // When no specific command is selected, it tells the user to input a valid command
                 message.printIntructionsUnclear();
                 message.printLineBreak();
                 break;

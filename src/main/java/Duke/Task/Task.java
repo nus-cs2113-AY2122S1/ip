@@ -1,5 +1,10 @@
 package Duke.Task;
 
+/**
+ * Represents the attributes of all the Tasks stored in Duke
+ * It is the parent object for ToDos, Deadline and Events
+ */
+
 public class Task {
     protected boolean isDone;
     protected String description;

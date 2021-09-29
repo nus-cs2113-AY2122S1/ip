@@ -4,12 +4,24 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Subclass for Deadline objects under tasks.
+ */
+
+
 public class Deadline extends Task{
     private String when = "0000";
     private String originalWhen;
 
     protected LocalDate date;
     protected LocalTime time;
+
+    /**
+     * Constructor for Deadline class
+     *
+     * @param description The name of the task
+     * @param when The date and time in which the task is due by
+     */
 
     public Deadline(String description, String when) {
         super(description);
@@ -18,6 +30,13 @@ public class Deadline extends Task{
         this.time = getTime(this.when);
         this.originalWhen = when;
     }
+
+    /**
+     * Returns the time in hours and minutes from a string of 4 numbers
+     *
+     * @param time The string of 4 numbers that represent the 24 hour clock time
+     * @return Returns the time in hours and minutes in a 12 hour clock time
+     */
 
     public LocalTime getTime(String time) {
         String hourString = time.substring(0,2);

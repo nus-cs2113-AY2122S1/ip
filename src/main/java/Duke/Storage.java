@@ -11,10 +11,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * This class loads and saves any tasks in the list
+ */
 public class Storage {
 
     public String fileLocation = Paths.get(System.getProperty("user.dir"), "data/duke.txt").normalize().toString();
 
+    /**
+     * Create a directory or file if it doesn't exist
+     */
     public static void saveData() {
         try {
             Path filePath = Paths.get("data/duke.txt");
@@ -25,6 +31,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if the file exists
+     * If it does, load the file by adding saved tasks to the list.
+     */
     public static void loadData() {
         try {
             checkExist("data/duke.txt");
@@ -34,6 +44,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks to see if there exists a previous save file.
+     * Create a new file if it doesn't exist.
+     *
+     * @param fileLocation The path of the file
+     * @throws IOException If the file exists or the system is unable to create a new file
+     */
     public static void checkExist(String fileLocation) throws IOException {
         File f = new File(fileLocation);
         if (!f.exists()) {
@@ -41,6 +58,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the contents of the file by adding them to the list of tasks
+     *
+     * @param fileLocation Path of the file
+     * @throws FileNotFoundException If the file cannot be found
+     */
     public static void loadFile(String fileLocation) throws FileNotFoundException {
         File f = new File(fileLocation);
         Scanner s = new Scanner(f);
@@ -81,6 +104,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes all current Tasks to the save file
+     *
+     * @param fileLocation The path of the file
+     * @throws IOException Throws an error if the file doesn't exist
+     */
     public static void saveFile(String fileLocation) throws IOException {
         String text;
         File f = new File(fileLocation);
@@ -94,6 +123,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes to the text file
+     *
+     * @param fileLocation The path of the file
+     * @param whatToWrite The text to be added
+     * @throws IOException Throws an error if the file doesn't exist
+     */
     public static void writeToFile(String fileLocation, String whatToWrite) throws IOException {
         FileWriter fw = new FileWriter(fileLocation, true);
         fw.write(whatToWrite);

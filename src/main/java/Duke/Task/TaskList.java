@@ -6,10 +6,18 @@ import Duke.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * The main Class in which the different commands from Parser are executed from
+ */
+
+
 public class TaskList {
     public static Information input = new Information();
     private static Ui message = new Ui();
 
+    /**
+     * Prints the list of all current tasks
+     */
     public static void printList() {
         for (int i = 0; i < input.List.size(); i++) {
             System.out.println((i + 1) + ".[" + input.List.get(i).getTaskIcon() + "]" + "[" + input.List.get(i).getStatusIcon() + "] " + input.List.get(i).getDescription());
@@ -17,6 +25,12 @@ public class TaskList {
         message.printLineBreak();
     }
 
+    /**
+     * Marks when the task is done
+     *
+     * @param instructionTask Contains the details of the command given by the user
+     * @throws NumberFormatException Throws an error if the selected task does not exist
+     */
     public static void thisDone(String instructionTask) {
         try {
             int whichTask = Integer.parseInt(instructionTask.replaceAll("[\\D]", ""));
@@ -37,6 +51,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a ToDo task by the user
+     *
+     * @param instructionTask Contains the details of the command given by the user
+     */
     public static void addToDo(String instructionTask) {
         try {
             if (instructionTask.isEmpty() || instructionTask.equals(" ")) {
@@ -51,6 +70,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task with a deadline to the list
+     *
+     * @param instructionTask Contains the details of the command given by the user
+     * @throws  NumberFormatException Throws an error when the deadline contains alphabets
+     * @throws  IndexOutOfBoundsException Throws an error when the deadline is not given in the specified format
+     */
     public static void addDeadline(String instructionTask) {
         try {
             if (!instructionTask.contains("/by")) {
@@ -68,6 +94,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds an event task to the list
+     *
+     * @param instructionTask Contains the details of the command given by the user
+     */
     public static void addEvent(String instructionTask) {
         try {
             if (!instructionTask.contains("/at")) {
@@ -85,6 +116,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the list
+     *
+     * @param instructionTask Contains the details of the command given by the user
+     * @throws  NumberFormatException Throws an error when alphabets are input instead of a number
+     * @throws  IndexOutOfBoundsException Throws an error when a task that does not exist is chosen
+     */
     public static void deleteTask(String instructionTask) {
         try {
             if (instructionTask.isEmpty() || instructionTask.equals(" ")) {
@@ -100,6 +138,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds any task that contains the keyword given by user
+     *
+     * @param word Contains the keyword
+     */
     public static void findTask(String word) {
         ArrayList<Task> matchingWordList = new ArrayList<>();
         try {
