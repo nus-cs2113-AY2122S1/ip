@@ -8,6 +8,7 @@ public enum CommandType {
     EVENT,
     EXIT,
     FIND,
+    HELP,
     INVALID,
     LIST,
     TODO;

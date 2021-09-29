@@ -12,6 +12,7 @@ import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
+import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.exception.DukeException;
 import duke.task.Deadline;
@@ -50,6 +51,8 @@ public class Parser {
             return parseExitCommand(userResponse);
         case FIND:
             return parseFindCommand(userResponse);
+        case HELP:
+            return parseHelpCommand(userResponse);
         case LIST:
             return parseListCommand(userResponse);
         case TODO:
@@ -169,6 +172,15 @@ public class Parser {
         }
 
         return new ListCommand();
+    }
+
+    private static Command parseHelpCommand(String userResponse) throws DukeException {
+        boolean isValidResponse = userResponse.equals("help");
+        if (!isValidResponse) {
+            throw new DukeException(Message.ERROR_INVALID_COMMAND);
+        }
+
+        return new HelpCommand();
     }
 
     private static Command parseTodoCommand(String userResponse) throws DukeException {

@@ -7,7 +7,7 @@ import duke.exception.DukeException;
 import duke.ui.Ui;
 
 public class TaskList {
-    private List<Task> taskList;
+    private final List<Task> taskList;
 
     public TaskList() {
         taskList = new ArrayList<>();

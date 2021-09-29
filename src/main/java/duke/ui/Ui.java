@@ -7,38 +7,39 @@ import duke.task.TaskList;
 
 public class Ui {
     public static final String LINE =
-            "    ____________________________________________________________" + System.lineSeparator();
+            "    __________________________________________________________________________________"
+                    + System.lineSeparator();
 
     public static final String PADDING = "     ";
 
     public static final String LOGO =
-              PADDING + "                    -/ /mmddddmNmh` .:`                   " + System.lineSeparator()
-            + PADDING + "              `/sdydNNmhmNMMMMMMMMhymMm+`                 " + System.lineSeparator()
-            + PADDING + "            -sNMMMMMMNNddNMMMNMMMMmmMMMMms.               " + System.lineSeparator()
-            + PADDING + "           /NMMMNMMNMMmmdNMNMmMMNMmNMMMMMNyy-             " + System.lineSeparator()
-            + PADDING + "         .:oNMMMMNNMmhos+so+/::ohdmMMMMMmmMMm.            " + System.lineSeparator()
-            + PADDING + "        /mNMMMNNNdy+.````````````../ydNNNMMMMy            " + System.lineSeparator()
-            + PADDING + "        /MMMMNmy/.`  `````````  `````.sdNMMMMm+           " + System.lineSeparator()
-            + PADDING + "        sNNNNNy.``  ```.:`` ``` ```````./dmNMMh`          " + System.lineSeparator()
-            + PADDING + "       `ommdy:```  ` ``sy`` ```  `````````:mmN:           " + System.lineSeparator()
-            + PADDING + "       +dNNh.```` ````:dm+` ````  `````````--:            " + System.lineSeparator()
-            + PADDING + "       -dMm.````  `s``hdmm-`````````````````-:            " + System.lineSeparator()
-            + PADDING + "        -N+````` `sm`/mmmmh`.-```-.``````````-            " + System.lineSeparator()
-            + PADDING + "        .:```````+mh.dmmmmm/`y:-`-d/`````` ```            " + System.lineSeparator()
-            + PADDING + "        ````````:md/oymmmmmh/ymh+/mmo-````  ```           " + System.lineSeparator()
-            + PADDING + "         `` ````dmmymmmmmmmmmmmmd+`.++-````o. .           " + System.lineSeparator()
-            + PADDING + "        ``` `` `mmsssdmmmmmmmmmh-s `.m.```-dy .           " + System.lineSeparator()
-            + PADDING + "         .`  ` +h:sy.`/dmmmmmmmdy`./-N-` `+dm`.           " + System.lineSeparator()
-            + PADDING + "         .`   `mdsN-```dmmmmmmmmNy+smm-- `hds ``          " + System.lineSeparator()
-            + PADDING + "          `   -dmmNd/:+mmmmmmmmmmmmmmmy/ .d+  ``          " + System.lineSeparator()
-            + PADDING + "         ``   .hdmmNmddmmmmmmmmmmmmmmyd+ ...  .``         " + System.lineSeparator()
-            + PADDING + "         `.`   yddmmmdmmmmmmmmmmmmmmm+mo`  `` `..         " + System.lineSeparator()
-            + PADDING + "          ```  `/+hmmmmmmmmmmmmmmmmmm/m:` ``- . .`        " + System.lineSeparator()
-            + PADDING + "        `` ` `  ```ymmmmmmmmmmmmmmmmm/: ` `.``-//`        " + System.lineSeparator()
-            + PADDING + "       :hho- `  ``  :sdmmmmmmmmmmmmd+`.    .`:dMm-:/.     " + System.lineSeparator()
-            + PADDING + "     `/hmmdN:`` ` `   `:shmmmmmmmdds..``   `/NMMMNMMs     " + System.lineSeparator()
-            + PADDING + "     +ddddmMy```. ``   odyhhhhhhhdmdy..`   .mNMMMMMMd     " + System.lineSeparator()
-            + PADDING + "      os//mMm```+o-``-odddhyhhhdmmdMN/:`` oMMMMMMMNm+     " + System.lineSeparator();
+              PADDING + "               -/ /mmddddmNmh` .:`              " + System.lineSeparator()
+            + PADDING + "         `/sdydNNmhmNMMMMMMMMhymMm+`            " + System.lineSeparator()
+            + PADDING + "       -sNMMMMMMNNddNMMMNMMMMmmMMMMms.          " + System.lineSeparator()
+            + PADDING + "      /NMMMNMMNMMmmdNMNMmMMNMmNMMMMMNyy-        " + System.lineSeparator()
+            + PADDING + "    .:oNMMMMNNMmhos+so+/::ohdmMMMMMmmMMm.       " + System.lineSeparator()
+            + PADDING + "   /mNMMMNNNdy+.````````````../ydNNNMMMMy       " + System.lineSeparator()
+            + PADDING + "   /MMMMNmy/.`  `````````  `````.sdNMMMMm+      " + System.lineSeparator()
+            + PADDING + "   sNNNNNy.``  ```.:`` ``` ```````./dmNMMh`     " + System.lineSeparator()
+            + PADDING + "  `ommdy:```  ` ``sy`` ```  `````````:mmN:      " + System.lineSeparator()
+            + PADDING + "  +dNNh.```` ````:dm+` ````  `````````--:       " + System.lineSeparator()
+            + PADDING + "  -dMm.````  `s``hdmm-`````````````````-:       " + System.lineSeparator()
+            + PADDING + "   -N+````` `sm`/mmmmh`.-```-.``````````-       " + System.lineSeparator()
+            + PADDING + "   .:```````+mh.dmmmmm/`y:-`-d/`````` ```       " + System.lineSeparator()
+            + PADDING + "   ````````:md/oymmmmmh/ymh+/mmo-````  ```      " + System.lineSeparator()
+            + PADDING + "    `` ````dmmymmmmmmmmmmmmd+`.++-````o. .      " + System.lineSeparator()
+            + PADDING + "   ``` `` `mmsssdmmmmmmmmmh-s `.m.```-dy .      " + System.lineSeparator()
+            + PADDING + "    .`  ` +h:sy.`/dmmmmmmmdy`./-N-` `+dm`.      " + System.lineSeparator()
+            + PADDING + "    .`   `mdsN-```dmmmmmmmmNy+smm-- `hds ``     " + System.lineSeparator()
+            + PADDING + "     `   -dmmNd/:+mmmmmmmmmmmmmmmy/ .d+  ``     " + System.lineSeparator()
+            + PADDING + "    ``   .hdmmNmddmmmmmmmmmmmmmmyd+ ...  .``    " + System.lineSeparator()
+            + PADDING + "    `.`   yddmmmdmmmmmmmmmmmmmmm+mo`  `` `..    " + System.lineSeparator()
+            + PADDING + "     ```  `/+hmmmmmmmmmmmmmmmmmm/m:` ``- . .`   " + System.lineSeparator()
+            + PADDING + "   `` ` `  ```ymmmmmmmmmmmmmmmmm/: ` `.``-//`   " + System.lineSeparator()
+            + PADDING + "  :hho- `  ``  :sdmmmmmmmmmmmmd+`.    .`:dMm-::." + System.lineSeparator()
+            + PADDING + "`/hmmdN:`` ` `   `:shmmmmmmmdds..``   `/NMMMNMMs" + System.lineSeparator()
+            + PADDING + "+ddddmMy```. ``   odyhhhhhhhdmdy..`   .mNMMMMMMd" + System.lineSeparator()
+            + PADDING + " os//mMm```+o-``-odddhyhhhdmmdMN/:`` oMMMMMMMNm+" + System.lineSeparator();
 
     private final Scanner sc = new Scanner(System.in);
 
@@ -164,6 +165,59 @@ public class Ui {
             System.out.println(PADDING + "Here are the matching tasks in your list:");
             System.out.print(filteredTaskList);
         }
+        System.out.println(LINE);
+    }
+
+    /** Displays to user a short manuals on the available commands. */
+    public void printHelp() {
+        System.out.print(LINE);
+        System.out.println(PADDING
+                + "COMMAND   "
+                + "FORMAT                                  "
+                + "PURPOSE                                 ");
+        System.out.println(PADDING
+                + "--------  "
+                + "--------------------------------------  "
+                + "------------------------------          ");
+        System.out.println(PADDING
+                + "todo      "
+                + "todo DESCRIPTION                        "
+                + "To add a todo                           ");
+        System.out.println(PADDING
+                + "deadline  "
+                + "deadline DESCRIPTION /by TASK_DEADLINE  "
+                + "To add a deadline                       ");
+        System.out.println(PADDING
+                + "event     "
+                + "event DESCRIPTION /at TASK_PERIOD       "
+                + "To add an event                         ");
+        System.out.println(PADDING
+                + "list      "
+                + "list                                    "
+                + "To list all tasks                       ");
+        System.out.println(PADDING
+                + "done      "
+                + "done TASK_NUMBER                        "
+                + "To mark a task as done                  ");
+        System.out.println(PADDING
+                + "delete    "
+                + "delete TASK_NUMBER                      "
+                + "To delete a task                        ");
+        System.out.println(PADDING
+                + "date      "
+                + "date YYYY-MM-DD                         "
+                + "To filter the tasks by date             ");
+        System.out.println(PADDING
+                + "find      "
+                + "find KEYWORD                            "
+                + "To filter the tasks by keyword          ");
+        System.out.println(PADDING
+                + "exit      "
+                + "exit                                    "
+                + "To exit the app                         ");
+        System.out.println();
+        System.out.println(PADDING + "Note: Words in UPPER_CASE are parameters");
+        System.out.println(PADDING + "      For more info, visit https://richwill28.github.io/ip/");
         System.out.println(LINE);
     }
 }
