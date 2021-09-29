@@ -1,6 +1,6 @@
 # User Guide
 
-Duke is an application for users to manage and track Tasks via a Command Line Interface (CLI). It is useful for users that wish to have an organized and consolidated view of list of things that you plan to do. Duke is also built with data persistence, meaning data is stored such that information is not lost between sessions.
+Duke is an application for users to manage and track Tasks via a Command Line Interface (CLI). It is useful for users that wish to have an organized and consolidated view of list of things that they plan to do. Duke is also built with data persistence, meaning data is stored such that information is not lost between sessions.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
@@ -13,6 +13,7 @@ Duke is an application for users to manage and track Tasks via a Command Line In
   - [Delete Task: `delete`](#delete---deletes-a-task)
   - [Check Schedule on Date: `schedule`](#schedule---list-all-tasks-on-specific-date)
   - [Search for Keyword in Tasks: `find`](#find---search-tasks)
+  - [Purge all Tasks: `purge`](#purge---purge-all-tasks)
   - [Quit the program: `bye`](#bye---quits-the-program)
   - [Data Storage](#data-storage)
   - [Data Editing](#data-editing)
@@ -80,6 +81,7 @@ _________________________________________________________________
  schedule  |   schedule <yyyy-MM-dd>
  find      |   find <KEYWORD>
  help      |   help
+ purge     |   purge
  bye       |   bye
 
  Detailed User Guide at https://remusteo.github.io/ip/
@@ -258,6 +260,20 @@ _________________________________________________________________
 ```
 
 
+### `Purge` - Purge all tasks.
+
+Deletes all tasks
+
+Format: `purge`
+
+Excepted outcome:
+
+```
+purge
+_________________________________________________________________
+ All tasks purged!
+_________________________________________________________________
+```
 
 ### `Bye` - Quits the program.
 
@@ -299,4 +315,5 @@ If your changes to the data file makes its format invalid, Duke will crash and w
 | **Delete** | `delete <TASK_NUMBER>` |
 | **Schedule** | `schedule <yyyy-MM-dd>` |
 | **Find** | `find <KEYWORD>` |
+| **Purge** | `purge` |
 | **Bye** | `bye` |
