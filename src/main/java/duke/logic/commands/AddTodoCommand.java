@@ -10,7 +10,7 @@ import duke.ui.Ui;
 public class AddTodoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
     public static final String MESSAGE_COMMAND_FORMAT =  Ui.QUOTATION + COMMAND_WORD + " X" + Ui.QUOTATION;
-    public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : Add task X with deadline Y";
+    public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : Add task X";
     private static final String MESSAGE_SUCCESS = "Added to list: %1$s " + Ui.LS + "Current number of tasks: %2$d";
     public static final String MESSAGE_INVALID_FORMAT = "Please specify a name for the task!";
 

@@ -13,7 +13,7 @@ public class DeleteTaskCommand extends Command {
     public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : Delete task number X";
     public static final String MESSAGE_INVALID_FORMAT = "Invalid format! Please input a task number to be deleted, "
         + Ui.LS + "in the format " + MESSAGE_COMMAND_FORMAT + ", where X is the task number!";
-    private static final String MESSAGE_SUCCESS = "Alrightys! I have removed the following task: %1$s "
+    private static final String MESSAGE_SUCCESS = "Alrightys! I have removed the following task:" + Ui.LS + "%s"
             + Ui.LS + "Current number of tasks: %2$d";
 
 

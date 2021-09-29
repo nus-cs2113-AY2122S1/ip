@@ -9,7 +9,7 @@ import duke.ui.Ui;
 public class SearchTaskCommand extends Command {
     public static final String COMMAND_WORD = "search";
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + " X" + Ui.QUOTATION;
-    public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : Search for task containing X";
+    public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : Search for task containing search term X";
     public static final String MESSAGE_NO_TASKS_FOUND = "No matching tasks found! :( Try using another search term?";
     public static final String MESSAGE_INVALID_FORMAT = "Please input a search term!";
     private static final String MESSAGE_INTRODUCE_TASKS = "Here are the matching tasks in your list:" + Ui.LS + "%s";

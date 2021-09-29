@@ -14,7 +14,7 @@ public class MarkTaskAsDoneCommand extends Command {
     public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : Mark task number X as done";
     public static final String MESSAGE_INVALID_FORMAT = "Invalid format! Please input a task number to be marked as done, "
             + Ui.LS + "in the format " + MESSAGE_COMMAND_FORMAT + ", where X is the task number!";
-    private static final String MESSAGE_SUCCESS = "Well done! I've marked this task as done. ^_^";
+    private static final String MESSAGE_SUCCESS = "Well done! I've marked this task as done. ^_^" + Ui.LS + "%s";
 
 
     private int taskNum;
@@ -27,13 +27,14 @@ public class MarkTaskAsDoneCommand extends Command {
     public CommandResult execute() {
         try {
             super.tasks.markTaskAsDone(taskNum);
-            return new CommandResult(MESSAGE_SUCCESS);
+            final String taskString =  super.tasks.getTaskAtNum(taskNum).toString();
+            return new CommandResult(String.format(MESSAGE_SUCCESS, taskString));
         } catch (TaskListEmptyException e) {
             return new CommandResult(e.toString());
         } catch (TaskNumOutOfBoundsException e) {
             return new CommandResult(String.format(e.toString(), super.tasks.getNumTasks()));
         } catch (TaskAlreadyDoneException e) {
-            return new CommandResult(e.toString());
+            return new CommandResult(String.format(e.toString()));
         }
     }
 }

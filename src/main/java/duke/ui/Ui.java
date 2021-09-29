@@ -24,6 +24,7 @@ public class Ui {
     public static final String QUOTATION = "\"";
     public static final String EMPTY = "";
     public static final String DATE_TIME_FORMAT = "dd/MM/yyyy HHmm";
+    public static final String DATE_TIME_FORMAT_TO_PRINT = "MMM d yyyy h.mma";
     public static final String MESSAGE_WELCOME_DUDE = "Hello! I'm Dude ^__^";
     public static final String MESSAGE_BYE = "Bye! Hope to see you again soon! ~^u^~ ";
     public static final String MESSAGE_NO_TASKS_YET = "No tasks yet, add a task now!";

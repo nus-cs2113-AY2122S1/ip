@@ -1,5 +1,7 @@
 package duke.data.task;
 
+import duke.ui.Ui;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -21,7 +23,7 @@ public class Event extends Task {
     }
 
     public String getFormattedDateAndTime() {
-        return this.dateAndTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h.ma"));
+        return this.dateAndTime.format(DateTimeFormatter.ofPattern(Ui.DATE_TIME_FORMAT_TO_PRINT));
     }
 
 
