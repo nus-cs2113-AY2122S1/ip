@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.common.Command;
+import duke.common.TaskList;
 import duke.exception.EmptyCommandException;
 import duke.exception.IllegalCommandException;
 import duke.task.Deadline;
@@ -43,7 +43,7 @@ public class Parser {
 
         switch (parsedCommand[0].toUpperCase()) {
         case "LIST":
-            Command.executeList();
+            TaskList.executeList();
             break;
         case "TODO":
             parseAndAddTodo(fullCommand);
@@ -111,7 +111,7 @@ public class Parser {
 
     private static void parseAndAddTodo(String fullCommand) throws IOException {
         String description = fullCommand.substring(TODO_LENGTH).strip();
-        Command.addTodo(description);
+        TaskList.addTodo(description);
     }
 
     /**
@@ -138,7 +138,7 @@ public class Parser {
         }
         String trimmedDesc = descWithBy[0].strip();
         LocalDateTime byAsDateTime = parseByFromCommand(descWithBy[1].strip());
-        Command.addDeadline(trimmedDesc, byAsDateTime);
+        TaskList.addDeadline(trimmedDesc, byAsDateTime);
     }
 
     private static LocalDateTime parseByFromCommand(String trimmedBy) throws DateTimeParseException {
@@ -168,7 +168,7 @@ public class Parser {
         }
         String trimmedDesc = descWithAt[0].strip();
         LocalDateTime atAsDateTime = parseAtFromCommand(descWithAt[1].strip());
-        Command.addEvent(trimmedDesc, atAsDateTime);
+        TaskList.addEvent(trimmedDesc, atAsDateTime);
     }
 
     private static LocalDateTime parseAtFromCommand(String trimmedAt) throws DateTimeParseException {
@@ -178,7 +178,7 @@ public class Parser {
     private static void parseAndExecuteDone(String[] parsedCommand) throws IllegalCommandException, IOException {
         try {
             int taskIndex = Integer.parseInt(parsedCommand[1]);
-            Command.doneTask(taskIndex);
+            TaskList.doneTask(taskIndex);
         } catch (NumberFormatException e) {
             throw new IllegalCommandException();
         }
@@ -187,7 +187,7 @@ public class Parser {
     private static void parseAndExecuteDelete(String[] parsedCommand) throws IllegalCommandException, IOException {
         try {
             int taskIndex = Integer.parseInt(parsedCommand[1]);
-            Command.deleteTask(taskIndex);
+            TaskList.deleteTask(taskIndex);
         } catch (NumberFormatException e) {
             throw new IllegalCommandException();
         }
@@ -199,7 +199,7 @@ public class Parser {
             throw new EmptyCommandException();
         }
         String[] keywordsArr = keywords.split(COMMAND_SEP);
-        Command.findTaskByDesc(keywordsArr);
+        TaskList.findTaskByDesc(keywordsArr);
     }
 
     private static void parseAndExecuteDate(String fullCommand) throws EmptyCommandException {
@@ -208,6 +208,6 @@ public class Parser {
             throw new EmptyCommandException();
         }
         LocalDate parsedDate = LocalDate.parse(dateToFind, Task.commandFormat);
-        Command.findTaskByDate(parsedDate);
+        TaskList.findTaskByDate(parsedDate);
     }
 }

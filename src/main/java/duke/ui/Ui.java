@@ -13,10 +13,11 @@ public class Ui {
     private final static String DIVIDER = "_";
 
     private final static String NEW_HELLO = "Hi! I'm Duke. I've created your data file for you!";
-    private final static String RETURNING_HELLO = "Welcome back! Here are your current tasks and their status:";
+    private final static String RETURNING_HELLO = "Welcome back!";
     private final static String PROMPT_COMMAND = "What would you like me to do?";
 
     private final static String LIST_MESSAGE = "Here are your current tasks and their status:";
+    private static final String EMPTY_LIST_MESSAGE = "Your tasklist is currently empty!";
     private final static String ADD_MESSAGE = "Okay, I've added that task to your list:";
     private final static String DONE_MESSAGE = "Nice! I've marked this task as done:";
     private final static String UNDONE_MESSAGE = "I've unmarked this task as done:";
@@ -64,6 +65,13 @@ public class Ui {
     public static void printReturningHello(ArrayList<Task> tasks) {
         printDivider();
         println(RETURNING_HELLO);
+        if (tasks.isEmpty()) {
+            println(EMPTY_LIST_MESSAGE);
+            println(PROMPT_COMMAND);
+            printDivider();
+            return;
+        }
+        println(LIST_MESSAGE);
         for (Task task : tasks) {
             println((tasks.indexOf(task) + 1) + ". " + task);
         }
@@ -79,12 +87,17 @@ public class Ui {
     }
 
     /**
-     * Prints the current tasklist.
+     * Prints the current tasklist, or tells the user if the list is empty.
      *
      * @param tasks the current tasklist.
      */
     public static void printList(ArrayList<Task> tasks) {
         printDivider();
+        if (tasks.isEmpty()) {
+            println(EMPTY_LIST_MESSAGE);
+            printDivider();
+            return;
+        }
         println(LIST_MESSAGE);
         for (Task task : tasks) {
             println((tasks.indexOf(task) + 1) + ". " + task);

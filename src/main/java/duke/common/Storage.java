@@ -31,7 +31,7 @@ public class Storage {
                 Ui.printNewHello();
             } else {
                 loadData();
-                Ui.printReturningHello(Command.tasks);
+                Ui.printReturningHello(TaskList.tasks);
             }
     }
 
@@ -39,7 +39,7 @@ public class Storage {
         File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
-            Command.tasks.add(Parser.parseTaskFromData(s.nextLine()));
+            TaskList.tasks.add(Parser.parseTaskFromData(s.nextLine()));
         }
     }
 
@@ -50,7 +50,7 @@ public class Storage {
      */
     public static void saveData() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
-        for (Task task : Command.tasks) {
+        for (Task task : TaskList.tasks) {
             fw.write(task.toStorageString() + "\n");
         }
         fw.close();

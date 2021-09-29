@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * Implements all the commands that Duke can execute. This class holds the ArrayList object 'tasks' to be used by Duke,
  * hence all the commands that require access to 'tasks' are in this class.
  */
-public class Command {
+public class TaskList {
 
     protected static final ArrayList<Task> tasks = new ArrayList<>();
 
