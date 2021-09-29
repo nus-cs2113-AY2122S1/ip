@@ -45,9 +45,6 @@ public class Storage {
      * @throws FileNotFoundException if DukeData/data.txt not found
      */
     private static void readFile() throws FileNotFoundException {
-        Ui.printlnTab("Reading " + dataPath + " file...");
-        Ui.printlnTab("");
-
         boolean hasError = false;
         Scanner s = new Scanner(dataFile);
         int lineNumber = 1;
@@ -56,20 +53,20 @@ public class Storage {
                 Parser.parseStorageData(s.nextLine());
 
             } catch (Exception e) {
-                Ui.printlnTab("☹ OOPS!!! Line " + lineNumber + " is invalid! Skipping to next line...");
+                Ui.printlnTab("☹ OOPS!!! Line " + lineNumber + " of " + dataPath + " is invalid! Skipping to next line...");
                 hasError = true;
             }
 
             lineNumber++;
         }
-        Ui.printlnTab("Done reading DukeData/data.txt");
 
         if (hasError) {
             Ui.printlnTab("");
+            Ui.printlnTab("I am done reading " + dataPath);
             Ui.printlnTab("1. Enter 'bye' to exit program to correct data file " + dataPath);
             Ui.printlnTab("2. add, do or delete tasks to OVERWRITE all invalid data!");
+            Ui.printDivider();
         }
-        Ui.printDivider();
     }
 
     //

@@ -86,8 +86,8 @@ public class Parser {
                 Ui.printlnTab("List of commands:");
                 Ui.printlnTab("1. l OR list ");
                 Ui.printlnTab("2. todo [TASK DESCRIPTION]");
-                Ui.printlnTab("3. deadline [TASK DESCRIPTION] /by [DEADLINE]");
-                Ui.printlnTab("4. event [TASK DESCRIPTION] /at [DATE/TIME]");
+                Ui.printlnTab("3. deadline [TASK DESCRIPTION] /by [DATE_AND_OR_TIME]");
+                Ui.printlnTab("4. event [TASK DESCRIPTION] /at [DATE_AND_OR_TIME]");
                 Ui.printlnTab("5. delete [TASK NUMBER]");
                 Ui.printlnTab("6. done [TASK NUMBER]");
                 Ui.printlnTab("7. find [PART OF TASK DESCRIPTION]");
@@ -96,7 +96,8 @@ public class Parser {
                 Ui.printDivider();
 
             } else { //Invalid inputs
-                Ui.printlnTab("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                Ui.printlnTab("☹ OOPS!!! I don't understand you ");
+                Ui.printlnTab("Enter \"help\" or \"h\" for a list of commands");
                 Ui.printDivider();
             }
 
