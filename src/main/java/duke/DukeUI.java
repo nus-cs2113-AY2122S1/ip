@@ -6,8 +6,13 @@ import duke.exception.TaskNotFoundException;
 import duke.exception.WrongCommandException;
 import duke.task.Task;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+
+/**
+ * The UI class contains the scripted replies of Duke to the user
+ */
 public class DukeUI {
     private static final int DEFAULT_LINE_LENGTH = 60;
     private static final String LINEBREAK = System.lineSeparator();
@@ -18,7 +23,7 @@ public class DukeUI {
             + "|____/ \\__,_|_|\\_\\___|" + LINEBREAK;
 
     /**
-     * Greet the user when the program is initialized
+     * Greets the user when the program is initialized
      */
     public static void greet() {
         drawHorizontalLine();
@@ -28,7 +33,7 @@ public class DukeUI {
     }
 
     /**
-     * Say goodbye before terminate the program
+     * Says goodbye before terminate the program
      */
     public static void sayGoodbye() {
         drawHorizontalLine();
@@ -37,7 +42,7 @@ public class DukeUI {
     }
 
     /**
-     * Draw a horizontal line to separate text command
+     * Draws a horizontal line to separate text command
      */
     public static void drawHorizontalLine() {
         for (int i = 0; i < DEFAULT_LINE_LENGTH; i++) {
@@ -47,9 +52,9 @@ public class DukeUI {
     }
 
     /**
-     * Print out a list of task found using the 'list' or 'find' command
+     * Prints out a list of task found using the 'list' or 'find' command
      *
-     * @param tasks The task list to be printed
+     * @param tasks          The task list to be printed
      * @param isSearchedList determined if this is a list specify by 'list' or 'find' command
      */
     public static void printTaskList(ArrayList<Task> tasks, boolean isSearchedList) {
@@ -72,9 +77,9 @@ public class DukeUI {
     }
 
     /**
-     * Print the announcement that the task has been added successfully
+     * Prints the announcement that the task has been added successfully
      *
-     * @param task the newly added task
+     * @param task         the newly added task
      * @param taskListSize the size of the list after the addition of the new task
      */
     public static void printCompleteAddTask(Task task, int taskListSize) {
@@ -86,7 +91,7 @@ public class DukeUI {
     }
 
     /**
-     * Print the announcement that the task has been marked done successfully
+     * Prints the announcement that the task has been marked done successfully
      *
      * @param task the completed task
      */
@@ -97,9 +102,9 @@ public class DukeUI {
     }
 
     /**
-     * Print the announcement that the task has been deleted successfully
+     * Prints the announcement that the task has been deleted successfully
      *
-     * @param task The deleted task
+     * @param task         The deleted task
      * @param taskListSize the size of the task list after the deletion
      */
     public static void printCompleteDeleteTask(Task task, int taskListSize) {
@@ -111,37 +116,77 @@ public class DukeUI {
     }
 
     /**
-     * Print the DUKE logo
+     * Prints the DUKE logo
      */
     public static void printLogo() {
         System.out.println(LOGO);
     }
 
     /**
-     * Print out the run-time error for the user
+     * Prints out the run-time error for the user
+     *
      * @param e the given error
      */
     public static void printError(Exception e) {
         if (e instanceof WrongCommandException) {
-            drawHorizontalLine();
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            drawHorizontalLine();
+            printWrongCommandError();
         } else if (e instanceof EmptyDescriptionException) {
-            drawHorizontalLine();
-            System.out.println("☹ OOPS!!! The description of your command cannot be empty.");
-            drawHorizontalLine();
+            printEmptyDescriptionError();
         } else if (e instanceof MissingParameterException) {
-            drawHorizontalLine();
-            System.out.println("☹ OOPS!!! Your command is missing some variables.");
-            drawHorizontalLine();
+            printMissingParameterError();
         } else if (e instanceof TaskNotFoundException) {
-            drawHorizontalLine();
-            System.out.println("☹ OOPS!!! The task you are looking for can't be found :-(");
-            drawHorizontalLine();
+            printTaskNotFoundError();
+        }else if (e instanceof DateTimeParseException) {
+            printDateTimeFormatError();
         } else {
             drawHorizontalLine();
             System.out.println("☹ OOPS!!! Something wrong with the system");
             drawHorizontalLine();
         }
+    }
+
+    /**
+     * Prints error message indicating the input command is not supported
+     */
+    private static void printWrongCommandError() {
+        drawHorizontalLine();
+        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        drawHorizontalLine();
+    }
+
+    /**
+     * Prints error message indicating a missing parameter in the input task
+     */
+    private static void printMissingParameterError() {
+        drawHorizontalLine();
+        System.out.println("☹ OOPS!!! Your command is missing some variables.");
+        drawHorizontalLine();
+    }
+
+    /**
+     * Prints error message indicating an empty description for a task
+     */
+    private static void printEmptyDescriptionError() {
+        drawHorizontalLine();
+        System.out.println("☹ OOPS!!! The description of your command cannot be empty.");
+        drawHorizontalLine();
+    }
+
+    /**
+     * Prints error message indicating the required task cannot be found
+     */
+    private static void printTaskNotFoundError() {
+        drawHorizontalLine();
+        System.out.println("☹ OOPS!!! The task you are looking for can't be found :-(");
+        drawHorizontalLine();
+    }
+
+    /**
+     * Prints error message indicating the input date and time is in the wrong format
+     */
+    private static void printDateTimeFormatError() {
+        drawHorizontalLine();
+        System.out.println("☹ OOPS!!! Please try to input the date time in the following form: yyyy-MM-dd HH:mm");
+        drawHorizontalLine();
     }
 }

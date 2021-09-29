@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A task with an additional date-time
+ */
 public abstract class TimedTask extends Task{
     protected LocalDateTime dateTime;
 

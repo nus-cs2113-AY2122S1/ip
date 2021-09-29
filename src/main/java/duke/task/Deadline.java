@@ -2,6 +2,9 @@ package duke.task;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A deadline timed task with a date-time
+ */
 public class Deadline extends TimedTask {
 
     public Deadline(String description, String by) {

@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * An object to parse user input to the format Duke can understand
+ */
 public class Parser {
 
     public static String parseInput(String command) {
@@ -15,7 +18,7 @@ public class Parser {
     }
 
     /**
-     * Parse a number in the command given by the user
+     * Parses a number in the command given by the user
      *
      * @param command the command given by the user
      * @return the task number that user specified
@@ -35,7 +38,7 @@ public class Parser {
 
 
     /**
-     * Parse the task from the command to the recognized format
+     * Parses the task from the command to the recognized format
      *
      * @param command the command given by the user
      * @param taskType the type of task that the parser recognized this command belong to
@@ -79,7 +82,7 @@ public class Parser {
     }
 
     /**
-     * Get the intended action from the user's command
+     * Gets the intended action from the user's command
      *
      * @param command The command given by the user
      * @return the action that this command specified

@@ -6,17 +6,17 @@ import duke.exception.WrongCommandException;
 
 import java.util.Scanner;
 
-import static duke.Parser.parseInput;
-import static duke.Parser.translateAction;
-import static duke.Parser.parseNumber;
-import static duke.Parser.parseKeyword;
+import static duke.Parser.*;
 
+/**
+ *Enters the application and initializes Duke
+ */
 public class Duke {
     private static TaskList taskList = new TaskList();
     private static boolean isProgramFinished = false;
 
     /**
-     * Run the program in a loop until a 'bye' command is given
+     * Runs the program in a loop until a 'bye' command is given
      */
     public static void readAndExecuteCommand() {
         Scanner in = new Scanner(System.in);
@@ -34,7 +34,7 @@ public class Duke {
 
 
     /**
-     * Prompt an input command from the user
+     * Prompts an input command from the user
      *
      * @param in The given Scanner object
      * @return the string given by the user
@@ -45,9 +45,9 @@ public class Duke {
     }
 
     /**
-     * Execute the command given by the user
+     * Executes the command given by the user
      *
-     * @param input the whole command given by the user
+     * @param input  the whole command given by the user
      * @param action the action determined by the Parser
      */
     private static void executeCommand(String input, Action action) {
@@ -67,8 +67,14 @@ public class Duke {
                 break;
             case FIND:
                 taskList.findTask(parseKeyword(input));
-            default:
+                break;
+            case TO_DO:
+            case EVENT:
+            case DEADLINE:
                 taskList.addTask(input, action);
+                break;
+            default:
+                System.out.println("Unidentified error");
             }
         } catch (TaskNotFoundException | EmptyDescriptionException | NumberFormatException e) {
             DukeUI.printError(e);

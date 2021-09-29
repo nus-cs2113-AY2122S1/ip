@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class where tasks are loaded and saved
+ */
 public class DukeStorage {
     private static final String filePath = "data/data.txt";
     private final File file = new File(filePath);
@@ -26,7 +29,7 @@ public class DukeStorage {
     }
 
     /**
-     * Save the tasks' data to a text file
+     * Saves the tasks' data to a text file
      *
      * @param tasks the list to save the data from
      */
@@ -45,7 +48,7 @@ public class DukeStorage {
     }
 
     /**
-     * Load the previous tasks' data from a text file
+     * Loads the previous tasks' data from a text file
      *
      * @param tasks the list to load the data into
      */
@@ -64,7 +67,7 @@ public class DukeStorage {
     }
 
     /**
-     * Parse a task's data from the text file
+     * Parses a task's data from the text file
      *
      * @param savedTask the string represents the saved task
      * @return the saved task decode from the string

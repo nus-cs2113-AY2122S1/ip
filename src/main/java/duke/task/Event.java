@@ -2,6 +2,9 @@ package duke.task;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * An event timed task with a date-time
+ */
 public class Event extends TimedTask {
     public Event(String description, String at) {
         super(description, at);

@@ -7,6 +7,9 @@ import duke.task.*;
 
 import java.util.ArrayList;
 
+/**
+ * The list to store and manage all tasks
+ */
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
     private DukeStorage storage = new DukeStorage();
@@ -16,13 +19,15 @@ public class TaskList {
     }
 
     /**
-     * Print all current tasks in the list
+     * Prints all current tasks in the list
      */
     public void displayTaskList() {
         DukeUI.printTaskList(tasks,false);
     }
 
     /**
+     * Adds the task given by the user to the list
+     *
      * @param input the command given by the user
      * @param taskType the Type of this additional task
      */
@@ -52,6 +57,8 @@ public class TaskList {
     }
 
     /**
+     * Marks the task specified by the user as done
+     *
      * @param taskNumber the task to mark done
      * @throws TaskNotFoundException when the specified task is not found
      */
@@ -66,6 +73,11 @@ public class TaskList {
         DukeUI.printMarkTaskDone(tasks.get(realIndex));
     }
 
+    /**
+     * Finds all tasks with matching keywords
+     *
+     * @param keyword the keywords to find relevant tasks
+     */
     public void findTask(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task: tasks) {
@@ -78,6 +90,8 @@ public class TaskList {
 
 
     /**
+     * Deletes the task specified by the user
+     *
      * @param taskNumber the task to delete
      * @throws TaskNotFoundException when the specified task is not found
      */
