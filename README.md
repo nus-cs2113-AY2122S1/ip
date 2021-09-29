@@ -56,8 +56,7 @@ Here are a few things Duke can do:
 </br>
 6. Automatically saves your tasks to the file "duke.txt" when you terminate the program.  <br>
 </br>
-7. To terminate the program, type **bye** .  <br>
-</br>
+7. To terminate the program, type **bye** .  
 
    ```
    Hello from
