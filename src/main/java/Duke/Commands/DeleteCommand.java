@@ -8,7 +8,6 @@ import Duke.Task.TaskList;
 import Duke.TaskTypes.Task;
 import java.util.ArrayList;
 
-
 public class DeleteCommand {
 
     /**

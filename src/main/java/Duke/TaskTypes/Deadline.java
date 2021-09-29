@@ -1,9 +1,11 @@
 package Duke.TaskTypes;
+
 import Duke.BackEnd.DukeParser;
 import java.time.LocalDateTime;
 import static Duke.UI.DukeConstants.FORMAT_DATE_TIME_OUTPUT;
 
 public class Deadline extends Task{
+
     protected LocalDateTime by;
 
     /**
@@ -28,7 +30,7 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() +" (by: " + DukeParser.dateTimeToStringConverter(by, FORMAT_DATE_TIME_OUTPUT) + ")";
+        return "[D] " + super.toString() +" (by: " + DukeParser.convertDateTimeToString(by, FORMAT_DATE_TIME_OUTPUT) + ")";
     }
 
     @Override

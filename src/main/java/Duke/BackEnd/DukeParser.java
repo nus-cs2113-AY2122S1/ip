@@ -6,9 +6,12 @@ import Duke.TaskTypes.Event;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import static Duke.UI.DukeConstants.*;
+import static Duke.UI.DukeConstants.EVENT_KEYWORD;
+import static Duke.UI.DukeConstants.FORMAT_DATE_TIME_INPUT;
+import static Duke.UI.DukeConstants.DEADLINE_KEYWORD;
 
 public class DukeParser {
+
     /**
      * Method parses the instruction type, which is the first word,
      * from the rest of the instruction from user input
@@ -68,9 +71,7 @@ public class DukeParser {
             String[] details = commands[1].split(EVENT_KEYWORD, 2);
             String description = details[0].trim();
             String at = details[1].trim();
-
             LocalDateTime eventAt = parseDateTime(at, FORMAT_DATE_TIME_INPUT);
-
             return new Event(description, eventAt);
         } catch (DateTimeParseException dtpException) {
             DukeException.dateTimeParseException(dtpException);
@@ -102,9 +103,7 @@ public class DukeParser {
             String[] details = commands[1].split(DEADLINE_KEYWORD, 2);
             String description = details[0].trim();
             String by = details[1].trim();
-
             LocalDateTime deadlineBy = parseDateTime(by, FORMAT_DATE_TIME_INPUT);
-
             return new Deadline(description, deadlineBy);
         } catch (DateTimeParseException dtpException) {
             DukeException.dateTimeParseException(dtpException);
@@ -160,7 +159,7 @@ public class DukeParser {
      * @param dateTimeFormat the format to convert the LocalDateTime object to
      * @return the formatted date-time string
      */
-    public static String dateTimeToStringConverter (LocalDateTime dateTime, String dateTimeFormat) {
+    public static String convertDateTimeToString (LocalDateTime dateTime, String dateTimeFormat) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern(dateTimeFormat);
         return dateTime.format(format);
     }

@@ -5,12 +5,11 @@ import Duke.Exception.DukeException;
 import Duke.SaveFile.DataSaver;
 import Duke.Task.TaskList;
 import Duke.TaskTypes.Task;
-
 import java.util.ArrayList;
-
 import static Duke.UI.DukeConstants.DEADLINE_KEYWORD;
 
 public class AddDeadlineCommand {
+
     /**
      * Method checks if the user "Deadline" instruction is valid
      *
@@ -35,7 +34,13 @@ public class AddDeadlineCommand {
 
         String descriptionDetails = description[0].trim();
         String descriptionBy = description[1].trim();
-        return !descriptionDetails.isEmpty() && !descriptionBy.isEmpty();
+        boolean isNonEmptyDetails = !descriptionDetails.isEmpty();
+        boolean isNonEmptyBy = !descriptionBy.isEmpty();
+        if (isNonEmptyDetails && isNonEmptyBy) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

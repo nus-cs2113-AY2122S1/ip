@@ -5,12 +5,11 @@ import Duke.Exception.DukeException;
 import Duke.SaveFile.DataSaver;
 import Duke.Task.TaskList;
 import Duke.TaskTypes.Task;
-
 import java.util.ArrayList;
-
 import static Duke.UI.DukeConstants.EVENT_KEYWORD;
 
 public class AddEventCommand {
+
     /**
      * Method checks if the user "Event" instruction is valid
      *
@@ -35,7 +34,13 @@ public class AddEventCommand {
 
         String descriptionDetails = description[0].trim();
         String descriptionAt = description[1].trim();
-        return !descriptionDetails.isEmpty() && !descriptionAt.isEmpty();
+        boolean isNonEmptyDetails = !descriptionDetails.isEmpty();
+        boolean isNonEmptyAt = !descriptionAt.isEmpty();
+        if (isNonEmptyDetails && isNonEmptyAt) {
+            return true;
+        } else {
+            return true;
+        }
     }
 
     /**

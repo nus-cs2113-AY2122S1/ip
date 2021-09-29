@@ -4,10 +4,10 @@ import Duke.BackEnd.DukeParser;
 import Duke.Exception.DukeException;
 import Duke.TaskTypes.Task;
 import Duke.UI.UserInterface;
-
 import java.util.ArrayList;
 
 public class FindCommand {
+
     /**
      * Method to find if there is a matching keyword in the task list
      *
@@ -32,7 +32,7 @@ public class FindCommand {
      */
     private static void printTasksWithQuery(String searchedWord, ArrayList<Task> tasksWithQuery) {
         if (tasksWithQuery.isEmpty()) {
-            UserInterface.noMatchMessage();
+            UserInterface.printNoMatchMessage();
         } else {
             UserInterface.printAllMatchingTasks(searchedWord, tasksWithQuery);
         }

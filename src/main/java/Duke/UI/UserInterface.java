@@ -11,6 +11,7 @@ import static Duke.UI.DukeConstants.*;
  * Class which stores all the command line printing methods
  */
 public class UserInterface {
+
     /**
      * Print Duke welcome message
      */
@@ -172,7 +173,7 @@ public class UserInterface {
     /**
      * Prints message when task list is still empty
      */
-    public static void emptyTaskMessage() {
+    public static void printEmptyTaskMessage() {
         System.out.println(LINE);
         System.out.println(" No Tasks here yet. Go include some tasks!");
         System.out.println(LINE);
@@ -182,7 +183,7 @@ public class UserInterface {
     /**
      * Prints error message if save file is invalid
      */
-    public static void invalidSaveFileMessage() {
+    public static void printInvalidSaveFileMessage() {
         System.out.println(LINE);
         System.out.println("Your save file is invalid!");
         System.out.println(LINE);
@@ -204,7 +205,7 @@ public class UserInterface {
      * prints error message if IO exception occurs when saving file
      * @param ioException the exception which occurs from running program
      */
-    public static void SaveIOExceptionMessage(IOException ioException) {
+    public static void printSaveIOExceptionMessage(IOException ioException) {
         System.out.println(LINE);
         System.out.println("Something went wrong: " + ioException.getMessage());
         System.out.println(LINE);
@@ -214,7 +215,7 @@ public class UserInterface {
     /**
      * Prints error message when find instruction is invalid
      */
-    public static void invalidFindMessage() {
+    public static void printInvalidFindMessage() {
         System.out.println(LINE);
         System.out.println("Your find command is invalid!");
         System.out.println("To input a find command, type \"find {searched word}\"!");
@@ -225,7 +226,7 @@ public class UserInterface {
     /**
      * Prints message when user query gives out no match
      */
-    public static void noMatchMessage() {
+    public static void printNoMatchMessage() {
         System.out.println(LINE);
         System.out.println("There are no matching tasks in your list!");
         System.out.println(LINE);

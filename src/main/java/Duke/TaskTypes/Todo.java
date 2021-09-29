@@ -1,6 +1,7 @@
 package Duke.TaskTypes;
 
 public class Todo extends Task{
+
     /**
      * Constructor for todo class
      *

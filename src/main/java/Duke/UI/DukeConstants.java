@@ -4,6 +4,7 @@ package Duke.UI;
  * Class which stores all the constants used in Duke Program
  */
 public class DukeConstants {
+
     //List of Special User Commands
     public static final String EXIT_STRING = "bye";
     public static final String LIST_COMMAND = "list";

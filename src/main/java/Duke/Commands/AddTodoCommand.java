@@ -5,10 +5,10 @@ import Duke.Exception.DukeException;
 import Duke.SaveFile.DataSaver;
 import Duke.Task.TaskList;
 import Duke.TaskTypes.Task;
-
 import java.util.ArrayList;
 
 public class AddTodoCommand {
+
     /**
      * Method checks if the user "Todo" instruction is valid
      *

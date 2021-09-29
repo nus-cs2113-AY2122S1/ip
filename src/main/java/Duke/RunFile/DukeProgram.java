@@ -1,14 +1,13 @@
 package Duke.RunFile;
 
 import Duke.BackEnd.DukeBackEnd;
-import Duke.Commands.*;
+import Duke.Commands.ExitCommand;
 import Duke.SaveFile.DataSaver;
 import Duke.TaskTypes.Task;
 import Duke.UI.UserInterface;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static Duke.UI.DukeConstants.*;
+import static Duke.UI.DukeConstants.EXIT_STRING;
 
 /**
  * Starting point of Duke Program.
@@ -38,6 +37,6 @@ public class DukeProgram {
             inWord = scan.nextLine();
         }
 
-        ExitCommand.dukeExit();
+        ExitCommand.exitDuke();
     }
 }

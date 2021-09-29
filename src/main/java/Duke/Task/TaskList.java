@@ -1,23 +1,21 @@
 package Duke.Task;
 
 import Duke.BackEnd.DukeParser;
-import Duke.Commands.*;
+import Duke.Commands.AddTodoCommand;
+import Duke.Commands.DoneCommand;
+import Duke.Commands.AddEventCommand;
+import Duke.Commands.AddDeadlineCommand;
+import Duke.Commands.DeleteCommand;
 import Duke.Exception.DukeException;
 import Duke.TaskTypes.Deadline;
 import Duke.TaskTypes.Event;
 import Duke.TaskTypes.Task;
 import Duke.TaskTypes.Todo;
 import Duke.UI.UserInterface;
-
-
 import static Duke.RunFile.DukeProgram.taskList;
 import static Duke.UI.UserInterface.taskDoneMessage;
 
 public class TaskList {
-
-    public static int listSize() {
-        return taskList.size();
-    }
 
     public static void printTaskDone(String inWord) throws DukeException {
         if (DoneCommand.isValidDoneInstruction(inWord, taskList)) {

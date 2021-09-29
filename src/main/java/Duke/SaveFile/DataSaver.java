@@ -1,23 +1,19 @@
 package Duke.SaveFile;
 
-import Duke.BackEnd.DukeParser;
 import Duke.Exception.DukeException;
 import Duke.TaskTypes.Task;
 import Duke.TaskTypes.Todo;
 import Duke.TaskTypes.Event;
 import Duke.TaskTypes.Deadline;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import static Duke.BackEnd.DukeParser.parseDateTime;
 import static Duke.UI.DukeConstants.FORMAT_DATE_TIME_INPUT;
 
@@ -85,7 +81,7 @@ public class DataSaver {
                 byCharArray[10] = ' ';
             }
             by = String.valueOf(byCharArray);
-
+            //create new deadline and add to task list
             LocalDateTime deadlineBy = parseDateTime(by, FORMAT_DATE_TIME_INPUT);
             Deadline addedDeadline = new Deadline(deadlineDescription, deadlineBy);
             addDoneStatus(addedDeadline, taskDetails);
@@ -94,13 +90,13 @@ public class DataSaver {
         case "E":
             String eventDescription = taskDetails[2].trim();
             String at = taskDetails[3].trim();
-
+            //remove T in index 10 of task in save file before formatting
             char[] atCharArray = at.toCharArray();
             if (atCharArray[10] == 'T') {
                 atCharArray[10] = ' ';
             }
             at = String.valueOf(atCharArray);
-
+            //create new event and add to task list
             LocalDateTime eventAt = parseDateTime(at, FORMAT_DATE_TIME_INPUT);
             Event addedEvent = new Event(eventDescription, eventAt);
             addDoneStatus(addedEvent, taskDetails);
