@@ -40,6 +40,10 @@ public class Duke {
                     checkList(Tasks.size());
                     ui.printList(Tasks, maxlength);
                     break;
+                case FIND:
+                    str = str.substring(5, str.length());
+                    ui.printFoundTask(Tasks, str, maxlength);
+                    break;
                 case TODO:
                     checkTodoString(str);
                     maxlength = checkLength(str, maxlength, -5 + 9);//- length of "todo " + "1. [X][X]"
