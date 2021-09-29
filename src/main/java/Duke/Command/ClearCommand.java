@@ -10,6 +10,13 @@ public class ClearCommand extends Command {
             + ": clear all tasks in the current list.\n"
             + " Example: " + COMMAND_WORD;
 
+    /**
+     * Execute the clear command by clearing the tasks in TaskList
+     *
+     * @param tasks TaskList the command to be executed on
+     * @param ui Ui used for execution
+     * @param storage Storage which the command may make change on
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printClearMessage();

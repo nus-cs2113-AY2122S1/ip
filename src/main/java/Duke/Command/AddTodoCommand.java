@@ -18,6 +18,13 @@ public class AddTodoCommand extends Command {
         this.description = description;
     }
 
+    /**
+     * Execute the add todo command by adding a new todo task to TaskList
+     *
+     * @param tasks TaskList the command to be executed on
+     * @param ui Ui used for execution
+     * @param storage Storage which the command may make change on
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printAddTaskMessage(new Todo(this.description));

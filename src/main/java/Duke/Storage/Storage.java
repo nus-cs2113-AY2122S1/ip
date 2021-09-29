@@ -20,6 +20,11 @@ public class Storage {
         this.path = path;
     }
 
+    /**
+     * Load the task record and copy it into current TaskList.
+     *
+     * @throws DukeException If file does not exist.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<Task>();
         File file = new File(path);
@@ -79,6 +84,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Save the content of current task list to the txt file.
+     *
+     * @param tasks Tasklist to be saved.
+     */
     public final void save(ArrayList<Task> tasks) {
         BufferedWriter writer = null;
         File file = new File(this.path);

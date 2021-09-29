@@ -15,6 +15,13 @@ public class FindCommand extends Command {
 
     private final String target;
 
+    /**
+     * Execute the find command by looking for and showing tasks in TaskList that contain the key word
+     *
+     * @param tasks TaskList the command to be executed on
+     * @param ui Ui used for execution
+     * @param storage Storage which the command may make change on
+     */
     public FindCommand(String target) {
         this.target = target;
     }

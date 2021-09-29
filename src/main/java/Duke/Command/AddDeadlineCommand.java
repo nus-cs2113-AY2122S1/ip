@@ -20,6 +20,13 @@ public class AddDeadlineCommand extends Command {
         this.by = by;
     }
 
+    /**
+     * Execute the add deadline command by adding a new deadline task to TaskList
+     *
+     * @param tasks TaskList the command to be executed on
+     * @param ui Ui used for execution
+     * @param storage Storage which the command may make change on
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printAddTaskMessage(new Deadline(this.description, this.by));

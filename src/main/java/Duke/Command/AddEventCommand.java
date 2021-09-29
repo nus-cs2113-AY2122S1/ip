@@ -15,6 +15,13 @@ public class AddEventCommand extends Command {
             + " Parameters: DESCRIPTION, AT_TIME\n"
             + " Example: " + COMMAND_WORD + "attend CS2113 lecture /at Dec 4";
 
+    /**
+     * Execute the add event command by adding a new event task to TaskList
+     *
+     * @param tasks TaskList the command to be executed on
+     * @param ui Ui used for execution
+     * @param storage Storage which the command may make change on
+     */
     public AddEventCommand(String description, String at) {
         this.description = description;
         this.at = at;

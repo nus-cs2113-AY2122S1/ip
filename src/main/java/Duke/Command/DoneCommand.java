@@ -17,6 +17,13 @@ public class DoneCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Execute the done command by setting a task as done and showing it
+     *
+     * @param tasks TaskList the command to be executed on
+     * @param ui Ui used for execution
+     * @param storage Storage which the command may make change on
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ui.printDoneMessage(tasks.setDone(this.index));

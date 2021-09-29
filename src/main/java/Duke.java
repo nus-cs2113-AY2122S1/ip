@@ -22,7 +22,9 @@ public class Duke {
             tasks = new TaskList();
         }
     }
-
+    /**
+     * Run the program.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

@@ -11,10 +11,22 @@ public class ExitCommand extends Command {
             + " Example: " + COMMAND_WORD;
 
     @Override
+    /**
+     * Execute the exit command by showing the closing messagee
+     *
+     * @param tasks TaskList the command to be executed on
+     * @param ui Ui used for execution
+     * @param storage Storage which the command may make change on
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showByeMessage();
     }
 
+    /**
+     * Set the flag isExit to true to terminate the program
+     *
+     * @return boolean Flag IsExit set to be true
+     */
     @Override
     public boolean isExit() {
         return true;

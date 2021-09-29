@@ -8,26 +8,54 @@ import java.util.ArrayList;
 public class TaskList {
     private static ArrayList<Task> tasks;
 
+    /**
+     * Create a TaskList class with the given list of tasks.
+     *
+     * @param tasks List of recorded tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Create a TaskList class of an empty list.
+     *
+     */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Return the tasks in the TaskList.
+     *
+     * @return tasks Tasks in the TaskList.
+     */
     public final ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
+    /**
+     * Tell whether the TaskList is empty.
+     *
+     * @return isEmpty Status of whether the TaskList is empty.
+     */
     public final boolean isEmpty() {
         return this.tasks.size() == 0;
     }
 
+    /**
+     * Get the number of tasks in the TaskList.
+     *
+     * @return size Size of the TaskList.
+     */
     public final int getNumOfSize() {
         return this.tasks.size();
     }
 
+    /**
+     * Print the tasks in the TaskList.
+     *
+     */
     public final void printTasks() {
         if (this.tasks.size() == 0) {
             System.out.println("The current list is empty!\n");
@@ -39,6 +67,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Clear the tasks in the Tasklist.
+     *
+     */
     public final void clearTasks() {
         this.tasks = new ArrayList<Task> ();
     }
@@ -51,6 +83,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Set a task in the TaskList of certain index as done.
+     *
+     * @param index Index of the task to be set as done.
+     * @throws DukeException If the index is out of range.
+     */
     public final Task setDone(int index) throws DukeException {
         if (index >= this.tasks.size()) {
             throw new DukeException("The index is out of range :-(\n");

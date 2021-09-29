@@ -19,6 +19,13 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Execute the delete command by deleting a task from TaskList
+     *
+     * @param tasks TaskList the command to be executed on
+     * @param ui Ui used for execution
+     * @param storage Storage which the command may make change on
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.deleteTask(this.index);

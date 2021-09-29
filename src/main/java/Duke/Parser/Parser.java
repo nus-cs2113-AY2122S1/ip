@@ -14,6 +14,12 @@ public class Parser {
     public Parser() {
     }
 
+    /**
+     * Parse the input and get the command with required variables.
+     *
+     * @param input Input string from the user.
+     * @return Command Command class parsed from the input.
+     */
     public static Command parse(String input) throws DukeException {
         String findCommand = input.split(" ")[0];
         if (input.trim().equals("bye")) {
@@ -41,6 +47,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Prepare the done command by extracting the index.
+     *
+     * @param input Input string from the user.
+     * @return DoneCommand DoneCommand got from the input.
+     * @throws DukeException if the input is in an incorrect format
+     */
     public static DoneCommand prepareDone(String input) throws DukeException {
         int index;
         try {
@@ -52,6 +65,12 @@ public class Parser {
         return new DoneCommand(index);
     }
 
+    /**
+     * Prepare the delete command by extracting the index.
+     *
+     * @param input Input string from the user.
+     * @return DeleteCommand DeleteCommand got from the input.
+     */
     public static DeleteCommand prepareDelete(String input) throws DukeException {
         int index;
         try {
@@ -63,6 +82,13 @@ public class Parser {
         return new DeleteCommand(index);
     }
 
+    /**
+     * Prepare the find command by extracting the description.
+     *
+     * @param input Input string from the user.
+     * @return FindCommand FindCommand got from the input.
+     * @throws DukeException if the input is in an incorrect format
+     */
     public static FindCommand prepareFind(String input) throws DukeException {
         String description;
         try {
@@ -74,6 +100,13 @@ public class Parser {
         return new FindCommand(description);
     }
 
+    /**
+     * Prepare the add todo command by extracting the description.
+     *
+     * @param input Input string from the user.
+     * @return AddTodoCommand AddTodoCommand got from the input.
+     * @throws DukeException if the input is in an incorrect format
+     */
     public static AddTodoCommand prepareTodo(String input) throws DukeException {
         String description;
         try {
@@ -85,6 +118,13 @@ public class Parser {
         return new AddTodoCommand(description);
     }
 
+    /**
+     * Prepare the add deadline command by extracting the description and by time.
+     *
+     * @param input Input string from the user.
+     * @return AddDeadlineCommand AddDeadlineCommand got from the input.
+     * @throws DukeException if the input is in an incorrect format
+     */
     public static AddDeadlineCommand prepareDeadline(String input) throws DukeException {
         int indexOfBy = input.indexOf("/by");
 
@@ -109,6 +149,13 @@ public class Parser {
         return new AddDeadlineCommand(description, by);
     }
 
+    /**
+     * Prepare the add event command by extracting the description and by time.
+     *
+     * @param input Input string from the user.
+     * @return AddEventCommand AddEventCommand got from the input.
+     * @throws DukeException if the input is in an incorrect format
+     */
     public static AddEventCommand prepareEvent(String input) throws DukeException {
         int indexOfAt = input.indexOf("/at");
 
