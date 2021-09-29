@@ -22,12 +22,8 @@ Duke is a **Personal Assistant Chatbot** that helps a person to **keep track of 
 6. test
 
 ## Features
-```
 **Command Format** 
-```
-```
- *  blahblahblah 
- ```
+ * Words in upper case within the arrow brackets (e.g `<TASK_DESCRIPTION>`) are known as parameters; values to be provide by users.
 
 ### Adding a Todo task: `todo`
 Adds a task of class Todo into the task list.
