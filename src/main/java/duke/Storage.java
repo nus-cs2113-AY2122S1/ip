@@ -13,6 +13,9 @@ public class Storage {
     private static final java.nio.file.Path userDirectory = java.nio.file.Paths.get(System.getProperty("user.dir"));
     private static final String userFile = userDirectory + "/task.txt";
 
+    /**
+     * Initializes the text file that contains the task list. Creates a text file if none is found.
+     */
     public static void loadFile() {
         try {
             File saveFile = new File(userFile);
@@ -24,6 +27,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses the data from the text file and stores them into a task list by calling different methods depending on
+     * then commands in the text file.
+     *
+     * @param savedTasks Task data stored in the text file.
+     */
     private static void extractDateFromFile(Scanner savedTasks) {
         boolean isPrint = false;
         int numOfTasks = 1;
@@ -54,6 +63,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the current task list to the text file.
+     *
+     * @param userList Current task list to be saved to text file.
+     * @param numTask Total number of tasks in the task list.
+     */
     public static void saveFile(ArrayList<Task> userList, int numTask) {
         try {
             FileWriter updateFile = new FileWriter(userFile);

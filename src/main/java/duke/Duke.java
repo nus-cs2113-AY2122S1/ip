@@ -2,6 +2,9 @@ package duke;
 
 public class Duke {
 
+    /**
+     * Main function of the Duke program
+     */
     public static void main(String[] args) {
         UI.printWelcome();
         String userLineInput;
