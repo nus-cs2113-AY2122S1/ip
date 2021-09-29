@@ -3,10 +3,16 @@ package duke.ui;
 public class Ui {
     private static final String SEPARATOR_LINE = "-----------------------------------------------";
 
+    /**
+     * Prints a horizontal separator line.
+     */
     public void printLine() {
         System.out.println(SEPARATOR_LINE);
     }
 
+    /**
+     * Prints a welcome message to greet the user.
+     */
     public void printWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -20,12 +26,19 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Prints a goodbye message.
+     */
     public void printBye() {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
     }
 
+    /**
+     * Prints an error message to inform the user that the command entered was invalid.
+     * Shows a list of available commands.
+     */
     public void printErrorInvalidCommand() {
         printLine();
         System.out.println("OOPS! I'm sorry, but I don't know what that means! :(");
@@ -33,6 +46,10 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Prints an error message to inform the user that the arguments of the command were empty.
+     * Shows the proper format of the commands.
+     */
     public void printErrorEmptyCommandArg() {
         printLine();
         System.out.println("OOPS! The description of the command word cannot be empty! " +
@@ -45,6 +62,10 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Prints an error message to inform the user that the command has an invalid or missing separator.
+     * Shows the proper format of the commands.
+     */
     public void printErrorInvalidSeparator() {
         printLine();
         System.out.println("OOPS! The deadline/event description must be separated from " +
@@ -54,6 +75,9 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Prints an error message to inform the user that the entered task index is out-of-bounds.
+     */
     public void printErrorInvalidTaskIndex() {
         printLine();
         System.out.println("OOPS! That task does not exist!");
