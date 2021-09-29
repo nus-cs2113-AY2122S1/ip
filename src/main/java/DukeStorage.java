@@ -31,6 +31,7 @@ public class DukeStorage {
     private FileWriter createNewDukeTextFile() {
         FileWriter dukeTextFile = null;
         try {
+            createNewDataDirectory();
             dukeTextFile = new FileWriter(TEXT_FILE_DIRECTORY);
         } catch (IOException e) {
             System.out.println("Unable to create duke.txt file in data directory");
@@ -55,6 +56,7 @@ public class DukeStorage {
             dukeTextFileReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("Duke text file not found. Creating a new duke text file.\n");
+            createNewDataDirectory();
             FileWriter newDukeTextFile = createNewDukeTextFile();
         } catch (InvalidTaskTypeException e) {
             System.out.println("Incorrect task type saved. Duke text file is corrupted.");
@@ -195,11 +197,9 @@ public class DukeStorage {
             dukeTextFile.close();
         } catch (IOException e) {
             System.out.println("Error saving into the duke text file. " +
-                    "Data directory not found. \n" +
-                    "Creating a new data directory.");
-            createNewDataDirectory();
+                    "Creating a new data directory and duke text file.");
             FileWriter newDukeTextFile = createNewDukeTextFile();
-            System.out.println("Done creating new data directory.");
+            System.out.println("Done creating new data directory and duke text file..");
             updateStorage(taskList);
         }
     }
