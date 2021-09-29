@@ -107,6 +107,12 @@ public class TaskHandler {
         TaskList.removeTask(taskIndex - 1);
     }
 
+    /**
+     * Search for task that contains the keyword in its description.
+     *
+     * @param line String of user input
+     * @throws DukeException If there is no keyword input
+     */
     public static void findTask(String line) throws DukeException{
         if (Parser.hasNoBody(line)) {
             throw new DukeException(DukeException.ERROR_NO_KEYWORD);
@@ -121,6 +127,11 @@ public class TaskHandler {
         printSearchedTasks(foundTasks);
     }
 
+    /**
+     * Print the search results for tasks.
+     *
+     * @param foundTasks List of tasks that contain the keyword in their descriptions
+     */
     public static void printSearchedTasks(ArrayList<Task> foundTasks) {
         System.out.println(Ui.INDENT + "Here are the matching tasks in your list:");
         for (int i = 0; i < foundTasks.size(); i++) {
