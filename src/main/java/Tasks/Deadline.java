@@ -1,26 +1,19 @@
 package Tasks;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class Deadline extends Tasks {
     protected String type = "D";
     protected String by = "";
-    protected LocalDateTime dateTime= null;
 
-    public Deadline(String description, LocalDateTime dateTime) {
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
-        this.dateTime=dateTime;
     }
 
     @Override
     public String toString() {
-        return "[" + this.type + "]" + "[" + this.done + "] " + description.split("/by ")[0] + " (by: " + dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
+        return "[" + this.type + "]" + "[" + this.done + "] " + description.split("/by ")[0] + " (by: " + by + ")";
     }
     public String toOutput(){
-        return "D_"+ this.done+"_"+this.description+"_"+this.dateTime;
+        return "D_"+ this.done+"_"+this.description+"_"+this.by;
     }
 }
-
-//level8 commit edits
