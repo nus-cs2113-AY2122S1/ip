@@ -27,8 +27,7 @@ public class Deadline extends Task{
     }
 
     /**
-     * Find first instance of a date by finding a string in a pattern
-     * Pattern:4int-2int-2int
+     * Find first instance of a date by finding a string in a pattern:4int-2int-2int
      *
      * @param stringToSearch String that contain date
      * @return Null if no date is found or return a matcher object that found date
@@ -43,8 +42,7 @@ public class Deadline extends Task{
     }
 
     /**
-     * Find first instance of time by finding a fixed pattern of string
-     * Pattern:2int:2int
+     * Find first instance of time by finding a fixed pattern:2int:2int
      *
      * @param stringToSearch String that contain time
      * @return null if no time found or return matcher object that found time

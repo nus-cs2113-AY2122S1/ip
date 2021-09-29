@@ -4,11 +4,11 @@ import duke.ArtBot.Logo;
 import java.util.Scanner;
 
 /**
- * Handles the Interaction between the user and the program
- * Contains the function that greets the user when program is started
- * Contains the function that bid farewell to the user when the program ends
- * Contains the function that tell the user what went wrong when an error is encountered
- * Contains the function that print a line for readability
+ * Handles Interaction between user and program
+ * Contains function that greets user when program start
+ * Contains function that bid farewell to user when program ends
+ * Contains function that tell user what went wrong when an error is encountered
+ * Contains function that print a line for readability
  */
 public class Ui {
 
@@ -16,34 +16,35 @@ public class Ui {
     private static final String MESSAGE_BYE = "Bye. Hope to see you again soon!\n";
 
     /**
-     * Called right at the start of the program
-     * Greet the user with a message
-     * Handles the message that is printed to the user
+     * Called at start of program
+     * Greet user with message
+     * Handles message that is printed to user
      */
     public void Greetings(){
         System.out.println(Logo.logo + Logo.divider + MESSAGE_HI + Logo.dividerWithoutNewLine);
     }
 
     /**
-     * Called when the program exit
-     * Print a farewell message to the user
-     * Handles the message to be printed to the user
+     * Called when program exit
+     * Print a farewell message to user
+     * Handles message to be printed to user
      */
     public void Farewell(){
         System.out.println(MESSAGE_BYE + Logo.bye);
     }
 
     /**
-     * Called before the input is process and after
-     * Draw a line before and after the response to an input
-     * Improve readability when using the program
+     * Called before input is process and after
+     * Draw a line before and after response of input
+     * Improve readability of program
      */
     public void showLine(){
         System.out.println(Logo.dividerWithoutNewLine);
     }
 
     /**
-     * A function to read in input from user
+     * Read in input from user
+     * Remove Spaces and convert to lower case
      *
      * @return input from user in String
      */
@@ -53,10 +54,10 @@ public class Ui {
     }
 
     /**
-     * Called when an error is encountered
-     * Print error message to the user
+     * Called when error encountered
+     * Print error message to user
      *
-     * @param error Error Message in String to print to user
+     * @param error Error Message to print
      */
     public void showError(String error){
         System.out.println(error);

@@ -1,7 +1,7 @@
 package duke.ErrorHandling;
 
 /**
- * Represent a error resulting from input of user
+ * Represent error resulting from input of user
  */
 public class CommandException extends Exception{
 
@@ -9,7 +9,7 @@ public class CommandException extends Exception{
 
     /**
      * Constructor for CommandException
-     * Create error message of this instance of exception
+     * Assign error message of this instance of exception
      *
      * @param errorMessage Error message to print
      */

@@ -1,8 +1,7 @@
-[T];[X];watch haxxnini livestream
-[D];[ ];reach legend;this season  
+[D];[ ];reach legend;this season 
 [D];[ ];reach gold;08:00 
 [D];[ ];reach silver; 2020-10-10
 [D];[ ];reach bronze;08:00 2020-10-10
-[E];[ ];g2 vs sentinel;10pm  
+[E];[ ];g2 vs sentinel;10pm 
 [E];[ ];g2 vs sentinel;10:00 
 [E];[ ];g2 vs sentinel;10:00 2020-10-10

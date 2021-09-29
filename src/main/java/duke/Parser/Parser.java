@@ -7,7 +7,7 @@ import duke.TaskList.TaskList;
 import java.util.Objects;
 
 /**
- * Main Class handling the processing of input by user
+ * Main Class handling processing of input by user
  */
 public class Parser{
 
@@ -146,7 +146,7 @@ public class Parser{
      */
     public void handleInput() throws CommandException{
         if(userInput.isEmpty()){
-            throw new CommandException(ErrorStaticString.ERROR_NULL);
+            throw new CommandException(ErrorStaticString.ERROR_EMPTY_INPUT);
         }
         if(userInput.startsWith(COMMAND_GUIDE_INDICATOR)){
             CommandGuide commandGuide = new CommandGuide(userInput);
@@ -182,10 +182,10 @@ public class Parser{
     }
 
     /**
-     * Handle One Command by Creating an instance of the Command
-     * Hand execution of Command to the individual instance of Command
+     * Handle One Command by Creating an instance of Command
+     * Hand execution of Command to instance of Command
      *
-     * @param inputCommand String representing one Command, and it's input for the command
+     * @param inputCommand String representing one Command, and it's relevant input
      */
     private void handleCommand(String inputCommand){
         String commandCategory = taskCategory(inputCommand);

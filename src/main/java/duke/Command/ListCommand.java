@@ -13,6 +13,7 @@ public class ListCommand extends Command{
 
     /**
      * Constructor for ListCommand
+     *
      * @param userInput Command Input by user to process
      * @param listManager Tasklist to interact with list of task
      */
@@ -23,8 +24,8 @@ public class ListCommand extends Command{
 
     /**
      * Process list input to print whole list or list of a certain type
-     * Remove the command by replacing command with empty string
-     * Remove the need for using separators
+     * Remove command by replacing command with empty string
+     * Remove need for using separators
      *
      * @throws CommandException if list is empty
      */

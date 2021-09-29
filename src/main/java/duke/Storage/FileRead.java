@@ -20,8 +20,8 @@ public class FileRead extends Storage{
 
     /**
      * Constructor for FileRead
-     * Creates new arraylist to store task from text file in
-     * Create Tasklist interact with arraylist after processing string in text file
+     * Creates new arraylist to store task from text file
+     * Create Tasklist to interact with arraylist after processing string in text file
      *
      * @param file file to read from
      */

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  * Handle interaction between Duke and text file
- * Create the file if file is not found
+ * Create file if file is not found
  * Contain function to write to file
  * Contain function to read from file
  */
@@ -35,7 +35,6 @@ public class Storage {
      * Constructor for Storage
      * Create duke.txt file if not found
      * Print file name and location if created
-     * @throws IOException if file cannot be created
      */
     public Storage(){
         try{
@@ -50,6 +49,7 @@ public class Storage {
 
     /**
      * Load task from text file into list
+     *
      * @return list of task from text file
      */
     public ArrayList<Task> load(){
@@ -89,8 +89,6 @@ public class Storage {
 
     /**
      * Write empty string to text file to clear its content
-     *
-     * @throws IOException if file is not found
      */
     public void writeClearTask(){
         try {
@@ -98,7 +96,7 @@ public class Storage {
             fileWriter.write(EMPTY_STRING);
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(ErrorStaticString.ERROR_FILE_MESSAGE_CLEARING);
         }
     }
 }

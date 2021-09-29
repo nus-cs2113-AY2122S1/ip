@@ -41,10 +41,14 @@ public class DoneCommand extends Command{
         System.out.println(MESSAGE_TASK_COMPLETE);
         ArrayList<Integer> intArray = new ArrayList<>();
         for (String s: taskDoneArray) {
-            int taskDoneIndex = Integer.parseInt(s) - 1;
-            intArray.add(taskDoneIndex);
-            if(taskDoneIndex > listManager.getListSize() || taskDoneIndex < 0){
-                throw new CommandException(ErrorStaticString.ERROR_DONE_TASK_NOT_IN_LIST);
+            try {
+                int taskDoneIndex = Integer.parseInt(s) - 1;
+                intArray.add(taskDoneIndex);
+                if (taskDoneIndex > listManager.getListSize() || taskDoneIndex < 0) {
+                    throw new CommandException(ErrorStaticString.ERROR_DONE_TASK_NOT_IN_LIST);
+                }
+            }catch (NumberFormatException e){
+                System.out.println(ErrorStaticString.ERROR_DONE_INPUT_FORMAT);
             }
         }
         for(Integer i: intArray){

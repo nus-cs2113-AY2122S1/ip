@@ -20,7 +20,6 @@ public abstract class Command {
     protected static final String COMMAND_ADD_DEADLINE = "deadline";
     protected static final String COMMAND_DELETE = "delete";
     protected static final String COMMAND_FIND_WORD = "find";
-    protected static final String COMMAND_CLEAR_WORD = "clear";
     protected static final String EVENT_TIME = "at ";
     protected static final String DEADLINE_DATE = "by ";
     protected static final String MESSAGE_TASK_COMPLETE = "Nice! I've marked this task as done: ";
@@ -36,13 +35,18 @@ public abstract class Command {
             "   todo - Add ToDo Task\n" +
             "   event - Add Event Task - !event for details\n" +
             "   deadline - Add Deadline Task - !deadline for details\n" +
-            "   bye - Shut Down\n";
+            "   clear - Clear list\n" +
+            "   find - Find Task With a specific word\n" +
+            "   date - Find Task with a specific date\n" +
+            "   bye - Shut Down";
     protected static final String MESSAGE_LIST_HELP = "list displays all tasks\n" +
             "list todo displays all todo tasks\n" +
             "list event displays all event tasks\n" +
-            "list deadline displays all deadline tasks\n";
-    protected static final String MESSAGE_EVENT_HELP = "event command requires a timing indicated using \"at\" [timing]\n";
-    protected static final String MESSAGE_DEADLINE_HELP = "deadline command requires a end time indicated using \"by\"[end time]\n";
+            "list deadline displays all deadline tasks";
+    protected static final String MESSAGE_EVENT_HELP = "event command requires a timing indicated using \"at\" [timing]\n" +
+            "[timing]: HH:MM YYYY-MM-DD";
+    protected static final String MESSAGE_DEADLINE_HELP = "deadline command requires a end time indicated using \"by\"[end time]\n" +
+            "[timing]: HH:MM YYYY-MM-DD";
 
     protected String taskInput;
 

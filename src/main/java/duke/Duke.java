@@ -27,9 +27,9 @@ public class Duke {
 
     /**
      * Main function of Duke
-     * Integrate the Ui class that handles taking in input of the user with
-     * the Parser class that handles the response to the input
-     * Keep running until the system is terminated by a string bye
+     * Integrate Ui class that handles taking in input of user with
+     * Parser class that handles response of input
+     * Loop until system is terminated
      */
     public void run(){
         ui.Greetings();

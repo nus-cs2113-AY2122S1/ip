@@ -34,7 +34,7 @@ public class FindKeywordCommand extends Command{
         }
         taskInput = taskInput.replaceFirst(COMMAND_FIND_WORD,EMPTY_STRING).trim();
         if(taskInput.isEmpty()){
-            throw new CommandException(ErrorStaticString.ERROR_EMPTY_LIST);
+            throw new CommandException(ErrorStaticString.ERROR_EMPTY_WORD_INPUT);
         }
         taskList.printWord(taskInput);
     }

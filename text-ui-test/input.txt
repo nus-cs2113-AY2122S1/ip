@@ -1,7 +1,10 @@
 echo Hi
 !echo hi
 list
-todo watch et1231 livestream event watch hankyuu livestream at midnight
+clear
+find hi
+date 2020-10-10
+todo watch et livestream event watch hankyuu livestream at midnight
 todo watch haxxnini livestream
 deadline reach radiant
 deadline reach legend by this season
@@ -9,10 +12,13 @@ deadline reach gold by 20:00
 deadline reach silver by 2020-10-10
 deadline reach bronze by 20:00 2020-10-10
 date 2020-10-10
+date 2020\10\10
 event G2 vs Sentinel
 event G2 vs Sentinel at 10pm
 event G2 vs Sentinel at 22:00
 event G2 vs Sentinel at 22:00 2020-10-10
+find G2
+find hi
 list
 list todo
 list deadline
@@ -20,7 +26,10 @@ list event
 done 1,2,3
 delete 1,2
 list
+
 random command
+clear
+list
 !help
 !list
 !event

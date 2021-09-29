@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Represent a command that remove a task from list
+ * Represent a command that remove task from list
  */
 public class DeleteCommand extends Command{
 
@@ -42,10 +42,14 @@ public class DeleteCommand extends Command{
         String[] taskDoneArray = removeCommand.split(SEPARATOR);
         ArrayList<Integer> intArray = new ArrayList<>();
         for (String s: taskDoneArray){
-            int taskDoneIndex = Integer.parseInt(s) - 1;
-            intArray.add(taskDoneIndex);
-            if(taskDoneIndex > listManager.getListSize() || taskDoneIndex < 0){
-                throw new CommandException(ErrorStaticString.ERROR_DELETE_TASK);
+            try {
+                int taskDoneIndex = Integer.parseInt(s) - 1;
+                intArray.add(taskDoneIndex);
+                if (taskDoneIndex > listManager.getListSize() || taskDoneIndex < 0) {
+                    throw new CommandException(ErrorStaticString.ERROR_DELETE_TASK);
+                }
+            }catch (NumberFormatException e){
+                System.out.println(ErrorStaticString.ERROR_DELETE_INPUT_FORMAT);
             }
         }
         Collections.sort(intArray, Collections.reverseOrder());

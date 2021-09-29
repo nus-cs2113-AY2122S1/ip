@@ -20,7 +20,7 @@ public class ClearCommand extends Command{
     }
 
     /**
-     * Clear the list in Tasklist
+     * Clear list in Tasklist
      */
     @Override
     public void executeCommand(){

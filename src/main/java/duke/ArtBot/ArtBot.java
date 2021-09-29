@@ -5,15 +5,16 @@ import duke.ErrorHandling.ErrorStaticString;
 import java.util.ArrayList;
 
 /**
- * Convert a string into graffiti form and print it out
+ * Convert string into graffiti form and print it
  */
 public class ArtBot implements ArtInterface {
 
+    private static final int SIZE_OF_ARRAY = 5;
     private final String userInput;
 
     /**
      * Constructor for ArtBot
-     * Assign string to be drawn
+     * Assign string to draw
      *
      * @param userInput String to be drawn
      */
@@ -23,7 +24,8 @@ public class ArtBot implements ArtInterface {
 
     /**
      * Each Drawn version of a letter take up 5 line
-     * Convert letter into drawn version of string
+     * Convert letter into drawn version of string stored in Logo Class
+     * Split each drawn version into array of 5 string separated by each line
      *
      * @param letter Letter to convert into array of string
      * @return Array of string representing a letter
@@ -158,7 +160,7 @@ public class ArtBot implements ArtInterface {
         for(String s:inputArrayOfLetter){
             String[] letterInArtForm = getLogo(s);
             if(letterInArtForm == null){
-                throw new CommandException(ErrorStaticString.ERROR_LETTER_NOT_FOUND);
+                throw new CommandException(ErrorStaticString.ERROR_ARTBOT_LETTER_NOT_FOUND);
             }
             listToStoreLetterInArtForm.add(letterInArtForm);
         }
@@ -168,6 +170,7 @@ public class ArtBot implements ArtInterface {
     /**
      * Merge same index of string in each string array
      * First String in First String Array with First String in Second String Array and so on...
+     *
      * @param arrayToMerge list of String Array to merge
      * @return String Array of 5 String after all have been merged
      */
@@ -190,7 +193,7 @@ public class ArtBot implements ArtInterface {
      * @param array Array to print
      */
     private void printArray(String[] array){
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < SIZE_OF_ARRAY; i++){
             System.out.println(array[i]);
         }
     }

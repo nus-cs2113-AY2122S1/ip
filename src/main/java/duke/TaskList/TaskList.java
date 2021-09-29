@@ -11,8 +11,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Serve as an interface for Arraylist storing the tasks
- * Responsible for manipulation and interaction of the Arraylist
+ * Serve as an interface for Arraylist storing tasks
+ * Responsible for manipulation and interaction of Arraylist
  */
 public class TaskList implements TaskListInterface {
 
@@ -24,6 +24,7 @@ public class TaskList implements TaskListInterface {
     private static final String MESSAGE_LIST_DEADLINE = "Here are the Deadline tasks in your list:";
     private static final String MESSAGE_LIST_FIND = "Here are the matching tasks in your list:";
     private static final String MESSAGE_LIST_FIND_DATE = "Here are the tasks with matching dates in your list:";
+    private static final String MESSAGE_LIST_CLEAR = "List Cleared. All tasks removed.";
     private static final String MESSAGE_TASK_NOW = "Now you have ";
     private static final String MESSAGE_DELETE = "Noted. I've removed this task: ";
     private static final String MESSAGE_SPACER = ". ";
@@ -32,16 +33,16 @@ public class TaskList implements TaskListInterface {
     private final ArrayList<Task> list;
 
     /**
-     * Constructor for the class to assign the arraylist to be manipulated
+     * Constructor for list class to assign arraylist to be manipulated
      *
-     * @param list Arraylist that store the tasks
+     * @param list Arraylist that store tasks
      */
     public TaskList(ArrayList<Task> list){
         this.list = list;
     }
 
     /**
-     * Loops through a list of task and print each task
+     * Loops through list of task and print each task
      *
      * @param listToPrint Arraylist containing tasks to print
      */
@@ -53,7 +54,7 @@ public class TaskList implements TaskListInterface {
     }
 
     /**
-     * Print all the task in the list
+     * Print all task in list
      */
     public void printList(){
         System.out.println(MESSAGE_LIST_TASK);
@@ -61,12 +62,12 @@ public class TaskList implements TaskListInterface {
     }
 
     /**
-     * Print all the task with a specific date
-     * Sort out the task with the same date into a new list
-     * Print the new list
+     * Print all task with a specific date
+     * Sort out task with same date into new list
+     * Print new list
      *
      * @param dateSearched Date being search as LocalDate object
-     * @throws CommandException if no task with the date searched was found
+     * @throws CommandException if no task with date searched was found
      */
     public void printDate(LocalDate dateSearched) throws CommandException{
         boolean haveDate = false;
@@ -82,7 +83,7 @@ public class TaskList implements TaskListInterface {
             }
         }
         if(!haveDate){
-            throw new CommandException(ErrorStaticString.ERROR_EMPTY_DATE_INPUT);
+            throw new CommandException(ErrorStaticString.ERROR_EMPTY_DATE_SEARCH_LIST);
         }
         System.out.println(MESSAGE_LIST_FIND_DATE);
         printer(listOfTaskWithDate);
@@ -106,16 +107,16 @@ public class TaskList implements TaskListInterface {
             }
         }
         if(!haveWord){
-            throw new CommandException(ErrorStaticString.ERROR_EMPTY_LIST);
+            throw new CommandException(ErrorStaticString.ERROR_EMPTY_WORD_SEARCH_LIST);
         }
         System.out.println(MESSAGE_LIST_FIND);
         printer(listOfTaskWithWord);
     }
 
     /**
-     * Print all the Todo task in the list
-     * Sort out all the Todo task into a new list
-     * Print the new list
+     * Print all Todo task in list
+     * Sort out all Todo task into new list
+     * Print new list
      *
      * @throws CommandException if no Todo task is found in list
      */
@@ -136,9 +137,9 @@ public class TaskList implements TaskListInterface {
     }
 
     /**
-     * Print all the Event Task in list
-     * Sort out the Event Task into a new list
-     * Print the new list
+     * Print all Event Task in list
+     * Sort out Event Task into a new list
+     * Print new list
      *
      * @throws CommandException if Event task is not found in list
      */
@@ -182,7 +183,7 @@ public class TaskList implements TaskListInterface {
     }
 
     /**
-     * Print message when a task is added
+     * Print message when task is added
      *
      * @param t Task added to the list
      */
@@ -192,7 +193,7 @@ public class TaskList implements TaskListInterface {
     }
 
     /**
-     * Adds ToDo task to list
+     * Add ToDo task to list
      * Print task added
      * Write task to text file
      *
@@ -295,6 +296,7 @@ public class TaskList implements TaskListInterface {
      * Write empty string to text file to clear text file
      */
     public void clearTask(){
+        System.out.println(MESSAGE_LIST_CLEAR);
         list.clear();
         Storage storage = new Storage();
         storage.writeClearTask();

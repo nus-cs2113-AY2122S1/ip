@@ -39,19 +39,18 @@ public class FindDateCommand extends Command{
         }
         taskInput = taskInput.replaceFirst(COMMAND_DATE_TASK,EMPTY_STRING).trim();
         if(taskInput.isEmpty()){
-            throw new CommandException(ErrorStaticString.ERROR_EMPTY_DATE_SEARCH_TASK);
+            throw new CommandException(ErrorStaticString.ERROR_EMPTY_DATE_INPUT);
         }
         try {
             LocalDate localDate = LocalDate.parse(convertStringToDate());
             taskList.printDate(localDate);
         }catch (DateTimeParseException e ){
-            System.out.println(ErrorStaticString.ERROR_DATE_SEARCH);
+            System.out.println(ErrorStaticString.ERROR_DATE_TIME_PARSE);
         }
     }
 
     /**
-     * Find first instance of a date by finding a string in a pattern
-     * Pattern:4int-2int-2int
+     * Find first instance of a date by finding a string in a pattern:4int-2int-2int
      *
      * @param stringToSearch String that contain date
      * @return Null if no date is found or return a matcher object that found date
