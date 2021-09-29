@@ -149,7 +149,6 @@ Bye. Hope to see you again soon!
 
 ## Command Summary
 | **Action** | **Format** | **Examples** |
-|            |            |              |
 | ---------- | ---------- | ------------ |
 | **todo** | `todo <TASK_DESCRIPTION>` | `todo Laundry` |
 | **event** | `event <TASK_DESCRIPTION>/<DATE_AND_TIME>` | `event CS2113T Lecture /01-10-2021 16:00` |
