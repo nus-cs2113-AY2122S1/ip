@@ -6,12 +6,14 @@ public class Parser {
         boolean isBye = false;
         if (input.equals("bye")){ //check if bye
             isBye = true;
-        } else if (input.equals("list")) { //check if list
+        } else if (input.startsWith("list")) { //check if list
             processList(tasks);
-        } else if (input.contains("done") ) { //check if done
+        } else if (input.startsWith("done") ) { //check if done
             processDone(tasks, input);
-        } else if (input.contains("delete") ) { //check if delete
+        } else if (input.startsWith("delete") ) { //check if delete
             processDelete(tasks, input);
+        } else if (input.startsWith("find") ) {
+            processFind(tasks, input);
         } else {
             try {
                 tasks.counter = processTasks(tasks, input); //process tasks
@@ -20,6 +22,23 @@ public class Parser {
             }
         }
         return isBye;
+    }
+
+    private static void processFind(TaskList tasks, String input) {
+        int findCount = 0;
+        String keyword = input.substring(5);
+        Ui.printFindMessageStart();
+        for(int i = 0; i < tasks.counter; i += 1) {
+            Task currTask = tasks.list.get(i);
+            if( currTask.getDescription().contains(keyword) ){
+                Ui.printListOfTaskSubMessage(currTask,i);
+                findCount += 1;
+            }
+        }
+        if(findCount == 0) {
+            Ui.printFindNothingMessage();
+        }
+        Ui.printFindMessageEnd();
     }
 
     private static void processDelete(TaskList tasks, String input) {
@@ -72,16 +91,16 @@ public class Parser {
     }
 
     private static int processTasks(TaskList tasks, String input) throws IllegalTaskException{
-        if ( ( input.contains("deadline") || input.contains("event") ) && !input.contains("/")){
+        if ( ( input.startsWith("deadline") || input.startsWith("event") ) && !input.contains("/")){
             throw new IllegalTaskException();
         }
-        if (input.contains("todo")) {
+        if (input.startsWith("todo")) {
             String description = input.substring(5);
             ToDo newTask = new ToDo(description);
             tasks.list.add(tasks.counter, newTask);
             tasks.counter += 1;
             Ui.printAddedTaskMessage(newTask, tasks.counter);
-        } else if (input.contains("deadline")) {
+        } else if (input.startsWith("deadline")) {
             int donePos = input.indexOf("/"); //finds pos of '/'
             String description = input.substring(9,donePos);
             if (!input.substring(donePos + 1, donePos + 3).equals("by")) {
@@ -92,7 +111,7 @@ public class Parser {
             tasks.list.add(tasks.counter, newTask);
             tasks.counter += 1;
             Ui.printAddedTaskMessage(newTask, tasks.counter);
-        } else if (input.contains("event")) {
+        } else if (input.startsWith("event")) {
             int donePos = input.indexOf("/"); //finds pos of '/'
             String description = input.substring(6,donePos);
             if (!input.substring(donePos + 1, donePos + 3).equals("at")) {

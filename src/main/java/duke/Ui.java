@@ -96,4 +96,17 @@ public class Ui {
         System.out.println("List is empty. Time to get productive!");
         System.out.println("--------------------");
     }
+
+    public static void printFindMessageStart() {
+        System.out.println("--------------------");
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
+    public static void printFindMessageEnd() {
+        System.out.println("--------------------");
+    }
+
+    public static void printFindNothingMessage() {
+        System.out.println("(there are 0 matches)");
+    }
 }
