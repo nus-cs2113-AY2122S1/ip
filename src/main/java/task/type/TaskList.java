@@ -36,6 +36,12 @@ public class TaskList {
         UI.printDoneTaskMessage(description);
     }
 
+    public ArrayList<Task> findTasks(String keyword){
+        return taskList.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
     public ArrayList<Task> getTasks() {
         return taskList;
     }
