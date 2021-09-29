@@ -40,18 +40,23 @@ public class Duke {
                     break;
                 case "todo":
                     taskManager.addTodo(input);
+                    storage.saveTasks(tasks);
                     break;
                 case "deadline":
                     taskManager.addDeadline(input);
+                    storage.saveTasks(tasks);
                     break;
                 case "event":
                     taskManager.addEvent(input);
+                    storage.saveTasks(tasks);
                     break;
                 case "done":
                     taskManager.finishTask(input);
+                    storage.saveTasks(tasks);
                     break;
                 case "delete":
                     taskManager.deleteTask(input);
+                    storage.saveTasks(tasks);
                     break;
                 case "find":
                     taskManager.findTask(input);
