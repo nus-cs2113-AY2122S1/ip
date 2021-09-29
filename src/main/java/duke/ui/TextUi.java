@@ -66,6 +66,11 @@ public class TextUi {
                 taskCountMessage);
     }
 
+    /**
+     * Reads in the next line of user input
+     *
+     * @return String that the user typed in
+     */
     public String readCommand() {
         return in.nextLine();
     }

@@ -19,6 +19,11 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Set up Duke, Create TextUi, Storage and Tasklist objects
+     *
+     * @param filePath filepath of the save file to read from/write to
+     */
     public Duke(String filePath) {
         ui = new TextUi();
         tasks = new TaskList();
@@ -34,7 +39,7 @@ public class Duke {
             ui.printMessage(MESSAGE_INVALID_TASK_TYPE_EXCEPTION);
         }
     }
-
+    
     public void run() {
         ui.printGreeting();
         boolean isExit = false;
