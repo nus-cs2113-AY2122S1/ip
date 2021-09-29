@@ -1,13 +1,58 @@
 todo eat lunch
-event project meeting /at Mon 2-4pm
+event project meeting /at 2021-12-12 19:21
 list
-deadline do homework /by September 10th
+todo
+todo
+deadline do homework /by 2021-01-01 22:22
 done 2
-event project meeting /at Mon 2-4pm
+done 1
+done me
+deadline
+deadline do homework /by Monday
+delete 100
+delete world
+event project meet /////
+deadline do cs2113t /by 2022-01-01 21:22
+deadline do cs2113t /by 2022-01-01 21:22
+deadline do cs2113t /by 2022-01-01 21:22
+deadline do cs2113t /by 2022-01-01 21:22
+deadline do cs2113t /by 2022-01-01 21:22
+event project meeting /on 2021-12-12 19:21
+event project meeting /at 2021-12-12 19:21
+event project meeting /on 2021-12-12 19:21
+done 5
+done 6
+done 3
+done 8
+event project meeting /attt 2021-12-12 19:21
+event project meeting //onns 2021-12-112 19:212
+event project meeting /at 2021-12-12 19:21
+
+event project meeting /at 2021-12-12 19:21
+
+todo nothing to do
+list
+delete 1
+find world
+find
+find happiness
+find cs2113t
+find homework
 list
 todo get supper
+event
 done 4
 done 3
+list
+done 8
+delete 3
+delete 3
+delete 9
+done 1
+done 6
+list
+done 6
+done 2
 list
 bye
 

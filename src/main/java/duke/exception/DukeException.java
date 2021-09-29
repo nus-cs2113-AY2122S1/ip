@@ -124,7 +124,7 @@ public class DukeException extends Exception {
      */
     public static void arrayIndexEventError() {
         Ui.printLine();
-        System.out.println("YOU IDIOT !!??!! The input format should be : ");
+        System.out.println("YOU IDIOT !!??!! The input format should be :");
         System.out.println("event description /at date or time");
         Ui.printLine();
     }
