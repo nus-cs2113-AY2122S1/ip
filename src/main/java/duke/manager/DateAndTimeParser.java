@@ -13,13 +13,14 @@ public class DateAndTimeParser {
 
     /**
      * Returns the LocalDateTime object after processing
-     * the input string
+     * the input string according to rules provided in
+     * inputFormatter
      *
      * @param message input string containing the date and time
      * @return LocalDateTime object "yyyy-MM-dd HH:mm"
      */
     static LocalDateTime processDateAndTime(String message) throws DateTimeParseException {
-        LocalDateTime dateTime = LocalDateTime.parse(message.strip(), inputFormatter);
-        return dateTime;
+        LocalDateTime taskDateTime = LocalDateTime.parse(message.strip(), inputFormatter);
+        return taskDateTime;
     }
 }

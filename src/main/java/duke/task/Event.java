@@ -11,7 +11,7 @@ public class Event extends Task {
     protected String onString;
 
     /**
-     * Constructor to initialise the description
+     * Initialise the description
      * and the date/time of the event.
      *
      * @param description string with the event
@@ -26,15 +26,21 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the formatted Description of the event.
+     * Returns the formatted Description of the event
      *
-     * @return returns a String with the event description
+     * @return String with the event description
      */
     @Override
     public String getDescription() {
         return "[E]" + super.getDescription() + " (on: " + DateAndTimeParser.outputFormatter.format(on) + ")";
     }
 
+    /**
+     * Returns the formatted Description of the event to
+     * store in file
+     *
+     * @return String with the event description
+     */
     @Override
     public String fileDescription() {
         return "E | " + super.fileDescription() + " | " + onString;
