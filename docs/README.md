@@ -15,12 +15,12 @@ Duke is a **Personal Assistant Chatbot** that helps a person to **keep track of 
 
 ## Quick Start 
 1. Ensure you have Java 11 or above installed in your computer.
-2. Download the latest `IP.jar` from [here](https://github.com/xingjie99/ip/releases/tag/DukeFinal)
-3. Copy the file to the folder you want to use as the home folder for your DukeChatBot
+2. Download the latest `IP.jar` from [here](https://github.com/xingjie99/ip/releases/tag/DukeFinal).
+3. Copy the file to the folder you want to use as the home folder for your DukeChatBot.
 4. Go to command prompt and change the directory to the file's location.
 5. Write the following code:
   ```
-  java -jar fitbot.jar 
+  java -jar IP.jar 
   ```
 6. Press enter to start running the program.
  
