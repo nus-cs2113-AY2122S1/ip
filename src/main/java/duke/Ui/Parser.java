@@ -11,6 +11,9 @@ import duke.TaskList.command.ListCommand;
 import duke.TaskList.command.SetDoneCommand;
 import duke.TaskList.command.ToDoCommand;
 
+/**
+ * Class responsible to parse user commands.
+ */
 public class Parser {
 
     private static final int INDEX_COMMAND = 0;
