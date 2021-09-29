@@ -47,7 +47,7 @@ public class Storage
      */
     public Parser loadSave (ArrayList<Task> tasks) throws FileNotFoundException
     {
-
+        int completedTaskIndex = 0;
         Parser TM = new Parser(tasks);
         try {
             Scanner in = new Scanner(saveFile);
@@ -61,6 +61,9 @@ public class Storage
                         String todoDescription = todoSplit[1];
                         ToDo newToDo = new ToDo(todoDescription);
                         TM.tasks.add(newToDo);
+                        if (line.contains("[x]")) {
+                            TM.tasks.get(completedTaskIndex).setDone(true);
+                        }
                     }
                     else if (line.contains("[D]")) {
                         String[] firstDeadlineSplit = line.split("] ", 2);
@@ -71,6 +74,9 @@ public class Storage
                         LocalDateTime deadlineFormatted = Parser.parseDateTime(deadlineDate, "MMM dd yyyy h.mma");
                         Deadline newDeadline = new Deadline(deadlineDescription, deadlineFormatted);
                         TM.tasks.add(newDeadline);
+                        if (line.contains("[x]")) {
+                            TM.tasks.get(completedTaskIndex).setDone(true);
+                        }
                     }
                     else if (line.contains("[E]")) {
                         String[] firstEventSplit = line.split("] ", 2);
@@ -78,9 +84,14 @@ public class Storage
                         String[] thirdEventSplit = secondEventSplit[1].split("\\)", 2); //settles date
                         String eventDescription = secondEventSplit[0];
                         String eventDate = thirdEventSplit[0];
-                        Event newEvent = new Event(eventDescription, eventDate);
+                        LocalDateTime eventFormatted = Parser.parseDateTime(eventDate, "MMM dd yyyy h.mma");
+                        Event newEvent = new Event(eventDescription, eventFormatted);
                         TM.tasks.add(newEvent);
+                        if (line.contains("[x]")) {
+                            TM.tasks.get(completedTaskIndex).setDone(true);
+                        }
                     }
+                    completedTaskIndex++;
                 }
             }
 

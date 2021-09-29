@@ -4,12 +4,15 @@ import duke.exception.NoSuchTaskException;
 
 import java.util.ArrayList;
 
+
+
 /**
  * Contains the task list as well as operations to handle tasks
  * namely adding, deleting, finding and marking as done.
  */
 public class TaskList
 {
+    public static final String MESSAGE_DIVIDER = "____________________________________________________________";
 
     public TaskList()
     {
@@ -45,7 +48,7 @@ public class TaskList
      * @param tasks
      */
     public static void deleteTask(int taskNumber, ArrayList<Task> tasks) {
-        System.out.println("TARGET REMOVED: " + taskNumber + ". " + tasks.get(taskNumber - 1));
+        Ui.printDeletedTask(taskNumber,tasks);
         tasks.remove(taskNumber - 1);
     }
 
@@ -63,7 +66,7 @@ public class TaskList
             for (int i = 0; i < tasks.size(); i++) {
                 line = tasks.get(i).toString();
                 if (line.contains(s)) {
-                    System.out.println("-" + tasks.get(i).toString());
+                    System.out.println("- " + tasks.get(i).toString());
                     j++;
                 }
             }

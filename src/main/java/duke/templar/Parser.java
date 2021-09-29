@@ -1,11 +1,8 @@
 package duke.templar;
 
-import duke.exception.NoSuchTaskException;
-import duke.exception.CommandInvalidException;
-import duke.exception.EventInvalidFormatException;
-import duke.exception.TaskNumberInvalidException;
-import duke.exception.DeadlineInvalidFormatException;
-import duke.exception.TodoInvalidFormatException;
+import duke.exception.*;
+
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -41,14 +38,8 @@ public class Parser
      * as well as print the appropriate output to accompany task
      * @param line
      * @param tasks
-     * @throws CommandInvalidException
-     * @throws DeadlineInvalidFormatException
-     * @throws TodoInvalidFormatException
-     * @throws EventInvalidFormatException
-     * @throws TaskNumberInvalidException
-     * @throws NoSuchTaskException
      */
-    public void processInput(String line, ArrayList<Task> tasks) throws CommandInvalidException, DeadlineInvalidFormatException, TodoInvalidFormatException, EventInvalidFormatException, TaskNumberInvalidException, NoSuchTaskException
+    public void processInput(String line, ArrayList<Task> tasks)
     {
         valid = false; //default case
         try {
@@ -99,7 +90,8 @@ public class Parser
                 }
                 String eventDescription = secondSplit[0];
                 String eventDate = secondSplit[1];
-                Event newEvent = new Event(eventDescription, eventDate);
+                LocalDateTime eventFormatted = parseDateTime(eventDate, "dd-MM-yyyy HH:mm");
+                Event newEvent = new Event(eventDescription, eventFormatted);
                 TaskList.addTask(newEvent,tasks);
                 Ui.printTaskAcquired(newEvent, tasks);
             }
@@ -159,6 +151,10 @@ public class Parser
         catch (NoSuchTaskException noSuchTaskException) {
             noSuchTaskException.printNoSuchTaskException();
         }
+        catch (DateTimeParseException dateTimeParseException) {
+            Ui.printInvalidDateTimeException();
+        }
+
     }
 
 
@@ -166,9 +162,11 @@ public class Parser
      * Converts the string into a LocalDateTime variable with the right format
      * @param deadlineDate
      * @param format
+     * @throws DateTimeParseException
      * @return parsed deadlineDate
      */
-    public static LocalDateTime parseDateTime(String deadlineDate, String format) {
+    public static LocalDateTime parseDateTime(String deadlineDate, String format) throws DateTimeParseException
+            {
         DateTimeFormatter properFormat = DateTimeFormatter.ofPattern(format);
         return LocalDateTime.parse(deadlineDate, properFormat);
     }

@@ -100,6 +100,7 @@ public class Ui
      */
     public static void printTaskDone(int taskNumber, ArrayList<Task> tasks)
     {
+        System.out.println(MESSAGE_DIVIDER);
         System.out.println("TARGET NEUTRALISED: " + taskNumber + ". " + tasks.get(taskNumber - 1));
     }
 
@@ -116,7 +117,6 @@ public class Ui
                 System.out.println(i + 1 + "." + tasks.get(i));
             }
         }
-        System.out.println(MESSAGE_DIVIDER);
 
     }
 
@@ -133,7 +133,11 @@ public class Ui
         System.out.println("...understood.");
         System.out.println("============= TASK ACQUIRED: " + newTask + "=============");
         System.out.println("current execution total: " + tasks.size());
+    }
+
+    public static void printDeletedTask(int taskNumber, ArrayList<Task> tasks) {
         System.out.println(MESSAGE_DIVIDER);
+        System.out.println("TARGET REMOVED: " + taskNumber + ". " + tasks.get(taskNumber - 1));
     }
 
     /**
@@ -155,7 +159,13 @@ public class Ui
     public static void printFoundTasks()
     {
         System.out.println(MESSAGE_DIVIDER);
-        System.out.println("TASKS FOUND ARE:");
+        System.out.println("TASK(S) FOUND ARE:");
     }
 
+    public static void printInvalidDateTimeException()
+    {
+        System.out.println(MESSAGE_DIVIDER);
+        System.out.println("⚠️ The date and time is of the wrong format. Try \"dd-MM-yyyy HH:mm\", Hero. ⚠️");
+        System.out.println(MESSAGE_DIVIDER);
+    }
 }
