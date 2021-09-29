@@ -33,4 +33,9 @@ public class Task {
         return trimString;
     }
 
+    @Override
+    public String toString() {
+        String formatString = String.format("[%s][%s] %s", taskType, getStatusIcon(), description);
+        return formatString;
+    }
 }

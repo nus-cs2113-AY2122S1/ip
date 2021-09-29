@@ -1,12 +1,27 @@
 # User Guide
 
-*Duke* is a **desktop app for managing tasks, events and deadlines, optimized for use via a Command Line Interface (
-CLI)**. It functions as a Personal Assistant Chatbot, that helps a person keep track of things.
+Welcome to *Duke*! *Duke* is a **desktop app for managing tasks, events and deadlines, optimized for use via a Command
+Line Interface
+(CLI)**. It functions as a Personal Assistant Chatbot, that helps a person keep track of things.
+
+- [Quick Start](#quick-start)
+- [Features](#features)
+    - [Adding a to-do](#adding-a-todo-todo)
+    - [Adding an event](#adding-an-event-event)
+    - [Adding a deadline](#adding-a-deadline-deadline)
+    - [Listing all tasks](#listing-all-tasks-list)
+    - [Locating all tasks by matching description](#locating-all-tasks-by-matching-description-find)
+    - [Listing upcoming deadlines](#listing-upcoming-deadlines-upcoming)
+    - [Mark task as completed](#marking-task-as-completed-done)
+    - [Deleting a task](#deleting-a-task-delete)
+    - [Exiting](#exiting-the-program-bye)
+    - [Saving the tasks](#saving-the-tasks)
+- [Command Summary](#command-summary)
 
 ## Quick Start
 
 1. Ensure you have Java 11 installed in your Computer.
-2. Download CS2113_IP.jar from [here](CS2113 IP.jar).
+2. Download *CS2113_IP.jar* from the repo.
 3. Copy the file into a *home folder* of your choice for Duke.
 4. In the command line, navigate to Duke's *home folder* using the terminal command to change directory, `cd`.
 
@@ -197,8 +212,9 @@ Expected outcome:
 2nd task in list is deleted.
 
 ```
-Nice! I've marked this task as done:
-[T][X] CS2113 Level-2
+Noted. I've removed this task:
+ [T][ ] SEP documents submission
+Now you have 3 items in the list.
 ```
 
 ________

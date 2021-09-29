@@ -59,24 +59,22 @@ public class Ui {
     public void handleDelete(Task task, ArrayList<Task> tasks, int zeroIndexInputInt, int taskCount) {
         System.out.println(DELETE_TASK_COMMENT);
 
-        String printTask = String.format(" [%s][%s] %s", task.taskType, task.getStatusIcon(), task.description);
+        String formatOutput = String.format(" %s", task.toString());
         tasks.remove(zeroIndexInputInt);
-        System.out.println(printTask);
+        System.out.println(formatOutput);
 
         String printTaskNumber = String.format("Now you have %d items in the list.", taskCount);
         System.out.println(printTaskNumber);
     }
 
     /**
-     * Handles 'done' command's UI aspect, formatting the task to be mark as done.
-     * e.g. [T][X] homework
+     * Handles 'done' command's UI aspect.
      *
      * @param task Specific task outlined for deletion.
      */
     public void handleDone(Task task) {
         System.out.println(MARK_TASK_COMMENT);
-
-        String formatOutput = String.format("[%s][%s] %s", task.taskType, task.getStatusIcon(), task.description);
+        String formatOutput = String.format(" %s", task.toString());
         System.out.println(formatOutput);
     }
 
@@ -96,20 +94,24 @@ public class Ui {
      * @param task      Specific task within the list.
      */
     public void handleListFormat(int taskIndex, Task task) {
-        String formatOutput = String.format("%d.[%s][%s] %s",
-                taskIndex, task.taskType,
-                task.getStatusIcon(), task.description);
-        System.out.println(formatOutput);
-    }
-
-    public void handleFind(int indexOne, Task task) {
-        String formatOutput = String.format("%d.[%s][%s] %s", indexOne, task.taskType,
-                task.getStatusIcon(), task.description);
+        String formatOutput = String.format("%d.%s", taskIndex, task.toString());
         System.out.println(formatOutput);
     }
 
     /**
-     * Handles 'add' command's UI aspect, formatting the task that was just added.
+     * Formats list of tasks for the 'find' command.
+     * e.g. 1.[T][X] homework
+     *
+     * @param indexOne 1-based-index to index each task when listing.
+     * @param task     Specific task within the list.
+     */
+    public void handleFind(int indexOne, Task task) {
+        String formatOutput = String.format("%d.%s", indexOne, task.toString());
+        System.out.println(formatOutput);
+    }
+
+    /**
+     * Handles 'add' command's UI aspect.
      * Reiterates the number of items left in the list after addition.
      *
      * @param newTask   Specific task that was newly added.
@@ -117,9 +119,7 @@ public class Ui {
      */
     public void handleAdd(Task newTask, int taskCount) {
         System.out.println(ADDED_TASK_COMMENT);
-
-        String printTask = String.format(" [%s][] %s", newTask.taskType, newTask.description);
-        System.out.println(printTask);
+        System.out.println(newTask.toString());
 
         String printTaskNumber = String.format("Now you have %d items in the list.", taskCount);
         System.out.println(printTaskNumber);
@@ -137,8 +137,8 @@ public class Ui {
     public void handleUpcoming(Task task, boolean isThreeDaysAway, boolean isDone) {
         boolean isNotDone = !isDone;
         if (isThreeDaysAway && isNotDone) {
-            String printTask = String.format(">>> %s", task.description);
-            System.out.println(printTask);
+            String formatOutput = String.format(">>> %s", task.description);
+            System.out.println(formatOutput);
         }
     }
 
