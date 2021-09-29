@@ -40,12 +40,12 @@ public abstract class Task {
 
     public abstract LocalDateTime getDateTime();
 
-    public String getType() {
-        return this.type;
-    }
-
     public static int getTaskCount() {
         return taskCount;
+    }
+
+    public static void decreaseTaskCount() {
+        taskCount--;
     }
 
     /**
@@ -55,6 +55,11 @@ public abstract class Task {
      */
     public String getStatusIcon() {
         return (isDone ? DONE_ICON : NOT_DONE_ICON);
+    }
+
+
+    public String getType() {
+        return this.type;
     }
 
     /**

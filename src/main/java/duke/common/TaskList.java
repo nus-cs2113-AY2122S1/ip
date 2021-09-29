@@ -92,8 +92,9 @@ public class TaskList {
      */
     public static void deleteTask(int taskIndex) throws IOException {
         try {
-            Ui.printDeleteMessage(taskIndex, tasks);
-            tasks.remove(taskIndex - 1);
+            Task deleted = tasks.remove(taskIndex - 1);
+            Task.decreaseTaskCount();
+            Ui.printDeleteMessage(deleted);
             Storage.saveData();
         } catch (IndexOutOfBoundsException e) {
             Ui.printIndexOutOfBoundsMessage();

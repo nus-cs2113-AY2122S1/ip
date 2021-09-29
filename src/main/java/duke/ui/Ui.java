@@ -33,7 +33,9 @@ public class Ui {
 
     private final static String LIST_MESSAGE = "Here are your current tasks and their status:";
     private static final String EMPTY_LIST_MESSAGE = "Your tasklist is currently empty!";
-    private final static String ADD_MESSAGE = "Okay, I've added that task to your list:";
+    private final static String ADD_MESSAGE_START = "Okay, I've added that task to your list:";
+    private final static String COUNT_MESSAGE_START = "Now you have ";
+    private final static String COUNT_MESSAGE_END = " task(s) in the list.";
     private final static String DONE_MESSAGE = "Nice! I've marked this task as done:";
     private final static String UNDONE_MESSAGE = "I've unmarked this task as done:";
     private final static String DELETE_MESSAGE = "Okay, I've deleted that task!";
@@ -155,8 +157,9 @@ public class Ui {
      */
     public static void printAddMessage(ArrayList<Task> tasks) {
         printDivider();
-        println(ADD_MESSAGE);
+        println(ADD_MESSAGE_START);
         println(tasks.get(Task.getTaskCount() - 1));
+        println(COUNT_MESSAGE_START + Task.getTaskCount() + COUNT_MESSAGE_END);
         printDivider();
     }
 
@@ -178,13 +181,13 @@ public class Ui {
     /**
      * Notifies the user that the task given by the user has been deleted from the list.
      *
-     * @param taskIndex the index of the task to be deleted
-     * @param tasks the current task list
+     * @param deletedTask the task object that was deleted
      */
-    public static void printDeleteMessage(int taskIndex, ArrayList<Task> tasks) {
+    public static void printDeleteMessage(Task deletedTask) {
         printDivider();
         println(DELETE_MESSAGE);
-        println(tasks.get(taskIndex - 1));
+        println(deletedTask);
+        println(COUNT_MESSAGE_START + Task.getTaskCount() + COUNT_MESSAGE_END);
         printDivider();
     }
 
