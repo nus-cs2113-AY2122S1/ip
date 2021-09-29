@@ -1,13 +1,10 @@
 package duke.command;
-
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.tasklist.task.Task;
 import duke.ui.Ui;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
 public class Command {
     private static final int CMD_NOT_FOUND = 0;
@@ -50,7 +47,13 @@ public class Command {
     public int getCommand() {
         return this.command;
     }
-
+    /**
+     * Executes the command based on the command type
+     *
+     * @param tasks An object that contains the list of tasks
+     * @param storage An object to allow saving and loading of the list of tasks
+     * @param ui An object to interacts with the user
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int taskCount = tasks.getTaskCount();
         String[] userInputs;
@@ -86,11 +89,11 @@ public class Command {
                 break;
             case CMD_SHOW_DATE:
                 int index = 1;
-                LocalDate deadline = LocalDate.parse(getUserInput().replace(SHOW_DATE, "").trim(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+                LocalDate deadline = LocalDate.parse(userInput.replace(SHOW_DATE, "").trim(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
                 System.out.println(Ui.border);
                 System.out.println("Here are the all the task in your list to be done by:" + deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
                 for (Task item : storage.items) {
-                    if (item.getDeadline().isEqual(deadline)) {
+                    if (!(item.getDate().contains("empty")) && item.getDeadline().isEqual(deadline)) {
                         System.out.print(index + ".");
                         System.out.println(item);
                         index++;

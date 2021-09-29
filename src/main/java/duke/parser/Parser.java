@@ -9,10 +9,13 @@ public class Parser {
     private static final int LENGTH_OF_DONE = 4;
     private static final int LENGTH_OF_TODO = 4;
     private static final int LENGTH_OF_FIND = 4;
+    private static final int LEN_OF_YEAR = 4;
     private static final int LENGTH_OF_EVENT = 5;
     private static final int LENGTH_OF_DELETE = 6;
     private static final int LENGTH_OF_DEADLINE = 8;
     private static final int LENGTH_OF_SHOW_DATE = 9;
+    private static final int TOTAL_NUM_MONTH = 12;
+    private static final int TOTAL_NUM_DAY = 31;
     private static final int MIN_SPLIT_SIZE = 2;
     private static final int CMD_NOT_FOUND = -1;
     private static final int CMD_TODO = 1;
@@ -36,7 +39,7 @@ public class Parser {
     private static final String BY = "/by";
     private static final String AT = "/at";
 
-    public static boolean isInvalid(TaskList task, String line, String key) {
+    private static boolean isInvalid(TaskList task, String line, String key) {
         if (!line.split(key)[1].trim().isEmpty()) {
             if (Integer.parseInt(line.split(key)[1].trim()) > task.getTaskCount()) {
                 return true;
@@ -45,6 +48,12 @@ public class Parser {
         return (line.length() <= LENGTH_OF_EVENT);
     }
 
+    /**
+     * Extracts the command parameter from the user input
+     *
+     * @param fullCommand Input provided by user
+     * @return Command object of the given command
+     */
     public static Command parse(String fullCommand) {
         Command c;
         c = new Command();
@@ -73,6 +82,14 @@ public class Parser {
         return c;
     }
 
+    /**
+     * Verify the if command is valid
+     *
+     * @param task List of task so far
+     * @param c Command object to access and execute the command
+     * @param ui Ui object to interact with the user
+     * @return boolean value true if command is valid
+     */
     public static boolean verifyCommand(TaskList task, Command c, Ui ui) {
         String userInput = c.getUserInput();
         switch (c.getCommand()) {
@@ -109,8 +126,8 @@ public class Parser {
                 }
                 return false;
             case CMD_SHOW_DATE:
+                String key = userInput.replace(SHOW_DATE, "");
                 try {
-                    String key = userInput.replace(SHOW_DATE, "");
                     if (key.isBlank()) {
                         throw new ShowDateIsEmptyException();
                     }
@@ -118,10 +135,29 @@ public class Parser {
                     ui.printEmptyDateError();
                     return true;
                 }
+                try {
+                    if (Integer.parseInt(key.split("/")[1].trim()) > TOTAL_NUM_MONTH) {
+                        throw new WrongDateFormatException();
+                    }
+                    if (Integer.parseInt(key.split("/")[2].trim()) > TOTAL_NUM_DAY) {
+                        throw new WrongDateFormatException();
+                    }
+                } catch (WrongDateFormatException e) {
+                    ui.printWrongDateFormatError();
+                    return true;
+                }
+                try {
+                    if (key.split("/")[0].trim().length() < LEN_OF_YEAR) {
+                        throw new WrongDateFormatException();
+                    }
+                } catch (WrongDateFormatException e) {
+                    ui.printWrongDateFormatError();
+                    return true;
+                }
                 return false;
             case CMD_FIND:
                 try {
-                    String key = userInput.replace(FIND, "");
+                    key = userInput.replace(FIND, "");
                     if (key.isBlank()) {
                         throw new FindIsEmptyException();
                     }

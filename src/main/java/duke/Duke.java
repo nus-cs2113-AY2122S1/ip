@@ -1,17 +1,13 @@
 package duke;
 
 import duke.command.Command;
-import duke.exception.CommandDoesNotExistException;
 import duke.exception.DukeException;
-import duke.exception.EmptyDescriptionException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
-
-import javax.sound.midi.SysexMessage;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 
 
@@ -35,12 +31,12 @@ public class Duke {
             task = new TaskList(storage.items);
         }
     }
-    public void run() {
+    private void run() {
         Scanner in = new Scanner(System.in);
         boolean isExit = false;
         while (!isExit) {
             try {
-                String fullCommand = ui.readCommand(in);
+                String fullCommand = ui.readCommand(in).toLowerCase(Locale.ROOT);
                 Command c = Parser.parse(fullCommand);
                 boolean hasError = Parser.verifyCommand(task, c, ui);
                 if (hasError) {

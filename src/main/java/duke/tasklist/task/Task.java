@@ -1,7 +1,6 @@
 package duke.tasklist.task;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Task {
     protected String description;
@@ -14,7 +13,7 @@ public class Task {
 
     public String getStatusIcon() {
 
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
     public String getDescription() {
 
