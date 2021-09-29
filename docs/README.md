@@ -13,6 +13,7 @@ Duke is a **ChatBot** that helps **record and organize the user's tasks**. It is
   - [Getting Help](#help)
   - [Ending the Program](#bye)
 - [Command Summary](#summary)
+
 ## <a name="features"></a>Features and Usage 
 
 ### <a name="todo"></a>Adding Todo Tasks: `todo`
