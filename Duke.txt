@@ -1,2 +1,2 @@
-T | 0 | test
-T | 0 | asdasdsa
+D | 0 | submit report (by: this coming Friday 2pm)
+E | 0 | dinner & drinks with the boys (at: Sunday 7pm, my place)

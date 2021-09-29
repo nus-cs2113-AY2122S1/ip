@@ -28,7 +28,7 @@ public class DeleteCommand extends Command {
                     + "____________________________________________________________\n"
             );
 
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Choose a task to delete!\n");
 
         } catch (NumberFormatException e) {
