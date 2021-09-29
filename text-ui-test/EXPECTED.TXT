@@ -5,6 +5,7 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+File Loaded: 4 Tasks
 ____________________________________________________________
 Hello! I'm Duke
 What can I do for you?
