@@ -5,6 +5,7 @@ import Task.Event;
 import Task.ToDo;
 import Ui.Ui;
 import Task.Task;
+import Exception.TaskNotFoundException;
 
 import java.util.ArrayList;
 
@@ -65,18 +66,27 @@ public class Tasklist {
         Ui.horizontalLine();
     }
 
-    /**public static void findTask(String inputTask, ArrayList<Task> tasks) {
-        System.out.println("I can reach findTask method\n");
-        String keywordToFind = inputTask.substring(5);
-        System.out.println("I can get the substring\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.contains(keywordToFind)) {
-                System.out.println("Here are the matching tasks in your list: \n");
-                System.out.println((i + 1) + ". " + tasks.get(i).toString());
-                Ui.horizontalLine();
+    public static void findTask(String inputTask, ArrayList<Task> tasks) throws TaskNotFoundException {
+        try {
+            int temp = 0;
+            String keywordToFind = inputTask.substring(5);
+            System.out.println("Here are the matching tasks in your list: \n");
+            for (int i = 0; i < tasks.size(); i++) {
+                String taskInList = tasks.get(i).toString();
+                if (taskInList.contains(keywordToFind)) {
+                    System.out.println((i + 1) + ". " + tasks.get(i).toString());
+                    temp++;
+                }
+                if (temp == 0) {
+                    throw new TaskNotFoundException();
+                }
             }
+        } catch(TaskNotFoundException e) {
+            System.out.println("Oops! Task not found in the list!\n");
         }
-    }*/
+
+        Ui.horizontalLine();
+    }
 
     public static void markAsDone(int number, ArrayList<Task> tasks) {
         tasks.get(number-1).setDone();

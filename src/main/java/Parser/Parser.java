@@ -2,11 +2,10 @@ package Parser;
 
 import Tasklist.Tasklist;
 import Exception.DukeException;
-import Storage.Storage;
+import Exception.TaskNotFoundException;
 import Ui.Ui;
 import Task.Task;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,25 +38,20 @@ public class Parser {
                     Tasklist.addEvent(inputTask, tasks);
                 } else if (inputTask.contains("delete")) {
                     Tasklist.deleteTask(inputTask, tasks);
-                } //else if (inputTask.contains("find")) {
-                    //Tasklist.findTask(inputTask, tasks);
-                //}
+                } else if (inputTask.contains("find")) {
+                    Tasklist.findTask(inputTask, tasks);
+                }
                 else {
                     throw new DukeException();
                 }
             } catch (DukeException e) {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-( ");
                 Ui.horizontalLine();
+            } catch (TaskNotFoundException e) {
+                System.out.println("Oops! Task not found in the list!\n");
             }
             inputTask = in.nextLine();
         }
-        /**if (inputTask.equals("bye")) {
-            try {
-                Storage.writeToFile(tasks);
-            } catch (IOException e) {}
-            Ui.horizontalLine();
-            System.out.println("Bye. Hope to see you again soon!\n");
-        }*/
         in.close();
     }
 }
