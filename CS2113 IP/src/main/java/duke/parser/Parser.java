@@ -42,6 +42,14 @@ public class Parser {
     public Parser() {
     }
 
+    /**
+     * Returns a Command object from a full user input String, checking the Command keyword.
+     * Parses each Command separately after receiving keyword.
+     *
+     * @param fullCommand Full user's input String
+     * @return Specific Command object after parsing the user's input String
+     * @throws DukeException If any formatting errors, missing fields, wrong input types were detected in runtime
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String[] splitStringBySpace = fullCommand.trim().split("\\s+", 2);
         switch (splitStringBySpace[COMMAND_KEY]) {
@@ -68,11 +76,171 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses down fullCommand for 'find'.
+     * Returns a FindCommand object.
+     *
+     * @param fullCommand Full user's input String
+     * @return FindCommand object which then executes 'find'
+     * @throws DukeException If search key is missing
+     */
+    private static Command parseFindCommand(String fullCommand) throws DukeException {
+        if (isEmptyDescription(fullCommand)) {
+            throw new DukeException(ERROR_MISSING_FIND_DESCRIPTION);
+        }
+        String userInputSearchKey = getUserSearchKey(fullCommand);
+        return new FindCommand(userInputSearchKey);
+    }
+
+    /**
+     * Parses down fullCommand for 'list'.
+     * Returns a ListCommand object.
+     *
+     * @param fullCommand Full user's input String
+     * @return ListCommand object which then executes 'list'
+     * @throws DukeException If there are unnecessary words included beyond the command keyword
+     */
+    private static Command parseListCommand(String fullCommand) throws DukeException {
+        if (!fullCommand.equals(COMMAND_LIST)) {
+            throw new DukeException(ERROR_UNNECESSARY_DESCRIPTION);
+        }
+        return new ListCommand();
+    }
+
+    /**
+     * Parses down fullCommand for 'bye'.
+     * Returns a ByeCommand object.
+     *
+     * @param fullCommand Full user's input String
+     * @return ByeCommand object which then executes 'bye'
+     * @throws DukeException If there are unnecessary words included beyond the command keyword
+     */
+    private static Command parseByeCommand(String fullCommand) throws DukeException {
+        if (!fullCommand.equals(COMMAND_BYE)) {
+            throw new DukeException(ERROR_UNNECESSARY_DESCRIPTION);
+        }
+        return new ByeCommand();
+    }
+
+    /**
+     * Parses down fullCommand for 'todo'.
+     * Returns a AddCommand object.
+     *
+     * @param fullCommand Full user's input String
+     * @return AddCommand object which then executes 'adding todo'
+     * @throws DukeException If there is an empty description field
+     */
+    private static Command parseTodoCommand(String fullCommand) throws DukeException {
+        addTaskExceptionHandler(fullCommand, TaskType.TODO);
+        return new AddCommand(fullCommand, TaskType.TODO);
+    }
+
+    /**
+     * Parses down fullCommand for 'event'.
+     * Returns an AddCommand object.
+     *
+     * @param fullCommand Full user's input String
+     * @return AddCommand object which then executes 'adding event'
+     * @throws DukeException If there is an empty description field, or missing handler '/at' in the description
+     */
+    private static Command parseEventCommand(String fullCommand) throws DukeException {
+        addTaskExceptionHandler(fullCommand, TaskType.EVENT);
+        return new AddCommand(fullCommand, TaskType.EVENT);
+    }
+
+    /**
+     * Parses down fullCommand for 'deadline'.
+     * Returns an AddCommand object.
+     *
+     * @param fullCommand Full user's input String
+     * @return AddCommand object which then executes 'adding deadline'
+     * @throws DukeException If there is an empty description field, error in format for date/time,
+     *                       or missing handler '/by'.
+     */
+    private static Command parseDeadlineCommand(String fullCommand) throws DukeException {
+        addTaskExceptionHandler(fullCommand, TaskType.DEADLINE);
+        return new AddCommand(fullCommand, TaskType.DEADLINE);
+    }
+
+    /**
+     * Parses down fullCommand for 'upcoming'.
+     * Returns an UpcomingCommand object.
+     *
+     * @param fullCommand Full user's input String
+     * @return UpcomingCommand object which then executes 'upcoming'
+     * @throws DukeException If there are unnecessary words included beyond the command keyword
+     */
+    private static Command parseUpcomingCommand(String fullCommand) throws DukeException {
+        if (!fullCommand.equals(COMMAND_UPCOMING)) {
+            throw new DukeException(ERROR_UNNECESSARY_DESCRIPTION);
+        }
+        return new UpcomingCommand();
+    }
+
+    /**
+     * Parses down fullCommand for 'done'.
+     * Returns an DoneCommand object.
+     *
+     * @param fullCommand Full user's input String
+     * @return DoneCommand object which then executes 'done'
+     * @throws DukeException If there is an empty description field,
+     *                       or there is an error in parsing an Integer from a String.
+     */
+    private static Command parseDoneCommand(String fullCommand) throws DukeException, NumberFormatException {
+        int getUserInputInt = getUserInputInt(fullCommand);
+        return new DoneCommand(getUserInputInt);
+    }
+
+    /**
+     * Parses down fullCommand for 'delete'.
+     * Returns an DeleteCommand object.
+     *
+     * @param fullCommand Full user's input String
+     * @return DeleteCommand object which then executes 'delete'
+     * @throws DukeException If there is an empty description field,
+     *                       or there is an error in parsing an Integer from a String.
+     */
+    private static Command parseDeleteCommand(String fullCommand) throws DukeException, NumberFormatException {
+        int getUserInputInt = getUserInputInt(fullCommand);
+        return new DeleteCommand(getUserInputInt);
+    }
+
+    /**
+     * Set up a scanner at the given file Path.
+     *
+     * @param filePath File path of database
+     * @throws IOException If there is file creation, file read/write error
+     */
     public static void setScanner(String filePath) throws IOException {
         File storedData = new File(filePath);
         setUpScanner = new Scanner(storedData);
     }
 
+    /**
+     * Return the boolean value to determine if there are more lines to scan in database.
+     *
+     * @return Boolean value for whether there are extra lines to scan in the database
+     */
+    public static boolean hasNext() {
+        return setUpScanner.hasNext();
+    }
+
+    /**
+     * Returns a boolean value to check if each task in database is marked as done or not
+     *
+     * @param isDoneString String that is marked as X (demarcate completion) or an empty string (non-completion)
+     * @return Boolean value to check if the task is done or not done
+     */
+    public static boolean isDone(String isDoneString) {
+        return isDoneString.equals("X");
+    }
+
+    /**
+     * Returns the data fields for each line within the database after scanning
+     *
+     * @return String array containing data fields after splitting by the delimiter '|'
+     * @throws DukeException If there are missing fields in a line of data
+     */
     public static String[] getLineData() throws DukeException {
         String lineDataString = setUpScanner.nextLine();
         String[] lineData = lineDataString.trim().split(" \\| ");
@@ -80,6 +248,25 @@ public class Parser {
             throw new DukeException(ERROR_MISSING_FIELDS);
         }
         return lineData;
+    }
+
+    /**
+     * Returns a boolean value of whether a task's deadline is less than three days away from today's date.
+     * A task is due in less than three days if the date has not been passed yet,
+     * and the difference in days is less than three.
+     *
+     * @param deadline Deadline of a task in the form (d/M/yyyy HHmm)
+     * @return Boolean of whether a task's deadline is three days away from the today's day (current date time)
+     */
+    public static boolean isThreeDaysAway(String deadline) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, formatter);
+        long diff = ChronoUnit.DAYS.between(currentDateTime, deadlineDateTime);
+        final int THREE_DAYS = 3;
+        boolean isWithinThreeDays = (int) diff <= THREE_DAYS;
+        boolean hasNotPassed = (int) diff > 0;
+        return isWithinThreeDays && hasNotPassed;
     }
 
     private static void addTaskExceptionHandler(String userInput, TaskType specificTask) throws
@@ -95,14 +282,6 @@ public class Parser {
                 throw new DukeException(ERROR_WRONG_HANDLE_TODO_DESCRIPTION);
             }
         }
-    }
-
-    public static boolean hasNext() {
-        return setUpScanner.hasNext();
-    }
-
-    public static boolean isDone(String isDoneString) {
-        return isDoneString.equals("X");
     }
 
     private static boolean isIncorrectFormat(String userInput, TaskType specificTask) {
@@ -127,6 +306,17 @@ public class Parser {
     }
 
     /**
+     * Returns boolean true if user's input lacks descriptive field, separated by space after the command keyword.
+     *
+     * @param userInput User's input in the Command Line.
+     * @return Boolean for empty description in user's input.
+     */
+    private static boolean isEmptyDescription(String userInput) {
+        String[] trimDescription = userInput.trim().split("\\s+", 2);
+        return trimDescription.length < 2;
+    }
+
+    /**
      * Returns the search key in String entered by the user after splitting the user Input String.
      * If the search key is missing, exception is thrown and the programme breaks out of this function.
      *
@@ -141,71 +331,6 @@ public class Parser {
         String[] splitStringBySpace = userInput.trim().split("\\s+", 2);
         String userInputSearchKey = splitStringBySpace[1];
         return userInputSearchKey;
-    }
-
-    /**
-     * Returns boolean true if user's input lacks descriptive field, separated by space after the command keyword.
-     *
-     * @param userInput User's input in the Command Line.
-     * @return Boolean for empty description in user's input.
-     */
-    private static boolean isEmptyDescription(String userInput) {
-        String[] trimDescription = userInput.trim().split("\\s+", 2);
-        return trimDescription.length < 2;
-    }
-
-    private static Command parseFindCommand(String fullCommand) throws DukeException {
-        if (isEmptyDescription(fullCommand)) {
-            throw new DukeException(ERROR_MISSING_FIND_DESCRIPTION);
-        }
-        String userInputSearchKey = getUserSearchKey(fullCommand);
-        return new FindCommand(userInputSearchKey);
-    }
-
-    private static Command parseListCommand(String fullCommand) throws DukeException {
-        if (!fullCommand.equals(COMMAND_LIST)) {
-            throw new DukeException(ERROR_UNNECESSARY_DESCRIPTION);
-        }
-        return new ListCommand();
-    }
-
-    private static Command parseByeCommand(String fullCommand) throws DukeException {
-        if (!fullCommand.equals(COMMAND_BYE)) {
-            throw new DukeException(ERROR_UNNECESSARY_DESCRIPTION);
-        }
-        return new ByeCommand();
-    }
-
-    private static Command parseTodoCommand(String fullCommand) throws DukeException {
-        addTaskExceptionHandler(fullCommand, TaskType.TODO);
-        return new AddCommand(fullCommand, TaskType.TODO);
-    }
-
-    private static Command parseEventCommand(String fullCommand) throws DukeException {
-        addTaskExceptionHandler(fullCommand, TaskType.EVENT);
-        return new AddCommand(fullCommand, TaskType.EVENT);
-    }
-
-    private static Command parseDeadlineCommand(String fullCommand) throws DukeException {
-        addTaskExceptionHandler(fullCommand, TaskType.DEADLINE);
-        return new AddCommand(fullCommand, TaskType.DEADLINE);
-    }
-
-    private static Command parseUpcomingCommand(String fullCommand) throws DukeException {
-        if (!fullCommand.equals(COMMAND_UPCOMING)) {
-            throw new DukeException(ERROR_UNNECESSARY_DESCRIPTION);
-        }
-        return new UpcomingCommand();
-    }
-
-    private static Command parseDoneCommand(String fullCommand) throws DukeException, NumberFormatException {
-        int getUserInputInt = getUserInputInt(fullCommand);
-        return new DoneCommand(getUserInputInt);
-    }
-
-    private static Command parseDeleteCommand(String fullCommand) throws DukeException, NumberFormatException {
-        int getUserInputInt = getUserInputInt(fullCommand);
-        return new DeleteCommand(getUserInputInt);
     }
 
     /**
@@ -231,24 +356,5 @@ public class Parser {
             throw new DukeException(ERROR_MISSING_INTEGER);
         }
         return userInputInt;
-    }
-
-    /**
-     * Returns a boolean value of whether a task's deadline is less than three days away from today's date.
-     * A task is due in less than three days if the date has not been passed yet,
-     * and the difference in days is less than three.
-     *
-     * @param deadline Deadline of a task in the form (d/M/yyyy HHmm)
-     * @return Boolean of whether a task's deadline is three days away from the today's day (current date time)
-     */
-    public static boolean isThreeDaysAway(String deadline) {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, formatter);
-        long diff = ChronoUnit.DAYS.between(currentDateTime, deadlineDateTime);
-        final int THREE_DAYS = 3;
-        boolean isWithinThreeDays = (int) diff <= THREE_DAYS;
-        boolean hasNotPassed = (int) diff > 0;
-        return isWithinThreeDays && hasNotPassed;
     }
 }

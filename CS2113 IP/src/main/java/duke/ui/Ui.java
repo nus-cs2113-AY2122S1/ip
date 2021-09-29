@@ -19,11 +19,9 @@ public class Ui {
 
     private static final Scanner commandScanner = new Scanner(System.in);
 
-    public String readCommand() {
-        String userInput = commandScanner.nextLine();
-        return userInput;
-    }
-
+    /**
+     * Welcomes the user with a welcome message.
+     */
     public void showWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -36,6 +34,23 @@ public class Ui {
         showHorizontalLine();
     }
 
+    /**
+     * Returns a user input String.
+     * Prompts for an input in the CLI using Scanner.
+     *
+     * @return User input String
+     */
+    public String readCommand() {
+        String userInput = commandScanner.nextLine();
+        return userInput;
+    }
+
+    /**
+     * Handles the UI aspect of deleting a task.
+     *
+     * @param taskDetails ToString of task that has been deleted
+     * @param taskCount   Number of tasks left after deletion
+     */
     public void handleDelete(String taskDetails, int taskCount) {
         System.out.println(DELETE_TASK_COMMENT);
         String formatOutput = String.format(" %s", taskDetails);
@@ -120,30 +135,50 @@ public class Ui {
         }
     }
 
-    public void showHorizontalLine() {
-        System.out.println(HORIZONTAL_LINE);
-    }
-
+    /**
+     * Displays a comment before exiting Duke.
+     */
     public void handleBye() {
         System.out.println(GOODBYE_COMMENT);
     }
 
+    /**
+     * Handles the printing of error messages upon catching an exception thrown.
+     *
+     * @param message Error message received from parsing the user's input
+     */
     public void showError(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Displays a load error if Duke fails to load the database due to I/O error.
+     */
     public void showLoadingError() {
         final String LOADING_ERROR = "LOAD ERROR ... LOAD ERROR ... LOAD ERROR ...";
         System.out.println(LOADING_ERROR);
     }
 
+    /**
+     * Displays and corrects the user's input deadline format, after catching a DateTimeParseException.
+     */
     public void showDeadlineError() {
         final String ERROR_WRONG_DEADLINE = "Please input your deadline in the format: d/M/yyyy HHmm :-)";
         System.out.println(ERROR_WRONG_DEADLINE);
     }
 
+    /**
+     * Displays the error message for index out of bounds error.
+     */
     public void showOutOfBoundsError() {
         final String ERROR_OUT_OF_BOUNDS = "That task does not exist! Stop fooling around!";
         System.out.println(ERROR_OUT_OF_BOUNDS);
+    }
+
+    /**
+     * Display a divider line in the CLI.
+     */
+    public void showHorizontalLine() {
+        System.out.println(HORIZONTAL_LINE);
     }
 }

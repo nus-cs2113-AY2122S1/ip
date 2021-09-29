@@ -15,6 +15,13 @@ public class Duke {
     private final Storage storage;
     private static TaskList tasks;
 
+    /**
+     * Constructor of Duke class, that creates the database if it does not exist, and loads the database.
+     *
+     * @param filePath File path of database
+     * @throws IOException   If there is file creation, file read/write error
+     * @throws DukeException If there is error during loading of database
+     */
     public Duke(String filePath) throws IOException, DukeException {
         ui = new Ui();
         storage = new Storage();
@@ -30,6 +37,13 @@ public class Duke {
         tasks = new TaskList();
     }
 
+    /**
+     * Executes the main part of Duke.
+     *
+     * @throws IOException               If there is file creation, read/write error
+     * @throws DateTimeParseException    If there is an error with format of date/time input from String
+     * @throws IndexOutOfBoundsException If the input is out-of-bounds
+     */
     public void run() throws IOException, DateTimeParseException, IndexOutOfBoundsException {
         ui.showWelcome();
         boolean isExit = false;
@@ -52,6 +66,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Main method of Duke.
+     *
+     * @param args Not used
+     * @throws IOException   If there is file creation, read/write error
+     * @throws DukeException If there is general errors within program
+     */
     public static void main(String[] args) throws IOException, DukeException {
         new Duke(filePath).run();
     }

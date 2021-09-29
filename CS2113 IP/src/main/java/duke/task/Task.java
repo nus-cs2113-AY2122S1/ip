@@ -33,6 +33,11 @@ public class Task {
         return trimString;
     }
 
+    /**
+     * Returns a formatted string for printing to the CLI.
+     *
+     * @return Formatted string containing three fields, taskType, status of completion and task description.
+     */
     @Override
     public String toString() {
         String formatString = String.format("[%s][%s] %s", taskType, getStatusIcon(), description);

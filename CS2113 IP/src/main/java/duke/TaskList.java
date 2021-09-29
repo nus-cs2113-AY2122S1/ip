@@ -17,15 +17,31 @@ public class TaskList {
     private static ArrayList<Task> tasks;
     private static int taskCount = 0;
 
+    /**
+     * Class constructor for TaskList, if there is loading error from database.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Class constructor for TaskList, with loading of database into tasks.
+     *
+     * @param filePath File path of database
+     * @throws IOException   If there is file creation, read/write error
+     * @throws DukeException If there are missing fields within the database
+     */
     public TaskList(String filePath) throws IOException, DukeException {
         tasks = new ArrayList<>();
         setUpDuke(filePath);
     }
 
+    /**
+     * Gets the specific task, according to the index number given.
+     *
+     * @param indexNumber Index number to specify the task within the task list
+     * @return Task object corresponding to the index number given
+     */
     public Task get(int indexNumber) {
         return tasks.get(indexNumber);
     }
@@ -41,7 +57,8 @@ public class TaskList {
      * Depending on the task type indicator, adds the specific task and its description into the list.
      *
      * @param filePath File path of database.
-     * @throws IOException If file to scan does not exist.
+     * @throws IOException   If file to scan does not exist.
+     * @throws DukeException If there are missing fields within the database.
      */
     private static void setUpDuke(String filePath) throws IOException, DukeException {
         Parser.setScanner(filePath);
@@ -83,6 +100,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes the task corresponding to the specific task given, changing to zero-index to access the array.
+     * Ui handles the deletion process.
+     *
+     * @param taskIndex Specified task number
+     * @param ui        Ui object to execute methods handling the user interface aspect
+     */
     public void deleteTask(int taskIndex, Ui ui) {
         int zeroIndex = taskIndex - 1;
         Task specifiedTask = tasks.get(zeroIndex);
@@ -92,6 +116,12 @@ public class TaskList {
         ui.handleDelete(taskDetails, taskCount);
     }
 
+    /**
+     * List all tasks in the task list.
+     * Ui to handle the formatting of the lists.
+     *
+     * @param ui Ui object to execute methods handling the user interface aspect
+     */
     public void listTask(Ui ui) {
         ui.handleListComment();
         int taskIndex = 1;
@@ -143,20 +173,28 @@ public class TaskList {
         }
     }
 
-    public void addTask(String userInput, TaskType specificTask, Ui ui) throws DateTimeParseException {
+    /**
+     * Adds task to the task list depending on the task type.
+     *
+     * @param fullCommand  User input String
+     * @param specificTask Enum that instructs which specific task to add (event, todo, deadline)
+     * @param ui           Ui object to execute methods handling the user interface aspect
+     * @throws DateTimeParseException If there are formatting errors for the deadline stipulated
+     */
+    public void addTask(String fullCommand, TaskType specificTask, Ui ui) throws DateTimeParseException {
         Task newTask;
         switch (specificTask) {
         case EVENT:
-            newTask = new Event(userInput);
+            newTask = new Event(fullCommand);
             break;
         case TODO:
-            newTask = new Todo(userInput);
+            newTask = new Todo(fullCommand);
             break;
         case DEADLINE:
-            newTask = new Deadline(userInput);
+            newTask = new Deadline(fullCommand);
             break;
         default:
-            newTask = new Task(userInput);
+            newTask = new Task(fullCommand);
             break;
         }
         tasks.add(newTask);
