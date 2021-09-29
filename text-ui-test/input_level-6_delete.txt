@@ -1,3 +1,4 @@
+purge
 delete 0
 delete -1
 delete 1
