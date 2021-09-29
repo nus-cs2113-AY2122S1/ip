@@ -4,350 +4,93 @@ import duke.exception.EmptyCommandArgumentException;
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidCommandSeparatorException;
 import duke.exception.InvalidTaskIndexException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.storage.Storage;
+import duke.ui.Ui;
+import duke.task.TaskList;
+import duke.task.Parser;
 
-import java.lang.reflect.Array;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Duke {
 
-    private ArrayList<Task> taskList = new ArrayList<>();
-    private int listSize = 0;
+    protected TaskList taskList;
+    protected Ui ui;
+    protected Storage storage;
+
+    public Duke() {
+        taskList = new TaskList();
+        ui = new Ui();
+        storage = new Storage();
+    }
 
     public void handleCommand() {
         String userInput;
         Scanner in = new Scanner(System.in);
 
         userInput = in.nextLine();
-        String[] inputWords = userInput.split(" ");
-        String userCommand = inputWords[0];
+        Parser parser = new Parser();
+        String[] inputWords = parser.getInputAsWordsArray(userInput);
+        String userCommand = parser.getCommand(inputWords);
 
         try {
             switch (userCommand) {
             case "bye":
-                printLine();
-                System.out.println("Bye. Hope to see you again soon!");
-                printLine();
+                ui.printBye();
                 break;
             case "list":
-                printLine();
-                System.out.println("Here are the tasks in your list:");
-                showList();
-                printLine();
+                taskList.showList();
                 handleCommand();
                 break;
             case "done":
-                printLine();
-                System.out.println("Nice! I've marked this task as done:");
-                markTaskAsDone(inputWords[1]);
-                printLine();
+                taskList.markTaskAsDone(inputWords[1]);
                 handleCommand();
                 break;
             case "deadline":
-                addDeadlineOrEventTask(inputWords, "deadline");
+                taskList.addDeadlineOrEventTask(inputWords, "deadline");
                 handleCommand();
                 break;
             case "event":
-                addDeadlineOrEventTask(inputWords, "event");
+                taskList.addDeadlineOrEventTask(inputWords, "event");
                 handleCommand();
                 break;
             case "todo":
-                addTodoTask(inputWords);
+                taskList.addTodoTask(inputWords);
                 handleCommand();
                 break;
             case "delete":
-                deleteTask(inputWords);
+                taskList.deleteTask(inputWords);
                 handleCommand();
                 break;
             case "find":
-                findTask(inputWords);
+                taskList.findTask(inputWords);
                 handleCommand();
                 break;
             default:
                 throw new InvalidCommandException();
             }
         } catch (InvalidCommandException e) {
-            printLine();
-            System.out.println("OOPS! I'm sorry, but I don't know what that means! :(");
-            System.out.println("Available commands: deadline, todo, event, done, list, delete, find, bye");
-            printLine();
+            ui.printErrorInvalidCommand();
             handleCommand();
         } catch (EmptyCommandArgumentException e) {
-            printLine();
-            System.out.println("OOPS! The description of the command word cannot be empty! " +
-                    "Please follow this format:");
-            System.out.println("deadline <your task here> /by <your deadline time>");
-            System.out.println("event <your task here> /at <your event time period>");
-            System.out.println("todo <your task here>");
-            System.out.println("delete <task number>");
-            System.out.println("find <keyword>");
-            printLine();
+            ui.printErrorEmptyCommandArg();
             handleCommand();
         } catch (InvalidCommandSeparatorException e) {
-            printLine();
-            System.out.println("OOPS! The deadline/event description must be separated from " +
-                    "the time using '/by' or '/at'. Please follow this format:");
-            System.out.println("deadline <your task here> /by <your deadline time>");
-            System.out.println("event <your task here> /at <your event time period>");
-            printLine();
+            ui.printErrorInvalidSeparator();
             handleCommand();
         } catch (InvalidTaskIndexException e) {
-            printLine();
-            System.out.println("OOPS! That task does not exist!");
-            printLine();
+            ui.printErrorInvalidTaskIndex();
             handleCommand();
         }
     }
 
-    public void deleteTask(String[] inputWords)
-            throws EmptyCommandArgumentException, InvalidTaskIndexException {
-
-        if (inputWords.length < 2) {
-            throw new EmptyCommandArgumentException();
-        }
-
-        int taskIndex = Integer.parseInt(inputWords[1]) - 1;
-        if (taskIndex < 0 || taskIndex >= taskList.size()) {
-            throw new InvalidTaskIndexException();
-        }
-
-        Task deletedTask = taskList.get(taskIndex);
-        taskList.remove(taskIndex);
-
-        printLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(deletedTask);
-        System.out.println("Now you have " + taskList.size() + " task(s) in the list.");
-        printLine();
-        updateTasksInFile();
-    }
-
-    public void addDeadlineOrEventTask(String[] inputWords, String type)
-            throws EmptyCommandArgumentException, InvalidCommandSeparatorException {
-        // Throw exception where command argument is empty
-        if (inputWords.length < 2) {
-            throw new EmptyCommandArgumentException();
-        }
-
-        // Find separator index
-        int separatorIndex = -1;
-        for (int i = 1; i < inputWords.length; i++) {
-            if (inputWords[i].equals("/by") || inputWords[i].equals("/at")) {
-                separatorIndex = i;
-                break;
-            }
-        }
-
-        // Throw exception where separator is not found
-        if (separatorIndex == -1) {
-            throw new InvalidCommandSeparatorException();
-        }
-
-        // Set description
-        String description = inputWords[1];
-        for (int i = 2; i < separatorIndex; i++) {
-            description = description + " " + inputWords[i];
-        }
-
-        // Set deadline (by when) or event time (at what time)
-        String time = inputWords[separatorIndex + 1];
-        for (int i = separatorIndex + 2; i < inputWords.length; i++) {
-            time = time + " " + inputWords[i];
-        }
-
-        if (type.equals("deadline")) {
-            taskList.add(new Deadline(description, time));
-        } else {
-            taskList.add(new Event(description, time));
-        }
-
-        printLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskList.get(taskList.size() - 1));
-        printLine();
-        appendTaskToFile(taskList.get(taskList.size() - 1));
-
-        listSize++;
-    }
-
-    public void addTodoTask(String[] inputWords) throws EmptyCommandArgumentException {
-        // Throw exception where command argument is empty
-        if (inputWords.length < 2) {
-            throw new EmptyCommandArgumentException();
-        }
-
-        String description = inputWords[1];
-        for (int i = 2; i < inputWords.length; i++) {
-            description = description + " " + inputWords[i];
-        }
-
-        taskList.add(new Todo(description));
-
-        printLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskList.get(taskList.size() - 1));
-        printLine();
-        appendTaskToFile(taskList.get(taskList.size() - 1));
-
-        listSize++;
-    }
-
-    public void showList() {
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.get(i));
-        }
-    }
-
-    public void markTaskAsDone(String taskNumber) {
-        int taskIndex = Integer.parseInt(taskNumber) - 1;
-        taskList.get(taskIndex).setAsDone();
-        System.out.println(taskList.get(taskIndex));
-        updateTasksInFile();
-    }
-
-    public static void printLine() {
-        System.out.println("-----------------------------------------------");
-    }
-
-    public void createDataFile() {
-        File dataFolder = new File("data");
-        File dataFile = new File("data/duke.txt");
-
-        try {
-            dataFolder.mkdir();
-            dataFile.createNewFile();
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-    }
-
-    public void loadDataFile() {
-        File dataFile = new File("data/duke.txt");
-        try {
-            Scanner s = new Scanner(dataFile);
-            while (s.hasNext()) {
-                processDataFile(s.nextLine());
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(("File not found!"));
-        }
-    }
-
-    // Takes in task details in 'file' format and interprets it.
-    public void processDataFile(String dataTask) {
-        String[] taskDetails = dataTask.split(" \\| ");
-        String taskType = taskDetails[0];
-        boolean taskIsDone = Boolean.parseBoolean(taskDetails[1]);
-        String taskDescription = taskDetails[2];
-
-        switch (taskType) {
-        case "T":
-            taskList.add(new Todo(taskDescription));
-            if (taskIsDone) {
-                taskList.get(taskList.size() - 1).setAsDone();
-            }
-            listSize++;
-            break;
-        case "D":
-            String deadline = taskDetails[3];
-            taskList.add(new Deadline(taskDescription, deadline));
-            if (taskIsDone) {
-                taskList.get(taskList.size() - 1).setAsDone();
-            }
-            listSize++;
-            break;
-        case "E":
-            String eventTime = taskDetails[3];
-            taskList.add(new Event(taskDescription, eventTime));
-            if (taskIsDone) {
-                taskList.get(taskList.size() - 1).setAsDone();
-            }
-            listSize++;
-            break;
-        default:
-            break;
-        }
-    }
-
-    // This function is executed when we add a task to the list. The task is added to the file.
-    public void appendTaskToFile(Task task) {
-        try {
-            FileWriter file = new FileWriter("data/duke.txt", true);
-            String taskDetails = task.getTaskDetailsInFileFormat() + "\n";
-            file.write(taskDetails);
-            file.close();
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-    }
-
-    // This function is executed when we need to update the tasks in the file.
-    // ie. When we delete a task, or mark a task as done.
-    public void updateTasksInFile() {
-        try {
-            FileWriter file = new FileWriter("data/duke.txt");
-            String taskDetails = "";
-
-            for (int i = 0; i < taskList.size(); i++) {
-                taskDetails += taskList.get(i).getTaskDetailsInFileFormat() + "\n";
-            }
-
-            file.write(taskDetails);
-            file.close();
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-    }
-
-    public void findTask(String[] inputWords) throws EmptyCommandArgumentException {
-        if (inputWords.length < 2) {
-            throw new EmptyCommandArgumentException();
-        }
-
-        printLine();
-        System.out.println("Here are the matching tasks in your list:");
-
-        int counter = 1;
-        for (int i = 0; i < taskList.size(); i++) {
-            String currentTaskDescription = taskList.get(i).getDescription();
-
-            if (currentTaskDescription.contains(inputWords[1])) {
-                System.out.println(counter + ". " + taskList.get(i));
-                counter++;
-            }
-        }
-
-        if (counter == 1) {
-            System.out.println("No matching tasks found.");
-        }
-        printLine();
+    public void run() {
+        ui.printWelcome();
+        storage.createDataFile();
+        storage.loadDataFile(taskList);
+        handleCommand();
     }
 
     public static void main(String[] args) {
-        Duke chatBot = new Duke();
-
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        printLine();
-
-        chatBot.createDataFile();
-        chatBot.loadDataFile();
-        Scanner in = new Scanner(System.in);
-        chatBot.handleCommand();
+        new Duke().run();
     }
 }
