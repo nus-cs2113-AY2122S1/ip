@@ -241,7 +241,7 @@ ____________________________________________________________________________
 Command | Format, Examples
 ------------ | -------------
 Exit | `bye`
-Add | `todo TASKNAME`, `deadline TASKNAME /by DATE`, `event TASKNAME /at DATE`
+Add | `todo DESCRIPTION`, `deadline DESCRIPTION / DATE`, `event DESCRIPTION / DATE`
 Delete | `delete INDEX`
 Done | `done INDEX`
 List | `list`
