@@ -3,15 +3,17 @@ toDoList is a Command Line Interface (CLI) application that
 helps you to manage your tasks.
 
 ## Contents of User Guide
-- [Features] (#user-content-features)
+- Features
   1. [`list` - List all tasks](#listing-all-tasks)
-  2. [`todo` - Create a todo task](#user-content-adding-a-todo)
-  3. [`deadline` - Create a deadline task](#user-content-adding-a-deadline)
-  4. [`event` - Create an event task](#user-content-adding-an-event)
-  5. [`done` - Mark task as done](#user-content-mark-as-done)
-  6. [`delete` - Delete task from list](#user-content-delete-task)
-  7. [`find` - Find tasks based on keyword](#user-content-find-task)
-  8. [`bye` - Exit program](#user-content-exit-program)
+  2. [`todo` - Create a todo task](#adding-a-todo)
+  3. [`deadline` - Create a deadline task](#adding-a-deadline)
+  4. [`event` - Create an event task](#adding-an-event)
+  5. [`done` - Mark task as done](#mark-as-done)
+  6. [`delete` - Delete task from list](#delete-task)
+  7. [`find` - Find tasks based on keyword](#find-task)
+  8. [`bye` - Exit program](#exit-program)
+- Command Summary
+
 ## Features 
 toDoList supports 3 types of tasks: `To-Do`, `Deadline` and `Event`.
 
@@ -29,8 +31,8 @@ Expected outcome:
 ```
      Here are the tasks in your list:
      1.[T][ ] add book
-     2.[E][X] see book (at: 1030)
-     3.[D][ ] submit work (by: 1040)
+     2.[E][X] see book (at: 29/09/21 2359)
+     3.[D][ ] submit work (by: 30/10/21 1800)
 ```
 
 ### Adding a Todo
@@ -134,5 +136,16 @@ Exits from toDoList.
 
 Format: `bye`
 
+## Command Summary
+|Commands|Format, Examples|
+|---|---|
+|**List**| `list`
+|**Todo**| `todo <TASK_NAME>` <br> eg: `todo add book`
+|**Deadline**| `deadline <TASK_NAME> /by <DATE>` <br> eg: `deadline finish assignment /by 29/09/21 2359`
+|**Event**| `event <TASK_NAME> /at <DATE>` <br> eg: `event birthday party /at 30/10/21 1800`
+|**Done**| `done <TASK_INDEX>` <br> eg: `done 3`
+|**Delete**| `delete <TASK_INDEX>` <br> eg: `delete 2`
+|**Find**| `find <KEYWORD>` <br> eg: `find book`
+|**Bye**| `bye`
 
 
