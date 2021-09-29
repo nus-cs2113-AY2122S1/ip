@@ -141,13 +141,13 @@ public class TaskList {
      * @throws ArithmeticException when task list is empty.
      */
     public static void findKeyTasks(String userLine, ArrayList<Task> taskList) {
-        String key = Parser.parseFindTaskKey(userLine);
+        String key = Parser.parseFindTaskKey(userLine).toLowerCase();
         if (taskList.size() == 0) {
             throw new ArithmeticException();
         } else {
             int matchedTaskCount = 0;
             for (Task task : taskList) {
-                if (task.getDescription().contains(key)) {
+                if (task.getDescription().toLowerCase().contains(key)) {
                     if (matchedTaskCount == 0) {
                         System.out.println(LINE_W_NL + "Here are the matching tasks in your list Sir:");
                     }
