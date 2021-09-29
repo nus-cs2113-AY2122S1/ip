@@ -5,8 +5,8 @@ import duke.TaskList;
 import duke.Ui;
 import duke.tasks.Deadline;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
@@ -37,10 +37,11 @@ public class DeadlineCommand extends Command {
 
         String memWritableText;
         try {
-            LocalDate byDate = LocalDate.parse(byText);
-            String byDateAsString = dateToString(byDate);
-            memWritableText = formatForMemory(description, byDateAsString, tasks.getTasks().size(), byDate);
-            tasks.getTasks().add(new Deadline(description, byDateAsString, byDate));
+            String[] byDateTimeArray = byText.split(" ");
+            LocalDateTime byDateTime = LocalDateTime.parse(byDateTimeArray[0] + "T" + byDateTimeArray[1]);
+            String byDateAsString = ui.dateTimeToString(byDateTime);
+            memWritableText = formatForMemory(description, byDateAsString, tasks.getTasks().size(), byDateTime);
+            tasks.getTasks().add(new Deadline(description, byDateAsString, byDateTime));
         } catch (Exception e) {
             memWritableText = formatForMemory(description, byText, tasks.getTasks().size());
             tasks.getTasks().add(new Deadline(description, byText));
@@ -48,11 +49,6 @@ public class DeadlineCommand extends Command {
         storage.appendToMem(memWritableText);
     }
 
-    private String dateToString(LocalDate date) {
-        return Integer.toString(date.getDayOfMonth()) + " "
-                + date.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " "
-                + Integer.toString(date.getYear());
-    }
     private static String formatForMemory(String description, String byText, int size) {
         if (size == 0) {
             return "D~0~" + description + "~" + byText;
@@ -61,11 +57,11 @@ public class DeadlineCommand extends Command {
         }
     }
 
-    private static String formatForMemory(String description, String byText, int size, LocalDate byDate) {
+    private static String formatForMemory(String description, String byText, int size, LocalDateTime byDateTime) {
         if (size == 0) {
-            return "D~0~" + description + "~" + byText + "~" + byDate;
+            return "D~0~" + description + "~" + byText + "~" + byDateTime;
         } else {
-            return System.lineSeparator() + "D~0~" + description + "~" + byText + "~" + byDate;
+            return System.lineSeparator() + "D~0~" + description + "~" + byText + "~" + byDateTime;
         }
     }
 }

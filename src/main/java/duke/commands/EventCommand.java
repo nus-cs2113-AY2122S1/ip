@@ -3,7 +3,10 @@ package duke.commands;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import duke.tasks.Deadline;
 import duke.tasks.Event;
+
+import java.time.LocalDateTime;
 
 public class EventCommand extends Command {
     public static final int END_OF_EVENT_INDEX = 5;
@@ -29,16 +32,33 @@ public class EventCommand extends Command {
         int startOfAtIndex = fullCommand.indexOf("/at") + AT_LENGTH;
         String description = fullCommand.substring(END_OF_EVENT_INDEX, endOfDescriptionIndex).trim();
         String atText = fullCommand.substring(startOfAtIndex).trim();
-        String memWritableText = formatForMemory(description, atText, tasks.getTasks().size());
-        tasks.getTasks().add(new Event(description, atText));
+        String memWritableText;
+        try {
+            String[] atDateTimeArray = atText.split(" ");
+            LocalDateTime atDateTime = LocalDateTime.parse(atDateTimeArray[0] + "T" + atDateTimeArray[1]);
+            String byDateAsString = ui.dateTimeToString(atDateTime);
+            memWritableText = formatForMemory(description, byDateAsString, tasks.getTasks().size(), atDateTime);
+            tasks.getTasks().add(new Event(description, byDateAsString, atDateTime));
+        } catch (Exception e) {
+            memWritableText = formatForMemory(description, atText, tasks.getTasks().size());
+            tasks.getTasks().add(new Event(description, atText));
+        }
         storage.appendToMem(memWritableText);
     }
 
-    private String formatForMemory(String description, String at, int size) {
+    private String formatForMemory(String description, String atText, int size) {
         if (size == 0) {
-            return "T~0~" + description + "~" + at;
+            return "E~0~" + description + "~" + atText;
         } else {
-            return System.lineSeparator() + "T~0~" + description + "~" + at;
+            return System.lineSeparator() + "E~0~" + description + "~" + atText;
+        }
+    }
+
+    private static String formatForMemory(String description, String atText, int size, LocalDateTime atDateTime) {
+        if (size == 0) {
+            return "E~0~" + description + "~" + atText + "~" + atDateTime;
+        } else {
+            return System.lineSeparator() + "E~0~" + description + "~" + atText + "~" + atDateTime;
         }
     }
 }

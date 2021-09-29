@@ -1,22 +1,22 @@
 package duke.tasks;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Deadline extends Task{
 
     protected String byText;
-    protected LocalDate byDate;
+    protected LocalDateTime byDateTime;
 
     public Deadline(String description, String byText) {
         super(description);
         this.byText = byText;
-        this.byDate = null;
+        this.byDateTime = null;
     }
 
-    public Deadline(String description, String byText, LocalDate byDate) {
+    public Deadline(String description, String byText, LocalDateTime byDateTime) {
         super(description);
         this.byText = byText;
-        this.byDate = byDate;
+        this.byDateTime = byDateTime;
     }
 
     @Override
