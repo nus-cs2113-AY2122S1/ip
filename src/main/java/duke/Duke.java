@@ -19,6 +19,12 @@ public class Duke {
     private final Ui ui;
 
 
+    /**
+     * Initialise all classes and load save file if it exists otherwise create a new save file
+     *
+     * @param fileName The name of the save file
+     * @param fileDir The directory of the save file
+     */
     public Duke(String fileName, String fileDir) {
         storage = new Storage(fileName, fileDir);
         ui = new Ui();

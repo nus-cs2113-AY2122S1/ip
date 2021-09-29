@@ -16,6 +16,10 @@ public class Storage {
     public final ArrayList<Task> items = new ArrayList<>();
 
 
+    /**
+     * @param fileDir the directory of the save file
+     * @param fileName the name of the save file
+     */
     public Storage(String fileName, String fileDir) {
         this.fileDir = fileDir;
         this.fileName = fileName;

@@ -6,6 +6,9 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * @param description The description of the task given by the user
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

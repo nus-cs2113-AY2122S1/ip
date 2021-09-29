@@ -8,6 +8,10 @@ public class Deadlines extends Task {
     protected LocalDate date;
     protected LocalTime time;
 
+    /**
+     * @param description The description of the task given by the user
+     * @param by the deadline given by the user for the task
+     */
     public Deadlines(String description, String by) {
         super(description);
         this.by = by;

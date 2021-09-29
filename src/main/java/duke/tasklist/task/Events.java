@@ -9,6 +9,10 @@ public class Events extends Task {
     protected LocalDate date;
     protected LocalTime time;
 
+    /**
+     * @param description The description of the task given by the user
+     * @param at the deadline given by the user for the task
+     */
     public Events(String description, String at) {
         super(description);
         this.at = at;

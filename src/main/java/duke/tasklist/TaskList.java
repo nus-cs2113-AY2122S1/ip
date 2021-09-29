@@ -10,6 +10,9 @@ public class TaskList {
 
     protected int taskCount;
 
+    /**
+     * @param items The list of tasks stored in an ArrayList
+     */
     public TaskList(ArrayList<Task> items) {
         loadTaskCount(items);
     }
