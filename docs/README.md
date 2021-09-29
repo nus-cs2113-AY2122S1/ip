@@ -1,22 +1,22 @@
 # User Guide
-Duke is a **Personal Assistant Chatbot** that helps a person to **keep track of various things** using a Command Line Interface(CLI). If you can type fast, Duke is able to track and manage your tasks faster compared to a hypoethetical Graphical User Interface (GUI) version of the app. 
+Duke is a **Personal Assistant Chatbot** that helps a person to **keep track of various things** using a Command Line Interface(CLI). If you can type fast, Duke is able to track and manage your tasks faster compared to a hypothetical Graphical User Interface (GUI) version of the app. 
 
-* [Quick Start](https://xingjie99.github.io/ip/#quick-start)
-* [Features](https://xingjie99.github.io/ip/#features)
-  - [Adding a Todo task](https://xingjie99.github.io/ip/#adding-a-todo-task-todo)
-  - [Adding an Event task](https://xingjie99.github.io/ip/#adding-an-event-task-event)
-  - [Adding a Deadline task](https://xingjie99.github.io/ip/#adding-a-deadline-task-deadline)
-  - [Listing all tasks](https://xingjie99.github.io/ip/#listing-all-tasks-list)
-  - [Mark as done](https://xingjie99.github.io/ip/#mark-as-done-done)
-  - [Deleting task](https://xingjie99.github.io/ip/#deleting-task-delete)
-  - [Finding Tasks](https://xingjie99.github.io/ip/#finding-tasks-find)
-  - [Exiting program](https://xingjie99.github.io/ip/#exiting-program-bye)
-* [Command Summary](https://xingjie99.github.io/ip/#command-summary)
+* [Quick Start](https://github.com/xingjie99/ip/blob/master/docs/README.md#quick-start)
+* [Features](https://github.com/xingjie99/ip/blob/master/docs/README.md#features)
+  - [Adding a Todo task](https://github.com/xingjie99/ip/blob/master/docs/README.md#adding-a-todo-task-todo)
+  - [Adding an Event task](https://github.com/xingjie99/ip/blob/master/docs/README.md#adding-an-event-task-event)
+  - [Adding a Deadline task](https://github.com/xingjie99/ip/blob/master/docs/README.md#adding-a-deadline-task-deadline)
+  - [Listing all tasks](https://github.com/xingjie99/ip/blob/master/docs/README.md#listing-all-tasks-list)
+  - [Mark as done](https://github.com/xingjie99/ip/blob/master/docs/README.md#mark-as-done-done)
+  - [Deleting task](https://github.com/xingjie99/ip/blob/master/docs/README.md#deleting-task-delete)
+  - [Finding Tasks](https://github.com/xingjie99/ip/blob/master/docs/README.md#finding-tasks-find)
+  - [Exiting program](https://github.com/xingjie99/ip/blob/master/docs/README.md#exiting-program-bye)
+* [Command Summary](https://github.com/xingjie99/ip/blob/master/docs/README.md#command-summary)
 
 ## Quick Start 
 1. Ensure you have Java 11 or above installed in your computer.
 2. Download the latest `IP.jar` from [here](https://github.com/xingjie99/ip/releases/tag/DukeFinal).
-3. Copy the file to the folder you want to use as the home folder for your DukeChatBot.
+3. Copy the file to the folder you want to use as the home folder for your Duke ChatBot.
 4. Go to command prompt and change the directory to the file's location.
 5. Write the following code:
   ```
@@ -127,6 +127,7 @@ Now you have 2 tasks in the list.
 ### Finding Tasks: `find`
 Finds all tasks in the list containing a keyword.
 Format: `find <KEYWORD>`
+* `<KEYWORD>` is case-sensitive.
 
 Example of input:
 ```
