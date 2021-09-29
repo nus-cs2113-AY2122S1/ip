@@ -1,6 +1,7 @@
 package Duke.SaveFile;
 
 import Duke.Exception.DukeException;
+import Duke.Task.TaskListTypes;
 import Duke.TaskTypes.Task;
 import Duke.TaskTypes.Event;
 import Duke.TaskTypes.Deadline;
