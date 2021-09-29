@@ -42,6 +42,8 @@ public class ErrorReport {
         case EMPTY_LIST:
             System.out.println("No items in list yet.");
             break;
+        case SAVE_ERROR:
+            System.out.print("Something went wrong, data can't be saved.");
         default:
             System.out.println("UNIDENTIFIED ERROR!");
         }

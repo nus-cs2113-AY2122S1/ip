@@ -13,4 +13,10 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (at:" + duration + ")" ;
     }
+
+    @Override
+    public String getStorageFormat() {
+        return "E" + GAP + this.getStorageFormatStatus()
+                + GAP + description + GAP + duration;
+    }
 }

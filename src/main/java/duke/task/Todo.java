@@ -10,4 +10,10 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String getStorageFormat() {
+        return "T" + GAP + this.getStorageFormatStatus()
+                + GAP + description;
+    }
 }

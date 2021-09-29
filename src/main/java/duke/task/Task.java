@@ -1,9 +1,10 @@
 package duke.task;
 
-public class Task {
+public abstract class Task {
 
     protected String description;
     protected boolean isDone;
+    public static String GAP = " | ";
 
     public Task(String description) {
         this.description = description;
@@ -22,8 +23,18 @@ public class Task {
         }
     }
 
+    public int getStorageFormatStatus() {
+        if (isDone) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     public String toString() {
         return "[" + getDone() + "]" + description;
     }
+
+    public abstract String getStorageFormat();
 }
 
