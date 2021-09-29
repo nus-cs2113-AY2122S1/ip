@@ -18,6 +18,10 @@ public class Tasks {
         this.description = description;
     }
 
+    public String seeDescription() {
+        return description;
+    }
+
     public String toString() {
         return "[" + this.type + "]" + "[" + this.done + "] " + this.description;
     }

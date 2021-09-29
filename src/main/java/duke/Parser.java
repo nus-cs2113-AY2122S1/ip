@@ -40,6 +40,14 @@ public class Parser {
                 Ui.displayDeleteNoError();
             }
         }
+        else if ((line.split(" ")[0].equals("find"))) {
+            try {
+                String tobeSearched = ((line.split(" ")[1]));
+                TaskList.search(tobeSearched);
+            } catch (Exception DukeException) {
+                Ui.displayTaskNoMissing();
+            }
+        }
 
         else{
             if(!(line.split(" ")[0].equals("bye"))){

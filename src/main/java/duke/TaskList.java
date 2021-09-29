@@ -1,9 +1,6 @@
 package duke;
 
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Tasks;
-import Tasks.Todo;
+import Tasks.*;
 
 
 import java.time.LocalDateTime;
@@ -79,4 +76,26 @@ public class TaskList {
     public static void listLast() {
         System.out.println(List[listSize]);
     }
-}
+
+    public static void search(String tobeSearched) {
+        int foundCounter =1;
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < listSize; i++) {
+                if ((List[i].seeDescription()).contains(tobeSearched)) {
+                    System.out.println(foundCounter + "." + List[i]);
+                }
+            }
+        }
+
+        }
+//
+//        ArrayList<Task> foundTasks = new ArrayList<>();
+//        for (Task task : tasks) {
+//            if (task.getDescription().toLowerCase().contains(keyword)) {
+//                foundTasks.add(task);
+//            }
+//        }
+//        return foundTasks;
+
+
+
