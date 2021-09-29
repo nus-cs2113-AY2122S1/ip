@@ -47,10 +47,10 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(fileName);
             for (Task saveList : saveLists) {
-                fw.write(saveList.toString().charAt(1) + "/");
-                fw.write(saveList.getStatus() + "/" + saveList.getDescription());
+                fw.write(saveList.toString().charAt(1) + "|");
+                fw.write(saveList.getStatus() + "|" + saveList.getDescription());
                 if (!saveList.getDate().equals("empty")) {
-                    fw.write("/" + saveList.getDate());
+                    fw.write("|" + saveList.getDate());
                 }
                 fw.write("\n");
             }
@@ -66,7 +66,7 @@ public class Storage {
         File saveFile = new File(fileName);
         Scanner s = new Scanner(saveFile);
         while (s.hasNext()) {
-            String[] chars = s.nextLine().split("/");
+            String[] chars = s.nextLine().split("\\|");
             String type = chars[0].trim();
             String status = chars[1].trim();
             String description = chars[2].trim();

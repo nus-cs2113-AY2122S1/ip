@@ -1,5 +1,8 @@
 package duke.tasklist.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -22,6 +25,10 @@ public class Task {
     }
     public String getDate() {
         return "empty";
+    }
+
+    public LocalDate getDeadline() {
+        return null;
     }
     public void markDone() {
 
