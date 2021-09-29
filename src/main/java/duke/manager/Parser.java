@@ -18,7 +18,6 @@ public class Parser {
     public static final int INDEX_FIND = 5;
     public static final int INDEX_DESCRIPTION_TODO = 5;
     public static final String DELIMITER_SPACE = " ";
-    public static final String DELIMITER_SLASH = "/";
     public static final String DELIMITER_EVENT = "/at";
     public static final String DELIMITER_DEADLINE = "/by";
     public static final int DESCRIPTION_INDEX_EVENT = 6;
