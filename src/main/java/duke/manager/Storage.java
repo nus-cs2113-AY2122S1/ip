@@ -1,33 +1,32 @@
 package duke.manager;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
+
 public class Storage {
     private static final String FILE_PATH = "duketasks.txt";
-    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
     private static final String TASK_TODO = "T";
     private static final String TASK_DEADLINE = "D";
     private static final String TASK_EVENT = "E";
     private static final String TASK_DONE = "1";
     private static final String DELIMITER_STORAGE = "\\|";
+    private static final String NEWLINE = "\n";
     private static final int INDEX_TASKTYPE = 0;
     private static final int INDEX_TASKISDONE = 1;
     private static final int INDEX_TASKDESCRIPTION = 2;
     private static final int INDEX_TASKDATETIME = 3;
 
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
     /**
      * Initial function for getting stored tasks
@@ -135,18 +134,18 @@ public class Storage {
         return splitString[INDEX_TASKDESCRIPTION].trim();
     }
 
-    private static void createEventObject(ArrayList<Task> tasks, String s, String taskDescription) {
-        LocalDateTime eventAt = LocalDateTime.parse(s.strip(), formatter);
-        tasks.add(new Event(taskDescription, eventAt, s));
+    private static void createEventObject(ArrayList<Task> tasks, String dateTime, String eventDescription) {
+        LocalDateTime eventAt = LocalDateTime.parse(dateTime.strip(), DateAndTimeParser.inputFormatter);
+        tasks.add(new Event(eventDescription, eventAt, dateTime));
     }
 
-    private static void createDeadlineObject(ArrayList<Task> tasks, String s, String taskDescription) {
-        LocalDateTime deadlineBy = LocalDateTime.parse(s.strip(), formatter);
-        tasks.add(new Deadline(taskDescription, deadlineBy, s));
+    private static void createDeadlineObject(ArrayList<Task> tasks, String dateTime, String deadlineDescription) {
+        LocalDateTime deadlineBy = LocalDateTime.parse(dateTime.strip(), DateAndTimeParser.inputFormatter);
+        tasks.add(new Deadline(deadlineDescription, deadlineBy, dateTime));
     }
 
-    private static void createTodoObject(ArrayList<Task> tasks, String taskDescription) {
-        tasks.add(new Todo(taskDescription));
+    private static void createTodoObject(ArrayList<Task> tasks, String todoDescription) {
+        tasks.add(new Todo(todoDescription));
     }
 
     /**
@@ -158,7 +157,7 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
             for (Task task : tasks) {
-                String toAdd = task.fileDescription() + "\n";
+                String toAdd = task.fileDescription() + NEWLINE;
                 fileWriter.write(toAdd);
             }
             fileWriter.close();
