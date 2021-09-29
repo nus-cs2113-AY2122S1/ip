@@ -11,10 +11,10 @@ Duke is a Personal Assistant Chatbot that helps a person to keep track of variou
 
 ## Features
 **`Command Format`**
-*` blahblahblah`
-*` blahblahblah`
-*` blahblahblah`
-*` blahblahblah`
+* ` blahblahblah`
+* ` blahblahblah`
+* ` blahblahblah`
+* ` blahblahblah`
 
 ### Listing all tasks: `list`
 Shows a list of all tasks.
