@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Duke
 {
 
-    public static final String FILE_PATH = "data/tasks.txt";
+    public static final String FILE_PATH = "data\\tasks.txt";
     public static ArrayList<Task> tasks = new ArrayList<>();
 
     /**

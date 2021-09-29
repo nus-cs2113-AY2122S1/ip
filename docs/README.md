@@ -15,7 +15,7 @@ Duke's "targets" for execution! Because who says being responsible can't be fun,
   - [Mark activities as Done](#mark-activities-as-done)
   - [Delete activities from your list](#delete-activities-from-your-list)
   - [Find activities with a simple search](#find-activities-with-a-simple-search)
-  - [Auto-Save & Auto-Load](#auto-save--auto-load)
+  - [Auto-Save & Auto-Load (*IMPORTANT*)](#auto-save--auto-load)
 - [Usage](#usage)
   - [Todo](#1-todo)
   - [Event](#2-event)
@@ -31,9 +31,12 @@ Step 1: Ensure you have __Java version 11__ installed on your computer. You may 
 
 Step 2: Download the latest version of Duke from [here](https://github.com/ChrisLangton/ip/releases).
 
-Step 3: Run 'java -jar Duke.jar' in your terminal window.
+Step 3: Open a terminal window in the folder where the jar file is stored, 
+and run the command  `java -jar Duke.jar` in your terminal window.
 
 Step 4: Tada! You are now using Duke on your command line.
+
+Step 5: Please read the rest of this short user guide to understand Duke's capabilities and storage features. Have fun! 😄
 
 ## Features
 
@@ -54,13 +57,14 @@ This feature helps you to __de-clutter your list__ - be it getting rid of alread
 This feature __helps you find (using keyword) tasks in your list__ that you are searching for. Whether you've temporarily forgotten about Duke's "delete" feature or are just that busy, this feature will help resolve all your search queries.
 
 #### Auto-Save & Auto-Load
-When you __end your session with Duke__, the Auto-Save feature will save the latest version of your list into a text file (see [Usage: bye](#8-bye)) for ease of transfer between computers and for memory purposes. When
-you boot Duke up, the Auto-Load feature will load your previous saved text file onto the command line automatically too! No addidtional work needed ✌🏻
+When you __end your session with Duke__, the Auto-Save feature will automatically save your list as a text file titled "tasks.txt", in a folder titled "data" within your main* folder. This is for ease of transfer between computers and for memory purposes. When
+you boot Duke up, the Auto-Load feature will load your previously saved text file onto the command line automatically too! No addidtional work needed ✌🏻
+> main* folder refers to the folder within which you have stored Duke.jar.
 
 ## Usage
 Duke works through the user (you) keying in commands on the command line. This section outlines how to use each command.
 
-> Tip: if you are ever unsure, key in `print commands` to display the valid commands that Duke can act on!
+> Tip: if you are ever unsure, you can key in `print commands` to display the valid commands that Duke can act on!
 
 
 ### 1. Todo
@@ -176,7 +180,7 @@ ____________________________________________________________
 The resulting activities are all activities in your list containing your key word/phrase.
 
 ### 8. Bye
-Command `bye` ends your session with Duke and saves it in "tasks.txt" in the file titled "data".
+Command `bye` ends your session with Duke and saves it in "tasks.txt" in a folder titled "data".
 
 Example: `bye` will produce this output:
 
