@@ -1,7 +1,6 @@
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedList;
 
 public class Storage{
 
@@ -16,7 +15,6 @@ public class Storage{
     /**
      * Check if there are existing saved files.
      * Load the file if there is.
-     * If not, will update user that the program will create a new list.
      * @param filePath
      */
     public TaskList load(String filePath){
@@ -25,7 +23,8 @@ public class Storage{
             BufferedReader bufferedReader = new BufferedReader(
                     new FileReader(path.toAbsolutePath().toString()));
             String outputFileLineText = "";
-            while((outputFileLineText = bufferedReader.readLine()) != null){
+            while((outputFileLineText = bufferedReader.readLine()) != null
+                && outputFileLineText != ""){
                 String command = outputFileLineText.substring(0, 3);
                 switch(command){
                 case "[T]":
@@ -46,6 +45,8 @@ public class Storage{
         } catch(IOException e){
             System.out.println("There is no text in the file");
             System.out.println(e);
+        } catch(StringIndexOutOfBoundsException e){
+            System.out.println("Empty file. We will rewrite the file\n");
         }
         return taskList;
     }
@@ -83,7 +84,7 @@ public class Storage{
         } else{
             completed = false;
         }
-        taskDescriptionOnly = userInput.substring(userInput.indexOf(" ", 7), userInput.indexOf("/"));
+        taskDescriptionOnly = userInput.substring(userInput.indexOf(" ", 5), userInput.indexOf("/"));
         Events eventTask = new Events( taskDescriptionOnly,
                 completed, parser.identifyDeadlineCommand(userInput)[1]);
         taskList.addTasks(eventTask);
@@ -100,10 +101,8 @@ public class Storage{
         String taskDescriptionOnly = "";
         if(userInput.contains("[X]")){
             completed = true;
-            //taskDescriptionOnly = userInput.substring(userInput.indexOf(" ", 6), userInput.indexOf("/"));
         } else{
             completed = false;
-            //taskDescriptionOnly = userInput.split(" ", 4)[3];
         }
         taskDescriptionOnly = userInput.substring(userInput.indexOf(" ", 7), userInput.indexOf("/"));
         Deadline deadLineTask = new Deadline(taskDescriptionOnly,

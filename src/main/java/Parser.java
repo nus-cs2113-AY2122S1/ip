@@ -11,7 +11,6 @@ public class Parser {
         return parts;
     }
 
-
     /**
      * Takes the user input and identify the dateline which,
      * the user wants the task to be.
@@ -22,5 +21,15 @@ public class Parser {
     public String[] identifyDeadlineCommand(String userInput){
         String[] parts = userInput.split("/");
         return parts;
+    }
+
+    /**
+     * Splits userinput to find the keyword they are looking for.
+     * @param userInput
+     * @return
+     */
+    public String identifyKeyword(String userInput){
+        String keyword = userInput.substring(5);
+        return keyword;
     }
 }
