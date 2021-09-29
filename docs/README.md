@@ -2,16 +2,16 @@
 Duke is a **Personal Assistant Chatbot** that helps a person to **keep track of various things** using a Command Line Interface(CLI). If you can type fast, Duke is able to track and manage your tasks faster compared to a hypothetical Graphical User Interface (GUI) version of the app. 
 
 * [Quick Start](#quick-start)
-* [Features](https://github.com/xingjie99/ip/blob/master/docs/README.md#features)
+* [Features](#features)
   - [Adding a Todo task](#adding-a-todo-task-todo)
-  - [Adding an Event task](https://github.com/xingjie99/ip/blob/master/docs/README.md#adding-an-event-task-event)
-  - [Adding a Deadline task](https://github.com/xingjie99/ip/blob/master/docs/README.md#adding-a-deadline-task-deadline)
-  - [Listing all tasks](https://github.com/xingjie99/ip/blob/master/docs/README.md#listing-all-tasks-list)
-  - [Mark as done](https://github.com/xingjie99/ip/blob/master/docs/README.md#mark-as-done-done)
-  - [Deleting task](https://github.com/xingjie99/ip/blob/master/docs/README.md#deleting-task-delete)
-  - [Finding Tasks](https://github.com/xingjie99/ip/blob/master/docs/README.md#finding-tasks-find)
-  - [Exiting program](https://github.com/xingjie99/ip/blob/master/docs/README.md#exiting-program-bye)
-* [Command Summary](https://github.com/xingjie99/ip/blob/master/docs/README.md#command-summary)
+  - [Adding an Event task](#adding-an-event-task-event)
+  - [Adding a Deadline task](#adding-a-deadline-task-deadline)
+  - [Listing all tasks](#listing-all-tasks-list)
+  - [Mark as done](#mark-as-done-done)
+  - [Deleting task](#deleting-task-delete)
+  - [Finding Tasks](#finding-tasks-find)
+  - [Exiting program](#exiting-program-bye)
+* [Command Summary](#command-summary)
 
 ## Quick Start 
 1. Ensure you have Java 11 or above installed in your computer.
