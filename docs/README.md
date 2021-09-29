@@ -14,7 +14,9 @@ ___
 5. Open up a CLI on your computer.
 6. Enter `java -jar ip.jar` to start Hal 2113 in the CLI.
 7. If you have successfully run the programme, a greeting from Hal2113 should appear as follows:
-```
+
+
+````
 
 Hello! I'm HAL 2113
   _(\    |@@|
@@ -24,7 +26,7 @@ Hello! I'm HAL 2113
        /\__/\ \__O (__
       (--/\--)    \__/
       _)(  )(_
-     `---''---`
+     `---''---```
 
 ____________________________________________________________
 What can I do for you? You can enter the following commands
@@ -37,7 +39,9 @@ What can I do for you? You can enter the following commands
 7. 'find <task>' (to find a saved task; eg find homework)
 8. 'bye' (to exit the program!)
 Enter command:
-```
+
+````
+
 
 
 
