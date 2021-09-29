@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * Represent an exception where the find command produces no results with the supplied keyword by the user.
+ * Represents an exception where the find command produces no results with the supplied keyword by the user.
  */
 public class NoTaskFoundException extends Exception {
 

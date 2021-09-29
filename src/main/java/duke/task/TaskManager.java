@@ -194,7 +194,7 @@ public class TaskManager {
     }
 
     /**
-     * Find task/s in tasklist {@code tasks} that contains {@code keyword} in its description.
+     * Finds task/s in tasklist {@code tasks} that contains {@code keyword} in its description.
      *
      * @param keyword search term to match with the task descriptions of all tasks in tasklist {@code tasks}.
      * @return a String that contains the tasks that contains {@code keyword} and the number of matched tasks.

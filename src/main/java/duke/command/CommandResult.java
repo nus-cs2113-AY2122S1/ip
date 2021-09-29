@@ -24,7 +24,7 @@ public class CommandResult {
     private boolean isExited;
 
     /**
-     * The message to be displayed to the user after the command execution.
+     * Indicates the message to be displayed to the user after the command execution.
      * Contains description of the command execution result.
      */
     private String dukeMessage;
