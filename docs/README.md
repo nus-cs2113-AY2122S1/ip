@@ -174,7 +174,7 @@ ____________________________________________________________
 
 ### <a name="find"></a>:mag_right: Searching for tasks: `find`
 
-Searches for tasks in the task list based on the query term specified.
+Searches for tasks in the task list based on the user query
 
 Usage: `find QUERY`
 
@@ -230,7 +230,7 @@ Task list data are saved in the hard disk automatically when user exits app. The
 | Find Task(s) | `find QUERY` <br /> eg.`find cs2113` |
 | Exit App | `bye` |
 
-## References and Acknowledgement
+## References
 
 - User Guide reference: AddressBook (Level 3) <br />
   https://se-education.org/addressbook-level3/UserGuide.html
