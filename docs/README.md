@@ -30,12 +30,7 @@ Expected outcome:
     1.[E][ ] run (at: 04:30 Jan 15 2030)
     2.[D][ ] submit homework (by: 08:00 Jan 13 2020)
 
-Description of the outcome.
 
-```
-expected output
-```
-------------------------------------------------------
 ### `todo`
 
 Adds a todo task to the list
@@ -50,12 +45,7 @@ Expected outcome:
       [T][ ] return book
     Now you have 7 tasks in the list.
     
-Description of the outcome.
 
-```
-expected output
-```
-------------------------------------------------------
 ### `event`
 
 Adds a event task to the list.
@@ -70,12 +60,7 @@ Expected outcome:
       [E][ ] run (at: 12:00 Feb 07 1999)
     Now you have 8 tasks in the list.
 
-Description of the outcome.
 
-```
-expected output
-```
-------------------------------------------------------
 ### `deadline`
 
 Adds a deadline task to the list.
@@ -90,12 +75,7 @@ Expected outcome:
       [D][ ] submit homework (by: 12:00 Feb 07 1999)
     Now you have 9 tasks in the list.0)
 
-Description of the outcome.
 
-```
-expected output
-```
-------------------------------------------------------
 ### `done`
 
 Marks a task in the list as completed.
@@ -109,12 +89,7 @@ Expected outcome:
     Nice! I've marked this task as done:
     [T][X] jump
     
-Description of the outcome.
 
-```
-expected output
-```
-------------------------------------------------------
 ### `delete`
 
 Deletes a task from your list
@@ -129,12 +104,7 @@ Expected outcome:
       [T][X] jump
     Now you have 7 tasks in the list.
 
-Description of the outcome.
 
-```
-expected output
-```
-------------------------------------------------------
 ### `find` 
 
 Displays tasks from your list that matches your search
@@ -150,8 +120,4 @@ Expected outcome:
     2.[T][ ] run
     3.[E][ ] run (at: 12:00 Feb 07 1999)
 
-Description of the outcome.
 
-```
-expected output
-```
