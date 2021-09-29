@@ -1,23 +1,21 @@
 package duke;
 
-import Tasks.*;
+import tasks.*;
 
 
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class TaskList {
     protected static Tasks[] list = new Tasks[100];
-    protected static final int tasksAdded = 0;
     protected static final Tasks[] List = new Tasks[100];
     protected static int listSize = 0;
-    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
 
 
-    public static void deleteTask(int deleteNo) {
+    public static void deleteTask(int deleteNo) { //delete a task
         int noTasksBefore = listSize;
         System.out.println("Noted. I've removed this task:");
         System.out.println(List[listSize-1]);
@@ -31,13 +29,13 @@ public class TaskList {
         System.out.println("Now you have " + listSize + " tasks in the list.");
     }
 
-    public static void setDone(int doneNumber) {
+    public static void setDone(int doneNumber) { //set a task as done
         List[doneNumber - 1].setDone("X");
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(List[doneNumber - 1]);
     }
 
-    public static void setDeadline(String item, String timing) {
+    public static void setDeadline(String item, String timing) { //set deadline
         LocalDateTime dateTime = LocalDateTime.parse(timing, formatter);
 
         List[listSize] = new Deadline(item, dateTime);
@@ -51,7 +49,7 @@ public class TaskList {
 
     }
 
-    public static void setEvent(String item, String timing) {
+    public static void setEvent(String item, String timing) { //set event
         List[listSize] = new Event(item, timing);
         System.out.println("Got it. I've added this task:");
         listLast();
@@ -59,7 +57,7 @@ public class TaskList {
         System.out.println(" Now you have " + listSize + " tasks in the list.");
     }
 
-    public static void setTodo(String item) {
+    public static void setTodo(String item) { //set todo
         List[listSize] = new Todo(item);
         System.out.println("Got it. I've added this task:");
         listLast();
@@ -67,7 +65,7 @@ public class TaskList {
         System.out.println(" Now you have " + listSize + " tasks in the list.");
     }
 
-    public static void list() {
+    public static void list() { //list out all the items
         for (int i = 0; i < listSize; i++) {
             System.out.println(i + 1 + "." + List[i]);
         }
@@ -75,9 +73,9 @@ public class TaskList {
 
     public static void listLast() {
         System.out.println(List[listSize]);
-    }
+    } //command called when todos are written to list what was last written
 
-    public static void search(String tobeSearched) {
+    public static void search(String tobeSearched) { //finding the item based on keyword
         int foundCounter =1;
             System.out.println("Here are the matching tasks in your list:");
             for (int i = 0; i < listSize; i++) {
@@ -88,14 +86,3 @@ public class TaskList {
         }
 
         }
-//
-//        ArrayList<Task> foundTasks = new ArrayList<>();
-//        for (Task task : tasks) {
-//            if (task.getDescription().toLowerCase().contains(keyword)) {
-//                foundTasks.add(task);
-//            }
-//        }
-//        return foundTasks;
-
-
-

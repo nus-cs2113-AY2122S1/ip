@@ -32,7 +32,7 @@ public class Duke {
             line = in.nextLine();
             line = line.toLowerCase();
 
-            Parser.Parser(line);
+            Parser.parser(line);
         }
 
         Ui.goodBye();

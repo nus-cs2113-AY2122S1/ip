@@ -1,7 +1,9 @@
-package Tasks;
+package tasks;
 
 public class Tasks {
-    protected String done, type, description;
+    protected String done;
+    protected final String type;
+    protected String description;
 
     public Tasks(String description) {
         this.done = " ";
@@ -9,7 +11,6 @@ public class Tasks {
         this.description = description;
     }
 
-    public void print(){}
 
     public void setDone(String x) {
         this.done = x;

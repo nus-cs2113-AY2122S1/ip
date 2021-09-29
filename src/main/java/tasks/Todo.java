@@ -1,10 +1,8 @@
-package Tasks;
-
-import java.time.LocalDateTime;
+package tasks;
 
 
 public class Todo extends Tasks {
-    protected String type = "T";
+    protected final String type = "T";
 
     public Todo(String description) {
         super(description);

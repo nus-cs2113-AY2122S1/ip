@@ -3,16 +3,17 @@ package duke;
 import java.io.IOException;
 
 public class Ui {
-    public static void helloWorld() {
+    public static void helloWorld() { //startingthe bot up
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         printHorizontalLine();
     }
 
 
-    public static void printHorizontalLine() {
+    public static void printHorizontalLine() { //prints a straight line
         System.out.println("_".repeat(60));
     }
+//various error messages below
 
     public static void displayGeneralFormattingError() {
         System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -31,6 +32,7 @@ public class Ui {
     }
 
     public static void displayDeadlineError() {
+        //noinspection SpellCheckingInspection
         System.out.println("Oops please enter in the format /by ddMMyyyy hhmm");
     }
 

@@ -1,6 +1,6 @@
 package duke;
 
-import Tasks.*;
+import tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,14 +9,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-import static duke.TaskList.formatter;
-
 public class Storage {
 
     private static final String FILE_DIR = "./data";
     private static final String FILE_NAME = "duke.txt";
 
-
+// load up files
     public static void initDataStore() throws IOException {
         File data_dir = new File(FILE_DIR);
         if (data_dir.mkdir()) {
@@ -38,32 +36,31 @@ public class Storage {
             String tasksFromFile = inputFile.nextLine();
             String[] taskTypeSplit = tasksFromFile.split("_");
             switch (taskTypeSplit[0]) {
-                case "T":
+                case "T" : {
                     pendingTasks = new Todo(taskTypeSplit[2]);
-                    TaskList.List[pendingTasksCounter]=pendingTasks;
-                    if (taskTypeSplit[1].equals("X")) {
-                        TaskList.List[pendingTasksCounter].setDone("X");
-                    }
-                        pendingTasksCounter++;
-                    break;
-                case "D":
-                    pendingTasks = new Deadline(taskTypeSplit[2], LocalDateTime.parse(taskTypeSplit[3]));
-                    TaskList.List[pendingTasksCounter]=pendingTasks;
+                    TaskList.List[pendingTasksCounter] = pendingTasks;
                     if (taskTypeSplit[1].equals("X")) {
                         TaskList.List[pendingTasksCounter].setDone("X");
                     }
                     pendingTasksCounter++;
-                    break;
-                case "E":
-                    pendingTasks = new Event(taskTypeSplit[2], taskTypeSplit[3]);
-                    TaskList.List[pendingTasksCounter]=pendingTasks;
+                }
+                case "D" : {
+                    pendingTasks = new Deadline(taskTypeSplit[2], LocalDateTime.parse(taskTypeSplit[3]));
+                    TaskList.List[pendingTasksCounter] = pendingTasks;
                     if (taskTypeSplit[1].equals("X")) {
                         TaskList.List[pendingTasksCounter].setDone("X");
                     }
-                        pendingTasksCounter++;
-                    break;
-                default:
-                    throw new DukeException("not valid Task");
+                    pendingTasksCounter++;
+                }
+                case "E" : {
+                    pendingTasks = new Event(taskTypeSplit[2], taskTypeSplit[3]);
+                    TaskList.List[pendingTasksCounter] = pendingTasks;
+                    if (taskTypeSplit[1].equals("X")) {
+                        TaskList.List[pendingTasksCounter].setDone("X");
+                    }
+                    pendingTasksCounter++;
+                }
+                default : throw new DukeException("not valid Task");
             }
         }
         TaskList.listSize=pendingTasksCounter;

@@ -1,8 +1,8 @@
-package Tasks;
+package tasks;
 
 public class Event extends Tasks {
-    protected String type = "E";
-    protected String at = "";
+    protected final String type = "E";
+    protected String at;
 
     public Event(String description, String at) {
         super(description);

@@ -1,12 +1,12 @@
-package Tasks;
+package tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Tasks {
-    protected String type = "D";
+    protected final String type = "D";
    // protected String by = "";
-    protected LocalDateTime dateTime= null;
+    protected LocalDateTime dateTime;
 
     public Deadline(String description, LocalDateTime dateTime) {
         super(description);

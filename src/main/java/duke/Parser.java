@@ -1,7 +1,7 @@
 package duke;
 
 public class Parser {
-    public static void Parser(String line) {
+    public static void parser(String line) { //determines which command to choose
         if (line.equals("list")) {
             TaskList.list();
         } else if ((line.split(" ")[0].equals("done"))) {
