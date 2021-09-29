@@ -127,7 +127,6 @@ public class Parser {
      */
     public static AddDeadlineCommand prepareDeadline(String input) throws DukeException {
         int indexOfBy = input.indexOf("/by");
-
         if (indexOfBy == -1) {
             throw new DukeException("Please tell me when the deadline is by :-(");
         }
@@ -158,7 +157,6 @@ public class Parser {
      */
     public static AddEventCommand prepareEvent(String input) throws DukeException {
         int indexOfAt = input.indexOf("/at");
-
         if (indexOfAt == -1) {
             throw new DukeException("Please tell me when the event is at :-(");
         }
