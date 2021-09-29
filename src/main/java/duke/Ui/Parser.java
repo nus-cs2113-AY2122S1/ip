@@ -1,16 +1,37 @@
 package duke.Ui;
 
+import duke.Error.DukeException;
+import duke.TaskList.TaskManager;
+import duke.TaskList.command.*;
+
 public class Parser {
     private static final int INDEX_COMMAND = 0;
     private static final int INDEX_TASK_INFO = 1;
+    private static final String COMMAND_LIST_TASK = "list";
+    private static final String COMMAND_ADD_TODO = "todo";
+    private static final String COMMAND_ADD_DEADLINE = "deadline";
+    private static final String COMMAND_ADD_EVENT = "event";
+    private static final String COMMAND_FINISH_TASK = "done";
+    private static final String COMMAND_DELETE_TASK = "delete";
+    private static final String COMMAND_EXIT = "bye";
 
-    public String extractCommand(String line) {
-        String[] inputs = line.split(" ", 2);
+    /**
+     * Extracts the command type from the full user input.
+     * @param fullCommand String containing the full command from the user.
+     * @return String containing the command type from the user input.
+     */
+    public String extractCommand(String fullCommand) {
+        String[] inputs = fullCommand.split(" ", 2);
         return inputs[INDEX_COMMAND];
     }
 
-    public String extractTaskInfo(String line) {
-        String[] inputs = line.split(" ", 2);
+    /**
+     * Extracts the indexes or task info from the full user input.
+     * @param fullCommand String containing the full command from the user.
+     * @return String containing indexes or task info from the user input.
+     */
+    public String extractTaskInfo(String fullCommand) {
+        String[] inputs = fullCommand.split(" ", 2);
         return inputs[INDEX_TASK_INFO];
     }
 
@@ -29,5 +50,71 @@ public class Parser {
         }
 
         return taskComponents;
+    }
+
+    /**
+     * This function processes the command from the user and returns the corresponding command object to be executed.
+     * @param taskManager TaskManager object used to perform task operations.
+     * @param parser Parser object used to perform parsing operations.
+     * @param fullCommand String containing full command from user.
+     * @return Corresponding command object from user command.
+     * @throws DukeException
+     */
+    public Command parse(TaskManager taskManager, Parser parser, String fullCommand) throws DukeException {
+        Command command = null;
+        String taskInfo;
+        String commandType = extractCommand(fullCommand);
+
+        switch(commandType) {
+        case COMMAND_LIST_TASK:
+            command = new ListCommand(taskManager);
+            break;
+        case COMMAND_ADD_TODO:
+            try {
+                taskInfo = extractTaskInfo(fullCommand);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + commandType + " cannot be empty.");
+            }
+            command = new ToDoCommand(taskManager, taskInfo);
+            break;
+        case COMMAND_ADD_DEADLINE:
+            try {
+                taskInfo = extractTaskInfo(fullCommand);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + commandType + " cannot be empty.");
+            }
+            command = new DeadlineCommand(taskManager, parser, taskInfo);
+            break;
+        case COMMAND_ADD_EVENT:
+            try {
+                taskInfo = extractTaskInfo(fullCommand);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + commandType + " cannot be empty.");
+            }
+            command = new EventCommand(taskManager, parser, taskInfo);
+            break;
+        case COMMAND_FINISH_TASK:
+            try {
+                taskInfo = extractTaskInfo(fullCommand);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + commandType + " cannot be empty.");
+            }
+            command = new SetDoneCommand(taskManager, taskInfo);
+            break;
+        case COMMAND_DELETE_TASK:
+            try {
+                taskInfo = extractTaskInfo(fullCommand);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + commandType + " cannot be empty.");
+            }
+            command = new DeleteCommand(taskManager, taskInfo);
+            break;
+        case COMMAND_EXIT:
+            command = new ExitCommand();
+            break;
+        default:
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        }
+        return command;
     }
 }
