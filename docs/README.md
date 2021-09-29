@@ -1,5 +1,5 @@
 # User Guide
-Duke :robot: is a task manager to organize your list of *todos, deadlines and events* via 
+Duke is a task manager to organize your list of *todos, deadlines and events* via 
 the Command Line Interface (*CLI*).
 
 - [Features & Usage](#featuresheader)
@@ -174,7 +174,7 @@ Format: `exit`
 The list of tasks are saved in the hard disk automatically after the program is
 exited successfully using the `exit` command.
 
-> **Warning:** You must exit the program using the `exit` command for the data to save
+> <ins>**Warning:**</ins> You must exit the program using the `exit` command for the data to save
 successfully. Exiting the program without using the `exit` command will **NOT** save your data.
 
 
