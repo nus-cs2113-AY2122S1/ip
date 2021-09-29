@@ -7,12 +7,11 @@ This application uses a Command Line Interface (CLI) for quick and easy task man
 ## Quick Start
 
 1. Ensure you have installed Java 11 or above on your computer.
-2. Download the latest version of `duke.jar` here.
+2. Download the latest version of `duke.jar` [here](https://github.com/Journeyman1998/ip/releases/tag/v0.2).
 3. Open your terminal (Mac/Linux) or your command prompt (Windows).
 4. Navigate to the folder where you have placed your `duke.jar` and run `java -jar duke.jar`.
    The standard greeting message will be shown if there is no error.
 
-   <Show image>
 ## Features 
 
 In the **Duke** application, there are several features.
@@ -29,15 +28,15 @@ After every command is executed, the task data is automatically saved on the com
 ## Usage
 ### Adding todo task: `todo`
 
-Add a todo task.
-
-A todo task is a general task with a name, and no other parameters.
+Add a todo task. A todo task is a general task with a name, and no other parameters.
 
 Format: `todo [NAME]`
 
 Arguments:
 - NAME
     - The name of the todo task can contain any characters.
+
+---
 
 Example: `todo Watch anime`
 ### Adding deadline task: `deadline`
@@ -54,6 +53,8 @@ Arguments:
 
 Example: `deadline Eat lunch /by 2021-09-21 19:00`
 
+---
+
 ### Adding event task: `event`
 
 Add a task with a date-time.
@@ -68,6 +69,8 @@ Arguments:
 
 Example: `event Soccer tournament /at 2021-08-10 09:00`
 
+---
+
 ### List tasks: `list`
 
 List all the tasks, showing their types and completion status.
@@ -80,6 +83,8 @@ Sample output:
 2. [D][ ] Finish project (by: 19-09-2021 18:00)
 3. [E][X] CS2113 quiz (at: 21-09-2021 16:00) 
 ```
+
+---
 
 ### Remove task: `delete` or `remove`
 
@@ -99,6 +104,8 @@ Success: I've removed this task:
 [D][ ] Finish project (by: 19-09-2021 18:00)
 ```
 
+---
+
 ### Set task completed: `do` or `done`
 
 Set a task of a specified index to be completed.
@@ -116,6 +123,8 @@ Sample output:
 Success: I've marked this task as done:
 [T][X] Do tutorial
 ```
+
+---
 
 ### Find task by keyword: `find` or `match`
 
@@ -135,6 +144,8 @@ Success: Here are the matching tasks in your list
 1. [T][X] Do tutorial
 ```
 
+---
+
 ### Find due tasks: `due`
 
 Find all the tasks that are due, i.e their deadline/date-time are before the current machine date-time, and they are not completed yet.
@@ -146,10 +157,13 @@ Sample output:
 1. [D][ ] Eat lunch (by: 10-08-2021 19:00)
 ```
 
+---
+
 ### Exit program: `bye` or `exit`
 
 Exit the program.
 
+---
 
 ## Command summary
 
