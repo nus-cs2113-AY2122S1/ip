@@ -4,7 +4,7 @@ User Guide
 
 Jarvis is a **desktop app for managing tasks via a Command Line Interface (CLI)**. 
 
-* **[Quick Start](#quick start)**
+* **[Quick Start](#start)**
 * **[Features](#features)**
     * **[Adding a Todo task](#todo)**
     * **[Adding a Deadline task](#deadline)**
@@ -18,7 +18,7 @@ Jarvis is a **desktop app for managing tasks via a Command Line Interface (CLI)*
 * **[Command Summary](#summary)**    
     
 --------------------------------------------------------------------------------------------------------------------
-<a name="quick start"></a>
+<a name="start"></a>
 ## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
