@@ -90,6 +90,13 @@ public class Parser {
         }
     }
 
+    /**
+     * A private method to parse delete command
+     *
+     * @param command user's input command
+     * @return a command instance that follows the <code>Command</code> interface
+     * @throws DukeException if the list is empty, or the command does not contain a number
+     */
     private static Command parseDeleteCommand(String command) throws DukeException {
         String detail = command.substring(COMMAND_DELETE.length()).trim();
 
@@ -105,6 +112,13 @@ public class Parser {
         }
     }
 
+    /**
+     * A private method to parse find command
+     *
+     * @param command user's input command
+     * @return a command instance that follows the <code>Command</code> interface
+     * @throws DukeException if the find command has no keyword
+     */
     private static Command parseFindCommand(String command) throws DukeException {
         String detail = command.substring(COMMAND_FIND.length()).trim();
 
@@ -114,14 +128,31 @@ public class Parser {
         return new FindCommand(detail);
     }
 
+    /**
+     * A private method to parse exit command
+     *
+     * @return a command instance that follows the <code>Command</code> interface
+     */
     private static Command parseExitCommand() {
         return new ExitCommand();
     }
 
+    /**
+     * A private method to parse list command
+     *
+     * @return a command instance that follows the <code>Command</code> interface
+     */
     private static Command parseListCommand() {
         return new ListCommand();
     }
 
+    /**
+     * A private method to parse todo command
+     *
+     * @param command user's input command
+     * @return a command instance that follows the <code>Command</code> interface
+     * @throws DukeException if the task description is empty
+     */
     private static Command parseTodoCommand(String command) throws DukeException {
         String detail = command.substring(COMMAND_TODO.length()).trim();
 
@@ -132,6 +163,13 @@ public class Parser {
         return new AddCommand(new ToDos(detail, false));
     }
 
+    /**
+     * A private method to parse deadline command
+     *
+     * @param command user's input command
+     * @return a command instance that follows the <code>Command</code> interface
+     * @throws DukeException if the task description is empty, or the date time format is invalid
+     */
     private static Command parseDeadlineCommand(String command) throws DukeException {
         String detail = command.substring(COMMAND_DEADLINE.length()).trim();
         String[] contentAndDate = detail.split(COMMAND_DEADLINE_SEPARATOR);
@@ -161,6 +199,13 @@ public class Parser {
         }
     }
 
+    /**
+     * A private method to parse event command
+     *
+     * @param command user's input command
+     * @return a command instance that follows the <code>Command</code> interface
+     * @throws DukeException if the task description is empty, or the date time format is invalid
+     */
     private static Command parseEventCommand(String command) throws DukeException {
         String detail = command.substring(COMMAND_EVENT.length()).trim();
         String[] contentAndDate = detail.split(COMMAND_EVENT_SEPARATOR);
@@ -190,6 +235,13 @@ public class Parser {
         }
     }
 
+    /**
+     * A private method to parse done command
+     *
+     * @param command user's input command
+     * @return a command instance that follows the <code>Command</code> interface
+     * @throws DukeException if the number format is invalid
+     */
     private static Command parseDoneCommand(String command) throws DukeException {
         String detail = command.substring(COMMAND_DONE.length()).trim();
 
@@ -207,6 +259,12 @@ public class Parser {
 
     }
 
+    /**
+     * A private method to parse help command
+     *
+     * @param command user's input command
+     * @return a command instance that follows the <code>Command</code> interface
+     */
     private static Command parseHelpCommand(String command) {
         String detail = command.substring(COMMAND_HELP.length()).trim();
 
