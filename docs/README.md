@@ -1,29 +1,33 @@
-# User Guide
+# Duke User Guide
 
-## Features 
+## Quick Start
 
-### Feature-ABC
+## Command List
 
-Description of the feature.
+## Notes
 
-### Feature-XYZ
+## Features
 
-Description of the feature.
+### Adding a ToDo Task
 
-## Usage
+### Adding a DeadLine Task
 
-### `Keyword` - Describe action
+### Adding a Event Task
 
-Describe the action and its outcome.
+### Delete a Task
 
-Example of usage: 
+### Delete all Task
 
-`keyword (optional arguments)`
+### View Tasks
 
-Expected outcome:
+#### Viewing Todo Tasks
 
-Description of the outcome.
+#### Viewing DeadLine Tasks
 
-```
-expected output
-```
+#### Viewing Event Tasks
+
+### Finding Task By KeyWords
+
+### Finding Task By Date
+
+### Exit Program
