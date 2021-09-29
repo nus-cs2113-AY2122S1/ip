@@ -28,6 +28,7 @@ Duke is a **Personal Assistant Chatbot** that helps a person to **keep track of 
 ### Adding a Todo task: `todo`
 Adds a task of class Todo into the task list.
 Format: `todo <TASK_DESCRIPTION>`
+
 Example of input:
 ```
 todo Laundry
@@ -44,6 +45,7 @@ Adds a task of class Event into the task list.
 Format: `event <TASK_DESCRIPTION>/<DATE_AND_TIME>`
 * `/` must be present in between `<TASK_DESCRIPTION>` and `DATE_AND_TIME>`
 * `<DATE_AND_TIME>` must be in `DD-MM-YYYY HH:MM`
+
 Example of input:
 ```
 event CS2113T Lecture /01-10-2021 16:00
@@ -60,6 +62,7 @@ Adds a task of class Deadline into the task list.
 Format: `deadline <TASK_DESCRIPTION>/<DATE_AND_TIME>`
 * `/` must be present in between `<TASK_DESCRIPTION>` and `DATE_AND_TIME>`
 * `<DATE_AND_TIME>` must be in `DD-MM-YYYY HH:MM`
+
 Example of input:
 ```
 deadline IP /01-10-2021 23:59
@@ -74,6 +77,7 @@ Now you have 3 tasks in the list.
 ### Listing all tasks: `list`
 Shows a list of all tasks.
 Format: `list`
+
 Example of input:
 ```
 list
@@ -89,6 +93,7 @@ Expected output:
 Marks a specific task from the list as completed.
 Format: `done <TASK_NUMER>`
 * `<TASK_NUMER>` must be a valid integer value
+
 Example of input:
 ```
 done 1
@@ -103,6 +108,7 @@ Nice! I've marked this task as done:
 Deletes a specific task from the list.
 Format: `delete <TASK_NUMBER>`
 * `<TASK_NUMER>` must be a valid integer value
+
 Example of input:
 ```
 delete 2
@@ -117,6 +123,7 @@ Now you have 2 tasks in the list.
 ### Finding Tasks: `find`
 Finds all tasks in the list containing a keyword.
 Format: `find <KEYWORD>`
+
 Example of input:
 ```
 find Laundry
@@ -129,6 +136,7 @@ Expected output:
 ### Exiting program: `bye`
 Exits from Duke ChatBot.
 Format: `bye`
+
 Example of input:
 ```
 bye
