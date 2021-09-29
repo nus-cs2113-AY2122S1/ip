@@ -11,6 +11,7 @@ This application uses a Command Line Interface (CLI) for quick and easy task man
 3. Open your terminal (Mac/Linux) or your command prompt (Windows).
 4. Navigate to the folder where you have placed your `duke.jar` and run `java -jar duke.jar`.
    The standard greeting message will be shown if there is no error.
+  
 
 ## Features 
 
@@ -24,6 +25,7 @@ In the **Duke** application, there are several features.
 
 After every command is executed, the task data is automatically saved on the computer.
 
+  
 
 ## Usage
 ### Adding todo task: `todo`
@@ -36,9 +38,10 @@ Arguments:
 - NAME
     - The name of the todo task can contain any characters.
 
+Example: `todo Watch anime`
+  
 ---
 
-Example: `todo Watch anime`
 ### Adding deadline task: `deadline`
 
 Add a task with a defined deadline.
@@ -47,12 +50,12 @@ Format: `deadline [NAME] /by [DATE]`
 
 Arguments:
 - NAME
-    - The name of the deadline task can contain any characters, except for '/'.
+    - The name of the deadline task can contain any characters, except for the slash character `/`.
 - DATE
     - The date must be in the format of `yyyy-MM-dd HH:mm`.
 
 Example: `deadline Eat lunch /by 2021-09-21 19:00`
-
+  
 ---
 
 ### Adding event task: `event`
@@ -63,12 +66,12 @@ Format: `deadline [NAME] /at [DATE]`
 
 Arguments:
 - NAME
-    - The name of the event task can contain any characters, except for '/'.
+    - The name of the event task can contain any characters, except for the slash character `/`.
 - DATE
     - The date must be in the format of `yyyy-MM-dd HH:mm`.
 
 Example: `event Soccer tournament /at 2021-08-10 09:00`
-
+  
 ---
 
 ### List tasks: `list`
@@ -83,7 +86,7 @@ Sample output:
 2. [D][ ] Finish project (by: 19-09-2021 18:00)
 3. [E][X] CS2113 quiz (at: 21-09-2021 16:00) 
 ```
-
+  
 ---
 
 ### Remove task: `delete` or `remove`
@@ -103,7 +106,7 @@ Sample output:
 Success: I've removed this task:
 [D][ ] Finish project (by: 19-09-2021 18:00)
 ```
-
+  
 ---
 
 ### Set task completed: `do` or `done`
@@ -123,7 +126,7 @@ Sample output:
 Success: I've marked this task as done:
 [T][X] Do tutorial
 ```
-
+  
 ---
 
 ### Find task by keyword: `find` or `match`
@@ -143,7 +146,7 @@ Sample output:
 Success: Here are the matching tasks in your list
 1. [T][X] Do tutorial
 ```
-
+  
 ---
 
 ### Find due tasks: `due`
@@ -156,13 +159,13 @@ Sample output:
 ```
 1. [D][ ] Eat lunch (by: 10-08-2021 19:00)
 ```
-
+  
 ---
 
 ### Exit program: `bye` or `exit`
 
 Exit the program.
-
+  
 ---
 
 ## Command summary
