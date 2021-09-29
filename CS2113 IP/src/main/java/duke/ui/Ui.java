@@ -2,7 +2,7 @@ package duke.ui;
 
 import duke.task.Task;
 
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Ui {
     final public static String HORIZONTAL_LINE = "_________________________________________________________________";
@@ -12,22 +12,16 @@ public class Ui {
     final public static String LIST_UPCOMING_TASKS = "Here are the upcoming deadlines in your list within the next three days:";
     final public static String ADDED_TASK_COMMENT = "Got it. I've added this task:";
     final public static String GOODBYE_COMMENT = "Bye. Hope to see you again soon!";
-    final public static String ERROR_MARK_TASK_DESCRIPTION = "Please do not leave your task number empty :-(";
-    final public static String ERROR_UNKNOWN_INPUT = ":-( OOPS!!! I'm sorry, but I don't know what that means :-(";
-    final public static String ERROR_EMPTY_TODO_DESCRIPTION = "Please do not leave your todo description empty :-(";
-    final public static String ERROR_EMPTY_DEADLINE_DESCRIPTION = "Please do not leave your deadline description empty :-(";
-    final public static String ERROR_EMPTY_EVENT_DESCRIPTION = "Please do not leave your event description empty :-(";
-    final public static String ERROR_EMPTY_DELETE_DESCRIPTION = "Please do not leave your delete task number empty :-(";
-    final public static String ERROR_MISSING_FIND_DESCRIPTION = "What are you finding?? :o";
-    final public static String ERROR_WRONG_HANDLE_TODO_DESCRIPTION = "Check for missing fields in your description!";
-    final public static String ERROR_WRONG_HANDLE_EVENT_DESCRIPTION = "Include /at handler and insert date of event!";
-    final public static String ERROR_WRONG_HANDLE_DEADLINE_DESCRIPTION = "Include /by handler and insert deadline!";
-    final public static String ERROR_MARK_TASK_UNKNOWN_INPUT = "Please enter as follows: done (INT in number)";
-    final public static String ERROR_DELETE_TASK_UNKNOWN_INPUT = "Please enter as follows: delete (INT in number)";
-    final public static String ERROR_OUT_OF_BOUNDS = "That task does not exist! Stop fooling around!";
-    final public static String ERROR_WRONG_DEADLINE = "Please input your deadline in the format: d/M/yyyy HHmm :-)";
+
 
     public Ui() {
+    }
+
+    private static final Scanner commandScanner = new Scanner(System.in);
+
+    public String readCommand() {
+        String userInput = commandScanner.nextLine();
+        return userInput;
     }
 
     public void showWelcome() {
@@ -39,28 +33,12 @@ public class Ui {
         System.out.println(logo);
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
+        showHorizontalLine();
     }
 
-    public void showLoadingError() {
-        String LOADING_ERROR = "LOAD ERROR ... LOAD ERROR ... LOAD ERROR ...";
-        System.out.println(LOADING_ERROR);
-    }
-
-    /**
-     * Handles 'delete' command's UI aspect, formatting the task deleted.
-     * Reiterates the number of items left in the list after deletion.
-     *
-     * @param task              Specific task outlined for deletion.
-     * @param tasks             List of tasks.
-     * @param zeroIndexInputInt User's input integer converted to 0-based-index for array manipulation.
-     * @param taskCount         Number of tasks in the list after deletion.
-     */
-    public void handleDelete(Task task, ArrayList<Task> tasks, int zeroIndexInputInt, int taskCount) {
+    public void handleDelete(String taskDetails, int taskCount) {
         System.out.println(DELETE_TASK_COMMENT);
-
-        String formatOutput = String.format(" %s", task.toString());
-        tasks.remove(zeroIndexInputInt);
+        String formatOutput = String.format(" %s", taskDetails);
         System.out.println(formatOutput);
 
         String printTaskNumber = String.format("Now you have %d items in the list.", taskCount);
@@ -142,7 +120,30 @@ public class Ui {
         }
     }
 
-    public static void showHorizontalLine() {
+    public void showHorizontalLine() {
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    public void handleBye() {
+        System.out.println(GOODBYE_COMMENT);
+    }
+
+    public void showError(String message) {
+        System.out.println(message);
+    }
+
+    public void showLoadingError() {
+        final String LOADING_ERROR = "LOAD ERROR ... LOAD ERROR ... LOAD ERROR ...";
+        System.out.println(LOADING_ERROR);
+    }
+
+    public void showDeadlineError() {
+        final String ERROR_WRONG_DEADLINE = "Please input your deadline in the format: d/M/yyyy HHmm :-)";
+        System.out.println(ERROR_WRONG_DEADLINE);
+    }
+
+    public void showOutOfBoundsError() {
+        final String ERROR_OUT_OF_BOUNDS = "That task does not exist! Stop fooling around!";
+        System.out.println(ERROR_OUT_OF_BOUNDS);
     }
 }

@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
 
@@ -12,7 +13,7 @@ public class Deadline extends Task {
      *
      * @param description User's input in the Command Line.
      */
-    public Deadline(String description) {
+    public Deadline(String description) throws DateTimeParseException {
         super(description);
         String trimString = trimUserInput(description);
         String unformattedDeadline = extractDeadline(trimString);

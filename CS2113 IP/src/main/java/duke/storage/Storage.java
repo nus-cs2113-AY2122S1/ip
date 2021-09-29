@@ -39,14 +39,14 @@ public class Storage {
      *
      * @throws IOException If file cannot be created at the specified file path (i.e. path does not exist)
      */
-    public void createFile() throws IOException {
+    public void createFile(Ui ui) throws IOException {
         File newFile = new File(filePath);
         if (newFile.createNewFile()) {
             System.out.println(DATABASE_CREATED);
         } else {
             System.out.println(DATABASE_EXISTS);
         }
-        Ui.showHorizontalLine();
+        ui.showHorizontalLine();
     }
 
     /**
