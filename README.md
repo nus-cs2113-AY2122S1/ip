@@ -5,7 +5,7 @@ This is a program developed to help you organise your tasks. Deadlines, Events a
 
 Prerequisite: [JDK](https://www.oracle.com/java/technologies/downloads/ "Java Development Kit") 11 or above.
 
-##Outline
+## Outline
 * [Getting Started](#Getting-Started)
 * [Task Format](#Task-Format)
 * [Adding Tasks](#Adding-Tasks)
@@ -45,16 +45,16 @@ tasks are displayed in the following format when listed:
   * e.g. `done 3`
 * `delete <list number>`: Delete a task based on the index in the `list` command.
   * e.g. `delete 3`
-* `bye`: Exits the program.
+* `bye`: Exits the program.  
 
-###Save File Format
+### Save File Format
 The program save file is stored in `[program directory]/data/duke.txt` so if you move your program, remember to move your save file with it!  
 The tasks are stored in the following format:  
 `<T|D|E>|<0|1>|<description>|<time>` **excluding '<' and '>'*
 * `<T|D|E>`: task will store 1 character, either 'T', 'D' or 'E' based on whether the task is a Todo, 'Deadline' or 'Event'.
 * `<0|1>`: task will store a '0' for a task that has not been done and a '1' for a task that has been marked as done.
 * `<time>`: 'time' is only applicable for Deadlines and Events.  
-  e.g. how the Tasks Added from the [Adding Tasks](#Adding-Tasks) section are stored
+  e.g. how the Tasks Added from the [Adding Tasks](#Adding-Tasks) section are stored  
 `T|0|buy vegetables`  
 `D|0|CS2106 Lab 2 Submission|9/30/2021`  
 `E|0|Zoukout|1/12/2018 12am`  
