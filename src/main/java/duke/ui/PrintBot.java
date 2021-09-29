@@ -4,6 +4,7 @@ import duke.exception.EmptyListException;
 import duke.exception.InvalidIndexException;
 import duke.task.*;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -66,11 +67,20 @@ public class PrintBot {
         }
     }
 
+    public void searchList(ArrayList<String> searchResult) {
+        if (searchResult.isEmpty()) {
+            print("No task found.");
+        } else {
+            print(" Here are the matching tasks in your list: ");
+            for (String s : searchResult) {
+                print(s);
+            }
+        }
+    }
 
     public static void loadingData() {
         print("Please wait. Loading data ..... ");
     }
-
 
     public static void loadData(String data) {
         print(data);
