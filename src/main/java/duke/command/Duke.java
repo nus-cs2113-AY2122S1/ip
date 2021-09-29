@@ -1,107 +1,92 @@
 package duke.command;
 
-import duke.task.TaskManager;
+import duke.Ui;
+import duke.Parser;
+import duke.task.Storage;
+import duke.task.TaskList;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.IOException;
 
 public class Duke {
-    static final String SEPARATOR = " \\| ";
+    private Ui ui;
+    private Storage storage;
+    TaskList taskList;
 
-    public static void printDividerLine() {
-        System.out.println("\t_____________________________________________________________________________");
+    public Duke(String filePath) {
+        ui = new Ui();
+        try {
+            storage = new Storage(filePath);
+            taskList = new TaskList(storage.load(), storage);
+        } catch (IOException e) {
+            ui.showLoadingError(e);
+            taskList = new TaskList(storage);
+        }
     }
 
-    public static void printWelcomeMessage() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
-        System.out.println("Hello from\n" + logo);
-        printDividerLine();
-        System.out.println("\tHello! I'm Duke!\n\tWhat can I do for you?");
-        printDividerLine();
-        System.out.println("\tHere are the performable actions:");
-        System.out.println("\t 1. Add a new To Do by typing \"todo {content of your to do}\".");
-        System.out.println("\t 2. Add a new Deadline by typing \"deadline {content of your deadline} /by {date of deadline}\".");
-        System.out.println("\t 3. Add a new Event by typing \"event {content of your event} /at {date of event}\".");
-        System.out.println("\t 4. Mark a task as done by typing in \"done\" and the index of the task on the list.");
-        System.out.println("\t 5. Check all the tasks you have added by typing in \"list\". Done tasks will be marked with an X.");
-        System.out.println("\t 6. End the program by typing in \"bye\".");
-        printDividerLine();
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                String[] parsedFullCommand = Parser.parse(fullCommand);
+                execute(taskList, parsedFullCommand);
+                isExit = checkIsExit(parsedFullCommand[0]);
+            } catch (Exception e) {
+                ui.showLoadingError(e);
+            }
+        }
+        ui.showBye();
     }
 
-    public static void printByeMessage() {
-        printDividerLine();
-        System.out.println("\tBye. Hope to see you again soon!");
-        printDividerLine();
+    public boolean checkIsExit(String commandWord) {
+        if (commandWord.equals("bye")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public static void printHandleWrongInput() {
-        printDividerLine();
-        System.out.println("\t ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        printDividerLine();
-    }
-
-    public static void readFromFile(String filePath, TaskManager t1) throws FileNotFoundException {
-        File f = new File(filePath);
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            String line = s.nextLine();
-            String[] words = line.split(SEPARATOR);
-            t1.readInLine(words);
+    public void execute(TaskList taskList, String[] parsedFullCommand) {
+        String commandWord = parsedFullCommand[0];
+        switch (commandWord) {
+        case "list":
+            if (parsedFullCommand.length == 1) {
+                taskList.listAllTasks();
+            } else {
+                ui.showLoadingError();
+            }
+            break;
+        case "done":
+            if (parsedFullCommand.length == 2) {
+                String indexToBeMarkedDone = parsedFullCommand[1];
+                taskList.markAsDone(indexToBeMarkedDone);
+            } else {
+                ui.showLoadingError();
+            }
+            break;
+        case "todo":
+        case "deadline":
+        case "event":
+            taskList.addTask(parsedFullCommand);
+            break;
+        case "delete":
+            if (parsedFullCommand.length == 2) {
+                String indexToBeDeleted = parsedFullCommand[1];
+                taskList.deleteTask(indexToBeDeleted);
+            } else {
+                ui.showLoadingError();
+            }
+            break;
+        case "bye":
+            break;
+        default:
+            ui.showLoadingError();
+            break;
         }
     }
 
     public static void main(String[] args) {
-        printWelcomeMessage();
-
-        TaskManager t1 = new TaskManager();
-
-        try {
-            readFromFile("data/duke.txt", t1);
-        } catch (FileNotFoundException e) {
-            printDividerLine();
-            System.out.println("\t File not found.");
-            printDividerLine();
-        }
-
-        String line;
-
-        Scanner in = new Scanner(System.in);
-        line = in.nextLine();
-
-        while (!line.equalsIgnoreCase("bye")) {
-            String[] words = line.split(" ");
-            if (line.equalsIgnoreCase("list")) {
-                t1.listTasks();
-            } else if (words[0].equalsIgnoreCase("done")) {
-                if (words.length > 1) {
-                    t1.markAsDone(words[1]);
-                } else {
-                    printDividerLine();
-                    System.out.println("\t ☹ OOPS!!! There must be an input after done.");
-                    printDividerLine();
-                }
-            } else if (words[0].equalsIgnoreCase("todo") || words[0].equalsIgnoreCase("deadline")
-                    || words[0].equalsIgnoreCase("event")) {
-                t1.addTask(line);
-            } else if (words[0].equalsIgnoreCase("delete")) {
-                if (words.length > 1) {
-                    t1.deleteTask(words[1]);
-                } else {
-                    printDividerLine();
-                    System.out.println("\t ☹ OOPS!!! There must be an input after delete.");
-                    printDividerLine();
-                }
-            } else {
-                printHandleWrongInput();
-            }
-            line = in.nextLine();
-        }
-        printByeMessage();
+        new Duke("data/duke.txt").run();
     }
 }
