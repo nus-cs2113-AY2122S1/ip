@@ -213,7 +213,7 @@ public class TextUi {
 
     public void printIncorrectTimeFormat() {
         drawDivider();
-        System.out.println("Please give Karltt a date and time in this format meow:\n" +
+        System.out.println("Please give Karlett a date and time in this format meow:\n" +
                 "    yyyy-MM-dd HH:mm");
         drawDivider();
     }
@@ -244,5 +244,51 @@ public class TextUi {
             }
         }
         drawDivider();
+    }
+
+    public void printIncorrectFileFormatMessage() {
+        drawDivider();
+        System.out.println("What can Karlett do for you meow? (Please key in 1/2)\n" +
+                "  1 Replace the text file called \"karlett.txt\" with an empty one for me please.\n" +
+                "  2 Exit the program now.");
+        drawDivider();
+    }
+
+    public void printIncorrectFileFormatMessage(String filePath) throws IOException {
+        System.out.print("Looks like Karlett is unable to understand this file...\"(=ಠᆽಠ=)\n");
+        printIncorrectFileFormatMessage();
+        Scanner in = new Scanner(System.in);
+        String r = in.next();
+        try {
+            int response = Integer.parseInt(r);
+            switch (response) {
+            case 1:
+                File oldFile = new File(filePath);
+                if (!oldFile.delete()) {
+                    printUnableToDeleteMessage();
+                };
+                StorageFile storageFile = new StorageFile(filePath);
+                storageFile.getFile().createNewFile();
+                printNewFileCreatedMessage(filePath);
+                break;
+            case 2:
+                Command c = new ExitCommand();
+                c.execute(null,null,null);
+                System.exit(0);
+                // Fallthrough
+            default:
+                printIncorrectFileFormatMessage(filePath);
+            }
+        } catch (NumberFormatException e) {
+            printIncorrectFileFormatMessage(filePath);
+        }
+    }
+
+    private void printUnableToDeleteMessage() {
+        drawDivider();
+        System.out.println("Meow...doesn't seem like Karlett can delete this file for you\n" +
+                "Try deleting it by yourself and see you again! Bye bye~");
+        drawDivider();
+        System.exit(0);
     }
 }

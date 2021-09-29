@@ -33,6 +33,8 @@ public class Duke {
         } catch (FileNotFoundException e) {
             ui.printFileNotFoundMessage(filePath);
             tasks = new TaskList(filePath);
+        } catch (Exception e) {
+            ui.printIncorrectFileFormatMessage(filePath);
         }
     }
 
