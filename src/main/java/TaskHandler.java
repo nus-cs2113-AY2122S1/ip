@@ -135,7 +135,7 @@ public class TaskHandler {
     public static void printSearchedTasks(ArrayList<Task> foundTasks) {
         System.out.println(Ui.INDENT + "Here are the matching tasks in your list:");
         for (int i = 0; i < foundTasks.size(); i++) {
-            System.out.println(Ui.INDENT + (i + 1) + "." + foundTasks.get(i));
+            System.out.println(Ui.INDENT + " " + (i + 1) + "." + foundTasks.get(i));
         }
     }
 

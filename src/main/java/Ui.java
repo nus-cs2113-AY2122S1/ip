@@ -41,7 +41,7 @@ public class Ui {
     public static void printTaskList() {
         System.out.println(INDENT + "Here are the tasks in your list:");
         for (int i = 0; i < TaskList.tasks.size(); i++) {
-            System.out.println(INDENT + (i + 1) + "." + TaskList.getTask(i));
+            System.out.println(INDENT +" " + (i + 1) + "." + TaskList.getTask(i));
         }
     }
 
@@ -60,15 +60,5 @@ public class Ui {
     public static void printDeletedTask(int index) {
         System.out.println(INDENT + "Got it. I've removed this task:" + LINE_SEPARATOR_AND_INDENT +
                 TaskList.getTask(index) + LINE_SEPARATOR_AND_INDENT + "Now you have " + (TaskList.tasks.size() - 1) + " tasks in the list.");
-    }
-
-    /**
-     * Prints the newly marked as done task
-     * @param task
-     */
-    public static void printDoneTask(Task task) {
-        System.out.print(INDENT + "Nice! I've marked this task as done: " +
-                LINE_SEPARATOR_AND_INDENT + " ");
-        System.out.println(task);
     }
 }
