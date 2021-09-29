@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
- * Display all Tasks on specific date
+ * Display all Tasks on specific date in sorted order.
  */
 public class ScheduleCommand extends Command {
     String arguments;

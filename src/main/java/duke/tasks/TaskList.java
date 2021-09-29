@@ -59,6 +59,9 @@ public class TaskList {
         });
     }
 
+    /**
+     * Overwrite TaskList with empty ArrayList to purge all Tasks
+     */
     public void purgeTaskList() {
         tasks = new ArrayList<Task>();
     }

@@ -64,7 +64,7 @@ public class Storage {
     }
 
     /**
-     * Read and process tasks details from file data/duke.txt to replicate task state in program
+     * Read and process tasks details from file data/duke.txt to restore task state in program
      *
      * @param myFile File object of data/duke.txt
      * @throws FileNotFoundException If file is not found

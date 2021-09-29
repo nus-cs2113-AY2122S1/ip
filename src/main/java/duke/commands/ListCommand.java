@@ -5,7 +5,7 @@ import duke.tasks.TaskList;
 import duke.ui.Ui;
 
 /**
- * Display all Tasks in ArrayList tasks
+ * Display all Tasks in TaskList in sorted order.
  */
 public class ListCommand extends Command {
     public ListCommand(String command) {

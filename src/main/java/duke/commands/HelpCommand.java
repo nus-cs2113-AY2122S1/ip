@@ -5,7 +5,7 @@ import duke.tasks.TaskList;
 import duke.ui.Ui;
 
 /**
- * Display all Tasks in ArrayList tasks
+ * Display available commands and usage to user.
  */
 public class HelpCommand extends Command {
     public HelpCommand(String command) {

@@ -6,7 +6,7 @@ import duke.tasks.Todo;
 import duke.ui.Ui;
 
 /**
- * Adds a Todo Task.
+ * Creates a Todo Task and adds it into TaskList.
  * If no arguments provided by user, prints error message.
  */
 public class AddTodoCommand extends Command {

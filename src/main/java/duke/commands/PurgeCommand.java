@@ -5,7 +5,7 @@ import duke.tasks.TaskList;
 import duke.ui.Ui;
 
 /**
- * Display all Tasks in ArrayList tasks
+ * Deletes all Tasks in TaskList
  */
 public class PurgeCommand extends Command {
     public PurgeCommand(String command) {
