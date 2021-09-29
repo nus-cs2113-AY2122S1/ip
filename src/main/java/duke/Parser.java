@@ -1,7 +1,15 @@
 package duke;
 
 public class Parser {
-
+    /**
+     * Returns a boolean to break the while loop.
+     * This method also processes what user inputs.
+     * @param tasks is an instance of the public class TaskList,
+     *              where the list of tasks and counter for number of tasks
+     *              can be found and is updated based on user inputs.
+     * @param input is the entire chunk of message that user inputs.
+     * @return boolean whether input starts with 'Bye'
+     */
     public static boolean processInput(TaskList tasks, String input) {
         boolean isBye = false;
         if (input.equals("bye")){ //check if bye

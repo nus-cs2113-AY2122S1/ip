@@ -9,6 +9,14 @@ public class Storage {
 
     private static final String filePath = "C:/Users/kairo/Documents/ip/src/main/java/duke/DukeTaskData.txt";
 
+    /**
+     * Loads pre-existing tasks found in DukeTaskData.txt.
+     * If there is no DukeTaskData.txt, a new file will be created.
+     * There is no output if tasks are loaded successfully.
+     * @param tasks is an instance of the public class TaskList,
+     *              where the list of tasks and counter for number of tasks
+     *              can be found and is updated based on user inputs.
+     */
     public static void loadTasks(TaskList tasks) {
 
         File DukeTaskData = new File(filePath);
@@ -63,6 +71,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves existing tasks into DukeTaskData.txt.
+     * There is no output if tasks are saved successfully.
+     * @param tasks is an instance of the public class TaskList,
+     *              where the list of tasks and counter for number of tasks
+     *              can be found and is updated based on user inputs.
+     */
     public static void saveTasks(TaskList tasks) throws IOException {
 
         try {
