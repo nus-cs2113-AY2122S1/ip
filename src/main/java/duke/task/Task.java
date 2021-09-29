@@ -33,6 +33,10 @@ public class Task {
         return taskName;
     }
 
+    public void setTaskName(String newTaskName) {
+            taskName = newTaskName;
+    }
+
     public void setAsDone() {
         isDone = true;
     }

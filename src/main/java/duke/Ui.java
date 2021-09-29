@@ -1,27 +1,14 @@
 package duke;
 
 import duke.task.Task;
+
 import java.util.ArrayList;
 
 public class Ui {
 
     public static final String INDENT = "    │ ";
 
-    public static void printHelp(String userInput) {
-        System.out.println(INDENT + "Okay. For the last time, don't make me remind you again.");
-        System.out.println(INDENT);
-        System.out.println(INDENT + "               todo <name>: Add a todo task to the list.");
-        System.out.println(INDENT + "deadline <name> /by <time>: Add a task with specified deadline.");
-        System.out.println(INDENT + "   event <name> /at <time>: Add an event with the specified time.");
-        System.out.println(INDENT + "        done <task_number>: Mark a task as done.");
-        System.out.println(INDENT + "      delete <task_number>: Remove a task from the list.");
-
-        if(!userInput.equals("")) {
-            System.out.println(INDENT);
-            System.out.println(INDENT + "Oh and you typed extra garbage after \"help\":");
-            System.out.println(INDENT + userInput);
-        }
-    }
+    // UI embellishments
 
     /**
      * Prints the top horizontal line to demarcate text from Tired.
@@ -53,6 +40,8 @@ public class Ui {
         System.out.println(logo);
     }
 
+    // Greetings
+
     public static void printGreeting() {
         System.out.println(INDENT + "*Sigh* Hi... I'm Tired                                             │\n"
                 + INDENT + "What do you want from me?                                          │");
@@ -70,6 +59,25 @@ public class Ui {
                 + INDENT + "Ha! As if I care! Goodbye!!                                        │");
     }
 
+    public static void printHelp(String userInput) {
+        System.out.println(INDENT + "Okay. For the last time, don't make me remind you again.           │");
+        System.out.println(INDENT + "                                                                   │");
+        System.out.println(INDENT + "               todo <name>: Add a todo task to the list.           │");
+        System.out.println(INDENT + "deadline <name> /by <time>: Add a task with specified deadline.    │");
+        System.out.println(INDENT + "   event <name> /at <time>: Add an event with the specified time.  │");
+        System.out.println(INDENT + "        done <task_number>: Mark a task as done.                   │");
+        System.out.println(INDENT + "      delete <task_number>: Remove a task from the list.           │");
+        System.out.println(INDENT + "              find <query>: Search for text in the list.           │");
+
+        if(!userInput.isBlank()) {
+            System.out.println(INDENT + "                                                                   │");
+            System.out.println(INDENT + "Oh and you typed extra garbage after \"help\":                       │");
+            System.out.println(INDENT + userInput);
+        }
+    }
+
+    // Error related texts
+
     public static void printWrongTaskType(String text) {
         System.out.println(INDENT + "Look what you typed:\n" + INDENT + text);
         System.out.println(INDENT);
@@ -78,22 +86,11 @@ public class Ui {
     }
 
     public static void printMissingText() {
-        System.out.println(INDENT + "And?? Retype and complete your sentence like a grown adult. Please.");
+        System.out.println(INDENT + "Retype and complete your sentence like a grown adult. Please.");
     }
 
     public static void printNumberExpected() {
         System.out.println(INDENT + "Does that look like a number to you? Type. A. Number.");
-    }
-
-    public static void printAddedTask(ArrayList<Task> tasks, String isPlural, int taskPending) {
-        System.out.println(INDENT + " Fine. Added to your list:");
-        System.out.println(INDENT + "   " + tasks.get(tasks.size() - 1));
-        System.out.println(INDENT + " You have " + taskPending + " pending task"
-                + isPlural + ". tHaT's aWeSoMe!!!!!1!!");
-    }
-
-    public static void printTaskLoadedSuccessfully() {
-        System.out.println(INDENT + "Loaded previously saved file.                                      │");
     }
 
     public static void printBlankLoadFileFound() {
@@ -113,14 +110,25 @@ public class Ui {
         System.out.println(INDENT + "Dude... you've done the task already.");
     }
 
-    public static void printTaskDone(ArrayList<Task> tasks, int taskNumber) {
-        System.out.println(INDENT + "About time. I've mark that task as done:");
-        System.out.println(INDENT + "[" + tasks.get(taskNumber).getStatusIcon() + "] "
-                + tasks.get(taskNumber).getTaskName());
+    public static void printQueryNotFound() {
+        System.out.println(INDENT + "Are you not familiar with your list? Query not found.");
     }
 
-    public static void printDeleteDoneTask() {
-        System.out.println(INDENT + "But I'll delete for you, cus' I'm nice. :)");
+    // Positive feedback of successful executions
+
+    public static void printAddedTask(ArrayList<Task> tasks, String isPlural, int taskPending) {
+        System.out.println(INDENT + " Fine. Added to your list:");
+        System.out.println(INDENT + "   " + tasks.get(tasks.size() - 1));
+        System.out.println(INDENT + " You have " + taskPending + " pending task"
+                + isPlural + ". tHaT's aWeSoMe!!!!!1!!");
+    }
+
+    public static void printTasksLoadedSuccessfully() {
+        System.out.println(INDENT + "Loaded previously saved file.                                      │");
+    }
+
+    public static void printTasksSavedSuccessfully() {
+        System.out.println(INDENT + "Tasks successfully saved to file.                                  │");
     }
 
     public static void printTaskDeleted(ArrayList<Task> tasks, int taskNumber) {
@@ -131,13 +139,30 @@ public class Ui {
 
     }
 
-    /**
-     * Prints the tasks of tasks collated by Tired.
-     */
-    public static void printList(ArrayList<Task> tasks) {
-        printTopLine();
+    public static void printTaskDone(ArrayList<Task> tasks, int taskNumber) {
+        System.out.println(INDENT + "About time. I've mark that task as done:");
+        System.out.println(INDENT + "[" + tasks.get(taskNumber).getStatusIcon() + "] "
+                + tasks.get(taskNumber).getTaskName());
+    }
+
+    public static void printDeleteDoneTask() {
+        System.out.println(INDENT + "But I'll delete for you, cus' I'm nice. :)");
+    }
+
+    public static void printListHeader(ArrayList<Task> tasks) {
         if (!tasks.isEmpty()) {
             System.out.println(INDENT + "Here are your tasks, oRgAnIc iTeLlIgEnCe:");
+        }
+    }
+
+    public static void printQueryListHeader(ArrayList<Task> tasks) {
+        if (!tasks.isEmpty()) {
+            System.out.println(INDENT + "Here are the matching tasks, oRgAnIc iTeLlIgEnCe:");
+        }
+    }
+
+    public static void printList(ArrayList<Task> tasks) {
+        if (!tasks.isEmpty()) {
             for (Task t : tasks) {
                 System.out.println(INDENT + (tasks.indexOf(t) + 1) + "." + t.toString());
             }
@@ -145,6 +170,34 @@ public class Ui {
             System.out.println(INDENT + "Why are you asking for a list???                                   │\n"
                     + INDENT + "It's empty, like something I know.                                 │");
         }
+    }
+
+    // `show` methods incorporating the above `print` methods
+    /**
+     *
+     * @param tasks
+     */
+    public static void showList(ArrayList<Task> tasks) {
+        printTopLine();
+        printListHeader(tasks);
+        printList(tasks);
+        printBottomLine();
+    }
+
+    /**
+     *
+     * @param tasks
+     */
+    public static void showQueryList(ArrayList<Task> tasks) {
+        printTopLine();
+        printQueryListHeader(tasks);
+        printList(tasks);
+        printBottomLine();
+    }
+
+    public static void showQueryNotFound() {
+        printTopLine();
+        printQueryNotFound();
         printBottomLine();
     }
 
@@ -180,7 +233,7 @@ public class Ui {
 
     public static void showTaskLoadedSuccessMessage() {
         printTopLine();
-        printTaskLoadedSuccessfully();
+        printTasksLoadedSuccessfully();
         printBottomLine();
     }
 
@@ -224,6 +277,10 @@ public class Ui {
     public static void byeUser() {
         printTopLine();
         printGoodbye();
+        printBottomLine();
+
+        printTopLine();
+        printTasksSavedSuccessfully();
         printBottomLine();
     }
 }
