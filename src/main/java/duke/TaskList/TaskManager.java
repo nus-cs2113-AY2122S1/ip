@@ -11,7 +11,9 @@ import duke.Ui.Parser;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class TaskManager {
 
@@ -88,7 +90,15 @@ public class TaskManager {
         }
     }
 
-    public int[] filterOutOfRangeIndexes(int[] indexes) {
+    public void findTask(String keyword) {
+        List<Task> queryResults = tasks.stream()
+                .filter((task) -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
+
+        DisplayManager.printFindResult(queryResults);
+    }
+
+    private int[] filterOutOfRangeIndexes(int[] indexes) {
         int[] outOfRangeIndexes = new int[indexes.length];
         int count = 0;
 
@@ -105,7 +115,7 @@ public class TaskManager {
         return Arrays.copyOf(outOfRangeIndexes, count);
     }
 
-    public int[] filterValidIndexes(int[] indexes) {
+    private int[] filterValidIndexes(int[] indexes) {
         int[] validIndexes = new int[indexes.length];
         int count = 0;
 
@@ -122,7 +132,7 @@ public class TaskManager {
         return Arrays.copyOf(validIndexes, count);
     }
 
-    public int[] filterValidDeleteIndexes(int[] indexes) {
+    private int[] filterValidDeleteIndexes(int[] indexes) {
         int[] validIndexes = new int[indexes.length];
         int count = 0;
 
@@ -139,7 +149,7 @@ public class TaskManager {
         return Arrays.copyOf(validIndexes, count);
     }
 
-    public int[] filterDoneIndexes(int[] indexes) {
+    private int[] filterDoneIndexes(int[] indexes) {
         int[] doneIndexes = new int[indexes.length];
         int count = 0;
 
@@ -206,7 +216,7 @@ public class TaskManager {
         }
     }
 
-    public static int[] filterIndexes(String taskInfo) {
+    private static int[] filterIndexes(String taskInfo) {
         String[] inputs = taskInfo.split(" ");
         int[] indexes = new int[inputs.length];
         int indexCount = 0;
