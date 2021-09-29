@@ -4,6 +4,7 @@ import static duke.ui.Strings.FORMAT_DATE_OUT;
 import static duke.ui.Strings.MESSAGE_LIST;
 import static duke.ui.Strings.MESSAGE_LIST_DATE;
 import static duke.ui.Strings.MESSAGE_LIST_DATE_EMPTY;
+import static duke.ui.Strings.MESSAGE_LIST_EMPTY;
 
 import duke.data.TaskList;
 import duke.data.task.Task;
@@ -49,6 +50,10 @@ public class ListCommand extends Command {
      * @param ui    ui to print to
      */
     private void listAll(ArrayList<Task> tasks, TextUi ui) {
+        if (tasks.isEmpty()){
+            ui.printMessage(MESSAGE_LIST_EMPTY);
+            return;
+        }
         ui.printMessage(MESSAGE_LIST);
 
         int index = 1;
