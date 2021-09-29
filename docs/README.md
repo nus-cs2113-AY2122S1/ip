@@ -4,11 +4,12 @@
 of events and deadlines**. It is a personalised **chatbox** that offers customised feedback 
 and helps you stay ahead of the curve.
 
+<br />
+
 ## Table of Contents
 
 - [Quick start](#quick-start)
 - [Features](#features)
-    - [Help `help`](#help-help)
     - [Add Todo Task `todo`](#add-todo-task-todo)
     - [Add Event Task `event`](#add-event-task-event)
     - [Add Deadline Task `deadline`](#add-deadline-task-deadline)
@@ -19,6 +20,9 @@ and helps you stay ahead of the curve.
     - [End the Program `bye`](#end-the-program-bye)
     - [Save Tasks to File](#save-tasks-to-file)
 - [Command Summary](#command-summary)
+- [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
+
+<br />
 
 -------------------------------------------------
 
@@ -38,16 +42,15 @@ ____________________________________________________________
 ```
 7. Refer to Features for proper usage instructions and commands.
 
+<br />
+
 -------------------------------------------------
 ## Features
 
 ### Note
 - Words in `<UPPER_CASE>` are parameters given by the user.
 
-### Help: `help`
-Displays all the commands and appropriate usage.
-
-Format: `help`
+<br />
 
 ### Add Todo Task: `todo`
 Adds a todo task for DUKE to keep track.
@@ -65,8 +68,12 @@ Now you have 1 tasks in the list.
 ____________________________________________________________
 ```
 
+<br />
+
 ### Add Event Task: `event`
 Adds an event with a specific date and time for DUKE to keep track.
+
+>* Note: Every event statement _**requires**_ Date and Time in the **correct format** as given below.
 
 Format: `event <TASK_DESCRIPTION> /at <YYYY-MM-DD HH:MM>`
 
@@ -81,8 +88,12 @@ Now you have 2 tasks in the list.
 ____________________________________________________________
 ```
 
+<br />
+
 ### Add Deadline Task: `deadline`
 Adds a deadline with a specific date and time for DUKE to keep track.
+
+>* Note: Every deadline statement _**requires**_ Date and Time in the **correct format** as given below.
 
 Format: `deadline <TASK_DESCRIPTION> /by <YYYY-MM-DD HH:MM>`
 
@@ -97,6 +108,8 @@ Now you have 3 tasks in the list.
 ____________________________________________________________
 
 ```
+
+<br />
 
 ### List all tasks: `list`
 Lists all the tasks added to Duke
@@ -115,8 +128,13 @@ ____________________________________________________________
 
 ```
 
+<br />
+
 ### Mark a Task as Done: `done`
-Marks a task that DUKE is tracking as done.
+Marks a task that DUKE is tracking as done. "X" is displayed to mark the task
+as done. 
+
+>* Note: The index refers to the **list index** beginning from 1 and not **array index** beginning from 0.
 
 Format: `done <TASK_INDEX>` 
 
@@ -131,8 +149,12 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 ```
 
+<br />
+
 ### Delete a Task: `delete`
 Delete the task from Duke and duketasks.txt
+
+>* Note: The index refers to the **list index** beginning from 1 and not **array index** beginning from 0.
 
 Format: `delete <TASK_INDEX>` 
 
@@ -147,8 +169,11 @@ Now you have 2 tasks in the list.
 ____________________________________________________________
 ```
 
+<br />
+
 ### Find a Task: `find`
 Finds tasks with a `<SEARCH_STRING>` that contains the string inputted by the user.
+The command can accept dates in both string and numeric formats.
 
 Format: `find <SEARCH_STRING>`
 
@@ -161,6 +186,8 @@ Here are the matching tasks in your list:
 [E][X] Attend CG2027 lecture  (on: Tuesday, October 12, 2021 03:21 PM)
 ____________________________________________________________
 ```
+
+<br />
 
 ### End the Program: `bye`
 Duke bids farewell and closes the application.
@@ -181,7 +208,10 @@ All the tasks added to duke is automatically added to a local
 file called `duketasks.txt` in the local directory. The file 
 is automatically updated if any changes are made.
 
+<br />
+
 -------------------------------------------------
+
 ## Command Summary
 
 Action | Command Format | Example
@@ -195,3 +225,28 @@ Mark a task done | `done <TASK_INDEX>` | `done 2`
 Delete a task| `delete <TASK_INDEX>` | `delete 3`
 Find matching tasks| `find <SEARCH_STRING>` | `find homework`
 Exit duke | `bye` | `bye`
+
+<br />
+
+-------------------------------------------------
+
+## Frequently Asked Questions (FAQ)
+
+<br />
+
+**Q:** How do I transfer my tasks to another Computer?
+
+**A:** Follow the steps in **Quick Start** to setup Duke on the 
+other computer and paste the duketasks.txt file in the home
+directory of the jar file. All the tasks should now be visible
+in Duke.
+
+<br />
+
+**Q:** Why am I unable to add dates in another format?
+
+**A:** We use the format `YYYY-MM-DD HH:MM` to ensure 
+consistency and ease of use for everybody, hence any 
+other format is currently not supported.
+
+<br />
