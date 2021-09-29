@@ -21,8 +21,7 @@
 Shows a list of all tasks in the task list.
 
 Format: `list`
-<br />
-<br />
+
 ### Add a todo task: `todo`
 
 Adds a todo task to the task list.
@@ -32,19 +31,19 @@ Format: `todo <DESCRIPTION>`
 Examples:
 * todo Homework
 * todo Assignment
-<br />
-<br />
+
 ### Add a deadline task: `deadline`
 
 Adds a deadline task to the task list.
 
 Format: `deadline <DESCRIPTION> /by <DATETIME>`
-> :bulb: **Note:**
+> :bulb: **Note:**<br />
 > `<DATETIME>` format: `dd/MM/yyyy HHmm`
 
 Examples:
 * deadline Assignment 1 /by 10/10/2021 2359
 * deadline Assignment 2 /by 01/01/2022 0000
+
 ### `Keyword` - Describe action
 
 Describe the action and its outcome.
