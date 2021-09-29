@@ -7,7 +7,7 @@ public class Duke {
 
     public static void main(String[] args) throws IOException {
 
-        // Create Task List
+        // Create List of Tasks
         TaskList tasks = new TaskList();
 
         // Load Tasks
