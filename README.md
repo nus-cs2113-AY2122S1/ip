@@ -18,6 +18,8 @@ Prerequisite: [JDK](https://www.oracle.com/java/technologies/downloads/ "Java De
 2. Open a command prompt in the same folder and run the command `java -jar [program_name].jar`
 3. There will be a save file `duke.txt` created in the directory `[current directory]/data`.
 
+<br />
+
 ### Task Format
 tasks are displayed in the following format when listed:  
 `[T|D|E][X| ] <description> (time)` 
@@ -28,6 +30,8 @@ tasks are displayed in the following format when listed:
 `[T][X] Get Vegetables` is a Todo that is done.  
 `[D][ ] CS2106 Lab 2 (/by: 28/09/2021)` Is a Deadline that has not been done yet!
 
+<br />
+
 ### Adding Tasks
 * `todo <description>`: Inserts a new Todo into your program to track.
   * e.g. `todo buy vegetables`
@@ -36,6 +40,8 @@ tasks are displayed in the following format when listed:
 * `event <description> /at <time>`: Inserts a new Event into your program to track to be done at a specific <time>.
    * e.g. `event Zoukout /at 1/12/2018 12am`
 <div style="text-align: left"><i>Note* there is no strict format for &lt;time&gt;.</i></div>
+
+<br />
 
 ### Commands
 * `list`: Lists out all the tasks you currently have saved.
@@ -46,6 +52,8 @@ tasks are displayed in the following format when listed:
 * `delete <list number>`: Delete a task based on the index in the `list` command.
   * e.g. `delete 3`
 * `bye`: Exits the program.  
+  
+<br />
 
 ### Save File Format
 The program save file is stored in `[program directory]/data/duke.txt` so if you move your program, remember to move your save file with it!  
