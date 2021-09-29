@@ -5,7 +5,7 @@ Their respective completion status can be tracked and items can also be removed 
 
 ## Quick Start
 1. Make sure you have **Java 11** installed running on your computer.
-2. Download the **lennox.jar** file [here]().
+2. Download the **lennox.jar** file [here](https://github.com/KVignesh122/ip/releases/tag/A-Release).
 3. Store the jar file to your preferred directory locally.
 4. To run file, open a Terminal at this directory and enter `java -jar lennox.jar`.
 5. Follow the on-screen instructions and select the appropriate mode for the chatbot.
