@@ -1,8 +1,8 @@
 package duke.logic.commands;
 
 /**
- * This Command is used to return incorrect command format messages.
- * When executed, it returns CommandResult with corresponding error.
+ *  Represents any incorrect command that has been parsed from user input.
+ *  Contains a String of message that describes the error in parsing.
  */
 public class IncorrectCommand extends Command {
     private String errorMessage;

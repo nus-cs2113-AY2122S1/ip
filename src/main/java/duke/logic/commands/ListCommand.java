@@ -1,20 +1,20 @@
 package duke.logic.commands;
 
-import static duke.ui.Ui.LS;
-import static duke.ui.Ui.MESSAGE_NO_TASKS_YET;
-import static duke.ui.Ui.QUOTATION;
+import duke.ui.Ui;
 
+/**
+ *  Represents the command that when executed, lists all the tasks in the current TaskList
+ */
 public class ListCommand extends Command {
-
     public static final String COMMAND_WORD = "list";
-    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD + QUOTATION;
+    public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
     public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : See lists of tasks";
-    private static final String MESSAGE_INTRODUCE_TASKS = "These are your current tasks:" + LS + "%s";
+    private static final String MESSAGE_INTRODUCE_TASKS = "These are your current tasks:" + Ui.LS + "%s";
 
     @Override
     public CommandResult execute() {
         if (super.tasks.isEmpty()) {
-            return new CommandResult(MESSAGE_NO_TASKS_YET);
+            return new CommandResult(Ui.MESSAGE_NO_TASKS_YET);
         }
 
         String listOfTasksInString = super.tasks.getStringOfAllTasks();

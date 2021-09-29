@@ -25,7 +25,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns Deadline task formatted in the form "[D][ ] description (by: deadline)"
+     * Returns Deadline task formatted for application UI, in the form "[D][ ] description (by: deadline)"
      *
      * @return Formatted Deadline task string
      */

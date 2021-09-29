@@ -13,7 +13,8 @@ import duke.ui.Ui;
 import static duke.logic.commands.Command.requiresStorageRewrite;
 
 /**
- * Main class of the Dude bot
+ * Main class of the Dude bot.
+ * Initialises the application and starts user interaction.
  */
 public class Main {
     private static Ui ui;
@@ -21,6 +22,10 @@ public class Main {
     private static Storage storage;
 
 
+    /**
+     * Initialises the application by creating the required objects (Ui, Tasks, Storage) and loading data from the
+     * storage file, then showing the welcome message.
+     */
     private void start() {
         try {
             this.ui = new Ui();
@@ -33,11 +38,17 @@ public class Main {
         }
     }
 
+    /** Shows the Goodbye message and exits the application.*/
     private void exit() {
         ui.showBye();
         System.exit(0);
     }
 
+    /**
+     * Executes the given Command and calls for storage operation if required.
+     * @param command Command to be executed
+     * @return CommandResult representing result of execution of the command
+     */
     private CommandResult executeCommand(Command command) {
         command.setTasks(this.tasks);
         CommandResult result = command.execute();
@@ -51,6 +62,10 @@ public class Main {
         return result;
     }
 
+    /**
+     * Reads the user input and executes appropriate command.
+     * Runs indefinitely until user inputs the Bye command.
+     */
     private void enterTaskModeUntilByeCommand() {
         Command command;
         do {
@@ -61,14 +76,12 @@ public class Main {
         } while (!ByeCommand.isBye(command));
     }
 
-    /**
-     * Entry point of the application.
-     * Shows welcome message and enters task mode, which handles the user interaction
-     */
+    /** Entry point of the application. */
     public static void main(String[] args) {
         new Main().run(args);
     }
 
+    /** Runs the application until command is given to exit it. **/
     private void run(String[] args) {
         start();
         enterTaskModeUntilByeCommand();

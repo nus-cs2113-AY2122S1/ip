@@ -1,11 +1,14 @@
 package duke.logic.commands;
 
-import static duke.ui.Ui.QUOTATION;
+import duke.ui.Ui;
 
+/**
+ * Represents the command that when executed, signals to the Main class to exit the program.
+ */
 public class ByeCommand extends Command {
 
     public static final String COMMAND_WORD = "bye";
-    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD + QUOTATION;
+    public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
     public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : Stop Dude :(";
     private static final String MESSAGE_SUCCESS = "Stopping Dude... :(";
 

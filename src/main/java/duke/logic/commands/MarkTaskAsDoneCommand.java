@@ -1,20 +1,21 @@
 package duke.logic.commands;
 
-import duke.logic.commands.exceptions.TaskAlreadyDoneException;
-import duke.logic.commands.exceptions.TaskListEmptyException;
-import duke.logic.commands.exceptions.TaskNumOutOfBoundsException;
+import duke.logic.exceptions.TaskAlreadyDoneException;
+import duke.logic.exceptions.TaskListEmptyException;
+import duke.logic.exceptions.TaskNumOutOfBoundsException;
+import duke.ui.Ui;
 
-import static duke.ui.Ui.LS;
-import static duke.ui.Ui.QUOTATION;
-
+/**
+ * Represents the command that when executed, marks the task at the given task number as done.
+ */
 public class MarkTaskAsDoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
-    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD + " X" + QUOTATION;
+    public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + " X" + Ui.QUOTATION;
     public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : Mark task number X as done";
     public static final String MESSAGE_INVALID_FORMAT = "Invalid format! Please input a task number to be marked as done, "
-            + LS + "in the format " + MESSAGE_COMMAND_FORMAT + ", where X is the task number!";
+            + Ui.LS + "in the format " + MESSAGE_COMMAND_FORMAT + ", where X is the task number!";
     private static final String MESSAGE_SUCCESS = "Well done! I've marked this task as done. ^_^";
-    private static final String MESSAGE_TASK_NUM_INVALID = "Please input a valid task number from 1 to %d!";
+
 
     private int taskNum;
 
@@ -30,7 +31,7 @@ public class MarkTaskAsDoneCommand extends Command {
         } catch (TaskListEmptyException e) {
             return new CommandResult(e.toString());
         } catch (TaskNumOutOfBoundsException e) {
-            return new CommandResult(String.format(MESSAGE_TASK_NUM_INVALID, super.tasks.getNumTasks()));
+            return new CommandResult(String.format(e.toString(), super.tasks.getNumTasks()));
         } catch (TaskAlreadyDoneException e) {
             return new CommandResult(e.toString());
         }

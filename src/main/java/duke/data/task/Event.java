@@ -12,7 +12,7 @@ public class Event extends Task {
 
     public Event(String description, LocalDateTime dateAndTime) {
         super(description);
-        setDateAndTime(dateAndTime);
+        this.dateAndTime = dateAndTime;
     }
 
     public Event(String description, LocalDateTime dateAndTime, boolean isDone) {
@@ -24,12 +24,9 @@ public class Event extends Task {
         return this.dateAndTime.format(DateTimeFormatter.ofPattern("MMM d yyyy h.ma"));
     }
 
-    public void setDateAndTime(LocalDateTime dateAndTime) {
-        this.dateAndTime = dateAndTime;
-    }
 
     /**
-     * Returns Event task formatted in the form "[E][ ] description (at: date/time)"
+     * Returns Event task formatted for application UI,  in the form "[E][ ] description (at: date/time)"
      *
      * @return Formatted Event task string
      */

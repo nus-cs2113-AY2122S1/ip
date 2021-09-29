@@ -1,15 +1,13 @@
 package duke.data.task;
 
-import duke.logic.commands.exceptions.TaskAlreadyDoneException;
-import duke.logic.commands.exceptions.TaskListEmptyException;
-import duke.logic.commands.exceptions.TaskNumOutOfBoundsException;
+import duke.logic.exceptions.TaskAlreadyDoneException;
+import duke.logic.exceptions.TaskListEmptyException;
+import duke.logic.exceptions.TaskNumOutOfBoundsException;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static duke.ui.Ui.EMPTY;
-import static duke.ui.Ui.LS;
 
 /**
  * ArrayList of Tasks
@@ -85,16 +83,12 @@ public class TaskList {
         }
     }
 
-    /**
-     * Returns the ArrayList of tasks
-     */
+    /** Returns the ArrayList of tasks*/
     public ArrayList<Task> getTasks() {
         return this.internalTasks;
     }
 
-    /**
-     * Returns the task at specific task number
-     */
+    /** Returns the task at specific task number */
     public Task getTaskAtNum(int taskNum) throws TaskNumOutOfBoundsException {
         try {
             return this.internalTasks.get(convertToIndexNum(taskNum));
@@ -103,28 +97,23 @@ public class TaskList {
         }
     }
 
-    /**
-     * Returns size of tasks
-     */
+    /** Returns size of tasks */
     public int getNumTasks() {
         return this.internalTasks.size();
     }
 
 
-    /**
-     * Returns true if TaskList is empty
-     */
+    /** Returns true if TaskList is empty */
     public boolean isEmpty() {
         return this.internalTasks.isEmpty();
     }
 
-    /**
-     * Returns all the tasks in string form
-     */
+    /** Returns all the tasks in string form */
     public String getStringOfAllTasks() {
-        String stringOfAllTasks = EMPTY;
+
+        String stringOfAllTasks = Ui.EMPTY;
         for (Task task : internalTasks) {
-            stringOfAllTasks = stringOfAllTasks + getTaskNum(task) + "." + task.toString() + LS;
+            stringOfAllTasks = stringOfAllTasks + getTaskNum(task) + "." + task.toString() + Ui.LS;
         }
         return stringOfAllTasks.trim();
     }
@@ -134,23 +123,19 @@ public class TaskList {
      * @param listOfTasks List of tasks that is a subset of the internalTasks list
      */
     public String getStringOfTasksInList(List<Task> listOfTasks) {
-        String stringOfAllTasks = EMPTY;
+        String stringOfAllTasks = Ui.EMPTY;
         for (Task task : listOfTasks) {
-            stringOfAllTasks = stringOfAllTasks + getTaskNum(task) + "." + task.toString() + LS;
+            stringOfAllTasks = stringOfAllTasks + getTaskNum(task) + "." + task.toString() + Ui.LS;
         }
         return stringOfAllTasks.trim();
     }
 
-    /**
-     * Returns list of tasks that match search term
-     */
+    /** Returns list of tasks that match search term */
     public List<Task> getListOfTasksWithMatchingTerm(String searchTerm) {
         return internalTasks.stream().filter(task -> task.description.toLowerCase().contains(searchTerm.toLowerCase())).collect(Collectors.toList());
     }
 
-    /**
-     * Returns list of tasks that match search term in string form
-     */
+    /** Returns list of tasks that match search term in string form */
     public String getStringOfTasksWithMatchingTerm(String searchTerm) {
         List<Task> listOfTasks = getListOfTasksWithMatchingTerm(searchTerm);
         return getStringOfTasksInList(listOfTasks);
