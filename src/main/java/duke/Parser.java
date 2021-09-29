@@ -6,6 +6,12 @@ import duke.task.Task;
 
 public class Parser {
 
+    /**
+     * Takes the user's inputs and calls different methods that carries out the user's commands depending on the user's
+     * inputs.
+     *
+     * @param userInput Line input by the user.
+     */
     public static void parseInput(String userInput)  {
         boolean isPrint = true;
         String[] splitInputs = userInput.split(" ");
@@ -42,6 +48,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates an event task based on the input of the user and returns the new task.
+     *
+     * @param userLineInput Line input by the user.
+     * @return Event task created from the user line input
+     * @throws DukeException if "/by" is used instead of "/at"
+     */
     public static Task getEventTask(String userLineInput) throws DukeExceptions {
         int infoIndex = userLineInput.indexOf("/");
         int endOfInfoIndex = infoIndex + 3;
@@ -55,6 +68,12 @@ public class Parser {
         return newEvent;
     }
 
+    /**
+     * Creates a deadline task based on the input of the user and returns the new task.
+     * @param userLineInput Line input by the user.
+     * @return Event task created from the user line input
+     * @throws DukeException if "/at" is used instead of "/by"
+     */
     public static Task getDeadlineTask(String userLineInput) throws DukeExceptions {
         int infoIndex = userLineInput.indexOf("/");
         int endOfInfoIndex = infoIndex + 3;

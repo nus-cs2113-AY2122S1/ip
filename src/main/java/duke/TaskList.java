@@ -13,6 +13,13 @@ public class TaskList {
     private static final ArrayList<Task> userLists = new ArrayList<>();
     private static int numOfTasks = 0;
 
+    /**
+     * Calls different methods to store different types of tasks depending on the user command.
+     *
+     * @param userCommand Command denoting the type of task to be stored.
+     * @param userInput Full string of the user input.
+     * @param isPrint Flag to determine whether to print the message after task has been added to the list.
+     */
     public static void taskHandler(String userCommand, String userInput, boolean isPrint) {
         switch (userCommand) {
         case "event":
@@ -27,6 +34,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks the chosen task as complete.
+     *
+     * @param chosenIndex Index of task to be marked as complete.
+     * @param isPrint Flag to determine whether to print the message after task has been marked as done.
+     */
     public static void completeTask(int chosenIndex, boolean isPrint) {
         try {
             int doneIndex = chosenIndex - 1;
@@ -42,6 +55,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes the chosen task from the task list.
+     *
+     * @param chosenIndex Index of task to be deleted.
+     */
     public static void deleteTask(String chosenIndex) {
         try {
             int deleteIndex = Integer.parseInt(chosenIndex) - 1;
@@ -55,6 +73,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Takes the user input and stores the contents as a to-do task.
+     * @param userLineInput Full string of the user input to be stored as a to-do task.
+     * @param isPrint Flag to determine whether to print the message after storing the task.
+     */
     public static void addTodo(String userLineInput, boolean isPrint) {
         try {
             String todoDescription = userLineInput.substring(5);
@@ -70,6 +93,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Takes the user input and stores the contents as an event task.
+     *
+     * @param userLineInput Full string of the user input to be stored as an event task.
+     * @param isPrint Flag to determine whether to print the message after storing the task.
+     */
     public static void addEvent(String userLineInput, boolean isPrint) {
         try {
             Task newEvent = Parser.getEventTask(userLineInput);
@@ -86,7 +115,12 @@ public class TaskList {
         }
     }
 
-
+    /**
+     * Takes the user input and stores the contents as a deadline task.
+     *
+     * @param userLineInput Full string of the user input to be stored as a deadline task.
+     * @param isPrint Flag to determine whether to print the message after storing the task.
+     */
     public static void addDeadline(String userLineInput, boolean isPrint) {
         try {
             Task newDeadline = Parser.getDeadlineTask(userLineInput);
@@ -104,19 +138,28 @@ public class TaskList {
         }
     }
 
-
+    /**
+     * Gets the current task list and prints the task list.
+     */
     public static void getList() {
+        UI.printLineSpacer();
         if (numOfTasks == 0) {
             System.out.println("\tList is empty!");
         } else {
             System.out.println("\tHere's your list of tasks:");
             for (int i = 0; i < numOfTasks; i++) {
                 System.out.println("\t" + (i + 1) + "." + userLists.get(i).toString());
-                System.out.println(userLists.get(i).getStatusIcon() + "|");
             }
         }
     }
 
+    /**
+     * Returns the done status of the chosen task.
+     *
+     * @param userList List of all tasks stored by the user.
+     * @param numTask Index of the chosen task.
+     * @return "1" if the task is marked done, if not returns "0"
+     */
     public static String getDoneStatus(ArrayList<Task> userList, int numTask) {
         String currentStatusIcon = userList.get(numTask).getStatusIcon();
         if (currentStatusIcon.equals("[X] ")){
@@ -125,10 +168,15 @@ public class TaskList {
         return "0";
     }
 
+    /**
+     * Takes the keyword input by the user and searches the task list for entries that contains the keyword
+     *
+     * @param userInput Full string of the search input containing the keyword to be found.
+     */
     public static void findEntry(String[] userInput) {
-        String searchQuery = userInput[1];
+        String searchEntry = userInput[1];
         List<Task> matches =userLists.stream()
-                .filter(t -> t.getDescription().contains(searchQuery))
+                .filter(t -> t.getDescription().contains(searchEntry))
                 .collect(Collectors.toList());
         UI.printFoundEntries(matches);
     }
