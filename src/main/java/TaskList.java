@@ -5,6 +5,11 @@ public class TaskList {
     private static ArrayList<Task> tasksList;
     private static final String HOR_LINE = "-".repeat(60);
 
+    /**
+     * Prints out tasks found for keyword input by user.
+     *
+     * @param word Keyword to search for in tasks descriptions.
+     */
     public static void findTasks(String word) {
         System.out.println("\t" + HOR_LINE);
         System.out.println("\tTasks found for keyword, " + word.toUpperCase());
