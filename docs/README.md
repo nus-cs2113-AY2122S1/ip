@@ -55,6 +55,7 @@ Adds a event task to the task list.
 Format: `event <DESCRIPTION> /at <DATETIME>`
 > :bulb: **Note:**<br />
 > `<DATETIME>` format is `dd/MM/yyyy HHmm`
+
 Examples:
 * event Lecture /at 21/11/2021 1600
 * event Appointment /at 02/02/2022 0830
