@@ -8,14 +8,18 @@ optimized for use through a Command Line Interface (CLI).**
 * [Quick Start](#Quick-Start)
 * [Features](#Features)
 * [Command Summary](#Command-Summary)
--------------------------------
+
+<br>
+
 ## First Time Installation
 Prerequisite - ensure you have Java 11 or above installed in your Computer
 
 1. Download Ikaros.jar to your desired folder
 2. In the same folder run *java -jar IP.jar* on the console. (Do ensure you have Java JDK 11)
 3. Ikaros will create an *ikarosTaskData.txt* that will store your data for future reference when you launch the application for the first time.
--------------------------------
+
+<br>
+
 ## Quick Start
 Ensure you have completed the first time installation before proceeding with the running of this program
 
@@ -38,12 +42,14 @@ _______________     ___ -+- _______________
 ```
 
 Following which, it will display the stored List  of tasks, and the user can begin to input their commands to Ikaros.
->> **Quick Notes about the CLI**
+> **Quick Notes about the CLI**
 > - Data will be stored in IkarosTaskData.txt. If no such file exists, the program will display an error message. If it is your first time using the program proceed as per normal
 > - Words in `<UPPERCASE_AND_ANGULAR_BRACKETS>` refers to the parameters required for the specific commands
 > - Words in angular brackets `<SEPERATED_BY/A_SLASH>` refer to either our parameters where one or the othere parameter can be used.
 > - The format for how each command should be keyed in will be `demarcated in this box`
--------------------------------
+
+<br>
+
 ## Features
 Below is a brief summary of the usable commands and features that can be utilised for Ikaros. 
 Click on the separate links to find out more about each feature.
@@ -128,7 +134,9 @@ This command shows you, the list and the format of the usable commands while in 
 This command allows you to exit and close the program
 > #### 'bye'
 >> * Format: `bye`
-------------------------
+
+<br>
+
 ## Command Summary
 
 |Action|Command Format|
