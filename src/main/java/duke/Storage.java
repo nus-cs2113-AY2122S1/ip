@@ -15,6 +15,9 @@ public class Storage {
     public static final int RESULT_IS_DONE = 1;
     public static final int RESULT_DESCRIPTION = 2;
     public static final int RESULT_TIME = 3;
+    public static final String Todo = "T";
+    public static final String Deadline = "D";
+    public static final String Event = "E";
 
     /**
      * Read all the lines in the file line by line
@@ -50,17 +53,17 @@ public class Storage {
     private static void checkTaskType(String[] result) {
         Task newTask;
         switch (result[RESULT_TASK_TYPE]) {
-        case "T":
+        case Todo:
             newTask = new Todo(result[RESULT_DESCRIPTION],
                     strToBoolean(result[RESULT_IS_DONE]));
             TaskList.reloadTask(newTask);
             break;
-        case "D":// need to edit this
+        case Deadline:// need to edit this
             newTask = new Deadline(result[RESULT_DESCRIPTION],
                     strToBoolean(result[RESULT_IS_DONE]), parseDeadline(result[RESULT_TIME]));
             TaskList.reloadTask(newTask);
             break;
-        case "E":// need to edit this
+        case Event:// need to edit this
             newTask = new Event(result[RESULT_DESCRIPTION],
                     strToBoolean(result[RESULT_IS_DONE]), parseEvent(result[RESULT_TIME]));
             TaskList.reloadTask(newTask);
