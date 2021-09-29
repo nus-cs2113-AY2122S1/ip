@@ -4,7 +4,7 @@ package duke.Type;
  * Divider to differentiate deadlines, events, todo in user input
  */
 public enum Divider {
-    E("/at"), D("/by");
+    E("/at"), D("/by"), PRINT_BLOCK("|");
 
     protected String divisor;
     Divider(String divisor) {

@@ -76,6 +76,7 @@ public class Ui {
 
     public static void inputFailMessage() {
         System.out.println("☹ OOPS!!! Please enter a valid command:");
+        System.out.println("use [ help ] to view valid commands!");
     }
 
     public static void printNoNull() {

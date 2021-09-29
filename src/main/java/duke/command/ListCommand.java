@@ -6,7 +6,7 @@ import duke.data.TaskList;
  * Command to list tasks from both the task list and save file.
  *  A <code>List</code> command can be called with the prefix 'list' in Duke.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     public ListCommand() {
         super(CommandPrefix.LIST);
     }

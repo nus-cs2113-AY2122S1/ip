@@ -1,26 +1,41 @@
 # Duke User Guide
-Welcome to Duke :penguin: - your personal task manager!
+
+Welcome to Duke 🐧 - your personal task manager!
 Let's record all your 'tasks' in a 'list'!
 ## Features
+
 ### Feature-Add
+
 Adds task to your list
 ### Feature-Done
+
 Marks a set of tasks as done
 ### Feature-Find
-Returns tasks that have matching keywords
+
+Return tasks that have matching keywords
 ### Feature-Date
+
 Returns tasks that have valid dates
 ### Feature-List
+
 Shows you the current list
 ### Feature-Delete
+
 Deletes a set of tasks
 ### Feature-Clear
+
 Clears your list
 ### Feature-Echo
+
 Echo's your command
 ### Feature-Mascot
-Have a :penguin: mascot repeat after you
+
+Have a 🐧 mascot repeat after you
+### Feature-Help
+
+List all of duke's command prefixes and brief description
 ## Usage
+
 ### `add` - adds task to list
 
 Adds tasks to a list, line by line, stops when `stop` is called
@@ -32,6 +47,7 @@ A task could either be a :
 1. event    [E]    - contains the date of event, mark using `/by`
 
 Example of usage:
+
 ```
 add
 Read books
@@ -51,6 +67,7 @@ finished adding
 Marks a set of tasks as done, read in one line
 
 Example of usage:
+
 ```
 done
 1 2
@@ -58,6 +75,7 @@ done
 Expected outcome:
 
 Tasks marked as done, descriptions indicated to user
+
 ```
 done Read books, CS2113 Tutorial ,
  / done tasks, good job! /
@@ -68,6 +86,7 @@ finished marking as done!
 find tasks with matching keyword
 
 Example of usage:
+
 ```
 find
 book
@@ -87,10 +106,11 @@ finished finding
 
 Display tasks with matching date.
 
-Note that if no valid date is found, the task is tagged with 
+Note that if no valid date is added with a task , the task is tagged with 
  default date 1999-11-30.
 
 Example of usage:
+
 ```
 date
 1999-11-30
@@ -110,6 +130,7 @@ finished getting date!
 Display list of tasks
 
 Example of usage:
+
 ```
 list
 ```
@@ -130,6 +151,7 @@ finished listing tasks!
 Delete tasks from list
 
 Example of usage:
+
 ```
 delete
 1 3
@@ -149,6 +171,7 @@ finished deleting tasks!
 Clears list
 
 Example of usage:
+
 ```
 clear
 ```
@@ -165,6 +188,7 @@ finished clearing list!
 repeat anything said
 
 Example of usage:
+
 ```
 echo
 hello world
@@ -172,15 +196,17 @@ hello world
 Expected outcome:
 
 repeats input
+
 ```
     hello world
 finished echoing!
 ```
-### `mascot` - echo, but cooler
+### `mascot` - echo, but 'cooler' 🐧
 
-Penguin repeats input
+🐧 repeats input
 
 Example of usage:
+
 ```
 mascot
 hello world
@@ -201,4 +227,20 @@ Expected outcome:
     \___)=(___/
                   
 finished saying stuff!
+```
+
+### `help` - list all of Duke's features
+
+Example of usage:
+```
+help
+```
+Expected outcome:
+
+all features listed with command prefix, followed by description
+
+```
+add : add tasks to list
+ .. More features ..
+help : prints feature list
 ```

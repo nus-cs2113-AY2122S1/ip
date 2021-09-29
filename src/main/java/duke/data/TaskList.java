@@ -157,7 +157,7 @@ public class TaskList {
             taskList.stream()
                     .map(t->t.getDescription())
                     .forEach(t-> System.out.println(t));
-            System.out.println("with the given date: " + dateGiven.format(DateTimeFormatter.ISO_LOCAL_DATE));
+            System.out.println("with the given date: " + dateGiven.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
         }
     }
 }

@@ -7,10 +7,11 @@ import duke.Ui.Ui;
  * Command to wave goodbye to user.
  *  A <code>Bye</code> command can be called with the prefix 'bye' in Duke.
  */
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
     public ByeCommand() {
         super(CommandPrefix.BYE);
     }
+
     @Override
     public void saveListAndPrintDone(TaskList tasks) {
         super.saveListAndPrintDone(tasks);

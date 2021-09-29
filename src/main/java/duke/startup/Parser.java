@@ -78,6 +78,8 @@ public class Parser {
             return new FindCommand();
         } else if (stringToRead.startsWith(CommandPrefix.DATE.getPrefix())) {
             return new DateCommand();
+        } else if (stringToRead.startsWith(CommandPrefix.HELP.getPrefix())) {
+            return new HelpCommand();
         } else {
             return new OopsieCommand();
         }

@@ -6,7 +6,7 @@ import duke.data.TaskList;
  * Adds tasks to a list.
  * A <code>Add</code> command can be called with the prefix 'add' in Duke.
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     public AddCommand() {
         super(CommandPrefix.ADD);
     }

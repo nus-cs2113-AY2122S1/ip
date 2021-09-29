@@ -25,7 +25,7 @@ public abstract class Command {
             Storage.saveList(tasks);
             System.out.print("finished ");
         } catch (IOException e) {
-            System.out.println("IOException, please try again!");
+            System.out.println("IOException, please restart Duke!");
         }
     }
 
@@ -42,7 +42,6 @@ public abstract class Command {
         return isExit;
     }
 
-    public void execute(TaskList tasks) {
-    }
+    public abstract void execute(TaskList tasks);
 
 }

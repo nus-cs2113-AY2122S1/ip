@@ -7,7 +7,7 @@ import duke.Ui.Ui;
  * Command to find tasks by keyword from both the task list and save file.
  *  A <code>find</code> command can be called with the prefix 'find' in Duke.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     public FindCommand() {
             super(CommandPrefix.FIND);
     }

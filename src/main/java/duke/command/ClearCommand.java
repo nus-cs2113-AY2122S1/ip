@@ -6,7 +6,7 @@ import duke.data.TaskList;
  * Command to erase tasks from both the task list and save file.
  *  * A <code>Clear</code> command can be called with the prefix 'clear' in Duke.
  */
-public class ClearCommand extends Command{
+public class ClearCommand extends Command {
     public ClearCommand() {
         super(CommandPrefix.CLEAR);
     }

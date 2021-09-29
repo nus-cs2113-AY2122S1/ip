@@ -6,7 +6,7 @@ import duke.data.TaskList;
  * Command to delete tasks from both the task list and save file.
  *  A <code>Delete</code> command can be called with the prefix 'delete' in Duke.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     public DeleteCommand() {
         super(CommandPrefix.DELETE);
     }

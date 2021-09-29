@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
  * Command to list tasks with a valid date.
  *  * A <code>Date</code> command can be called with the prefix 'date' in Duke.
  */
-public class DateCommand extends Command{
+public class DateCommand extends Command {
     public DateCommand() {
         super(CommandPrefix.DATE);
     }
