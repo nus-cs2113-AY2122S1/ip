@@ -10,13 +10,11 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private FileManager fileManager;
-    private DisplayManager displayManager;
-    private TaskManager taskManager;
-    private Parser parser;
-    private Scanner in;
-
-    private static final String COMMAND_EXIT = "bye";
+    private final FileManager fileManager;
+    private final DisplayManager displayManager;
+    private final TaskManager taskManager;
+    private final Parser parser;
+    private final Scanner in;
 
     public Duke(String filePath) {
         displayManager = new DisplayManager();
@@ -36,15 +34,13 @@ public class Duke {
         displayManager.printStartGreet();
         String fullCommand;
         fullCommand = in.nextLine();
-        boolean isExit = false;
-        while (!isExit) {
+        while (true) {
             try {
                 Command command = parser.parse(taskManager, parser, fullCommand);
                 if (command != null) {
                     command.execute();
                 }
                 if (command instanceof ExitCommand) {
-                    isExit = true;
                     break;
                 }
             } catch (DukeException e) {
