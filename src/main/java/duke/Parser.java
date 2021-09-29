@@ -12,6 +12,9 @@ public class Parser {
         String userCommand = splitInputs[0];
         try {
             switch (userCommand) {
+            case "find":
+                TaskList.findEntry(splitInputs);
+                break;
             case "list":
                 TaskList.getList();
                 break;
