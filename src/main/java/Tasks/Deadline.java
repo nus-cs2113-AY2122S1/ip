@@ -5,12 +5,12 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Tasks {
     protected String type = "D";
-    protected String by = "";
+   // protected String by = "";
     protected LocalDateTime dateTime= null;
 
     public Deadline(String description, LocalDateTime dateTime) {
         super(description);
-        this.by = by;
+        //this.by = by;
         this.dateTime=dateTime;
     }
 
