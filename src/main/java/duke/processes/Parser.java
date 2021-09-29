@@ -1,4 +1,10 @@
-package duke;
+package duke.processes;
+
+import duke.exceptions.IllegalTaskException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 public class Parser {
     /**

@@ -1,4 +1,8 @@
-package duke;
+package duke.processes;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -6,8 +10,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-
-    private static final String filePath = "C:/Users/kairo/Documents/ip/src/main/java/duke/DukeTaskData.txt";
 
     /**
      * Loads pre-existing tasks found in DukeTaskData.txt.
@@ -19,7 +21,7 @@ public class Storage {
      */
     public static void loadTasks(TaskList tasks) {
 
-        File DukeTaskData = new File(filePath);
+        File DukeTaskData = new File("DukeTaskData.txt");
         Scanner scan;
         String[] execute;
 
@@ -81,7 +83,7 @@ public class Storage {
     public static void saveTasks(TaskList tasks) throws IOException {
 
         try {
-            FileWriter fw = new FileWriter(filePath);
+            FileWriter fw = new FileWriter("DukeTaskData.txt");
             for (int i = 0; i <= tasks.counter - 1; i += 1) {
                 fw.write(tasks.list.get(i).getLetter() + "/"
                         + tasks.list.get(i).getStatusIcon() + "/"
