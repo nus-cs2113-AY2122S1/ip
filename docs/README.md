@@ -23,7 +23,7 @@ In the **Duke** application, there are several features.
 5. Find a task by keyword
 6. Find all the tasks that are due
 
-After every command is executed, the task data is automatically saved on the computer.
+After every command is executed, the task data is automatically saved on the computer. The next time the application is launched, all the tasks will be loaded automatically.
 
   
 
