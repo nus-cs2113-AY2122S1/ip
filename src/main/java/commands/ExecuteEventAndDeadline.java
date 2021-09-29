@@ -6,19 +6,32 @@ import task.type.Deadline;
 import task.type.TaskList;
 
 public class ExecuteEventAndDeadline extends Command {
-    private String type;
+    private String typeOfInput;
     private String description;
     private String time;
 
-    public ExecuteEventAndDeadline(String type, String description, String time) {
-        this.type = type;
+    /**
+     * Constructor
+     *
+     * @param typeOfInput whether Event or Deadline
+     * @param description Task description
+     * @param time the information after /by or /at.
+     */
+    public ExecuteEventAndDeadline(String typeOfInput, String description, String time) {
+        this.typeOfInput = typeOfInput;
         this.description = description;
         this.time = time;
     }
 
+    /**
+     * Adds events of type Event and Deadline to list
+     *
+     * @param tasksList Object of TaskList.
+     * @param storage Object of Storage.
+     */
     @Override
     public void execute(TaskList tasksList, Storage storage){
-        if (type.equals("event")) {
+        if (typeOfInput.equals("event")) {
             Event event = new Event(description, time);
             tasksList.addTaskToList(event);
         } else {
@@ -27,6 +40,11 @@ public class ExecuteEventAndDeadline extends Command {
         }
     }
 
+    /**
+     * To check whether to exit the application
+     *
+     * @return false To take input from user again.
+     */
     @Override
     public boolean isExit() {
         return false;
