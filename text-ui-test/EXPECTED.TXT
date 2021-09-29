@@ -33,9 +33,9 @@
     ____________________________________________________________
     ____________________________________________________________
      Here are the tasks in your list:
-     1. [T][ ] go home
-     2. [E][ ] go study (at: Whole day)
-     3. [D][ ] iP (by: Friday not sure what time)
+      1. [T][ ] go home
+      2. [E][ ] go study (at: Whole day)
+      3. [D][ ] iP (by: Friday not sure what time)
     ____________________________________________________________
     ____________________________________________________________
      OOPS!! The description of todo can't be empty.
@@ -100,14 +100,14 @@
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done: 
-       [E][X] go study (at: Whole day)
+      [E][X] go study (at: Whole day)
     ____________________________________________________________
     ____________________________________________________________
      Here are the matching tasks in your list:
-     1. [T][ ] go home
-     2. [E][X] go study (at: Whole day)
-     3. [E][ ] go to library (at: 9am)
-     4. [E][ ] go to school (at: 9am)
+      1. [T][ ] go home
+      2. [E][X] go study (at: Whole day)
+      3. [E][ ] go to library (at: 9am)
+      4. [E][ ] go to school (at: 9am)
     ____________________________________________________________
     ____________________________________________________________
      Here are the matching tasks in your list:
