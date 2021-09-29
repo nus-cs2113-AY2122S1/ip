@@ -4,7 +4,8 @@ import duke.util.Parser;
 import duke.util.Ui;
 
 /**
- * This class represents the main chat bot
+ * Represents the main chat-bot
+ *
  */
 public class Duke {
 
@@ -23,7 +24,7 @@ public class Duke {
     }
 
     /**
-     * Runs the command returned by the parser, then prints the output message
+     * Runs the command returned by the parser
      *
      * @param command user's input command
      * @return the output message as String
@@ -40,7 +41,8 @@ public class Duke {
     }
 
     /**
-     * Main run routine for the chat bot
+     * Runs the main program routine
+     *
      */
     public void run() {
         boolean isExit = false;

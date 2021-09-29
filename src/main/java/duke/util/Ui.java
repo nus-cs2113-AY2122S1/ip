@@ -5,6 +5,7 @@ import java.util.Scanner;
 /**
  * Represents the user interface of Duke
  * This class is responsible for printing and receiving inputs of the user
+ *
  */
 public class Ui {
     private static final String SEPARATING_LINE = "\t-------------------------------------";
@@ -13,7 +14,7 @@ public class Ui {
     private Scanner scanner = new Scanner(System.in);
 
     /**
-     * Print message with line separators and tabs
+     * Prints message with line separators and tabs
      *
      * @param msg the message to print
      */
@@ -24,7 +25,7 @@ public class Ui {
     }
 
     /**
-     * Reads the user's input command
+     * Reads user's input command
      *
      * @return the user's input command as String
      */

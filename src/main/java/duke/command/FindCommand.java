@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
- * The command to find a task contains a given keyword
+ * Represents a find command
  * This class implements the <code>Command</code> interface
+ *
  */
 public class FindCommand implements Command {
     private String keyword;

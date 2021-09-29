@@ -3,8 +3,9 @@ package duke.command;
 import duke.DukeException;
 
 /**
- * The command to show users a list of available commands
+ * Represents a help command
  * This class implements the <code>Command</code> interface
+ *
  */
 public class HelpCommand implements Command {
     private String query;

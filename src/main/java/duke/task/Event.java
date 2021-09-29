@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a time
  * This class inherits the <code>Task</code> class
+ *
  */
 public class Event extends Task {
     private LocalDateTime date;
@@ -23,7 +24,7 @@ public class Event extends Task {
     }
 
     /**
-     * Getter method for the event date
+     * Gets the event date
      *
      * @return date and time of the event
      */

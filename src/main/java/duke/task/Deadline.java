@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a due date
  * This class inherits the <code>Task</code> class
+ *
  */
 public class Deadline extends Task {
     private LocalDateTime deadline;
@@ -23,7 +24,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Getter method for the due date
+     * Gets due date
      *
      * @return due date of the deadline
      */

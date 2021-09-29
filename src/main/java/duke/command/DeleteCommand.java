@@ -6,8 +6,9 @@ import duke.task.Task;
 import java.io.IOException;
 
 /**
- * The command to delete a task from the list
+ * Represents a delete command
  * This class implements the <code>Command</code> interface
+ *
  */
 public class DeleteCommand implements Command {
     private int taskNumber;

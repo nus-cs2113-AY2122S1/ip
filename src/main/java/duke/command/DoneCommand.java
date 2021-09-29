@@ -6,8 +6,9 @@ import duke.storage.TaskList;
 import java.io.IOException;
 
 /**
- * The command to mark a task as done in the list
+ * Represents a done command
  * This class implements the <code>Command</code> interface
+ *
  */
 public class DoneCommand implements Command {
     private int taskDoneNumber;
@@ -23,6 +24,7 @@ public class DoneCommand implements Command {
 
     /**
      * Executes the command
+     *
      * @return result message if success
      * @throws DukeException if the task number does not exist in the list, or cannot set the task as done in memory
      */

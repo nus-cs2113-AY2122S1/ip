@@ -19,7 +19,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * The class represents an utility to parse command from the user's input
+ * Represents a utility to parse command from the user's input
+ *
  */
 public class Parser {
     private static final String COMMAND_LIST = "list";
@@ -46,7 +47,7 @@ public class Parser {
     private static final int EVENT_DEADLINE_ARGUMENT_COUNT = 2;
 
     /**
-     * Checks to see if the user has inputted an exit command
+     * Checks if the user has inputted an exit command
      *
      * @param command the user's input command
      * @return true if the user's command is exit command, false otherwise
@@ -57,7 +58,7 @@ public class Parser {
 
 
     /**
-     * Parse the user's input command to the corresponding command
+     * Parses the user's input command
      *
      * @param command user's input command
      * @return the corresponding command that follows the <code>Command</code> interface
@@ -91,7 +92,7 @@ public class Parser {
     }
 
     /**
-     * A private method to parse delete command
+     * Parses delete command
      *
      * @param command user's input command
      * @return a command instance that follows the <code>Command</code> interface
@@ -113,7 +114,7 @@ public class Parser {
     }
 
     /**
-     * A private method to parse find command
+     * Parses find command
      *
      * @param command user's input command
      * @return a command instance that follows the <code>Command</code> interface
@@ -129,7 +130,7 @@ public class Parser {
     }
 
     /**
-     * A private method to parse exit command
+     * Parses exit command
      *
      * @return a command instance that follows the <code>Command</code> interface
      */
@@ -138,7 +139,7 @@ public class Parser {
     }
 
     /**
-     * A private method to parse list command
+     * Parses list command
      *
      * @return a command instance that follows the <code>Command</code> interface
      */
@@ -147,7 +148,7 @@ public class Parser {
     }
 
     /**
-     * A private method to parse todo command
+     * Parses todo command
      *
      * @param command user's input command
      * @return a command instance that follows the <code>Command</code> interface
@@ -164,7 +165,7 @@ public class Parser {
     }
 
     /**
-     * A private method to parse deadline command
+     * Parses deadline command
      *
      * @param command user's input command
      * @return a command instance that follows the <code>Command</code> interface
@@ -200,7 +201,7 @@ public class Parser {
     }
 
     /**
-     * A private method to parse event command
+     * Parses event command
      *
      * @param command user's input command
      * @return a command instance that follows the <code>Command</code> interface
@@ -236,7 +237,7 @@ public class Parser {
     }
 
     /**
-     * A private method to parse done command
+     * Parses done command
      *
      * @param command user's input command
      * @return a command instance that follows the <code>Command</code> interface
@@ -260,7 +261,7 @@ public class Parser {
     }
 
     /**
-     * A private method to parse help command
+     * Parses help command
      *
      * @param command user's input command
      * @return a command instance that follows the <code>Command</code> interface

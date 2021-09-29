@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,7 +18,7 @@ import duke.task.Task;
 import duke.task.ToDos;
 
 /**
- * This class is responsible for reading/writing tasks into the memory
+ * Reads and writes tasks into the memory
  *
  */
 public class TaskStorage {

@@ -2,11 +2,11 @@ package duke.command;
 import duke.DukeException;
 
 /**
- * An interface for commands
+ * Represents an interface for commands
  */
 public interface Command {
     /**
-     * Execute the command
+     * Executes the command
      *
      * @return the result message if success
      * @throws DukeException if the command cannot be executed normally

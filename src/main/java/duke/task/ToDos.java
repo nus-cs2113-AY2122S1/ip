@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with no hard due date
  * This class inherits the <code>Task</code> class
+ *
  */
 public class ToDos extends Task {
 

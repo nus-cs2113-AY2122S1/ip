@@ -6,8 +6,9 @@ import duke.storage.TaskList;
 import java.io.IOException;
 
 /**
- * The command to add a new task into the list
+ * Represents all add commands
  * This class implements the <code>Command</code> interface
+ *
  */
 public class AddCommand implements Command {
     private Task task;

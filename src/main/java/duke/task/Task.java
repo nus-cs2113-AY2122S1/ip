@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * An abstract class represents a task
+ * Represents a task
  */
 public abstract class Task {
     protected String taskDescription;
@@ -23,14 +23,14 @@ public abstract class Task {
     }
 
     /**
-     * This is the setter method to mark the task as done
+     * Sets the task as done
      */
     public void setDone() {
         isDone = true;
     }
 
     /**
-     * Getter method for taskDescription
+     * Gets the task description
      *
      * @return the description of the task in string format
      */
@@ -39,7 +39,7 @@ public abstract class Task {
     }
 
     /**
-     * Getter method for isDone
+     * Gets the isDone value
      *
      * @return true if the task is marked done, false otherwise
      */

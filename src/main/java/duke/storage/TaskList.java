@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * The class represents the list of tasks
+ * Represents the list of tasks
  */
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -31,7 +31,7 @@ public class TaskList {
     }
 
     /**
-     * Get the instance of the <code>TaskList</code>
+     * Gets the instance of the <code>TaskList</code>
      * By doing this, we avoid initializing an instance outside the class itself
      *
      * @return The instance of the <code>TaskList</code>
