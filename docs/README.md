@@ -304,13 +304,13 @@ ____________________________________________________________
  
 | `no.` | `Command` | `Description` |
 | --- | --- | --- |
-| `1` | `todo` | `add todo task` |
-| `2` | `event` | `add event task` |
-| `3` | `deadline` | `add deadline task` |
+| `1` | `todo <Description>` | `add todo task` |
+| `2` | `event <Description> /at <date + time>` | `add event task` |
+| `3` | `deadline <Description> /by <date + time>` | `add deadline task` |
 | `4` | `list` | `list all task` |
-| `5` | `done` | `select a task to mark as done` |
-| `6` | `delete` | `delete a task` |
-| `7` | `find` | `search for task` |
+| `5` | `done <task number>` | `select a task to mark as done` |
+| `6` | `delete <task number>` | `delete a task` |
+| `7` | `find <sequence of char>` | `search for task` |
 | `8` | `help` | `list out all command` |
 | `9` | `bye` | `terminate app` |
 
