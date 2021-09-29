@@ -54,7 +54,7 @@ Here are a few things Duke can do
 </br>
 5. Loads the tasks from the "duke.txt" file when you start the program, if it exists. Creates the file to save your tasks if it doesn't. <br>
 </br>
-6. Automatically saves your tasks to a file "duke.txt" when you terminate the program.  <br>
+6. Automatically saves your tasks to the file "duke.txt" when you terminate the program.  <br>
 </br>
 7. To terminate the program, type **bye**.  <br>
 </br>
