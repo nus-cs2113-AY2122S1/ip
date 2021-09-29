@@ -10,6 +10,7 @@ import duke.commands.DeleteCommand;
 import duke.commands.ScheduleCommand;
 import duke.commands.FindCommand;
 import duke.commands.HelpCommand;
+import duke.commands.PurgeCommand;
 import duke.commands.ByeCommand;
 
 import duke.exceptions.DukeException;
@@ -97,6 +98,8 @@ public class Parser {
             return new FindCommand(command, arguments);
         case "help":
             return new HelpCommand(command);
+        case "purge":
+            return new PurgeCommand(command);
         case "bye":
             return new ByeCommand(command);
         default:

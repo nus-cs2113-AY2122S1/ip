@@ -58,4 +58,8 @@ public class TaskList {
             }
         });
     }
+
+    public void purgeTaskList() {
+        tasks = new ArrayList<Task>();
+    }
 }

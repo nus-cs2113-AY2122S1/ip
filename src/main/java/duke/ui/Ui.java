@@ -57,12 +57,12 @@ public class Ui {
     }
 
     public static void displayDelimiterErrorMessage() {
-        String output = " ☹ OOPS!!! Could not find delimiter\n";
+        String output = " OOPS!!! Could not find delimiter\n";
         printOutput(output);
     }
 
     public static void displayTaskDoesNotExistMessage() {
-        String output = " ☹ OOPS!!! The task specified does not exist.\n";
+        String output = " OOPS!!! The task specified does not exist.\n";
         printOutput(output);
     }
 
@@ -85,32 +85,37 @@ public class Ui {
     }
 
     public static void displayUnknownCommandResponse() {
-        String output = " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n";
+        String output = " OOPS!!! I'm sorry, but I don't know what that means :-(\n";
         printOutput(output);
     }
 
     public static void displayEmptyDescriptionResponse() {
-        String output = " ☹ OOPS!!! The description of a task cannot be empty.\n";
+        String output = " OOPS!!! The description of a task cannot be empty.\n";
         printOutput(output);
     }
 
     public static void displayEmptyKeywordResponse() {
-        String output = " ☹ OOPS!!! Please input a keyword to find task\n";
+        String output = " OOPS!!! Please input a keyword to find task\n";
         printOutput(output);
     }
 
     public static void displaySpecifyIntegerResponse() {
-        String output = " ☹ OOPS!!! Please specify an integer.\n";
+        String output = " OOPS!!! Please specify an integer.\n";
         printOutput(output);
     }
 
     public static void displayInvalidDateTimeFormatResponse() {
-        String output = " ☹ OOPS!!! Please follow date time format: yyyy-MM-dd HH:mm\n";
+        String output = " OOPS!!! Please follow date time format: yyyy-MM-dd HH:mm\n";
         printOutput(output);
     }
 
     public static void displayInvalidDateFormatResponse() {
-        String output = " ☹ OOPS!!! Please follow date format: yyyy-MM-dd\n";
+        String output = " OOPS!!! Please follow date format: yyyy-MM-dd\n";
+        printOutput(output);
+    }
+
+    public static void displayPurgeResponse() {
+        String output = " All tasks purged!\n";
         printOutput(output);
     }
 }
