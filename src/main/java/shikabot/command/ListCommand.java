@@ -2,7 +2,7 @@ package shikabot.command;
 
 import shikabot.ui.TextUi;
 
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     public ListCommand() {
     }

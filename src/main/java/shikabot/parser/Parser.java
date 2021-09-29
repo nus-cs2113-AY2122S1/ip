@@ -44,6 +44,12 @@ public class Parser {
     private static final String AT = "/at";
     private static final String BY = "/by";
 
+    private static final String BYE = "bye";
+    private static final String LIST = "list";
+    private static final String DONE = "done";
+    private static final String DELETE = "delete";
+    private static final String FIND = "final";
+
     /**
      * Function that checks if the string entered is an add command.
      * @param text String to be parsed.
@@ -51,7 +57,7 @@ public class Parser {
      */
     public boolean isAddCommand(String text) {
         text = text.toLowerCase();
-        return text.startsWith("todo") || text.startsWith("deadline") || text.startsWith("event");
+        return text.startsWith(TODO) || text.startsWith(DEADLINE) || text.startsWith(EVENT);
     }
 
     /**
@@ -63,15 +69,15 @@ public class Parser {
         Command command;
         text = text.trim();
         String lowerCaseText = text.toLowerCase();
-        if (text.equalsIgnoreCase("bye")) {
+        if (text.equalsIgnoreCase(BYE)) {
             command = new ExitCommand();
-        } else if (text.equalsIgnoreCase("list")) {
+        } else if (text.equalsIgnoreCase(LIST)) {
             command = new ListCommand();
-        } else if (lowerCaseText.startsWith("done")) {
+        } else if (lowerCaseText.startsWith(DONE)) {
             command = parseDoneCommand(text);
-        } else if (lowerCaseText.startsWith("delete")) {
+        } else if (lowerCaseText.startsWith(DELETE)) {
             command = parseDeleteCommand(text);
-        } else if (lowerCaseText.startsWith("find")) {
+        } else if (lowerCaseText.startsWith(FIND)) {
             command = parseFindCommand(text);
         } else if (isAddCommand(text)) {
             command = parseAddCommand(text);
@@ -201,7 +207,8 @@ public class Parser {
      * @throws Task.InvalidTaskException if syntax is wrong.
      * @throws InvalidDateException if date is in invalid format.
      */
-    private Command parseAddDeadlineCommand(String text) throws EmptyFieldException, Task.InvalidTaskException, InvalidDateException {
+    private Command parseAddDeadlineCommand(String text) throws
+            EmptyFieldException, Task.InvalidTaskException, InvalidDateException {
         if (!text.toLowerCase().contains(BY)) {
             throw new Task.InvalidTaskException();
         }
@@ -227,7 +234,8 @@ public class Parser {
      * @throws Task.InvalidTaskException if syntax is wrong.
      * @throws InvalidDateException if date is in invalid format.
      */
-    private Command parseAddEventCommand(String text) throws EmptyFieldException, Task.InvalidTaskException, InvalidDateException {
+    private Command parseAddEventCommand(String text) throws
+            EmptyFieldException, Task.InvalidTaskException, InvalidDateException {
         if (!text.toLowerCase().contains(AT)) {
             throw new Task.InvalidTaskException();
         }

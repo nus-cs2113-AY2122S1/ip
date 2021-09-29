@@ -111,14 +111,14 @@ public class Storage {
      */
     public String encodeTask(Task task) {
         String divider = " | ";
-        return task.getType() +
-                divider +
-                task.getAtBy() +
-                divider +
-                task.getName() +
-                divider +
-                (task.isDone() ? "true" : "false") +
-                "\n";
+        return task.getType()
+                + divider
+                + task.getAtBy()
+                + divider
+                + task.getName()
+                + divider
+                + (task.isDone() ? "true" : "false")
+                + "\n";
     }
 
     public static class FileErrorException extends Exception {

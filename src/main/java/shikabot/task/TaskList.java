@@ -35,7 +35,7 @@ public class TaskList {
      * @param done if the task is done or not.
      */
     public void addSavedTask(char type, LocalDate atBy, String name, String done) {
-        switch(type) {
+        switch (type) {
         case 'T':
             taskList.add(new Todo(name));
             break;

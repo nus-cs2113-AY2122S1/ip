@@ -79,13 +79,13 @@ public class TextUi {
     }
 
     public static void printDeadlineSyntaxMessage() {
-        System.out.print(LINE + "> Please follow the format [NAME] /by [DEADLINE]. " +
-                "Thank you!\n" + LINE);
+        System.out.print(LINE + "> Please follow the format [NAME] /by [DEADLINE]. "
+                + "Thank you!\n" + LINE);
     }
 
     public static void printEventSyntaxMessage() {
-        System.out.print(LINE + "> Please follow the format [NAME] /at [DURATION]. " +
-                "Thank you!\n" + LINE);
+        System.out.print(LINE + "> Please follow the format [NAME] /at [DURATION]. "
+                + "Thank you!\n" + LINE);
     }
 
     public static void printAddTaskMessage(TaskList taskList, int index) {
@@ -111,7 +111,7 @@ public class TextUi {
      * Function to print all tasks in tasks.
      */
     public static void printTasks(TaskList taskList) {
-        System.out.println(LINE + "> Here is your list of tasks: ") ;
+        System.out.println(LINE + "> Here is your list of tasks: ");
         for (int i = 0; i < taskList.getSize(); i++) {
             System.out.println("\t" + (i + 1) + ". " + taskList.getTask(i).toString());
         }

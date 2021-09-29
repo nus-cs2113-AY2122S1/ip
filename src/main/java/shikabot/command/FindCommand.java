@@ -4,14 +4,14 @@ import shikabot.ui.TextUi;
 
 public class FindCommand extends Command {
 
-    private final String SEARCHTERM;
+    private final String searchTerm;
 
     public FindCommand(String str) {
-        this.SEARCHTERM = str;
+        this.searchTerm = str;
     }
 
     @Override
     public void execute() {
-        TextUi.printMatchingTasks(taskList, SEARCHTERM);
+        TextUi.printMatchingTasks(taskList, searchTerm);
     }
 }
