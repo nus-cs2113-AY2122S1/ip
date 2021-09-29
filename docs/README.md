@@ -1,6 +1,6 @@
 # User Guide
 
-Duke is a java application to manage tasks via command line interface (CLI). This app is especially beneficial to users who can type fast. There is no fancy animations that could cause unwanted delay.
+miniDuke is a chatbot that can manage and track tasks via command line interface (CLI). This app is beneficial to users who can type fast. 
 
 ## Contents of User Guide
 - [Quick start](#user-content-quick-start)
