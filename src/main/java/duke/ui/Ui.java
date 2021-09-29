@@ -10,6 +10,7 @@ public class Ui {
     private static final String WELCOME_GREETING = "Howdy there! I'm Fluke";
     private static final String WELCOME_ASK = "What can I do for you today master?";
     private static final String BYE_MESSAGE = "Bye. Hope to serve you again master!";
+    public static final String SEPERATOR_STRING = ". ";
 
     /**
      * Prints a welcome message on the console
@@ -67,7 +68,7 @@ public class Ui {
     public static void printTasks(ArrayList<Task> tasks) {
         printLine();
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i).getDescription());
+            System.out.println((i + 1) + SEPERATOR_STRING + tasks.get(i).getDescription());
         }
         if (tasks.size() == 0) {
             System.out.println("Smartass, you need to add tasks before listing them !!!");
