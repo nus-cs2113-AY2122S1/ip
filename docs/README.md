@@ -22,8 +22,8 @@ Duke is a **Personal Assistant Chatbot** that helps a person to **keep track of 
 6. test
 
 ## Features
-| **Command Format** |
-| *  blahblahblah |
+**Command Format** 
+ *  blahblahblah 
 
 
 ### Adding a Todo task: `todo`
