@@ -1,11 +1,11 @@
 package duke.manager;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import duke.exception.DukeException;
 import duke.task.Task;
 import duke.ui.Ui;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class TaskManager {
 
@@ -18,13 +18,6 @@ public class TaskManager {
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_DONE = "done";
     public static final String COMMAND_LIST = "list";
-    public static final String DELIMITER_SPACE = " ";
-    public static final String DELIMITER_SLASH = "/";
-    public static final String DELIMITER_EVENT = "/at";
-    public static final String DELIMITER_DEADLINE = "/by";
-    public static final int DESCRIPTION_INDEX_EVENT = 6;
-    public static final int INDEX_TASKTYPE = 0;
-    public static final int INDEX_DESCRIPTION_DEADLINE = 9;
 
 
     /**
@@ -70,6 +63,12 @@ public class TaskManager {
         scanner.close();
     }
 
+    /**
+     * The function processes the inputs
+     * by the user and calls the necessary
+     * functions to add, print and manipulate
+     * tasks.
+     */
     public static void processMessage(ArrayList<Task> tasks, String message) {
         if (isCommandList(message)) {
             Ui.printTasks(tasks);
