@@ -80,8 +80,13 @@ How the list will look like:
 
 ![list example](ip_list_example.png)
 
-Each task has, in the following order, their index, task type, done status and the task itself. A task that is set as 
-done will have an `X` just like task 2.
+Each task has, in the following order:
+- Their index.
+- Task type.
+- Done status. 
+- The task itself.
+
+A task that is set as done will have an `X` just like task 2.
 
 ### Setting a Task as Done: `done`
 Sets a task that DUKE is tracking as done.
@@ -119,7 +124,7 @@ Format: `find KEYWORD`
 - Non-full words can be matched e.g., `ball` will match `football`.
 - DUKE will notify you if there are no related tasks.
 
-Example: `find ball` returns `pump ball`, `football`, `basketball` and `Ball race`
+Example: `find ball` returns `basketball`, `football`, `Ball race` and `pump ball`.
 
 ![find example](find_example.png)
 
