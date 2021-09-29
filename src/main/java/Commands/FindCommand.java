@@ -8,6 +8,9 @@ import Exceptions.InvalidCommandException;
 
 import java.io.IOException;
 
+/**
+ * Command to find tasks using a "filter"
+ */
 public class FindCommand extends Command {
     protected String filter;
 
