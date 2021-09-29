@@ -6,10 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Scanner;
-
-import static duke.TaskList.formatter;
 
 public class Storage {
 
@@ -47,7 +44,7 @@ public class Storage {
                         pendingTasksCounter++;
                     break;
                 case "D":
-                    pendingTasks = new Deadline(taskTypeSplit[2], LocalDateTime.parse(taskTypeSplit[3]));
+                    pendingTasks = new Deadline(taskTypeSplit[2], taskTypeSplit[3]);
                     TaskList.List[pendingTasksCounter]=pendingTasks;
                     if (taskTypeSplit[1].equals("X")) {
                         TaskList.List[pendingTasksCounter].setDone("X");

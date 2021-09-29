@@ -5,20 +5,11 @@ import Tasks.Event;
 import Tasks.Tasks;
 import Tasks.Todo;
 
-
-import java.time.LocalDateTime;
-
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-
 public class TaskList {
     protected static Tasks[] list = new Tasks[100];
     protected static final int tasksAdded = 0;
     protected static final Tasks[] List = new Tasks[100];
     protected static int listSize = 0;
-    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-
-
 
     public static void deleteTask(int deleteNo) {
         int noTasksBefore = listSize;
@@ -41,17 +32,11 @@ public class TaskList {
     }
 
     public static void setDeadline(String item, String timing) {
-        LocalDateTime dateTime = LocalDateTime.parse(timing, formatter);
-
-        List[listSize] = new Deadline(item, dateTime);
+        List[listSize] = new Deadline(item, timing);
         System.out.println("Got it. I've added this task:");
         listLast();
         listSize++;
         System.out.println(" Now you have " + listSize + " tasks in the list.");
-
-
-        //System.out.println(dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")));
-
     }
 
     public static void setEvent(String item, String timing) {
