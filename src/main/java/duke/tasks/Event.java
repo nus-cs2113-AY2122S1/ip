@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * Class representing event tasks.
  * Extended from Task.
@@ -7,16 +9,24 @@ package duke.tasks;
  */
 public class Event extends Task{
 
-    protected String at;
+    protected String atText;
+    protected LocalDateTime atDateTime;
 
     /**
      * Initializes new event task with description and time.
      * @param description description of task from user input
      * @param at time of task from user input
      */
-    public Event(String description, String at) {
+    public Event(String description, String atText) {
         super(description);
-        this.at = at;
+        this.atText = atText;
+        this.atDateTime = null;
+    }
+  
+    public Event(String description, String atText, LocalDateTime atDateTime) {
+        super(description);
+        this.atText = atText;
+        this.atDateTime = atDateTime;
     }
 
     /**
@@ -25,6 +35,6 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString() + " (at: " + atText + ")";
     }
 }

@@ -5,6 +5,11 @@ import duke.TaskList;
 import duke.Ui;
 import duke.tasks.Deadline;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.time.format.TextStyle;
+import java.util.Locale;
+
 /**
  * Command Class that executes the creation of a new Deadline task.
  */
@@ -48,8 +53,18 @@ public class DeadlineCommand extends Command {
         int startOfByIndex = fullCommand.indexOf("/by") + BY_LENGTH;
         String description = fullCommand.substring(END_OF_DEADLINE_INDEX, endOfDescriptionIndex).trim();
         String byText = fullCommand.substring(startOfByIndex).trim();
-        String memWritableText = formatForMemory(description, byText, tasks.getTasks().size());
-        tasks.getTasks().add(new Deadline(description, byText));
+
+        String memWritableText;
+        try {
+            String[] byDateTimeArray = byText.split(" ");
+            LocalDateTime byDateTime = LocalDateTime.parse(byDateTimeArray[0] + "T" + byDateTimeArray[1]);
+            String byDateAsString = ui.dateTimeToString(byDateTime);
+            memWritableText = formatForMemory(description, byDateAsString, tasks.getTasks().size(), byDateTime);
+            tasks.getTasks().add(new Deadline(description, byDateAsString, byDateTime));
+        } catch (Exception e) {
+            memWritableText = formatForMemory(description, byText, tasks.getTasks().size());
+            tasks.getTasks().add(new Deadline(description, byText));
+        }
         storage.appendToMem(memWritableText);
     }
 
@@ -66,6 +81,14 @@ public class DeadlineCommand extends Command {
             return "D~0~" + description + "~" + byText;
         } else {
             return System.lineSeparator() + "D~0~" + description + "~" + byText;
+        }
+    }
+
+    private static String formatForMemory(String description, String byText, int size, LocalDateTime byDateTime) {
+        if (size == 0) {
+            return "D~0~" + description + "~" + byText + "~" + byDateTime;
+        } else {
+            return System.lineSeparator() + "D~0~" + description + "~" + byText + "~" + byDateTime;
         }
     }
 }

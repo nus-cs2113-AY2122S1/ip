@@ -3,6 +3,9 @@ package duke;
 import duke.tasks.Task;
 
 import java.sql.SQLOutput;
+import java.time.LocalDateTime;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -114,6 +117,13 @@ public class Ui {
         System.out.println("Umm ok added:");
         System.out.println("  " + tasks.getTask(numberOfTasks - 1));
         System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
+    }
+
+    public String dateTimeToString(LocalDateTime dateTime) {
+        return Integer.toString(dateTime.getDayOfMonth()) + " "
+                + dateTime.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " "
+                + Integer.toString(dateTime.getYear()) + " "
+                + dateTime.toLocalTime().toString() + "H";
     }
 
     //Ui for DeadlineCommand
