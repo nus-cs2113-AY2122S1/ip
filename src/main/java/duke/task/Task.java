@@ -15,7 +15,6 @@ public class Task {
     }
 
     public Task(String description) {
-
         this.description = description;
         this.isDone = false;
     }
@@ -33,7 +32,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done duke.task with X
     }
 
-    public void printTaskNotif() {
+    public void printTaskDisplay() {
         System.out.println("added: " + description);
     }
 

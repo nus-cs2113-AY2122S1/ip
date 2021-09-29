@@ -19,7 +19,7 @@ public class Deadline extends Task {
     /*METHODS*/
 
     @Override
-    public void printTaskNotif() {
+    public void printTaskDisplay() {
         System.out.println("Got it. I've added this duke.task:");
         System.out.println("[D] [ ] " + description);
 
