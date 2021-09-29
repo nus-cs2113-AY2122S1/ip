@@ -8,7 +8,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * Duke Storage Class
+ * @author husysg
+ * @version 1.1
+ */
 public class Storage {
+    /**
+     * This function is to load tasks from a specific file path
+     */
     public static void loadTasks() {
         String pathName = "./data/";
         String fileName = "duke.txt";
@@ -36,7 +44,9 @@ public class Storage {
             createFileOrFolder(pathName, fileName);
         }
     }
-
+    /**
+     * This function is to save tasks to a specific file path
+     */
     public static void saveTasks() {
         String pathName = "./data/";
         String fileName = "duke.txt";
@@ -66,6 +76,10 @@ public class Storage {
         }
     }
 
+    /**
+     * @param pathName pathName is the relative path without the file name
+     * @param fileName only the file name
+     */
     public static void flushFile(String pathName, String fileName) {
         File file = new File(pathName + fileName);
         try {
@@ -76,6 +90,10 @@ public class Storage {
         }
     }
 
+    /**
+     * @param pathName pathName is the relative path without the file name
+     * @param fileName only the file name
+     */
     public static void createFileOrFolder(String pathName, String fileName) {
         try {
             Path path = Paths.get(pathName);
@@ -88,6 +106,11 @@ public class Storage {
         }
     }
 
+    /**
+     * @param filePath the whole path with both relative path and file name
+     * @param textToAppend the text to be appended to the end of the file
+     * @throws IOException exception when there is an I/O error
+     */
     public static void appendToFile(String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAppend);

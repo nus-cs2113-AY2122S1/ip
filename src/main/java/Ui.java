@@ -1,6 +1,15 @@
 import java.util.Scanner;
 
+/**
+ * Duke Ui Class
+ * @author husysg
+ * @version 1.1
+ */
 public class Ui {
+    /**
+     * This function is used to get user commands in a loop
+     * to exit it, enter "bye"
+     */
     public static void getCommand() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -26,6 +35,12 @@ public class Ui {
                 line = in.nextLine();
                 continue;
             }
+            if (line.startsWith("find")) {
+                String keyword = line.substring(5);
+                Data.search(keyword);
+                line = in.nextLine();
+                continue;
+            }
             // Check whether exception exists here
             try {
                 Parser.checkCommand(line);
@@ -47,6 +62,9 @@ public class Ui {
         Ui.showLine();
     }
 
+    /**
+     * This function is used to print a split line
+     */
     public static void showLine() {
         System.out.println("    ____________________________________________________________");
     }
@@ -67,6 +85,9 @@ public class Ui {
         Ui.showLine();
     }
 
+    /**
+     * This function is used to greet the user at startup
+     */
     public static void greeting() {
         Ui.showLine();
         System.out.println("     Hello! I'm Duke");

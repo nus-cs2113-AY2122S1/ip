@@ -1,7 +1,13 @@
-// import libraries here
-import java.util.Scanner;
-
+/**
+ * Duke Main Class
+ * @author husysg
+ * @version 1.1
+ */
 public class Duke {
+
+    /**
+     * @param args default parameter
+     */
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
