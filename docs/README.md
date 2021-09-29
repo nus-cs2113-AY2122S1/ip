@@ -237,6 +237,7 @@ E.g. `Event: E| 0 | Midterms Test|2021-10-11 2359`
 > 💡 `Todo` must have exactly 2 `|` and `Deadline/Events` must have exactly 3 `|` 
 > or else the file will fail to parse.  
 > Read above to check for failure to parse.
+
 ___
 
 ## FAQ
