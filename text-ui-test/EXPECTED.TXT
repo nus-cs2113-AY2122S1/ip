@@ -1,7 +1,143 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+    ____________________________________________________________
+     Hello! I'm Duke.
+     What can I do for you?
 
+     Learn how to use Duke:
+      To add a todo: todo task_name
+      To add an event: event /on event_date
+      To add a deadline: deadline /by deadline_date
+      To mark a task as done: done task_index
+      To delete a task: delete task_index
+      To find a task using keyword: find keyword_name
+      To view the list: list
+      To get help: help
+      To end the program: bye
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+      [T][ ] go home
+     Now you have 1 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+      [E][ ] go study (at: Whole day)
+     Now you have 2 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+      [D][ ] iP (by: Friday not sure what time)
+     Now you have 3 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!! I don't understand what that means :-(
+    ____________________________________________________________
+    ____________________________________________________________
+     Here are the tasks in your list:
+     1. [T][ ] go home
+     2. [E][ ] go study (at: Whole day)
+     3. [D][ ] iP (by: Friday not sure what time)
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!! The description of todo can't be empty.
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!! The description of event can't be empty.
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!! The date of event can't be empty.
+     Or you haven't used /on for date
+    ____________________________________________________________
+    ____________________________________________________________
+     Learn how to use Duke:
+      To add a todo: todo task_name
+      To add an event: event /on event_date
+      To add a deadline: deadline /by deadline_date
+      To mark a task as done: done task_index
+      To delete a task: delete task_index
+      To find a task using keyword: find keyword_name
+      To view the list: list
+      To get help: help
+      To end the program: bye
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!! The description of event can't be empty.
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!! The date of event can't be empty.
+     Or you haven't used /on for date
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+      [E][ ] go to library (at: 9am)
+     Now you have 4 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+      [E][ ] go to school (at: 9am)
+     Now you have 5 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!! The description of deadline can't be empty.
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!! The date of deadline can't be empty.
+     Or you haven't used /by for date
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!! The date of deadline can't be empty.
+     Or you haven't used /by for date
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!! The description of event can't be empty.
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!! The task's index should be positive and 
+     smaller than the total number of tasks
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!! The task's index should be positive and 
+     smaller than the total number of tasks
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done: 
+       [E][X] go study (at: Whole day)
+    ____________________________________________________________
+    ____________________________________________________________
+     Here are the matching tasks in your list:
+     1. [T][ ] go home
+     2. [E][X] go study (at: Whole day)
+     3. [E][ ] go to library (at: 9am)
+     4. [E][ ] go to school (at: 9am)
+    ____________________________________________________________
+    ____________________________________________________________
+     Here are the matching tasks in your list:
+    ____________________________________________________________
+    ____________________________________________________________
+     OOPS!! The task's index should be positive and 
+     smaller than the total number of tasks
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've removed this task:
+      [E][ ] go to school (at: 9am)
+     Now you have 4 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've removed this task:
+      [D][ ] iP (by: Friday not sure what time)
+     Now you have 3 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've removed this task:
+      [E][ ] go to library (at: 9am)
+     Now you have 2 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've removed this task:
+      [T][ ] go home
+     Now you have 1 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've removed this task:
+      [E][X] go study (at: Whole day)
+     Now you have 0 tasks in the list.
+    ____________________________________________________________

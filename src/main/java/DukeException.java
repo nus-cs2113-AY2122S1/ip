@@ -15,10 +15,10 @@ public class DukeException extends Exception {
             Ui.LINE_SEPARATOR_AND_INDENT + "smaller than the total number of tasks";
     protected static final String ERROR_NO_EVENT_DATE = Ui.INDENT +
             "OOPS!! The date of event can't be empty." + Ui.LINE_SEPARATOR_AND_INDENT +
-            "Or there should be a space in between /on and date.";
+            "Or you haven't used /on for date";
     protected static final String ERROR_NO_DEADLINE_DATE = Ui.INDENT +
             "OOPS!! The date of deadline can't be empty." + Ui.LINE_SEPARATOR_AND_INDENT +
-            "Or there should be a space in between /by and date.";
+            "Or you haven't used /by for date";
     protected static final String ERROR_INVALID_COMMAND = Ui.INDENT +
             "OOPS!! I don't understand what that means :-(";
     protected static final String ERROR_NO_KEYWORD = Ui.INDENT +
