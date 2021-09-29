@@ -3,11 +3,11 @@ Duke is a Personal Assistant Chatbot that helps a person to keep track of variou
 
 ## Quick Start 
 1.Description of the Quick start.
-2.
-3.
-4.
-5.
-6.
+1.
+1.
+1.
+1.
+1.
 
 ## Features
 `**Command Format**`
