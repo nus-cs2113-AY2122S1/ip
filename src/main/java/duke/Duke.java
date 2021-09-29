@@ -6,23 +6,11 @@ import java.util.Scanner;
 public class Duke {
 
     public static void main(String[] args) throws IOException {
-
-        // Create List of Tasks
         TaskList tasks = new TaskList();
-
-        // Load Tasks
         Storage.loadTasks(tasks);
-
-        // Welcome Message
         Ui.printWelcomeMessage();
-
-        // Active Chat
         activeChat(tasks);
-
-        // Save Tasks
         Storage.saveTasks(tasks);
-
-        // Goodbye Message
         Ui.printGoodbyeMessage();
     }
 
@@ -30,9 +18,8 @@ public class Duke {
         boolean isBye = false;
         String input;
         Scanner in = new Scanner(System.in);
-
         while(!isBye){
-            //store input
+            //store input into String
             input = in.nextLine();
             //process input
             isBye = Parser.processInput(tasks, input);
