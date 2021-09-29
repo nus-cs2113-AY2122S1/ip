@@ -2,6 +2,33 @@
 
 Manage your tasks with Duke! Here's a quick and easy guide to get started with using Duke.
 
+## Contents
+
+* [Quick Start](#quick-start)
+* [Features and Usage](#features-and-usage)
+    * [Add Tasks](#add-tasks)
+    * [List Tasks](#list-tasks)  
+    * [Delete Tasks](#delete-tasks)
+    * [Set status of tasks](#set-status-of-task)
+    * [Search for tasks](#search-for-tasks)
+    * [Search by date](#search-for-tasks-by-date)
+    * [View possible commands](#view-possible-commands)
+    * [Exit the program](#exit-the-program)
+
+## Quick Start
+
+1. Ensure you have `Java 11` installed on your device.
+2. Download the latest jar file [here](https://github.com/nishantrai-nus/ip/releases/tag/A-Release)
+3. Save it to an empty folder.
+4. Open any terminal and navigate to the folder the jar is saved in.
+5. Enter `java -jar Duke.txt` into the terminal to run Duke. You should see the following output:
+```
+________________________________________________________________________________
+Hi! I'm Duke. I've created your data file for you!
+What would you like me to do? Use "help" if you're unsure!
+________________________________________________________________________________
+```
+
 ## Features and Usage
 
 ### Add tasks
