@@ -1,5 +1,5 @@
 /**
- * This class deals with operations on
+ * This class deals with interactions with the user.
  */
 public class Ui {
 

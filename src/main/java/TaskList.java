@@ -9,6 +9,7 @@ public class TaskList {
 
     /**
      * Adds a new Todo task into tasks list
+     *
      * @param description Todo task's description
      */
     public static void addTodo(String description) {
@@ -17,6 +18,7 @@ public class TaskList {
 
     /**
      * Adds a new Deadline task into tasks list
+     *
      * @param description Deadline task's description
      * @param date Deadline task's due date
      */
@@ -26,6 +28,7 @@ public class TaskList {
 
     /**
      * Adds a new Event task into tasks list
+     *
      * @param description Event task's description
      * @param date Event task's due date
      */
@@ -35,6 +38,7 @@ public class TaskList {
 
     /**
      * Removes a task from the tasks list
+     *
      * @param index index of the task to be removed in tasks list
      */
     public static void removeTask(int index) {
@@ -43,6 +47,7 @@ public class TaskList {
 
     /**
      * Returns a Task object of the specified index
+     *
      * @param index index of the task to be returned
      * @return Task of specified index in tasks list
      */
