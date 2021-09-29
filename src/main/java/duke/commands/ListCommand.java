@@ -1,15 +1,18 @@
 package duke.commands;
 
-import duke.storage.Storage;
 import duke.tasklist.TaskList;
-import duke.ui.Ui;
 
+/**
+ * Lists all tasks in the task list.
+ */
 public class ListCommand extends Command {
+    /** Unique word associated with the command. */
     public static final String COMMAND_WORD = "list";
+
     private static final String MESSAGE_TASK_LIST = "Here are the tasks in your list:\n" + "%1$s";
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks) {
         // Returns the list of tasks (numbered) together with their status icons
         String[] formattedTasks = new String[tasks.getSize()];
         for (int i = 0; i < tasks.getSize(); i++) {

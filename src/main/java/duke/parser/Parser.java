@@ -13,6 +13,9 @@ import duke.commands.EventCommand;
 import duke.commands.ListCommand;
 import duke.commands.ToDoCommand;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
     // Code below inspired by
     // https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/parser/Parser.java
@@ -40,9 +43,11 @@ public class Parser {
     private static final String MESSAGE_UNRECOGNISED_COMMAND = "I'm sorry, but I don't know what that means :-(";
 
     /**
+     * Parses user input as a command.
+     *
      * @param userInput Input command together with any arguments.
-     * @return
-     * @throws DukeException
+     * @return Command that corresponds to the user input, if valid.
+     * @throws DukeException If input is of an invalid command format.
      */
     public static Command parseCommand(String userInput) throws DukeException {
         Matcher matcher = Parser.BASIC_COMMAND_FORMAT.matcher(userInput);
@@ -114,9 +119,16 @@ public class Parser {
         return matcher;
     }
 
-    private static int parseTaskId(String args) throws DukeException {
+    /**
+     * Parses task id string as an integer.
+     *
+     * @param taskIdString Task id string to be converted to an integer.
+     * @return Task id parsed as an integer.
+     * @throws DukeException If string is not of a proper integer format.
+     */
+    private static int parseTaskId(String taskIdString) throws DukeException {
         try {
-            return Integer.parseInt(args) - 1;
+            return Integer.parseInt(taskIdString) - 1;
         } catch (NumberFormatException e) {
             throw new DukeException(MESSAGE_INVALID_TASK_NUMBER);
         }

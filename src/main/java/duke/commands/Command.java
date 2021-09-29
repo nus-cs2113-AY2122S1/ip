@@ -1,21 +1,27 @@
 package duke.commands;
 
 import duke.DukeException;
-import duke.storage.Storage;
 import duke.tasklist.TaskList;
-import duke.ui.Ui;
 
+/**
+ * Represents an executable command.
+ */
 public abstract class Command {
 
     /**
-     * @param tasks
-     * @param ui
-     * @param storage
+     * Executes the appropriate actions.
+     *
+     * @param tasks Task list.
      * @return Feedback about what was executed.
-     * @throws DukeException
+     * @throws DukeException If there was a problem executing the command.
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks) throws DukeException;
 
+    /**
+     * Indicates whether the command is an exit command.
+     *
+     * @return {@code true} if and only if the command is an exit command; {@code false} otherwise.
+     */
     public boolean isExit() {
         return false;
     }

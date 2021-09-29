@@ -1,15 +1,18 @@
 package duke.commands;
 
-import duke.storage.Storage;
 import duke.tasklist.TaskList;
-import duke.ui.Ui;
 
+/**
+ * Terminates the program.
+ */
 public class ByeCommand extends Command {
+    /** Unique word associated with the command. */
     public static final String COMMAND_WORD = "bye";
+
     private static final String MESSAGE_FAREWELL = "Bye. Hope to see you again soon!";
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks) {
         return MESSAGE_FAREWELL;
     }
 
