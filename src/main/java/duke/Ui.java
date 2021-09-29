@@ -31,7 +31,8 @@ public class Ui {
     }
 
     public static void displayDeadlineError() {
-        System.out.println("Oops please enter /by");
+        System.out.println("Oops please enter in the format /by ddMMyyyy hhmm");
+
     }
 
     public static void displayTaskNoMissing() {
