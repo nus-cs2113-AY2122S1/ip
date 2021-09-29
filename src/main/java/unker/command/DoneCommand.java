@@ -1,6 +1,7 @@
 package unker.command;
 
 import unker.task.Task;
+import unker.task.storage.TasksFileException;
 import unker.ui.UI;
 import unker.task.Unker;
 
@@ -28,7 +29,7 @@ public class DoneCommand extends Command {
     }
 
     @Override
-    public void execute(UI ui, Unker unker, String data) throws InvalidCommandException {
+    public void execute(UI ui, Unker unker, String data) throws InvalidCommandException, TasksFileException {
         Task task = getTask(unker, data);
         if (task == null) {
             throw new InvalidCommandException("Unker don't think that is a valid number leh.", this);

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import unker.task.storage.TasksFileException;
 import unker.ui.UI;
 import unker.task.Unker;
 
@@ -25,7 +26,7 @@ public class CommandMap {
      * @param unker The task manager to update the tasks with
      * @param cmdString The command that the user sent
      */
-    public void executeCommand(UI ui, Unker unker, String cmdString) throws InvalidCommandException {
+    public void executeCommand(UI ui, Unker unker, String cmdString) throws InvalidCommandException, TasksFileException {
         Pattern cmdPattern = Pattern.compile(COMMAND_SPLITTER_REGEX);
         Matcher cmdMatcher = cmdPattern.matcher(cmdString);
         if (!cmdMatcher.matches()) {

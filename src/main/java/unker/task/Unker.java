@@ -1,36 +1,34 @@
 package unker.task;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import unker.task.storage.TasksFile;
-import unker.util.StringUtil;
+import unker.task.storage.TasksFileException;
 
 /**
  * This class manages all the {@link Task} in the program.
  */
 public class Unker {
 
-    private final List<Task> tasks;
+    private List<Task> tasks;
     private static Unker UNKER_INSTANCE;
     private final TasksFile tasksFile;
 
-    private Unker() throws IOException {
-        this.tasksFile = new TasksFile(Path.of(System.getProperty("user.dir"), "data"), "unker.csv");
-        this.tasks = tasksFile.loadDataFile();
+    private Unker(Path directory, String fileName)  {
+        this.tasksFile = new TasksFile(directory, fileName);
+        this.tasks = new ArrayList<>();
     }
 
     /**
      * Adds a task to be managed by Unker.
      *
      * @param task The task to be added.
+     * @throws TasksFileException When the update is unable to be saved.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws TasksFileException {
         tasks.add(task);
-        saveData();
+        tasksFile.saveDataFile(tasks);
     }
 
     /**
@@ -57,8 +55,9 @@ public class Unker {
      * 
      * @param index The index of the task to remove.
      * @return The task that has been removed.
+     * @throws TasksFileException When the update is unable to be saved.
      */
-    public Task removeTask(int index) {
+    public Task removeTask(int index) throws TasksFileException {
         Task task = tasks.remove(index);
         saveData();
         return task;
@@ -81,14 +80,23 @@ public class Unker {
     public boolean isTasksEmpty() {
         return tasks.isEmpty();
     }
+
+    /**
+     * Save the tasks into the disk.
+     * 
+     * @throws TasksFileException When the file is inaccessible.
+     */
+    public void saveData() throws TasksFileException {
+        tasksFile.saveDataFile(tasks);
+    }
     
-    public boolean saveData() {
-        try {
-            tasksFile.saveDataFile(tasks);
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
+    /**
+     * Save the tasks into the disk.
+     *
+     * @throws TasksFileException When the file is inaccessible.
+     */
+    public void loadData() throws TasksFileException {
+        this.tasks = tasksFile.loadDataFile();
     }
 
     /**
@@ -96,9 +104,9 @@ public class Unker {
      *
      * @return A singleton instance of Unker
      */
-    public static Unker getUnkerInstance() throws IOException {
+    public static Unker getUnkerInstance()  {
         if (UNKER_INSTANCE == null) {
-            UNKER_INSTANCE = new Unker();
+            UNKER_INSTANCE = new Unker(Path.of(System.getProperty("user.dir"), "data"), "unker.csv");
         }
         return UNKER_INSTANCE;
     }

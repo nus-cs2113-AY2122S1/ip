@@ -17,7 +17,7 @@ public class FindCommand extends Command {
         }
         String output = unker.getTasks().stream()
                 .filter(task -> task.getDescription().toLowerCase().contains(data.toLowerCase()))
-                .map(task -> "- " + task.toString()) // Prepend bullet point for aesthetics 
+                .map(task -> "- " + task) // Prepend bullet point for aesthetics 
                 .reduce((a, b) -> a + "\n" + b) // Concatenate all the strings together
                 .orElse("Nothing leh... You got add anything?"); // Either return the list or this string
         ui.printSection("Here is what Unker found for you:", output);

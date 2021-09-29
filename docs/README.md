@@ -199,7 +199,7 @@ Ask Unker to help you find a certain task based on a `<keyword>`.
 ```
 --// Unker //----------------------------------------------
 Here is what Unker found for you:
-- [D] [X] CS2113T project (by: 23/09/2021 2359)
+- [D] [X] CS2113T project (by: 23 Sep 2021, 11:59 PM)
 --
 Anything else you wan Unker to help you with?
 > 

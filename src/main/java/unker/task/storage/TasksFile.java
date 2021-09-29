@@ -6,15 +6,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import unker.task.Deadline;
-import unker.task.Event;
 import unker.task.Task;
 import unker.task.TaskFactory;
-import unker.task.ToDo;
-import unker.util.StringUtil;
 
 public class TasksFile {
 
@@ -33,14 +28,17 @@ public class TasksFile {
      * Any line that does not follow the convention will be silently ignored.
      * 
      * @return A list of {@link unker.task.Task} 
-     * @throws IOException When the file is inaccessible.
+     * @throws TasksFileException When the file is inaccessible.
      */
-    public List<Task> loadDataFile() throws IOException {
-        Path filePath = getFilePath();
-
-        final Stream<Task> taskStream = Files.lines(filePath).map(this::decodeTaskString);
-        final Stream<Task> nonNullTaskStream = taskStream.filter(Objects::nonNull);
-        return nonNullTaskStream.collect(Collectors.toCollection(ArrayList::new));
+    public List<Task> loadDataFile() throws TasksFileException {
+        try {
+            Path filePath = getFilePath();
+            final Stream<Task> taskStream = Files.lines(filePath).map(this::decodeTaskString);
+            final Stream<Task> nonNullTaskStream = taskStream.filter(Objects::nonNull);
+            return nonNullTaskStream.collect(Collectors.toCollection(ArrayList::new));
+        } catch (IOException e) {
+            throw new TasksFileException(directory.resolve(fileName),  "Unable to load data file:\n " + e);
+        }
     }
 
     private Path getFilePath() throws IOException {
@@ -59,13 +57,17 @@ public class TasksFile {
      * Save the data into a CSV file.
      * 
      * @param tasks The tasks to be saved.
-     * @throws IOException When the file to be saved to is inaccessible.
+     * @throws TasksFileException When the file to be saved to is inaccessible.
      */
-    public void saveDataFile(List<Task> tasks) throws IOException {
-        Path filePath = getFilePath();
-        Stream<String> tasksDataStream = tasks.stream().map(Task::getSaveableString);
-        String data = tasksDataStream.reduce((chunk, line) -> chunk + "\n" + line).orElse("");
-        Files.writeString(filePath, data);
+    public void saveDataFile(List<Task> tasks) throws TasksFileException {
+        try {
+            Path filePath = getFilePath();
+            Stream<String> tasksDataStream = tasks.stream().map(Task::getSaveableString);
+            String data = tasksDataStream.reduce((chunk, line) -> chunk + "\n" + line).orElse("");
+            Files.writeString(filePath, data);
+        } catch (IOException e) {
+            throw new TasksFileException(directory.resolve(fileName), "Unable to save data file:\n" + e);
+        }
     }
 
     private Task decodeTaskString(String taskString) {

@@ -1,6 +1,7 @@
 package unker.command;
 
 import unker.task.Unker;
+import unker.task.storage.TasksFileException;
 import unker.ui.UI;
 
 /**
@@ -49,6 +50,6 @@ public abstract class Command {
      * @param unker The task manager Unker that will be read from and updated to.
      * @param data The command line data (excluding the command name).
      */
-    public abstract void execute(UI ui, Unker unker, String data) throws InvalidCommandException;
+    public abstract void execute(UI ui, Unker unker, String data) throws InvalidCommandException, TasksFileException;
 
 }

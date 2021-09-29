@@ -2,6 +2,7 @@ package unker.ui;
 
 import java.util.Scanner;
 import unker.command.InvalidCommandException;
+import unker.task.storage.TasksFileException;
 
 public class UI {
 
@@ -65,6 +66,21 @@ public class UI {
         } else {
             printSection(ex.getMessage());
         }
+    }
+
+
+    /**
+     * Prints the error message based on the exception.
+     *
+     * @param ex The exception that occurred when executing the command.
+     */
+    public void printTaskFileErrorMessage(TasksFileException ex) {
+        printSection("Unker has encountered an issue with the save file: "+ ex.getFilePath().toString(),
+                "",
+                "Stack Trace:",
+                ex.getDescription(),
+                "", 
+                "Unker can still run, but may be unable to load or save the data in this session.");
     }
 
     /**

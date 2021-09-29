@@ -1,5 +1,6 @@
 package unker.command;
 
+import unker.task.storage.TasksFileException;
 import unker.ui.UI;
 import unker.task.Unker;
 
@@ -16,10 +17,13 @@ public class ByeCommand extends Command {
 
     @Override
     public void execute(UI ui, Unker unker, String data) {
-        if (!unker.saveData()) {
-            ui.printSection("Unker cannot save your data this session!");
-        }
         ui.printByeMessage();
+        try {
+            unker.saveData();
+        } catch (TasksFileException e) {
+            ui.printTaskFileErrorMessage(e);
+            System.exit(0);
+        }
         System.exit(0);
     }
 }

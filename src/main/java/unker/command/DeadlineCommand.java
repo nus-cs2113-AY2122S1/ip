@@ -3,6 +3,7 @@ package unker.command;
 import unker.task.Deadline;
 import unker.task.TaskFactory;
 import unker.task.Unker;
+import unker.task.storage.TasksFileException;
 import unker.ui.UI;
 
 /**
@@ -17,7 +18,7 @@ public class DeadlineCommand extends CreateTaskCommand {
     }
     
     @Override
-    public void execute(UI ui, Unker unker, String data) throws InvalidCommandException {
+    public void execute(UI ui, Unker unker, String data) throws InvalidCommandException, TasksFileException {
         addTask(ui, unker, TaskFactory.createDeadlineTask(data));
     }
 }
