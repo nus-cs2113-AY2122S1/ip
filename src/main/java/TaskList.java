@@ -1,5 +1,6 @@
 /**
  * Duke TaskList Class
+ *
  * @author husysg
  * @version 1.1
  */

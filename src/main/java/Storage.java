@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 /**
  * Duke Storage Class
+ *
  * @author husysg
  * @version 1.1
  */
@@ -44,6 +45,7 @@ public class Storage {
             createFileOrFolder(pathName, fileName);
         }
     }
+
     /**
      * This function is to save tasks to a specific file path
      */
@@ -107,7 +109,7 @@ public class Storage {
     }
 
     /**
-     * @param filePath the whole path with both relative path and file name
+     * @param filePath     the whole path with both relative path and file name
      * @param textToAppend the text to be appended to the end of the file
      * @throws IOException exception when there is an I/O error
      */

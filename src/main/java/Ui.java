@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 /**
  * Duke Ui Class
+ *
  * @author husysg
  * @version 1.1
  */

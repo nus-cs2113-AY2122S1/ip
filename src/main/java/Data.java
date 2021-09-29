@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 /**
  * Duke Data Class
+ *
  * @author husysg
  * @version 1.1
  */

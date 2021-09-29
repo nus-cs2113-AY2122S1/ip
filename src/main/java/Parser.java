@@ -2,6 +2,7 @@ import java.util.Set;
 
 /**
  * Duke Parser Class
+ *
  * @author husysg
  * @version 1.1
  */
@@ -9,7 +10,7 @@ public class Parser {
     /**
      * @param line the user input
      * @throws EmptyDescriptionException exception when description is empty
-     * @throws InvalidCommandException exception when command is invalid
+     * @throws InvalidCommandException   exception when command is invalid
      */
     public static void checkCommand(String line) throws EmptyDescriptionException, InvalidCommandException {
         Set<String> validCommands = Set.of("todo", "deadline", "event");
