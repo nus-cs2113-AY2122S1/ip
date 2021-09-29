@@ -1,9 +1,9 @@
 # User Guide
 Duke is a **Personal Assistant Chatbot** that helps a person to **keep track of various things** using a Command Line Interface(CLI). If you can type fast, Duke is able to track and manage your tasks faster compared to a hypothetical Graphical User Interface (GUI) version of the app. 
 
-* [Quick Start](https://github.com/xingjie99/ip/blob/master/docs/README.md#quick-start)
+* [Quick Start](#quick-start)
 * [Features](https://github.com/xingjie99/ip/blob/master/docs/README.md#features)
-  - [Adding a Todo task](https://github.com/xingjie99/ip/blob/master/docs/README.md#adding-a-todo-task-todo)
+  - [Adding a Todo task](#adding-a-todo-task-todo)
   - [Adding an Event task](https://github.com/xingjie99/ip/blob/master/docs/README.md#adding-an-event-task-event)
   - [Adding a Deadline task](https://github.com/xingjie99/ip/blob/master/docs/README.md#adding-a-deadline-task-deadline)
   - [Listing all tasks](https://github.com/xingjie99/ip/blob/master/docs/README.md#listing-all-tasks-list)
