@@ -30,7 +30,6 @@ public class Duke {
         boolean isBye = false;
         String input;
         Scanner in = new Scanner(System.in);
-        //Task[] list = new Task[100];
 
         while(!isBye){
             //store input
