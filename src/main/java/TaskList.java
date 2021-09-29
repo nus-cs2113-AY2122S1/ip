@@ -144,25 +144,7 @@ public class TaskList {
      */
     public void deleteTask(int numToRemove, ArrayList<Task> tasks) throws DukeMissingParamException, NumberFormatException, IndexOutOfBoundsException {
         if ((numToRemove - DELETE_OFFSET >= 0) && (tasks.get(numToRemove - DELETE_OFFSET) != null)) {
-            String byString = "by: ";
-            String atString = "at: ";
-            String taskWordString = "";
-
-            // change word string to print depending on if a todo, deadline or event
-            if (tasks.get(numToRemove - DELETE_OFFSET).getType().equals("D")) {
-                taskWordString = byString;
-            } else if (tasks.get(numToRemove - DELETE_OFFSET).getType().equals("E")) {
-                taskWordString = atString;
-            } else {
-                taskWordString = "";
-            }
-
-            if (taskWordString.equals("")) {
-                ui.printWithoutTaskWordString(numToRemove, DELETE_OFFSET, tasks);
-
-            } else {
-                ui.printWithTaskWordString(numToRemove, DELETE_OFFSET, taskWordString, tasks);
-            }
+            ui.printDeleteTask(numToRemove, DELETE_OFFSET, tasks);
         }   tasks.remove(tasks.get(numToRemove - DELETE_OFFSET));
     }
 

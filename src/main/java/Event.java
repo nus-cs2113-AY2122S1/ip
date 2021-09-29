@@ -35,11 +35,11 @@ public class Event extends Task {
     /**
      * Overrides the getWhen() method, returning the occurring date of the EVENT object.
      *
-     * @return the occurring date of the EVENT object.
+     * @return the occurring date of the EVENT object in the DATE_FORMAT set in Task class.
      */
     @Override
-    public LocalDate getWhen() {
-        return this.at;
+    public String getWhen() {
+        return this.at.format(DateTimeFormatter.ofPattern((Task.DATE_FORMAT)));
     }
 
     /**

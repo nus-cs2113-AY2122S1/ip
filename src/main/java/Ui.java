@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ public class Ui {
     protected int ARRAYLIST_PRINT_OFFSET = 1;
     protected String LINE_DIVIDER = "____________________________________________________________";
     protected String EXIT_MESSAGE = LINE_DIVIDER + System.lineSeparator()
-            + "Thanks for talking with me, see you soon!" + System.lineSeparator()
+            + "Your tasks have been saved! Thanks for talking with me, see you soon!" + System.lineSeparator()
             + LINE_DIVIDER;
     protected String UNKNOWN_COMMAND = LINE_DIVIDER + System.lineSeparator()
             + "Unrecognized command! ☹ Please try again, or type @help for a list of commands." + System.lineSeparator()
@@ -73,7 +74,7 @@ public class Ui {
                 + "find <keyword> - Lists all tasks that have the keyword in their description." + System.lineSeparator()
                 + "done <task number> - Marks selected task number as done with an X." + System.lineSeparator()
                 + "delete <task number> - Deletes selected task number." + System.lineSeparator()
-                + "exit - Exits the taskbot." + System.lineSeparator()
+                + "exit - Saves and exits the taskbot." + System.lineSeparator()
                 + LINE_DIVIDER;
         System.out.println(helpMessage);
     }
@@ -90,7 +91,8 @@ public class Ui {
     public void printAddedDeadline(String deadlineDescription, LocalDate deadlineBy, ArrayList<Task> tasks) {
         String addedMessage = LINE_DIVIDER + System.lineSeparator()
                 + "Alright! I've successfully added this task:" + System.lineSeparator()
-                + "[D]" + "[ " + "] " + deadlineDescription + "(by: " + deadlineBy + ")" + System.lineSeparator()
+                + "[D]" + "[ " + "] " + deadlineDescription +
+                "(by: " + deadlineBy.format(DateTimeFormatter.ofPattern((Task.DATE_FORMAT))) + ")" + System.lineSeparator()
                 + "You now have " + tasks.size() + " tasks in the list!" + System.lineSeparator()
                 + LINE_DIVIDER;
         System.out.println(addedMessage);
@@ -99,7 +101,8 @@ public class Ui {
     public void printAddedEvent(String eventDescription, LocalDate eventAt, ArrayList<Task> tasks) {
         String addedMessage = LINE_DIVIDER + System.lineSeparator()
                 + "Alright! I've successfully added this task:"  + System.lineSeparator()
-                + "[E]" + "[ " + "] " + eventDescription + "(at: " + eventAt + ")" + System.lineSeparator()
+                + "[E]" + "[ " + "] " + eventDescription +
+                "(at: " + eventAt.format(DateTimeFormatter.ofPattern((Task.DATE_FORMAT))) + ")" + System.lineSeparator()
                 + "You now have " + tasks.size() + " tasks in the list!" + System.lineSeparator()
                 + LINE_DIVIDER;
         System.out.println(addedMessage);
@@ -181,26 +184,15 @@ public class Ui {
     public void printTaskMarked(int numToMark, ArrayList<Task> tasks, int DONE_OFFSET) {
         System.out.println(LINE_DIVIDER + System.lineSeparator()
                 + "Great work! I've marked this task as done:" + System.lineSeparator()
-                + "[" + tasks.get(numToMark - DONE_OFFSET).getType() + "]" + "[" + tasks.get(numToMark - DONE_OFFSET).getStatusIcon() + "] "
-                + tasks.get(numToMark - DONE_OFFSET).description + System.lineSeparator()
+                + tasks.get(numToMark - DONE_OFFSET).toString() + System.lineSeparator()
                 + LINE_DIVIDER);
     }
 
-    public void printWithoutTaskWordString(int numToRemove, int DELETE_OFFSET, ArrayList<Task> tasks) {
+    public void printDeleteTask(int numToRemove, int DELETE_OFFSET, ArrayList<Task> tasks) {
         System.out.println(LINE_DIVIDER + System.lineSeparator()
                 + "Alright! I've removed this task:" + System.lineSeparator()
-                + "[" + tasks.get(numToRemove - DELETE_OFFSET).getType() + "]" + "[" + tasks.get(numToRemove - DELETE_OFFSET).getStatusIcon() + "] "
-                + tasks.get(numToRemove - DELETE_OFFSET).description + System.lineSeparator()
+                + tasks.get(numToRemove - DELETE_OFFSET).toString() + System.lineSeparator()
                 + "Now you have " + (tasks.size() - DELETE_OFFSET)+ " tasks remaining in the list." + System.lineSeparator()
-                + LINE_DIVIDER);
-    }
-
-    public void printWithTaskWordString(int numToRemove, int DELETE_OFFSET, String taskWordString, ArrayList<Task> tasks) {
-        System.out.println(LINE_DIVIDER + System.lineSeparator()
-                + "Alright! I've removed this task:" + System.lineSeparator()
-                + "[" + tasks.get(numToRemove - DELETE_OFFSET).getType() + "]" + "[" + tasks.get(numToRemove - DELETE_OFFSET).getStatusIcon() + "] "
-                + tasks.get(numToRemove - DELETE_OFFSET).description + "(" + taskWordString + tasks.get(numToRemove - DELETE_OFFSET).getWhen() + ")" + System.lineSeparator()
-                + "Now you have " + (tasks.size() - DELETE_OFFSET) + " tasks remaining in the list." + System.lineSeparator()
                 + LINE_DIVIDER);
     }
 

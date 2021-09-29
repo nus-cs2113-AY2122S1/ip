@@ -34,11 +34,11 @@ public class Deadline extends Task {
     /**
      * Overrides the getWhen() method, returning the due date of the DEADLINE object.
      *
-     * @return the due date of the DEADLINE object.
+     * @return the due date of the DEADLINE object in the DATE_FORMAT set in Task class.
      */
     @Override
-    public LocalDate getWhen() {
-        return this.by;
+    public String getWhen() {
+        return this.by.format(DateTimeFormatter.ofPattern((Task.DATE_FORMAT)));
     }
 
     /**

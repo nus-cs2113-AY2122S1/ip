@@ -71,7 +71,7 @@ public class Storage {
     /**
      * Stores the current ArrayList of Tasks into the save file, rewriting all of the save file's previous contents.
      * Follows the format:
-     * [Task Type Symbol] | [Task Done Status] | [Task Description] | [Task Due/Event Date (if applicable)]
+     * [Task Type Symbol] | [Task Done Status] | [Task Description] | [Task Due/Event Date (for Deadline and Event only)]
      *
      * @param tasks the ArrayList of Tasks to be saved into the save file.
      * @throws IOException when there is an error writing into the save file and saving it.

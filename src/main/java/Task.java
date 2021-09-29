@@ -45,10 +45,10 @@ public class Task {
     /**
      * Gets when the task is due/occurring.
      *
-     * @return the due/occurring date of the task.
+     * @return the due/occurring date of the task in the DATE_FORMAT set in this class.
      */
-    public LocalDate getWhen() {
-        return eventDate;
+    public String getWhen() {
+        return eventDate.format(DateTimeFormatter.ofPattern((Task.DATE_FORMAT)));
     }
 
     /**
