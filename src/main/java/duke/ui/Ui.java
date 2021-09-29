@@ -2,6 +2,8 @@ package duke.ui;
 
 import java.util.Scanner;
 
+import duke.task.Task;
+
 /**
  * Text UI of the application.
  */
@@ -71,5 +73,9 @@ public class Ui {
             lines[i] = LINE_PREFIX + lines[i];
         }
         return String.join(LINE_SEPARATOR, lines);
+    }
+
+    public static String formatTaskForTaskList(int index, Task task) {
+        return String.format("%d.%s", index, task);
     }
 }
