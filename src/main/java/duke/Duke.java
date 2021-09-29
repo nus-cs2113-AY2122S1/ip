@@ -29,7 +29,7 @@ public class Duke {
      * Main function of Duke
      * Integrate Ui class that handles taking in input of user with
      * Parser class that handles response of input
-     * Loop until system is terminated
+     * Loop\ until system is terminated
      */
     public void run(){
         ui.Greetings();

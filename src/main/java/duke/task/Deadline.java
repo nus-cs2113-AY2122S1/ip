@@ -13,8 +13,12 @@ import java.util.regex.Pattern;
  */
 public class Deadline extends Task{
 
+    private static final String DATE_SEPARATOR = "-";
+    private static final String DATE_SEPARATOR_NEW = "/";
+    private static final String TIME_SEPARATOR = ":";
+    private static final String TIME_SEPARATOR_NEW = ".";
     private static final String TASK_SYMBOL = "[D]";
-    private final String deadlineDateTime;
+    private String deadlineDateTime;
 
     /**
      * Constructor for DeadLine Task
@@ -105,6 +109,7 @@ public class Deadline extends Task{
                 return parseDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             }catch (DateTimeParseException e){
                 System.out.println(ErrorStaticString.ERROR_DATE_TIME_PARSE);
+                deadlineDateTime = deadlineDateTime.replaceAll(DATE_SEPARATOR,DATE_SEPARATOR_NEW);
             }
         }
         return EMPTY_STRING;
@@ -127,6 +132,7 @@ public class Deadline extends Task{
                 return parseTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
             }catch (DateTimeParseException e){
                 System.out.println(ErrorStaticString.ERROR_DATE_TIME_PARSE);
+                deadlineDateTime = deadlineDateTime.replaceAll(TIME_SEPARATOR,TIME_SEPARATOR_NEW);
             }
         }
         if(getDate(convertStringToDate(),false).equals(EMPTY_STRING)) {

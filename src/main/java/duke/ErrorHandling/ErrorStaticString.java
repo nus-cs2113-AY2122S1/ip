@@ -40,7 +40,7 @@ public class ErrorStaticString {
     public static final String ERROR_FILE_MESSAGE_CLEARING = "☹ OOPS!!! Something went wrong with clearing contents of the files";
 
     public static final String ERROR_DATE_TIME_PARSE = "☹ OOPS!!! Something went wrong with reading date or time\n" +
-            "Format of Date: YYYY-MM-DD\n" + "Format of Time: HH:MM";
+            "Input will be read in as String\n" + "Format of Date: YYYY-MM-DD\n" + "Format of Time: HH:MM";
     public static final String ERROR_EMPTY_DATE_INPUT = "☹ OOPS!!! Date Searched cannot be Empty.";
     public static final String ERROR_EMPTY_WORD_INPUT = "☹ OOPS!!! Word Searched cannot be Empty.";
 }
