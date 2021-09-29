@@ -15,7 +15,8 @@ tasks and get more done during the day!
   - [Deleting a task: `delete`](#deleting-a-task-delete)
   - [Searching for a task: `find`](#searching-for-a-task-find)
   - [Exiting the program: `bye`](#exiting-the-program-bye)
-  - [Save data to file](#save-data-to-file)
+  - [Automatic Saving](#automatic-saving)
+  - [Editing the save file](#editing-the-save-file)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -208,10 +209,17 @@ The tasks in ShellRPG are automatically saved to a save file `[JAR_LOCATION]/dat
 the execution of every command. Advanced users are welcome to update data directly by editing
 that `duke.txt`
 
-> ❗ **Caution**: if the save file is detected to be corrupted
+> ❗ **Caution**: If the save file is detected to be corrupted
 > or does not conform to ShellRPG's saved file format, ShellRPG will not run.  
 
-### Editing save file
+### Editing the save file
+Advanced users can edit the `duke.txt` so that the modified data can be imported into the program.
+Every line is one task and the fields are seperated via `|`.  
+
+> ❗ **Caution**: If the save file does not conform to the standards mentioned below 
+> the program will not run!   
+> Only do this if you know what you are doing.
+
 Todo: `<Type>|<Completion status>|<Description>`
 
 E.g. `T | 0 | Complete Homework`
