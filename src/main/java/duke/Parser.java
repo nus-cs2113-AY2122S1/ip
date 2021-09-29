@@ -146,6 +146,9 @@ public class Parser {
             errorCheck(false);
             tasklist.find(description);
             break;
+        case "help":
+            Ui.printHelp();
+            break;
         case "bye":
             Ui.end();
             return -1;

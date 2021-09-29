@@ -9,6 +9,7 @@ Duke is an all-in-one task tracker to help you manage your daily events and duti
 * Marking tasks: `done`
 * Searching tasks: `find`
 * Deleting tasks: `delete`
+* Display help: `help`
 * Exiting the program : `bye`
 
 ## Features
@@ -155,6 +156,12 @@ Deletes a task of the specified `INDEX`.
 Noted. I've removed this task:
 [T] [ ] eat cheese
 ```
+
+### Display help: `help`
+
+Shows a helpful summary of the commands and syntax.
+
+#### Format: `help`
 
 ### Exiting the program: `bye`
 

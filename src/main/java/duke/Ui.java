@@ -7,6 +7,7 @@ public class Ui {
     public static void startup(){
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
+        System.out.println("To see what I can do, type 'help'.");
     }
 
     public static void end() {
@@ -47,5 +48,18 @@ public class Ui {
 
     public static void dateFormatError() {
         System.out.println("☹ OOPS!!! I don't recognise the date format.");
+    }
+
+    public static void printHelp() {
+        System.out.println( "Here are the list of things I can do for you:\n" +
+                "1. Adding todos: todo NAME\n" +
+                "2. Adding events: event NAME /at DATE\n" +
+                "3. Adding deadlines: deadline /by DATE\n" +
+                "4. Listing tasks: list\n" +
+                "5. Marking tasks: done INDEX\n" +
+                "6. Searching tasks: find KEYWORD\n" +
+                "7. Deleting tasks: delete INDEX\n" +
+                "8. Command summary: help\n" +
+                "9. Exiting the program : bye");
     }
 }
