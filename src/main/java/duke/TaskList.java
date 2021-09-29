@@ -10,16 +10,16 @@ import java.util.Scanner;
 
 public class TaskList {
 
-    protected static int taskCount = 0; //can be replaced with tasks.size()
-    protected static int taskCompleted = 0; //encapsulate in type Task?
     private static final String TODO = "T";
     private static final String DEADLINE = "D";
     private static final String EVENT = "E";
 
+    protected static int taskCount = 0;
+    protected static int taskCompleted = 0;
     protected static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
-     * Adds inputs from user to list[] to keep track of user's tasks, deadlines, and events.
+     * Adds inputs from user to ArrayList tasks to keep track of user's tasks, deadlines, and events.
      *
      * @param taskName    Name of task from user.
      * @param taskType    Type of task from user.
@@ -46,7 +46,16 @@ public class TaskList {
         }
     }
 
-    public static void addTaskFromFile(String taskType, String taskIsDone, String taskName, String taskDetails) {
+    /**
+     * Adds tasks from file to ArrayList tasks to keep track of user's tasks, deadlines, and events.
+     *
+     * @param taskType Type of task: Todo, Deadline, or Event.
+     * @param taskIsDone Boolean status of task.
+     * @param taskName Description of task.
+     * @param taskDetails Time information pertaining to task.
+     * @throws DukeException When the isDone value is not 1 or 0.
+     */
+    public static void addTaskFromFile(String taskType, String taskIsDone, String taskName, String taskDetails) throws DukeException {
         boolean isDone = false;
 
         if (taskIsDone.equals("1")) {
@@ -54,7 +63,7 @@ public class TaskList {
         } else if (taskIsDone.equals("0")) {
             isDone = false;
         } else {
-            //todo throw exception
+            throw new DukeException("Done status of task corrupted.");
         }
 
         try {
@@ -77,6 +86,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task of type Todo to ArrayList tasks.
+     *
+     * @param isDone Boolean status representing whether the task has been done.
+     * @param taskName Description of task.
+     * @throws DukeException Description of task not inputted.
+     */
     public static void addTodo(boolean isDone, String taskName) throws DukeException {
         if (taskName.isBlank()) {
             throw new DukeException("todo name missing.");
@@ -84,6 +100,14 @@ public class TaskList {
         tasks.add(new Todo(isDone, taskName));
     }
 
+    /**
+     * Adds a task of type Deadline to ArrayList tasks.
+     *
+     * @param isDone Boolean status representing whether the task has been done.
+     * @param taskName Description of task.
+     * @param taskDetails Time of deadline in String format.
+     * @throws DukeException Description of task not inputted.
+     */
     public static void addDeadline(boolean isDone, String taskName, String taskDetails) throws DukeException {
         if (taskName.isBlank()) {
             throw new DukeException("deadline name missing.");
@@ -95,6 +119,14 @@ public class TaskList {
 
     }
 
+    /**
+     * Adds a task of type Event to ArrayList tasks.
+     *
+     * @param isDone Boolean status representing whether the task has been done.
+     * @param taskName Description of task.
+     * @param taskDetails Time of event in String format.
+     * @throws DukeException Description of task not inputted.
+     */
     public static void addEvent(boolean isDone, String taskName, String taskDetails) throws DukeException {
         if (taskName.isBlank()) {
             throw new DukeException("event name missing.");
@@ -106,6 +138,11 @@ public class TaskList {
 
     }
 
+    /**
+     * Updates taskCount and taskCompleted after a task has been added from save file.
+     *
+     * @param isDone Boolean status representing whether the task has been done.
+     */
     public static void updateTaskCountAndTaskCompleted(boolean isDone) {
         taskCount++;
         if (isDone) {
@@ -115,6 +152,8 @@ public class TaskList {
 
     /**
      * Prints confirmation to user of added task and updates taskCount number
+     *
+     * @param isDone Boolean status representing whether the task has been done.
      */
     public static void confirmTaskAdded(boolean isDone) {
         updateTaskCountAndTaskCompleted(isDone);
@@ -127,7 +166,7 @@ public class TaskList {
     }
 
     /**
-     * Marks tasks in tasks[] as done, only if they exist or has not been completed.
+     * Marks a task in ArrayList tasks as done, only if they exist or has not been completed.
      *
      * @param userInput String from user to be converted into a number that is associated with a task.
      */
@@ -158,6 +197,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from ArrayList tasks, only if they exist or has not been completed.
+     *
+     * @param userInput String from user to be converted into a number that is associated with a task.
+     */
     public static void deleteTask(String userInput) {
         int taskNumber;
         boolean isExists;
@@ -188,6 +232,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches the description of all tasks with a String query from user.
+     * Prints the tasks that contains the query (as a substring).
+     *
+     * @param userInput Query of user.
+     * @throws DukeException Query is blank.
+     */
     public static void findTask(String userInput) throws DukeException {
         ArrayList<Task> tempTasks = new ArrayList<>();
         if (!userInput.isBlank()) {
@@ -198,25 +249,23 @@ public class TaskList {
 
         if (tasks.size() != 0) {
             for (Task task : tasks) {
-                Task lowerCaseTask = task;
-                lowerCaseTask.setTaskName(task.getTaskName().toLowerCase());
-                if (lowerCaseTask.getTaskName().contains(userInput)) {
+                if (task.getTaskName().toLowerCase().contains(userInput)) {
                     tempTasks.add(task);
                 }
             }
-            if (tempTasks.size() != 0) {
-                Ui.showQueryList(tempTasks);
-            } else {
-                Ui.showQueryNotFound();
-            }
-
         } else {
             throw new DukeException("List is empty.");
+        }
+
+        if (tempTasks.size() != 0) {
+            Ui.showQueryList(tempTasks);
+        } else {
+            Ui.showQueryNotFound();
         }
     }
 
     /**
-     * Engages user base on what the user has typed.
+     * Engages user based on what the user has typed.
      * Passes execution to parse();
      */
     public static void engageUser() {
