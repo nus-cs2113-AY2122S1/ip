@@ -9,11 +9,19 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * Class that initializes memory file location and contains all storage methods.
+ */
 public class Storage {
     private String fileString;
     private Path filePath;
     private File file;
 
+    /**
+     * Initializes new Storage object.
+     * Sets file parameter to fileString and creates a new file if it does not exist.
+     * @param fileString path of memory file as a string
+     */
     public Storage(String fileString) {
         this.fileString = fileString;
         this.filePath = Paths.get(fileString);
@@ -24,6 +32,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new file object with given filePath.
+     */
     private void createFile() {
         try {
             Files.createFile(filePath);
@@ -33,6 +44,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns the contents of the memory file as a single string.
+     * String returned has no line separator at the end.
+     * @return contents of memory file as a string
+     * @throws FileNotFoundException If the memory file cannot be found.
+     */
     public String load() throws FileNotFoundException {
         Scanner s = new Scanner(file);
         String memAsString = "";
@@ -50,6 +67,10 @@ public class Storage {
         return memAsTrimmedString;
     }
 
+    /**
+     * Overwrites the memory file with given data.
+     * @param data data to write to memory as a string
+     */
     private void rewriteMem(String data) {
         try {
             FileWriter fw = new FileWriter(file);
@@ -62,6 +83,11 @@ public class Storage {
     }
 
     // Storage methods for DoneCommand
+
+    /**
+     * Alters memory file to reflect completion of task of taskIndex.
+     * @param taskIndex Index of completed task
+     */
     public void writeDone(int taskIndex) {
         try {
             markDoneInMem(taskIndex);
@@ -71,6 +97,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new string of data reflecting completion of task of taskIndex.
+     * Writes new string to the memory file.
+     * @param taskIndex Index of completed task
+     * @throws FileNotFoundException If unable to write to memory file.
+     */
     private void markDoneInMem(int taskIndex) throws FileNotFoundException {
         Scanner s = new Scanner(this.file);
         int lineCount = 0;
@@ -89,6 +121,12 @@ public class Storage {
     }
 
     //Storage methods for adding new tasks
+
+    /**
+     * Appends a single line string to the memory file.
+     * Does not overwrite the memory file.
+     * @param data single line string to be appended to memory file
+     */
     public void appendToMem(String data) {
         try {
             FileWriter fw = new FileWriter(file, true);
@@ -101,6 +139,13 @@ public class Storage {
     }
 
     //Storage method for deleting tasks
+
+    /**
+     * Deletes task of taskIndex from the memory file.
+     * Creates a new string of data reflecting the deletion and writes it to the memory file.
+     * @param taskIndex Index of deleted task
+     * @throws FileNotFoundException If memory file cannot be found
+     */
     public void deleteTaskFromMem(int taskIndex) throws FileNotFoundException {
         Scanner s = new Scanner(file);
         int lineCount = 0;

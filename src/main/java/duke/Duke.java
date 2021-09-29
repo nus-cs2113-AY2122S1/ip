@@ -9,6 +9,11 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initializes new Duke object and loads memory data from specified file path.
+     * If memory file is not found, a new file is created.
+     * @param fileString path of file to load memory data from
+     */
     public Duke(String fileString) {
         ui = new Ui();
         storage = new Storage(fileString);
@@ -20,6 +25,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Repeatedly executes main programme loop until isExit == false.
+     * Accepts command input from user and executes command.
+     */
     public void run() {
         ui.showHello();
         boolean isExit = false;

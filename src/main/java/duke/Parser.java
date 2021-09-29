@@ -11,8 +11,17 @@ import duke.commands.ListCommand;
 import duke.commands.TodoCommand;
 import duke.exceptions.InvalidCommandException;
 
+/**
+ * Class for the purpose of collecting and interpreting input from the user.
+ */
 public class Parser {
 
+    /**
+     * Reads input from user and returns the appropriate command class for execution of command.
+     * @param fullCommand input string from user
+     * @return Command called by user
+     * @throws InvalidCommandException If command by user is not recognised.
+     */
     public static Command parse(String fullCommand) throws InvalidCommandException {
         if (fullCommand.trim().equals("bye")) {
             return new ExitCommand();
