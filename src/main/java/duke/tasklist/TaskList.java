@@ -32,13 +32,22 @@ public class TaskList {
         tasks.get(index).setDone();
     }
 
-    public void addToDoTask(String userInput) {
+    /**
+     * Adds a todo task to list of tasks
+     *
+     * @param userInput user input
+     * @return true if task is added successfully, false otherwise
+     */
+    public boolean addToDoTask(String userInput) {
         String description = validateToDo(userInput);
-        if (description == null) {
-            return;
+        boolean noDescription = description.equals("");
+
+        if (noDescription) {
+            return false;
         }
         ToDo todo = new ToDo(description);
         tasks.add(todo);
+        return true;
     }
 
     /**
@@ -55,20 +64,35 @@ public class TaskList {
             if (emptyCommand) {
                 throw new DukeException("The description of a todo cannot be empty.");
             }
-            description = words[1];
+            description = words[1].trim();
+
+            boolean noDescription = description.equals("");
+            if (noDescription) {
+                throw new DukeException("The description of a todo cannot be empty.");
+            }
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
         return description;
     }
 
-    public void addDeadlineTask(String userInput) {
+    /**
+     * Adds a deadline task to list of tasks
+     *
+     * @param userInput user input
+     * @return true if task is added successfully, false otherwise
+     */
+    public boolean addDeadlineTask(String userInput) {
         String[] information = validateDeadline(userInput);
-        if (information[0].equals("") || information[1].equals("")) {
-            return;
+        boolean noDescription = information[0].equals("");
+        boolean noDatelineTime = information[1].equals("");
+
+        if (noDescription || noDatelineTime) {
+            return false;
         }
         Deadline deadline = new Deadline(information[0], information[1]);
         tasks.add(deadline);
+        return true;
     }
 
     /**
@@ -109,13 +133,23 @@ public class TaskList {
         return information;
     }
 
-    public void addEventTask(String userInput) {
+    /**
+     * Adds an event task to list of tasks
+     *
+     * @param userInput user input
+     * @return true if task is added successfully, false otherwise
+     */
+    public boolean addEventTask(String userInput) {
         String[] information = validateEvent(userInput);
-        if (information[0].equals("") || information[1].equals("")) {
-            return;
+        boolean noDescription = information[0].equals("");
+        boolean noDatelineTime = information[1].equals("");
+
+        if (noDescription || noDatelineTime) {
+            return false;
         }
         Event event = new Event(information[0], information[1]);
         tasks.add(event);
+        return true;
     }
 
     /**

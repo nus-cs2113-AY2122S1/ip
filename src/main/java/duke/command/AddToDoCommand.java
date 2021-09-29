@@ -11,7 +11,9 @@ public class AddToDoCommand extends Command {
      * @param userInput user input
      */
     public AddToDoCommand(TaskList taskList, String userInput) {
-        taskList.addToDoTask(userInput);
-        Ui.printAddSuccess(taskList);
+        boolean taskAddedSuccess = taskList.addToDoTask(userInput);
+        if (taskAddedSuccess) {
+            Ui.printAddSuccess(taskList);
+        }
     }
 }

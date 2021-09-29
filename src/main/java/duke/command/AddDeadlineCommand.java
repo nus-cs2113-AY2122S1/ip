@@ -11,7 +11,9 @@ public class AddDeadlineCommand extends Command {
      * @param userInput user input
      */
     public AddDeadlineCommand(TaskList taskList, String userInput) {
-        taskList.addDeadlineTask(userInput);
-        Ui.printAddSuccess(taskList);
+        boolean taskAddedSuccess = taskList.addDeadlineTask(userInput);
+        if (taskAddedSuccess) {
+            Ui.printAddSuccess(taskList);
+        }
     }
 }

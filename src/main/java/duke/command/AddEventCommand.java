@@ -11,7 +11,9 @@ public class AddEventCommand extends Command {
      * @param userInput user input
      */
     public AddEventCommand(TaskList taskList, String userInput) {
-        taskList.addEventTask(userInput);
-        Ui.printAddSuccess(taskList);
+        boolean taskAddedSuccess = taskList.addEventTask(userInput);
+        if (taskAddedSuccess) {
+            Ui.printAddSuccess(taskList);
+        }
     }
 }
