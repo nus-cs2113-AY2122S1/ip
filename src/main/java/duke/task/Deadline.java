@@ -13,4 +13,10 @@ public class Deadline extends Task{
     public String toString() {
         return "[D]" + super.toString() + " (by:" + deadline + ")" ;
     }
+
+    @Override
+    public String getStorageFormat() {
+        return "D" + GAP + this.getStorageFormatStatus()
+                + GAP + description + GAP + deadline;
+    }
 }

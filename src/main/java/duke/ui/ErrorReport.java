@@ -39,6 +39,8 @@ public class ErrorReport {
             System.out.println("Can't find the item in your list.");
             System.out.println("Give me a number from 1 to " + taskCount + ".");
             break;
+        case SAVE_ERROR:
+            System.out.print("Something went wrong, data can't be saved.");
         default:
             System.out.println("UNIDENTIFIED ERROR!");
         }
