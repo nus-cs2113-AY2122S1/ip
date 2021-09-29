@@ -1,3 +1,0 @@
-T|1|read
-T|1|sleep
-T|1|eat
