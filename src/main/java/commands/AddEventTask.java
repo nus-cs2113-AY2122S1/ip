@@ -25,6 +25,8 @@ public class AddEventTask extends Command {
      * If there is no description or time range given, the user will be prompted to include it.
      *
      * @param tasks task list to be updated when an event task is added.
+     * @param ui Access to messages.
+     * @param storage storage access.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

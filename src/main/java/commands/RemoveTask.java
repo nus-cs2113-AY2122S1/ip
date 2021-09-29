@@ -25,6 +25,8 @@ public class RemoveTask extends Command {
      * If the task does not exist, the user will be shown an error message that informs them of that.
      *
      * @param tasks task list to be updated when a task is removed.
+     * @param ui Access to messages.
+     * @param storage storage access.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

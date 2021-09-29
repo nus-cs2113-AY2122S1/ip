@@ -24,6 +24,8 @@ public class AddDeadlineTask extends Command {
      * If there is no description or deadline given, the user will be prompted to include it.
      *
      * @param tasks task list to be updated when a deadline task is added.
+     * @param ui Access to messages.
+     * @param storage storage access.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

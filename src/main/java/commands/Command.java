@@ -10,7 +10,9 @@ public abstract class Command {
     /**
      * Command to be overridden by child classes
      *
-     * @param tasks task list to be used in overriden commands.
+     * @param tasks task list to be used in overridden commands.
+     * @param ui Ui access in overridden commands.
+     * @param storage Storage access in overridden commands.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 

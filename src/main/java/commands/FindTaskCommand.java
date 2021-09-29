@@ -24,7 +24,9 @@ public class FindTaskCommand extends Command {
      * the user will be shown a text message to reflect that.
      * If there is no input after the command word, the user will be prompted to include it.
      *
-     * @param tasks task list to be used to find the tasks.
+     * @param tasks Task list to be used to find the tasks.
+     * @param ui Access to messages.
+     * @param storage storage access to allow find to extend command.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

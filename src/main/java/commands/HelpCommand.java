@@ -10,6 +10,7 @@ public class HelpCommand extends Command{
      * Shows the help message.
      *
      * @param tasks task list that is included so help command can be extended from command.
+     * @param ui Access to messages.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
