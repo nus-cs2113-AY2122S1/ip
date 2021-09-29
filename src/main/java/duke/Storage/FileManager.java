@@ -1,7 +1,6 @@
 package duke.Storage;
 
 import duke.TaskList.TaskManager;
-import duke.Ui.DisplayManager;
 import duke.TaskList.task.Task;
 import duke.Ui.Parser;
 
@@ -13,17 +12,23 @@ import java.util.Scanner;
 
 public class FileManager {
 
-    public static final String FILE_DIRECTORY = "data";
-    public static final String FILE_PATH = "data/savedTasks.txt";
+    public String fileDirectory;
+    public static String filePath;
 
     public static final int INDEX_TYPE = 0;
     public static final int INDEX_STATUS = 1;
     public static final int INDEX_DESCRIPTION = 2;
     public static final int INDEX_DATETIME = 3;
 
-    public static void parseFile(TaskManager taskManager, Parser parser) throws IOException{
-        File dataDirectory = new File(FILE_DIRECTORY);
-        File dataFile = new File(FILE_PATH);
+    public FileManager(String filePath) {
+        FileManager.filePath = filePath;
+        String[] fileComponents = filePath.split("/");
+        this.fileDirectory = fileComponents[0];
+    }
+
+    public void load(TaskManager taskManager, Parser parser) throws IOException{
+        File dataDirectory = new File(fileDirectory);
+        File dataFile = new File(filePath);
 
         if (!dataDirectory.exists()) {
             dataDirectory.mkdir();
@@ -68,7 +73,7 @@ public class FileManager {
     }
 
     public static void updateFile(ArrayList<Task> tasks) throws IOException {
-        FileWriter fileWriter = new FileWriter(FILE_PATH);
+        FileWriter fileWriter = new FileWriter(filePath);
         for (Task task : tasks) {
             String data = task.toDataFormat();
             fileWriter.write(data);
@@ -76,13 +81,4 @@ public class FileManager {
         }
         fileWriter.close();
     }
-
-    public static void loadData(TaskManager taskManager, Parser parser) {
-        try {
-            parseFile(taskManager, parser);
-        } catch (IOException e) {
-            DisplayManager.printErrorLoadingData();
-        }
-    }
 }
-
