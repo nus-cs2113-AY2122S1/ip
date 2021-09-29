@@ -13,6 +13,10 @@ public class Deadline extends Todo {
         this.by = by;
     }
 
+    public String fileForm() {
+        return "D | " + this.getStatusIcon() + " | " + this.description + " | " + this.by + "\n";
+    }
+
     @Override
     public String toString() {
         return "[D]" + "[" + this.getStatusIcon() + "] " + this.description + " (by: " + this.by + ")";

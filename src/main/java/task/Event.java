@@ -13,6 +13,10 @@ public class Event extends Todo {
         this.eventTime = ToE;
     }
 
+    public String fileForm() {
+        return "E | " + this.getStatusIcon() + " | " + this.description + " | " + this.eventTime + "\n";
+    }
+
     @Override
     public String toString() {
         return "[E]" + "[" + this.getStatusIcon() + "] " + this.description + " (at: " + this.eventTime + ")";

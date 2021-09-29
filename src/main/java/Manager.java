@@ -1,7 +1,9 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
+
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 import task.Deadline;
@@ -10,14 +12,16 @@ import task.Task;
 import task.Todo;
 
 public class Manager {
-    Task[] schedule = new Task[100];
+    ArrayList<Task> schedule = new ArrayList<>();
     int totalTasks = 0;
+
+    Storage s = new Storage();
 
     public Manager() {
     }
 
     public String findCommand(String line) {
-        int spaceIndex = line.indexOf(32);
+        int spaceIndex = line.indexOf(" ");
         return spaceIndex == -1 ? line : line.substring(0, spaceIndex);
     }
 
@@ -36,26 +40,27 @@ public class Manager {
         for(int i = 0; i < this.totalTasks; ++i) {
             System.out.print(i + 1);
             System.out.print(". ");
-            System.out.println(this.schedule[i]);
+            System.out.println(schedule.get(i));
         }
 
     }
 
     public void handleDone(String line) {
         int number = Character.getNumericValue(line.charAt(5));
-        this.schedule[number - 1].markAsDone();
+        schedule.get(number - 1).markAsDone();
     }
 
-    public void addTodo(String content) {
+    public void addTodo(String content) throws IOException {
         Check c = new Check();
         boolean b = c.handleTodoException(content);
         if (b) {
             Todo t = new Todo(content);
-            this.schedule[this.totalTasks] = t;
+            schedule.add(totalTasks, t);
             ++this.totalTasks;
-            this.gotItMessage();
+            this.gotItMessage(t);
         }
-
+        s.checkFile();
+        s.saveFile(schedule, totalTasks);
     }
 
     public static Deadline initDeadline(String content) {
@@ -66,16 +71,17 @@ public class Manager {
         return d;
     }
 
-    public void addDeadline(String content) {
+    public void addDeadline(String content) throws IOException {
         Check c = new Check();
         boolean b = c.handleDeadlineException(content);
         if (b) {
             Deadline d = initDeadline(content);
-            this.schedule[this.totalTasks] = d;
+            schedule.add(totalTasks, d);
             ++this.totalTasks;
-            this.gotItMessage();
+            this.gotItMessage(d);
         }
-
+        s.checkFile();
+        s.saveFile(schedule, totalTasks);
     }
 
     public static Event initEvent(String content) {
@@ -86,21 +92,33 @@ public class Manager {
         return e;
     }
 
-    public void addEvent(String content) {
+    public void addEvent(String content) throws IOException {
         Check c = new Check();
         boolean b = c.handleEventException(content);
         if (b) {
             Event e = initEvent(content);
-            this.schedule[this.totalTasks] = e;
+            schedule.add(totalTasks, e);
             ++this.totalTasks;
-            this.gotItMessage();
+            this.gotItMessage(e);
         }
-
+        s.checkFile();
+        s.saveFile(schedule, totalTasks);
     }
 
-    public void gotItMessage() {
+    public void gotItMessage(Task t) {
         System.out.println("Got it. I've added this task:");
-        System.out.println(this.schedule[this.totalTasks - 1]);
+        System.out.println(t);
+        System.out.println("Now you have " + this.totalTasks + " tasks in the list.");
+    }
+
+    public void delete(String line) {
+        int number = Character.getNumericValue(line.charAt(7));
+        Task t = schedule.get(number - 1);
+        schedule.remove(t);
+        totalTasks--;
+
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(t);
         System.out.println("Now you have " + this.totalTasks + " tasks in the list.");
     }
 }
