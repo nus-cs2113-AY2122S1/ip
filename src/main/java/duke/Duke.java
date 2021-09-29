@@ -98,7 +98,6 @@ public class Duke {
      */
     private static void executeBye() {
         isDone = true;
-        storage.saveData(tasks.getTasks());
         ui.printExitMessage();
     }
 
@@ -110,6 +109,7 @@ public class Duke {
      */
     private static void executeEvent(String description, String timeField) {
         Task newTask = tasks.addEvent(description, timeField);
+        storage.saveData(tasks.getTasks());
         ui.printAddTask(newTask, (tasks.getNumOfTasks()));
     }
 
@@ -121,6 +121,7 @@ public class Duke {
      */
     private static void executeDeadline(String description, String timeField) {
         Task newTask = tasks.addDeadline(description, timeField);
+        storage.saveData(tasks.getTasks());
         ui.printAddTask(newTask, (tasks.getNumOfTasks()));
     }
 
@@ -131,6 +132,7 @@ public class Duke {
      */
     private static void executeTodo(String description) {
         Task newTask = tasks.addTodo(description);
+        storage.saveData(tasks.getTasks());
         ui.printAddTask(newTask, (tasks.getNumOfTasks()));
     }
 
@@ -141,6 +143,7 @@ public class Duke {
      */
     private static void executeDone(int taskIndex) {
         Task doneTask = tasks.markDone(taskIndex);
+        storage.saveData(tasks.getTasks());
         ui.printDoneTask(doneTask, taskIndex);
     }
 
@@ -151,6 +154,7 @@ public class Duke {
      */
     private static void executeDelete(int taskIndex) {
         Task deletedTask = tasks.deleteTask(taskIndex);
+        storage.saveData(tasks.getTasks());
         ui.printDeleteTask(deletedTask);
     }
 
