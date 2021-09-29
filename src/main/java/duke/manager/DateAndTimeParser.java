@@ -18,6 +18,7 @@ public class DateAndTimeParser {
      *
      * @param message input string containing the date and time
      * @return LocalDateTime object "yyyy-MM-dd HH:mm"
+     * @throws DateTimeParseException If date format is incorrect
      */
     static LocalDateTime processDateAndTime(String message) throws DateTimeParseException {
         LocalDateTime taskDateTime = LocalDateTime.parse(message.strip(), inputFormatter);
