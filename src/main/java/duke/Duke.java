@@ -4,9 +4,9 @@ import duke.manager.TaskManager;
 import duke.ui.Ui;
 
 /**
- * TODO : Better Documentation
+ * TODO :
  *        Update Tests
- *        Add checkstyle
+ *        Add more exceptions
  */
 
 public class Duke {
