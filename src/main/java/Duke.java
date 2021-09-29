@@ -54,7 +54,11 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
             System.out.println(Ui.LINE);
-            line = in.nextLine();
+            if (in.hasNextLine()) {
+                line = in.nextLine();
+            } else {
+                break;
+            }
         }
     }
 
