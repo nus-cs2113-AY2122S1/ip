@@ -52,7 +52,7 @@ public class Parser {
      */
     public static int parseIndex(String command, String fullCommand) throws DukeEmptyParaException {
         int i = fullCommand.indexOf(" ");
-        if(i == -1){
+        if (i == -1) {
             throw new DukeEmptyParaException("There should be an index of task to " + command);
         }
 
@@ -61,7 +61,7 @@ public class Parser {
 
     public static String parseKeyword(String fullCommand) throws DukeEmptyParaException {
         int i = fullCommand.indexOf(" ");
-        if(i == -1){
+        if (i == -1) {
             throw new DukeEmptyParaException("The keyword to find cannot be empty");
         }
 
@@ -79,15 +79,15 @@ public class Parser {
     public static Task parseTask(String command, String fullCommand) throws DukeException {
         int i = fullCommand.indexOf(" ");
         String taskDetails = " ";
-        if(i != -1){
+        if (i != -1) {
             taskDetails = fullCommand.substring(i + 1);
         }
 
-        if(taskDetails.isBlank()) {
+        if (taskDetails.isBlank()) {
             // the string is empty or contains only white space
             throw new DukeEmptyParaException("The description of a " + command + " cannot be empty");
         } else {
-            switch (command){
+            switch (command) {
                 case "todo":
                     return new ToDos(taskDetails);
                 case "deadline":

@@ -5,7 +5,7 @@ package duke.exception;
  */
 public class DukeEmptyParaException extends DukeException {
 
-    public DukeEmptyParaException(){
+    public DukeEmptyParaException() {
         super("EmptyParametersException");
     }
 

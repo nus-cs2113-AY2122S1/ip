@@ -1,5 +1,5 @@
-T | 1 | go to sleep
-T | 1 | running
-D | 0 | cs2113 | tonight
-T | 0 | veryyyy good
-T | 0 | cs2030 lab * n
+D | 0 | cz2005 lab quiz review | tonight
+T | 0 | cs2030 lab1,2,3,4
+T | 0 | learn cz2101 lecture
+D | 0 | cs2113 ip | Friday midnight
+E | 0 | st2334 quiz 2 | Friday afternoon

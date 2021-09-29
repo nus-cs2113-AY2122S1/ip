@@ -36,14 +36,14 @@ public class TaskListDecoder {
      */
     public static Task decodeTaskFromString(String encodedTask) throws IllegalValueException {
 
-        try{
+        try {
             String[] taskComponent = encodedTask.split(" \\| ");
             char taskType = taskComponent[0].charAt(0);
             int isDone = Integer.parseInt(taskComponent[1].trim());
             String taskDetails = taskComponent[2].trim();
             Task newTask;
 
-            switch (taskType){
+            switch (taskType) {
                 case 'T':
                     newTask = new ToDos(taskDetails);
                     break;
@@ -58,16 +58,13 @@ public class TaskListDecoder {
 
             }
 
-            if(isDone == 1){
+            if (isDone == 1) {
                 assert newTask != null;
                 newTask.markAsDone();
             }
-
             return newTask;
         } catch (ArrayIndexOutOfBoundsException e){
             throw new IllegalValueException();
         }
-
-
     }
 }

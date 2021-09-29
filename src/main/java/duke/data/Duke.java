@@ -31,10 +31,10 @@ public class Duke {
         ui.showLogo();
         storage = new Storage(filePath);
 
-        try{
+        try {
             tasks = new TaskList(storage.load());
             tasks.printList();
-        } catch (DukeException e){
+        } catch (DukeException e) {
             ui.showError(e.getMessage());
             tasks = new TaskList();
         }

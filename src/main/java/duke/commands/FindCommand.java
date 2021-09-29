@@ -23,7 +23,7 @@ public class FindCommand extends Command {
      *
      * @param keyword for searching
      */
-    public FindCommand(String keyword){
+    public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 

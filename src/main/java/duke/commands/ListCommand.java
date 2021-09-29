@@ -15,9 +15,9 @@ public class ListCommand extends Command {
             + "⮞ Example: " + COMMAND_WORD;
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        if(tasks.getSize() == 0){
+        if (tasks.getSize() == 0) {
             System.out.println("No task has added yet!");
-        }else{
+        } else {
             System.out.println("Here are the tasks in your list:");
             tasks.printList();
         }

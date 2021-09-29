@@ -9,7 +9,7 @@ import duke.ui.Ui;
 /**
  * Adds a task to the list.
  */
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     private final Task newTask;
     public static final String COMMAND_WORD_1 = "todo";
     public static final String COMMAND_WORD_2 = "deadline";
@@ -39,7 +39,7 @@ public class AddCommand extends Command{
      *
      * @param task A new task
      */
-    public AddCommand(Task task){
+    public AddCommand(Task task) {
         this.newTask = task;
     }
 

@@ -45,15 +45,15 @@ public class Ui {
      *
      * @return full line command entered by the user
      */
-    public String readCommand(){
+    public String readCommand() {
         return in.nextLine();
     }
 
-    public void showLogo(){
+    public void showLogo() {
         System.out.println(DIVIDER + "\n" + "Hello from\n" + MEME + LOGO + DIVIDER);
     }
 
-    public void showWelcome(){
+    public void showWelcome() {
         String greet = " Hello! I'm Yuxin's Duke\n"
                      + " What can I do for you?\n";
         System.out.println(DIVIDER + "\n" + greet + DIVIDER);

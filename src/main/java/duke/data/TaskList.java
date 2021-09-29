@@ -17,7 +17,7 @@ public class TaskList implements Iterable<Task>{
     /**
      * Constructs empty task list.
      */
-    public TaskList(){
+    public TaskList() {
     }
 
     /**
@@ -74,8 +74,8 @@ public class TaskList implements Iterable<Task>{
     public TaskList search(String keyword) {
         final List<Task> matchingTasks = new ArrayList<>();
 
-        for(Task task : this.tasks) {
-            if(task.containsKeyword(keyword)){
+        for (Task task : this.tasks) {
+            if (task.containsKeyword(keyword)) {
                 matchingTasks.add(task);
             }
         }
@@ -86,8 +86,8 @@ public class TaskList implements Iterable<Task>{
     /**
      * Displays all current tasks in the list.
      */
-    public void printList(){
-        for(int i=0; i< tasks.size(); i++) {
+    public void printList() {
+        for (int i=0; i< tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
         }
     }
