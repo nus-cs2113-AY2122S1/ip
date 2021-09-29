@@ -18,6 +18,10 @@ public class Parser {
     private static final int DONE_INDEX = 1;
     private static final int DESCRIPTION_INDEX = 2;
     private static final String FIND_KEYWORD = "find";
+    private static final String TO_DO_SYMBOL = "T";
+    private static final String DEADLINE_SYMBOL = "D";
+    private static final String EVENT_SYMBOL = "E";
+    private static final String IS_DONE_SYMBOL = "X";
 
     /**
      * Returns true.
@@ -130,7 +134,7 @@ public class Parser {
      * @throws DukeMissingDataException If data cannot be split into 3 parts.
      */
     public static String[] splitToDataParts(String data) throws DukeMissingDataException {
-        String[] dataParts = data.split(",", 3);
+        String[] dataParts = data.split(",", TOTAL_DATA_PARTS);
         if (dataParts.length < TOTAL_DATA_PARTS) {
             throw new DukeMissingDataException();
         }
@@ -151,7 +155,7 @@ public class Parser {
      * @return True if entry is a ToDo entry.
      */
     public static boolean isTodoEntry(String[] dataParts) {
-        return dataParts[TASK_TYPE_INDEX].equals("T");
+        return dataParts[TASK_TYPE_INDEX].equals(TO_DO_SYMBOL);
     }
 
     /**
@@ -164,7 +168,20 @@ public class Parser {
      * @return True if entry is a Deadline entry.
      */
     public static boolean isDeadlineEntry(String[] dataParts) {
-        return dataParts[TASK_TYPE_INDEX].equals("D");
+        return dataParts[TASK_TYPE_INDEX].equals(DEADLINE_SYMBOL);
+    }
+
+    /**
+     * Returns true.
+     * If entry is an Event entry.
+     * Done by checking the TASK_TYPE_INDEX of dataParts.
+     * This function is mainly used by DataManager to process each data entry.
+     *
+     * @param dataParts Data obtained from DukeData.txt that is split into key parts.
+     * @return True if entry is an Event entry.
+     */
+    public static boolean isEventEntry(String[] dataParts) {
+        return dataParts[TASK_TYPE_INDEX].equals(EVENT_SYMBOL);
     }
 
     /**
@@ -177,12 +194,14 @@ public class Parser {
      * @return True if entry is an Event entry.
      */
     public static boolean isDoneEntry(String[] dataParts) {
-        return dataParts[DONE_INDEX].equals("X");
+        return dataParts[DONE_INDEX].equals(IS_DONE_SYMBOL);
     }
 
     /**
      * Changes Deadline description field in dataParts.
      * This function is mainly used by DataManager to process each data entry.
+     * This is done so that dataParts can be easily passed into functions in TaskManager.
+     * For example the addDeadline function.
      *
      * @param dataParts Contains Strings that needs to be processed.
      */
@@ -194,6 +213,8 @@ public class Parser {
     /**
      * Changes Event description field in dataParts.
      * This function is mainly used by DataManager to process each data entry.
+     * This is done so that dataParts can be easily passed into functions in TaskManager.
+     * For example the addEvent function.
      *
      * @param dataParts Contains Strings that needs to be processed.
      */
@@ -220,6 +241,7 @@ public class Parser {
      * @return Returns an array of Strings where first String is user command.
      */
     public static String[] splitCommandAndRemainder(String line) {
+        // Since we are splitting the String into 2 parts, the limit will be 2.
         return line.split(" ", 2);
     }
 
@@ -242,6 +264,7 @@ public class Parser {
      * @return An array of String of size 2. First String is the description. Second is the by/at field.
      */
     public static String[] splitDescription(String description, String splitBy) {
+        // Since we are splitting the String into 2 parts, the limit will be 2.
         return description.split(splitBy, 2);
     }
 

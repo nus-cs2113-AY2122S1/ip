@@ -2,6 +2,7 @@ package duke;
 
 import duke.command.Command;
 import duke.exception.DukeBlankDescriptionsException;
+import duke.exception.DukeCorruptedDataException;
 import duke.exception.DukeInvalidTaskIndexException;
 import duke.exception.DukeMissingDataException;
 import duke.task.Task;
@@ -41,7 +42,7 @@ public class DataManager {
                     dataParts = Parser.splitToDataParts(data);
                     addTaskEntry(dataParts);
                 } catch (DukeMissingDataException | ArrayIndexOutOfBoundsException | DukeBlankDescriptionsException
-                        | DukeInvalidTaskIndexException e) {
+                        | DukeInvalidTaskIndexException | DukeCorruptedDataException e) {
                     hasCorruptedLines = true;
                 }
             }
@@ -64,7 +65,7 @@ public class DataManager {
      * @throws DukeInvalidTaskIndexException  If wrong Task index is passed into TaskManager.setDone(int taskIndex).
      */
     private static void addTaskEntry(String[] dataParts) throws DukeBlankDescriptionsException
-            , DukeInvalidTaskIndexException {
+            , DukeInvalidTaskIndexException, DukeCorruptedDataException {
         if (Parser.isTodoEntry(dataParts)) {
             TaskManager.addTask(Command.ADD_TO_DO, dataParts[DESCRIPTION_INDEX]);
             if (Parser.isDoneEntry(dataParts)) {
@@ -76,12 +77,14 @@ public class DataManager {
             if (Parser.isDoneEntry(dataParts)) {
                 TaskManager.setDone(TaskManager.getNumOfTasks());
             }
-        } else {
+        } else if (Parser.isEventEntry(dataParts)) {
             Parser.processEventDescription(dataParts);
             TaskManager.addTask(Command.ADD_EVENT, dataParts[DESCRIPTION_INDEX]);
             if (Parser.isDoneEntry(dataParts)) {
                 TaskManager.setDone(TaskManager.getNumOfTasks());
             }
+        } else {
+            throw new DukeCorruptedDataException();
         }
     }
 
