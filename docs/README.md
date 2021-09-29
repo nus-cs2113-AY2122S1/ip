@@ -1,8 +1,10 @@
 # Hal2113: User Guide
 
 Hal2113 is an intelligent bot that can schedule and manage tasks on the command line interface (CLI).
+
 ___
-## Setting up Hal2113
+
+## Setting up Hal 2113
 
 ---
 1. Press `View on Github` at the top of this page. 
@@ -10,7 +12,7 @@ ___
 3. Click on the latest release version
 4. Click on `ip.jar` under the Assets tab. This will download the file to your computer.
 5. Open up a CLI on your computer.
-6. Enter `java -jar ip.jar` to start Hal2113 in the CLI.
+6. Enter `java -jar ip.jar` to start Hal 2113 in the CLI.
 7. If you have successfully run the programme, a greeting from Hal2113 should appear as follows:
 ```
 
@@ -37,9 +39,11 @@ What can I do for you? You can enter the following commands
 Enter command:
 ```
 
-Congrats! You are now ready to use Hal2113! Enjoy!\
+
+
+Congrats! You are now ready to use Hal 2113! Enjoy!\
 Refer to the features below to explore what you can do in detail
-## Features 
+## Features summary
 
 Feature | Description
 --- | ---
@@ -53,7 +57,7 @@ Feature | Description
 `bye` | Exit Hal2113
 
 ----
-
+## Features 
 ### Add Todo: `todo`
 
 Add a Todo to the task list.\
@@ -61,6 +65,7 @@ A Todo is a task that only contains a description.\
 To add a todo, type `todo <task name>`.
 \
 \
+**Format:** `todo <task name>`\
 **Example**
 ```
 todo task 1
@@ -73,6 +78,7 @@ A deadline is a task that contains a description and a time period of when the t
 To add a deadline, type `deadline <task name> /by <yyyy-mm-dd>`, where `yyyy-mm-dd` represents a date.\
 If the date is specified in the wrong format, today's date will be used as default.\
 \
+**Format:** `deadline <task name> /by <yyyy-mm-dd>`\
 **Example**
 ```
 deadline assignment 3 /by 2021-09-30
@@ -85,6 +91,7 @@ An event is a task that contains a description and a time period of when the tas
 To add an event, type `event <task name> /at <yyyy-mm-dd>`, where `yyyy-mm-dd` represents a date.\
 If the date is specified in the wrong format, today's date will be used as default.\
 \
+**Format:** `event <task name> /at <yyyy-mm-dd>`\
 **Example**
 ```
 event final examinations /at 2021-11-30
@@ -95,6 +102,7 @@ event final examinations /at 2021-11-30
 Mark a specified task as done. To mark a task as done, type\
 `done <task index>`, where `task index` is the position of the task in the list.
 
+**Format:** `done <task index>`\
 **Example**
 ```
 todo 1
@@ -104,6 +112,7 @@ todo 1
 To delete a specified task, type\
 `delete <task index>`, where `task index` is the position of the task in the list.
 
+**Format:** `delete <task index>`\
 **Example**
 ```
 delete 1
@@ -113,6 +122,7 @@ delete 1
 To find a task, type`find <keyword>`, where `keyword` is the search term you wish to search.\
 You will find all tasks which contain that keyword. The search term is case-sensitive.
 
+**Format:** `find <keyword>`\
 **Example**
 ```
 find assignment
@@ -121,6 +131,7 @@ find assignment
 ### List all tasks: `list`
 Type `list` for me to list all tasks saved. The tasks will be listed in the same order as they are entered.
 
+**Format:** `list`\
 **Example**
 ```
 list
@@ -129,6 +140,7 @@ list
 ### Exit programme: `bye`
 To exit me, type `bye`. Hope to see you again soon!
 
+**Format:** `bye`\
 **Example**
 ```
 bye
@@ -136,5 +148,9 @@ bye
 
 ---
 
-### Saving Data
-Hal2113 auto saves your data every time you interact with the bot. 
+## Saving Data
+Hal2113 auto saves your data every time you interact with the bot and enter a command.
+The program will automatically create a data directory and a `hal.txt` file where the data will be saved. 
+
+> ⚠️  **Do not edit the hal.txt file!** 
+> - The program will crash if it detects an unknown format inside the file. The hal.txt file will then have to be manually deleted, causing all saved data to be lost.

@@ -166,7 +166,7 @@ public class Program {
     }
 
     /**
-     * Outputs all tasks that matches the input string. The search is not case-sensitive.
+     * Outputs all tasks that matches the input string. The search is case-sensitive.
      * Search function only searches the description. Finding date or task type is not supported.
      * Takes in a string in the format "find x", where x is the search term.
      *

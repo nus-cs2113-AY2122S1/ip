@@ -33,7 +33,6 @@ public class Hal {
                 newUi.printEnterCommandMessage();
             }
         }
-
         newUi.printGoodbyeMessage();
     }
 }

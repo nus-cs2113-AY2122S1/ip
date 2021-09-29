@@ -106,7 +106,6 @@ public class Parser {
             return taskNum;
         } catch (NumberFormatException error) {
             ui.printInvalidNumberMessage();
-            ui.printEnterCommandMessage();
         }
         return -1;
     }
