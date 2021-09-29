@@ -20,10 +20,10 @@ public class LoadData {
     private static final int taskDoneIndex = 1;
     private static final int taskNameIndex = 2;
     private static final int dateIndex = 3;
+
     /**
-     * Function to scan data from saved file upon initiating Friday
-     * Check if fle exists; if it doesn't, create new in main
-     * Works in loading from saved file
+     * Function to scan data from storage upon initiating program
+     * and store into tasks ArrayList
      */
     public static void loadData() throws FileNotFoundException {
         MessagePrinter.loadingData();
@@ -32,7 +32,7 @@ public class LoadData {
         Scanner s = new Scanner(data);
         while (s.hasNext()) {
             // read and parse data into Task array.
-            // Data stored in format type | isDone | taskname | date (if exists)
+            // Data stored in format type | isDone | taskname | date (if relevant)
             String[] splitString = s.nextLine().split(delimiter);
             boolean isDone = false;
             if (splitString[taskDoneIndex].trim().equals(doneIndicator)) {
@@ -46,12 +46,12 @@ public class LoadData {
                             + splitString[taskNameIndex], isDone, true
                     );
                 } else { // means it's a deadline or event
-                    if (splitString[taskTypeIndex].trim().equals("deadline")) {
+                    if (splitString[taskTypeIndex].trim().equals("deadline")) { // deadline
                         TaskList.addDeadline(splitString[taskTypeIndex]
                                 + " " + splitString[taskNameIndex]
                                 + " /by " + splitString[dateIndex], isDone, true
                         );
-                    } else {
+                    } else { // event
                         TaskList.addEvent(splitString[taskTypeIndex]
                                 + " " + splitString[taskNameIndex]
                                 + " /at " + splitString[dateIndex], isDone, true

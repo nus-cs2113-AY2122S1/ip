@@ -1,9 +1,13 @@
 package tasks;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Child Deadline class extending parent Task class
+ * Has additional attribute of deadline indicating date Task should be completed by
+ * Marked with unique prefix [D]
+ */
 public class Deadline extends Task {
     private LocalDate deadline;
 
