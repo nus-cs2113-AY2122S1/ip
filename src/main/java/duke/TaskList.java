@@ -33,14 +33,19 @@ public class TaskList {
         tasks.remove(t);
     }
 
+    public void printTask(int taskNumber){
+        String type = tasks.get(taskNumber).type;
+        String icon = tasks.get(taskNumber).getStatusIcon();
+        System.out.println((taskNumber + 1) + "." + "[" + type + "]" + " [" + icon + "] " + tasks.get(taskNumber).description);
+
+    }
+
     public void printTaskList() {
 
         ui.printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            String type = tasks.get(i).type;
-            String icon = tasks.get(i).getStatusIcon();
-            System.out.println((i + 1) + "." + "[" + type + "]" + " [" + icon + "] " + tasks.get(i).description);
+            printTask(i);
         }
         ui.printHorizontalLine();
     }
@@ -57,6 +62,26 @@ public class TaskList {
         System.out.println("[" + type + "]" + " [" + icon + "] " + t.description);
         ui.printHorizontalLine();
     }
+
+    public void searchList(TaskList tasks, String key){
+        boolean keyExists = false;
+        ui.printHorizontalLine();
+        System.out.println("Here are the matching tasks in your list");
+        for (int i = 0; i < tasks.getSize(); i++) {
+            if (tasks.getTask(i).description.contains(key)){
+                keyExists = true;
+                printTask(i);
+            }
+        }
+
+        if (!keyExists){
+            System.out.println("Sorry, no matching tasks exist");
+        }
+
+        ui.printHorizontalLine();
+    }
+
+
 
 
 

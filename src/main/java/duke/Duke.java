@@ -107,7 +107,12 @@ public class Duke {
 
                 ui.addTaskToList(t, tasks);
 
-            } else {//basic duke.task
+            } else if (input.startsWith("find ")){
+                String key = input.substring(5);
+                tasks.searchList(tasks, key);
+            }
+
+            else {//basic duke.task
 //                t = new duke.task.Task(input);
 //                addTask(t);
 
