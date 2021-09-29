@@ -13,7 +13,7 @@ Graphical User Interface (GUI) applications.
 3. Execute `java -jar ip.jar` in a terminal in the directory chosen previously. The expected output should be:
 
 ```
-	__________________________________________________________________________________________
+__________________________________________________________________________________________
 
 	                ▄▄▄█▄▄▄▄▄▄▄▄▄▄▄██▄▄▄                                                     
 	          ▄▄████████████████▄███████▄▄▄▄▄                                                
@@ -39,9 +39,9 @@ Graphical User Interface (GUI) applications.
 	                                              █▀█▀▀                   ▀▀                 
 	                                              ▀  ▀                                       
 
-	Hello! I'm Ricky the Task Racoon!
-	How can I help you?
-	__________________________________________________________________________________________
+Hello! I'm Ricky the Task Racoon!
+How can I help you?
+__________________________________________________________________________________________
 
 ```
 
@@ -63,7 +63,6 @@ h
 Expected outcome:
 
 ```
-List of commands:
 List of commands:
 1. l OR list 
 2. todo [TASK DESCRIPTION]
@@ -241,22 +240,12 @@ The data in the task list is automatically saved in DukeData/data.txt, in the di
 
 | Action       | Format, Examples                                                                                                   |
 | :---         | :---                                                                                                               |
-| **
-Help**     | `help`                                                                                                             |
-| **
-List**     | `list`                                                                                                             |
-| **
-Todo**     | `todo <TASK_NAME>`<br/>eg. `todo play guitar`                                                                     |
-| **
-Deadline** | `deadline <TASK_NAME> /by <DATE_AND_OR_TIME>`<br/>eg. `deadline return library book /by Friday`                   |
-| **
-Event**    | `event <TASK_NAME> /at <DATE_AND_OR_TIME>`<br/>eg. `event circus /at Saturday 3pm`                                |
-| **
-Done**     | `done <TASK_NUMBER>`<br/>eg. `done 1`                                                                             |
-| **
-Find**     | `find <KEYWORD>`<br/>eg. `find circus`                                                                            |
-| **
-Delete**   | `delete <TASK_NUMBER>`<br/>eg. `delete 4`                                                                         |
-| **
-Exit**     | `bye`                                                                                                              |
-
+| ** Help**     | `help`                                                                                                             |
+| ** List**     | `list`                                                                                                             |
+| ** Todo**     | `todo <TASK_NAME>`<br/>eg. `todo play guitar`                                                                     |
+| ** Deadline** | `deadline <TASK_NAME> /by <DATE_AND_OR_TIME>`<br/>eg. `deadline return library book /by Friday`                   |
+| ** Event**    | `event <TASK_NAME> /at <DATE_AND_OR_TIME>`<br/>eg. `event circus /at Saturday 3pm`                                |
+| ** Done**     | `done <TASK_NUMBER>`<br/>eg. `done 1`                                                                             |
+| ** Find**     | `find <KEYWORD>`<br/>eg. `find circus`                                                                            |
+| ** Delete**   | `delete <TASK_NUMBER>`<br/>eg. `delete 4`                                                                         |
+| ** Exit**     | `bye`                                                                                                              |
