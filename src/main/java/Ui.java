@@ -1,16 +1,29 @@
 import duke.task.Task;
 
+/**
+ * Ui deals with the user interface and print out the feedbacks
+ */
 public class Ui {
+    /**
+     * greet the user
+     */
     public static void greet(){
         String greetings = " Hello! I'm Duke\n" + " What can I do for you?\n";
         System.out.println(greetings);
     }
 
+    /**
+     * say bye to user
+     */
     public static void bye(){
         String str = "Bye. Hope to see you again soon!";
         printString(str);
     }
 
+    /**
+     * print a normal string
+     * @param str the string to print
+     */
     public static void printString(String str){
         int length = str.length();
         System.out.print("      ");
@@ -22,6 +35,10 @@ public class Ui {
         System.out.println("|");
     }
 
+    /**
+     * print the task done
+     * @param t the task
+     */
     public static void printDone(Task t){
         String str = "Nice! I've marked this task as done: ";
         int length = Math.max(t.getLength(), str.length());
@@ -49,6 +66,11 @@ public class Ui {
         System.out.println("|");
     }
 
+    /**
+     * print the delete task
+     * @param t the task
+     * @param num the number of tasks in the list
+     */
     public static void printDelete(Task t, int num){
         String str = "Noted. I've removed this task: ";
         String str2 = "Now you have " + num + " tasks in the list.";
@@ -80,6 +102,12 @@ public class Ui {
         System.out.println("|");
     }
 
+    /**
+     * print the matching tasks
+     * @param list the task list
+     * @param str the string to find
+     * @param num the maximum string length
+     */
     public static void printFoundTask(TaskList list, String str, int num){
         String listing = "Here are the matching tasks in your list:";
         if(listing.length() > num) num = listing.length();
@@ -96,6 +124,11 @@ public class Ui {
        }
     }
 
+    /**
+     * print the task list
+     * @param list the task list
+     * @param num the maximum string length
+     */
     public static void printList(TaskList list, int num){
         String listing = "Here are the tasks in your list:";
         if(listing.length() > num) num = listing.length();
@@ -125,6 +158,11 @@ public class Ui {
         System.out.println("|");
     }
 
+    /**
+     * print a specific task
+     * @param t the task
+     * @param num the number of tasks in the list
+     */
     public static void printTask(Task t, int num){
         String str = "Got it. I've added this task: ";
         String str2 = "Now you have " + num + " tasks in the list.";
