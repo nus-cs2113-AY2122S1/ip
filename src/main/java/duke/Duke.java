@@ -105,7 +105,8 @@ public class Duke {
             } catch (NumberFormatException e) {
                 printMessage("Please give a number for the following command: " + userCommand + " <number>");
             } catch (IndexOutOfBoundsException e) {
-                printMessage("Please give command in the following format, you are missing something.\n" + HELP_MESSAGE);
+                printMessage(
+                        "Please give command in the following format, you are missing something.\n" + HELP_MESSAGE);
             }
         }
         taskManager.saveData();

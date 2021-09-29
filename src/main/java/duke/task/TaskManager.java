@@ -104,7 +104,6 @@ public class TaskManager {
      */
     public void addTask(String[] userInputArray, TaskType type) {
 
-        // Check for empty description and return if no description
         try {
             boolean emptyDescription = userInputArray[1].isBlank();
             if (emptyDescription) {
@@ -146,30 +145,28 @@ public class TaskManager {
     public void listTask() {
         int tasksListSize = tasksList.size();
         String message = "";
-        switch (tasksListSize) {
-        case 0:
+        if (tasksListSize == 0) {
             message = "Oh! You have no tasks left!";
-            break;
-        default:
+        }
+        else{
             message = "Total of " + tasksListSize + " task(s)\n";
             int counter = 1;
             for (Task task : tasksList) {
                 message += String.format("%d.%s\n", counter, task.toString());
                 counter++;
             }
-            break;
         }
         Duke.printMessage(message);
     }
 
     /**
-     * Check if task exist
+     * Check if task exist and returns index
      *
      * @param taskNumber Task Number given by user
      * @return Corresponding task index fpr task number
      * @throws InvalidParameterException If task index does not exist in the current task list
      */
-    public int checkTaskExist(int taskNumber) throws InvalidParameterException {
+    public int getIndexOfTask(int taskNumber) throws InvalidParameterException {
         boolean isNotWithinSizeLimit = taskNumber < 1 || taskNumber > tasksList.size();
         if (isNotWithinSizeLimit) {
             throw new InvalidParameterException(TASK_DOES_NOT_EXIST_MESSAGE);
@@ -184,10 +181,10 @@ public class TaskManager {
      */
     public void completeTask(int taskNumber) {
         try {
-            int taskNumberIndex = checkTaskExist(taskNumber);
+            int taskNumberIndex = getIndexOfTask(taskNumber);
             Task task = tasksList.get(taskNumberIndex);
             task.markAsDone();
-            Duke.printMessage( String.format(COMPLETE_TASK_MESSAGE,task));
+            Duke.printMessage(String.format(COMPLETE_TASK_MESSAGE, task));
         } catch (InvalidParameterException e) {
             Duke.printMessage(e.getMessage());
         }
@@ -200,7 +197,7 @@ public class TaskManager {
      */
     public void deleteTask(int taskNumber) {
         try {
-            int taskNumberIndex = checkTaskExist(taskNumber);
+            int taskNumberIndex = getIndexOfTask(taskNumber);
             Task task = tasksList.get(taskNumberIndex);
             tasksList.remove(taskNumberIndex);
             Duke.printMessage(String.format(DELETE_TASK_MESSAGE, task, tasksList.size()));
@@ -247,20 +244,21 @@ public class TaskManager {
                 Task task;
                 while ((line = bufferedReader.readLine()) != null) {
                     String[] userInputArray = line.split(DATA_TEXT_SEPERATOR);
+                    boolean isDone = Integer.parseInt(userInputArray[1]) == 1;
                     switch (userInputArray[0].charAt(0)) {
                     case CHAR_TYPE_TODO:
                         task = new Todo(userInputArray[2]);
-                        task.setIsDone(Integer.parseInt(userInputArray[1]));
+                        task.setIsDone(isDone);
                         tasksList.add(task);
                         break;
                     case CHAR_TYPE_DEADLINE:
                         task = new Deadline(userInputArray[2], userInputArray[3]);
-                        task.setIsDone(Integer.parseInt(userInputArray[1]));
+                        task.setIsDone(isDone);
                         tasksList.add(task);
                         break;
                     case CHAR_TYPE_EVENT:
                         task = new Event(userInputArray[2], userInputArray[3]);
-                        task.setIsDone(Integer.parseInt(userInputArray[1]));
+                        task.setIsDone(isDone);
                         tasksList.add(task);
                         break;
                     }

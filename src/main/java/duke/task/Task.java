@@ -33,8 +33,8 @@ public class Task {
      *
      * @param booleanValue either 1 or 0 according to what was saved in data.txt
      */
-    public void setIsDone(int booleanValue) {
-        this.isDone = booleanValue == 1;
+    public void setIsDone(boolean booleanValue) {
+        this.isDone = booleanValue;
     }
 
     /* Getter for task type */
