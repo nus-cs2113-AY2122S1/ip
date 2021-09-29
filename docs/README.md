@@ -1,14 +1,25 @@
-# User Guide
+# Duke User Guide
 
 ## Features 
 
-### Feature-ABC
+### Track tasks
 
-Description of the feature.
+Duke helps users to track their tasks be it todos, deadlines or events
 
-### Feature-XYZ
+### Filtering of tasks
 
-Description of the feature.
+Duke enables users to quickly and easily search for specific tasks using keywords
+
+### Easy update
+
+Duke allows for easy update of the existing list of tasks 
+through mark as done and deletion functions
+
+### Storage 
+
+Duke keeps a record of the existing list of tasks even after the 
+program is stopped and loads it up each time it is run so no data is lost. 
+
 
 ## Usage
 
