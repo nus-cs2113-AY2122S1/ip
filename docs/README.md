@@ -15,7 +15,7 @@ and find them. Users can also view their tasks in a list format.
     
 ## Quick Start
 1. Ensure you have Java 11 or above installed in your computer.
-2. Download the latest iP.jar under v2.0 from [here].
+2. Download the latest iP.jar under v2.0 from [here](https://github.com/pragyan01/ip/releases).
 3. Go to the folder you saved iP.jar and note the absolute file path.
 4. If you are using Windows, open up a Command prompt terminal cmd.exe or powershell.exe and for 
    Mac and Linux users, do the same with the terminal of your respective systems.
