@@ -13,7 +13,6 @@ import java.io.IOException;
  * Represents a command that marks a task as done.
  */
 public class DoneTaskCommand extends Command {
-
     private final int currentTaskIndex;
 
     /**

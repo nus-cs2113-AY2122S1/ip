@@ -24,7 +24,7 @@ public class AddDeadlineCommand extends Command {
      * @param deadlineDate the date by which should finish the deadline task
      * @param deadlineTime the date by which should finish the deadline task
      */
-    public AddDeadlineCommand(String deadlineName, LocalDate deadlineDate,String deadlineTime) {
+    public AddDeadlineCommand(String deadlineName, LocalDate deadlineDate, String deadlineTime) {
         this.deadlineName = deadlineName;
         this.deadlineDate = deadlineDate;
         this.deadlineTime = deadlineTime;

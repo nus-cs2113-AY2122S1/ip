@@ -1,17 +1,54 @@
 package duke.system;
 
 import duke.command.*;
-import duke.exception.*;
+import duke.exception.DukeException;
+import duke.exception.InvalidInput;
+import duke.exception.WrongFormat;
 import duke.exception.UnknownError;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 /**
- * A component of the system in charge of interpreting user inputs
+ * A system component of the system in charge of interpreting user inputs
  */
 public class Parser {
+
+    /**
+     * Interprets user inputs and identify commands given by the user
+     * @param fullCommand raw user input
+     * @return commands to be executed
+     * @throws DukeException if there are problems with the input
+     */
+    public Command parse(String fullCommand) throws DukeException {
+        try {
+            String commandType = getCommandType(fullCommand);
+            switch (commandType) {
+            case "list":
+                return createListAllCommand(fullCommand);
+            case "done":
+                return createDoneTaskCommand(fullCommand);
+            case "deadline":
+                return createAddDeadlineCommand(fullCommand);
+            case "event":
+                return createAddEventCommand(fullCommand);
+            case "todo":
+                return createAddTodoCommand(fullCommand);
+            case "delete":
+                return createDeleteTaskCommand(fullCommand);
+            case "exit":
+                return createExitCommand();
+            case "find":
+                return createFindTasksCommand(fullCommand);
+            default:
+                throw new InvalidInput();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new WrongFormat();
+        } catch (Exception e) {
+            throw new UnknownError();
+        }
+    }
 
     private String getCommandType(String inputLine) {
         return inputLine.split(" ")[0];
@@ -244,42 +281,6 @@ public class Parser {
         } else {
             String keywords = getKeywords(fullCommand);
             return new FindTasksCommand(keywords);
-        }
-    }
-
-    /**
-     * Interprets user inputs and identify commands given by the user
-     * @param fullCommand raw user input
-     * @return commands to be executed
-     * @throws DukeException if there are problems with the input
-     */
-    public Command parse(String fullCommand) throws DukeException {
-        try {
-            String commandType = getCommandType(fullCommand);
-            switch (commandType) {
-            case "list":
-                return createListAllCommand(fullCommand);
-            case "done":
-                return createDoneTaskCommand(fullCommand);
-            case "deadline":
-                return createAddDeadlineCommand(fullCommand);
-            case "event":
-                return createAddEventCommand(fullCommand);
-            case "todo":
-                return createAddTodoCommand(fullCommand);
-            case "delete":
-                return createDeleteTaskCommand(fullCommand);
-            case "exit":
-                return createExitCommand();
-            case "find":
-                return createFindTasksCommand(fullCommand);
-            default:
-                throw new InvalidInput();
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new WrongFormat();
-        } catch (Exception e) {
-            throw new UnknownError();
         }
     }
 }

@@ -14,7 +14,8 @@ public class Ui {
             "     | | | | | | | |/ / _ \\\n" +
             "     | |_| | |_| |   <  __/\n" +
             "     |____/ \\__,_|_|\\_\\___|\n";
-    static final String LINE_SEPARATOR = "     ____________________________________________________________________\n";
+    static final String LINE_SEPARATOR = "     __________________________________________" +
+            "______________________________________________________________\n";
     static final String SPACING = "     ";
     static final String CANNOT_IDENTIFY =
             "I am sorry, but I do not know what do you mean. " +

@@ -4,7 +4,7 @@ import duke.task.Task;
 import java.util.ArrayList;
 
 /**
- * A component that manipulates tasks in the list.
+ * A system component that manipulates tasks in the list.
  */
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -76,6 +76,11 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Get tasks that the user is searching for.
+     * @param keywords keywords used by the user to search
+     * @return a list of relevant tasks as ArrayList.
+     */
     public ArrayList<Task> getRelevantTaskList(String keywords) {
         ArrayList<Task> relevantTasks = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {

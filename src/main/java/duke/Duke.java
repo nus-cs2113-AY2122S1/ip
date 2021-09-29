@@ -11,7 +11,6 @@ import duke.system.Ui;
  * Represents the whole program.
  */
 public class Duke {
-
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
@@ -26,7 +25,7 @@ public class Duke {
     }
 
     /**
-     *
+     * The Duke constructor.
      */
     public Duke() {
         TaskList localTasks;
@@ -43,6 +42,9 @@ public class Duke {
         this.tasks = localTasks;
     }
 
+    /**
+     * The main body of Duke where all components are integrated.
+     */
     public void run() {
         ui.printGreetings();
         boolean isExit = false;
