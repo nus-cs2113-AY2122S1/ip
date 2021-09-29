@@ -69,8 +69,7 @@ Adds a task with an end date for Unker to track for you.
 
 **Format:** `deadline <description> /by <date> <time>`
 
-> **✏️ Note**
->
+> **✏️ Note:**  
 > `<date> <time>` needs to be in the format of `yyyy-MM-dd HH:mm`.  
 > For example: `2021-09-01 16:00`  
 
@@ -95,8 +94,7 @@ Adds an event with a date, start time and end time for Unker to track for you.
 
 **Format:** `event <description> /at <date> <start time>-<end time>`
 
-> **✏️ Note**
->
+> **✏️ Note:**  
 > `<date> <start time>-<end time>` needs to be in the format of `yyyy-MM-dd HH:mm-HH:mm`.  
 > For example: `2021-09-01 16:00-18:00`  
 
@@ -141,8 +139,7 @@ Tell the Unker that you are done with the task.
 
 **Format:** `done <index>`
 
-> **✏️ Note**
->
+> **✏️ Note:**  
 > `<index>` can be referenced from the `list` command.
 
 
@@ -168,8 +165,7 @@ Tell the Unker that you want to delete which task.
 
 **Format:** `delete <index>`
 
-> **✏️ Note**
->
+> **✏️ Note:**  
 > `<index>` can be referenced from the `list` command.
 
 **Example Input:**
