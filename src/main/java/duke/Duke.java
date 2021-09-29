@@ -31,6 +31,7 @@ public class Duke {
         ActionBot parser = new ActionBot(ui, tasks);
         parser.Activation();
 
+        ui.greet();
         storage.loadData(tasks);
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
