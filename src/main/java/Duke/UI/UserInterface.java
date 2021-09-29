@@ -132,7 +132,7 @@ public class UserInterface {
     public static void invalidDeadlineMessage() {
         System.out.println(LINE);
         System.out.println("Your deadline command is invalid!");
-        System.out.println("To input a valid deadline command, type \"deadline (description) /by (deadline)\"!");
+        System.out.println("To input a valid deadline command, type \"deadline (description) /by (yyyy-MM-dd HH:mm)\"!");
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
@@ -143,7 +143,7 @@ public class UserInterface {
     public static void invalidEventMessage() {
         System.out.println(LINE);
         System.out.println("Your event command is invalid!");
-        System.out.println("To input a event command, type \"event (description) /at (when)\"!");
+        System.out.println("To input a event command, type \"event (description) /at (yyyy-MM-dd HH:mm)\"!");
         System.out.println(LINE);
         System.out.print(System.lineSeparator());
     }
