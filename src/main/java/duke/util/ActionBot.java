@@ -8,15 +8,13 @@ import duke.ui.ErrorReport;
 import duke.ui.PrintBot;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 import static duke.ui.ErrorReport.alarm;
 
 /* This class manipulates the task list in the
- * way required by the user.
+ * way required by the user. It functions as a parser.
  */
 public class ActionBot {
 
@@ -31,6 +29,13 @@ public class ActionBot {
         this.tasks = tasks;
     }
 
+    /*
+     * Take The sentence "I solemnly swear that I am up to no good."
+     * User need to key in the exact sentence to be able to carry on
+     * with further activities.
+     * <p>
+     * Wrong input sentence results in words of insult from the MARAUDER'S MAP.
+     */
     public void Activation() {
         System.out.println("Repeat after me : \n " +
                 "I solemnly swear that I am up to no good.");
@@ -46,13 +51,20 @@ public class ActionBot {
             n++;
             input = in.nextLine();
         }
-        ui.greet();
     }
+
     public boolean notActivated(String input) {
         return !input.equals("I solemnly swear that I am up to no good.");
     }
 
-
+    /*
+     * Split up and clean the descriptions and time from input string.
+     *
+     * @param taskInput the sentence after the command
+     * @keyword separator, can be "/by", "/at", or "|"
+     * @return a string array containing 2 strings: the description
+     * and the time of the task.
+     */
     public static String[] getDetails(String taskInput, String keyword) {
         String[] details = taskInput.split(keyword,2);
 
@@ -64,11 +76,18 @@ public class ActionBot {
         return cleanDetails;
     }
 
+    /*
+     * Returns 2 strings: A single word command type,
+     * and its further descriptions.
+     */
     public String[] getCommand (String in) {
         String clean = in.trim();
         return clean.split(" ", 2);
     }
 
+    /*
+     * Parse the command with respect to its type.
+     */
     public void identifyInput(String original) {
         String[] userInput = getCommand(original);
         String taskType = userInput[0];

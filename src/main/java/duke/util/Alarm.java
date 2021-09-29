@@ -1,5 +1,8 @@
 package duke.util;
 
+/*
+ * An enum for different kinds of exceptions in duke.
+ */
 public enum Alarm {
     INVALID_COMMAND, BLANK_DESCRIPTION,EMPTY_TODO,
     EMPTY_DEADLINE, EMPTY_EVENT, EMPTY_INDEX,
