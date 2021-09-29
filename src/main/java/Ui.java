@@ -80,6 +80,22 @@ public class Ui {
         System.out.println("|");
     }
 
+    public static void printFoundTask(TaskList list, String str, int num){
+        String listing = "Here are the matching tasks in your list:";
+        if(listing.length() > num) num = listing.length();
+        TaskList foundTasks = new TaskList();
+        for(int i = 1; i <= list.size(); i++){
+            if(list.get(i - 1).getDescription().contains(str)){
+                foundTasks.add(list.get(i - 1));
+            }
+        }
+       if(foundTasks.size() > 0) {
+           printList(foundTasks, num);
+       } else {
+           printString("OOPS! failed to find");
+       }
+    }
+
     public static void printList(TaskList list, int num){
         String listing = "Here are the tasks in your list:";
         if(listing.length() > num) num = listing.length();

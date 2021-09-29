@@ -8,6 +8,8 @@ public class Parser {
             type = Commandtype.BYE;
         } else if (str.equals("list")) {
             type = Commandtype.LIST;
+        } else if (str.contains("find")) {
+            type = Commandtype.FIND;
         } else if (str.contains("todo")) {
             type = Commandtype.TODO;
         } else if (str.contains("deadline")) {
