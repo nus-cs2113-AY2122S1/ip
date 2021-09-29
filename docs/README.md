@@ -54,8 +54,6 @@ Jarvis is a **desktop app for managing tasks via a Command Line Interface (CLI)*
 <a name="features"></a>
 ## Features
 
-<div markdown="block" class="alert alert-info">
-
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
@@ -169,8 +167,6 @@ Format: `bye`
 ### Saving the data
 
 Jarvis' data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-
 
 --------------------------------------------------------------------------------------------------------------------
 <a name="summary"></a>
