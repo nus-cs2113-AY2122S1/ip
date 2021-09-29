@@ -1,14 +1,15 @@
 package duke.ui;
 
+import java.util.ArrayList;
+
 import duke.task.Task;
 
-import java.util.ArrayList;
 
 public class Ui {
 
-    private final static String WELCOME_GREETING = "Howdy there! I'm Fluke";
-    private final static String WELCOME_ASK = "What can I do for you today master?";
-    private final static String BYE_MESSAGE = "Bye. Hope to serve you again master!";
+    private static final String WELCOME_GREETING = "Howdy there! I'm Fluke";
+    private static final String WELCOME_ASK = "What can I do for you today master?";
+    private static final String BYE_MESSAGE = "Bye. Hope to serve you again master!";
 
     /**
      * Prints a welcome message on the console
