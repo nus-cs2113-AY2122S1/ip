@@ -1,5 +1,9 @@
 package duke.logic.commands;
 
+/**
+ *  Represents the result of the execution of commands. Contains a String of message that describes the result of the
+ *  execution.
+ */
 public class CommandResult {
     public final String messageToBeShown;
 
@@ -12,7 +16,4 @@ public class CommandResult {
         return this.messageToBeShown;
     }
 
-    //TODO: Create separate constructor for list vers
-
-    //
 }

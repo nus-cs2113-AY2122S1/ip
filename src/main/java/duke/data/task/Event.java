@@ -1,7 +1,7 @@
 package duke.data.task;
 
 /**
- * This class is used for tasks that start at a specific time and ends at a specific time.
+ * Represents tasks that start at a specific time and ends at a specific time.
  * E.g: team meeting at 9pm
  */
 public class Event extends Task {
@@ -17,16 +17,12 @@ public class Event extends Task {
         this.dateAndTime = dateAndTime;
     }
 
-    public String getDateAndTime() {
-        return dateAndTime;
-    }
-
     public void setDateAndTime(String dateAndTime) {
         this.dateAndTime = dateAndTime;
     }
 
     /**
-     * Returns Event task formatted in the form "[E][ ] description (at: date/time)"
+     * Returns Event task formatted for application UI,  in the form "[E][ ] description (at: date/time)"
      *
      * @return Formatted Event task string
      */

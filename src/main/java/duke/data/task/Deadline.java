@@ -1,7 +1,7 @@
 package duke.data.task;
 
 /**
- * This class is used for tasks that need to be done before a specific date/time.
+ * Represents tasks that need to be done before a specific date/time.
  * E.g: submit iP by thurs 2359
  */
 public class Deadline extends Task {
@@ -17,16 +17,12 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    public String getDeadline() {
-        return deadline;
-    }
-
     public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 
     /**
-     * Returns Deadline task formatted in the form "[D][ ] description (by: deadline)"
+     * Returns Deadline task formatted for application UI, in the form "[D][ ] description (by: deadline)"
      *
      * @return Formatted Deadline task string
      */

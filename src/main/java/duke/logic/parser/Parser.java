@@ -10,13 +10,13 @@ import duke.logic.commands.DeleteTaskCommand;
 import duke.logic.commands.IncorrectCommand;
 import duke.logic.commands.ListCommand;
 import duke.logic.commands.MarkTaskAsDoneCommand;
-import duke.logic.commands.exceptions.InvalidCommandFormatException;
-import duke.logic.commands.exceptions.MissingTaskDescriptionException;
+import duke.logic.exceptions.InvalidCommandFormatException;
+import duke.logic.exceptions.MissingTaskDescriptionException;
+import duke.ui.Ui;
 
-import static duke.ui.Ui.EMPTY;
 
 /**
- *
+ * Parses user input to execute the appropriate commands.
  * Method of parsing commands partially adapted from https://github.com/se-edu/addressbook-level2
  */
 public class Parser {
@@ -37,7 +37,7 @@ public class Parser {
         //command string
         commandAndParams[0] = splitInput[0];
         //param string, if not given, set to EMPTY for error handling
-        commandAndParams[1] = (splitInput.length >= 2) ? splitInput[1] : EMPTY;
+        commandAndParams[1] = (splitInput.length >= 2) ? splitInput[1] : Ui.EMPTY;
         return commandAndParams;
     }
 
@@ -50,17 +50,18 @@ public class Parser {
      * @param params Params string intended to be returned from splitInputIntoCommandAndParams(),
      *               thus assumed to be from a valid command.
      * @return String array [description, info]
+     * @throws MissingTaskDescriptionException If no task description is provided
      */
     private String[] splitParamsIntoDescriptionAndInfo(String params) throws MissingTaskDescriptionException {
         final String[] splitParams = params.trim().split("/");
         String[] descriptionAndInfo = new String[2];
         //description string
         descriptionAndInfo[0] = splitParams[0].trim();
-        if (descriptionAndInfo[0].equals(EMPTY)) {
+        if (descriptionAndInfo[0].equals(Ui.EMPTY)) {
             throw new MissingTaskDescriptionException();
         }
         //other info string, if not given, return EMPTY for error handling
-        descriptionAndInfo[1] = (splitParams.length >= 2) ? splitParams[1].trim() : EMPTY;
+        descriptionAndInfo[1] = (splitParams.length >= 2) ? splitParams[1].trim() : Ui.EMPTY;
         return descriptionAndInfo;
     }
 
@@ -72,13 +73,14 @@ public class Parser {
      * @param commandPrefix Prefix to extract date with
      * @param info String containing prefix and date
      * @return Date in String form
+     * @throws InvalidCommandFormatException If an invalid command prefix is given or no date is provided
      */
     public static String extractDate(String commandPrefix, String info) throws InvalidCommandFormatException {
         final String[] words = info.split(" ", 2);
-        if (!words[0].equals(commandPrefix) || words.length == 1) {
-            throw new InvalidCommandFormatException();
-        } else {
+        if (words[0].equals(commandPrefix) && words.length > 1) {
             return words[1];
+        } else {
+            throw new InvalidCommandFormatException();
         }
     }
 
@@ -145,6 +147,7 @@ public class Parser {
      * Returns the correct command to be executed depending on user input
      *
      * @param input Raw user input string
+     * @return Command class representing the correct command to be executed
      */
     public Command parseCommand(String input) {
         final String[] commandAndParams = splitInputIntoCommandAndParams(input);

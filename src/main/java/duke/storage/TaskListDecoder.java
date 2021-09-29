@@ -11,6 +11,9 @@ import duke.ui.Ui;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Decodes the data from the storage file into corresponding Tasks.
+ */
 public class TaskListDecoder {
 
     private static Ui ui;
@@ -19,6 +22,12 @@ public class TaskListDecoder {
         this.ui = new Ui();
     }
 
+    /**
+     * Decodes the data from the storage file into a TaskList
+     *
+     * @param encodedTaskList List of String from the storage file where each index contains an encoded task
+     * @return TaskList List of tasks represented in the TaskList class customised for the application
+     */
     public static TaskList decodeTaskList(List<String> encodedTaskList) {
         final ArrayList<Task> taskList = new ArrayList<>();
         for (String encodedTask : encodedTaskList) {
@@ -31,11 +40,17 @@ public class TaskListDecoder {
         return new TaskList(taskList);
     }
 
+    /**
+     * Decodes each line of data from the storage file into a specific Task
+     *
+     * @param encodedTask String representing an encoded task
+     * @return Subclass of Task that represents the specific task that is encoded
+     * @throws InvalidStorageDataException If encoded task string is of invalid syntax
+     */
     private static Task decodeTaskFromString(String encodedTask) throws InvalidStorageDataException {
         Task task;
         boolean isDone;
         String[] words = encodedTask.split(" \\| "); //Length = 3 for Todo; 4 for Deadline, Event
-
 
         switch (words[1]) {
         case "0":

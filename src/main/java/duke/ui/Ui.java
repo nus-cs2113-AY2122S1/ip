@@ -35,9 +35,9 @@ public class Ui {
             + DeleteTaskCommand.MESSAGE_COMMAND_DESCRIPTION + LS
             + CommandListCommand.MESSAGE_COMMAND_DESCRIPTION + LS
             + ByeCommand.MESSAGE_COMMAND_DESCRIPTION;
+    public static final String MESSAGE_TASK_NUM_INVALID = "Please input a valid task number from 1 to %d!";
     private static final String MESSAGE_DATA_LOADED = "Your old data has been successfully loaded!" + LS
             + "You have %d tasks. Type " + ListCommand.MESSAGE_COMMAND_FORMAT + " to see current tasks!";
-
     private Scanner scanner;
 
 

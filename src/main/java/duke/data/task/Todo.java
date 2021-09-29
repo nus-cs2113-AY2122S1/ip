@@ -1,7 +1,7 @@
 package duke.data.task;
 
 /**
- * This class is used for tasks without any date/time attached to it.
+ * Represents tasks without any date/time attached to it.
  * E.g: visit new theme park
  */
 public class Todo extends Task {
@@ -16,7 +16,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns Todo task formatted for application, in the form "[T][ ] description"
+     * Returns Todo task formatted for application UI, in the form "[T][ ] description"
      *
      * @return Formatted Todo task string for application
      */

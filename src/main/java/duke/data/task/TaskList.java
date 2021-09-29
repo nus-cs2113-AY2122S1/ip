@@ -1,14 +1,12 @@
 package duke.data.task;
 
-import duke.logic.commands.exceptions.TaskAlreadyDoneException;
-import duke.logic.commands.exceptions.TaskListEmptyException;
-import duke.logic.commands.exceptions.TaskNumOutOfBoundsException;
+import duke.logic.exceptions.TaskAlreadyDoneException;
+import duke.logic.exceptions.TaskListEmptyException;
+import duke.logic.exceptions.TaskNumOutOfBoundsException;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static duke.ui.Ui.EMPTY;
-import static duke.ui.Ui.LS;
 
 /**
  * ArrayList of Tasks
@@ -105,10 +103,10 @@ public class TaskList {
      * Returns all the tasks in string form
      */
     public String getStringOfAllTasks() {
-        String stringOfAllTasks = EMPTY;
+        String stringOfAllTasks = Ui.EMPTY;
         int taskNum = 1;
         for (Task task : internalTasks) {
-            stringOfAllTasks = stringOfAllTasks + taskNum + "." + task.toString() + LS;
+            stringOfAllTasks = stringOfAllTasks + taskNum + "." + task.toString() + Ui.LS;
             taskNum++;
         }
         return stringOfAllTasks.trim();
