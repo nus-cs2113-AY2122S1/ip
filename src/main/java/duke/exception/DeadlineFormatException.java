@@ -8,7 +8,7 @@ public class DeadlineFormatException extends Exception {
 
     private final String DEADLINE_INCORRECT_FORMAT_MSG = "Yikes, your deadline command is wrong!"
             + " Please follow the format:\n"
-            + "   [?] 5. Add Deadlines -> {deadline <task description> /by <task date&time>}";
+            + "   [?] 5. Add Deadlines -> deadline [description] /by [due date]";
 
     @Override
     public String toString() {

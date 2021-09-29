@@ -8,7 +8,7 @@ public class DeleteFormatException extends Exception {
 
     private final String DELETE_INCORRECT_FORMAT_MSG = "Yikes, your delete command is wrong!"
             + " Please follow the format:\n"
-            + "   [?] 8. Delete Task -> {delete <task ID>}";
+            + "   [?] 8. Delete Task -> delete [task ID]";
 
     @Override
     public String toString() {
