@@ -6,4 +6,6 @@ public class Parser {
         String[] splitString = input.split(" ");
         return Integer.parseInt(splitString[1]);
     }
+
+
 }
