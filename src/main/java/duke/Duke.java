@@ -5,8 +5,16 @@ import duke.task.Task;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+/**
+ * Main class Duke that contains the main method of the program
+ */
 public class Duke {
 
+    /**
+     * Main method that executes Duke
+     *
+     * @param args Argument of the main method
+     */
     public static void main(String[] args) {
         Ui.printWelcomeMessage();
         ArrayList<Task> tasks = new ArrayList<>();
