@@ -1,7 +1,6 @@
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedList;
 
 public class Storage{
 
@@ -16,7 +15,6 @@ public class Storage{
     /**
      * Check if there are existing saved files.
      * Load the file if there is.
-     * If not, will update user that the program will create a new list.
      * @param filePath
      */
     public TaskList load(String filePath){

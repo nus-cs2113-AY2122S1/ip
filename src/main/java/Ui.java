@@ -21,11 +21,17 @@ public class Ui {
         System.out.print(welcomeMessage);
     }
 
+    /**
+     * UI separator for clearer depictions in terminal
+     */
     public void separator(){
         String separator = "______________________________\n";
         System.out.print(separator);
     }
 
+    /**
+     * Prints out UI for keyword list.
+     */
     public void keywordListString(){
         separator();
         String introKeywordList = "Here are the matching results: \n";

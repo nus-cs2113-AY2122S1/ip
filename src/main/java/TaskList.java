@@ -67,9 +67,11 @@ public class TaskList {
         return counter;
     }
 
+
     public void deleteTask(int index){
         savedTasks.remove(index);
     }
+
 
     public void clearList(){
         savedTasks.clear();

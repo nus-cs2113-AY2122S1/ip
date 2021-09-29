@@ -23,6 +23,11 @@ public class Parser {
         return parts;
     }
 
+    /**
+     * Splits userinput to find the keyword they are looking for.
+     * @param userInput
+     * @return
+     */
     public String identifyKeyword(String userInput){
         String keyword = userInput.substring(5);
         return keyword;

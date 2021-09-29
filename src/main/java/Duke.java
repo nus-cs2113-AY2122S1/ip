@@ -214,7 +214,8 @@ public class Duke {
      * @param keyword
      * @param keywordTaskList
      */
-    private static void findTaskByKeyword(TaskList taskList, String keyword, TaskList keywordTaskList){
+    private static void findTaskByKeyword(TaskList taskList, String keyword,
+                                          TaskList keywordTaskList){
         for(int i = 0; i < taskList.countTaskInList(); i++){
             if(taskList.findTask(i).toString().contains(keyword)){
                 keywordTaskList.addTasks(taskList.findTask(i));
