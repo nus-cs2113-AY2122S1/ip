@@ -8,15 +8,28 @@ import duke.tasks.Event;
 
 import java.time.LocalDateTime;
 
+/**
+ * Command Class that executes the creation of a new Event task.
+ */
 public class EventCommand extends Command {
     public static final int END_OF_EVENT_INDEX = 5;
     public static final int AT_LENGTH = 3;
 
+    /**
+     * Initializes new EventCommand object.
+     * @param fullCommand full user input as a string
+     */
     public EventCommand(String fullCommand) {
         this.isExit = false;
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * Executes creation of new Event task with description and time as inputted by user.
+     * @param tasks TaskList object of all tasks in the programme
+     * @param ui Ui object for calling Ui methods
+     * @param storage Storage object for writing to memory
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
@@ -27,6 +40,12 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * Parses command input by user and adds new Event Task to {@code tasks}.
+     * @param tasks TaskList object containing all tasks as an ArrayList
+     * @param ui Ui object for calling of ui methods
+     * @param storage Storage object for writing to memory
+     */
     private void handleEventTask(TaskList tasks, Ui ui, Storage storage) {
         int endOfDescriptionIndex = fullCommand.indexOf("/at");
         int startOfAtIndex = fullCommand.indexOf("/at") + AT_LENGTH;
@@ -46,6 +65,14 @@ public class EventCommand extends Command {
         storage.appendToMem(memWritableText);
     }
 
+    /**
+     * Writes user input into format for storage in the memory file.
+     * If size == 0, line separator is not included at the front of the string.
+     * @param description description of task from user input
+     * @param atText time of task from user input
+     * @param size size of ArrayList of tasks
+     * @return formatted string for writing to memory
+     */
     private String formatForMemory(String description, String atText, int size) {
         if (size == 0) {
             return "E~0~" + description + "~" + atText;
