@@ -9,6 +9,7 @@ import duke.logic.commands.CommandListCommand;
 import duke.logic.commands.DeleteTaskCommand;
 import duke.logic.commands.ListCommand;
 import duke.logic.commands.MarkTaskAsDoneCommand;
+import duke.logic.commands.SearchTaskCommand;
 
 import java.util.Scanner;
 
@@ -33,6 +34,7 @@ public class Ui {
             + ListCommand.MESSAGE_COMMAND_DESCRIPTION + " : See lists of tasks" + LS
             + MarkTaskAsDoneCommand.MESSAGE_COMMAND_DESCRIPTION + LS
             + DeleteTaskCommand.MESSAGE_COMMAND_DESCRIPTION + LS
+            + SearchTaskCommand.MESSAGE_COMMAND_DESCRIPTION + LS
             + CommandListCommand.MESSAGE_COMMAND_DESCRIPTION + LS
             + ByeCommand.MESSAGE_COMMAND_DESCRIPTION;
     private static final String MESSAGE_DATA_LOADED = "Your old data has been successfully loaded!" + LS

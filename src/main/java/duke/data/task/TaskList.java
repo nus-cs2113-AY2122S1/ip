@@ -6,6 +6,7 @@ import duke.logic.commands.exceptions.TaskNumOutOfBoundsException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static duke.ui.Ui.EMPTY;
 import static duke.ui.Ui.LS;
@@ -35,6 +36,14 @@ public class TaskList {
     public int convertToIndexNum(int taskNum) {
         return taskNum - 1;
     }
+
+    /**
+     * Gets task number of task (difference from index is a result of 0-base vs 1-base)
+     */
+    public int getTaskNum(Task task) {
+        return internalTasks.indexOf(task) + 1;
+    }
+
 
     /**
      * Adds task to list
@@ -101,16 +110,49 @@ public class TaskList {
         return this.internalTasks.size();
     }
 
+
+    /**
+     * Returns true if TaskList is empty
+     */
+    public boolean isEmpty() {
+        return this.internalTasks.isEmpty();
+    }
+
     /**
      * Returns all the tasks in string form
      */
     public String getStringOfAllTasks() {
         String stringOfAllTasks = EMPTY;
-        int taskNum = 1;
         for (Task task : internalTasks) {
-            stringOfAllTasks = stringOfAllTasks + taskNum + "." + task.toString() + LS;
-            taskNum++;
+            stringOfAllTasks = stringOfAllTasks + getTaskNum(task) + "." + task.toString() + LS;
         }
         return stringOfAllTasks.trim();
+    }
+
+    /**
+     * Returns all the tasks in the given list in string form
+     * @param listOfTasks List of tasks that is a subset of the internalTasks list
+     */
+    public String getStringOfTasksInList(List<Task> listOfTasks) {
+        String stringOfAllTasks = EMPTY;
+        for (Task task : listOfTasks) {
+            stringOfAllTasks = stringOfAllTasks + getTaskNum(task) + "." + task.toString() + LS;
+        }
+        return stringOfAllTasks.trim();
+    }
+
+    /**
+     * Returns list of tasks that match search term
+     */
+    public List<Task> getListOfTasksWithMatchingTerm(String searchTerm) {
+        return internalTasks.stream().filter(task -> task.description.toLowerCase().contains(searchTerm.toLowerCase())).collect(Collectors.toList());
+    }
+
+    /**
+     * Returns list of tasks that match search term in string form
+     */
+    public String getStringOfTasksWithMatchingTerm(String searchTerm) {
+        List<Task> listOfTasks = getListOfTasksWithMatchingTerm(searchTerm);
+        return getStringOfTasksInList(listOfTasks);
     }
 }

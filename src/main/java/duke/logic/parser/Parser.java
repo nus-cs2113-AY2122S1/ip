@@ -10,6 +10,7 @@ import duke.logic.commands.DeleteTaskCommand;
 import duke.logic.commands.IncorrectCommand;
 import duke.logic.commands.ListCommand;
 import duke.logic.commands.MarkTaskAsDoneCommand;
+import duke.logic.commands.SearchTaskCommand;
 import duke.logic.commands.exceptions.InvalidCommandFormatException;
 import duke.logic.commands.exceptions.MissingTaskDescriptionException;
 
@@ -83,14 +84,10 @@ public class Parser {
     }
 
     private Command parseAddTodo (String params) {
-        final String[] descriptionAndInfo;
-        try {
-            descriptionAndInfo = splitParamsIntoDescriptionAndInfo(params);
-            final String description = descriptionAndInfo[0];
-            return new AddTodoCommand(description);
-        } catch (MissingTaskDescriptionException e) {
-            return new IncorrectCommand(e.toString());
+        if (params.trim().equals(EMPTY)) {
+            return new IncorrectCommand(AddTodoCommand.MESSAGE_INVALID_FORMAT);
         }
+        return new AddTodoCommand(params);
     }
 
     private Command parseAddDeadline (String params) {
@@ -141,6 +138,13 @@ public class Parser {
         }
     }
 
+    private Command parseSearchTask (String params) {
+        if (params.trim().equals(EMPTY)) {
+            return new IncorrectCommand(SearchTaskCommand.MESSAGE_INVALID_FORMAT);
+        }
+        return new SearchTaskCommand(params);
+    }
+
     /**
      * Returns the correct command to be executed depending on user input
      *
@@ -164,6 +168,8 @@ public class Parser {
             return parseMarkTaskAsDone(params);
         case DeleteTaskCommand.COMMAND_WORD:
             return parseDeleteTask(params);
+        case SearchTaskCommand.COMMAND_WORD:
+            return parseSearchTask(params);
         case ByeCommand.COMMAND_WORD:
             return new ByeCommand();
         case CommandListCommand.COMMAND_WORD:
