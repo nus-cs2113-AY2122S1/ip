@@ -2,9 +2,17 @@ package duke.Ui;
 
 import duke.Error.DukeException;
 import duke.TaskList.TaskManager;
-import duke.TaskList.command.*;
+import duke.TaskList.command.Command;
+import duke.TaskList.command.DeadlineCommand;
+import duke.TaskList.command.DeleteCommand;
+import duke.TaskList.command.EventCommand;
+import duke.TaskList.command.ExitCommand;
+import duke.TaskList.command.ListCommand;
+import duke.TaskList.command.SetDoneCommand;
+import duke.TaskList.command.ToDoCommand;
 
 public class Parser {
+
     private static final int INDEX_COMMAND = 0;
     private static final int INDEX_TASK_INFO = 1;
     private static final String COMMAND_LIST_TASK = "list";
@@ -58,10 +66,10 @@ public class Parser {
      * @param parser Parser object used to perform parsing operations.
      * @param fullCommand String containing full command from user.
      * @return Corresponding command object from user command.
-     * @throws DukeException
+     * @throws DukeException Handles the errors related to Duke.
      */
     public Command parse(TaskManager taskManager, Parser parser, String fullCommand) throws DukeException {
-        Command command = null;
+        Command command;
         String taskInfo;
         String commandType = extractCommand(fullCommand);
 
