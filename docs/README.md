@@ -3,14 +3,14 @@ Duke is a **Personal Assistant Chatbot** that helps a person to **keep track of 
 
 * [Quick Start](#quick-start)
 * [Features](#features)
-  - [Adding a Todo task](#adding-a-todo-task-todo)
-  - [Adding an Event task](#adding-an-event-task-event)
-  - [Adding a Deadline task](#adding-a-deadline-task-deadline)
-  - [Listing all tasks](#listing-all-tasks-list)
-  - [Mark as done](#mark-as-done-done)
-  - [Deleting task](#deleting-task-delete)
-  - [Finding Tasks](#finding-tasks-find)
-  - [Exiting program](#exiting-program-bye)
+  * [Adding a Todo task](#adding-a-todo-task-todo)
+  * [Adding an Event task](#adding-an-event-task-event)
+  * [Adding a Deadline task](#adding-a-deadline-task-deadline)
+  * [Listing all tasks](#listing-all-tasks-list)
+  * [Mark as done](#mark-as-done-done)
+  * [Deleting task](#deleting-task-delete)
+  * [Finding Tasks](#finding-tasks-find)
+  * [Exiting program](#exiting-program-bye)
 * [Command Summary](#command-summary)
 
 ## Quick Start 
