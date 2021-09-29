@@ -75,6 +75,13 @@ public class Ui {
         return String.join(LINE_SEPARATOR, lines);
     }
 
+    /**
+     * Formats a task as an indexed list item.
+     *
+     * @param index Index for the given task.
+     * @param task Task item to be formatted.
+     * @return Formatted indexed list item.
+     */
     public static String formatTaskForTaskList(int index, Task task) {
         return String.format("%d.%s", index, task);
     }
