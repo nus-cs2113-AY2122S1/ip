@@ -130,7 +130,8 @@ find Laundry
 ```
 Expected output:
 ```
-1. [T][X] Laundry
+Here are the matching tasks in your list:
+1. [T][X] 
 ```
 
 ### Exiting program: `bye`
