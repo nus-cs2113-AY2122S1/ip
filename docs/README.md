@@ -153,6 +153,7 @@ Bye. Hope to see you again soon!
 ```
 
 ## Command Summary
+
 | **Action** | **Format** | **Examples** |
 | ---------- | ---------- | ------------ |
 | **todo** | `todo <TASK_DESCRIPTION>` | `todo Laundry` |
