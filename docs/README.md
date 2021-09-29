@@ -2,9 +2,23 @@
 User Guide
 ---
 
-Jarvis is a **desktop app for managing tasks via a Command Line Interface (CLI)**. 
+Jarvis is a **desktop app for managing tasks via a Command Line Interface (CLI)**.
+
+* **[Quick Start](#start)**
+* **[Features](#features)**
+    * **[Adding a Todo task](#todo)**
+    * **[Adding a Deadline task](#deadline)**
+    * **[Adding an Event task](#event)**
+    * **[Listing all tasks](#list)**
+    * **[Marking a task as done](#done)**
+    * **[Deleting a task](#delete)**
+    * **[Finding task by keyword](#find)**
+    * **[Exiting the program](#bye)**
+    * **[Saving the data](#save)**
+* **[Command Summary](#summary)**
 
 --------------------------------------------------------------------------------------------------------------------
+<a name="start"></a>
 ## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
@@ -22,7 +36,7 @@ Jarvis is a **desktop app for managing tasks via a Command Line Interface (CLI)*
     * **`deadline return book /by 01/11/2021 1800`** : Adds a `return book` **deadline** task with a **specific date and time** to your list of tasks.*
 
     * **`event attend CS2113T lecture /at 30/10/2021 1600`** : Adds an `attend CS2113T lecture` **event** task with a **specific date and time** to your list of tasks.*
-    
+
     * **`list`** : Lists all tasks.
 
     * **`done 1`** : Marks the 1st task in the current list as done.
@@ -30,13 +44,14 @@ Jarvis is a **desktop app for managing tasks via a Command Line Interface (CLI)*
     * **`delete 2`** : Deletes the 2nd task in the current list.
 
     * **`bye`** : Exits the app.
-    
-        ***Note:** date and time must be entered in either of these formats **`DD/MM/YYYY hhmm`** or **`DD-MM-YYYY hhmm`** <br>
-        where **`D: Date, M: Month, Y: Year, h: Hour, m: Minute`** and time must be in **`24-hour notation`**.
+
+      ***Note:** date and time must be entered in either of these formats **`DD/MM/YYYY hhmm`** or **`DD-MM-YYYY hhmm`** <br>
+      where **`D: Date, M: Month, Y: Year, h: Hour, m: Minute`** and time must be in **`24-hour notation`**.
 
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+<a name="features"></a>
 ## Features
 
 **Notes about the command format:**<br>
@@ -56,7 +71,8 @@ Jarvis is a **desktop app for managing tasks via a Command Line Interface (CLI)*
 
 * Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) will be ignored.<br>
   e.g. if the command specifies `list 123`, it will be not be recognised and you will have to input your `list` command again.
-  
+
+<a name="todo"></a>
 ### Adding a Todo task: `todo`
 
 Adds a todo task to current list of tasks.
@@ -67,6 +83,7 @@ Examples:
 * `todo read book`
 * `todo rewatch CS2113T lecture`
 
+<a name="deadline"></a>
 ### Adding a Deadline task: `deadline ... /by ...`
 
 Adds a deadline task with a **specific date and time** to your current list of tasks.
@@ -77,6 +94,7 @@ Examples:
 * `deadline return book /by 31/10/2021 1800`
 * `deadline submit assignment /by 01/11/2021 2359`
 
+<a name="event"></a>
 ### Adding an Event task: `event ... /at ...`
 
 Adds an event task with a **specific date and time** to your current list of tasks.
@@ -87,12 +105,14 @@ Examples:
 * `event lecture quiz /at 30/09/2021 1200`
 * `event attend concert /at 24/11/2021 2000`
 
+<a name="list"></a>
 ### Listing all tasks : `list`
 
 Shows a list of all tasks in your current list of tasks.
 
 Format: `list`
 
+<a name="done"></a>
 ### Marking a task as done : `done`
 
 Marks the specified task as done.
@@ -106,6 +126,7 @@ Format: `done INDEX`
 Examples:
 * `list` followed by `done 2` marks the 2nd task as done in the current list of tasks.
 
+<a name="delete"></a>
 ### Deleting a task : `delete`
 
 Deletes the specified task from the current list of tasks.
@@ -119,6 +140,7 @@ Format: `delete INDEX`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd task in the current list of tasks.
 
+<a name="find"></a>
 ### Finding task by keyword: `find`
 
 Find tasks containing the given keyword.
@@ -134,17 +156,20 @@ Format: `find KEYWORD`
 Examples:
 * `find book` returns `read book` and `return book`
 
+<a name="bye"></a>
 ### Exiting the program : `bye`
 
 Prints a `bye` message and exits the program.
 
 Format: `bye`
 
+<a name="save"></a>
 ### Saving the data
 
 Jarvis' data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 --------------------------------------------------------------------------------------------------------------------
+<a name="summary"></a>
 ## Command Summary
 
 Action | Format, Examples
