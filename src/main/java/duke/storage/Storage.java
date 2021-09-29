@@ -9,6 +9,9 @@ import java.util.Scanner;
 
 public class Storage {
 
+    /**
+     * Creates a directory and txt file to store the task data.
+     */
     public void createDataFile() {
         File dataFolder = new File("data");
         File dataFile = new File("data/duke.txt");
@@ -21,6 +24,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the task data from the txt file into the Duke program task list.
+     *
+     * @param taskList The task list of the Duke program.
+     */
     public void loadDataFile(TaskList taskList) {
         File dataFile = new File("data/duke.txt");
         try {

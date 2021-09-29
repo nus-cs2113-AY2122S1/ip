@@ -23,6 +23,10 @@ public class Duke {
         storage = new Storage();
     }
 
+    /**
+     * Processes the input provided by the user.
+     * Calls the appropriate function based on the user's input.
+     */
     public void handleCommand() {
         String userInput;
         Scanner in = new Scanner(System.in);
@@ -83,6 +87,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the main functions to start the chatbot.
+     */
     public void run() {
         ui.printWelcome();
         storage.createDataFile();
