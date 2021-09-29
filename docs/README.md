@@ -65,6 +65,7 @@ ___
 List all the tasks in the TaskList in Duke and show their completion statuses.
 
 Format: `list`
+
 ![list screenshot](https://i.postimg.cc/Y9PYmcPW/2021-09-29-5-20-42.png)
 ___
 ### Search for a task `find`
