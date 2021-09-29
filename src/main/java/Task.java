@@ -4,8 +4,8 @@ public class Task {
 
     public Task(){}
 
-    public Task(String description, boolean completed) {
-        this.taskName = description;
+    public Task(String taskName, boolean completed) {
+        this.taskName = taskName;
         this.isCompleted = completed;
     }
 
@@ -81,4 +81,5 @@ public class Task {
                 + taskName + "\n");
         System.out.println("______________________________\n");
     }
+
 }

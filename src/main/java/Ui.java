@@ -20,4 +20,15 @@ public class Ui {
                 + "______________________________\n";
         System.out.print(welcomeMessage);
     }
+
+    public void separator(){
+        String separator = "______________________________\n";
+        System.out.print(separator);
+    }
+
+    public void keywordListString(){
+        separator();
+        String introKeywordList = "Here are the matching results: \n";
+        System.out.print(introKeywordList);
+    }
 }

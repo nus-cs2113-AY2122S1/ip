@@ -71,4 +71,7 @@ public class TaskList {
         savedTasks.remove(index);
     }
 
+    public void clearList(){
+        savedTasks.clear();
+    }
 }

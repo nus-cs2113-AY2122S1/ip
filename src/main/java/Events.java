@@ -1,8 +1,8 @@
 public class Events extends Task{
     protected String eventDeadline;
 
-    public Events(String description, boolean completed, String eventDeadline) {
-        super(description, completed);
+    public Events(String taskName, boolean completed, String eventDeadline) {
+        super(taskName, completed);
         this.eventDeadline = eventDeadline;
     }
 
@@ -34,8 +34,8 @@ public class Events extends Task{
      */
     @Override
     public String toString(){
-        String s = "[" + eventsIcon() + "] " + "[" + super.completedTaskIcon()
-                + "]" + super.taskName +"(" + eventDeadline + ")";
+        String s = "[" + eventsIcon() + "] " + "[" + super.completedTaskIcon() + "]"
+                 + super.taskName +"(" + eventDeadline + ")";
         return s;
     }
 }

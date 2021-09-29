@@ -8,6 +8,7 @@ public class Duke {
     public static void main(String[] args) throws IncorrectCommandInput {
         Scanner sc = new Scanner(System.in);
         LinkedList<Task> savedTasks = new LinkedList<Task>();
+        LinkedList<Task> filteredTasks = new LinkedList<Task>();
         Ui ui = new Ui();
         Parser parser = new Parser();
         TaskList taskList = new TaskList(savedTasks);
@@ -55,6 +56,16 @@ public class Duke {
 
             case "list":
                 listTask(taskList);
+                break;
+
+            case "find":
+                TaskList filteredTaskList = new TaskList(filteredTasks);
+                findTaskByKeyword(taskList, parser.identifyKeyword(userInput), filteredTaskList);
+                ui.separator();
+                ui.keywordListString();
+                listTask(filteredTaskList);
+                ui.separator();
+                filteredTaskList.clearList();
                 break;
 
             case "done":
@@ -201,13 +212,13 @@ public class Duke {
      * Find Task by Keyword
      * @param taskList
      * @param keyword
-     * @param savedTask
+     * @param keywordTaskList
      */
-    private static void findTaskByKeyword(TaskList taskList, String keyword, LinkedList<Task> savedTask){
-        TaskList keywordTaskList = new TaskList(savedTask);
+    private static void findTaskByKeyword(TaskList taskList, String keyword, TaskList keywordTaskList){
         for(int i = 0; i < taskList.countTaskInList(); i++){
             if(taskList.findTask(i).toString().contains(keyword)){
                 keywordTaskList.addTasks(taskList.findTask(i));
+                System.out.println("hi");
             } else {
                 return;
             }
@@ -229,6 +240,7 @@ public class Duke {
         case "bye":
         case "done":
         case "delete":
+        case "find":
         case "deadline":
             return userInput;
         default:
