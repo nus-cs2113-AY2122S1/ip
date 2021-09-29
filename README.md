@@ -5,64 +5,27 @@
 * If you forget or are unsure about Duke's functions, enter **help** to learn how to use them.  
 
 ## Functionalities
+# Duke project template
 
-Here are a few things Duke can do:
+This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
-1. Allows you to add different kinds of tasks such as ToDos, Deadlines and Events
-   * ToDo
-      * ToDos are tasks that can be done at any time.
-      * Format : todo *description*
-      * Example : todo clean the house  
+## Setting up in Intellij
 
-   * Deadline
-      * Deadlines are tasks that needs to be done before a specific time.
-      * Format: deadline *description* /by *yyyy-MM-ddTHH:mm:ss*
-      * Example: deadline Homework /by 2021-10-01T23:59:59
-      * yyyy represents the year, MM the month, dd the day, HH the hour, mm the minute and ss the second.  
+Prerequisites: JDK 11, update Intellij to the most recent version.
 
-   * Event
-      * Events are tasks that occurs at a specific time period.
-      * Format: event *description* /at *yyyy-MM-ddTHH:mm:ss* /to *yyyy-MM-ddTHH:mm:ss*
-      * Example: event celebrate Mary's birthday /at 2021-09-30T22:00:00 /to 2021-09-30T23:00:00
-      * Add the event start time before **/to** and the event end time after.  <br>
-</br>
-2. Shows you the list of tasks you saved onto Duke and allows you to search for specific tasks
-
-   * List
-      * Shows you the list of all the tasks you have.
-      * Format: list  
-
-   * Find
-      * Find a task with a specific description or date.
-      * Format: find *description* **or** find /d *date*
-      * Example: find Homework, find /d 2021-09-30
-      * **/d** tells Duke that you are searching for a task with a specific date.  <br>
-</br>
-3. Allows you to mark a task as done  
-
-   * Done
-     * Marks the task of a specific number on the list as done.
-     * Format: done *integer*
-     * Example: done 1 (This marks the first task on the list as done.)  <br>
-</br>
-4. Allows you to remove a task from the list  
-
-   * Delete
-     * Deletes the task of a specific number on the list.
-     * Format: delete *integer*
-     * Example: delete 1 (This deletes the first task on the list.)  <br>
-</br>
-5. Loads the tasks from the "duke.txt" file when you start the program, if it exists. Creates the file to save your tasks if it doesn't. <br>
-</br>
-6. Automatically saves your tasks to the file "duke.txt" when you terminate the program.  <br>
-</br>
-7. To terminate the program, type **bye** .  
-
+1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
+1. Open the project into Intellij as follows:
+   1. Click `Open`.
+   1. Select the project directory, and click `OK`.
+   1. If there are any further prompts, accept the defaults.
+1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
+   In the same dialog, set the **Project language level** field to the `SDK default` option.
+3. After that, locate the `src/main/java/duke/Duke.java` file, right-click it, and choose `Run duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
    Hello from
-    ____        _          
-   |  _ \ _   _| | _____   
-   | | | | | | | |/ / _ \  
-   | |_| | |_| |   <  __/  
-   |____/ \__,_|_|\_\___|  
+    ____        _        
+   |  _ \ _   _| | _____ 
+   | | | | | | | |/ / _ \
+   | |_| | |_| |   <  __/
+   |____/ \__,_|_|\_\___|
    ```

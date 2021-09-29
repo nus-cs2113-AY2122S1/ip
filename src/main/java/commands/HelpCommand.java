@@ -12,18 +12,23 @@ public class HelpCommand extends Command{
             "- Shows you the list of tasks you have\n\n" +INDENTATION +
             "todo (description)\n" + INDENTATION +
             "- Saves a general todo task\n\n" + INDENTATION +
-            "deadline (description) /by yyyy-MM-ddTHH:mm:ss\n" + INDENTATION +
-            "- Saves a task with a given deadline\n\n" + INDENTATION +
-            "event (description) /at yyyy-MM-ddTHH:mm:ss /to yyyy-MM-ddTHH:mm:ss\n" + INDENTATION +
-            "- Saves an event happening at a certain time period\n\n" + INDENTATION +
-            "delete (number)\n" + INDENTATION +
+            "deadline (description) /by yyyy-MM-ddTHH:mm\n" + INDENTATION +
+            "- Saves a task with a given deadline\n" + INDENTATION +
+            "- yyyy is the year, MM is the month, dd is the day, HH is the hour,\n" +INDENTATION +
+            "  and mm is the minute \n\n" + INDENTATION +
+            "event (description) /at yyyy-MM-ddTHH:mm /to yyyy-MM-ddTHH:mm\n" + INDENTATION +
+            "- Saves an event happening at a certain time period\n" + INDENTATION +
+            "- yyyy is the year, MM is the month, dd is the day, HH is the hour,\n" +INDENTATION+
+            "  and mm is the minute \n\n" + INDENTATION +
+            "delete (integer)\n" + INDENTATION +
             "- Deletes a task with the corresponding number on the list\n\n" + INDENTATION +
-            "done (number)\n" + INDENTATION +
+            "done (integer)\n" + INDENTATION +
             "- Marks the task with the corresponding number as done\n\n" + INDENTATION +
-            "find (description)\n" + INDENTATION +
+            "find (keyword)\n" + INDENTATION +
             "- Finds tasks that contains the String given\n\n" + INDENTATION +
             "find /d yyyy-MM-dd\n" + INDENTATION +
-            "- Finds tasks with the same date as the date given";
+            "- Finds tasks with the same date as the date given\n" + INDENTATION +
+            "- yyyy is the year, MM is the month and dd is the day";
 
     /**
      * Sends the help message to the Ui
