@@ -11,6 +11,7 @@ public class WrongNumberOfArgumentsException extends Exception {
     /**
      * Takes in a task type to print the proper usage of
      * the command for the corresponding timed task.
+     *
      * @param type Task type that user used wrong arguments for.
      */
     public WrongNumberOfArgumentsException(Type type) {

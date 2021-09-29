@@ -29,19 +29,20 @@ public class TaskManager {
     private static ArrayList<Task> tasks = new ArrayList<>(MAX_TASKS);
 
     /**
-     * A class to be passed into a function to allow lambda code to be executed
+     * A class to be passed into {@link duke.task.TaskManager.runTasks} to allow lambda code to be executed
      */
     private interface Lambda {
         void execute();
     }
 
     /**
-     * A function that is used by both <code>taskDone()</code> and <code>deleteTask()</code>.
-     * <code>lambda.execute()</code> is replaced by the lambda function that is passed
-     * into the <code>run()</code> function.
-     * @param id index of the task that is to be modified.
+     * A private class that is used by both {@link #taskDone(int)} and {@link #deleteTask(int)}.
+     * {@link duke.task.TaskManager.Lambda#execute()} is replaced by the lambda function that is passed
+     * into the {@link duke.task.TaskManager.runTasks#run(duke.task.TaskManager.Lambda)} function.
+     * <code>id</code> corresponds to index of the task that is to be modified.
      */
-    //This allows both functions to 'share code' preventing errors
+    //This allows both functions to 'share code' given that both
+    //of their implementations are similar thus preventing errors
     // where one function code was modified but the other was forgotten.
     private static class runTasks {
         private final int id;
@@ -67,6 +68,7 @@ public class TaskManager {
 
     /**
      * Marks the task indicated by <code>id</code> as done.
+     *
      * @param id index of the task that is to be marked as done.
      */
     public static void taskDone(int id) {
@@ -76,6 +78,7 @@ public class TaskManager {
 
     /**
      * Deletes the task indicated by <code>id</code>.
+     *
      * @param id index of the task that is to be deleted.
      */
     public static void deleteTask(int id) {
@@ -85,6 +88,7 @@ public class TaskManager {
 
     /**
      * Gets the task type based off of the first string in user input.
+     *
      * @param userInput user input of user to console
      * @return Task type entered by user
      */
@@ -95,6 +99,7 @@ public class TaskManager {
 
     /**
      * Gets the arguments (strings after the first argument) entered by user.
+     *
      * @param userInput user input of user to console
      * @return Arguments after first command and trailing whitespace
      */
@@ -114,6 +119,7 @@ public class TaskManager {
      * constructor for todo and <code>newTimedTask()</code> for creating a timed task
      * (deadline or event).
      * Prints the new task created and finally saves the tasks.
+     *
      * @param userInput user input of user to console
      */
     public static void newTask(String userInput) {
@@ -138,6 +144,7 @@ public class TaskManager {
 
     /**
      * Gets the task type based off the loaded file from the save file.
+     *
      * @param loadedTaskSplit a single loaded task that has been split by the separator used in save file.
      * @return Task type in save file for respective task.
      * @throws LoadTaskException If task type invalid or there are the wrong number of arguments.
@@ -153,9 +160,32 @@ public class TaskManager {
     }
 
     /**
-     * For all the tasks in the safe file, function split them and pass them into
-     * <code>getTaskTypeFromLoadedTask()</code> to get task type.
-     * With task type, it will add the respective task to <code>tasks</code> ArrayList.
+     * Creates and returns the Task with the String[] from the
+     * respective {@link duke.task.Type} that matches task class.
+     *
+     * @param taskType Task {@link duke.task.Type} that matches task class.
+     * @param loadedTaskSplit String[] of task parameters
+     * @return {@link duke.task.Task} that was created
+     */
+    private static Task createTask(Type taskType, String[] loadedTaskSplit){
+        boolean isDone = Integer.parseInt(loadedTaskSplit[1]) == 1;
+        switch (taskType) {
+        case DEADLINE:
+            return new Deadline(isDone, loadedTaskSplit[2], loadedTaskSplit[3]);
+        case EVENT:
+            return new Event(isDone, loadedTaskSplit[2], loadedTaskSplit[3]);
+        //Input is already parsed to one of the existing tasks.
+        default:
+            return new Todo(isDone, loadedTaskSplit[2]);
+        }
+    }
+
+    /**
+     * For all the tasks in the safe file, this functions split them and passes them into
+     * {@link #getTaskTypeFromLoadedTask(String[])} to get task type.
+     * With task type, it will add the respective task to {@link #tasks}ArrayList
+     * after getting the task from {@link #createTask(Type, String[])}.
+     *
      * @throws IllegalArgumentException If <code>parseInt()</code> fails.
      * @throws FileNotFoundException throws from <code>loadFile()</code> function.
      * @throws LoadTaskException throws from <code>getTaskTypeFromLoadedTask()</code> function.
@@ -164,18 +194,8 @@ public class TaskManager {
         for (String loadedTask : IoManager.loadFile()) {
             String[] loadedTaskSplit = Parser.splitPipe(loadedTask);
             Type taskType = getTaskTypeFromLoadedTask(loadedTaskSplit);
-            boolean isDone = Integer.parseInt(loadedTaskSplit[1]) == 1;
-            switch (taskType) {
-            case DEADLINE:
-                tasks.add(new Deadline(isDone, loadedTaskSplit[2], loadedTaskSplit[3]));
-                break;
-            case EVENT:
-                tasks.add(new Event(isDone, loadedTaskSplit[2], loadedTaskSplit[3]));
-                break;
-            case TODO:
-                tasks.add(new Todo(isDone, loadedTaskSplit[2]));
-                break;
-            }
+            Task createdTask = createTask(taskType, loadedTaskSplit);
+            tasks.add(createdTask);
         }
     }
 
@@ -204,19 +224,20 @@ public class TaskManager {
     }
 
     /**
-     * prints all current tasks in <code>tasks</code> ArrayList
+     * prints all current tasks in {@link #tasks} ArrayList
      */
     public static void printTasks() {
         printTasks("", tasks);
     }
 
     /**
-     * prints all current tasks in <code>tasksToPrint</code> ArrayList
-     * with <code>message</code> appended in front.
+     * prints all current tasks in ArrayList that is passed in as
+     * an argument with <code>message</code> appended in front.
+     *
      * @param message message to be appended in front of tasks to be printed.
      * @param tasksToPrint ArrayList of tasks to be printed.
      */
-    public static void printTasks(String message, ArrayList<Task> tasksToPrint) {
+    private static void printTasks(String message, ArrayList<Task> tasksToPrint) {
         try {
             if (tasksToPrint.size() == 0) {
                 throw new ListEmptyException();
@@ -233,7 +254,8 @@ public class TaskManager {
 
     /**
      * prints tasks found to have the description
-     * @param description description of tasks to be printed from <code>tasks</code> ArrayList.
+     *
+     * @param description description of tasks to be printed from {@link #tasks} ArrayList.
      */
     public static void findTasks(String description) {
         ArrayList<Task> tasksToPrint = new ArrayList<>(MAX_TASKS);

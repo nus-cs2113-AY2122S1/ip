@@ -1,6 +1,7 @@
 package duke.task;
 /**
  * Represents a Deadline task.
+ *
  * <code>Type</code> enum corresponds to respective class.
  */
 class Deadline extends TimedTask {

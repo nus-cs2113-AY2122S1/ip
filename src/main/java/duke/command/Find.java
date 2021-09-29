@@ -11,10 +11,18 @@ public class Find extends Command {
         super(NAME, USAGE, argument);
     }
 
+    /**
+     * Command is valid when argument is not empty
+     */
     boolean isValid(){
         return argument.length() != 0;
     }
 
+    /**
+     * passes the argument to TaskManager for finding the tasks with description.
+     *
+     * @return true
+     */
     boolean execute() {
         TaskManager.findTasks(argument);
         return true;

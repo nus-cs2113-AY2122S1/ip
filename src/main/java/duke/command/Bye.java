@@ -8,10 +8,17 @@ public class Bye extends Command {
         super(NAME, USAGE, argument);
     }
 
+    /**
+     * Command is valid when there are no arguments
+     */
     boolean isValid(){
         return argument.length() == 0;
     }
-
+    /**
+     * 'bye' does not execute any code. Only signals that it is time to end the program.
+     *
+     * @return false
+     */
     boolean execute() {
         return false;
     }

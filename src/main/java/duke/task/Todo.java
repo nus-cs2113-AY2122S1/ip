@@ -1,6 +1,7 @@
 package duke.task;
 /**
  * Represents a Todo task.
+ *
  * <code>Type</code> enum corresponds to respective class.
  */
 class Todo extends Task {

@@ -15,6 +15,7 @@ public class Message {
 
     /**
      * Takes in a string and prints it in-between two lines of {@link #SPACER}.
+     *
      * @param message String to print encapsulated in spacers.
      */
     public static void printWithSpacers(String message) {

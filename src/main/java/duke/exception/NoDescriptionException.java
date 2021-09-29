@@ -9,6 +9,7 @@ public class NoDescriptionException extends Exception{
     /**
      * Takes in user input and strips it to the command to be inserted
      * into the exception message and be printed back to user.
+     *
      * @param userInput Message that was entered by user.
      */
     public NoDescriptionException(String userInput){

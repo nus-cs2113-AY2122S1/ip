@@ -4,6 +4,7 @@ import duke.Message;
 
 /**
  * Abstract class to represent a task,
+ *
  * <code>isDone</code> boolean corresponds to whether the task is done.
  * <code>description</code> String corresponds to the task description.
  * <code>type</code> enum corresponds to respective class.

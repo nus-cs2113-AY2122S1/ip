@@ -16,6 +16,7 @@ import java.util.Scanner;
 
 /**
  * Class for handling all file operations
+ *
  * <code>SAVE_FOLDER</code> corresponds to the directory to save the save file.
  * <code>FILE_NAME</code> corresponds to the name of te save file.
  */
@@ -66,6 +67,7 @@ public class IoManager {
 
     /**
      * Creates a String ArrayList and read the lines from the scanner into the ArrayList.
+     *
      * @return All lines read from Scanner in an ArrayList.
      * @throws FileNotFoundException If Scanner was unable to find save file (should not happen because we just created it)
      */
@@ -82,6 +84,7 @@ public class IoManager {
 
     /**
      * Overwrites the contents of the save file (does not append, overwrites everything!)
+     *
      * @param toWrite the whole String that would be used to overwrite the current contents in the save file
      */
     public static void overwriteFile(String toWrite) {

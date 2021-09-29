@@ -2,6 +2,7 @@ package duke.task;
 
 /**
  * Enum to represent the different task types
+ *
  * <code>NUMBER_OF_ARGUMENTS</code> int corresponds to number of arguments for respective task (including task itself).
  * <code>PREPOSITION</code> String corresponds to preposition for TimedTasks (by or at).
  */

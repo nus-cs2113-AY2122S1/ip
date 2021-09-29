@@ -8,6 +8,7 @@ public class Utility {
 
     /**
      * Checks that String is an Integer
+     * 
      * @param message String to be checked.
      * @return Boolean on whether the String is an Integer.
      */

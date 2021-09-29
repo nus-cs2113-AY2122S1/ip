@@ -6,6 +6,7 @@ import duke.exception.WrongNumberOfArgumentsException;
 
 /**
  * Abstract class to represent a timed task (deadline or event).
+ *
  * <code>isDone</code> boolean corresponds to whether the task is done.
  * <code>description</code> String corresponds to the task description.
  * <code>dateTime</code> String corresponds to datetime specifications of task.
@@ -45,6 +46,7 @@ abstract class TimedTask extends Task {
     /**
      * Helper function to split the arguments.
      * Uses the task type enum to get the preposition (by or at) to split the <code>argumentString</code>.
+     *
      * @param taskType enum that corresponds to task.
      * @param argumentString argument to be split.
      * @throws WrongNumberOfArgumentsException if the number of argument != the number of arguments for the task.
@@ -62,6 +64,7 @@ abstract class TimedTask extends Task {
     /**
      * Creates and uses the task type enum to get the preposition
      * (by or at) to split the <code>argumentString</code>.
+     *
      * @param taskType enum that corresponds to task
      * @param argumentString argument to be split
      * @return new TimedTask (deadline or event) created

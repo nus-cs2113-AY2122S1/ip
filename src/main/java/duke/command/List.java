@@ -10,10 +10,18 @@ public class List extends Command {
         super(NAME, USAGE, argument);
     }
 
+    /**
+     * Command is valid when argument is empty
+     */
     boolean isValid(){
         return argument.length() == 0;
     }
 
+    /**
+     * passes the argument to TaskManager for listing the tasks.
+     *
+     * @return true
+     */
     boolean execute() {
         TaskManager.printTasks();
         return true;
