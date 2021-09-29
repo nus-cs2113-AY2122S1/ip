@@ -21,12 +21,14 @@ public class TaskManager {
 
 
     /**
-     * The function adds the task input by the user
+     * Adds the task inputted by the user. The function
+     * converts the input string message to a Task object
+     * according to instructions provided in the string
      *
-     * @param tasks   the array of tasks
-     * @param message the input string containing
+     * @param tasks   array of tasks
+     * @param message input string containing the task
      */
-    private static void addTask(ArrayList<Task> tasks, String message) {
+    public static void addTask(ArrayList<Task> tasks, String message) {
         switch (Parser.taskType(message)) {
         case TASK_TODO:
             Parser.addTodo(tasks, message);
@@ -44,10 +46,10 @@ public class TaskManager {
     }
 
     /**
-     * The function processes the inputs
-     * by the user and calls the necessary
-     * functions to add, print and manipulate
-     * tasks.
+     * Process the inputs given by the user
+     * to do the required task. The function
+     * keeps reading every line until bye is
+     * written by the user
      */
     public static void processInput() {
 
@@ -64,10 +66,9 @@ public class TaskManager {
     }
 
     /**
-     * The function processes the inputs
-     * by the user and calls the necessary
-     * functions to add, print and manipulate
-     * tasks.
+     * Process the input given by the user
+     * and calls the necessary functions to
+     * add, print, delete and find tasks.
      */
     public static void processMessage(ArrayList<Task> tasks, String message) {
         if (isCommandList(message)) {
