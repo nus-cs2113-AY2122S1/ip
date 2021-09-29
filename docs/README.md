@@ -36,6 +36,7 @@ If you are someone who can type fast, Duke is the perfect application for you to
 > For example, if you wish to create Duke's storage file in `folder1\folder2\tasks.txt`, the command in
 > Step 5 should be run as `java -jar Duke.jar folder1\folder2\tasks.txt`
 7. A greeting from Duke should appear as such:
+
 ```
 =====================================================================
  Hello from
@@ -50,6 +51,7 @@ If you are someone who can type fast, Duke is the perfect application for you to
  How may I help you?
 =====================================================================
 ```
+
 7. You can now type commands in the space below Duke's greeting and press *'Enter'* to execute the command. 
 7. Here are some example commands you can try:
     - `help`: Displays all commands recognized by Duke and their respective formats.
@@ -83,6 +85,7 @@ Adds a todo to Duke's task list. A todo is a basic task containing only a descri
 - `todo Watch lecture webcast`
 
 **Example output:**
+
 ```
 =====================================================================
  I have added a task:
@@ -90,6 +93,7 @@ Adds a todo to Duke's task list. A todo is a basic task containing only a descri
  You now have 1 task(s) in the list.
 =====================================================================
 ```
+
 [**Back to top**](#user-guide-content)
 
 ### 2.2.2 Deadline: `deadline`
@@ -106,6 +110,7 @@ Adds a deadline to Duke's task list. A deadline is slightly more complex and sto
 - `deadline Coding assignment /by 01-10-2021 23:59`
 
 **Expected output:**
+
 ```
 =====================================================================
  I have added a task:
@@ -113,6 +118,7 @@ Adds a deadline to Duke's task list. A deadline is slightly more complex and sto
  You now have 2 task(s) in the list.
 =====================================================================
 ```
+
 [**Back to top**](#user-guide-content)
 
 ### 2.2.3 Event: `event`
@@ -129,6 +135,7 @@ Adds an event to Duke's task list. An event is similar to a deadline and also st
 - `event Online internship briefing /at 29-12-2021 12:00`
 
 **Expected output:**
+
 ```
 =====================================================================
  I have added a task:
@@ -136,6 +143,7 @@ Adds an event to Duke's task list. An event is similar to a deadline and also st
  You now have 3 task(s) in the list.
 =====================================================================
 ```
+
 [**Back to top**](#user-guide-content)
 
 ### 2.3 Listing all tasks: `list`
@@ -160,6 +168,7 @@ and also an index of a **task in the list**.
 - `done 1`
 
 **Expected output:**
+
 ```
 =====================================================================
  Here are the tasks in your list:
@@ -168,12 +177,15 @@ and also an index of a **task in the list**.
  3. [E][ ] Online internship briefing (at: Wed, Dec 29 2021, 12:00 PM)
 =====================================================================
 ```
+
+
 ```
 =====================================================================
  Great job! The following task is done:
    [T][X] Watch lecture webcast
 =====================================================================
 ```
+
 [**Back to top**](#user-guide-content)
 
 ### 2.5 Deleting a task: `delete`
@@ -189,6 +201,7 @@ Deletes the specified task from Duke's task list.
 - `delete 1`
 
 **Expected output:**
+
 ```
 =====================================================================
  Here are the tasks in your list:
@@ -197,6 +210,8 @@ Deletes the specified task from Duke's task list.
  3. [E][ ] Online internship briefing (at: Wed, Dec 29 2021, 12:00 PM)
 =====================================================================
 ```
+
+
 ```
 =====================================================================
  Got it! I have deleted this task:
@@ -204,6 +219,7 @@ Deletes the specified task from Duke's task list.
  You now have 2 task(s) in the list.
 =====================================================================
 ```
+
 [**Back to top**](#user-guide-content)
 
 ### 2.6 Searching for tasks containing a specific keyword: `find`
@@ -219,12 +235,14 @@ Shows a list of tasks containing the given keyword.
 **Example:** `find assignment`
 
 **Expected output:**
+
 ```
 =====================================================================
  Here are tasks containing "assignment"
  1. [D][ ] Coding assignment (by: Fri, Oct 01 2021, 11:59 PM)
 =====================================================================
 ```
+
 [**Back to top**](#user-guide-content)
 
 ### 2.7 Exiting the program: `bye`
@@ -233,11 +251,13 @@ Shows a *goodbye* message and exits the program.
 **Format:** `bye`
 
 **Expected output:**
+
 ```
 =====================================================================
  Goodbye! Hope to see you again soon.
 =====================================================================
 ```
+
 [**Back to top**](#user-guide-content)
 
 ### 2.8 Saving data
@@ -263,6 +283,7 @@ command formats given for the smoothest experience. 😄
 [**Back to top**](#user-guide-content)
 
 ## 4. Command Summary
+
 **Command** | **Format** | **Example**
 ------------|------------|------------
 `help` | `help` | `help`
