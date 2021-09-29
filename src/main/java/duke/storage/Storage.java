@@ -24,17 +24,24 @@ public class Storage {
      */
     public static void saveData(ArrayList<Task> tasks) throws IOException {
         checkDirectory();
-        FileWriter file = new FileWriter(FILEPATH);
+        //FileWriter file = new FileWriter(FILEPATH);
+        StringBuilder output = new StringBuilder();
         for (Task item : tasks) {
-            file.append(item.toSave() + System.lineSeparator());
+            output.append(item.toSave() + System.lineSeparator());
         }
-        file.close();
+        try {
+            FileWriter myFile = new FileWriter(FILEPATH);
+            myFile.write(output.toString());
+            myFile.close();
+        } catch (IOException e) {
+            System.out.println("cannot write to file");
+        }
+
+
     }
 
     /**
      * Processes tasks from ArrayList of tasks and store in the save file
-     *
-     * @param tasks ArrayList of tasks
      */
     public static void loadData(ArrayList<Task> tasks) {
         //ArrayList<Task> tasks = new ArrayList<Task>();
@@ -65,7 +72,7 @@ public class Storage {
                         task.setDone();
                     }
                     tasks.add(task);
-                } catch (InvalidFile e){
+                } catch (InvalidFile e) {
                     System.out.println("Invalid input in file");
                 }
             }
@@ -80,14 +87,14 @@ public class Storage {
      * If it does not exist then create a new file
      * Print error message if file cannot be created
      */
-    public static void checkDirectory(){
-        try{
+    public static void checkDirectory() {
+        try {
             File directory = new File(FILEPATH);
-            if(!directory.exists()){
+            if (!directory.exists()) {
                 directory.getParentFile().mkdirs();
                 directory.createNewFile();
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }

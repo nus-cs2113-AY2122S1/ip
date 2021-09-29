@@ -6,6 +6,7 @@ import duke.storage.Storage;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
 
@@ -13,7 +14,19 @@ public class Duke {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Storage.loadData(tasks);
         Ui.printHello();
-        Parser.task();
+        String userInput;
+        Scanner s = new Scanner(System.in);
+        boolean isBye = false;
+        while (!isBye) {
+            userInput = s.nextLine();
+            String command = Parser.getCommand(userInput);
+            if (command.equals("bye")) {
+                isBye = true;
+                Ui.printBye();
+            } else {
+                Parser.task(userInput, tasks);
+            }
+        }
         Ui.printBye();
     }
 }

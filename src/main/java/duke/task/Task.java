@@ -5,6 +5,9 @@ package duke.task;
  * Task contains description of tasks and Boolean isDone to show whether the task is completed
  */
 public class Task {
+    private static final String TASKDONE = " 1";
+    private static final String TASKNOTDONE = " 0";
+
     protected String description;
     protected boolean isDone;
 
@@ -29,12 +32,14 @@ public class Task {
         isDone = true;
     }
 
+
+
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + getDescription();
     }
 
     public String toSave() {
-        return isDone ? " 1 " : " 0 " + "| " + description;
+        return (isDone ? TASKDONE : TASKNOTDONE) + " | " + description;
     }
 }
