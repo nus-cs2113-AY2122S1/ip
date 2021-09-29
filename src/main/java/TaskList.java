@@ -75,7 +75,7 @@ public class TaskList {
      * @throws DukeMissingDescException when the description of the deadline task is not input by the user.
      * @throws DukeMissingParamException when the /by flag is not input.
      */
-    public void addDeadline(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException, DateTimeParseException {
+    public void addDeadline(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException, DateTimeParseException, StringIndexOutOfBoundsException {
         if (line.length() == DEADLINE_LEN_OFFSET || line.substring(DEADLINE_SUBSTRING_OFFSET).isBlank()) {
             throw new DukeMissingDescException();
         }
@@ -108,7 +108,7 @@ public class TaskList {
      * @throws DukeMissingParamException when the /at flag is not input.
      * @throws DateTimeParseException when the date input is not in the correct format.
      */
-    public void addEvent(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException, DateTimeParseException {
+    public void addEvent(String line, ArrayList<Task> tasks) throws DukeMissingDescException, DukeMissingParamException, DateTimeParseException, StringIndexOutOfBoundsException {
         if (line.length() == EVENT_LEN_OFFSET || line.substring(EVENT_SUBSTRING_OFFSET).isBlank()) {
             throw new DukeMissingDescException();
         }

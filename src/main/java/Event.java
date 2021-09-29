@@ -33,13 +33,22 @@ public class Event extends Task {
     }
 
     /**
-     * Overrides the getWhen() method, returning the occurring date of the EVENT object.
+     * Overrides the getWhen() method, returning the formatted occurring date of the EVENT object.
      *
      * @return the occurring date of the EVENT object in the DATE_FORMAT set in Task class.
      */
     @Override
-    public String getWhen() {
+    public String getFormattedWhen() {
         return this.at.format(DateTimeFormatter.ofPattern((Task.DATE_FORMAT)));
+    }
+
+    /**
+     * Gets the unformatted date of when the task is due/occurring.
+     *
+     * @return the unformatted due/occurring date of the Event.
+     */
+    public String getUnformattedWhen() {
+        return at.toString();
     }
 
     /**

@@ -104,7 +104,7 @@ public class Parser {
                 catch (DukeMissingParamException e) {
                     ui.printDeadlineMissingParamError();
                 }
-                catch (DateTimeParseException e) {
+                catch (DateTimeParseException | StringIndexOutOfBoundsException e) {
                     ui.printDeadlineEventDateParamError();
                 }
             } else if (line.contains(EVENT_COMMAND)) {
@@ -115,7 +115,7 @@ public class Parser {
                     ui.printEventEmptyError();
                 } catch (DukeMissingParamException e) {
                     ui.printEventMissingParamError();
-                } catch (DateTimeParseException e) {
+                } catch (DateTimeParseException | StringIndexOutOfBoundsException e) {
                     ui.printDeadlineEventDateParamError();
                 }
             } else if (line.contains(FIND_COMMAND)) {

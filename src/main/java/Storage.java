@@ -93,7 +93,7 @@ public class Storage {
             } else {
                 textToAdd = tasks.get(i).getType() + " | "
                         + doneNumber + " | "
-                        +  tasks.get(i).description + "| " + tasks.get(i).getWhen() + System.lineSeparator();
+                        +  tasks.get(i).description + "| " + tasks.get(i).getUnformattedWhen() + System.lineSeparator();
             }
             fw.write(textToAdd);
         }

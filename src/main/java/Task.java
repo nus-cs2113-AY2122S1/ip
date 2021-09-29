@@ -43,12 +43,21 @@ public class Task {
     }
 
     /**
-     * Gets when the task is due/occurring.
+     * Gets the formatted date of when the task is due/occurring.
      *
      * @return the due/occurring date of the task in the DATE_FORMAT set in this class.
      */
-    public String getWhen() {
+    public String getFormattedWhen() {
         return eventDate.format(DateTimeFormatter.ofPattern((Task.DATE_FORMAT)));
+    }
+
+    /**
+     * Gets the unformatted date of when the task is due/occurring.
+     *
+     * @return the unformatted due/occurring date of the task.
+     */
+    public String getUnformattedWhen() {
+        return eventDate.toString();
     }
 
     /**

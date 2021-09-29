@@ -32,13 +32,22 @@ public class Deadline extends Task {
     }
 
     /**
-     * Overrides the getWhen() method, returning the due date of the DEADLINE object.
+     * Overrides the getWhen() method, returning the formatted due date of the DEADLINE object.
      *
      * @return the due date of the DEADLINE object in the DATE_FORMAT set in Task class.
      */
     @Override
-    public String getWhen() {
+    public String getFormattedWhen() {
         return this.by.format(DateTimeFormatter.ofPattern((Task.DATE_FORMAT)));
+    }
+
+    /**
+     * Gets the unformatted date of when the task is due/occurring.
+     *
+     * @return the unformatted due/occurring date of the Deadline.
+     */
+    public String getUnformattedWhen() {
+        return by.toString();
     }
 
     /**
