@@ -78,6 +78,9 @@ public class Duke {
                 ui.showLoadingError();
             }
             break;
+        case "find":
+            taskList.filterTasksByString(parsedFullCommand[1]);
+            break;
         case "bye":
             break;
         default:
