@@ -26,6 +26,13 @@ public class Storage {
     //the escape character of stored data
     static final String STORAGE_ESCAPE = "\\|";
 
+    /*
+     * The storage constructor. Creates a new doc and its parent files if
+     * java can't find it in the specified path.
+     * If the file already exits, reference to the file.
+     *
+     * @param filePath a path to the file, with respect to the project root.
+     */
     public Storage(String filePath) throws IOException {
         this.filePath = filePath;
         taskData = new File(filePath);
@@ -40,6 +47,14 @@ public class Storage {
         }
     }
 
+    /*
+     * Read data from the duke file.
+     * Abort and alarm if file is empty. If not, data from the file
+     * will be read into the ArrayList<Task> tasks.
+     *
+     * @param tasks an object of taskList class that manipulates the
+     * task ArrayList.
+     */
     public void loadData(TaskList tasks) {
         try {
             PrintBot.loadingData();
@@ -77,6 +92,12 @@ public class Storage {
         }
     }
 
+    /*
+     * Read one line from the file and add one task into ArrayList tasks.
+     *
+     * @param data single line unprocessed task description.
+     * @param tasks taskList object containing the Task list and its manipulations.
+     */
     public void addLoadData(String data, TaskList tasks) {
         String[] details = data.split(STORAGE_ESCAPE,3);
 
@@ -118,5 +139,4 @@ public class Storage {
             break;
         }
     }
-
 }
