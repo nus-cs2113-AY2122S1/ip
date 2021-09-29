@@ -1,10 +1,11 @@
 package duke.ui;
 
 import duke.exception.DukeException;
+import duke.exception.EmptyListException;
+import duke.exception.InvalidIndexException;
 import duke.task.*;
 import duke.util.DukeActions;
 
-import static duke.Duke.taskCount;
 import static duke.Duke.tasks;
 
 /*
@@ -48,16 +49,12 @@ public class PrintBot implements DukeActions {
         print("Mischief managed.");
     }
 
-    public void printList() {
-        if (taskCount == 0) {
-            System.out.println("No items in list yet.");
-            return;
-        }
-
-        System.out.println("Here are the tasks in your list:\n");
-        for (int i = 0; i < taskCount; i++) {
-            Task t = tasks[i];
-            System.out.println(t.id + ". " + t);
+    public void printList() throws EmptyListException {
+        print("Here are the tasks in your list:\n");
+        int id = 1;
+        for (Task t : tasks) {
+            System.out.println(id + ". " + t);
+            id++;
         }
     }
 
@@ -65,15 +62,15 @@ public class PrintBot implements DukeActions {
     public void addTask(Task t) {
         print("|| Got it. I've added this task");
         print("|| \t" + t.toString());
-        print("|| Now you have " + taskCount + " tasks in the list.");
+        print("|| Now you have " + tasks.size() + " tasks in the list.");
     }
 
     @Override
-    public void markDone(int id, boolean isDone) throws DukeException {
+    public void markDone(int id, boolean isDone) throws InvalidIndexException, EmptyListException {
         int i = id - 1;
-        if (isDone ) {
-            System.out.println("Nice!I've marked this task as done:");
-            System.out.println(tasks[i].id + ". " + tasks[i].toString());
+        if (isDone) {
+            print("Nice!I've marked this task as done:");
+            print(id + ". " + tasks.get(i).toString());
         }
     }
 
@@ -85,5 +82,11 @@ public class PrintBot implements DukeActions {
     @Override
     public void loadData(String data) {
         print(data);
+    }
+
+    public void delete(Task t) {
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println("|| \t" + t.toString());
+        System.out.println("|| Now you have " + tasks.size() + " in the list.");
     }
 }

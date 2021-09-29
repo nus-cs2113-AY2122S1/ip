@@ -1,3 +1,4 @@
-T | 0 | add task
+T | 1 | add task
 D | 0 | return book | tomorrow
-E | 1 | read magazine | joey's
+T | 1 | read book
+D | 0 | read book | tomorrow

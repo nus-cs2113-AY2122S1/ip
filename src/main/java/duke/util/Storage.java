@@ -10,7 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import static duke.Duke.*;
+import static duke.Duke.print;
+import static duke.Duke.tasks;
 
 public class Storage {
 
@@ -55,8 +56,7 @@ public class Storage {
      */
     public void saveData() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
-        for (int i = 0; i < taskCount; i++) {
-            Task t = tasks[i];
+        for (Task t : tasks) {
             fw.write(t.getStorageFormat()+ System.lineSeparator());
         }
 

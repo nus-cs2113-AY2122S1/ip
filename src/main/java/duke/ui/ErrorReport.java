@@ -2,7 +2,8 @@ package duke.ui;
 
 import duke.util.Alarm;
 
-import static duke.util.CommandAction.*;
+import static duke.Duke.tasks;
+
 
 public class ErrorReport {
     public static void alarm(Alarm typeOfAlarm) {

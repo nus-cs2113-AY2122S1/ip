@@ -1,6 +1,8 @@
 package duke.util;
 
 import duke.exception.DukeException;
+import duke.exception.EmptyListException;
+import duke.exception.InvalidIndexException;
 import duke.exception.NoKeywordException;
 import duke.task.*;
 import duke.ui.PrintBot;
@@ -31,8 +33,7 @@ public class ActionBot implements DukeActions {
 
     @Override
     public void addTask(Task t) {
-        tasks[taskCount] = t;
-        taskCount++;
+        tasks.add(t);
     }
 
     public Todo addTodo(String taskInput) {
@@ -63,18 +64,29 @@ public class ActionBot implements DukeActions {
         }
     }
 
+    public static Task getTask(int i) throws InvalidIndexException,EmptyListException {
+        if (tasks.isEmpty()) {
+            throw new EmptyListException();
+        }
+        if (i == -1 || i >= tasks.size()) {
+            throw new InvalidIndexException();
+        }
+
+        return tasks.get(i);
+    }
 
     @Override
-    public void markDone(int id, boolean isDone) throws DukeException {
+    public void markDone(int id, boolean isDone) throws EmptyListException, InvalidIndexException {
+        if (tasks.isEmpty()) {
+            throw new EmptyListException();
+        }
+
         int i = id -1;
         //index in string
-        if (taskCount == 0) {
-            System.out.println("No items in list yet.");
-            return;
-        } else if (i == -1 || i > taskCount) {
-            throw new DukeException();
+        Task t = getTask(i);
+        if (isDone) {
+            t.setDone(true);
         }
-        tasks[i].setDone(isDone);
     }
 
     @Override
@@ -90,12 +102,12 @@ public class ActionBot implements DukeActions {
         switch (type) {
         case "T":
             Todo t = addTodo(taskInput);
-            tasks[taskCount-1].setDone(isDone);
+            t.setDone(isDone);
             break;
         case "D":
             try {
                 Deadline d = addDeadline(taskInput, STORAGE_ESCAPE);
-                tasks[taskCount-1].setDone(isDone);
+                d.setDone(isDone);
             } catch (ArrayIndexOutOfBoundsException e) {
                 alarm(Alarm.EMPTY_DEADLINE);
             } catch (NoKeywordException e) {
@@ -105,7 +117,7 @@ public class ActionBot implements DukeActions {
         case "E":
             try {
                 Event e = duke.addEvent(taskInput, STORAGE_ESCAPE);
-                tasks[taskCount-1].setDone(isDone);
+                e.setDone(isDone);
             } catch (ArrayIndexOutOfBoundsException e) {
                 alarm(Alarm.EMPTY_EVENT);
             } catch (NoKeywordException e) {
@@ -116,5 +128,12 @@ public class ActionBot implements DukeActions {
             PrintBot.print("Error reading file. Presence of invalid command. ");
             break;
         }
+    }
+
+    public void delete(int id) throws InvalidIndexException, EmptyListException {
+        int i = id - 1;
+        Task t = getTask(i);
+        tasks.remove(i);
+        print.delete(t);
     }
 }
