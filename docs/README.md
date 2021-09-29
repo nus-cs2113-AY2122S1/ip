@@ -11,11 +11,11 @@ Allows you to add different kinds of tasks such as ToDos, Deadlines and Events
 
 ### List
 
-Shows you the list of tasks you have.
+Shows you the list of tasks you have and their status of completion.
 
 ### Find
 
-Allows you to find a task with a specific description or date.
+Allows you to find tasks with a specific description or date.
 
 ### Done
 
