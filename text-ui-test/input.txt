@@ -1,0 +1,9 @@
+todo study something
+event CS2113T project group meeting /at Mon 10-11pm
+deadline CG2027 assignment /by Sunday
+list
+done 1
+done 2
+done 3
+list
+bye

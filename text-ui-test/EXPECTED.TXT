@@ -1,7 +1,44 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
+ ____        _
+|  _ \ _   _| | _____
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+...................................................
+Hi! I'm Duke.
+How can I help make your life easier?
+...................................................
+Got it. I've added this task:
+[T][ ] study something
+Now you have 1 tasks in your list
+...................................................
+Got it. I've added this task:
+[E][ ] CS2113T project group meeting  (at: Mon 10-11pm)
+Now you have 2 tasks in your list
+...................................................
+Got it. I've added this task:
+[D][ ] CG2027 assignment  (by: Sunday)
+Now you have 3 tasks in your list
+...................................................
+Here are the tasks in your list:
+1.[T][ ] study something
+2.[E][ ] CS2113T project group meeting  (at: Mon 10-11pm)
+3.[D][ ] CG2027 assignment  (by: Sunday)
+...................................................
+Wonderful! This task is now marked as done:
+[T][X] study something
+...................................................
+Wonderful! This task is now marked as done:
+[E][X] CS2113T project group meeting  (at: Mon 10-11pm)
+...................................................
+Wonderful! This task is now marked as done:
+[D][X] CG2027 assignment  (by: Sunday)
+...................................................
+Here are the tasks in your list:
+1.[T][X] study something
+2.[E][X] CS2113T project group meeting  (at: Mon 10-11pm)
+3.[D][X] CG2027 assignment  (by: Sunday)
+...................................................
+Byebye! Have a wonderful day!
+...................................................
