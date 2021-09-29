@@ -2,20 +2,25 @@ package duke;
 
 public abstract class Task {
     protected String description;
-    protected String taskType;
-    protected boolean isDone;
-    protected String eventDate;
 
+    protected String taskType;
+
+    protected boolean isDone;
+
+    protected String eventDate;
 
     public Task(String description) {
         this.description = description;
+
         this.isDone = false;
+
         this.taskType = "";
+
         this.eventDate = "";
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     public void setAsDone() {
@@ -28,6 +33,11 @@ public abstract class Task {
 
     public String getWhen() {
         return eventDate;
+    }
+
+    @Override
+    public String toString() {
+        return ("[" + taskType + "]" + "[" + getStatusIcon() + "] " + description);
     }
 
 }

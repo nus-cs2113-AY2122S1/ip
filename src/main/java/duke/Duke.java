@@ -1,14 +1,15 @@
 package duke;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
-    public static final int MAX_NUMBER_OF_TASKS = 100;
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
-    private static final Task[] tasks = new Task[MAX_NUMBER_OF_TASKS];
+    public static final int ARRAYLIST_PRINT_OFFSET = 1;
 
-    private static int totalTasksCounter = 0;
+    public static final int DELETE_OFFSET = 1;
 
     public static final int DONE_OFFSET = 1;
 
@@ -39,9 +40,20 @@ public class Duke {
             + DOTTED_LINE;
 
     public static final String DONE_INVALID_NUMBER = DOTTED_LINE + System.lineSeparator()
-            + "duke.Task number is invalid! Enter the correct task number!" + System.lineSeparator()
+            + "Task number is invalid! Enter the correct task number!" + System.lineSeparator()
             + DOTTED_LINE;
 
+    public static final String DELETE_EMPTY = DOTTED_LINE + System.lineSeparator()
+            + "You didn't choose a task to delete!" + System.lineSeparator()
+            + DOTTED_LINE;
+
+    public static final String DELETE_WORD = DOTTED_LINE + System.lineSeparator()
+            + "Enter the task NUMBER to be deleted!" + System.lineSeparator()
+            + DOTTED_LINE;
+
+    public static final String DELETE_INVALID_NUMBER = DOTTED_LINE + System.lineSeparator()
+            + "Task number is invalid! Enter the correct task number!" + System.lineSeparator()
+            + DOTTED_LINE;
 
     public static final String TODO_EMPTY = DOTTED_LINE + System.lineSeparator()
             + "Empty todo description! Enter your todo description!" + System.lineSeparator()
@@ -89,7 +101,7 @@ public class Duke {
         String addTodoMessage = DOTTED_LINE + System.lineSeparator()
                 + "Great! This todo task has been added!!" + System.lineSeparator()
                 + "[T]" + "[ " + "] " + todoDescription + System.lineSeparator()
-                + "You now have " + totalTasksCounter + " tasks in the list!" + System.lineSeparator()
+                + "You now have " + tasks.size() + " tasks in the list!" + System.lineSeparator()
                 + DOTTED_LINE;
         System.out.println(addTodoMessage);
     }
@@ -98,7 +110,7 @@ public class Duke {
         String addDeadlineMessage = DOTTED_LINE + System.lineSeparator()
                 + "Great! This deadline task has been added!" + System.lineSeparator()
                 + "[D]" + "[ " + "] " + deadlineDescription + "(by: " + deadlineBy + ")" + System.lineSeparator()
-                + "You now have " + totalTasksCounter + " tasks in the list!" + System.lineSeparator()
+                + "You now have " + tasks.size() + " tasks in the list!" + System.lineSeparator()
                 + DOTTED_LINE;
         System.out.println(addDeadlineMessage);
     }
@@ -107,7 +119,7 @@ public class Duke {
         String addEventMessage = DOTTED_LINE + System.lineSeparator()
                 + "Great! This event task has been added!" + System.lineSeparator()
                 + "[E]" + "[ " + "] " + eventDescription + "(at: " + eventAt + ")" + System.lineSeparator()
-                + "You now have " + totalTasksCounter + " tasks in the list!" + System.lineSeparator()
+                + "You now have " + tasks.size() + " tasks in the list!" + System.lineSeparator()
                 + DOTTED_LINE;
         System.out.println(addEventMessage);
     }
@@ -115,56 +127,37 @@ public class Duke {
     public static void printListOfTasks() {
         System.out.println(DOTTED_LINE + System.lineSeparator() + "Here are the tasks in your list!");
 
-        if (totalTasksCounter == 0) {
+        if (tasks.size() == 0) {
             System.out.println("No tasks being tracked!");
-        }
+        } else {
 
-        for (int i = 0; i < totalTasksCounter; i++) {
-            String taskType = tasks[i].getType();
-
-            String byOrAt;
-
-            if (taskType.equals("D")) {
-                byOrAt = "by: ";
-            } else if (taskType.equals("E")) {
-                byOrAt = "at: ";
-            } else {
-                byOrAt = "";
+            for (Task element : tasks) {
+                System.out.println((tasks.indexOf(element)
+                        + ARRAYLIST_PRINT_OFFSET)
+                        + "." + element.toString());
             }
-
-            if (byOrAt.equals("")) {
-                System.out.println(i + 1 + ". "
-                        + "[" + taskType + "]"
-                        + "[" + tasks[i].getStatusIcon() + "] "
-                        + tasks[i].description);
-            } else {
-                System.out.println(i + 1 + ". "
-                        + "[" + taskType + "]"
-                        + "[" + tasks[i].getStatusIcon() + "] "
-                        + tasks[i].description + "(" + byOrAt + tasks[i].getWhen() + ")");
-            }
+            System.out.println(DOTTED_LINE);
         }
-        System.out.println(DOTTED_LINE);
     }
 
-    public static int filterTaskNumber(String doneTask) throws DukeMissingParamException, NumberFormatException {
-        String[] words = doneTask.split(" ");
+    public static int filterTaskNumber(String taskThatIsDone) throws DukeMissingParamException, NumberFormatException {
+        String[] wordsOfTheTask = taskThatIsDone.split(" ");
 
-        if (words.length > 1) { // simple check to see if task number has not been input
-            return Integer.parseInt(words[1]);
+        if (wordsOfTheTask.length > 1) { //check if there is input after the command done
+            return Integer.parseInt(wordsOfTheTask[1]);
         } else {
             throw new DukeMissingParamException();
         }
     }
 
     public static void markTaskAsDone(int taskNumberToMark) {
-        if ((taskNumberToMark - DONE_OFFSET >= 0) && (tasks[taskNumberToMark - DONE_OFFSET] != null)) {
-            tasks[taskNumberToMark - DONE_OFFSET].setAsDone();
+        if ((taskNumberToMark - DONE_OFFSET >= 0) && (tasks.get(taskNumberToMark - DONE_OFFSET) != null)) {
+            tasks.get(taskNumberToMark - DONE_OFFSET).setAsDone();
 
             System.out.println(DOTTED_LINE + System.lineSeparator()
                     + "Great! This task has been marked as done!!" + System.lineSeparator()
-                    + "[" + tasks[taskNumberToMark - DONE_OFFSET].getType() + "]" + "[" + tasks[taskNumberToMark - DONE_OFFSET].getStatusIcon() + "] "
-                    + tasks[taskNumberToMark - DONE_OFFSET].description + System.lineSeparator()
+                    + "[" + tasks.get(taskNumberToMark - DONE_OFFSET).getType() + "]" + "[" + tasks.get(taskNumberToMark - DONE_OFFSET).getStatusIcon() + "] "
+                    + tasks.get(taskNumberToMark - DONE_OFFSET).description + System.lineSeparator()
                     + DOTTED_LINE);
         } else {
             System.out.println(DONE_INVALID_NUMBER);
@@ -172,8 +165,38 @@ public class Duke {
     }
 
     public static void addTask(Task t) {
-        tasks[totalTasksCounter] = t;
-        totalTasksCounter++;
+        tasks.add(t);
+    }
+
+    public static void deleteTask(int taskNumberToRemove) throws DukeMissingParamException, NumberFormatException, IndexOutOfBoundsException {
+        if ((taskNumberToRemove - DELETE_OFFSET >= 0) && (tasks.get(taskNumberToRemove - DELETE_OFFSET) != null)) {
+            String byOrAt;
+            if (tasks.get(taskNumberToRemove - DELETE_OFFSET).getType().equals("D")) {
+                byOrAt = "by: ";
+            } else if (tasks.get(taskNumberToRemove - DELETE_OFFSET).getType().equals("E")) {
+                byOrAt = "at: ";
+            } else {
+                byOrAt = "";
+            }
+
+            if (byOrAt.equals("")) {
+                System.out.println(DOTTED_LINE + System.lineSeparator()
+                        + "This task has been removed!" + System.lineSeparator()
+                        + "[" + tasks.get(taskNumberToRemove - DELETE_OFFSET).getType() + "]" + "[" + tasks.get(taskNumberToRemove - DELETE_OFFSET).getStatusIcon() + "] "
+                        + tasks.get(taskNumberToRemove - DELETE_OFFSET).description + System.lineSeparator()
+                        + "You now have " + (tasks.size() - DELETE_OFFSET) + " tasks in the list!" + System.lineSeparator()
+                        + DOTTED_LINE);
+
+            } else {
+                System.out.println(DOTTED_LINE + System.lineSeparator()
+                        + "This task has been removed!" + System.lineSeparator()
+                        + "[" + tasks.get(taskNumberToRemove - DELETE_OFFSET).getType() + "]" + "[" + tasks.get(taskNumberToRemove - DELETE_OFFSET).getStatusIcon() + "] "
+                        + tasks.get(taskNumberToRemove - DELETE_OFFSET).description + "(" + byOrAt + tasks.get(taskNumberToRemove - DELETE_OFFSET).getWhen() + ")" + System.lineSeparator()
+                        + "You now have " + (tasks.size() - DELETE_OFFSET) + " tasks in the list!" + System.lineSeparator()
+                        + DOTTED_LINE);
+            }
+        }
+        tasks.remove(tasks.get(taskNumberToRemove - DELETE_OFFSET));
     }
 
     public static void addTodo(String line) throws DukeMissingDescException {
@@ -198,11 +221,14 @@ public class Duke {
             throw new DukeMissingParamException();
         }
 
-        int posOfLastChar = line.length();
+        int positionOfLastCharacter = line.length();
 
         String deadlineDescription = line.substring(DEADLINE_DESCRIPTION_OFFSET, positionOfBy); //description of deadline
-        String deadlineBy = line.substring(positionOfBy + DEADLINE_BY_OFFSET, posOfLastChar); //date of deadline
+
+        String deadlineBy = line.substring(positionOfBy + DEADLINE_BY_OFFSET, positionOfLastCharacter); //date of deadline
+
         addTask(new Deadline(deadlineDescription, deadlineBy));
+
         printAddDeadlineMessage(deadlineDescription, deadlineBy);
     }
 
@@ -220,8 +246,11 @@ public class Duke {
         int positionOfLastCharacter = line.length();
 
         String eventDescription = line.substring(EVENT_DESCRIPTION_OFFSET, positionOfAt); //description of event
+
         String eventAt = line.substring(positionOfAt + EVENT_AT_OFFSET, positionOfLastCharacter); //date of event
+
         addTask(new Event(eventDescription, eventAt));
+
         printAddEventMessage(eventDescription, eventAt);
     }
 
@@ -240,6 +269,17 @@ public class Duke {
                     System.out.println(DONE_EMPTY);
                 } catch (NumberFormatException e) {
                     System.out.println(DONE_WORD);
+                }
+            } else if (line.contains("delete")) {
+                try {
+                    int taskNumber = filterTaskNumber(line);
+                    deleteTask(taskNumber);
+                } catch (DukeMissingParamException e) {
+                    System.out.println(DELETE_EMPTY);
+                } catch (NumberFormatException e) {
+                    System.out.println(DELETE_WORD);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(DELETE_INVALID_NUMBER);
                 }
             } else if (line.contains("todo")) { //user types todo, processes the line in the todo scenario
                 try {
@@ -268,6 +308,7 @@ public class Duke {
             }
             line = in.nextLine();
         }
+
     }
 
     public static void main(String[] args) {
