@@ -111,7 +111,7 @@ Adds a **deadline** task to the tasklist.
 ### 2.2.3 Event: `event`
 Adds a **event** task to the tasklist.
 
-**Format:** `event [description] /at [occurence]`
+**Format:** `event [description] /at [occurrence]`
 - `[description]` specifies the details of the event.
 - `[occurence]` specifies when the event occurs.
 
@@ -279,7 +279,7 @@ Action   | Format                                  | Example                    
 help     | `help`                                  | `help`                                    |
 todo     | `todo [description]`                    | `todo read book`                          |
 deadline | `deadline [description] /by [due date]` | `deadline return book /by June 6th`       |
-event    | `event [description] /at [occurence]`   | `event project meeting /at Aug 6th 2-4pm` |
+event    | `event [description] /at [occurrence]`  | `event project meeting /at Aug 6th 2-4pm` |
 list     | `list`                                  | `list`                                    |
 done     | `done [task ID]`                        | `done 1`                                  |
 delete   | `delete [task ID]`                      | `delete 1`                                |
