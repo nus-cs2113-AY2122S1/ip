@@ -61,6 +61,7 @@ public class Parser {
     }
 
     private static Event createEvent(String message) {
+        message = message.strip();
         String eventString = getEventString(message);
         String[] eventData = splitString(eventString, DELIMITER_EVENT);
         String eventDescription = eventData[INDEX_TASKTYPE].strip();
@@ -96,6 +97,7 @@ public class Parser {
      */
     public static void addDeadline(ArrayList<Task> tasks, String message) {
         try {
+            message = message.strip();
             tasks.add(createDeadline(message));
             Ui.printAddedTask(getLatestTask(tasks), tasks);
             Storage.saveTasksToFile(tasks);
@@ -108,7 +110,7 @@ public class Parser {
         }
     }
 
-    private static Deadline createDeadline(String message) {
+    private static Deadline createDeadline(String message) throws StringIndexOutOfBoundsException {
         String deadlineString = getDeadlineString(message);
         String[] deadlineData = splitString(deadlineString, DELIMITER_DEADLINE);
         String deadlineDescription = deadlineData[0].strip();
@@ -131,6 +133,7 @@ public class Parser {
      */
     public static void addTodo(ArrayList<Task> tasks, String message) {
         try {
+            message = message.strip();
             tasks.add(new Todo(message.substring(INDEX_DESCRIPTION_TODO)));
             Ui.printAddedTask(getLatestTask(tasks), tasks);
             Storage.saveTasksToFile(tasks);
@@ -149,7 +152,7 @@ public class Parser {
      */
     public static void markDone(ArrayList<Task> tasks, String message) {
         try {
-            String[] arrOfStr = message.split(DELIMITER_SPACE);
+            String[] arrOfStr = message.strip().split(DELIMITER_SPACE);
             int index = getIndex(arrOfStr);
             tasks.get(index).isDone();
             Storage.saveTasksToFile(tasks);
@@ -180,7 +183,7 @@ public class Parser {
      */
     public static void findTask(ArrayList<Task> tasks, String message) {
         try {
-            String filter = message.substring(INDEX_FIND);
+            String filter = message.strip().substring(INDEX_FIND);
             ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
                     .filter((t) -> t.getDescription().contains(filter)).collect(Collectors.toList());
             Ui.printMatchingTasks(filteredTasks);
