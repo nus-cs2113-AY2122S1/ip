@@ -1,3 +1,6 @@
+/**
+ * This class deals with customized exceptions for the Duke program.
+ */
 public class DukeException extends Exception {
 
     protected static final String ERROR_NO_TODO_DESCRIPTION = Ui.INDENT +
@@ -24,6 +27,10 @@ public class DukeException extends Exception {
     protected static final String ERROR_NO_KEYWORD = Ui.INDENT +
             "OOPS!! The search keyword can't be empty";
 
+    /**
+     * Constructor of DukeException class.
+     * @param errorMessage Description of the error encountered
+     */
     public DukeException(String errorMessage) {
         super(errorMessage);
     }

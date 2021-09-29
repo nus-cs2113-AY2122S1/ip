@@ -1,3 +1,6 @@
+/**
+ * This class deals with interactions with the user.
+ */
 public class Ui {
 
     public static final String LINE = "    ____________________________________________________________";
@@ -19,7 +22,6 @@ public class Ui {
         System.out.println(LINE + LINE_SEPARATOR + INDENT + line + LINE_SEPARATOR + LINE);
     }
 
-
     public static void printGreetMessage() {
         printWithLines("Hello! I'm Duke." + LINE_SEPARATOR_AND_INDENT + "What can I do for you?" +
                 LINE_SEPARATOR + LINE_SEPARATOR_AND_INDENT + HELP_INSTRUCTIONS);
@@ -31,5 +33,42 @@ public class Ui {
 
     public static void showHelp() {
         System.out.println(INDENT + HELP_INSTRUCTIONS);
+    }
+
+    /**
+     * Prints all the tasks
+     */
+    public static void printTaskList() {
+        System.out.println(INDENT + "Here are the tasks in your list:");
+        for (int i = 0; i < TaskList.tasks.size(); i++) {
+            System.out.println(INDENT + (i + 1) + "." + TaskList.getTask(i));
+        }
+    }
+
+    /**
+     * Prints the newly added task
+     */
+    public static void printAddedTask() {
+        System.out.println(INDENT + "Got it. I've added this task:" + LINE_SEPARATOR_AND_INDENT +
+                TaskList.getTask(TaskList.tasks.size() - 1) + LINE_SEPARATOR_AND_INDENT + "Now you have " + TaskList.tasks.size() + " tasks in the list.");
+    }
+
+    /**
+     * Prints the newly deleted task
+     * @param index Index of the task to be deleted from tasks list
+     */
+    public static void printDeletedTask(int index) {
+        System.out.println(INDENT + "Got it. I've removed this task:" + LINE_SEPARATOR_AND_INDENT +
+                TaskList.getTask(index) + LINE_SEPARATOR_AND_INDENT + "Now you have " + (TaskList.tasks.size() - 1) + " tasks in the list.");
+    }
+
+    /**
+     * Prints the newly marked as done task
+     * @param task
+     */
+    public static void printDoneTask(Task task) {
+        System.out.print(INDENT + "Nice! I've marked this task as done: " +
+                LINE_SEPARATOR_AND_INDENT + " ");
+        System.out.println(task);
     }
 }

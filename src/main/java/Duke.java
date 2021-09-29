@@ -1,9 +1,14 @@
 import java.util.Scanner;
 
+/**
+ * This class is the main class of the program Duke.
+ */
 public class Duke {
 
-    //public static String filePath = Paths.get(System.getProperty("user.dir"), "data/duke.txt").normalize().toString();
-
+    /**
+     * Execute users' requests from user inputs.
+     * Continues until user enters "bye".
+     */
     public static void executeRequest() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -13,7 +18,7 @@ public class Duke {
             try {
                 switch (Parser.parseCommand(line)) {
                 case "list":
-                    TaskList.printTaskList();
+                    Ui.printTaskList();
                     break;
                 case "done":
                     TaskHandler.markTaskAsDone(line);
