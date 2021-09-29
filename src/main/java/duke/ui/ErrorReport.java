@@ -2,7 +2,7 @@ package duke.ui;
 
 import duke.util.Alarm;
 
-import static duke.Duke.taskCount;
+import static duke.util.CommandAction.*;
 
 public class ErrorReport {
     public static void alarm(Alarm typeOfAlarm) {
@@ -14,7 +14,7 @@ public class ErrorReport {
         case BLANK_DESCRIPTION:
             System.out.println("Hermoine says the description of a task cannot be empty.");
             break;
-        case EMPTY_DONE:
+        case EMPTY_INDEX:
             System.out.println("Give me a number.");
             break;
         case EMPTY_TODO:
@@ -37,7 +37,10 @@ public class ErrorReport {
             break;
         case OUT_OF_RANGE:
             System.out.println("Can't find the item in your list.");
-            System.out.println("Give me a number from 1 to " + taskCount + ".");
+            System.out.println("Give me a number from 1 to " + tasks.size() + ".");
+            break;
+        case EMPTY_LIST:
+            System.out.println("No items in list yet.");
             break;
         default:
             System.out.println("UNIDENTIFIED ERROR!");
