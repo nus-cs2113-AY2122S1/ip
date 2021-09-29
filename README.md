@@ -12,14 +12,14 @@ Here are a few things Duke can do
    * ToDo
       * ToDos are tasks that can be done at any time
       * Format : todo *description*
-      * Example : todo clean the house  <br>
-</br>
+      * Example : todo clean the house  
+
    * Deadline
       * Deadlines are tasks that needs to be done before a specific time
       * Format: deadline *description* /by *yyyy-MM-ddTHH:mm:ss*
       * Example: deadline Homework /by 2021-10-01T23:59:59
-      * yyyy represents the year, MM the month, dd the day, HH the hour, mm the minute and ss the second.  <br>
-</br>
+      * yyyy represents the year, MM the month, dd the day, HH the hour, mm the minute and ss the second.  
+
    * Event
       * Events are tasks that occurs at a specific time period
       * Format: event *description* /at *yyyy-MM-ddTHH:mm:ss* /to *yyyy-MM-ddTHH:mm:ss*
@@ -30,8 +30,8 @@ Here are a few things Duke can do
 
    * List
       * Shows you the list of all the tasks you have
-      * Format: list  <br>
-</br>
+      * Format: list  
+
    * Find
       * Find a task with a specific description or date
       * Format: find *description* **or** find /d *date*
