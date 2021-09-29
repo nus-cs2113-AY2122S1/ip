@@ -33,6 +33,9 @@ public class Parser {
             return prepareEventCommand(commandArgs);
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+        case FindCommand.COMMAND_WORD:
+            checkValidArguments(commandArgs);
+            return new FindCommand(commandArgs);
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
         case ExitCommand.COMMAND_WORD:
