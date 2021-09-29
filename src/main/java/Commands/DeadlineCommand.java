@@ -10,6 +10,9 @@ import Tasks.Todo;
 
 import java.io.IOException;
 
+/**
+ * Command representing the addition of a Deadline task
+ */
 public class DeadlineCommand extends Command {
     protected String line;
     public DeadlineCommand(String line) {

@@ -10,6 +10,9 @@ import Tasks.Event;
 
 import java.io.IOException;
 
+/**
+ * Command representing the addition of an Event task
+ */
 public class EventCommand extends Command {
     protected String line;
     public EventCommand(String line) {

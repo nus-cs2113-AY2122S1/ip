@@ -9,14 +9,17 @@ import Exceptions.UnknownCommandException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
-
+/**
+ * Entry point of the Duke application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
 
     //main function to process input
 
@@ -25,12 +28,17 @@ public class Duke {
         storage = new Storage();
         try {
             tasks = new TaskList(storage.readData(filePath));
-            ui.printFileNotFoundError();
-        } catch (StringIndexOutOfBoundsException | FileNotFoundException e) {
+        } catch (StringIndexOutOfBoundsException e) {
             System.out.println("An error has occurred!");
+        } catch (FileNotFoundException e) {
+            ui.printFileNotFoundError();
+            tasks = new TaskList(new ArrayList<>());
         }
     }
 
+    /**
+     * Main function that runs the entire duke program until termination
+     */
     public void run() {
         ui.greetUser();
 
@@ -43,7 +51,6 @@ public class Duke {
             try {
                 fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
-                //Parser.processLine(tasks, fullCommand);
                 c.executeCommand(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (UnknownCommandException | StringIndexOutOfBoundsException | InvalidCommandException e) {

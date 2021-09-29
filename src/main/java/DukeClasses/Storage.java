@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
+/**
+ * Deals with operations involving loading data from the file, or saving data into the file
+ */
 public class Storage {
 
     private static char TODO_TASK = 'T';
@@ -33,7 +36,11 @@ public class Storage {
         return EVENT_TASK;
     }
 
-    //creates a new deadline or event, depending on what the line starts with
+    /**
+     * Creates a new Deadline or Event task from the file
+     * @param taskInfo line in the file describing a task
+     * @return either a deadline or event task depending on the first letter
+     */
     private Task createNewDeadlineOrEvent(String taskInfo) {
         int indexOfColon = taskInfo.indexOf(":");
         int indexOfOpenBracket = taskInfo.indexOf("(");
@@ -44,14 +51,30 @@ public class Storage {
         return new Event(taskInfo.substring(8, indexOfOpenBracket - 1), taskInfo.substring(indexOfColon + 2, indexOfCloseBracket));
     }
 
-    private String fileGetTodoTask(String taskInfo) {
+    /**
+     * Returns the Todo task description
+     * @param taskInfo the full line describing a todo task in the file
+     * @return String representing todo description
+     */
+    private String getTodoTaskDescFromFile(String taskInfo) {
         return taskInfo.substring(8);
     }
 
-    private boolean fileTaskIsDone(String taskInfo) {
+    /**
+     * Returns true if task is marked as done in txt file
+     * @param taskInfo the entire line description of a task in txt file
+     * @return true if task is done according to txt file
+     */
+    private boolean IsDoneFromFile(String taskInfo) {
         return taskInfo.charAt(4) == '1';
     }
 
+    /**
+     * Writes and appends to the file containing updated data
+     * @param tasks TaskList containing updated data
+     * @param filePath file path
+     * @throws IOException
+     */
     public void updateData(TaskList tasks, String filePath) throws IOException {
         FileWriter fw = new FileWriter(filePath); //to write first line
         FileWriter fa = new FileWriter(filePath, true); //append the rest
@@ -66,7 +89,7 @@ public class Storage {
         Task currentTask = tasks.list.get(0);
         char taskType = getTaskType(currentTask);
         int isDone = (currentTask.getStatus()) ? 1 : 0;
-        String fullTask = getTaskInStringFromFile(currentTask);
+        String fullTask = getFullTaskDesc(currentTask);
 
         fw.write(taskType + " | " + isDone + " | " + fullTask + System.lineSeparator());
 
@@ -76,7 +99,7 @@ public class Storage {
             currentTask = tasks.list.get(i);
             taskType = getTaskType(currentTask);
             isDone = (currentTask.getStatus()) ? 1 : 0;
-            fullTask = getTaskInStringFromFile(currentTask);
+            fullTask = getFullTaskDesc(currentTask);
             fa.write(taskType + " | " + isDone + " | " + fullTask + System.lineSeparator());
         }
 
@@ -84,10 +107,21 @@ public class Storage {
         fa.close();
     }
 
-    private String getTaskInStringFromFile(Task currentTask) {
+    /**
+     * Returns the full task description of any one task
+     * @param currentTask a Task object
+     * @return the full description of a task, including the by/at for deadlines/events
+     */
+    private String getFullTaskDesc(Task currentTask) {
         return currentTask.toString().substring(taskStartIndex);
     }
 
+    /**
+     * Returns an ArrayList containing all the data from the file
+     * @param filePath the file path
+     * @return ArrayList containing the data from the file
+     * @throws FileNotFoundException if file does not exist
+     */
     public ArrayList<Task> readData(String filePath) throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(filePath);
@@ -98,13 +132,13 @@ public class Storage {
 
             Task newTask;
             if (taskInfo.startsWith("T")) {
-                newTask = new Todo(fileGetTodoTask(taskInfo));
+                newTask = new Todo(getTodoTaskDescFromFile(taskInfo));
 
             } else {
                 newTask = createNewDeadlineOrEvent(taskInfo);
             }
             tasks.add(newTask);
-            if (fileTaskIsDone(taskInfo)) {
+            if (IsDoneFromFile(taskInfo)) {
                 newTask.markAsDone();
             }
         }

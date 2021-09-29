@@ -8,6 +8,9 @@ import Exceptions.InvalidCommandException;
 
 import java.io.IOException;
 
+/**
+ * Command that represents the marking of a task as done
+ */
 public class DoneCommand extends Command {
     protected int doneIndex;
 

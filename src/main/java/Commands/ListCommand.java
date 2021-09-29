@@ -4,6 +4,9 @@ import DukeClasses.Storage;
 import DukeClasses.TaskList;
 import DukeClasses.Ui;
 
+/**
+ * Command that represents listing out the full task list
+ */
 public class ListCommand extends Command {
 
     @Override

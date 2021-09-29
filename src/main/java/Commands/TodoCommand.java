@@ -8,6 +8,9 @@ import Tasks.Todo;
 
 import java.io.IOException;
 
+/**
+ * Command representing the addition of a Todo task
+ */
 public class TodoCommand extends Command {
     protected String line;
 
