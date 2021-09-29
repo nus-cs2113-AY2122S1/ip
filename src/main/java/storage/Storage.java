@@ -1,7 +1,5 @@
 package storage;
 
-import exceptions.DeadlineException;
-import jarvis.Jarvis;
 import tasklist.Task;
 import ui.Ui;
 
@@ -14,7 +12,6 @@ import java.io.FileWriter;
 
 public class Storage {
     private static final String LINE = Ui.LINE;
-    private static final String LINE_W_NL = Ui.LINE_W_NL;
     public static final String JARVIS_TXT = "jarvis/jarvis.txt";
     private static final String DIVIDER = ",";
 
@@ -30,20 +27,20 @@ public class Storage {
             if (!jarvisFile.exists()) {
                 jarvisFile.getParentFile().mkdirs();
                 jarvisFile.createNewFile();
-                System.out.println("A new file has been created to store your tasks Sir!\n"
-                        + "What would you like me to do Sir?\n"
+                System.out.println("A new file has been created to store your tasks Sir!" + System.lineSeparator()
+                        + "What would you like me to do Sir?" + System.lineSeparator()
                         + LINE);
             } else {
-                System.out.println("Give me a moment to load up your tasks Sir!\n"
-                        + ".\n" + ".\n" + "Done\n"
-                        + "What would you like me to do Sir?\n"
+                System.out.println("Give me a moment to load up your tasks Sir!" + System.lineSeparator()
+                        + "." + System.lineSeparator() + "." + System.lineSeparator() + "Done" + System.lineSeparator()
+                        + "What would you like me to do Sir?" + System.lineSeparator()
                         + LINE);
                 loadTasks(taskList, jarvisFile);
             }
         } catch (IOException e) {
-            System.out.println(LINE_W_NL
-                    + "There has been an error detected when creating a new file Sir!\n"
-                    + "You might want to take a look at it.\n"
+            System.out.println(LINE + System.lineSeparator()
+                    + "There has been an error detected when creating a new file Sir!" + System.lineSeparator()
+                    + "You might want to take a look at it." + System.lineSeparator()
                     + LINE);
         }
     }
@@ -62,8 +59,8 @@ public class Storage {
                 lineCount++;
             }
         } catch (FileNotFoundException e) {
-            System.out.println(LINE_W_NL
-                    + "I can't seem to find the file Sir.\n"
+            System.out.println(LINE + System.lineSeparator()
+                    + "I can't seem to find the file Sir." + System.lineSeparator()
                     + LINE);
         }
 
@@ -117,8 +114,8 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println(LINE_W_NL
-                    + "There seems to be an error saving the task Sir.\n"
+            System.out.println(LINE + System.lineSeparator()
+                    + "There seems to be an error saving the task Sir." + System.lineSeparator()
                     + LINE);
         }
 

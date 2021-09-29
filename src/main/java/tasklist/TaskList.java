@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class TaskList {
     private static final String LINE = Ui.LINE;
-    private static final String LINE_W_NL = Ui.LINE_W_NL;
 
     /**
      * Prints out all the tasks in the list when user inputs list keyword as command.
@@ -21,7 +20,7 @@ public class TaskList {
         if (taskList.size() == 0) {
             throw new ArithmeticException();
         } else {
-            System.out.println(LINE_W_NL + "Here are the tasks in your list Sir:");
+            System.out.println(LINE + System.lineSeparator() + "Here are the tasks in your list Sir:");
             for (int i = 0; i < taskList.size(); i++) {
                 System.out.println((i + 1) + "." + taskList.get(i).toString());
             }
@@ -149,14 +148,14 @@ public class TaskList {
             for (Task task : taskList) {
                 if (task.getDescription().toLowerCase().contains(key)) {
                     if (matchedTaskCount == 0) {
-                        System.out.println(LINE_W_NL + "Here are the matching tasks in your list Sir:");
+                        System.out.println(LINE + System.lineSeparator() + "Here are the matching tasks in your list Sir:");
                     }
                     System.out.println((matchedTaskCount + 1) + "." + task.toString());
                     matchedTaskCount++;
                 }
             }
             if (matchedTaskCount == 0) {
-                System.out.println(LINE_W_NL + "Apologies, there are no matching tasks in your list Sir.");
+                System.out.println(LINE + System.lineSeparator() + "Apologies, there are no matching tasks in your list Sir.");
             }
             System.out.println(LINE);
         }
