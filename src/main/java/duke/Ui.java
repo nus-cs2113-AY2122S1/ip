@@ -119,6 +119,11 @@ public class Ui {
         System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
     }
 
+    /**
+     * Returns LocalDateTime object as a string in a custom user-readable format.
+     * @param dateTime LocalDateTime object of task
+     * @return date-time string in user-readable format
+     */
     public String dateTimeToString(LocalDateTime dateTime) {
         return Integer.toString(dateTime.getDayOfMonth()) + " "
                 + dateTime.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " "

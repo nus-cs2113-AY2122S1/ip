@@ -66,12 +66,16 @@ The description and completion deadline of the task can contain spaces, numbers 
 The number of spaces between the `deadline`/`/by` keyword and the description/completion deadline does not matter,
 however the `/by` keyword must be present.
 
+If the completion deadline is entered in the format `YYYY-MM-DD HH:MM`, 
+the completion deadline will be stored as a LocalDateTime object.
+
 
 Example of usage:
 
 `deadline Return library book /by tomorrow 2359H (30/9/2021)` <br/>
 `deadlineReturn library book/bytomorrow 2359H (30/9/2021)` <br/>
-`deadline  Return library book  /by   tomorrow 2359H (30/9/2021)`
+`deadline  Return library book  /by   tomorrow 2359H (30/9/2021)` <br/>
+`deadline Return library book /by 2021-09-30 23:59`
 
 Expected outcome:
 
@@ -85,6 +89,11 @@ Umm ok added:
   [D][ ] Return library book (by: tomorrow 2359H (30/9/2021))
 Now you have 2 tasks in the list.
 ```
+```
+Umm ok added:
+  [D][ ] Return library book (by: 30 Sep 2021 23:59H)
+Now you have 2 tasks in the list.
+```
 
 ### `event` - Adds Event task
 
@@ -95,11 +104,15 @@ The description and event timeframe of the task can contain spaces, numbers and 
 The number of spaces between the `event`/`/at` keyword and the description/event timeframe does not matter,
 however the `/at` keyword must be present.
 
+If the time is entered in the format `YYYY-MM-DD HH:MM`,
+the time will be stored as a LocalDateTime object.
+
 Example of usage:
 
 `event CS2113 lecture /at Friday 4-6pm` <br/>
 `eventCS2113 lecture/atFriday 4-6pm` <br/>
-`event  CS2113 lecture  /at   Friday 4-6pm`
+`event  CS2113 lecture  /at   Friday 4-6pm` <br/>
+`event CS2113 lecture /at 2021-10-01 16:00`
 
 Expected outcome:
 
@@ -113,6 +126,12 @@ Umm ok added:
   [E][ ] CS2113 lecture (at: Friday 4-6pm)
 Now you have 3 tasks in the list.
 ```
+```
+Umm ok added:
+  [E][ ] CS2113 lecture (at: 1 Oct 2021 16:00H)
+Now you have 3 tasks in the list.
+```
+
 ### `list` - Lists all tasks
 
 Enter the `list` keyword.

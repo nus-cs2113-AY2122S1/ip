@@ -42,6 +42,7 @@ public class EventCommand extends Command {
 
     /**
      * Parses command input by user and adds new Event Task to {@code tasks}.
+     * If user inputs time in correct format, an Event Task with a LocalDateTime object will be created instead.
      * @param tasks TaskList object containing all tasks as an ArrayList
      * @param ui Ui object for calling of ui methods
      * @param storage Storage object for writing to memory
@@ -81,6 +82,15 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * Writes user input into format for storage in the memory file, with an additional {@code atDateTime} field.
+     * If size == 0, line separator is not included at the front of the string.
+     * @param description description of task from user input
+     * @param atText time of task from user input
+     * @param size size of ArrayList of tasks
+     * @param atDateTime atText converted into LocalDateTime object
+     * @return formatted string for writing to memory
+     */
     private static String formatForMemory(String description, String atText, int size, LocalDateTime atDateTime) {
         if (size == 0) {
             return "E~0~" + description + "~" + atText + "~" + atDateTime;

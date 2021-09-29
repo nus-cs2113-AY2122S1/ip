@@ -1,0 +1,4 @@
+T~0~homework
+D~0~return book~tomorrow
+D~1~buy food~30 Sep 2021 10:00H~2021-09-30T10:00
+E~1~lecture~1 May 2000 00:01H~2000-05-01T00:01
