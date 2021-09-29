@@ -57,10 +57,9 @@ public class Storage {
     public static void saveFile(ArrayList<Task> userList, int numTask) {
         try {
             FileWriter updateFile = new FileWriter(userFile);
-            //TO FIX: DOESN'T UPDATE DONE STATUS
             for (int i = 0; i < numTask; i++) {
-                String stringToSave = userList.get(i).getTaskType() + " |" + TaskList.getDoneStatus(userList, i) +
-                        "| " + userList.get(i).getDescription() + "\n";
+                String stringToSave = userList.get(i).getTaskType() + " | " + TaskList.getDoneStatus(userList, i) +
+                        " | " + userList.get(i).getDescription() + "\n";
                 updateFile.write(stringToSave);
             }
             updateFile.close();

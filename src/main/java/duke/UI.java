@@ -1,7 +1,9 @@
 package duke;
 
 import duke.task.Task;
+
 import java.util.Scanner;
+import java.util.List;
 
 public class UI {
 
@@ -50,5 +52,17 @@ public class UI {
 
     public static void printLineSpacer() {
         System.out.println("\t**************************************************");
+    }
+
+    public static void printFoundEntries(List<Task> matches) {
+        int numOfMatches = matches.size();
+        if (numOfMatches == 0) {
+            System.out.println("\tSorry, there are no matches");
+        } else {
+            System.out.println("\tHere are your matching entries:");
+            for (int i = 0; i < numOfMatches; i++) {
+                System.out.println("\t" + (i + 1) + "." + matches.get(i).toString());
+            }
+        }
     }
 }
