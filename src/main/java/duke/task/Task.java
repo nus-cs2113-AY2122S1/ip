@@ -1,14 +1,12 @@
 package duke.task;
 
-import static duke.Duke.DATA_FILE_SEPARATOR;
-
 /**
  * Represents a task.
  */
 public abstract class Task {
-    protected String description;
+    private final String description;
     /** Whether the task has been completed */
-    protected boolean isDone;
+    private boolean isDone;
 
     /**
      * Creates a task with the specified description.
@@ -27,7 +25,7 @@ public abstract class Task {
      *
      * @return Status icon for the task.
      */
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
@@ -47,6 +45,15 @@ public abstract class Task {
         return description;
     }
 
+    /**
+     * Returns whether the task is completed.
+     *
+     * @return True if the task has been marked as completed; false otherwise.
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
     /** Marks task as completed */
     public void setAsDone() {
         isDone = true;
@@ -60,15 +67,5 @@ public abstract class Task {
     @Override
     public String toString() {
         return String.format("[%s][%s] %s", getTaskTypeIcon(), getStatusIcon(), getDescription());
-    }
-
-    /**
-     * Returns a string representation of the task that can be used for data storage.
-     * With this representation, the Task object can be recreated from scratch.
-     *
-     * @return A string representation of the task for data storage.
-     */
-    public String toDataString() {
-        return getTaskTypeIcon() + DATA_FILE_SEPARATOR + (isDone ? 1 : 0) + DATA_FILE_SEPARATOR + getDescription();
     }
 }

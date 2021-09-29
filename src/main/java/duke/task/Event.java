@@ -1,14 +1,12 @@
 package duke.task;
 
-import static duke.Duke.DATA_FILE_SEPARATOR;
-
 /**
  * Represents a task that starts at a specific time and ends at a specific time.
  */
 public class Event extends Task {
     public static final String TASK_TYPE_ICON = "E";
     /** Date and time of the event */
-    protected String at;
+    private final String at;
 
     /**
      * Creates a task with the specified description and event date/time.
@@ -19,6 +17,15 @@ public class Event extends Task {
     public Event(String description, String at) {
         super(description);
         this.at = at.trim();
+    }
+
+    /**
+     * Returns the event date and time.
+     *
+     * @return Event date and time.
+     */
+    public String getAt() {
+        return at;
     }
 
     @Override
@@ -35,10 +42,5 @@ public class Event extends Task {
     @Override
     public String toString() {
         return super.toString() + " (at: " + at + ")";
-    }
-
-    @Override
-    public String toDataString() {
-        return super.toDataString() + DATA_FILE_SEPARATOR + at;
     }
 }

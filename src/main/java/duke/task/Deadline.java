@@ -1,14 +1,12 @@
 package duke.task;
 
-import static duke.Duke.DATA_FILE_SEPARATOR;
-
 /**
  * Represents a task that needs to be done before a specific date/time.
  */
 public class Deadline extends Task {
     public static final String TASK_TYPE_ICON = "D";
     /** Deadline for the task (date/time) */
-    protected String by;
+    private final String by;
 
     /**
      * Creates a task with the specified description and deadline.
@@ -19,6 +17,15 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by.trim();
+    }
+
+    /**
+     * Returns the deadline for the task.
+     *
+     * @return Deadline for the task.
+     */
+    public String getBy() {
+        return by;
     }
 
     @Override
@@ -35,10 +42,5 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return super.toString() + " (by: " + by + ")";
-    }
-
-    @Override
-    public String toDataString() {
-        return super.toDataString() + DATA_FILE_SEPARATOR + by;
     }
 }

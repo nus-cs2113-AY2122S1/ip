@@ -19,20 +19,22 @@ import duke.commands.ToDoCommand;
 public class Parser {
     // Code below inspired by
     // https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/parser/Parser.java
-    public static final String MATCH_GROUP_COMMAND = "command";
-    public static final String MATCH_GROUP_ARGS = "args";
+    private static final String CAPTURING_GROUP_COMMAND = "command";
+    private static final String CAPTURING_GROUP_ARGS = "args";
     /** Used for initial separation of command word and args. */
-    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile(
-            "(?<" + MATCH_GROUP_COMMAND + ">\\S+)"
-                    + "(?<" + MATCH_GROUP_ARGS + ">.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile(
+            "(?<" + CAPTURING_GROUP_COMMAND + ">\\S+)"
+                    + "(?<" + CAPTURING_GROUP_ARGS + ">.*)");
 
-    public static final String MATCH_GROUP_DESCRIPTION = "description";
-    public static final String MATCH_GROUP_BY = "by";
-    public static final String MATCH_GROUP_AT = "at";
+    public static final String CAPTURING_GROUP_DESCRIPTION = "description";
+    public static final String DELIMITER_BY = "/by";
+    public static final String DELIMITER_AT = "/at";
+    public static final String CAPTURING_GROUP_BY = "by";
+    public static final String CAPTURING_GROUP_AT = "at";
     public static final Pattern TASK_ARGS_FORMAT = Pattern.compile(
-            "(?<" + MATCH_GROUP_DESCRIPTION + ">[^/]+)"
-                    + "( /by (?<" + MATCH_GROUP_BY + ">[^/]+))?"
-                    + "( /at (?<" + MATCH_GROUP_AT + ">[^/]+))?");
+            "(?<" + CAPTURING_GROUP_DESCRIPTION + ">[^/]+)"
+                    + "( " + DELIMITER_BY + " (?<" + CAPTURING_GROUP_BY + ">[^/]+))?"
+                    + "( " + DELIMITER_AT + " (?<" + CAPTURING_GROUP_AT + ">[^/]+))?");
 
     private static final String MESSAGE_TODO_DESCRIPTION_EMPTY = "The description of a todo cannot be empty.";
     private static final String MESSAGE_UNRECOGNISED_EVENT_FORMAT = "Unrecognised event format.\n"
@@ -50,12 +52,12 @@ public class Parser {
      * @throws DukeException If input is of an invalid command format.
      */
     public static Command parseCommand(String userInput) throws DukeException {
-        Matcher matcher = Parser.BASIC_COMMAND_FORMAT.matcher(userInput);
+        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput);
         if (!matcher.matches()) {
             throw new DukeException("Invalid command format!");
         }
-        final String command = matcher.group(Parser.MATCH_GROUP_COMMAND);
-        final String args = matcher.group(Parser.MATCH_GROUP_ARGS).trim();
+        final String command = matcher.group(CAPTURING_GROUP_COMMAND);
+        final String args = matcher.group(CAPTURING_GROUP_ARGS).trim();
 
         switch (command) {
         case ToDoCommand.COMMAND_WORD:
@@ -84,7 +86,7 @@ public class Parser {
         } catch (DukeException e) {
             throw new DukeException(MESSAGE_TODO_DESCRIPTION_EMPTY);
         }
-        final String description = matcher.group(MATCH_GROUP_DESCRIPTION);
+        final String description = matcher.group(CAPTURING_GROUP_DESCRIPTION);
         if (description == null || description.isBlank()) {
             throw new DukeException("Invalid command format!");
         }
@@ -93,8 +95,8 @@ public class Parser {
 
     private static Command prepareDeadline(String args) throws DukeException {
         final Matcher matcher = parseTask(args);
-        final String description = matcher.group(MATCH_GROUP_DESCRIPTION);
-        final String by = matcher.group(MATCH_GROUP_BY);
+        final String description = matcher.group(CAPTURING_GROUP_DESCRIPTION);
+        final String by = matcher.group(CAPTURING_GROUP_BY);
         if (description == null || description.isBlank() || by == null || by.isBlank()) {
             throw new DukeException(MESSAGE_UNRECOGNISED_DEADLINE_FORMAT);
         }
@@ -103,8 +105,8 @@ public class Parser {
 
     private static Command prepareEvent(String args) throws DukeException {
         final Matcher matcher = parseTask(args);
-        final String description = matcher.group(MATCH_GROUP_DESCRIPTION);
-        final String at = matcher.group(MATCH_GROUP_AT);
+        final String description = matcher.group(CAPTURING_GROUP_DESCRIPTION);
+        final String at = matcher.group(CAPTURING_GROUP_AT);
         if (description == null || description.isBlank() || at == null || at.isBlank()) {
             throw new DukeException(MESSAGE_UNRECOGNISED_EVENT_FORMAT);
         }
