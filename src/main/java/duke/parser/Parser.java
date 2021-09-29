@@ -1,6 +1,6 @@
 package duke.parser;
 
-import static duke.command.CommandType.*;
+import static duke.command.CommandType.valueOf;
 import static duke.ui.CommandMessage.HELP_MESSAGE;
 import static duke.ui.ErrorMessage.DEADLINE_ERROR_MESSAGE;
 import static duke.ui.ErrorMessage.EMPTY_DESCRIPTION_ERROR_MESSAGE;
@@ -22,7 +22,6 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskType;
 import duke.task.Todo;
-import duke.ui.Ui;
 import java.util.Locale;
 
 public class Parser {
@@ -45,7 +44,7 @@ public class Parser {
      *
      * @param fullCommand Command given by user that should be parsed
      * @return Command object based on the parsed command
-     * @exception DukeException Catch invalid commands exception and throw as DukeException
+     * @throws DukeException Catch invalid commands exception and throw as DukeException
      */
     public static Command parse(String fullCommand) throws DukeException {
         String[] userInputArray = fullCommand.split(USER_INPUT_SEPERATOR, 2);
@@ -87,12 +86,13 @@ public class Parser {
             }
 
             return command;
-        }catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new DukeException("Please give a number for the following command: " + userCommand + " <number>");
         } catch (IllegalArgumentException e) {
             throw new DukeException("Invalid Command Given.\n" + HELP_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Please give command in the following format, you are missing something.\n" + HELP_MESSAGE);
+            throw new DukeException(
+                    "Please give command in the following format, you are missing something.\n" + HELP_MESSAGE);
         }
     }
 
@@ -101,7 +101,7 @@ public class Parser {
      *
      * @param formattedTaskString Task formatted as String with ',' as delimiter
      * @return Task object
-     * @exception DukeException Catch invalid task type exception and throw as DukeException
+     * @throws DukeException Catch invalid task type exception and throw as DukeException
      */
     public static Task parseFormattedTaskString(String formattedTaskString) throws DukeException {
         try {
@@ -135,7 +135,7 @@ public class Parser {
      *
      * @param userInput User input for task description
      * @return Task object
-     * @exception DukeException Catch invalid task type exception and throw as DukeException
+     * @throws DukeException Catch invalid task type exception and throw as DukeException
      */
     public static Task parseUserInputTaskString(String userInput, TaskType taskType) throws DukeException {
         try {
@@ -147,7 +147,7 @@ public class Parser {
             }
             Task task = null;
             String[] userArguments = null;
-            switch (taskType){
+            switch (taskType) {
             case TODO:
                 task = new Todo(userInput);
                 break;

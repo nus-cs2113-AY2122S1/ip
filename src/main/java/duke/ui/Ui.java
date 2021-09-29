@@ -1,8 +1,12 @@
 package duke.ui;
 
+import static duke.ui.CommandMessage.ADD_TASK_MESSAGE;
+import static duke.ui.CommandMessage.COMPLETE_TASK_MESSAGE;
+import static duke.ui.CommandMessage.DELETE_TASK_MESSAGE;
+import static duke.ui.CommandMessage.HELP_MESSAGE;
+
 import duke.task.Task;
 import java.util.Scanner;
-import static duke.ui.CommandMessage.*;
 
 /**
  * Ui class that manages interactions with user input
@@ -22,14 +26,14 @@ public class Ui {
 
 
     /* A scanner to read user input */
-    private Scanner in;
+    private final Scanner in;
 
     public Ui() {
         this.in = new Scanner(System.in);
     }
 
     /**
-     * Prints given string in the middle of 2 horizontal lines.
+     * Prints given string as given
      *
      * @param message String to be printed
      */
@@ -37,40 +41,62 @@ public class Ui {
         System.out.println(message);
     }
 
-    public void printHorizontalLines(){
+    public void printHorizontalLines() {
         System.out.println(LINE);
     }
 
-    public void printWelcomeMessage(){
+    public void printWelcomeMessage() {
         printHorizontalLines();
         printMessage(WELCOME_MESSAGE);
         printHorizontalLines();
     }
 
-    public void printExitMessage(){
+    public void printExitMessage() {
         printMessage(EXIT_MESSAGE);
     }
 
-    public void printHelpMessage(){
+    public void printHelpMessage() {
         printMessage(HELP_MESSAGE);
     }
 
-    public void printAddTaskMessage(Task task, int taskLeft){
+    /**
+     * Prints add task message
+     *
+     * @param task     task that was added
+     * @param taskLeft total number of task in tasklist
+     */
+    public void printAddTaskMessage(Task task, int taskLeft) {
         printMessage(String.format(ADD_TASK_MESSAGE, task.toString(), taskLeft));
     }
 
-    public void printCompleteTaskMessage(Task task){
+    /**
+     * Prints complete task message
+     *
+     * @param task task that was marked as completed
+     */
+    public void printCompleteTaskMessage(Task task) {
         printMessage(String.format(COMPLETE_TASK_MESSAGE, task.toString()));
     }
 
-    public void printDeleteTaskMessage(Task task, int taskLeft){
+    /**
+     * Prints delete task message
+     *
+     * @param task     task that was deleted
+     * @param taskLeft total number of task in tasklist
+     */
+    public void printDeleteTaskMessage(Task task, int taskLeft) {
         printMessage(String.format(DELETE_TASK_MESSAGE, task.toString(), taskLeft));
     }
 
-    public void printErrorMessage(String errorMessage){
+    public void printErrorMessage(String errorMessage) {
         printMessage(errorMessage);
     }
 
+    /**
+     * Read one line of input of user
+     *
+     * @return String that was given by user
+     */
     public String readCommand() {
         return this.in.nextLine();
     }

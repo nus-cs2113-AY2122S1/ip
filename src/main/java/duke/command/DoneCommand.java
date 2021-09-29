@@ -12,7 +12,7 @@ public class DoneCommand extends Command {
     private final int taskNumber;
 
     public DoneCommand(int taskNumber) {
-        this.taskNumber = --taskNumber;
+        this.taskNumber = taskNumber;
     }
 
     @Override

@@ -67,7 +67,7 @@ You now have 5 task in the list
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 Why would you delete the following task? But anyways I have removed the following task.
 [E][ ] concert  (at: 5pm)
-Now you have left 5 tasks in the list.
+Now you have left 4 tasks in the list.
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 Sorry, task selected does not exist! Please double check if task number exist with the list command.
@@ -103,7 +103,7 @@ Good lad, you have finally completed the task you needed to do.
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 Why would you delete the following task? But anyways I have removed the following task.
 [T][X] sleep
-Now you have left 4 tasks in the list.
+Now you have left 3 tasks in the list.
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 Total of 3 task(s)

@@ -22,6 +22,8 @@ public class Storage {
 
     /**
      * Load all task data from ./data/task.txt to task manager
+     *
+     * @throws DukeException IOException is taken and thrown as Duke Exception
      */
     public ArrayList<Task> loadData() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -46,8 +48,9 @@ public class Storage {
      * Save all task data to ./data/tasks.txt
      *
      * @param taskList Current list of task in the program
+     * @throws IOException Throws exception if there is issue with the reading and writing of file
      */
-    public void saveData(ArrayList<Task> taskList) throws IOException{
+    public void saveData(ArrayList<Task> taskList) throws IOException {
         try {
             File taskFileDirectory = new File("data");
             File taskFile = new File("data" + File.separator + "tasks.txt");
