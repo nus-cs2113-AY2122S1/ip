@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Duke {
     private Ui ui;
     private Storage storage;
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
 
     public Duke(String filePath) {
