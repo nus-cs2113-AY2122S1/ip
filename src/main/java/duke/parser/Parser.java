@@ -92,7 +92,7 @@ public class Parser {
             "(?<description>^.*(?=/by))/by(?<deadline>.*)");
 
     public static final Pattern COMMAND_DATE_TIME_FORMAT = Pattern.compile(
-            "(?<date>\\d+[:/]\\d+[:/]\\d+)(?<time>.*)");
+            "(?<date>\\d+[:/-]\\d+[:/-]\\d+)(?<time>.*)");
 
     private static Command prepareEvent(String args) throws IllegalCommandException {
         return prepareDeadlineEvent(args, Event.TASK_TYPE);
@@ -167,7 +167,7 @@ public class Parser {
         LocalDate deadlineDate = null;
         LocalTime deadlineTime = null;
 
-        if (dateMatcher.matches()) {
+        if (dateMatcher.find()) {
             final String date = dateMatcher.group("date").trim();
             final String time = dateMatcher.group("time").trim();
 
