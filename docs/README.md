@@ -8,7 +8,7 @@ Duke is a **desktop app for users to quickly manage their to-do list** via <a hr
 
 ## <span id="quick-start">Quick Start</span>
 1. Ensure `Java 11` are installed in your computer.
-2. Download the latest `ip.jar` from here.
+2. Download the latest `ip.jar` from <a href="https://github.com/siyuancheng178/ip/releases">here</a>.
 3. Copy the file to the folder you want to use as the home folder for Duke.
 4. Type the following command in your terminal to run this program: java -jar ip.jar (You should change directory to where the ip.jar file is located or provide the absolute path of ip.jar).
 5. Duke will ask for you to choose CLI mode or GUI mode.
