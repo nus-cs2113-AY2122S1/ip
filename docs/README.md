@@ -8,7 +8,7 @@ Duke is a tasks management bot which helps you to manage your daily tasks. With 
 1. Download the `ip.jar` file from Releases in this repository.
 2. Put the `ip.jar` file into an empty foler.
 3. Open a terminal/Command Prompt window and navigate to the folder containing the `ip.jar` file.
-4. Make sure Java SE Development Kit 11 is installed on your computer. Key in the command `java -jar ip.jar` and press Enter.
+4. Make sure Java Development Kit 11 is installed on your computer. Key in the command `java -jar ip.jar` and press Enter.
 5. You will see a command-line interface. You can now use it by keying commands (which will be introduced below).
 
 ## Features 
