@@ -2,7 +2,7 @@
 
 **Duke** is a checklist app for recording tasks, via a Command Line Interfaces.
 
-## Features 
+# Features 
 
 ## Add a new task
  This function will add three types of task, including todo, event and deadline into the list.
