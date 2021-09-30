@@ -1,5 +1,10 @@
 package duke.task;
 
+
+/**
+ * One of the three types of tasks creatable by the user.
+ * Has an additional at field that indicates when the task starts and ends.
+ */
 public class Event extends Task {
     protected String at;
 

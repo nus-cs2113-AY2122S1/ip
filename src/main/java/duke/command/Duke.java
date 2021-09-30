@@ -7,11 +7,21 @@ import duke.task.TaskList;
 
 import java.io.IOException;
 
+
+/**
+ * Entry point of the Duke application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Duke {
     private Ui ui;
     private Storage storage;
     TaskList taskList;
 
+    /**
+     * Constructor to initialise the program.
+     *
+     * @param filePath The path of the storage file.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         try {
@@ -19,10 +29,12 @@ public class Duke {
             taskList = new TaskList(storage.load(), storage);
         } catch (IOException e) {
             ui.showLoadingError(e);
-            taskList = new TaskList(storage);
         }
     }
 
+    /**
+     * Runs the program until termination.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -39,6 +51,12 @@ public class Duke {
         ui.showBye();
     }
 
+    /**
+     * Checks whether the command is bye and changes the exit condition correspondingly.
+     *
+     * @param commandWord Command word of the input by the user.
+     * @return Exit status of the application.
+     */
     public boolean checkIsExit(String commandWord) {
         if (commandWord.equals("bye")) {
             return true;
@@ -47,6 +65,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Executes the corresponding command to the input with the correct format by the user.
+     *
+     * @param taskList Task list that manages all the tasks.
+     * @param parsedFullCommand The parsed command that can be fed into the TaskList functions.
+     */
     public void execute(TaskList taskList, String[] parsedFullCommand) {
         String commandWord = parsedFullCommand[0];
         switch (commandWord) {
@@ -77,6 +101,9 @@ public class Duke {
             } else {
                 ui.showLoadingError();
             }
+            break;
+        case "find":
+            taskList.filterTasksByString(parsedFullCommand[1]);
             break;
         case "bye":
             break;
