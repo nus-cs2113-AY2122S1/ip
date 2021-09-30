@@ -1,0 +1,9 @@
+todo feed dog
+list
+deadline do physics assignment /by this Sunday
+event cca workshop /at Thursday 6-8pm
+list
+done 3
+done 1
+list
+bye
