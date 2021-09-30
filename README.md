@@ -168,9 +168,9 @@ Input:
 Output:
 ```
 Got it. I've marked this task as complete:
+[T][X] task 1
 ____________________________________________________________
 
-[T][X] task 1
 You have 2 tasks in the list.
 1 tasks are undone.
 ____________________________________________________________
