@@ -11,7 +11,7 @@ public class Duke {
 
     private final Storage storage;
     private final TaskList tasks;
-    private static final UI ui = new UI();
+    private final UI ui = new UI();
     private boolean status = false;
 
 
@@ -72,6 +72,22 @@ public class Duke {
         ui.endLine();
     }
 
+    public void find(String item) {
+        TaskList matches = new TaskList();
+        for(Task i : tasks.getList()){
+            if(i.toString().contains(item)) {
+                matches.getList().add(i);
+            }
+        }
+        if(matches.getList().size() == 0){
+            ui.print("No matches found");
+        }
+        else{
+            ui.print("Here are the matching tasks in your list:");
+            listOut(matches);
+        }
+    }
+
 
     public void addList(Task item) {
         tasks.addTask(item);
@@ -88,7 +104,7 @@ public class Duke {
     }
 
 
-    public void listOut() {
+    public void listOut(TaskList tasks) {
         if(tasks.getList().size()==0) {
             ui.print("Woohooo no tasks due ~~~~");
         }
@@ -137,16 +153,19 @@ public class Duke {
             ui. endLine();
         } catch (NumberFormatException e) {
             ui.print("Please enter the index of the task.");
-            listOut();
+            listOut(tasks);
         } catch(NullPointerException | IndexOutOfBoundsException e) {
             ui.print("Number entered is invalid.");
-            listOut();
+            listOut(tasks);
         } catch (IOException e) {
             ui.print("Unable to write files");
             ui.endLine();
         }
     }
 
+    public TaskList getList(){
+        return tasks;
+    }
 
     public boolean getStatus() {
         return this.status;

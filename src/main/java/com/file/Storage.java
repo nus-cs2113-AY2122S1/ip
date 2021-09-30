@@ -11,7 +11,6 @@ import java.io.IOException;
 
 
 public class Storage {
-    private final static int FILE_MAX_LINES = 100;
     String fileName;
     String filePath;
     public Storage(String fileName){

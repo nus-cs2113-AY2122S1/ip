@@ -11,7 +11,7 @@ public class Command {
 
     Duke duke;
 
-    private static final ArrayList<String> COMMAND_LIST = new ArrayList<>();
+    private final ArrayList<String> COMMAND_LIST = new ArrayList<>();
 
 
     public Command(Duke duke) {
@@ -31,11 +31,16 @@ public class Command {
                 duke.greet();
                 break;
             case "list":
-                duke.listOut();
+                duke.listOut(duke.getList());
                 break;
             default:
                 if(line.contains("done")) {
                     duke.markDone(line);
+                    break;
+                }
+                if(line.contains("find")) {
+                    line = line.substring(5);
+                    duke.find(line);
                     break;
                 }
                 if(line.contains("delete")) {
