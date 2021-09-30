@@ -42,7 +42,7 @@ public class Duke {
     public void run() {
         displayManager.printStartGreet();
         String fullCommand;
-        fullCommand = in.nextLine();
+        fullCommand = in.nextLine().toLowerCase();
         while (true) {
             try {
                 Command command = parser.parse(taskManager, parser, fullCommand);
@@ -57,7 +57,7 @@ public class Duke {
                 System.out.println(e);
                 DisplayManager.printHorizontalSeparator();
             }
-            fullCommand = in.nextLine();
+            fullCommand = in.nextLine().toLowerCase();
         }
         displayManager.printEndGreet();
     }
