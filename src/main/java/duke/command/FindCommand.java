@@ -26,7 +26,7 @@ public class FindCommand extends Command {
         System.out.println("    Here are the tasks found in the list:");
         for (int i = 0; i < list.listSize(); i++) {
             if (list.getTask(i).description.contains(keyWords)) {
-                System.out.println(j + "." + list.getTask(i));
+                System.out.println("    " + j + "." + list.getTask(i));
                 j++;
             }
         }

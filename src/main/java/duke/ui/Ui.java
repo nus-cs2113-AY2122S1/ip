@@ -2,7 +2,6 @@ package duke.ui;
 
 import duke.task.TaskList;
 import duke.task.TaskDoneList;
-import java.util.ArrayList;
 
 public class Ui {
     private static final String SPLIT_LINE = "    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
@@ -17,6 +16,7 @@ public class Ui {
 
         System.out.println(SPLIT_LINE + "\n    Hello! I'm Duke\n"
             + "    What can I do for you?\n" + SPLIT_LINE);
+        System.out.println("    Enter \'help\' for detailed information\n");
     }
 
     public void printSplitLine() {
@@ -62,6 +62,24 @@ public class Ui {
         ui.printSplitLine();
     }
 
+    public void showHelpMessage(Ui ui) {
+        ui.printSplitLine();
+        System.out.println("    Hello! Welcome to Duke.\n"
+            + "    I will help you track three types of tasks: Todo, Deadline and Event.\n"
+            + "    To add task in list, start with \"todo\", \"deadline\" or \"event\""
+            + "and followed with the description of your task\n"
+            + "    (For deadlines and events, please enter either \"by (your deadline)\""
+            + "or \"at (your event time)\")\n"
+            + "    To view all your tasks, enter \"list\".\n"
+            + "    To mark one task as done and print all finished tasks in list,"
+            + " enter \"done (task index)\". \n"
+            + "    To delete a task in the list, enter \"delete (task index)\". \n"
+            + "    To find your tasks with keywords, enter \"find (keyword)\". \n"
+            + "    To exit duke, enter \"bye\". \n"
+            + "    To view the help information, enter \"help\". \n"
+            + "    Thank you for choosing Duke :) Please enter command:");
+        ui.printSplitLine();
+    }
 
     public void printAddCommand(TaskList list, Ui ui){
         ui.printSplitLine();

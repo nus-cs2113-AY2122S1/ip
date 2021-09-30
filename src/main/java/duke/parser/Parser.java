@@ -37,6 +37,8 @@ public class Parser {
             return "E";
         } else if (command.contains("find")) {
             return "FIND";
+        } else if (command.contains("help")) {
+            return "HELP";
         } else {
             throw new DukeException();
         }
@@ -63,6 +65,8 @@ public class Parser {
                 return new ListCommand();
             case "FIND":
                 return new FindCommand(command);
+            case "HELP":
+                return new HelpCommand();
             default:
                 return new AddCommand(command);
             }
