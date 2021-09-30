@@ -68,6 +68,7 @@ ____________________________________________________________
        Now you have 3 task(s) in the list.
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    ```
+
 #### 2. List all tasks
 - Print all task in the list
 - Format: list
@@ -80,6 +81,7 @@ ____________________________________________________________
     3.[E][ ] project meeting (at: Mon 2-4pm)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
+
 #### 3. Mark one task as done and print all finished tasks in list
 - Format: `done [index]`
 - Example: `done 1`
@@ -93,6 +95,7 @@ ____________________________________________________________
     1.[T][X] homework
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ````
+
 #### 4. Delete one task in list
 - Format: `delete [index]`
 - Example: `delete 3`
