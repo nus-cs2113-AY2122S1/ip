@@ -84,7 +84,7 @@ public class Ui {
      *
      * @param taskList Array list of task currently in TaskList class
      */
-    public void printCompleteTaskMessage(ArrayList<Task> taskList) {
+    public void printListOfTaskMessage(ArrayList<Task> taskList) {
         int taskListSize = taskList.size();
         new StringBuilder();
         StringBuilder message;
