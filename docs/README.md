@@ -75,10 +75,10 @@ Expected output:
   ```
 
 ### Add a new event task - `event`
-To add a new event task, use the command `event` with syntax: `event [TASK_DESCRIPTION] /(at) [START_TIME] [-] [END_TIME]\
+To add a new event task, use the command `event` with syntax: `event [TASK_DESCRIPTION] [/] (at) [START_TIME] [-] [END_TIME]\
 Eg:
 ```
-event swimming /at 2 - 4 pm
+event swimming / at 2 - 4 pm
 ```
 Expected output:
 ```
@@ -89,7 +89,7 @@ Expected output:
 **Note:** The number of tasks in total depends on how many task you have saved. The blackslash `/` and the dash `-` are mandatory for adding a new event.
 
 ### Add a new deadline task - `deadline`
-To add a new deadline task, use the command `deadline` with syntax: `deadline [TASK_DESCRIPTION] /(by) [END_DATE of format yyyy-MM-dd] [END_TIME of utc time HH:mm]\
+To add a new deadline task, use the command `deadline` with syntax: `deadline [TASK_DESCRIPTION] [/] (by) [END_DATE of format yyyy-MM-dd] [END_TIME of utc time HH:mm]\
 Eg:
 ```
 deadline submit project /by 2021-10-1 23:59
@@ -211,8 +211,8 @@ Command | Usage | Syntax
 `profile`| views the profile with cute picture of the bot character | `profile`
 `help`|views the help menu from the application | `help`
 `todo`|adds a new to-do task to the to-do list | `todo [TASK_DESCRIPTION]`
-`event`|adds a new event task to the to-do list | `event [TASK_DESCRIPTION] /(at) [START_TIME] [-] [END_TIME]`
-`deadline`|adds a new deadline task to the to-do list | `deadline [TASK_DESCRIPTION] /(by) [END_DATE yyyy-MM-dd] [END_TIME utc HH:mm]`
+`event`|adds a new event task to the to-do list | `event [TASK_DESCRIPTION] [/] (at) [START_TIME] [-] [END_TIME]`
+`deadline`|adds a new deadline task to the to-do list | `deadline [TASK_DESCRIPTION] [/] (by) [END_DATE yyyy-MM-dd] [END_TIME utc HH:mm]`
 `list` | views the to-do list | `list`
 `done` | marks tasks as done | `done [TASK_INDEX/INDICES]`
 `delete` |deletes unused tasks | `delete [TASK_INDEX/INDICES]/all`
