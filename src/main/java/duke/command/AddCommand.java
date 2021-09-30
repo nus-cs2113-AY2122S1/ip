@@ -8,7 +8,7 @@ import duke.Ui;
 import duke.task.Task;
 
 public class AddCommand extends Command {
-    Task task = null;
+    private Task task = null;
 
     /**
      * Constructor for AddCommand, command to add task to taskList

@@ -19,9 +19,9 @@ Duke is a Personal Assistant Command Line Chatbot designed to help you manage yo
 ## Quick Start Guide
 
 1. Ensure you have `Java 11` installed on your computer.
-2. Download the latest `ip.jar` file from [here](https://github.com/justinfidelis/ip/releases).
+2. Download the latest `duke.jar` file from [here](https://github.com/justinfidelis/ip/releases).
 3. Move the file to the folder that you want to use as the Duke's root folder.
-4. Execute the `java -jar ip.jar` command in the terminal in the same folder as the `ip.jar` file to launch Duke. The following output should be observed:
+4. Execute the `java -jar duke.jar` command in the terminal in the same folder as the `duke.jar` file to launch Duke. The following output should be observed:
 
 ![startup image](images/startup.png)
 
