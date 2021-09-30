@@ -9,6 +9,14 @@ import duke.task.ToDo;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Duke {
     private static final String COMMAND_EXIT_WORD = "bye";
     private static final String COMMAND_LIST_WORD = "list";
@@ -19,16 +27,32 @@ public class Duke {
     private static final String COMMAND_DELETE_WORD = "delete";
     private static final String[] COMMAND_WORDS_LIST = {COMMAND_TODO_WORD, COMMAND_DEADLINE_WORD, COMMAND_EVENT_WORD, COMMAND_LIST_WORD, COMMAND_DONE_WORD, COMMAND_EXIT_WORD};
     private static final Scanner INPUT_COMMAND = new Scanner(System.in);
+    private static final String PATH = "data/duke.txt";
+    private static final Path ROOT_FOLDER = Paths.get("data");
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ArrayList<Task> tasksArrayList = new ArrayList<>();
-        System.out.println(tasksArrayList.size());
         showWelcomeMessage();
+        tasksArrayList = loadData();
         executeProgramWithErrorHandlings(tasksArrayList);
         exitProgram();
     }
 
-    public static void executeProgramWithErrorHandlings(ArrayList<Task> tasksArrayList) {
+    private static ArrayList<Task> loadData() throws IOException {
+        ArrayList<Task> tasksArrayList;
+        try {
+            tasksArrayList = readFile(PATH);
+        } catch (FileNotFoundException e) {
+            if (Files.notExists(ROOT_FOLDER)) {
+                Files.createDirectory(ROOT_FOLDER);
+            }
+            Files.createFile(Paths.get(PATH));
+            tasksArrayList = readFile(PATH);
+        }
+        return tasksArrayList;
+    }
+
+    public static void executeProgramWithErrorHandlings(ArrayList<Task> tasksArrayList) throws IOException {
         String inputLine = INPUT_COMMAND.nextLine();
         ;
         while (!inputLine.equals(COMMAND_EXIT_WORD)) {
@@ -67,6 +91,7 @@ public class Duke {
                 inputLine = INPUT_COMMAND.nextLine();
             }
         }
+        writeToFile(PATH, tasksArrayList);
     }
 
     public static void executeCommand(ArrayList<Task> tasksArrayList, String inputLine) throws IllegalCommand, EmptyToDoDescription, IllegalDeadlineInput, IllegalEventInput, EmptyTaskNumber {
@@ -113,6 +138,50 @@ public class Duke {
         default:
             throw new IllegalCommand();
         }
+
+    }
+
+    private static ArrayList<Task> readFile(String filePath) throws FileNotFoundException {
+        Scanner s = new Scanner(new File(filePath));
+        ArrayList<Task> tasksArrayList = new ArrayList<>();
+        int taskCount = 0;
+        while (s.hasNext()) {
+            String str = s.nextLine();
+            String taskType = str.substring(1,2);
+            String taskDescription = str.substring(7);
+            String taskStatus = str.substring(4,5);
+            switch (taskType) {
+            case "T":
+                tasksArrayList.add(new ToDo(taskDescription));
+                completedTask(tasksArrayList, taskCount, taskStatus);
+                break;
+            case "D" :
+                tasksArrayList.add(new Deadline(taskDescription.split(" /by ")[0], taskDescription.split(" /by ")[1]));
+                completedTask(tasksArrayList, taskCount, taskStatus);
+                break;
+            case "E" :
+                tasksArrayList.add(new Event(taskDescription.split(" /at ")[0], taskDescription.split(" /at ")[1]));
+                completedTask(tasksArrayList, taskCount, taskStatus);
+                break;
+            }
+            taskCount++;
+        }
+        s.close();
+        return tasksArrayList;
+    }
+
+    private static void completedTask(ArrayList<Task> tasksArrayList, int taskCount, String taskStatus) {
+        if (taskStatus.equals("X")) {
+            tasksArrayList.get(taskCount).setDone(true);
+        }
+    }
+
+    private static void writeToFile(String filePath, ArrayList<Task> tasksArrayList) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (Task t: tasksArrayList) {
+            fw.write(t + System.lineSeparator());
+        }
+        fw.close();
     }
 
     public static void deleteTask(ArrayList<Task> tasksArrayList, String inputLine) {
