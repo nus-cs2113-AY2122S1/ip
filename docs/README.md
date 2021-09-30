@@ -117,7 +117,8 @@ ____________________________________________________________
 done 1
 ____________________________________________________________
 
-Nice! I've marked this task as done:[T][X] homework
+Awesome! You've completed the following task:
+  [T][X] homework
 ____________________________________________________________
 ```
 <br />
@@ -177,6 +178,8 @@ Format: `bye`
 ### <a id="save"></a>Saving task data
 Duke saves your task list from the usage into your local storage as a text file.<br />
 Upon reinitialization, it reloads that file, so you access previously added tasks.
+
+<br />
 
 ## <a id="summary"></a>Command Summary
 
