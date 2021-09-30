@@ -1,8 +1,8 @@
 package com.ui;
 
 public class UI {
-    private static String[] outputLines = new String[100];
-    private static int LineCount = 0;
+    private String[] outputLines = new String[100];
+    private int LineCount = 0;
     private final static String LINESEPARATER = "\t______________________________________________________________________";
 
     public void welcome(){
