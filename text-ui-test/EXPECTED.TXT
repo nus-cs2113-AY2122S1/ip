@@ -39,9 +39,9 @@ I can do that! I have added [4] to your task list!
 3.[T][ ] 3
 4.[T][ ] 4
 ------------------------------------------------------
-Unable to add task due to invalid deadline entered. Please enter in the format: [dd MM yyyy hh:mm]!
+Invalid date entered! Please enter the date in the following format: [dd MM yyyy hh:mm]. You have entered: "2pm"
 Please specify a valid event/time of the event!
-Unable to add task due to invalid deadline entered. Please enter in the format: [dd MM yyyy hh:mm]!
+Invalid date entered! Please enter the date in the following format: [dd MM yyyy hh:mm]. You have entered: "4pm"
 Please specify a valid task/deadline of completion!
 ------------------------------------------------------
 I can do that! I have added [assignment] to your task list!

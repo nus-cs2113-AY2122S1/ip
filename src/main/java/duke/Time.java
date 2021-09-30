@@ -22,7 +22,7 @@ public class Time {
             Date date = originalFormat.parse(time);
             return targetFormat.format(date);
         } catch (ParseException e) {
-            return "Invalid deadline entered! Please enter the deadline in the following format: [dd MM yyyy hh:mm]. You have entered: \"" +
+            return "Invalid date entered! Please enter the date in the following format: [dd MM yyyy hh:mm]. You have entered: \"" +
                     time + "\"";
         }
     }
@@ -39,7 +39,8 @@ public class Time {
             Date date = originalFormat.parse(time);
             return true;
         } catch (ParseException e) {
-            System.out.println("Unable to add task due to invalid deadline entered. Please enter in the format: [dd MM yyyy hh:mm]!");
+            System.out.println("Invalid date entered! Please enter the date in the following format: [dd MM yyyy hh:mm]. You have entered: \"" +
+                    time + "\"");
             return false;
         }
 
