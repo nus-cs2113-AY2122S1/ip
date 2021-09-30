@@ -1,8 +1,8 @@
 # User Guide
 
 Duke is a **desktop app for managing tasks**, optimized for use via a **Command Line Interface (CLI)**.
-  There is no Graphical Interface (GUI), but the program will better than traditional apps if you can type fast.
-<br />
+There is no Graphical Interface (GUI), but the program will work better than traditional apps if you can type fast.
+
  ----------------
 ## Features
 
@@ -180,7 +180,7 @@ There is no need to save manually.
 <br />
 
  --------------
-##Command Summary
+## Command Summary
 
 Action | Format/Examples |
 ------ | --------------- |
