@@ -42,7 +42,8 @@ public class Ui {
             + ByeCommand.MESSAGE_COMMAND_DESCRIPTION;
     private static final String MESSAGE_DATA_LOADED = "Your old data has been successfully loaded!" + LS
             + "You have %d tasks. Type " + ListCommand.MESSAGE_COMMAND_FORMAT + " to see current tasks!";
-    public static final String MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST = "Command does not exist @_@";
+    public static final String MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST = "Command does not exist @_@" + LS + "Lost? Type "
+            + CommandListCommand.MESSAGE_COMMAND_FORMAT + " to see the list of commands that Dude understands!";
     public static final String MESSAGE_ERROR_DATE_FORMAT_WRONG = "Please input the date and time in the format " +
             QUOTATION + DATE_TIME_FORMAT + QUOTATION + "!" + LS + "E.g: 12/12/2012 2359";
 

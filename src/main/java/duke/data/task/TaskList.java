@@ -52,6 +52,9 @@ public class TaskList {
 
     /**
      * Deletes task in list, given the task number
+     *
+     * @throws TaskListEmptyException If current task list is empty
+     * @throws TaskNumOutOfBoundsException If taskNum is not within the indexes that the TaskList has
      */
     public void deleteTask(int taskNum) throws TaskListEmptyException, TaskNumOutOfBoundsException {
         if (internalTasks.isEmpty()) {
@@ -68,6 +71,10 @@ public class TaskList {
 
     /**
      * Marks task as done, given the task number
+     *
+     * @param taskNum Task number
+     * @throws TaskListEmptyException If current task list is empty
+     * @throws TaskNumOutOfBoundsException If taskNum is not within the indexes that the TaskList has
      */
     public void markTaskAsDone(int taskNum) throws TaskListEmptyException, TaskNumOutOfBoundsException,
             TaskAlreadyDoneException {
@@ -88,8 +95,18 @@ public class TaskList {
         return this.internalTasks;
     }
 
-    /** Returns the task at specific task number */
-    public Task getTaskAtNum(int taskNum) throws TaskNumOutOfBoundsException {
+    /**
+     * Returns the Task at the given task number
+     *
+     * @param taskNum Task number
+     * @return Task at the given task number
+     * @throws TaskListEmptyException If current task list is empty
+     * @throws TaskNumOutOfBoundsException If taskNum is not within the indexes that the TaskList has
+     */
+    public Task getTaskAtNum(int taskNum) throws TaskListEmptyException, TaskNumOutOfBoundsException {
+        if (this.internalTasks.isEmpty()) {
+            throw new TaskListEmptyException();
+        }
         try {
             return this.internalTasks.get(convertToIndexNum(taskNum));
         } catch (IndexOutOfBoundsException e) {
@@ -101,7 +118,6 @@ public class TaskList {
     public int getNumTasks() {
         return this.internalTasks.size();
     }
-
 
     /** Returns true if TaskList is empty */
     public boolean isEmpty() {
