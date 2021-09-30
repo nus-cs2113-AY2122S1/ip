@@ -20,9 +20,11 @@ public class TaskList {
             Task t = Duke.tasks.get(index - 1);
             Duke.tasks.remove(index - 1);
             System.out.println("Noted. I've removed this task:\n" + t);
+            Duke.printDivider();
             getTasksLeft();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("This task index does not exist");
+            Duke.printDivider();
         }
     }
 
@@ -39,7 +41,7 @@ public class TaskList {
                 System.out.println((i + 1) + ". " + Duke.tasks.get(i).toString());
             }
         }
-        Duke.printDivider();
+        getTasksLeft();
     }
 
     /**

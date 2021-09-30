@@ -136,6 +136,8 @@ public class Parser extends Duke {
         if(!taskExists) {
             System.out.println("There are no tasks containing such words!");
         }
+
+        printDivider();
     }
 
     /**
