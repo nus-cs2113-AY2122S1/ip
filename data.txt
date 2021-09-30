@@ -1,2 +1,2 @@
-E * 1 * my birthday  * 2021-09-27 0000 to 2021-09-27 2359
-D * 0 * finish cs3230 pyp  * 2021-09-27 2300
+D * 0 * CS2113T ip  * 2021-10-01 2359
+T * 0 * prepare for CG2027 final

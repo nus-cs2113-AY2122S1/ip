@@ -24,7 +24,7 @@ public class Ui {
             + SPACING + "Hello! I'm Duke\n"
             + SPACING + "What can I do for you?\n"
             + LINE_SEPARATOR;
-    static final String COUNT_NUMBER = " tasks in total";
+    static final String COUNT_NUMBER = " task(s) in total";
 
     /**
      * Print greeting message when the program starts.
