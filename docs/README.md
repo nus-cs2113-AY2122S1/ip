@@ -25,7 +25,7 @@ task managing apps.
 ```
 7. Type your command in the blank line under the horizontal separator and press Enter to execute it.
    (Ex. typing `list` and pressing Enter will display your current task list.)
-8. Refer to the [Features](##-Features) section below for details on each command.
+8. Refer to the [Features](#Features) section below for details on each command.
 ---
 ## Features
 
@@ -37,21 +37,30 @@ task managing apps.
         - For example: index **1** corresponds to the **first task** in the task list, 
           index **3** corresponds to the **third task**.
     - `KEYWORD` represents the keyword to be specified by the user.
+    - `TASK_TYPE_CHAR` represents the type of task.
+        - `T` represents a `Todo` task.
+        - `D` represents a `Deadline` task.
+        - `E` represents an `Event` task.
+    - `STATUS_MARKER_INT` represents the completion status of the task in the data text file.
+        - `0` represents an **undone** task.
+        - `1` represents a **done** task.
 - Items with `...` after them can be used more than once.
     - For example: `done INDEX...` means `done 1 2 3` is a valid command.
 
 ### Feature List
-- [Adding Todo Task: `todo`]()
-- [Adding Deadline Task: `deadline`]()
-- [Adding Event Task: `event`]()
-- [Listing all tasks: `list`]()  
-- [Setting tasks as done: `done`]()
-- [Finding tasks by keyword: `find`]()
-- [Deleting tasks: `delete`]()
-- [Exiting the program: `bye`]()
-- [Saving the data]()
+- [Adding Todo Task: `todo`](#todo-adding-a-todo-task)
+- [Adding Deadline Task: `deadline`](#deadline---adding-a-deadline-task)
+- [Adding Event Task: `event`](#event---adding-an-event-task)
+- [Listing all tasks: `list`](#list---listing-all-tasks)  
+- [Setting tasks as done: `done`](#done---setting-tasks-as-done)
+- [Finding tasks by keyword: `find`](#find---finding-tasks-by-keyword)
+- [Deleting tasks: `delete`](#delete---deleting-tasks)
+- [Exiting the program: `bye`](#bye---exiting-the-program)
+- [Saving the data](#saving-the-data)
+- [Editing the data text file](#editing-the-data-text-file)
 ---
-### `todo` - Adding a Todo Task
+### `todo`: Adding a Todo Task
+
 Adds a task of type `Todo` into your task list.  
   
 Format: `todo TASK_NAME`
@@ -196,7 +205,7 @@ Duke saves all the task data into a text file automatically after any command pe
 There is no need to save data manually.
 
 ---
-### Editing the data file
+### Editing the data text file
 Duke saves the task data into a text file `JAR_FILE_LOCATION/data/savedTasks.txt`. Although not recommended, you can
 manually change the data in the text file.  
 
