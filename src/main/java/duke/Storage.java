@@ -26,7 +26,13 @@ public class Storage {
         tasks = new ArrayList<>();
     }
 
-    public ArrayList<Task> load() throws DukeException {
+    /**
+     * Returns an ArrayList of Tasks from a given file with a
+     * specific format.
+     *
+     * @return ArrayList of Tasks stored from a given a file.
+     */
+    public ArrayList<Task> load() {
         try {
             readFromFile(filePath);
         } catch (FileNotFoundException e) {
@@ -35,6 +41,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Reads every line of a given file and parses each line into the
+     * addToList function to interpret each line as a task.
+     *
+     * @param filePath File path of the file used to store data of tasks.
+     * @throws FileNotFoundException If file is not found in the given path.
+     */
     public void readFromFile(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -43,6 +56,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Interprets each line of text as a task and stores the task in an ArrayList.
+     *
+     * @param line String of text meant to represent a task in the data file.
+     */
     public void addToList(String line) {
         char typeOfTask = line.charAt(TYPE_OF_TASK);
         boolean isDone = line.charAt(TASK_IS_DONE) == '1';
@@ -71,12 +89,24 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a string of text to the data file.
+     *
+     * @param filePath  File path of the file used to store data of tasks.
+     * @param textToAdd String of text to be written to the data file.
+     * @throws IOException If there are failed or interrupted I/O operations.
+     */
     private void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
 
+    /**
+     * Returns a string of tasks separated by lines to be stored in the data file.
+     *
+     * @return The text to be stored in the data file.
+     */
     public String readTasks() {
         StringBuilder listOfTasks = new StringBuilder();
         for (Task task : tasks) {
@@ -85,6 +115,10 @@ public class Storage {
         return listOfTasks.toString();
     }
 
+    /**
+     * Writes the stored tasks in the ArrayList onto a given data file, including
+     * the types of tasks and whether they are done.
+     */
     public void save() {
         try {
             writeToFile(filePath, readTasks());
