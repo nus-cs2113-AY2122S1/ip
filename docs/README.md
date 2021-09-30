@@ -38,7 +38,9 @@ task managing apps.
 ### Notes about the command format:
 - Words in `UPPER-CASE` are parameters to be filled by the user. Here is a list of common parameters that will be used:
     - `TASK_NAME` represents the name of the task.
-    - `DATE_TIME` represents the date to be specified by the user.
+    - `DATE_TIME` represents the date and time to be specified by the user.
+      - This parameter has to be in this format: `yyyy-mm-dd hh:mm`.
+      - For example: `2021-10-01 16:35` which is equivalent to `10 Oct 2021 16:35`.
     - `INDEX` represents the index of the task in the task list.  
         - For example: index **1** corresponds to the **first task** in the task list, 
           index **3** corresponds to the **third task**.
@@ -91,16 +93,18 @@ Adds a task of type `Deadline` into your task list.
   
 Format: `deadline TASK_NAME /by DATE_TIME`
   
-Example of usage: `deadline return book /by Friday 6pm`
+Example of usage: `deadline return book /by 2021-10-01 18:00`
 
 When added successfully, you should see the following message:
 ```
     ____________________________________________________________
         Got it. I've added this task:
-            [D][ ] return book (by: Friday 6pm)
+            [D][ ] return book (by: 01 Oct 2021 18:00)
         Now you have 2 tasks in the list.
     ____________________________________________________________
 ```
+
+***Note: `DATETIME` has to follow the specified format.***
 
 ---
 
@@ -109,16 +113,18 @@ Adds a task of type `Event` into your task list.
 
 Format: `event TASK_NAME /at DATE_TIME`
 
-Example of usage: `event meeting /at Thursday 5pm`
+Example of usage: `event meeting /at 2021-10-02 16:35`
 
 When added successfully, you should see the following message:
 ```
     ____________________________________________________________
         Got it. I've added this task:
-            [E][ ] meeting (at: Thursday 5pm)
+            [E][ ] meeting (at: 02 Oct 2021 16:35)
         Now you have 3 tasks in the list.
     ____________________________________________________________
 ```
+
+***Note: `DATETIME` has to follow the specified format.***
 
 ---
 
@@ -135,8 +141,8 @@ When successful, you should see the following message:
     ____________________________________________________________
         Here are the tasks in your list:
         1. [T][ ] read book
-        2. [D][ ] return book (by: Friday 6pm)
-        3. [E][ ] meeting (at: Thursday 5pm)
+        2. [D][ ] return book (by: 01 Oct 2021 18:00)
+        3. [E][ ] meeting (at: 02 Oct 2021 16:35)
     ____________________________________________________________
 ```
 ***Note: The tasks displayed in this example may be different than the one you have.***
@@ -156,7 +162,7 @@ When successful, you should see the following message:
     ____________________________________________________________
         Nice! I've marked these tasks as done:
             [T][X] read book
-            [D][X] return book (by: Friday 6pm)
+            [D][X] return book (by: 01 Oct 2021 18:00)
     ____________________________________________________________
 ```
 ***Note: The tasks displayed in this example may be different from the ones you have.***  
@@ -176,7 +182,7 @@ When successful, you should see the following message:
     ____________________________________________________________
         Here are the matching tasks in your list:
         1. [T][X] read book
-        1. [D][X] return book (by: Friday 6pm)
+        1. [D][X] return book (by: 01 Oct 2021 18:00)
     ____________________________________________________________
 ```
 
@@ -196,7 +202,7 @@ When successful, you should see the following message:
     ____________________________________________________________
         Noted. I've removed this task:
             [T][X] read book
-            [D][X] return book (by: Friday 6pm)
+            [D][X] return book (by: 01 Oct 2021 18:00)
         Now you have 1 tasks in your list.
     ____________________________________________________________
 ```
