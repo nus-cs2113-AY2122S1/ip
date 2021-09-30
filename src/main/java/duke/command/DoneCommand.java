@@ -18,7 +18,11 @@ public class DoneCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException, IOException {
-        if (taskNumber <= 0 || taskNumber > taskList.getSize()) {
+        boolean isLessThanOne = taskNumber <= 0;
+        boolean isMoreThanMax = taskNumber > taskList.getSize();
+        boolean isTaskNumberValid = !isLessThanOne && !isMoreThanMax;
+
+        if (!isTaskNumberValid) {
             throw new DukeException(Message.ERROR_TASK_NUMBER);
         }
 

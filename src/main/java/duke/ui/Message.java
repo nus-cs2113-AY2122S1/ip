@@ -1,6 +1,6 @@
 package duke.ui;
 
-public abstract class Message {
+public final class Message {
     public static final String EXPRESSION_BLUSH = "(//ω//)";
 
     public static final String EXPRESSION_JOY = "(≧▽≦)";

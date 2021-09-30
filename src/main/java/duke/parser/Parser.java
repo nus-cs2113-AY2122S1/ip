@@ -21,8 +21,10 @@ import duke.task.Todo;
 import duke.ui.Message;
 
 public class Parser {
+    private static final int CORRECT_NUMBER_OF_PARAMS = 2;
+
     public static CommandType getCommandType(String userReponse) {
-        String[] params = userReponse.split(" ", 2);
+        String[] params = userReponse.split(" ", CORRECT_NUMBER_OF_PARAMS);
         return CommandType.of(params[0]);
     }
 
@@ -77,7 +79,7 @@ public class Parser {
 
     private static Command parseDeadlineCommand(String userResponse) throws DukeException {
         String[] params = userResponse.replaceFirst("deadline", "").split("/by");
-        if (params.length != 2) {
+        if (params.length != CORRECT_NUMBER_OF_PARAMS) {
             throw new DukeException(Message.ERROR_INVALID_COMMAND);
         }
 
@@ -124,7 +126,7 @@ public class Parser {
 
     private static Command parseEventCommand(String userResponse) throws DukeException {
         String[] params = userResponse.replaceFirst("event", "").split("/at");
-        if (params.length != 2) {
+        if (params.length != CORRECT_NUMBER_OF_PARAMS) {
             throw new DukeException(Message.ERROR_INVALID_COMMAND);
         }
 

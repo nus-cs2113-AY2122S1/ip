@@ -67,10 +67,11 @@ public abstract class Task {
         try {
             String[] params = line.split("\\s*[|]\\s*");
             String taskType = params[0];
+            String status = params[1];
             String description = params[2];
-            boolean isDone;
 
-            switch(params[1]) {
+            boolean isDone;
+            switch(status) {
             case "0":
                 isDone = false;
                 break;

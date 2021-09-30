@@ -49,21 +49,10 @@ public class TaskList {
      * @return the filtered task list
      */
     public TaskList filterTaskByDate(String date) {
-        TaskList filteredTaskList = new TaskList();
-        for (Task task : taskList) {
-            if (task instanceof Deadline) {
-                Deadline deadline = (Deadline) task;
-                if (deadline.getSchedule().equals(date)) {
-                    filteredTaskList.addTask(deadline);
-                }
-            } else if (task instanceof Event) {
-                Event event = (Event) task;
-                if (event.getSchedule().equals(date)) {
-                    filteredTaskList.addTask(event);
-                }
-            }
-        }
-        return filteredTaskList;
+        return new TaskList(taskList.stream()
+                .filter(task -> task instanceof GetSchedule)
+                .filter(task -> ((GetSchedule) task).getSchedule().equals(date))
+                .collect(Collectors.toList()));
     }
 
     /**

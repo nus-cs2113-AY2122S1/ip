@@ -1,6 +1,6 @@
 package duke.task;
 
-public class Event extends Task {
+public class Event extends Task implements GetSchedule {
     /** Task period. */
     private final String schedule;
 
@@ -29,6 +29,7 @@ public class Event extends Task {
         this.schedule = schedule;
     }
 
+    @Override
     public String getSchedule() {
         return schedule;
     }
