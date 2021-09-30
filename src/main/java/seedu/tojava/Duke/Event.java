@@ -1,14 +1,17 @@
 package seedu.tojava.Duke;
+
+import java.time.LocalDate;
+
 public class Event extends Todo{
-    protected String duration;
+    protected LocalDate duration;
     public Event(String description) {
         super(description);
         int index = description.indexOf("/") + 1;
-        this.duration = description.substring(index, description.length());
+        this.duration = LocalDate.parse(description.substring(index, description.length()).trim());
         isDone = false;
     }
 
-    public String getDuration(){
+    public LocalDate getDuration(){
         return duration;
     }
 
@@ -19,11 +22,6 @@ public class Event extends Todo{
         return description.substring(0,index);
     }
 
-    public Event (String description, String duration){
-        super(description);
-        this.duration = duration;
-        isDone = false;
-    }
 
     @Override
     public String returnType(){
