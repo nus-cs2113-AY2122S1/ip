@@ -17,12 +17,12 @@ public class TaskList {
      */
     protected static void removeTask(int index) {
         try {
-            Duke.tasks.remove(index - 1);
             Task t = Duke.tasks.get(index - 1);
-            Duke.printMessage("Noted. I've removed this task:\n" + t);
+            Duke.tasks.remove(index - 1);
+            System.out.println("Noted. I've removed this task:\n" + t);
             getTasksLeft();
         } catch (IndexOutOfBoundsException e) {
-            Duke.printMessage("This task index does not exist");
+            System.out.println("This task index does not exist");
         }
     }
 
@@ -32,14 +32,14 @@ public class TaskList {
      */
     protected static void listAllTask() {
         if(Duke.tasks.size() == 0) {
-            Duke.printMessage("You have no tasks at the moment!");
+            System.out.println("You have no tasks at the moment!");
         } else {
-            Duke.printMessage("Here are the tasks in your list:");
+            System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < Duke.tasks.size(); i++) {
                 System.out.println((i + 1) + ". " + Duke.tasks.get(i).toString());
             }
-            getTasksLeft();
         }
+        Duke.printDivider();
     }
 
     /**
@@ -49,16 +49,18 @@ public class TaskList {
      *
      * @param splitInput string array containing the different parameters to input to a task
      */
-    static void addTask(String[] splitInput) {
+    protected static void addTaskFromFile(String[] splitInput) {
         String type = splitInput[0];
         Boolean status = Boolean.parseBoolean(splitInput[1]);
         String taskDescription = splitInput[2];
         if(type.equals("t")) {
-            addTodo(taskDescription);
+            addToDo(taskDescription);
         } else if(type.equals("d")) {
-            addDeadline(splitInput[3], taskDescription);
+            String date = splitInput[3];
+            addDeadline(taskDescription, date);
         } else if(type.equals("e")) {
-            addEvent(splitInput[3], taskDescription);
+            String date = splitInput[3];
+            addEvent(taskDescription, date);
         }
         if(status) {
             Duke.tasks.get(Duke.tasks.size() - 1).setDone(true);
@@ -78,7 +80,8 @@ public class TaskList {
             }
         }
         System.out.println("You have " + Duke.tasks.size() + " tasks in the list.");
-        Duke.printMessage(undoneTasks + " tasks are undone.");
+        System.out.println(undoneTasks + " tasks are undone.");
+        Duke.printDivider();
     }
 
     /**
@@ -87,7 +90,8 @@ public class TaskList {
      */
     protected static void addSuccessMessage() {
         String taskDescription = Duke.tasks.get(Duke.tasks.size() - 1).toString();
-        Duke.printMessage("Got it. I've added this task:\n" + taskDescription);
+        System.out.println("Got it. I've added this task:\n" + taskDescription);
+        Duke.printDivider();
         getTasksLeft();
     }
 
@@ -104,15 +108,30 @@ public class TaskList {
         return false;
     }
 
-    private static void addEvent(String inputDate, String taskDescription) {
+    protected static void addEvent(String taskDescription, String inputDate) {
         Duke.tasks.add(new Event(taskDescription, inputDate));
+        TaskList.addSuccessMessage();
     }
 
-    private static void addDeadline(String inputDate, String taskDescription) {
+    protected static void addDeadline(String taskDescription, String inputDate) {
         Duke.tasks.add(new Deadline(taskDescription, inputDate));
+        TaskList.addSuccessMessage();
     }
 
-    private static void addTodo(String taskDescription) {
+    protected static void addToDo(String taskDescription) {
         Duke.tasks.add(new ToDo(taskDescription));
+        TaskList.addSuccessMessage();
+    }
+
+    protected static void setTaskDone(int currentIndex) {
+        Duke.tasks.get(currentIndex - 1).setDone(true);
+        completeSuccess(currentIndex);
+    }
+
+    protected static void completeSuccess(int index) {
+        System.out.println("Got it. I've marked this task as complete:");
+        System.out.println(Duke.tasks.get(index - 1).toString());
+        Duke.printDivider();
+        TaskList.getTasksLeft();
     }
 }

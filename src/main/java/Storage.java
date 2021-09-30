@@ -37,7 +37,8 @@ public class Storage {
         }
         fw.write(stringToAdd);
         fw.close();
-        Duke.printMessage("Tasks saved successfully");
+        System.out.println("Tasks saved successfully");
+        Duke.printDivider();
     }
 
     /**
@@ -80,7 +81,7 @@ public class Storage {
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String[] splitInput = s.nextLine().split("\\|");
-            TaskList.addTask(splitInput);
+            TaskList.addTaskFromFile(splitInput);
         }
     }
 
@@ -91,10 +92,11 @@ public class Storage {
     protected static void readFile() {
         try {
             readFileContents(Duke.filePath);
-            Duke.printMessage("Saved tasks successfully loaded!");
+            System.out.println("Saved tasks successfully loaded!");
             TaskList.listAllTask();
         } catch (FileNotFoundException e) {
-            Duke.printMessage("There is no preloaded file found! Please input your own tasks!");
+            System.out.println("There is no preloaded file found! Please input your own tasks!");
+            Duke.printDivider();
         }
     }
 }

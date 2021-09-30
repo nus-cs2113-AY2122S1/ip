@@ -14,6 +14,8 @@ public class Duke {
     protected static ArrayList<Task> tasks = new ArrayList<>();
     protected static ArrayList<String> commands = new ArrayList<>();
     protected static String filePath;
+    protected static String[] commandsToAdd = new String[]{"done", "todo", "event",
+            "deadline", "delete", "list", "save", "bye", "find"};
 
     public static void main(String[] args) {
         new Duke("duke.txt").run();
@@ -43,16 +45,9 @@ public class Duke {
      * Adds all valid commands for the program.
      */
     protected static void addCommands() {
-        String[] commandsToAdd = new String[]{"done", "todo", "event",
-                    "deadline", "delete", "list", "save", "bye", "find"};
         for (String s : commandsToAdd) {
             commands.add(s);
         }
-    }
-
-    public static void printMessage(String text) {
-        System.out.println(text);
-        printDivider();
     }
 
     protected static void printDivider() {

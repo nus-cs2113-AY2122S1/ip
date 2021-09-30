@@ -1,6 +1,7 @@
 public class Ui {
     protected static void showByeScreen() {
-        Duke.printMessage("Bye. Hope to see you again soon!");
+        System.out.println("Bye. Hope to see you again soon!");
+        Duke.printDivider();
     }
 
     protected static void showWelcomeScreen() {
@@ -9,7 +10,8 @@ public class Ui {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        Duke.printMessage("Hello from\n" + logo);
-        Duke.printMessage(" Hello! I'm Duke\n" + " What can I do for you?\n");
+        System.out.println("Hello from\n" + logo);
+        System.out.println(" Hello! I'm Duke\n" + " What can I do for you?\n");
+        Duke.printDivider();
     }
 }

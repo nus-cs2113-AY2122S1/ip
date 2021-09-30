@@ -33,9 +33,11 @@ public class Parser extends Duke {
             try{
                 checkValidCommand(words);
             } catch (InvalidCommandError e) {
-                printMessage("Invalid command. Try again!");
+                System.out.println("Invalid command. Try again!");
+                Duke.printDivider();
             } catch (MissingFieldError e) {
-                printMessage("You are missing a field!");
+                System.out.println("You are missing a field!");
+                Duke.printDivider();
             }
 
         }
@@ -68,13 +70,14 @@ public class Parser extends Duke {
             case "done": {
                 try{
                     int currentIndex = checkTaskIndex(fullCommand);
-                    setTaskDone(currentIndex);
+                    TaskList.setTaskDone(currentIndex);
                 } catch (IndexOutOfBoundsException e) {
-                    printMessage("This task index does not exist");
+                    System.out.println("This task index does not exist");
+                    Duke.printDivider();
                 } catch (MissingFieldError e) {
-                    printMessage("Missing fields!");
+                    System.out.println("Missing fields!");
+                    Duke.printDivider();
                 }
-
                 break;
             }
             case "list":
@@ -82,12 +85,13 @@ public class Parser extends Duke {
                 break;
             case "bye":
                 Ui.showByeScreen();
-                break;
+                System.exit(0);
             case "save":
                 try {
                     Storage.saveTasks(filePath);
                 } catch (IOException e) {
-                    Duke.printMessage("Something went wrong!");
+                    System.out.println("Something went wrong!");
+                    Duke.printDivider();
                 }
                 break;
             case "delete": {
@@ -130,7 +134,7 @@ public class Parser extends Duke {
         }
 
         if(!taskExists) {
-            printMessage("There are no tasks containing such words!");
+            System.out.println("There are no tasks containing such words!");
         }
     }
 
@@ -142,13 +146,17 @@ public class Parser extends Duke {
         try{
             splitInput(fullCommand);
         } catch (MissingDescriptionError e) {
-            printMessage("Missing description!!!");
+            System.out.println("Missing description");
+            Duke.printDivider();
         } catch (InvalidDescriptionError e) {
-            printMessage("Description cannot be whitespace!!");
+            System.out.println("Description cannot be whitespace");
+            Duke.printDivider();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            printMessage("Something went wrong! Please try again!");
+            System.out.println("Something went wrong! Please try again");
+            Duke.printDivider();
         } catch (EmptyDateError e) {
-            printMessage("Date cannot be empty!");
+            System.out.println("Date cannot be empty");
+            Duke.printDivider();
         }
     }
 
@@ -190,16 +198,17 @@ public class Parser extends Duke {
                                       String type) {
         switch (type) {
             case "deadline":
-                addDeadline(task, date);
+                TaskList.addDeadline(task, date);
                 break;
             case "event":
-                addEvent(task, date);
+                TaskList.addEvent(task, date);
                 break;
             case "todo":
-                addToDo(task);
+                TaskList.addToDo(task);
                 break;
             default:  //invalid command
-                Duke.printMessage("Invalid type, try again.");
+                System.out.println("Invalid type, try again.");
+                Duke.printDivider();
                 break;
         }
     }
@@ -254,35 +263,10 @@ public class Parser extends Duke {
         return word.trim().length() == 0;
     }
 
-    protected static void completeSuccess(int index) {
-        printMessage("Got it. I've marked this task as complete:");
-        System.out.println(tasks.get(index - 1).toString());
-        TaskList.getTasksLeft();
-    }
-
     protected static String[] splitString(String word, String s) {
         return word.split(s, 2);
     }
 
-    protected static void addToDo(String task) {
-        Duke.tasks.add(new ToDo(task));
-        TaskList.addSuccessMessage();
-    }
-
-    protected static void addEvent(String task, String date) {
-        Duke.tasks.add(new Event(task, date));
-        TaskList.addSuccessMessage();
-    }
-
-    protected static void addDeadline(String task, String date) {
-        Duke.tasks.add(new Deadline(task, date));
-        TaskList.addSuccessMessage();
-    }
-
-    protected static void setTaskDone(int currentIndex) {
-        tasks.get(currentIndex - 1).setDone(true);
-        completeSuccess(currentIndex);
-    }
 
     private static String extractWordToFind(String[] fullCommand) throws MissingFieldError {
         if (fullCommand.length <= 1) {
