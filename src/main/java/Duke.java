@@ -1,5 +1,7 @@
-
-import todo.*;
+import todo.Deadline;
+import todo.Event;
+import todo.Task;
+import todo.ToDo;
 
 import java.util.ArrayList;
 
