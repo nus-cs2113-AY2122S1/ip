@@ -144,8 +144,9 @@ ____________________________________________________________
 ````
 
 ## Command Summary
+
  Action |  Format | Function
- ------------ | ------------- | ------------- 
+ ------------ | ------------- | -------------
  todo | todo [task_description] | Add todo task
  event | event [task_description /by [task_time]] | Add event task
  deadline | deadline [task_description /by [task_time]] | Add deadline task
