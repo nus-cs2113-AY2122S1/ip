@@ -6,7 +6,6 @@ public class TaskList {
     private final static String TASK_TYPE_TODO = "todo";
     private final static String TASK_TYPE_EVENT = "event";
     private final static String TASK_TYPE_DEADLINE = "deadline";
-    private final static String REGEX_WORD_BOUNDARY = "\\b";
     private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
@@ -100,9 +99,7 @@ public class TaskList {
      * We print out a list of all the tasks found based on the user input
      * */
     public void findTask(String taskToFind) {
-        String patternToFind = REGEX_WORD_BOUNDARY +
-                taskToFind + REGEX_WORD_BOUNDARY;
-        Pattern pattern = Pattern.compile(patternToFind);
+        Pattern pattern = Pattern.compile(taskToFind);
         int taskNumber = 0;
         for (int i = 0; i < this.tasks.size(); i ++) {
             Task currentTask = this.tasks.get(i);
