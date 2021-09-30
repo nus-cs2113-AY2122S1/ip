@@ -5,6 +5,9 @@ import duke.data.task.Task;
 import duke.storage.Storage;
 import duke.ui.TextUi;
 
+/**
+ * Finds and shows tasks that contain a specified keyword.
+ */
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows tasks that match the provided keyword. "
@@ -17,10 +20,22 @@ public class FindCommand extends Command {
 
     private final String keyword;
 
+    /**
+     * Constructor using raw values.
+     *
+     * @param keyword the word that is used to find matching tasks
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * Iterates through the task list to find tasks that match the keyword and prints the result to the user.
+     *
+     * @param tasks   the task list
+     * @param ui      accesses text ui that shows messages to the user
+     * @param storage access a text file which stores the task list
+     */
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
         int counter = 0;
         for (Task task : tasks.getList()) {

@@ -4,6 +4,9 @@ import duke.data.TaskList;
 import duke.storage.Storage;
 import duke.ui.TextUi;
 
+/**
+ * An abstract class that represents an executable command
+ */
 public abstract class Command {
     protected boolean isExit = false;
 
