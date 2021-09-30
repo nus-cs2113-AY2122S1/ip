@@ -25,7 +25,9 @@ To set up Java Environment: Install the lastest Version of Java 11.
 
 ## Features 
 ### Command Summary 
+
 Command | Format | Feature
+
 ------- | ------ | -------------
 todo | `todo <description>` | Adds a todo task 
 deadline | `deadline <description> /by [due time]` | Adds a deadline task
