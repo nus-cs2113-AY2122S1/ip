@@ -1,6 +1,5 @@
 package duke.storage;
 
-import duke.Duke;
 import duke.common.Messages;
 import duke.data.TaskList;
 import duke.data.task.Deadline;
@@ -13,13 +12,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.Scanner;
 
+/**
+ * Represents the file used to store the task list data.
+ */
 public class Storage {
 
     public static final String INITIAL_TODO = "T";
     public static final String INITIAL_DEADLINE = "D";
     public static final String INITIAL_EVENT = "E";
+    public static final String NUMBER_DONE = "1";
     public static final boolean IS_DONE_INITIAL = false;
 
     private TextUi ui;
@@ -33,6 +37,10 @@ public class Storage {
         ui = new TextUi();
     }
 
+    /**
+     * Loads the {@code TaskList} data from the storage file and appends it to the TaskList.
+     * If storage file does not exist, the program will attempt to make a new folder/file directory.
+     */
     public void initTaskList() {
         try {
             appendFileContentsToArrayList();
@@ -46,6 +54,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Decodes and appends the data from storage file to the TaskList.
+     *
+     * @throws FileNotFoundException if the data file does not exist
+     */
     public void appendFileContentsToArrayList() throws FileNotFoundException {
         File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
@@ -77,22 +90,23 @@ public class Storage {
         }
     }
 
-    public void writeToFile(String taskInstance, String rawText, String additionalText, boolean isDone) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH, true);
-        String additionalTextWithBorders = (additionalText.equals("") ? "" : " | " + additionalText);
-        String taskAsText = taskInstance + " | " + isDoneString(isDone) + " | " + rawText + additionalTextWithBorders + System.lineSeparator();
-        fw.write(taskAsText);
-        fw.close();
-    }
-
-    public static String isDoneString(boolean isDone) {
-        if (isDone) {
-            return "1";
-        } else {
-            return "0";
+    /**
+     * Retrieves the latest task and sets its isDone value as true.
+     *
+     * @param isCompleteString a String that represents "1" if the task is done and "0" if not
+     */
+    public void setTaskAsDone(String isCompleteString) {
+        if (isCompleteString.equals(NUMBER_DONE)) {
+            tasks.getTask(tasks.getSize() - 1).setDone();
         }
     }
 
+    /**
+     * Saves an Event task to the storage file.
+     *
+     * @param description the task description
+     * @param at          the event date/time
+     */
     public void appendEventToFile(String description, String at) {
         try {
             writeToFile(INITIAL_EVENT, description, at, IS_DONE_INITIAL);
@@ -101,6 +115,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a Deadline task to the storage file.
+     *
+     * @param description the task description
+     * @param by          the deadline
+     */
     public void appendDeadlineToFile(String description, String by) {
         try {
             writeToFile(INITIAL_DEADLINE, description, by, IS_DONE_INITIAL);
@@ -109,6 +129,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a Todo task to the storage file.
+     *
+     * @param todoInput the task description
+     */
     public void appendTodoToFile(String todoInput) {
         try {
             writeToFile(INITIAL_TODO, todoInput, "", IS_DONE_INITIAL);
@@ -117,12 +142,51 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the provided data to the storage file.
+     *
+     * @param taskInstance   the initial of the task provided
+     * @param rawText        the task description
+     * @param additionalText the deadline/ event datetime of the task
+     * @param isDone         the complete status of the task
+     * @throws IOException if an IO error is detected
+     */
+    public void writeToFile(String taskInstance, String rawText, String additionalText, boolean isDone) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH, true);
+        String additionalTextWithBorders = (additionalText.equals("") ? "" : " | " + additionalText);
+        String taskAsText = taskInstance + " | " + isDoneString(isDone) + " | " + rawText + additionalTextWithBorders + System.lineSeparator();
+        fw.write(taskAsText);
+        fw.close();
+    }
+
+    /**
+     * Utility method for converting the isDone boolean into a String format.
+     *
+     * @param isDone the completed status of the task
+     * @return "1" if isDone is true and "0" if isDone is false
+     */
+    public static String isDoneString(boolean isDone) {
+        if (isDone) {
+            return "1";
+        } else {
+            return "0";
+        }
+    }
+
+    /**
+     * Clears the storage file.
+     *
+     * @throws IOException if IO error is detected
+     */
     public void clearFile() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         fw.write("");
         fw.close();
     }
 
+    /**
+     * Overwrites the entire storage file with new data from {@code TaskList}
+     */
     public void OverwriteListToFile() {
         try {
             clearFile();
@@ -141,11 +205,4 @@ public class Storage {
             System.out.println("IO Error!");
         }
     }
-
-    public void setTaskAsDone(String isCompleteString) {
-        if (isCompleteString.equals(Duke.NUMBER_DONE)) {
-            tasks.getTask(tasks.getSize() - 1).setDone();
-        }
-    }
-
 }

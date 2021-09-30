@@ -10,15 +10,20 @@ import duke.storage.Storage;
 import duke.ui.TextUi;
 
 
-
+/**
+ * Entry point of the Duke application.
+ * Initialises the program and starts interaction with the user.
+ */
 public class Duke {
-
-    public static final String NUMBER_DONE = "1";
 
     private Storage storage;
     private TaskList tasks;
     private TextUi ui;
 
+    /**
+     * Instantiates a new TaskList, TextUi, and Storage.
+     * Loads up the data from the storage file.
+     */
     public Duke() {
         tasks = new TaskList();
         ui = new TextUi();
@@ -26,6 +31,10 @@ public class Duke {
         storage.initTaskList();
     }
 
+    /**
+     * Shows the user the welcome message.
+     * Receive input from the user and runs the program until termination.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;

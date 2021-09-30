@@ -1,5 +1,8 @@
 package duke.common;
 
+/**
+ * Container for general user messages
+ */
 public class Messages {
     public static final String MESSAGE_WELCOME = " Hello! I'm Duke, your task management robot!";
     public static final String MESSAGE_GOODBYE = " Bye! Do visit next time!";
