@@ -16,7 +16,7 @@ After you quit the app, your task list is stored in your computer.
 ## Usage
 ### Open DUKE
 
-![Picture_Guide](https://github.com/DuckWillow/ip/blob/master/image/Picture_Guide.png)
+![PictureGuide](PictureGuide.png)
 
 ### `Keyword` - Describe action
 
