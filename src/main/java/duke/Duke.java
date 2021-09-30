@@ -6,14 +6,13 @@ public class Duke {
 
     private Storage storage;
     private static TaskList tasks;
-    private int test;
 
     /**
      * at the beginning of Duke class, create a file using Storage class
      * then load the TaskList
      *
      * @param filePath by default is "data/duke.txt"
-     * @throws IOException
+     * @throws IOException ensure it reads the file
      */
     public Duke(String filePath) throws IOException {
         storage = new Storage(filePath);
@@ -31,7 +30,6 @@ public class Duke {
     public static void executeCommand(Parser c, TaskList tasks, Storage storage) throws DukeException, IOException {
         switch (c.getCommand()) {
         case "bye":
-            //fileManager.writeArrayToFile(taskManager);
             Ui.showBye();
             break;
         case "list":
@@ -77,10 +75,12 @@ public class Duke {
                 executeCommand(c,tasks,storage);
                 isExit = c.getIsExit();
             } catch (StringIndexOutOfBoundsException e) {
-                Ui.showError("OOPS!!! The description cannot be empty.");
+                Ui.showError("OOPS!!! The description after this command word cannot be empty.");
             } catch (IndexOutOfBoundsException e) {
                 Ui.showError("OOPS!!! It's out of range.");
-            } catch (DukeException e) {
+            } catch (NumberFormatException e) {
+                Ui.showError("OOPS!!! Input after done/delete must be a number.");
+            }catch (DukeException e) {
                 Ui.showError(e.getMessage());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -93,8 +93,8 @@ public class Duke {
     /**
      * Create a new Duke class and begin the 'run' method
      *
-     * @param args no input needed
-     * @throws IOException
+     * @param args don't need to input
+     * @throws IOException ensure it reads a file
      */
     public static void main(String[] args) throws IOException {
 

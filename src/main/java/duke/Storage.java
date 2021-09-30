@@ -27,7 +27,7 @@ public class Storage {
      * If there is no file (with folder), create a file at beginning of the program.
      *
      * @param filePath by default is "data/duke.txt"
-     * @throws IOException
+     * @throws IOException ensure find some files
      */
     public Storage(String filePath) throws IOException{
         this.filepath = filePath;
@@ -48,7 +48,7 @@ public class Storage {
      *
      * @author {siyuancheng178}-reused
      * @return A new TaskList object to be copied
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if file not found
      */
 
     public static TaskList loadFileContents() throws FileNotFoundException {
@@ -90,7 +90,7 @@ public class Storage {
     /**
      *
      * @param tasks take the TaskList object and write
-     * @throws IOException
+     * @throws IOException ensure find some files
      */
     public static void writeToFile(TaskList tasks) throws IOException {
 

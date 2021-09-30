@@ -39,10 +39,10 @@ public class Parser {
             command =  "bye";
         }else if(input.equals("list")){
             command =  "list";
-        } else if(input.substring(0, 4).equals("done")) {
+        } else if(input.startsWith("done")) {
             command = "done";
             description = input.substring(5).trim();
-        }else if(input.substring(0, 4).equals("todo")){
+        }else if(input.startsWith("todo")){
             command =  "todo";
             description = input.substring(5).trim();
         }else if (input.startsWith("deadline")) {
