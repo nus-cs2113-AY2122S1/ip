@@ -30,7 +30,7 @@ ____________________________________________________________
 ```
 
 ## Features 
-####1. Add tasks
+#### 1. Add tasks
    1. Add todo task:
          - Format: ````todo [task]````
          - Add a new todo task
@@ -68,7 +68,7 @@ ____________________________________________________________
        Now you have 3 task(s) in the list.
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    ```
-####2. List all tasks
+#### 2. List all tasks
 - Print all task in the list
 - Format: list
 - Expected output:
@@ -80,7 +80,7 @@ ____________________________________________________________
     3.[E][ ] project meeting (at: Mon 2-4pm)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
-####3. Mark one task as done and print all finished tasks in list
+#### 3. Mark one task as done and print all finished tasks in list
 - Format: `done [index]`
 - Example: `done 1`
 - Expected output:
@@ -93,7 +93,7 @@ ____________________________________________________________
     1.[T][X] homework
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ````
-####4. Delete one task in list
+#### 4. Delete one task in list
 - Format: `delete [index]`
 - Example: `delete 3`
 - Expected output:
@@ -105,7 +105,7 @@ ____________________________________________________________
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ````
-####5. Find tasks with keyword
+#### 5. Find tasks with keyword
 - Format: `find [keyword]`
 - Example: `find book`
 - Expected output:
@@ -116,7 +116,7 @@ ____________________________________________________________
     2.[T][ ] read book
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ````
-####6. View the help information
+#### 6. View the help information
 - Format: `help`
 - Expected output:
 ````
@@ -134,7 +134,7 @@ ____________________________________________________________
     Thank you for choosing Duke :) Please enter command:
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ````
-####7. Exit the program
+#### 7. Exit the program
 - Format: `bye`
 - Expected output:
 ````
@@ -143,17 +143,17 @@ ____________________________________________________________
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ````
 
-##Command Summary
-Action |  Format | Function
------------- | ------------- | ------------- 
-todo | todo [task_description] | Add todo task
-event | event [task_description /by [task_time]] | Add event task
-deadline | deadline [task_description /by [task_time]] | Add deadline task
-list | list | List all tasks
-done | done [index] | Mark one task as done and print all remaining finished tasks in list
-delete | delete [index] | Delete one task in list
-find | find [keyword] | Find tasks with keyword
-help | help | View the help information
-bye | bye | Exit the program
+## Command Summary
+ Action |  Format | Function
+ ------------ | ------------- | ------------- 
+ todo | todo [task_description] | Add todo task
+ event | event [task_description /by [task_time]] | Add event task
+ deadline | deadline [task_description /by [task_time]] | Add deadline task
+ list | list | List all tasks
+ done | done [index] | Mark one task as done and print all remaining finished tasks in list
+ delete | delete [index] | Delete one task in list
+ find | find [keyword] | Find tasks with keyword
+ help | help | View the help information
+ bye | bye | Exit the program
 
 
