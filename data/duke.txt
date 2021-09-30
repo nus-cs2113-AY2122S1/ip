@@ -1,6 +1,6 @@
-T| |one
 D|X|eat dinner /by 2021-09-28:2130
 D| |running /by 2021-09-28:0530
 E| |Dentist /at SKGH Sunday 5pm
 D| |Bypass surgery /by 2022-01-01:0000
-D| |run /by 2021-10-19:2359
+D|X|run /by 2021-10-19:2359
+T| |water plants

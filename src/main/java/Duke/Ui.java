@@ -43,6 +43,7 @@ public class Ui {
         System.out.println("2. \"todo\" to add a task to the todo list");
         System.out.println("3. \"deadline\", task details, \"/by yyyy-mm-dd:tttt\", in order to add a task to the list with a deadline");
         System.out.println("4. \"event\", task details, \"/at\" time, in order to add an event to the list along with the time it occurs.");
-        System.out.println("5. \"bye\" to exit the program.");
+        System.out.println("5. \"find\" keyword, in order to find any tasks that contain the keyword within them.");
+        System.out.println("6. \"bye\" to exit the program.");
     }
 }

@@ -51,6 +51,24 @@ public class TaskList {
         }
     }
 
+    public static void thisDoneWithoutPrint(String instructionTask) {
+        try {
+            int whichTask = Integer.parseInt(instructionTask.replaceAll("[\\D]", ""));
+            if (whichTask <= 0) {
+                message.printListError();
+                message.printLineBreak();
+            } else if (whichTask > input.List.size()) {
+                message.printListError();
+                message.printLineBreak();
+            } else {
+                input.List.get(whichTask - 1).markAsDone();
+            }
+        } catch (NumberFormatException e) {
+            message.printListError();
+            message.printLineBreak();
+        }
+    }
+
     /**
      * Adds a ToDo task by the user
      *
@@ -63,7 +81,20 @@ public class TaskList {
             }
             input.List.add(new ToDos(instructionTask));
             System.out.println("Nice! The task has been added to your todo list");
+            System.out.println("You now have " + input.List.size() + " tasks in your list.");
             message.printLineBreak();
+        } catch (DukeException e) {
+            message.printEmptyDescription();
+            message.printLineBreak();
+        }
+    }
+
+    public static void addToDoWithoutPrint(String instructionTask) {
+        try {
+            if (instructionTask.isEmpty() || instructionTask.equals(" ")) {
+                throw new DukeException();
+            }
+            input.List.add(new ToDos(instructionTask));
         } catch (DukeException e) {
             message.printEmptyDescription();
             message.printLineBreak();
@@ -87,7 +118,23 @@ public class TaskList {
             String theDeadline = instructionTask.substring(indexOfDeadline);
             input.List.add(new Deadline(theTask, theDeadline));
             System.out.println("Nice! The task has been added to your deadlines");
+            System.out.println("You now have " + input.List.size() + " tasks in your list.");
             message.printLineBreak();
+        } catch (DukeException | NumberFormatException | IndexOutOfBoundsException e) {
+            message.printMissingDeadline();
+            message.printLineBreak();
+        }
+    }
+
+    public static void addDeadlineWithoutPrint(String instructionTask) {
+        try {
+            if (!instructionTask.contains("/by")) {
+                throw new DukeException();
+            }
+            int indexOfDeadline = instructionTask.indexOf("/by");
+            String theTask = instructionTask.substring(0, indexOfDeadline - 1);
+            String theDeadline = instructionTask.substring(indexOfDeadline);
+            input.List.add(new Deadline(theTask, theDeadline));
         } catch (DukeException | NumberFormatException | IndexOutOfBoundsException e) {
             message.printMissingDeadline();
             message.printLineBreak();
@@ -109,7 +156,23 @@ public class TaskList {
             String theEvent = instructionTask.substring(indexOfEvent);
             input.List.add(new Events(theTask2, theEvent));
             System.out.println("Nice! The task has been added to your events list");
+            System.out.println("You now have " + input.List.size() + " tasks in your list.");
             message.printLineBreak();
+        } catch (DukeException e) {
+            message.printMissingEvent();
+            message.printLineBreak();
+        }
+    }
+
+    public static void addEventWithoutPrint(String instructionTask) {
+        try {
+            if (!instructionTask.contains("/at")) {
+                throw new DukeException();
+            }
+            int indexOfEvent = instructionTask.indexOf("/at");
+            String theTask2 = instructionTask.substring(0, indexOfEvent - 1);
+            String theEvent = instructionTask.substring(indexOfEvent);
+            input.List.add(new Events(theTask2, theEvent));
         } catch (DukeException e) {
             message.printMissingEvent();
             message.printLineBreak();

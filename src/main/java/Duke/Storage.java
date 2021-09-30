@@ -77,23 +77,23 @@ public class Storage {
             String description = next.substring(4);
             switch(taskIcon.trim()) {
             case "T":
-                TaskList.addToDo(description);
+                TaskList.addToDoWithoutPrint(description);
                 if (lines[2].equals("X")) {
-                    TaskList.thisDone(curr);
+                    TaskList.thisDoneWithoutPrint(curr);
                 }
                 counter++;
                 break;
             case "D":
-                TaskList.addDeadline(description);
+                TaskList.addDeadlineWithoutPrint(description);
                 if (lines[2].equals("X")) {
-                    TaskList.thisDone(curr);
+                    TaskList.thisDoneWithoutPrint(curr);
                 }
                 counter++;
                 break;
             case "E":
-                TaskList.addEvent(description);
+                TaskList.addEventWithoutPrint(description);
                 if (lines[2].equals("X")) {
-                    TaskList.thisDone(curr);
+                    TaskList.thisDoneWithoutPrint(curr);
                 }
                 counter++;
                 break;
