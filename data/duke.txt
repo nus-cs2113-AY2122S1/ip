@@ -1,6 +1,2 @@
 T|0|read book
-D|0|return book (by: May 29 1998 18:00)
-D|1|eat food (by: Sep 18 2021 23:59)
-T|0|read book 2
-T|0|eat dinner
-E|0|family dinner (at: Sep 20 2021 19:30)
+D|0|return book (by: Dec 21 2021 17:00)

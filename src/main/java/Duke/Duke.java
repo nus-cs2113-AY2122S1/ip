@@ -5,8 +5,12 @@ import processing.TaskManager;
 import processing.TaskSafe;
 import processing.UI;
 
+import java.util.Arrays;
+
 
 public class Duke {
+
+    private static final String NO_LOAD = "-noload";
     private static boolean isRunning = true;
     public static final TaskManager taskManager = new TaskManager();
 
@@ -47,7 +51,13 @@ public class Duke {
 
     public static void main(String[] args) {
         UI.greetPartOne();
-        TaskSafe.loadFromFile(Duke.taskManager);
+        boolean isLoadFromSave = true;
+        if (Arrays.asList(args).contains(NO_LOAD)) {
+            isLoadFromSave = false;
+        }
+        if (isLoadFromSave) {
+            TaskSafe.loadFromFile(taskManager);
+        }
         UI.greetPartTwo();
         run();
     }

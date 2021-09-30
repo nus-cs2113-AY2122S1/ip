@@ -2,6 +2,7 @@ package processing;
 /*---------LOCAL IMPORT--------*/
 
 import Duke.Duke;
+import exceptions.CommandSyntaxException;
 import exceptions.DukeException;
 import exceptions.TaskSyntaxException;
 import org.jetbrains.annotations.NotNull;
@@ -121,7 +122,7 @@ public class CommandHandler {
             taskManager.addTask(this, TaskType.TODO);
             break;
         default:
-            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+            throw new CommandSyntaxException("I'm sorry, but I don't know what that means :-(");
         }
     }
 }
