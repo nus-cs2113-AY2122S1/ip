@@ -168,6 +168,7 @@ Upon reinitialization, it reloads that file, so you access previously added task
 <br />
 
 ##Command Summary
+
 Action | Format/Examples |
 ------ | --------------- |
 todo | `todo TASK_DESCRIPTION` <br /> e.g. `todo do homework`
