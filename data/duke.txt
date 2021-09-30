@@ -1,0 +1,3 @@
+T | true | all functions are still fine with more OOP
+T | false | nice
+T | false | test

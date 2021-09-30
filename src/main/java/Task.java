@@ -1,15 +1,18 @@
-   public class Task {
+public class Task {
+
     protected String description;
 
     public Task(String description) {
         this.description = description;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String toString() {
-        return "[ ] " + description.substring(5);
+    public String toString(boolean isDone) {
+        String doneSymbol;
+        if (isDone) {
+            doneSymbol = "X";
+        } else {
+            doneSymbol = " ";
+        }
+        return "[" + doneSymbol + "] " + description;
     }
 }
