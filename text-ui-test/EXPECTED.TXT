@@ -14,7 +14,7 @@ Hello! I'm Duke
 What can I do for you?
 ____________________________________________________________
 >>> Here are the tasks in your list:
-There are currently 0 tasks in your list.
+Now you have 0 tasks in the list
 ____________________________________________________________
 >>> Got it. I've added this task:
 [T][ ] borrow book
@@ -22,7 +22,7 @@ Now you have 1 tasks in the list
 ____________________________________________________________
 >>> Here are the tasks in your list:
 1.[T][ ] borrow book
-There are currently 1 tasks in your list.
+Now you have 1 tasks in the list
 ____________________________________________________________
 >>> Error: Incorrect format detected.
 deadline <task description> /by <due date>
@@ -54,9 +54,9 @@ ____________________________________________________________
 3.[E][ ] CS2106 Midterm F2F (at: Sep 29 2021, 14:15)
 4.[E][ ] CS2105 Midterm Luminous (at: Oct 04 2021, 14:00)
 5.[E][ ] GEH1062 Midterm Luminous (at: Oct 05 2021, 16:15)
-There are currently 5 tasks in your list.
+Now you have 5 tasks in the list
 ____________________________________________________________
->>> Error: task not found.
+>>> Error: Task not found.
 ____________________________________________________________
 >>> Nice! I've marked this task as done:
 [D][X] CS2113T iP final submission (by: Oct 01 2021, 23:59)
@@ -67,12 +67,18 @@ ____________________________________________________________
 >>> Error: Incorrect format detected.
 date yyyy-MM-dd
 ____________________________________________________________
->>> [E][ ] CS2106 Midterm F2F (at: Sep 29 2021, 14:15)
+>>> The date "2021-09-29" have:
+[E][ ] CS2106 Midterm F2F (at: Sep 29 2021, 14:15)
+
 ____________________________________________________________
->>> ____________________________________________________________
->>> [E][ ] CS2106 Midterm F2F (at: Sep 29 2021, 14:15)
+>>> The keyword "exam" you provided found:
+
+____________________________________________________________
+>>> The keyword "Midterm" you provided found:
+[E][ ] CS2106 Midterm F2F (at: Sep 29 2021, 14:15)
 [E][ ] CS2105 Midterm Luminous (at: Oct 04 2021, 14:00)
 [E][ ] GEH1062 Midterm Luminous (at: Oct 05 2021, 16:15)
+
 ____________________________________________________________
 >>> Here are the tasks in your list:
 1.[T][X] borrow book
@@ -80,7 +86,7 @@ ____________________________________________________________
 3.[E][ ] CS2106 Midterm F2F (at: Sep 29 2021, 14:15)
 4.[E][ ] CS2105 Midterm Luminous (at: Oct 04 2021, 14:00)
 5.[E][ ] GEH1062 Midterm Luminous (at: Oct 05 2021, 16:15)
-There are currently 5 tasks in your list.
+Now you have 5 tasks in the list
 ____________________________________________________________
 >>> Error: Invalid Task Number.
 ____________________________________________________________
@@ -92,10 +98,11 @@ ____________________________________________________________
 3.[E][ ] CS2106 Midterm F2F (at: Sep 29 2021, 14:15)
 4.[E][ ] CS2105 Midterm Luminous (at: Oct 04 2021, 14:00)
 5.[E][ ] GEH1062 Midterm Luminous (at: Oct 05 2021, 16:15)
-There are currently 5 tasks in your list.
+Now you have 5 tasks in the list
 ____________________________________________________________
 >>> Error: Command not found.
 ____________________________________________________________
->>> ____________________________________________________________
+>>> My time has come...
+____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
