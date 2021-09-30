@@ -5,6 +5,10 @@ import duke.data.task.Deadline;
 import duke.storage.Storage;
 import duke.ui.TextUi;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class DeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "deadline";
@@ -12,7 +16,7 @@ public class DeadlineCommand extends Command {
             + "Parameters: TASK /by DEADLINE"
             + "\n|| "
             + "Example: " + COMMAND_WORD
-            + " Do CS2113T iP /by Tomorrow 6pm\n||";
+            + " Do CS2113T iP /by 2021-10-01\n||";
 
     protected String description;
     protected String by;
@@ -24,13 +28,24 @@ public class DeadlineCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
-        createDeadlineTask(tasks);
-        storage.appendDeadlineToFile(description, by);
+        try {
+            createDeadlineWithLocalDateTask(tasks, storage);
+        } catch (DateTimeParseException e) {
+            createDeadlineWithStringTask(tasks,storage);
+        }
         ui.showSuccessfulAdd(tasks);
     }
 
-    private void createDeadlineTask(TaskList tasks) {
+    private void createDeadlineWithLocalDateTask(TaskList tasks, Storage storage) {
+        LocalDate d1 = LocalDate.parse(by,DateTimeFormatter.ISO_DATE);
+        String date = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        tasks.addTask(new Deadline(description,d1));
+        storage.appendDeadlineToFile(description,date);
+    }
+
+    private void createDeadlineWithStringTask(TaskList tasks, Storage storage) {
         tasks.addTask(new Deadline(description, by));
+        storage.appendDeadlineToFile(description, by);
     }
 
 }

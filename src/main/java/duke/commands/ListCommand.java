@@ -16,7 +16,7 @@ public class ListCommand extends Command {
 
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
         if (tasks.getSize() == 0) {
-            System.out.println(MESSAGE_EMPTY_LIST);
+            ui.showToUser(MESSAGE_EMPTY_LIST);
         } else {
             showAllTasks(tasks, ui);
         }
