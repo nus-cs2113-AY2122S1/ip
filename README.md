@@ -1,6 +1,6 @@
-# Seeting up Duke project from source files
+# Setting up Duke project from source files
 
-This is a instruction manual for my greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is an instruction manual for my greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
