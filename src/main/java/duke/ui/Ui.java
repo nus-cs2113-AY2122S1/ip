@@ -62,7 +62,7 @@ public class Ui {
      *
      * @param lines Strings to be printed, each on a new line
      */
-    public void showMessage(String... lines) {
+    public static void showMessage(String... lines) {
         for (String line : lines) {
             System.out.println(line);
         }
@@ -73,7 +73,7 @@ public class Ui {
      *
      * @param lines Strings to be printed, each on a new line
      */
-    public void showMessageFramedWithDivider(String... lines) {
+    public static void showMessageFramedWithDivider(String... lines) {
         System.out.println(DIVIDER);
         for (String line : lines) {
             System.out.println(line);
@@ -84,14 +84,14 @@ public class Ui {
     /**
      * Prints Welcome message and list of commands.
      */
-    public void showWelcome() {
+    public static void showWelcome() {
         showMessageFramedWithDivider(MESSAGE_WELCOME_DUDE, DIVIDER, MESSAGE_COMMAND_LIST);
     }
 
     /**
      * Prints Goodbye message
      */
-    public void showBye() {
+    public static void showBye() {
         showMessageFramedWithDivider(MESSAGE_BYE);
     }
 
@@ -101,7 +101,7 @@ public class Ui {
      *
      * @param tasks TaskList loaded from storage file
      */
-    public void showTasksLoaded(TaskList tasks) {
+    public static void showTasksLoaded(TaskList tasks) {
         showMessage(String.format(MESSAGE_DATA_LOADED, tasks.getNumTasks()), DIVIDER);
     }
 

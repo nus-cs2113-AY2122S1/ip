@@ -71,11 +71,11 @@ public class Parser {
      * Returns the date of the task in LocalDateTime form
      * Date string is assumed to be after the command prefix strings "at" or "by"
      *
-     * @param commandPrefix Prefix to extract date with
+     * @param commandPrefix Prefix to extract date with ("at" or "by")
      * @param info String containing prefix and date
      * @return Date in LocalDateTime form
      * @throws InvalidCommandFormatException If invalid command prefix is given or no date is provided
-     * @throws DateTimeParseException If date string is not in the correct pattern dd/MM/yyyy HHmm
+     * @throws DateTimeParseException If date string is not in the expected pattern
      */
     public static LocalDateTime extractDateIntoDateTime(String commandPrefix, String info) throws InvalidCommandFormatException, DateTimeParseException {
         LocalDateTime dateAndTime;
