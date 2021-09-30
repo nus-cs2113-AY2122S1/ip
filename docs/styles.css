@@ -2,21 +2,24 @@
   border: 2px solid #000;
   border-radius: 10px;
   margin: 0 auto 15px;
-  padding: 20px;
+  padding: 10px;
   width: 100%;
 }
 
 .notes {
   background-color: #C7F2FF;
   border-color: #0C8FCF;
+  color: #000000;
 }
 
 .tip {
   background-color: #FFF696;
   border-color: #D4BF02;
+  color: #000000;
 }
 
-.warning {
+.caution {
   background-color: #FF8D82;
   border-color: #D42413;
+  color: #000000;
 }
