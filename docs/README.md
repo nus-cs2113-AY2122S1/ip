@@ -197,13 +197,14 @@ to your other computer. Place it in the same directory as the iP.jar file on you
 tasks will then be loaded from this text file when you run iP.jar on your new computer.
 
 ## Command Summary
+
 Description | Syntax | Example
 ------------|--------|--------
-Add a deadline task | deadline {task description} /by {YYYY-MM-DD HH:MM} | deadline submit 2113T assignment /by 2021-10-21 18:00 
-Add an event task | event {task description} /at {YYYY-MM-DD HH:MM} | event run marathon /at 2021-12-03 09:00
-Add a todo task | todo {task description} | todo buy new phone
-Mark a task as done | done {task index in list} | done 2
-Delete a task | delete {task index in list} | delete 4
-Filter tasks by keywords | find {keyword(s)} | find monday
-Filter tasks by date | date {YYYY-MM-DD} | date 2022-05-17
-Exit the program | bye | bye
+Add a deadline task | `deadline {task description} /by {YYYY-MM-DD HH:MM}` | `deadline submit 2113T assignment /by 2021-10-21 18:00` 
+Add an event task | `event {task description} /at {YYYY-MM-DD HH:MM}` | `event run marathon /at 2021-12-03 09:00`
+Add a todo task | `todo {task description}` | `todo buy new phone`
+Mark a task as done | `done {task index in list}` | `done 2`
+Delete a task | `delete {task index in list}` | `delete 4`
+Filter tasks by keywords | `find {keyword(s)}` | `find monday`
+Filter tasks by date | `date {YYYY-MM-DD}` | `date 2022-05-17`
+Exit the program | `bye` | `bye`
