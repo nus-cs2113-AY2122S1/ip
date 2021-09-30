@@ -7,6 +7,14 @@
 You can tell Duke to add some tasks to the Todo list. You can also mark the task as done or even delete the item. A neat list will help
 you to ensure everything is on track, and you will not miss out on the important events.
 
+### Local Storage
+
+Duke uses local storage to store the information of your Todo list, so do worry about someone else may steal your trip information
+online. But to be careful not to mess with the data files, or else the duke may no longer remember your trip information.
+
+### InSeNSitIVE tO CASes
+
+Duke is not sensitive to upper or lower cases so that you do not need to worry about the casing when communicate with Duke.
 
 ## Usage
 
