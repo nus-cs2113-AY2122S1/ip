@@ -5,6 +5,9 @@ import tasks.TaskList;
 public abstract class Command {
     protected TaskList taskList;
 
+    /**
+     * Executes the command and prints the corresponding text message
+     */
     public abstract void execute();
 
     /**

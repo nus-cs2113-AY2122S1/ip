@@ -18,6 +18,7 @@ public class DeleteCommand extends Command{
         this.targetVisibleIndex = targetVisibleIndex;
     }
 
+
     @Override
     public void execute() {
         try {

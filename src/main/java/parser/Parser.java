@@ -4,10 +4,17 @@ import commands.*;
 
 
 public class Parser {
+
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param userInput full user input string
+     * @return the command based on the user input
+     */
     public Command parseCommand(String userInput){
         String[] commandTypeAndParams =  splitCommandWordAndArgs(userInput);
         String commandType = commandTypeAndParams[0];
-        String commandParams = commandTypeAndParams[1];
+        String commandParams = commandTypeAndParams[1].trim();
         Command command;
         switch (commandType) {
         case AddToDoCommand.COMMAND_WORD:
@@ -49,10 +56,21 @@ public class Parser {
         return split.length == 2 ? new String[] { split[0].toLowerCase(), split[1] } : new String[] { split[0].toLowerCase() , "" };
     }
 
+    /**
+     * Splits the parameters of the deadline command into the Description and Deadline
+     *
+     * @param commandParams parameters of the command
+     * @return Array containing Deadline Description and Deadline
+     */
     public static String[] splitDeadlineDescriptionAndDeadline (String commandParams) {
         return commandParams.split("/by", 2);
     }
 
+    /**
+     * Splits the parameters of the deadline command into the Description and Time Range
+     * @param commandParams parameters of the command
+     * @return Array containing Event Description and Time Range
+     */
     public static String[] splitEventDescriptionAndTimeRange(String commandParams) {
         return commandParams.split("/at", 2);
     }

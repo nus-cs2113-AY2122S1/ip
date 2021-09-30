@@ -23,6 +23,10 @@ public class Duke {
         new Duke().run();
     }
 
+    /**
+     * Prints the welcome message.
+     * Reads the user command and executes it, until the user issues the exit command.
+     */
     public void run() {
         TextUi.showWelcomeMessage();
         boolean isExit = false;

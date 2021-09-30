@@ -18,6 +18,9 @@ public class AddToDoCommand extends Command {
         this.toDoDescription = toDoDescription;
     }
 
+    /**
+     * Adds a ToDo task to the TaskList and appends the task into the datafile
+     */
     @Override
     public void execute() {
         try {
@@ -33,6 +36,11 @@ public class AddToDoCommand extends Command {
         }
     }
 
+    /**
+     *
+     * @param taskParam
+     * @throws EmptyParamsException
+     */
     public static void checkParam(String taskParam) throws EmptyParamsException{
         if(taskParam.equals("")) {
             throw new EmptyParamsException();
