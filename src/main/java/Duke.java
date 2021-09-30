@@ -8,40 +8,71 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("...................................................");
-        System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
+        System.out.println("Hi! I'm Duke\n" + "How can I help make your life easier?");
         System.out.println("...................................................");
-        int Index = 0;
-        int curIndex = 0;
         Scanner in = new Scanner(System.in);
         String string = "";
-        Task[] Array = new Task[100];
+        Task[] array = new Task[100];
+        int number = 0;
+        /**
+         * Read the input.
+         */
         while(!string.equals("bye")) {
             string = in.nextLine();
-            String[] Input = string.split(" ");
+            String[] input = string.split(" ");
             System.out.println("...................................................");
-            if (Input[0].equals("bye")) {
+            if (input[0].equals("bye")) {
                 break;
             }
-            if (Input[0].equals("list")) {
-                System.out.println("Here are the tasks in your list: ");
-                for (int i = 0; i < curIndex; i++) {
-                    System.out.println((i + 1) + ".[" + Array[i].getStatus() + "] " + Array[i].getName());
-                }
-                System.out.println("...................................................");
-            } else if (Input[0].equals("done")) {
-                Index = Integer.parseInt(Input[1]) - 1;
-                Array[Index].markAsDone();
-                System.out.println("Nice! I've marked this task as done: ");
-                System.out.println("[" + Array[Index].getStatus() + "] " + Array[Index].getName());
-                System.out.println("...................................................");
-            } else {
-                Array[curIndex] = new Task(string);
-                System.out.println("Added: " + string);
-                curIndex++;
-                System.out.println("...................................................");
+            if (input[0].equals("list")) {
+                show(array, number);
+            } else if (input[0].equals("done")){
+                finish(array, input);
+            } else if (input[0].equals("event") || input[0].equals("deadline") || input[0].equals("todo")) {
+                record(array, string, number, input[0]);
+                number++;
             }
         }
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Byebye! Have a wonderful day!");
+        System.out.println("...................................................");
+    }
+
+    /**
+     * Show the Task.
+     */
+    private static void show(Task[] listIn, int totalNumber) {
+        System.out.println("Here are the tasks in your list: ");
+        for (int i = 0; i < totalNumber; i++) {
+            System.out.println((i + 1) + "." + listIn[i].toString());
+        }
+    }
+
+    /**
+     * Finish the Task.
+     */
+
+    private static void finish(Task[] listIn, String[] lineInput) {
+        int inputIndex = Integer.parseInt(lineInput[1]) - 1;
+        listIn[inputIndex].markAsDone();
+        System.out.println("Wonderful! This task is now marked as done: ");
+        System.out.println(listIn[inputIndex].toString());
+    }
+
+    /**
+     * Record the Task.
+     */
+
+    private static void record(Task[] listIn, String lineInput, int totalNumber, String firstInput) {
+        System.out.println("Got it. I've added this task:");
+        if (firstInput.equals("event")) {
+            listIn[totalNumber] = new Event(lineInput.substring(6, lineInput.indexOf("/")), lineInput.substring(lineInput.indexOf("/") + 3));
+        } else if (firstInput.equals("deadline")) {
+            listIn[totalNumber] = new Deadline(lineInput.substring(9, lineInput.indexOf("/")), lineInput.substring(lineInput.indexOf("/") + 3));
+        } else {
+            listIn[totalNumber] = new Todo(lineInput.substring(5));
+        }
+        System.out.println(listIn[totalNumber].toString());
+        System.out.println("Now you have " + (totalNumber + 1) + " tasks in your list");
         System.out.println("...................................................");
     }
 }
