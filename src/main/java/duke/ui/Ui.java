@@ -109,7 +109,7 @@ public class Ui {
         if (taskListSize == 0) {
             message = new StringBuilder(NO_TASK_FOUND_ERROR_MESSAGE);
         } else {
-            message = new StringBuilder(String.format(FIND_TASK_MESSAGE,taskListSize));
+            message = new StringBuilder(String.format(FIND_TASK_MESSAGE, taskListSize));
             for (Task task : taskList) {
                 message.append(String.format("%d.%s\n", task.getTaskNumber(), task));
             }
@@ -126,6 +126,12 @@ public class Ui {
     public void printDeleteTaskMessage(Task task, int taskLeft) {
         printMessage(String.format(DELETE_TASK_MESSAGE, task.toString(), taskLeft));
     }
+
+    /**
+     * Prints error message
+     *
+     * @param errorMessage error message given by exception caught
+     */
 
     public void printErrorMessage(String errorMessage) {
         printMessage(errorMessage);

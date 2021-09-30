@@ -23,6 +23,7 @@ public class Storage {
     /**
      * Load all task data from ./data/task.txt to task manager
      *
+     * @return List of task processed from the task.txt
      * @throws DukeException IOException is taken and thrown as Duke Exception
      */
     public ArrayList<Task> loadData() throws DukeException {
