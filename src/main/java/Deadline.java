@@ -19,6 +19,6 @@ public class Deadline extends Task {
 
     public String toString() {
         taskName = description.substring(9, index - 2);
-        return "[D][ ]" + taskName + " (by: " + by + ")";
+        return "[D][ ] " + taskName + " (by: " + by + ")";
     }
 }

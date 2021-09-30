@@ -18,7 +18,7 @@ public class Event extends Task {
     }
 
     public String toString() {
-        taskName = description.substring(6, index - 10);
-        return "[E][ ]" + taskName + " (at: " + at + ")";
+        taskName = description.substring(6, index - 1);
+        return "[E][ ] " + taskName + " (at: " + at.substring(3) + ")";
     }
 }

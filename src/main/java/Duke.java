@@ -13,14 +13,7 @@ public class Duke {
 
     public Duke(String filePath) {
         UI ui = new UI();
-            /*storage = new Storage(filePath);
-            try {
-                tasks = new TaskList(storage.load());
-            } catch (DukeException e) {
-                ui.showLoadingError();
-                tasks = new TaskList();
-            }
-        }*/
+        File file = new File(filePath);
     }
 
 
@@ -35,8 +28,11 @@ public class Duke {
         ArrayList<Integer> taskStatus = new ArrayList<>();
         ArrayList<String> output = new ArrayList<>();
         ArrayList<String> taskType = new ArrayList<>();
-        LoadFromText loadFromText = new LoadFromText(file, output);
-        output = loadFromText.load(output);
+        LoadFromText loadFromText = new LoadFromText(file, output, arrayInput, taskStatus, taskType);
+        output = loadFromText.loadOutput(output);
+        arrayInput = loadFromText.loadArrayInput(arrayInput);
+        taskStatus = loadFromText.loadTaskStatus(taskStatus);
+        taskType = loadFromText.loadTaskType(taskType);
         Parser parser = new Parser();
         parser.checkCommand(output, taskStatus, arrayInput, taskType, file);
     }

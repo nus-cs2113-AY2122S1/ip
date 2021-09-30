@@ -29,11 +29,37 @@ public class Parser {
         }
     }
 
+    public void checkDone(String userCommand) throws DukeException {
+        if (userCommand.length() <= 5) {     //generate error when receiving invalid Delete input
+            DukeException e = new DukeException();
+            throw e;
+        } else if (!isInt(userCommand.substring(5))) {
+            DukeException e = new DukeException();
+            throw e;
+        } else if(Integer.parseInt(userCommand.substring(5)) <= 0) {
+            DukeException e = new DukeException();
+            throw e;
+        }
+    }
+
     public void checkDelete(String userCommand) throws DukeException {
         if (userCommand.length() <= 7) {     //generate error when receiving invalid Delete input
             DukeException e = new DukeException();
             throw e;
-        } else if (!isInt(userCommand.valueOf(7))) {
+        } else if (!isInt(userCommand.substring(7))) {
+            DukeException e = new DukeException();
+            throw e;
+        } else if(Integer.parseInt(userCommand.substring(7)) <= 0) {
+            DukeException e = new DukeException();
+            throw e;
+        }
+    }
+
+    public void checkFind(String userCommand) throws DukeException {
+        if (userCommand.length() <= 5) {     //generate error when receiving invalid Delete input
+            DukeException e = new DukeException();
+            throw e;
+        } else if (userCommand.substring(5).equals(" ")) {
             DukeException e = new DukeException();
             throw e;
         }
@@ -54,56 +80,59 @@ public class Parser {
                              ArrayList<String> arrayInput, ArrayList<String> taskType, File file) {
         Scanner userInput = new Scanner(System.in);
         String userCommand = userInput.nextLine();
-        int inputCount = 0;
+        int inputCount = output.size();
 
         TaskLists taskLists = new TaskLists(output, taskStatus,
                 arrayInput, file, taskType, inputCount, userCommand);
 
         while (!userCommand.equals("bye")) {
             if (userCommand.equals("list")) {
-                System.out.println("status = " + taskStatus.get(0));
-                taskLists.printList(taskType, taskStatus, arrayInput, inputCount);
+                if (inputCount == 0) {
+                    taskLists.printEmptyList();
+                } else {
+                    taskLists.printList(taskType, taskStatus, arrayInput, inputCount);
+                }
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("done")) {
-                output = taskLists.getUpdateDone(output, taskStatus, arrayInput, file, userCommand,
-                        taskType, inputCount);
+                if (taskLists.isValidDone(userCommand, inputCount)) {
+                    output = taskLists.getUpdateDone(output, taskStatus, arrayInput, file, userCommand,
+                            taskType, inputCount);
+                }
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("todo")) {
-                if (!taskLists.isValidTodo(userCommand)) {
-                    userCommand = userInput.nextLine();
-                    continue;
+                if (taskLists.isValidTodo(userCommand)) {
+                    inputCount = taskLists.printTodo(arrayInput, userCommand, inputCount);
+                    output = taskLists.getUpdateTodo(output, taskStatus, arrayInput, file, taskType, inputCount);
                 }
-                inputCount = taskLists.printTodo(arrayInput, userCommand, inputCount);
-                output = taskLists.getUpdateTodo(output, taskStatus, arrayInput, file, taskType, inputCount);
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("deadline")) {
-                if (!taskLists.isValidDeadline(userCommand)) {
-                    userCommand = userInput.nextLine();
-                    continue;
+                if (taskLists.isValidDeadline(userCommand)) {
+                    inputCount = taskLists.printDeadline(arrayInput, userCommand, inputCount);
+                    output = taskLists.getUpdateDeadline(output, taskStatus, arrayInput, file, taskType, inputCount);
                 }
-                inputCount = taskLists.printDeadline(arrayInput, userCommand, inputCount);
-                output = taskLists.getUpdateDeadline(output, taskStatus, arrayInput, file, taskType, inputCount);
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("event")) {
-                if (!taskLists.isValidEvent(userCommand)) {
-                    userCommand = userInput.nextLine();
-                    continue;
+                if (taskLists.isValidEvent(userCommand)) {
+                    inputCount = taskLists.printEvent(arrayInput, userCommand, inputCount);
+                    output = taskLists.getUpdateEvent(output, taskStatus, arrayInput, file, taskType, inputCount);
                 }
-                inputCount = taskLists.printEvent(arrayInput, userCommand, inputCount);
-                output = taskLists.getUpdateEvent(output, taskStatus, arrayInput, file, taskType, inputCount, "E");
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("delete")) {        //add the delete function
-                if (!taskLists.isValidDelete(userCommand)) {
-                    userCommand = userInput.nextLine();
-                    continue;
+                if (taskLists.isValidDelete(userCommand, inputCount)) {
+                    inputCount = taskLists.printDelete(taskType, taskStatus, arrayInput, inputCount, userCommand);
+                    output = taskLists.getUpdateDelete(output, taskStatus, arrayInput, file, taskType, inputCount);
                 }
-                inputCount = taskLists.printDelete(taskType, taskStatus, arrayInput, inputCount, userCommand);
-                output = taskLists.getUpdateDelete(output, taskStatus, arrayInput, file, taskType, inputCount);
+                userCommand = userInput.nextLine();
+                continue;
+            } else if(userCommand.contains("find")) {
+                if (taskLists.isValidFind(userCommand)) {
+                    taskLists.printFind(output, userCommand, inputCount);
+                }
                 userCommand = userInput.nextLine();
                 continue;
             } else if (!userCommand.equals("bye")) {        //invalid input detected

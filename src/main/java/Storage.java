@@ -12,7 +12,7 @@ public class Storage {
 
     public Storage(String FilePath, ArrayList<String> Output, File file1) {
         filePath = FilePath;
-        ArrayList<String> output = new ArrayList<String> (Output);
+        ArrayList<String> output = new ArrayList<String>(Output);
         file = file1;
     }
 

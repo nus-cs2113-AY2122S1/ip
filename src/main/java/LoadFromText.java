@@ -6,23 +6,87 @@ public class LoadFromText {
 
     File file;
     ArrayList<String> output;
-    public LoadFromText(File file1, ArrayList<String> Output) {
+    ArrayList<String> arrayInput;
+    ArrayList<Integer> taskStatus;
+    ArrayList<String> taskType;
+
+    public LoadFromText(File file1, ArrayList<String> Output, ArrayList<String> ArrayInput, ArrayList<Integer> TaskStatus
+            , ArrayList<String> TaskType) {
         ArrayList<String> output = new ArrayList<>(Output);
+        ArrayList<String> arrayInput = new ArrayList<>(ArrayInput);
+        ArrayList<Integer> taskStatus = new ArrayList<Integer>(TaskStatus);
+        ArrayList<String> taskType = new ArrayList<String>(TaskType);
         file = file1;
     }
 
 
-    public ArrayList<String> load(ArrayList<String> output){
-        try{
-            //BufferedReader br = new BufferedReader(new FileReader(file));
+    public ArrayList<String> loadOutput(ArrayList<String> output) {
+        try {
             String st;
             Scanner tasks = new Scanner(file);  // Create a Scanner object
-            while(tasks.hasNext()){
+            while (tasks.hasNext()) {
                 st = tasks.nextLine();
                 output.add(st);
             }
-            System.out.println("execute");
             return output;
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred, please try again!");
+            return null;
+        } catch (IOException e) {
+            System.out.println("An error occurred, please try again!");
+            return null;
+        }
+    }
+
+    public ArrayList<String> loadArrayInput(ArrayList<String> arrayInput) {
+        try {
+            String st;
+            Scanner tasks = new Scanner(file);  // Create a Scanner object
+            while (tasks.hasNext()) {
+                st = tasks.nextLine();
+                arrayInput.add(st.substring(9));
+            }
+            return arrayInput;
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred, please try again!");
+            return null;
+        } catch (IOException e) {
+            System.out.println("An error occurred, please try again!");
+            return null;
+        }
+    }
+
+    public ArrayList<Integer> loadTaskStatus(ArrayList<Integer> taskStatus) {
+        try {
+            String st;
+            Scanner tasks = new Scanner(file);  // Create a Scanner object
+            while (tasks.hasNext()) {
+                st = tasks.nextLine();
+                if (st.substring(6, 7).equals("X")) {
+                    taskStatus.add(1);
+                } else {
+                    taskStatus.add(0);
+                }
+            }
+            return taskStatus;
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred, please try again!");
+            return null;
+        } catch (IOException e) {
+            System.out.println("An error occurred, please try again!");
+            return null;
+        }
+    }
+
+    public ArrayList<String> loadTaskType(ArrayList<String> taskType) {
+        try {
+            String st;
+            Scanner tasks = new Scanner(file);  // Create a Scanner object
+            while (tasks.hasNext()) {
+                st = tasks.nextLine();
+                taskType.add(st.substring(3, 4));
+            }
+            return taskType;
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred, please try again!");
             return null;

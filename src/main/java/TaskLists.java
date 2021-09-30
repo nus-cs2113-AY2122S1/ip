@@ -15,66 +15,68 @@ public class TaskLists {
     UI ui = new UI();
     Parser parser = new Parser();
 
-    public TaskLists(){}
+    public TaskLists() {
+    }
+
     public TaskLists(ArrayList<String> Output, ArrayList<Integer> TaskStatus,
                      ArrayList<String> ArrayInput, File file1, ArrayList<String> TaskType,
                      int InputCount, String UserCommand) {
-        ArrayList<String> output = new ArrayList<String> (Output);
-        ArrayList<Integer> taskStatus = new ArrayList<Integer> (TaskStatus);
-        ArrayList<String> arrayInput = new ArrayList<String> (ArrayInput);
+        ArrayList<String> output = new ArrayList<String>(Output);
+        ArrayList<Integer> taskStatus = new ArrayList<Integer>(TaskStatus);
+        ArrayList<String> arrayInput = new ArrayList<String>(ArrayInput);
         file = file1;
-        ArrayList<String> taskType = new ArrayList<String> (TaskType);
+        ArrayList<String> taskType = new ArrayList<String>(TaskType);
         inputCount = InputCount;
         userCommand = UserCommand;
     }
 
     public ArrayList<String> getUpdateDelete(ArrayList<String> output,
-                                              ArrayList<Integer> taskStatus,
-                                              ArrayList<String> arrayInput, File file,
-                                              ArrayList<String> taskType, int inputCount) {
+                                             ArrayList<Integer> taskStatus,
+                                             ArrayList<String> arrayInput, File file,
+                                             ArrayList<String> taskType, int inputCount) {
         output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
         saveTasks(file, output);
         return output;
     }
 
     public ArrayList<String> getUpdateEvent(ArrayList<String> output,
-                                             ArrayList<Integer> taskStatus,
-                                             ArrayList<String> arrayInput, File file,
-                                             ArrayList<String> taskType, int inputCount, String e) {
-        taskType.add(inputCount - 1, e);
-        taskStatus.add(inputCount - 1, 0);
+                                            ArrayList<Integer> taskStatus,
+                                            ArrayList<String> arrayInput, File file,
+                                            ArrayList<String> taskType, int inputCount) {
+        taskType.add("E");
+        taskStatus.add(0);
         output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
         saveTasks(file, output);
         return output;
     }
 
     public ArrayList<String> getUpdateDeadline(ArrayList<String> output,
-                                                ArrayList<Integer> taskStatus,
-                                                ArrayList<String> arrayInput, File file,
-                                                ArrayList<String> taskType, int inputCount) {
-        taskType.add(inputCount - 1, "D");
-        taskStatus.add(inputCount - 1, 0);
+                                               ArrayList<Integer> taskStatus,
+                                               ArrayList<String> arrayInput, File file,
+                                               ArrayList<String> taskType, int inputCount) {
+        taskType.add("D");
+        taskStatus.add(0);
         output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
         saveTasks(file, output);
         return output;
     }
 
     public ArrayList<String> getUpdateTodo(ArrayList<String> output,
-                                            ArrayList<Integer> taskStatus,
-                                            ArrayList<String> arrayInput, File file,
-                                            ArrayList<String> taskType, int inputCount) {
-        taskType.add(inputCount - 1, "T");
-        taskStatus.add(inputCount - 1, 0);
+                                           ArrayList<Integer> taskStatus,
+                                           ArrayList<String> arrayInput, File file,
+                                           ArrayList<String> taskType, int inputCount) {
+        taskType.add("T");
+        taskStatus.add(0);
         output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
         saveTasks(file, output);
         return output;
     }
 
     public ArrayList<String> getUpdateDone(ArrayList<String> output,
-                                            ArrayList<Integer> taskStatus,
-                                            ArrayList<String> arrayInput, File file,
-                                            String userCommand,
-                                            ArrayList<String> taskType, int inputCount) {
+                                           ArrayList<Integer> taskStatus,
+                                           ArrayList<String> arrayInput, File file,
+                                           String userCommand,
+                                           ArrayList<String> taskType, int inputCount) {
         printDone(taskStatus, taskType, arrayInput, userCommand);
         output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
         saveTasks(file, output);
@@ -115,11 +117,50 @@ public class TaskLists {
         return true;
     }
 
-    public boolean isValidDelete(String userCommand) {
+    public boolean isValidDelete(String userCommand, int inputCount) {
         try {
             parser.checkDelete(userCommand);
         } catch (DukeException e) {
-            System.out.println("☹ OOPS!!! The delete command is invalid.");
+            System.out.println(ui.LINE);
+            System.out.println("☹ OOPS!!! The 'delete' command is invalid.");
+            System.out.println(ui.LINE);
+            return false;
+        }
+
+        if (Integer.parseInt(userCommand.substring(7)) > inputCount) {
+            System.out.println(ui.LINE);
+            System.out.println("☹ OOPS!!! The 'delete' command is out of bound.");
+            System.out.println(ui.LINE);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isValidDone(String userCommand, int inputCount) {
+        try {
+            parser.checkDone(userCommand);
+        } catch (DukeException e) {
+            System.out.println(ui.LINE);
+            System.out.println("☹ OOPS!!! The 'done' command is invalid.");
+            System.out.println(ui.LINE);
+            return false;
+        }
+
+        if (Integer.parseInt(userCommand.substring(5)) > inputCount) {
+            System.out.println(ui.LINE);
+            System.out.println("☹ OOPS!!! The 'done' command is out of bound.");
+            System.out.println(ui.LINE);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isValidFind(String userCommand) {
+        try {
+            parser.checkFind(userCommand);
+        } catch (DukeException e) {
+            System.out.println(ui.LINE);
+            System.out.println("☹ OOPS!!! The 'find' command is invalid.");
             System.out.println(ui.LINE);
             return false;
         }
@@ -129,6 +170,7 @@ public class TaskLists {
     public int printDelete(ArrayList<String> taskType, ArrayList<Integer> taskStatus,
                            ArrayList<String> arrayInput, int inputCount, String userCommand) {
         int position = Integer.parseInt(userCommand.substring(7)) - 1;
+        System.out.println(ui.LINE);
         System.out.println("Noted. I've removed this task:");
         if (taskStatus.get(position) == 1) {
             System.out.println("  " + "[" + taskType.get(position) + "]"
@@ -147,13 +189,14 @@ public class TaskLists {
     }
 
     public void printInvalid() {
+        System.out.println(ui.LINE);
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
     public int printEvent(ArrayList<String> arrayInput, String userCommand, int inputCount) {
         String at;
-        int index = userCommand.indexOf("-");
-        at = userCommand.substring(index - 1);
+        int index = userCommand.indexOf("/");
+        at = userCommand.substring(index + 1);
         Event event = new Event(userCommand, at, index);
         inputCount++;
         System.out.println(ui.LINE);
@@ -161,9 +204,9 @@ public class TaskLists {
         System.out.println(event);
         System.out.println("Now you have " + inputCount + " tasks in the list.");
         System.out.println(ui.LINE);
-        String taskName = event.description.substring(6, index - 10);
-        String eventName = taskName + " (at: " + at + ")";
-        arrayInput.add(inputCount - 1, eventName);
+        String taskName = event.description.substring(6, index - 1);
+        String eventName = taskName + " (at: " + at.substring(3) + ")";
+        arrayInput.add(eventName);
         return inputCount;
     }
 
@@ -180,7 +223,7 @@ public class TaskLists {
         System.out.println(ui.LINE);
         String taskName = deadline.description.substring(9, index - 2);
         String deadlineName = taskName + " (by: " + by + ")";
-        arrayInput.add(inputCount - 1, deadlineName);
+        arrayInput.add(deadlineName);
         return inputCount;
     }
 
@@ -193,7 +236,7 @@ public class TaskLists {
         System.out.println("Now you have " + inputCount + " tasks in the list.");
         System.out.println(ui.LINE);
         String todoName = todo.description.substring(5);
-        arrayInput.add(inputCount - 1, todoName);
+        arrayInput.add(todoName);
         return inputCount;
     }
 
@@ -204,16 +247,35 @@ public class TaskLists {
     }
 
     public void printDone(ArrayList<Integer> taskStatus, ArrayList<String> taskType,
-                           ArrayList<String> arrayInput, String userCommand) {
+                          ArrayList<String> arrayInput, String userCommand) {
         char taskID;
         int taskIDInt;
         int len = userCommand.length();
         taskID = userCommand.charAt(len - 1);
         taskIDInt = taskID - 49;
         taskStatus.set(taskIDInt, 1);
+        System.out.println(ui.LINE);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("	" + "[" + taskType.get(taskIDInt) + "]" +
                 "[X] " + arrayInput.get(taskIDInt));
+        System.out.println(ui.LINE);
+    }
+
+    public void printFind(ArrayList<String> output, String userCommand, int inputCount) {
+        System.out.println(ui.LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        int taskNumber = 1;
+        String tempOutput;
+        for (int i = 0; i < inputCount; i++) {
+            if (output.get(i).contains(userCommand.substring(5))) {
+                tempOutput = taskNumber + output.get(i).substring(1);
+                System.out.println(tempOutput);
+                taskNumber++;
+            }
+        }
+        if (taskNumber == 1) {
+            System.out.println("Sorry! No matching tasks found.");
+        }
         System.out.println(ui.LINE);
     }
 
@@ -221,6 +283,10 @@ public class TaskLists {
                           ArrayList<String> arrayInput, int inputCount) {
         System.out.println(ui.LINE);
         System.out.println(ui.MESSAGE);
+        if (inputCount == 0) {
+            System.out.println("The list is empty!");
+            return;
+        }
         for (int i = 1; i <= inputCount; i++) {
             if (taskStatus.get(i - 1) == 1) {
                 System.out.println(i + ".[" + taskType.get(i - 1) + "]" + "[X] " + arrayInput.get(i - 1));
@@ -239,13 +305,19 @@ public class TaskLists {
         for (int i = 1; i <= inputCount; i++) {
             if (taskStatus.get(i - 1) == 1) {
                 tempTask = i + ".[" + taskType.get(i - 1) + "]" + "[X] " + arrayInput.get(i - 1);
-                output.add(i - 1, tempTask);
+                output.add(tempTask);
             } else {
                 tempTask = i + ".[" + taskType.get(i - 1) + "]" + "[ ] " + arrayInput.get(i - 1);
-                output.add(i - 1, tempTask);
+                output.add(tempTask);
             }
         }
         return output;
+    }
+
+    public void printEmptyList() {
+        System.out.println(ui.LINE);
+        System.out.println("Empty list!");
+        System.out.println(ui.LINE);
     }
 
     public void saveTasks(File file, ArrayList<String> output) {
@@ -256,8 +328,6 @@ public class TaskLists {
         try {
             if (file.createNewFile()) {
                 System.out.println("File created: " + file.getName());
-            } else {
-                System.out.println("File already exists.");
             }
         } catch (IOException e) {
             System.out.println("An error occurred, please try again!");
@@ -271,8 +341,6 @@ public class TaskLists {
                 myWriter.write("\n");
             }
             myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-            System.out.println(ui.LINE);
         } catch (IOException e) {
             System.out.println("An error occurred, please try again!");
             e.printStackTrace();
