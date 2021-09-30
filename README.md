@@ -110,3 +110,6 @@ Example 2: `delete 1, 2 and 3`
 
 ### `bye`- Terminate the program
 Format: `bye`
+
+---
+[Back to top](#billy-user-guide)
