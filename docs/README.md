@@ -1,4 +1,19 @@
 # User Guide
+Duke is a **Command Line Interface (CLI) application for managing your tasks**. If you can type fast, Duke can help manage your tasks faster than traditional Graphical User Interface (GUI) apps.
+* [Quick start](#quick-start)
+* [Features](#features)
+   * [Listing all tasks: `list`](#listing-all-tasks-list)
+   * [Adding a todo task: `todo`](#adding-a-todo-task-todo)
+   * [Adding a deadline task: `deadline`](#adding-a-deadline-task-deadline)
+   * [Adding a event task: `event`](#adding-a-event-task-event)
+   * [Marking a task as done: `done`](#marking-a-task-as-done-done)
+   * [Deleting a task: `delete`](#deleting-a-task-delete)
+   * [Searching for a task: `find`](#searching-for-a-task-find)
+   * [Exiting the program: `bye`](#exiting-the-program-bye)
+* [FAQ](#faq)
+* [Command summary](#command-summary)
+
+---
 
 ## Quick start
 1. Ensure you have Java `11` installed in your Computer.
@@ -14,9 +29,11 @@
    ```
 6. Type in your command. See [Features](#features) for more information.
 
+---
+
 ## Features 
 
-### List all tasks: `list`
+### Listing all tasks: `list`
 
 Shows a list of all tasks in the task list.
 
@@ -24,7 +41,7 @@ Format: `list`
 <br />
 <br />
 
-### Add a todo task: `todo`
+### Adding a todo task: `todo`
 
 Adds a todo task to the task list.
 
@@ -35,7 +52,7 @@ Examples:
 * `todo Assignment`
 <br />
 
-### Add a deadline task: `deadline`
+### Adding a deadline task: `deadline`
 
 Adds a deadline task to the task list.
 
@@ -48,7 +65,7 @@ Examples:
 * `deadline Assignment 2 /by 01/01/2022 0000`
 <br />
 
-### Add a event task: `event`
+### Adding a event task: `event`
 
 Adds a event task to the task list.
 
@@ -61,7 +78,7 @@ Examples:
 * `event Appointment /at 02/02/2022 0830`
 <br />
 
-### Mark a task as done: `done`
+### Marking a task as done: `done`
 
 Marks a task in the task list as done.
 
@@ -74,7 +91,7 @@ Examples:
 * `done 3` <- Marks the 3rd task in the list as done.
 <br />
 
-### Delete a task: `delete`
+### Deleting a task: `delete`
 
 Deletes a task from the task list.
 
@@ -87,7 +104,7 @@ Examples:
 * `delete 3` <- Deletes the 3rd task in the list.
 <br />
 
-### Search for a task: `find`
+### Searching for a task: `find`
 
 Searches for a task in the task list.
 
@@ -100,8 +117,29 @@ Examples:
 * `find Lecture`
 <br />
 
-### Exiting the program: `exit`
+### Exiting the program: `bye`
 
 Exits the program.
 
-Format: `exit`
+Format: `bye`
+
+---
+
+### FAQ
+
+**Q:** How do I transfer my data to another system?<br />
+**A:** Install the app in the new system and copy the `data` folder from the old system to the folder containing `Duke.jar` in the new system.
+
+---
+
+### Command summary
+**Action** | **Format**
+---------- | ----------
+Listing all tasks | `list`
+Adding a todo task | `todo <DESCRIPTION>`
+Adding a deadline task | `deadline <DESCRIPTION> /by <DATETIME>`
+Adding a event task | `event <DESCRIPTION> /at <DATETIME>`
+Marking a task as done | `done <INDEX>`
+Deleting a task | `delete <INDEX>`
+Searching for a task | `find <TEXT>`
+Exiting the program | `bye`
