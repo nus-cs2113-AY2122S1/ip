@@ -10,7 +10,7 @@ public class Ui {
 
     /** Prints welcome message. */
     public void printWelcomeMessage() {
-        println("--- .o * : *. ¤ .* : ¤ o. ---");
+        println("--- .o * : *. + .* : + o. ---");
         println("Patchi: Hello! I'm Patchi the tasks fairy Œ(owo)B\n " +
                 "What can I do for you today? Œ(ovo)B");
     }
@@ -18,12 +18,12 @@ public class Ui {
     /** Prints goodbye message. */
     public void printGoodbyeMessage() {
         println("Patchi: Bye! Hope to see you again soon! Œ(~owo~)B");
-        println("--- .o * : *. ¤ .* : ¤ o. ---");
+        println("--- .o * : *. + .* : + o. ---");
     }
 
     /** Prints transition. */
     public void printTransition() {
-        println("--- .o * : typing... : ¤ o. ---");
+        println("--- .o * : typing... : + o. ---");
         print("Me: ");
     }
 

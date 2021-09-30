@@ -50,6 +50,9 @@ public class Parser {
         String description;
         try {
             description = input.substring(5);
+            if(description.trim().equals("")) {
+                throw new DukeException("missing description");
+            }
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException("missing description");
         }
@@ -76,6 +79,9 @@ public class Parser {
 
         try {
             description = input.substring(9, indexOfBy - 1);
+            if(description.trim().equals("")) {
+                throw new DukeException("missing description");
+            }
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException("missing description");
         }
@@ -113,6 +119,9 @@ public class Parser {
 
         try {
             description = input.substring(6, indexOfAt - 1);
+            if(description.trim().equals("")) {
+                throw new DukeException("missing description");
+            }
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException("missing description");
         }
@@ -186,6 +195,9 @@ public class Parser {
         String searchTerm;
         try {
             searchTerm = input.substring(5);
+            if(searchTerm.trim().equals("")) {
+                throw new DukeException("missing search term");
+            }
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException("missing search term");
         }
