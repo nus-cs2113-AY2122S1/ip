@@ -87,6 +87,9 @@ public class Parser {
             if (Integer.parseInt(parsedInput[1]) >= taskList.size() + 1) {
                 throw new DukeException("That is not in the list");
             }
+            if (Integer.parseInt(parsedInput[1]) <= 0) {
+                throw new DukeException("Input index cannot be less than 1");
+            }
             int task_index = Integer.parseInt(parsedInput[1]);
             return new DoneCommand(taskList, task_index - 1, ui,storage);
         } else if (input.startsWith("delete")) {
