@@ -153,7 +153,8 @@ public class Storage {
         try {
             readTaskFile(tasks);
         } catch (FileNotFoundException e) {
-            System.out.println("File not yet created, I'll create one for you now!");
+            System.out.println("Perhaps this is your first time running Atlas! Even if not, I will" +
+                    " create a save file for you now!");
         }
     }
 }
