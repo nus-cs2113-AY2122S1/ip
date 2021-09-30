@@ -1,5 +1,7 @@
 package duke.command;
 
+import duke.common.Messages;
+
 /**
  * Bye command that will exit the program.
  */
@@ -19,7 +21,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void execute() {
-
+    public CommandResult execute() {
+        return new CommandResult(Messages.MESSAGE_COMMAND_BYE);
     }
 }

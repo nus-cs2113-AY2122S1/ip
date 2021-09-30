@@ -1,6 +1,7 @@
 package duke.storage;
 
 import duke.DukeException;
+import duke.common.Messages;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -35,7 +36,7 @@ public class FileHandler {
             fw.write(contents);
             fw.close();
         } catch (IOException e) {
-            String message = String.format("Error: An error has occurred when writing to file %s.", fileName);
+            String message = String.format(Messages.ERROR_MESSAGE_FILE_WRITING, fileName);
             throw new DukeException(message);
         }
     }
@@ -57,7 +58,7 @@ public class FileHandler {
             }
             return contents;
         } catch (FileNotFoundException e) {
-            String message = String.format("Notice: File %s not found.", fileName);
+            String message = String.format(Messages.NOTICE_MESSAGE_FILE_NOT_FOUND, fileName);
             throw new DukeException(message);
         }
     }

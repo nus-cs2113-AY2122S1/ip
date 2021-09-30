@@ -1,5 +1,8 @@
 package duke.command;
 
+import duke.common.CommonFormat;
+import duke.common.Messages;
+
 /**
  * Todo command that will create a Todo task.
  */
@@ -20,7 +23,8 @@ public class TodoCommand extends Command {
      * Method to execute the command by calling the TaskManager to perform its specified operation.
      */
     @Override
-    public void execute() {
+    public CommandResult execute() {
         taskManager.createToDoTask(this.arguments);
+        return new CommandResult(super.getAddTaskResponseMessage());
     }
 }
