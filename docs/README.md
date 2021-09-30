@@ -10,8 +10,7 @@
 Zizo is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI).
 If you can type fast, Zizo can get your task management done faster than traditional GUI apps.
 ## Features
-    private static final int CMD_FIND = 8;
-    private static final int CMD_TERMINATE = 0;
+
 ### Add Todo
 
 Adds a **Todo** task
