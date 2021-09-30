@@ -1,17 +1,15 @@
-public class Task {
-    public String name;
-    public boolean isDone;
-    public Task(String name) {
-        this.name = name;
-        this.isDone = false;
+   public class Task {
+    protected String description;
+
+    public Task(String description) {
+        this.description = description;
     }
-    public String getStatus() {
-        return (isDone ? "X" : " ");
+
+    public String getDescription() {
+        return description;
     }
-    public void markAsDone() {
-        this.isDone = true;
-    }
-    public String getName() {
-        return this.name;
+
+    public String toString() {
+        return "[ ] " + description.substring(5);
     }
 }

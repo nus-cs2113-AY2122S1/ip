@@ -1,14 +1,24 @@
 public class Event extends Task {
-    public String eventDate;
-    public Event(String name, String eventDate) {
-        super(name);
-        this.eventDate = eventDate;
+    protected String at;
+    protected String taskName;
+    protected int index;
+
+    public Event(String description, String at, int index) {
+        super(description);
+        this.at = at;
+        this.index = index;
     }
-    /**
-     * Show the event.
-     */
-    @Override
+
+    public String getAt() {
+        return this.at;
+    }
+
+    public void setAt(String at) {
+        this.at = at;
+    }
+
     public String toString() {
-        return "[E]" + super.toString() + " (at:" + eventDate + ")";
+        taskName = description.substring(6, index - 10);
+        return "[E][ ]" + taskName + " (at: " + at + ")";
     }
 }
