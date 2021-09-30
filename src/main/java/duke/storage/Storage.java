@@ -158,10 +158,10 @@ public class Storage {
         taskStringBuilder.append(task.isDone() ? SYMBOL_TASK_DONE : SYMBOL_TASK_NOT_DONE).append(" ");
         taskStringBuilder.append(task.getDescription()).append(" ");
         if (task instanceof Deadline) {
-            final String deadline = ((Deadline) task).getBy();
+            final String deadline = ((Deadline) task).getBy().format(Parser.DATE_TIME_INPUT_FORMATTER);
             taskStringBuilder.append(Parser.DELIMITER_BY).append(" ").append(deadline);
         } else if (task instanceof Event) {
-            final String eventDateTime = ((Event) task).getAt();
+            final String eventDateTime = ((Event) task).getAt().format(Parser.DATE_TIME_INPUT_FORMATTER);
             taskStringBuilder.append(Parser.DELIMITER_AT).append(" ").append(eventDateTime);
         }
         return taskStringBuilder.toString();

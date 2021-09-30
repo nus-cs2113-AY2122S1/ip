@@ -1,12 +1,19 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+import duke.DukeException;
+import duke.parser.Parser;
+import duke.ui.Ui;
+
 /**
  * Represents a task that needs to be done before a specific date/time.
  */
 public class Deadline extends Task {
     public static final String TASK_TYPE_ICON = "D";
     /** Deadline for the task (date/time) */
-    private final String by;
+    private final LocalDateTime by;
 
     /**
      * Creates a task with the specified description and deadline.
@@ -14,9 +21,13 @@ public class Deadline extends Task {
      * @param description Description of the task.
      * @param by Deadline for the task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DukeException {
         super(description);
-        this.by = by.trim();
+        try {
+            this.by = LocalDateTime.parse(by.trim(), Parser.DATE_TIME_INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new DukeException(String.format(Parser.MESSAGE_INVALID_DATE_TIME_FORMAT, "deadline"));
+        }
     }
 
     /**
@@ -24,7 +35,7 @@ public class Deadline extends Task {
      *
      * @return Deadline for the task.
      */
-    public String getBy() {
+    public LocalDateTime getBy() {
         return by;
     }
 
@@ -41,6 +52,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return super.toString() + " (by: " + by + ")";
+        return super.toString() + " (by: " + by.format(Ui.DATE_TIME_OUTPUT_FORMATTER) + ")";
     }
 }

@@ -1,5 +1,6 @@
 package duke.ui;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -15,6 +16,8 @@ public class Ui {
     private static final String MESSAGE_GREETING = "Hello! I'm Duke\n" + "%1$s\n" + "What can I do for you?";
     private static final String MESSAGE_DATA_FILE_NEW = "No data file found. Will store data in new file: '%1$s'";
     private static final String MESSAGE_DATA_FILE_EXISTING = "Data file found. Using data from: '%1$s'";
+
+    public static final DateTimeFormatter DATE_TIME_OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy h.mma");
 
     /**
      * Reads input commands from the user.

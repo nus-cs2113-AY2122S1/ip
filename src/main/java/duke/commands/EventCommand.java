@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.DukeException;
 import duke.task.Event;
 
 /**
@@ -15,7 +16,7 @@ public class EventCommand extends AddTaskCommand {
      * @param description Description of the task.
      * @param at Date and time of the event.
      */
-    public EventCommand(String description, String at) {
+    public EventCommand(String description, String at) throws DukeException {
         toAdd = new Event(description, at);
     }
 }

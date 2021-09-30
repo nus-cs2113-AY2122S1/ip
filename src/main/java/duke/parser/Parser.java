@@ -1,5 +1,6 @@
 package duke.parser;
 
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +37,9 @@ public class Parser {
                     + "( " + DELIMITER_BY + " (?<" + CAPTURING_GROUP_BY + ">[^/]+))?"
                     + "( " + DELIMITER_AT + " (?<" + CAPTURING_GROUP_AT + ">[^/]+))?");
 
+    public static final String DATE_TIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
+    public static final DateTimeFormatter DATE_TIME_INPUT_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_INPUT_FORMAT);
+
     private static final String MESSAGE_TODO_DESCRIPTION_EMPTY = "The description of a todo cannot be empty.";
     private static final String MESSAGE_UNRECOGNISED_EVENT_FORMAT = "Unrecognised event format.\n"
             + "Please ensure you provide the date/time of the event.";
@@ -44,6 +48,8 @@ public class Parser {
     private static final String MESSAGE_INVALID_TASK_NUMBER = "Please use a valid integer for the task number.";
     private static final String MESSAGE_UNRECOGNISED_COMMAND = "I'm sorry, but I don't know what that means :-(";
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format!";
+    public static final String MESSAGE_INVALID_DATE_TIME_FORMAT = "Invalid datetime format for %1$s. "
+            + "Please ensure you use this format: " + DATE_TIME_INPUT_FORMAT;
 
     /**
      * Parses user input as a command.
