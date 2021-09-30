@@ -34,7 +34,7 @@ All ready to go! Enjoy using _Dude_! :star_struck:
 - :exclamation: Date and time needs to be specified in `dd/MM/yyyy HHmm` format. E.g: `12/12/2021 2359` 
 
 
-### Add a Todo task : `todo`
+### Add a Todo task: `todo`
 Adds a Todo task to the list. Todo tasks are general tasks that do not have any date and time attached to it.
 
 > Format: `todo TASK_DESCRIPTION`
