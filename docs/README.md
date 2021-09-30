@@ -143,3 +143,15 @@ Format: `bye`
 ### Saving task data
 Duke saves your task list from the usage into your local storage as a text file.<br />
 Upon reinitialization, it reloads that file, so you access previously added tasks
+
+##Command Summary
+Action | Format/Examples |
+------ | --------------- |
+todo | `todo TASK_DESCRIPTION` <br /> e.g. `todo buy food`
+deadline | `deadline TASK_DESCRIPTION /by DEADLINE_TIME`<br /> e.g. `deadline tutorial 1 /by monday`
+event | `event TASK_DESCRIPTION /at EVENT_TIME` <br /> e.g. `event lecture /at Thursday 4pm`
+done | `done TASK_INDEX` <br /> e.g. `done 1`
+delete | `delete TASK_INDEX` <br /> e.g. `delete 1`
+find | `find KEYWORD` <br /> e.g. `find homework`
+list | `list`
+bye | `bye`
