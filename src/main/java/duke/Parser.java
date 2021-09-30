@@ -6,8 +6,6 @@ public class Parser {
     protected String input;
     protected String command;
     protected String description;
-    protected String by;
-    protected String at;
     protected Boolean isExit;
 
 
@@ -28,35 +26,28 @@ public class Parser {
             command =  "list";
         } else if(input.substring(0, 4).equals("done")) {
             command = "done";
-            description = input.substring(5);
-
+            description = input.substring(5).trim();
         }else if(input.substring(0, 4).equals("todo")){
             command =  "todo";
             description = input.substring(5).trim();
-            if(description.isEmpty()){
-                throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
-            }
         }else if (input.startsWith("deadline")) {
             command =  "deadline";
             description = input.substring(input.indexOf("deadline") + 9).trim();
-            if(description.isEmpty()){
-                throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
-            }
             if(!description.contains("/by")){
                 throw new DukeException("OOPS!!! The description of a deadline must have /by.");
             }
         }else if (input.startsWith("event")) {
             command =  "event";
             description = input.substring(input.indexOf("event") + 6).trim();
-            if(description.isEmpty()){
-                throw new DukeException("OOPS!!! The description of a event cannot be empty.");
-            }
             if(!description.contains("/at")){
                 throw new DukeException("OOPS!!! The description of a event must have /at.");
             }
         }else if(input.startsWith("delete")){
             command =  "delete";
             description = input.substring(7).trim();
+        }else if(input.startsWith("find")){
+            command =  "find";
+            description = input.substring(5).trim();
         }
     }
 
@@ -64,15 +55,11 @@ public class Parser {
         return command;
     }
 
-    public String getDescription(){
+    public String getDescription() throws DukeException {
+        if(description.isEmpty()){
+            throw new DukeException("OOPS!!! The description cannot be empty.");
+        }
         return description;
     }
 
-    public String getAt() {
-        return at;
-    }
-
-    public String getBy() {
-        return by;
-    }
 }

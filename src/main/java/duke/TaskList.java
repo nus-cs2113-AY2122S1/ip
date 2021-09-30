@@ -1,7 +1,4 @@
 package duke;
-
-import duke.Ui;
-import duke.command.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -34,13 +31,21 @@ public class TaskList {
     }
 
     public void printTaskList(){
+        if(todo_index==0){
+            Ui.printTaskNumberMessage(todo_index);
+        }
         for (int i = 0; i < todo_index; i++) {
             System.out.println(i + 1 + ". " + todo.get(i).toString());
         }
     }
 
-    public int getTodo_index(){
-        return todo_index;
+    public void findTaskList(String item){
+        Ui.printFindTaskMessage();
+        for (int i = 0; i < todo_index; i++) {
+            if(todo.get(i).toString().contains(item)){
+                System.out.println(i + 1 + ". " + todo.get(i).toString());
+            }
+        }
     }
 
     public void markTaskAsDone(String description){

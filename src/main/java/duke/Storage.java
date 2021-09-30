@@ -25,7 +25,7 @@ public class Storage {
         //create duke.txt in folder named 'data'
         //idea from https://stackoverflow.com/questions/2833853/create-whole-path-automatically-when-writing-to-a-new-file
         //author: cdmihai
-        Path pathToFile = Paths.get(this.filepath);
+        Path pathToFile = Paths.get(filepath);
         Files.createDirectories(pathToFile.getParent());
         try{
             Files.createFile(pathToFile);
