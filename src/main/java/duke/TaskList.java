@@ -19,6 +19,20 @@ public class TaskList {
         this.todo_index = 0;
     }
 
+    public TaskList(TaskList stored) {
+        this.todo = stored.getTodo();
+        this.todo_index = stored.getTodoIndex();
+
+    }
+
+    public ArrayList<Task> getTodo(){
+        return todo;
+    }
+
+    public int getTodoIndex(){
+        return todo_index;
+    }
+
     public void printTaskList(){
         for (int i = 0; i < todo_index; i++) {
             System.out.println(i + 1 + ". " + todo.get(i).toString());
@@ -36,9 +50,13 @@ public class TaskList {
         System.out.println(todo.get(i - 1).toString());
     }
 
-    public void addToDoTaskToList(String input){
+    public void addTask(Task task) {
+        this.todo.add(task);
+        todo_index+=1;
+    }
 
-        todo.add(new Task(input));
+    public void addToDoTaskToList(String input){
+        todo.add(new Task(input,false));
         todo_index+=1;
         Ui.printAddedTaskMessage();
         System.out.println(todo.get(todo_index-1).toString());
@@ -48,7 +66,7 @@ public class TaskList {
     public void addDeadlineTaskToList(String input) {
         String description = input.substring(0, input.indexOf("/by") - 1);
         String by = input.substring(input.indexOf("/by") + 4);
-        todo.add(new Deadline(description, by));
+        todo.add(new Deadline(description, by, false));
         todo_index+=1;
         Ui.printAddedTaskMessage();
         System.out.println(todo.get(todo_index-1).toString());
@@ -58,7 +76,7 @@ public class TaskList {
     public void addEventTaskToList(String input) {
         String description = input.substring(0, input.indexOf("/at") - 1);
         String at = input.substring(input.indexOf("/at") + 4);
-        todo.add(new Event(description, at));
+        todo.add(new Event(description, at, false));
         todo_index+=1;
         Ui.printAddedTaskMessage();
         System.out.println(todo.get(todo_index-1).toString());
@@ -75,4 +93,11 @@ public class TaskList {
         Ui.printTaskNumberMessage(todo_index);
     }
 
+    public String save(){
+        String saved = "";
+        for (int i = 0; i < todo_index; i++) {
+            saved += todo.get(i).toString()+"\n";
+        }
+        return saved;
+    }
 }

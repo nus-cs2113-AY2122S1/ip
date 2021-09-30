@@ -5,36 +5,29 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import duke.command.DukeException;
-import duke.*;
-import duke.task.*;
+import duke.Ui;
 
-import java.nio.file.Paths;
-import java.nio.file.Files;
-import java.io.File;
-import java.io.FileWriter;
+
+
 import java.io.IOException;
 
 public class Duke {
 
     private Storage storage;
     private static TaskList tasks;
-    private static Ui ui;
     private int test;
 
-
-
     public Duke(String filePath) throws IOException {
-        ui = new Ui();
         storage = new Storage(filePath);
-        tasks = new TaskList();//storage.load());
+        tasks = new TaskList(storage.loadFileContents());
     }
 
 
-    public static void executeCommand(Parser c, TaskList tasks, Storage storage) throws DukeException {
+    public static void executeCommand(Parser c, TaskList tasks, Storage storage) throws DukeException, IOException {
         switch (c.getCommand()) {
         case "bye":
             //fileManager.writeArrayToFile(taskManager);
-            ui.showBye();
+            Ui.showBye();
             break;
         case "list":
             tasks.printTaskList();
@@ -63,18 +56,18 @@ public class Duke {
         default:
             throw new DukeException("Oops, command not recognised!");
         }
-
+        storage.writeToFile(tasks);
     }
 
 
     public void run() {
 
-        ui.showWelcome();
+        Ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
+                String fullCommand = Ui.readCommand();
+                Ui.showLine(); // show the divider line ("_______")
                 Parser c = new Parser(fullCommand);
                 c.parse();
                 executeCommand(c,tasks,storage);
@@ -86,16 +79,18 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("OOPS!!! It's out of range.");
             } catch (DukeException e) {
-                ui.showError(e.getMessage());
+                Ui.showError(e.getMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
             } finally {
-                ui.showLine();
+                Ui.showLine();
             }
         }
     }
 
     public static void main(String[] args) throws IOException {
 
-        new Duke("data/tasks.txt").run();
+        new Duke("data/duke.txt").run();
     }
 }
 
