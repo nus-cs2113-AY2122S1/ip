@@ -1,0 +1,17 @@
+tasks
+todo Homework
+event CS2113T Finals/at 30112021 0900
+deadline IPPT/by 17042022 2359
+todo Revision
+todo CS2113T Individual Project
+todo CS2113T Team Project
+list
+find CS2113T
+done 3
+delete 3
+list
+done 2
+delete 1
+list
+done 1
+list
