@@ -1,0 +1,9 @@
+deadline task1 /by day
+list
+event task2 /at day
+list
+done 1
+list
+done 2
+list
+bye
