@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
  */
 public class Event extends Task {
 
-    final private static String FLAG_TYPE = "[E]";
+    final public static String FLAG_TYPE = "[E]";
+
+    final public static int totalArg = 2;
 
     private LocalDateTime startDate;
 

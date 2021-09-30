@@ -3,10 +3,12 @@ package duke;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.CommandException;
+import duke.command.CommandResult;
 import duke.storage.FileHandler;
 import duke.parser.Parser;
 import duke.parser.ParserException;
 import duke.task.TaskManager;
+import duke.task.TaskManagerException;
 import duke.ui.Ui;
 
 /**
@@ -37,7 +39,7 @@ public class Duke {
         fileHandler = new FileHandler(fileDirectory);
         ui.printFileLoadingMessage(fileName);
         try {
-            taskManager.processContentsFromFile(fileHandler.load(fileName));
+            taskManager.processContentsFromFile(fileHandler.load(fileName), ui);
         } catch (DukeException e) {
             //File name not found
             ui.printDukeExceptionMessage(e);

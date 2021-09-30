@@ -12,6 +12,12 @@ public class Task {
     // Status of whether the task is completed.
     private boolean isDone;
 
+    final public static int totalStatusFlag = 2;
+    final public static int totalArg = 0;
+
+    final public static String doneStatus = "1";
+    final public static String notDoneStatus = "0";
+
     private String description;
 
     public Task(String description) {
@@ -30,9 +36,9 @@ public class Task {
      */
     public String getDoneStatus() {
         if (isDone) {
-            return "1";
+            return doneStatus;
         }
-        return "0";
+        return notDoneStatus;
     }
 
     public String getDescription() {

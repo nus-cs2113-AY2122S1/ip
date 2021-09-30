@@ -5,7 +5,9 @@ package duke.task;
  */
 public class ToDo extends Task {
 
-    final private static String FLAG_TYPE = "[T]";
+    final public static String FLAG_TYPE = "[T]";
+
+    final public static int totalArg = 1;
 
     public ToDo(String description) {
         super(description);

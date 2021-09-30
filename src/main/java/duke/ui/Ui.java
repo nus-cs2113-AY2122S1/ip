@@ -3,6 +3,7 @@ package duke.ui;
 import duke.DukeException;
 import duke.command.CommandException;
 import duke.parser.ParserException;
+import duke.task.TaskManagerException;
 import java.util.Scanner;
 
 /**
@@ -62,6 +63,11 @@ public class Ui {
     }
 
     public void printCommandExceptionMessage(CommandException e) {
+        System.out.println(e.toString());
+        System.out.println(LINE);
+    }
+
+    public void printTaskManagerExceptionMessage(TaskManagerException e) {
         System.out.println(e.toString());
         System.out.println(LINE);
     }

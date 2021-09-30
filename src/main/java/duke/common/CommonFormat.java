@@ -16,4 +16,6 @@ public class CommonFormat {
     final public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_DATETIME);
     final public static DateTimeFormatter formatterDateOnly = DateTimeFormatter.ofPattern(FORMAT_DATE);
     final public static DateTimeFormatter formatterPrint = DateTimeFormatter.ofPattern(FORMAT_DATETIME_PRINT);
+
+    final public static String INFO_SEPARATOR = "|";
 }

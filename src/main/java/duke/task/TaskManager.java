@@ -1,9 +1,13 @@
 package duke.task;
 
+import duke.common.CommonFormat;
+import duke.common.Messages;
+import duke.ui.Ui;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Class that handles any Task related objects and maintain a task list.
@@ -129,7 +133,7 @@ public class TaskManager {
     @Override
     public String toString() {
         String data = "";
-        String separator = " | ";
+        String separator = " " + CommonFormat.INFO_SEPARATOR + " ";
         for (int i = 0; i < totalNumberOfTasks; i++) {
             data += taskList.get(i) + System.lineSeparator();
         }
@@ -143,29 +147,16 @@ public class TaskManager {
      *
      * @param contents Contents from a text file that contains a previous saved task list.
      */
-    public void processContentsFromFile(ArrayList<String> contents) {
-        PrintStream originalStream = System.out;
-        PrintStream noOutputStream = new PrintStream(new OutputStream() {
-            public void write(int b) {
-                // NO-OP
-            }
-        });
-        System.setOut(noOutputStream);
+    public void processContentsFromFile(ArrayList<String> contents, Ui ui) {
         for (String s : contents) {
-            System.out.println(s);
             try {
                 addTaskFromContent(s);
             } catch (DateTimeParseException e) {
-                System.setOut(originalStream);
-                System.out.printf("Error: Invalid date detected.\n%s\n", s);
-                System.setOut(noOutputStream);
+                ui.printMessage(getInvalidFileInputMessage(Messages.ERROR_MESSAGE_INVALID_DATE, s));
             } catch (TaskManagerException e) {
-                System.setOut(originalStream);
-                System.out.println(e);
-                System.setOut(noOutputStream);
+                ui.printMessage(getInvalidFileInputMessage(e.toString(), s));
             }
         }
-        System.setOut(originalStream);
     }
 
     /**
@@ -174,36 +165,29 @@ public class TaskManager {
      * @param contents A task information given by a file input.
      */
     private void addTaskFromContent(String contents) throws DateTimeParseException, TaskManagerException {
-        String[] contentArray = contents.split("\\|");
-        switch (contentArray[0].trim()) {
-        case "[T]":
-            if (contentArray.length < 3) {
-                throw new TaskManagerException(getInvalidFileInputMessage(contents));
-            }
-            createToDoTask(contentArray[2].trim());
+        String[] contentArray = contents.split("\\s*\\" + CommonFormat.INFO_SEPARATOR + "\\s*");
+        switch (contentArray[0]) {
+        case ToDo.FLAG_TYPE:
+            checkAllInfoIsGiven(contentArray, ToDo.totalArg + Task.totalStatusFlag);
+            createToDoTask(contentArray[2]);
             break;
-        case "[D]":
-            if (contentArray.length < 4) {
-                throw new TaskManagerException(getInvalidFileInputMessage(contents));
-            }
-            createDeadlineTask(contentArray[2].trim(), contentArray[3].trim());
+        case Deadline.FLAG_TYPE:
+            checkAllInfoIsGiven(contentArray, Deadline.totalArg + Task.totalStatusFlag);
+            createDeadlineTask(contentArray[2], contentArray[3]);
             break;
-        case "[E]":
-            if (contentArray.length < 4) {
-                throw new TaskManagerException(getInvalidFileInputMessage(contents));
-            }
-            createEventTask(contentArray[2].trim(), contentArray[3].trim());
+        case Event.FLAG_TYPE:
+            checkAllInfoIsGiven(contentArray, Event.totalArg + Task.totalStatusFlag);
+            createEventTask(contentArray[2], contentArray[3]);
             break;
         default:
-            throw new TaskManagerException(getInvalidFileInputMessage(contents));
+            // Task type unknown
+            throw new TaskManagerException(Messages.ERROR_MESSAGE_UNKNOWN_TASK);
         }
 
-        boolean isDone = false;
-        if (contentArray[1].trim().equals("1")) {
-            isDone = true;
+        // Set Task done
+        if (contentArray[1].equals(Task.doneStatus)) {
+            setTaskToDone(totalNumberOfTasks);
         }
-        taskList.get(totalNumberOfTasks - 1).setDone(isDone);
-
     }
 
     /**
@@ -212,8 +196,18 @@ public class TaskManager {
      * @param s The input that trigger the error.
      * @return The full error message of invalid format.
      */
-    private String getInvalidFileInputMessage(String s) {
-        return String.format("Error: Invalid input format. \"%s\"\n", s);
+    private String getInvalidFileInputMessage(String message, String s) {
+        return String.format(message + " \"%s\"", s);
+    }
+
+    private void checkAllInfoIsGiven(String[] contentArray, int lengthNeeded) throws TaskManagerException {
+        if (contentArray.length != lengthNeeded) {
+            throw new TaskManagerException(Messages.ERROR_MESSAGE_MISSING_ARGUMENTS);
+        } else if (!isValidDoneStatus(contentArray[1])) {
+            throw new TaskManagerException(Messages.ERROR_MESSAGE_INVALID_DONE);
+        } else if (!isValidTaskDescription(contentArray[Task.totalStatusFlag])) {
+            throw new TaskManagerException(Messages.ERROR_MESSAGE_EMPTY_ARGUMENTS);
+        }
     }
 
     public void printTaskOnDate(String date) {
@@ -256,6 +250,14 @@ public class TaskManager {
 
     private boolean isKeywordInside(String description, String keyword) {
         return description.contains(keyword);
+    }
+
+    private boolean isValidDoneStatus(String c) {
+        return c.equals(Task.doneStatus) || c.equals(Task.notDoneStatus);
+    }
+
+    private boolean isValidTaskDescription(String s) {
+        return !s.isEmpty();
     }
 
 }

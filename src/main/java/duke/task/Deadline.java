@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
  */
 public class Deadline extends Task {
 
-    final private static String FLAG_TYPE = "[D]";
+    final public static String FLAG_TYPE = "[D]";
+
+    final public static int totalArg = 2;
 
     private LocalDateTime dueDate;
 
