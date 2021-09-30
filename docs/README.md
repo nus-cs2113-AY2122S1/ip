@@ -16,8 +16,8 @@ Command | Use
 `Done` | Set a Task as **completed**
 `Delete` | Remove a Task
 `List` | View Task
-`Find` | Find a Task with **Keyword**
-`Date` | Find a Task with a specific **Date**
+`Find` | Find Tasks with a specific **Keyword**
+`Date` | Find Tasks with a specific **Date**
 `Bye` | Exit Program
 `Echo` | Repeat Input
 `!Echo` | Repeat Input in Grafiti ASCII Art
@@ -28,20 +28,21 @@ Command | Use
 
 ## Notes
 
-* Words in `UPPER_CASE` are parameters to be entered by user
+* Words in `UPPER_CASE` are parameters to be entered by user.
 * Program is **not** case sensitive.
-* TASK_DESCRIPTION represent description of a task.
-* TASK_DEADLINE represent date of a task either in words or DATE and TIME format. 
-* TASK_TIMING represent timing of a task either in words or DATE and TIME format.
-* TASK_INDEX represent index number of a task. Index number can be viewed by viewing the whole list.
-* KEYWORD represent word input by user.
-* TIME represents date input by user in `HH:MM` format.
-   * HH represents hours.
-   * MM represents minutes.
-* DATE represents date input by user in `yyyy-mm-dd` fomat.
-   * yyyy represents year.
-   * mm represents months.
-   * dd represents days.
+* `INPUT` represent input by user.
+* `TASK_DESCRIPTION` represent description of a task.
+* `TASK_DEADLINE` represent date of a task either in words or `DATE` and `TIME` format. 
+* `TASK_TIMING` represent timing of a task either in words or `DATE` and `TIME` format.
+* `TASK_INDEX` represent index number of a task. Index number can be viewed by viewing list.
+* `KEYWORD` represent word input by user.
+* `TIME` represents date input by user in `HH:MM` format.
+   * `HH` represents hours.
+   * `MM` represents minutes.
+* `DATE` represents date input by user in `yyyy-mm-dd` fomat.
+   * `yyyy` represents year.
+   * `mm` represents months.
+   * `dd` represents days.
 * Tasks are represented as `TASK_TYPE`,`STATUS`,`TASK_DESCRIPTION`,`TASK_DATE`.
    * `TASK_TYPE` is `T` for ToDo, `D` for Deadline and `E` for Event.
    * `STATUS` is `X` if completed.
@@ -62,8 +63,8 @@ Command Format: `todo TASK_DESCRIPTION`
 * TASK_DESCRIPTION cannot be empty.
 
 Examples:
-* todo watch twitch videos
-* todo watch youtube videos
+* `todo watch twitch videos`
+* `todo watch youtube videos`
 
 Demo:
 
@@ -91,9 +92,15 @@ Without Date | `deadline TASK_DESCRIPTION by TIME`
 Without Time | `deadline TASK_DESCRIPTION by DATE`
 With Date and Time | `deadline TASK_DESCCRIPTION by TIME DATE`
 
+
 * TASK_DESCRIPTION and TASK_DEADLINE cannot be empty.
-* Word "by " is required in input to indicated TASK_DEADLINE.
+* Word `by` is required in input to indicated TASK_DEADLINE.
 * No specific ordering of time and date as long as input pattern is followed.
+
+Examples:
+* `deadline homework1 by 23:59`
+* `deadline homework2 by 2020-10-10`
+* `deadline homework3 by 20:00 2021-10-20
 
 Demo:
 
@@ -112,6 +119,7 @@ Got it. I've added this task:
 Now you have 5 tasks in the list.
 ____________________________________________________________
 ```
+
 
 View details on adding Deadline task in program.
 
@@ -137,9 +145,15 @@ Without Date | `event TASK_DESCRIPTION at TIME`
 Without Time | `event TASK_DESCRIPTION at DATE`
 With Date and Time | `event TASK_DESCCRIPTION at TIME DATE`
 
+
 * TASK_DESCRIPTION and TASK_TIMING cannot be empty.
-* Word "at " is required in input to indicated TASK_DEADLINE.
+* Word `at` is required in input to indicated TASK_DEADLINE.
 * No specific ordering of time and date as long as input pattern is followed.
+
+Examples:
+* `event g2 vs SEN at 21:00`
+* `event 100T vs Gambit at 2021-08-01`
+* `event paperex vs Bren at 2021-08-01 08:00`
 
 Demo:
 
@@ -158,6 +172,8 @@ Got it. I've added this task:
 Now you have 8 tasks in the list.
 ____________________________________________________________
 ```
+
+
 View details on adding Event task in program.
 
 Command Format: `!event`
@@ -179,7 +195,10 @@ Command Format: `done TASK_INDEX`
 
 * TASK_INDEX cannot be empty.
 * TASK_INDEX must be a integer.
-* Use "," to seperate multiple tasks.
+* Use `,` to seperate multiple tasks.
+
+Examples:
+* `done 1,2,3`
 
 Demo:
 
@@ -211,7 +230,10 @@ Command Format: `delete TASK_INDEX`
 
 * TASK_INDEX cannot be empty.
 * TASK_INDEX must be a integer.
-* Use "," to seperate multiple tasks.
+* Use `,` to seperate multiple tasks.
+
+Examples:
+* `delete 2,4,5`
 
 Demo:
 
@@ -343,7 +365,10 @@ Lists all tasks with a specific keyword in its description in list.
 
 Command Format: `find KEYWORD`
 
-* kEYWORD must not be empty.
+* KEYWORD must not be empty.
+
+Examples:
+* `find g2`
 
 Demo:
 
@@ -364,6 +389,9 @@ Command Format: `date DATE`
 
 * DATE must not be empty.
 * DATE must be in the format of yyyy-mm-dd.
+
+Examples:
+* `date 2021-08-01`
 
 Demo:
 
