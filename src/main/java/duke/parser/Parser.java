@@ -155,10 +155,22 @@ public class Parser {
     }
     // @@author
 
+    /**
+     * Converts localDateTime data of a deadline/event into the required format for saving of data into BillyData.txt.
+     *
+     * @param input The localDateTime info of the deadline/event
+     * @return localDateTime data that has been converted into the appropriate format for saving
+     */
     public static String stringifyDateTimeForStorage(LocalDateTime input) {
         return input.format(DateTimeFormatter.ofPattern(dateTimeFormat));
     }
 
+    /**
+     * Converst localDateTime data of a deadline/event into the required format for printing.
+     *
+     * @param input The localDateTime info of the deadline/event
+     * @return localDateTime data that has been converted into the appropriate format for printing
+     */
     public static String stringifyDateTimeForPrinting(LocalDateTime input) {
         return input.format(DateTimeFormatter.ofPattern(printDateTimeFormat));
     }

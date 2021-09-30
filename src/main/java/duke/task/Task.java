@@ -23,10 +23,6 @@ public abstract class Task {
         return isDone;
     }
 
-    public TaskType getType() {
-        return type;
-    }
-
     public void markAsDone() {
         isDone = true;
     }
