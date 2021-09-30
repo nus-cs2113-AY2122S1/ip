@@ -47,12 +47,9 @@ public class Duke {
         case "delete":
             tasks.deleteTask(c.getDescription());
             break;
-        /*case COMMAND_FIND:
-            if (isValidFindCommand(inputStr)) {
-                String keyword = Parser.getItem(inputStr);
-                printArrayList(taskManager.findTask(keyword));
-            }
-            break;*/
+        case "find":
+            tasks.findTaskList(c.getDescription());
+            break;
         default:
             throw new DukeException("Oops, command not recognised!");
         }

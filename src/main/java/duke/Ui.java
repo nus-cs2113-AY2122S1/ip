@@ -54,12 +54,11 @@ public class Ui {
         System.out.println("Noted. I've removed this task: ");
     }
 
-    public static void showLoadingError() {
-        System.out.println("Loading error.");
-    }
     public static void fileAlreadyExist() {
         System.out.println("Detected a previous saved file.");
     }
 
-
+    public static void printFindTaskMessage() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
 }
