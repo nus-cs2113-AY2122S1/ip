@@ -58,12 +58,12 @@ Duke is a personal assistant chat-bot that can help its user to record different
 * Sample output: [mark_as_done](images/mark_as_done.png)
 
 ### 6. Delete task in task list
-* Syntax: delete <task index>
+* Syntax: delete <index of task that you want to delete>
 * e.g. delete 3
 * Sample output: [delete](images/delete.png)
 
 ### 7. Find task with keyword in the task list
-* Syntax: find <keyword>
+* Syntax: find <keyword you want to search>
 * e.g. find car
 * Sample output: [find](images/find.png)
 
