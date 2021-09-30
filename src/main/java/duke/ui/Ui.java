@@ -6,6 +6,7 @@ import static duke.ui.CommandMessage.DELETE_TASK_MESSAGE;
 import static duke.ui.CommandMessage.HELP_MESSAGE;
 
 import duke.task.Task;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -76,6 +77,26 @@ public class Ui {
      */
     public void printCompleteTaskMessage(Task task) {
         printMessage(String.format(COMPLETE_TASK_MESSAGE, task.toString()));
+    }
+
+    /**
+     * Prints list of task message
+     *
+     * @param taskList Array list of task currently in TaskList class
+     */
+    public void printCompleteTaskMessage(ArrayList<Task> taskList) {
+        int tasksListSize = taskList.size();
+        new StringBuilder();
+        StringBuilder message;
+        if (tasksListSize == 0) {
+            message = new StringBuilder("Oh! You have no tasks left!");
+        } else {
+            message = new StringBuilder("Total of " + tasksListSize + " task(s)\n");
+            for (Task task : taskList) {
+                message.append(String.format("%d.%s\n", task.getTaskNumber(), task));
+            }
+        }
+        printMessage(message.toString());
     }
 
     /**

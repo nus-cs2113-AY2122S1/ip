@@ -11,6 +11,8 @@ public class Task {
     /* Type of task: T, D or E */
     protected char type;
 
+    protected int taskNumber;
+
     /**
      * Constructor for any type of task
      *
@@ -45,6 +47,16 @@ public class Task {
     /* Getter for task description */
     public String getDescription() {
         return description;
+    }
+
+    /* Getter for task number */
+    public int getTaskNumber() {
+        return taskNumber;
+    }
+
+    /* Setter for task number */
+    public void setTaskNumber(int taskNumber) {
+        this.taskNumber = taskNumber;
     }
 
     /* Setter for task name */
