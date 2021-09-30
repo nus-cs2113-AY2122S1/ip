@@ -98,12 +98,6 @@ public class Ui {
         }
         printMessage(message.toString());
     }
-            for (Task task : taskList) {
-                message.append(String.format("%d.%s\n", task.getTaskNumber(), task));
-            }
-        }
-        printMessage(message.toString());
-    }
 
     /**
      * Prints delete task message
