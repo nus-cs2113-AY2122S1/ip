@@ -16,12 +16,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TaskList {
+    /**
+     * Adds a to-do task into the list of tasks
+     *
+     * @param description The description of the to-do task
+     * @param taskList The list for which the to-do task will be added into
+     */
     static void addTodo(String description, List<Task> taskList) {
         Todo newTodo = new Todo(description, TaskType.TODO);
         taskList.add(newTodo);
         Ui.printTaskAddedMessage(newTodo);
     }
 
+    /**
+     * Adds an event into the list of tasks.
+     * The format for date/time info is dd/MM/yyyy [HH:mm]
+     * Fields in square bracket are optional
+     *
+     * @param input User input containing the description and date/time info of the event
+     * @param taskList The list for which the event will be added into
+     * @throws DukeException If no description or date/time is given for the event
+     */
     static void addEvent(String input, List<Task> taskList) throws DukeException {
         String[] separated = Parser.splitDescriptionFromTiming(TaskType.EVENT, input);
         if (separated.length == 1) {
@@ -40,6 +55,15 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a deadline into the list of tasks.
+     * The format for date/time info is dd/MM/yyyy [HH:mm]
+     * Fields in square bracket are optional
+     *
+     * @param input User input containing the description and date/time info of the deadline
+     * @param taskList The list for which the deadline will be added into
+     * @throws DukeException If no description or date/time is given for the event
+     */
     static void addDeadline(String input, List<Task> taskList) throws DukeException {
         String[] separated = Parser.splitDescriptionFromTiming(TaskType.DEADLINE, input);
         if (separated.length == 1) {
@@ -171,6 +195,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Queries the list of tasks for one that contains a substring of the given description from the user input
+     * and prints out any tasks that are found that contain it.
+     *
+     * @param input Description of the task to be queried for
+     * @param list List of tasks to be searched through
+     * @throws DukeException If the provided list of tasks is empty
+     */
     private static void findTask(String input, ArrayList<Task> list) throws DukeException {
         if (list.isEmpty()) {
             throw new DukeException(Ui.getHorizontalLine() +
