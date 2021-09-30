@@ -1,5 +1,7 @@
 package duke;
 
+import duke.task.*;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -32,14 +34,14 @@ public class Duke {
                     try {
                         doneTask(listIn, lineInput);
                     } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
-                        System.out.println("OOPS!!! The index of the duke.task that you entered does not exist:(" + dotsBreaker);
+                        System.out.println("OOPS!!! The index of the duke.task that you entered does not exist:(\n" + dotsBreaker);
                     }
                 } else if (lineInput[0].equals("event") || lineInput[0].equals("deadline") || lineInput[0].equals("todo")) {
                     try {
                         recordTask(listIn, lineIn, totalNumber, lineInput[0]);
                         totalNumber++;
                     } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("OOPS!!! The name of the duke.task that you entered is empty:(" + dotsBreaker);
+                        System.out.println("OOPS!!! The name of the duke.task that you entered is empty:(\n" + dotsBreaker);
                     }
                 } else {
                     throw new DukeException("OOPS!!! Sorry, but I do not understand:(\n" + dotsBreaker);
