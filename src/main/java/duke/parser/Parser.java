@@ -30,7 +30,7 @@ public class Parser {
             case "event":
             case "todo":
                 return new AddCommand(parseTask(command, fullCommand));
-            case "bye":
+            case "exit":
                 return new ExitCommand();
             case "delete":
                 return new DeleteCommand(parseIndex(command, fullCommand));

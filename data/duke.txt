@@ -1,4 +1,4 @@
-D | 0 | cz2005 lab quiz review | tonight
+D | 1 | cz2005 lab quiz review | tonight
 T | 0 | cs2030 lab1,2,3,4
 T | 0 | learn cz2101 lecture
 D | 0 | cs2113 ip | Friday midnight
