@@ -3,7 +3,9 @@
 Duke is a **desktop app for managing tasks, optimized for use via a Command Line Interface (CLI)**. It is especially
 efficient if you can type fast, and can be even faster than traditional Graphical User Interface (GUI) 
 task managing apps.
+
 ---
+
 ## Quick Start
 
 <p> 1. Ensure that you have `Java 11` or above installed in your computer. <br />
@@ -28,11 +30,11 @@ task managing apps.
 <p>
 7. Type your command in the blank line under the horizontal separator and press Enter to execute it. 
 (Ex. typing `list` and pressing Enter will display your current task list.) <br />
-8. Refer to the <a href="#Features">Features</a> section below for details on each command.
+8. Refer to the features section below for details on each command.
 </p>
 
 ---
-<h2 id="features">Features</h2>
+
 ## Features
 
 ### Notes about the command format:
