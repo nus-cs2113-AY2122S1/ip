@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
- * Main class
+ * Main class, Duke
  */
 public class Duke {
     private Storage storage;
