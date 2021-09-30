@@ -7,7 +7,7 @@ Prerequisites: JDK 11.
 
 ## For First-time Users:
 1. Download `Billy.jar` into your desired directory.
-2. Run `java -jar IP.jar` within the directory where `Billy.jar` is located to launch the program.
+2. Run `java -jar Billy.jar` within the directory where `Billy.jar` is located to launch the program.
 3. When the program runs, a new folder `data` containing `BillyData.txt` will be created.
 
 ## Using Billy:
