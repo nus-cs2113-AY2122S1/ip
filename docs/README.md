@@ -30,7 +30,8 @@ to download it.
 ## Program Start
 Open terminal in folder containing `Friday.jar` file.\
 Type in command `java -jar Friday.jar`.\
-The screen below should appear after a short while.\
+The screen below should appear after a short while (On first load with no data stored, 
+`Data successfully loaded into memory sir` line won't appear. However, it will appear on successive runs of program).\
 This indicates that previous data from storage has been loaded successfully into your current task list,
 and you can proceed with using the program.
 ```
