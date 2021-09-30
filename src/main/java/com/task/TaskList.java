@@ -2,12 +2,14 @@ package com.task;
 
 import java.util.ArrayList;
 
+
 /**
  * Represent a list of <code>Task</code> object, use <code>ArrayList<Task> list</code> to store information,
  * can add to the list and get the list.
  */
 public class TaskList {
     private final ArrayList<Task> list = new ArrayList<>();
+
 
     /**
      * Add a task item to the list.
@@ -17,6 +19,7 @@ public class TaskList {
     public void addTask(Task item) {
         list.add(item);
     }
+
 
     /**
      * Getter method, returns the list

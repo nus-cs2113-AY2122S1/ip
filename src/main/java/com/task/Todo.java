@@ -1,14 +1,27 @@
 package com.task;
+
+
+/**
+ * Represents a task todo.
+ */
 public class Todo extends Task {
 
     protected String type = "[T]";
 
+
+    /**
+     * Constructor of the Todo, store the description.
+     *
+     * @param description String object representing the information about the task.
+     */
     public Todo(String description) {
         super(description);
         this.isDone = false;
     }
 
-
+    /**
+     * Overwrite
+     */
     public String toString() {
         String status = null;
 
@@ -17,7 +30,7 @@ public class Todo extends Task {
         } else {
             status = "[ ]";
         }
-        return this.type + status +  super.toString() ;
+        return this.type + status +  super.toString();
     }
 
 }

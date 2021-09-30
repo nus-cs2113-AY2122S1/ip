@@ -1,11 +1,13 @@
 package com.task;
 import com.time.Time;
 
+
 /**
  * Represents a task with deadline by.
  */
 public class Deadline extends Todo {
     protected Time by;
+
 
     /**
      * Constructor of the Deadline, store the description and deadline time.

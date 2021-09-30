@@ -35,23 +35,23 @@ public class Command {
     public boolean handle(String line){
         line = line.toLowerCase();
         switch(line) {
-            case "bye":
-            case "end":
-                duke.endDuke();
-                return false;
-            case "hi":
-            case "hello":
-                duke.greet();
-                break;
-            case "list":
-                duke.listOut(duke.getList());
-                break;
-            case "clear":
-                duke.clear();
-                break;
-            default:
-                handle_task(line);
-                break;
+        case "bye":
+        case "end":
+            duke.endDuke();
+            return false;
+        case "hi":
+        case "hello":
+            duke.greet();
+            break;
+        case "list":
+            duke.listOut(duke.getList());
+            break;
+        case "clear":
+            duke.clear();
+            break;
+        default:
+            handle_task(line);
+            break;
         }
         return true;
     }
@@ -60,62 +60,55 @@ public class Command {
 
         if(line.contains("done")) {
             duke.markDone(line);
-        }
-        else if(line.contains("delete")) {
+        } else if (line.contains("delete")) {
             duke.deleteItem(line);
-        }
-        else if(line.contains("todo")) {
+        } else if (line.contains("todo")) {
             line = line.substring(5);
             duke.addList(new Todo(line));
-        }
-        else if(line.contains("add")) {
+        } else if (line.contains("add")) {
             line = line.substring(4);
             duke.addList(new Todo(line));
-        }
-        else if(line.contains("deadline") || line.contains("event")) {
+        } else if (line.contains("find")) {
+            line = line.substring(5).trim();
+            duke.find(line);
+        } else if (line.contains("deadline") || line.contains("event")) {
             handle_task_time(line);
-        }
-        else {
+        } else {
             duke.unknownAction();
         }
     }
 
     public void handle_task_time(String line){
-        int SEPARATOR_START_INDEX=0;
-        int SEPARATOR_END_INDEX=0;
-        int DESCRIPTION_INDEX=0;
-        if(line.contains("by")) {
+        int SEPARATOR_START_INDEX = 0;
+        int SEPARATOR_END_INDEX = 0;
+        int DESCRIPTION_INDEX = 0;
+        if (line.contains("by")) {
             SEPARATOR_START_INDEX = line.indexOf("by");
-            SEPARATOR_END_INDEX= SEPARATOR_START_INDEX+1;
-        }
-        else if(line.contains("at")) {
+            SEPARATOR_END_INDEX = SEPARATOR_START_INDEX+1;
+        } else if (line.contains("at")) {
             SEPARATOR_START_INDEX = line.indexOf("at");
-            SEPARATOR_END_INDEX= SEPARATOR_START_INDEX+1;
-        }
-        else if(line.contains("@")) {
+            SEPARATOR_END_INDEX = SEPARATOR_START_INDEX+1;
+        } else if (line.contains("@")) {
             SEPARATOR_START_INDEX = line.indexOf("@");
-            SEPARATOR_END_INDEX= SEPARATOR_START_INDEX;
-        }
-        else if(line.contains("/")) {
+            SEPARATOR_END_INDEX = SEPARATOR_START_INDEX;
+        } else if (line.contains("/")) {
             SEPARATOR_START_INDEX = line.indexOf("/");
-            SEPARATOR_END_INDEX= SEPARATOR_START_INDEX;
-        }
-        else{
+            SEPARATOR_END_INDEX = SEPARATOR_START_INDEX;
+        } else {
             duke.help();
             return;
         }
 
         String time = line.substring(SEPARATOR_END_INDEX+1);
 
-        if(line.contains("deadline")) {
+        if (line.contains("deadline")) {
             DESCRIPTION_INDEX=9;
-            line = line.substring(DESCRIPTION_INDEX,SEPARATOR_START_INDEX);
+            line = line.substring(DESCRIPTION_INDEX, SEPARATOR_START_INDEX);
             duke.addList(new Deadline(line,time));
-        }
-        else{
+        } else {
             DESCRIPTION_INDEX=6;
-            line = line.substring(DESCRIPTION_INDEX,SEPARATOR_START_INDEX);
-            duke.addList(new Event(line,time));
+            line = line.substring(DESCRIPTION_INDEX, SEPARATOR_START_INDEX);
+            duke.addList(new Event(line, time));
         }
     }
 }

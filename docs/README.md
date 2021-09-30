@@ -20,7 +20,7 @@ Duke is not sensitive to upper or lower cases so that you do not need to worry a
 
 ### `Hi` - Interact with Duke.
 
-Use command `Hi` to interact with Duke by saying "Hi"
+Use command `Hi` to interact with Duke by saying "Hi".
 
 Example of usage:
 
@@ -59,7 +59,7 @@ ______________________________________________________________________
 
 ```
 
-### `todo [description]` - Add a task to Todo list.
+### `Todo [description]` - Add a task to Todo list.
 
 Use command `todo` followed by the description of the task.
 
@@ -81,7 +81,7 @@ ______________________________________________________________________
 
 ```
 
-### `event [description] at [date]` - Add a event with date to Todo list.
+### `Event [description] at [date]` - Add a event with date to Todo list.
 
 Use command `event` followed by the description of the task, and `at` followed by the date.
 
@@ -103,7 +103,7 @@ ______________________________________________________________________
 
 ```
 
-### `deadline [description] by [deadline]` - Add a deadline with date to Todo list.
+### `Deadline [description] by [deadline]` - Add a deadline with date to Todo list.
 
 Use command `deadline` followed by the description of the task, and `by` followed by the date.
 
@@ -125,7 +125,7 @@ ______________________________________________________________________
 
 ```
 
-### `list` - list out to view the entire Todo list.
+### `List` - list out to view the entire Todo list.
 
 Use command `list` .
 
@@ -148,9 +148,9 @@ ______________________________________________________________________
 
 ```
 
-### `delete [index]` - delete a specific task in the Todo list.
+### `Delete [index]` - delete a specific task in the Todo list.
 
-Use command `delete` followed by the number index of the task
+Use command `delete` followed by the number index of the task.
 
 Example of usage:
 
@@ -170,7 +170,7 @@ ______________________________________________________________________
 
 ```
 
-### `done [index]` - Mark a specific task as done.
+### `Done [index]` - Mark a specific task as done.
 
 Use command `done` followed by the index of the task.
 
@@ -190,8 +190,29 @@ done 2
 ______________________________________________________________________
 
 ```
+### `Find [description]` - Find task that contains description.
 
-### `clear` - Clear all the tasks in the Todo list.
+Use command `find` followed by the description or the information of the item
+
+Example of usage:
+
+`find lecture`
+
+Expected outcome:
+
+Duke will search for the tasks that contains information of the item and list out all the matches.
+
+```
+______________________________________________________________________
+find lecture
+                             Here are the matching tasks in your list:
+                             Now you have 1 tasks in the list.
+                             1. [E][X]cs2113 lecturte (friday 2pm)
+______________________________________________________________________
+
+```
+
+### `Clear` - Clear all the tasks in the Todo list.
 
 Use command `clear`.
 

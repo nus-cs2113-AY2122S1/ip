@@ -21,8 +21,8 @@ public class Main {
 
         String line;
 
-        do{
+        do {
             line = in.nextLine();
-        }while(command.handle(line));
+        } while (command.handle(line));
     }
 }

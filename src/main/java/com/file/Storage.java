@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
 /**
  * Represents a file manager that read from or write to a file, fileName representing the name of the storage file
  * filePath representing the path to the storage file.
@@ -17,12 +18,13 @@ public class Storage {
     String fileName;
     String filePath;
 
+
     /**
      * Constructor of Storage, set the fileName and filePath
      *
      * @param fileName the name of the storage file
      */
-    public Storage(String fileName){
+    public Storage(String fileName) {
         this.fileName = fileName;
         this.filePath = "data/"+ this.fileName;
     }
@@ -58,6 +60,7 @@ public class Storage {
         return lines;
     }
 
+
     /**
      * write the ArrayList<Task> lines into the files
      *
@@ -68,7 +71,7 @@ public class Storage {
         checkPath();
         FileWriter fw = new FileWriter(filePath);
         fw.write("");
-        for(Task line : lines) {
+        for (Task line : lines) {
             fw.append(line.toString()).append("\n");
         }
         fw.close();
