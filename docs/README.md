@@ -23,7 +23,7 @@ Welcome to Ryan! A task-tracker on a CLI interface that is able to keep your tas
 ## Quick Start
 
 1. Ensure that you have Java 11 or above installed on your computer.
-2. Download the latest *ryan.jar* from the repo.
+2. Download the latest *ryan.jar* from [here](https://github.com/weidak/ip/releases/tag/A-Release).
 3. Copy the file to the folder that you would like to use as the home folder for your Ryan
 4. Go to the command prompt and change the directory to the file's location.
 5. Type java -jar ryan.jar into the command prompt and press enter to start the program.
