@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Parser {
@@ -66,10 +67,10 @@ public class Parser {
                 parseFind(taskName);
                 break;
             case HELP:
-                parseHelp(taskName);
+                parseHelp(remainingWords);
                 break;
             default:
-                parseDefault(taskType, remainingWords);
+                parseDefault(firstWord, remainingWords);
                 break;
             }
         } while (!isExit);
@@ -87,15 +88,39 @@ public class Parser {
     }
 
     /**
+     * Converts the commands `/by` and `/at` to lower case, in case the user types in capital letters.
+     * This is to allow commands to not be case-sensitive for a more flexible use.
+     *
+     * @param text User input.
+     * @return String text with commands in lower case.
+     */
+    private static String parseSecondaryCommand(String text) {
+        int slashIndex;
+
+        if (!text.isEmpty()) {
+            text = text.substring(1);
+        }
+
+        if (text.contains("/")) {
+            slashIndex = text.indexOf("/");
+        } else {
+            return text;
+        }
+        String secondaryCommand = text.substring(slashIndex, slashIndex + 3).toLowerCase();
+        String textFirstHalf = text.substring(0, slashIndex - 1);
+        String textSecondHalf = text.substring(slashIndex + 4);
+
+        return textFirstHalf + secondaryCommand + textSecondHalf;
+    }
+
+    /**
      * Extracts out the description of task that user wants to add.
      *
      * @param text User input.
      * @return String description of task.
      */
     protected static String parseTaskName(String text) {
-        if (!text.isEmpty()) {
-            text = text.substring(1);
-        }
+        text = parseSecondaryCommand(text);
 
         if (text.contains(BY)) {
             String[] words = text.split(BY);
@@ -114,9 +139,7 @@ public class Parser {
      * @return String details of task.
      */
     private static String parseTaskDetails(String text) {
-        if (!text.isEmpty()) {
-            text = text.substring(1);
-        }
+        text = parseSecondaryCommand(text);
 
         if (text.contains(BY)) {
             String[] words = text.split(BY);
