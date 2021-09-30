@@ -32,8 +32,8 @@ ____________________________________________________________
 ### `deadline` - Create deadline task
 Adds a deadline task into your list.
 
-Format: `deadline TASK_DESCRIPTION /by DEADLINE_TIME`
-* The `TASK_DESCRIPTION` and `DEADLINE_TIME` cannot be empty
+Format: `deadline TASK_DESCRIPTION /by DEADLINE`
+* The `TASK_DESCRIPTION` and `DEADLINE` cannot be empty
 
 Example:
 ```
@@ -50,8 +50,8 @@ ____________________________________________________________
 ### `event` - Create event task
 Adds an event task into your list.
 
-Format: `event TASK_DESCRIPTION /at EVENT_TIME`
-* The `TASK_DESCRIPTION` and `EVENT_TIME` cannot be empty
+Format: `event TASK_DESCRIPTION /at TIME_RANGE`
+* The `TASK_DESCRIPTION` and `TIME_RANGE` cannot be empty
 
 Example:
 ```
@@ -163,3 +163,18 @@ Format: `bye`
 ### Saving task data
 Duke saves your task list from the usage into your local storage as a text file.<br />
 Upon reinitialization, it reloads that file, so you access previously added tasks
+
+--------------------------
+##Command Summary
+Action | Format/Examples |
+------ | --------------- |
+todo | `todo TASK_DESCRIPTION` <br /> e.g. `todo do homework`
+deadline | `deadline TASK_DESCRIPTION /by DEADLINE` <br /> e.g. `deadline assignment /by tuesday night`
+event | `event TASK_DESCRIPTION /at TIME_RANGE` <br /> e.g. `event cca/at 6pm-8pm`
+done | `done TASK_INDEX` <br /> e.g. `done 1`
+remove | `remove TASK_INDEX` <br /> e.g. `remove 1`
+find | `find KEYWORD` <br /> e.g. `find assignment`
+list | `list`
+help | `help`
+clear | `clear`
+bye | `bye`
