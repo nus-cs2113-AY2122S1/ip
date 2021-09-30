@@ -10,22 +10,34 @@ public class Duke {
         System.out.println("...................................................");
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
         System.out.println("...................................................");
+        int Index = 0;
+        int curIndex = 0;
         Scanner in = new Scanner(System.in);
-        String[] Array = new String[100];
         String string = "";
-        int listCounter = 0;
-        while(!string.equals("bye")){
-            string= in.nextLine();
+        Task[] Array = new Task[100];
+        while(!string.equals("bye")) {
+            string = in.nextLine();
+            String[] Input = string.split(" ");
             System.out.println("...................................................");
-            if(string.equals("list")){
-                for(int i = 0; i < listCounter; i++){
-                    System.out.println((i+1) + ". " + Array[i]);
+            if (Input[0].equals("bye")) {
+                break;
+            }
+            if (Input[0].equals("list")) {
+                System.out.println("Here are the tasks in your list: ");
+                for (int i = 0; i < curIndex; i++) {
+                    System.out.println((i + 1) + ".[" + Array[i].getStatus() + "] " + Array[i].getName());
                 }
                 System.out.println("...................................................");
+            } else if (Input[0].equals("done")) {
+                Index = Integer.parseInt(Input[1]) - 1;
+                Array[Index].markAsDone();
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println("[" + Array[Index].getStatus() + "] " + Array[Index].getName());
+                System.out.println("...................................................");
             } else {
-                Array[listCounter] = string;
-                System.out.println("added: "+ string);
-                listCounter++;
+                Array[curIndex] = new Task(string);
+                System.out.println("Added: " + string);
+                curIndex++;
                 System.out.println("...................................................");
             }
         }
