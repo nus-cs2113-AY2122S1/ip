@@ -12,11 +12,9 @@ public class Duke {
     private final Storage storage;
     private final TaskList tasks;
     private static final UI ui = new UI();
-    private boolean status = false;
 
 
     public Duke(String filePath){
-        this.status = true;
         storage = new Storage(filePath);
         tasks = new TaskList();
         ui.welcome();
@@ -56,7 +54,6 @@ public class Duke {
     public void endDuke() {
         ui.print("Bye. Hope to see you again soon!");
         ui.endLine();
-        this.status = false;
     }
 
 
@@ -66,6 +63,12 @@ public class Duke {
         ui.endLine();
     }
 
+    public void help() {
+        ui.print("PLease the command in the following format");
+        ui.print("event [TASK] by [DATE]");
+        ui.print("deadline [TASK] by [DATE]");
+        ui.endLine();
+    }
 
     public void unknownAction() {
         ui.print("Sorry! I don't understand");
@@ -122,6 +125,19 @@ public class Duke {
         ui.endLine();
     }
 
+    public void clear() {
+        while(tasks.getList().size() > 0){
+            tasks.getList().remove(0);
+        }
+       try{
+           storage.rewriteFile(tasks.getList());
+           ui.print("Cleared all the tasks");
+           ui.endLine();
+       }catch (IOException e) {
+           ui.print("Unable to write files");
+           ui.endLine();
+        }
+    }
 
     public void deleteItem(String line) {
         try {
@@ -147,8 +163,4 @@ public class Duke {
         }
     }
 
-
-    public boolean getStatus() {
-        return this.status;
-    }
 }
