@@ -1,0 +1,5 @@
+[T];[X];watch twitch videos
+[D];[X];homework1;11:59 
+[E];[ ];g2 vs en;09:00 
+[E];[ ];100t vs gambit; 2021-08-01
+[E];[ ];paperex vs bren;08:00 2021-08-01
