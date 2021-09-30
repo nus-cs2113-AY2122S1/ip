@@ -20,7 +20,7 @@ Duke is a desktop app for managing your to-do list, optimized for use via a Comm
     1) Words in LOWER_CASE are the commands to be supplied by the user. All COMMANDS are in LOWER_CASE.
         i) E.g. in delete 3, delete is the command that you will like to use.
     2) For the command deadline and event, the back-slash is compulsory to separate taskname and task dateline.
-        i) E.g. event go to birthday party / 2021-12-20 is the right way to write out the event and deadline command.
+        i) E.g. event go to birthday party /2021-12-20 is the right way to write out the event and deadline command.
     3) The deadline and event dates should be written in a yyyy-mm-dd format.
         i) E.g. yyyy-mm-dd = 1998-03-21.
     4) Add one task at a time.
@@ -39,21 +39,21 @@ Example:
 
 ### Adding a deadline task: `deadline`
 
-Adds a deadline task.
+Adds a deadline task. There should be no space between "/", and the date input.
 
-Format: `deadline deadline_task_name / yyyy-mm-dd`
+Format: `deadline deadline_task_name /yyyy-mm-dd`
 
 Example:
-    i) `deadline submit math homework / 2021-12-03`
+    i) `deadline submit math homework /2021-12-03`
 
 ### Adding a event task: `event`
 
-Adds a event task.
+Adds a event task. There should be no space between "/", and the date input.
 
-Format: `event event_task_name / yyyy-mm-dd`
+Format: `event event_task_name /yyyy-mm-dd`
 
 Example:
-i) `event math quiz / 2021-11-05`
+i) `event math quiz /2021-11-05`
 
 ### Delete a task: `delete`
 
@@ -106,15 +106,15 @@ The file is saved as a txt file. It is saved under the same folder as where you 
 ##FAQ
 Q: How do I transfer my data to another Computer?
 
-A: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+A: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Duke home folder.
 
 ----
 ##Command Summary
 |Action|Format/Examples|
 ---|---
 |todo| todo `task_name`; E.g. `todo Math Homework`|
-|deadline| deadline `deadline_task_name / yyyy-mm-dd`; E.g. `deadline Lab Report Submission / 2021-12-15`|
-|event| event `event_task_name / yyyy-mm-dd`; E.g. `event Birthday Party / 2022-12-10`|
+|deadline| deadline `deadline_task_name /yyyy-mm-dd`; E.g. `deadline Lab Report Submission /2021-12-15`|
+|event| event `event_task_name /yyyy-mm-dd`; E.g. `event Birthday Party /2022-12-10`|
 |delete| delete `INDEX`; E.g. `delete 2`|
 |done| done `INDEX`; E.g. `done 2`|
 |find| find `KEYWORD`; E.g. `find homework`|
