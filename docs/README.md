@@ -3,15 +3,17 @@
 Duke is a desktop app for managing tasks, optimized for use via a Command Line Interface. If you can type fast, Duke can
 manage your tasks faster than traditional Graphical User Interface apps.
 
+- [Features](#features)
+- [Usage](#usage)
+- [FAQ](#faq)
+- [Command summary](#command-summary)
+
 ## Features
 
-### Feature-ABC
+### Task Management
 
-Description of the feature.
-
-### Feature-XYZ
-
-Description of the feature.
+You can add and delete three kinds of tasks - todo, deadline, and event tasks. You can list all tasks and find certain
+tasks based on a keyword or date. You can also mark tasks as done.
 
 ## Usage
 
@@ -96,8 +98,8 @@ Example of usage: `find project`
 
 Expected output:
 
-Note that the indices shown are based on the indices of the task in the whole task list rather than based only on the
-list of tasks that are displayed.
+<small>Note that the indices shown are based on the indices of the task in the whole task list rather than based only on
+the list of tasks that are displayed.</small>
 
 ```
     ____________________________________________________________
@@ -116,8 +118,8 @@ Example of usage: `date 2021-09-26`
 
 Expected output:
 
-As before, note that the indices shown are based on the indices of the task in the whole task list rather than based
-only on the list of tasks that are displayed.
+<small>As before, note that the indices shown are based on the indices of the task in the whole task list rather than
+based only on the list of tasks that are displayed.</small>
 
 ```
     ____________________________________________________________
@@ -177,6 +179,12 @@ Expected output:
     ____________________________________________________________
 ```
 
+## FAQ
+
+**Q**: Where is the data stored and how do I transfer data to a different computer?<br>
+**A**: The data is stored in `data/duke.txt`, relative to your current working directory. You can copy the file to a
+different computer and run Duke to get access to the same data.
+
 ## Command summary
 
 Action | Format, Examples
@@ -187,6 +195,6 @@ Action | Format, Examples
 **List** | `list`
 **Find** | `find KEYWORD`<br>e.g. `find project`
 **Date** | `date yyyy-MM-dd`<br>e.g. `date 2021-09-26`
-**Delete** | `delete INDEX`<br>e.g.`delete 3`
-**Done** | `done INDEX`<br>e.g.`done 1`
+**Delete** | `delete INDEX`<br>e.g. `delete 3`
+**Done** | `done INDEX`<br>e.g. `done 1`
 **Exit** | `bye`
