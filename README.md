@@ -1,24 +1,60 @@
-# Duke project template
+# "Task Manager" User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a programme that can help you manage your tasks.
+'The task list you stored before will be re-loaded everytime you use this programme'
 
-## Setting up in Intellij
+The task form accepted have **3 types**
+1. Todo : basic Task with no time element
+2. Event : Task that is arranged at certain time
+3. Deadline : Task that has a deadline
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+**Commands you can give to this programme:**
+1. Add tasks:
+   1. todo <content>: add a todo task
+   2. event <content> /at <time>: add an event task
+   3. deadline <content> /by <time>: add a deadline task
+2. Mark the task as done: 
+  done <index>: mark the task at index \'index\' as done
+3. Delete a task:delete <index>: delete the task at index \'index\'
+4. Show the list: list
+5. Close the program: bye
+6. Show the information of all possible commands: help 
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+
+## More Details 
+
+Welcome information
    ```
    Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+ ____              ________  
+|  _ \  | |   | |  |__  __| 
+| |_| | | |   | |    |  |
+|____/  | |   | |    |  |
+| |\ \  | |   | |    |  |
+| | \ \ | |___| |   --  --
+|_|  \ \\ _____ /  | ____|
+
    ```
+- After seeing the welcome information, you can type in the command you want based on the "help information"
+
+- Regarding the tasks type "deadline" & "event", the programme accept dates in a format such as yyyy-mm-dd.
+- Errors are handled by reflecting error information and exit the programme.
+Possible errors handled in this programme:
+    - Empty Task Error:The description of task is empty
+    - Invalid Date Error: The inputted time format for "Deadline" & "event" task is wrong
+    - Invalid Input Error: Reveal errors in commands that don't follow the format; Invalid command
+    - Missing Para Error: The information given is not enough for task type required
+    - Out Of Range Error: User ask to delete/mark as done a task that beyond the number of tasks stored
+- List is shown in the format: 
+
+where "T" - Todo task "D" - Deadline task "E" - Event task
+      "X" - task is done
+```
+  1.[T][X] read book
+  2.[D][ ] return book (by: June 6th)
+  3.[E][ ] project meeting (at: Aug 6th 2-4pm)
+  4.[T][X] join sports club
+  5.[T][ ] borrow book
+
+
+
