@@ -16,10 +16,19 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Storage class deal with the interaction with local files, including saving and loading
+ */
 public class Storage {
 
     private static String filepath;
 
+    /**
+     * If there is no file (with folder), create a file at beginning of the program.
+     *
+     * @param filePath by default is "data/duke.txt"
+     * @throws IOException
+     */
     public Storage(String filePath) throws IOException{
         this.filepath = filePath;
         //create duke.txt in folder named 'data'
@@ -34,14 +43,21 @@ public class Storage {
         }
     }
 
-    //@@author {siyuancheng178}-reused
-    //{Some Load usage. with minor modifications}
+    /**
+     * Some Load usage. with minor modifications
+     *
+     * @author {siyuancheng178}-reused
+     * @return A new TaskList object to be copied
+     * @throws FileNotFoundException
+     */
+
     public static TaskList loadFileContents() throws FileNotFoundException {
         File f = new File(filepath); // create a File for the given file path
         Scanner s = new Scanner(f);
         TaskList tasks = new TaskList();
         while (s.hasNext()) {
             String[] split = s.nextLine().split("]");
+            //Example:
             //split [D][X] return book (by: Sunday)
             //split[0] = [D
             //split[1] = [X
@@ -71,6 +87,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     *
+     * @param tasks take the TaskList object and write
+     * @throws IOException
+     */
     public static void writeToFile(TaskList tasks) throws IOException {
 
         FileWriter fw = new FileWriter(filepath);

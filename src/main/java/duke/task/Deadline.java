@@ -1,11 +1,14 @@
 package duke.task;
 
-import duke.task.Task;
-
 public class Deadline extends Task {
 
     protected String by;
 
+    /**
+     * @param description task information
+     * @param by by what time
+     * @param isDone true of false
+     */
     public Deadline(String description, String by, boolean isDone) {
         super(description,isDone);
         this.by = by;
