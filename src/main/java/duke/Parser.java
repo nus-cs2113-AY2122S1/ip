@@ -10,7 +10,7 @@ import duke.command.DeadlineCommand;
 import duke.command.EventCommand;
 import duke.command.DeleteCommand;
 import duke.command.InvalidCommand;
-
+import duke.command.FindCommand;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
@@ -21,6 +21,7 @@ public class Parser {
     private static final String CMD_DEADLINE = "deadline";
     private static final String CMD_EVENT = "event";
     private static final String CMD_DELETE = "delete";
+    private static final String CMD_FIND = "find";
 
     /**
      * @param input String input from user
@@ -64,8 +65,12 @@ public class Parser {
             String parsedInput = input.split(" ")[1];
             int taskNo = Integer.parseInt(parsedInput);
             command = new DeleteCommand(taskNo - 1);
-        } else {
-            command = new InvalidCommand("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        } else if (input.startsWith(CMD_FIND)) {
+            String parsedInput = input.split(" ")[1];
+            return new FindCommand(parsedInput);
+        }
+        else {
+            return new InvalidCommand("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return command;
     }
