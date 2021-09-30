@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * can add to the list and get the list.
  */
 public class TaskList {
-    private static ArrayList<Task> list = new ArrayList<>();
+    private final ArrayList<Task> list = new ArrayList<>();
 
     /**
      * Add a task item to the list.

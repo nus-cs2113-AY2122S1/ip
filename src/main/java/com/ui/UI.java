@@ -5,8 +5,9 @@ package com.ui;
  * outputLines to store the lines that duke want to output, LineCount is the number of lines
  */
 public class UI {
-    private static final String[] outputLines = new String[100];
-    private static int LineCount = 0;
+
+    private String[] outputLines = new String[100];
+    private int LineCount = 0;
     private final static String LINESEPARATER = "\t______________________________________________________________________";
 
     /**

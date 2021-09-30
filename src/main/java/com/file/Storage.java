@@ -14,7 +14,6 @@ import java.io.IOException;
  * filePath representing the path to the storage file.
  */
 public class Storage {
-    private final static int FILE_MAX_LINES = 100;
     String fileName;
     String filePath;
 
