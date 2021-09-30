@@ -51,7 +51,6 @@ public class Command {
     public static void delete(String command){
         String[] number = command.split(" ");
         int taskIndex = Integer.parseInt(number[1]) - 1;
-        Task temp = tasks.get(taskIndex);
         taskSum--;
         System.out.println("     Noted. I've removed this task: " + "\n     " +  tasks.get(taskIndex).toString() + "\n" + "     Now you have " + taskSum + " tasks in the list");
         tasks.remove(taskIndex);
@@ -63,7 +62,7 @@ public class Command {
      */
     public static void todo(String command){
         int first = command.indexOf(" ");
-        String item = command.substring(first,command.length());
+        String item = command.substring(first+1,command.length());
         Task temp = new Todo(item);
         tasks.add(temp);
         taskSum++;
@@ -77,12 +76,12 @@ public class Command {
     public static void deadline(String command){
         int first = command.indexOf(" ");
         int itemEnd = command.indexOf("/");
-        String item = command.substring(first,itemEnd);
+        String item = command.substring(first+1,itemEnd);
         String by = command.substring(itemEnd + 1,command.length());
         Task temp = new Deadline(item,by);
         tasks.add(temp);
         taskSum++;
-        System.out.println( "     Got it. I've added this task: " + "\n" + "       [D][ ] " + item + " (" + by + ")" + "\n" + "     Now you have " + taskSum + " tasks in the list");
+        System.out.println( "     Got it. I've added this task: " + "\n" + "       [D][ ] " + item + "(" + by + ")" + "\n" + "     Now you have " + taskSum + " tasks in the list");
 
     }
 
@@ -93,12 +92,12 @@ public class Command {
     public static void event(String command){
         int first = command.indexOf(" ");
         int itemEnd = command.indexOf("/");
-        String item = command.substring(first,itemEnd);
+        String item = command.substring(first+1,itemEnd);
         String at = command.substring(itemEnd + 1,command.length());
         Task temp = new Event(item,at);
         tasks.add(temp);
         taskSum++;
-        System.out.println("     Got it. I've added this task: " + "\n" + "       [E][ ] " + item + " (" + at + ")" + "\n" + "     Now you have " + taskSum + " tasks in the list");
+        System.out.println("     Got it. I've added this task: " + "\n" + "       [E][ ] " + item +  at  + "\n" + "     Now you have " + taskSum + " tasks in the list");
     }
 
     /**
@@ -146,4 +145,53 @@ public class Command {
         }
         fw.close();
     }
+
+    /**
+     * process information and add a Todo into list
+     * @param command A string store the raw information of this Todo
+     */
+    public static void addTodo(String command){
+        String item = command.substring(8,command.length());
+        Task temp = new Todo(item);
+        if(command.charAt(6) == 'X'){
+            temp.complete();
+        }
+        tasks.add(temp);
+        taskSum++;
+    }
+
+    /**
+     * process information and add an Event into list
+     * @param command A string store the raw information of this Event
+     */
+    public static void addEvent(String command){
+        String content = command.substring(8,command.length());
+        int itemEnd = content.indexOf("(");
+        String item = content.substring(0,itemEnd);
+        String at = content.substring(itemEnd+1,content.length()-1);
+        Task temp = new Event(item,at);
+        if(command.charAt(6) == 'X'){
+            temp.complete();
+        }
+        tasks.add(temp);
+        taskSum++;
+    }
+
+    /**
+     * process information and add a Deadline into list
+     * @param command A string store the raw information of this Deadline
+     */
+    public static void addDeadline(String command){
+        String content = command.substring(8,command.length());
+        int itemEnd = content.indexOf("(");
+        String item = content.substring(0,itemEnd);
+        String by = content.substring(itemEnd+1,content.length()-1);
+        Task temp = new Deadline(item,by);
+        if(command.charAt(6) == 'X'){
+            temp.complete();
+        }
+        tasks.add(temp);
+        taskSum++;
+    }
+
 }

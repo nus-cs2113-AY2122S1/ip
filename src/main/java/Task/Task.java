@@ -15,6 +15,9 @@ public class Task {
         this.Done = false;
     }
 
+    public String getContent() {
+        return this.content;
+    }
     /**
      * The methods to mark the task as done.
      */
