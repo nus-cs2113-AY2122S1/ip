@@ -5,6 +5,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -147,14 +148,16 @@ public class Storage {
      * Done at the very beginning when the program is run. Creates a file if the save file is not
      * yet created (usually done when the program is run by a new user for the first time).
      *
-     * @param tasks empty ArrayLIst of tasks to be populated.
+     * @param tasks empty ArrayList of tasks to be populated.
      */
     public static void loadTaskFile(ArrayList<Task> tasks) {
         try {
             readTaskFile(tasks);
         } catch (FileNotFoundException e) {
+            Ui.printHorizontalLine();
             System.out.println("Perhaps this is your first time running Atlas! Even if not, I will" +
                     " create a save file for you now!");
+            Ui.printHorizontalLine();
         }
     }
 }
