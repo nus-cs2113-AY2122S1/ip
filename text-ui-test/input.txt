@@ -1,0 +1,18 @@
+test
+todo
+todo sleep
+deadline sleep by 10pm
+deadline sleep /by 11pm
+event wake up at 5am
+event wake up /at 5am
+list
+done 1
+delete 1
+done 3
+list
+done 2
+list
+delete 1
+delete 1
+list
+bye
