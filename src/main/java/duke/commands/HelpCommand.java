@@ -22,6 +22,7 @@ public class HelpCommand extends Command {
                 MarkCompleteCommand.MESSAGE_USAGE,
                 DeleteCommand.MESSAGE_USAGE,
                 ClearCommand.MESSAGE_USAGE,
+                FindCommand.MESSAGE_USAGE,
                 HelpCommand.MESSAGE_USAGE,
                 ExitCommand.MESSAGE_USAGE);
     }
