@@ -49,8 +49,7 @@ public class Parser {
             try {
                 command = new DeadlineCommand(deadlineTitle, deadlineDue);
             } catch (DateTimeParseException e) {
-                System.out.println("Deadline must be in format of yyyy-mm-dd");
-                command = new InvalidCommand();
+                command = new InvalidCommand("Deadline must be in format of yyyy-mm-dd");
             }
         } else if (input.startsWith(CMD_EVENT)) {
             String[] parsedInput = input.replaceFirst(CMD_EVENT, "").split("/at ");
@@ -59,15 +58,14 @@ public class Parser {
             try {
                 command = new EventCommand(eventTitle, eventTime);
             } catch (DateTimeParseException e) {
-                System.out.println("Event must be in format of yyyy-mm-dd");
-                command = new InvalidCommand();
+                command = new InvalidCommand("Event must be in format of yyyy-mm-dd");
             }
         } else if (input.startsWith(CMD_DELETE)) {
             String parsedInput = input.split(" ")[1];
             int taskNo = Integer.parseInt(parsedInput);
             command = new DeleteCommand(taskNo - 1);
         } else {
-            command = new InvalidCommand();
+            command = new InvalidCommand("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return command;
     }
