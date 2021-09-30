@@ -40,7 +40,9 @@ public class TaskList {
     static void addEvent(String input, List<Task> taskList) throws DukeException {
         String[] separated = Parser.splitDescriptionFromTiming(TaskType.EVENT, input);
         if (separated.length == 1) {
-            throw new DukeException("Give me a timing for the event too man come on...");
+            throw new DukeException(Ui.getHorizontalLine() +
+                    "Give me a timing for the event too man come on...\n" +
+                    Ui.getHorizontalLine());
         }
         String description = separated[0];
         String timeUnformatted = separated[1];
@@ -67,7 +69,9 @@ public class TaskList {
     static void addDeadline(String input, List<Task> taskList) throws DukeException {
         String[] separated = Parser.splitDescriptionFromTiming(TaskType.DEADLINE, input);
         if (separated.length == 1) {
-            throw new DukeException("Tell me more about the deadline too man come on...");
+            throw new DukeException(Ui.getHorizontalLine() +
+                    "Tell me more about the deadline too man come on...\n" +
+                    Ui.getHorizontalLine());
         }
         String description = separated[0];
         String timeUnformatted = separated[1];
