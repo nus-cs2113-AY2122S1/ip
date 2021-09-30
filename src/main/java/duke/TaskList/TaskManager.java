@@ -23,7 +23,7 @@ public class TaskManager {
     public static final String STATUS_DONE = "X";
     public static boolean hasInvalidIndex = false;
 
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     private final int INDEX_DESCRIPTION = 0;
     private final int INDEX_DATETIME = 1;
@@ -57,7 +57,8 @@ public class TaskManager {
     public void addDeadlineTask(Parser parser, String taskInfo) {
         try {
             String[] taskComponents = parser.splitTaskComponents(taskInfo);
-            Task newTask = new Deadline(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
+            String dateTimeFormat = parser.parseDateTime(taskComponents[INDEX_DATETIME]);
+            Task newTask = new Deadline(taskComponents[INDEX_DESCRIPTION], dateTimeFormat);
             tasks.add(newTask);
             DisplayManager.printCreateTask(newTask);
             FileManager.updateFile(tasks);
@@ -75,7 +76,8 @@ public class TaskManager {
     public void addEventTask(Parser parser, String taskInfo) {
         try {
             String[] taskComponents = parser.splitTaskComponents(taskInfo);
-            Task newTask = new Event(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
+            String dateTimeFormat = parser.parseDateTime(taskComponents[INDEX_DATETIME]);
+            Task newTask = new Event(taskComponents[INDEX_DESCRIPTION], dateTimeFormat);
             tasks.add(newTask);
             DisplayManager.printCreateTask(newTask);
             FileManager.updateFile(tasks);
