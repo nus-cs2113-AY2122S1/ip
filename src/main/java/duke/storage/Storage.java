@@ -40,6 +40,7 @@ public class Storage {
     /**
      * Loads the {@code TaskList} data from the storage file and appends it to the TaskList.
      * If storage file does not exist, the program will attempt to make a new folder/file directory.
+     * If storage file is corrupted, the program will exit and shows the user the corrupted line.
      */
     public void initTaskList() {
         try {
@@ -51,6 +52,9 @@ public class Storage {
             } else {
                 ui.showToUser(Messages.MESSAGE_INIT_FAILED);
             }
+        } catch (IndexOutOfBoundsException e) {
+            ui.showToUser("Data file corrupted! Exiting program...", "Corruption detected at line " + (tasks.getSize()+1));
+            System.exit(0);
         }
     }
 
@@ -58,8 +62,9 @@ public class Storage {
      * Decodes and appends the data from storage file to the TaskList.
      *
      * @throws FileNotFoundException if the data file does not exist
+     * @throws IndexOutOfBoundsException if the data file is corrupt/ not in proper format
      */
-    public void appendFileContentsToArrayList() throws FileNotFoundException {
+    public void appendFileContentsToArrayList() throws FileNotFoundException, IndexOutOfBoundsException {
         File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
@@ -86,6 +91,8 @@ public class Storage {
                 tasks.addTask(new Event(taskDescription, additionalDescription));
                 setTaskAsDone(isCompleteString);
                 break;
+            default:
+                throw new IndexOutOfBoundsException();
             }
         }
     }
