@@ -428,7 +428,8 @@ Draws user input on terminial.
 
 Command Format: `!echo INPUT`
 
-!echo hi
+Examples:
+* `!echo hi`
 
 Demo:
 
