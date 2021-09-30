@@ -16,10 +16,13 @@ public class CommandMessage {
     public static final String HELP_MESSAGE = "The following commands accepted are: "
             + "LIST (Show the list of task)\n"
             + "TODO <description> (Create a task with todo tag)\n"
-            + "DEADLINE <description> /by <date and time> (Create a task with deadline tag)\n"
-            + "EVENT <description> /at <date and time> (Create a task with event tag)\n"
-            + "DONE <index of task> (To mark indicated task as completed)\n"
+            + "DEADLINE <description> /by <due_date> (Create a task with deadline tag)\n"
+            + "EVENT <description> /at <date_of_event> (Create a task with event tag)\n"
+            + "DONE <task_number> (To mark indicated task as completed)\n"
+            + "FIND <search_term> (Look for task that match the search term in its description\n"
+            + "DELETE <task_number> (To delete indicated task)\n"
             + "BYE (End program)\n"
             + "HELP (List out available commands)";
+
     public static final String FIND_TASK_MESSAGE = "Total of %d task(s) found that matches your description.\n";
 }
