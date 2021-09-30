@@ -82,8 +82,8 @@ public class Ui {
         System.out.println(INDENT + "      delete <task_number>: Remove a task from the list.           │");
         System.out.println(INDENT + "              find <query>: Search for text in the list.           │");
         System.out.println(INDENT + "                                                                   │");
-        System.out.println(INDENT + "Still having trouble? *sigh*                                       │");
-        System.out.println(INDENT + "Head over to https://kahhe.github.io/ip/ for the User Guide        │");
+        System.out.println(INDENT + "Still having trouble? *sigh* I have a more detailed explanation.   │");
+        System.out.println(INDENT + "Head over to https://kahhe.github.io/ip/ for the User Guide.       │");
 
         if(!extraText.isBlank()) {
             System.out.println(INDENT + "                                                                   │");
