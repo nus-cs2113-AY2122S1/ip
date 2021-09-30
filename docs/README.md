@@ -187,7 +187,7 @@ ____________________________________________________________
 
 Exits the program and return the user to the command prompt.
 
-Format: `help`
+Format: `bye`
 
 Expected Outcome:
 ```
