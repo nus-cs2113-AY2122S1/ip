@@ -15,7 +15,6 @@ task managing apps.
 5. At the folder where you saved the jar file, run the command `java -jar duke.jar` in your terminal app.
 6. In the case where Duke runs successfully, you should see the following output.
 
-
 ```
     ____        _        
    |  _ \ _   _| | _____ 
@@ -232,8 +231,11 @@ Duke saves the task data into a text file `JAR_FILE_LOCATION/data/savedTasks.txt
 manually change the data in the text file.  
 
 Be sure to follow this exact formatting:  
+
 ```
 [TASK_TYPE_CHAR] | [STATUS_MARKER_INT] | TASK_NAME | DATE_TIME
 ```
+
+***Note: If duke is unable to run due to issues with text file, you must delete the data text file manually.***
 
 ---
