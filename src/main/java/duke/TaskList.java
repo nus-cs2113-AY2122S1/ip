@@ -113,6 +113,18 @@ public class TaskList {
         System.out.println(HORIZONTAL);
     }
 
+    public void findTasks(String keyword) {
+        System.out.println(HORIZONTAL + "Here are the matching tasks in your list: ");
+        int counter = 0;
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                counter++;
+                System.out.println(counter + "." + task);
+            }
+        }
+        System.out.println(HORIZONTAL);
+    }
+
     public void markDone(int taskDone) {
         tasks.get(taskDone - 1).markAsDone();
         System.out.println(HORIZONTAL + "Nice! I've marked this task as done: \n  "

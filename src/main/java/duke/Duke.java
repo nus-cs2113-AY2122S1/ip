@@ -7,6 +7,7 @@ public class Duke {
     // specific indexes for written commands
     public static final int INDEX_OF_TASK_DONE = 4;
     public static final int INDEX_OF_TASK_DELETED = 6;
+    public static final int INDEX_OF_KEYWORD = 4;
 
     private static Ui ui;
     private static TaskList tasks;
@@ -32,8 +33,11 @@ public class Duke {
         } else if (line.contains("delete")) {
             int taskDeleted = Integer.parseInt(line.substring(INDEX_OF_TASK_DELETED).trim());
             tasks.delete(taskDeleted);
+        } else if (line.contains("find")) {
+            String keyword = line.substring(INDEX_OF_KEYWORD).trim();
+            tasks.findTasks(keyword);
         } else {
-            tasks.addTask(line);
+                tasks.addTask(line);
         }
     }
 
@@ -51,6 +55,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+        new Duke("data/duke.txt");
+        Duke.run();
     }
 }
