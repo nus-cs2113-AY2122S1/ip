@@ -29,7 +29,7 @@ public class Ui {
     }
     public void printStartMessage() {
         System.out.println(logo);
-        System.out.println(border + "Hi bro, my name is Echo");
+        System.out.println(border + "Hi bro, my name is Zizo");
         System.out.println("What do you want?\n" + border);
         System.out.println("Type bye to exit\n" + border);
     }
