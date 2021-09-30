@@ -87,5 +87,6 @@ You can exit the Map through the `bye` command
 
 ### Acknowledgement
 S.LU
+Github Repo: https://github.com/Isabella-L/ip
 
 _Powered By: The Homonculous Charm_
