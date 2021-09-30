@@ -80,6 +80,9 @@ public class Ui {
         System.out.println(INDENT + "        done <task_number>: Mark a task as done.                   │");
         System.out.println(INDENT + "      delete <task_number>: Remove a task from the list.           │");
         System.out.println(INDENT + "              find <query>: Search for text in the list.           │");
+        System.out.println(INDENT + "                                                                   │");
+        System.out.println(INDENT + "Still having trouble? *sigh*                                       │");
+        System.out.println(INDENT + "Head over to https://kahhe.github.io/ip/ for the User Guide        │");
 
         if(!extraText.isBlank()) {
             System.out.println(INDENT + "                                                                   │");
@@ -133,7 +136,7 @@ public class Ui {
     }
 
     /**
-     * Prints messsage that load file has corrupted data.
+     * Prints message that load file has corrupted data.
      */
     public static void printLoadFileCorrupted() {
         System.out.println(INDENT + "One corrupted data found. Corrupted data will be removed upon exit.│");
@@ -151,6 +154,13 @@ public class Ui {
      */
     public static void printTaskAlreadyDone() {
         System.out.println(INDENT + "Dude... you've done the task already.");
+    }
+
+    /**
+     *
+     */
+    public static void printIncorrectDate() {
+        System.out.println(INDENT + "I've told you the date format before. Follow it.");
     }
 
     /**
@@ -302,6 +312,15 @@ public class Ui {
     public static void showWrongTaskTypeError(String text) {
         printTopLine();
         printUnexpectedCommand(text);
+        printBottomLine();
+    }
+
+    /**
+     *
+     */
+    public static void showWrongDateError() {
+        printTopLine();
+        printIncorrectDate();
         printBottomLine();
     }
 

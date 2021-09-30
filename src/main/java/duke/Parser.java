@@ -1,6 +1,9 @@
 package duke;
 
-import java.util.Locale;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 
 public class Parser {
@@ -14,6 +17,7 @@ public class Parser {
     private static final String EVENT = "event";
     private static final String BY= "/by";
     private static final String AT = "/at";
+    private static final String ALL_DAY = "/d";
     private static final String DONE = "done";
     private static final String DELETE = "delete";
     private static final String LIST = "list";
@@ -29,49 +33,53 @@ public class Parser {
         boolean isExit = false;
 
         do {
-            String firstWord = input.next();
-            String remainingWords = input.nextLine();
+            try {
+                String firstWord = input.next();
+                String remainingWords = input.nextLine();
 
-            String taskType = parseFirstWord(firstWord);
-            String taskName = parseTaskName(remainingWords);
-            String taskDetails = parseTaskDetails(remainingWords);
+                String taskType = parseFirstWord(firstWord);
+                String taskName = parseTaskName(remainingWords);
+                String taskDetails = parseTaskDetails(remainingWords);
 
-            switch (taskType) {
-            case BYE:
-                isExit = parseBye();
-                break;
-            case HELLO:
-            case HI:
-            case YO:
-                parseGreetings();
-                break;
-            case LIST:
-                parseList();
-                break;
-            case TODO:
-                parseTodo(taskName);
-                break;
-            case DEADLINE:
-                parseDeadline(taskName, taskDetails);
-                break;
-            case EVENT:
-                parseEvent(taskName, taskDetails);
-                break;
-            case DONE:
-                parseDone(taskName);
-                break;
-            case DELETE:
-                parseDelete(taskName);
-                break;
-            case FIND:
-                parseFind(taskName);
-                break;
-            case HELP:
-                parseHelp(remainingWords);
-                break;
-            default:
-                parseDefault(firstWord, remainingWords);
-                break;
+                switch (taskType) {
+                case BYE:
+                    isExit = parseBye();
+                    break;
+                case HELLO:
+                case HI:
+                case YO:
+                    parseGreetings();
+                    break;
+                case LIST:
+                    parseList();
+                    break;
+                case TODO:
+                    parseTodo(taskName);
+                    break;
+                case DEADLINE:
+                    parseDeadline(taskName, taskDetails);
+                    break;
+                case EVENT:
+                    parseEvent(taskName, taskDetails);
+                    break;
+                case DONE:
+                    parseDone(taskName);
+                    break;
+                case DELETE:
+                    parseDelete(taskName);
+                    break;
+                case FIND:
+                    parseFind(taskName);
+                    break;
+                case HELP:
+                    parseHelp(remainingWords);
+                    break;
+                default:
+                    parseDefault(firstWord, remainingWords);
+                    break;
+                }
+            } catch (DukeException e) {
+                Ui.showMissingTextError();
             }
         } while (!isExit);
     }
@@ -88,29 +96,46 @@ public class Parser {
     }
 
     /**
-     * Converts the commands `/by` and `/at` to lower case, in case the user types in capital letters.
+     * Converts the commands `/by`, `/at`, and `/d` to lower case, in case the user types in capital letters.
      * This is to allow commands to not be case-sensitive for a more flexible use.
      *
      * @param text User input.
      * @return String text with commands in lower case.
      */
     private static String parseSecondaryCommand(String text) {
-        int slashIndex;
+        int slashIndex1;
+        int slashIndex2;
+        String secondaryCommand1;
+        String secondaryCommand2 = "";
+        String textFirstHalf;
+        String textSecondHalf;
 
         if (!text.isEmpty()) {
             text = text.substring(1);
         }
 
-        if (text.contains("/")) {
-            slashIndex = text.indexOf("/");
+        boolean haveSecondaryCommand =
+                text.contains(BY) || text.contains("/BY") || text.contains("/By") || text.contains("/bY") ||
+                text.contains(AT) ||text.contains("/AT") ||text.contains("/At") || text.contains("/aT");
+
+        if (haveSecondaryCommand) {
+            slashIndex1 = text.indexOf("/", 0);
         } else {
             return text;
         }
-        String secondaryCommand = text.substring(slashIndex, slashIndex + 3).toLowerCase();
-        String textFirstHalf = text.substring(0, slashIndex - 1);
-        String textSecondHalf = text.substring(slashIndex + 4);
 
-        return textFirstHalf + secondaryCommand + textSecondHalf;
+        secondaryCommand1 = text.substring(slashIndex1, slashIndex1 + 3).toLowerCase();
+        textFirstHalf = text.substring(0, slashIndex1 - 1);
+        textSecondHalf = text.substring(slashIndex1 + 4);
+        haveSecondaryCommand = textSecondHalf.contains(ALL_DAY) || textSecondHalf.contains("/D");
+
+        if (haveSecondaryCommand) {
+            slashIndex2 = text.indexOf("/", slashIndex1 + 1);
+            secondaryCommand2 = text.substring(slashIndex2, slashIndex2 + 2).toLowerCase();
+            textSecondHalf = text.substring(slashIndex1 + 4, slashIndex2 - 1);
+        }
+        text = textFirstHalf + secondaryCommand1 + textSecondHalf + secondaryCommand2;
+        return text;
     }
 
     /**
@@ -138,17 +163,47 @@ public class Parser {
      * @param text User input.
      * @return String details of task.
      */
-    private static String parseTaskDetails(String text) {
+    private static String parseTaskDetails(String text) throws DukeException {
         text = parseSecondaryCommand(text);
 
         if (text.contains(BY)) {
             String[] words = text.split(BY);
+            if (words.length != 2) {
+                throw new DukeException("Missing task details.");
+            }
             text = words[1];
+
         } else if (text.contains(AT)) {
             String[] words = text.split(AT);
+            if (words.length != 2) {
+                throw new DukeException("Missing task details.");
+            }
             text = words[1];
         }
         return text;
+    }
+
+    /**
+     * Formats date from user into a more reader-friendly format.
+     * Accounts for both with time and without time.
+     *
+     * @param text Date in type String.
+     * @return Formatted date in type String.
+     */
+    protected static String parseDate(String text) throws DukeException {
+        if (text.isBlank()) {
+            throw new DukeException("Missing date.");
+        }
+
+        if (text.contains(ALL_DAY)) {
+            LocalDate localDate = LocalDate.parse("2019-01-01");
+            String date = localDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+            return date;
+        } else {
+            LocalDateTime localDateTime = LocalDateTime.parse(text);
+            String date = localDateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy HH:mm"));
+            return date;
+        }
     }
 
     /**
@@ -200,6 +255,7 @@ public class Parser {
      * @param taskDetails Time of event in String format.
      */
     private static void parseEvent(String taskName, String taskDetails) {
+
         TaskList.addTask("E", taskName, taskDetails);
     }
 
