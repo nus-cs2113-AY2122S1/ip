@@ -1,10 +1,1 @@
-[T][ ]hw 1
-[E][ ]hw1 (y sunday)
-[E][ ]hw2 ( sunday)
-[E][ ]meeting (6pm)
-[E][ ]hw1 b( 9 pm)
-[E][ ]hw 1 (y 9 pm)
-[E][ ]hw 1 ( 9 pm)
-[E][ ]hw1 (@10 pm)
-[E][ ]hw1 (10pm)
-[E][ ]hw1 ( 10 pm)
+[T][ ]hw1
