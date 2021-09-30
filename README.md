@@ -1,6 +1,6 @@
-# Duke User Guide
+# User Guide
 
-Duke is an application for users to manage and track Tasks via a Command Line Interface (CLI). It is useful for users that wish to have an organized and consolidated view of list of things that they plan to do. Duke is also built with data persistence, meaning data is stored such that information is not lost between sessions.
+Duke is an application for users to manage and track Tasks via a Command Line Interface (CLI). It is useful for users that wish to have an organized and consolidated view of list of things that they plan to do. Duke presents tasks in sorted order allowing users to prioritise tasks with more urgency. Duke is also built with data persistence, meaning data is stored such that information is not lost between sessions.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
@@ -92,7 +92,7 @@ _________________________________________________________________
   
 ### `List` - List all tasks.
 
-List all tasks in the task list.
+List all tasks in the task list in sorted order so user can priortise urgent tasks.
 
 Format: `list`
 
@@ -225,7 +225,7 @@ _________________________________________________________________
 
 ### `Schedule` - List all tasks on specific date.
 
-Check schedule on specific date
+Check schedule on specific date and show lsit of tasks in sorted order.
 
 Format: `schedule <yyyy-MM-dd>`
 
@@ -235,9 +235,9 @@ Excepted outcome:
 schedule 2021-09-27
 _________________________________________________________________
  Here is your schedule on Sep 27 2021:
- 1.[D][ ] return book (by: Sep 27 2021 18:00)
- 2.[D][ ] buy new book (by: Sep 27 2021 10:00)
- 3.[E][ ] book conference (at: Sep 27 2021 15:30)
+ 1.[D][ ] return book (by: Sep 27 2021 10:00)
+ 2.[D][ ] buy new book (by: Sep 27 2021 15:30)
+ 3.[E][ ] book conference (at: Sep 27 2021 18:00)
 _________________________________________________________________
 ```
 
@@ -245,7 +245,7 @@ _________________________________________________________________
 
 ### `Find` - Search tasks.
 
-Search for keyword in task description
+Search for keyword in task description and show tasks in sorted order.
 
 Format: `find <KEYWORD>`
 
