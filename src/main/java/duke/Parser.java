@@ -4,6 +4,7 @@ import duke.exceptions.*;
 import duke.task.*;
 
 import java.io.*;
+import java.time.format.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -39,8 +40,12 @@ public class Parser {
                 System.out.println("  Please input again with the correct format!");
                 inputLine = INPUT_COMMAND.nextLine();
             } catch (IllegalDeadlineInput e) {
-                System.out.println("  OOPS! Please input again using this format:!");
+                System.out.println("  OOPS! Please input again using this format:");
                 System.out.println("  'deadline <description> /by <due date>'");
+                inputLine = INPUT_COMMAND.nextLine();
+            } catch (DateTimeParseException e) {
+                System.out.println("  OOPS! Please input again the date using this format:");
+                System.out.println("  '2021-10-01'");
                 inputLine = INPUT_COMMAND.nextLine();
             } catch (IllegalEventInput e) {
                 System.out.println("  OOPS! Please input again using this format:!");
