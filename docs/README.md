@@ -36,43 +36,43 @@ Duke is a **desktop app for managing daily tasks, optimized for use via the comm
 4. Open a terminal window and type `java -jar Duke.jar`.
 5. If you have successfully run the program, a greeting from Duke should appear as follows:
 
-```
-    __________________________________________________________________________________
-                    -/ /mmddddmNmh` .:`              
-              `/sdydNNmhmNMMMMMMMMhymMm+`            
-            -sNMMMMMMNNddNMMMNMMMMmmMMMMms.          
-           /NMMMNMMNMMmmdNMNMmMMNMmNMMMMMNyy-        
-         .:oNMMMMNNMmhos+so+/::ohdmMMMMMmmMMm.       
-        /mNMMMNNNdy+.````````````../ydNNNMMMMy       
-        /MMMMNmy/.`  `````````  `````.sdNMMMMm+      
-        sNNNNNy.``  ```.:`` ``` ```````./dmNMMh`     
-       `ommdy:```  ` ``sy`` ```  `````````:mmN:      
-       +dNNh.```` ````:dm+` ````  `````````--:       
-       -dMm.````  `s``hdmm-`````````````````-:       
-        -N+````` `sm`/mmmmh`.-```-.``````````-       
-        .:```````+mh.dmmmmm/`y:-`-d/`````` ```       
-        ````````:md/oymmmmmh/ymh+/mmo-````  ```      
-         `` ````dmmymmmmmmmmmmmmd+`.++-````o. .      
-        ``` `` `mmsssdmmmmmmmmmh-s `.m.```-dy .      
-         .`  ` +h:sy.`/dmmmmmmmdy`./-N-` `+dm`.      
-         .`   `mdsN-```dmmmmmmmmNy+smm-- `hds ``     
-          `   -dmmNd/:+mmmmmmmmmmmmmmmy/ .d+  ``     
-         ``   .hdmmNmddmmmmmmmmmmmmmmyd+ ...  .``    
-         `.`   yddmmmdmmmmmmmmmmmmmmm+mo`  `` `..    
-          ```  `/+hmmmmmmmmmmmmmmmmmm/m:` ``- . .`   
-        `` ` `  ```ymmmmmmmmmmmmmmmmm/: ` `.``-//`   
-       :hho- `  ``  :sdmmmmmmmmmmmmd+`.    .`:dMm-::.
-     `/hmmdN:`` ` `   `:shmmmmmmmdds..``   `/NMMMNMMs
-     +ddddmMy```. ``   odyhhhhhhhdmdy..`   .mNMMMMMMd
-      os//mMm```+o-``-odddhyhhhdmmdMN/:`` oMMMMMMMNm+
+    ```
+        __________________________________________________________________________________
+                        -/ /mmddddmNmh` .:`              
+                  `/sdydNNmhmNMMMMMMMMhymMm+`            
+                -sNMMMMMMNNddNMMMNMMMMmmMMMMms.          
+               /NMMMNMMNMMmmdNMNMmMMNMmNMMMMMNyy-        
+             .:oNMMMMNNMmhos+so+/::ohdmMMMMMmmMMm.       
+            /mNMMMNNNdy+.````````````../ydNNNMMMMy       
+            /MMMMNmy/.`  `````````  `````.sdNMMMMm+      
+            sNNNNNy.``  ```.:`` ``` ```````./dmNMMh`     
+           `ommdy:```  ` ``sy`` ```  `````````:mmN:      
+           +dNNh.```` ````:dm+` ````  `````````--:       
+           -dMm.````  `s``hdmm-`````````````````-:       
+            -N+````` `sm`/mmmmh`.-```-.``````````-       
+            .:```````+mh.dmmmmm/`y:-`-d/`````` ```       
+            ````````:md/oymmmmmh/ymh+/mmo-````  ```      
+             `` ````dmmymmmmmmmmmmmmd+`.++-````o. .      
+            ``` `` `mmsssdmmmmmmmmmh-s `.m.```-dy .      
+             .`  ` +h:sy.`/dmmmmmmmdy`./-N-` `+dm`.      
+             .`   `mdsN-```dmmmmmmmmNy+smm-- `hds ``     
+              `   -dmmNd/:+mmmmmmmmmmmmmmmy/ .d+  ``     
+             ``   .hdmmNmddmmmmmmmmmmmmmmyd+ ...  .``    
+             `.`   yddmmmdmmmmmmmmmmmmmmm+mo`  `` `..    
+              ```  `/+hmmmmmmmmmmmmmmmmmm/m:` ``- . .`   
+            `` ` `  ```ymmmmmmmmmmmmmmmmm/: ` `.``-//`   
+           :hho- `  ``  :sdmmmmmmmmmmmmd+`.    .`:dMm-::.
+         `/hmmdN:`` ` `   `:shmmmmmmmdds..``   `/NMMMNMMs
+         +ddddmMy```. ``   odyhhhhhhhdmdy..`   .mNMMMMMMd
+          os//mMm```+o-``-odddhyhhhdmmdMN/:`` oMMMMMMMNm+
+    
+         Konnichiwa! I'm your personal maid. Call me Maid-chan!
+         What can I do for you? (//ω//)
+        __________________________________________________________________________________
+    
+    ```
 
-     Konnichiwa! I'm your personal maid. Call me Maid-chan!
-     What can I do for you? (//ω//)
-    __________________________________________________________________________________
-
-```
-
-6. Type the command below the greeting and press `Enter` to execute it. Some example commands you can try:
+6. Type the command below the greeting and press <kbd>Enter</kbd> to execute it. Some example commands you can try:
 
     * `help`: Displays a short manual of all the available commands.
     * `exit`: Exits the app.
@@ -304,6 +304,21 @@ Duke data are saved in the hard disk automatically after any command that change
 ### Editing the data file
 
 Duke data are saved as a `txt` file located at `[JAR file location]/data/duke.txt`. Advanced users are welcome to update data directly by editing that data file.
+
+The format of the save file is as follows: `TYPE | STATUS | DESCRIPTION | SCHEDULE`
+
+* `TYPE` is either `T` for `Todo`, `D` for `Deadline`, or `E` for `Event`.
+* `STATUS` is the status of the task. The value is either `0` (not done) or `1` (done).
+* `DESCRIPTION` is the description of the task.
+* `SCHEDULE` is the schedule of the task. Only applicable for `Deadline` and `Event`.
+
+Example:
+
+```
+T | 0 | read book
+D | 1 | return book | June 6th
+E | 0 | project meeting | Aug 6th 2-4pm
+```
 
 <div class="caution box" markdown="1">
 
