@@ -1,5 +1,10 @@
 package duke.task;
 
+
+/**
+ * One of the three types of tasks creatable by the user.
+ * Has an additional by field that indicates by when the task should be completed.
+ */
 public class Deadline extends Task {
 
     protected String by;

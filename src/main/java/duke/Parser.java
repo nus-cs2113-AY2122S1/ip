@@ -1,12 +1,17 @@
 package duke;
 
+
+/**
+ * Parses user input.
+ */
 public class Parser {
-    private static Ui ui;
-
-    public Parser() {
-        ui = new Ui();
-    }
-
+    /**
+     * Parses user input into the respective important fields of the command for execution.
+     *
+     * @param fullCommand The entire string command entered in by the user.
+     * @return The parsed command that can be fed into the TaskList functions.
+     * @throws ArrayIndexOutOfBoundsException If the command is in the wrong format.
+     */
     public static String[] parse(String fullCommand) throws ArrayIndexOutOfBoundsException {
         String[] words = fullCommand.split(" ", 2);
         String commandWord = words[0].toLowerCase();

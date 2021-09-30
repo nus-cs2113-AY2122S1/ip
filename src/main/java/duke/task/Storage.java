@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ * Deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
     static final String SEPARATOR_FOR_LOAD = " \\| ";
     static final String SEPARATOR_FOR_SAVE = " | ";
@@ -16,12 +20,24 @@ public class Storage {
     private File f;
     private Ui ui;
 
+    /**
+     * Constructor for a new storage object that stores the data of the file with the specified file path.
+     *
+     * @param filePath The path of the storage file.
+     */
     public Storage(String filePath) {
         ui = new Ui();
         this.filePath = filePath;
         f = new File(filePath);
     }
 
+    /**
+     * Loads the content of the storage file into an ArrayList of strings to
+     * feed into the creation of a new task list.
+     *
+     * @return ArrayList of strings of the content in the storage file in the correct format.
+     * @throws IOException If there is an error in the reading in of the file.
+     */
     public ArrayList<String> load() throws IOException {
         ArrayList<String> data = new ArrayList<>();
         try {
@@ -42,9 +58,17 @@ public class Storage {
         }
     }
 
-    public void writeToFile(ArrayList<Task> tasks) throws IOException {
+    /**
+     * Writes the current TaskList running in the application into the file
+     * in the specified file path in a certain format for storage.
+     *
+     * @param tasks List of all the tasks.
+     * @param numberOfTasks Total number of tasks.
+     * @throws IOException If there is an error in writing to the file.
+     */
+    public void writeToFile(ArrayList<Task> tasks, int numberOfTasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
-        for (int i = 0; i < Task.getNumberOfTasks(); i++) {
+        for (int i = 0; i < numberOfTasks; i++) {
             if (tasks.get(i) instanceof Todo) {
                 fw.write("T" + SEPARATOR_FOR_SAVE + tasks.get(i).getisDone()
                         + SEPARATOR_FOR_SAVE + tasks.get(i).getDescription());
@@ -62,14 +86,21 @@ public class Storage {
         fw.close();
     }
 
-    public void save(ArrayList<Task> tasks) {
-            try {
-                writeToFile(tasks);
-            } catch (FileNotFoundException e) {
-                ui.showLoadingError(e);
-            } catch (IOException e) {
-                ui.showLoadingError(e);
-            }
+    /**
+     * Saves the data of the current TaskList running in the application into the file
+     * in the specified file path.
+     *
+     * @param tasks List of all the tasks.
+     * @param numberOfTasks Total number of tasks.
+     */
+    public void save(ArrayList<Task> tasks, int numberOfTasks) {
+        try {
+            writeToFile(tasks, numberOfTasks);
+        } catch (FileNotFoundException e) {
+            ui.showLoadingError(e);
+        } catch (IOException e) {
+            ui.showLoadingError(e);
+        }
     }
 
 }
