@@ -1,3 +1,3 @@
-public class IncorrectCommandInput extends Exception{
+public class IncorrectCommandInput extends Exception {
 
 }

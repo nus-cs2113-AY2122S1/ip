@@ -22,7 +22,7 @@ public class Duke {
             userInput = sc.nextLine();
             commandInput = parser.identifyUserInput(userInput)[0];
             checkedCommandInput = commandInputError(commandInput);
-        } catch (IncorrectCommandInput e){
+        } catch (IncorrectCommandInput e) {
             System.out.println("Invalid Command!");
         }
         while(!userInput.contains("bye")){
@@ -71,6 +71,7 @@ public class Duke {
             case "done":
                 markTaskAsDone(taskList, userInput, storage, parser);
                 break;
+
             case "delete":
                 try {
                     deleteTaskFromList(taskList, userInput, storage, parser);
@@ -78,8 +79,10 @@ public class Duke {
                     System.out.println("Please input a valid index.");
                 }
                 break;
+
             default:
                 System.out.println("Invalid! Please try again.");
+
             }
             try {
                 userInput = sc.nextLine();
@@ -99,7 +102,8 @@ public class Duke {
      * @param storage
      * @param parser
      */
-    private static void deleteTaskFromList(TaskList taskList, String userInput, Storage storage, Parser parser){
+    private static void deleteTaskFromList(TaskList taskList, String userInput,
+                                           Storage storage, Parser parser) {
         String userInputIndex = parser.identifyUserInput(userInput)[1];
         int index = Integer.parseInt(userInputIndex);
         taskList.deleteTask(index);
@@ -120,7 +124,7 @@ public class Duke {
         boolean completed = false;
         if(userInput.contains("[X]")){
             completed = true;
-        }  else {
+        } else {
             completed = false;
         }
         ToDo toDoTask = new ToDo(userInput.substring(userInput.indexOf(' ',0))
@@ -141,6 +145,7 @@ public class Duke {
         taskList.addTasks(eventTask);
         eventTask.initialiseEvent();
     }
+
     /**
      * Adds a new deadline task into the list of task.
      * Displays that the task has been added into the list.
@@ -166,9 +171,11 @@ public class Duke {
             taskListIndex = Integer.parseInt(parser.identifyUserInput(userInput)[1]);
             currentTask = taskList.findTask(taskListIndex);
             currentTask.markTaskAsDone();
-            storage.updateOutputFile(taskList);}
-        catch(NumberFormatException e){
+            storage.updateOutputFile(taskList);
+        } catch(NumberFormatException e) {
             System.out.println("Please choose a viable task");
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println("Please select the right index!");
         }
     }
 
@@ -200,7 +207,7 @@ public class Duke {
      * @param keywordTaskList
      */
     private static void findTaskByKeyword(TaskList taskList, String keyword,
-                                          TaskList keywordTaskList){
+                                          TaskList keywordTaskList) {
         for(int i = 0; i < taskList.countTaskInList(); i++){
             if(taskList.findTask(i).toString().contains(keyword)){
                 keywordTaskList.addTasks(taskList.findTask(i));

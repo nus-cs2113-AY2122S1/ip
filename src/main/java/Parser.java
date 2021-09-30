@@ -2,7 +2,6 @@ public class Parser {
     /**
      * Takes the user input and identify the index which,
      * the user wants to mark as completed.
-     *
      * @param userInput
      * @return taskIndex.
      */
@@ -11,20 +10,36 @@ public class Parser {
         return parts;
     }
 
-    public String identifyUserTask(String userInput){
+    /**
+     * Identify Event and Deadline Task when they are
+     * added into the list.
+     * @param userInput
+     * @return
+     */
+    public String identifyUserTask(String userInput) {
         int indexOfLast = userInput.indexOf("/") - 1;
         String taskName = userInput.substring(userInput.indexOf(" "), indexOfLast) + " ";
         return taskName;
     }
 
-    public String identifyStorageUserTask(String userInput){
+    /**
+     * Identify the event and deadline task being loaded from Duke.txt
+     * @param userInput
+     * @return
+     */
+    public String identifyStorageUserTask(String userInput) {
         int indexOfLast = userInput.indexOf("/");
         int indexOfStart = 7;
         String taskName = userInput.substring(indexOfStart,indexOfLast);
         return taskName;
     }
 
-    public String identifyStorageUserToDoTask(String userInput){
+    /**
+     * Identify todo task when being loaded from Duke.txt
+     * @param userInput
+     * @return
+     */
+    public String identifyStorageUserToDoTask(String userInput) {
         int indexOfStart = 7;
         String userTask = userInput.substring(indexOfStart, userInput.length());
         return userTask;
@@ -37,7 +52,7 @@ public class Parser {
      * @param userInput
      * @return String array of string split at "/".
      */
-    public String[] identifyDeadlineCommand(String userInput){
+    public String[] identifyDeadlineCommand(String userInput) {
         String[] parts = userInput.split("/");
         return parts;
     }
@@ -47,7 +62,7 @@ public class Parser {
      * @param userInput
      * @return
      */
-    public String identifyKeyword(String userInput){
+    public String identifyKeyword(String userInput) {
         String keyword = userInput.substring(5);
         return keyword;
     }

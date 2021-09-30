@@ -19,7 +19,7 @@ public class Deadline extends Task{
     /**
      * Output message when the deadline task is added.
      */
-    public void initialiseDeadline(){
+    public void initialiseDeadline() {
         System.out.println("______________________________\n");
         System.out.println(deadlineIcon()  + "[ ]"
                 + taskName + " " + deadLine + " "
@@ -32,7 +32,7 @@ public class Deadline extends Task{
      * @return String message in the right format.
      */
     @Override
-    public String toString(){
+    public String toString() {
         String s = deadlineIcon() + completedTaskIcon() + taskName + deadLine;
         return s;
     }

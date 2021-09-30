@@ -30,7 +30,7 @@ public class TaskList {
      *
      * @param userInput is the task object the user inputted.
      */
-    public void addTasks(Task userInput){
+    public void addTasks(Task userInput) {
         savedTasks.addLast(userInput);
     }
 
@@ -38,7 +38,7 @@ public class TaskList {
      * Iterate through the savedTasks linked list.
      * Prints every object in the linked list.
      */
-    public void listTasks(){
+    public void listTasks() {
         for(int i = 0; i < savedTasks.size(); i++){
             System.out.print(i + ": " + savedTasks.get(i).toString() + "\n");
         }
@@ -50,7 +50,7 @@ public class TaskList {
      * @param taskListIndex is the index indicated by user.
      * @return task object which user wants.
      */
-    public Task findTask(int taskListIndex){
+    public Task findTask(int taskListIndex) {
         return savedTasks.get(taskListIndex);
     }
 
@@ -59,7 +59,7 @@ public class TaskList {
      *
      * @return number of objects in linked list in int format.
      */
-    public int countTaskInList(){
+    public int countTaskInList() {
         int counter = 0;
         for(int i = 0; i < savedTasks.size(); i++){
             counter++;
@@ -72,12 +72,12 @@ public class TaskList {
      * @param index
      */
 
-    public void deleteTask(int index){
+    public void deleteTask(int index) {
         savedTasks.remove(index);
     }
 
 
-    public void clearList(){
+    public void clearList() {
         savedTasks.clear();
     }
 }

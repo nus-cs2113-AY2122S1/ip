@@ -17,10 +17,9 @@ public class ToDo extends Task{
     /**
      * Output message when the todo task is added.
      */
-    public void initialiseToDo(){
+    public void initialiseToDo() {
         System.out.println("______________________________\n");
-        System.out.println("[" + toDoIcon() + "]"
-                + "[ ]"
+        System.out.println(toDoIcon() + "[ ]"
                 + taskName
                 + " has been added!\n");
     }

@@ -2,7 +2,7 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Storage{
+public class Storage {
 
     TaskList taskList;
     static Parser parser;
@@ -17,7 +17,7 @@ public class Storage{
      * Load the file if there is.
      * @param filePath
      */
-    public TaskList load(String filePath){
+    public TaskList load(String filePath) {
         try{
             Path path = Paths.get(filePath);
             BufferedReader bufferedReader = new BufferedReader(
@@ -38,15 +38,15 @@ public class Storage{
                 }
             }
             bufferedReader.close();
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("There is no such file, a new file named duke.txt will be created");
 
-        } catch(IOException e){
+        } catch(IOException e) {
             System.out.println("There is no text in the file");
             System.out.println(e);
-        } /*catch(StringIndexOutOfBoundsException e){
+        } catch(StringIndexOutOfBoundsException e) {
             System.out.println("Empty file. We will rewrite the file\n");
-        }*/
+        }
         return taskList;
     }
 

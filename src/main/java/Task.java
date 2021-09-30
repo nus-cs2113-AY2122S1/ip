@@ -65,7 +65,7 @@ public class Task {
      * function handles the status of task.
      * Prints the congratulatory note.
      */
-    public void markTaskAsDone(){
+    public void markTaskAsDone() {
         isCompleted = true;
         congratulatoryNote();
     }
