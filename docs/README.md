@@ -66,7 +66,9 @@ task managing apps.
 - [Exiting the program: `bye`](#bye---exiting-the-program)
 - [Saving the data](#saving-the-data)
 - [Editing the data text file](#editing-the-data-text-file)
+
 ---
+
 ### `todo`: Adding a Todo Task
 
 Adds a task of type `Todo` into your task list.  
@@ -83,7 +85,9 @@ When added successfully, you should see the following message:
         Now you have 1 tasks in the list.
     ____________________________________________________________
 ```
+
 ---
+
 ### `deadline` - Adding a Deadline Task
 Adds a task of type `Deadline` into your task list.
   
@@ -99,7 +103,9 @@ When added successfully, you should see the following message:
         Now you have 2 tasks in the list.
     ____________________________________________________________
 ```
+
 ---
+
 ### `event` - Adding an Event Task
 Adds a task of type `Event` into your task list.
 
@@ -115,7 +121,9 @@ When added successfully, you should see the following message:
         Now you have 3 tasks in the list.
     ____________________________________________________________
 ```
+
 ---
+
 ### `list` - Listing all tasks
 Lists all the tasks in your current task list.
   
@@ -136,6 +144,7 @@ When successful, you should see the following message:
 ***Note: The tasks displayed in this example may be different than the one you have.***
 
 ---
+
 ### `done` - Setting tasks as done
   
 Set status of indexes of tasks specified as done.
@@ -154,7 +163,9 @@ When successful, you should see the following message:
 ```
 ***Note: The tasks displayed in this example may be different from the ones you have.***  
 ***Note: At least one index must be specified to run this command.***
+
 ---
+
 ### `find` - Finding tasks by keyword
 Finds and displays all the tasks having the keyword in their names.
   
@@ -174,6 +185,7 @@ When successful, you should see the following message:
 ***Note: The keyword parameter cannot be empty.***
 
 ---
+
 ### `delete` - Deleting tasks
 Delete indexes of tasks specified by the user.
   
@@ -193,6 +205,7 @@ When successful, you should see the following message:
 ***Note: The tasks displayed in this example may be different from the ones you have.***
 
 ---
+
 ### `bye` - Exiting the program
 Exits the program.
   
@@ -208,11 +221,13 @@ When successful, you should see the following message:
 ```
 
 ---
+
 ### Saving the data
 Duke saves all the task data into a text file automatically after any command performed.  
 There is no need to save data manually.
 
 ---
+
 ### Editing the data text file
 Duke saves the task data into a text file `JAR_FILE_LOCATION/data/savedTasks.txt`. Although not recommended, you can
 manually change the data in the text file.  
