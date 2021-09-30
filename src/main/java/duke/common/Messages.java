@@ -1,5 +1,8 @@
 package duke.common;
 
+/**
+ * Common Response Messages to be used across Duke.
+ */
 public class Messages {
 
     final public static String ERROR_MESSAGE_TAG = "Error: ";
