@@ -2,6 +2,7 @@ package Duke;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
@@ -38,11 +39,22 @@ public class TaskList {
         task.setDone(true);
         ui.showDone(task);
     }
+    
+    public void showTaskList(Ui ui) {
+        showList(tasks, ui);
+    }
 
-    public void showList(Ui ui) {
-        for (Task t : tasks) {
-            int curr = tasks.indexOf(t) + 1;
-            ui.showTask(curr, t);
+    public void showFilteredTaskList(String search, Ui ui) {
+        ArrayList<Task> filteredtasks = (ArrayList<Task>) tasks.stream()
+                .filter(t -> t.getDescription().contains(search))
+                .collect(Collectors.toList());
+        showList(filteredtasks, ui);
+    }
+
+    private void showList(ArrayList<Task> tasks, Ui ui) {
+        for (Task item : tasks) {
+            int curr = tasks.indexOf(item) + 1;
+            System.out.println(curr + "." + item);
         }
         ui.showToUser("");
     }

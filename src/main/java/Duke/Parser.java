@@ -54,8 +54,17 @@ public class Parser {
             } catch (DukeException e){
                 return new IncorrectCommand(COMMAND_DELETE);
             }
+<<<<<<< HEAD
+        case COMMAND_FIND:
+            try {
+                return parseFind(params);
+            } catch (DukeException e) {
+                return new IncorrectCommand(COMMAND_FIND);
+            }
+=======
         case COMMAND_DATE:
             return parseDate(params);
+>>>>>>> master
         case COMMAND_BYE:
             return new ByeCommand();
         default:
@@ -103,10 +112,18 @@ public class Parser {
         return new DeleteCommand(taskNumber);
     }
 
+<<<<<<< HEAD
+    private static Command parseFind(String params) throws DukeException {
+        if (params.equals("")) {
+            throw new DukeException();
+        }
+        return new FindCommand(params);
+=======
     private static Command parseDate(String params) throws DukeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
         LocalDateTime dateTime = LocalDateTime.parse(params, formatter);
         return new DateCommand(dateTime);
+>>>>>>> master
     }
 
     private static int findTaskNumber(String params) throws DukeException {
