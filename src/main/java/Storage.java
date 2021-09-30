@@ -14,7 +14,7 @@ public class Storage {
         filePath = FilePath;
         ArrayList<String> output = new ArrayList<String>(Output);
         file = file1;
-    }
+    }   // Constructor of Storage
 
 
     public void writeTasksToFile(File file, ArrayList<String> output) {
@@ -46,5 +46,5 @@ public class Storage {
             System.out.println("An error occurred, please try again!");
             e.printStackTrace();
         }
-    }
+    }   // write the tasks to file
 }

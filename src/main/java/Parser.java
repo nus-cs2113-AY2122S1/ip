@@ -13,7 +13,7 @@ public class Parser {
             DukeException e = new DukeException();
             throw e;
         }
-    }
+    }   // Check if the 'todo' commmand is valid
 
     public void checkDeadline(String userCommand) throws DukeException {
         if (userCommand.length() <= 9) {     //generate error when receiving invalid Deadline input
@@ -23,7 +23,7 @@ public class Parser {
             DukeException e = new DukeException();
             throw e;
         }
-    }
+    }   // Check if the 'deadline' commmand is valid
 
     public void checkEvent(String userCommand) throws DukeException {
         if (userCommand.length() <= 6) {     //generate error when receiving invalid Event input
@@ -33,7 +33,7 @@ public class Parser {
             DukeException e = new DukeException();
             throw e;
         }
-    }
+    }   // Check if the 'event' commmand is valid
 
     public void checkDone(String userCommand) throws DukeException {
         if (userCommand.length() <= 5) {     //generate error when receiving invalid Delete input
@@ -46,7 +46,7 @@ public class Parser {
             DukeException e = new DukeException();
             throw e;
         }
-    }
+    }   // Check if the 'done' commmand is valid
 
     public void checkDelete(String userCommand) throws DukeException {
         if (userCommand.length() <= 7) {     //generate error when receiving invalid Delete input
@@ -59,7 +59,7 @@ public class Parser {
             DukeException e = new DukeException();
             throw e;
         }
-    }
+    }   // Check if the 'delete' commmand is valid
 
     public void checkFind(String userCommand) throws DukeException {
         if (userCommand.length() <= 5) {     //generate error when receiving invalid Delete input
@@ -69,7 +69,7 @@ public class Parser {
             DukeException e = new DukeException();
             throw e;
         }
-    }
+    }   // Check if the 'find' commmand is valid
 
     public boolean isInt(String input) {
         try {                               //generate error when receiving non-integer input
@@ -80,7 +80,7 @@ public class Parser {
             return false;
         }
         return true;
-    }
+    }   // Check if the target char in inputString is an integer
 
     public void checkCommand(ArrayList<String> output, ArrayList<Integer> taskStatus,
                              ArrayList<String> taskName, ArrayList<String> taskType, File file) {
@@ -151,5 +151,5 @@ public class Parser {
         if (userCommand.equals("bye")) {        //terminate the loop
             taskLists.printBye();
         }
-    }
+    }   // Check and process the 'userCommand' (userInput)
 }

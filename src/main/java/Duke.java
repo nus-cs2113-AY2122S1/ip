@@ -14,12 +14,12 @@ public class Duke {
     public Duke(String filePath) {
         UI ui = new UI();
         File file = new File(filePath);
-    }
+    }   //Constructor of Duke object
 
 
     public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
-    }
+    }   //Main method
 
 
     public void run() {
@@ -35,6 +35,6 @@ public class Duke {
         taskType = loadFromText.loadTaskType(taskType);
         Parser parser = new Parser();
         parser.checkCommand(output, taskStatus, taskName, taskType, file);
-    }
+    }   //The actual run process that user can input and get the corresponding output from Duke
 
 }

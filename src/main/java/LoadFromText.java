@@ -17,7 +17,7 @@ public class LoadFromText {
         ArrayList<Integer> taskStatus = new ArrayList<Integer>(TaskStatus);
         ArrayList<String> taskType = new ArrayList<String>(TaskType);
         file = file1;
-    }
+    }   // Constructor of LoadFromText
 
 
     public ArrayList<String> loadOutput(ArrayList<String> output) {
@@ -33,7 +33,7 @@ public class LoadFromText {
             System.out.println("An error occurred, please try again!");
             return null;
         }
-    }
+    }   // Load the corresponding text from txt file to the ArrayList output
 
     public ArrayList<String> loadTaskName(ArrayList<String> taskName) {
         try {
@@ -51,7 +51,7 @@ public class LoadFromText {
             System.out.println("An IO Exception error occurred, please try again!");
             return null;
         }
-    }
+    }   // Load the corresponding text from txt file to the ArrayList taskName
 
     public ArrayList<Integer> loadTaskStatus(ArrayList<Integer> taskStatus) {
         try {
@@ -73,7 +73,7 @@ public class LoadFromText {
             System.out.println("An IO Exception error occurred, please try again!");
             return null;
         }
-    }
+    }   // Load the corresponding text from txt file to the ArrayList taskStatus
 
     public ArrayList<String> loadTaskType(ArrayList<String> taskType) {
         try {
@@ -91,5 +91,5 @@ public class LoadFromText {
             System.out.println("An IO Exception error occurred, please try again!");
             return null;
         }
-    }
+    }   // Load the corresponding text from txt file to the ArrayList taskType
 }

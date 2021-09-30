@@ -7,18 +7,18 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
         this.index = index;
-    }
+    }   //Constructor for Deadline object
 
     public String getBy() {
         return this.by;
-    }
+    }   //Getter of by var
 
     public void setBy(String by) {
         this.by = by;
-    }
+    }   //Setter of by var
 
     public String toString() {
         taskName = description.substring(9, index - 2);
         return "[D][ ] " + taskName + " (by: " + by + ")";
-    }
+    }   // toString method
 }

@@ -14,5 +14,5 @@ public class UI {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println(LINE);
-    }
+    }   //print the welcome message at the beginning
 }
