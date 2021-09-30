@@ -14,6 +14,9 @@ You can edit your tasks with given task types(todo, deadline, event).
 After you quit the app, your task list is stored in your computer.
 
 ## Usage
+### Open DUKE
+
+![Picture_Guide](image/Picture_Guide.png)
 
 ### `Keyword` - Describe action
 
