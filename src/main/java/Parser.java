@@ -1,6 +1,7 @@
 import java.util.Set;
 
 public class Parser {
+    
     public static void checkCommand(String line) throws EmptyDescriptionException, InvalidCommandException {
         Set<String> validCommands = Set.of("todo", "deadline", "event");
         String[] splitLine = line.split(" ");
@@ -13,6 +14,9 @@ public class Parser {
         }
     }
 
+    /**
+     * @param line the user input
+     */
     public static void handleCommand(String line) {
         String description;
         String date;

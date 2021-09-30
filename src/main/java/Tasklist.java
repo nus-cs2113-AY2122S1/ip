@@ -1,4 +1,7 @@
 public class Tasklist {
+    /**
+     * This function is used to show the task list
+     */
     public static void showList() {
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < Data.descriptions.size(); i++) {
@@ -27,6 +30,9 @@ public class Tasklist {
         Ui.showLine();
     }
 
+    /**
+     * @param number number = index + 1
+     */
     public static void markAsDone(int number) {
         Ui.showLine();
         System.out.println("     Nice! I've marked this task as done:");
@@ -55,6 +61,9 @@ public class Tasklist {
         Ui.showLine();
     }
 
+    /**
+     * @param number number = index + 1
+     */
     public static void deleteTask(int number) {
         Ui.showLine();
         System.out.println("     Noted. I've removed this task:");
