@@ -43,7 +43,24 @@ public class Ui {
         System.out.println("\t 6. Delete a task by typing in \"delete\" and the index of the task on the list.");
         System.out.println("\t 7. Find a task with a particular keyword by typing in \"find {keyword}\". " +
                 "Tasks with that keyword will be listed.");
-        System.out.println("\t 8. End the program by typing in \"bye\".");
+        System.out.println("\t 8. Show this list of performable actions again by typing \"help\".");
+        System.out.println("\t 9. End the program by typing in \"bye\".");
+        printDividerLine();
+    }
+
+    public void showHelp() {
+        printDividerLine();
+        System.out.println("\tHere are the performable actions:");
+        System.out.println("\t 1. Add a new To Do by typing \"todo {content of your to do}\".");
+        System.out.println("\t 2. Add a new Deadline by typing \"deadline {content of your deadline} /by {date of deadline}\".");
+        System.out.println("\t 3. Add a new Event by typing \"event {content of your event} /at {date of event}\".");
+        System.out.println("\t 4. Mark a task as done by typing in \"done\" and the index of the task on the list.");
+        System.out.println("\t 5. Check all the tasks you have added by typing in \"list\". Done tasks will be marked with an X.");
+        System.out.println("\t 6. Delete a task by typing in \"delete\" and the index of the task on the list.");
+        System.out.println("\t 7. Find a task with a particular keyword by typing in \"find {keyword}\". " +
+                "Tasks with that keyword will be listed.");
+        System.out.println("\t 8. Show this list of performable actions again by typing \"help\".");
+        System.out.println("\t 9. End the program by typing in \"bye\".");
         printDividerLine();
     }
 
@@ -147,15 +164,6 @@ public class Ui {
      *
      * @param filteredList The list of tasks with the keyword specified by the user.
      */
-    public void listMatchingTasks(ArrayList<Task> filteredList) {
-        printDividerLine();
-        System.out.println("\t Here are the matching tasks in your list:");
-        for (int i = 0; i < filteredList.size(); i++) {
-            System.out.println("      " + (i + 1) + "." + filteredList.get(i));
-        }
-        printDividerLine();
-    }
-
     public void listMatchingTasks(ArrayList<Task> filteredList) {
         printDividerLine();
         System.out.println("\t Here are the matching tasks in your list:");

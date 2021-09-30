@@ -19,6 +19,7 @@ public class Parser {
         switch (commandWord) {
         case "list":
         case "bye":
+        case "help":
             return words;
         case "done":
         case "delete":

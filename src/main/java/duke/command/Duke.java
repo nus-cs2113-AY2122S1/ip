@@ -75,11 +75,7 @@ public class Duke {
         String commandWord = parsedFullCommand[0];
         switch (commandWord) {
         case "list":
-            if (parsedFullCommand.length == 1) {
                 taskList.listAllTasks();
-            } else {
-                ui.showLoadingError();
-            }
             break;
         case "done":
             if (parsedFullCommand.length == 2) {
@@ -104,6 +100,9 @@ public class Duke {
             break;
         case "find":
             taskList.filterTasksByString(parsedFullCommand[1]);
+            break;
+        case "help" :
+            ui.showHelp();
             break;
         case "bye":
             break;
