@@ -112,10 +112,10 @@ public class TaskList {
     /**
      * Finds the longest task stored in the tasks list and stores to the longestTaskDescription
      */
-    private void updateLongestTaskDescription(){
+    private void updateLongestTaskDescription() {
         longestTaskDescription = MINIMUM_TASK_LENGTH; //This will be the minimum length
-        for (Task t : tasks){
-            if (longestTaskDescription < t.toString().length()){
+        for (Task t : tasks) {
+            if (longestTaskDescription < t.toString().length()) {
                 longestTaskDescription = t.toString().length();
             }
         }
@@ -127,14 +127,14 @@ public class TaskList {
     private void drawUpperFrame() {
         System.out.print("\t" + ListCommand.TOP_LEFT_CORNER); //the top left corner
         //The number of digit of the largest task index display
-        int largestIndexLength = (tasks.size() == 0)? 0 : (int)Math.log10(tasks.size()) + 1;
+        int largestIndexLength = (tasks.size() == 0) ? 0 : (int) Math.log10(tasks.size()) + 1;
         for (int i = 0; i < longestTaskDescription + DEFAULT_TASK_DISPLAY_LENGTH + largestIndexLength; i++) {
             System.out.print("-");
         }
         System.out.println(ListCommand.TOP_RIGHT_CORNER);
         System.out.print("\t| My to-do list: ");
         int currentLength = "| My to-do list: ".length();
-        while (currentLength <= longestTaskDescription + DEFAULT_TASK_DISPLAY_LENGTH + largestIndexLength){
+        while (currentLength <= longestTaskDescription + DEFAULT_TASK_DISPLAY_LENGTH + largestIndexLength) {
             System.out.print(" ");
             currentLength++;
         }
@@ -150,9 +150,9 @@ public class TaskList {
             //Fill the first [] with class type, and the second [] with a 'X' if the task is completed
             String doneIcon = (tasks.get(i).getDone()) ? "[X] " : "[ ] ";
             System.out.print("\t| [" + tasks.get(i).getClassType() + "]" + doneIcon + (i + 1) + ". " + tasks.get(i));
-            int currentLength = ("| [" + tasks.get(i).getClassType() + "]" + doneIcon + (i+1) + ". " + tasks.get(i)).length();
-            int largestIndexLength = (int)Math.log10(tasks.size()) + 1;
-            while (currentLength <= longestTaskDescription + DEFAULT_TASK_DISPLAY_LENGTH + largestIndexLength){
+            int currentLength = ("| [" + tasks.get(i).getClassType() + "]" + doneIcon + (i + 1) + ". " + tasks.get(i)).length();
+            int largestIndexLength = (int) Math.log10(tasks.size()) + 1;
+            while (currentLength <= longestTaskDescription + DEFAULT_TASK_DISPLAY_LENGTH + largestIndexLength) {
                 System.out.print(" ");
                 currentLength++;
             }
@@ -165,7 +165,7 @@ public class TaskList {
      */
     private void drawLowerFrame() {
         System.out.print("\t" + ListCommand.BOTTOM_LEFT_CORNER);
-        int largestIndexLength = (tasks.size() == 0)? 0 : (int)Math.log10(tasks.size()) + 1;
+        int largestIndexLength = (tasks.size() == 0) ? 0 : (int) Math.log10(tasks.size()) + 1;
         for (int i = 0; i < longestTaskDescription + DEFAULT_TASK_DISPLAY_LENGTH + largestIndexLength; i++) {
             System.out.print("-");
         }

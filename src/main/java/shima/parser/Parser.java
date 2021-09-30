@@ -248,7 +248,6 @@ public class Parser {
         try {
             //pad input time
             time = padCorrectDateTimeFormat(time);
-            System.out.println(time);
             LocalDateTime inputTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             LocalDateTime now = LocalDateTime.now();
             if (inputTime.isBefore(now)) {
@@ -312,19 +311,20 @@ public class Parser {
 
     /**
      * Checks the string that contains date if needed to pad a leading 0 to day domain
+     *
      * @param time The input time string
      * @return Returns true if the day domain of the date in the time string only contains single digit, false otherwise
      */
     private static boolean isSingleDigitForDay(String time) {
         boolean isPotentialSingleDigit = Integer.parseInt(time.substring(time.lastIndexOf("-") + 1, time.lastIndexOf("-") + 3).trim()) < 10;
-        boolean isLeading0 = time.charAt(time.lastIndexOf("-")  + 1) == '0';
+        boolean isLeading0 = time.charAt(time.lastIndexOf("-") + 1) == '0';
         return isPotentialSingleDigit && !isLeading0;
     }
 
     /**
      * Pads a leading 0 to the month domain if the input month contains only single digit
      *
-     * @param time The input time string
+     * @param time        The input time string
      * @param indexOfDash The first occurence of the dash character which indicates the position of the month domain
      * @return Returns the time string padded with 0 in month domain
      */
