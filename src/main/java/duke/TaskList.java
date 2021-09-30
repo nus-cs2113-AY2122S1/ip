@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TaskList {
     private static Ui ui = new Ui();
-    private Storage storage = new Storage("data/duke.txt");
+    private Storage storage = new Storage("duke.txt");
 
     public ArrayList<Task> tasks;
 
@@ -36,7 +36,7 @@ public class TaskList {
     public void printTask(int taskNumber){
         String type = tasks.get(taskNumber).type;
         String icon = tasks.get(taskNumber).getStatusIcon();
-        System.out.println((taskNumber + 1) + "." + "[" + type + "]" + " [" + icon + "] " + tasks.get(taskNumber).description);
+        System.out.println("[" + type + "]" + " [" + icon + "] " + tasks.get(taskNumber).description);
 
     }
 
@@ -45,6 +45,7 @@ public class TaskList {
         ui.printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
+            System.out.print((i + 1) + ".");
             printTask(i);
         }
         ui.printHorizontalLine();

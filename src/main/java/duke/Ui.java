@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Ui {
     private static TaskList tasks = new TaskList();
-    private static Storage storage = new Storage("data/duke.txt");
+    private static Storage storage = new Storage("duke.txt");
 
     public void printHorizontalLine() {
         for (int i = 0; i < 11; i++) {
