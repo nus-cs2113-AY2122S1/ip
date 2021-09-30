@@ -1,5 +1,5 @@
 
-#User Guide
+# User Guide
 _Dude_ is a **Command Line Application** that aims to provide users with a **convenient and fast** platform to **manage and track tasks**. 
 
 With its bubbly personality and user-friendly commands, _Dude_ will surely become your best friend for task management! :smile: :ok_man: :sparkles:
@@ -25,7 +25,7 @@ With its bubbly personality and user-friendly commands, _Dude_ will surely becom
 4. Open a command window in that folder. [_Not sure how to do this?_](https://www.groovypost.com/howto/open-command-window-terminal-window-specific-folder-windows-mac-linux/)
 5. In the same window, run the command `java -jar Dude.jar`. 
 
-Welcome to _Dude_!:star_struck:
+All ready to go! Enjoy using _Dude_! :star_struck:
 
 ## Features
 #### Notes about the command format:
@@ -126,7 +126,7 @@ ________________________________________________________________________________
 ### Search for a task: `search`
 Shows a list of tasks with descriptions that match a given search term, along with their respective task numbers.
 
-:bulb: The search term can consist of a single word, or multiple words, and is case-insensitive.
+:bulb: The search term can consist of a single word, or multiple words, and is **case-insensitive**.
 
 > Format: `search SEARCH_TERM`
 
@@ -163,6 +163,7 @@ else _Dude_ will be unable to load that line of data into your task list.
 
 
 ## Command Summary
+
 Action | Format | Example
 ------ | ------ | -------
 Add Todo task |  `todo TASK_DESCRIPTION` | `todo water the plants`
