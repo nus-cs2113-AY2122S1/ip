@@ -35,7 +35,7 @@ java -jar IP.jar
    * `bye`: Exits the application.
 
 ## Features
-*Note about the command formats*
+**Note about the command formats**
 * Extraneous parameters for commands with only one parameter (such as `help` `list` and `bye`) will be ignored.
 > `help me` will be interpreted as `help`.
 
