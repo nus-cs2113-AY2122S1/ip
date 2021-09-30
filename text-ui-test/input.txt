@@ -1,15 +1,15 @@
 list
 todo borrow book
 list
-deadline return book /by Sunday
+deadline return book /by 2021-09-26 1800
 list
-event project meeting /at Mon 2-4pm
+event project meeting /at 2021-10-04 1400
 list
 todo clean my room
 list
-deadline complete project assignment /by 5th Aug 2021 2359hrs
+deadline complete project assignment /by 2021-08-05 2359
 list
-event dinner with friends /at Fri 7pm
+event dinner with friends /at 2021-10-01 1900
 list
 done 1
 list
