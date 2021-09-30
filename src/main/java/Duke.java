@@ -1,4 +1,3 @@
-// List of imported packages
 import allTasks.Task;
 import allTasks.typesOfTasks.Todo;
 import allTasks.typesOfTasks.Event;
@@ -20,7 +19,6 @@ public class Duke {
     public static final int TODO_SIZE          = 5;
     public static final int EVENT_SIZE         = 6;
     public static final int DEADLINE_SIZE      = 9;
-    public static final int TASK_ARR_SIZE      = 100;
     public static final String LINE            = "--------------------------------------------------------------------------------";
     public static final ArrayList<Task> tasks  = new ArrayList<>();
 

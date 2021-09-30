@@ -1,2 +1,4 @@
-[T],[X],wassup
-[E],[ ],popeyes ,Monday
+[E],[ ],Nirmaleshwar attend CS2113T lecture ,Friday 17 Sep 2021 from 4-6 pm
+[T],[ ],book
+[T],[ ],stuff
+[T],[ ],return book
