@@ -259,7 +259,7 @@ public class TaskList {
         String query = InputParser.getQuery(userInput);
 
         for (Task task : tasks) {
-            if (task.getTaskName().contains(query)) {
+            if (task.getTaskName().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(task);
             }
         }

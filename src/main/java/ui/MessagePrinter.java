@@ -50,7 +50,7 @@ public abstract class MessagePrinter {
             + "|_| |_|  |_|\\__,_|\\__,_|\\__, |\n"
             + "                         __/ |\n"
             + "                        |___/ \n";
-    private static final String DASHES = "____________________________________________________________";
+    private static final String DASHES = "________________________________________________________________________________________________________________________";
 
     // methods to print constants
     private static void friday() {
@@ -98,7 +98,7 @@ public abstract class MessagePrinter {
     // otherwise
     public static void printList(ArrayList<Task> tasks) {
         dashes();
-        System.out.println("You have a total of " + tasks.size() +" tasks today sir, listing them out now.");
+        System.out.println("You have a total of " + tasks.size() +" tasks sir, listing them out now.");
         for (Task task : tasks) {
             System.out.println(task);
         }
@@ -116,7 +116,7 @@ public abstract class MessagePrinter {
     // Message for adding tasks
     public static void addedTask(String taskName) {
         dashes();
-        System.out.println("Very well, adding task \"" + taskName + "\"");
+        System.out.println("Very well, adding task \"" + taskName + "\".");
         dashes();
     }
 
@@ -210,8 +210,8 @@ public abstract class MessagePrinter {
 
     public static void invalidDate() {
         dashes();
-        System.out.println("Sir you modelled me to read dates in the format yyyy-mm-dd.");
-        System.out.println("If you would kindly check the format or validity of your date");
+        System.out.println("Sir you modelled me to read dates in the format yyyy-mm-dd. "
+                + "If you would kindly check the format or validity of your date");
         dashes();
     }
 

@@ -31,7 +31,6 @@ public abstract class InputParser {
     private static final String AT = "/at";
     private static final int TASK_INDEX = 1;
     private static final int TASKS_LOWER_BOUND = 0;
-    private static final int TASKS_UPPER_BOUND = 99;
 
     // Functions to ease readability
     private static int taskNameStartIndex(String input) {
@@ -121,35 +120,35 @@ public abstract class InputParser {
      */
     public static Commands getCommand(String input) {
         // checks if it contains list or bye
-        if (input.equals(LIST)) {
+        if (input.equalsIgnoreCase(LIST)) {
             return Commands.LIST;
         }
 
-        if (input.equals(BYE)) {
+        if (input.equalsIgnoreCase(BYE)) {
             return Commands.BYE;
         }
 
-        if (input.startsWith(TODO)) {
+        if (input.toLowerCase().startsWith(TODO)) {
             return Commands.TODO;
         }
 
-        if (input.startsWith(DEADLINE)) {
+        if (input.toLowerCase().startsWith(DEADLINE)) {
             return Commands.DEADLINE;
         }
 
-        if (input.startsWith(EVENT)) {
+        if (input.toLowerCase().startsWith(EVENT)) {
             return Commands.EVENT;
         }
 
-        if (input.startsWith(DELETE)) {
+        if (input.toLowerCase().startsWith(DELETE)) {
             return Commands.DELETE;
         }
 
-        if (input.startsWith(DONE)) {
+        if (input.toLowerCase().startsWith(DONE)) {
             return Commands.DONE;
         }
 
-        if (input.startsWith(FIND)) {
+        if (input.toLowerCase().startsWith(FIND)) {
             return Commands.FIND;
         }
 
@@ -270,7 +269,7 @@ public abstract class InputParser {
         } catch (NumberFormatException e) {
             return Errors.INVALID_INDEX;
         }
-        if (taskIndex < TASKS_LOWER_BOUND || taskIndex > TASKS_UPPER_BOUND)  {
+        if (taskIndex < TASKS_LOWER_BOUND)  {
             return Errors.OUT_OF_BOUNDS_INDEX;
         }
         return Errors.NONE;
