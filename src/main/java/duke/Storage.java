@@ -94,7 +94,7 @@ public class Storage {
      *
      * @param filePath  File path of the file used to store data of tasks.
      * @param textToAdd String of text to be written to the data file.
-     * @throws IOException If there are failed or interrupted I/O operations.
+     * @throws IOException If there are failed or interrupted I/O operations (i.e. folder cannot be found).
      */
     private void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
@@ -124,6 +124,7 @@ public class Storage {
             writeToFile(filePath, readTasks());
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println("Please create a 'data' folder in your root directory. ");
         }
     }
 }
