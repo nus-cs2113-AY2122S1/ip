@@ -5,13 +5,15 @@ public class Event extends Task {
     public String type = "[E]";
     private String dueDate;
 
+    /**
+     * Represents an Event made by the user.
+     *
+     * @param description Description of Event.
+     * @param dueDate Due date of Event.
+     */
+
     public Event(String description, String dueDate) {
         super(description);
-        this.dueDate = dueDate;
-    }
-
-    public Event(String description, boolean isDone, String dueDate) {
-        super(description, isDone);
         this.dueDate = dueDate;
     }
 

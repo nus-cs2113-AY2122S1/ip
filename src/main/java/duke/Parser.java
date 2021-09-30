@@ -4,6 +4,16 @@ import duke.commands.*;
 import duke.tasks.*;
 
 public class Parser {
+
+    /**
+     * Parses the user input to find the appropriate Command to be executed.
+     *
+     * @param fullCommand The entire command that is inputted by the user.
+     * @return The appropriate executable command.
+     * @throws NullPointerException if the description of the user input is not filled up.
+     * @throws IndexOutOfBoundsException if the index of the user input is greater than the size of TaskList.
+     */
+
     public static Command parse(String fullCommand) {
         String[] inputArray = fullCommand.split(" ", 2);
         String inputCommand = inputArray[0];

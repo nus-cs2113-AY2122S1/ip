@@ -3,12 +3,15 @@ package duke.tasks;
 public class Todo extends Task {
 
     private String type = "[T]";
+
+    /**
+     * Represents a Todo made by the user.
+     *
+     * @param description Description of Todo.
+     */
+
     public Todo(String description) {
         super(description);
-    }
-
-    public Todo(String description, boolean isDone) {
-        super(description, isDone);
     }
 
     public String getType(){

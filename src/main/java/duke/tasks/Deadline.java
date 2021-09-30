@@ -5,13 +5,15 @@ public class Deadline extends Task {
     private String type = "[D]";
     private String dueDate;
 
+    /**
+     * Represents a Deadline made by the user.
+     *
+     * @param description Description of Deadline.
+     * @param dueDate Due date of Deadline.
+     */
+
     public Deadline(String description, String dueDate) {
         super(description);
-        this.dueDate = dueDate;
-    }
-
-    public Deadline(String description, boolean isDone, String dueDate) {
-        super(description, isDone);
         this.dueDate = dueDate;
     }
 

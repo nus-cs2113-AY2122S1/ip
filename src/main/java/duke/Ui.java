@@ -3,6 +3,12 @@ import duke.tasks.Task;
 import java.util.Scanner;
 
 public class Ui {
+
+    /**
+     * Represents the output on the terminal, based on the Command executed.
+     * Command executed based off the user input.
+     */
+
     private static Scanner in = new Scanner(System.in);
 
     public static void showLine(){
