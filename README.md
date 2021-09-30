@@ -2,7 +2,9 @@
 
 This is an instruction manual for my brownfield Java project.
 
-It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+It's named after the Java mascot _Duke_. 
+
+Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
