@@ -133,7 +133,7 @@ Format: `event <TASK_NAME> /at <START_DATE> <END_DATE>`
 
 Example of usage:
 ```console
-event project meeting /at 21/09/2022 1400 to 21/09/2022 1600
+event project meeting /at 21/09/2022 1400 21/09/2022 1600
 ```
 
 Expected outcome:
