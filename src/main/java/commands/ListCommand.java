@@ -1,6 +1,6 @@
 package commands;
 
-import TextUi.TextUi;
+import ui.TextUi;
 
 public class ListCommand extends Command{
 

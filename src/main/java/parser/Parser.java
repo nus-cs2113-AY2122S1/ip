@@ -1,6 +1,5 @@
 package parser;
 
-import TextUi.TextUi;
 import commands.*;
 
 
@@ -25,6 +24,9 @@ public class Parser {
             break;
         case DeleteCommand.COMMAND_WORD:
             command = new DeleteCommand(commandParams);
+            break;
+        case FindCommand.COMMAND_WORD:
+            command = new FindCommand(commandParams);
             break;
         case ExitCommand.COMMAND_WORD:
             command = new ExitCommand();

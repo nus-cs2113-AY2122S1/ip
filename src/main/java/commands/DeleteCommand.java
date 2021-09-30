@@ -2,7 +2,7 @@ package commands;
 
 import storage.Storage;
 import tasks.Task;
-import TextUi.TextUi;
+import ui.TextUi;
 
 public class DeleteCommand extends Command{
 
