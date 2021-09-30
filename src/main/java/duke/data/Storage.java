@@ -19,6 +19,7 @@ import java.util.Scanner;
  *  in the directory folderName.
  */
 public class Storage{
+    private static final String STORAGE_DIVISOR = "\\|";
     private static String filePath;
     private static String folderName = "data/";
     private static String fileName = "list.txt";
@@ -113,13 +114,13 @@ public class Storage{
      * @return simulated user input to add a single task
      */
     private static String savedDataToCommandFormat(String readLine) {
-        String[] separateData = readLine.split("\\|");
+        String[] separateData = readLine.split(STORAGE_DIVISOR);
         switch (separateData[0]) {
         case ("D") :
             return separateData[1] + Divider.D.getDivisor() + separateData[2];
         case ("E") :
             return separateData[1] + Divider.E.getDivisor() + separateData[2];
-        default:    //is a todo only
+        default:    //is a todo
             return separateData[1];
         }
     }

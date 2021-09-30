@@ -6,8 +6,6 @@ import duke.data.Storage;
 import duke.data.TaskList;
 import duke.security.AccountDetail;
 
-import java.io.IOException;
-
 public class Duke {
     private Ui ui;
     private TaskList taskList;
@@ -21,7 +19,7 @@ public class Duke {
         taskList = new TaskList(storage.load());
     }
 
-    public void run(){
+    public void run() {
         ui.sayHi(accountDetail.getUsername());
         boolean isExit = false;
         do {
@@ -35,7 +33,7 @@ public class Duke {
 
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new Duke("data/list.txt").run();
     }
 

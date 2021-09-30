@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
 
     public void printFeatures() {
         for (CommandPrefix f : CommandPrefix.values()) {
-            //Oopsie is left as a default command
+            //Oopsie is left as a default command and thus not reflected
             if (!f.getPrefix().equals(CommandPrefix.OOPSIE.getPrefix())) {
                 System.out.print(f.getPrefix() + " : " + f.getDescription());
                 System.out.println("\n");

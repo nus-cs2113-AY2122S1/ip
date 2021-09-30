@@ -2,41 +2,53 @@
 
 Welcome to Duke 🐧 - your personal task manager!
 Let's record all your 'tasks' in a 'list'!
+
 ## Features
 
 ### Feature-Add
 
 Adds task to your list
+
 ### Feature-Deadline
 
 Updates a todo to deadline
+
 ### Feature-Done
 
 Marks a set of tasks as done
+
 ### Feature-Find
 
 Return tasks that have matching keywords
+
 ### Feature-Date
 
 Returns tasks that have valid dates
+
 ### Feature-List
 
 Shows you the current list
+
 ### Feature-Delete
 
 Deletes a set of tasks
+
 ### Feature-Clear
 
 Clears your list
+
 ### Feature-Echo
 
 Echo's your command
+
 ### Feature-Mascot
 
 Have a 🐧 mascot repeat after you
+
 ### Feature-Help
 
 List all of duke's command prefixes and brief description
+
 ## Usage
 
 ### `add` - adds task to list
@@ -65,9 +77,26 @@ List populated with given tasks
 ```
 finished adding
 ```
+### `todo` - adds a todo to a list
+
+Similar to adding a task, but adds one at a time rather than a list
+
+```
+todo Nigel submit UG draft /by today 2359
+```
+
+### `event` - adds a event to a list
+
+Similar to adding a task, but adds one at a time rather than a list
+
+```
+event Nigel attend CS2113 lecture Friday Sep 2021 /at 4 - 6pm
+```
+
 ### `deadline` - updates deadline for a todo
 
 Modifies a todo into a deadline
+
 Format: [INDEX] [DEADLINE]
 Examples of usage:
 

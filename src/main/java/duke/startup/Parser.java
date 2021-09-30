@@ -82,6 +82,10 @@ public class Parser {
             return new HelpCommand();
         } else if (stringToRead.startsWith(CommandPrefix.DEADLINE.getPrefix())) {
             return new DeadlineCommand();
+        } else if (stringToRead.startsWith(CommandPrefix.EVENT.getPrefix())) {
+            return new EventCommand();
+        } else if (stringToRead.startsWith(CommandPrefix.TODO.getPrefix())) {
+            return new TodoCommand();
         } else {
             return new OopsieCommand();
         }
