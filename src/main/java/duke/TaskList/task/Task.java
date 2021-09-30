@@ -29,6 +29,10 @@ public class Task {
         return (this.isDone ? "X" : " ");
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public String getTaskType() {
         return this.taskType;
     }

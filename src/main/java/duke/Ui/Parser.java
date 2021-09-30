@@ -2,14 +2,7 @@ package duke.Ui;
 
 import duke.Error.DukeException;
 import duke.TaskList.TaskManager;
-import duke.TaskList.command.Command;
-import duke.TaskList.command.DeadlineCommand;
-import duke.TaskList.command.DeleteCommand;
-import duke.TaskList.command.EventCommand;
-import duke.TaskList.command.ExitCommand;
-import duke.TaskList.command.ListCommand;
-import duke.TaskList.command.SetDoneCommand;
-import duke.TaskList.command.ToDoCommand;
+import duke.TaskList.command.*;
 
 /**
  * Class responsible to parse user commands.
@@ -24,6 +17,7 @@ public class Parser {
     private static final String COMMAND_ADD_EVENT = "event";
     private static final String COMMAND_FINISH_TASK = "done";
     private static final String COMMAND_DELETE_TASK = "delete";
+    private static final String COMMAND_FIND_TASK = "find";
     private static final String COMMAND_EXIT = "bye";
 
     /**
@@ -121,6 +115,15 @@ public class Parser {
             }
             command = new DeleteCommand(taskManager, taskInfo);
             break;
+        case COMMAND_FIND_TASK:
+            try {
+                taskInfo = extractTaskInfo(fullCommand);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("The description of " + commandType + " cannot be empty.");
+            }
+            command = new FindCommand(taskManager, taskInfo);
+            break;
+
         case COMMAND_EXIT:
             command = new ExitCommand();
             break;

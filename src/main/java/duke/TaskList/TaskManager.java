@@ -11,7 +11,9 @@ import duke.Ui.Parser;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class responsible for managing and storing all types of tasks.
@@ -126,6 +128,18 @@ public class TaskManager {
         if (isTaskDone) {
             tasks.get(tasks.size() - 1).markAsDone();
         }
+    }
+
+    /**
+     * Searches the task list and prints out all tasks that have the keyword in their names.
+     * @param keyword String containing the keyword being searched.
+     */
+    public void findTask(String keyword) {
+        List<Task> queryResults = tasks.stream()
+                .filter((task) -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
+
+        DisplayManager.printFindResult(queryResults);
     }
 
     /**
@@ -284,7 +298,8 @@ public class TaskManager {
         }
     }
 
-    /** Splits the input string into elements and filters out those that are numbers from those
+    /**
+     * Splits the input string into elements and filters out those that are numbers from those
      * that are not.
      * Displays the elements that are non-integer.
      * Returns an array of integers containing integer indexes.

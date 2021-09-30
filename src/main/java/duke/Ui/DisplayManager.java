@@ -4,6 +4,7 @@ import duke.TaskList.TaskManager;
 import duke.TaskList.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class responsible for displaying messages and errors to the user.
@@ -235,6 +236,19 @@ public class DisplayManager {
         }
         if (!deletedTasks.isEmpty()) {
             System.out.println(DISPLAY_MESSAGE_INDENT + "Now you have " + taskCount + " tasks in your list.");
+        }
+        printHorizontalSeparator();
+    }
+
+    /**
+     * Creates and displays the whole message of results after searching for a keyword name in task list.
+     */
+    public static void printFindResult(List<Task> queryResults) {
+        int counter = 0;
+        printHorizontalSeparator();
+        System.out.println(DISPLAY_MESSAGE_INDENT + "Here are the matching tasks in your list:");
+        for (Task queryResult : queryResults) {
+            System.out.println(DISPLAY_MESSAGE_INDENT + (counter + 1) + ". " + queryResult);
         }
         printHorizontalSeparator();
     }
