@@ -1,6 +1,6 @@
 # User Guide
 
-Duke is a **Personal Assistant ChatBot** desktop app that helps a person to **keep track of various things**, optimised 
+Duke is a **Personal Assistant ChatBot** desktop app that helps a person to **keep track of various activities**, optimised 
 for use via a Command Line Interface (CLI). If you can type fast, Duke is capable of tracking and updating management 
 tasks faster than Graphical User Interface (GUI) apps.
 
@@ -55,8 +55,8 @@ above installed in your Computer.
    Some example commands you can try:
    - **`help`** : Lists all commands
    - **`list`** : Lists all tasks.
-   - **`todo`**`read book` : Adds a todo task called `read book` into the task list
-   - **`delete`**`1` : Deletes the first task in a list
+   - **`todo`** `read book` : Adds a todo task called `read book` into the task list
+   - **`delete`** `1` : Deletes the first task in a list
    - **`exit`** : Exits the app.
 3. Refer to the [Features](#features) below for details of each command.
 
@@ -65,7 +65,7 @@ above installed in your Computer.
 
 ### Viewing Help
 
-Shows a message that displays all available commands.
+Opens a web browser of the User Guide.
 
 Format: `help`
 
@@ -76,17 +76,9 @@ help
 
 Expected outcome:
 ```console
-NOTICE: This is a list of the possible commands...
-    1. help
-    2. todo <TASK_NAME>
-    3. deadline <TASK_NAME> /by <DATE_TIME>
-    4. event <TASK_NAME> /at <START_DATE> <END_DATE>
-    5. list
-    6. done <TASK_NUMBER>
-    7. find <KEYWORD>
-    8. delete <TASK_NUMBER>
-    9. bye
+NOTICE: Github page opened in browser...
 ```
+![help_screen](Images/help_screen.png)
 
 ### Adding a Todo Task
 

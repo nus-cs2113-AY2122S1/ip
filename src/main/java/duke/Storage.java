@@ -90,7 +90,7 @@ public class Storage {
     private Task parseTask(String[] words) throws DukeException {
         Task task;
         Date[] dates;
-        switch(words[TASK_TYPE]) {
+        switch (words[TASK_TYPE]) {
         case "T":
             task = new Todo(words[TASK_NAME]);
             break;
@@ -113,7 +113,7 @@ public class Storage {
      *
      * @param task               Task in the list.
      * @param completedIndicator "1" if task is mark as completed.
-     *      *                    "0" if task is not mark as completed.
+     *                           "0" if task is not mark as completed.
      */
     private void setTaskCompletionStatus(Task task, String completedIndicator) {
         if (isTaskCompleted(completedIndicator)) {
@@ -127,7 +127,7 @@ public class Storage {
      * @param completedIndicator "1" if task is mark as completed.
      *                           "0" if task is not mark as completed.
      * @return True if task is mark as completed.
-     *         False if task is not mark as completed.
+     * False if task is not mark as completed.
      */
     private boolean isTaskCompleted(String completedIndicator) {
         return completedIndicator.equals("1");
@@ -149,4 +149,5 @@ public class Storage {
             ioException.printStackTrace();
         }
     }
+
 }

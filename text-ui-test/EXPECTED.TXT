@@ -142,16 +142,7 @@
      Invalid command. Type 'help' to see a list of commands.
     ─────────────────────────────────────────────────────────────────────────
     ─────────────────────────────────────────────────────────────────────────
-     NOTICE: This is a list of the possible commands...
-       1. help
-       2. todo <TASK_NAME>
-       3. deadline <TASK_NAME> /by <DATE_TIME>
-       4. event <TASK_NAME> /at <START_DATE> <END_DATE>
-       5. list
-       6. done <TASK_NUMBER>
-       7. find <KEYWORD>
-       8. delete <TASK_NUMBER>
-       9. bye
+     NOTICE: Github page opened in browser...
     ─────────────────────────────────────────────────────────────────────────
     ─────────────────────────────────────────────────────────────────────────
      ERROR: Type 'help' without additional parameters to view all commands.

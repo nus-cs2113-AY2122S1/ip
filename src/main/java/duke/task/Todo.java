@@ -31,4 +31,5 @@ public class Todo extends Task {
         String stringIsDone = isDone ? "1" : "0";
         return "T" + DELIMITER + stringIsDone + DELIMITER + taskName;
     }
+
 }

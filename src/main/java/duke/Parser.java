@@ -1,6 +1,13 @@
 package duke;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.HelpCommand;
+import duke.command.ListCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.TaskType;
@@ -278,7 +285,7 @@ public class Parser {
         String keyword = inputCommand.substring(STRING_LENGTH_FIND + 1);
         return new FindCommand(keyword);
     }
-  
+
     /**
      * Converts the date time string into a Date class.
      *
@@ -380,11 +387,11 @@ public class Parser {
      */
     private static void compareAgainstCurrentDate(Date[] dates, TaskType taskType) throws DukeException {
         Date todayDate = new Date();
-        if (dates[0].compareTo(todayDate) <= 0) {
+        if (dates[START_DATE].compareTo(todayDate) <= 0) {
             throw new DukeException(ERROR_INVALID_DATE_TIME);
         }
         if (taskType.equals(TaskType.EVENT)) {
-            if (dates[1].compareTo(todayDate) <= 0) {
+            if (dates[END_DATE].compareTo(todayDate) <= 0) {
                 throw new DukeException(ERROR_INVALID_DATE_TIME);
             }
         }
@@ -399,7 +406,7 @@ public class Parser {
      */
     private static void compareStartEndDates(Date[] dates, TaskType taskType) throws DukeException {
         if (taskType.equals(TaskType.EVENT)) {
-            if (dates[0].compareTo(dates[1]) > 0) {
+            if (dates[START_DATE].compareTo(dates[END_DATE]) > 0) {
                 throw new DukeException(ERROR_INVALID_START_END_DATE);
             }
         }
@@ -408,7 +415,7 @@ public class Parser {
     /**
      * Checks if the user command only contains the command keyword.
      *
-     * @param inputCommand User input command.
+     * @param inputCommand  User input command.
      * @param keywordLength Length of the command keyword.
      * @return True if user input command is less than or equal to keywordLength + one char space.
      *         False if user input command is more than keywordLength + one char space.

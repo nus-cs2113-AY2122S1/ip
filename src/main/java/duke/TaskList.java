@@ -2,6 +2,10 @@ package duke;
 
 import duke.task.Task;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -18,7 +22,7 @@ public class TaskList {
             + S_TAB + "Now you have %2$s task(s) in the list.";
     private static final String MESSAGE_MARK_TASK_AS_DONE = S_TAB + "NOTICE: This task is marked as done..." + LS
             + L_TAB + "%1$s";
-    private static final String MESSAGE_HELP = S_TAB + "NOTICE: This is a list of the possible commands...";
+    private static final String MESSAGE_OPEN_BROWSER = S_TAB + "NOTICE: Github page opened in browser...";
     private static final String MESSAGE_MATCHING_TASK = S_TAB + "NOTICE: Here are the matching tasks in your list...";
 
     private static final String ERROR_NO_TASK_IN_LIST = S_TAB + "ERROR: There are no tasks in your list.";
@@ -26,17 +30,8 @@ public class TaskList {
     private static final String ERROR_NO_MATCHING_TASK = S_TAB + "ERROR: No matching tasks found.";
 
     private static final String LIST_ITEM = L_TAB + "%1$s.%2$s";
-    private static final String LIST_COMMAND = L_TAB + "1. help" + LS
-            + L_TAB + "2. todo <TASK_NAME>" + LS
-            + L_TAB + "3. deadline <TASK_NAME> /by <DATE_TIME>" + LS
-            + L_TAB + "4. event <TASK_NAME> /at <START_DATE> <END_DATE>" + LS
-            + L_TAB + "5. list" + LS
-            + L_TAB + "6. done <TASK_NUMBER>" + LS
-            + L_TAB + "7. find <KEYWORD>" + LS
-            + L_TAB + "8. delete <TASK_NUMBER>" + LS
-            + L_TAB + "9. bye";
 
-    protected ArrayList<Task> tasks = new ArrayList<Task>();
+    protected ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Gets the number of tasks in the list.
@@ -142,13 +137,30 @@ public class TaskList {
     }
 
     /**
-     * Prints the list of all possible commands when the "help" command is used.
+     * Open the web browser of the GitHub project.
      *
      * @param ui User interface of duke.
      */
-    public void printHelpMessage(Ui ui) {
+    public void openBrowser(Ui ui) throws DukeException {
+        try {
+            URI uri = new URI("https://dj-tan.github.io/ip/#command-summary");
+            Desktop.getDesktop().browse(uri);
+            printOpenBrowserMessage(ui);
+        } catch (URISyntaxException uriSyntaxException) {
+            throw new DukeException("test");
+        } catch (IOException ioException) {
+            throw new DukeException("test2");
+        }
+    }
+
+    /**
+     * Prints a message to indicate that the website browser has been opened.
+     *
+     * @param ui User interface of duke.
+     */
+    public void printOpenBrowserMessage(Ui ui) {
         ui.showLine();
-        System.out.println(MESSAGE_HELP + LS + LIST_COMMAND);
+        System.out.println(MESSAGE_OPEN_BROWSER);
         ui.showLine();
     }
 
@@ -160,7 +172,7 @@ public class TaskList {
      * @throws DukeException If there are no matching tasks found.
      */
     public void printMatchingTask(String keyword, Ui ui) throws DukeException {
-        ArrayList<String> matchingTaskList = new ArrayList<String>();
+        ArrayList<String> matchingTaskList = new ArrayList<>();
         findMatchingTask(matchingTaskList, keyword);
         if (matchingTaskList.isEmpty()) {
             throw new DukeException(ERROR_NO_MATCHING_TASK);

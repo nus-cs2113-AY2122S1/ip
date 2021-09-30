@@ -18,4 +18,5 @@ public class ListCommand extends Command {
     public void runCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.printList(ui);
     }
+
 }

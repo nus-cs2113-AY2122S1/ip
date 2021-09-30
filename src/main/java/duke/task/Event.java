@@ -41,4 +41,5 @@ public class Event extends Task {
         int stringIsDone = isDone ? 1 : 0;
         return "E" + DELIMITER + stringIsDone + DELIMITER + taskName + DELIMITER + startDate + " " + endDate;
     }
+
 }

@@ -38,4 +38,5 @@ public class Deadline extends Task {
         int stringIsDone = isDone ? 1 : 0;
         return "D" + DELIMITER + stringIsDone + DELIMITER + taskName + DELIMITER + dueDate;
     }
+
 }
