@@ -7,6 +7,9 @@ import ui.TextUi;
 
 import java.io.IOException;
 
+/**
+ * Adds an event task to the task list.
+ */
 public class AddToDoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";

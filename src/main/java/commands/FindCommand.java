@@ -17,11 +17,15 @@ public class FindCommand extends Command {
     }
 
     /**
-     *
+     * Finds task containing the given keyword
      */
     public void execute() {
-        TaskList tasksFound = getTasksWithDescriptionContainingKeyword(keyword);
-        TextUi.showTasksFound(tasksFound, keyword);
+        if (keyword.equals("")) {
+            TextUi.showMissingKeyWordMessage();
+        } else {
+            TaskList tasksFound = getTasksWithDescriptionContainingKeyword(keyword);
+            TextUi.showTasksFound(tasksFound, keyword);
+        }
     }
 
     private TaskList getTasksWithDescriptionContainingKeyword(String keyword) {

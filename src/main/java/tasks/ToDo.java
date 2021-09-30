@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents a ToDo Task in the task list.
+ */
 public class ToDo extends Task {
 
     public static final String INITIAL = "T";

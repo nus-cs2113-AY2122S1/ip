@@ -130,6 +130,7 @@ public class HelpCommand extends Command{
                 + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_EXIT_EXAMPLE) + System.lineSeparator();
     }
 
+    @Override
     public void execute() {
         TextUi.showHelpMessage(getUsageInfoForAllCommands());
     }

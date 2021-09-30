@@ -38,5 +38,4 @@ public class Duke {
             isExit = command.isExit();
         }
     }
-
 }

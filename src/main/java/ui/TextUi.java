@@ -36,12 +36,22 @@ public class TextUi {
         in = new Scanner(System.in);
     }
 
+    /**
+     * Reads the text entered by the user
+     *
+     * @return command (full input) entered by the user.
+     */
     public String getUserInput() {
        String input = in.nextLine();
        System.out.println(DIVIDER);
        return input;
     }
 
+    /**
+     * Shows a list of tasks to the user, formatted as an indexed list.
+     *
+     * @param allTasks
+     */
     public static void showTasksListView(TaskList allTasks) {
         int tasksCount = allTasks.getSize();
         if (tasksCount == 0) {
@@ -97,17 +107,10 @@ public class TextUi {
         int numberOfTasksFound = tasksFound.getSize();
         if (numberOfTasksFound == 0) {
             System.out.printf("There were no Tasks found with the keyword: %s" + LS, keyword);
+            System.out.println(DIVIDER);
         } else {
             System.out.println("The following tasks contain the matching keyword:");
-            printEnumeratedTasks(tasksFound, numberOfTasksFound);
-        }
-        System.out.println(DIVIDER);
-    }
-
-    private static void printEnumeratedTasks(TaskList tasksFound, int numberOfTasksFound) {
-        for(int i = 0; i < numberOfTasksFound; i++) {
-            int displayedIndex = i + DISPLAYED_INDEX_OFFSET;
-            System.out.println(displayedIndex + ". " + tasksFound.getTask(i));
+            showTasksListView(tasksFound);
         }
     }
 
@@ -151,6 +154,11 @@ public class TextUi {
         System.out.println(DIVIDER);
     }
 
+    public static void showMissingKeyWordMessage() {
+        System.out.println("☹ OOPS!!! You did not enter any keywords for the query.");
+        System.out.println(DIVIDER);
+    }
+
     public static void showInvalidTaskIndexMessage(String commandType) {
         System.out.printf("☹ OOPS!!! \"%s\" command should be followed by Task index." + LS, commandType);
         System.out.println(DIVIDER);
@@ -173,8 +181,8 @@ public class TextUi {
     }
 
     public static void showInvalidFileFormatMessage() {
-        System.out.println("Data file is corrupted.");
         System.out.println(DIVIDER);
+        System.out.println("Data file is corrupted.");
     }
 
     public static void showNewFolderCreatedMessage() {

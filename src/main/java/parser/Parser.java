@@ -2,7 +2,9 @@ package parser;
 
 import commands.*;
 
-
+/**
+ * Parses user input.
+ */
 public class Parser {
 
     /**

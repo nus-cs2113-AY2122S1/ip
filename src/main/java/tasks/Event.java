@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents an Event Task in the task list.
+ */
 public class Event extends Task {
 
     public static final String INITIAL = "E";

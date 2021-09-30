@@ -18,7 +18,13 @@ public class DeleteCommand extends Command{
         this.targetVisibleIndex = targetVisibleIndex;
     }
 
-
+    /**
+     * Deletes a task with the specified task index by the user.
+     *
+     * Prints an error message if user does not specify a task index or inputs a non-integer value
+     *
+     * Prints an error message if user specifies a task index which is not within the taskList
+     */
     @Override
     public void execute() {
         try {

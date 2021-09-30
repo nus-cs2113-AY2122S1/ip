@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents a Deadline Task in the task list.
+ */
 public class Deadline extends Task {
 
     public static final String INITIAL = "D";

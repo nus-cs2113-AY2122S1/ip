@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents a Task in the task list.
+ */
 public class Task {
 
     protected String description;

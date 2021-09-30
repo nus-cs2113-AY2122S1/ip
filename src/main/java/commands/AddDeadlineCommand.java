@@ -7,6 +7,9 @@ import ui.TextUi;
 
 import java.io.IOException;
 
+/**
+ * Adds a deadline task to the task list.
+ */
 public class AddDeadlineCommand extends Command{
 
     public static final String COMMAND_WORD = "deadline";

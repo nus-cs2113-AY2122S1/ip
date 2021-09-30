@@ -14,6 +14,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+/**
+ * Represents the file used to store taskList data.
+ */
 public class Storage {
 
     private static TaskList taskList;
@@ -25,6 +28,13 @@ public class Storage {
         this.taskList = taskList;
     }
 
+    /**
+     * Initialises the TaskList based on the data in the data file.
+     *
+     * If the specified folder does not exist, a new Folder is created.
+     *
+     * Prints a message if data file accessed has invalid data.
+     */
     public void initTaskList(){
         try {
             File dataFile = new File(FILE_PATH);
@@ -81,6 +91,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Clears the current data file and appends every task from this taskList into the data file
+     */
     public static void updateDataFile() {
         try {
             clearDataFile();
@@ -111,6 +124,12 @@ public class Storage {
         fileWriter.close();
     }
 
+    /**
+     * Appends a given text to the data file
+     *
+     * @param textToAppend the text to be appended
+     * @throws IOException if fail to access or append to the data file
+     */
     public static void appendToDataFile(String textToAppend) throws IOException{
         FileWriter fileWriter = new FileWriter(FILE_PATH, true); // create a FileWriter in append mode
         fileWriter.write(textToAppend + System.lineSeparator());
