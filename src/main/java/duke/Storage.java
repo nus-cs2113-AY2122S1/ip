@@ -1,9 +1,16 @@
 package duke;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.DoneCommand;
+import duke.command.TodoCommand;
+import duke.command.DeadlineCommand;
+import duke.command.EventCommand;
 import duke.task.Task;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
@@ -18,7 +25,9 @@ public class Storage {
     private static final String DELIMITER = "#&#";
     private static final String NULL = "NULL";
 
-    // load data from data file
+    /**
+     * Loads task data from DATA_FILE_NAME on startup
+     */
     public static void importData() {
         try {
             File directory = new File(DATA_DIR_NAME);
@@ -40,7 +49,9 @@ public class Storage {
         }
     }
 
-    // save data into data file
+    /**
+     * Saves task data to DATA_FILE_NAME on exit
+     */
     public static void exportData() {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
@@ -61,7 +72,13 @@ public class Storage {
         }
     }
 
-    // encode line into format <TaskType> <Status> <Title> <Time>
+    /**
+     * Converts Task object to String to be saved in data file
+     *
+     * @param task Task to be encoded to String used in data file
+     * @return String of format <TaskType> <Status> <Title> <Time>
+     * @throws DukeException If an invalid task type is found
+     */
     private static String encodeLine(Task task) throws DukeException {
         String taskType = NULL;
         String status = NULL;
@@ -87,10 +104,15 @@ public class Storage {
         status = task.getStatusIcon();
         title = task.getName();
 
-        return String.format("%s%s%s%s%s%s%s", taskType, DELIMITER, status, DELIMITER, title, DELIMITER, time);
+        return taskType + DELIMITER + status + DELIMITER + title + DELIMITER +time;
     }
 
-    // decode line of format <TaskType> <Status> <Title> <Time>
+    /**
+     * Converts String in data file to Task and loads it to TaskManager
+     *
+     * @param line String of format <TaskType> <Status> <Title> <Time> to be decoded to Task used in data file
+     * @throws DukeException If the String is invalid and does not have any associated Task object
+     */
     private static void decodeLine(String line) throws DukeException {
         String[] data = line.split(DELIMITER);
         Command command;

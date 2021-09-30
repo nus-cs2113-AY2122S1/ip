@@ -4,14 +4,23 @@ import duke.TaskManager;
 import duke.task.Task;
 
 public class DeleteCommand implements Command {
-    public static final CommandType type = CommandType.DELETE;
-
+    private static final CommandType type = CommandType.DELETE;
     private final int taskNo;
 
+    /**
+     * Delete command constructor
+     *
+     * @param taskNo Task number of task stored in task list to be deleted
+     */
     public DeleteCommand(int taskNo) {
         this.taskNo = taskNo;
     }
 
+    /**
+     * Deletes task in task list and saves changes to data file
+     *
+     * @param printMessage Print message to user on executing command
+     */
     @Override
     public void run(boolean printMessage) {
         Task task = TaskManager.deleteTask(taskNo);
@@ -22,6 +31,9 @@ public class DeleteCommand implements Command {
         }
     }
 
+    /**
+     * @return Type of command
+     */
     @Override
     public CommandType getType() {
         return type;

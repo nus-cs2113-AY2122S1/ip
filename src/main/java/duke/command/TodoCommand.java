@@ -5,14 +5,25 @@ import duke.TaskManager;
 import duke.task.Task;
 
 public class TodoCommand implements Command {
-    public static final CommandType type = CommandType.TODO;
-
+    private static final CommandType type = CommandType.TODO;
     private final String todo;
 
+    /**
+     * Todo command constructor
+     *
+     * @param todo Title of todo
+     */
     public TodoCommand(String todo) {
         this.todo = todo;
     }
 
+
+    /**
+     * Adds todo to task list and saves changes to data file
+     *
+     * @param printMessage Print message to user on executing command
+     * @throws DukeException If todo is empty
+     */
     @Override
     public void run(boolean printMessage) throws DukeException {
         Task task = TaskManager.addTodo(todo);
@@ -23,6 +34,9 @@ public class TodoCommand implements Command {
         }
     }
 
+    /**
+     * @return Type of command
+     */
     @Override
     public CommandType getType() {
         return type;

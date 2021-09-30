@@ -1,7 +1,7 @@
 package duke.task;
 
 public abstract class Task {
-    final private String name;
+    private final String name;
     private Boolean isDone;
 
     public Task(String name) {

@@ -13,11 +13,17 @@ public class Duke {
         greetUserOnEnd();
     }
 
+    /**
+     * Prints greeting message to user on startup
+     */
     public static void greetUserOnStart() {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
     }
 
+    /**
+     * Retrieves data from backup (if any), then executes program until user exits with exit command
+     */
     private static void executeDuke() {
         Storage.importData();
 
@@ -35,6 +41,10 @@ public class Duke {
         }
     }
 
+
+    /**
+     * Prints greeting message to user on exit
+     */
     public static void greetUserOnEnd() {
         System.out.println("Bye. Hope to see you again soon!");
     }
