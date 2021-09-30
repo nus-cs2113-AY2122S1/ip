@@ -110,13 +110,13 @@ Format: `deadline <TASK_NAME> /by <DATE_TIME>`
 
 Example of usage:
 ```console
-deadline return book /by 19/09/2021 2100
+deadline return book /by 19/09/2022 2100
 ```
 
 Expected outcome:
 ```console
 NOTICE: I've added this task...
-    [D][ ] return book (by: 19/09/2021 2100)
+    [D][ ] return book (by: 19/09/2022 2100)
 Now you have 2 task(s) in the list.
 ```
 
@@ -133,13 +133,13 @@ Format: `event <TASK_NAME> /at <START_DATE> <END_DATE>`
 
 Example of usage:
 ```console
-event project meeting /at 21/09/2021 1400 to 21/09/2021 1600
+event project meeting /at 21/09/2022 1400 to 21/09/2022 1600
 ```
 
 Expected outcome:
 ```console
 NOTICE: I've added this task...
-    [E][ ] project meeting (at: 21/09/2021 1400 to 21/09/2021 1600)
+    [E][ ] project meeting (at: 21/09/2022 1400 to 21/09/2022 1600)
 Now you have 3 task(s) in the list.
 ```
 
@@ -158,8 +158,8 @@ Expected outcome:
 ```console
 NOTICE: Here are the task(s) in your list...
     1.[T][ ] borrow book
-    2.[D][ ] return book (by: 19/09/2021 2100)
-    3.[E][ ] project meeting (at: 21/09/2021 1400 to 21/09/2021 1600)
+    2.[D][ ] return book (by: 19/09/2022 2100)
+    3.[E][ ] project meeting (at: 21/09/2022 1400 to 21/09/2022 1600)
 ```
 
 ### Mark as Done
@@ -176,7 +176,7 @@ done 2
 Expected outcome:
 ```console
 NOTICE: This task is marked as done...
-    [D][X] return book (by: 19/09/2021 2100)
+    [D][X] return book (by: 19/09/2022 2100)
 ```
 
 ### Find Tasks
@@ -194,7 +194,7 @@ Expected outcome:
 ```console
 NOTICE: Here are the matching tasks in your list...
     1.[T][ ] borrow book
-    2.[D][X] return book (by: 19/09/2021 2100)
+    2.[D][X] return book (by: 19/09/2022 2100)
 ```
 
 ### Delete a Task
@@ -211,7 +211,7 @@ delete 3
 Expected outcome:
 ```console
 NOTICE: I've removed this task...
-    [E][ ] project meeting (at: 21/09/2021 1400 to 21/09/2021 1600)
+    [E][ ] project meeting (at: 21/09/2022 1400 to 21/09/2022 1600)
 Now you have 2 task(s) in the list.
 ```
 
@@ -232,8 +232,8 @@ Format: `bye`
 | :---         | :---                                                                                                               |
 | **Help**     | `help`                                                                                                             |
 | **Todo**     | `todo <TASK_NAME>`<br/>eg., `todo cook lunch`                                                                      |
-| **Deadline** | `deadline <TASK_NAME> /by <DATE_TIME>`<br/>eg., `deadline math homework /by 10/12/2021 2359`                       |
-| **Event**    | `event <TASK_NAME> /at <START_DATE> <END_DATE>`<br/>eg., `event cooking class /at 09/12/2021 0800 09/12/2021 1000` |
+| **Deadline** | `deadline <TASK_NAME> /by <DATE_TIME>`<br/>eg., `deadline math homework /by 10/12/2022 2359`                       |
+| **Event**    | `event <TASK_NAME> /at <START_DATE> <END_DATE>`<br/>eg., `event cooking class /at 09/12/2022 0800 09/12/2022 1000` |
 | **List**     | `list`                                                                                                             |
 | **Done**     | `done <TASK_NUMBER>`<br/>eg., `done 1`                                                                             |
 | **Find**     | `find <KEYWORD>`<br/>eg., `find cook`                                                                              |
