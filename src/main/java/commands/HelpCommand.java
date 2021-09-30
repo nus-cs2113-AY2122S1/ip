@@ -65,7 +65,7 @@ public class HelpCommand extends Command{
      * ===============================================
      */
 
-    /** Prints usage info for all commands **/
+    /** Returns usage info for all commands **/
     private static String getUsageInfoForAllCommands() {
         return  getUsageInfoForTodoCommand() + TextUi.LS
                 + getUsageInfoForDeadlineCommand() + TextUi.LS

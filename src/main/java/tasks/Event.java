@@ -18,6 +18,7 @@ public class Event extends Task {
         this.eventTimeRange = eventTimeRange;
     }
 
+    @Override
     public String toString() {
         return ("[E][" + getStatusIcon() + "] " + description + " (at:" + eventTimeRange + ")");
     }
