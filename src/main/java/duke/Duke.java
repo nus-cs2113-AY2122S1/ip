@@ -3,6 +3,7 @@ package duke;
 import duke.task.*;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
@@ -14,11 +15,11 @@ public class Duke {
         String dotsBreaker = "......................................................................";
         System.out.println("Hello from\n" + logo);
         System.out.println(dotsBreaker);
-        System.out.println("Hi! I'm duke.Duke.\n" + "How can I help make your life easier?");
+        System.out.println("Hi! I'm Duke.\n" + "How can I help make your life easier?");
         System.out.println(dotsBreaker);
         Scanner in = new Scanner(System.in);
         String lineIn = "";
-        Task[] listIn = new Task[100];
+        ArrayList<Task> listIn = new ArrayList<>();
         int totalNumber = 0;
 
         while (!lineIn.equals("bye")) {
@@ -34,14 +35,21 @@ public class Duke {
                     try {
                         doneTask(listIn, lineInput);
                     } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
-                        System.out.println("OOPS!!! The index of the duke.task that you entered does not exist:(\n" + dotsBreaker);
+                        System.out.println("OOPS!!! The index of the task that you entered does not exist:(\n" + dotsBreaker);
                     }
                 } else if (lineInput[0].equals("event") || lineInput[0].equals("deadline") || lineInput[0].equals("todo")) {
                     try {
                         recordTask(listIn, lineIn, totalNumber, lineInput[0]);
                         totalNumber++;
                     } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("OOPS!!! The name of the duke.task that you entered is empty:(\n" + dotsBreaker);
+                        System.out.println("OOPS!!! The name of the task that you entered is empty:(\n" + dotsBreaker);
+                    }
+                } else if (lineInput[0].equals("delete")) {
+                    try {
+                        deleteTask(listIn, lineInput, totalNumber);
+                        totalNumber--;
+                    } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+                        System.out.println("OOPS!!! The index of the task that you entered does not exist:(" + dotsBreaker);
                     }
                 } else {
                     throw new DukeException("OOPS!!! Sorry, but I do not understand:(\n" + dotsBreaker);
@@ -54,51 +62,61 @@ public class Duke {
         System.out.println(dotsBreaker);
     }
 
-    private static void showTask(Task[] listIn, int totalNumber) {
+    private static void showTask(ArrayList listIn, int totalNumber) {
         String dotsBreaker = "......................................................................";
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < totalNumber; i++) {
-            System.out.println((i + 1) + "." + listIn[i].toString());
+            System.out.println((i + 1) + "." + listIn.get(i).toString());
         }
         System.out.println(dotsBreaker);
     }
 
-    private static void doneTask(Task[] listIn, String[] lineInput) {
+    private static void doneTask(ArrayList listIn, String[] lineInput) {
         String dotsBreaker = "......................................................................";
         int inputIndex = Integer.parseInt(lineInput[1]) - 1;
-        listIn[inputIndex].markAsDone();
-        System.out.println("Wonderful! This duke.task is now marked as done:");
-        System.out.println(listIn[inputIndex].toString());
+        ((Task)listIn.get(inputIndex)).markAsDone();
+        System.out.println("Wonderful! This task is now marked as done:");
+        System.out.println(listIn.get(inputIndex).toString());
         System.out.println(dotsBreaker);
     }
 
-    private static void recordTask(Task[] listIn, String lineInput, int totalNumber, String firstInput) throws DukeException {
+    private static void recordTask(ArrayList listIn, String lineInput, int totalNumber, String firstInput) throws DukeException {
         String dotsBreaker = "......................................................................";
         if (firstInput.equals("event")) {
             int breakPoint = lineInput.indexOf("/");
             if (lineInput.length() < 9) {
                 throw new DukeException("The description of the event is too short! Please enter again.\n" + dotsBreaker);
             }
-            System.out.println("Got it. I've added this duke.task:");
+            System.out.println("Got it. I've added this task:");
             String eventName = lineInput.substring(6, breakPoint);
             String eventTime = lineInput.substring(breakPoint + 3);
-            listIn[totalNumber] = new Event(eventName, eventTime);
+            listIn.add(totalNumber, new Event(eventName, eventTime));
         } else if (firstInput.equals("deadline")) {
             int breakPoint = lineInput.indexOf("/");
             if (lineInput.length() < 12) {
                 throw new DukeException("The description of the deadline is too short! Please enter again.\n" + dotsBreaker);
             }
-            System.out.println("Got it. I've added this duke.task:");
+            System.out.println("Got it. I've added this task:");
             String deadlineName = lineInput.substring(9, breakPoint);
             String deadlineTime = lineInput.substring(breakPoint + 3);
-            listIn[totalNumber] = new Deadline(deadlineName, deadlineTime);
+            listIn.add(totalNumber, new Deadline(deadlineName, deadlineTime));
         } else {
             String todoName = lineInput.substring(5);
-            System.out.println("Got it. I've added this duke.task:");
-            listIn[totalNumber] = new ToDo(todoName);
+            System.out.println("Got it. I've added this task:");
+            listIn.add(totalNumber, new ToDo(todoName));
         }
-        System.out.println(listIn[totalNumber].toString());
+        System.out.println(listIn.get(totalNumber).toString());
         System.out.println("Now you have " + (totalNumber + 1) + " tasks in your list");
         System.out.println(dotsBreaker);
+    }
+
+    private static void deleteTask(ArrayList listIn, String[] lineInput, int totalNumber) {
+        String dotsBreaker = "......................................................................";
+        int inputIndex = Integer.parseInt(lineInput[1]) - 1;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(listIn.get(inputIndex).toString());
+        System.out.println("Now you have " + (totalNumber - 1) + " tasks in the list.");
+        System.out.println(dotsBreaker);
+        listIn.remove(inputIndex);
     }
 }
