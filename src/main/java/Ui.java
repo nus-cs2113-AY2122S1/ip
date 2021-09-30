@@ -50,6 +50,7 @@ public class Ui {
         System.out.println("Now you have " + size + " tasks in your list uwu");
         System.out.println("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
     }
+
     public void showTaskList(TaskList taskList) {
         int pos = 0;
         System.out.println("Here are the tasks in your list:");
@@ -58,6 +59,20 @@ public class Ui {
             System.out.println(pos + ". " + taskList.get(pos - 1));
         }
         System.out.println("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
+    }
+
+    public void showFoundTasks(TaskList taskList) {
+        int pos = 0;
+        System.out.println("Here are the matching tasks in your list:");
+        while (pos < taskList.size()) {
+            pos += 1;
+            System.out.println(pos + ". " + taskList.get(pos - 1));
+        }
+        System.out.println("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
+    }
+
+    public void showNoTask() {
+        System.out.println("There is no matching tasks for your search bby :( ");
     }
 
 }

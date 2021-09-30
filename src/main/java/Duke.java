@@ -153,11 +153,15 @@ public class Duke {
                     ui.deadlineFormatError();
                 }
                 break;
-//            case FIND:
-//                try {
-//                    String findTask = parser.findTask();
-//                }
-
+            case FIND:
+                try {
+                    String findTask = parser.getTask();
+                    TaskList foundTaskList = taskList.findTasks(findTask);
+                    ui.showFoundTasks(foundTaskList);
+                } catch (TaskNotFoundException e) {
+                    ui.showNoTask();
+                }
+                break;
             case NOT_VALID:
                 System.out.println("Not a valid command bby :(");
                 break;

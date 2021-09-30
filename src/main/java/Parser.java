@@ -82,9 +82,9 @@ public class Parser {
         return newTask;
     }
 
-//    public String findTask() {
-//        String newTask = userInput.substring(5);
-//        return newTask;
-//
-//    }
+    public String getTask() {
+        String newTask = userInput.substring(5);
+        return newTask;
+    }
+
 }

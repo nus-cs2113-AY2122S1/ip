@@ -41,4 +41,23 @@ public class TaskList {
             return delTask;
         }
     }
+
+    public TaskList findTasks(String task) throws TaskNotFoundException {
+        int pos = 0;
+        String currentTask;
+        ArrayList<Task> foundTaskList = new ArrayList<>();
+
+        while (pos < taskList.size()) {
+            currentTask = taskList.get(pos).toString();
+            if (currentTask.contains(task)) {
+                foundTaskList.add(taskList.get(pos));
+            }
+            pos += 1;
+        }
+        if (foundTaskList.size() == 0) {
+            throw new TaskNotFoundException();
+        } else {
+            return new TaskList(foundTaskList);
+        }
+    }
 }
