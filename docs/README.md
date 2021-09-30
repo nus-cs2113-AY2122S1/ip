@@ -166,6 +166,7 @@ Upon reinitialization, it reloads that file, so you access previously added task
 
 --------------------------
 <br />
+
 ##Command Summary
 Action | Format/Examples |
 ------ | --------------- |
