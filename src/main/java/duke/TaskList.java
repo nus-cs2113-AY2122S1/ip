@@ -25,23 +25,23 @@ public class TaskList {
      */
     public void listTasks() {
         if (tasks.size() > 0) {
-            ui.println("Patchi: Here is the list of tasks you currently have! Work hard~ Œ(˙O˙)B");
+            ui.println("Patchi: Here is the list of tasks you currently have! Work hard~ (owo)B");
             for (int i = 0; i < tasks.size(); i++) {
                 ui.println((i + 1) + ". " + tasks.get(i).toString());
             }
         } else {
-            ui.println("Patchi: You have no tasks for now! Go and relax~ Œ(ˊuˋ)B");
+            ui.println("Patchi: You have no tasks for now! Go and relax~ (ouo)B");
         }
     }
 
     public void listTasksFromSearch(ArrayList<Task> matchingTasks) {
         if (matchingTasks.size() > 0) {
-            ui.println("Patchi: Here is the list of tasks that match your search! Did you find what you were looking for? Œ(˙O˙)B");
+            ui.println("Patchi: Here is the list of tasks that match your search! Did you find what you were looking for? (omo)B");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 ui.println((i + 1) + ". " + matchingTasks.get(i).toString());
             }
         } else {
-            ui.println("Patchi: You have no tasks that match that search term! Sorry~ Œ(ˊoˋ)B");
+            ui.println("Patchi: You have no tasks that match that search term! Sorry~ (oAo)B");
         }
     }
 
