@@ -2,6 +2,9 @@ package duke.TaskList.command;
 
 import duke.TaskList.TaskManager;
 
+/**
+ * Class responsible to add 'ToDo' type task.
+ */
 public class ToDoCommand extends Command {
 
     protected String component;

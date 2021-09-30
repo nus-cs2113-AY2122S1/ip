@@ -2,6 +2,9 @@ package duke.TaskList.command;
 
 import duke.TaskList.TaskManager;
 
+/**
+ * Class responsible to display the list of all tasks.
+ */
 public class ListCommand extends Command{
 
     /**

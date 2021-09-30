@@ -2,6 +2,9 @@ package duke.TaskList.command;
 
 import duke.TaskList.TaskManager;
 
+/**
+ * Class responsible to set tasks as done.
+ */
 public class SetDoneCommand extends Command{
 
     protected String component;

@@ -3,6 +3,9 @@ package duke.TaskList.command;
 import duke.TaskList.TaskManager;
 import duke.Ui.Parser;
 
+/**
+ * Class responsible for adding 'Deadline' type task.
+ */
 public class DeadlineCommand extends Command{
 
     protected Parser parser;
