@@ -2,10 +2,13 @@
 
 Duke is a **desktop app for managing daily tasks, optimized for use via the command-line interface (CLI)**. If you can type fast, Duke can manage your tasks faster than traditional GUI apps.
 
+<br>
+
 ## Table of contents
 
 * [Quick start](#quick-start)
 * [Features](#features)
+  * [Viewing help: `help`](#viewing-help-help)
   * [Adding a task](#adding-a-task)
     * [Todo: `todo`](#todo-todo)
     * [Deadline: `deadline`](#deadline-deadline)
@@ -21,6 +24,8 @@ Duke is a **desktop app for managing daily tasks, optimized for use via the comm
 * [FAQ](#faq)
 * [Command summary](#command-summary)
 
+<br>
+
 ## Quick start
 
 1. Ensure you have **Java 11 or above** installed in your Computer.
@@ -30,53 +35,91 @@ Duke is a **desktop app for managing daily tasks, optimized for use via the comm
 5. If you have successfully run the program, a greeting from Duke should appear as follows:
 
 ```
-    ____________________________________________________________
-                         -/ /mmddddmNmh` .:`                   
-                   `/sdydNNmhmNMMMMMMMMhymMm+`                 
-                 -sNMMMMMMNNddNMMMNMMMMmmMMMMms.               
-                /NMMMNMMNMMmmdNMNMmMMNMmNMMMMMNyy-             
-              .:oNMMMMNNMmhos+so+/::ohdmMMMMMmmMMm.            
-             /mNMMMNNNdy+.````````````../ydNNNMMMMy            
-             /MMMMNmy/.`  `````````  `````.sdNMMMMm+           
-             sNNNNNy.``  ```.:`` ``` ```````./dmNMMh`          
-            `ommdy:```  ` ``sy`` ```  `````````:mmN:           
-            +dNNh.```` ````:dm+` ````  `````````--:            
-            -dMm.````  `s``hdmm-`````````````````-:            
-             -N+````` `sm`/mmmmh`.-```-.``````````-            
-             .:```````+mh.dmmmmm/`y:-`-d/`````` ```            
-             ````````:md/oymmmmmh/ymh+/mmo-````  ```           
-              `` ````dmmymmmmmmmmmmmmd+`.++-````o. .           
-             ``` `` `mmsssdmmmmmmmmmh-s `.m.```-dy .           
-              .`  ` +h:sy.`/dmmmmmmmdy`./-N-` `+dm`.           
-              .`   `mdsN-```dmmmmmmmmNy+smm-- `hds ``          
-               `   -dmmNd/:+mmmmmmmmmmmmmmmy/ .d+  ``          
-              ``   .hdmmNmddmmmmmmmmmmmmmmyd+ ...  .``         
-              `.`   yddmmmdmmmmmmmmmmmmmmm+mo`  `` `..         
-               ```  `/+hmmmmmmmmmmmmmmmmmm/m:` ``- . .`        
-             `` ` `  ```ymmmmmmmmmmmmmmmmm/: ` `.``-//`        
-            :hho- `  ``  :sdmmmmmmmmmmmmd+`.    .`:dMm-:/.     
-          `/hmmdN:`` ` `   `:shmmmmmmmdds..``   `/NMMMNMMs     
-          +ddddmMy```. ``   odyhhhhhhhdmdy..`   .mNMMMMMMd     
-           os//mMm```+o-``-odddhyhhhdmmdMN/:`` oMMMMMMMNm+     
+    __________________________________________________________________________________
+                    -/ /mmddddmNmh` .:`              
+              `/sdydNNmhmNMMMMMMMMhymMm+`            
+            -sNMMMMMMNNddNMMMNMMMMmmMMMMms.          
+           /NMMMNMMNMMmmdNMNMmMMNMmNMMMMMNyy-        
+         .:oNMMMMNNMmhos+so+/::ohdmMMMMMmmMMm.       
+        /mNMMMNNNdy+.````````````../ydNNNMMMMy       
+        /MMMMNmy/.`  `````````  `````.sdNMMMMm+      
+        sNNNNNy.``  ```.:`` ``` ```````./dmNMMh`     
+       `ommdy:```  ` ``sy`` ```  `````````:mmN:      
+       +dNNh.```` ````:dm+` ````  `````````--:       
+       -dMm.````  `s``hdmm-`````````````````-:       
+        -N+````` `sm`/mmmmh`.-```-.``````````-       
+        .:```````+mh.dmmmmm/`y:-`-d/`````` ```       
+        ````````:md/oymmmmmh/ymh+/mmo-````  ```      
+         `` ````dmmymmmmmmmmmmmmd+`.++-````o. .      
+        ``` `` `mmsssdmmmmmmmmmh-s `.m.```-dy .      
+         .`  ` +h:sy.`/dmmmmmmmdy`./-N-` `+dm`.      
+         .`   `mdsN-```dmmmmmmmmNy+smm-- `hds ``     
+          `   -dmmNd/:+mmmmmmmmmmmmmmmy/ .d+  ``     
+         ``   .hdmmNmddmmmmmmmmmmmmmmyd+ ...  .``    
+         `.`   yddmmmdmmmmmmmmmmmmmmm+mo`  `` `..    
+          ```  `/+hmmmmmmmmmmmmmmmmmm/m:` ``- . .`   
+        `` ` `  ```ymmmmmmmmmmmmmmmmm/: ` `.``-//`   
+       :hho- `  ``  :sdmmmmmmmmmmmmd+`.    .`:dMm-::.
+     `/hmmdN:`` ` `   `:shmmmmmmmdds..``   `/NMMMNMMs
+     +ddddmMy```. ``   odyhhhhhhhdmdy..`   .mNMMMMMMd
+      os//mMm```+o-``-odddhyhhhdmmdMN/:`` oMMMMMMMNm+
 
      Konnichiwa! I'm your personal maid. Call me Maid-chan!
      What can I do for you? (//ω//)
-    ____________________________________________________________
+    __________________________________________________________________________________
 
 ```
 
 5. Type the command below the greeting and press `Enter` to execute it. Some example commands you can try:
 
-    * `list`: Lists all tasks.
+    * `help`: Displays a short manual of all the available commands.
     * `exit`: Exits the app.
 
 6. Refer to the [Features](#features) below for details of each command.
 
+<br>
+
 ## Features
 
-> 📝 **Notes:**
->   * All commands are case-sensitive. For example, `List` does not equal `list`.
->   * Words in `UPPER_CASE` are parameters. For example, `find KEYWORD`.
+<div class="notes box" markdown="1">
+
+📝 **Notes:**
+  * All commands are case-sensitive. For example, `List` does not equal `list`.
+  * Words in `UPPER_CASE` are parameters. For example, `find KEYWORD`.
+
+</div>
+
+<br>
+
+### Viewing help: `help`
+
+Shows a short manual of all the available commands.<br>
+<br>
+**Format**: `help`
+
+**Example**:
+```
+help
+    __________________________________________________________________________________
+     COMMAND   FORMAT                                  PURPOSE                                 
+     --------  --------------------------------------  ------------------------------          
+     todo      todo DESCRIPTION                        To add a todo                           
+     deadline  deadline DESCRIPTION /by TASK_DEADLINE  To add a deadline                       
+     event     event DESCRIPTION /at TASK_PERIOD       To add an event                         
+     list      list                                    To list all tasks                       
+     done      done TASK_NUMBER                        To mark a task as done                  
+     delete    delete TASK_NUMBER                      To delete a task                        
+     date      date YYYY-MM-DD                         To filter the tasks by date             
+     find      find KEYWORD                            To filter the tasks by keyword          
+     exit      exit                                    To exit the app                         
+
+     Note: Words in UPPER_CASE are parameters
+           For more info, visit https://richwill28.github.io/ip/
+    __________________________________________________________________________________
+
+```
+
+<br>
 
 ### Adding a task
 
@@ -90,11 +133,11 @@ Duke is a **desktop app for managing daily tasks, optimized for use via the comm
   **Example**:
   ```
   todo watch anime
-      ____________________________________________________________
+      ________________________________________________________________________________
        Noted. I've added this task:
          [T][ ] watch anime
        Now you have 1 tasks in the list.
-      ____________________________________________________________
+      ________________________________________________________________________________
   
   ```
 
@@ -108,18 +151,18 @@ Duke is a **desktop app for managing daily tasks, optimized for use via the comm
   **Example**:
   ```
   deadline do project /by next week
-      ____________________________________________________________
+      ________________________________________________________________________________
        Noted. I've added this task:
          [D][ ] do project (by: next week)
        Now you have 2 tasks in the list.
-      ____________________________________________________________
+      ________________________________________________________________________________
   
   deadline join club /by 2020-03-14
-      ____________________________________________________________
+      ________________________________________________________________________________
        Noted. I've added this task:
          [D][ ] join club (by: Mar 14 2020)
        Now you have 3 tasks in the list.
-      ____________________________________________________________
+      ________________________________________________________________________________
   
   ```
 
@@ -133,15 +176,19 @@ Duke is a **desktop app for managing daily tasks, optimized for use via the comm
   **Example**:
   ```
   event project meeting /at 2020-03-14
-      ____________________________________________________________
+      ________________________________________________________________________________
        Noted. I've added this task:
          [E][ ] project meeting (at: Mar 14 2020)
        Now you have 4 tasks in the list.
-      ____________________________________________________________
+      ________________________________________________________________________________
   
   ```
 
-  > 💡 **Tip:** If the correct ISO format `YYYY-MM-DD` is given, both `Deadline` and `Event` will automatically format it.
+  <div class="tip box" markdown="1">
+
+  💡 **Tip:** If the correct ISO format `YYYY-MM-DD` is given, both `Deadline` and `Event` will automatically format it.
+
+  </div>
 
 <br>
 
@@ -152,13 +199,13 @@ Duke is a **desktop app for managing daily tasks, optimized for use via the comm
 **Example**:
 ```
 list
-    ____________________________________________________________
+    ________________________________________________________________________________
      Here are the tasks in your list:
      1. [T][ ] watch anime
      2. [D][ ] do project (by: next week)
      3. [D][ ] join club (by: Mar 14 2020)
      4. [E][ ] project meeting (at: Mar 14 2020)
-    ____________________________________________________________
+    ________________________________________________________________________________
 
 ```
 
@@ -171,10 +218,10 @@ list
 **Example**:
 ```
 done 1
-    ____________________________________________________________
+    ________________________________________________________________________________
      Good job! I've marked this task as done:
        [T][X] watch anime
-    ____________________________________________________________
+    ________________________________________________________________________________
 
 ```
 
@@ -187,11 +234,11 @@ done 1
 **Example**:
 ```
 delete 1
-    ____________________________________________________________
+    ________________________________________________________________________________
      Noted. I've removed this task:
        [T][X] watch anime
      Now you have 3 tasks in the list.
-    ____________________________________________________________
+    ________________________________________________________________________________
 
 ```
 
@@ -204,11 +251,11 @@ delete 1
 **Example**:
 ```
 date 2020-03-14
-    ____________________________________________________________
+    ________________________________________________________________________________
      Here are the tasks on Mar 14 2020:
      1. [D][ ] join club (by: Mar 14 2020)
      2. [E][ ] project meeting (at: Mar 14 2020)
-    ____________________________________________________________
+    ________________________________________________________________________________
 
 ```
 
@@ -221,11 +268,11 @@ date 2020-03-14
 **Example**:
 ```
 find project
-    ____________________________________________________________
+    ________________________________________________________________________________
      Here are the matching tasks in your list:
      1. [D][ ] do project (by: next week)
      2. [E][ ] project meeting (at: Mar 14 2020)
-    ____________________________________________________________
+    ________________________________________________________________________________
 
 ```
 
@@ -238,9 +285,9 @@ find project
 **Example**:
 ```
 exit
-    ____________________________________________________________
+    ________________________________________________________________________________
      Bye ❤ Hope to see you again soon! (≧▽≦)
-    ____________________________________________________________
+    ________________________________________________________________________________
 
 ```
 
@@ -256,17 +303,26 @@ Duke data are saved in the hard disk automatically after any command that change
 
 Duke data are saved as a `txt` file located at `[JAR file location]/data/duke.txt`. Advanced users are welcome to update data directly by editing that data file.
 
-> 🚩 **Caution**: If your changes to the data file makes its format invalid, Duke will discard all data and start with an empty data file at the next run.
+<div class="caution box" markdown="1">
+
+🚩 **Caution**: If your changes to the data file makes its format invalid, Duke will discard all data and start with an empty data file at the next run.
+
+</div>
+
+<br>
 
 ## FAQ
 
 **Q:** How do I transfer my data to another Computer?<br>
 **A:** Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Duke home folder.<br>
 
+<br>
+
 ## Command summary
 
 | Command    | Format                                   | Example                                |
 | :--------- | :--------------------------------------- | :------------------------------------- |
+| `help`     | `help`                                   | `help`                                 |
 | `todo`     | `todo DESCRIPTION`                       | `todo watch anime`                     |
 | `deadline` | `deadline DESCRIPTION /by TASK_DEADLINE` | `deadline do project /by next week`    |
 | `event`    | `event DESCRIPTION /at TASK_PERIOD`      | `event project meeting /at 2020-03-14` |
