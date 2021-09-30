@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    // specific indexes for written commands
+    // Specific indexes for user's command inputs after "done", "deleted" and "find"
     public static final int INDEX_OF_TASK_DONE = 4;
     public static final int INDEX_OF_TASK_DELETED = 6;
     public static final int INDEX_OF_KEYWORD = 4;
@@ -13,17 +13,24 @@ public class Duke {
     private static TaskList tasks;
     private static Storage storage;
 
+    /**
+     * Duke is a command line interface meant to store tasks, and has features
+     * to add different types of tasks, list, delete and find tasks.
+     *
+     * @param filePath File path of the file used to store data of tasks.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
+        tasks = new TaskList(storage.load());
     }
 
+    /**
+     * Makes sense of commands typed by users and calls functions to make changes
+     * or show an intended output.
+     *
+     * @param line Line of command input by the user.
+     */
     public static void readCommand(String line) {
         if (line.equals("list")) {
             tasks.listTasks();
@@ -37,10 +44,14 @@ public class Duke {
             String keyword = line.substring(INDEX_OF_KEYWORD).trim();
             tasks.findTasks(keyword);
         } else {
-                tasks.addTask(line);
+            tasks.addTask(line);
         }
     }
 
+    /**
+     * Runs the main program of greeting, reading commands, storing data
+     * and exiting the program.
+     */
     public static void run() {
         ui.sayHello();
         String line;
