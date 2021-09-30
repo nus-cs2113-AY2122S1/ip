@@ -13,7 +13,7 @@ public class ErrorReport {
         switch(typeOfAlarm) {
         case INVALID_COMMAND:
             System.out.println("Invalid charm. What did Professor Flitwick told you?");
-            //System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            //System.out.println(" OOPS!!! I'm sorry, but I don't know what that means :-(");
             break;
         case BLANK_DESCRIPTION:
             System.out.println("Hermoine says the description of a task cannot be empty.");
@@ -22,7 +22,7 @@ public class ErrorReport {
             System.out.println("Give me a number.");
             break;
         case EMPTY_TODO:
-            System.out.println("☹Hermoine says the description of a todo cannot be empty.");
+            System.out.println("Hermoine says the description of a todo cannot be empty.");
             break;
         case EMPTY_EVENT:
             System.out.println("The Head Boy says the description of a event cannot be empty.");

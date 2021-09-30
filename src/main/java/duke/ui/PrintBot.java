@@ -2,11 +2,9 @@ package duke.ui;
 
 import duke.exception.EmptyListException;
 import duke.exception.InvalidIndexException;
-import duke.task.*;
+import duke.task.Task;
 
 import java.util.ArrayList;
-import java.util.Random;
-
 
 /*
  * This class prints the results of manipulation
@@ -79,7 +77,6 @@ public class PrintBot {
      * the list as well.
      */
     public void markDone(int id, boolean isDone, Task t) throws InvalidIndexException, EmptyListException {
-        int i = id - 1;
         if (isDone) {
             print("Nice!I've marked this task as done:");
             print(id + ". " + t.toString());

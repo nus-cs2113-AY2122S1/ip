@@ -3,7 +3,10 @@ package duke.util;
 import duke.exception.EmptyListException;
 import duke.exception.InvalidIndexException;
 import duke.exception.NoKeywordException;
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 import duke.ui.ErrorReport;
 import duke.ui.PrintBot;
 

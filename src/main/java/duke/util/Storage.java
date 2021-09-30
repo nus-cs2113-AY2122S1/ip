@@ -16,7 +16,8 @@ import java.util.Scanner;
 
 
 import static duke.ui.ErrorReport.alarm;
-import static duke.util.ActionBot.*;
+import static duke.util.ActionBot.DESCRIPTION;
+import static duke.util.ActionBot.TIME;
 
 public class Storage {
 
@@ -114,7 +115,7 @@ public class Storage {
             break;
         case "D":
             try {
-                String[] txt = getDetails(taskInput, STORAGE_ESCAPE);
+                String[] txt = ActionBot.getDetails(taskInput, STORAGE_ESCAPE);
                 Deadline d = tasks.addDeadline(txt[DESCRIPTION],txt[TIME]);
                 d.setDone(isDone);
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -125,7 +126,7 @@ public class Storage {
             break;
         case "E":
             try {
-                String[] txt = getDetails(taskInput, STORAGE_ESCAPE);
+                String[] txt = ActionBot.getDetails(taskInput, STORAGE_ESCAPE);
                 Event e = tasks.addEvent(txt[DESCRIPTION],txt[TIME]);
                 e.setDone(isDone);
             } catch (ArrayIndexOutOfBoundsException e) {
