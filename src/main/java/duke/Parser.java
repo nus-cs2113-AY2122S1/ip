@@ -11,7 +11,7 @@ import duke.command.EventCommand;
 import duke.command.DeleteCommand;
 import duke.command.InvalidCommand;
 
-public class CommandParser {
+public class Parser {
     private static final String CMD_EXIT = "bye";
     private static final String CMD_LIST = "list";
     private static final String CMD_DONE = "done";

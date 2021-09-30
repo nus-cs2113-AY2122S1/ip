@@ -21,7 +21,7 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
-        Command command = CommandParser.parse(input);
+        Command command = Parser.parse(input);
         while (command.getType() != CommandType.EXIT) {
             try {
                 command.run(true);
@@ -29,7 +29,7 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
             input = in.nextLine();
-            command = CommandParser.parse(input);
+            command = Parser.parse(input);
         }
     }
 }
