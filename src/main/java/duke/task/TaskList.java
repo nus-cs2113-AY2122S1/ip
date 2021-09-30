@@ -145,4 +145,11 @@ public class TaskList {
                 .collect(Collectors.toList());
         ui.listMatchingTasks(filteredList);
     }
+
+    public void filterTasksByString(String filterWord) {
+        ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getDescription().toLowerCase().contains(filterWord.toLowerCase()))
+                .collect(Collectors.toList());
+        ui.listMatchingTasks(filteredList);
+    }
 }

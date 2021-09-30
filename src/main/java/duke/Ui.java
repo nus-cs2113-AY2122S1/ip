@@ -155,4 +155,13 @@ public class Ui {
         }
         printDividerLine();
     }
+
+    public void listMatchingTasks(ArrayList<Task> filteredList) {
+        printDividerLine();
+        System.out.println("\t Here are the matching tasks in your list:");
+        for (int i = 0; i < filteredList.size(); i++) {
+            System.out.println("      " + (i + 1) + "." + filteredList.get(i));
+        }
+        printDividerLine();
+    }
 }
