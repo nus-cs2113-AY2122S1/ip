@@ -23,19 +23,26 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
-## Duke functions
+
+## Command Format
+* Words in `UPPER_CASE` are parameters to be supplied by the user.
+  > e.g. in `todo TASK` TASK is the description of the task supplied by the user.
+* Extraneous parameters for commands that do not take in parameters is not acceptable.
+  > e.g. if the command specifies `list 123`, there will be an error.
+
+## Features
 
 1. ToDos: Add task without any date attached
    ```sh
-   todo xxx
+   todo TASK
    ```
 2. Deadlines: Add tasks that need to be done before a specific date/time
    ```sh
-   deadline xxx /by dd/MM/yyyy HHmm
+   deadline TASK /by DD/MM/YYYY HHMM
    ```
 3. Events: Add tasks that start at a specific time
    ```sh
-   event xxx /at dd/MM/yyyy HHmm
+   event TASK /at DD/MM/YYYY HHMM
    ```
 4. Display list
    ```sh
@@ -43,23 +50,23 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ```
 5. Mark task complete
    ```sh
-   done x 
+   done TASKNUMBER 
    ```
 6. Delete task
    ```sh
-   delete x
+   delete TASKNUMBER
    ```
 7. Find tasks that has date before time specified
    ```sh
-   before dd/MM/yyyy HHmm
+   before DD/MM/YYYY HHMM
    ```
 8. Find tasks that has date after time specified
    ```sh
-   after dd/MM/yyyy HHmm
+   after DD/MM/YYYY HHMM
    ```
 9. Find tasks with substring
    ```sh
-    find xxx
+    find WORD
     ```
 10. Exit Duke
     ```sh
