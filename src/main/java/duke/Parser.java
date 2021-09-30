@@ -17,7 +17,9 @@ public class Parser {
     private static final String COMMAND_DEADLINE_WORD = "deadline";
     private static final String COMMAND_EVENT_WORD = "event";
     private static final String COMMAND_DELETE_WORD = "delete";
-    private static final String[] COMMAND_WORDS_LIST = {COMMAND_TODO_WORD, COMMAND_DEADLINE_WORD, COMMAND_EVENT_WORD, COMMAND_LIST_WORD, COMMAND_DONE_WORD, COMMAND_EXIT_WORD};
+    private static final String COMMAND_FIND_WORD = "find";
+    private static final String[] COMMAND_WORDS_LIST = {COMMAND_TODO_WORD, COMMAND_DEADLINE_WORD, COMMAND_EVENT_WORD,
+            COMMAND_LIST_WORD, COMMAND_DONE_WORD, COMMAND_EXIT_WORD, COMMAND_DELETE_WORD, COMMAND_FIND_WORD};
     private static final Scanner INPUT_COMMAND = new Scanner(System.in);
     private static TaskList taskList = new TaskList();
 
@@ -35,8 +37,8 @@ public class Parser {
                     System.out.println("  " + i + ". " + COMMAND_WORDS_LIST[i - 1]);
                 }
                 inputLine = INPUT_COMMAND.nextLine();
-            } catch (EmptyToDoDescription e) {
-                System.out.println("  OOPS! The description of a todo cannot be empty and must be separated using white space!");
+            } catch (EmptyDescription e) {
+                System.out.println("  OOPS! The description cannot be empty and must be separated using white space!");
                 System.out.println("  Please input again with the correct format!");
                 inputLine = INPUT_COMMAND.nextLine();
             } catch (IllegalDeadlineInput e) {
@@ -66,7 +68,7 @@ public class Parser {
         }
     }
 
-    public static void executeCommand(ArrayList<Task> tasksArrayList, String inputLine) throws IllegalCommand, EmptyToDoDescription, IllegalDeadlineInput, IllegalEventInput, EmptyTaskNumber {
+    public static void executeCommand(ArrayList<Task> tasksArrayList, String inputLine) throws IllegalCommand, EmptyDescription, IllegalDeadlineInput, IllegalEventInput, EmptyTaskNumber {
         String firstWord;
         if (inputLine.contains(" ")) {
             firstWord = inputLine.split(" ")[0];
@@ -76,7 +78,7 @@ public class Parser {
         switch (firstWord) {
         case COMMAND_TODO_WORD:
             if (!inputLine.contains(" ")) {
-                throw new EmptyToDoDescription();
+                throw new EmptyDescription();
             }
             taskList.addToDo(tasksArrayList, inputLine);
             break;
@@ -107,9 +109,16 @@ public class Parser {
             }
             taskList.deleteTask(tasksArrayList, inputLine);
             break;
+        case COMMAND_FIND_WORD:
+            if (!inputLine.contains(" ")) {
+                throw new EmptyDescription();
+            }
+            taskList.findTask(tasksArrayList, inputLine);
+            break;
         default:
             throw new IllegalCommand();
         }
 
     }
+
 }

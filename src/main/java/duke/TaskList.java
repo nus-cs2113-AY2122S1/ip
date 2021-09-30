@@ -8,6 +8,21 @@ import java.util.*;
 public class TaskList {
     private static Ui ui = new Ui();
 
+    public static void findTask(ArrayList<Task> tasksArrayList, String inputLine) {
+        System.out.println("  Here are the matching tasks in your list:");
+        String findDescription = inputLine.split("find ")[1];
+        int i = 0;
+        for (Task t: tasksArrayList) {
+            if (t.getDescription().contains(findDescription)) {
+                i++;
+                System.out.println("  " + i + "." + t);
+            }
+        }
+        if (i==0) {
+            System.out.println("  Sorry, you have no task with the matching word");
+        }
+    }
+
     public static void deleteTask(ArrayList<Task> tasksArrayList, String inputLine) {
         int taskIndex = Integer.parseInt(inputLine.split("delete ")[1])-1;
         Task taskToDelete = tasksArrayList.get(taskIndex);
