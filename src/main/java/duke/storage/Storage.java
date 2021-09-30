@@ -5,7 +5,9 @@ import duke.exception.IllegalValueException;
 import duke.exception.InvalidStorageFilePathException;
 import duke.exception.StorageOperationException;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,7 +57,20 @@ public class Storage {
     public void save(TaskList tasks) throws StorageOperationException {
         try {
             List<String> encodedTaskList = TaskListEncoder.encodeTaskList(tasks);
-            Files.write(path, encodedTaskList);
+
+            File f = new File(getPath());
+            if (!f.getParentFile().exists()) {
+                f.getParentFile().mkdirs();
+            }
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+
+            FileWriter fw = new FileWriter(getPath());
+            for (String encodedTask : encodedTaskList) {
+                fw.write(encodedTask + System.lineSeparator());
+            }
+            fw.close();
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path);
         }

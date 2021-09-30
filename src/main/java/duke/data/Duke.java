@@ -62,7 +62,7 @@ public class Duke {
     }
 
     // Main function
-    public static void main(String[] args) throws DukeException, FileNotFoundException {
+    public static void main(String[] args) throws DukeException {
         new Duke(FILE_NAME).run();
     }
 
