@@ -3,21 +3,22 @@ package duke.command;
 import duke.TaskList;
 import duke.task.Task;
 import duke.Ui;
+import java.time.LocalDate;
 
 public class DeadlineCommand implements Command {
     private static final CommandType type = CommandType.DEADLINE;
     private final String deadlineTitle;
-    private final String deadlineDue;
+    private final LocalDate deadlineDue;
 
     /**
      * Deadline command constructor
      *
      * @param deadlineTitle Title of deadline
-     * @param deadlineDue Due date of deadline
+     * @param deadlineDue Due date of deadline in yyyy-mm-dd format
      */
     public DeadlineCommand(String deadlineTitle, String deadlineDue) {
         this.deadlineTitle = deadlineTitle;
-        this.deadlineDue = deadlineDue;
+        this.deadlineDue = LocalDate.parse(deadlineDue);
     }
 
     /**

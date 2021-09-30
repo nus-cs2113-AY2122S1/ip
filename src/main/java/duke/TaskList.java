@@ -4,6 +4,8 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -42,7 +44,7 @@ public class TaskList {
      * @param deadlineDue Due date of event to be added to task list
      * @return Newly added deadline
      */
-    public static Task addDeadline(String deadlineName, String deadlineDue) {
+    public static Task addDeadline(String deadlineName, LocalDate deadlineDue) {
         Deadline deadline = new Deadline(deadlineName, deadlineDue);
         addTask(deadline);
         return deadline;
@@ -55,7 +57,7 @@ public class TaskList {
      * @param eventTime Time of event to be added to task list
      * @return Newly added event
      */
-    public static Task addEvent(String eventName, String eventTime) {
+    public static Task addEvent(String eventName, LocalDate eventTime) {
         Event event = new Event(eventName, eventTime);
         addTask(event);
         return event;

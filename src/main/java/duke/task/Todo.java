@@ -33,6 +33,14 @@ public class Todo extends Task {
      * @return Null since Todo does not have any time associated with it
      */
     @Override
+    public String getStandardTime() {
+        return null;
+    }
+
+    /**
+     * @return Null since Todo does not have any time associated with it
+     */
+    @Override
     public String getTime() {
         return null;
     }
