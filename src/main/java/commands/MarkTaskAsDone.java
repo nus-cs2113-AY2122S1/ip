@@ -4,7 +4,9 @@ import tasklist.TaskList;
 import ui.Ui;
 import storage.Storage;
 
-
+/**
+ * Represents a command to mark task as done.
+ */
 public class MarkTaskAsDone extends Command {
     private final String input;
 

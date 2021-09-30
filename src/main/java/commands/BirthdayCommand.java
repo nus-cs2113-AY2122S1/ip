@@ -4,6 +4,9 @@ import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
+/**
+ * Represents the command to show the birthday message.
+ */
 public class BirthdayCommand extends Command{
 
     /**

@@ -14,6 +14,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents the interactions with the text file database to store data.
+ */
 public class Storage {
     private static Ui ui;
     private static TaskList tasks;

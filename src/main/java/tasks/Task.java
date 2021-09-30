@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents the interactions with a task.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

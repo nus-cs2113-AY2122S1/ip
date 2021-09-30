@@ -4,6 +4,9 @@ import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
+/**
+ * Represents a command to list out the task list.
+ */
 public class ListCommand extends Command {
 
     /**

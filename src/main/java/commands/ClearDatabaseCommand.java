@@ -4,6 +4,9 @@ import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
+/**
+ * Represents the command to clear the database.
+ */
 public class ClearDatabaseCommand extends Command{
 
     /**

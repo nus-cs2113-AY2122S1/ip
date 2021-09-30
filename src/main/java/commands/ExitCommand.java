@@ -4,6 +4,9 @@ import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
+/**
+ * Represents a command to exit the bot.
+ */
 public class ExitCommand extends Command{
 
     /**

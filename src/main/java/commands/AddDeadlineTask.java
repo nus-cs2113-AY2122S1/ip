@@ -5,6 +5,9 @@ import ui.Ui;
 import storage.Storage;
 import tasks.Deadline;
 
+/**
+ * Represents the command to add a deadline task.
+ */
 public class AddDeadlineTask extends Command {
     private final String input;
 

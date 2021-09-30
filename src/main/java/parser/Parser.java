@@ -6,6 +6,9 @@ import ui.Ui;
 
 import java.util.Locale;
 
+/**
+ * Represents the command parser.
+ */
 public class Parser {
     private Ui ui = new Ui();
     /**

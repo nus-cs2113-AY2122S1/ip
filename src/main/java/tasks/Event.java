@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents the interactions with the event task.
+ */
 public class Event extends Task {
     protected String at;
 

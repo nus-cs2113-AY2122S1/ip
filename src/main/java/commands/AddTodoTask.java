@@ -5,6 +5,9 @@ import ui.Ui;
 import storage.Storage;
 import tasks.Todo;
 
+/**
+ * Represents the command to add a todo task.
+ */
 public class AddTodoTask extends Command {
     private final String input;
 

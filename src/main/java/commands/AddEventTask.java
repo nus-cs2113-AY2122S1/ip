@@ -5,7 +5,9 @@ import ui.Ui;
 import storage.Storage;
 import tasks.Event;
 
-
+/**
+ * Represents the command to add an event task.
+ */
 public class AddEventTask extends Command {
     private final String input;
 

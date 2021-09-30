@@ -5,6 +5,9 @@ import storage.Storage;
 import tasklist.TaskList;
 import tasks.Task;
 
+/**
+ * Represents a command to remove task.
+ */
 public class RemoveTask extends Command {
     private final String input;
 

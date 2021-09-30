@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents the interactions with a todo task.
+ */
 public class Todo extends Task {
     protected boolean isDone;
 

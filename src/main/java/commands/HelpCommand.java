@@ -4,6 +4,9 @@ import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
+/**
+ * Represents a command to display the help message.
+ */
 public class HelpCommand extends Command{
 
     /**

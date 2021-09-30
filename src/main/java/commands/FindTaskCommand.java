@@ -7,6 +7,9 @@ import ui.Ui;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a command to find tasks.
+ */
 public class FindTaskCommand extends Command {
     private final String input;
 
