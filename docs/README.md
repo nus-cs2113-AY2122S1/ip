@@ -86,6 +86,6 @@ You can exit the Map through the `bye` command
 
 
 ### Acknowledgement
-For S. LU : [click here](https://github.com/Isabella-L/ip/edit/gh-pages/index.md).
+S.LU
 
 _Powered By: The Homonculous Charm_
