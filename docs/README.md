@@ -144,8 +144,7 @@ Format: `bye`
 Duke saves your task list from the usage into your local storage as a text file.<br />
 Upon reinitialization, it reloads that file, so you access previously added tasks
 
-
-##Command Summary
+## Command Summary
 Action | Format/Examples |
 ------ | --------------- |
 todo | `todo TASK_DESCRIPTION` <br /> e.g. `todo buy food`
