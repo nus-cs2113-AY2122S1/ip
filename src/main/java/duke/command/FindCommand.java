@@ -12,7 +12,7 @@ public class FindCommand extends Command {
     private static final String MESSAGE_NO_MATCH = "There are no matches.";
     private static final String MESSAGE_LIST_HEADER = "Here are the matching tasks:";
 
-    private static final String MESSAGE_FORMAT_FIND_USAGE = "Usage: %s <text>";
+    private static final String MESSAGE_FORMAT_FIND_USAGE = "Usage: %s <search text>";
 
     /**
      * Constructor for FindCommand class.
