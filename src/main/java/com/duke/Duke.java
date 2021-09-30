@@ -7,6 +7,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.io.IOException;
 
+/**
+ * Represent a Duke robot that can respond to the user's input, it has <code>storage</code> to store information into PC,
+ * <code>tasks</code> to store list of tasks, <code>ui</code> to regulate output to users and <code>status</code> to
+ * represent whether the Duke bot is active.
+ */
 public class Duke {
 
     private final Storage storage;
@@ -14,7 +19,11 @@ public class Duke {
     private final UI ui = new UI();
     private boolean status = false;
 
-
+    /**
+     * Constructor of Duke class, initialise Duke by loading information from the storage file and show welcome screen.
+     *
+     * @param filePath String Object representing the path to storage file
+     */
     public Duke(String filePath){
         this.status = true;
         storage = new Storage(filePath);
@@ -23,7 +32,9 @@ public class Duke {
         loadFromFile();
     }
 
-
+    /**
+     * Load the information stored in the storage file, into TaskList object tasks.
+     */
     public void loadFromFile(){
         try {
             ArrayList<String> Lines = storage.readFile();
@@ -52,21 +63,27 @@ public class Duke {
         }
     }
 
-
+    /**
+     * Terminate the Duke bot, show farewell message and set the status to false
+     */
     public void endDuke() {
         ui.print("Bye. Hope to see you again soon!");
         ui.endLine();
         this.status = false;
     }
 
-
+    /**
+     * Duke greets the users by showing welcome message
+     */
     public void greet() {
         ui.print("Hello! I'm Duke");
         ui.print("What can I do for you?");
         ui.endLine();
     }
 
-
+    /**
+     * Duke responses to unknown actions
+     */
     public void unknownAction() {
         ui.print("Sorry! I don't understand");
         ui.endLine();
@@ -89,20 +106,23 @@ public class Duke {
     }
 
 
+    /**
+     * Add a Task object to the TaskList tasks, and show users the current number of tasks
+     *
+     * @param item Task object that represents a task item
+     */
     public void addList(Task item) {
         tasks.addTask(item);
         ui.print("Got it. I've added this task:");
         ui.print(tasks.getList().get(tasks.getList().size()-1).toString());
         ui.print("Now you have " + tasks.getList().size() + " tasks in the list.");
         try {
-            //fileTask.addToFile(list.get(list.size()-1));
             storage.rewriteFile(tasks.getList());
         }catch (IOException e) {
             ui.print("unable to write to file");
         }
         ui.endLine();
     }
-
 
     public void listOut(TaskList tasks) {
         if(tasks.getList().size()==0) {
@@ -117,7 +137,11 @@ public class Duke {
         ui.endLine();
     }
 
-
+    /**
+     * Mark a specific task as done and update it to the storage file
+     *
+     * @param line String object that represents the user command
+     */
     public void markDone(String line) {
         try {
             line = line.replaceAll("[^(\\d)]", "");
@@ -138,7 +162,11 @@ public class Duke {
         ui.endLine();
     }
 
-
+    /**
+     * delete a specific task from the tasks list and update it to the storage file
+     *
+     * @param line String object representing the user's command
+     */
     public void deleteItem(String line) {
         try {
             line = line.replaceAll("[^(\\d)]", "");
@@ -166,7 +194,12 @@ public class Duke {
     public TaskList getList(){
         return tasks;
     }
-
+  
+    /**
+     * getter method of status
+     *
+     * @return status, true representing Duke is active, false the otherwise
+     */
     public boolean getStatus() {
         return this.status;
     }
