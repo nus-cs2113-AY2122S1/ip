@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import duke.ui.Ui;
 
 /**
- * Represents a task that starts at a specific time and ends at a specific time.
+ * Represents a task that starts at a specific time.
  */
 public class Event extends Task {
     public static final String TASK_TYPE_ICON = "E";
