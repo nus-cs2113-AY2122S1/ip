@@ -103,7 +103,7 @@ public class Storage {
     }
 
     /**
-     * Return the string representation of a given task for saving into a file.
+     * Returns the string representation of a given task for saving into a file.
      *
      * @param task Task object to represent as a string.
      * @return The string representation.
@@ -138,7 +138,7 @@ public class Storage {
     }
 
     /**
-     * Return the task parsed from the given string.
+     * Returns the task parsed from the given string.
      *
      * @param inputLine String to parse.
      * @return Task object converted from the string.
@@ -150,11 +150,13 @@ public class Storage {
         if (tokens.length != FIELD_COUNT) {
             throw new TaskException("Invalid number of fields");
         }
+
         String type = tokens[TASK_TYPE_INDEX].strip();
         String status = tokens[TASK_STATUS_INDEX].strip();
         String description = tokens[TASK_DESCRIPTION_INDEX].strip();
         String others = tokens[TASK_OTHERS_INDEX].strip();
         Task newTask;
+
         switch (type) {
         case TODO_ICON:
             newTask = new Todo(description);
@@ -168,6 +170,7 @@ public class Storage {
         default:
             throw new TaskException("Unknown task type");
         }
+
         switch (status) {
         case COMPLETE_NUMBER_STATUS:
             newTask.markAsDone();
@@ -177,6 +180,7 @@ public class Storage {
         default:
             throw new TaskException("Invalid status");
         }
+
         return newTask;
     }
 }

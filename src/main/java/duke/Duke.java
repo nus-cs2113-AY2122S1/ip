@@ -23,14 +23,14 @@ public class Duke {
      * Starts the Duke application.
      */
     public void run() {
-        Ui.printWelcomeMessage();
+        ui.printWelcomeMessage();
 
         do {
             String rawLine = ui.readInput();
             commandExecutor.execute(rawLine);
         } while (!commandExecutor.isExit());
 
-        Ui.printByeMessage();
+        ui.printByeMessage();
     }
 
     public static void main(String[] args) {

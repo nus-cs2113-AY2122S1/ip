@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import duke.task.Deadline;
 import duke.task.Event;
-import duke.task.Task;
 import duke.task.Todo;
 import duke.task.TaskList;
 import duke.file.Storage;
@@ -50,6 +49,8 @@ public class CommandExecutor {
     private Parser parser;
     /* Used to save tasks to file system */
     private Storage fileManager;
+    /* Used to print meaningful messages */
+    private Ui ui;
     /* State of whether interaction has terminated. True if interaction has terminated. */
     private boolean isExit;
 
@@ -72,10 +73,11 @@ public class CommandExecutor {
                         FLAG_EVENT_OPTION, FLAG_TASK_TIMESTAMP)
         };
         parser = new Parser(commandList);
+        ui = new Ui();
         try {
             taskManager = fileManager.readTaskManagerFromFile(FILE_PATH);
         } catch (IOException | DateTimeParseException err) {
-            Ui.printFileReadError();
+            ui.printFileReadError();
             taskManager = new TaskList();
         }
     }
@@ -93,11 +95,11 @@ public class CommandExecutor {
         try {
             runCommandUsingInput(inputLine);
         } catch (CommandException err) {
-            Ui.printError(err.getMessage());
+            ui.printError(err.getMessage());
         } catch (NumberFormatException | DateTimeParseException err) {
-            Ui.printConvertError();
+            ui.printConvertError();
         } catch (IOException err) {
-            Ui.printFileUpdateError();
+            ui.printFileUpdateError();
         }
     }
 

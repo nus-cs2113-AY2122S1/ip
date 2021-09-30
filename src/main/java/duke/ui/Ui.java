@@ -32,7 +32,7 @@ public class Ui {
     }
 
     /**
-     * Print the given string in between 2 horizontal lines.
+     * Prints the given string in between 2 horizontal lines.
      *
      * @param section The string to be printed.
      */
@@ -43,32 +43,32 @@ public class Ui {
     }
 
     /**
-     * Print the welcome message as a section.
+     * Prints the welcome message as a section.
      */
-    public static void printWelcomeMessage() {
+    public void printWelcomeMessage() {
         printSection(WELCOME_MESSAGE);
     }
 
     /**
-     * Print the bye message as a section.
+     * Prints the bye message as a section.
      */
-    public static void printByeMessage() {
+    public void printByeMessage() {
         printSection(BYE_MESSAGE);
     }
 
     /**
-     * Print the header for the list command.
+     * Prints the header for the list command.
      */
-    public static void printTaskListHeader() {
+    public void printTaskListHeader() {
         System.out.println("[*] Here are your list of tasks:");
     }
 
     /**
-     * Print the given list of tasks in a neatly formatted way.
+     * Prints the given list of tasks in a neatly formatted way.
      *
      * @param taskList List of tasks.
      */
-    public static void printTaskListFormatted(ArrayList<Task> taskList) {
+    public void printTaskListFormatted(ArrayList<Task> taskList) {
         Task task;
         String output = "";
         for (int i = 0; i < taskList.size(); i++) {
@@ -80,24 +80,24 @@ public class Ui {
     }
 
     /**
-     * Print information about the newly added task.
+     * Prints information about the newly added task.
      *
      * @param taskList List of tasks.
      * @param task     Newly added task.
      */
-    public static void printTaskListAddMessage(ArrayList<Task> taskList, Task task) {
+    public void printTaskListAddMessage(ArrayList<Task> taskList, Task task) {
         System.out.println("[+] Task added:");
         System.out.printf("   [%s][%s] %s\n", task.getTaskIcon(), task.getStatusIcon(), task.getFullDescription());
         System.out.printf("[=] You now have %d tasks in the list.\n", taskList.size());
     }
 
     /**
-     * Print information about the newly deleted task.
+     * Prints information about the newly deleted task.
      *
      * @param taskList List of tasks.
      * @param task     Newly deleted task.
      */
-    public static void printTaskListDeleteMessage(ArrayList<Task> taskList, Task task) {
+    public void printTaskListDeleteMessage(ArrayList<Task> taskList, Task task) {
         System.out.println("[+] Task removed:");
         System.out.printf("   [%s][%s] %s\n", task.getTaskIcon(), task.getStatusIcon(),
                 task.getDescription());
@@ -105,70 +105,70 @@ public class Ui {
     }
 
     /**
-     * Print information about the newly completed task.
+     * Prints information about the newly completed task.
      *
      * @param task Newly completed task.
      */
-    public static void printTaskListCompleteMessage(Task task) {
+    public void printTaskListCompleteMessage(Task task) {
         System.out.println("[+] Task marked as done:");
         System.out.printf("   [%s][%s] %s\n", task.getTaskIcon(), task.getStatusIcon(),
                 task.getFullDescription());
     }
 
     /**
-     * Print the header for the find command.
+     * Prints the header for the find command.
      */
-    public static void printTaskListFilterHeader() {
+    public void printTaskListFilterHeader() {
         System.out.println("[*] Here are the matching tasks in your list:");
     }
 
     /**
-     * Print the error when list of tasks is empty.
+     * Prints the error when list of tasks is empty.
      */
-    public static void printTaskListEmptyError() {
+    public void printTaskListEmptyError() {
         System.out.println("[*] Here are your list of tasks:");
         System.out.println("[X] No tasks found :(");
     }
 
     /**
-     * Print the error when unable to find task.
+     * Prints the error when unable to find task.
      */
-    public static void printTaskListNotFoundError() {
+    public void printTaskListNotFoundError() {
         System.out.println("[-] Task not found");
     }
 
     /**
-     * Print the given error message.
+     * Prints the given error message.
      *
      * @param errorMessage Error message.
      */
-    public static void printError(String errorMessage) {
+    public void printError(String errorMessage) {
         System.out.println("[X] " + errorMessage);
     }
 
     /**
-     * Print the error when converting one data type to another.
+     * Prints the error when converting one data type to another.
      */
-    public static void printConvertError() {
+    public void printConvertError() {
         printError("Error converting argument!");
     }
 
     /**
-     * Print the error when updating the file storing the list of tasks.
+     * Prints the error when updating the file storing the list of tasks.
      */
-    public static void printFileUpdateError() {
+    public void printFileUpdateError() {
         printError("Error updating save file!");
     }
 
     /**
-     * Print the error when updating the file storing the list of tasks.
+     * Prints the error when updating the file storing the list of tasks.
      */
-    public static void printFileReadError() {
+    public void printFileReadError() {
         printError("Error reading save file! Starting from clean slate...");
     }
 
     /**
-     * Return a line from standard input.
+     * Returns a line from standard input.
      *
      * @return Line read.
      */

@@ -11,12 +11,15 @@ public class TaskList {
 
     /* List of tasks */
     private ArrayList<Task> taskList;
+    /* Used to print meaningful messages */
+    private Ui ui;
 
     /**
      * Initialises a new list of tasks.
      */
     public TaskList() {
-        this.taskList = new ArrayList<>();
+        taskList = new ArrayList<>();
+        ui = new Ui();
     }
 
     /**
@@ -26,6 +29,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = new ArrayList<>(taskList);
+        ui = new Ui();
     }
 
     /**
@@ -44,11 +48,11 @@ public class TaskList {
         boolean isEmpty = taskList.size() == 0;
 
         if (isEmpty) {
-            Ui.printTaskListEmptyError();
+            ui.printTaskListEmptyError();
             return;
         }
-        Ui.printTaskListHeader();
-        Ui.printTaskListFormatted(taskList);
+        ui.printTaskListHeader();
+        ui.printTaskListFormatted(taskList);
     }
 
     /**
@@ -58,7 +62,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         taskList.add(task);
-        Ui.printTaskListAddMessage(taskList, task);
+        ui.printTaskListAddMessage(taskList, task);
     }
 
     /**
@@ -68,13 +72,13 @@ public class TaskList {
      */
     public void complete(int taskIndex) {
         if (!isValidIndex(taskIndex)) {
-            Ui.printTaskListNotFoundError();
+            ui.printTaskListNotFoundError();
             return;
         }
 
         Task taskSelected = taskList.get(taskIndex - 1);
         taskSelected.markAsDone();
-        Ui.printTaskListCompleteMessage(taskSelected);
+        ui.printTaskListCompleteMessage(taskSelected);
     }
 
     /**
@@ -84,12 +88,12 @@ public class TaskList {
      */
     public void deleteTask(int taskIndex) {
         if (!isValidIndex(taskIndex)) {
-            Ui.printTaskListNotFoundError();
+            ui.printTaskListNotFoundError();
             return;
         }
         Task taskSelected = taskList.get(taskIndex - 1);
         taskList.remove(taskIndex - 1);
-        Ui.printTaskListDeleteMessage(taskList, taskSelected);
+        ui.printTaskListDeleteMessage(taskList, taskSelected);
     }
 
     /**
@@ -105,23 +109,23 @@ public class TaskList {
         boolean isEmpty = filteredTasks.size() == 0;
 
         if (isEmpty) {
-            Ui.printTaskListEmptyError();
+            ui.printTaskListEmptyError();
             return;
         }
 
-        Ui.printTaskListFilterHeader();
-        Ui.printTaskListFormatted(filteredTasks);
+        ui.printTaskListFilterHeader();
+        ui.printTaskListFormatted(filteredTasks);
     }
 
     /**
-     * Check if the given index is valid.
+     * Checks if the given index is valid.
      *
      * @param taskIndex 1-Based index of selected task.
      * @return True if index is valid. False otherwise.
      */
     private boolean isValidIndex(int taskIndex) {
         boolean isNonPositiveIndex = taskIndex <= 0;
-        boolean isNonExistentIndex = taskIndex > taskList.size();
-        return !isNonPositiveIndex && !isNonExistentIndex;
+        boolean isUnusedIndex = taskIndex > taskList.size();
+        return !isNonPositiveIndex && !isUnusedIndex;
     }
 }
