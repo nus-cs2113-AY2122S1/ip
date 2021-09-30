@@ -60,7 +60,7 @@ Adds a task without any specific dates to list.
 
 Command Format: `todo TASK_DESCRIPTION`
 
-* TASK_DESCRIPTION cannot be empty.
+* `TASK_DESCRIPTION` cannot be empty.
 
 Examples:
 * `todo watch twitch videos`
@@ -92,9 +92,8 @@ Without Date | `deadline TASK_DESCRIPTION by TIME`
 Without Time | `deadline TASK_DESCRIPTION by DATE`
 With Date and Time | `deadline TASK_DESCCRIPTION by TIME DATE`
 
-
-* TASK_DESCRIPTION and TASK_DEADLINE cannot be empty.
-* Word `by` is required in input to indicated TASK_DEADLINE.
+* `TASK_DESCRIPTION` and `TASK_DEADLINE` cannot be empty.
+* Word `by` is required in input to indicated `TASK_DEADLINE`.
 * No specific ordering of time and date as long as input pattern is followed.
 
 Examples:
@@ -119,7 +118,6 @@ Got it. I've added this task:
 Now you have 5 tasks in the list.
 ____________________________________________________________
 ```
-
 
 View details on adding Deadline task in program.
 
@@ -146,9 +144,9 @@ Without Time | `event TASK_DESCRIPTION at DATE`
 With Date and Time | `event TASK_DESCCRIPTION at TIME DATE`
 
 
-* TASK_DESCRIPTION and TASK_TIMING cannot be empty.
-* Word `at` is required in input to indicated TASK_DEADLINE.
-* No specific ordering of time and date as long as input pattern is followed.
+* `TASK_DESCRIPTION` and `TASK_TIMING` cannot be empty.
+* Word `at` is required in input to indicated `TASK_DEADLINE`.
+* No specific ordering of `TIME` and `DATE` as long as input pattern is followed.
 
 Examples:
 * `event g2 vs SEN at 21:00`
@@ -173,7 +171,6 @@ Now you have 8 tasks in the list.
 ____________________________________________________________
 ```
 
-
 View details on adding Event task in program.
 
 Command Format: `!event`
@@ -193,8 +190,8 @@ Sets tasks in list as done.
 
 Command Format: `done TASK_INDEX`
 
-* TASK_INDEX cannot be empty.
-* TASK_INDEX must be a integer.
+* `TASK_INDEX` cannot be empty.
+* `TASK_INDEX` must be a integer.
 * Use `,` to seperate multiple tasks.
 
 Examples:
@@ -228,8 +225,8 @@ Deletes tasks from list
 
 Command Format: `delete TASK_INDEX`
 
-* TASK_INDEX cannot be empty.
-* TASK_INDEX must be a integer.
+* `TASK_INDEX` cannot be empty.
+* `TASK_INDEX` must be an integer.
 * Use `,` to seperate multiple tasks.
 
 Examples:
@@ -365,7 +362,7 @@ Lists all tasks with a specific keyword in its description in list.
 
 Command Format: `find KEYWORD`
 
-* KEYWORD must not be empty.
+* `KEYWORD` must not be empty.
 
 Examples:
 * `find g2`
@@ -387,8 +384,8 @@ Lists all tasks with a specific date in list.
 
 Command Format: `date DATE`
 
-* DATE must not be empty.
-* DATE must be in the format of yyyy-mm-dd.
+* `DATE` must not be empty.
+* `DATE` must be in the format of `yyyy-mm-dd`.
 
 Examples:
 * `date 2021-08-01`
