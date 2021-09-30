@@ -12,10 +12,10 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
     public static final String MESSAGE_EMPTY_LIST = "No tasks in the list!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays all the tasks in the task list. "
-            + "\n|| "
+            + "\n"
             + "Example: "
             + COMMAND_WORD
-            + "\n||";
+            + "\n";
 
     /**
      * Shows the user a list of all the tasks in the task list.

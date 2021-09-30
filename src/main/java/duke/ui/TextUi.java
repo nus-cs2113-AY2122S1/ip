@@ -12,15 +12,16 @@ import java.util.Scanner;
 public class TextUi {
     /** Decorative prefix at the beginning of lines. */
     public final String LINE_PREFIX = "|| ";
-
     public final String EMPTY_STRING = "";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
 
     public static final String MESSAGE_SUCCESSFUL_ADD = "Got it! I've added this task: ";
     public static final String MESSAGE_TASK_MARK_DONE = "Nice! You did the following task:";
     public static final String MESSAGE_SUCCESSFUL_DELETE = "Got it. I've removed this task for you: ";
 
     public final String DASHES = "_____________________________________________________________________";
-    private final String LOGO = " ____        _        \n"
+    private final String LOGO =
+            "  ____        _        \n"
             + "||  _ \\ _   _| | _____ \n"
             + "|| | | | | | | |/ / _ \\\n"
             + "|| |_| | |_| |   <  __/\n"
@@ -45,7 +46,7 @@ public class TextUi {
      */
     public void showToUser(String... message) {
         for (String m : message) {
-            System.out.println(LINE_PREFIX + m);
+            System.out.println(LINE_PREFIX + m.replace("\n",LINE_SEPARATOR + LINE_PREFIX));
         }
     }
 
@@ -99,6 +100,7 @@ public class TextUi {
      */
     public String getInput() {
         showToUser(Messages.MESSAGE_ENTER_COMMAND);
+        System.out.print("|| ");
         String userInput = in.nextLine();
         while (userInput.trim().isEmpty()) {
             userInput = in.nextLine();

@@ -12,9 +12,9 @@ public class TodoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a todo task to the task list. "
             + "Parameters: TASK"
-            + "\n|| "
+            + "\n"
             + "Example: " + COMMAND_WORD
-            + " Wash my dirty smelly clothes\n||";
+            + " Wash my dirty smelly clothes\n";
 
     private final String description;
 

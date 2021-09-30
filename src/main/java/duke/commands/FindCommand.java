@@ -12,7 +12,7 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows tasks that match the provided keyword. "
             + "Parameters: KEYWORD"
-            + "\n|| "
+            + "\n"
             + "Example: " + COMMAND_WORD
             + " book\n";
     public static final String MESSAGE_NO_MATCH = "No matching tasks found!";
@@ -37,17 +37,17 @@ public class FindCommand extends Command {
      * @param storage access a text file which stores the task list
      */
     public void execute(TaskList tasks, TextUi ui, Storage storage) {
-        int counter = 0;
+        int matchCount = 0;
         for (Task task : tasks.getList()) {
             if (task.getDescription().contains(keyword)) {
-                if (counter == 0) {
+                if (matchCount == 0) {
                     ui.showToUser(MESSAGE_SHOW_MATCHES);
                 }
-                ui.showToUser((counter + 1) + "." + task);
-                counter++;
+                ui.showToUser((tasks.getIndex(task)+1) + "." + task);
+                matchCount++;
             }
         }
-        if (counter == 0) {
+        if (matchCount == 0) {
             ui.showToUser(MESSAGE_NO_MATCH);
         }
     }

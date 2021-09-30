@@ -94,7 +94,7 @@ public class Parser {
      * @throws EmptyTaskException if the task description or deadline is empty
      */
     private static Command prepareDeadlineCommand(String commandArgs) throws EmptyTaskException {
-        String[] decodedInput = Parser.decodeInput(commandArgs);
+        String[] decodedInput = Parser.decodeInput(commandArgs, DeadlineCommand.COMMAND_WORD);
         String description = getDescription(decodedInput);
         String by = getAdditionalInfo(decodedInput);
 
@@ -112,7 +112,7 @@ public class Parser {
      * @throws EmptyTaskException if the task description or event date/time is empty
      */
     private static Command prepareEventCommand(String commandArgs) throws EmptyTaskException {
-        String[] decodedInput = Parser.decodeInput(commandArgs);
+        String[] decodedInput = Parser.decodeInput(commandArgs, EventCommand.COMMAND_WORD);
         String description = getDescription(decodedInput);
         String at = getAdditionalInfo(decodedInput);
 
@@ -130,17 +130,39 @@ public class Parser {
      * @return an array where the first index is the task description and second index is additional info (deadline/ event datetime)
      * If either of them does not exist, return an empty array instead.
      */
-    public static String[] decodeInput(String rawInput) {
+    public static String[] decodeInput(String rawInput, String taskType) {
         try {
             String[] decoded = new String[TASK_DATA_COUNT];
-            String[] splitByForwardSlash = rawInput.split("/", 2);
-            decoded[TASK_DATA_INDEX_DESCRIPTION] = splitByForwardSlash[0];
-            String[] splitBySpace = splitByForwardSlash[TASK_DATA_INDEX_ADDITIONAL_INFO].split(" ", 2);
+            String[] splitBySlash = splitByTaskType(rawInput, taskType);
+            decoded[TASK_DATA_INDEX_DESCRIPTION] = splitBySlash[0];
+            String[] splitBySpace = splitBySlash[TASK_DATA_INDEX_ADDITIONAL_INFO].split(" ", 2);
             decoded[TASK_DATA_INDEX_ADDITIONAL_INFO] = splitBySpace[1];
             return decoded;
         } catch (IndexOutOfBoundsException e) {
             return new String[]{"", ""};
         }
+    }
+
+    /**
+     * Splits the command arguments based on its command type.
+     *
+     * @param rawInput the command arguments
+     * @param taskType a string that represents the type of task involved
+     * @return an array that contains the split elements (description and deadline/event date) of the input
+     */
+    private static String[] splitByTaskType(String rawInput, String taskType) {
+        String[] splitByForwardSlash;
+        switch(taskType) {
+        case DeadlineCommand.COMMAND_WORD:
+            splitByForwardSlash = rawInput.split(DeadlineCommand.COMMAND_SPLITTER, 2);
+            break;
+        case EventCommand.COMMAND_WORD:
+            splitByForwardSlash = rawInput.split(EventCommand.COMMAND_SPLITTER, 2);
+            break;
+        default:
+            splitByForwardSlash = new String[]{"",""};
+        }
+        return splitByForwardSlash;
     }
 
     /**

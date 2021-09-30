@@ -10,9 +10,9 @@ import duke.ui.TextUi;
 public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows usage information for all commands in the program. "
-            + "\n|| "
+            + "\n"
             + "Example: " + COMMAND_WORD
-            + "\n||";
+            + "\n";
     public static final String MESSAGE_HELP = "Help initiated! Look below for command information~";
 
     /**

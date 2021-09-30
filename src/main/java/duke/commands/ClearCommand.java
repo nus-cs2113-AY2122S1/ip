@@ -12,9 +12,9 @@ import java.io.IOException;
 public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes every task in the task list. "
-            + "\n|| "
+            + "\n"
             + "Example: " + COMMAND_WORD
-            + "\n||";
+            + "\n";
     public static final String MESSAGE_SUCCESSFUL_CLEAR = "Task list cleared! Real empty here now...";
 
     /**

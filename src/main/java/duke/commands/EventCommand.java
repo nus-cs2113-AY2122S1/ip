@@ -10,11 +10,13 @@ import duke.ui.TextUi;
  */
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
+    public static final String COMMAND_SPLITTER = "/at";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event task to the task list. "
             + "Parameters: TASK /at DAY_TIME"
-            + "\n|| "
+            + "\n"
             + "Example: " + COMMAND_WORD
-            + " CS2113T tP Meeting /at Next Thursday 2-5pm\n||";
+            + " CS2113T tP Meeting /at Next Thursday 2-5pm\n";
 
     protected String description;
     protected String at;

@@ -47,7 +47,7 @@ public class Duke {
                 isExit = c.getExit();
             } catch (InvalidException e) {
                 ui.showToUser(Messages.MESSAGE_INVALID_COMMAND);
-            } catch (EmptyTaskException e) {
+            } catch (EmptyTaskException | NumberFormatException e) {
                 ui.showToUser(Messages.MESSAGE_EMPTY_TASK_DESCRIPTION);
             } catch (IndexOutOfBoundsException e) {
                 ui.showToUser(Messages.MESSAGE_INVALID_TASK_INDEX);
