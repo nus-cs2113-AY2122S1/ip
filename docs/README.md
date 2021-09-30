@@ -242,6 +242,6 @@ Be sure to follow this exact formatting:
 [TASK_TYPE_CHAR] | [STATUS_MARKER_INT] | TASK_NAME | DATE_TIME
 ```
 
-***Note: If duke is unable to run due to issues with text file, you must delete the data text file manually.***
+***Note: If Duke is unable to run due to issues with text file, you must delete the data text file manually.***
 
 ---
