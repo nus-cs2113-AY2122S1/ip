@@ -136,19 +136,11 @@ public class Duke {
      * @param userInput
      */
     private static void addEventTask(TaskList taskList, String userInput, Parser parser) {
-        boolean completed = false;
-        if(userInput.contains("[X]")){
-            completed = true;
-        }  else {
-            completed = false;
-        }
-        Events eventTask = new Events(
-                userInput.substring(userInput.indexOf(' ',0), userInput.indexOf('/')),
-        completed,"/" + parser.identifyDeadlineCommand(userInput)[1]);
+        Events eventTask = new Events(parser.identifyUserTask(userInput),
+                false,"/" + parser.identifyDeadlineCommand(userInput)[1]);
         taskList.addTasks(eventTask);
         eventTask.initialiseEvent();
     }
-
     /**
      * Adds a new deadline task into the list of task.
      * Displays that the task has been added into the list.
@@ -156,15 +148,8 @@ public class Duke {
      * @param userInput
      */
     private static void addDeadlineTask(TaskList taskList, String userInput, Parser parser) {
-        boolean completed = false;
-        if(userInput.contains("[X]")){
-            completed = true;
-        }  else {
-            completed = false;
-        }
-        Deadline deadLineTask = new Deadline(
-                userInput.substring(userInput.indexOf(' ',0), userInput.indexOf('/'))
-                ,completed,"/" + parser.identifyDeadlineCommand(userInput)[1]);
+        Deadline deadLineTask = new Deadline(parser.identifyUserTask(userInput),
+                false,"/" + parser.identifyDeadlineCommand(userInput)[1]);
         taskList.addTasks(deadLineTask);
         deadLineTask.initialiseDeadline();
     }
@@ -219,9 +204,6 @@ public class Duke {
         for(int i = 0; i < taskList.countTaskInList(); i++){
             if(taskList.findTask(i).toString().contains(keyword)){
                 keywordTaskList.addTasks(taskList.findTask(i));
-                System.out.println("hi");
-            } else {
-                return;
             }
         }
     }

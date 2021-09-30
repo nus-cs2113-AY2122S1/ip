@@ -10,7 +10,7 @@ public class ToDo extends Task{
      * @return Icon in String format.
      */
     public String toDoIcon() {
-        String completedIcon = "T";
+        String completedIcon = "[T] ";
         return  completedIcon;
     }
 
@@ -32,7 +32,7 @@ public class ToDo extends Task{
      */
     @Override
     public String toString(){
-        String s = "[" + toDoIcon() + "] " + "[" + super.completedTaskIcon() + "]" + super.taskName;
+        String s = toDoIcon() + completedTaskIcon() + taskName;
         return s;
     }
 }

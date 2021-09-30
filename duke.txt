@@ -1,0 +1,4 @@
+[T] [ ] math homework
+[D] [ ] tryout /2010-03-04
+[E] [ ] math quiz /2020-06-07
+[D] [X] math homework /2000-09-10

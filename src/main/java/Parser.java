@@ -11,6 +11,25 @@ public class Parser {
         return parts;
     }
 
+    public String identifyUserTask(String userInput){
+        int indexOfLast = userInput.indexOf("/") - 1;
+        String taskName = userInput.substring(userInput.indexOf(" "), indexOfLast) + " ";
+        return taskName;
+    }
+
+    public String identifyStorageUserTask(String userInput){
+        int indexOfLast = userInput.indexOf("/");
+        int indexOfStart = 7;
+        String taskName = userInput.substring(indexOfStart,indexOfLast);
+        return taskName;
+    }
+
+    public String identifyStorageUserToDoTask(String userInput){
+        int indexOfStart = 7;
+        String userTask = userInput.substring(indexOfStart, userInput.length());
+        return userTask;
+    }
+
     /**
      * Takes the user input and identify the dateline which,
      * the user wants the task to be.

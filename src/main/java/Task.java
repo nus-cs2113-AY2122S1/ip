@@ -51,12 +51,12 @@ public class Task {
      * @return "X" if task is completed, " " if it is not.
      */
     public String completedTaskIcon() {
-        String completedIcon = "X";
+        String completedIcon = "[X]";
         if(isCompleted){
             return completedIcon;
         }
         else{
-            return " ";
+            return "[ ]";
         }
     }
 

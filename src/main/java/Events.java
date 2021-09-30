@@ -12,18 +12,17 @@ public class Events extends Task{
      * @return Icon in String format.
      */
     public String eventsIcon() {
-        String eventsIcon = "E";
+        String eventsIcon = "[E] ";
         return  eventsIcon;
     }
 
     /**
      * Output message when the event task is added.
      */
-    public void initialiseEvent(){
+    public void initialiseEvent() {
         System.out.println("______________________________\n");
-        System.out.println("[" + eventsIcon() + "]"
-                + "[ ]"
-                + taskName + "(" + eventDeadline + ")"
+        System.out.println(eventsIcon() + "[ ]"
+                + taskName + " " + eventDeadline + " "
                 + " has been added!\n");
     }
 
@@ -33,9 +32,9 @@ public class Events extends Task{
      * @return String message in the right format.
      */
     @Override
-    public String toString(){
-        String s = "[" + eventsIcon() + "] " + "[" + super.completedTaskIcon() + "]"
-                 + super.taskName +"(" + eventDeadline + ")";
+    public String toString() {
+        String s = eventsIcon() + completedTaskIcon()
+                 + taskName + eventDeadline; //super.taskName super.completedTaskIcon()
         return s;
     }
 }

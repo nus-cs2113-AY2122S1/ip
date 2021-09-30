@@ -12,7 +12,7 @@ public class Deadline extends Task{
      * @return Icon in String format.
      */
     public String deadlineIcon() {
-        String deadlineIcon = "D";
+        String deadlineIcon = "[D] ";
         return  deadlineIcon;
     }
 
@@ -21,9 +21,8 @@ public class Deadline extends Task{
      */
     public void initialiseDeadline(){
         System.out.println("______________________________\n");
-        System.out.println("[" + deadlineIcon() + "]"
-                + "[ ]"
-                + taskName + "(" + deadLine + ") "
+        System.out.println(deadlineIcon()  + "[ ]"
+                + taskName + " " + deadLine + " "
                 + " has been added!\n");
     }
 
@@ -34,7 +33,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString(){
-        String s = "[" + deadlineIcon() + "] " + "[" + super.completedTaskIcon() + "]" + super.taskName + deadLine;
+        String s = deadlineIcon() + completedTaskIcon() + taskName + deadLine;
         return s;
     }
 }
