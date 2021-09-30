@@ -2,21 +2,21 @@
 FRIDAY is a command-line application run on Java-11 for easy task management. 
 It is modelled after Tony Stark aka Iron Man's own AI helper.
 
-* [Set-Up](#Set-Up)
-* [Program Start](#Program-Start)
-* [Features](#Features)
-    * [Adding Tasks](#Adding-Tasks)
-        * [Add Todo Tasks](#Add-Todo-Tasks)
-        * [Add Deadline Tasks](#Add-Deadline-Tasks)
-        * [Add Event Tasks](#Add-Event-Tasks)
-    * [List](#List)
-    * [Finding Tasks](#Finding-tasks)
-    * [Marking Tasks as Done](#Marking-Tasks-as-Done)
-    * [Deleting Tasks](#Deleting-Tasks)
-* [Program Exit](#Program-Exit)
-* [Command Summary](#Command-Summary)
-* [FAQs](#FAQs)
-* [References](#References)
+* [Set-Up](#set-up)
+* [Program Start](#program-start)
+* [Features](#features)
+    * [Adding Tasks](#adding-tasks)
+        * [Add Todo Tasks](#add-todo-tasks)
+        * [Add Deadline Tasks](#add-deadline-tasks)
+        * [Add Event Tasks](#add-event-tasks)
+    * [List](#list)
+    * [Finding Tasks](#finding-tasks)
+    * [Marking Tasks as Done](#marking-tasks-as-done)
+    * [Deleting Tasks](#deleting-tasks)
+* [Program Exit](#program-exit)
+* [Command Summary](#command-summary)
+* [FAQs](#faqs)
+* [References](#references)
 
 ## Set Up
 1. Ensure you have Java 11 installed in your computer.
@@ -227,7 +227,7 @@ You now have 2 tasks remaining.
 
 Running `list` command after this will show the new list without the deleted task.
 ```
-You have a total of 3 tasks sir, listing them out now.
+You have a total of 2 tasks sir, listing them out now.
 >[D][ ]buy Valentines Day gift for Pepper(by: 14 Feb 2022)
 >[E][ ]fight Thanos(at: 01 Nov 2021)
 ```
