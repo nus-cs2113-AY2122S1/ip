@@ -53,7 +53,7 @@ public class Duke {
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
         while (!isExit) {
-            userInput = in.nextLine().strip();
+            userInput = in.nextLine().strip().replaceAll("\\s+"," ");
             try {
                 Command command = Parser.parse(userInput);
                 command.runCommand(tasks, ui, storage);
