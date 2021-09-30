@@ -34,8 +34,8 @@ public class Parser {
 
         do {
             try {
-                String firstWord = input.next();
-                String remainingWords = input.nextLine();
+                String firstWord = input.next().trim();
+                String remainingWords = input.nextLine().trim();
 
                 String taskType = parseFirstWord(firstWord);
                 String taskName = parseTaskName(remainingWords);
@@ -110,10 +110,6 @@ public class Parser {
         String textFirstHalf;
         String textSecondHalf;
 
-        if (!text.isEmpty()) {
-            text = text.substring(1);
-        }
-
         boolean haveSecondaryCommand =
                 text.contains(BY) || text.contains("/BY") || text.contains("/By") || text.contains("/bY") ||
                 text.contains(AT) ||text.contains("/AT") ||text.contains("/At") || text.contains("/aT");
@@ -125,14 +121,14 @@ public class Parser {
         }
 
         secondaryCommand1 = text.substring(slashIndex1, slashIndex1 + 3).toLowerCase();
-        textFirstHalf = text.substring(0, slashIndex1 - 1);
+        textFirstHalf = text.substring(0, slashIndex1 - 1).trim();
         textSecondHalf = text.substring(slashIndex1 + 4);
         haveSecondaryCommand = textSecondHalf.contains(ALL_DAY) || textSecondHalf.contains("/D");
 
         if (haveSecondaryCommand) {
             slashIndex2 = text.indexOf("/", slashIndex1 + 1);
             secondaryCommand2 = text.substring(slashIndex2, slashIndex2 + 2).toLowerCase();
-            textSecondHalf = text.substring(slashIndex1 + 4, slashIndex2 - 1);
+            textSecondHalf = text.substring(slashIndex1 + 3, slashIndex2 - 1).trim();
         }
         text = textFirstHalf + secondaryCommand1 + textSecondHalf + secondaryCommand2;
         return text;
@@ -196,7 +192,9 @@ public class Parser {
         }
 
         if (text.contains(ALL_DAY)) {
-            LocalDate localDate = LocalDate.parse("2019-01-01");
+            int textLength = text.length();
+            text = text.substring(0, textLength - 2);
+            LocalDate localDate = LocalDate.parse(text);
             String date = localDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
             return date;
         } else {
@@ -307,6 +305,6 @@ public class Parser {
      * @param remainingWords Remaining words in the sentence user typed, if any.
      */
     protected static void parseDefault(String firstWord, String remainingWords) {
-        Ui.showWrongTaskTypeError(firstWord + remainingWords);
+        Ui.showWrongTaskTypeError(firstWord + " " + remainingWords);
     }
 }

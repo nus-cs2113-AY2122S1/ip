@@ -76,11 +76,11 @@ Never will you have to be frustrated that your commands are not accepted because
 ### I'll Never Forget What You Did.
 _Tired_ may seem  like a half-baked app since he works on a CLI, but he can save all the tasks you throw at him.
 Log off and come back later at any time. Your tasks will be right where they are when you need them.
-(Just make sure you exit the app with the command `bye` to save your progress!)
+<br> (Just make sure you exit the app with the command `bye` to save your progress!)
 
 ### I'm What You Call a Minimalist.
 The UI only has the essentials. It's so bare bone and minimalist it leaves Apple quaking and knees shaking.
-(They've been real quiet since the JAR file was released.)
+<br> (They've been real quiet since the JAR file was released.)
 
 ## Usage
 
@@ -224,6 +224,7 @@ A: “That which does not kill us, makes us stronger.” — Friedrich Nietzsche
 
 **Shima Rin**: [JAR file](https://github.com/tryyang2001/ip/releases/download/A-Release/IP.jar),
 [User Guide](https://tryyang2001.github.io/ip/)
+
 ## Coming Soon
 Kidding! Nothing in the pipeline.
 

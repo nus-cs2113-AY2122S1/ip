@@ -74,6 +74,7 @@ public class Ui {
     public static void printHelp(String extraText) {
         System.out.println(INDENT + "Okay. For the last time, don't make me remind you again.           │");
         System.out.println(INDENT + "                                                                   │");
+        System.out.println(INDENT + "                      list: Shows all tasks currently in the list. │");
         System.out.println(INDENT + "               todo <name>: Add a todo task to the list.           │");
         System.out.println(INDENT + "deadline <name> /by <time>: Add a task with specified deadline.    │");
         System.out.println(INDENT + "   event <name> /at <time>: Add an event with the specified time.  │");
@@ -239,7 +240,7 @@ public class Ui {
      */
     public static void printListHeader(ArrayList<Task> tasks) {
         if (!tasks.isEmpty()) {
-            System.out.println(INDENT + "Here are your tasks, oRgAnIc iTeLlIgEnCe:");
+            System.out.println(INDENT + "Here are your tasks, oRgAnIc InTeLlIgEnCe:");
         }
     }
 
