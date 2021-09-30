@@ -11,33 +11,29 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
-public class Manager {
+public class TaskList {
     ArrayList<Task> schedule = new ArrayList<>();
-    int totalTasks = 0;
+    int totalTasks;
 
     Storage s = new Storage();
 
-    public Manager() {
-    }
+    public TaskList() {
 
-    public String findCommand(String line) {
-        int spaceIndex = line.indexOf(" ");
-        return spaceIndex == -1 ? line : line.substring(0, spaceIndex);
-    }
-
-    public String findContent(String line) {
-        int spaceIndex = line.indexOf(" ");
-        return spaceIndex == -1 ? line : line.substring(spaceIndex);
     }
 
     public void printBye() {
         System.out.println("Bye! Cya next time!");
     }
 
+    public void initSchedule() {
+        schedule = s.checkFile(schedule);
+        totalTasks = schedule.size();
+    }
+
     public void printList() {
         System.out.println("Here are the tasks in your list: ");
 
-        for(int i = 0; i < this.totalTasks; ++i) {
+        for(int i = 0; i < this.totalTasks; i++) {
             System.out.print(i + 1);
             System.out.print(". ");
             System.out.println(schedule.get(i));
@@ -48,6 +44,7 @@ public class Manager {
     public void handleDone(String line) {
         int number = Character.getNumericValue(line.charAt(5));
         schedule.get(number - 1).markAsDone();
+        s.saveFile(schedule, totalTasks);
     }
 
     public void addTodo(String content) throws IOException {
@@ -59,7 +56,6 @@ public class Manager {
             ++this.totalTasks;
             this.gotItMessage(t);
         }
-        s.checkFile();
         s.saveFile(schedule, totalTasks);
     }
 
@@ -80,7 +76,6 @@ public class Manager {
             ++this.totalTasks;
             this.gotItMessage(d);
         }
-        s.checkFile();
         s.saveFile(schedule, totalTasks);
     }
 
@@ -101,7 +96,6 @@ public class Manager {
             ++this.totalTasks;
             this.gotItMessage(e);
         }
-        s.checkFile();
         s.saveFile(schedule, totalTasks);
     }
 

@@ -14,7 +14,7 @@ public class Event extends Todo {
     }
 
     public String fileForm() {
-        return "E | " + this.getStatusIcon() + " | " + this.description + " | " + this.eventTime + "\n";
+        return "E / " + this.getStatusIcon() + " / " + this.description + " / " + this.eventTime + "\n";
     }
 
     @Override

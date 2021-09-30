@@ -9,16 +9,24 @@ public class Duke {
     }
 
     public static void main(String[] args) throws IOException {
-        Logo duke = new Logo();
+        Storage s = new Storage();
+        TaskList m = new TaskList();
+        Parser p = new Parser();
+
+        m.initSchedule();
+
+        m.printList();
+
+        Ui duke = new Ui();
         System.out.println(duke);
         Scanner in = new Scanner(System.in);
         System.out.print("Type something: ");
         String line = in.nextLine();
-        Manager m = new Manager();
+
 
         while(true) {
-            String command = m.findCommand(line);
-            String content = m.findContent(line);
+            String command = p.findCommand(line);
+            String content = p.findContent(line);
             if (command.equalsIgnoreCase("bye")) {
                 m.printBye();
                 break;

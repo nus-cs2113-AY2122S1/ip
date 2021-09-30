@@ -4,8 +4,8 @@
 //
 
 
-public class Logo {
-    public Logo() {
+public class Ui {
+    public Ui() {
     }
 
     public String toString() {
