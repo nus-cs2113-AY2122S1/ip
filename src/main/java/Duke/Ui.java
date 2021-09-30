@@ -58,6 +58,8 @@ public class Ui {
         case COMMAND_DELETE:
             showToUser(NUMBER_INVALID);
             break;
+        case COMMAND_FIND:
+            showToUser(FIND_EMPTY);
         case COMMAND_INCORRECT:
             showToUser(INPUT_INVALID);
             break;

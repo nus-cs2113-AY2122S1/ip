@@ -46,6 +46,12 @@ public class Parser {
             } catch (DukeException e){
                 return new IncorrectCommand(COMMAND_DELETE);
             }
+        case COMMAND_FIND:
+            try {
+                return parseFind(params);
+            } catch (DukeException e) {
+                return new IncorrectCommand(COMMAND_FIND);
+            }
         case COMMAND_BYE:
             return new ByeCommand();
         default:
@@ -91,6 +97,13 @@ public class Parser {
     private static Command parseDelete(String params) throws DukeException {
         int taskNumber = findTaskNumber(params);
         return new DeleteCommand(taskNumber);
+    }
+
+    private static Command parseFind(String params) throws DukeException {
+        if (params.equals("")) {
+            throw new DukeException();
+        }
+        return new FindCommand(params);
     }
 
     private static int findTaskNumber(String params) throws DukeException {

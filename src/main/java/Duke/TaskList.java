@@ -1,6 +1,7 @@
 package Duke;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
@@ -38,7 +39,18 @@ public class TaskList {
         ui.showDone(task);
     }
 
-    public void showList(Ui ui) {
+    public void showTaskList(Ui ui) {
+        showList(tasks, ui);
+    }
+
+    public void showFilteredTaskList(String search, Ui ui) {
+        ArrayList<Task> filteredtasks = (ArrayList<Task>) tasks.stream()
+                .filter(t -> t.getDescription().contains(search))
+                .collect(Collectors.toList());
+        showList(filteredtasks, ui);
+    }
+
+    private void showList(ArrayList<Task> tasks, Ui ui) {
         for (Task item : tasks) {
             int curr = tasks.indexOf(item) + 1;
             System.out.println(curr + "." + item);

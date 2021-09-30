@@ -13,6 +13,7 @@ public class Messages {
     public static final String TODO_EMPTY = "Todo cannot be empty!";
     public static final String DEADLINE_EMPTY = "Deadline cannot be empty!";
     public static final String EVENT_EMPTY = "Event cannot be empty!";
+    public static final String FIND_EMPTY = "Find cannot be empty!";
     public static final String INPUT_INVALID = "Invalid input, try another command";
     public static final String NUMBER_INVALID = "Please enter a valid number after the command";
     public static final String NEW_FILE = "Pepepopo has created new data file!";
