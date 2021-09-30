@@ -9,10 +9,10 @@ import duke.task.TaskList;
 import java.util.ArrayList;
 
 public class FindCommand extends Command {
-    private static String MESSAGE_NO_MATCH = "There are no matches.";
-    private static String MESSAGE_LIST_HEADER = "Here are the matching tasks:";
+    private static final String MESSAGE_NO_MATCH = "There are no matches.";
+    private static final String MESSAGE_LIST_HEADER = "Here are the matching tasks:";
 
-    private static final String MESSAGE_FORMAT_FIND_USAGE = "Usage: %s <Search String>";
+    private static final String MESSAGE_FORMAT_FIND_USAGE = "Usage: %s <text>";
 
     /**
      * Constructor for FindCommand class.

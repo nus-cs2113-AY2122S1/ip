@@ -25,7 +25,7 @@ public class AddCommand extends Command {
     private static final String TASK_DEADLINE_SPLITTER = "/by";
     private static final String TASK_EVENT_SPLITTER = "/at";
 
-    private char taskType;
+    private final char taskType;
 
     /**
      * Constructor for AddCommand class.

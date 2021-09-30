@@ -19,7 +19,7 @@ public class Storage {
     private static final String MESSAGE_FILEWRITER_ERROR = "FileWriter Error.";
     private static final String MESSAGE_FORMAT_FILE_NOT_FOUND = "File not found - %s";
 
-    private String filename;
+    private final String filename;
 
     /**
      * Constructor for Storage class.
