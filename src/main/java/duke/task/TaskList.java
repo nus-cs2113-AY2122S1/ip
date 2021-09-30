@@ -82,6 +82,11 @@ public class TaskList {
             int taskNumberIndex = getIndexOfTask(taskNumber);
             Task task = taskList.get(taskNumberIndex);
             taskList.remove(taskNumberIndex);
+            int newTaskNumber = 1;
+            for (Task taskToChangeTaskNumber: taskList){
+                taskToChangeTaskNumber.setTaskNumber(newTaskNumber);
+                newTaskNumber++;
+            }
             return task;
         } catch (InvalidTaskException e) {
             throw new InvalidTaskException(e.getMessage());

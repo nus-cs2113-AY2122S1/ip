@@ -34,6 +34,8 @@ public class Storage {
                 String formattedTaskString;
                 while ((formattedTaskString = bufferedReader.readLine()) != null) {
                     Task task = parseFormattedTaskString(formattedTaskString);
+                    int taskNumber = tasks.size() + 1;
+                    task.setTaskNumber(taskNumber);
                     tasks.add(task);
                 }
             }

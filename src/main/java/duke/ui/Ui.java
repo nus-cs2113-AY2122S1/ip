@@ -85,13 +85,19 @@ public class Ui {
      * @param taskList Array list of task currently in TaskList class
      */
     public void printCompleteTaskMessage(ArrayList<Task> taskList) {
-        int tasksListSize = taskList.size();
+        int taskListSize = taskList.size();
         new StringBuilder();
         StringBuilder message;
-        if (tasksListSize == 0) {
+        if (taskListSize == 0) {
             message = new StringBuilder("Oh! You have no tasks left!");
         } else {
-            message = new StringBuilder("Total of " + tasksListSize + " task(s)\n");
+            message = new StringBuilder("Total of " + taskListSize + " task(s)\n");
+            for (Task task : taskList) {
+                message.append(String.format("%d.%s\n", task.getTaskNumber(), task));
+            }
+        }
+        printMessage(message.toString());
+    }
             for (Task task : taskList) {
                 message.append(String.format("%d.%s\n", task.getTaskNumber(), task));
             }
