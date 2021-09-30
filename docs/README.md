@@ -12,7 +12,7 @@ Duke is a personal assistant chat-bot that can help its user to record different
 
 ## To Start
 1. Check your Java version. This app requires Java version 11 to be installed on your PC.
-2. After installing Java version 11, download the Duke.jar file from [here]
+2. After installing Java version 11, download the Duke.jar file from [here](https://github.com/peng-217/PENG_FEI_CS2113_individual_DUKE_project/releases/tag/A-Release)
 3. After downloading, please open the command prompt on your PC.
 4. Once you have opened the command prompt, run Duke.jar by typing in "java -jar Duke.jar".
    (Note:If you failed to run Duke.jar, please check you are at the correct direction which Duke.jar is saved)
