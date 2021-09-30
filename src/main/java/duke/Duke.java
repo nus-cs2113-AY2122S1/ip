@@ -1,14 +1,5 @@
 package duke;
-
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.ArrayList;
-
 import duke.command.DukeException;
-import duke.Ui;
-
-
-
 import java.io.IOException;
 
 public class Duke {
@@ -17,12 +8,26 @@ public class Duke {
     private static TaskList tasks;
     private int test;
 
+    /**
+     * at the beginning of Duke class, create a file using Storage class
+     * then load the TaskList
+     *
+     * @param filePath by default is "data/duke.txt"
+     * @throws IOException
+     */
     public Duke(String filePath) throws IOException {
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadFileContents());
     }
 
 
+    /**
+     * Execute the user command.
+     *
+     * @param c new Parser object to understand user input
+     * @param tasks stores all the tasks
+     * @param storage deal with file storing and loading
+     */
     public static void executeCommand(Parser c, TaskList tasks, Storage storage) throws DukeException, IOException {
         switch (c.getCommand()) {
         case "bye":
@@ -56,7 +61,9 @@ public class Duke {
         storage.writeToFile(tasks);
     }
 
-
+    /**
+     * Main program runs here, terminate when isExit == true
+     */
     public void run() {
 
         Ui.showWelcome();
@@ -68,13 +75,11 @@ public class Duke {
                 Parser c = new Parser(fullCommand);
                 c.parse();
                 executeCommand(c,tasks,storage);
-                //c.execute(tasks, ui, storage);
-
                 isExit = c.getIsExit();
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("OOPS!!! The description cannot be empty.");
+                Ui.showError("OOPS!!! The description cannot be empty.");
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("OOPS!!! It's out of range.");
+                Ui.showError("OOPS!!! It's out of range.");
             } catch (DukeException e) {
                 Ui.showError(e.getMessage());
             } catch (IOException e) {
@@ -85,6 +90,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Create a new Duke class and begin the 'run' method
+     *
+     * @param args no input needed
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
 
         new Duke("data/duke.txt").run();
