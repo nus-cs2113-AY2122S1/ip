@@ -66,7 +66,7 @@ public class Parser {
                         "TIP: Use \"/by\" to do so!\n" +
                         Ui.getHorizontalLine());
             }
-            separated = description.split("/by +");
+            separated = description.split(" +/by +");
             break;
         case EVENT:
             if (!description.contains("/at")) {
@@ -75,7 +75,7 @@ public class Parser {
                         "TIP: Use \"/at\" to do so!\n" +
                         Ui.getHorizontalLine());
             }
-            separated = description.split("/at +");
+            separated = description.split(" +/at +");
             break;
         default:
             throw new IllegalStateException("Unexpected value: " + type);

@@ -3,10 +3,7 @@ package duke.taskmanager;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.task.Deadline;
-import duke.task.Task;
-import duke.task.TaskType;
-import duke.task.Todo;
+import duke.task.*;
 import duke.ui.Ui;
 
 import java.time.LocalDateTime;
@@ -41,7 +38,8 @@ public class TaskList {
         String[] separated = Parser.splitDescriptionFromTiming(TaskType.EVENT, input);
         if (separated.length == 1) {
             throw new DukeException(Ui.getHorizontalLine() +
-                    "Give me a timing for the event too man come on...\n" +
+                    "Tell me more about the event too man come on...\n" +
+                    "You are either missing a description or timing... or both... pfft\n" +
                     Ui.getHorizontalLine());
         }
         String description = separated[0];
@@ -49,7 +47,7 @@ public class TaskList {
 
         try {
             LocalDateTime timeFormatted = Parser.extractDateTime(timeUnformatted);
-            Deadline newEvent = new Deadline(description, TaskType.EVENT, timeFormatted);
+            Event newEvent = new Event(description, TaskType.EVENT, timeFormatted);
             taskList.add(newEvent);
             Ui.printTaskAddedMessage(newEvent);
         } catch (DateTimeParseException e) {
@@ -71,10 +69,12 @@ public class TaskList {
         if (separated.length == 1) {
             throw new DukeException(Ui.getHorizontalLine() +
                     "Tell me more about the deadline too man come on...\n" +
+                    "You are either missing a description or timing... or both... pfft\n" +
                     Ui.getHorizontalLine());
         }
         String description = separated[0];
         String timeUnformatted = separated[1];
+
         try {
             LocalDateTime timeFormatted = Parser.extractDateTime(timeUnformatted);
             Deadline newDeadline = new Deadline(description, TaskType.DEADLINE, timeFormatted);

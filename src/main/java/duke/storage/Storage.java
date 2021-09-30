@@ -44,7 +44,7 @@ public class Storage {
         try {
             File saveFile = new File(FILE_PATH);
             if (!saveFile.exists()) {
-                Files.createDirectory(Path.of(DIRECTORY));
+                Files.createDirectories(Path.of(DIRECTORY));
                 Files.createFile(Path.of(FILE_PATH));
             }
             storeTaskData(saveFile, taskList);
