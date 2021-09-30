@@ -1,9 +1,12 @@
 package duke.task;
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
     private static final TaskType taskType = TaskType.DEADLINE;
-    private final String dueDate;
+    private final LocalDate dueDate;
 
     /**
      * Deadline constructor
@@ -11,7 +14,7 @@ public class Deadline extends Task {
      * @param title Title of deadline
      * @param dueDate Due date of deadline
      */
-    public Deadline(String title, String dueDate) {
+    public Deadline(String title, LocalDate dueDate) {
         super(title);
         this.dueDate = dueDate;
     }
@@ -30,14 +33,22 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String SYMBOL = "D";
-        return "[" + SYMBOL + "]" + super.toString() + " (by: " + dueDate + ")";
+        return "[" + SYMBOL + "]" + super.toString() + " (by: " + getTime() + ")";
     }
 
     /**
-     * @return Due date of Deadline
+     * @return Due date of Deadline in yyyy-mm-dd format
+     */
+    @Override
+    public String getStandardTime() {
+        return dueDate.toString();
+    }
+
+    /**
+     * @return Due date of Deadline in MMM dd yyyy format
      */
     @Override
     public String getTime() {
-        return dueDate;
+        return dueDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 }

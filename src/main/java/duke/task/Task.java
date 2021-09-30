@@ -29,4 +29,6 @@ public abstract class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + getName();
     }
+
+    public abstract String getStandardTime();
 }

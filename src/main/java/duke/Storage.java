@@ -91,11 +91,11 @@ public class Storage {
             break;
         case DEADLINE:
             taskType = DEADLINE_CODE;
-            time = task.getTime();
+            time = task.getStandardTime();
             break;
         case EVENT:
             taskType = EVENT_CODE;
-            time = task.getTime();
+            time = task.getStandardTime();
             break;
         default:
             throw new DukeException("Invalid task found in tasklist");
@@ -104,7 +104,7 @@ public class Storage {
         status = task.getStatusIcon();
         title = task.getName();
 
-        return taskType + DELIMITER + status + DELIMITER + title + DELIMITER +time;
+        return taskType + DELIMITER + status + DELIMITER + title + DELIMITER + time;
     }
 
     /**

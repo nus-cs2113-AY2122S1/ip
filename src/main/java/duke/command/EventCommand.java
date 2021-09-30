@@ -4,10 +4,12 @@ import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
+import java.time.LocalDate;
+
 public class EventCommand implements Command {
     private static final CommandType type = CommandType.EVENT;
     private final String eventTitle;
-    private final String eventTime;
+    private final LocalDate eventTime;
 
     /**
      * Event command constructor
@@ -17,7 +19,7 @@ public class EventCommand implements Command {
      */
     public EventCommand(String eventTitle, String eventTime) {
         this.eventTitle = eventTitle;
-        this.eventTime = eventTime;
+        this.eventTime = LocalDate.parse(eventTime);
     }
 
     /**

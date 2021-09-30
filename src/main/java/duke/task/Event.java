@@ -1,8 +1,11 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     private static final TaskType taskType = TaskType.EVENT;
-    private final String timeslot;
+    private final LocalDate timeslot;
 
     /**
      * Event constructor
@@ -10,7 +13,7 @@ public class Event extends Task {
      * @param title Title of event
      * @param timeslot Time of event
      */
-    public Event(String title, String timeslot) {
+    public Event(String title, LocalDate timeslot) {
         super(title);
         this.timeslot = timeslot;
     }
@@ -29,14 +32,22 @@ public class Event extends Task {
     @Override
     public String toString() {
         String SYMBOL = "E";
-        return "[" + SYMBOL + "]" + super.toString() + " (at: " + timeslot + ")";
+        return "[" + SYMBOL + "]" + super.toString() + " (at: " + getTime() + ")";
     }
 
     /**
-     * @return Time of Event
+     * @return Due date of Deadline in yyyy-mm-dd format
+     */
+    @Override
+    public String getStandardTime() {
+        return timeslot.toString();
+    }
+
+    /**
+     * @return Due date of Deadline in MMM dd yyyy format
      */
     @Override
     public String getTime() {
-        return timeslot;
+        return timeslot.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 }
