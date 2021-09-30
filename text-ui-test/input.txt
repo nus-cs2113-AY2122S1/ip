@@ -1,0 +1,38 @@
+help
+todo exercise
+deadline
+todo shower
+todo running
+delete 2
+list
+I want to sleep
+deadline submit assignment /by 2021-10-01
+event attend lecture /at 2021-10-01
+date 2021-10-01
+find assignment
+deadline project /by 2021-09-29
+date
+delete 5
+list
+todo eat dinner
+todo
+done 1
+done 2
+find
+list
+done 7
+done 5
+delete 5
+delete 4
+delete 3
+list
+todo running
+delete 1
+event
+event meeting /at 2021-09-25
+delete 4
+delete 3
+list
+delete 2
+delete 1
+bye
