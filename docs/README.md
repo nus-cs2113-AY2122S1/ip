@@ -12,7 +12,7 @@ task managing apps.
 2. Download the latest `Duke.jar` from [here](https://github.com/BryanElmer/ip/releases/download/A-Release/Duke.jar).
 3. Copy the jar file to the folder where you want to run Duke in.
 4. Open your terminal app and make sure that you are in the same working directory as your duke file.
-5. At the folder where you saved the jar file, run the command `java -jar duke.jar` in your terminal app.
+5. At the folder where you saved the jar file, run the command `java -jar Duke.jar` in your terminal app.
 6. In the case where Duke runs successfully, you should see the following output.
 
 ```
