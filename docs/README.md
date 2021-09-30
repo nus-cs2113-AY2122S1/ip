@@ -44,7 +44,9 @@ Enter your wish:
 4. Find a specific task or tasks containing the searched keyword
 5. List out all tasks
 6. Exit the program
+
 ## Usage
+
 ### Adding a task
 Add tasks from any 3 types available: Todo, deadline and event
 
