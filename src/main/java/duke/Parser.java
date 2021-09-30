@@ -10,6 +10,7 @@ import duke.command.DeadlineCommand;
 import duke.command.EventCommand;
 import duke.command.DeleteCommand;
 import duke.command.InvalidCommand;
+import duke.command.FindCommand;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
