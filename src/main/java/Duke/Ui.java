@@ -39,8 +39,8 @@ public class Ui {
                 "\nYou now have " + Task.getTaskCount() + " task(s) in your list.");
     }
 
-    public void showCorruptFile() {
-        showToUser(CORRUPT_FILE);
+    public void showTask(int curr, Task task) {
+        System.out.print(curr + "." + task + "\n");
     }
 
     public void showError(String errorType) {
@@ -61,6 +61,11 @@ public class Ui {
         case COMMAND_INCORRECT:
             showToUser(INPUT_INVALID);
             break;
+        case FILE:
+            showToUser(FILE_CORRUPT);
+            break;
+        case DATEANDTIME:
+            showToUser(DATE_INVALID);
         }
     }
 
