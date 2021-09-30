@@ -11,7 +11,7 @@ import duke.ui.TextUi;
 public class TodoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a todo task to the task list. "
-            + "Parameters: TASK"
+            + "Parameters: DESCRIPTION"
             + "\n"
             + "Example: " + COMMAND_WORD
             + " Wash my dirty smelly clothes\n";

@@ -5,6 +5,8 @@ import duke.commands.*;
 import duke.data.exception.EmptyTaskException;
 import duke.data.exception.InvalidException;
 
+import java.util.Locale;
+
 /**
  * Parses user input.
  */
@@ -24,8 +26,8 @@ public class Parser {
      * @throws EmptyTaskException        if the user did not provide additional information for some commands
      */
     public static Command parseCommand(String userCommand) throws InvalidException, IndexOutOfBoundsException, EmptyTaskException {
-        final String[] commandTypeAndParams = splitUserCommand(userCommand.toLowerCase());
-        final String commandType = commandTypeAndParams[TASK_DATA_INDEX_DESCRIPTION].trim();
+        final String[] commandTypeAndParams = splitUserCommand(userCommand);
+        final String commandType = commandTypeAndParams[TASK_DATA_INDEX_DESCRIPTION].trim().toLowerCase();
         final String commandArgs = commandTypeAndParams[TASK_DATA_INDEX_ADDITIONAL_INFO].trim();
         switch (commandType) {
         case ListCommand.COMMAND_WORD:

@@ -15,10 +15,11 @@ import java.time.format.DateTimeParseException;
 public class DeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "deadline";
-    public static final String COMMAND_SPLITTER = "/by";
+    /** (?i) Toggles case insensitivity for the splitter "/by" */
+    public static final String COMMAND_SPLITTER = "(?i)/by";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a deadline task to the task list. "
-            + "Parameters: TASK /by DEADLINE\n"
+            + "Parameters: DESCRIPTION /by DEADLINE\n"
             + "Example: " + COMMAND_WORD
             + " Do CS2113T iP /by 2021-10-01\n";
 
