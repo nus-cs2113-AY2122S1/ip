@@ -7,18 +7,31 @@ import com.task.Task;
 import com.task.Todo;
 import java.util.ArrayList;
 
+/**
+ * Represents a command given by user, and command Duke to execute the command
+ */
 public class Command {
 
     Duke duke;
 
     private static final ArrayList<String> COMMAND_LIST = new ArrayList<>();
 
-
+    /**
+     * Constructor of Command, set the target duke to command
+     *
+     * @param duke Duke object, the target duke to command
+     */
     public Command(Duke duke) {
         this.duke = duke;
         COMMAND_LIST.add("");
     }
 
+    /**
+     * Interpret the command given by user and command duke to execute it.
+     *
+     * @param line String object representing the command given by user
+     * @return Returns true if the command is not exit, return false if the command is exit
+     */
     public boolean handle(String line){
         line = line.toLowerCase();
         switch(line) {
