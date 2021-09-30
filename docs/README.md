@@ -87,8 +87,8 @@ Format: `done <INDEX>`
 > `<INDEX>` refers to the index of the task displayed in the `list` command.
 
 Examples:
-* `done 1` <- Marks the 1st task in the list as done.
-* `done 3` <- Marks the 3rd task in the list as done.
+* `done 1` - Marks the 1st task in the list as done.
+* `done 3` - Marks the 3rd task in the list as done.
 <br />
 
 ### Deleting a task: `delete`
@@ -100,8 +100,8 @@ Format: `delete <INDEX>`
 > `<INDEX>` refers to the index of the task displayed in the `list` command.
 
 Examples:
-* `delete 1` <- Deletes the 1st task in the list.
-* `delete 3` <- Deletes the 3rd task in the list.
+* `delete 1` - Deletes the 1st task in the list.
+* `delete 3` - Deletes the 3rd task in the list.
 <br />
 
 ### Searching for a task: `find`
