@@ -28,9 +28,10 @@ public class Storage {
     public TaskList read() throws IOException{
 
         File t = new File(this.path);
-
         TaskList taskArrayList = new TaskList();
         if(!t.exists()){
+            File dir = new File("data");
+            dir.mkdir();
             t.createNewFile();
         }
             try{

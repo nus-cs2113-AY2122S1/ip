@@ -32,7 +32,7 @@ public class Duke {
     public Duke(String path) throws IOException {
         this.ui = new Ui();
         ui.hello();
-        this.storage = new Storage("data.txt");
+        this.storage = new Storage(path);
         try {
             taskList = storage.read();
         }catch(IOException e){
@@ -57,7 +57,7 @@ public class Duke {
     }
 
     public static void main (String[]args) throws IOException {
-        Duke d = new Duke("data.txt");
+        Duke d = new Duke("data/data.txt");
         d.run();
     }
 }
