@@ -24,7 +24,7 @@ person to keep track of various things via a Command Line Interface (CLI).
 java -jar IP.jar
 ```
 5. On startup, you should see a terminal output similar to below.
-![](ip jar screenshots/1.jpg)
+![](https://github.com/rachelkeh/ip/blob/master/docs/ip%20jar%20screenshots/1.JPG)
 6. Type a command and press Enter to execute it.
    Some example commands you can try:
    * `help`: Lists all the performable commands.
@@ -40,8 +40,8 @@ java -jar IP.jar
 > `help me` will be interpreted as `help`.
 
 ### Viewing Help
-Lists all the valid commands that Duke accepts.
-Format: `help`
+Lists all the valid commands that Duke accepts.\
+Format: `help`\
 Example:
 ```
 help
@@ -62,8 +62,8 @@ Here are the performable actions:
 _____________________________________________________________________________
 ```
 ### Adding a Todo Task
-Adds the most basic task type to the task list.
-Format: `todo <TASK_DESCRIPTION>`
+Adds the most basic task type to the task list.\
+Format: `todo <TASK_DESCRIPTION>`\
 Example:
 ````
 todo return book
@@ -78,9 +78,9 @@ _____________________________________________________________________________
 ````
 
 ### Adding a Deadline Task
-Adds a task that should be completed before a time specified by the user.
-Format: `deadline <TASK_DESCRIPTION> /by <TIME>`
-* The command must be formatted this way, with the `/by` in between `<TASK_DESCRIPTION>` and `<TIME>`.
+Adds a task that should be completed before a time specified by the user.\
+Format: `deadline <TASK_DESCRIPTION> /by <TIME>`\
+* The command must be formatted this way, with the `/by` in between `<TASK_DESCRIPTION>` and `<TIME>`.\
 Example:
 ````
 deadline return book /by Aug 6th
@@ -95,9 +95,9 @@ _____________________________________________________________________________
 ````
 
 ### Adding an Event Task
-Adds a task with a duration that starts and ends at a specific time.
-Format: `event <TASK_DESCRIPTION> /at <DURATION>`
-* The command must be formatted this way, with the `/at` in between `<TASK_DESCRIPTION>` and `<DURATION>`.
+Adds a task with a duration that starts and ends at a specific time.\
+Format: `event <TASK_DESCRIPTION> /at <DURATION>`\
+* The command must be formatted this way, with the `/at` in between `<TASK_DESCRIPTION>` and `<DURATION>`.\
 Example:
 ````
 event attend tutorial /at Aug 6th 2-4pm
@@ -111,9 +111,9 @@ _____________________________________________________________________________
 _____________________________________________________________________________
 ````
 
-###Listing all Tasks
-Shows a list of all the tasks in the task list.
-Format: list
+### Listing all Tasks
+Shows a list of all the tasks in the task list.\
+Format: list\
 Example:
 ````
 list
@@ -128,9 +128,9 @@ _____________________________________________________________________________
 ````
 
 ### Marking a Task as Done:
-Marks a task as completed.
-Format: `done <TASK_NUMBER>`
-* `<TASK_NUMBER>` corresponds to the index number of the task on the task list when listed using `list`.
+Marks a task as completed.\
+Format: `done <TASK_NUMBER>`\
+* `<TASK_NUMBER>` corresponds to the index number of the task on the task list when listed using `list`.\
 Example:
 ````
 done 1
@@ -144,8 +144,9 @@ _____________________________________________________________________________
 ````
 
 ### Deleting a task
-Format: `delete <TASK_NUMBER>`
-* `<TASK_NUMBER>` corresponds to the index number of the task on the task list when listed using `list`.
+Deletes a task.\
+Format: `delete <TASK_NUMBER>`\
+* `<TASK_NUMBER>` corresponds to the index number of the task on the task list when listed using `list`.\
 Example:
 ````
 delete 1
@@ -160,8 +161,8 @@ _____________________________________________________________________________
 ````
 
 ### Finding Task(s)
-Finds task(s) with a specified keyword.
-Format: find <KEYWORD>
+Finds task(s) with a specified keyword.\
+Format: find <KEYWORD>\
 Example:
 ````
 find tutorial
@@ -176,8 +177,8 @@ _____________________________________________________________________________
 ````
 
 ### Exiting the program
-Exits the ChatBot.
-Format: `bye`
+Exits the ChatBot.\
+Format: `bye`\
 Example:
 ````
 bye
@@ -190,5 +191,18 @@ _____________________________________________________________________________
 ````
 
 ## FAQ
-*Q:* How do I transfer my data from my computer to another computer?
+*Q:* How do I transfer my data from my computer to another computer?\
 *A:* Copy over the `IP.jar` file and `data` folder containing the `duke.txt` file that are within the same directory.
+
+## Command Summary
+ Command | Action
+------------ | -------------
+Help | Lists all the valid commands that Duke accepts.
+Todo | Adds the most basic task type to the task list.
+Deadline | Adds a task that should be completed before a time specified by the user.
+Event | Adds a task with a duration that starts and ends at a specific time.
+List | Shows a list of all the tasks in the task list.
+Done | Marks a task as completed.
+Delete | Deletes a task.
+Find | Finds task(s) with a specified keyword.
+Exit | Exits the ChatBot.
