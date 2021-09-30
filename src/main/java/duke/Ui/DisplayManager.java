@@ -4,6 +4,7 @@ import duke.TaskList.TaskManager;
 import duke.TaskList.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DisplayManager {
 
@@ -174,6 +175,17 @@ public class DisplayManager {
         }
         printHorizontalSeparator();
     }
+
+    public static void printFindResult(List<Task> queryResults) {
+        int counter = 0;
+        printHorizontalSeparator();
+        System.out.println(DISPLAY_MESSAGE_INDENT + "Here are the matching tasks in your list:");
+        for (Task queryResult : queryResults) {
+            System.out.println(DISPLAY_MESSAGE_INDENT + (counter + 1) + ". " + queryResult);
+        }
+        printHorizontalSeparator();
+    }
+
 
     public static void printErrorList() {
         printHorizontalSeparator();
