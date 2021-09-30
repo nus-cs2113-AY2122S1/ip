@@ -85,7 +85,7 @@ public class Duke {
                 case DONE:;
                     int num2 = getStringNumber(str);
                     checkNum(num2, Tasks.size());
-                    Tasks.get(2 - 1).setDone(true);
+                    Tasks.get(num2 - 1).setDone(true);
                     ui.printDone(Tasks.get(num2 - 1));
                     break;
                 case UNKNOWN:

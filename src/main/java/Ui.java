@@ -109,8 +109,6 @@ public class Ui {
      * @param num the maximum string length
      */
     public static void printFoundTask(TaskList list, String str, int num){
-        String listing = "Here are the matching tasks in your list:";
-        if(listing.length() > num) num = listing.length();
         TaskList foundTasks = new TaskList();
         for(int i = 1; i <= list.size(); i++){
             if(list.get(i - 1).getDescription().contains(str)){
