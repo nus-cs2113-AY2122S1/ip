@@ -1,6 +1,6 @@
 # Duke User Guide
 
-This is Duke user guide. It implements a simple to do list which has some simple functions. Given below are instructions on how to use it.
+This is Duke user guide. It implements a simple to do list which has some functions. Given below are instructions on how to use it.
 
 ## Setting up Duke
 
@@ -8,6 +8,8 @@ This is Duke user guide. It implements a simple to do list which has some simple
 2. Ensure that you have Java 11 installed.
 3. Execute the ip.jar by running the following command: `java -jar ip.jar`
 4. If you see the following welcome screen, you have succesfully ran Duke.
+<br/>
+
 ```
 Hello from
  ____        _        
