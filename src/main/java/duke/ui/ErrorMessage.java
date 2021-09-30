@@ -16,4 +16,5 @@ public class ErrorMessage {
             + "check if task number exist with the list command.";
     public static final String FILE_IO_ERROR_MESSAGE = "Sorry, there was some issues regarding the data files.";
     public static final String UNKNOWN_TASK_TYPE_ERROR_MESSAGE = "Sorry, task type not found ";
+    public static final String NO_TASK_FOUND_ERROR_MESSAGE = "Sorry, there is no task that fits your description";
 }

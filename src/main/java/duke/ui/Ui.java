@@ -3,15 +3,13 @@ package duke.ui;
 import static duke.ui.CommandMessage.ADD_TASK_MESSAGE;
 import static duke.ui.CommandMessage.COMPLETE_TASK_MESSAGE;
 import static duke.ui.CommandMessage.DELETE_TASK_MESSAGE;
+import static duke.ui.CommandMessage.FIND_TASK_MESSAGE;
 import static duke.ui.CommandMessage.HELP_MESSAGE;
+import static duke.ui.ErrorMessage.NO_TASK_FOUND_ERROR_MESSAGE;
 
 import duke.task.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-/**
- * Ui class that manages interactions with user input
- */
 
 public class Ui {
 
@@ -92,6 +90,26 @@ public class Ui {
             message = new StringBuilder("Oh! You have no tasks left!");
         } else {
             message = new StringBuilder("Total of " + taskListSize + " task(s)\n");
+            for (Task task : taskList) {
+                message.append(String.format("%d.%s\n", task.getTaskNumber(), task));
+            }
+        }
+        printMessage(message.toString());
+    }
+
+    /**
+     * Prints list of task that fits user search result
+     *
+     * @param taskList Array list of task that fits user search
+     */
+    public void printFindTaskMessage(ArrayList<Task> taskList) {
+        int taskListSize = taskList.size();
+        new StringBuilder();
+        StringBuilder message;
+        if (taskListSize == 0) {
+            message = new StringBuilder(NO_TASK_FOUND_ERROR_MESSAGE);
+        } else {
+            message = new StringBuilder(String.format(FIND_TASK_MESSAGE,taskListSize));
             for (Task task : taskList) {
                 message.append(String.format("%d.%s\n", task.getTaskNumber(), task));
             }

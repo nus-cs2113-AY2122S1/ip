@@ -13,6 +13,7 @@ import duke.command.Command;
 import duke.command.CommandType;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
+import duke.command.FindCommand;
 import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.exception.DukeException;
@@ -80,6 +81,9 @@ public class Parser {
                 break;
             case HELP:
                 command = new HelpCommand();
+                break;
+            case FIND:
+                command = new FindCommand(userInputArray[1]);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + commandType);

@@ -21,4 +21,5 @@ public class CommandMessage {
             + "DONE <index of task> (To mark indicated task as completed)\n"
             + "BYE (End program)\n"
             + "HELP (List out available commands)";
+    public static final String FIND_TASK_MESSAGE = "Total of %d task(s) found that matches your description.\n";
 }
