@@ -28,6 +28,8 @@ public class TaskList {
     private static final String ERROR_NO_TASK_IN_LIST = S_TAB + "ERROR: There are no tasks in your list.";
     private static final String ERROR_INVALID_TASK_SELECTED = S_TAB + "ERROR: Invalid task selected.";
     private static final String ERROR_NO_MATCHING_TASK = S_TAB + "ERROR: No matching tasks found.";
+    private static final String ERROR_INVALID_URI_FORMAT = S_TAB + "ERROR: This string cannot be parsed as a URI.";
+    private static final String ERROR_INVALID_URI = S_TAB + "ERROR: Webpage does not / no longer exists.";
 
     private static final String LIST_ITEM = L_TAB + "%1$s.%2$s";
 
@@ -147,9 +149,9 @@ public class TaskList {
             Desktop.getDesktop().browse(uri);
             printOpenBrowserMessage(ui);
         } catch (URISyntaxException uriSyntaxException) {
-            throw new DukeException("test");
+            throw new DukeException(ERROR_INVALID_URI_FORMAT);
         } catch (IOException ioException) {
-            throw new DukeException("test2");
+            throw new DukeException(ERROR_INVALID_URI);
         }
     }
 
