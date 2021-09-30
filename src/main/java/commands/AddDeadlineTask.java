@@ -36,7 +36,7 @@ public class AddDeadlineTask extends Command {
             if (!input.toLowerCase().contains("/by")) {
                 ui.showMissingByMessage();
             } else {
-                int slashIndex = input.indexOf("/by");
+                int slashIndex = input.toLowerCase().indexOf("/by");
                 String task = input.substring(9, slashIndex).trim();
                 String dueDate = input.substring(slashIndex + 3).trim();
                 if (task.length() <= 0) {

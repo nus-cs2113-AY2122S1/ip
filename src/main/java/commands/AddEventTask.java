@@ -36,7 +36,7 @@ public class AddEventTask extends Command {
             if (!input.toLowerCase().contains("/at")) {
                 ui.showMissingAtMessage();
             } else {
-                int slashIndex = input.indexOf("/at");
+                int slashIndex = input.toLowerCase().indexOf("/at");
                 String task = input.substring(6, slashIndex).trim();
                 String timeRange = input.substring(slashIndex + 3).trim();
                 if (task.length() <= 0) {
