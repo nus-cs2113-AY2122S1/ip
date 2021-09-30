@@ -15,6 +15,7 @@ event EVENT_NAME /at DATE
 ```
 todo TODO_NAME /by DATE
 ```
+![example](https://github.com/Cuiminjing/ip/blob/master/images/add.png?raw=true)
 ## Delete a task
  This function will delete an existing task from the list.
 ```
