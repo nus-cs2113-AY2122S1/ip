@@ -1,10 +1,15 @@
 package com.task;
 
+import com.time.Time;
+
 /**
  * Represents an event with deadline by, inherent from class Todo.
  */
+
 public class Event extends Todo{
-    protected String by;
+
+    protected Time by;
+
     /**
      * Constructor of the Event, store the description and deadline time.
      *
@@ -14,22 +19,22 @@ public class Event extends Todo{
     public Event(String description, String ddl) {
         super(description);
         this.isDone = false;
-        this.by = ddl;
+        this.by = new Time(ddl);
         this.type= "[E]";
     }
 
 
     public String getBy() {
-        return this.by;
+        return this.by.toString();
     }
 
 
     public void setBy(String ddl) {
-        this.by = ddl;
+        this.by = new Time(ddl);
     }
 
 
     public String toString() {
-        return super.toString() + "(" + this.by + ")";
+        return super.toString() + "(" + this.by.toString() + ")";
     }
 }

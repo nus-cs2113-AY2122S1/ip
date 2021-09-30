@@ -17,7 +17,6 @@ public class Duke {
     private final Storage storage;
     private final TaskList tasks;
     private final UI ui = new UI();
-    private boolean status = false;
 
     /**
      * Constructor of Duke class, initialise Duke by loading information from the storage file and show welcome screen.
@@ -25,7 +24,6 @@ public class Duke {
      * @param filePath String Object representing the path to storage file
      */
     public Duke(String filePath){
-        this.status = true;
         storage = new Storage(filePath);
         tasks = new TaskList();
         ui.welcome();
@@ -69,7 +67,6 @@ public class Duke {
     public void endDuke() {
         ui.print("Bye. Hope to see you again soon!");
         ui.endLine();
-        this.status = false;
     }
 
     /**
@@ -78,6 +75,14 @@ public class Duke {
     public void greet() {
         ui.print("Hello! I'm Duke");
         ui.print("What can I do for you?");
+        ui.endLine();
+    }
+
+
+    public void help() {
+        ui.print("PLease the command in the following format");
+        ui.print("event [TASK] by [DATE]");
+        ui.print("deadline [TASK] by [DATE]");
         ui.endLine();
     }
 
@@ -162,6 +167,21 @@ public class Duke {
         ui.endLine();
     }
 
+    public void clear() {
+        while(tasks.getList().size() > 0){
+            tasks.getList().remove(0);
+        }
+       try{
+           storage.rewriteFile(tasks.getList());
+           ui.print("Cleared all the tasks");
+           ui.endLine();
+       }catch (IOException e) {
+           ui.print("Unable to write files");
+           ui.endLine();
+        }
+    }
+
+
     /**
      * delete a specific task from the tasks list and update it to the storage file
      *
@@ -193,14 +213,5 @@ public class Duke {
 
     public TaskList getList(){
         return tasks;
-    }
-  
-    /**
-     * getter method of status
-     *
-     * @return status, true representing Duke is active, false the otherwise
-     */
-    public boolean getStatus() {
-        return this.status;
     }
 }
