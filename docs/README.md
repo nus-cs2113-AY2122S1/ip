@@ -33,17 +33,17 @@ Duke is a personal assistant chat-bot that can help its user to record different
 ## Command List
  
 ### 1. Add a todo task to task list
-* Syntax: todo <task description/command>
+* Syntax: todo <task_description/command>
 * e.g. todo buy Java book
 * Sample output: [todo](images/todo.png)
 
 ### 2. Add a deadline task to task list
-* Syntax: deadline <task description/command> /by YYYY-MM-DD
+* Syntax: deadline <task_description/command> /by YYYY-MM-DD
 * e.g. deadline return car /by 2021-11-20
 * Sample output: [deadline](images/deadline.png)
 
 ### 3. Add an event task to task list
-* Syntax: event <task description/command> /at YYYY-MM-DD
+* Syntax: event <task_description/command> /at YYYY-MM-DD
 * e.g. event meet friend /at 2021-12-31
 * Sample output: [event](images/event.png)
 
@@ -53,17 +53,17 @@ Duke is a personal assistant chat-bot that can help its user to record different
 * Sample output:[list](images/list.png)
 
 ### 5. Mark task as done
-* Syntax: done <task index>
+* Syntax: done <task_index>
 * e.g. done 2
 * Sample output: [mark_as_done](images/mark_as_done.png)
 
 ### 6. Delete task in task list
-* Syntax: delete <index of task that you want to delete>
+* Syntax: delete <task_index>
 * e.g. delete 3
 * Sample output: [delete](images/delete.png)
 
 ### 7. Find task with keyword in the task list
-* Syntax: find <keyword you want to search>
+* Syntax: find <searching_keyword>
 * e.g. find car
 * Sample output: [find](images/find.png)
 
