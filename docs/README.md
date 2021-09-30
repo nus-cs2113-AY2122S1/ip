@@ -240,7 +240,7 @@ list
     └────────────────────────────────────────────────────────────────────┘
 ````
 
-###`delete`
+### `delete`
 **Command**: `delete <TASK_NUMBER>`
 
 Deletes the task with index `<TASK_NUMBER>` on the list. (Be careful, it'll be gone forever!)
@@ -268,7 +268,7 @@ list
     └────────────────────────────────────────────────────────────────────┘
 ````
 
-###`find`
+### `find`
 **Command**: `find <QUERY>`
 
 Searches the `<TASK_NAME>` of all tasks and returns a list of all matching results.
