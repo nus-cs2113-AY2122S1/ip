@@ -1,4 +1,4 @@
-# Patchi the Tasks Fairy Œ(ˊVˋ)B
+# Patchi the Tasks Fairy (ovo)B
 
 Patchi is a cute and helpful **scheduler + todo list** that runs on CLI.
 
