@@ -15,6 +15,7 @@ import duke.commands.DeadlineCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.DoneCommand;
 import duke.commands.EventCommand;
+import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.ToDoCommand;
 
@@ -95,6 +96,8 @@ public class Parser {
             return prepareEvent(args);
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(args);
         case DateCommand.COMMAND_WORD:
             return new DateCommand(parseDate(args));
         case DeleteCommand.COMMAND_WORD:

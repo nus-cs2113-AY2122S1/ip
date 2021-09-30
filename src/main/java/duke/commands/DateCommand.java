@@ -37,7 +37,7 @@ public class DateCommand extends Command {
         for (int i = 0; i < tasks.getSize(); i++) {
             final Task task = tasks.getTask(i);
             if (hasSameDate(task)) {
-                formattedTasks.add(String.format("%d.%s", i + 1, task));
+                formattedTasks.add(Ui.formatTaskForTaskList(i + 1, task));
             }
         }
         String taskListOutput = String.join("\n", formattedTasks);

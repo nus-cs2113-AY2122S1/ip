@@ -3,6 +3,8 @@ package duke.ui;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import duke.task.Task;
+
 /**
  * Text UI of the application.
  */
@@ -79,5 +81,16 @@ public class Ui {
             lines[i] = LINE_PREFIX + lines[i];
         }
         return String.join(LINE_SEPARATOR, lines);
+    }
+
+    /**
+     * Formats a task as an indexed list item.
+     *
+     * @param index Index for the given task.
+     * @param task Task item to be formatted.
+     * @return Formatted indexed list item.
+     */
+    public static String formatTaskForTaskList(int index, Task task) {
+        return String.format("%d.%s", index, task);
     }
 }
