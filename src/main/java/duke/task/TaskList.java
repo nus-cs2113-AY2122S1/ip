@@ -64,7 +64,12 @@ public class TaskList {
         try {
             int taskNumberIndex = getIndexOfTask(taskNumber);
             Task task = taskList.get(taskNumberIndex);
-            task.markAsDone();
+            if (task.isDone) {
+                throw new InvalidTaskException(String.format("The following task is already marked as done!\n%s",task));
+            }
+            else {
+                task.markAsDone();
+            }
             return task;
         } catch (InvalidTaskException e) {
             throw new InvalidTaskException(e.getMessage());
