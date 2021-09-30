@@ -1,4 +1,6 @@
 package shima.task;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Event extends Task {
     protected String period;
@@ -12,6 +14,7 @@ public class Event extends Task {
         this.task = task;
         this.isDone = false;
         this.period = period;
+
     }
 
     /**

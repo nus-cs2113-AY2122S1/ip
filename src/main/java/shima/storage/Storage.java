@@ -148,33 +148,22 @@ public class Storage {
      * @throws ShimaException.StorageException Throws StorageException if the data stored is incorrect
      */
     private void readData(TaskList tasks, String[] tasksData) throws ShimaException.StorageException {
-        Task currentTask;
         switch (tasksData[0]) {
         case "T":
             tasks.add(new ToDo(tasksData[2]));
-            currentTask = tasks.get(tasks.size() - 1);
-            //Updates the longestTaskDescription to ensure that the frames for to-do list can be printed correctly
-            TaskList.longestTaskDescription = Math.max(currentTask.getTask().length(), TaskList.longestTaskDescription);
             break;
         case "D":
             tasks.add(new Deadline(tasksData[2], tasksData[3]));
-            currentTask = tasks.get(tasks.size() - 1);
-
-            TaskList.longestTaskDescription = Math.max("(by: )".length() + currentTask.toString().length(),
-                    TaskList.longestTaskDescription);
             break;
         case "E":
             tasks.add(new Event(tasksData[2], tasksData[3]));
-            currentTask = tasks.get(tasks.size() - 1);
-            TaskList.longestTaskDescription = Math.max(currentTask.getTask().length() + "(at: )".length() + currentTask.getTime().length(),
-                    TaskList.longestTaskDescription);
             break;
         default:
             throw new ShimaException.StorageException();
         }
         //Updates the status of the task (whether is done or not)
         if (tasksData[1].equals("Y")) {
-            currentTask.setDone();
+            tasks.get(tasks.size() - 1).setDone();
         }
     }
 

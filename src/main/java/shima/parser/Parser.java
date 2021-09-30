@@ -53,7 +53,9 @@ public class Parser {
     public static final String EMPTY_DEADLINE_MSG = "Sorry, the deadline for the task is missing! I don't know how to memorize it:(";
     public static final String EMPTY_PERIOD_MSG = "Sorry, the date and period for the task is missing! I don't know how to memorize it :(";
     public static final String EXPIRED_DEADLINE_MSG = "Oops, the end date and time for the task is already expired, please give the task a new deadline!";
-    public static final String INCORRECT_DATE_TIME_FORMAT_MSG = "Oh no! The date and time format are incorrect, the format should be : yyyy-MM-dd HH:mm";
+    public static final String INCORRECT_DATE_TIME_FORMAT_MSG1 = "Oh no! The date and time are incorrect!";
+    public static final String INCORRECT_DATE_TIME_FORMAT_MSG2 = "The format of input must be yyyy:MM:dd HH:mm";
+    public static final String INCORRECT_DATE_TIME_FORMAT_MSG3 = "Also, make sure that you have provide a valid date and time!";
     public static final String INVALID_DATE_TIME_MSG = "Sorry, the input after the backslash '/' or '/by' should only contains " +
             "date and time of format (yyyy-MM-dd HH:mm)";
     public static final String COMMAND_DATE = "date";
@@ -246,6 +248,7 @@ public class Parser {
         try {
             //pad input time
             time = padCorrectDateTimeFormat(time);
+            System.out.println(time);
             LocalDateTime inputTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             LocalDateTime now = LocalDateTime.now();
             if (inputTime.isBefore(now)) {
@@ -254,7 +257,7 @@ public class Parser {
             }
             return true;
         } catch (DateTimeParseException dateTimeParseException) {
-            ui.showMessage(INCORRECT_DATE_TIME_FORMAT_MSG);
+            ui.showMessage(INCORRECT_DATE_TIME_FORMAT_MSG1, INCORRECT_DATE_TIME_FORMAT_MSG2, INCORRECT_DATE_TIME_FORMAT_MSG3);
             return false;
         } catch (NumberFormatException numberFormatException) {
             ui.showMessage(INVALID_DATE_TIME_MSG);
@@ -275,18 +278,27 @@ public class Parser {
     }
 
     /**
-     * Pads the input month/day with a leading '0' if they contain only single digit
+     * Pads the input month/day with a leading '0' to match the format of LocalDateTime
      *
      * @param time The input time string
      * @return Returns the time string padded with leading '0' for month/day of end date
      */
     private static String padDate(String time) {
         int indexOfDash = time.indexOf("-");
-        if (Integer.parseInt(time.substring(indexOfDash + 1, indexOfDash + 2)) > 1) {
-            time = time.substring(0, indexOfDash + 1) + "0" + time.substring(indexOfDash + 1);
-        }
+        time = pad_0_ToMonth(time, indexOfDash);
+        time = pad_0_ToDay(time);
+        return time.trim();
+    }
+
+    /**
+     * Pads a leading 0 to the day domain if the input day contains only single digit
+     *
+     * @param time The input time string which the month domain is padded with 0 already
+     * @return Returns the time string padded with leading '0' (if needed) for day domain
+     */
+    private static String pad_0_ToDay(String time) {
         try {
-            if (Integer.parseInt(time.substring(time.lastIndexOf("-") + 1, time.lastIndexOf("-") + 3).trim()) < 10) {
+            if (isSingleDigitForDay(time)) {
                 time = time.substring(0, time.lastIndexOf("-") + 1) + "0" + time.substring(time.lastIndexOf("-") + 1);
             }
         } catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {
@@ -295,7 +307,36 @@ public class Parser {
                 time = time.substring(0, time.lastIndexOf("-") + 1) + "0" + time.substring(time.lastIndexOf("-") + 1);
             }
         }
-        return time.trim();
+        return time;
+    }
+
+    /**
+     * Checks the string that contains date if needed to pad a leading 0 to day domain
+     * @param time The input time string
+     * @return Returns true if the day domain of the date in the time string only contains single digit, false otherwise
+     */
+    private static boolean isSingleDigitForDay(String time) {
+        boolean isPotentialSingleDigit = Integer.parseInt(time.substring(time.lastIndexOf("-") + 1, time.lastIndexOf("-") + 3).trim()) < 10;
+        boolean isLeading0 = time.charAt(time.lastIndexOf("-")  + 1) == '0';
+        return isPotentialSingleDigit && !isLeading0;
+    }
+
+    /**
+     * Pads a leading 0 to the month domain if the input month contains only single digit
+     *
+     * @param time The input time string
+     * @param indexOfDash The first occurence of the dash character which indicates the position of the month domain
+     * @return Returns the time string padded with 0 in month domain
+     */
+    private static String pad_0_ToMonth(String time, int indexOfDash) {
+        if (isSingleDigitForMonth(time, indexOfDash)) {
+            time = time.substring(0, indexOfDash + 1) + "0" + time.substring(indexOfDash + 1);
+        }
+        return time;
+    }
+
+    private static boolean isSingleDigitForMonth(String time, int indexOfDash) {
+        return time.charAt(indexOfDash + 2) == '-';
     }
 
     /**

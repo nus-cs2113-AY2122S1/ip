@@ -18,6 +18,8 @@ public class TaskList {
     public static final String TASK_FINISHED_MSG = "\tNice! You have finished all tasks! Time to chill~";
     public static final String UPDATE_STORAGE_ERROR_MSG = "An unexpected error occurs when I try to update the file";
     public static final String DELETE_ALL_MSG = "All tasks have been removed! Time to chill?";
+    public static final int MINIMUM_TASK_LENGTH = " My to-do list: ".length();
+    public static final int DEFAULT_TASK_DISPLAY_LENGTH = "| [ ][ ] . ".length();
     public static int longestTaskDescription = 0; //The length of the longest task description
     private ArrayList<Task> tasks;
     private final Storage storage;
@@ -96,15 +98,27 @@ public class TaskList {
      * Prints the to-do list with frames
      */
     public void printToDoList() {
-        final int MIN_LENGTH = " My to-do list: ".length();
-        //if longestTaskDescription is shorter than the length of the string "My to-do list: ", sets it to the length of the string
-        if (longestTaskDescription < MIN_LENGTH) {
-            longestTaskDescription = MIN_LENGTH;
-        }
-        //Prints the to-do list
+        updateLongestTaskDescription();
         drawUpperFrame();
         printTasks();
         drawLowerFrame();
+        //Shows the guide for understanding the to-do list
+        System.out.println("\tFor your knowledge, ");
+        System.out.println("\tthe first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)");
+        System.out.println("\tthe second [ ] indicates whether the task is completed:\n" +
+                "\t[X] when the task is marked completed\t[ ] when the task is not done.");
+    }
+
+    /**
+     * Finds the longest task stored in the tasks list and stores to the longestTaskDescription
+     */
+    private void updateLongestTaskDescription(){
+        longestTaskDescription = MINIMUM_TASK_LENGTH; //This will be the minimum length
+        for (Task t : tasks){
+            if (longestTaskDescription < t.toString().length()){
+                longestTaskDescription = t.toString().length();
+            }
+        }
     }
 
     /**
@@ -112,28 +126,36 @@ public class TaskList {
      */
     private void drawUpperFrame() {
         System.out.print("\t" + ListCommand.TOP_LEFT_CORNER); //the top left corner
-        for (int i = 0; i < longestTaskDescription + "| [ ][ ] 100. ".length(); i++) {
+        //The number of digit of the largest task index display
+        int largestIndexLength = (tasks.size() == 0)? 0 : (int)Math.log10(tasks.size()) + 1;
+        for (int i = 0; i < longestTaskDescription + DEFAULT_TASK_DISPLAY_LENGTH + largestIndexLength; i++) {
             System.out.print("-");
         }
         System.out.println(ListCommand.TOP_RIGHT_CORNER);
         System.out.print("\t| My to-do list: ");
-        for (int i = 0; i < longestTaskDescription + "| [ ][ ] 100. ".length() - "| My to-do list: ".length() + 1; i++) {
+        int currentLength = "| My to-do list: ".length();
+        while (currentLength <= longestTaskDescription + DEFAULT_TASK_DISPLAY_LENGTH + largestIndexLength){
             System.out.print(" ");
+            currentLength++;
         }
         System.out.println("|");
     }
 
     /**
-     * Prints the tasks stored in the array, the frame starts with '|' and ends with '|', the ending frame is always located at the position of the longest task description
+     * Prints the tasks stored in the array, the frame starts with '|' and ends with '|', the ending frame is always located
+     * at the position of the longest task description
      */
     private void printTasks() {
         for (int i = 0; i < tasks.size(); i++) {
             //Fill the first [] with class type, and the second [] with a 'X' if the task is completed
             String doneIcon = (tasks.get(i).getDone()) ? "[X] " : "[ ] ";
-            System.out.print("\t| [" + tasks.get(i).getClassType() + "]" + doneIcon + (i + 1) + ". ");
-            //Calculates the required spacing for the current task as compared to the longest task description to print '|'
-            int distanceToClosingFrame = longestTaskDescription + "| [ ][ ] 100. ".length() - ("| [ ][ ] " + (i + 1) + ". ").length() + 1;
-            System.out.printf("%1$-" + distanceToClosingFrame + "s", tasks.get(i));
+            System.out.print("\t| [" + tasks.get(i).getClassType() + "]" + doneIcon + (i + 1) + ". " + tasks.get(i));
+            int currentLength = ("| [" + tasks.get(i).getClassType() + "]" + doneIcon + (i+1) + ". " + tasks.get(i)).length();
+            int largestIndexLength = (int)Math.log10(tasks.size()) + 1;
+            while (currentLength <= longestTaskDescription + DEFAULT_TASK_DISPLAY_LENGTH + largestIndexLength){
+                System.out.print(" ");
+                currentLength++;
+            }
             System.out.println("|");
         }
     }
@@ -143,15 +165,11 @@ public class TaskList {
      */
     private void drawLowerFrame() {
         System.out.print("\t" + ListCommand.BOTTOM_LEFT_CORNER);
-        for (int i = 0; i < longestTaskDescription + "| [ ][ ] 100. ".length(); i++) {
+        int largestIndexLength = (tasks.size() == 0)? 0 : (int)Math.log10(tasks.size()) + 1;
+        for (int i = 0; i < longestTaskDescription + DEFAULT_TASK_DISPLAY_LENGTH + largestIndexLength; i++) {
             System.out.print("-");
         }
         System.out.println(ListCommand.BOTTOM_RIGHT_CORNER);
-        //Shows the guide for understanding the to-do list
-        System.out.println("\tFor your knowledge, ");
-        System.out.println("\tthe first [ ] indicates the type of the task ('T' for to-do, 'D' for deadline, 'E' for event)");
-        System.out.println("\tthe second [ ] indicates whether the task is completed:\n" +
-                "\t[X] when the task is marked completed\t[ ] when the task is not done.");
     }
 
     /**
@@ -163,9 +181,6 @@ public class TaskList {
      */
     public void createToDo(String command, String[] words) throws IOException {
         tasks.add(new ToDo(command.replace(words[0], "").trim()));
-        if (longestTaskDescription < command.replace(words[0], "").trim().length()) {
-            longestTaskDescription = command.replace(words[0], "").trim().length();
-        }
         storage.saveTaskToFile(this);
         Task currentTask = tasks.get(tasks.size() - 1);
         ui.showMessage(" Class type [" + currentTask.getClassType() + "] \"" + currentTask + "\" has been added to the list!" +
@@ -181,9 +196,6 @@ public class TaskList {
      */
     public void createEvent(String taskName, String time) throws IOException {
         tasks.add(new Event(taskName, time));
-        if (longestTaskDescription < taskName.length() + time.length()) {
-            longestTaskDescription = taskName.length() + "(at: )".length() + time.length();
-        }
         storage.saveTaskToFile(this);
         Task currentTask = tasks.get(tasks.size() - 1);
         ui.showMessage(" Class type [" + currentTask.getClassType() + "] \"" + currentTask + "\" has been added to the list!" +
@@ -200,10 +212,6 @@ public class TaskList {
     public void createDeadline(String taskName, String time) throws IOException {
         tasks.add(new Deadline(taskName, time));
         Deadline deadline = (Deadline) tasks.get(tasks.size() - 1);
-        int deadlineDescriptionLength = deadline.toString().length();
-        if (longestTaskDescription < deadlineDescriptionLength) {
-            longestTaskDescription = deadlineDescriptionLength;
-        }
         storage.saveTaskToFile(this);
         Task currentTask = tasks.get(tasks.size() - 1);
         ui.showMessage(" Class type [" + currentTask.getClassType() + "] \"" + currentTask + "\" has been added to the list!" +
@@ -354,3 +362,4 @@ public class TaskList {
         }
     }
 }
+
