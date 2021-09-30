@@ -12,6 +12,7 @@ public class MarkCompleteCommand extends Command {
             + "\n|| "
             + "Example: " + COMMAND_WORD
             + " 1\n||";
+    public static final String MESSAGE_FAILED_MARK_COMPLETE = "You've already done the task! Warning: Re-doing the same tasks may result in insanity.";
 
     private final String taskIndexString;
 
@@ -22,8 +23,12 @@ public class MarkCompleteCommand extends Command {
     public void execute(TaskList tasks, TextUi ui, Storage storage) throws IndexOutOfBoundsException {
         int taskIndex = Integer.parseInt(taskIndexString) - 1;
         Task currentTask = tasks.getTask(taskIndex);
-        currentTask.setDone();
-        storage.OverwriteListToFile();
-        ui.showSuccessfulComplete(currentTask);
+        if (currentTask.isDone()) {
+            ui.showToUser(MESSAGE_FAILED_MARK_COMPLETE);
+        } else {
+            currentTask.setDone();
+            storage.OverwriteListToFile();
+            ui.showSuccessfulComplete(currentTask);
+        }
     }
 }

@@ -5,6 +5,8 @@ import duke.commands.*;
 import duke.data.exception.EmptyTaskException;
 import duke.data.exception.InvalidException;
 
+import java.util.Locale;
+
 public class Parser {
 
     public static final int TASK_DATA_COUNT = 2;
@@ -12,7 +14,7 @@ public class Parser {
     public static final int TASK_DATA_INDEX_ADDITIONAL_INFO = 1;
 
     public static Command parseCommand(String userCommand) throws InvalidException, IndexOutOfBoundsException, EmptyTaskException {
-        final String[] commandTypeAndParams = splitUserCommand(userCommand);
+        final String[] commandTypeAndParams = splitUserCommand(userCommand.toLowerCase());
         final String commandType = commandTypeAndParams[TASK_DATA_INDEX_DESCRIPTION];
         final String commandArgs = commandTypeAndParams[TASK_DATA_INDEX_ADDITIONAL_INFO];
         switch (commandType) {
