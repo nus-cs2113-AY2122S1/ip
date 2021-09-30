@@ -37,19 +37,20 @@ public class Duke {
     private void startChat() {
         Scanner in = new Scanner(System.in);
         boolean isExit = false;
+        do {
+            try {
 
-        try {
-            do {
-                ui.printDivider();
-                String input = in.nextLine();
-                ui.printDivider();
-                Command command = Parser.getCommand(input);
-                command.execute(input, tasks, ui, storage);
-                isExit = command.isExit(command);
-            } while (!isExit);
-        } catch (DukeException dukeE){
-            dukeE.printStackTrace();
-        }
+                    ui.printDivider();
+                    String input = in.nextLine();
+                    ui.printDivider();
+                    Command command = Parser.getCommand(input);
+                    command.execute(input, tasks, ui, storage);
+                    isExit = command.isExit(command);
+
+            } catch (DukeException dukeE){
+                System.out.println(dukeE.getMessage());
+            }
+        } while (!isExit);
     }
 
     public static void main(String[] args) {

@@ -9,7 +9,8 @@ public class TaskList {
 
     private final String SPACING = " ";
     private final String MESSAGE_TASK_ADDED = "Added task:\n    ";
-    private final String ERROR_WRONG_FIND_FORMAT = "Find format wrong! Please try again";
+    private final String ERROR_WRONG_FIND_FORMAT = "Find format wrong!"
+            + "\nPlease key in only 1 keyword after the command \"find\"";
     private final String PRINT_REMOVE_MESSAGE = "Task removed :\n    ";
     private final String MESSAGE_OUT_OF_RANGE = "No such task found! Try a range of 1 to ";
     private final String PRINT_DONE_MESSAGE_FRONT = "I have marked\n     ";
@@ -111,12 +112,11 @@ public class TaskList {
      * @param input Keyword of the user
      * @param ui Prints the list of matches found in the TaskList
      */
-    public void findTasks(String input, Ui ui) {
+    public void findTasks(String input, Ui ui) throws DukeException {
         String[] words = input.split(" ");
 
         if (words.length != 2) {
-            System.out.println(ERROR_WRONG_FIND_FORMAT);
-            return;
+            throw new DukeException(ERROR_WRONG_FIND_FORMAT);
         }
 
         String keyword = words[1].toLowerCase();

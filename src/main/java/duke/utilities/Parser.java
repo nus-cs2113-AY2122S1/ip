@@ -19,6 +19,11 @@ public class Parser {
     private static final String ENTRY_BY = "/by";
     private static final String SPACING = " ";
     private static final String ERROR_FORMAT_INVALID = "Command format is invalid. Please try again.";
+    private static final String ERROR_MISSING_DESCRIPTION = "Description is missing from the task!"
+            + "\nPlease try deadline <description> /by <time> or event <description> /at <time>";
+    private static final String ERROR_MISSING_TIME = "Time is missing from the task!"
+            + "\nPlease try deadline <description> /by <time> or event <description> /at <time>";
+    private static final String ERROR_GETTING_TASK = "There was an error in your input! Please try again";
     private static final String SAVE_AT = "(at:";
     private static final String SAVE_BY = "(by:";
     private static final int COUNT_SPACE = 1;
@@ -56,7 +61,6 @@ public class Parser {
 
         //Guard for invalid command format
         if (isInvalid) {
-            System.out.println(command);
             throw new DukeException(ERROR_FORMAT_INVALID);
         }
 
@@ -96,7 +100,7 @@ public class Parser {
                 return new HelpCommand();
             }
         } catch (DukeException dukeE) {
-            System.out.println(ERROR_FORMAT_INVALID);
+            System.out.println(dukeE.getMessage());;
         }
 
         //defaults to help
@@ -126,7 +130,7 @@ public class Parser {
                     getTimeOfEvent(input, false));
             break;
         default:
-            System.out.println("Formatting error!");
+            System.out.println(ERROR_GETTING_TASK);
             break;
         }
         return temp;
@@ -141,12 +145,16 @@ public class Parser {
     public static String getTimeOfEvent(String input, boolean isSavingInput) throws DukeException {
         int startIdx = getTimeStartIdx(input, isSavingInput) + COUNT_SPACE;
         int endIdx = isSavingInput ? input.length() - 1 : input.length();
+
+        if (startIdx >= endIdx) {
+            throw new DukeException(ERROR_MISSING_TIME);
+        }
+
         String timeOfEvent = input.substring(startIdx, endIdx);
         return timeOfEvent;
-
     }
 
-    private static int getTimeStartIdx(String input, boolean isSavingInput) throws DukeException {
+    private static int getTimeStartIdx(String input, boolean isSavingInput) {
         String[] words = input.split(SPACING);
         // Accounting for space and semicolon
         int startIdx = isSavingInput ? 1 : 0;
@@ -178,7 +186,7 @@ public class Parser {
         int endIdx = getDescEndIdx(words, spaceCount);
 
         if (startIdx >= endIdx ) {
-            throw new DukeException("Missing description");
+            throw new DukeException(ERROR_MISSING_DESCRIPTION);
         }
 
         return input.substring(startIdx, endIdx);

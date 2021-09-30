@@ -9,6 +9,7 @@ import duke.utilities.Ui;
 public class DeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "deadline";
+    public static final String COMMAND_WORD_HELP = "deadline <description> /by <time>";
 
     public DeadlineCommand() {
     }

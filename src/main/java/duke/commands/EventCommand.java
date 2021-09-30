@@ -9,6 +9,7 @@ import duke.utilities.Ui;
 public class EventCommand extends Command {
 
     public static final String COMMAND_WORD = "event";
+    public static final String COMMAND_WORD_HELP = "event <description> /at <time>";
 
     public EventCommand() {
     }

@@ -1,7 +1,5 @@
 package duke.commands;
 
-import duke.Duke;
-import duke.task.Task;
 import duke.utilities.DukeException;
 import duke.utilities.Storage;
 import duke.utilities.TaskList;
@@ -10,6 +8,7 @@ import duke.utilities.Ui;
 public class ToDoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
+    public static final String COMMAND_WORD_HELP = "todo <description>";
 
     public ToDoCommand() {
     }

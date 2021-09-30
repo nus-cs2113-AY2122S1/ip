@@ -9,6 +9,7 @@ import duke.utilities.Ui;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD_HELP = "delete <task_number>";
 
     public DeleteCommand() {
     }

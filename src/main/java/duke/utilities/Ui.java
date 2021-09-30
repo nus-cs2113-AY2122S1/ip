@@ -104,9 +104,9 @@ public class Ui {
      */
     public void printHelp() {
         System.out.println("Commands available: ");
-        print(ByeCommand.COMMAND_WORD, DeadlineCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD,
-                DoneCommand.COMMAND_WORD, EventCommand.COMMAND_WORD, FindCommand.COMMAND_WORD,
-                ListCommand.COMMAND_WORD, ToDoCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD);
+        print(ByeCommand.COMMAND_WORD, DeadlineCommand.COMMAND_WORD_HELP, DeleteCommand.COMMAND_WORD_HELP,
+                DoneCommand.COMMAND_WORD_HELP, EventCommand.COMMAND_WORD_HELP, FindCommand.COMMAND_WORD_HELP,
+                ListCommand.COMMAND_WORD, ToDoCommand.COMMAND_WORD_HELP, HelpCommand.COMMAND_WORD);
     }
 
     /**

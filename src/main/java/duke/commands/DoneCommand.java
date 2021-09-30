@@ -8,6 +8,7 @@ import duke.utilities.Ui;
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
+    public static final String COMMAND_WORD_HELP = "done <task_number>";
 
     public DoneCommand() {
     }
