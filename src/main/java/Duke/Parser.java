@@ -11,23 +11,23 @@ public class Parser {
             Command.done(request);
             flag = true;
         }
-        else if(request.contains("delete")){
+        else if(request.contains("delete") && request.length() > 7){
             Command.delete(request);
             flag = true;
         }
-        else if(request.contains("todo")){
+        else if(request.contains("todo") && request.length() > 5){
             Command.todo(request);
             flag = true;
         }
-        else if(request.contains("deadline")){
+        else if(request.contains("deadline") && request.contains("/by")){
             Command.deadline(request);
             flag = true;
         }
-        else if(request.contains("event")){
+        else if(request.contains("event") && request.contains("/at")){
             Command.event(request);
             flag = true;
         }
-        else if(request.contains("find")){
+        else if(request.contains("find") && request.length() > 5){
             Command.find(request);
             flag = true;
         }

@@ -106,15 +106,21 @@ public class Command {
      * @param command A String to store the information of event command.
      */
     public static void find(String command){
-        System.out.println("     Here are the matching tasks in your list:");
         int first = command.indexOf(" ");
+        int sum = 0 ;
         Task now;
-        String item = command.substring(first,command.length());
+        String item = command.substring(first+1,command.length());
         for(int i=0; i<taskSum; i++) {
             now = tasks.get(i);
             if (now.toString().contains(item)) {
-                System.out.println("     " + (i + 1) + "." + now.toString());
+                if(sum == 0){
+                    System.out.println("     Here are the matching tasks in your list:");
+                }
+                System.out.println("     " + (++sum) + "." + now.toString());
             }
+        }
+        if(sum == 0){
+            System.out.println("     Here are no matching tasks in your list:");
         }
     }
 
