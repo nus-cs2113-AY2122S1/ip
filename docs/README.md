@@ -8,13 +8,13 @@ task managing apps.
 
 ## Quick Start
 
-<p> 1. Ensure that you have `Java 11` or above installed in your computer. <br />
-2. Download the latest `duke.jar` from [here](). <br />
-3. Copy the jar file to the folder where you want to run Duke in. <br />
-4. Open your terminal app and make sure that you are in the same working directory as your duke file. <br />
-5. At the folder where you saved the jar file, run the command `java -jar duke.jar` in your terminal app. <br />
-6. In the case where Duke runs successfully, you should see the following output. <br />
-</p>
+1. Ensure that you have `Java 11` or above installed in your computer.
+2. Download the latest `duke.jar` from [here]().
+3. Copy the jar file to the folder where you want to run Duke in.
+4. Open your terminal app and make sure that you are in the same working directory as your duke file.
+5. At the folder where you saved the jar file, run the command `java -jar duke.jar` in your terminal app.
+6. In the case where Duke runs successfully, you should see the following output.
+
 
 ```
     ____        _        
@@ -27,11 +27,10 @@ task managing apps.
         What can I do for you?
     ____________________________________________________________
 ```
-<p>
-7. Type your command in the blank line under the horizontal separator and press Enter to execute it. 
-(Ex. typing `list` and pressing Enter will display your current task list.) <br />
+
+7. Type your command in the blank line under the horizontal separator and press Enter to execute it.  
+    (Ex. typing `list` and pressing Enter will display your current task list.)
 8. Refer to the features section below for details on each command.
-</p>
 
 ---
 
@@ -55,8 +54,8 @@ task managing apps.
 - Items with `...` after them can be used more than once.
     - For example: `done INDEX...` means `done 1 2 3` is a valid command.
 
-### Feature List
-- [Adding Todo Task: `todo`](#todo-adding-a-todo-task)
+### Feature List:
+- [Adding Todo Task: `todo`](#todo---adding-a-todo-task)
 - [Adding Deadline Task: `deadline`](#deadline---adding-a-deadline-task)
 - [Adding Event Task: `event`](#event---adding-an-event-task)
 - [Listing all tasks: `list`](#list---listing-all-tasks)  
@@ -69,7 +68,7 @@ task managing apps.
 
 ---
 
-### `todo`: Adding a Todo Task
+## `todo` - Adding a Todo Task
 
 Adds a task of type `Todo` into your task list.  
   
@@ -88,7 +87,7 @@ When added successfully, you should see the following message:
 
 ---
 
-### `deadline` - Adding a Deadline Task
+## `deadline` - Adding a Deadline Task
 Adds a task of type `Deadline` into your task list.
   
 Format: `deadline TASK_NAME /by DATE_TIME`
@@ -106,7 +105,7 @@ When added successfully, you should see the following message:
 
 ---
 
-### `event` - Adding an Event Task
+## `event` - Adding an Event Task
 Adds a task of type `Event` into your task list.
 
 Format: `event TASK_NAME /at DATE_TIME`
@@ -124,7 +123,7 @@ When added successfully, you should see the following message:
 
 ---
 
-### `list` - Listing all tasks
+## `list` - Listing all tasks
 Lists all the tasks in your current task list.
   
 Format: `list`
@@ -145,7 +144,7 @@ When successful, you should see the following message:
 
 ---
 
-### `done` - Setting tasks as done
+## `done` - Setting tasks as done
   
 Set status of indexes of tasks specified as done.
   
@@ -166,7 +165,7 @@ When successful, you should see the following message:
 
 ---
 
-### `find` - Finding tasks by keyword
+## `find` - Finding tasks by keyword
 Finds and displays all the tasks having the keyword in their names.
   
 Format: `find KEYWORD`
@@ -186,7 +185,7 @@ When successful, you should see the following message:
 
 ---
 
-### `delete` - Deleting tasks
+## `delete` - Deleting tasks
 Delete indexes of tasks specified by the user.
   
 Format: `delete INDEX...`
@@ -206,7 +205,7 @@ When successful, you should see the following message:
 
 ---
 
-### `bye` - Exiting the program
+## `bye` - Exiting the program
 Exits the program.
   
 Format: `bye`
@@ -222,13 +221,13 @@ When successful, you should see the following message:
 
 ---
 
-### Saving the data
+## Saving the data
 Duke saves all the task data into a text file automatically after any command performed.  
 There is no need to save data manually.
 
 ---
 
-### Editing the data text file
+## Editing the data text file
 Duke saves the task data into a text file `JAR_FILE_LOCATION/data/savedTasks.txt`. Although not recommended, you can
 manually change the data in the text file.  
 
