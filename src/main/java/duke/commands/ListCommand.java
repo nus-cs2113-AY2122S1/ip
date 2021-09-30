@@ -14,7 +14,7 @@ public class ListCommand extends Command {
 
     @Override
     public String execute(TaskList tasks) {
-        // Returns the list of tasks (numbered) together with their status icons
+        // Returns the list of tasks (numbered) together with their information
         final String[] formattedTasks = new String[tasks.getSize()];
         for (int i = 0; i < tasks.getSize(); i++) {
             formattedTasks[i] = Ui.formatTaskForTaskList(i + 1, tasks.getTask(i));

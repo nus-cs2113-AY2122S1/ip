@@ -19,12 +19,14 @@ import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.ToDoCommand;
 
+// Code below inspired by
+// https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/parser/Parser.java
+
 /**
  * Parses user input.
  */
 public class Parser {
-    // Code below inspired by
-    // https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/parser/Parser.java
+    // Capturing group variables store the name of the named capturing group.
     private static final String CAPTURING_GROUP_COMMAND = "command";
     private static final String CAPTURING_GROUP_ARGS = "args";
     /** Used for initial separation of command word and args. */
@@ -32,11 +34,20 @@ public class Parser {
             "(?<" + CAPTURING_GROUP_COMMAND + ">\\S+)"
                     + "(?<" + CAPTURING_GROUP_ARGS + ">.*)");
 
+    /** Name of the capturing group for task description. */
     public static final String CAPTURING_GROUP_DESCRIPTION = "description";
+    /** Delimiter used to indicate that the subsequent arg specifies the {@code by} deadline of a deadline task. */
     public static final String DELIMITER_BY = "/by";
+    /** Delimiter used to indicate that the subsequent arg specifies the {@code at} datetime of an event. */
     public static final String DELIMITER_AT = "/at";
+    /** Name of the capturing group for the {@code by} deadline of a deadline task. */
     public static final String CAPTURING_GROUP_BY = "by";
+    /** Name of the capturing group for the {@code at} datetime of an event. */
     public static final String CAPTURING_GROUP_AT = "at";
+    /**
+     * Used for separation of task description and other optional parameters (e.g. {@code by} for deadline, {@code at}
+     * for events).
+     */
     public static final Pattern TASK_ARGS_FORMAT = Pattern.compile(
             "(?<" + CAPTURING_GROUP_DESCRIPTION + ">[^/]+)"
                     + "( " + DELIMITER_BY + " (?<" + CAPTURING_GROUP_BY + ">[^/]+))?"
@@ -100,6 +111,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the ToDo command ({@link ToDoCommand}).
+     *
+     * @param args Args string containing information about the task.
+     * @return The prepared command.
+     * @throws DukeException If the arguments are of an invalid format (e.g. if the description is missing).
+     */
     private static Command prepareToDo(String args) throws DukeException {
         final Matcher matcher;
         try {
@@ -114,6 +132,14 @@ public class Parser {
         return new ToDoCommand(description);
     }
 
+    /**
+     * Parses arguments in the context of the Deadline command ({@link DeadlineCommand}).
+     *
+     * @param args Args string containing information about the task.
+     * @return The prepared command.
+     * @throws DukeException If the arguments are of an invalid format (e.g. if the description or deadline is
+     *         missing).
+     */
     private static Command prepareDeadline(String args) throws DukeException {
         final Matcher matcher = parseTask(args);
         final String description = matcher.group(CAPTURING_GROUP_DESCRIPTION);
@@ -124,6 +150,14 @@ public class Parser {
         return new DeadlineCommand(description, parseDateTime(by.trim()));
     }
 
+    /**
+     * Parses arguments in the context of the Event command ({@link EventCommand}).
+     *
+     * @param args Args string containing information about the task.
+     * @return The prepared command.
+     * @throws DukeException If the arguments are of an invalid format (e.g. if the description or datetime is
+     *         missing).
+     */
     private static Command prepareEvent(String args) throws DukeException {
         final Matcher matcher = parseTask(args);
         final String description = matcher.group(CAPTURING_GROUP_DESCRIPTION);
@@ -150,6 +184,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses task arguments string.
+     *
+     * @param args Args string containing information about the task.
+     * @return Matcher object that matches the task args string according to the specified format.
+     * @throws DukeException If the task args string does not match the specified format.
+     */
     private static Matcher parseTask(String args) throws DukeException {
         final Matcher matcher = TASK_ARGS_FORMAT.matcher(args);
         if (!matcher.matches()) {
@@ -173,6 +214,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles unrecognised commands by throwing an exception together with a descriptive message of the error.
+     *
+     * @throws DukeException Always thrown.
+     */
     private static Command handleUnrecognisedCommand() throws DukeException {
         throw new DukeException(MESSAGE_UNRECOGNISED_COMMAND);
     }
