@@ -1,11 +1,14 @@
 # Duke User Guide
+
 Duke is a Command Line Interface program that let users keep track of their tasks.
 
 ## Quick Start
+
 1. Ensure Java `11` is installed.
 2. Download [IP.jar](https://github.com/kum-wh/ip/releases).
 3. Navigate to file path in terminal.
 4. To launch **Duke**, enter `java -jar IP.jar`.
+
 ## Command List
 
 Command | Use
@@ -486,6 +489,7 @@ _______________.___.___________
  |________// ______|/_________/
 ```
 ## Storage
+
 Duke saves all tasks into a text file `duke.txt` automatically.
 
-** Do Not manually edit the text file as that might corrupt the data and crash the program.**
+**Do Not manually edit the text file as that might corrupt the data and crash the program.**
