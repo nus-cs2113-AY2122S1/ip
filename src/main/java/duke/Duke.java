@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -10,7 +12,7 @@ public class Duke {
         String dotsBreaker = "......................................................................";
         System.out.println("Hello from\n" + logo);
         System.out.println(dotsBreaker);
-        System.out.println("Hi! I'm Duke.\n" + "How can I help make your life easier?");
+        System.out.println("Hi! I'm duke.Duke.\n" + "How can I help make your life easier?");
         System.out.println(dotsBreaker);
         Scanner in = new Scanner(System.in);
         String lineIn = "";
@@ -30,14 +32,14 @@ public class Duke {
                     try {
                         doneTask(listIn, lineInput);
                     } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
-                        System.out.println("OOPS!!! The index of the task that you entered does not exist:(" + dotsBreaker);
+                        System.out.println("OOPS!!! The index of the duke.task that you entered does not exist:(" + dotsBreaker);
                     }
                 } else if (lineInput[0].equals("event") || lineInput[0].equals("deadline") || lineInput[0].equals("todo")) {
                     try {
                         recordTask(listIn, lineIn, totalNumber, lineInput[0]);
                         totalNumber++;
                     } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("OOPS!!! The name of the task that you entered is empty:(" + dotsBreaker);
+                        System.out.println("OOPS!!! The name of the duke.task that you entered is empty:(" + dotsBreaker);
                     }
                 } else {
                     throw new DukeException("OOPS!!! Sorry, but I do not understand:(\n" + dotsBreaker);
@@ -63,7 +65,7 @@ public class Duke {
         String dotsBreaker = "......................................................................";
         int inputIndex = Integer.parseInt(lineInput[1]) - 1;
         listIn[inputIndex].markAsDone();
-        System.out.println("Wonderful! This task is now marked as done:");
+        System.out.println("Wonderful! This duke.task is now marked as done:");
         System.out.println(listIn[inputIndex].toString());
         System.out.println(dotsBreaker);
     }
@@ -75,7 +77,7 @@ public class Duke {
             if (lineInput.length() < 9) {
                 throw new DukeException("The description of the event is too short! Please enter again.\n" + dotsBreaker);
             }
-            System.out.println("Got it. I've added this task:");
+            System.out.println("Got it. I've added this duke.task:");
             String eventName = lineInput.substring(6, breakPoint);
             String eventTime = lineInput.substring(breakPoint + 3);
             listIn[totalNumber] = new Event(eventName, eventTime);
@@ -84,13 +86,13 @@ public class Duke {
             if (lineInput.length() < 12) {
                 throw new DukeException("The description of the deadline is too short! Please enter again.\n" + dotsBreaker);
             }
-            System.out.println("Got it. I've added this task:");
+            System.out.println("Got it. I've added this duke.task:");
             String deadlineName = lineInput.substring(9, breakPoint);
             String deadlineTime = lineInput.substring(breakPoint + 3);
             listIn[totalNumber] = new Deadline(deadlineName, deadlineTime);
         } else {
             String todoName = lineInput.substring(5);
-            System.out.println("Got it. I've added this task:");
+            System.out.println("Got it. I've added this duke.task:");
             listIn[totalNumber] = new ToDo(todoName);
         }
         System.out.println(listIn[totalNumber].toString());
