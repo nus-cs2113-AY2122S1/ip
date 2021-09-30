@@ -8,14 +8,17 @@ import java.util.stream.Collectors;
 public class TaskList {
 
     private final String SPACING = " ";
-    private final String MESSAGE_TASK_ADDED = "Added task:\n    ";
     private final String ERROR_WRONG_FIND_FORMAT = "Find format wrong!"
             + "\nPlease key in only 1 keyword after the command \"find\"";
-    private final String PRINT_REMOVE_MESSAGE = "Task removed :\n    ";
+
+    private final String MESSAGE_TASK_ADDED = "Added task:\n    ";
+    private final String MESSAGE_USE_INT = "Please key in a number instead pls :(";
     private final String MESSAGE_OUT_OF_RANGE = "No such task found! Try a range of 1 to ";
+    private final String MESSAGE_NO_TASKS = "There are no tasks yet. Please add a task first.";
+
     private final String PRINT_DONE_MESSAGE_FRONT = "I have marked\n     ";
     private final String PRINT_DONE_MESSAGE_BACK = "\nas done!";
-
+    private final String PRINT_REMOVE_MESSAGE = "Task removed :\n    ";
 
     private ArrayList<Task> tasks = new ArrayList<>();
 
@@ -93,9 +96,13 @@ public class TaskList {
             tasks.set(taskIdx, temp);
             System.out.println(PRINT_DONE_MESSAGE_FRONT + temp + PRINT_DONE_MESSAGE_BACK);
         } catch (IndexOutOfBoundsException e) {
-            ui.print(MESSAGE_OUT_OF_RANGE + tasks.size());
+            if (tasks.size() == 0) {
+                ui.print(MESSAGE_NO_TASKS);
+            } else {
+                ui.print(MESSAGE_OUT_OF_RANGE + tasks.size());
+            }
         } catch (NumberFormatException e) {
-            ui.print("Please key in a number instead pls :(");
+            ui.print(MESSAGE_USE_INT);
         }
     }
 

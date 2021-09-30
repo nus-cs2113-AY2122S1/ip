@@ -19,10 +19,12 @@ public class Parser {
     private static final String ENTRY_BY = "/by";
     private static final String SPACING = " ";
     private static final String ERROR_FORMAT_INVALID = "Command format is invalid. Please try again.";
-    private static final String ERROR_MISSING_DESCRIPTION = "Description is missing from the task!"
-            + "\nPlease try deadline <description> /by <time> or event <description> /at <time>";
-    private static final String ERROR_MISSING_TIME = "Time is missing from the task!"
-            + "\nPlease try deadline <description> /by <time> or event <description> /at <time>";
+    private static final String ERROR_MISSING_DESCRIPTION = "Description is missing from the task!\n"
+            + "\nPlease try: \ndeadline <description> /by <time> \nor\nevent <description> /at <time>";
+    private static final String ERROR_MISSING_TIME_E = "Time is missing from the event!\n"
+            + "\nPlease try: \nevent <description> /at <time>";
+    private static final String ERROR_MISSING_TIME_D = "Time is missing from the deadline!\n"
+            + "\nPlease try: \ndeadline <description> /by <time>";
     private static final String ERROR_GETTING_TASK = "There was an error in your input! Please try again";
     private static final String SAVE_AT = "(at:";
     private static final String SAVE_BY = "(by:";
@@ -127,7 +129,7 @@ public class Parser {
             break;
         case "D":
             temp = new Deadline(getDescription(input, false),
-                    getTimeOfEvent(input, false));
+                    getTimeOfDeadline(input, false));
             break;
         default:
             System.out.println(ERROR_GETTING_TASK);
@@ -137,30 +139,70 @@ public class Parser {
     }
 
     /**
-     * Scans for the event time/due date of deadline of task
+     * Retrieves the time of event for an event. It will throw DukeException
+     * if the input is of an invalid command format.
      *
-     * @param input input of user
-     * @return either the due date of deadline or event time
+     * @param input of the user
+     * @param isSavingInput for saving purposes
+     * @return
+     * @throws DukeException If /at is not found in the event task
      */
     public static String getTimeOfEvent(String input, boolean isSavingInput) throws DukeException {
-        int startIdx = getTimeStartIdx(input, isSavingInput) + COUNT_SPACE;
+        int startIdx = getAtStartIdx(input, isSavingInput) + COUNT_SPACE;
         int endIdx = isSavingInput ? input.length() - 1 : input.length();
 
         if (startIdx >= endIdx) {
-            throw new DukeException(ERROR_MISSING_TIME);
+            throw new DukeException(ERROR_MISSING_TIME_E);
         }
 
         String timeOfEvent = input.substring(startIdx, endIdx);
         return timeOfEvent;
     }
 
-    private static int getTimeStartIdx(String input, boolean isSavingInput) {
+    private static int getAtStartIdx(String input, boolean isSavingInput) {
         String[] words = input.split(SPACING);
         // Accounting for space and semicolon
         int startIdx = isSavingInput ? 1 : 0;
 
         for (String word : words) {
-            if (checkAtEntry(word) || checkByEntry(word)) {
+            if (checkAtEntry(word)) {
+                startIdx += ENTRY_AT.length();
+                break;
+            }
+            startIdx += word.length() + COUNT_SPACE;
+        }
+
+        return startIdx;
+    }
+
+    /**
+     * Retrieves the time of event for a deadline. It will throw DukeException
+     * if the input is of an invalid command format
+     *
+     * @param input of the user
+     * @param isSavingInput for saving purposes
+     * @return
+     * @throws DukeException If /by is not found in the deadline
+     */
+    public static String getTimeOfDeadline(String input, boolean isSavingInput) throws DukeException {
+        int startIdx = getByStartIdx(input, isSavingInput) + COUNT_SPACE;
+        int endIdx = isSavingInput ? input.length() - COUNT_SPACE : input.length();
+
+        if (startIdx >= endIdx) {
+            throw new DukeException(ERROR_MISSING_TIME_D);
+        }
+
+        String timeOfEvent = input.substring(startIdx, endIdx);
+        return timeOfEvent;
+    }
+
+    private static int getByStartIdx(String input, boolean isSavingInput) {
+        String[] words = input.split(SPACING);
+        // Accounting for space and semicolon
+        int startIdx = isSavingInput ? COUNT_SPACE : 0;
+
+        for (String word : words) {
+            if (checkByEntry(word)) {
                 startIdx += ENTRY_AT.length();
                 break;
             }
@@ -179,29 +221,27 @@ public class Parser {
     public static String getDescription(String input, boolean isSavingFile) throws DukeException {
         String[] words = input.split(SPACING);
 
-        int spaceCount = 1;
-
         // If saving the file, we can start from the start and need not account for the command
-        int startIdx = isSavingFile ? 0 : words[0].length() + spaceCount;
-        int endIdx = getDescEndIdx(words, spaceCount);
+        int startIdx = isSavingFile ? 0 : words[0].length() + COUNT_SPACE;
+        int endIdx = getDescEndIdx(words);
 
-        if (startIdx >= endIdx ) {
+        if (startIdx >= endIdx) {
             throw new DukeException(ERROR_MISSING_DESCRIPTION);
         }
 
         return input.substring(startIdx, endIdx);
     }
 
-    private static int getDescEndIdx(String[] words, int spaceCount) {
+    private static int getDescEndIdx(String[] words) {
         int endIdx = 0;
         for (String word : words) {
             boolean isEndOfDescription = (checkAtEntry(word) || checkByEntry(word));
             if (isEndOfDescription) {
                 break;
             }
-            endIdx += word.length() + spaceCount;
+            endIdx += word.length() + COUNT_SPACE;
         }
-        return endIdx - spaceCount;
+        return endIdx - COUNT_SPACE;
     }
 
     /**
@@ -225,7 +265,7 @@ public class Parser {
             timeOfEvent = " /at " + getTimeOfEvent(task.toString().substring(8), true);
         } else if (task instanceof Deadline) {
             command = "deadline ";
-            timeOfEvent = " /by " + getTimeOfEvent(task.toString().substring(8), true);
+            timeOfEvent = " /by " + getTimeOfDeadline(task.toString().substring(8), true);
         }
 
         return markDone + command + description + timeOfEvent + System.lineSeparator();

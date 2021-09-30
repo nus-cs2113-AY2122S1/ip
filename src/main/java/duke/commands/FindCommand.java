@@ -8,7 +8,7 @@ import duke.utilities.Ui;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
-    public static final String COMMAND_WORD_HELP = "find <task_number>";
+    public static final String COMMAND_WORD_HELP = "find <keyword>";
 
     public FindCommand() {
     }
