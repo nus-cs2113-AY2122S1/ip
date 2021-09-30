@@ -9,7 +9,7 @@ Graphical User Interface (GUI) applications.
 ## Start Guide
 
 1. Ensure that Java Runtime Environment (JRE) 11 is installed on your system
-2. Download the Duke `ip.jar` file from [here]() to a directory of your choice on your system.
+2. Download the Duke `ip.jar` file from [here](https://github.com/CrimsonTitan79/ip/releases/download/A-Release/ip.jar) to a directory of your choice on your system.
 3. Execute `java -jar ip.jar` in a terminal in the directory chosen previously. The expected output should be:
 
 ```
