@@ -1,0 +1,22 @@
+.box {
+  border: 2px solid #000;
+  border-radius: 10px;
+  margin: 0 auto 15px;
+  padding: 20px;
+  width: 100%;
+}
+
+.notes {
+  background-color: #C7F2FF;
+  border-color: #0C8FCF;
+}
+
+.tip {
+  background-color: #FFF696;
+  border-color: #D4BF02;
+}
+
+.warning {
+  background-color: #FF8D82;
+  border-color: #D42413;
+}
