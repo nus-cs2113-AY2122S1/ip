@@ -53,7 +53,7 @@ public class TaskList {
         } catch (DukeException e) {
             //Catching DukeException errors
         } catch (IOException e) {
-            System.out.print("There is an error in your input master! Please check it out!");
+            Ui.printIOExceptionMessage();
         } catch (DateTimeParseException e) {
             Ui.printDateTimeExceptionMessage();
         }
@@ -179,9 +179,9 @@ public class TaskList {
      */
     public void printListForFindingDate(String dateString) {
         Ui.sayLoadingList();
-        System.out.println("Generating all the tasks that occur on \"" + dateString + "\"...");
-        int i = 1;
         LocalDate date = LocalDate.parse(dateString);
+        System.out.println("Generating all the tasks that occur on \"" + date + "\"...");
+        int i = 1;
         for (Task num : commands) {
             if (num instanceof Event) {
                 if (((Event) num).at.contains(dateString)) {
@@ -246,7 +246,7 @@ public class TaskList {
         System.out.println((doneTaskNumber+1) + ". " + commands.get(doneTaskNumber));
         commands.remove(commands.get(doneTaskNumber));
         positionCheck -= 1;
-        System.out.println("Goodbye Task, may the force be with you. You have " + positionCheck + " task(s) left Master");
+        Ui.sayTaskCount(positionCheck);
         storage.saveAllTasks(commands);
     }
 }

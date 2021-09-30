@@ -67,6 +67,9 @@ public class Ui {
     public static final String MARKED_DONE = "The following task has been marked as done Master!";
     public static final String LOADING = "Accessing archives...";
     public static final String DELETED_TASK = "Taking one last look Master, at this Task. Removing the following from my memory";
+    public static final String TASK_COUNT_MESSAGE_ONE = "Goodbye Task, may the force be with you. You have ";
+    public static final String TASK_COUNT_MESSAGE_TWO = " task(s) left Master";
+
 
     /** To say goodbye to the user before the program terminates */
     public static void sayBye() {
@@ -86,6 +89,11 @@ public class Ui {
     /** To indicate to a user that a task will be deleted */
     public static void sayGoodbyeTask() {
         System.out.println(DELETED_TASK);
+    }
+
+    /** To tell a user how many tasks are left after deleting */
+    public static void sayTaskCount(int positionCheck) {
+        System.out.println(TASK_COUNT_MESSAGE_ONE + positionCheck + TASK_COUNT_MESSAGE_TWO);
     }
 
     /** To indicate that their tasks will be shown soon */
