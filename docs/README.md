@@ -165,7 +165,7 @@ Duke saves your task list from the usage into your local storage as a text file.
 Upon reinitialization, it reloads that file, so you access previously added tasks
 
 --------------------------
-##Command Summary
+## Command Summary
 
 Action | Format/Examples |
 ------ | --------------- |
