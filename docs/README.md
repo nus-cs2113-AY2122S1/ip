@@ -5,12 +5,14 @@ efficient if you can type fast, and can be even faster than traditional Graphica
 task managing apps.
 ---
 ## Quick Start
-1. Ensure that you have `Java 11` or above installed in your computer.
-2. Download the latest `duke.jar` from [here]().
-3. Copy the jar file to the folder where you want to run Duke in.
-4. Open your terminal app and make sure that you are in the same working directory as your duke file.
-5. At the folder where you saved the jar file, run the command `java -jar duke.jar` in your terminal app.
-6. In the case where Duke runs successfully, you should see the following output.
+
+<p> 1. Ensure that you have `Java 11` or above installed in your computer. <br />
+2. Download the latest `duke.jar` from [here](). <br />
+3. Copy the jar file to the folder where you want to run Duke in. <br />
+4. Open your terminal app and make sure that you are in the same working directory as your duke file. <br />
+5. At the folder where you saved the jar file, run the command `java -jar duke.jar` in your terminal app. <br />
+6. In the case where Duke runs successfully, you should see the following output. <br />
+</p>
 
 ```
     ____        _        
@@ -22,13 +24,15 @@ task managing apps.
         Hello! I'm Duke
         What can I do for you?
     ____________________________________________________________
-    
 ```
+<p>
+7. Type your command in the blank line under the horizontal separator and press Enter to execute it. 
+(Ex. typing `list` and pressing Enter will display your current task list.) <br />
+8. Refer to the <a href="#Features">Features</a> section below for details on each command.
+</p>
 
-7. Type your command in the blank line under the horizontal separator and press Enter to execute it.
-   (Ex. typing `list` and pressing Enter will display your current task list.)
-8. Refer to the [Features](#Features) section below for details on each command.
 ---
+<h2 id="features">Features</h2>
 ## Features
 
 ### Notes about the command format:
