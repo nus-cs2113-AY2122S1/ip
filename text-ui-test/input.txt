@@ -1,0 +1,9 @@
+todo read book
+deadline return book /by June 6th
+done
+done 1
+list
+delete 2
+list
+bleh
+bye
