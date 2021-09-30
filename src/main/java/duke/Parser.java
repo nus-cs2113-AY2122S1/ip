@@ -9,7 +9,7 @@ public class Parser {
     private static final String FIRST_ARGUMENT_REGEX = "^%s\\s*";
 
     /**
-     * Takes in a String and returns a String Array split between all whitespace.
+     * Returns a String Array of <code>message</code> split between all whitespace.
      *
      * @param message String to be split.
      * @return String Array of split message.
@@ -19,7 +19,7 @@ public class Parser {
     }
 
     /**
-     * Takes in a String and returns a String Array split between all '|' characters.
+     * Returns a String Array of <code>message</code> split between all '|' characters.
      *
      * @param message String to be split.
      * @return String Array of split message.
@@ -29,7 +29,7 @@ public class Parser {
     }
 
     /**
-     * Takes in a String and returns a String of the first String after having split them by whitespace.
+     * Returns a String of the first String in <code>message</code> after having split them by whitespace.
      *
      * @param message String to have first String extracted from.
      * @return first String before whitespace.
@@ -39,10 +39,10 @@ public class Parser {
     }
 
     /**
-     * Takes in a String and returns a String of everything after the first string and trailing whitespace.
+     * Returns a String of everything after the first string and trailing whitespace in <code>message</code>.
      *
      * @param message String to have first String extracted out.
-     * @return Everything after the first string and trailing whitespace
+     * @return String of all characters after the first string and trailing whitespace.
      */
     public static String removeFirstArgument(String message) {
         String[] userInputSplit = splitWhitespace(message);
@@ -50,12 +50,13 @@ public class Parser {
     }
 
     /**
+     * Returns Array of Strings that have been split bu the <code>split</code> string including whitespace.
      * Takes in a user input and split String. Splits the user input based on the <code>split</code> String
      * along with any whitespace before and after the split. returns the split Array.
      *
      * @param userInput String to be split.
      * @param split     What to use to split user input String.
-     * @return Array of Strings that have been split bu the <code>split</code> string including whitespace.
+     * @return Array of Strings split by <code>split</code> and whitespace.
      */
     public static String[] splitOnArgument(String userInput, String split) {
         return userInput.split(WHITESPACE_REGEX + split + WHITESPACE_REGEX);

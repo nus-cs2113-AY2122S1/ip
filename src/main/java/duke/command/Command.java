@@ -21,7 +21,7 @@ public abstract class Command {
     }
 
     /**
-     * Returns usage message
+     * Returns usage message.
      *
      * @return the usage message followed by the name of the command and anything to be appended after in <code>usage</code>.
      */
@@ -30,17 +30,17 @@ public abstract class Command {
     }
 
     /**
-     * Returns boolean on whether the command argument is valid
+     * Returns boolean on whether the command argument is valid.
      *
      * @return boolean command is valid
      */
     abstract boolean isValid();
 
     /**
-     * Code to be executed by function. Returns a boolean
-     * on whether the program should continue running.
+     * Returns a boolean on whether the program should continue running
+     * after executing the code for the respective command.
      *
-     * @return boolean, program should continue running
+     * @return boolean, program should continue running.
      */
     abstract boolean execute();
 

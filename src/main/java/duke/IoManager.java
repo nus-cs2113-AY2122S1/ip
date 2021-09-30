@@ -35,9 +35,8 @@ public class IoManager {
     public static final String OVERWRITE_IO_EXCEPTION_MESSAGE = "Unable to Write to save file, IO exception encountered.";
 
     /**
-     * Initialises the save file.
-     * if a new save file needs to be created, create one and inform the user,
-     * else it attempts to load the save file.
+     * Initialises the save file. If a new save file needs to be created,
+     * create one and inform the user. Else it attempts to load the save file.
      */
     public static boolean initialiseSaveFile() {
         try {
@@ -83,7 +82,7 @@ public class IoManager {
     }
 
     /**
-     * Overwrites the contents of the save file (does not append, overwrites everything!)
+     * Overwrites the contents of the save file (does not append).
      *
      * @param toWrite the whole String that would be used to overwrite the current contents in the save file
      */

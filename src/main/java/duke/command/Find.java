@@ -13,14 +13,15 @@ public class Find extends Command {
     }
 
     /**
-     * Command is valid when argument is not empty
+     * Returns boolean on whether the argument is not empty
      */
     boolean isValid() {
         return argument.length() != 0;
     }
 
     /**
-     * passes the argument to TaskManager for finding the tasks with description.
+     * Returns <code>true</code>
+     * Passes the argument to TaskManager for finding the tasks with description.
      *
      * @return true
      */

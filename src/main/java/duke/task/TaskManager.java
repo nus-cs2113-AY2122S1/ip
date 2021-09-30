@@ -30,7 +30,7 @@ public class TaskManager {
     private static ArrayList<Task> tasks = new ArrayList<>(MAX_TASKS);
 
     /**
-     * A class to be passed into {@link duke.task.TaskManager.runTasks} to allow lambda code to be executed
+     * An interface to be passed into {@link duke.task.TaskManager.runTasks} to allow lambda code to be executed.
      */
     private interface Lambda {
         void execute();
@@ -88,7 +88,7 @@ public class TaskManager {
     }
 
     /**
-     * Gets the task type based off of the first string in user input.
+     * Returns the task type based off of the first string in user input.
      *
      * @param userInput user input of user to console
      * @return Task type entered by user
@@ -99,7 +99,7 @@ public class TaskManager {
     }
 
     /**
-     * Gets the arguments (strings after the first argument) entered by user.
+     * Returns the arguments (strings after the first argument) entered by user.
      *
      * @param userInput user input of user to console
      * @return Arguments after first command and trailing whitespace
@@ -117,7 +117,7 @@ public class TaskManager {
     }
 
     /**
-     * User input handler for creation of new tasks.
+     * Creates new <code>Task</code> with user input.
      * Gets the user input, passes it to the appropriate functions for parsing
      * and calls the appropriate function to insert new task, <code>Todo()</code>
      * constructor for todo and <code>newTimedTask()</code> for creating a timed task
@@ -149,7 +149,7 @@ public class TaskManager {
     }
 
     /**
-     * Gets the task type based off the loaded file from the save file.
+     * Returns the task type based off the loaded file from the save file.
      *
      * @param loadedTaskSplit a single loaded task that has been split by the separator used in save file.
      * @return Task type in save file for respective task.
@@ -166,7 +166,7 @@ public class TaskManager {
     }
 
     /**
-     * Creates and returns the Task with the String[] from the
+     * Returns the created Task with the String[] from the
      * respective {@link duke.task.Type} that matches task class.
      *
      * @param taskType        Task {@link duke.task.Type} that matches task class.
@@ -187,6 +187,7 @@ public class TaskManager {
     }
 
     /**
+     * Creates and adds Tasks from save file.
      * For all the tasks in the save file, this functions split them and passes them into
      * {@link #getTaskTypeFromLoadedTask(String[])} to get task type.
      * With task type, it will add the respective task to {@link #tasks}ArrayList
@@ -207,7 +208,7 @@ public class TaskManager {
 
     /**
      * Creates the string to be written to save file
-     * for saving all modified tasks and calls
+     * for saving all modified tasks and calls.
      * {@link duke.IoManager#overwriteFile(String)}.
      */
     public static void saveTasks() {
@@ -231,14 +232,14 @@ public class TaskManager {
     }
 
     /**
-     * prints all current tasks in {@link #tasks} ArrayList
+     * Prints all current tasks in {@link #tasks} ArrayList.
      */
     public static void printTasks() {
         printTasks("", tasks);
     }
 
     /**
-     * prints all current tasks in ArrayList that is passed in as
+     * Prints all current tasks in ArrayList that is passed in as
      * an argument with <code>message</code> appended in front.
      *
      * @param message      message to be appended in front of tasks to be printed.
@@ -260,7 +261,7 @@ public class TaskManager {
     }
 
     /**
-     * prints tasks found to have the description
+     * Prints tasks found to have the description.
      *
      * @param description description of tasks to be printed from {@link #tasks} ArrayList.
      */

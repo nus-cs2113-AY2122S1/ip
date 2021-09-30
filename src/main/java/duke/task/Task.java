@@ -56,7 +56,7 @@ public class Task {
     }
 
     /**
-     * set the <code>isDone</code> boolean value of the task to <code>true</code>.
+     * Sets the <code>isDone</code> boolean value of the task to <code>true</code>.
      * and print the task done message.
      */
     void markAsDone() {
@@ -66,7 +66,7 @@ public class Task {
 
 
     /**
-     * Get the string for printing in the specified format of {@link #TO_STRING_REGEX}
+     * Returns the string for printing in the specified format of {@link #TO_STRING_REGEX}
      */
     @Override
     public String toString() {
@@ -75,7 +75,7 @@ public class Task {
 
 
     /**
-     * get the formatted string to be used in the save file in
+     * Returns the formatted string to be used in the save file in
      * the specified format of {@link #SAVE_FILE_FORMAT}
      */
     String getFormattedString() {

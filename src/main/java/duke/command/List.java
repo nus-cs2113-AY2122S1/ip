@@ -12,14 +12,15 @@ public class List extends Command {
     }
 
     /**
-     * Command is valid when argument is empty
+     * Returns boolean on whether the argument is empty.
      */
     boolean isValid() {
         return argument.length() == 0;
     }
 
     /**
-     * passes the argument to TaskManager for listing the tasks.
+     * Returns <code>true</code>
+     * Passes the argument to TaskManager for listing the tasks.
      *
      * @return true
      */

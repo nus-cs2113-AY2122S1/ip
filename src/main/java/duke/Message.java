@@ -14,7 +14,7 @@ public class Message {
     private static final String SPACER = "____________________________________________________________\n";
 
     /**
-     * Takes in a string and prints it in-between two lines of {@link #SPACER}.
+     * Prints <code>message</code> in-between two lines of {@link #SPACER}.
      *
      * @param message String to print encapsulated in spacers.
      */

@@ -6,9 +6,9 @@ import java.util.Scanner;
 /**
  * Main class that is started on project run.
  * Prints welcome message and enters a loop
- * that passes user input to <code>CommandManager</code> using a static Scanner <code>IN</code>.
- * if {@link duke.command.CommandManager#handleCommand(String)} function returns false then close scanner
- * and print exit message.
+ * that passes user input to {@link duke.command.CommandManager}.
+ * If {@link duke.command.CommandManager#handleCommand(String)} function returns false
+ * then the program will stop running.
  */
 public class Duke {
 

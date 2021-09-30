@@ -13,7 +13,7 @@ public class Delete extends Command {
     }
 
     /**
-     * Command is valid when argument is an integer
+     * Returns boolean on whether the command argument is an integer.
      */
     boolean isValid() {
         return Utility.isInteger(argument);
@@ -21,7 +21,8 @@ public class Delete extends Command {
 
 
     /**
-     * parses argument to integer and then passes the job of deletion to TaskManager
+     * Returns <code>true</code>.
+     * Parses argument to integer and then passes the job of deletion to TaskManager.
      *
      * @return true
      */

@@ -43,8 +43,8 @@ abstract class TimedTask extends Task {
     }
 
     /**
-     * Helper function to split the arguments.
-     * Uses the task type enum to get the preposition (by or at) to split the <code>argumentString</code>.
+     * Returns the split arguments using the task type enum to get
+     * the preposition (by or at) to split the <code>argumentString</code>.
      *
      * @param taskType       enum that corresponds to task.
      * @param argumentString argument to be split.
@@ -61,8 +61,7 @@ abstract class TimedTask extends Task {
     }
 
     /**
-     * Creates and uses the task type enum to get the preposition
-     * (by or at) to split the <code>argumentString</code>.
+     * Returns new {@link duke.task.TimedTask} created using the Task type and arguments supplied.
      *
      * @param taskType       enum that corresponds to task
      * @param argumentString argument to be split
@@ -78,7 +77,7 @@ abstract class TimedTask extends Task {
     }
 
     /**
-     * adds the preposition and dateTime to
+     * Adds the preposition and dateTime to
      * the {@link Task#toString()} function in Task.
      */
     @Override
@@ -87,7 +86,7 @@ abstract class TimedTask extends Task {
     }
 
     /**
-     * adds the preposition and dateTime to the
+     * Adds the preposition and dateTime to the
      * {@link Task#getFormattedString()} function in Task.
      */
     @Override

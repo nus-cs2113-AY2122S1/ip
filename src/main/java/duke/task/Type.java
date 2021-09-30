@@ -42,7 +42,7 @@ public enum Type {
     }
 
     /**
-     * Get the type of the class based off ogf the first letter of the <code>task</code> argument.
+     * Returns the type of the class based off ogf the first letter of the <code>task</code> argument.
      *
      * @return {@link duke.task.Type#Type(int, String)} if first letter corresponds to task else return <code>null</code>.
      */

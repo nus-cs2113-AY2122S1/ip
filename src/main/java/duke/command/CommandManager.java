@@ -13,8 +13,8 @@ public class CommandManager {
     private static final String UNKNOWN_COMMAND_MESSAGE = "OOPS!!! I'm sorry, but I don't know what that means :-(";
 
     /**
-     * Takes in a String representing the command and the arguments
-     * and returns the Command object that is to be executed.
+     * Returns the Command object that is to be executed
+     * using the String representing the command and the arguments
      *
      * @param commandString  the string that corresponds to the command that is to be executed
      * @param argumentString all the arguments entered by user after the command in one string
@@ -38,6 +38,7 @@ public class CommandManager {
     }
 
     /**
+     * Returns whether the program should continue running.
      * Takes in a String that the user entered into console and
      * checks whether to pass to {@link duke.task.TaskManager} to create
      * new task or handle the command.

@@ -13,14 +13,15 @@ public class Done extends Command {
     }
 
     /**
-     * Command is valid when argument is an integer
+     * Returns boolean on whether the argument is an integer.
      */
     boolean isValid() {
         return Utility.isInteger(argument);
     }
 
     /**
-     * parses argument to integer and then passes the job of marking the task as done to TaskManager
+     * Returns <code>true</code>.
+     * Parses argument to integer and then passes the job of marking the task as done to TaskManager.
      *
      * @return true
      */
