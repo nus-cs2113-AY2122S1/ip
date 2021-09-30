@@ -19,7 +19,7 @@ public class AddCommand extends Command {
     private static final String MESSAGE_FORMAT_TODO_USAGE = "Usage: %s <description>";
     private static final String MESSAGE_FORMAT_DEADLINE_USAGE = "Usage: %s <description> %s <%s>";
     private static final String MESSAGE_FORMAT_EVENT_USAGE = "Usage: %s <description> %s <%s>";
-    private static final String MESSAGE_FORMAT_INVALID_DATETIME_FORMAT = "Invalid datetime format. Use %s instead.";
+    private static final String MESSAGE_FORMAT_INVALID_DATETIME = "Invalid datetime. Use %s.";
 
     private static final String TASK_DEADLINE_SPLITTER = "/by";
     private static final String TASK_EVENT_SPLITTER = "/at";
@@ -118,7 +118,7 @@ public class AddCommand extends Command {
 
         LocalDateTime byDateTime = Util.getDateTimeFromString(descriptionAndArg[1], Task.DATETIME_FORMAT_INPUT);
         if (byDateTime == null) {
-            throw new DukeException(String.format(MESSAGE_FORMAT_INVALID_DATETIME_FORMAT, Task.DATETIME_FORMAT_INPUT));
+            throw new DukeException(String.format(MESSAGE_FORMAT_INVALID_DATETIME, Task.DATETIME_FORMAT_INPUT));
         }
 
         return new Deadline(descriptionAndArg[0], byDateTime);
@@ -139,7 +139,7 @@ public class AddCommand extends Command {
 
         LocalDateTime atDateTime = Util.getDateTimeFromString(descriptionAndArg[1], Task.DATETIME_FORMAT_INPUT);
         if (atDateTime == null) {
-            throw new DukeException(String.format(MESSAGE_FORMAT_INVALID_DATETIME_FORMAT, Task.DATETIME_FORMAT_INPUT));
+            throw new DukeException(String.format(MESSAGE_FORMAT_INVALID_DATETIME, Task.DATETIME_FORMAT_INPUT));
         }
 
         return new Event(descriptionAndArg[0], atDateTime);

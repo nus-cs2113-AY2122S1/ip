@@ -66,7 +66,7 @@ There are 2 tasks left in the list.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 An exception has occurred:
-Invalid datetime format. Use dd/MM/yyyy HHmm instead.
+Invalid datetime. Use dd/MM/yyyy HHmm.
 ------------------------------------------------------------
 $ ------------------------------------------------------------
 Task List:
