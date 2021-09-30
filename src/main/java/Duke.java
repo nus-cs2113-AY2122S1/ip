@@ -24,17 +24,17 @@ public class Duke {
 
     public void run() {
         ui.printWelcome();
-        ArrayList<String> arrayInput = new ArrayList<>();
+        ArrayList<String> taskName = new ArrayList<>();
         ArrayList<Integer> taskStatus = new ArrayList<>();
         ArrayList<String> output = new ArrayList<>();
         ArrayList<String> taskType = new ArrayList<>();
-        LoadFromText loadFromText = new LoadFromText(file, output, arrayInput, taskStatus, taskType);
+        LoadFromText loadFromText = new LoadFromText(file, output, taskName, taskStatus, taskType);
         output = loadFromText.loadOutput(output);
-        arrayInput = loadFromText.loadArrayInput(arrayInput);
+        taskName = loadFromText.loadTaskName(taskName);
         taskStatus = loadFromText.loadTaskStatus(taskStatus);
         taskType = loadFromText.loadTaskType(taskType);
         Parser parser = new Parser();
-        parser.checkCommand(output, taskStatus, arrayInput, taskType, file);
+        parser.checkCommand(output, taskStatus, taskName, taskType, file);
     }
 
 }

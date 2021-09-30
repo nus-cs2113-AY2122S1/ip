@@ -7,7 +7,7 @@ public class TaskLists {
 
     ArrayList<String> output;
     ArrayList<Integer> taskStatus;
-    ArrayList<String> arrayInput;
+    ArrayList<String> taskName;
     File file;
     ArrayList<String> taskType;
     int inputCount;
@@ -19,11 +19,11 @@ public class TaskLists {
     }
 
     public TaskLists(ArrayList<String> Output, ArrayList<Integer> TaskStatus,
-                     ArrayList<String> ArrayInput, File file1, ArrayList<String> TaskType,
+                     ArrayList<String> TaskName, File file1, ArrayList<String> TaskType,
                      int InputCount, String UserCommand) {
         ArrayList<String> output = new ArrayList<String>(Output);
         ArrayList<Integer> taskStatus = new ArrayList<Integer>(TaskStatus);
-        ArrayList<String> arrayInput = new ArrayList<String>(ArrayInput);
+        ArrayList<String> taskName = new ArrayList<String>(TaskName);
         file = file1;
         ArrayList<String> taskType = new ArrayList<String>(TaskType);
         inputCount = InputCount;
@@ -32,53 +32,53 @@ public class TaskLists {
 
     public ArrayList<String> getUpdateDelete(ArrayList<String> output,
                                              ArrayList<Integer> taskStatus,
-                                             ArrayList<String> arrayInput, File file,
+                                             ArrayList<String> taskName, File file,
                                              ArrayList<String> taskType, int inputCount) {
-        output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
+        output = convertToArrayList(output, taskType, taskStatus, taskName, inputCount);
         saveTasks(file, output);
         return output;
     }
 
     public ArrayList<String> getUpdateEvent(ArrayList<String> output,
                                             ArrayList<Integer> taskStatus,
-                                            ArrayList<String> arrayInput, File file,
+                                            ArrayList<String> taskName, File file,
                                             ArrayList<String> taskType, int inputCount) {
         taskType.add("E");
         taskStatus.add(0);
-        output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
+        output = convertToArrayList(output, taskType, taskStatus, taskName, inputCount);
         saveTasks(file, output);
         return output;
     }
 
     public ArrayList<String> getUpdateDeadline(ArrayList<String> output,
                                                ArrayList<Integer> taskStatus,
-                                               ArrayList<String> arrayInput, File file,
+                                               ArrayList<String> taskName, File file,
                                                ArrayList<String> taskType, int inputCount) {
         taskType.add("D");
         taskStatus.add(0);
-        output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
+        output = convertToArrayList(output, taskType, taskStatus, taskName, inputCount);
         saveTasks(file, output);
         return output;
     }
 
     public ArrayList<String> getUpdateTodo(ArrayList<String> output,
                                            ArrayList<Integer> taskStatus,
-                                           ArrayList<String> arrayInput, File file,
+                                           ArrayList<String> taskName, File file,
                                            ArrayList<String> taskType, int inputCount) {
         taskType.add("T");
         taskStatus.add(0);
-        output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
+        output = convertToArrayList(output, taskType, taskStatus, taskName, inputCount);
         saveTasks(file, output);
         return output;
     }
 
     public ArrayList<String> getUpdateDone(ArrayList<String> output,
                                            ArrayList<Integer> taskStatus,
-                                           ArrayList<String> arrayInput, File file,
+                                           ArrayList<String> taskName, File file,
                                            String userCommand,
                                            ArrayList<String> taskType, int inputCount) {
-        printDone(taskStatus, taskType, arrayInput, userCommand);
-        output = convertToArrayList(output, taskType, taskStatus, arrayInput, inputCount);
+        printDone(taskStatus, taskType, taskName, userCommand);
+        output = convertToArrayList(output, taskType, taskStatus, taskName, inputCount);
         saveTasks(file, output);
         return output;
     }
@@ -168,21 +168,21 @@ public class TaskLists {
     }
 
     public int printDelete(ArrayList<String> taskType, ArrayList<Integer> taskStatus,
-                           ArrayList<String> arrayInput, int inputCount, String userCommand) {
+                           ArrayList<String> taskName, int inputCount, String userCommand) {
         int position = Integer.parseInt(userCommand.substring(7)) - 1;
         System.out.println(ui.LINE);
         System.out.println("Noted. I've removed this task:");
         if (taskStatus.get(position) == 1) {
             System.out.println("  " + "[" + taskType.get(position) + "]"
-                    + "[X] " + arrayInput.get(position));
+                    + "[X] " + taskName.get(position));
         } else {
             System.out.println("  " + "[" + taskType.get(position) + "]"
-                    + "[ ] " + arrayInput.get(position));
+                    + "[ ] " + taskName.get(position));
         }
         inputCount--;
         System.out.println("Now you have " + inputCount + " tasks in the list.");
         System.out.println(ui.LINE);
-        arrayInput.remove(position);
+        taskName.remove(position);
         taskStatus.remove(position);
         taskType.remove(position);
         return inputCount;
@@ -193,7 +193,7 @@ public class TaskLists {
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
-    public int printEvent(ArrayList<String> arrayInput, String userCommand, int inputCount) {
+    public int printEvent(ArrayList<String> taskName, String userCommand, int inputCount) {
         String at;
         int index = userCommand.indexOf("/");
         at = userCommand.substring(index + 1);
@@ -204,13 +204,13 @@ public class TaskLists {
         System.out.println(event);
         System.out.println("Now you have " + inputCount + " tasks in the list.");
         System.out.println(ui.LINE);
-        String taskName = event.description.substring(6, index - 1);
-        String eventName = taskName + " (at: " + at.substring(3) + ")";
-        arrayInput.add(eventName);
+        String task = event.description.substring(6, index - 1);
+        String eventName = task + " (at: " + at.substring(3) + ")";
+        taskName.add(eventName);
         return inputCount;
     }
 
-    public int printDeadline(ArrayList<String> arrayInput, String userCommand, int inputCount) {
+    public int printDeadline(ArrayList<String> taskName, String userCommand, int inputCount) {
         String by;
         int index = userCommand.indexOf("by");
         by = userCommand.substring(index + 3);
@@ -221,13 +221,13 @@ public class TaskLists {
         System.out.println(deadline);
         System.out.println("Now you have " + inputCount + " tasks in the list.");
         System.out.println(ui.LINE);
-        String taskName = deadline.description.substring(9, index - 2);
-        String deadlineName = taskName + " (by: " + by + ")";
-        arrayInput.add(deadlineName);
+        String task = deadline.description.substring(9, index - 2);
+        String deadlineName = task + " (by: " + by + ")";
+        taskName.add(deadlineName);
         return inputCount;
     }
 
-    public int printTodo(ArrayList<String> arrayInput, String userCommand, int inputCount) {
+    public int printTodo(ArrayList<String> taskName, String userCommand, int inputCount) {
         Todo todo = new Todo(userCommand);
         inputCount++;
         System.out.println(ui.LINE);
@@ -236,7 +236,7 @@ public class TaskLists {
         System.out.println("Now you have " + inputCount + " tasks in the list.");
         System.out.println(ui.LINE);
         String todoName = todo.description.substring(5);
-        arrayInput.add(todoName);
+        taskName.add(todoName);
         return inputCount;
     }
 
@@ -247,7 +247,7 @@ public class TaskLists {
     }
 
     public void printDone(ArrayList<Integer> taskStatus, ArrayList<String> taskType,
-                          ArrayList<String> arrayInput, String userCommand) {
+                          ArrayList<String> taskName, String userCommand) {
         char taskID;
         int taskIDInt;
         int len = userCommand.length();
@@ -257,7 +257,7 @@ public class TaskLists {
         System.out.println(ui.LINE);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("	" + "[" + taskType.get(taskIDInt) + "]" +
-                "[X] " + arrayInput.get(taskIDInt));
+                "[X] " + taskName.get(taskIDInt));
         System.out.println(ui.LINE);
     }
 
@@ -280,7 +280,7 @@ public class TaskLists {
     }
 
     public void printList(ArrayList<String> taskType, ArrayList<Integer> taskStatus,
-                          ArrayList<String> arrayInput, int inputCount) {
+                          ArrayList<String> taskName, int inputCount) {
         System.out.println(ui.LINE);
         System.out.println(ui.MESSAGE);
         if (inputCount == 0) {
@@ -289,9 +289,9 @@ public class TaskLists {
         }
         for (int i = 1; i <= inputCount; i++) {
             if (taskStatus.get(i - 1) == 1) {
-                System.out.println(i + ".[" + taskType.get(i - 1) + "]" + "[X] " + arrayInput.get(i - 1));
+                System.out.println(i + ".[" + taskType.get(i - 1) + "]" + "[X] " + taskName.get(i - 1));
             } else {
-                System.out.println(i + ".[" + taskType.get(i - 1) + "]" + "[ ] " + arrayInput.get(i - 1));
+                System.out.println(i + ".[" + taskType.get(i - 1) + "]" + "[ ] " + taskName.get(i - 1));
             }
         }
         System.out.println(ui.LINE);
@@ -299,15 +299,15 @@ public class TaskLists {
 
     public ArrayList<String> convertToArrayList(ArrayList<String> output, ArrayList<String> taskType,
                                                 ArrayList<Integer> taskStatus,
-                                                ArrayList<String> arrayInput, int inputCount) {
+                                                ArrayList<String> taskName, int inputCount) {
         String tempTask;
         output.clear();
         for (int i = 1; i <= inputCount; i++) {
             if (taskStatus.get(i - 1) == 1) {
-                tempTask = i + ".[" + taskType.get(i - 1) + "]" + "[X] " + arrayInput.get(i - 1);
+                tempTask = i + ".[" + taskType.get(i - 1) + "]" + "[X] " + taskName.get(i - 1);
                 output.add(tempTask);
             } else {
-                tempTask = i + ".[" + taskType.get(i - 1) + "]" + "[ ] " + arrayInput.get(i - 1);
+                tempTask = i + ".[" + taskType.get(i - 1) + "]" + "[ ] " + taskName.get(i - 1);
                 output.add(tempTask);
             }
         }

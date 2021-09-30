@@ -6,14 +6,14 @@ public class LoadFromText {
 
     File file;
     ArrayList<String> output;
-    ArrayList<String> arrayInput;
+    ArrayList<String> taskName;
     ArrayList<Integer> taskStatus;
     ArrayList<String> taskType;
 
-    public LoadFromText(File file1, ArrayList<String> Output, ArrayList<String> ArrayInput, ArrayList<Integer> TaskStatus
+    public LoadFromText(File file1, ArrayList<String> Output, ArrayList<String> TaskName, ArrayList<Integer> TaskStatus
             , ArrayList<String> TaskType) {
         ArrayList<String> output = new ArrayList<>(Output);
-        ArrayList<String> arrayInput = new ArrayList<>(ArrayInput);
+        ArrayList<String> taskName = new ArrayList<>(TaskName);
         ArrayList<Integer> taskStatus = new ArrayList<Integer>(TaskStatus);
         ArrayList<String> taskType = new ArrayList<String>(TaskType);
         file = file1;
@@ -32,26 +32,23 @@ public class LoadFromText {
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred, please try again!");
             return null;
-        } catch (IOException e) {
-            System.out.println("An error occurred, please try again!");
-            return null;
         }
     }
 
-    public ArrayList<String> loadArrayInput(ArrayList<String> arrayInput) {
+    public ArrayList<String> loadTaskName(ArrayList<String> taskName) {
         try {
             String st;
             Scanner tasks = new Scanner(file);  // Create a Scanner object
             while (tasks.hasNext()) {
                 st = tasks.nextLine();
-                arrayInput.add(st.substring(9));
+                taskName.add(st.substring(9));
             }
-            return arrayInput;
+            return taskName;
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred, please try again!");
+            System.out.println("A FileNotFound error occurred, please try again!");
             return null;
         } catch (IOException e) {
-            System.out.println("An error occurred, please try again!");
+            System.out.println("An IO Exception error occurred, please try again!");
             return null;
         }
     }
@@ -70,10 +67,10 @@ public class LoadFromText {
             }
             return taskStatus;
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred, please try again!");
+            System.out.println("A FileNotFound error occurred, please try again!");
             return null;
         } catch (IOException e) {
-            System.out.println("An error occurred, please try again!");
+            System.out.println("An IO Exception error occurred, please try again!");
             return null;
         }
     }
@@ -88,10 +85,10 @@ public class LoadFromText {
             }
             return taskType;
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred, please try again!");
+            System.out.println("A FileNotFound error occurred, please try again!");
             return null;
         } catch (IOException e) {
-            System.out.println("An error occurred, please try again!");
+            System.out.println("An IO Exception error occurred, please try again!");
             return null;
         }
     }
