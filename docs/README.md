@@ -65,9 +65,11 @@ Type something:
 ```
 
 8. Refer to the Features below and enter the associated commands and press Enter to execute them.
+--------------------------------------
 
-##Features
-### List all tasks: `list`
+## Features
+
+## List all tasks: `list`
 Shows a list of all the user's tasks.
 #### Format: `list`
 Example of usage:
@@ -82,7 +84,8 @@ Accessing archives...
 3. [E][ ] birthday celebration (at: Sep 29 2021 12PM)
 ```
 
-### Add a deadline task: `deadline`
+
+## Add a deadline task: `deadline`
 Adds a deadline task along with the date and time of the deadline to the user's list of tasks.
 #### Format: `deadline {task description} /by {YYYY-MM-DD HH:MM}`
 Example of usage:
@@ -95,7 +98,7 @@ Added to Galactic database:
 [D][ ] finish up CS2113T coding exercises (by: Sep 25 2021 4PM)
 ```
 
-### Add an event task: `event`
+## Add an event task: `event`
 Adds an event task along with the date and time of the event to the user's list of tasks.
 #### Format: `event {task description} /at {YYYY-MM-DD HH:MM}`
 Example of usage:
@@ -108,7 +111,7 @@ Added to Galactic database:
 [E][ ] birthday celebration (at: Sep 29 2021 12PM)
 ```
 
-### Add a todo task: `todo`
+## Add a todo task: `todo`
 Adds a todo task to the user's list of tasks.
 #### Format: `todo {task description}`
 Example of usage:
@@ -121,7 +124,7 @@ Added to Galactic database:
 [T][ ] buy groceries
 ```
 
-### Mark a task as done: `done` 
+## Mark a task as done: `done` 
 Marks a specified task as done.
 #### Format: `done {task index in list}`
 Example of usage:
@@ -134,7 +137,7 @@ The following task has been marked as done Master!
 2. [D][X] finish up CS2113T coding exercises (by: Sep 25 2021 4PM)
 ```
 
-### Delete a task: `delete`
+## Delete a task: `delete`
 Deletes a specified task and shows how many tasks are remaining.
 #### Format: `delete {task index in list}`
 Example of usage:
@@ -148,7 +151,7 @@ Taking one last look Master, at this Task. Removing the following from my memory
 Goodbye Task, may the force be with you. You have 2 task(s) left Master
 ```
 
-### Filter tasks by keywords: `find`
+## Filter tasks by keywords: `find`
 Shows a list of all the user's tasks that contain keywords provided by the user.
 #### Format: `find {keyword(s)}`
 Example of usage:
@@ -165,7 +168,7 @@ Generating all the tasks that contain "buy"...
 3. [D][ ] buy membership card (by: Oct 21 2021 7PM)
 ```
 
-### Filter tasks by date: `date`
+## Filter tasks by date: `date`
 Shows a list of all the user's tasks that occur on a specific date provided by the user.
 
 #### Format: `date {YYYY-MM-DD}`
@@ -181,7 +184,7 @@ Generating all the tasks that occur on "2021-10-21"...
 2. [E][ ] marathon (at: Oct 21 2021 8AM)
 ```
 
-### Exit the program: `bye`
+## Exit the program: `bye`
 Exits the program.
 #### Format: `bye`
 
