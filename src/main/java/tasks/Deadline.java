@@ -1,4 +1,8 @@
+package tasks;
+
 public class Deadline extends Task {
+
+    public static final String INITIAL = "D";
 
     protected String deadline;
 

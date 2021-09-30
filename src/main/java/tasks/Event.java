@@ -1,4 +1,9 @@
+package tasks;
+
 public class Event extends Task {
+
+    public static final String INITIAL = "E";
+
     protected String eventTimeRange;
 
     public String getEventTimeRange() {

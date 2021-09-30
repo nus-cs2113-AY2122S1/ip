@@ -1,3 +1,5 @@
+package tasks;
+
 public class Task {
 
     protected String description;
@@ -7,7 +9,7 @@ public class Task {
         return description;
     }
 
-    public boolean isDone() {
+    public boolean getIsDone() {
         return isDone;
     }
 

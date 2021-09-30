@@ -1,14 +1,12 @@
-public class ToDo extends Task {
-    protected boolean isDone;
+package tasks;
 
-    public boolean isDone() {
-        return isDone;
-    }
+public class ToDo extends Task {
+
+    public static final String INITIAL = "T";
 
     public ToDo(String description) {
         super(description);
         isDone = false;
-
     }
 
     public String toString() {
