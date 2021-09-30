@@ -114,7 +114,7 @@ public class Parser {
         }
         if (matchingTasks.isEmpty()) {
             Ui.printHorizontalLine();
-            System.out.println(" There are no matching tasks in your list");
+            System.out.println("There are no matching tasks in your list");
             Ui.printHorizontalLine();
         } else {
             Ui.printHorizontalLine();

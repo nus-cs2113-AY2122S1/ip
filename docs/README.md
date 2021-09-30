@@ -157,3 +157,21 @@ ____________________________________________________________
  Now you have 4 tasks in the list.
 ____________________________________________________________
 ```
+
+### `bye` - Terminates the running of Duke
+
+Exits the program
+
+Example of usage:
+
+`bye`
+
+Expected outcome:
+
+A goodbye message and the program terminating 
+
+```
+____________________________________________________________
+ Bye. Hope to see you again soon!
+____________________________________________________________
+```
