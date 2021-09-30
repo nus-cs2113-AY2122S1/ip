@@ -251,7 +251,7 @@ public class Ui {
      */
     public static void printQueryListHeader(ArrayList<Task> tasks) {
         if (!tasks.isEmpty()) {
-            System.out.println(INDENT + "Here are the matching tasks, oRgAnIc iTeLlIgEnCe:");
+            System.out.println(INDENT + "Here are the matching tasks, oRgAnIc InTeLlIgEnCe:");
         }
     }
 

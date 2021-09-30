@@ -282,18 +282,18 @@ list
     │ 1.[D][X] COVID-19 Invasion (by: 31 Dec 2019)
     │ 2.[E][ ] Java Birthday (at: 23 Jan 1996)
     │ 3.[E][ ] Christmas meetup (at: 25 Dec 2021 08:15)
-    │ 4.[T][ ] big bonanza
-    │ 5.[T][X] the hokey pokey while eating dingleberries
-    │ 6.[E][ ] The Great Dingleberries Sale (at: 15 Oct 2021)
+    │ 4.[T][ ] big wolf bonanza
+    │ 5.[T][X] hokey pokey while eating wolfberries
+    │ 6.[E][ ] The Great Wolfberries Sale (at: 15 Oct 2021)
     └────────────────────────────────────────────────────────────────────┘
 ````
-To look for `dingleberries`:
+To look for `wolfberries`:
 ````
-find dingleberries
+find wolfberries
     ┌────────────────────────────────────────────────────────────────────┐
-    │ Here are the matching tasks, oRgAnIc iTeLlIgEnCe:
-    │ 1.[T][X] the hokey pokey while eating dingleberries
-    │ 2.[E][ ] The Great Dingleberries Sale (at: 15 Oct 2021)
+    │ Here are the matching tasks, oRgAnIc InTeLlIgEnCe:
+    │ 1.[T][X] hokey pokey while eating wolfberries
+    │ 2.[E][ ] The Great Wolfberries Sale (at: 15 Oct 2021)
     └────────────────────────────────────────────────────────────────────┘
 ````
 
