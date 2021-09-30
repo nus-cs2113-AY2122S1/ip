@@ -15,15 +15,14 @@ import duke.exception.WrongNumberOfArgumentsException;
 abstract class TimedTask extends Task {
     public static final String PRINT_TASK_REGEX_FORMAT = "%s (%s: %s)";
     public static final char PREPOSITION_PREFIX = '/';
-    public static final char SAVE_FILE_SEPARATOR = '|';
     private String dateTime;
 
     /**
      * TimedTask constructor with <code>isDone</code> set to <code>false</code>.
      *
      * @param description Task description.
-     * @param dateTime String that descripes the dateTime of the task.
-     * @param type enum that corresponds to task.
+     * @param dateTime    String that descripes the dateTime of the task.
+     * @param type        enum that corresponds to task.
      */
     TimedTask(String description, String dateTime, Type type) {
         super(description, type);
@@ -33,10 +32,10 @@ abstract class TimedTask extends Task {
     /**
      * TimedTask constructor.
      *
-     * @param isDone boolean to show whether task is completed.
+     * @param isDone      boolean to show whether task is completed.
      * @param description Task description.
-     * @param dateTime String that descripes the dateTime of the task.
-     * @param type enum that corresponds to task.
+     * @param dateTime    String that descripes the dateTime of the task.
+     * @param type        enum that corresponds to task.
      */
     TimedTask(boolean isDone, String description, String dateTime, Type type) {
         super(isDone, description, type);
@@ -47,10 +46,10 @@ abstract class TimedTask extends Task {
      * Helper function to split the arguments.
      * Uses the task type enum to get the preposition (by or at) to split the <code>argumentString</code>.
      *
-     * @param taskType enum that corresponds to task.
+     * @param taskType       enum that corresponds to task.
      * @param argumentString argument to be split.
-     * @throws WrongNumberOfArgumentsException if the number of argument != the number of arguments for the task.
      * @return arguments String array.
+     * @throws WrongNumberOfArgumentsException if the number of argument != the number of arguments for the task.
      */
     private static String[] getArguments(Type taskType, String argumentString) throws WrongNumberOfArgumentsException {
         String[] arguments = Parser.splitOnArgument(argumentString, PREPOSITION_PREFIX + taskType.PREPOSITION);
@@ -65,7 +64,7 @@ abstract class TimedTask extends Task {
      * Creates and uses the task type enum to get the preposition
      * (by or at) to split the <code>argumentString</code>.
      *
-     * @param taskType enum that corresponds to task
+     * @param taskType       enum that corresponds to task
      * @param argumentString argument to be split
      * @return new TimedTask (deadline or event) created
      * @throws WrongNumberOfArgumentsException throws from <code>getArguments()</code> function.
@@ -93,7 +92,7 @@ abstract class TimedTask extends Task {
      */
     @Override
     String getFormattedString() {
-        return super.getFormattedString() + SAVE_FILE_SEPARATOR + dateTime;
+        return super.getFormattedString() + Task.SAVE_FILE_SEPARATOR + dateTime;
     }
 
 }

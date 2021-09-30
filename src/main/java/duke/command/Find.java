@@ -15,7 +15,7 @@ public class Find extends Command {
     /**
      * Command is valid when argument is not empty
      */
-    boolean isValid(){
+    boolean isValid() {
         return argument.length() != 0;
     }
 

@@ -1,4 +1,5 @@
 package duke.task;
+
 /**
  * Represents a Todo task.
  *
@@ -19,10 +20,11 @@ class Todo extends Task {
     /**
      * Todo constructor
      *
-     * @param isDone boolean to show whether task is completed.
+     * @param isDone      boolean to show whether task is completed.
      * @param description Task description.
      */
     Todo(boolean isDone, String description) {
         super(isDone, description, type);
     }
+
 }

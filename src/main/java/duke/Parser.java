@@ -54,10 +54,10 @@ public class Parser {
      * along with any whitespace before and after the split. returns the split Array.
      *
      * @param userInput String to be split.
-     * @param split What to use to split user input String.
+     * @param split     What to use to split user input String.
      * @return Array of Strings that have been split bu the <code>split</code> string including whitespace.
      */
-    public static String[] splitOnArgument(String userInput, String split){
+    public static String[] splitOnArgument(String userInput, String split) {
         return userInput.split(WHITESPACE_REGEX + split + WHITESPACE_REGEX);
     }
 

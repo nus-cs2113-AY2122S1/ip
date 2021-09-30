@@ -14,13 +14,14 @@ public enum Type {
     public final int NUMBER_OF_ARGUMENTS;
     public final String PREPOSITION;
 
-    Type(int numberOfArguments, String preposition){
+    Type(int numberOfArguments, String preposition) {
         NUMBER_OF_ARGUMENTS = numberOfArguments;
         PREPOSITION = preposition;
     }
 
     /**
      * Returns a regex that matches any of the task types regardless of case.
+     *
      * @return String regex that matches all task types.
      */
     public static String getTaskTypesRegex() {
@@ -42,14 +43,15 @@ public enum Type {
 
     /**
      * Get the type of the class based off ogf the first letter of the <code>task</code> argument.
+     *
      * @return {@link duke.task.Type#Type(int, String)} if first letter corresponds to task else return <code>null</code>.
      */
-    static Type getType(String task){
-        if (task.length() == 0){
+    static Type getType(String task) {
+        if (task.length() == 0) {
             return null;
         }
-        for(Type type : values()){
-            if(task.charAt(0) == type.getChar()){
+        for (Type type : values()) {
+            if (task.charAt(0) == type.getChar()) {
                 return type;
             }
         }

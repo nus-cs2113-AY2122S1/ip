@@ -1,7 +1,8 @@
 package duke.task;
+
 /**
  * Represents an Event task.
- *
+ * <p>
  * <{@link duke.task.Type} enum corresponds to respective class.
  */
 class Event extends TimedTask {
@@ -11,7 +12,7 @@ class Event extends TimedTask {
      * Event constructor with <code>isDone</code> set to <code>false</code>.
      *
      * @param description Task description.
-     * @param dateTime String that describes the dateTime of the task.
+     * @param dateTime    String that describes the dateTime of the task.
      */
     Event(String description, String dateTime) {
         super(description, dateTime, type);
@@ -20,11 +21,12 @@ class Event extends TimedTask {
     /**
      * Event constructor
      *
-     * @param isDone boolean to show whether task is completed.
+     * @param isDone      boolean to show whether task is completed.
      * @param description Task description.
-     * @param dateTime String that descripes the dateTime of the task.
+     * @param dateTime    String that descripes the dateTime of the task.
      */
     Event(boolean isDone, String description, String dateTime) {
         super(isDone, description, dateTime, type);
     }
+
 }

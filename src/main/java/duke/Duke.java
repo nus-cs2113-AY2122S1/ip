@@ -15,7 +15,7 @@ public class Duke {
     private static final Scanner IN = new Scanner(System.in);
 
     public static void main(String[] args) {
-        if(!IoManager.initialiseSaveFile()){
+        if (!IoManager.initialiseSaveFile()) {
             return;
         }
         Message.printWelcome();

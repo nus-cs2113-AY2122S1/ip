@@ -14,9 +14,10 @@ public class Task {
     private String description;
     final Type type;
 
+    public static final char SAVE_FILE_SEPARATOR = '|';
     private static final String MARK_AS_DONE_STRING = "Nice! I've marked this task as done:\n";
     private static final String TO_STRING_REGEX = "[%c][%c] %s";
-    private static final String SAVE_FILE_FORMAT = "%c|%d|%s";
+    private static final String SAVE_FILE_FORMAT = "%c" + SAVE_FILE_SEPARATOR + "%d" + SAVE_FILE_SEPARATOR + "%s";
     private static final char IS_DONE_CHAR = 'X';
     private static final char IS_NOT_DONE_CHAR = ' ';
 
@@ -25,7 +26,7 @@ public class Task {
      * Task constructor with <code>isDone</code> set to <code>false</code>.
      *
      * @param description Task description.
-     * @param type enum that corresponds to task
+     * @param type        enum that corresponds to task
      */
     Task(String description, Type type) {
         this.description = description;
@@ -36,9 +37,9 @@ public class Task {
     /**
      * Task constructor
      *
-     * @param isDone boolean to show whether task is completed.
+     * @param isDone      boolean to show whether task is completed.
      * @param description Task description.
-     * @param type enum that corresponds to task
+     * @param type        enum that corresponds to task
      */
     Task(boolean isDone, String description, Type type) {
         this.isDone = isDone;

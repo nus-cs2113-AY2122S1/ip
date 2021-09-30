@@ -14,7 +14,7 @@ public class List extends Command {
     /**
      * Command is valid when argument is empty
      */
-    boolean isValid(){
+    boolean isValid() {
         return argument.length() == 0;
     }
 

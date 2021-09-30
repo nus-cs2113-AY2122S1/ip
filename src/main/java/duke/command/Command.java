@@ -14,7 +14,7 @@ public abstract class Command {
     private final String usage;
     final String argument;
 
-    Command(String name, String usage, String argument){
+    Command(String name, String usage, String argument) {
         this.name = name;
         this.usage = usage;
         this.argument = argument;
@@ -43,4 +43,5 @@ public abstract class Command {
      * @return boolean, program should continue running
      */
     abstract boolean execute();
+
 }

@@ -15,7 +15,7 @@ public class Delete extends Command {
     /**
      * Command is valid when argument is an integer
      */
-    boolean isValid(){
+    boolean isValid() {
         return Utility.isInteger(argument);
     }
 

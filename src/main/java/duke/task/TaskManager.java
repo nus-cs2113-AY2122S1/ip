@@ -3,6 +3,7 @@ package duke.task;
 import duke.Message;
 import duke.IoManager;
 import duke.Parser;
+import duke.exception.IllegalCharacterException;
 import duke.exception.LoadTaskException;
 import duke.exception.ListEmptyException;
 import duke.exception.NoDescriptionException;
@@ -103,10 +104,13 @@ public class TaskManager {
      * @param userInput user input of user to console
      * @return Arguments after first command and trailing whitespace
      */
-    private static String getCommandArguments(String userInput) throws NoDescriptionException {
+    private static String getCommandArguments(String userInput) throws NoDescriptionException, IllegalCharacterException {
         String arguments = Parser.removeFirstArgument(userInput);
         if (arguments.length() == 0) {
             throw new NoDescriptionException(userInput);
+        }
+        if (arguments.contains(Character.toString(Task.SAVE_FILE_SEPARATOR))) {
+            throw new IllegalCharacterException();
         }
         //Removes command from userInput.
         return arguments;
@@ -139,6 +143,8 @@ public class TaskManager {
             Message.printWithSpacers(nde.getMessage());
         } catch (WrongNumberOfArgumentsException wnoae) {
             Message.printWithSpacers(wnoae.getMessage());
+        } catch (IllegalCharacterException ice) {
+            Message.printWithSpacers(ice.getMessage());
         }
     }
 
@@ -152,7 +158,7 @@ public class TaskManager {
     private static Type getTaskTypeFromLoadedTask(String[] loadedTaskSplit) throws LoadTaskException {
         Type taskType = Type.getType(loadedTaskSplit[0]);
         boolean isInvalidTask = taskType == null;
-        boolean hasWrongNumberOfArguments  = taskType.NUMBER_OF_ARGUMENTS != loadedTaskSplit.length - 1;
+        boolean hasWrongNumberOfArguments = taskType.NUMBER_OF_ARGUMENTS != loadedTaskSplit.length - 1;
         if (isInvalidTask || hasWrongNumberOfArguments) {
             throw new LoadTaskException();
         }
@@ -163,11 +169,11 @@ public class TaskManager {
      * Creates and returns the Task with the String[] from the
      * respective {@link duke.task.Type} that matches task class.
      *
-     * @param taskType Task {@link duke.task.Type} that matches task class.
+     * @param taskType        Task {@link duke.task.Type} that matches task class.
      * @param loadedTaskSplit String[] of task parameters
      * @return {@link duke.task.Task} that was created
      */
-    private static Task createTask(Type taskType, String[] loadedTaskSplit){
+    private static Task createTask(Type taskType, String[] loadedTaskSplit) {
         boolean isDone = Integer.parseInt(loadedTaskSplit[1]) == 1;
         switch (taskType) {
         case DEADLINE:
@@ -187,8 +193,8 @@ public class TaskManager {
      * after getting the task from {@link #createTask(Type, String[])}.
      *
      * @throws IllegalArgumentException If <code>parseInt()</code> fails.
-     * @throws FileNotFoundException throws from <code>loadFile()</code> function.
-     * @throws LoadTaskException throws from <code>getTaskTypeFromLoadedTask()</code> function.
+     * @throws FileNotFoundException    throws from <code>loadFile()</code> function.
+     * @throws LoadTaskException        throws from <code>getTaskTypeFromLoadedTask()</code> function.
      */
     public static void loadTasks() throws IllegalArgumentException, FileNotFoundException, LoadTaskException {
         for (String loadedTask : IoManager.loadFile()) {
@@ -235,7 +241,7 @@ public class TaskManager {
      * prints all current tasks in ArrayList that is passed in as
      * an argument with <code>message</code> appended in front.
      *
-     * @param message message to be appended in front of tasks to be printed.
+     * @param message      message to be appended in front of tasks to be printed.
      * @param tasksToPrint ArrayList of tasks to be printed.
      */
     private static void printTasks(String message, ArrayList<Task> tasksToPrint) {

@@ -41,6 +41,7 @@ public class CommandManager {
      * Takes in a String that the user entered into console and
      * checks whether to pass to {@link duke.task.TaskManager} to create
      * new task or handle the command.
+     *
      * @param userInput String that was entered by user into console
      * @return Whether the program should continue waiting for userInput.
      */

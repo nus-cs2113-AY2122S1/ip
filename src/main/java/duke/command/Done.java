@@ -15,7 +15,7 @@ public class Done extends Command {
     /**
      * Command is valid when argument is an integer
      */
-    boolean isValid(){
+    boolean isValid() {
         return Utility.isInteger(argument);
     }
 
@@ -24,7 +24,7 @@ public class Done extends Command {
      *
      * @return true
      */
-    boolean execute(){
+    boolean execute() {
         int index = Integer.parseInt(argument) - 1;
         TaskManager.taskDone(index);
         return CONTINUE_EXECUTING;

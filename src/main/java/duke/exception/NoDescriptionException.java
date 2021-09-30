@@ -1,8 +1,9 @@
 package duke.exception;
+
 /**
  * Exception to be thrown when attempting to add a task that has no description.
  */
-public class NoDescriptionException extends Exception{
+public class NoDescriptionException extends Exception {
     private static final String MESSAGE = "The description of %s cannot be empty!";
     private static final String WHITESPACE_AFTER_COMMAND_REGEX = "\\s+$";
 
@@ -12,7 +13,7 @@ public class NoDescriptionException extends Exception{
      *
      * @param userInput Message that was entered by user.
      */
-    public NoDescriptionException(String userInput){
+    public NoDescriptionException(String userInput) {
         super(String.format(MESSAGE, userInput.replaceAll(WHITESPACE_AFTER_COMMAND_REGEX, "")));
     }
 
