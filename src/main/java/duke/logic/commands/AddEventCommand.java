@@ -15,7 +15,6 @@ public class AddEventCommand extends Command {
     public static final String MESSAGE_INVALID_FORMAT =  "Invalid format! Please input a date and time, "
             + Ui.LS + "in the format " + MESSAGE_COMMAND_FORMAT + ", where X is the event!";
     public static final String COMMAND_PREFIX = "at";
-    private static final String MESSAGE_SUCCESS = "Added to list: %1$s " + Ui.LS + "Current number of tasks: %2$d";
 
     private Event toAdd;
 
@@ -26,7 +25,7 @@ public class AddEventCommand extends Command {
     @Override
     public CommandResult execute() {
         super.tasks.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, super.tasks.getNumTasks()));
+        return new CommandResult(String.format(Ui.MESSAGE_TASK_ADDED, toAdd, super.tasks.getNumTasks()));
     }
 
 }

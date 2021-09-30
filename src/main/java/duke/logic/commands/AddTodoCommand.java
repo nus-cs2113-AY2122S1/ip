@@ -11,7 +11,6 @@ public class AddTodoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
     public static final String MESSAGE_COMMAND_FORMAT =  Ui.QUOTATION + COMMAND_WORD + " X" + Ui.QUOTATION;
     public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : Add task X";
-    private static final String MESSAGE_SUCCESS = "Added to list: %1$s " + Ui.LS + "Current number of tasks: %2$d";
     public static final String MESSAGE_INVALID_FORMAT = "Please specify a name for the task!";
 
 
@@ -24,6 +23,6 @@ public class AddTodoCommand extends Command {
     @Override
     public CommandResult execute() {
         super.tasks.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, super.tasks.getNumTasks()));
+        return new CommandResult(String.format(Ui.MESSAGE_TASK_ADDED, toAdd, super.tasks.getNumTasks()));
     }
 }

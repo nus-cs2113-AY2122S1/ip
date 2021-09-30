@@ -27,8 +27,9 @@ public class Ui {
     public static final String DATE_TIME_FORMAT_TO_PRINT = "MMM d yyyy h.mma";
     public static final String MESSAGE_WELCOME_DUDE = "Hello! I'm Dude ^__^";
     public static final String MESSAGE_BYE = "Bye! Hope to see you again soon! ~^u^~ ";
-    public static final String MESSAGE_NO_TASKS_YET = "No tasks yet, add a task now!";
-    public static final String MESSAGE_INTRODUCE_TASKS = "These are your current tasks:";
+    public static final String MESSAGE_NO_TASKS_YET = "No tasks yet, add a task now! >u<";
+    public static final String MESSAGE_INTRODUCE_TASKS = "These are your current tasks:" + LS + "%s";
+    public static final String MESSAGE_TASK_ADDED =  "Okie! Added to list:" + LS + "%1$s" + LS + "Current number of tasks: %2$d";
     public static final String MESSAGE_COMMAND_LIST = "Commands:" + LS
             + AddTodoCommand.MESSAGE_COMMAND_DESCRIPTION + LS
             + AddDeadlineCommand.MESSAGE_COMMAND_DESCRIPTION + LS

@@ -9,7 +9,6 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
     public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : See lists of tasks";
-    private static final String MESSAGE_INTRODUCE_TASKS = "These are your current tasks:" + Ui.LS + "%s";
 
     @Override
     public CommandResult execute() {
@@ -18,6 +17,6 @@ public class ListCommand extends Command {
         }
 
         String listOfTasksInString = super.tasks.getStringOfAllTasks();
-        return new CommandResult(String.format(MESSAGE_INTRODUCE_TASKS, listOfTasksInString));
+        return new CommandResult(String.format(Ui.MESSAGE_INTRODUCE_TASKS, listOfTasksInString));
     }
 }

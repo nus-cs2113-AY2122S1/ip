@@ -16,7 +16,6 @@ public class AddDeadlineCommand extends Command {
     public static final String MESSAGE_INVALID_FORMAT =   "Invalid format! Please input a deadline, "
             + Ui.LS + "in the format " + MESSAGE_COMMAND_FORMAT + ", where X is the task!";
     public static final String COMMAND_PREFIX = "by";
-    private static final String MESSAGE_SUCCESS = "Added to list: %1$s " + Ui.LS + "Current number of tasks: %2$d";
 
     private Deadline toAdd;
 
@@ -27,7 +26,7 @@ public class AddDeadlineCommand extends Command {
     @Override
     public CommandResult execute() {
         super.tasks.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString(), super.tasks.getNumTasks()));
+        return new CommandResult(String.format(Ui.MESSAGE_TASK_ADDED, toAdd.toString(), super.tasks.getNumTasks()));
     }
 
 }

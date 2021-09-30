@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class Storage {
 
     /** File path to store task data */
-    private static final String DATA_FILE_PATH = "./data/duke.txt";
+    private static final String DATA_FILE_PATH = "./data/dude.txt";
 
     private static TaskListEncoder taskListEncoder;
     private static TaskListDecoder taskListDecoder;
