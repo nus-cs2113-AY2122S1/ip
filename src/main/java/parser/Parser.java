@@ -25,17 +25,24 @@ import static common.Messages.MESSAGE_GET_HELP;
 import static common.Messages.MESSAGE_INVALID_COMMAND;
 import static ui.Ui.DISPLAYED_INDEX_OFFSET;
 
+/**
+ * Takes in raw data and parses it into parameters of commands
+ */
 public class Parser {
     public static final String DATE_KEYWORD = "d/";
     public static final String TIME_KEYWORD = "t/";
 
+    /**
+     * Parses commands
+     * @param userInputString input string from user
+     * @return Command type of command to be executed
+     * @throws DukeException if unable to parse command
+     */
     public Command parseCommand(String userInputString) throws DukeException {
 
         final String[] commandTypeAndParams = splitCommandWordsAndArgs(userInputString, "\\s+");
         final String commandType = commandTypeAndParams[0].trim();
         final String commandArgs = commandTypeAndParams[1].trim();
-
-
 
         switch (commandType) {
         case ListCommand.COMMAND_WORD:

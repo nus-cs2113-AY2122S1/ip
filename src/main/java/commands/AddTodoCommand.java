@@ -15,8 +15,8 @@ public class AddTodoCommand extends Command {
 
     /**
      * Constructor using raw values.
-     * @param description
-     * @param isDone
+     * @param description description of todo
+     * @param isDone whether todo is completed
      */
     public AddTodoCommand(String description, boolean isDone) {
         this.toAdd = new Todo(description, isDone);

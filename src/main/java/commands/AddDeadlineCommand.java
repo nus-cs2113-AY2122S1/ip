@@ -17,9 +17,9 @@ public class AddDeadlineCommand extends Command {
 
     /**
      * Constructor using raw values.
-     * @param description
-     * @param isDone
-     * @param dateTime
+     * @param description description of deadline
+     * @param isDone whether deadline is completed
+     * @param dateTime date and time when deadline is due
      */
     public AddDeadlineCommand(String description, boolean isDone, LocalDateTime dateTime) {
         this.toAdd = new Deadline(description, isDone, dateTime);

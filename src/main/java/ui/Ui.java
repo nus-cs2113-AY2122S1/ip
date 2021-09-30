@@ -23,6 +23,9 @@ import java.util.Scanner;
 
 import static common.Messages.MESSAGE_LOADING_ERROR;
 
+/**
+ * Class that takes care of User Interface
+ */
 public class Ui {
     private static final String LOGO = " \n____        _\n"
             + "|  _ \\ _   _| | _____\n"
@@ -60,6 +63,11 @@ public class Ui {
     private final Scanner in;
     private final PrintStream out;
 
+    /**
+     * Constructor for Ui
+     * @param in input from user
+     * @param out output to be displayed to user
+     */
     public Ui(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;

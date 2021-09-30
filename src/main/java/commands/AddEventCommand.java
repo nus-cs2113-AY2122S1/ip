@@ -16,6 +16,12 @@ public class AddEventCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     private final Event toAdd;
 
+    /**
+     * Constructor using raw values.
+     * @param description description of event
+     * @param isDone whether event is completed
+     * @param dateTime date and time when event takes place
+     */
     public AddEventCommand(String description, boolean isDone, LocalDateTime dateTime) {
         this.toAdd = new Event(description, isDone, dateTime);
     }

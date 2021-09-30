@@ -18,6 +18,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Class that allows for loading and saving of files.
+ */
 public class Storage {
     public static final String ERROR_MESSAGE_UNKNOWN_TASK = "Unknown task encountered. Skipping.";
     public static final char DEADLINE_SYMBOL = 'D';
