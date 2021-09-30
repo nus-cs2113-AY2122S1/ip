@@ -76,8 +76,7 @@ public class TextUi {
      */
     public void showSuccessfulComplete(Task currentTask) {
         showToUser(MESSAGE_TASK_MARK_DONE,
-                "[" + currentTask.getStatusIcon() + "] ",
-                currentTask.getDescription());
+                "[" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
     }
 
     /**

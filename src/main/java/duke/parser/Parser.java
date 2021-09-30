@@ -24,9 +24,9 @@ public class Parser {
      * @throws EmptyTaskException        if the user did not provide additional information for some commands
      */
     public static Command parseCommand(String userCommand) throws InvalidException, IndexOutOfBoundsException, EmptyTaskException {
-        final String[] commandTypeAndParams = splitUserCommand(userCommand);
-        final String commandType = commandTypeAndParams[TASK_DATA_INDEX_DESCRIPTION];
-        final String commandArgs = commandTypeAndParams[TASK_DATA_INDEX_ADDITIONAL_INFO];
+        final String[] commandTypeAndParams = splitUserCommand(userCommand.toLowerCase());
+        final String commandType = commandTypeAndParams[TASK_DATA_INDEX_DESCRIPTION].trim();
+        final String commandArgs = commandTypeAndParams[TASK_DATA_INDEX_ADDITIONAL_INFO].trim();
         switch (commandType) {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -45,6 +45,9 @@ public class Parser {
             return prepareEventCommand(commandArgs);
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+        case FindCommand.COMMAND_WORD:
+            checkValidArguments(commandArgs);
+            return new FindCommand(commandArgs);
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
         case ExitCommand.COMMAND_WORD:
@@ -136,7 +139,7 @@ public class Parser {
             decoded[TASK_DATA_INDEX_ADDITIONAL_INFO] = splitBySpace[1];
             return decoded;
         } catch (IndexOutOfBoundsException e) {
-            return new String[]{"",""};
+            return new String[]{"", ""};
         }
     }
 
@@ -146,7 +149,7 @@ public class Parser {
      * @param decodedInput array that includes task description and additional info
      */
     public static String getAdditionalInfo(String[] decodedInput) {
-        return decodedInput[1];
+        return decodedInput[1].trim();
     }
 
     /**
@@ -155,6 +158,6 @@ public class Parser {
      * @param decodedInput array that includes task description and additional info
      */
     public static String getDescription(String[] decodedInput) {
-        return decodedInput[0];
+        return decodedInput[0].trim();
     }
 }
