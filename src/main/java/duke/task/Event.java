@@ -32,7 +32,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         String SYMBOL = "E";
-        return "[" + SYMBOL + "]" + super.toString() + " (at: " + getTime() + ")";
+        return "[" + SYMBOL + "]" + super.toString() + " (at: " + getDisplayTime() + ")";
     }
 
     /**
@@ -47,7 +47,7 @@ public class Event extends Task {
      * @return Due date of Deadline in MMM dd yyyy format
      */
     @Override
-    public String getTime() {
+    public String getDisplayTime() {
         return timeslot.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 }

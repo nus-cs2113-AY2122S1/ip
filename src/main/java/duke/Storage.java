@@ -102,7 +102,7 @@ public class Storage {
         }
 
         status = task.getStatusIcon();
-        title = task.getName();
+        title = task.getTitle();
 
         return taskType + DELIMITER + status + DELIMITER + title + DELIMITER + time;
     }

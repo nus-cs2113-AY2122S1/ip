@@ -7,17 +7,17 @@ public abstract class Task {
     /**
      * Task constructor
      *
-     * @param name Name of task
+     * @param title Title of task
      */
-    public Task(String name) {
-        this.name = name;
+    public Task(String title) {
+        this.name = title;
         this.isDone = false;
     }
 
     /**
-     * @return Name of task
+     * @return Title of task
      */
-    public String getName() {
+    public String getTitle() {
         return name;
     }
 
@@ -45,11 +45,11 @@ public abstract class Task {
     /**
      * @return Time of Task in MMM dd yyyy format
      */
-    public abstract String getTime();
+    public abstract String getDisplayTime();
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + getName();
+        return "[" + getStatusIcon() + "] " + getTitle();
     }
 
     /**

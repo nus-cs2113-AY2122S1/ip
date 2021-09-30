@@ -88,7 +88,7 @@ public class TaskList {
     public static void listMatchingTasks(String keyword) {
         ArrayList<String> matches = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getName().contains(keyword)) {
+            if (task.getTitle().contains(keyword)) {
                 matches.add(task.toString());
             }
         }

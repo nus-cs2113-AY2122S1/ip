@@ -33,7 +33,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String SYMBOL = "D";
-        return "[" + SYMBOL + "]" + super.toString() + " (by: " + getTime() + ")";
+        return "[" + SYMBOL + "]" + super.toString() + " (by: " + getDisplayTime() + ")";
     }
 
     /**
@@ -48,7 +48,7 @@ public class Deadline extends Task {
      * @return Due date of Deadline in MMM dd yyyy format
      */
     @Override
-    public String getTime() {
+    public String getDisplayTime() {
         return dueDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 }
