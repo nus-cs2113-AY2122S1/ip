@@ -213,8 +213,17 @@ A: “That which does not kill us, makes us stronger.” — Friedrich Nietzsche
 <br> Alternatively, you can check out my friends' chatbot assistants (they're friendlier.)
 
 ### Links to More Chatbot Assistants
-[Rimura JAR file]()
+**Friday**: [JAR file](https://github.com/STAung07/ip/releases/download/A-Release/Friday.jar),
+[User Guide](https://staung07.github.io/ip/)
 
+**Gudetama**: [JAR file](https://github.com/huien77/ip/releases/download/A-Release/ip.jar),
+[User Guide](https://huien77.github.io/ip/)
+
+**Rimuru Tempest**: [JAR file](https://github.com/DJ-Tan/ip/releases/download/A-UserGuide/ip.jar), 
+[User Guide](https://dj-tan.github.io/ip/)
+
+**Shima Rin**: [JAR file](https://github.com/tryyang2001/ip/releases/download/A-Release/IP.jar),
+[User Guide](https://tryyang2001.github.io/ip/)
 ## Coming Soon
 Kidding! Nothing in the pipeline.
 
