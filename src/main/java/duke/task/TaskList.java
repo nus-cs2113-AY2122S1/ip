@@ -2,6 +2,7 @@ package duke.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import duke.exception.DukeException;
 import duke.ui.Ui;
@@ -10,11 +11,11 @@ public class TaskList {
     private final List<Task> taskList;
 
     public TaskList() {
-        taskList = new ArrayList<>();
+        this.taskList = new ArrayList<>();
     }
 
-    public TaskList(List<String> data) throws DukeException {
-        taskList = deserialize(data);
+    public TaskList(List<Task> taskList) {
+        this.taskList = taskList;
     }
 
     public void addTask(Task task) {
@@ -52,12 +53,12 @@ public class TaskList {
         for (Task task : taskList) {
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
-                if (deadline.getTaskDeadline().equals(date)) {
+                if (deadline.getSchedule().equals(date)) {
                     filteredTaskList.addTask(deadline);
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                if (event.getTaskPeriod().equals(date)) {
+                if (event.getSchedule().equals(date)) {
                     filteredTaskList.addTask(event);
                 }
             }
@@ -72,13 +73,9 @@ public class TaskList {
      * @return the filtered task list
      */
     public TaskList filterTaskByKeyword(String keyword) {
-        TaskList filteredTaskList = new TaskList();
-        for (Task task : taskList) {
-            if (task.getDescription().toLowerCase().contains(keyword)) {
-                filteredTaskList.addTask(task);
-            }
-        }
-        return filteredTaskList;
+        return new TaskList(taskList.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword))
+                .collect(Collectors.toList()));
     }
 
     /**

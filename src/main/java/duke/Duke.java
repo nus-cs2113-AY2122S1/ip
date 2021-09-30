@@ -19,7 +19,7 @@ public class Duke {
         ui = new Ui();
         storage = new Storage();
         try {
-            taskList = new TaskList(storage.loadData());
+            taskList = new TaskList(TaskList.deserialize(storage.loadData()));
         } catch (DukeException | IOException e) {
             ui.printMessage(e.getMessage());
             taskList = new TaskList();
