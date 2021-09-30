@@ -2,6 +2,7 @@
 
 Duke Bot is a **desktop app for managing Tasks through a Command Line Interface (CLI)**. If you can
 type fast, Duke can get your management tasks done faster than traditional GUI apps.
+
 - [User Guide](#user-guide)
     * [Quick Start](#quick-start)
     * [Features](#features)
@@ -15,14 +16,16 @@ type fast, Duke can get your management tasks done faster than traditional GUI a
         + [Display all tasks that contains a keyword: `find`](#display-all-tasks-that-contains-a-keyword)
         + [Exit the program: `bye`](#exit-the-program)
         + [Saving the data](#saving-the-data)
+    + [Common Errors](#common-errors)
     * [Command summary](#command-summary)
-    
+
 ---
 
 ## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
-2. Download the latest ip.jar from [here](https://github.com/Woolicious98/ip/releases/tag/A-Release).
+2. Download the latest ip.jar from [here](https://github.com/Woolicious98/ip/releases/tag/A-Release)
+   .
 3. Copy the file to the folder you want to use as the home folder for your Duke Bot.
 4. Open your command prompt and go into the directory containing the `ip.jar` file.
     1. You can do so by `win+R` and run `cmd`.
@@ -292,8 +295,10 @@ Expected Outcomes:
 
 ```
 >>> date 2021-09-24
-[E][ ] read book (at: Sep 24 2021, 09:23)
-[D][ ] return book (by: Sep 24 2021, 23:59)
+The date "2021-09-24" have:
+[D][X] return book (by: Sep 24 2021, 23:59)
+[E][ ] read book (at: Sep 24 2021, 00:10)
+
 ____________________________________________________________
 ```
 
@@ -301,6 +306,8 @@ ____________________________________________________________
 
 ```
 >>> date 1990-09-09
+The date "1990-09-09" have:
+
 ____________________________________________________________
 ```
 
@@ -331,9 +338,11 @@ Expected Outcomes:
 
 ```
 >>> find book
-[T][ ] book
-[E][ ] read book (at: Sep 24 2021, 09:23)
-[D][ ] return book (by: Sep 24 2021, 23:59)
+The keyword "book" you provided found:
+[D][X] return book (by: Sep 24 2021, 23:59)
+[T][ ] read book
+[E][ ] read book (at: Sep 24 2021, 00:10)
+
 ____________________________________________________________
 ```
 
@@ -341,6 +350,8 @@ ____________________________________________________________
 
 ```
 >>> find study
+The keyword "study" you provided found:
+
 ____________________________________________________________
 ```
 
@@ -368,6 +379,7 @@ Expected Outcomes:
 
 ```
 >>> bye
+My time has come...
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
@@ -382,6 +394,53 @@ The file directory and file name are hardcoded in the program, and they are `dat
 respectively.
 
 <b style="color:red;">Notice:</b> the data saved **will overwrite the existing file** provided.
+
+----
+
+## Common Errors
+
+### Invalid command
+
+Current existing Commands are `list`, `todo`, `deadline`, `event`, `date`, `delete`, `done`, `find`
+and `bye`.
+
+When you run any invalid commands, this error message will appear:
+
+```
+Error: Command not found.
+```
+
+### Data input from file
+
+The `duke.txt` file you provided need to follow a specific format. 
+
+The format is as follows: 
+
+`<task type>|<done status>|<task description>|<other additional arguments>`
+
+For example:
+`[D]|1|return book|2021-09-24 23:59` where `[D]` stands for `deadline` task and `1` stands for done.
+
+Error message you could encounter:
+
+* duke.txt:
+```
+[D]|1|return book|2021-09-24 23:78
+[X]|0|fin project|2021-09-30 00:00
+[T]|4|read book
+[E]|0|||||
+```
+
+```
+Loading data from duke.txt...
+____________________________________________________________
+Error: Invalid date input. "[D]|1|return book|2021-09-24 23:78"
+Error: Task type does not exist. "[X]|0|fin project|2021-09-30 00:00"
+Error: done status is not correct. "[T]|4|read book"
+Error: Invalid input format, missing arguments. "[E]|0|||||"
+____________________________________________________________
+Finish Loading.
+```
 
 ----
 
