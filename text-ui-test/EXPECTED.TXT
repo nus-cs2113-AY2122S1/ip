@@ -1,18 +1,23 @@
-	                                        
-	             ..........                 
-	           .,,..,.,,,,                  
-	           ,.,,,,.,...                  
-	          ,.......,*,/& .               
-	          ,..,..,((/**(((,              
-	           *(#%(((#/#((/       *        
-	         /(%#########%##(*,,,((*        
-	              ((#(((((#      (((*       
-	        ((((((   /((((/,., .... #       
-	         (((#    .(((..*...,*///        
-	         ((/      .,,**  ..**///        
-	                  .,*,..  ,**//         
-	                ..,,,..,/ ,*//          
-	             *,,****,        
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	@@@@@@@@@@@@@@@@..............@@@@@@@@@@@@@@@@@@@@
+	@@@@@@@@@@@@@(...................@@@@@@@@@@@@@@@@@
+	@@@@@@@@@@@@@@.....................@@@@@@@@@@@@@@@
+	@@@@@@@@@@@@@@@@@.................../@@@@@@@@@@@@@
+	@@@@@@@@@@@@@@@@@@.................../@@@@@@@@@@@@
+	@@@@@@@@@@@((#@.((((((((((............@@@@@@@@@@@@
+	@@@@@@@@@#((((((((((((((/(((/.........@@@@@@@@@@@@
+	@@@@@@@@@@@%#(((((((((((((((//*(/((/,@@@@@@@@@@@@@
+	@@@@@@@@@@@@#####(((((((((((/(((/(((@@@@@@@@@@@@@@
+	@@@@@@@@@@@@@@#########((((/(((((((@@@@@@@@@@@@@@@
+	@@@@@@@@@@@@@@@@@%######(####%#&@@@@@@@@@@@@@@@@@@
+	@@@@@@@@@@@@@@@@@(.,,*/(###((((#/##@@@@@@@@@@@@@@@
+	@@@@@@@@@@@@@@@(...,,*//(((((((###/#@@@@@@@@@@@@@@
+	@@@@@@@@@@@@@@@* ..,,((((((((((####/#@@@@@@@@@@@@@
+	@@@@@@@@@@@@@@@((((((((((((((((####/#%@@@@@@@@@@@@
+	@@@@@@@@@@@@@@@@@((((((((((((((#######@@@@@@@@@@@@
+	@@@@@@@@@@@@@@@@@@@@@@%((((((((###&@@@@@@@@@@@@@@@
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	 _______  __   __  __   __  ______    _______ 
 	|       ||  |_|  ||  | |  ||    _ |  |       |
 	|  _____||       ||  | |  ||   | ||  |    ___|
@@ -29,64 +34,83 @@
 	Call out a smurf to do a job for you!
 	==============================================
 	Handy Smurf is here to give you a hand!
-
 	I have added: 
-	1. [T][ ] make magic potion
+	1. [T][ ] todo1
 	==============================================
 	Call out a smurf to do a job for you!
 	==============================================
 	Handy Smurf is here to give you a hand!
-
 	I have added: 
-	2. [E][ ] magic potion party at: tomorrow noon
-	==============================================
-	Call out a smurf to do a job for you!
-	==============================================
-	"Tracker Smurf!! I need you here!!"
-
-	1. [T][ ] make magic potion
-	2. [E][ ] magic potion party at: tomorrow noon
+	2. [T][ ] todo 2
 	==============================================
 	Call out a smurf to do a job for you!
 	==============================================
 	Brainy Smurf: aah another thing done
-
-	2. [E][X] magic potion party
+	2. [T][X] todo 2
 	==============================================
 	Call out a smurf to do a job for you!
 	==============================================
 	Handy Smurf is here to give you a hand!
-
 	I have added: 
-	3. [D][ ] mix berries by: tonight 8pm
+	3. [E][ ] event 3 at: Dec 12 2121
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	Handy Smurf is here to give you a hand!
+	I have added: 
+	4. [D][ ] deadline 4 by: Dec 12 2121
 	==============================================
 	Call out a smurf to do a job for you!
 	==============================================
 	"Tracker Smurf!! I need you here!!"
-
-	1. [T][ ] make magic potion
-	2. [E][X] magic potion party at: tomorrow noon
-	3. [D][ ] mix berries by: tonight 8pm
+	1. [T][ ] todo1
+	2. [T][X] todo 2
+	3. [E][ ] event 3 at: Dec 12 2121
+	4. [D][ ] deadline 4 by: Dec 12 2121
 	==============================================
 	Call out a smurf to do a job for you!
 	==============================================
-	oops i can't find a smurf to help you with your task.
+	I will get Weakling smurf to do it for you.
+	   [T][ ] todo1
 	==============================================
 	Call out a smurf to do a job for you!
 	==============================================
-	Brainy Smurf: aah another thing done
-
-	1. [T][X] make magic potion
+	Hey you needa gimme a description!!
 	==============================================
 	Call out a smurf to do a job for you!
 	==============================================
-	Brainy Smurf: aah another thing done
-
-	3. [D][X] mix berries
+	Hey you needa gimme a description!!
 	==============================================
 	Call out a smurf to do a job for you!
 	==============================================
-	oops i can't find a smurf to help you with your task.
+	Hey you needa gimme a description!!
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	Hey you didn't provide a time :(
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	Hey you didn't provide a time :(
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	Handy Smurf is here to give you a hand!
+	I have added: 
+	4. [T][ ] todo 5
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	1. [T][X] todo 2
+	4. [T][ ] todo 5
+	==============================================
+	Call out a smurf to do a job for you!
+	==============================================
+	"Tracker Smurf!! I need you here!!"
+	1. [T][X] todo 2
+	2. [E][ ] event 3 at: Dec 12 2121
+	3. [D][ ] deadline 4 by: Dec 12 2121
+	4. [T][ ] todo 5
 	==============================================
 	Call out a smurf to do a job for you!
 	==============================================
