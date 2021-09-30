@@ -8,11 +8,13 @@ import duke.task.TaskList;
  * Represents the command to delete tasks from the TaskList
  */
 public class DeleteCommand extends Command{
-    
-    private int taskIndex;
 
-    public DeleteCommand(int taskIndex) {
-        this.taskIndex = taskIndex;
+    private static final int DELETE_SUBSTRING_INDEX = 7;
+    
+    private String input;
+
+    public DeleteCommand(String input) {
+        this.input = input;
     }
 
     /**
@@ -24,12 +26,17 @@ public class DeleteCommand extends Command{
      */
     @Override
      public void execute(TaskList list, Ui ui, Storage storage) {
-        if (taskIndex < list.size() && taskIndex >= 0) {
-            ui.printRemoveTaskMessge(list.getList().get(taskIndex), list.size()-1);     
-            list.deleteTask(taskIndex);
-            storage.updateFile();
-        } else {
-            ui.printTaskDoesNotExistMessage();
+        try {
+            int taskIndex = Integer.parseInt(input.substring(DELETE_SUBSTRING_INDEX).trim()) - 1;
+            if (taskIndex < list.size() && taskIndex >= 0) {
+                ui.printRemoveTaskMessge(list.getList().get(taskIndex), list.size()-1);     
+                list.deleteTask(taskIndex);
+                storage.updateFile();
+            } else {
+                ui.printTaskDoesNotExistMessage();
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            ui.printWrongCommandFormatMessage();
         }
      }
 

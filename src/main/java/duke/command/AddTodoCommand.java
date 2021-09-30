@@ -2,6 +2,7 @@ package duke.command;
 
 import java.io.IOException;
 import duke.ui.Ui;
+import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
 
@@ -29,6 +30,9 @@ public class AddTodoCommand extends Command{
      public void execute(TaskList list, Ui ui, Storage storage) {
         try {
             String taskName = input.substring(TODO_NAME_CONSTANT).trim();
+            if (taskName.length() == 0) {
+                throw new DukeException();
+            }
             list.addTodo(taskName);
             storage.appendToFile("T / 0 / " + taskName);
             list.printAddedTask();
@@ -36,6 +40,8 @@ public class AddTodoCommand extends Command{
             ui.printEmptyTodoMessage();
         } catch(IOException e) {
             ui.printSomethingWentWrongMessage(e);
+        } catch (DukeException e) {
+            ui.printEmptyTodoMessage();
         }
      }
 

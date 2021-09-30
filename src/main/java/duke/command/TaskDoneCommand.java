@@ -8,11 +8,13 @@ import duke.task.TaskList;
  * Represents the command to mark a task as done
  */
 public class TaskDoneCommand extends Command{
-    
-    private int taskIndex;
 
-    public TaskDoneCommand(int taskIndex) {
-        this.taskIndex = taskIndex;
+    private static final int DONE_SUBSTRING_INDEX = 5;
+    
+    private String input;
+
+    public TaskDoneCommand(String input) {
+        this.input = input;
     }
 
     /**
@@ -24,16 +26,21 @@ public class TaskDoneCommand extends Command{
      */
     @Override
      public void execute(TaskList list, Ui ui, Storage storage) {
-        if (taskIndex < list.size() && taskIndex >= 0) {
-            if (list.getList().get(taskIndex).isDone()) {
-                ui.printTaskIsDoneMessage();
+        try {
+            int taskIndex = Integer.parseInt(input.substring(DONE_SUBSTRING_INDEX).trim()) - 1;
+            if (taskIndex < list.size() && taskIndex >= 0) {
+                if (list.getList().get(taskIndex).isDone()) {
+                    ui.printTaskIsDoneMessage();
+                } else {
+                    list.markTaskAsDone(taskIndex);
+                    storage.updateFile();
+                    ui.printMarkTaskAsDoneMessage(list.getList().get(taskIndex));
+                }
             } else {
-                list.markTaskAsDone(taskIndex);
-                storage.updateFile();
-                ui.printMarkTaskAsDoneMessage(list.getList().get(taskIndex));
+                ui.printTaskDoesNotExistMessage();
             }
-        } else {
-            ui.printTaskDoesNotExistMessage();
+        } catch(StringIndexOutOfBoundsException e) {
+            ui.printWrongCommandFormatMessage();
         }
      }
 

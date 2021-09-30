@@ -7,6 +7,7 @@ import duke.command.*;
  * Represents the parsing of user commands
  */
 public class Parser {
+
     /**
      * Parses the user input and returns the command to be executed
      * 
@@ -19,7 +20,6 @@ public class Parser {
         String[] inputWords = input.split(" ");
         String command = inputWords[0].toLowerCase();
         Command c;
-        int taskIndex;
         switch(command) {
         case "bye":
             c = new ExitCommand();
@@ -28,16 +28,13 @@ public class Parser {
             c = new ListCommand();
             break;
         case "done":
-            taskIndex = Integer.parseInt(inputWords[1]) - 1;
-            c = new TaskDoneCommand(taskIndex);
+            c = new TaskDoneCommand(input);
             break;
         case "find":
-            String keyword = inputWords[1];
-            c = new FindCommand(keyword);
+            c = new FindCommand(input);
             break;
         case "delete":
-            taskIndex = Integer.parseInt(inputWords[1]) - 1;
-            c = new DeleteCommand(taskIndex);
+            c = new DeleteCommand(input);
             break;
         case "todo":
             c = new AddTodoCommand(input);
