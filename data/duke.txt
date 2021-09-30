@@ -2,3 +2,4 @@
 [D][ ] return book /by June 6th
 [E][ ] project meeting /at Aug 6th 2-4pm
 [T][X] join sports club
+[D][ ] finish iP /by Oct 1st
