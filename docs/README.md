@@ -11,6 +11,7 @@ task managing apps.
 4. Open your terminal app and make sure that you are in the same working directory as your duke file.
 5. At the folder where you saved the jar file, run the command `java -jar duke.jar` in your terminal app.
 6. In the case where Duke runs successfully, you should see the following output.
+
 ```
     ____        _        
    |  _ \ _   _| | _____ 
@@ -23,6 +24,7 @@ task managing apps.
     ____________________________________________________________
     
 ```
+
 7. Type your command in the blank line under the horizontal separator and press Enter to execute it.
    (Ex. typing `list` and pressing Enter will display your current task list.)
 8. Refer to the [Features](#Features) section below for details on each command.
