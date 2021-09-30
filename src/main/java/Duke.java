@@ -15,6 +15,10 @@ import java.time.format.DateTimeParseException;
  * It is also possible to mark the tasks as "done" or "not done",
  * print deadline tasks due today and event tasks happening today, and
  * filters the task list based on the keyword.
+ *
+ * @author Madhan Selvapandian
+ * @version 0.2
+ * @since 28-9-2021
  */
 public class Duke {
     private Ui ui;
