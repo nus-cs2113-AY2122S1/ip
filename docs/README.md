@@ -2,7 +2,7 @@
 
 Duke is a personal assistant chat-bot that can help its user to record different type of tasks.  
 
-##Contents
+## Contents
 1. To Start
 2. Features
 3. Command List
