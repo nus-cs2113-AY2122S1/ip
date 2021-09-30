@@ -65,7 +65,37 @@ public class TaskList {
      * Prints list of Tasks in task list in a user-friendly format
      */
     public static void listTasks() {
-        Ui.printTaskList(tasks);
+        ArrayList<String> list = new ArrayList<>();
+        for (Task task : tasks) {
+            list.add(task.toString());
+        }
+
+        if (list.isEmpty()) {
+            System.out.println("Your task list is empty!:");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            Ui.printTaskList(list);
+        }
+    }
+
+    /**
+     * Prints list of Tasks in task list that contain search keyword in a user-friendly format
+     *
+     * @param keyword Search keyword to check against titles of tasks
+     */
+    public static void listMatchingTasks(String keyword) {
+        ArrayList<String> matches = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getName().contains(keyword)) {
+                matches.add(task.toString());
+            }
+        }
+        if (matches.isEmpty()) {
+            System.out.println("No matching tasks found!");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            Ui.printTaskList(matches);
+        }
     }
 
     /**

@@ -1,15 +1,7 @@
 package duke;
 
 
-import duke.command.Command;
-import duke.command.DoneCommand;
-import duke.command.ExitCommand;
-import duke.command.ListCommand;
-import duke.command.TodoCommand;
-import duke.command.DeadlineCommand;
-import duke.command.EventCommand;
-import duke.command.DeleteCommand;
-import duke.command.InvalidCommand;
+import duke.command.*;
 
 public class Parser {
     private static final String CMD_EXIT = "bye";
@@ -19,6 +11,7 @@ public class Parser {
     private static final String CMD_DEADLINE = "deadline";
     private static final String CMD_EVENT = "event";
     private static final String CMD_DELETE = "delete";
+    private static final String CMD_FIND = "find";
 
     /**
      * @param input String input from user
@@ -53,7 +46,11 @@ public class Parser {
             String parsedInput = input.split(" ")[1];
             int taskNo = Integer.parseInt(parsedInput);
             return new DeleteCommand(taskNo - 1);
-        } else {
+        } else if (input.startsWith(CMD_FIND)) {
+            String parsedInput = input.split(" ")[1];
+            return new FindCommand(parsedInput);
+        }
+        else {
             return new InvalidCommand();
         }
     }
