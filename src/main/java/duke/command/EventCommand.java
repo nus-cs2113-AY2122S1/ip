@@ -27,7 +27,8 @@ public class EventCommand extends Command {
      * description and arguments[1] is the start date.
      */
     @Override
-    public void execute() {
+    public CommandResult execute() {
         taskManager.createEventTask(arguments[0], arguments[1].trim());
+        return new CommandResult(super.getAddTaskResponseMessage());
     }
 }

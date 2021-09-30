@@ -1,9 +1,5 @@
 package duke.ui;
 
-import duke.DukeException;
-import duke.command.CommandException;
-import duke.parser.ParserException;
-import duke.task.TaskManagerException;
 import java.util.Scanner;
 
 /**
@@ -52,24 +48,10 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    public void printDukeExceptionMessage(DukeException e) {
-        System.out.println(e.toString());
-        System.out.println(LINE);
-    }
-
-    public void printParserExceptionMessage(ParserException e) {
-        System.out.println(e.toString());
-        System.out.println(LINE);
-    }
-
-    public void printCommandExceptionMessage(CommandException e) {
-        System.out.println(e.toString());
-        System.out.println(LINE);
-    }
-
-    public void printTaskManagerExceptionMessage(TaskManagerException e) {
-        System.out.println(e.toString());
-        System.out.println(LINE);
+    public void printMessageNoLine(String... data){
+        for (String s : data) {
+            System.out.println(s);
+        }
     }
 
     public void printFileLoadingMessage(String filename) {
@@ -82,7 +64,7 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    public void printLine() {
+    public void printLine(){
         System.out.println(LINE);
     }
 

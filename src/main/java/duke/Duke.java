@@ -42,7 +42,7 @@ public class Duke {
             taskManager.processContentsFromFile(fileHandler.load(fileName), ui);
         } catch (DukeException e) {
             //File name not found
-            ui.printDukeExceptionMessage(e);
+            ui.printMessage(e.toString());
         }
         ui.printFileLoadingDoneMessage();
     }
@@ -67,17 +67,19 @@ public class Duke {
     private void executeCommand(Command command) {
         try {
             command.setTaskManager(taskManager);
-            command.execute();
-            ui.printLine();
+            CommandResult result = command.execute();
+            ui.printMessage(result.getFeedbackToUser());
             if (command.hasDataChange()) {
                 fileHandler.writeToFile(fileName, taskManager.toString());
             }
         } catch (CommandException e) {
             //Fatal error, Task Manager does not exist
-            ui.printCommandExceptionMessage(e);
+            ui.printMessage(e.toString());
         } catch (DukeException e) {
             //File IOException error
-            ui.printDukeExceptionMessage(e);
+            ui.printMessage(e.toString());
+        } catch (TaskManagerException e) {
+            ui.printMessage(e.toString());
         } catch (NullPointerException e) {
             //Fatal error, command input is null
             ui.printMessage(e.getMessage());
@@ -98,7 +100,7 @@ public class Duke {
                 command = parser.parseCommand(ui.getUserInput());
                 executeCommand(command);
             } catch (ParserException e) {
-                ui.printParserExceptionMessage(e);
+                ui.printMessage(e.toString());
             }
         } while (!ByeCommand.isExit(command));
         ui.printExitMessage();

@@ -3,11 +3,8 @@ package duke.task;
 import duke.common.CommonFormat;
 import duke.common.Messages;
 import duke.ui.Ui;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Class that handles any Task related objects and maintain a task list.
@@ -20,6 +17,10 @@ public class TaskManager {
 
     public TaskManager() {
 
+    }
+
+    public int getTotalNumberOfTasks() {
+        return totalNumberOfTasks;
     }
 
     /**
@@ -62,22 +63,20 @@ public class TaskManager {
     public void addTask(Task task) {
         taskList.add(task);
         totalNumberOfTasks++;
-        System.out.println("Got it. I've added this task:");
-        printTask(totalNumberOfTasks - 1);
-        System.out.printf("Now you have %d tasks in the list" + System.lineSeparator(), totalNumberOfTasks);
     }
 
 
     /**
      * Print all task information in the tasks list.
      */
-    public void printAllTasks() {
-        System.out.println("Here are the tasks in your list:");
+    public String getAllTaskInfo() {
+        String result = "";
         for (int i = 0; i < totalNumberOfTasks; i++) {
-            System.out.printf("%s.", i + 1);
-            printTask(i);
+            result += String.format("%s.", i + 1);
+            result += getTaskInfo(i);
+            result += System.lineSeparator();
         }
-        System.out.printf("There are currently %d tasks in your list.\n", totalNumberOfTasks);
+        return result;
     }
 
     /**
@@ -85,8 +84,8 @@ public class TaskManager {
      *
      * @param taskIndex The task index number in the tasks list to be printed out
      */
-    public void printTask(int taskIndex) {
-        System.out.printf("%s %s" + System.lineSeparator(),
+    public String getTaskInfo(int taskIndex) {
+        return String.format("%s %s",
                 taskList.get(taskIndex).getStatusIcon(),
                 taskList.get(taskIndex).getTaskInfo()
         );
@@ -97,15 +96,12 @@ public class TaskManager {
      *
      * @param taskNumber The task index number in the tasks list to be set as done
      */
-    public void setTaskToDone(int taskNumber) {
+    public void setTaskToDone(int taskNumber) throws TaskManagerException {
         if (taskNumber < 1 || taskNumber > totalNumberOfTasks) {
-            System.out.println("Error: task not found.");
-            return;
+            throw new TaskManagerException(Messages.ERROR_MESSAGE_INVALID_TASK_NUMBER);
         }
         int taskIndex = taskNumber - 1;
         taskList.get(taskIndex).setDone(true);
-        System.out.println("Nice! I've marked this task as done:");
-        printTask(taskIndex);
     }
 
     /**
@@ -113,19 +109,16 @@ public class TaskManager {
      *
      * @param taskNumber Specified task number by list command. Its taskIndex will be taskNumber - 1.
      */
-    public void deleteTask(int taskNumber) {
+    public String deleteTask(int taskNumber) throws TaskManagerException {
         if (taskNumber < 1 || taskNumber > totalNumberOfTasks) {
-            System.out.println("Error: task not found.");
-            return;
+            throw new TaskManagerException(Messages.ERROR_MESSAGE_INVALID_TASK_NUMBER);
         }
         int taskIndex = taskNumber - 1;
         String taskDescription =
                 taskList.get(taskIndex).getStatusIcon() + " " + taskList.get(taskIndex).getTaskInfo();
         taskList.remove(taskIndex);
         totalNumberOfTasks -= 1;
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(taskDescription);
-        System.out.printf("Now you have %d tasks in the list" + System.lineSeparator(), totalNumberOfTasks);
+        return taskDescription;
 
     }
 
@@ -152,11 +145,12 @@ public class TaskManager {
             try {
                 addTaskFromContent(s);
             } catch (DateTimeParseException e) {
-                ui.printMessage(getInvalidFileInputMessage(Messages.ERROR_MESSAGE_INVALID_DATE, s));
+                ui.printMessageNoLine(getInvalidFileInputMessage(Messages.ERROR_MESSAGE_INVALID_DATE, s));
             } catch (TaskManagerException e) {
-                ui.printMessage(getInvalidFileInputMessage(e.toString(), s));
+                ui.printMessageNoLine(getInvalidFileInputMessage(e.toString(), s));
             }
         }
+        ui.printLine();
     }
 
     /**
@@ -181,7 +175,7 @@ public class TaskManager {
             break;
         default:
             // Task type unknown
-            throw new TaskManagerException(Messages.ERROR_MESSAGE_UNKNOWN_TASK);
+            throw new TaskManagerException(Messages.ERROR_MESSAGE_UNKNOWN_TASK_TYPE);
         }
 
         // Set Task done
@@ -210,14 +204,17 @@ public class TaskManager {
         }
     }
 
-    public void printTaskOnDate(String date) {
+    public String getTaskOnDate(String date) {
+        String result = "";
         for (int i = 0; i < totalNumberOfTasks; i++) {
             if (doesTaskHasDate(taskList.get(i))) {
                 if (taskList.get(i).getDate().equals(date)) {
-                    printTask(i);
+                    result += getTaskInfo(i);
+                    result += "\n";
                 }
             }
         }
+        return result;
     }
 
     /**
@@ -236,20 +233,22 @@ public class TaskManager {
      *
      * @param keyword User given keyword to filter out Tasks in task list.
      */
-    public void findTask(String keyword) {
+    public String findTask(String keyword) throws TaskManagerException {
         if (keyword == null || keyword.isBlank()) {
-            System.out.println("Error: keyword is non existent.");
-            return;
+            throw new TaskManagerException(Messages.ERROR_MESSAGE_MISSING_KEYWORD);
         }
+        String result = "";
         for (int i = 0; i < totalNumberOfTasks; i++) {
             if (isKeywordInside(taskList.get(i).getDescription(), keyword)) {
-                printTask(i);
+                result += getTaskInfo(i);
+                result += "\n";
             }
         }
+        return result;
     }
 
     private boolean isKeywordInside(String description, String keyword) {
-        return description.contains(keyword);
+        return description.toLowerCase().contains(keyword.toLowerCase());
     }
 
     private boolean isValidDoneStatus(String c) {

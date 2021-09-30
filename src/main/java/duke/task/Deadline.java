@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.common.CommonFormat;
+import duke.common.Messages;
 import java.time.LocalDateTime;
 
 /**
@@ -46,7 +47,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return FLAG_TYPE + " | " + getDoneStatus() + " | " + this.getDescription() + " | " + dueDate.format(
-                CommonFormat.formatter);
+        return FLAG_TYPE + CommonFormat.INFO_SEPARATOR + getDoneStatus() + CommonFormat.INFO_SEPARATOR
+                + this.getDescription() + CommonFormat.INFO_SEPARATOR
+                + dueDate.format(CommonFormat.formatter);
     }
 }

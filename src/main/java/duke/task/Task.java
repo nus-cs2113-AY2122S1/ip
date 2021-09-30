@@ -73,7 +73,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return " " + " | " + getDoneStatus() + " | " + description;
+        return " " + CommonFormat.INFO_SEPARATOR + getDoneStatus() + CommonFormat.INFO_SEPARATOR + description;
     }
 
     /**
