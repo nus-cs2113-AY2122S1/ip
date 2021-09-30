@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.TaskManager;
+import duke.Ui;
 import duke.task.Task;
 
 public class EventCommand implements Command {
@@ -28,9 +29,7 @@ public class EventCommand implements Command {
     public void run(boolean printMessage) {
         Task task = TaskManager.addEvent(eventTitle, eventTime);
         if (printMessage) {
-            System.out.print("Got it. I've added this task:\n");
-            System.out.printf("   %s\n", task);
-            System.out.printf("Now you have %d tasks in the list.\n", TaskManager.getTasklistSize());
+            Ui.printTaskAddedMessage(task);
         }
     }
 

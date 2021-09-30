@@ -8,17 +8,9 @@ import duke.command.CommandType;
 public class Duke {
 
     public static void main(String[] args) {
-        greetUserOnStart();
+        Ui.greetUserOnStart();
         executeDuke();
-        greetUserOnEnd();
-    }
-
-    /**
-     * Prints greeting message to user on startup
-     */
-    public static void greetUserOnStart() {
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+        Ui.greetUserOnEnd();
     }
 
     /**
@@ -39,13 +31,5 @@ public class Duke {
             input = in.nextLine();
             command = CommandParser.parse(input);
         }
-    }
-
-
-    /**
-     * Prints greeting message to user on exit
-     */
-    public static void greetUserOnEnd() {
-        System.out.println("Bye. Hope to see you again soon!");
     }
 }

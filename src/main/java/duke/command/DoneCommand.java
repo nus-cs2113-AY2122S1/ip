@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.TaskManager;
+import duke.Ui;
 import duke.task.Task;
 
 public class DoneCommand implements Command {
@@ -25,8 +26,7 @@ public class DoneCommand implements Command {
     public void run(boolean printMessage) {
         Task task = TaskManager.markTaskNoAsDone(taskNo);
         if (printMessage) {
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.printf("   %s\n", task);
+            Ui.printTaskDoneMessage(task);
         }
     }
 

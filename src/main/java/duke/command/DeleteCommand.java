@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.TaskManager;
+import duke.Ui;
 import duke.task.Task;
 
 public class DeleteCommand implements Command {
@@ -25,9 +26,7 @@ public class DeleteCommand implements Command {
     public void run(boolean printMessage) {
         Task task = TaskManager.deleteTask(taskNo);
         if (printMessage) {
-            System.out.println("Noted. I've removed this task:");
-            System.out.printf("   %s\n", task);
-            System.out.printf("Now you have %d tasks in the list.\n", TaskManager.getTasklistSize());
+            Ui.printTaskDeletedMessage(task);
         }
     }
 

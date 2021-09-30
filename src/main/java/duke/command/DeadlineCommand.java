@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.TaskManager;
 import duke.task.Task;
+import duke.Ui;
 
 public class DeadlineCommand implements Command {
     private static final CommandType type = CommandType.DEADLINE;
@@ -28,9 +29,7 @@ public class DeadlineCommand implements Command {
     public void run(boolean printMessage) {
         Task task = TaskManager.addDeadline(deadlineTitle, deadlineDue);
         if (printMessage) {
-            System.out.print("Got it. I've added this task:\n");
-            System.out.printf("   %s\n", task);
-            System.out.printf("Now you have %d tasks in the list.\n", TaskManager.getTasklistSize());
+            Ui.printTaskAddedMessage(task);
         }
     }
 

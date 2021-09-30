@@ -1,5 +1,7 @@
 package duke.command;
 
+import duke.Ui;
+
 public class ExitCommand implements Command {
     private static final CommandType type = CommandType.EXIT;
 
@@ -10,7 +12,7 @@ public class ExitCommand implements Command {
      */
     @Override
     public void run(boolean printMessage) {
-        System.out.println("Exited Duke. See you later.");
+        Ui.greetUserOnEnd();
     }
 
     /**

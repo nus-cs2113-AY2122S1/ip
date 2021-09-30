@@ -4,7 +4,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -63,14 +62,10 @@ public class TaskManager {
     }
 
     /**
-     * Prints list of Tasks in task list in a user friendly format
+     * Prints list of Tasks in task list in a user-friendly format
      */
     public static void listTasks() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); ++i) {
-            Task task = tasks.get(i);
-            System.out.printf("%d. %s\n", i + 1, task);
-        }
+        Ui.printTaskList(tasks);
     }
 
     /**

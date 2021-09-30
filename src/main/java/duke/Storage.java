@@ -26,7 +26,7 @@ public class Storage {
     private static final String NULL = "NULL";
 
     /**
-     * Loads task data from DATA_FILE_NAME on startup
+     * Loads task data from FILE_PATH on startup
      */
     public static void importData() {
         try {
