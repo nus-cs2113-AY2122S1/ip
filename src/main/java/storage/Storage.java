@@ -14,6 +14,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents the interactions with the text file database to store data.
+ */
 public class Storage {
     private static Ui ui;
     private static TaskList tasks;
@@ -28,8 +31,12 @@ public class Storage {
         ui = new Ui();
     }
 
-
-    public void folderChecker(File folder) {
+    /**
+     * Checks if the folder for the database exists. Creates one if it does not.
+     *
+     * @param folder The folder path.
+     */
+    public static void folderChecker(File folder) {
         boolean result = folder.mkdir();
         ui.showCheckFolderMessage();
         if (result) {
@@ -39,7 +46,12 @@ public class Storage {
         }
     }
 
-    public void databaseChecker(File file) {
+    /**
+     * Checks if the database file exists. Creates one if it does not.
+     *
+     * @param file The file path for the database.
+     */
+    public static void databaseChecker(File file) {
         try {
             boolean result = file.createNewFile();
             ui.showCheckDatabaseFileMessage();
@@ -53,6 +65,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Initialises the task list using the data from the database file.
+     *
+     * @param s Scanner for database file.
+     * @throws JimException If file line is corrupted with other data.
+     */
     public void initList(Scanner s) throws JimException {
         while (s.hasNext()) {
             String task = s.nextLine();
@@ -83,6 +101,9 @@ public class Storage {
         s.close();
     }
 
+    /**
+     * Initialises the storage component of Jim.
+     */
     public void initJim() {
         try {
             File file = new File(FILE_PATH);
@@ -93,13 +114,22 @@ public class Storage {
             initList(s);
         } catch (JimException e) {
             ui.showCorruptedDatabaseFileMessage(tasks.getListSize() + 1);
+            System.exit(0);
         } catch (FileNotFoundException e) {
             ui.showNoDatabaseFileMessage();
+            folderChecker(new File(FOLDER_PATH));
+            databaseChecker(new File(FILE_PATH));
         }
     }
 
+    /**
+     * Appends a task to the database.
+     *
+     * @param type The type of task to append ("T" for todo, "D" for deadline, "E" for event)
+     * @param input The description of the task.
+     * @param isDone The boolean that checks if the task has been completed.
+     */
     public static void appendDatabase(String type, String input, String isDone) {
-        //append new tasks to database
         try {
             FileWriter fw = new FileWriter(FILE_PATH, true);
             switch (type) {
@@ -122,9 +152,14 @@ public class Storage {
             fw.close();
         } catch (IOException e) {
             ui.showNoDatabaseFileMessage();
+            folderChecker(new File(FOLDER_PATH));
+            databaseChecker(new File(FILE_PATH));
         }
     }
 
+    /**
+     * Clears all data from the database file.
+     */
     public static void clearDatabase() {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
@@ -132,9 +167,14 @@ public class Storage {
             fw.close();
         } catch (IOException e) {
             ui.showNoDatabaseFileMessage();
+            folderChecker(new File(FOLDER_PATH));
+            databaseChecker(new File(FILE_PATH));
         }
     }
 
+    /**
+     * Updates the tasks in the database using the task list as reference.
+     */
     public static void updateDatabase() {
         //clear file then append from list
         clearDatabase();

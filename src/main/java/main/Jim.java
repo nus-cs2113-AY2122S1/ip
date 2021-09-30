@@ -19,20 +19,25 @@ public class Jim {
         storage.initJim();
     }
 
+    /**
+     * Shows welcome message. Takes in user command and executes that command (if possible, shows error if not)
+     * Taking and executing user command will loop until isExit is true, where the function terminates.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;
-        try {
-            while (!isExit) {
+        while (!isExit) {
+            try {
                 String userCommand = ui.readCommand();
                 Command command = Parser.parseCommand(userCommand);
-                command.execute(tasks);
+                command.execute(tasks, ui, storage);
                 isExit = command.getIsExit();
+            } catch (JimException e) {
+                ui.showInvalidCommandMessage();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.showWrongCommandFormatMessage();
             }
-        } catch (JimException e) {
-            ui.showInvalidCommandMessage();
         }
-        System.exit(0);
     }
 
     public static void main(String[] args) {

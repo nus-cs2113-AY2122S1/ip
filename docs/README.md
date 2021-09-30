@@ -1,29 +1,165 @@
 # User Guide
 
-## Features 
+Jim is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI).
+If you can type fast, Jim can get your task management done faster than traditional GUI apps.
 
-### Feature-ABC
+## Features
 
-Description of the feature.
+### Notes about the command format:
+Words in UPPER_CASE are the parameters to be supplied by the user. <br />
+e.g. in `todo TASK_DESCRIPTION`, `TASK_DESCRIPTION` is a parameter which can be used as `todo read book`
 
-### Feature-XYZ
+<br />
 
-Description of the feature.
+### `todo` - Create todo task
+Adds a todo task into your list.
 
-## Usage
+Format: `todo TASK_DESCRIPTION`
+* The `TASK_DESCRIPTION` cannot be empty
 
-### `Keyword` - Describe action
+Example:
+```
+____________________________________________________________
+ How can I help you: todo homework
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] homework
+ Now you have 1 tasks in the list.
+____________________________________________________________
+```
+<br />
 
-Describe the action and its outcome.
+### `deadline` - Create deadline task
+Adds a deadline task into your list.
 
-Example of usage: 
+Format: `deadline TASK_DESCRIPTION /by DEADLINE_TIME`
+* The `TASK_DESCRIPTION` and `DEADLINE_TIME` cannot be empty
 
-`keyword (optional arguments)`
+Example:
+```
+____________________________________________________________
+How can I help you: deadline assignment /by tuesday night
+____________________________________________________________
+ Got it. I've added this task:
+   [D][ ] assignment (by: tuesday night)
+ Now you have 2 tasks in the list.
+____________________________________________________________
+```
+<br />
 
-Expected outcome:
+### `event` - Create event task
+Adds an event task into your list.
 
-Description of the outcome.
+Format: `event TASK_DESCRIPTION /at EVENT_TIME`
+* The `TASK_DESCRIPTION` and `EVENT_TIME` cannot be empty
+
+Example:
+```
+____________________________________________________________
+ How can I help you: event cca/at 6pm-8pm
+____________________________________________________________
+ Got it. I've added this task:
+   [E][ ] cca (at: 6pm-8pm)
+ Now you have 3 tasks in the list.
+____________________________________________________________
+```
+<br />
+
+### `list` - Lists current tasks
+Lists all the tasks in your list.
+
+Example:
 
 ```
-expected output
+____________________________________________________________
+ How can I help you: list
+____________________________________________________________
+1. [T][ ] homework
+2. [D][ ] assignment (by: tuesday night)
+3. [E][ ] cca (at: 6pm - 8pm)
+____________________________________________________________
 ```
+<br />
+
+### `done` - Mark task as done
+Marks a task, based on its index, as done.
+
+Format: `done TASK_INDEX`
+* Marks the task at the specified `TASK_INDEX` as done.<br />
+* The index refers to the index number shown in the displayed task list.<br />
+* The index must be a positive integer 1, 2, 3, ...<br />
+* The task should not be done already
+
+Example:
+
+```
+____________________________________________________________
+ How can I help you: done 1
+____________________________________________________________
+Nice! You're a real champ for finishing this: 
+[T][X] homework
+____________________________________________________________
+```
+<br />
+
+### `remove` - Remove task
+Removes a task, based on its index.
+
+Format: `remove TASK_INDEX`<br />
+* Removes the task at the specified `TASK_INDEX`.<br />
+* The index refers to the index number shown in the displayed task list.<br />
+* The index must be a positive integer 1, 2, 3, ...<br />
+
+Example:
+```
+____________________________________________________________
+ How can I help you: remove 1
+____________________________________________________________
+ This task has been spirited away:
+   [T][X] homework
+ Now you have 2 tasks in the list!
+____________________________________________________________
+```
+<br />
+
+### `find` - Find tasks
+Find tasks that contains the keyword from the list.
+
+Format: `find KEYWORD`
+* The search is case-insensitive. e.g. `read book` will match `READ BOOK`
+* Task description containing the keyword will be returned 
+e.g. `read` will return `read book` and `read magazine`
+
+Example:
+```
+____________________________________________________________
+find assignment
+____________________________________________________________
+Here are the matching tasks in your list:
+1. [D][ ] cs2113t ip (by: thursday night)
+2. [D][X] st2334 assignment (by: monday night)
+____________________________________________________________
+```
+
+### `clear database` - Clears the database files
+Clears the tasklist and database.
+
+Format: `clear database`
+
+<br />
+
+### `help` - Displays help message
+Displays the available commands and the input format for them.
+
+Format: `help`
+
+<br />
+
+### `bye` - Exits the program
+Exits the program.
+
+Format: `bye`
+
+### Saving task data
+Duke saves your task list from the usage into your local storage as a text file.<br />
+Upon reinitialization, it reloads that file, so you access previously added tasks
