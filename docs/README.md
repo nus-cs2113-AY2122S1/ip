@@ -31,7 +31,7 @@ It's **light and easy** to use, without any fancy embellishments that will bag d
 To get _Tired_ up and running on your computer, follow the steps below:
 1. Download and install [Java 11](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html)
 on your computer
-2. Download _Tired_'s **JAR file** by clicking [here](). 
+2. Download _Tired_'s **JAR file** by clicking [here](https://github.com/kahhe/ip/releases/download/A-Release/ip.jar). 
 (As the creator I vouch for its safety, so ignore the warning message, :D)
 3. The **JAR file** will appear in your **Downloads** folder. Open **Command Prompt**.
 One method is to press the Windows  key, search  for "cmd", and click the first option.
