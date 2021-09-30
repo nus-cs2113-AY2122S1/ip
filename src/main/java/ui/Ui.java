@@ -2,6 +2,9 @@ package ui;
 import java.util.Scanner;
 import tasks.Task;
 
+/**
+ * Represents interactions with the TextUi to show messages.
+ */
 public class Ui {
     protected static final String VERSION = " Chatbot Jim - Version 7" + System.lineSeparator();
     protected static final String LINES = "____________________________________________________________"
