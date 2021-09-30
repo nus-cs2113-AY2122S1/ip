@@ -9,16 +9,8 @@ public class TaskList {
         allTasks = new ArrayList<Task>();
     }
 
-    public void addToDo(ToDo toDo) {
-        allTasks.add(toDo);
-    }
-
-    public void addDeadline(Deadline deadline) {
-        allTasks.add(deadline);
-    }
-
-    public void addEvent(Event event) {
-        allTasks.add(event);
+    public void addTask(Task task) {
+        allTasks.add(task);
     }
 
     public void deleteTask(int taskIndex) {

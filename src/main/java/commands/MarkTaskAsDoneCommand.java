@@ -2,7 +2,7 @@ package commands;
 
 import storage.Storage;
 import tasks.Task;
-import TextUi.TextUi;
+import ui.TextUi;
 
 public class MarkTaskAsDoneCommand extends Command{
 
@@ -23,9 +23,15 @@ public class MarkTaskAsDoneCommand extends Command{
         try {
             int taskIndex = Integer.parseInt(targetVisibleIndex) - DISPLAYED_INDEX_OFFSET;
             Task taskToMarkAsDone = taskList.getTaskList().get(taskIndex);
-            taskToMarkAsDone.markAsDone();
-            TextUi.showTaskCompletedMessage(taskToMarkAsDone);
-            Storage.updateDataFile();
+            boolean isDone = taskToMarkAsDone.getIsDone();
+            if (isDone) {
+                TextUi.showTaskAlreadyCompletedMessage();
+            }
+            else {
+                taskToMarkAsDone.markAsDone();
+                TextUi.showTaskMarkedAsDoneMessage(taskToMarkAsDone);
+                Storage.updateDataFile();
+            }
         } catch (NumberFormatException e) {
             TextUi.showInvalidTaskIndexMessage(COMMAND_WORD);
         } catch (IndexOutOfBoundsException e) {

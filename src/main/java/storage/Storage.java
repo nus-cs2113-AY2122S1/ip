@@ -7,7 +7,7 @@ import tasks.TaskList;
 import tasks.ToDo;
 import tasks.Deadline;
 import tasks.Event;
-import TextUi.TextUi;
+import ui.TextUi;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -38,7 +38,7 @@ public class Storage {
                 int taskIndex = taskList.getSize();
                 switch(taskType) {
                 case ToDo.INITIAL:
-                    taskList.addToDo(new ToDo(taskParams));
+                    taskList.addTask(new ToDo(taskParams));
                     if (isDone) {
                         taskList.markTaskAsDone(taskIndex);
                     }
@@ -47,7 +47,7 @@ public class Storage {
                     String[] taskDescriptionAndDeadline = taskParams.split(" \\| ");
                     String deadlineDescription = taskDescriptionAndDeadline[0];
                     String deadline = taskDescriptionAndDeadline[1];
-                    taskList.addDeadline(new Deadline(deadlineDescription, deadline));
+                    taskList.addTask(new Deadline(deadlineDescription, deadline));
                     if (isDone) {
                         taskList.markTaskAsDone(taskIndex);
                     }
@@ -56,7 +56,7 @@ public class Storage {
                     String[] taskDescriptionAndTimeRange = taskParams.split(" \\| ");
                     String eventDescription = taskDescriptionAndTimeRange[0];
                     String timeRange = taskDescriptionAndTimeRange[1];
-                    taskList.addEvent(new Event(eventDescription, timeRange));
+                    taskList.addTask(new Event(eventDescription, timeRange));
                     if (isDone) {
                         taskList.markTaskAsDone(taskIndex);
                     }

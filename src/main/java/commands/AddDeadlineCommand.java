@@ -3,7 +3,7 @@ package commands;
 import parser.Parser;
 import storage.Storage;
 import tasks.Deadline;
-import TextUi.TextUi;
+import ui.TextUi;
 
 import java.io.IOException;
 
@@ -28,7 +28,7 @@ public class AddDeadlineCommand extends Command{
                 TextUi.showMissingTaskDescriptionMessage();
             } else {
                 Deadline newDeadline = new Deadline(deadlineDescription, deadline);
-                taskList.addDeadline(newDeadline);
+                taskList.addTask(newDeadline);
                 TextUi.showTaskAddedMessage(newDeadline, taskList.getSize());
                 Storage.appendToDataFile("D / 0 / " + deadlineDescription + "|" + deadline);
             }

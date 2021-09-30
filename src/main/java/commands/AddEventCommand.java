@@ -3,7 +3,7 @@ package commands;
 import parser.Parser;
 import storage.Storage;
 import tasks.Event;
-import TextUi.TextUi;
+import ui.TextUi;
 
 import java.io.IOException;
 
@@ -28,7 +28,7 @@ public class AddEventCommand extends Command{
                 TextUi.showMissingTaskDescriptionMessage();
             } else {
                 Event newEvent = new Event(eventDescription, eventTimeRange);
-                taskList.addEvent(newEvent);
+                taskList.addTask(newEvent);
                 TextUi.showTaskAddedMessage(newEvent, taskList.getSize());
                 Storage.appendToDataFile("E / 0 / " + eventDescription + "|" + eventTimeRange);
             }

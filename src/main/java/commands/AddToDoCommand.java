@@ -3,7 +3,7 @@ package commands;
 import exceptions.EmptyParamsException;
 import storage.Storage;
 import tasks.ToDo;
-import TextUi.TextUi;
+import ui.TextUi;
 
 import java.io.IOException;
 
@@ -23,7 +23,7 @@ public class AddToDoCommand extends Command {
         try {
             checkParam(toDoDescription);
             ToDo newToDo = new ToDo(toDoDescription);
-            taskList.addToDo(newToDo);
+            taskList.addTask(newToDo);
             TextUi.showTaskAddedMessage(newToDo, taskList.getSize());
             Storage.appendToDataFile("T / 0 / " + toDoDescription);
         } catch (IOException e){

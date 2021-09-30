@@ -1,4 +1,4 @@
-package TextUi;
+package ui;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,6 +13,9 @@ public class TextUi {
 
     /** A platform independent line separator. */
     public static final String LS = System.lineSeparator();
+
+    /** Offset required to convert between 1-indexing and 0-indexing.  */
+    public static final int DISPLAYED_INDEX_OFFSET = 1;
 
     private static final String DIVIDER = "____________________________________________________________" + LS;
     private static final String LOGO = " ____        _        \n"
@@ -55,7 +58,8 @@ public class TextUi {
     public static void showWelcomeMessage() {
         System.out.println(DIVIDER
                 + LOGO
-                + "   Hello! I'm Duke\n"
+                + "    Hello! I'm Duke\n"
+                + "    How may I assist you today?\n"
                 + DIVIDER);
     }
 
@@ -70,10 +74,16 @@ public class TextUi {
         System.out.println(DIVIDER);
     }
 
-    public static void showTaskCompletedMessage(Task completedTask) {
+    public static void showTaskAlreadyCompletedMessage() {
+        System.out.println("You have already marked this task as done! Time to move on :)");
+        System.out.println(DIVIDER);
+    }
+
+    public static void showTaskMarkedAsDoneMessage(Task completedTask) {
         System.out.println("Awesome! You've completed the following task:");
         System.out.println(" [X] " + completedTask.getDescription());
         System.out.println(DIVIDER);
+
     }
 
     public static void showTaskDeletedMessage(Task deletedTask, int numberOfTasksLeft) {
@@ -81,6 +91,24 @@ public class TextUi {
                 "   " + deletedTask);
         System.out.println("Now you have " + numberOfTasksLeft + " tasks in the list.");
         System.out.println(DIVIDER);
+    }
+
+    public static void showTasksFound(TaskList tasksFound, String keyword) {
+        int numberOfTasksFound = tasksFound.getSize();
+        if (numberOfTasksFound == 0) {
+            System.out.printf("There were no Tasks found with the keyword: %s" + LS, keyword);
+        } else {
+            System.out.println("The following tasks contain the matching keyword:");
+            printEnumeratedTasks(tasksFound, numberOfTasksFound);
+        }
+        System.out.println(DIVIDER);
+    }
+
+    private static void printEnumeratedTasks(TaskList tasksFound, int numberOfTasksFound) {
+        for(int i = 0; i < numberOfTasksFound; i++) {
+            int displayedIndex = i + DISPLAYED_INDEX_OFFSET;
+            System.out.println(displayedIndex + ". " + tasksFound.getTask(i));
+        }
     }
 
     public static void showHelpMessage(String usageInfoForAllCommands) {

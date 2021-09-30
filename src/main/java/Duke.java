@@ -3,7 +3,7 @@ import parser.Parser;
 import storage.Storage;
 import tasks.TaskList;
 
-import TextUi.TextUi;
+import ui.TextUi;
 
 public class Duke {
     private TextUi textUi;
