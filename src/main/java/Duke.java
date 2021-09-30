@@ -27,7 +27,6 @@ public class Duke {
             } else if(line.split(" ")[0].equals("todo")) {
                 //When the user adds a todo
                 List[listSize] = new Todo(line.split("todo ")[1]);
-
                 System.out.println("Got it. I've added this task:");
                 System.out.println(List[listSize]);
                 System.out.println("Now you have " + (listSize + 1)  + " tasks in the list.");
