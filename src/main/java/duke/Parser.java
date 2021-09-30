@@ -30,6 +30,9 @@ public class Parser {
             description = words[1].split(" /at ")[0];
             String at = words[1].split(" /at ")[1];
             return new String[]{commandWord, description, at};
+        case "find":
+            String keyword = words[1];
+            return new String[]{commandWord, keyword};
         default:
             return new String[]{"wrong", "input"};
         }
