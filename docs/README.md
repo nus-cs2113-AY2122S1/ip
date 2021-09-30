@@ -99,7 +99,7 @@ With Date and Time | `deadline TASK_DESCCRIPTION by TIME DATE`
 Examples:
 * `deadline homework1 by 23:59`
 * `deadline homework2 by 2020-10-10`
-* `deadline homework3 by 20:00 2021-10-20
+* `deadline homework3 by 20:00 2021-10-20`
 
 Demo:
 
@@ -286,7 +286,10 @@ Here are the tasks in your list:
 5. [E][ ]paperex vs bren(at: 08:00 AM Aug 01 2021)
 ____________________________________________________________
 ```
+
 View all list commands in program.
+
+Command Format: `!list`
 
 Demo:
 
@@ -482,3 +485,7 @@ _______________.___.___________
  |    |   \\____   | |        \
  |________// ______|/_________/
 ```
+## Storage
+Duke saves all tasks into a text file `duke.txt` automatically.
+
+** Do Not manually edit the text file as that might corrupt the data and crash the program.**
