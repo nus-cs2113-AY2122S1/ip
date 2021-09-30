@@ -3,6 +3,14 @@ package duke;
 import duke.commands.Command;
 import java.io.FileNotFoundException;
 
+/**
+ * Duke is a task-taking bot.
+ * Duke keeps track of all your tasks in a reader-friendly format, even after you close the application.
+ *
+ * @author  Yip Wayne
+ * @version 1.0
+ */
+
 public class Duke {
 
     private Storage storage;

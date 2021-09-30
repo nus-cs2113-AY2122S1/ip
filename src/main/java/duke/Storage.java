@@ -13,6 +13,14 @@ public class Storage {
     private static String path;
     private static String content = "";
 
+    /**
+     * Loads and saves the taskList from/into a .txt file.
+     *
+     * @param filePath The file path (to a .txt file) from which taskList is loaded from or saved onto.
+     * @return (for load function) The saved TaskList from the .txt file in the path.
+     * @throws FileNotFoundException if the file path does not exist.
+     */
+
     public Storage(String filePath){
         this.path = filePath;
     }
