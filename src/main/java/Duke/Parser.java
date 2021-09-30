@@ -44,7 +44,7 @@ public class Parser {
             flag = true;
         }
         System.out.println(Line);
-        String f = "data/lines.txt";
+        String f = "lines.txt";
             try {
                 Command.writeToFile(f);
             } catch (IOException e) {
