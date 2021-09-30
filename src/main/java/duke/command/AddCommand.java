@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.util.DukeException;
-
 import duke.util.Storage;
 import duke.util.Ui;
 import duke.util.Util;
@@ -49,39 +48,17 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task task;
-        String[] descriptionAndArg;
         switch (taskType) {
         case Task.TYPE_TODO:
-            if (argument.isEmpty()) {
-                throw new DukeException(String.format(MESSAGE_FORMAT_TODO_USAGE, COMMAND_TODO));
-            }
-            task = new Todo(argument);
+            task = createTodoTask(argument);
             break;
 
         case Task.TYPE_DEADLINE:
-            descriptionAndArg = getTaskDescriptionAndArg(argument, TASK_DEADLINE_SPLITTER);
-            if (descriptionAndArg[0].isEmpty() || descriptionAndArg[1].isEmpty()) {
-                throw new DukeException(String.format(MESSAGE_FORMAT_DEADLINE_USAGE, COMMAND_DEADLINE, TASK_DEADLINE_SPLITTER, Task.DATETIME_FORMAT_INPUT));
-            }
-
-            LocalDateTime byDateTime = Util.getDateTimeFromString(descriptionAndArg[1], Task.DATETIME_FORMAT_INPUT);
-            if (byDateTime == null) {
-                throw new DukeException(String.format(MESSAGE_FORMAT_INVALID_DATETIME_FORMAT, Task.DATETIME_FORMAT_INPUT));
-            }
-            task = new Deadline(descriptionAndArg[0], byDateTime);
+            task = createDeadlineTask(argument);
             break;
 
         case Task.TYPE_EVENT:
-            descriptionAndArg = getTaskDescriptionAndArg(argument, TASK_EVENT_SPLITTER);
-            if (descriptionAndArg[0].isEmpty() || descriptionAndArg[1].isEmpty()) {
-                throw new DukeException(String.format(MESSAGE_FORMAT_EVENT_USAGE, COMMAND_EVENT, TASK_EVENT_SPLITTER, Task.DATETIME_FORMAT_INPUT));
-            }
-
-            LocalDateTime atDateTime = Util.getDateTimeFromString(descriptionAndArg[1], Task.DATETIME_FORMAT_INPUT);
-            if (atDateTime == null) {
-                throw new DukeException(String.format(MESSAGE_FORMAT_INVALID_DATETIME_FORMAT, Task.DATETIME_FORMAT_INPUT));
-            }
-            task = new Event(descriptionAndArg[0], atDateTime);
+            task = createEventTask(argument);
             break;
 
         default:
@@ -109,5 +86,62 @@ public class AddCommand extends Command {
         }
 
         return new String[]{argSplit[0], ""};
+    }
+
+    /**
+     * Creates a todo task.
+     *
+     * @param description The task description.
+     * @return A Task object.
+     * @throws DukeException If description is invalid.
+     */
+    private Task createTodoTask(String description) throws DukeException {
+        if (description.isEmpty()) {
+            throw new DukeException(String.format(MESSAGE_FORMAT_TODO_USAGE, COMMAND_TODO));
+        }
+
+        return new Todo(description);
+    }
+
+    /**
+     * Creates a deadline task.
+     *
+     * @param argument The argument from getCommandAndArgument(<string>).
+     * @return A Task object.
+     * @throws DukeException If argument is invalid.
+     */
+    private Task createDeadlineTask(String argument) throws DukeException {
+        String[] descriptionAndArg = getTaskDescriptionAndArg(argument, TASK_DEADLINE_SPLITTER);
+        if (descriptionAndArg[0].isEmpty() || descriptionAndArg[1].isEmpty()) {
+            throw new DukeException(String.format(MESSAGE_FORMAT_DEADLINE_USAGE, COMMAND_DEADLINE, TASK_DEADLINE_SPLITTER, Task.DATETIME_FORMAT_INPUT));
+        }
+
+        LocalDateTime byDateTime = Util.getDateTimeFromString(descriptionAndArg[1], Task.DATETIME_FORMAT_INPUT);
+        if (byDateTime == null) {
+            throw new DukeException(String.format(MESSAGE_FORMAT_INVALID_DATETIME_FORMAT, Task.DATETIME_FORMAT_INPUT));
+        }
+
+        return new Deadline(descriptionAndArg[0], byDateTime);
+    }
+
+    /**
+     * Creates an event task.
+     *
+     * @param argument The argument from getCommandAndArgument(<string>).
+     * @return A Task object.
+     * @throws DukeException If argument is invalid.
+     */
+    private Task createEventTask(String argument) throws DukeException {
+        String[] descriptionAndArg = getTaskDescriptionAndArg(argument, TASK_EVENT_SPLITTER);
+        if (descriptionAndArg[0].isEmpty() || descriptionAndArg[1].isEmpty()) {
+            throw new DukeException(String.format(MESSAGE_FORMAT_EVENT_USAGE, COMMAND_EVENT, TASK_EVENT_SPLITTER, Task.DATETIME_FORMAT_INPUT));
+        }
+
+        LocalDateTime atDateTime = Util.getDateTimeFromString(descriptionAndArg[1], Task.DATETIME_FORMAT_INPUT);
+        if (atDateTime == null) {
+            throw new DukeException(String.format(MESSAGE_FORMAT_INVALID_DATETIME_FORMAT, Task.DATETIME_FORMAT_INPUT));
+        }
+
+        return new Event(descriptionAndArg[0], atDateTime);
     }
 }
