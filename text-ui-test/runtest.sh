@@ -6,6 +6,11 @@ then
     mkdir ../bin
 fi
 
+if [ -d "./data" ]
+then
+    rm -rf data
+fi
+
 # delete output from previous run
 if [ -e "./ACTUAL.TXT" ]
 then
