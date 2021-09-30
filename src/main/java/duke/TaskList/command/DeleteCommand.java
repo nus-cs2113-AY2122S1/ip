@@ -2,6 +2,9 @@ package duke.TaskList.command;
 
 import duke.TaskList.TaskManager;
 
+/**
+ * Class responsible for deleting tasks.
+ */
 public class DeleteCommand extends Command{
 
     protected String component;

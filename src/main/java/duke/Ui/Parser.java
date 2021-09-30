@@ -4,6 +4,9 @@ import duke.Error.DukeException;
 import duke.TaskList.TaskManager;
 import duke.TaskList.command.*;
 
+/**
+ * Class responsible to parse user commands.
+ */
 public class Parser {
 
     private static final int INDEX_COMMAND = 0;
@@ -38,8 +41,9 @@ public class Parser {
     }
 
     /**
-     * @param taskInfo contains the information of the task
-     * @return taskComponents -> index 0: description, and index 1: dateTime
+     * Splits the task description from dateTime for 'deadline' and 'event' task types.
+     * @param taskInfo contains the information of the task.
+     * @return Array of strings where index 0: description, and index 1: dateTime.
      */
     public String[] splitTaskComponents(String taskInfo) {
         String[] taskComponents;

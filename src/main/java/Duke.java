@@ -17,6 +17,10 @@ public class Duke {
     private final Parser parser;
     private final Scanner in;
 
+    /**
+     * Initialise essential components for the program to function.
+     * @param filePath String containing the file path to save task data.
+     */
     public Duke(String filePath) {
         displayManager = new DisplayManager();
         fileManager = new FileManager(filePath);
@@ -31,6 +35,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the program until stated by user otherwise.
+     * Waits for a user input and processes it.
+     */
     public void run() {
         displayManager.printStartGreet();
         String fullCommand;

@@ -3,6 +3,9 @@ package duke.TaskList.command;
 import duke.TaskList.TaskManager;
 import duke.Ui.Parser;
 
+/**
+ * Class responsible to add 'Event' type task.
+ */
 public class EventCommand extends Command{
 
     protected Parser parser;
