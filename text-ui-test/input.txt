@@ -1,15 +1,15 @@
 list
 todo borrow book
 list
-deadline return book /by Sunday
+deadline return book /by 2021-09-26 1800
 list
-event project meeting /at Mon 2-4pm
+event project meeting /at 2021-10-04 1400
 list
 todo clean my room
 list
-deadline complete project assignment /by 5th Aug 2021 2359hrs
+deadline complete project assignment /by 2021-08-05 2359
 list
-event dinner with friends /at Fri 7pm
+event dinner with friends /at 2021-10-01 1900
 list
 done 1
 list
@@ -24,5 +24,14 @@ list
 find book
 find room
 todo
+event event without date and time
+deadline task without deadline
+event /at 2021-10-04 1400
+deadline /by 2021-10-04 1400
+event event with wrong datetime format /at Sun 2pm
+deadline deadline with wrong datetime format /by Sun 2pm
+date 2021-10-01
+date 2021-01-01
+date Sunday
 blah
 bye
