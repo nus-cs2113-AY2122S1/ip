@@ -28,6 +28,7 @@ public class Duke {
     private static final String[] COMMAND_WORDS_LIST = {COMMAND_TODO_WORD, COMMAND_DEADLINE_WORD, COMMAND_EVENT_WORD, COMMAND_LIST_WORD, COMMAND_DONE_WORD, COMMAND_EXIT_WORD};
     private static final Scanner INPUT_COMMAND = new Scanner(System.in);
     private static final String PATH = "data/duke.txt";
+    private static final Path ROOT_FOLDER = Paths.get("data");
 
     public static void main(String[] args) throws IOException {
         ArrayList<Task> tasksArrayList = new ArrayList<>();
@@ -42,6 +43,9 @@ public class Duke {
         try {
             tasksArrayList = readFile(PATH);
         } catch (FileNotFoundException e) {
+            if (Files.notExists(ROOT_FOLDER)) {
+                Files.createDirectory(ROOT_FOLDER);
+            }
             Files.createFile(Paths.get(PATH));
             tasksArrayList = readFile(PATH);
         }
