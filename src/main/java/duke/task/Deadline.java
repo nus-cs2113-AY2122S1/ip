@@ -2,7 +2,7 @@ package duke.task;
 /**
  * Represents a Deadline task.
  *
- * <code>Type</code> enum corresponds to respective class.
+ * {@link duke.task.Type} enum corresponds to respective class.
  */
 class Deadline extends TimedTask {
     private static final Type type = Type.DEADLINE;

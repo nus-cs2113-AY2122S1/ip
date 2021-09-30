@@ -6,6 +6,7 @@ import duke.task.TaskManager;
 public class Delete extends Command {
     static final String NAME = "delete";
     private static final String USAGE = " <task number>";
+    private static final boolean CONTINUE_EXECUTING = true;
 
     Delete(String argument) {
         super(NAME, USAGE, argument);
@@ -27,7 +28,7 @@ public class Delete extends Command {
     boolean execute() {
         int index = Integer.parseInt(argument) - 1;
         TaskManager.deleteTask(index);
-        return true;
+        return CONTINUE_EXECUTING;
     }
 
 }

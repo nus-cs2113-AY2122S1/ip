@@ -4,7 +4,7 @@ package duke.exception;
  */
 public class NoDescriptionException extends Exception{
     private static final String MESSAGE = "The description of %s cannot be empty!";
-    public static final String WHITESPACE_AFTER_COMMAND_REGEX = "\\s+$";
+    private static final String WHITESPACE_AFTER_COMMAND_REGEX = "\\s+$";
 
     /**
      * Takes in user input and strips it to the command to be inserted

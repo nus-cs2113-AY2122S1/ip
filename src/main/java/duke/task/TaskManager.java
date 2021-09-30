@@ -181,7 +181,7 @@ public class TaskManager {
     }
 
     /**
-     * For all the tasks in the safe file, this functions split them and passes them into
+     * For all the tasks in the save file, this functions split them and passes them into
      * {@link #getTaskTypeFromLoadedTask(String[])} to get task type.
      * With task type, it will add the respective task to {@link #tasks}ArrayList
      * after getting the task from {@link #createTask(Type, String[])}.
@@ -200,8 +200,9 @@ public class TaskManager {
     }
 
     /**
-     * Creates the string to b written to save file
-     * to save all modified tasks.
+     * Creates the string to be written to save file
+     * for saving all modified tasks and calls
+     * {@link duke.IoManager#overwriteFile(String)}.
      */
     public static void saveTasks() {
         String message = "";

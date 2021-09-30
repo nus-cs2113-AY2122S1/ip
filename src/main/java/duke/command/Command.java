@@ -23,7 +23,7 @@ public abstract class Command {
     /**
      * Returns usage message
      *
-     * @return the usage message followed by the name of te command and anything to be appended after in <code>usage</code>.
+     * @return the usage message followed by the name of the command and anything to be appended after in <code>usage</code>.
      */
     String getUsage() {
         return USAGE_MESSAGE + name + usage;
@@ -37,7 +37,7 @@ public abstract class Command {
     abstract boolean isValid();
 
     /**
-     * code to be executed by function. Returns a boolean
+     * Code to be executed by function. Returns a boolean
      * on whether the program should continue running.
      *
      * @return boolean, program should continue running

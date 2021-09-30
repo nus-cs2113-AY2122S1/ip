@@ -2,7 +2,7 @@ package duke.task;
 /**
  * Represents an Event task.
  *
- * <code>Type</code> enum corresponds to respective class.
+ * <{@link duke.task.Type} enum corresponds to respective class.
  */
 class Event extends TimedTask {
     private static final Type type = Type.EVENT;

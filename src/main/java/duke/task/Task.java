@@ -65,7 +65,7 @@ public class Task {
 
 
     /**
-     * get the string for printing in the specified format of <code>TO_STRING_REGEX</code>
+     * Get the string for printing in the specified format of {@link #TO_STRING_REGEX}
      */
     @Override
     public String toString() {
@@ -75,7 +75,7 @@ public class Task {
 
     /**
      * get the formatted string to be used in the save file in
-     * the specified format of <code>SAVE_FILE_FORMAT</code>
+     * the specified format of {@link #SAVE_FILE_FORMAT}
      */
     String getFormattedString() {
         return String.format(SAVE_FILE_FORMAT, type.getChar(), isDone ? 1 : 0, description);

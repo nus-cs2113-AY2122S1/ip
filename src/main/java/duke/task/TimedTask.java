@@ -80,7 +80,7 @@ abstract class TimedTask extends Task {
 
     /**
      * adds the preposition and dateTime to
-     * the <code>toString()</code> function in task.
+     * the {@link Task#toString()} function in Task.
      */
     @Override
     public String toString() {
@@ -89,7 +89,7 @@ abstract class TimedTask extends Task {
 
     /**
      * adds the preposition and dateTime to the
-     * <code>getFormattedString()</code> function in task.
+     * {@link Task#getFormattedString()} function in Task.
      */
     @Override
     String getFormattedString() {

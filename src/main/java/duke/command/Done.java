@@ -6,6 +6,7 @@ import duke.task.TaskManager;
 public class Done extends Command {
     static final String NAME = "done";
     private static final String USAGE = " <task number>";
+    private static final boolean CONTINUE_EXECUTING = true;
 
     Done(String argument) {
         super(NAME, USAGE, argument);
@@ -26,7 +27,7 @@ public class Done extends Command {
     boolean execute(){
         int index = Integer.parseInt(argument) - 1;
         TaskManager.taskDone(index);
-        return true;
+        return CONTINUE_EXECUTING;
     }
 
 }

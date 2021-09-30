@@ -40,6 +40,10 @@ public enum Type {
         return super.toString().charAt(0);
     }
 
+    /**
+     * Get the type of the class based off ogf the first letter of the <code>task</code> argument.
+     * @return {@link duke.task.Type#Type(int, String)} if first letter corresponds to task else return <code>null</code>.
+     */
     static Type getType(String task){
         if (task.length() == 0){
             return null;

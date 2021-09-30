@@ -5,6 +5,7 @@ import duke.task.TaskManager;
 public class List extends Command {
     static final String NAME = "list";
     private static final String USAGE = "";
+    private static final boolean CONTINUE_EXECUTING = true;
 
     List(String argument) {
         super(NAME, USAGE, argument);
@@ -24,7 +25,7 @@ public class List extends Command {
      */
     boolean execute() {
         TaskManager.printTasks();
-        return true;
+        return CONTINUE_EXECUTING;
     }
 
 }

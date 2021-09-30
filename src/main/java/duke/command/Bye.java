@@ -3,6 +3,7 @@ package duke.command;
 public class Bye extends Command {
     static final String NAME = "bye";
     private static final String USAGE = "";
+    private static final boolean CONTINUE_EXECUTING = false;
 
     Bye(String argument) {
         super(NAME, USAGE, argument);
@@ -20,7 +21,7 @@ public class Bye extends Command {
      * @return false
      */
     boolean execute() {
-        return false;
+        return CONTINUE_EXECUTING;
     }
 
 }

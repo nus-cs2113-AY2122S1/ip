@@ -6,6 +6,7 @@ import duke.task.TaskManager;
 public class Find extends Command {
     static final String NAME = "find";
     private static final String USAGE = " <Description>";
+    private static final boolean CONTINUE_EXECUTING = true;
 
     Find(String argument) {
         super(NAME, USAGE, argument);
@@ -25,7 +26,7 @@ public class Find extends Command {
      */
     boolean execute() {
         TaskManager.findTasks(argument);
-        return true;
+        return CONTINUE_EXECUTING;
     }
 
 }
