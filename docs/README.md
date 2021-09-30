@@ -18,39 +18,78 @@ Command | Use
 `List` | View Task
 `Find` | Find a Task with **Keyword**
 `Date` | Find a Task with a specific **Date**
-`Echo` | Repeat Input
 `Bye` | Exit Program
+`Echo` | Repeat Input
+`!Echo` | Repeat Input in Grafiti ASCII Art
+`!help` | View commands functions
+`!list` | View list commands description
+`!event` | View event commands description
+`!deadline` | View deadline commands description
 
 ## Notes
 
 ## Features
 
-### Adding a ToDo Task
-Add a ToDo Task to your list of tasks. 
-ToDo Task are tasks without specific dates and times 
-For tasks that can be completed anytime.
+### Adding a Task
 
-Command: `todo TASK_DESCRIPTION`
+#### Adding a ToDo Task
 
-Examples:
-### Adding a DeadLine Task
+Command Format: `todo TASK_DESCRIPTION`
 
-### Adding a Event Task
+#### Adding a DeadLine Task
+
+Command Format | Command
+-------------- | -------
+Without Date and Time | `deadline TASK_DESCRIPTION at duedate`
+Without Date | `deadline TASK_DESCRIPTION at HH:MM
+Without Time | `deadline TASK_DESCRIPTION at yyyy-mm-dd
+With Date and Time | `deadline TASK_DESCCRIPTION at HH:MM yyyy-mm-dd
+
+#### Adding a Event Task
+
+Command Format | Command
+-------------- | -------
+Without Date and Time | `event TASK_DESCRIPTION at event timing`
+Without Date | `event TASK_DESCRIPTION at HH:MM
+Without Time | `event TASK_DESCRIPTION at yyyy-mm-dd
+With Date and Time | `event TASK_DESCCRIPTION at HH:MM yyyy-mm-dd
+
+### Setting a task as complete
+
+Command Format: `done TASK_INDEX`
 
 ### Delete a Task
 
+Command Format: `delete TASK_INDEX`
+
 ### Delete all Task
+
+Command Format: `clear`
 
 ### View Tasks
 
+Command Format: `list`
+
 #### Viewing Todo Tasks
+
+Command Format: `list todo`
 
 #### Viewing DeadLine Tasks
 
+Command Format: `list deadline`
+
 #### Viewing Event Tasks
+
+Command Format: `list event`
 
 ### Finding Task By KeyWords
 
+Command Format: `find KEYWORD`
+
 ### Finding Task By Date
 
+Command Format: `date yyyy-mm-dd`
+
 ### Exit Program
+
+Command Format: `bye`
