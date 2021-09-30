@@ -15,6 +15,8 @@ public class Parser {
     private static final String ADD_SUCCESS = "     Nice! I've marked this task as done: ";
     private static final String DELETE_SUCCESS = "     Noted. I've removed this task:";
     private static final String SHOW_MATCHES = "     Here are the matching tasks in your list:";
+    private static final String INVALID_COMMAND = "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+    private static final String INVALID_TASK_INDEX = "     ☹ OOPS!!! The task's index should be an integer.";
 
     /**
      * Parses input and executes respective command.
@@ -54,12 +56,12 @@ public class Parser {
                 TaskManager.find(query);
                 break;
             default:
-                System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println(INVALID_COMMAND);
             }
         } catch (DukeException e) {
             System.out.println("     ☹ OOPS!!! The description of a " + command + " cannot be empty.");
         } catch (NumberFormatException e) {
-            System.out.println("     ☹ OOPS!!! The task's index should be an integer.");
+            System.out.println(INVALID_TASK_INDEX);
         }
         return false;
     }

@@ -12,46 +12,51 @@ public class TaskManager {
     private static final String DEADLINE = "deadline";
     private static final String EVENT = "event";
     private static final String ADDED_TASK = "     Got it. I've added this task:\n       ";
+    private static final String ENTER_DATE = "     ☹ OOPS!!! Please enter a date";
+    private static final String OUT_OF_BOUNDS = "Error! Index out of bounds";
+    private static final String EMPTY_LIST = "     ☹ OOPS!!! List is empty";
+    private static final String SHOW_TASKS = "     Here are the tasks in your list:";
+    private static final String INVALID_COMMAND = "     Invalid command, please try again";
     private static final String BY_SEPARATOR = "/by";
     private static final String AT_SEPARATOR = "/at";
     private static final int TODO_STRING_LENGTH = 5;
     private static final int DEADLINE_STRING_LENGTH = 9;
     private static final int EVENT_STRING_LENGTH = 6;
     private static final int SEPARATOR_STRING_LENGTH = 3;
+    private static final int MINIMUM_COMMAND_LENGTH = 2;
 
     public TaskManager() {
         this.taskList = new ArrayList<>();
     }
 
-
     /**
      * Adds task to taskList based on their task Type.
      *
-     * @param task Command input.
+     * @param input Command input.
      * @throws DukeException If there is no input after command.
      */
-    public static void add(String task) throws DukeException {
-        String[] command = task.split(" ");
-        if (command.length < 2) {
+    public static void add(String input) throws DukeException {
+        String[] command = input.split(" ");
+        if (command.length < MINIMUM_COMMAND_LENGTH) {
             throw new DukeException();
         }
-        String taskType = getCommand(task);
-        String description = getDescription(task);
+        String taskType = getCommand(input);
+        String description = getDescription(input);
         String date;
         switch (taskType) {
         case TO_DO:
             addToDo(description);
             break;
         case DEADLINE:
-            date = getDate(task);
+            date = getDate(input);
             addDeadline(description, date);
             break;
         case EVENT:
-            date = getDate(task);
+            date = getDate(input);
             addEvent(description, date);
             break;
         default:
-            System.out.println("     Invalid command, please try again");
+            System.out.println(INVALID_COMMAND);
             return;
         }
         printSize();
@@ -121,20 +126,19 @@ public class TaskManager {
         taskList.add(new Event(description, time, isDone));
     }
 
-
     /**
      * Sets task to done.
      *
-     * @param command Array of command for the task.
+     * @param input Array of command for the task.
      * @throws NumberFormatException If input is not in numeric type.
      */
-    public static void setDone(String[] command) throws NumberFormatException{
+    public static void setDone(String[] input) throws NumberFormatException{
         try {
-            Integer.parseInt(command[1]);
+            Integer.parseInt(input[1]);
         } catch (NumberFormatException e) {
             throw new NumberFormatException();
         }
-        taskList.get(Integer.parseInt(command[1]) - 1).taskDone(true);
+        taskList.get(Integer.parseInt(input[1]) - 1).taskDone(true);
     }
 
     /**
@@ -143,7 +147,6 @@ public class TaskManager {
      * @param input Task where description is needed.
      * @return Description of task.
      */
-
     public static String getDescription(String input) {
         String description;
         int separator;
@@ -174,11 +177,9 @@ public class TaskManager {
         return taskType;
     }
 
-
     /**
      * Prints number of tasks in list
      */
-
     public static void printSize() {
         if (getSize() == 0) {
             System.out.println("     Now you have 0 task in the list.");
@@ -213,16 +214,16 @@ public class TaskManager {
     public static void list() {
         try {
             if (taskList.size() == 0) {
-                System.out.println("     ☹ OOPS!!! List is empty");
+                System.out.println(EMPTY_LIST);
                 return;
             }
-            System.out.println("     Here are the tasks in your list:");
+            System.out.println(SHOW_TASKS);
             for (int i = 0; i < taskList.size(); i++) {
                 Task t = taskList.get(i);
                 System.out.println("     " + (i + 1) + "." + t);
             }
         } catch (IndexOutOfBoundsException i) {
-            System.out.println("Error! Index out of bounds");
+            System.out.println(OUT_OF_BOUNDS);
         }
 
     }
@@ -240,16 +241,16 @@ public class TaskManager {
         switch (taskType) {
         case DEADLINE:
             indexOfSeparator = description.indexOf(BY_SEPARATOR);
-            date = description.substring(indexOfSeparator + SEPARATOR_STRING_LENGTH);
+            date = description.substring(indexOfSeparator + SEPARATOR_STRING_LENGTH + 1);
             if (date.isEmpty()) {
-                System.out.println("     ☹ OOPS!!! Please enter a date");
+                System.out.println(ENTER_DATE);
             }
             break;
         case EVENT:
             indexOfSeparator = description.indexOf(AT_SEPARATOR);
-            date = description.substring(indexOfSeparator + SEPARATOR_STRING_LENGTH);
+            date = description.substring(indexOfSeparator + SEPARATOR_STRING_LENGTH + 1);
             if (date.isEmpty()) {
-                System.out.println("     ☹ OOPS!!! Please enter a date");
+                System.out.println(ENTER_DATE);
             }
             break;
         default:

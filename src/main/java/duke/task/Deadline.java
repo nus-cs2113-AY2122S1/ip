@@ -41,7 +41,7 @@ public class Deadline extends Task {
      * @return timing of deadline.
      */
     public String getTiming() {
-        return "(by:" + timing + ")";
+        return " (by: " + timing + ")";
     }
 
     /**

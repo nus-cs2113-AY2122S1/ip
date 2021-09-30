@@ -41,7 +41,7 @@ public class Event extends Task {
      * @return Timing of event.
      */
     public String getTiming() {
-        return "(at:" + timing + ")";
+        return " (at: " + timing + ")";
     }
 
     /**
@@ -52,7 +52,6 @@ public class Event extends Task {
     public String getTime() {
         return timing;
     }
-
 
     /**
      * Returns string representing event.

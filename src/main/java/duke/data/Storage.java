@@ -17,6 +17,8 @@ import java.util.Scanner;
 public class Storage {
 
     private static final String PATH_NAME = "data/output.txt";
+    private static final String FILE_CREATION_ERROR = "Error in creating file";
+    private static final String SEPARATOR = " | ";
 
     /**
      * Creates file inside its directory.
@@ -26,7 +28,7 @@ public class Storage {
             Path path = Paths.get(PATH_NAME);
             Files.createDirectories(path.getParent());
         } catch (IOException e) {
-            System.out.println("Error in creating file");
+            System.out.println(FILE_CREATION_ERROR);
         }
     }
 
@@ -92,9 +94,9 @@ public class Storage {
             String description = task.getDescription();
             String timing = task.getTime();
 
-            textToAppend = taskType + " | " + status + " | " + description;
+            textToAppend = taskType + SEPARATOR + status + SEPARATOR + description;
             if (task instanceof Event || task instanceof Deadline) {
-                textToAppend += " | " + timing;
+                textToAppend += SEPARATOR + timing;
             }
             textToAppend += "\n";
             appendToFile(filePath, textToAppend);
