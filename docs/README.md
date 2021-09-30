@@ -28,61 +28,131 @@ Command | Use
 
 ## Notes
 
-TASK_DESCRIPTION TASK_DEADLINE TASK_TIMING TASK_INDEX KEYWORD HH:MM yyyy-mm-dd
+* Words in `UPPER_CASE` are parameters to be entered by user
+* Program is **not** case sensitive.
+* TASK_DESCRIPTION represent description of a task.
+* TASK_DEADLINE represent date of a task either in words or DATE and TIME format. 
+* TASK_TIMING represent timing of a task either in words or DATE and TIME format.
+* TASK_INDEX represent index number of a task. Index number can be viewed by viewing the whole list.
+* KEYWORD represent word input by user.
+* TIME represents date input by user in `HH:MM` format.
+   * HH represents hours.
+   * MM represents minutes.
+* DATE represents date input by user in `yyyy-mm-dd` fomat.
+   * yyyy represents year.
+   * mm represents months.
+   * dd represents days.
+* Tasks are represented as `TASK_TYPE`,`STATUS`,`TASK_DESCRIPTION`,`TASK_DATE`.
+   * `TASK_TYPE` is `T` for ToDo, `D` for Deadline and `E` for Event.
+   * `STATUS` is `X` if completed.
+   * `TASK_DATE` is TASK_DEADLINE for Deadline and TASK_TIMING for Event.
 
 ## Features
 
 ### Adding a Task
 
+Multiple tasks can be added in one line.
+
 #### Adding a ToDo Task
 
-Add a task without any specific dates to list.
+Adds a task without any specific dates to list.
 
 Command Format: `todo TASK_DESCRIPTION`
+
+* TASK_DESCRIPTION cannot be empty.
+
+Examples:
+* todo watch twitch videos
+* todo watch youtube videos
 
 Demo:
 
 ```
-todo
+todo watch twitch videos todo watch youtube videos
+
+____________________________________________________________
+Got it. I've added this task: 
+[T][ ]watch twitch videos
+Now you have 1 tasks in the list.
+Got it. I've added this task: 
+[T][ ]watch youtube videos
+Now you have 2 tasks in the list.
+____________________________________________________________
 ```
 
 #### Adding a DeadLine Task
 
-Add a task with a deadline to list.
+Adds a task with a duedate as deadline to list.
 
 Command Format | Command
 -------------- | -------
-Without Date and Time | `deadline TASK_DESCRIPTION at TASK_DEADLINE`
-Without Date | `deadline TASK_DESCRIPTION at HH:MM`
-Without Time | `deadline TASK_DESCRIPTION at yyyy-mm-dd`
-With Date and Time | `deadline TASK_DESCCRIPTION at HH:MM yyyy-mm-dd`
+Without Date and Time | `deadline TASK_DESCRIPTION by TASK_DEADLINE`
+Without Date | `deadline TASK_DESCRIPTION by TIME`
+Without Time | `deadline TASK_DESCRIPTION by DATE`
+With Date and Time | `deadline TASK_DESCCRIPTION by TIME DATE`
+
+* TASK_DESCRIPTION and TASK_DEADLINE cannot be empty.
+* Word "by " is required in input to indicated TASK_DEADLINE.
+* No specific ordering of time and date as long as input pattern is followed.
 
 Demo:
 
 ```
-deadline
+deadline homework1 by 23:59 deadline homework2 by 2020-10-10 deadline homework3 by 20:00 2021-10-20
+
+____________________________________________________________
+Got it. I've added this task: 
+[D][ ]homework1(by: 11:59 PM )
+Now you have 3 tasks in the list.
+Got it. I've added this task: 
+[D][ ]homework2(by:  Oct 10 2020)
+Now you have 4 tasks in the list.
+Got it. I've added this task: 
+[D][ ]homework3(by: 08:00 PM Oct 20 2021)
+Now you have 5 tasks in the list.
+____________________________________________________________
 ```
 
 #### Adding a Event Task
 
-Add a task occuring at a specific date and time to list.
+Adds a task occuring at a specific date and time as event to list.
 
 Command Format | Command
 -------------- | -------
 Without Date and Time | `event TASK_DESCRIPTION at TASK_TIMING`
-Without Date | `event TASK_DESCRIPTION at HH:MM`
-Without Time | `event TASK_DESCRIPTION at yyyy-mm-dd`
-With Date and Time | `event TASK_DESCCRIPTION at HH:MM yyyy-mm-dd`
+Without Date | `event TASK_DESCRIPTION at TIME`
+Without Time | `event TASK_DESCRIPTION at DATE`
+With Date and Time | `event TASK_DESCCRIPTION at TIME DATE`
+
+* TASK_DESCRIPTION and TASK_TIMING cannot be empty.
+* Word "at " is required in input to indicated TASK_DEADLINE.
+* No specific ordering of time and date as long as input pattern is followed.
 
 Demo:
 
 ```
-event
+event g2 vs SEN at 21:00 event 100T vs Gambit at 2021-08-01 event paperex vs Bren at 2021-08-01 08:00
+
+____________________________________________________________
+Got it. I've added this task: 
+[E][ ]g2 vs en(at: 09:00 PM )
+Now you have 6 tasks in the list.
+Got it. I've added this task: 
+[E][ ]100t vs gambit(at:  Aug 01 2021)
+Now you have 7 tasks in the list.
+Got it. I've added this task: 
+[E][ ]paperex vs bren(at: 08:00 AM Aug 01 2021)
+Now you have 8 tasks in the list.
+____________________________________________________________
 ```
 
 ### Setting a task as complete
 
+Sets a task in list as done.
+
 Command Format: `done TASK_INDEX`
+
+* INDEX
 
 Demo:
 
@@ -92,7 +162,7 @@ done
 
 ### Delete a Task
 
-Delete a task from list
+Deletes a task from list
 
 Command Format: `delete TASK_INDEX`
 
@@ -104,7 +174,7 @@ delete
 
 ### Delete all Task
 
-Delete all tasks from list.
+Deletes all tasks from list.
 
 Command Format: `clear`
 
@@ -120,7 +190,7 @@ ____________________________________________________________
 
 ### View Tasks
 
-List all task in list.
+Lists all task in list.
 
 Command Format: `list`
 
@@ -132,7 +202,7 @@ list
 
 #### Viewing Todo Tasks
 
-List all ToDo task in list
+Lists all ToDo task in list
 
 Command Format: `list todo`
 
@@ -144,7 +214,7 @@ list todo
 
 #### Viewing DeadLine Tasks
 
-List all Deadline task in list.
+Lists all Deadline task in list.
 
 Command Format: `list deadline`
 
@@ -156,7 +226,7 @@ list deadline
 
 #### Viewing Event Tasks
 
-List all Event task in list.
+Lists all Event task in list.
 
 Command Format: `list event`
 
@@ -168,7 +238,7 @@ list event
 
 ### Finding Task By KeyWords
 
-List all tasks with a specific keyword in its description in list.
+Lists all tasks with a specific keyword in its description in list.
 
 Command Format: `find KEYWORD`
 
@@ -180,7 +250,7 @@ find
 
 ### Finding Task By Date
 
-List all tasks with a specific date in list.
+Lists all tasks with a specific date in list.
 
 Command Format: `date yyyy-mm-dd`
 
@@ -192,14 +262,33 @@ date
 
 ### Echo User Input
 
-Print user input on terminal
+Prints user input on terminal
 
 Command Format: `echo INPUT`
+
+Draws user input on terminial.
+
+Command Format: `!echo INPUT`
 
 Demo:
 
 ```
-echo
+echo hi
+
+____________________________________________________________
+hi
+____________________________________________________________
+
+!echo hi
+
+____________________________________________________________
+HI
+  ___ ___  .___
+ /   |   \ |   |
+/    ~    \|   |
+\    Y    /|   |
+ \___|___/ |___|
+____________________________________________________________
 ```
 
 ### Command Guide
