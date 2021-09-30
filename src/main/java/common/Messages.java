@@ -1,5 +1,8 @@
 package common;
 
+/**
+ * Messages to be displayed to user.
+ */
 public class Messages {
 
     public static final String MESSAGE_INVALID_COMMAND = "Invalid command format.\n";
