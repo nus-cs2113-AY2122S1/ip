@@ -116,14 +116,14 @@ public class Storage {
             if (description == null || description.isBlank() || at == null || at.isBlank()) {
                 throw new DukeException(MESSAGE_UNRECOGNISED_EVENT_FORMAT);
             }
-            task = new Event(description, at);
+            task = new Event(description, Parser.parseDateTime(at.trim()));
             break;
         case Deadline.TASK_TYPE_ICON:
             final String by = taskDetailsMatcher.group(Parser.CAPTURING_GROUP_BY);
             if (description == null || description.isBlank() || by == null || by.isBlank()) {
                 throw new DukeException(MESSAGE_UNRECOGNISED_DEADLINE_FORMAT);
             }
-            task = new Deadline(description, by);
+            task = new Deadline(description, Parser.parseDateTime(by.trim()));
             break;
         default:
             throw new DukeException(String.format(MESSAGE_UNRECOGNISED_TASK_TYPE_ICON, taskTypeIcon));

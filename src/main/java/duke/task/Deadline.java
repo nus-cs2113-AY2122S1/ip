@@ -1,10 +1,7 @@
 package duke.task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
-import duke.DukeException;
-import duke.parser.Parser;
 import duke.ui.Ui;
 
 /**
@@ -21,13 +18,9 @@ public class Deadline extends Task {
      * @param description Description of the task.
      * @param by Deadline for the task.
      */
-    public Deadline(String description, String by) throws DukeException {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
-        try {
-            this.by = LocalDateTime.parse(by.trim(), Parser.DATE_TIME_INPUT_FORMATTER);
-        } catch (DateTimeParseException e) {
-            throw new DukeException(String.format(Parser.MESSAGE_INVALID_DATE_TIME_FORMAT, "deadline"));
-        }
+        this.by = by;
     }
 
     /**

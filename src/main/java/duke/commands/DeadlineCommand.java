@@ -1,6 +1,7 @@
 package duke.commands;
 
-import duke.DukeException;
+import java.time.LocalDateTime;
+
 import duke.task.Deadline;
 
 /**
@@ -16,7 +17,7 @@ public class DeadlineCommand extends AddTaskCommand {
      * @param description Description of the task.
      * @param by Deadline for the task.
      */
-    public DeadlineCommand(String description, String by) throws DukeException {
+    public DeadlineCommand(String description, LocalDateTime by) {
         toAdd = new Deadline(description, by);
     }
 }

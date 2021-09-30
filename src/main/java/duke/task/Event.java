@@ -1,10 +1,7 @@
 package duke.task;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
-import duke.DukeException;
-import duke.parser.Parser;
 import duke.ui.Ui;
 
 /**
@@ -21,13 +18,9 @@ public class Event extends Task {
      * @param description Description of the event.
      * @param at Date and time of the event.
      */
-    public Event(String description, String at) throws DukeException {
+    public Event(String description, LocalDateTime at) {
         super(description);
-        try {
-            this.at = LocalDateTime.parse(at.trim(), Parser.DATE_TIME_INPUT_FORMATTER);
-        } catch (DateTimeParseException e) {
-            throw new DukeException(String.format(Parser.MESSAGE_INVALID_DATE_TIME_FORMAT, "event"));
-        }
+        this.at = at;
     }
 
     /**

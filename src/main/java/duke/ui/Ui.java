@@ -17,7 +17,12 @@ public class Ui {
     private static final String MESSAGE_DATA_FILE_NEW = "No data file found. Will store data in new file: '%1$s'";
     private static final String MESSAGE_DATA_FILE_EXISTING = "Data file found. Using data from: '%1$s'";
 
-    public static final DateTimeFormatter DATE_TIME_OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy h.mma");
+    private static final String DATE_OUTPUT_FORMAT = "MMM d yyyy";
+    private static final String TIME_OUTPUT_FORMAT = "h.mma";
+    private static final String DATE_TIME_OUTPUT_FORMAT = DATE_OUTPUT_FORMAT + " " + TIME_OUTPUT_FORMAT;
+    public static final DateTimeFormatter DATE_OUTPUT_FORMATTER = DateTimeFormatter.ofPattern(DATE_OUTPUT_FORMAT);
+    public static final DateTimeFormatter DATE_TIME_OUTPUT_FORMATTER =
+            DateTimeFormatter.ofPattern(DATE_TIME_OUTPUT_FORMAT);
 
     /**
      * Reads input commands from the user.
