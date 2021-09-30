@@ -50,6 +50,7 @@ Format: `todo <DESCRIPTION>`
 Examples:
 * `todo Homework`
 * `todo Assignment`
+
 <br />
 
 ### Adding a deadline task: `deadline`
@@ -63,6 +64,7 @@ Format: `deadline <DESCRIPTION> /by <DATETIME>`
 Examples:
 * `deadline Assignment 1 /by 10/10/2021 2359`
 * `deadline Assignment 2 /by 01/01/2022 0000`
+
 <br />
 
 ### Adding a event task: `event`
@@ -76,6 +78,7 @@ Format: `event <DESCRIPTION> /at <DATETIME>`
 Examples:
 * `event Lecture /at 21/11/2021 1600`
 * `event Appointment /at 02/02/2022 0830`
+
 <br />
 
 ### Marking a task as done: `done`
@@ -89,6 +92,7 @@ Format: `done <INDEX>`
 Examples:
 * `done 1` - Marks the 1st task in the list as done.
 * `done 3` - Marks the 3rd task in the list as done.
+
 <br />
 
 ### Deleting a task: `delete`
@@ -102,6 +106,7 @@ Format: `delete <INDEX>`
 Examples:
 * `delete 1` - Deletes the 1st task in the list.
 * `delete 3` - Deletes the 3rd task in the list.
+
 <br />
 
 ### Searching for a task: `find`
@@ -115,6 +120,7 @@ Format: `find <TEXT>`
 Examples:
 * `find Assignment`
 * `find Lecture`
+
 <br />
 
 ### Exiting the program: `bye`
