@@ -1,15 +1,18 @@
 package seedu.tojava.Duke;
+
+import java.time.LocalDate;
+
 public class Deadline extends Todo{
 
-    protected String by;
+    protected LocalDate by;
     public Deadline(String description) {
         super(description);
         int index = description.indexOf("/") + 1;
-        by = description.substring(index, description.length());
+        by = LocalDate.parse(description.substring(index, description.length()).trim());
 //        isDone = false;
     }
 
-    public String getBy(){
+    public LocalDate getBy(){
         return by;
     }
 
@@ -20,11 +23,6 @@ public class Deadline extends Todo{
         return description.substring(0,index);
     }
 
-    public Deadline (String description, String by){
-        super(description);
-        this.by = by;
-        isDone = false;
-    }
 
     @Override
     public String returnType(){
