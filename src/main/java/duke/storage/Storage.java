@@ -150,14 +150,14 @@ public class Storage {
             if (description == null || description.isBlank() || at == null || at.isBlank()) {
                 throw new DukeException(MESSAGE_UNRECOGNISED_EVENT_FORMAT);
             }
-            task = new Event(description, at);
+            task = new Event(description, Parser.parseDateTime(at.trim()));
             break;
         case Deadline.TASK_TYPE_ICON:
             final String by = taskDetailsMatcher.group(Parser.CAPTURING_GROUP_BY);
             if (description == null || description.isBlank() || by == null || by.isBlank()) {
                 throw new DukeException(MESSAGE_UNRECOGNISED_DEADLINE_FORMAT);
             }
-            task = new Deadline(description, by);
+            task = new Deadline(description, Parser.parseDateTime(by.trim()));
             break;
         default:
             throw new DukeException(String.format(MESSAGE_UNRECOGNISED_TASK_TYPE_ICON, taskTypeIcon));
@@ -210,10 +210,10 @@ public class Storage {
         taskStringBuilder.append(task.isDone() ? SYMBOL_TASK_DONE : SYMBOL_TASK_NOT_DONE).append(" ");
         taskStringBuilder.append(task.getDescription()).append(" ");
         if (task instanceof Deadline) {
-            final String deadline = ((Deadline) task).getBy();
+            final String deadline = ((Deadline) task).getBy().format(Parser.DATE_TIME_INPUT_FORMATTER);
             taskStringBuilder.append(Parser.DELIMITER_BY).append(" ").append(deadline);
         } else if (task instanceof Event) {
-            final String eventDateTime = ((Event) task).getAt();
+            final String eventDateTime = ((Event) task).getAt().format(Parser.DATE_TIME_INPUT_FORMATTER);
             taskStringBuilder.append(Parser.DELIMITER_AT).append(" ").append(eventDateTime);
         }
         return taskStringBuilder.toString();

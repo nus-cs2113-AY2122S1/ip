@@ -1,11 +1,16 @@
 package duke.parser;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import duke.DukeException;
 import duke.commands.ByeCommand;
 import duke.commands.Command;
+import duke.commands.DateCommand;
 import duke.commands.DeadlineCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.DoneCommand;
@@ -47,6 +52,12 @@ public class Parser {
                     + "( " + DELIMITER_BY + " (?<" + CAPTURING_GROUP_BY + ">[^/]+))?"
                     + "( " + DELIMITER_AT + " (?<" + CAPTURING_GROUP_AT + ">[^/]+))?");
 
+    private static final String DATE_INPUT_FORMAT = "yyyy-MM-dd";
+    private static final String TIME_INPUT_FORMAT = "HHmm";
+    private static final String DATE_TIME_INPUT_FORMAT = DATE_INPUT_FORMAT + " " + TIME_INPUT_FORMAT;
+    private static final DateTimeFormatter DATE_INPUT_FORMATTER = DateTimeFormatter.ofPattern(DATE_INPUT_FORMAT);
+    public static final DateTimeFormatter DATE_TIME_INPUT_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_INPUT_FORMAT);
+
     private static final String MESSAGE_TODO_DESCRIPTION_EMPTY = "The description of a todo cannot be empty.";
     private static final String MESSAGE_UNRECOGNISED_EVENT_FORMAT = "Unrecognised event format.\n"
             + "Please ensure you provide the date/time of the event.";
@@ -55,6 +66,10 @@ public class Parser {
     private static final String MESSAGE_INVALID_TASK_NUMBER = "Please use a valid integer for the task number.";
     private static final String MESSAGE_UNRECOGNISED_COMMAND = "I'm sorry, but I don't know what that means :-(";
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format!";
+    private static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format.\n"
+            + "Please ensure you use this format: " + DATE_INPUT_FORMAT;
+    private static final String MESSAGE_INVALID_DATE_TIME_FORMAT = "Invalid datetime format.\n"
+            + "Please ensure you use this format: " + DATE_TIME_INPUT_FORMAT;
 
     /**
      * Parses user input as a command.
@@ -80,6 +95,8 @@ public class Parser {
             return prepareEvent(args);
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+        case DateCommand.COMMAND_WORD:
+            return new DateCommand(parseDate(args));
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommand(parseTaskId(args));
         case DoneCommand.COMMAND_WORD:
@@ -127,7 +144,7 @@ public class Parser {
         if (description == null || description.isBlank() || by == null || by.isBlank()) {
             throw new DukeException(MESSAGE_UNRECOGNISED_DEADLINE_FORMAT);
         }
-        return new DeadlineCommand(description, by);
+        return new DeadlineCommand(description, parseDateTime(by.trim()));
     }
 
     /**
@@ -145,7 +162,23 @@ public class Parser {
         if (description == null || description.isBlank() || at == null || at.isBlank()) {
             throw new DukeException(MESSAGE_UNRECOGNISED_EVENT_FORMAT);
         }
-        return new EventCommand(description, at);
+        return new EventCommand(description, parseDateTime(at.trim()));
+    }
+
+    private static LocalDate parseDate(String dateString) throws DukeException {
+        try {
+            return LocalDate.parse(dateString, DATE_INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new DukeException(MESSAGE_INVALID_DATE_FORMAT);
+        }
+    }
+
+    public static LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
+        try {
+            return LocalDateTime.parse(dateTimeString, DATE_TIME_INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new DukeException(MESSAGE_INVALID_DATE_TIME_FORMAT);
+        }
     }
 
     /**
