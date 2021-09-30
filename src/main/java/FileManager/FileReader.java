@@ -72,7 +72,7 @@ public class FileReader {
                         split[1].strip().equals("true"));
 
             default:
-                return null;
+                throw new Exception();
             }
         } catch (Exception e) {
             throw new FileException();
