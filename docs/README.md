@@ -13,7 +13,7 @@ It also allows them to mark different tasks as done and search for specific task
   * [Filter tasks by keywords](#filter-tasks-by-keywords-find)
   * [Filter tasks by date](#filter-tasks-by-date-date)
   * [Exit the program](#exit-the-program-bye)
-* [FAQ](#FAQ)
+* [FAQ](#faq)
 * [Command Summary](#command-summary)
 
 ## Quick start
