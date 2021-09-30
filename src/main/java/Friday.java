@@ -15,7 +15,7 @@ import java.nio.file.Paths;
  */
 public class Friday {
     public static void main(String[] args) {
-        MessagePrinter.greetUser();
+        MessagePrinter.initiateProgram();
         try {
             LoadData.loadData();
         } catch (FileNotFoundException e1) {
@@ -26,6 +26,7 @@ public class Friday {
                 System.out.println(e.getMessage());
             }
         }
+        MessagePrinter.greetUser();
         InputParser.parseUserInput();
         MessagePrinter.exitMessage();
     }

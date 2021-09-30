@@ -5,6 +5,43 @@ import java.util.ArrayList;
 
 public abstract class MessagePrinter {
     // constants storing printing messages
+    private static final String IRON_MAN_MASK = "                           .*%@@@@@@@@@@@@@@@@@@@@@@&(.                         \n"
+            + "                      /@@&*  #@@@@@@@@@@@@@@@@@@@@@@@  .%@@%.                   \n"
+            + "                  &@@*        @@@@@@@@@@@@@@@@@@@@@@,       .@@@.               \n"
+            + "              *@@#            ,@@@@@@@@@@@@@@@@@@@@#            *@@(            \n"
+            + "             &%                &@@@@@@@@@@@@@@@@@@@                /@.          \n"
+            + "           .%                   @@@@@@@@@@@@@@@@@@,                  ,%         \n"
+            + "           %@                   ,@@@@@@@@@@@@@@@@%                   *@         \n"
+            + "           @@                    #@@@@@@@@@@@@@@@                    /@/        \n"
+            + "          *@@                                                        (@&        \n"
+            + "          &@@.                                                       %@@.       \n"
+            + "          @@@.                                                       &@@*       \n"
+            + "         .@@@,                                                       &@@/       \n"
+            + "         ,@@@*                                                       @@@%       \n"
+            + "         *@@@*                                                       @@@@       \n"
+            + "         (@@@.                                                       &@@@       \n"
+            + "         @@@&  /@&%/,.                                      .,*#%&@  ,@@@/      \n"
+            + "         @@@. .@@@@@@@@@@@@@@@@@@%###############@@@@@@@@@@@@@@@@@@(  @@@(      \n"
+            + "         @@%     ,&@@@@@@@@&%/,.                   .*#&&@@@@@@@@(.    .@@#      \n"
+            + "         @@.                                                           %@(      \n"
+            + "         @@                                                            *@/      \n"
+            + "         &@.                                                           #@,      \n"
+            + "         &@@,                                                         @@@.      \n"
+            + "         %@@@..                                                      #@@@       \n"
+            + "         *@@@@ &/                                                .@,/@@@&       \n"
+            + "          &@@@@.#@/                                             @@.#@@@@.       \n"
+            + "          ,@@@@@*/@@.                                         %@& @@@@@&        \n"
+            + "          .@@@@@@#.@@*                                       @@#,@@@@@@#        \n"
+            + "           @@@@@@@@ &@,                                     &@.(@@@@@@@,        \n"
+            + "           /@@@@@@@@,/#                                    .& @@@@@@@@@         \n"
+            + "            @@@@@@@@@#..     &@@&%#######((((####%@@@.     ,,@@@@@@@@@,         \n"
+            + "            *@@@@@@@@@. *@%/@*                      .@%*@%  %@@@@@@@@&          \n"
+            + "             &@@@@@@@&                                      ,@@@@@@@@,          \n"
+            + "             *@@@@@@@                 ,&&&&(                 #@@@@@@&           \n"
+            + "              /@@@@@@#        .&@@@@@@@@@@@@@@@@@@@*        *@@@@@@&            \n"
+            + "                 (@@@@@@@, .@@@@@@@@@@@@@@@@@@@@@@@@@@/  #@@@@@@&.              \n"
+            + "                    .&@@@@@*@@@@@@@@@@@@@@@@@@@@@@@@@@%(@@@@@*                  \n"
+            + "                        .#@@,@#                    *@##@&,                      \n";
     private static final String FRIDAY = "  __      _     _             \n"
             + " / _|    (_)   | |            \n"
             + "| |_ _ __ _  __| | __ _ _   _ \n"
@@ -24,34 +61,37 @@ public abstract class MessagePrinter {
         System.out.println(DASHES);
     }
 
+    private static void ironManMask() {
+        System.out.println(IRON_MAN_MASK);
+    }
+
     // methods to print messages
 
     // greet User upon entry
-    public static void greetUser() {
+    public static void initiateProgram() {
         dashes();
+        ironManMask();
         friday();
         System.out.println("Initiating FRIDAY");
-        System.out.println("Hello Mr Stark, how may I be of assistance to you today");
+    }
+
+    public static void greetUser() {
+        System.out.println("Hello Mr Stark, how may I be of assistance to you today?");
         dashes();
     }
 
     public static void loadingData() {
-        dashes();
         System.out.println("Allow me to fetch the data from the archives ...");
     }
 
     public static void dataLoaded() {
         System.out.println("Data successfully loaded into memory sir.");
-        dashes();
     }
 
-
-    // Messages for printing out list of tasks
-
-    // if list is empty
+    // if list of tasks  is empty
     public static void emptyListMessage() {
         dashes();
-        System.out.println("You appear to have no tasks for today. How wonderful Sir.");
+        System.out.println("You appear to have no tasks for today, how wonderful sir.");
         dashes();
     }
 
@@ -68,7 +108,7 @@ public abstract class MessagePrinter {
     // after marking task as done
     public static void taskMarkedAsDone(Task currTask) {
         dashes();
-        System.out.println("Your task \"" + currTask.getTaskName() + "\" is indicated as complete.");
+        System.out.println("Your task \"" + currTask.getTaskName() + "\" is marked as complete. Splendid sir.");
         System.out.println("[X]" + currTask.getTaskName());
         dashes();
     }
@@ -184,7 +224,7 @@ public abstract class MessagePrinter {
     // message printed upon exiting
     public static void exitMessage() {
         dashes();
-        System.out.println("Powering Off now. Good Bye Mr Stark.");
+        System.out.println("Powering off now. Good Bye Mr Stark.");
         dashes();
     }
 }

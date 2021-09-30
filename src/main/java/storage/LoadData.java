@@ -32,7 +32,7 @@ public class LoadData {
         Scanner s = new Scanner(data);
         while (s.hasNext()) {
             // read and parse data into Task array.
-            // Data stored in format type | isDone | taskname | date (if relevant)
+            // Data stored in format: type | isDone | taskname | date (if relevant)
             String[] splitString = s.nextLine().split(delimiter);
             boolean isDone = false;
             if (splitString[taskDoneIndex].trim().equals(doneIndicator)) {
