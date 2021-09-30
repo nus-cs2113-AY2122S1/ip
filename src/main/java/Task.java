@@ -5,7 +5,7 @@
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-//    protected boolean by;
+
 
     public Task(String description) {
         this.description = description;
