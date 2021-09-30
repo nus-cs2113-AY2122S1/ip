@@ -26,20 +26,58 @@ public class PrintBot {
      * the user has keyed in the correct trigger sentence
      * (I solemnly swear that I am up to no good.).
      */
+
+    public void launchTxt() {
+        print("\n" +
+                "                REPEAT AFTER ME:            \n" +
+                " (       \"     )  I SOLEMNLY SWEAR THAT   \n" +
+                "  ( _  *            I AM UP TO NO GOOD       \n" +
+                "     * (     /      \\    ___                \n" +
+                "        \"     \"        _/ /                 \n" +
+                "       (   *  )    ___/   |                 \n" +
+                "         )   \"     _ o)'-./__               \n" +
+                "        *  _ )    (_, . $$$                 \n" +
+                "        (  )   __ __ 7_ $$$$                \n" +
+                "         ( :  { _)  '---  $\\                \n" +
+                "    ______'___//__\\   ____, \\               \n" +
+                "     )           ( \\_/ _____\\_              \n" +
+                "   .'             \\   \\------''.            \n" +
+                "   |='           '=|  |         )           \n" +
+                "   |               |  |  .    _/            \n" +
+                "    \\    (. ) ,   /  /__I_____\\             \n" +
+                "     '._/_)_(\\__.'   (__,(__,_]             \n" +
+                "    @---()_.'---@            ");
+    }
+
     public void greet() {
-        String logo = "  _                                         _   _            \n" +
-                " | |__   __ _ _ __ _ __ _   _   _ __   ___ | |_| |_ ___ _ __ \n" +
-                " | '_ \\ / _` | '__| '__| | | | | '_ \\ / _ \\| __| __/ _ \\ '__|\n" +
-                " | | | | (_| | |  | |  | |_| | | |_) | (_) | |_| ||  __/ |   \n" +
-                " |_| |_|\\__,_|_|  |_|   \\__, | | .__/ \\___/ \\__|\\__\\___|_|   \n" +
-                "                        |___/  |_|                         \n" +
-                "  S. Lu - I solemnly swear that I am up to no good.\n";
-        print("Hello from\n" + logo);
-        print(
-                "       Messrs Moony, Wormtail, Padfoot, and Prongs\n" +
-                        "       Purveyors of Aids to Magical Mischief-Makers\n" +
-                        "                  are proud to present\n" +
-                        "                 --THE MARAUDER'S MAP--");
+        String logo =
+                "88888888888888888888888888888888888888888888888888888888888888888888888\n" +
+                "88.._|      | `-.  | `.  -_-_ _-_  _-  _- -_ -  .'|   |.'|     |  _..88\n" +
+                "88   `-.._  |    |`!  |`.  -_ -__ -_ _- _-_-  .'  |.;'   |   _.!-'|  88\n" +
+                "88      | `-!._  |  `;!  ;. _______________ ,'| .-' |   _!.i'     |  88\n" +
+                "88..__  |     |`-!._ | `.| |_______________||.\"'|  _!.;'   |     _|..88\n" +
+                "88   |``\"..__ |    |`\";.| i|_|MMMMMMMMMMM|_|'| _!-|   |   _|..-|'    88\n" +
+                "88   |      |``--..|_ | `;!|l|MMoMMMMoMMM|1|.'j   |_..!-'|     |     88\n" +
+                "88   |      |    |   |`-,!_|_|MMMMP'YMMMM|_||.!-;'  |    |     |     88\n" +
+                "88___|______|____!.,.!,.!,!|d|MMMo * loMM|p|,!,.!.,.!..__|_____|_____88\n" +
+                "88      |     |    |  |  | |_|THEMARAUDER|_|| |   |   |    |      |  88\n" +
+                "88      |     |    |..!-;'i|r|MARAUDERMAP|r| |`-..|   |    |      |  88\n" +
+                "88      |    _!.-j'  | _!,\"|_THE<>MARAUDE|_||!._|  `i-!.._ |      |  88\n" +
+                "88     _!.-'|    | _.\"|  !;|1|MaRAUDER'SM|l|`.| `-._|    |``-.._  |  88\n" +
+                "88..-i'     |  _.''|  !-| !|_|MMMoMMMMoMM|_|.|`-. | ``._ |     |``\"..88\n" +
+                "88   |      |.|    |.|  !| |u|MoMMMMoMMMM|n||`. |`!   | `\".    |     88\n" +
+                "88   |  _.-'  |  .'  |.' |/|_|MMMMoMMMMoM|_|! |`!  `,.|    |-._|     88\n" +
+                "88  _!\"'|     !.'|  .'| .'|[@]MMMMMMMMMMM[@] \\|  `. | `._  |   `-._  88\n" +
+                "88-'    |   .'   |.|  |/| /                 \\|`.  |`!    |.|      |`-88\n" +
+                "88      |_.'|   .' | .' |/                   \\  \\ |  `.  | `._-Lee|  88\n" +
+                "88     .'   | .'   |/|  /                     \\ |`!   |`.|    `.  |  88\n" +
+                "88  _.'     !'|   .' | /                       \\|  `  |  `.    |`.|  88\n" +
+                "88888888888888888888888888888 SICHENG.LU 888888888888888888888888888888\n" ;
+        print(logo);
+        print("           Messrs Moony, Wormtail, Padfoot, and Prongs           \n" +
+                "           Purveyors of Aids to Magical Mischief-Makers\n" +
+                "                     are proud to present\n" +
+                "                   --THE MARAUDER'S MAP-- \n");
     }
 
     /*

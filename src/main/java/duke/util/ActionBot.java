@@ -40,8 +40,7 @@ public class ActionBot {
      * Wrong input sentence results in words of insult from the MARAUDER'S MAP.
      */
     public void Activation() {
-        System.out.println("Repeat after me : \n " +
-                "I solemnly swear that I am up to no good.");
+        ui.launchTxt();
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
 
