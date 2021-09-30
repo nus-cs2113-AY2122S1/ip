@@ -6,7 +6,7 @@ import duke.task.Task;
 import duke.task.Todo;
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
     /**

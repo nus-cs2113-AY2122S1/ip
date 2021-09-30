@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.TaskManager;
+import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
@@ -24,7 +24,7 @@ public class DeleteCommand implements Command {
      */
     @Override
     public void run(boolean printMessage) {
-        Task task = TaskManager.deleteTask(taskNo);
+        Task task = TaskList.deleteTask(taskNo);
         if (printMessage) {
             Ui.printTaskDeletedMessage(task);
         }

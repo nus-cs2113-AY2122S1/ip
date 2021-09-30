@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.DukeException;
-import duke.TaskManager;
+import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
@@ -27,7 +27,7 @@ public class TodoCommand implements Command {
      */
     @Override
     public void run(boolean printMessage) throws DukeException {
-        Task task = TaskManager.addTodo(todo);
+        Task task = TaskList.addTodo(todo);
         if (printMessage) {
             Ui.printTaskAddedMessage(task);
         }

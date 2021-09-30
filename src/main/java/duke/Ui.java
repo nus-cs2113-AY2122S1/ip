@@ -15,7 +15,7 @@ public class Ui {
     public static void printTaskAddedMessage(Task task) {
         System.out.println("Got it. I've added this task:");
         System.out.println(INDENT + task);
-        System.out.printf("Now you have %d tasks in the list.", TaskManager.getTasklistSize());
+        System.out.printf("Now you have %d tasks in the list.", TaskList.getTasklistSize());
         System.out.println();
     }
 
@@ -27,7 +27,7 @@ public class Ui {
     public static void printTaskDeletedMessage(Task task) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(INDENT + task);
-        System.out.printf("Now you have %d tasks in the list", TaskManager.getTasklistSize());
+        System.out.printf("Now you have %d tasks in the list", TaskList.getTasklistSize());
         System.out.println();
     }
 

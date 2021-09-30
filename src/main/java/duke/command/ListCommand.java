@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.TaskManager;
+import duke.TaskList;
 
 public class ListCommand implements Command {
     private static final CommandType type = CommandType.LIST;
@@ -13,7 +13,7 @@ public class ListCommand implements Command {
      */
     @Override
     public void run(boolean printMessage) {
-        TaskManager.listTasks();
+        TaskList.listTasks();
     }
 
     /**

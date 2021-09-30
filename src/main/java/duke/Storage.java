@@ -55,7 +55,7 @@ public class Storage {
     public static void exportData() {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
-            for (Task task : TaskManager.getTasklist()) {
+            for (Task task : TaskList.getTasklist()) {
                 if (task == null) {
                     break;
                 }
@@ -144,7 +144,7 @@ public class Storage {
 
         // mark most recent task as done
         if (status.equals(DONE)) {
-            int taskNo = TaskManager.getTasklistSize();
+            int taskNo = TaskList.getTasklistSize();
             command = new DoneCommand(taskNo - 1);
             command.run(false);
         }

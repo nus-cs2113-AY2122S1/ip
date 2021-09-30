@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.TaskManager;
+import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
 
@@ -24,7 +24,7 @@ public class DoneCommand implements Command {
      */
     @Override
     public void run(boolean printMessage) {
-        Task task = TaskManager.markTaskNoAsDone(taskNo);
+        Task task = TaskList.markTaskNoAsDone(taskNo);
         if (printMessage) {
             Ui.printTaskDoneMessage(task);
         }
