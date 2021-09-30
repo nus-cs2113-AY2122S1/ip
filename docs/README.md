@@ -76,7 +76,7 @@ You can search for tasks that contains a specific phrase.
 ### Saving tasks 
 The map automatically saves task data into the file everytime the list is modified. Your tasks will still be retained after you exit the program. In the same folder as your JAR file, there will be a data folder which contains 'duke.txt' that stores all your tasks.
 
-### loading data
+### Loading data
 Everytime the map activates, it will look for the 'duke.txt' file and load the tasks inside. If there is no such file, the program will automatically creates one. 
 ![image](https://user-images.githubusercontent.com/69776265/135446784-00a84ae5-216a-4d9e-8dbc-a067bc7a8ff6.png)
 
