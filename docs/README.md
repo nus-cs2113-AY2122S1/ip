@@ -33,43 +33,43 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 ## Features
 
 1. ToDos: Add task without any date attached
-   ```sh
+   ```
    todo TASK
    ```
 2. Deadlines: Add tasks that need to be done before a specific date/time
-   ```sh
+   ```
    deadline TASK /by DD/MM/YYYY HHMM
    ```
 3. Events: Add tasks that start at a specific time
-   ```sh
+   ```
    event TASK /at DD/MM/YYYY HHMM
    ```
 4. Display list
-   ```sh
+   ```
    list
    ```
 5. Mark task complete
-   ```sh
+   ```
    done TASKNUMBER 
    ```
 6. Delete task
-   ```sh
+   ```
    delete TASKNUMBER
    ```
 7. Find tasks that has date before time specified
-   ```sh
+   ```
    before DD/MM/YYYY HHMM
    ```
 8. Find tasks that has date after time specified
-   ```sh
+   ```
    after DD/MM/YYYY HHMM
    ```
 9. Find tasks with substring
-   ```sh
+   ```
     find WORD
     ```
 10. Exit Duke
-    ```sh
+    ```
      bye
     ```
 
