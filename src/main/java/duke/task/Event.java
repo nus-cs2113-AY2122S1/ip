@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
  */
 public class Event extends Task {
 
-    final private static String FLAG_TYPE = "[E]";
+    final public static String FLAG_TYPE = "[E]";
+
+    final public static int totalArg = 2;
 
     private LocalDateTime startDate;
 
@@ -44,7 +46,10 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return FLAG_TYPE + " | " + getDoneStatus() + " | " + this.getDescription() + " | " + startDate.format(
-                CommonFormat.formatter);
+        return FLAG_TYPE + CommonFormat.INFO_SEPARATOR
+                + getDoneStatus()
+                + CommonFormat.INFO_SEPARATOR
+                + this.getDescription() + CommonFormat.INFO_SEPARATOR
+                + startDate.format(CommonFormat.formatter);
     }
 }

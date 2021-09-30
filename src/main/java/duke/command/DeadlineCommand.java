@@ -27,8 +27,9 @@ public class DeadlineCommand extends Command {
      * description and arguments[1] is the due date.
      */
     @Override
-    public void execute() {
+    public CommandResult execute() {
         taskManager.createDeadlineTask(arguments[0], arguments[1].trim());
+        return new CommandResult(super.getAddTaskResponseMessage());
     }
 
 }

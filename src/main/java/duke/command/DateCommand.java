@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.common.CommonFormat;
+import duke.common.Messages;
 import java.time.LocalDate;
 
 /**
@@ -22,7 +23,10 @@ public class DateCommand extends Command {
      * Method to execute the command by calling the TaskManager to perform its specified operation.
      */
     @Override
-    public void execute() {
-        taskManager.printTaskOnDate(date.format(CommonFormat.formatterDateOnly));
+    public CommandResult execute() {
+        String stringDate = date.format(CommonFormat.formatterDateOnly);
+        String result = String.format(Messages.MESSAGE_COMMAND_DATE + "\n", stringDate);
+        result += taskManager.getTaskOnDate(stringDate);
+        return new CommandResult(result);
     }
 }
