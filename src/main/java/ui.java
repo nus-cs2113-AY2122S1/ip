@@ -1,3 +1,6 @@
+/**
+ * The ui program handles the printing of all messages that are not related to invalid commands.
+ */
 public class ui {
     String LINE = "_______________________________________________________________\n";
     public void welcome() {

@@ -1,4 +1,6 @@
-
+/**
+ * The Todo object is an extension of the Task object. It handles the storage of the Todo task description.
+ */
 public class Todo extends Task {
     protected boolean isTodo;
     protected String Description;
@@ -9,6 +11,10 @@ public class Todo extends Task {
         isTodo = true;
     }
 
+    /**
+     * Takes in description returns full task details as given below.
+     * @return task type + task status + task description
+     */
     @Override
     public String toString() {
         String taskType;

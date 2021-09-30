@@ -1,5 +1,7 @@
 
-
+/**
+ * The DukeException program handles invalid user commands by printing relevant error messages.
+ */
 public class DukeException {
     protected boolean isInvalidCommand;
     protected boolean isNotDone;
@@ -30,6 +32,11 @@ public class DukeException {
 
     }
 
+    /**
+     * Sets String description as relevant error message based on type of error by checking which error boolean is set
+     * to true and returns it.
+     * @return error description
+     */
     @Override
     public String toString() {
         String description = "";
@@ -57,11 +64,11 @@ public class DukeException {
         }
 
         else if (isDeadlineEmpty) {
-            description = "What's due when???\n";
+            description = "What's due when??? You can add the date and time after '/'!\n" + "Example: (Deadline Coding Exercise /by yyyy-mm-dd HHMM)\n";
         }
 
         else if (isDeadlineNoDate) {
-            description = "When is this due? You can add the date/time after '/'!\n" + "Example: (Deadline Coding Exercise /by Tues 23:59)\n";
+            description = "When is this due? You can add the date and time after '/'!\n" + "Example: (Deadline Coding Exercise /by yyyy-mm-dd HHMM)\n";
         }
 
         else if (isEventEmpty) {
