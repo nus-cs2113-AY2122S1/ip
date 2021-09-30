@@ -29,28 +29,180 @@ task managing apps.
 ---
 ## Features
 
-### Feature-ABC
+### Notes about the command format:
+- Words in `UPPER-CASE` are parameters to be filled by the user. Here is a list of common parameters that will be used:
+    - `TASK_NAME` represents the name of the task.
+    - `DATE_TIME` represents the date to be specified by the user.
+    - `INDEX` represents the index of the task in the task list.  
+        - For example: index **1** corresponds to the **first task** in the task list, 
+          index **3** corresponds to the **third task**.
+    - `KEYWORD` represents the keyword to be specified by the user.
+- Items with `...` after them can be used more than once.
+    - For example: `done INDEX...` means `done 1 2 3` is a valid command.
 
-Description of the feature.
-
-### Feature-XYZ
-
-Description of the feature.
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
+### Feature List
+- [Adding Todo Task: `todo`]()
+- [Adding Deadline Task: `deadline`]()
+- [Adding Event Task: `event`]()
+- [Listing all tasks: `list`]()  
+- [Setting tasks as done: `done`]()
+- [Finding tasks by keyword: `find`]()
+- [Deleting tasks: `delete`]()
+- [Exiting the program: `bye`]()
+- [Saving the data]()
+---
+### `todo` - Adding a Todo Task
+Adds a task of type `Todo` into your task list.  
+  
+Format: `todo TASK_NAME`
+  
+Example of usage: `todo read book`
+  
+When added successfully, you should see the following message:
 ```
-expected output
+    ____________________________________________________________
+        Got it. I've added this task:
+            [T][ ] read book
+        Now you have 1 tasks in the list.
+    ____________________________________________________________
 ```
+---
+### `deadline` - Adding a Deadline Task
+Adds a task of type `Deadline` into your task list.
+  
+Format: `deadline TASK_NAME /by DATE_TIME`
+  
+Example of usage: `deadline return book /by Friday 6pm`
+
+When added successfully, you should see the following message:
+```
+    ____________________________________________________________
+        Got it. I've added this task:
+            [D][ ] return book (by: Friday 6pm)
+        Now you have 2 tasks in the list.
+    ____________________________________________________________
+```
+---
+### `event` - Adding an Event Task
+Adds a task of type `Event` into your task list.
+
+Format: `event TASK_NAME /at DATE_TIME`
+
+Example of usage: `event meeting /at Thursday 5pm`
+
+When added successfully, you should see the following message:
+```
+    ____________________________________________________________
+        Got it. I've added this task:
+            [E][ ] meeting (at: Thursday 5pm)
+        Now you have 3 tasks in the list.
+    ____________________________________________________________
+```
+---
+### `list` - Listing all tasks
+Lists all the tasks in your current task list.
+  
+Format: `list`
+  
+Example of usage: `list`
+  
+When successful, you should see the following message:
+  
+```
+    ____________________________________________________________
+        Here are the tasks in your list:
+        1. [T][ ] read book
+        2. [D][ ] return book (by: Friday 6pm)
+        3. [E][ ] meeting (at: Thursday 5pm)
+    ____________________________________________________________
+```
+***Note: The tasks displayed in this example may be different than the one you have.***
+
+---
+### `done` - Setting tasks as done
+  
+Set status of indexes of tasks specified as done.
+  
+Format: `done INDEX...`
+  
+Example of usage: `done 1 2`
+  
+When successful, you should see the following message:
+```
+    ____________________________________________________________
+        Nice! I've marked these tasks as done:
+            [T][X] read book
+            [D][X] return book (by: Friday 6pm)
+    ____________________________________________________________
+```
+***Note: The tasks displayed in this example may be different from the ones you have.***  
+***Note: At least one index must be specified to run this command.***
+---
+### `find` - Finding tasks by keyword
+Finds and displays all the tasks having the keyword in their names.
+  
+Format: `find KEYWORD`
+  
+Example of usage: `find book`
+  
+When successful, you should see the following message:
+```
+    ____________________________________________________________
+        Here are the matching tasks in your list:
+        1. [T][X] read book
+        1. [D][X] return book (by: Friday 6pm)
+    ____________________________________________________________
+```
+
+***Note: The keyword parameter cannot be empty.***
+
+---
+### `delete` - Deleting tasks
+Delete indexes of tasks specified by the user.
+  
+Format: `delete INDEX...`
+  
+Example of usage: `delete 1 2`
+  
+When successful, you should see the following message:
+```
+    ____________________________________________________________
+        Noted. I've removed this task:
+            [T][X] read book
+            [D][X] return book (by: Friday 6pm)
+        Now you have 1 tasks in your list.
+    ____________________________________________________________
+```
+***Note: The tasks displayed in this example may be different from the ones you have.***
+
+---
+### `bye` - Exiting the program
+Exits the program.
+  
+Format: `bye`
+  
+Example of usage: `bye`
+  
+When successful, you should see the following message:
+```
+    ____________________________________________________________
+        Bye. Hope to see you again soon!
+    ____________________________________________________________
+```
+
+---
+### Saving the data
+Duke saves all the task data into a text file automatically after any command performed.  
+There is no need to save data manually.
+
+---
+### Editing the data file
+Duke saves the task data into a text file `JAR_FILE_LOCATION/data/savedTasks.txt`. Although not recommended, you can
+manually change the data in the text file.  
+
+Be sure to follow this exact formatting:  
+```
+[TASK_TYPE_CHAR] | [STATUS_MARKER_INT] | TASK_NAME | DATE_TIME
+```
+
+---
