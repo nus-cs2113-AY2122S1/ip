@@ -139,6 +139,7 @@ Format: `bye`
 ---
 
 ### Command summary
+
 **Action** | **Format**
 ---------- | ----------
 Listing all tasks | `list`
