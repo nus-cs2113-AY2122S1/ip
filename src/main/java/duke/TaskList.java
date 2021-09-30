@@ -28,7 +28,9 @@ public class TaskList {
      */
     protected static void addTask(String taskType, String taskName, String taskDetails) {
         try {
-            taskDetails = Parser.parseDate(taskDetails);
+            if (taskType.equals(DEADLINE) || taskType.equals(EVENT)) {
+                taskDetails = Parser.parseDate(taskDetails);
+            }
 
             switch (taskType) {
             case TODO:

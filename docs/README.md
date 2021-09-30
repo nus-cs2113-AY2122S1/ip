@@ -118,11 +118,19 @@ show expected outcome with example command
 ````
 
 ### `deadline`
-**Command**: `deadline <TASK_NAME> /by <>`
+**Command**: <br>`deadline <TASK_NAME> /by <YYYY-MM-DD> /d` for all-day deadlines, represented by `/d`, 
+<br> or <br> 
+`deadline <TASK_NAME> /by <YYYY-MM-DD>T<HH:mm>` for deadlines with a specific time.
+
+deadline d /by 1999-09-30T12:30 <br>
+deadline t /by 2019-12-01 /d
+
 
 
 ### `event`
-**Command**: `event <TASK_NAME> /at <>`
+**Command**: <br>`event <TASK_NAME> /by <YYYY-MM-DD> /d` for all-day events, represented by `/d`,
+<br> or <br>
+`event <TASK_NAME> /by <YYYY-MM-DD>T<HH:mm>` for events at a specific time.
 
 ### `done`
 **Command**: `done <TASK_NUMBER>`
