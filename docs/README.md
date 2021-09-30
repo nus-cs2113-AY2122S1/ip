@@ -33,7 +33,7 @@ Duke is a **desktop app for managing daily tasks, optimized for use via the comm
 1. Ensure you have **Java 11 or above** installed in your Computer.
 2. Download the latest `Duke.jar` from [here](https://github.com/richwill28/ip/releases).
 3. Copy the file to the folder you want to use as the **home folder** for your Duke.
-4. Double-click the file to start the app. Alternatively, you can open a terminal window and type `java -jar Duke.jar`.
+4. Open a terminal window and type `java -jar Duke.jar`.
 5. If you have successfully run the program, a greeting from Duke should appear as follows:
 
 ```
@@ -72,12 +72,12 @@ Duke is a **desktop app for managing daily tasks, optimized for use via the comm
 
 ```
 
-5. Type the command below the greeting and press `Enter` to execute it. Some example commands you can try:
+6. Type the command below the greeting and press `Enter` to execute it. Some example commands you can try:
 
     * `help`: Displays a short manual of all the available commands.
     * `exit`: Exits the app.
 
-6. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Features](#features) below for details of each command.
 
 <br>
 
