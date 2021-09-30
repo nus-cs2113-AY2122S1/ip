@@ -75,10 +75,10 @@ Expected output:
   ```
 
 ### Add a new event task - `event`
-To add a new event task, use the command `event` with syntax: `event [TASK_DESCRIPTION] /(at) [START_TIME] [-] [END_TIME]\
+To add a new event task, use the command `event` with syntax: `event [TASK_DESCRIPTION] [/] (at) [START_TIME] [-] [END_TIME]\
 Eg:
 ```
-event swimming /at 2 - 4 pm
+event swimming / at 2 - 4 pm
 ```
 Expected output:
 ```
@@ -89,7 +89,7 @@ Expected output:
 **Note:** The number of tasks in total depends on how many task you have saved. The blackslash `/` and the dash `-` are mandatory for adding a new event.
 
 ### Add a new deadline task - `deadline`
-To add a new deadline task, use the command `deadline` with syntax: `deadline [TASK_DESCRIPTION] /(by) [END_DATE of format yyyy-MM-dd] [END_TIME of utc time HH:mm]\
+To add a new deadline task, use the command `deadline` with syntax: `deadline [TASK_DESCRIPTION] [/] (by) [END_DATE of format yyyy-MM-dd] [END_TIME of utc time HH:mm]\
 Eg:
 ```
 deadline submit project /by 2021-10-1 23:59
