@@ -31,28 +31,28 @@ public class Duke {
     }
 
     public static void checkTodo(String userCommand) throws DukeException {
-        if (userCommand.length() <= 5) {     //generate error when receiving invalid Todoinput
+        if (userCommand.length() <= 5) {     //generate error when receiving invalid Todo input
             DukeException e = new DukeException();
             throw e;
         }
     }
 
     public static void checkDeadline(String userCommand) throws DukeException {
-        if (userCommand.length() <= 9) {     //generate error when receiving invalid Deadlineinput
+        if (userCommand.length() <= 9) {     //generate error when receiving invalid Deadline input
             DukeException e = new DukeException();
             throw e;
         }
     }
 
     public static void checkEvent(String userCommand) throws DukeException {
-        if (userCommand.length() <= 6) {     //generate error when receiving invalid Eventinput
+        if (userCommand.length() <= 6) {     //generate error when receiving invalid Event input
             DukeException e = new DukeException();
             throw e;
         }
     }
 
     public static void checkDelete(String userCommand) throws DukeException {
-        if (userCommand.length() <= 7) {     //generate error when receiving invalid delete input
+        if (userCommand.length() <= 7) {     //generate error when receiving invalid Delete input
             DukeException e = new DukeException();
             throw e;
         } else if (!isInt(userCommand.valueOf(7))) {
@@ -62,8 +62,8 @@ public class Duke {
     }
 
     public static boolean isInt(String input) {
-        try {
-            Integer.parseInt(input);
+        try {                               //generate error when receiving non-integer input
+            Integer.parseInt(input);        //for the delete command
         } catch (NumberFormatException e) {
             return false;
         } catch (NullPointerException e) {
@@ -72,7 +72,8 @@ public class Duke {
         return true;
     }
 
-    public static void checkCommand(ArrayList<String> output, ArrayList<Integer> taskStatus, ArrayList<String> arrayInput) {
+    public static void checkCommand(ArrayList<String> output, ArrayList<Integer> taskStatus,
+                                    ArrayList<String> arrayInput) {
         File file = new File("D:/data/duke.txt");
         Scanner userInput = new Scanner(System.in);
         String userCommand = userInput.nextLine();
@@ -87,7 +88,8 @@ public class Duke {
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("done")) {
-                output = getUpdateDone(output, taskStatus, arrayInput, file, userCommand, taskType, inputCount);
+                output = getUpdateDone(output, taskStatus, arrayInput, file, userCommand,
+                        taskType, inputCount);
                 userCommand = userInput.nextLine();
                 continue;
             } else if (userCommand.contains("todo")) {
@@ -117,7 +119,7 @@ public class Duke {
                 output = getUpdateEvent(output, taskStatus, arrayInput, file, taskType, inputCount, "E");
                 userCommand = userInput.nextLine();
                 continue;
-            } else if (userCommand.contains("delete")) {
+            } else if (userCommand.contains("delete")) {        //add the delete function
                 if (!isValidDelete(userCommand)) {
                     userCommand = userInput.nextLine();
                     continue;
@@ -126,14 +128,14 @@ public class Duke {
                 output = getUpdateDelete(output, taskStatus, arrayInput, file, taskType, inputCount);
                 userCommand = userInput.nextLine();
                 continue;
-            } else if (!userCommand.equals("bye")) {
+            } else if (!userCommand.equals("bye")) {        //invalid input detected
                 printInvalid();
                 System.out.println(LINE);
                 userCommand = userInput.nextLine();
                 continue;
             }
         }
-        if (userCommand.equals("bye")) {
+        if (userCommand.equals("bye")) {        //terminate the loop
             printBye();
         }
     }
@@ -370,7 +372,7 @@ public class Duke {
                 System.out.println("File already exists.");
             }
         } catch (IOException e) {
-            System.out.println("Error!");
+            System.out.println("An error occurred, please try again!");
             e.printStackTrace();
         }
 
@@ -380,12 +382,11 @@ public class Duke {
                 myWriter.write(output.get(i));
                 myWriter.write("\n");
             }
-
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
             System.out.println(LINE);
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred, please try again!");
             e.printStackTrace();
         }
     }
