@@ -47,10 +47,9 @@ public class Ui {
      *
      * @param tasks Task list to be printed
      */
-    public static void printTaskList(ArrayList<Task> tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public static void printTaskList(ArrayList<String> tasks) {
         for (int i = 0; i < tasks.size(); ++i) {
-            Task task = tasks.get(i);
+            String task = tasks.get(i);
             System.out.printf("%d. %s", i + 1, task);
             System.out.println();
         }

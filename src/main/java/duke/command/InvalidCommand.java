@@ -4,6 +4,11 @@ import duke.DukeException;
 
 public class InvalidCommand implements Command {
     private static final CommandType type = CommandType.INVALID;
+    private final String message;
+
+    public InvalidCommand(String message) {
+        this.message = message;
+    }
 
     /**
      * Throws DukeException for running an invalid command
@@ -13,7 +18,7 @@ public class InvalidCommand implements Command {
      */
     @Override
     public void run(boolean printMessage) throws DukeException {
-        throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        throw new DukeException(message);
     }
 
     /**
