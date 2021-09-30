@@ -20,11 +20,11 @@ It is modelled after Tony Stark aka Iron Man's own AI helper.
 
 ## Set Up
 1. Ensure you have Java 11 installed in your computer.
-2. If Java 11 is not installed, click <a link=https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html>here</a> 
+2. If Java 11 is not installed, click [here](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html) 
 to download it.
 3. After downloading, add path to bin folder to PATH variable in Environment Variables
 4. Check if Java is downloaded by running `java --version` in your Terminal.
-5. Download the latest jar file from <a>here</a>.
+5. Download the latest jar file from [here](https://github.com/STAung07/ip/releases/tag/A-Jar).
 
 ## Program Start
 Type in command `java -jar ip.jar` in the terminal directory containing `ip.jar` file.\
