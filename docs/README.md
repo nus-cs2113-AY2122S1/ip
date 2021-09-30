@@ -79,7 +79,7 @@ _____________________________________________________________________________
 
 ### Adding a Deadline Task
 Adds a task that should be completed before a time specified by the user.\
-Format: `deadline <TASK_DESCRIPTION> /by <TIME>`\
+Format: `deadline <TASK_DESCRIPTION> /by <TIME>`
 * The command must be formatted this way, with the `/by` in between `<TASK_DESCRIPTION>` and `<TIME>`.\
 Example:
 ````
@@ -96,7 +96,7 @@ _____________________________________________________________________________
 
 ### Adding an Event Task
 Adds a task with a duration that starts and ends at a specific time.\
-Format: `event <TASK_DESCRIPTION> /at <DURATION>`\
+Format: `event <TASK_DESCRIPTION> /at <DURATION>`
 * The command must be formatted this way, with the `/at` in between `<TASK_DESCRIPTION>` and `<DURATION>`.\
 Example:
 ````
@@ -127,9 +127,9 @@ _____________________________________________________________________________
 _____________________________________________________________________________
 ````
 
-### Marking a Task as Done:
+### Marking a Task as Done
 Marks a task as completed.\
-Format: `done <TASK_NUMBER>`\
+Format: `done <TASK_NUMBER>`
 * `<TASK_NUMBER>` corresponds to the index number of the task on the task list when listed using `list`.\
 Example:
 ````
@@ -143,9 +143,9 @@ _____________________________________________________________________________
 _____________________________________________________________________________
 ````
 
-### Deleting a task
+### Deleting a Task
 Deletes a task.\
-Format: `delete <TASK_NUMBER>`\
+Format: `delete <TASK_NUMBER>`
 * `<TASK_NUMBER>` corresponds to the index number of the task on the task list when listed using `list`.\
 Example:
 ````
