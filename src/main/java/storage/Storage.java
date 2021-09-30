@@ -104,11 +104,11 @@ public class Storage {
                     textToAppend = "T / " + isDone + " / " + task.getDescription();
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    String taskParams = deadline.getDescription() + "|" + deadline.getDeadline();
+                    String taskParams = deadline.getDescription() + " | " + deadline.getDeadline();
                     textToAppend = "D / " + isDone + " / " + taskParams;
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    String taskParams = event.getDescription() + "|" + event.getEventTimeRange();
+                    String taskParams = event.getDescription() + " | " + event.getEventTimeRange();
                     textToAppend = "E / " + isDone + " / " + taskParams;
                 }
                 appendToDataFile(textToAppend);

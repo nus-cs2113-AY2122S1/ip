@@ -211,7 +211,7 @@ public class TextUi {
 
     /** Prints a message notifying the user that a new folder has been created */
     public static void showNewFolderCreatedMessage() {
-        System.out.println(MESSAGE_NEW_FOLDER_CREATED);
         System.out.println(DIVIDER);
+        System.out.println(MESSAGE_NEW_FOLDER_CREATED);
     }
 }
