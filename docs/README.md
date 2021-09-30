@@ -1,5 +1,5 @@
 # SMURF VILLAGE User Guide
-Hello this is Smurf Village, you command line chatbot to get Smurfs working for you!
+Hello this is Smurf Village, your command line chatbot to get Smurfs managing your tasks for you!
 
 ## Quick start
 1. Before starting, install the latest version of Java 11 on your computer.
