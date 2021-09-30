@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="styles.css">
+
 # User Guide
 
 Duke is a **desktop app for managing daily tasks, optimized for use via the command-line interface (CLI)**. If you can type fast, Duke can manage your tasks faster than traditional GUI apps.
