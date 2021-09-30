@@ -57,4 +57,10 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 | Find                   | `find KEYWORD [MORE_KEYWORDS]`         | `find homework`                                   |
 | Help                   | `help`                                 | `help`                                            |
 | List                   | `list`                                 | `list`                                            |
-| Mark task as completed | `done INDEX`                           | `done 2`                                          |
+| Mark task as done | `done INDEX`                           | `done 2`                                          |
+
+###References
+- contacts https://github.com/nus-cs2113-AY2122S1/contacts
+- personBook https://github.com/nus-cs2113-AY2122S1/personbook
+- taskStream https://github.com/nus-cs2113-AY2122S1/TaskStream
+- addressBook-level2 https://github.com/se-edu/addressbook-level2
