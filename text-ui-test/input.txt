@@ -22,5 +22,11 @@ list
 delete 3
 list
 todo
+event event without date and time
+deadline task without deadline
+event /at 2021-10-04 1400
+deadline /by 2021-10-04 1400
+event event with wrong datetime format /at Sun 2pm
+deadline deadline with wrong datetime format /by Sun 2pm
 blah
 bye
