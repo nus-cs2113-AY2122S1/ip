@@ -194,6 +194,13 @@ public class TaskManager {
         return String.format(message + " \"%s\"", s);
     }
 
+    /**
+     * Method to check if inputs from file for task are all provided and validated.
+     *
+     * @param contentArray Task info from file.
+     * @param lengthNeeded Total of Task arguments needed.
+     * @throws TaskManagerException Exception when arguments are not provided accurately.
+     */
     private void checkAllInfoIsGiven(String[] contentArray, int lengthNeeded) throws TaskManagerException {
         if (contentArray.length != lengthNeeded) {
             throw new TaskManagerException(Messages.ERROR_MESSAGE_MISSING_ARGUMENTS);
@@ -204,6 +211,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Method to get task that falls on the specified date.
+     *
+     * @param date User given date.
+     * @return The output of all task information that falls on the specified date.
+     */
     public String getTaskOnDate(String date) {
         String result = "";
         for (int i = 0; i < totalNumberOfTasks; i++) {

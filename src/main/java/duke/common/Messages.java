@@ -16,6 +16,10 @@ public class Messages {
     final public static String ERROR_MESSAGE_MISSING_KEYWORD = ERROR_MESSAGE_TAG + "keyword is non existent.";
     final public static String ERROR_MESSAGE_UNKNOWN_COMMAND = ERROR_MESSAGE_TAG + "command not found.";
 
+    final public static String ERROR_MESSAGE_FILE_WRITING =
+            ERROR_MESSAGE_TAG + "An error has occurred when writing to file %s.";
+    final public static String NOTICE_MESSAGE_FILE_NOT_FOUND = "Notice: File %s not found.";
+
     final public static String MESSAGE_ADD_TASK = "Got it. I've added this task:\n%s";
     final public static String MESSAGE_TOTAL_TASK_NOW = "Now you have %d tasks in the list";
 

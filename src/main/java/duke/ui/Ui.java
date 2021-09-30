@@ -48,7 +48,7 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    public void printMessageNoLine(String... data){
+    public void printMessageNoLine(String... data) {
         for (String s : data) {
             System.out.println(s);
         }
@@ -64,7 +64,7 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    public void printLine(){
+    public void printLine() {
         System.out.println(LINE);
     }
 

@@ -57,11 +57,17 @@ public class Command {
         return hasDataChange;
     }
 
-    protected String getAddTaskResponseMessage(){
+    /**
+     * Method called only when it is adding task related operation. This will display the task added and the current
+     * total task now.
+     *
+     * @return The output response message after adding a task to be printed for user to see.
+     */
+    protected String getAddTaskResponseMessage() {
         int totalTask = taskManager.getTotalNumberOfTasks();
-        String result = String.format(Messages.MESSAGE_ADD_TASK,taskManager.getTaskInfo(totalTask - 1));
+        String result = String.format(Messages.MESSAGE_ADD_TASK, taskManager.getTaskInfo(totalTask - 1));
         result += "\n";
-        result += String.format(Messages.MESSAGE_TOTAL_TASK_NOW,totalTask);
+        result += String.format(Messages.MESSAGE_TOTAL_TASK_NOW, totalTask);
         return result;
     }
 
