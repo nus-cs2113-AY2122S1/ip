@@ -1,2 +1,2 @@
-deadline | O | buy Valentines Day gift for Pepper | 2022-02-14
+deadline | X | buy Valentines Day gift for Pepper | 2022-02-14
 event | O | fight Thanos | 2021-11-01

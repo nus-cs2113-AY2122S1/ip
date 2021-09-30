@@ -27,7 +27,7 @@ to download it.
 5. Download the latest jar file from [here](https://github.com/STAung07/ip/releases/tag/A-Jar).
 
 ## Program Start
-Type in command `java -jar ip.jar` in the terminal directory containing `ip.jar` file.\
+Type in command `java -jar Friday.jar` in the terminal directory containing `Friday.jar` file.\
 The screen below should appear after a short while.\
 This indicates that previous data from storage has been loaded successfully into your current task list,
 and you can proceed with using the app.

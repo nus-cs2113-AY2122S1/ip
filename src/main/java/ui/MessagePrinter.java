@@ -159,7 +159,7 @@ public abstract class MessagePrinter {
     // if taskIndex is out of bounds
     public static void outOfBoundsTaskIndex() {
         dashes();
-        System.out.println("Apologies sir, the number you entered is not within the range of my memory.");
+        System.out.println("Apologies sir, the number you entered is not within the range of tasks in my memory.");
         dashes();
     }
 

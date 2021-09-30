@@ -269,7 +269,7 @@ public abstract class InputParser {
         } catch (NumberFormatException e) {
             return Errors.INVALID_INDEX;
         }
-        if (taskIndex < TASKS_LOWER_BOUND)  {
+        if (taskIndex <= TASKS_LOWER_BOUND)  {
             return Errors.OUT_OF_BOUNDS_INDEX;
         }
         return Errors.NONE;

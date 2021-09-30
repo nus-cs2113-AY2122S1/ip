@@ -198,6 +198,8 @@ public class TaskList {
             throw new InvalidIndexException();
         case OUT_OF_BOUNDS_INDEX:
             throw new IndexOutOfBoundsException();
+        case NONE:
+            break;
         }
         int taskIndex = InputParser.getTaskIndex(userInput);
         // change task to done
@@ -231,6 +233,8 @@ public class TaskList {
             throw new InvalidIndexException();
         case OUT_OF_BOUNDS_INDEX:
             throw new IndexOutOfBoundsException();
+        case NONE:
+            break;
         }
         // get index of task to change
         int taskIndex = InputParser.getTaskIndex(userInput);
