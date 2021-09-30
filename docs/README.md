@@ -188,6 +188,8 @@ Generating all the tasks that occur on "2021-10-21"...
 Exits the program.
 #### Format: `bye`
 
+--------------------------------------
+
 ## FAQ
 Q: Are the commands case-sensitive?
 
@@ -198,6 +200,8 @@ Q: How do I transfer my list of tasks and all associated data to another compute
 A: Transfer the text file named "Tasks.txt", located in the same directory as your iP.jar file over 
 to your other computer. Place it in the same directory as the iP.jar file on your other computer. Your 
 tasks will then be loaded from this text file when you run iP.jar on your new computer.
+
+--------------------------------------
 
 ## Command Summary
 
