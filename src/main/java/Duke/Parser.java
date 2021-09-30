@@ -2,6 +2,10 @@ package Duke;
 
 import Duke.commands.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import static Duke.Constants.*;
 import static Duke.Constants.COMMAND_BYE;
 
@@ -25,12 +29,16 @@ public class Parser {
                 return parseDeadline(params);
             } catch (DukeException e) {
                 return new IncorrectCommand(COMMAND_DEADLINE);
+            } catch (DateTimeParseException e) {
+                return new IncorrectCommand(DATEANDTIME);
             }
         case COMMAND_EVENT:
             try {
                 return parseEvent(params);
             } catch (DukeException e) {
                 return new IncorrectCommand(COMMAND_EVENT);
+            } catch (DateTimeParseException e) {
+                return new IncorrectCommand(DATEANDTIME);
             }
         case COMMAND_DONE:
             try {
@@ -46,12 +54,17 @@ public class Parser {
             } catch (DukeException e){
                 return new IncorrectCommand(COMMAND_DELETE);
             }
+<<<<<<< HEAD
         case COMMAND_FIND:
             try {
                 return parseFind(params);
             } catch (DukeException e) {
                 return new IncorrectCommand(COMMAND_FIND);
             }
+=======
+        case COMMAND_DATE:
+            return parseDate(params);
+>>>>>>> master
         case COMMAND_BYE:
             return new ByeCommand();
         default:
@@ -67,7 +80,7 @@ public class Parser {
         return new AddCommand(t);
     }
 
-    private static Command parseDeadline(String params) throws DukeException {
+    private static Command parseDeadline(String params) throws DukeException, DateTimeParseException {
         if (params.equals("")) {
             throw new DukeException();
         }
@@ -78,7 +91,7 @@ public class Parser {
         return new AddCommand(d);
     }
 
-    private static Command parseEvent(String params) throws DukeException {
+    private static Command parseEvent(String params) throws DukeException, DateTimeParseException {
         if (params.equals("")) {
             throw new DukeException();
         }
@@ -99,11 +112,18 @@ public class Parser {
         return new DeleteCommand(taskNumber);
     }
 
+<<<<<<< HEAD
     private static Command parseFind(String params) throws DukeException {
         if (params.equals("")) {
             throw new DukeException();
         }
         return new FindCommand(params);
+=======
+    private static Command parseDate(String params) throws DukeException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
+        LocalDateTime dateTime = LocalDateTime.parse(params, formatter);
+        return new DateCommand(dateTime);
+>>>>>>> master
     }
 
     private static int findTaskNumber(String params) throws DukeException {

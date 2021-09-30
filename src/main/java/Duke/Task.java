@@ -26,13 +26,6 @@ public class Task {
         isDone = b;
     }
 
-    public String getBy(){
-        return "";
-    }
-    public String getAt(){
-        return "";
-    }
-
     public static void setTaskCount(int amt) {
         Task.taskCount += amt;
     }

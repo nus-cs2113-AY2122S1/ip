@@ -1,5 +1,6 @@
 package Duke;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,7 @@ public class TaskList {
         task.setDone(true);
         ui.showDone(task);
     }
-
+    
     public void showTaskList(Ui ui) {
         showList(tasks, ui);
     }
@@ -58,6 +59,33 @@ public class TaskList {
         ui.showToUser("");
     }
 
+    public void showListForDate(LocalDateTime dateTime, Ui ui) {
+        int curr = 1;
+        for (Task t: tasks) {
+            if (t instanceof Deadline) {
+                curr = showDeadlineForDate((Deadline)t, dateTime, curr, ui);
+            }
+        }
+    }
+
+    private int showDeadlineForDate(Deadline d, LocalDateTime dateTime, int curr, Ui ui) {
+        if (isWithinDate(d, dateTime)) {
+            ui.showTask(curr, d);
+            return curr + 1;
+        }
+        return curr;
+    }
+
+    private boolean isWithinDate(Deadline d, LocalDateTime dateTime) {
+        LocalDateTime deadlineDateTime = d.getBy();
+        if (deadlineDateTime.isBefore(dateTime) | deadlineDateTime.isEqual(dateTime)) {
+            if (!d.isDone) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String formatTaskForFile(int taskNumber) {
         Task t = tasks.get(taskNumber);
         String description = "";
@@ -68,11 +96,11 @@ public class TaskList {
             taskType = "T";
         }
         else if (t instanceof Deadline) {
-            description = String.format("%s | %s", t.getDescription(), t.getBy());
+            description = String.format("%s | %s", t.getDescription(), ((Deadline) t).getUnformattedBy());
             taskType = "D";
         }
         else if (t instanceof Event) {
-            description = String.format("%s | %s", t.getDescription(), t.getAt());
+            description = String.format("%s | %s", t.getDescription(), ((Event) t).getUnformattedAt());
             taskType = "E";
         }
         String textToWrite = String.format("%s | %s | %s\n", taskType, status, description);

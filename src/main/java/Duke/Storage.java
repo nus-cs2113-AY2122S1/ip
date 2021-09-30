@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import static Duke.Messages.DIVIDER;
@@ -23,14 +24,14 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public TaskList load() throws DukeException {
+    public TaskList load() throws DukeException, DateTimeParseException {
         try {
             return readFile(filePath);
         } catch (FileNotFoundException e) {
             try {
                 Path pathFilePath = Paths.get(filePath);
                 Files.createDirectories(pathFilePath.getParent());
-                System.out.print(NEW_FILE + DIVIDER);
+                System.out.print(NEW_FILE + "\n" + DIVIDER + "\n");
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -38,7 +39,7 @@ public class Storage {
         return new TaskList();
     }
 
-    private TaskList readFile(String filePath) throws FileNotFoundException, DukeException {
+    private TaskList readFile(String filePath) throws FileNotFoundException, DukeException, DateTimeParseException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         TaskList fileTasks = new TaskList();
@@ -50,7 +51,7 @@ public class Storage {
         return fileTasks;
     }
 
-    private void manageTaskFromFile(String[] lineData, TaskList fileTasks) throws DukeException {
+    private void manageTaskFromFile(String[] lineData, TaskList fileTasks) throws DukeException, DateTimeParseException {
         String taskType = lineData[0];
         boolean isDone = lineData[1].equals("1");
         String description = lineData[2];

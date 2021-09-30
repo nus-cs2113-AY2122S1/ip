@@ -2,7 +2,11 @@ package Duke;
 
 import Duke.commands.Command;
 
+import java.io.File;
+import java.time.format.DateTimeParseException;
+
 import static Duke.Constants.COMMAND_INCORRECT;
+import static Duke.Constants.FILE;
 
 public class Duke {
 
@@ -15,8 +19,8 @@ public class Duke {
         storage = new Storage(filePath);
         try {
             tasks = storage.load();
-        } catch (DukeException e) {
-            ui.showCorruptFile();
+        } catch (DukeException | DateTimeParseException e) {
+            ui.showError(FILE);
             System.exit(0);
         }
     }
