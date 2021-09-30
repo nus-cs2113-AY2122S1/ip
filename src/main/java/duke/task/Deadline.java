@@ -1,13 +1,21 @@
 package duke.task;
 
+import duke.exception.DukeDateTimeFormatException;
+
 import java.time.format.DateTimeFormatter;
 
 /**
  * A deadline timed task with a date-time
  */
 public class Deadline extends TimedTask {
-
-    public Deadline(String description, String by) {
+    /**
+     * Initializes an instance of a deadline
+     *
+     * @param description the general task description
+     * @param by the date and time of the task is due
+     * @throws DukeDateTimeFormatException when the date and time input is in wrong formats
+     */
+    public Deadline(String description, String by) throws DukeDateTimeFormatException {
         super(description,by);
     }
     /**

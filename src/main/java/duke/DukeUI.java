@@ -1,9 +1,6 @@
 package duke;
 
-import duke.exception.EmptyDescriptionException;
-import duke.exception.MissingParameterException;
-import duke.exception.TaskNotFoundException;
-import duke.exception.WrongCommandException;
+import duke.exception.*;
 import duke.task.Task;
 
 import java.time.format.DateTimeParseException;
@@ -136,7 +133,7 @@ public class DukeUI {
             printMissingParameterError();
         } else if (e instanceof TaskNotFoundException) {
             printTaskNotFoundError();
-        }else if (e instanceof DateTimeParseException) {
+        }else if (e instanceof DukeDateTimeFormatException) {
             printDateTimeFormatError();
         } else {
             drawHorizontalLine();

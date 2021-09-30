@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exception.DukeDateTimeFormatException;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.MissingParameterException;
 import duke.exception.TaskNotFoundException;
@@ -51,7 +52,7 @@ public class TaskList {
                 DukeUI.printCompleteAddTask(newTask, tasks.size());
                 storage.saveData(tasks);
             }
-        } catch (EmptyDescriptionException | MissingParameterException e) {
+        } catch (EmptyDescriptionException | MissingParameterException | DukeDateTimeFormatException e) {
             DukeUI.printError(e);
         }
     }

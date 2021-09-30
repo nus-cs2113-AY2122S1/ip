@@ -1,12 +1,21 @@
 package duke.task;
 
+import duke.exception.DukeDateTimeFormatException;
+
 import java.time.format.DateTimeFormatter;
 
 /**
  * An event timed task with a date-time
  */
 public class Event extends TimedTask {
-    public Event(String description, String at) {
+    /**
+     * Initializes an instance of an event
+     *
+     * @param description the general task description
+     * @param at the date and time of the task is at
+     * @throws DukeDateTimeFormatException when the date and time input is in wrong formats
+     */
+    public Event(String description, String at) throws DukeDateTimeFormatException {
         super(description, at);
     }
 

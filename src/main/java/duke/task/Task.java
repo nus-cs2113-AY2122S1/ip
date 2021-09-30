@@ -4,11 +4,12 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task() {
-        description = "";
-        isDone = false;
-    }
 
+    /**
+     * An instance of a task
+     *
+     * @param description the general description of a task
+     */
     public Task(String description) {
         this.description = description;
         isDone = false;

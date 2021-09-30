@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exception.DukeDateTimeFormatException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -90,7 +91,7 @@ public class DukeStorage {
                 assert task != null;
                 task.setDone();
             }
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | DukeDateTimeFormatException e) {
             DukeUI.printError(e);
         }
         return task;
