@@ -9,10 +9,11 @@ import duke.Storage.FileManager;
 import duke.Ui.Parser;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -57,7 +58,8 @@ public class TaskManager {
     public void addDeadlineTask(Parser parser, String taskInfo) {
         try {
             String[] taskComponents = parser.splitTaskComponents(taskInfo);
-            Task newTask = new Deadline(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
+            String dateTimeFormat = parser.parseDateTime(taskComponents[INDEX_DATETIME]);
+            Task newTask = new Deadline(taskComponents[INDEX_DESCRIPTION], dateTimeFormat);
             tasks.add(newTask);
             DisplayManager.printCreateTask(newTask);
             FileManager.updateFile(tasks);
@@ -75,7 +77,8 @@ public class TaskManager {
     public void addEventTask(Parser parser, String taskInfo) {
         try {
             String[] taskComponents = parser.splitTaskComponents(taskInfo);
-            Task newTask = new Event(taskComponents[INDEX_DESCRIPTION], taskComponents[INDEX_DATETIME]);
+            String dateTimeFormat = parser.parseDateTime(taskComponents[INDEX_DATETIME]);
+            Task newTask = new Event(taskComponents[INDEX_DESCRIPTION], dateTimeFormat);
             tasks.add(newTask);
             DisplayManager.printCreateTask(newTask);
             FileManager.updateFile(tasks);
