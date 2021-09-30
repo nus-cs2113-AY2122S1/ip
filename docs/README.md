@@ -193,6 +193,7 @@ Ciao! More tasks to do later!
 ------------------------------------------------------------------------------------------
 ```
 ## Command Summary
+
 Description | Syntax | Example
 ------------|--------|--------
 Add todo task | todo {task description} | todo buy dinner
