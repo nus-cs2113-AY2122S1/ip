@@ -46,18 +46,18 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 - Format of `TIME` is `hh:mm`
 
 ### Summary of commands
-| **Command**            | **Format**                             | **Example**                                       |
-|------------------------|----------------------------------------|---------------------------------------------------|
-| Add todo               | `todo DESCRIPTION`                     | `todo homework`                                   |
-| Add event              | `event DESCRIPTION d/DATE [t/TIME]`    | `event lecture d/2020-12-31 t/15:00`              |
-| Add deadline           | `deadline DESCRIPTION d/DATE [t/TIME]` | `deadline submit assignment d/2020-12-31 t/15:00` |
-| Clear                  | `clear`                                | `clear`                                           |
-| Delete                 | `delete INDEX`                         | `delete 2`                                        |
-| Exit                   | `bye`                                  | `bye`                                             |
-| Find                   | `find KEYWORD [MORE_KEYWORDS]`         | `find homework`                                   |
-| Help                   | `help`                                 | `help`                                            |
-| List                   | `list`                                 | `list`                                            |
-| Mark task as done | `done INDEX`                           | `done 2`                                          |
+| **Command**      | **Format**                             | **Example**                                       |
+|------------------|----------------------------------------|---------------------------------------------------|
+| Add todo         | `todo DESCRIPTION`                     | `todo homework`                                   |
+| Add event        | `event DESCRIPTION d/DATE [t/TIME]`    | `event lecture d/2020-12-31 t/15:00`              |
+| Add deadline     | `deadline DESCRIPTION d/DATE [t/TIME]` | `deadline submit assignment d/2020-12-31 t/15:00` |
+| Clear            | `clear`                                | `clear`                                           |
+| Delete           | `delete INDEX`                         | `delete 2`                                        |
+| Exit             | `bye`                                  | `bye`                                             |
+| Find             | `find KEYWORD [MORE_KEYWORDS]`         | `find homework`                                   |
+| Help             | `help`                                 | `help`                                            |
+| List             | `list`                                 | `list`                                            |
+| Mark task as done| `done INDEX`                           | `done 2`                                          |
 
 ### References
 - contacts https://github.com/nus-cs2113-AY2122S1/contacts
