@@ -25,7 +25,9 @@ miniDuke is a chatbot that can manage and track tasks via command line interface
 2. Download miniDuke.jar from [A-Release tag](https://github.com/tttyyzzz/ip/releases/tag/A-Release) and store it into a folder.
 3. Store miniDuke.jar file to the file that you would want to store
 4. Open command prompt(for windows) or terminal(for mac and linux) and change directory to the folder .jar file is stored
-5. Run command ```java -jar duke.jar```
+5. Run command ```java -jar miniDuke.jar```
+> ❕ Note: if the command cannot be executed, please ensure that there is no duke.txt file in the folder. 
+> If there is duke.txt file, please rename or remove it.
 6. Upon start, if you manage to see the message below in your console, you have successfully installed and run duke.jar
 
 ```

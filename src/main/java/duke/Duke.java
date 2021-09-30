@@ -51,8 +51,9 @@ public class Duke {
             Storage.storeData(fileWrite);
             fileWrite.close();
         } catch (FileNotFoundException e) {
-            System.out.println("file not found, tasks cannot be saved. Exiting");
+            System.out.println("file not found, tasks cannot be saved. Please run the program again.");
             f.createNewFile();
+            System.exit(0);
         } catch (IOException e) {
             System.out.println("Please restart the app and try again");
         }
