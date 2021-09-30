@@ -2,7 +2,7 @@
 
 Patchi is a cute and helpful **scheduler + todo list** that runs on CLI.
 
-## Features
+## Features 
 
 ### Add Todo
 
@@ -32,7 +32,7 @@ Delete a task.
 
 Find tasks that match a search term.
 
-## Notes about command format
+## Notes about command format 
 
 - All dates are in the format `yyyy-mm-dd`
 
@@ -42,7 +42,7 @@ Find tasks that match a search term.
 
 Adds a Todo to the task list.
 
-Example of usage:
+Example of usage: 
 
 `todo homework`
 
@@ -51,8 +51,8 @@ Expected outcome:
 Shows the Todo added and the total number of tasks in the task list.
 
 ```
-Patchi: Got it! I have added [T][ ] read book to your task list! Œ(ˆOˆ)B
-Patchi: You have 1 tasks now! Too much work... Œ(ˊnˋ)B
+Patchi: Got it! I have added [T][ ] read book to your task list! (^O^)B
+Patchi: You have 1 tasks now! Too much work... (ono)B
 ```
 
 ### `deadline` - Add deadline
@@ -70,8 +70,8 @@ Expected outcome:
 Shows the Deadline added and the total number of tasks in the task list.
 
 ```
-Patchi: Got it! I have added [D][ ] homework (by: Apr 13 2021) to your task list! Œ(ˆOˆ)B
-Patchi: You have 2 tasks now! Too much work... Œ(ˊnˋ)B
+Patchi: Got it! I have added [D][ ] homework (by: Apr 13 2021) to your task list! (^O^)B
+Patchi: You have 2 tasks now! Too much work... (ono)B
 ```
 ### `event` - Add event
 
@@ -88,8 +88,8 @@ Expected outcome:
 Shows the Event added and the total number of tasks in the task list.
 
 ```
-Patchi: Got it! I have added [E][ ] concert (at: May 13 2021) to your task list! Œ(ˆOˆ)B
-Patchi: You have 3 tasks now! Too much work... Œ(ˊnˋ)B
+Patchi: Got it! I have added [E][ ] concert (at: May 13 2021) to your task list! (^O^)B
+Patchi: You have 3 tasks now! Too much work... (ono)B
 ```
 
 ### `list` - List tasks
@@ -103,7 +103,7 @@ Expected outcome:
 Shows all tasks in the task list.
 
 ```
-Patchi: Here is the list of tasks you currently have! Work hard~ Œ(˙O˙)B
+Patchi: Here is the list of tasks you currently have! Work hard~ (owo)B
 1. [T][ ] read book
 2. [D][ ] homework (by: Apr 13 2021)
 3. [E][ ] concert (at: May 13 2021)
@@ -124,9 +124,9 @@ Shows success message after marking task as done.
 Upon listing tasks, shows that the task is marked as done.
 
 ```
-Patchi: Good job! I've marked this task as done on your list. Time for a break? Œ(ˊwˋ)B
+Patchi: Good job! I've marked this task as done on your list. Time for a break? (owo)B
 list
-Patchi: Here is the list of tasks you currently have! Work hard~ Œ(˙O˙)B
+Patchi: Here is the list of tasks you currently have! Work hard~ (owo)B
 1. [T][¤] read book
 ```
 ### `find` - Find tasks
@@ -144,7 +144,7 @@ Expected outcome:
 Shows tasks that match the search term.
 
 ```
-Patchi: Here is the list of tasks that match your search! Did you find what you were looking for? Œ(˙O˙)B
+Patchi: Here is the list of tasks that match your search! Did you find what you were looking for? (omo)B
 1. [D][ ] return book (by: Apr 21 2021)
 2. [T][ ] read book
 ```
@@ -160,5 +160,5 @@ Expected outcome:
 Shows goodbye message.
 
 ```
-Patchi: Bye! Hope to see you again soon! Œ(~ˊᵕˋ~)B
+Patchi: Bye! Hope to see you again soon! (~owo~)B
 ```
