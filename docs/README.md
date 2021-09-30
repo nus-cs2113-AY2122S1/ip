@@ -82,7 +82,7 @@ Log off and come back later at any time. Your tasks will be right where they are
 <br> (Just make sure you exit the app with the command `bye` to save your progress!)
 
 ### I'm What You Call a Minimalist.
-The UI only has the essentials. It's so bare bone and minimalist it leaves Apple quaking and knees shaking.
+_Tired's_ UI only has the essentials. It's so bare bone and minimalist it leaves Apple quaking and  their knees shaking.
 <br> (They've been real quiet since the JAR file was released.)
 
 ## Usage
