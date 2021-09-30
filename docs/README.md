@@ -2,6 +2,15 @@
 
 ip is a desktop app for managing the tasks you need to do.
 
+## Starting the program
+
+1. Ensure you have Java `11` or above installed in your computer.
+2. Download [`ip.jar`](https://github.com/huien77/ip/releases/download/A-Release/ip.jar).
+3. Copy `ip.jar` to the folder you want to use as the **home** directory.
+4. Open `Command Prompt`.
+5. `cd` to the **home** directory.
+6. Enter `java -jar ip.jar` to start the program.
+
 ## Features 
 
 These features will help you use the app correctly.
