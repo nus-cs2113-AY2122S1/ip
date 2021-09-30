@@ -16,10 +16,10 @@ public class DoneCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            Task task = taskList.completeTask(taskNumber);
-            storage.saveData(taskList.getTaskList());
+            Task task = tasks.completeTask(taskNumber);
+            storage.saveData(tasks.getTaskList());
             ui.printCompleteTaskMessage(task);
         } catch (InvalidTaskException | IOException e) {
             ui.printErrorMessage(e.getMessage());

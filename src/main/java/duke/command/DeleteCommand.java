@@ -16,11 +16,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            Task task = taskList.deleteTask(taskNumber);
-            storage.saveData(taskList.getTaskList());
-            ui.printDeleteTaskMessage(task, taskList.getTaskList().size());
+            Task task = tasks.deleteTask(taskNumber);
+            storage.saveData(tasks.getTaskList());
+            ui.printDeleteTaskMessage(task, tasks.getTaskList().size());
         } catch (InvalidTaskException | IOException e) {
             ui.printErrorMessage(e.getMessage());
         }
