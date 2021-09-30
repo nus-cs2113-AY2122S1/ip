@@ -17,7 +17,7 @@ public class DoneCommand extends Command {
     private final int index;
 
     /**
-     * Instantiates command and stores index.
+     * Initialises command and stores index.
      *
      * @param index Index of the task to be marked as completed (starting from 0).
      */

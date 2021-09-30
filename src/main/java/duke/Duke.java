@@ -12,8 +12,6 @@ import duke.ui.Ui;
  * Initializes the application and starts the interaction with the user.
  */
 public class Duke {
-    public static final String DATA_FILE_SEPARATOR = " ` ";
-
     private static final String MESSAGE_ERROR = "☹ OOPS!!! %1$s";
 
     private static Storage storage;

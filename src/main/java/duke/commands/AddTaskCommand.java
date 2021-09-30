@@ -10,6 +10,7 @@ public abstract class AddTaskCommand extends Command {
     /** Message to be displayed upon successful adding of task. */
     protected static final String MESSAGE_TASK_ADDED = "Got it. I've added this task:\n" + "  %1$s\n"
             + "Now you have %2$s task(s) in the list";
+
     /** Task to be added. */
     protected Task toAdd;
 

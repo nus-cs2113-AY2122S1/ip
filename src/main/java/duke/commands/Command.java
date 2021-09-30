@@ -7,7 +7,6 @@ import duke.tasklist.TaskList;
  * Represents an executable command.
  */
 public abstract class Command {
-
     /**
      * Executes the appropriate actions.
      *

@@ -26,13 +26,11 @@ import duke.tasklist.TaskList;
  * data into the file.
  */
 public class Storage {
-    private static final Path DATA_DIRECTORY_PATH = Paths.get("data");
-    private static final String DATA_FILE_NAME = "duke.txt";
-    private static final Path DATA_FILE_PATH = DATA_DIRECTORY_PATH.resolve(DATA_FILE_NAME);
-
+    // Capturing group variables store the name of the named capturing group.
     private static final String CAPTURING_GROUP_TASK_TYPE_ICON = "taskTypeIcon";
     private static final String CAPTURING_GROUP_IS_DONE = "isDone";
     private static final String CAPTURING_GROUP_TASK_DETAILS = "taskDetails";
+    /** Used for initial separation of task type icon, whether task is done, and the rest of the task details. */
     private static final Pattern BASIC_TASK_FORMAT = Pattern.compile(
             "(?<" + CAPTURING_GROUP_TASK_TYPE_ICON + ">\\S+) "
                     + "(?<" + CAPTURING_GROUP_IS_DONE + ">\\S+) "
@@ -41,11 +39,12 @@ public class Storage {
     private static final String SYMBOL_TASK_DONE = "1";
     private static final String SYMBOL_TASK_NOT_DONE = "0";
 
-    private static final String MESSAGE_DATA_FILE_ACCESS_ERROR = "There was an error accessing the data file: '"
-            + DATA_FILE_PATH + "'";
-    private static final String MESSAGE_DATA_FILE_PARSE_ERROR = "There was an error parsing the data file:";
-    private static final String MESSAGE_TASK_FORMAT_ERROR = "Unrecognised task format.";
+    private static final String MESSAGE_DATA_FILE_ACCESS_ERROR = "There was an error accessing the data file '%1$s'\n"
+            + "%2$s";
+    private static final String MESSAGE_DATA_FILE_PARSE_ERROR = "There was an error parsing the data file:\n"
+            + "%1$s";
 
+    private static final String MESSAGE_TASK_FORMAT_ERROR = "Unrecognised task format.";
     private static final String MESSAGE_UNRECOGNISED_TASK_TYPE_ICON = "Unrecognised task type icon: '%1$s'";
     private static final String MESSAGE_UNRECOGNISED_TASK_STATUS_ICON = "Unrecognised task status icon: '%1$s'";
     private static final String MESSAGE_UNRECOGNISED_EVENT_FORMAT = "Unrecognised event format.\n"
@@ -56,18 +55,39 @@ public class Storage {
     private final Path path;
     private boolean isUsingNewFile = false;
 
+    /**
+     * Initialises storage and stores {@code filePath}.
+     *
+     * @param filePath Path of the file that stores the data.
+     */
     public Storage(String filePath) {
         path = Paths.get(filePath);
     }
 
+    /**
+     * Returns path of the file that stores the data.
+     *
+     * @return Path of the data file as a string.
+     */
     public String getPath() {
         return path.toString();
     }
 
+    /**
+     * Returns whether a new data file is being used.
+     *
+     * @return {@code true} if there is no existing data file and a new file is being used; false otherwise;
+     */
     public boolean isUsingNewFile() {
         return isUsingNewFile;
     }
 
+    /**
+     * Loads task data from the data file.
+     *
+     * @return Task list parsed from the data file.
+     * @throws StorageException If there is an error parsing the data file.
+     */
     public TaskList loadData() throws StorageException {
         if (!Files.exists(path) || !Files.isRegularFile(path)) {
             isUsingNewFile = true;
@@ -78,10 +98,17 @@ public class Storage {
             return parseData(taskDataStrings);
         } catch (IOException | DukeException e) {
             e.printStackTrace();
-            throw new StorageException(MESSAGE_DATA_FILE_PARSE_ERROR + "\n" + e.getMessage());
+            throw new StorageException(String.format(MESSAGE_DATA_FILE_PARSE_ERROR, e.getMessage()));
         }
     }
 
+    /**
+     * Parses task data as a task list.
+     *
+     * @param taskDataStrings Task data to be parsed.
+     * @return Parsed task list.
+     * @throws DukeException If there is an error parsing the data.
+     */
     private TaskList parseData(List<String> taskDataStrings) throws DukeException {
         final TaskList tasks = new TaskList();
         for (String taskString : taskDataStrings) {
@@ -90,6 +117,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Parses task string as a task.
+     *
+     * @param taskString Task string to be parsed.
+     * @return Parsed task.
+     * @throws DukeException If there is an error parsing the task string (i.e. not in the right format).
+     */
     private Task decodeTaskFromString(String taskString) throws DukeException {
         final Matcher basicTaskMatcher = BASIC_TASK_FORMAT.matcher(taskString);
         if (!basicTaskMatcher.matches()) {
@@ -136,15 +170,27 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Saves task data into the data file.
+     *
+     * @param tasks Task list to be saved.
+     * @throws StorageException If there is an error accessing the data file.
+     */
     public void saveData(TaskList tasks) throws StorageException {
         try {
             Files.createDirectories(path.getParent());
             Files.write(path, formatTasksAsDataOutput(tasks));
         } catch (IOException e) {
-            throw new StorageException(MESSAGE_DATA_FILE_ACCESS_ERROR + path + "\n" + e.getMessage());
+            throw new StorageException(String.format(MESSAGE_DATA_FILE_ACCESS_ERROR, path, e.getMessage()));
         }
     }
 
+    /**
+     * Formats a task list as per how it should be saved in the data file.
+     *
+     * @param taskList Task list to be formatted.
+     * @return Formatted task list.
+     */
     private List<String> formatTasksAsDataOutput(TaskList taskList) {
         final ArrayList<Task> tasks = taskList.getAllTasks();
         return tasks.stream()
@@ -152,6 +198,12 @@ public class Storage {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Formats a task as per how it should be saved in the data file.
+     *
+     * @param task Task to be formatted.
+     * @return Formatted task string.
+     */
     private String formatTaskAsDataOutput(Task task) {
         final StringBuilder taskStringBuilder = new StringBuilder();
         taskStringBuilder.append(task.getTaskTypeIcon()).append(" ");
