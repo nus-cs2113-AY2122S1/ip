@@ -18,6 +18,13 @@ public class Event extends Task {
         this.type = "E";
     }
 
+    /**
+     *
+     */
+    private String parseDate(String date) {
+
+        return "";
+    }
 
     /**
      * Returns information about task in a sensible form.

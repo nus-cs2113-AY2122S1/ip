@@ -5,6 +5,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,6 +28,8 @@ public class TaskList {
      */
     protected static void addTask(String taskType, String taskName, String taskDetails) {
         try {
+            taskDetails = Parser.parseDate(taskDetails);
+
             switch (taskType) {
             case TODO:
                 addTodo(false, taskName);
@@ -43,6 +46,8 @@ public class TaskList {
             confirmTaskAdded(false);
         } catch (DukeException e) {
             Ui.showMissingTextError();
+        } catch (DateTimeParseException e) {
+            Ui.showWrongDateError();
         }
     }
 

@@ -9,8 +9,10 @@ It's **light and easy** to use, without any fancy embellishments that will bag d
 - [Setup](#setup)
 - [Quick Start](#quick-start)
 - [Features](#features)
-    - []()
-    - []()
+    - [So Snarky!](#so-snarky)
+    - [Why So Case-Insensitive?](#why-so-case-insensitive)
+    - [I'll Never Forget What You Did.](#ill-never-forget-what-you-did)
+    - [I'm What You Call a Minimalist.](#im-what-you-call-a-minimalist)
 - [Usage](#usage)
   - [`help`](#help)
   - [`todo`](#todo)
@@ -22,12 +24,14 @@ It's **light and easy** to use, without any fancy embellishments that will bag d
   - [`bye`](#bye)
 - [Command Summary](#command-summary)
 - [FAQ](#faq)
+  - [Links to More Chatbot Assistants](#links-to-more-chatbot-assistants)
+- [Coming Soon](#coming-soon)
 
 ## Setup
 To get _Tired_ up and running on your computer, follow the steps below:
 1. Download and install [Java 11](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html)
 on your computer
-2. Download Tired's **JAR file** by clicking [here](). 
+2. Download _Tired_'s **JAR file** by clicking [here](). 
 (As the creator I vouch for its safety, so ignore the warning message, :D)
 3. The **JAR file** will appear in your **Downloads** folder. Open **Command Prompt**.
 One method is to press the Windows  key, search  for "cmd", and click the first option.
@@ -75,7 +79,7 @@ Log off and come back later at any time. Your tasks will be right where they are
 (Just make sure you exit the app with the command `bye` to save your progress!)
 
 ### I'm What You Call a Minimalist.
-The UI only has the essentials. It's so bare bone and minimalist it leaves Apple  quaking and knees shaking.
+The UI only has the essentials. It's so bare bone and minimalist it leaves Apple quaking and knees shaking.
 (They've been real quiet since the JAR file was released.)
 
 ## Usage
@@ -94,7 +98,11 @@ Shows a list with brief explanations for all possible commands:
     │         done <task_number>: Mark a task as done.                   │
     │       delete <task_number>: Remove a task from the list.           │
     │               find <query>: Search for text in the list.           │
+    │                                                                    │
+    │ Still having trouble? *sigh*                                       │
+    │ Head over to https://kahhe.github.io/ip/ for the User Guide        │
     └────────────────────────────────────────────────────────────────────┘
+
 ````
 Type any extra text  _Tired_ will get cranky: 
 ````
@@ -109,14 +117,14 @@ Adds a `todo` tasks with name `<TASK_NAME>` to the list:
 show expected outcome with example command
 ````
 
-###`deadline`
+### `deadline`
 **Command**: `deadline <TASK_NAME> /by <>`
 
 
-###`event`
+### `event`
 **Command**: `event <TASK_NAME> /at <>`
 
-###`done`
+### `done`
 **Command**: `done <TASK_NUMBER>`
 
 Marks the task with index `<TASK_NUMBER>` on the list as done.
@@ -195,6 +203,10 @@ Q: _Tired_ really hurt my feelings. How can I change his attitude?
 
 A: “That which does not kill us, makes us stronger.” — Friedrich Nietzsche
 <br> Alternatively, you can check out my friends' chatbot assistants (they're friendlier.)
+
+### Links to More Chatbot Assistants
+[Rimura JAR file]()
+
 ## Coming Soon
 Kidding! Nothing in the pipeline.
 
