@@ -25,7 +25,7 @@ With its bubbly personality and user-friendly commands, _Dude_ will surely becom
 4. Open a command window in that folder. [_Not sure how to do this?_](https://www.groovypost.com/howto/open-command-window-terminal-window-specific-folder-windows-mac-linux/)
 5. In the same window, run the command `java -jar Dude.jar`. 
 
-All ready to go! Enjoy using _Dude_! :star_struck:
+All ready to go! Enjoy using _Dude_! 😃
 
 ## Features
 #### Notes about the command format:
