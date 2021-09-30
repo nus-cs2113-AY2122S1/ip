@@ -11,7 +11,7 @@ public class Event extends Todo{
     protected Time by;
 
     /**
-     * Constructor of the Event, store the description and deadline time.
+     * Constructor of the Event, stores the description and deadline time.
      *
      * @param description String object representing the information about the task.
      * @param ddl String object representing the time of the object.

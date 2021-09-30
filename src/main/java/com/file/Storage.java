@@ -20,7 +20,7 @@ public class Storage {
 
 
     /**
-     * Constructor of Storage, set the fileName and filePath
+     * Constructor of Storage, sets the fileName and filePath
      *
      * @param fileName the name of the storage file
      */
@@ -31,7 +31,7 @@ public class Storage {
 
 
     /**
-     * Check if the path exist, and create one if the path does not exist.
+     * Checks if the path exist, and create one if the path does not exist.
      *
      * @throws IOException If the filepath cannot be created.
      */
@@ -44,7 +44,7 @@ public class Storage {
 
 
     /**
-     * read from the file and return ArrayList<String> lines object that stores information
+     * reads from the file and return ArrayList<String> lines object that stores information
      *
      * @return ArrayList<String> lines object that stores information
      * @throws IOException If the filepath cannot be created or cannot be found.
@@ -62,7 +62,7 @@ public class Storage {
 
 
     /**
-     * write the ArrayList<Task> lines into the files
+     * writes the ArrayList<Task> lines into the files
      *
      * @param lines representing the list of tasks information
      * @throws IOException If the file cannot be created or cannot be found

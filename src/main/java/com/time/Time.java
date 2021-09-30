@@ -5,13 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represent a Time object, in the form of "Sunday", or in the form of "1 Oct 2021"
+ * Represents a Time object, in the form of "Sunday", or in the form of "1 Oct 2021"
  */
 public class Time {
     String time;
 
     /**
-     * Constructor of the Time, convert the String line into LocalDate if possible.
+     * Constructor of the Time, converts the String line into LocalDate if possible.
      *
      * @param line String object representing the time
      */
@@ -20,7 +20,7 @@ public class Time {
     }
 
     /**
-     * Try to convert the String line into LocalDate if possible. If cannot, then keep the original format
+     * Converts the String line into LocalDate if possible. If cannot, then keep the original format
      *
      * @param line String object representing the time
      */
@@ -38,9 +38,7 @@ public class Time {
         return time;
     }
 
-    /**
-     * Overwrite
-     */
+
     public String toString() {
         return time;
     }

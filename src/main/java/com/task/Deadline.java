@@ -10,7 +10,7 @@ public class Deadline extends Todo {
 
 
     /**
-     * Constructor of the Deadline, store the description and deadline time.
+     * Constructor of the Deadline, stores the description and deadline time.
      *
      * @param description String object representing the information about the task.
      * @param ddl String object representing the time of the object.

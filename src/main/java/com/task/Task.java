@@ -10,7 +10,7 @@ public class Task {
 
 
     /**
-     * Constructor of the Task, store the description.
+     * Constructor of the Task, stores the description.
      *
      * @param description String object representing the information about the task.
      */
@@ -33,9 +33,7 @@ public class Task {
         return description;
     }
 
-    /**
-     * Overwrite
-     */
+
     public String toString() {
         return description;
     }

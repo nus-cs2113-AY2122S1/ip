@@ -10,7 +10,7 @@ public class Todo extends Task {
 
 
     /**
-     * Constructor of the Todo, store the description.
+     * Constructor of the Todo, stores the description.
      *
      * @param description String object representing the information about the task.
      */
@@ -19,9 +19,7 @@ public class Todo extends Task {
         this.isDone = false;
     }
 
-    /**
-     * Overwrite
-     */
+
     public String toString() {
         String status = null;
 
