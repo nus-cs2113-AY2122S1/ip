@@ -211,8 +211,8 @@ Command | Usage | Syntax
 `profile`| views the profile with cute picture of the bot character | `profile`
 `help`|views the help menu from the application | `help`
 `todo`|adds a new to-do task to the to-do list | `todo [TASK_DESCRIPTION]`
-`event`|adds a new event task to the to-do list | `event [TASK_DESCRIPTION] /(at) [START_TIME] [-] [END_TIME]`
-`deadline`|adds a new deadline task to the to-do list | `deadline [TASK_DESCRIPTION] /(by) [END_DATE yyyy-MM-dd] [END_TIME utc HH:mm]`
+`event`|adds a new event task to the to-do list | `event [TASK_DESCRIPTION] [/] (at) [START_TIME] [-] [END_TIME]`
+`deadline`|adds a new deadline task to the to-do list | `deadline [TASK_DESCRIPTION] [/] (by) [END_DATE yyyy-MM-dd] [END_TIME utc HH:mm]`
 `list` | views the to-do list | `list`
 `done` | marks tasks as done | `done [TASK_INDEX/INDICES]`
 `delete` |deletes unused tasks | `delete [TASK_INDEX/INDICES]/all`
