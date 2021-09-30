@@ -41,7 +41,8 @@ public class Parser {
     public static final String DATA_TEXT_SEPERATOR = ",";
 
     /**
-     * Parses full command
+     * Parses full command by user by splitting the command into 2 using whitespace as first word is always the command
+     * while the second part of user input will be the arguments for the command
      *
      * @param fullCommand Command given by user that should be parsed
      * @return Command object based on the parsed command
