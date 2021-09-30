@@ -164,3 +164,23 @@ Description of the outcome.
 ```
 Find all tasks in the task list with the key words
 ```
+
+## Exit the application
+
+### `Keyword` - bye
+
+Example of usage:
+
+`bye`
+
+Expected outcome:
+
+```
+Bye. Hope to see you again soon!
+```
+
+Description of the outcome.
+
+```
+Exit the application.
+```
