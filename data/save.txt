@@ -1,2 +1,2 @@
-T|0|read book
 D|1|write book|1999/03/12 1200
+T|0|read book
