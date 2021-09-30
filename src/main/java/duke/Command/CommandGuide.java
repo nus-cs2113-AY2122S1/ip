@@ -1,5 +1,7 @@
 package duke.Command;
 
+import duke.ErrorHandling.CommandException;
+
 /**
  * Represent multiple simple one word commands that mainly just print out messages
  */
@@ -21,7 +23,11 @@ public class CommandGuide extends Command{
     public void executeCommand(){
         if(taskInput.startsWith(COMMAND_ECHO_ART)){
             ArtCommand artCommand = new ArtCommand(taskInput);
-            artCommand.handleArtCommand();
+            try {
+                artCommand.handleArtCommand();
+            } catch (CommandException e) {
+                e.handleException();
+            }
             return;
         }
         switch(taskInput) {

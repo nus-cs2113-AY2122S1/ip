@@ -33,6 +33,7 @@ public class ErrorStaticString {
 
     public static final String ERROR_ARTBOT_LETTER_NOT_FOUND = "☹ OOPS!!! Something went wrong, character input cannot be drawn.\n" +
             "Do not input space or symbols.";
+    public static final String ERROR_ARTBOT_INPUT_EMPTY = "☹ OOPS!!! Input cannot be empty.";
 
     public static final String ERROR_FILE_MESSAGE_CREATION = "☹ OOPS!!! Something went wrong with creating files";
     public static final String ERROR_FILE_MESSAGE_READING = "☹ OOPS!!! Something went wrong with reading the files";
