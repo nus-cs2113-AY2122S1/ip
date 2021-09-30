@@ -209,7 +209,7 @@ public class Parser {
      *
      * @return True to be assigned to isExit.
      */
-    protected static boolean parseBye() {
+    private static boolean parseBye() {
         Storage.saveTaskToFile(TaskList.tasks);
         return true;
     }
@@ -232,7 +232,7 @@ public class Parser {
      * Adds a task of type Todo to ArrayList tasks.
      * @param taskName Description of task.
      */
-    protected static void parseTodo(String taskName) {
+    private static void parseTodo(String taskName) {
         TaskList.addTask("T", taskName, "");
     }
 

@@ -48,7 +48,7 @@ public class Storage {
      * @param line A String of one sentence scanned from the load file.
      * @throws DukeException Format of string is unexpected.
      */
-    public static void parseText(String line) throws DukeException {
+    private static void parseText(String line) throws DukeException {
         String[] words = line.split(DELIMITER);
         try {
             parseComponents(words);
@@ -63,7 +63,7 @@ public class Storage {
      * @param words String array containing the different information regarding a task.
      * @throws DukeException Format of taskType is unexpected.
      */
-    public static void parseComponents(String[] words) throws DukeException {
+    private static void parseComponents(String[] words) throws DukeException {
 
         if (words.length < 3 || words.length > 4) {
             throw new ArrayIndexOutOfBoundsException();
@@ -94,7 +94,7 @@ public class Storage {
      *
      * @param tasks ArrayList containing tasks the user wishes to save.
      */
-    public static void saveTaskToFile(ArrayList<Task> tasks) {
+    protected static void saveTaskToFile(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter("data/duke.txt");
             for (int i = 0; i < tasks.size(); i++) {
@@ -116,7 +116,7 @@ public class Storage {
      * @return A string format to be saved in file.
      * @throws IOException Writing to save file is erroneous.
      */
-    public static String getTaskForSaving(ArrayList<Task> tasks, int taskIndex) throws IOException {
+    private static String getTaskForSaving(ArrayList<Task> tasks, int taskIndex) throws IOException {
         return tasks.get(taskIndex).toSaveFile(DELIMITER) + "\n";
     }
 }

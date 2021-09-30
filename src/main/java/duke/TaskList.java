@@ -62,7 +62,7 @@ public class TaskList {
      * @param taskDetails Time information pertaining to task.
      * @throws DukeException When the isDone value is not 1 or 0.
      */
-    public static void addTaskFromFile(String taskType, String taskIsDone, String taskName, String taskDetails) throws DukeException {
+    protected static void addTaskFromFile(String taskType, String taskIsDone, String taskName, String taskDetails) throws DukeException {
         boolean isDone = false;
 
         if (taskIsDone.equals("1")) {
@@ -100,7 +100,7 @@ public class TaskList {
      * @param taskName Description of task.
      * @throws DukeException Description of task not inputted.
      */
-    public static void addTodo(boolean isDone, String taskName) throws DukeException {
+    protected static void addTodo(boolean isDone, String taskName) throws DukeException {
         if (taskName.isBlank()) {
             throw new DukeException("todo name missing.");
         }
@@ -115,7 +115,7 @@ public class TaskList {
      * @param taskDetails Time of deadline in String format.
      * @throws DukeException Description of task not inputted.
      */
-    public static void addDeadline(boolean isDone, String taskName, String taskDetails) throws DukeException {
+    protected static void addDeadline(boolean isDone, String taskName, String taskDetails) throws DukeException {
         if (taskName.isBlank()) {
             throw new DukeException("deadline name missing.");
         }
@@ -134,7 +134,7 @@ public class TaskList {
      * @param taskDetails Time of event in String format.
      * @throws DukeException Description of task not inputted.
      */
-    public static void addEvent(boolean isDone, String taskName, String taskDetails) throws DukeException {
+    protected static void addEvent(boolean isDone, String taskName, String taskDetails) throws DukeException {
         if (taskName.isBlank()) {
             throw new DukeException("event name missing.");
         }
@@ -150,7 +150,7 @@ public class TaskList {
      *
      * @param isDone Boolean status representing whether the task has been done.
      */
-    public static void updateTaskCountAndTaskCompleted(boolean isDone) {
+    private static void updateTaskCountAndTaskCompleted(boolean isDone) {
         taskCount++;
         if (isDone) {
             taskCompleted++;
@@ -162,7 +162,7 @@ public class TaskList {
      *
      * @param isDone Boolean status representing whether the task has been done.
      */
-    public static void confirmTaskAdded(boolean isDone) {
+    private static void confirmTaskAdded(boolean isDone) {
         updateTaskCountAndTaskCompleted(isDone);
         int taskPending = taskCount - taskCompleted;
         String isPlural = (taskPending) == 1 ? "" : "s";
@@ -177,7 +177,7 @@ public class TaskList {
      *
      * @param userInput String from user to be converted into a number that is associated with a task.
      */
-    public static void doneTask(String userInput) {
+    protected static void doneTask(String userInput) {
         int taskNumber;
         boolean isExists;
         try {
@@ -209,7 +209,7 @@ public class TaskList {
      *
      * @param userInput String from user to be converted into a number that is associated with a task.
      */
-    public static void deleteTask(String userInput) {
+    protected static void deleteTask(String userInput) {
         int taskNumber;
         boolean isExists;
 
@@ -246,7 +246,7 @@ public class TaskList {
      * @param userInput Query of user.
      * @throws DukeException Query is blank.
      */
-    public static void findTask(String userInput) throws DukeException {
+    protected static void findTask(String userInput) throws DukeException {
         ArrayList<Task> tempTasks = new ArrayList<>();
         if (!userInput.isBlank()) {
             userInput = userInput.toLowerCase();
@@ -275,7 +275,7 @@ public class TaskList {
      * Engages user based on what the user has typed.
      * Passes execution to parse();
      */
-    public static void engageUser() {
+    protected static void engageUser() {
             Scanner input = new Scanner(System.in);
             Parser.parse(input);
     }
