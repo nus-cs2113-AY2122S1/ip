@@ -27,7 +27,7 @@
 # Quick Start
 
 1. Ensure that you have Java `11` in your computer
-2. Download `iP.jar` from [here](https://github.com/Poopies99/ip)
+2. Download `iP.jar` from [here](https://github.com/Poopies99/ip/tree/master/release)
 3. Copy file into any folder
 4. Double-click the file to start the app.
 
