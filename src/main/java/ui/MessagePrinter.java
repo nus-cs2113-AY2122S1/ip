@@ -211,7 +211,7 @@ public abstract class MessagePrinter {
     public static void invalidDate() {
         dashes();
         System.out.println("Sir you modelled me to read dates in the format yyyy-mm-dd. "
-                + "If you would kindly check the format or validity of your date");
+                + "If you would kindly check the format or validity of your date.");
         dashes();
     }
 
