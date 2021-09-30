@@ -6,7 +6,7 @@ Optimised for use via a **[Command Line Interface (CLI)](https://en.wikipedia.or
 with a dash of **User Interface (UI) design** that keeps it enjoyable to use.
 It's **light and easy** to use, without any fancy embellishments that will bag down its performance.
 
-- [Set Up](#set-up)
+- [Setup](#setup)
 - [Quick Start](#quick-start)
 - [Features](#features)
     - []()
@@ -19,12 +19,41 @@ It's **light and easy** to use, without any fancy embellishments that will bag d
   - [`done`](#done)
   - [`delete`](#delete)
   - [`find`](#find)
+  - [`bye`](#bye)
 - [Command Summary](#command-summary)
 - [FAQ](#faq)
 
-## Set Up
+## Setup
+To get _Tired_ up and running on your computer, follow the steps below:
+1. Download and install [Java 11](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html) on your computer
+2. Download Tired's JAR file by clicking [here](https://github.com/kahhe/ip/releases/download/A-Jar/ip.jar). (ignore the warning message, as the creator I vouch for its safety :D)
+3. The JAR file will appear in your downloads folder. Open **Command Prompt**. One method is to press the Windows  key, search for "cmd", and click the first option.
+4. In Command Prompt, type `cd Downloads` and click enter. Type `java -jar ip.jar` and click enter again.
+5. _Tired_ is up and running! Enjoy the app!
 
 ## Quick Start
+_Tired_ will greet you with reluctance upon startup.
+````
+    ┌────────────────────────────────────────────────────────────────────┐
+    │ Load file: not found.                                              │
+    │ Tasks added in this session will be automatically saved upon exit. │
+    └────────────────────────────────────────────────────────────────────┘
+         ______       __     __                 __
+        / ____/___   / /_   / /   ____   _____ / /_
+       / / __ / _ \ / __/  / /   / __ \ / ___// __/
+      / /_/ //  __// /_   / /___/ /_/ /(__  )/ /_
+      \____/ \___/ \__/  /_____/\____//____/ \__/
+            ┌─┐┬  ┌─┐┌─┐┌─┐┌─┐┌─┐
+            ├─┘│  ├┤ ├─┤└─┐├┤  ┌┘
+      o o o ┴  ┴─┘└─┘┴ ┴└─┘└─┘ o
+    ┌────────────────────────────────────────────────────────────────────┐
+    │ *Sigh* Hi... I'm Tired                                             │
+    │ What do you want from me?                                          │
+    └────────────────────────────────────────────────────────────────────┘
+````
+This is how it should look on a window.
+![image](https://user-images.githubusercontent.com/69589263/135413895-7868344d-e0fa-436a-9761-1af222adb5be.png)
+You may look at [Usage](#usage) to find out what the commmands are, or type `help` and _Tired_ will print you a list for reference.
 
 ## Features 
 
@@ -64,11 +93,18 @@ Description of the outcome.
 ```
 expected output
 ```
+
 ###`deadline`
+
 ###`event`
+
 ###`done`
+
 ###`delete`
+
 ###`find`
+
+### `bye`
 
 
 
