@@ -24,13 +24,15 @@ It is modelled after Tony Stark aka Iron Man's own AI helper.
 to download it.
 3. After downloading, add path to bin folder to PATH variable in Environment Variables
 4. Check if Java is downloaded by running `java --version` in your Terminal.
-5. Download the latest jar file from [here](https://github.com/STAung07/ip/releases/tag/A-Jar).
+5. Download the latest jar file from [here](https://github.com/STAung07/ip/releases/tag/A-Release).
+6. Save jar file in folder of choice.
 
 ## Program Start
-Type in command `java -jar Friday.jar` in the terminal directory containing `Friday.jar` file.\
+Open terminal in folder containing `Friday.jar` file.\
+Type in command `java -jar Friday.jar`.\
 The screen below should appear after a short while.\
 This indicates that previous data from storage has been loaded successfully into your current task list,
-and you can proceed with using the app.
+and you can proceed with using the program.
 ```
                            .*%@@@@@@@@@@@@@@@@@@@@@@&(.                         
                       /@@&*  #@@@@@@@@@@@@@@@@@@@@@@@  .%@@%.                   
