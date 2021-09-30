@@ -2,7 +2,20 @@ package duke.Ui;
 
 import duke.Error.DukeException;
 import duke.TaskList.TaskManager;
-import duke.TaskList.command.*;
+import duke.TaskList.command.Command;
+import duke.TaskList.command.DeadlineCommand;
+import duke.TaskList.command.DeleteCommand;
+import duke.TaskList.command.EventCommand;
+import duke.TaskList.command.ExitCommand;
+import duke.TaskList.command.FindCommand;
+import duke.TaskList.command.ListCommand;
+import duke.TaskList.command.SetDoneCommand;
+import duke.TaskList.command.ToDoCommand;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Class responsible to parse user commands.
@@ -11,6 +24,11 @@ public class Parser {
 
     private static final int INDEX_COMMAND = 0;
     private static final int INDEX_TASK_INFO = 1;
+
+    private static final int INDEX_DATE = 0;
+    private static final int INDEX_TIME = 1;
+    private static final String DATE_TIME_FORMAT = "dd MMM yyyy HH:mm";
+
     private static final String COMMAND_LIST_TASK = "list";
     private static final String COMMAND_ADD_TODO = "todo";
     private static final String COMMAND_ADD_DEADLINE = "deadline";
@@ -131,5 +149,14 @@ public class Parser {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
         return command;
+    }
+
+    public String parseDateTime(String dateTime) {
+        String[] dateTimeComponents = dateTime.split(" ");
+        LocalDate date = LocalDate.parse(dateTimeComponents[INDEX_DATE]);
+        LocalTime time = LocalTime.parse(dateTimeComponents[INDEX_TIME]);
+        LocalDateTime localDateTime = LocalDateTime.of(date, time);
+
+        return localDateTime.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
     }
 }

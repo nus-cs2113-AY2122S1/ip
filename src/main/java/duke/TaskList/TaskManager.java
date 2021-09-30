@@ -9,11 +9,10 @@ import duke.Storage.FileManager;
 import duke.Ui.Parser;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -24,7 +23,7 @@ public class TaskManager {
     public static final String STATUS_DONE = "X";
     public static boolean hasInvalidIndex = false;
 
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     private final int INDEX_DESCRIPTION = 0;
     private final int INDEX_DATETIME = 1;
