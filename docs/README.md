@@ -113,6 +113,19 @@ Now you have 5 tasks in the list.
 ____________________________________________________________
 ```
 
+View details on adding Deadline task in program.
+
+Command Format: `!deadline`
+
+Demo:
+
+```
+____________________________________________________________
+deadline command requires a end time indicated using "by"[end time]
+[timing]: HH:MM YYYY-MM-DD
+____________________________________________________________
+```
+
 #### Adding a Event Task
 
 Adds a task occuring at a specific date and time as event to list.
@@ -145,31 +158,77 @@ Got it. I've added this task:
 Now you have 8 tasks in the list.
 ____________________________________________________________
 ```
+View details on adding Event task in program.
 
-### Setting a task as complete
-
-Sets a task in list as done.
-
-Command Format: `done TASK_INDEX`
-
-* INDEX
+Command Format: `!event`
 
 Demo:
 
 ```
-done
+____________________________________________________________
+event command requires a timing indicated using "at" [timing]
+[timing]: HH:MM YYYY-MM-DD
+____________________________________________________________
+```
+
+### Setting a task as complete
+
+Sets tasks in list as done.
+
+Command Format: `done TASK_INDEX`
+
+* TASK_INDEX cannot be empty.
+* TASK_INDEX must be a integer.
+* Use "," to seperate multiple tasks.
+
+Demo:
+
+```
+done 1,2,3
+
+____________________________________________________________
+Nice! I've marked this task as done: 
+[T][X]watch twitch videos
+[T][X]watch youtube videos
+[D][X]homework1(by: 11:59 PM )
+Here are the tasks in your list:
+1. [T][X]watch twitch videos
+2. [T][X]watch youtube videos
+3. [D][X]homework1(by: 11:59 PM )
+4. [D][ ]homework2(by:  Oct 10 2020)
+5. [D][ ]homework3(by: 08:00 PM Oct 20 2021)
+6. [E][ ]g2 vs en(at: 09:00 PM )
+7. [E][ ]100t vs gambit(at:  Aug 01 2021)
+8. [E][ ]paperex vs bren(at: 08:00 AM Aug 01 2021)
+____________________________________________________________
 ```
 
 ### Delete a Task
 
-Deletes a task from list
+Deletes tasks from list
 
 Command Format: `delete TASK_INDEX`
+
+* TASK_INDEX cannot be empty.
+* TASK_INDEX must be a integer.
+* Use "," to seperate multiple tasks.
 
 Demo:
 
 ```
-delete
+delete 2,4,5
+
+____________________________________________________________
+Noted. I've removed this task: 
+[D][ ]homework3(by: 08:00 PM Oct 20 2021)
+Now you have 7 tasks in the list.
+Noted. I've removed this task: 
+[D][ ]homework2(by:  Oct 10 2020)
+Now you have 6 tasks in the list.
+Noted. I've removed this task: 
+[T][X]watch youtube videos
+Now you have 5 tasks in the list.
+____________________________________________________________
 ```
 
 ### Delete all Task
@@ -198,6 +257,31 @@ Demo:
 
 ```
 list
+
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][X]watch twitch videos
+2. [D][X]homework1(by: 11:59 PM )
+3. [E][ ]g2 vs en(at: 09:00 PM )
+4. [E][ ]100t vs gambit(at:  Aug 01 2021)
+5. [E][ ]paperex vs bren(at: 08:00 AM Aug 01 2021)
+____________________________________________________________
+```
+View all list commands in program.
+
+Demo:
+
+```
+Command Format: `!list`
+
+!list
+
+____________________________________________________________
+list displays all tasks
+list todo displays all todo tasks
+list event displays all event tasks
+list deadline displays all deadline tasks
+____________________________________________________________
 ```
 
 #### Viewing Todo Tasks
@@ -210,6 +294,11 @@ Demo:
 
 ```
 list todo
+
+____________________________________________________________
+Here are the ToDo tasks in your list:
+1. [T][X]watch twitch videos
+____________________________________________________________
 ```
 
 #### Viewing DeadLine Tasks
@@ -222,6 +311,11 @@ Demo:
 
 ```
 list deadline
+
+____________________________________________________________
+Here are the Deadline tasks in your list:
+1. [D][X]homework1(by: 11:59 PM )
+____________________________________________________________
 ```
 
 #### Viewing Event Tasks
@@ -234,6 +328,13 @@ Demo:
 
 ```
 list event
+
+____________________________________________________________
+Here are the Event tasks in your list:
+1. [E][ ]g2 vs en(at: 09:00 PM )
+2. [E][ ]100t vs gambit(at:  Aug 01 2021)
+3. [E][ ]paperex vs bren(at: 08:00 AM Aug 01 2021)
+____________________________________________________________
 ```
 
 ### Finding Task By KeyWords
@@ -242,22 +343,38 @@ Lists all tasks with a specific keyword in its description in list.
 
 Command Format: `find KEYWORD`
 
+* kEYWORD must not be empty.
+
 Demo:
 
 ```
-find
+find g2
+
+____________________________________________________________
+Here are the matching tasks in your list:
+1. [E][ ]g2 vs en(at: 09:00 PM )
+____________________________________________________________
 ```
 
 ### Finding Task By Date
 
 Lists all tasks with a specific date in list.
 
-Command Format: `date yyyy-mm-dd`
+Command Format: `date DATE`
+
+* DATE must not be empty.
+* DATE must be in the format of yyyy-mm-dd.
 
 Demo:
 
 ```
-date
+date 2021-08-01
+
+____________________________________________________________
+Here are the tasks with matching dates in your list:
+1. [E][ ]100t vs gambit(at:  Aug 01 2021)
+2. [E][ ]paperex vs bren(at: 08:00 AM Aug 01 2021)
+____________________________________________________________
 ```
 
 ### Echo User Input
@@ -265,10 +382,6 @@ date
 Prints user input on terminal
 
 Command Format: `echo INPUT`
-
-Draws user input on terminial.
-
-Command Format: `!echo INPUT`
 
 Demo:
 
@@ -278,7 +391,17 @@ echo hi
 ____________________________________________________________
 hi
 ____________________________________________________________
+```
 
+Draws user input on terminial.
+
+Command Format: `!echo INPUT`
+
+!echo hi
+
+Demo:
+
+```
 !echo hi
 
 ____________________________________________________________
