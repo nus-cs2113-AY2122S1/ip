@@ -58,7 +58,7 @@ Examples:
 Adds a deadline task to the task list.
 
 Format: `deadline <DESCRIPTION> /by <DATETIME>`
-> :bulb: **Note:**<br />
+> 💡 **Note:**<br />
 > `<DATETIME>` format is `dd/MM/yyyy HHmm`.
 
 Examples:
@@ -72,7 +72,7 @@ Examples:
 Adds a event task to the task list.
 
 Format: `event <DESCRIPTION> /at <DATETIME>`
-> :bulb: **Note:**<br />
+> 💡 **Note:**<br />
 > `<DATETIME>` format is `dd/MM/yyyy HHmm`.
 
 Examples:
@@ -86,7 +86,7 @@ Examples:
 Marks a task in the task list as done.
 
 Format: `done <INDEX>`
-> :bulb: **Note:**<br />
+> 💡 **Note:**<br />
 > `<INDEX>` refers to the index of the task displayed in the `list` command.
 
 Examples:
@@ -100,7 +100,7 @@ Examples:
 Deletes a task from the task list.
 
 Format: `delete <INDEX>`
-> :bulb: **Note:**<br />
+> 💡 **Note:**<br />
 > `<INDEX>` refers to the index of the task displayed in the `list` command.
 
 Examples:
@@ -114,7 +114,7 @@ Examples:
 Searches for a task in the task list.
 
 Format: `find <TEXT>`
-> :bulb: **Note:**<br />
+> 💡 **Note:**<br />
 > `<TEXT>` is the string to search for.
 
 Examples:
