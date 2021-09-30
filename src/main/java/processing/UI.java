@@ -2,6 +2,7 @@ package processing;
 
 import org.jetbrains.annotations.NotNull;
 import tasks.Task;
+
 import java.util.Scanner;
 
 public class UI {
@@ -18,18 +19,18 @@ public class UI {
     private static final String DIVIDER = "------------------------------------------";
     private static final String BEGIN_STR = "What can I do for you?";
     private static final String LOGO = " ____        _        \n" +
-                                       "|  _ \\ _   _| | _____ \n" +
-                                       "| | | | | | | |/ / _ \\\n" +
-                                       "| |_| | |_| |   <  __/\n" +
-                                       "|____/ \\__,_|_|\\_\\___|\n";
+            "|  _ \\ _   _| | _____ \n" +
+            "| | | | | | | |/ / _ \\\n" +
+            "| |_| | |_| |   <  __/\n" +
+            "|____/ \\__,_|_|\\_\\___|\n";
     private static final String GREETING = "_________________________\n" +
-                                           "Hello! I'm Duke.Duke\n" +
-                                           "Standby while I load up your schedule\n" +
-                                           "Loading...";
+            "Hello! I'm Duke.Duke\n" +
+            "Standby while I load up your schedule\n" +
+            "Loading...";
 
     private static void showNumTasks(Task t, int taskSize) {
         System.out.println(t);
-        System.out.println("You now have (" + taskSize + ") tasks!" );
+        System.out.println("You now have (" + taskSize + ") tasks!");
     }
 
     /*----------- PUBLIC FUNCTIONS --------------- */
@@ -60,30 +61,33 @@ public class UI {
 
     /**
      * Prints the exception if an error occurred
+     *
      * @param e Exception that occurred
      */
     public static void showError(@NotNull Exception e) {
         e.printStackTrace();
         try {
             Thread.sleep(200);
-        } catch (InterruptedException e2){
+        } catch (InterruptedException e2) {
             Thread.currentThread().interrupt();
         }
     }
 
     /**
      * Print the added task
-     * @param t Task that has been added
+     *
+     * @param t        Task that has been added
      * @param taskSize Number of tasks now on the list
      */
-    public static void showAddTask (Task t, int taskSize) {
+    public static void showAddTask(Task t, int taskSize) {
         System.out.println(ADD_TASK);
         showNumTasks(t, taskSize);
     }
 
     /**
      * Prints the deleted task
-     * @param t Task that has been deleted
+     *
+     * @param t        Task that has been deleted
      * @param taskSize Number of tasks left on the list
      */
     public static void showDeleteTask(Task t, int taskSize) {
@@ -93,6 +97,7 @@ public class UI {
 
     /**
      * Takes in a user input
+     *
      * @return String representation of user input
      */
     public static @NotNull String getCommand() {
