@@ -27,10 +27,9 @@ To set up Java Environment: Install the lastest Version of Java 11.
 ### Command Summary 
 
 Command | Format | Feature
-
 ------- | ------ | -------------
 todo | `todo <description>` | Adds a todo task 
-deadline | `deadline <description> /by [due time]` | Adds a deadline task
+deadline | `deadline <description> /by <due time>` | Adds a deadline task
 event | `event <description> /at <event duration>` | Adds an event task
 list | `list` | Lists all current tasks
 done | `done <item id>` | Marks a task as done
