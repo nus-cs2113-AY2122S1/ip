@@ -1,8 +1,13 @@
 package duke;
 
+/**
+ * Implements the class Deadline, which has a description, a done status
+ * and a detail stating when it is to be completed by.
+ */
 public class Deadline extends Task {
 
     private final String taskType = "D";
+    /** The time the Deadline has to be completed by. */
     protected String by;
 
     public Deadline(String description, String by) {
