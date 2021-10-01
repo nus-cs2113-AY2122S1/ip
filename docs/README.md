@@ -28,9 +28,9 @@ Type Something:
 
 
 ### Add Todo: ```todo```
-Adds a todo task into the tasklist.
-Note that todo should always be accompanied by a description only.
-Format: ```todo <description>```.
+Add a Todo task into the task list.  
+Todo tasks should only contain a task description.  
+Format: ```todo <description>``` 
 
 
 ### Feature-XYZ
