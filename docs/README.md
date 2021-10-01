@@ -26,18 +26,17 @@ Description of the feature.
 
 ## Usage
 
-### `Keyword` - Describe action
+### `todo/deadline/event / yyyy-mm-dd` - Add tasks to the list
 
-Describe the action and its outcome.
+User can add tasks to the the list.
 
 Example of usage: 
 
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
+`deadline return book / 2002-02-01`
 
 ```
-expected output
+Got it. I've added this task:
+[D][] return book 2002-02-01
+Now you have 1 tasks in the list
+Description of the outcome.
 ```
