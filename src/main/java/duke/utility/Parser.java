@@ -63,7 +63,7 @@ public class Parser {
      * Gets the required arguments for creating a new deadline or event
      *
      * @return A string array containing a description and date
-     * @throws EmptyArgException when no arg is provided
+     * @throws EmptyArgException    when no arg is provided
      * @throws WrongFormatException when no "/by" or "/at" is found
      */
     public String[] getDeadlineOrEventArgs() throws EmptyArgException, WrongFormatException {
@@ -76,7 +76,10 @@ public class Parser {
             throw new WrongFormatException();
         }
         String description = args[0].trim();
-        String byOrAt = args[1].substring(3);
+        String byOrAt = "";
+        if (args[1].length() > 3) {
+            byOrAt = args[1].substring(3);
+        }
         return new String[]{description, byOrAt};
     }
 
