@@ -2,6 +2,8 @@ package duke;
 
 import duke.task.*;
 
+import java.time.*;
+import java.time.format.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -33,6 +35,7 @@ public class Storage {
     }
 
     private static ArrayList<Task> readFile(String filePath) throws FileNotFoundException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
         Scanner s = new Scanner(new File(filePath));
         ArrayList<Task> tasksArrayList = new ArrayList<>();
         int taskCount = 0;
@@ -47,11 +50,11 @@ public class Storage {
                 completedTask(tasksArrayList, taskCount, taskStatus);
                 break;
             case "D" :
-                tasksArrayList.add(new Deadline(taskDescription.split(" /by ")[0], taskDescription.split(" /by ")[1]));
+                tasksArrayList.add(new Deadline(taskDescription.split(" /by ")[0], LocalDate.parse(taskDescription.split(" /by ")[1], formatter)));
                 completedTask(tasksArrayList, taskCount, taskStatus);
                 break;
             case "E" :
-                tasksArrayList.add(new Event(taskDescription.split(" /at ")[0], taskDescription.split(" /at ")[1]));
+                tasksArrayList.add(new Event(taskDescription.split(" /at ")[0], LocalDate.parse(taskDescription.split(" /at ")[1], formatter)));
                 completedTask(tasksArrayList, taskCount, taskStatus);
                 break;
             }

@@ -2,6 +2,7 @@ package duke;
 
 import duke.task.*;
 
+import java.time.*;
 import java.util.*;
 
 public class TaskList {
@@ -25,14 +26,14 @@ public class TaskList {
 
     public static void addEvent(ArrayList<Task> tasksArrayList, String inputLine) {
         String eventDescription = inputLine.split("event ")[1].split(" /at ")[0];
-        String eventDate = inputLine.split(" /at ")[1];
+        LocalDate eventDate = LocalDate.parse(inputLine.split(" /at ")[1]);
         tasksArrayList.add(new Event(eventDescription, eventDate));
         ui.addedTaskMessage(tasksArrayList);
     }
 
     public static void addDeadline(ArrayList<Task> tasksArrayList, String inputLine) {
         String deadlineDescription = inputLine.split("deadline ")[1].split(" /by ")[0];
-        String deadlineDate = inputLine.split(" /by ")[1];
+        LocalDate deadlineDate = LocalDate.parse(inputLine.split(" /by ")[1]);
         tasksArrayList.add(new Deadline(deadlineDescription, deadlineDate));
         ui.addedTaskMessage(tasksArrayList);
     }
