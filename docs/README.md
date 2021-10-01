@@ -83,7 +83,7 @@ Now you have 3 tasks in the list
 
 ### List all tasks: ```list```
 Prints out the tasklist.  
-The event command must not be accompanied by any arguments .  
+The list command must not be accompanied by any arguments .  
 Format: `` list ``
 
 Example
@@ -100,7 +100,7 @@ Example
 
 ### Mark task as Done: ```done```
 Mark the specified task in the tasklist with an X, signifying that it's done.   
-The done command must only be accompanied by the index of the task in the tasklist . 
+The done command must be accompanied by an `index` of the specified task in the tasklist .  
 Format: `` done <index> ``
 
 Example
