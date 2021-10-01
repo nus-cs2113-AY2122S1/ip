@@ -43,7 +43,7 @@ There are 3 types of tasks you can add: todo, event, deadline.
     - E.g. : `deadline brew wiggenweld potion /by next Potion lesson`
     ![image](https://user-images.githubusercontent.com/69776265/135445345-6448ddef-df77-4519-8583-4a19763797c8.png)
 3. event - tasks that you need to attend, requires description and duration.
-    - Format : `event <task description> /at <duration>
+    - Format : `event <task description> /at <duration>`
     - E.g. : `event sky observation /at wednesday 10 - 12pm`
     ![image](https://user-images.githubusercontent.com/69776265/135445419-7e8d46e8-ffaa-41b4-9694-c0ec77e16c69.png)
 
