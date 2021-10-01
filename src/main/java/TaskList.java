@@ -161,6 +161,8 @@ public class TaskList {
         System.out.println("Noted. I've removed this task:");
         System.out.println(t);
         System.out.println("Now you have " + this.totalTasks + " tasks in the list.");
+
+        s.saveFile(schedule, totalTasks);
     }
 
     /**
