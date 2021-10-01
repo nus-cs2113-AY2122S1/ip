@@ -27,7 +27,7 @@ public class TaskList {
             printTaskAddedConfirmation(newTask);
             updateFile();
         } catch (InvalidInputException e) {
-            System.out.println(e.toString().substring(23));
+            System.out.println(e.toString().substring(38));
         }
     }
 
@@ -58,7 +58,7 @@ public class TaskList {
             printTaskAddedConfirmation(newTask);
             updateFile();
         } catch (InvalidInputException e) {
-            System.out.println(e.toString().substring(23));
+            System.out.println(e.toString().substring(38));
         }
     }
 
@@ -88,7 +88,7 @@ public class TaskList {
             printTaskAddedConfirmation(newTask);
             updateFile();
         } catch (InvalidInputException e) {
-            System.out.println(e.toString().substring(23));
+            System.out.println(e.toString().substring(38));
         }
 
     }
@@ -103,8 +103,8 @@ public class TaskList {
             return;
         }
         int count = 1;
+        System.out.println("\tHere are the tasks in your list");
         for (Todo task : tasks) {
-            System.out.println("\tHere are the tasks in your list");
             System.out.println("\t" + count + "." + task);
             count++;
         }
@@ -155,6 +155,33 @@ public class TaskList {
         updateFile();
     }
 
+
+    public static void findTasksWithSubstring(String userInput) {
+        int startIndexOfTargetSubstring = userInput.indexOf(' ') + 1;
+        String targetSubString = userInput.substring(startIndexOfTargetSubstring);
+        ArrayList<Todo> listOfTasksWithSubstring = new ArrayList<Todo>();
+        for (Todo task : tasks) {
+            if (task.getName().contains(targetSubString)) {
+                listOfTasksWithSubstring.add(task);
+            }
+        }
+        printTasksWithSubstring(listOfTasksWithSubstring);
+    }
+
+    private static void printTasksWithSubstring(ArrayList<Todo> listOfTasks) {
+        if (listOfTasks.size() == 0) {
+            System.out.println("\tNo tasks with target substring");
+            return;
+        }
+        System.out.println("\tHere are the matching tasks in your list:");
+        int count = 1;
+        for (Todo task : listOfTasks) {
+            System.out.println("\t" + count + "." + task);
+            count++;
+        }
+    }
+
+
     /**
      * Prints the task that was added.
      * Helper method for addDeadline(), addEvent() and addTodo() methods.
@@ -179,6 +206,7 @@ public class TaskList {
             System.out.println(e);
         }
     }
+
 
     /**
      * Converts the strings in the ArrayList to the corresponding objects.

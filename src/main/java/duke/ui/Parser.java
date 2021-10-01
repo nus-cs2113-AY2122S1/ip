@@ -38,6 +38,9 @@ public class Parser {
             case DELETE:
                 TaskList.deleteTask(userInput);
                 return true;
+            case FIND:
+                TaskList.findTasksWithSubstring(userInput);
+                return true;
             case BYE:
                 return false;
             default:
