@@ -95,6 +95,7 @@ public class TaskLists {
         try {
             parser.checkTodo(userCommand);
         } catch (DukeException e) {
+            System.out.println(ui.LINE);
             System.out.println("OOPS!!! The description of a todo task is invalid.");
             System.out.println(ui.LINE);
             return false;
@@ -107,6 +108,7 @@ public class TaskLists {
         try {
             parser.checkDeadline(userCommand);
         } catch (DukeException e) {
+            System.out.println(ui.LINE);
             System.out.println("OOPS!!! The description of a deadline task is invalid.");
             System.out.println(ui.LINE);
             return false;
@@ -120,6 +122,7 @@ public class TaskLists {
         try {
             parser.checkEvent(userCommand);
         } catch (DukeException e) {
+            System.out.println(ui.LINE);
             System.out.println("OOPS!!! The description of a event task is invalid.");
             System.out.println(ui.LINE);
             return false;

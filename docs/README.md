@@ -113,3 +113,6 @@
 ### Bye. Hope to see you again soon! <br/>
 
 ### Description: To terminate Duke, users must input 'bye' to terminate the running program. All the tasks and updates will be saved before users terminate the program. When users restart Duke, it will automatically load the stored tasks and updates, i.e, as explained in 'load' <br/><br/>
+## Enjoy chatting with Duke.
+### Contributor: Hu Kairui
+### Date: 29/09/2021
