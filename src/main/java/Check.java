@@ -50,7 +50,7 @@ public class Check {
      * detecting whether it is accompanied by both a description and a date.
      * If invalid, then the user has to re-enter command based on whatever element is missing.
      *
-     * @param content specifications from user
+     * @param content specifications from user.
      * @return the validity of the deadline specifications, in boolean form
      */
     public boolean handleDeadlineException(String content) {
