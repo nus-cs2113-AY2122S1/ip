@@ -2,6 +2,8 @@ package input;
 
 import exceptions.DeadlineException;
 import exceptions.EventException;
+import exceptions.InputErrorException;
+import exceptions.InputOutOfRangeException;
 import parser.Parser;
 import tasklist.Task;
 import tasklist.TaskList;
@@ -58,10 +60,10 @@ public class Input {
             }
         } catch (IndexOutOfBoundsException e) {
             Ui.printIndexOutOfBoundExceptionMessage();
-        } catch (NumberFormatException e) {
-            Ui.printNumberFormatExceptionMessage();
-        } catch (ArithmeticException e) {
-            Ui.printArithmeticExceptionMessage(taskList.size());
+        } catch (InputErrorException e) {
+            Ui.printInputErrorExceptionMessage();
+        } catch (InputOutOfRangeException e) {
+            Ui.printInputOutOfRangeExceptionMessage(taskList.size());
         } catch (DeadlineException e) {
             Ui.printDeadlineExceptionMessage();
         } catch (EventException e) {

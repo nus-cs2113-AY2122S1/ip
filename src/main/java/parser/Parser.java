@@ -2,6 +2,8 @@ package parser;
 
 import exceptions.DeadlineException;
 import exceptions.EventException;
+import exceptions.InputErrorException;
+import exceptions.InputOutOfRangeException;
 import tasklist.Task;
 
 import java.time.LocalDateTime;
@@ -25,13 +27,13 @@ public class Parser {
      * @param userLine input given by user or line extracted from saved file
      * @param taskList main list keeping track of user's tasks
      * @return taskNum int of the task in the list to be marked as done
-     * @throws ArithmeticException if the taskNum is negative or is more than the size of list
+     * @throws InputOutOfRangeException if the taskNum is negative or is more than the size of list
      */
-    public static int parseDoneTask(String userLine, ArrayList<Task> taskList) {
+    public static int parseDoneTask(String userLine, ArrayList<Task> taskList) throws InputOutOfRangeException {
         String[] extractDoneTask = userLine.toLowerCase().split(" ", 2);
         int taskNum = Integer.parseInt(extractDoneTask[1]);
         if (taskNum <= 0 || taskNum > taskList.size()) {
-            throw new ArithmeticException();
+            throw new InputOutOfRangeException();
         }
         return taskNum;
     }
@@ -41,13 +43,13 @@ public class Parser {
      * @param userLine input given by user or line extracted from saved file
      * @param taskList main list keeping track of user's tasks
      * @return taskNum int of the task in the list to be deleted
-     * @throws ArithmeticException if the taskNum is negative or is more than the size of list
+     * @throws InputOutOfRangeException if the taskNum is negative or is more than the size of list
      */
-    public static int parseDeleteTask(String userLine, ArrayList<Task> taskList) {
+    public static int parseDeleteTask(String userLine, ArrayList<Task> taskList) throws InputOutOfRangeException {
         String[] extractDeleteTask = userLine.toLowerCase().split(" ", 2);
         int taskNum = Integer.parseInt(extractDeleteTask[1]);
         if (taskNum <= 0 || taskNum > taskList.size()) {
-            throw new ArithmeticException();
+            throw new InputOutOfRangeException();
         }
         return taskNum;
     }
@@ -55,13 +57,13 @@ public class Parser {
     /**
      * Parses the user input to extract the task description when todo command is called.
      * @param userLine input given by user or line extracted from saved file
-     * @return str task description for todo task
-     * @throws NumberFormatException if input is missing the description
+     * @return String task description for todo task
+     * @throws InputErrorException if input is missing the description
      */
-    public static String parseTodoTask(String userLine) {
+    public static String parseTodoTask(String userLine) throws InputErrorException {
         String[] todoInputs = userLine.split(" ", 2);
         if (todoInputs.length < 2) {
-            throw new NumberFormatException();
+            throw new InputErrorException();
         }
         return todoInputs[1];
     }
@@ -71,14 +73,14 @@ public class Parser {
      * deadline command is called.
      * @param userLine input given by user or line extracted from saved file
      * @return String[] where index 0 is the task description and index 1 is deadline date & time
-     * @throws NumberFormatException if input is missing the description and deadline date & time
      * @throws DeadlineException if input does not contain '/by' key to split the description and
+     * @throws InputErrorException if input is missing the description and deadline date & time
      * deadline date & time
      */
-    public static String[] parseDeadlineTask(String userLine) throws DeadlineException {
+    public static String[] parseDeadlineTask(String userLine) throws DeadlineException, InputErrorException {
         String[] deadlineInputs = userLine.split(" ", 2);
         if (deadlineInputs.length < 2) {
-            throw new NumberFormatException();
+            throw new InputErrorException();
         }
         if (!userLine.contains("/by")) {
             throw new DeadlineException();
@@ -91,14 +93,14 @@ public class Parser {
      * when event command is called.
      * @param userLine input given by user or line extracted from saved file
      * @return String[] where index 0 is the task description and index 1 is event date & time
-     * @throws NumberFormatException if input is missing the description and event date & time
      * @throws EventException if input does not contain '/by' key to split the description and
+     * @throws InputErrorException if input is missing the description and deadline date & time
      * event date & time
      */
-    public static String[] parseEventTask(String userLine) throws EventException {
+    public static String[] parseEventTask(String userLine) throws EventException, InputErrorException {
         String[] eventInputs = userLine.split(" ", 2);
         if (eventInputs.length < 2) {
-            throw new NumberFormatException();
+            throw new InputErrorException();
         }
         if (!userLine.contains("/at")) {
             throw new EventException();

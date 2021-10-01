@@ -24,6 +24,9 @@ public class Ui {
     }
 
 
+    /**
+     * Prints the exit/bye message before closing the app.
+     */
     public static void printByeMessage() {
         System.out.println(LINE + System.lineSeparator()
                 + "As always Sir, a great pleasure watching you work!" + System.lineSeparator()
@@ -43,7 +46,7 @@ public class Ui {
     /**
      * Prints an error message when user inputs a command with missing details.
      */
-    public static void printNumberFormatExceptionMessage() {
+    public static void printInputErrorExceptionMessage() {
         System.out.println(LINE + System.lineSeparator()
                 + "Apologies Sir, your input is missing something." + System.lineSeparator()
                 + "Try a new command!" + System.lineSeparator()
@@ -55,7 +58,7 @@ public class Ui {
      * is out of range.
      * @param listSize is the current size of the list of tasks
      */
-    public static void printArithmeticExceptionMessage(int listSize) {
+    public static void printInputOutOfRangeExceptionMessage(int listSize) {
         if (listSize == 0) {
             System.out.println(LINE + System.lineSeparator()
                     + "Apologies Sir, your list is currently empty." + System.lineSeparator()

@@ -2,6 +2,8 @@ package tasklist;
 
 import exceptions.DeadlineException;
 import exceptions.EventException;
+import exceptions.InputErrorException;
+import exceptions.InputOutOfRangeException;
 import storage.Storage;
 import parser.Parser;
 import ui.Ui;
@@ -14,11 +16,11 @@ public class TaskList {
     /**
      * Prints out all the tasks in the list when user inputs list keyword as command.
      * @param taskList main list keeping track of user's tasks
-     * @throws ArithmeticException if list is empty
+     * @throws InputOutOfRangeException if list is empty
      */
-    public static void listTasks(ArrayList<Task> taskList) {
+    public static void listTasks(ArrayList<Task> taskList) throws InputOutOfRangeException {
         if (taskList.size() == 0) {
-            throw new ArithmeticException();
+            throw new InputOutOfRangeException();
         } else {
             System.out.println(LINE + System.lineSeparator() + "Here are the tasks in your list Sir:");
             for (int i = 0; i < taskList.size(); i++) {
@@ -34,7 +36,7 @@ public class TaskList {
      * @param userLine input given by user or line extracted from saved file
      * @param taskList main list keeping track of user's tasks
      */
-    public static void markTaskDone(String userLine, ArrayList<Task> taskList) {
+    public static void markTaskDone(String userLine, ArrayList<Task> taskList) throws InputOutOfRangeException {
         int taskNum = Parser.parseDoneTask(userLine, taskList);
         taskList.get(taskNum-1).markAsDone();
         Ui.printMarkTaskDoneMessage(taskList, taskNum);
@@ -47,7 +49,7 @@ public class TaskList {
      * @param userLine input given by user or line extracted from saved file
      * @param taskList main list keeping track of user's tasks
      */
-    public static void deleteTask(String userLine, ArrayList<Task> taskList) {
+    public static void deleteTask(String userLine, ArrayList<Task> taskList) throws InputOutOfRangeException {
         int taskNum = Parser.parseDeleteTask(userLine, taskList);
         Ui.printDeleteMessage(taskList, taskNum);
         taskList.remove(taskNum-1);
@@ -60,7 +62,7 @@ public class TaskList {
      * @param userLine input given by user or line extracted from saved file
      * @param taskList main list keeping track of user's tasks
      */
-    public static void addTodoTask(String userLine, ArrayList<Task> taskList) {
+    public static void addTodoTask(String userLine, ArrayList<Task> taskList) throws InputErrorException {
         String description = Parser.parseTodoTask(userLine);
         Todo t = new Todo(description);
         taskList.add(t);
@@ -76,7 +78,7 @@ public class TaskList {
      * @throws DeadlineException if input does not contain '/by' key to split the description and
      * deadline date & time
      */
-    public static void addDeadlineTask(String userLine, ArrayList<Task> taskList) throws DeadlineException {
+    public static void addDeadlineTask(String userLine, ArrayList<Task> taskList) throws DeadlineException, InputErrorException {
         String[] deadlineDescriptions = Parser.parseDeadlineTask(userLine);
         Deadline t = new Deadline(deadlineDescriptions[0], Parser.parseDateTime(deadlineDescriptions[1]));
         taskList.add(t);
@@ -92,7 +94,7 @@ public class TaskList {
      * @throws EventException if input does not contain '/by' key to split the description and
      * event date & time
      */
-    public static void addEventTask(String userLine, ArrayList<Task> taskList) throws EventException {
+    public static void addEventTask(String userLine, ArrayList<Task> taskList) throws EventException, InputErrorException {
         String[] eventDescriptions = Parser.parseEventTask(userLine);
         Event t = new Event(eventDescriptions[0], Parser.parseDateTime(eventDescriptions[1]));
         taskList.add(t);
