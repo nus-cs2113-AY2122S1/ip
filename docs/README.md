@@ -66,7 +66,7 @@ ____________________________________________________________
 Type something: 
 ```
 
-8. Refer to the Features below and enter the associated commands and press Enter to execute them.
+Refer to the Features below and enter the associated commands and press Enter to execute them.
 
 --------------------------------------
 
