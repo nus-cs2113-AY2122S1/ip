@@ -27,6 +27,7 @@ public class TaskManager {
 
     /**
      * Prints out the list of existing tasks or error message if there is no tasks.
+     *
      * @param inputWords The inputs received from user
      */
     public static void printList(String[] inputWords) {
@@ -42,6 +43,7 @@ public class TaskManager {
 
     /**
      * Decodes the input into a format that is read by other methods.
+     *
      * @param input The input received from user
      * @return Returns decoded input as another type.
      */
@@ -52,9 +54,10 @@ public class TaskManager {
 
     /**
      * Sets the status of tasks as done.
+     *
      * @param inputWords The inputs received from user.
      * @throws InvalidFormatException The input received is not of proper format.
-     * @throws InvalidIndexException The task with indicated index does not exist.
+     * @throws InvalidIndexException  The task with indicated index does not exist.
      */
     public static void crossOff(String[] inputWords) throws InvalidFormatException, InvalidIndexException {
         if (!Validation.isValidCrossOff(inputWords)) {
@@ -71,9 +74,10 @@ public class TaskManager {
 
     /**
      * Deletes the specified task by index.
+     *
      * @param inputWords The inputs received from user.
      * @throws InvalidFormatException The input received is not of proper format.
-     * @throws InvalidIndexException The task with indicated index does not exist.
+     * @throws InvalidIndexException  The task with indicated index does not exist.
      */
     public static void deleteTask(String[] inputWords) throws InvalidFormatException, InvalidIndexException {
         if (!Validation.isValidDeleteTask(inputWords)) {
@@ -91,7 +95,8 @@ public class TaskManager {
 
     /**
      * Creates a ToDo task.
-     * @param input The input received from user.
+     *
+     * @param input      The input received from user.
      * @param inputWords The inputs received from user.
      * @throws InvalidFormatException The input received is not of proper format.
      */
@@ -108,7 +113,8 @@ public class TaskManager {
 
     /**
      * Creates a Deadline task.
-     * @param input The input received from user.
+     *
+     * @param input      The input received from user.
      * @param inputWords The inputs received from user.
      * @throws InvalidFormatException The input received is not of proper format.
      */
@@ -127,7 +133,8 @@ public class TaskManager {
 
     /**
      * Creates an Event task.
-     * @param input The input received from user.
+     *
+     * @param input      The input received from user.
      * @param inputWords The inputs received from user.
      * @throws InvalidFormatException The input received is not of proper format.
      */
@@ -143,15 +150,26 @@ public class TaskManager {
         taskCount = taskCount + 1;
         UI.printAdditionMessage(newEvent, taskCount);
     }
-  
-    public static void findTask(String input) {
+
+    /**
+     * Find a task which description contains the entirety of the filter string <code>input</code>.
+     *
+     * @param input The input received from user.
+     * @param inputWords The input received from user.
+     * @throws InvalidFormatException The input received is not of proper format.
+     */
+    public static void findTask(String input, String[] inputWords) throws InvalidFormatException {
+        if (inputWords.length == 1) {
+            throw new InvalidFormatException();
+        }
         String filterString = input.replaceFirst("find ", ""); //removes 'find' to find keyword
         ArrayList<Task> specificTasks = (ArrayList<Task>) tasks.stream()
                 .filter((task) -> task.getDescription()
-                .contains(filterString)).collect(Collectors.toList());
+                        .contains(filterString)).collect(Collectors.toList());
         if (specificTasks.isEmpty()) {
             UI.printEmptyListMessage(filterString);
         } else {
             UI.printList(specificTasks, filterString);
         }
+    }
 }

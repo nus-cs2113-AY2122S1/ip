@@ -49,7 +49,7 @@ public class Duke {
                     TaskManager.printList(inputWords);
                     break;
                 case "find" :
-                    TaskManager.findTask(input);
+                    TaskManager.findTask(input, inputWords);
                     break;
                 case "bye":
                     break;

@@ -97,6 +97,11 @@ public class UI{
         System.out.println(BUFFER_LINE);
     }
 
+    /**
+     * Prints the current list of all tasks that contain the filter string.
+     * @param tasks The existing list of tasks.
+     * @param filterString The filter string input from user.
+     */
     public static void printList(ArrayList<Task> tasks, String filterString) {
         System.out.println(BUFFER_LINE);
         System.out.println(" Here are the tasks in your list containing '" + filterString + "' :");
@@ -110,7 +115,7 @@ public class UI{
         }
         System.out.println(BUFFER_LINE);
     }
-  
+
     /**
     * Prints an error message indicating that there are no existing tasks.
     */
@@ -121,6 +126,17 @@ public class UI{
         System.out.println(EMPTY_LIST_MESSAGE);
     }
 
+    /**
+     * Prints an error message indicating that there are no existing tasks
+     * containing the specified filter string.
+     * @param filterString The filter string input from user.
+     */
+    public static void printEmptyListMessage(String filterString) {
+        String EMPTY_LIST_MESSAGE = BUFFER_LINE
+                + "You have 0 tasks in your list containing '" + filterString + "' !\n"
+                + BUFFER_LINE;
+        System.out.println(EMPTY_LIST_MESSAGE);
+    }
     /**
      * Prints an error message indicating what error has occurred.
      * @param e Exception that has been thrown.
