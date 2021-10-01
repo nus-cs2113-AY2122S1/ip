@@ -13,8 +13,12 @@ public class Task {
         taskNum = taskCount;
     }
 
+    /**
+     * Retrieves the status icon for the task
+     * @return X symbol if task is done, or a whitespace if task is not done
+     */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     public void markAsDone(){

@@ -38,6 +38,9 @@ public class Storage {
     public Storage(){
     }
 
+    /**
+     * Loads a saved copy of the task list
+     */
     public static void loadFile() {
         try {
             createFolder();
@@ -67,6 +70,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the text file with the current task list
+     */
     public static void writeToFile() {
         try {
             FileWriter fw = new FileWriter(FILEPATH);

@@ -15,6 +15,9 @@ public class Ui {
     public Ui(){
     }
 
+    /**
+     * Prints the Duke Logo
+     */
     public void printLogo() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -24,12 +27,21 @@ public class Ui {
         System.out.println("Hello from\n" + logo);
     }
 
+    /**
+     * Prints a greeting to the user
+     * @param s First line of the greeting
+     * @param s2 Second Lind of the greeting
+     */
     public static void printGreeting(String s, String s2) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(s);
         System.out.println(s2);
     }
 
+    /**
+     * Retrieves and trims the input from the user
+     * @return trimmed user input as a String
+     */
     public static String getUserInput() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Enter command: ");
@@ -40,6 +52,10 @@ public class Ui {
         return input;
     }
 
+    /**
+     * Prints a reply to the user and informs the user when an invalid command is given
+     * @param userInput input from the user
+     */
     public static void printReply(String userInput) {
         try {
             TaskList.processUserInput(userInput);
@@ -57,12 +73,17 @@ public class Ui {
         }
     }
 
-
+    /**
+     * Tells the user that a command was not given
+     */
     public static void printInvalidInput() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(SAD_FACE + " OOPS! I'm sorry, but I don't know what that means " + SAD_FACE);
     }
 
+    /**
+     * Terminates Duke
+     */
     public static void exitProgram() {
         printGreeting("Bye. Hope to see you again soon!", HORIZONTAL_LINE);
         System.exit(0);

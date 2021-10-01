@@ -41,6 +41,14 @@ public class TaskList{
         taskArrayList = storageArrayList;
     }
 
+    /**
+     * Performs actions based on user commands
+     * @param userInput input from the user
+     * @throws NumberOutOfBoundsException number input by user not in task list
+     * @throws StringIndexOutOfBoundsException required field is left empty by the user
+     * @throws AtEmptyException "at" field is left empty
+     * @throws ByEmptyException "by" field is left empty
+     */
     public static void processUserInput(String userInput) throws NumberOutOfBoundsException,
             StringIndexOutOfBoundsException, AtEmptyException, ByEmptyException {
 
