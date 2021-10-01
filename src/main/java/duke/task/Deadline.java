@@ -6,10 +6,16 @@ public class Deadline extends Task {
     public Deadline(String name, String dueDate) {
         super(name);
         this.dueDate = dueDate;
+        this.taskType = "D";
     }
 
     @Override
     public String toString() {
-        return "[D]"  + super.toString() + " (by:" + dueDate + ")";
+        return "[D]"  + super.toString() + "(by:" + dueDate + ")";
+    }
+
+    @Override
+    public String getName() {
+        return this.name + " /by " + this.dueDate;
     }
 }
