@@ -1,5 +1,8 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     protected String description;
 
@@ -7,7 +10,10 @@ public abstract class Task {
 
     protected boolean isDone;
 
-    protected String eventDate;
+    protected LocalDate eventDate;
+
+    public static final String DATE_FORMAT = "MM dd yyyy";
+
 
     public Task(String description) {
         this.description = description;
@@ -15,8 +21,6 @@ public abstract class Task {
         this.isDone = false;
 
         this.taskType = "";
-
-        this.eventDate = "";
     }
 
     public String getStatusIcon() {
@@ -31,7 +35,7 @@ public abstract class Task {
         return taskType;
     }
 
-    public String getWhen() {
+    public LocalDate getWhen() {
         return eventDate;
     }
 
