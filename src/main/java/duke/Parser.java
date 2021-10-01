@@ -11,6 +11,7 @@ import duke.command.EventCommand;
 import duke.command.DeleteCommand;
 import duke.command.InvalidCommand;
 import duke.command.FindCommand;
+import duke.command.HelpCommand;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
@@ -22,6 +23,7 @@ public class Parser {
     private static final String CMD_EVENT = "event";
     private static final String CMD_DELETE = "delete";
     private static final String CMD_FIND = "find";
+    private static final String CMD_HELP = "help";
 
     /**
      * @param input String input from user
@@ -33,6 +35,8 @@ public class Parser {
 
         if (input.equals(CMD_EXIT)) {
             command = new ExitCommand();
+        } else if (input.equals(CMD_HELP)) {
+            command = new HelpCommand();
         } else if (input.equals(CMD_LIST)) {
             command = new ListCommand();
         } else if (input.startsWith(CMD_DONE)) {

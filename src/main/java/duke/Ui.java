@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Ui {
     private static final String INDENT = "   ";
+    private static final String CURSOR = ">>> ";
 
     /**
      * Print confirmation message to user that task has been added successfully to task list
@@ -39,6 +40,35 @@ public class Ui {
     public static void printTaskDoneMessage(Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(INDENT + task);
+    }
+
+    /**
+     * Displays help message for all possible commands and their format
+     */
+    public static void printHelpMessage() {
+        System.out.println("Add todo task");
+        System.out.println(CURSOR + "todo <TASK_TITLE>");
+
+        System.out.println("Add deadline task");
+        System.out.println(CURSOR + "deadline <TASK_TITLE> /by <DATE in yyyy-mm-dd format>");
+
+        System.out.println("Add event task");
+        System.out.println(CURSOR + "event <TASK_TITLE> /at <DATE in yyyy-mm-dd format>");
+
+        System.out.println("List all tasks in task list");
+        System.out.println(CURSOR + "list");
+
+        System.out.println("Mark task in task list as done");
+        System.out.println(CURSOR + "done <TASK_NO>");
+
+        System.out.println("Delete task in task list");
+        System.out.println(CURSOR + "delete <TASK_NO>");
+
+        System.out.println("Find tasks with matching titles");
+        System.out.println(CURSOR + "find <KEYWORD>");
+
+        System.out.println();
+        System.out.println("Refer to https://flerovious.github.io/ip/ for detailed user guide");
     }
 
 
