@@ -4,8 +4,8 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class Task implements Serializable {
 
-    private String title = "";
-    private boolean doneStatus = false;
+    private String title;
+    private boolean doneStatus;
     protected final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     /*
@@ -14,10 +14,6 @@ public abstract class Task implements Serializable {
      */
     protected String getType() {
         return "task";
-    }
-
-    private Task() {
-        // prevent uninitialised task
     }
 
     public Task(String title) {

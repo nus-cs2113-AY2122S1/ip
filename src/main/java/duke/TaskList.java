@@ -1,5 +1,4 @@
 package duke;
-import duke.Storage;
 import duke.task.Task;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +6,7 @@ import java.util.stream.Collectors;
 import java.io.Serializable;
 
 class TaskList implements Serializable {
-    private List<Task> tasks = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
     public void add(Task t) {
         tasks.add(t);

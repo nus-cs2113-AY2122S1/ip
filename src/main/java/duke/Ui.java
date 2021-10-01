@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 class Ui {
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     /**
      * Print the message of a given exception object

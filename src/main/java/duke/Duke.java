@@ -1,12 +1,7 @@
 package duke;
 
-import duke.TaskList;
-import duke.Ui;
 import duke.command.Parser;
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
-import duke.task.Todo;
 
 public class Duke {
 
@@ -40,7 +35,7 @@ public class Duke {
             break;
         }
         default:
-            Task newTask = null;
+            Task newTask;
             try {
                 newTask = Parser.parseTask(splitted);
             } catch (ArrayIndexOutOfBoundsException |

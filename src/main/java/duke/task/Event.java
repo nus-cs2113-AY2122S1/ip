@@ -10,16 +10,16 @@ public class Event extends Task {
     }
 
     /*
-     * Get the occurance time of the task
-     * @return The occurance time
+     * Get the occurrence time of the task
+     * @return The occurrence time
      */
     public LocalDate getTo() {
         return to;
     }
 
     /*
-     * Set the occurance time of the task
-     * @return The occurance time
+     * Set the occurrence time of the task
+     * @return The occurrence time
      */
     public void setTo(LocalDate to) {
         this.to = to;

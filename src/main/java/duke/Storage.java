@@ -1,6 +1,4 @@
 package duke;
-import duke.TaskList;
-import duke.Ui;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;

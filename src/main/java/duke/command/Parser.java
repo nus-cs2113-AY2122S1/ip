@@ -10,8 +10,8 @@ import duke.task.Deadline;
 import java.time.LocalDate;
 
 final public class Parser {
-    static private List<Class<? extends Task>> taskTypes =
-        new ArrayList<Class<? extends Task>>();
+    static private final List<Class<? extends Task>> taskTypes =
+        new ArrayList<>();
 
     public static void registerTaskType(Class<? extends Task> taskType) {
         taskTypes.add(taskType);
@@ -19,7 +19,7 @@ final public class Parser {
 
     public static Task parseTask(String[] args) {
         String description;
-        Task newTask = null;
+        Task newTask;
         switch (args[0]) {
         case "deadline":
             int byPosition = Arrays.asList(args).indexOf("/by");
