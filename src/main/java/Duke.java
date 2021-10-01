@@ -11,17 +11,20 @@ public class Duke {
     public String filePath = "./data/duke.txt";
     File file = new File(filePath);
 
+    //Constructor of Duke object
     public Duke(String filePath) {
         UI ui = new UI();
         File file = new File(filePath);
-    }   //Constructor of Duke object
+    }
 
 
+    //Main method
     public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
-    }   //Main method
+    }
 
 
+    //The actual run process that user can input and get the corresponding output from Duke
     public void run() {
         ui.printWelcome();
         ArrayList<String> taskName = new ArrayList<>();
@@ -35,6 +38,6 @@ public class Duke {
         taskType = loadFromText.loadTaskType(taskType);
         Parser parser = new Parser();
         parser.checkCommand(output, taskStatus, taskName, taskType, file);
-    }   //The actual run process that user can input and get the corresponding output from Duke
+    }
 
 }

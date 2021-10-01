@@ -8,13 +8,15 @@ public class Parser {
 
     UI ui = new UI();
 
+    // Check if the 'todo' command is valid
     public void checkTodo(String userCommand) throws DukeException {
         if (userCommand.length() <= 5) {     //generate error when receiving invalid Todo input
             DukeException e = new DukeException();
             throw e;
         }
-    }   // Check if the 'todo' commmand is valid
+    }
 
+    // Check if the 'deadline' command is valid
     public void checkDeadline(String userCommand) throws DukeException {
         if (userCommand.length() <= 9) {     //generate error when receiving invalid Deadline input
             DukeException e = new DukeException();
@@ -23,8 +25,9 @@ public class Parser {
             DukeException e = new DukeException();
             throw e;
         }
-    }   // Check if the 'deadline' commmand is valid
+    }
 
+    // Check if the 'event' command is valid
     public void checkEvent(String userCommand) throws DukeException {
         if (userCommand.length() <= 6) {     //generate error when receiving invalid Event input
             DukeException e = new DukeException();
@@ -33,8 +36,9 @@ public class Parser {
             DukeException e = new DukeException();
             throw e;
         }
-    }   // Check if the 'event' commmand is valid
+    }
 
+    // Check if the 'done' command is valid
     public void checkDone(String userCommand) throws DukeException {
         if (userCommand.length() <= 5) {     //generate error when receiving invalid Delete input
             DukeException e = new DukeException();
@@ -46,8 +50,9 @@ public class Parser {
             DukeException e = new DukeException();
             throw e;
         }
-    }   // Check if the 'done' commmand is valid
+    }
 
+    // Check if the 'delete' command is valid
     public void checkDelete(String userCommand) throws DukeException {
         if (userCommand.length() <= 7) {     //generate error when receiving invalid Delete input
             DukeException e = new DukeException();
@@ -59,8 +64,9 @@ public class Parser {
             DukeException e = new DukeException();
             throw e;
         }
-    }   // Check if the 'delete' commmand is valid
+    }
 
+    // Check if the 'find' command is valid
     public void checkFind(String userCommand) throws DukeException {
         if (userCommand.length() <= 5) {     //generate error when receiving invalid Delete input
             DukeException e = new DukeException();
@@ -69,8 +75,9 @@ public class Parser {
             DukeException e = new DukeException();
             throw e;
         }
-    }   // Check if the 'find' commmand is valid
+    }
 
+    // Check if the target char in inputString is an integer
     public boolean isInt(String input) {
         try {                               //generate error when receiving non-integer input
             Integer.parseInt(input);        //for the delete command
@@ -80,8 +87,9 @@ public class Parser {
             return false;
         }
         return true;
-    }   // Check if the target char in inputString is an integer
+    }
 
+    // Check and process the 'userCommand' (userInput)
     public void checkCommand(ArrayList<String> output, ArrayList<Integer> taskStatus,
                              ArrayList<String> taskName, ArrayList<String> taskType, File file) {
         Scanner userInput = new Scanner(System.in);
@@ -151,5 +159,5 @@ public class Parser {
         if (userCommand.equals("bye")) {        //terminate the loop
             taskLists.printBye();
         }
-    }   // Check and process the 'userCommand' (userInput)
+    }
 }

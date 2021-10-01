@@ -1,15 +1,18 @@
 public class Task {
     protected String description;
 
+    //Constructor of Task object
     public Task(String description) {
         this.description = description;
-    }   //Constructor of Task object
+    }
 
+    //Getter of description var
     public String getDescription() {
         return description;
-    }   //Getter of description var
+    }
 
+    //toString method
     public String toString() {
         return "[ ] " + description.substring(5);
-    }   //toString method
+    }
 }

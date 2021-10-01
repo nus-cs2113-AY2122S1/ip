@@ -10,13 +10,15 @@ public class Storage {
     private ArrayList<String> output;
     File file;
 
+    // Constructor of Storage
     public Storage(String FilePath, ArrayList<String> Output, File file1) {
         filePath = FilePath;
         ArrayList<String> output = new ArrayList<String>(Output);
         file = file1;
-    }   // Constructor of Storage
+    }
 
 
+    // write the tasks to file
     public void writeTasksToFile(File file, ArrayList<String> output) {
         File directory = new File("D:/data");
         if (!directory.exists()) {
@@ -46,5 +48,5 @@ public class Storage {
             System.out.println("An error occurred, please try again!");
             e.printStackTrace();
         }
-    }   // write the tasks to file
+    }
 }

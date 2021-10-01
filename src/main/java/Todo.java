@@ -1,20 +1,24 @@
 public class Todo extends Task {
     protected boolean isDone;
 
+    //Constructor of todo object
     public Todo(String description) {
         super(description);
         isDone = false;
-    }   //Constructor of todo object
+    }
 
+    //Setter of isDone var
     public void setDone(boolean isDone) {
         this.isDone = isDone;
-    }   //Setter of isDone var
+    }
 
+    //Getter of isDone var
     public boolean isDone() {
         return this.isDone;
-    }   //Getter of isDone var
+    }
 
+    //toString method
     public String toString() {
         return "[T]" + super.toString();
-    }   //toString method
+    }
 }
