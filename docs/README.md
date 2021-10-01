@@ -128,6 +128,7 @@ Expected outcome: \
 All changes to Tasks in the task list are automatically saved to `data/duke.txt` relative to `ip.jar` whenever the tasks list is modified
 
 ## Command Summary
+
 | Action       | Format & Examples                                                                                            |
 | :---         | :---                                                                                                         |
 | **Help**     | `help`                                                                                                       |
