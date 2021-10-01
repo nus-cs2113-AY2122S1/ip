@@ -6,6 +6,12 @@ import java.util.Scanner;
 
 public class Storage {
 
+    /**
+     * Reads the file that has the user's previously stored Task List inside. Will use this exisiting Task List. If
+     * there is no exisiting file, a new file will be created.
+     * @param filePath Name of file
+     * @return The exisiting Task List that the user has.
+     */
     public static TaskList readFileContents(String filePath) {
         File f = new File(filePath);
         ArrayList<Task> taskList = new ArrayList<>();
@@ -48,6 +54,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the user's current Task List to the file to be stored.
+     * @param filePath Name of file to be written to.
+     * @param taskList Current Task List that user has.
+     * @throws IOException Exception is thrown when there is an error during storage.
+     */
     public static void writeToFile(String filePath, TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         int i = 0;
@@ -57,4 +69,5 @@ public class Storage {
         }
         fw.close();
     }
+
 }

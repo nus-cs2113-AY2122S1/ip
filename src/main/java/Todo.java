@@ -15,6 +15,10 @@ public class Todo extends Task {
         return "  [T]" + super.toString();
     }
 
+    /**
+     * Saves the todo to file in the correct format, so that it can be read easily by the program
+     * @return The todo in the correct format that it is saved as.
+     */
     @Override
     public String saveToFile() {
         // return format

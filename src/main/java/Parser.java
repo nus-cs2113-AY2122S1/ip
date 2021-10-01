@@ -15,55 +15,96 @@ public class Parser {
         this.userInput = userInput;
     }
 
+    /**
+     * Reads user input and deciphers which command it is.
+     * @return Integer to represent one of the commands.
+     */
     public int command() {
-        if(userInput.equals("bye")) {
+        if (userInput.equals("bye")) {
             return BYE;
         }
-        if(userInput.equals("list")) {
+        if (userInput.equals("list")) {
             return LIST;
         }
-        if(userInput.startsWith("done")) {
+        if (userInput.startsWith("done")) {
             return DONE;
         }
-        if(userInput.startsWith("delete")) {
+        if (userInput.startsWith("delete")) {
             return DELETE;
         }
-        if(userInput.startsWith("todo")) {
+        if (userInput.startsWith("todo")) {
             return TODO;
         }
-        if(userInput.startsWith("event")) {
+        if (userInput.startsWith("event")) {
             return EVENT;
         }
-        if(userInput.startsWith("deadline")) {
+        if (userInput.startsWith("deadline")) {
             return DEADLINE;
         }
-        if(userInput.startsWith("find")) {
+        if (userInput.startsWith("find")) {
             return FIND;
         }
         return NOT_VALID;
     }
 
+    /**
+     * Reads user input for the command "done" and returns the index of the task that has been completed.
+     * @return The index of the task that is done.
+     */
     public int doneTaskIndex() {
-        String n = userInput.substring(5);
-        int doneIndex = Integer.parseInt(n) - 1;
+        int doneIndex = -1;
+        try {
+            String n = userInput.substring(5);
+            doneIndex = Integer.parseInt(n) - 1;
+        } catch (NumberFormatException e) {
+        }
         return doneIndex;
+
     }
 
+    /**
+     * Reads user input for the command "delete" and returns the index of the task that has been deleted.
+     * @return The index of the task that is deleted.
+     */
     public int deleteTaskIndex() {
-        String n = userInput.substring(7);
-        int delIndex = Integer.parseInt(n) - 1;
+        int delIndex = -1;
+        try {
+            String n = userInput.substring(7);
+            delIndex = Integer.parseInt(n) - 1;
+        } catch (NumberFormatException e) {
+        }
         return delIndex;
     }
 
-    public Todo getTodo() throws IllegalTaskException {
-        Todo newTask = new Todo(userInput.substring(5));
+    /**
+     * Reads user input for the command "todo" and finds the description of the Todo, to store it in the Task List.
+     * @return The task that has been newly created, to be stored in the Task List.
+     * @throws IllegalTaskException Exception thrown when there is no name of the task. Asks user to input valid task.
+     */
+    public Todo getTodo() throws InvalidTask {
+        String taskName = userInput.substring(4).strip();
+        if (taskName.isEmpty()) {
+            throw new InvalidTask();
+        }
+        Todo newTask = new Todo(taskName);
         return newTask;
     }
 
-    public Event getEvent() throws InvalidEventFormat {
+    /**
+     * Reads in user input for the command "event" and finds the description of the Event, which will be stored in the
+     * Task List.
+     * @return The task that has been newly created, to be stored in the Task List.
+     * @throws InvalidEventFormat Exception thrown when the format of the Event does not match what is expected, which
+     * is "/by".
+     * @throws InvalidTask Exception thrown when there is no description that has been added for the Event.
+     */
+    public Event getEvent() throws InvalidEventFormat, InvalidTask {
         int startOfDate = userInput.indexOf('/');
-        if(!userInput.contains("/at")) {
+        if (!userInput.contains("/at")) {
             throw new InvalidEventFormat();
+        }
+        if (startOfDate - 1 < 6) { // make sure the substring exists
+            throw new InvalidTask();
         }
         String task = userInput.substring(6, startOfDate - 1);
         String date = userInput.substring(startOfDate + 4);
@@ -71,10 +112,21 @@ public class Parser {
         return newTask;
     }
 
-    public Deadline getDeadline() throws InvalidDeadlineFormat {
+    /**
+     * Reads in user input for the command "deadline" and finds the description of the Deadline, which will be stored in
+     * the Task List.
+     * @return The task that has been newly created, to be stored in the Task List.
+     * @throws InvalidDeadlineFormat Exception thrown when the format of the Deadline does not match what is expected,
+     * which is "/at".
+     * @throws InvalidTask Exception thrown when there is no description that has been added for the Deadline.
+     */
+    public Deadline getDeadline() throws InvalidDeadlineFormat, InvalidTask {
         int startOfDate = userInput.indexOf('/');
-        if(!userInput.contains("/by")) {
+        if (!userInput.contains("/by")) {
             throw new InvalidDeadlineFormat();
+        }
+        if (startOfDate - 1 < 9) { // make sure the substring exists
+            throw new InvalidTask();
         }
         String task = userInput.substring(9, startOfDate - 1);
         String date = userInput.substring(startOfDate + 4);
@@ -82,6 +134,11 @@ public class Parser {
         return newTask;
     }
 
+    /**
+     * Reads user input for the command "find", and takes the description in the task list that the user is trying to
+     * find
+     * @return The description in the task list that the user is trying to find.
+     */
     public String getTask() {
         String newTask = userInput.substring(5);
         return newTask;

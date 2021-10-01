@@ -14,6 +14,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Saves the deadline to file in the correct format, so that it can be read easily by the program
+     * @return The deadline in the correct format that it is saved as.
+     */
     @Override
     public String saveToFile() {
         // return format
