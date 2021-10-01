@@ -20,7 +20,8 @@ public class Parser {
      * @param input Input string from the user
      * @return Command Command class parsed from the input
      */
-    public static Command parse(String input) throws DukeException {
+    public static Command parse(String inputString) throws DukeException {
+        String input = inputString.trim();
         String findCommand = input.split(" ")[0];
         if (input.trim().equals("bye")) {
             return new ExitCommand();

@@ -31,7 +31,7 @@ public class Ui {
     }
 
     public static final void showLine() {
-        System.out.println(" * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . *");
+        System.out.println(" * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . *\n");
     }
 
     public static final void printSuccessfulLoading() {
