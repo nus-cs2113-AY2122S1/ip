@@ -1,4 +1,5 @@
 package duke;
+
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -7,6 +8,11 @@ import java.util.ArrayList;
 
 public class Duke {
 
+    /**
+     * Entry point of program.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -17,7 +23,7 @@ public class Duke {
         try {
             ArrayList<String> tasksString = Storage.read();
             TaskList.convertTaskStringToTasks(tasksString);
-        } catch (IOException e){
+        } catch (IOException e) {
             TaskList.convertTaskStringToTasks(null);
         }
 
