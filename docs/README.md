@@ -46,13 +46,11 @@ Displays all current tasks
 * Example of usage: `list`
 * Expected output:
 ```
- 
 1. [T][ ] mow the lawn
 
 2. [D][ ] watch CS2113T lecture (by: 11pm)
 
 3. [E][ ] watch Netflix with friends (at: 4pm)
-
 ```
 
 ### Find all Tasks with Keyword: `find`
@@ -62,14 +60,9 @@ Displays all tasks that contains a specific keyword.
 * Example of usage: `find watch`
 * Expected output:
 ```
-Here are the matching tasks in your list:
- __________________________________________________
-
 1. [D][ ] watch CS2113T lecture (by: 11pm)
 
 2. [E][ ] watch Netflix with friends (at: 4pm)
-
-
 ```
 
 ### Marks Task as Done: `done`
