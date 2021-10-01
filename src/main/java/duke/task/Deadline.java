@@ -1,14 +1,20 @@
 package duke.task;
 
-public class Deadline extends Task {
+/**
+ * A class representing a deadline with a name, and date and time of the deadline
+ */
 
-    /*ATTRIBUTES*/
+public class Deadline extends Task {
 
     private String name; //name of duke.task only (eg return book)
     protected String by; //due date
 
-    /*CONSTRUCTOR*/
-
+    /**
+     * Constructor for the {@code Deadline} class
+     *
+     * @param name Name of the deadline
+     * @param by Date and time of the deadline
+     */
     public Deadline(String name, String by) {
         description = name + " (by: " + by + ")"; //name + due date
         this.by = by;
@@ -16,11 +22,12 @@ public class Deadline extends Task {
         this.name = name;
     }
 
-    /*METHODS*/
-
+    /**
+     * Prints added deadline message
+     */
     @Override
     public void printTaskDisplay() {
-        System.out.println("Got it. I've added this duke.task:");
+        System.out.println("Got it. I've added this task:");
         System.out.println("[D] [ ] " + description);
 
     }
