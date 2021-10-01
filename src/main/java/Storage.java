@@ -2,7 +2,6 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.io.FileWriter;
@@ -54,8 +53,11 @@ public class Storage {
         Scanner s = new Scanner(datafile);
 
         int taskNumber = 0;
+        if (!s.hasNext()) {
+            return schedule;
+        }
 
-        do {
+        while(s.hasNext()) {
             String line = s.nextLine();
             String [] lineContent = line.split(GAP);
             String commandType = lineContent[COMMAND_INDEX];
@@ -83,7 +85,7 @@ public class Storage {
                 taskNumber++;
             }
 
-        } while(s.hasNext());
+        }
         return schedule;
 
     }

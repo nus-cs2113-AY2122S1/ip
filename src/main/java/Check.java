@@ -1,16 +1,14 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
-
 import exceptions.NoDateDescException;
 import exceptions.NoDateException;
 import exceptions.NoDescException;
 
+/**
+ * This class checks the input given by the users, throwing exceptions if the input is not valid.
+ */
 public class Check {
     public Check() {
     }
+
 
     public static void checkTodo(String content) throws NoDescException {
         if (content.equalsIgnoreCase("todo")) {
@@ -18,6 +16,14 @@ public class Check {
         }
     }
 
+    /**
+     * Checks whether the todo command is valid by
+     * detecting whether it is accompanied by a description.
+     * If invalid, then the user has to re-enter command based on whatever element is missing.
+     *
+     * @param content specifications from user
+     * @return the validity of the todo specifications, in boolean form
+     */
     public boolean handleTodoException(String content) {
         try {
             checkTodo(content);
@@ -39,6 +45,14 @@ public class Check {
         }
     }
 
+    /**
+     * Checks whether the deadline command is valid by
+     * detecting whether it is accompanied by both a description and a date.
+     * If invalid, then the user has to re-enter command based on whatever element is missing.
+     *
+     * @param content specifications from user
+     * @return the validity of the deadline specifications, in boolean form
+     */
     public boolean handleDeadlineException(String content) {
         try {
             checkDeadline(content);
@@ -66,6 +80,14 @@ public class Check {
         }
     }
 
+    /**
+     * Checks whether the event command is valid by
+     * detecting whether it is accompanied by both a description and a date.
+     * If invalid, then the user has to re-enter command based on whatever element is missing.
+     *
+     * @param content specifications from user
+     * @return the validity of the event specifications, in boolean form
+     */
     public boolean handleEventException(String content) {
         try {
             checkEvent(content);

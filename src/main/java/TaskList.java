@@ -1,35 +1,40 @@
-
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-
-
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
 
+/**
+ * This class manages and modifies the task list in Duke.
+ */
 public class TaskList {
-    ArrayList<Task> schedule = new ArrayList<>();
-    int totalTasks;
-
-    Storage s = new Storage();
+    public ArrayList<Task> schedule = new ArrayList<>();
+    public int totalTasks;
+    public Storage s = new Storage();
 
     public TaskList() {
 
     }
 
+    /**
+     * Prints out bye message to exit Duke.
+     */
     public void printBye() {
         System.out.println("Bye! Cya next time!");
     }
 
+    /**
+     * Loads the task list saved in data/dukedata.txt
+     */
     public void initSchedule() {
         schedule = s.checkFile(schedule);
         totalTasks = schedule.size();
     }
 
+    /**
+     * Prints out current task list.
+     */
     public void printList() {
         System.out.println("Here are the tasks in your list: ");
 
@@ -41,13 +46,36 @@ public class TaskList {
 
     }
 
+    /**
+     * Handles done command by obtaining the number contained in index 5 of the input string
+     * That number is the index in the task list that will be marked 'X' to signify that it is done.
+     * The input is first checked for validity.
+     *
+     * @param line input from user
+     */
     public void handleDone(String line) {
+        if (line.length() < 5) {
+            System.out.println("Please reenter task number done");
+            return;
+        }
         int number = Character.getNumericValue(line.charAt(5));
+        if (number > totalTasks) {
+            System.out.println("You do not have so many tasks");
+            return;
+        } else if (number < 1) {
+            System.out.println("Please enter a valid task number");
+            return;
+        }
         schedule.get(number - 1).markAsDone();
         s.saveFile(schedule, totalTasks);
     }
 
-    public void addTodo(String content) throws IOException {
+    /**
+     * Adds the todo task into the task list, but checks its validity first
+     *
+     * @param content specifications of the todo task
+     */
+    public void addTodo(String content) {
         Check c = new Check();
         boolean b = c.handleTodoException(content);
         if (b) {
@@ -67,7 +95,12 @@ public class TaskList {
         return d;
     }
 
-    public void addDeadline(String content) throws IOException {
+    /**
+     * Adds the deadline task into the task list, but checks its validity first
+     *
+     * @param content specifications of the deadline task
+     */
+    public void addDeadline(String content) {
         Check c = new Check();
         boolean b = c.handleDeadlineException(content);
         if (b) {
@@ -87,7 +120,12 @@ public class TaskList {
         return e;
     }
 
-    public void addEvent(String content) throws IOException {
+    /**
+     * Adds the event task into the task list, but checks its validity first
+     *
+     * @param content specifications of the event task
+     */
+    public void addEvent(String content) {
         Check c = new Check();
         boolean b = c.handleEventException(content);
         if (b) {

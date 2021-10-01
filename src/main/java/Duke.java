@@ -8,42 +8,44 @@ public class Duke {
     public Duke() {
     }
 
+    /**
+     * Parses the input given by user into command and content, then handles them using a task manager.
+     * This process continues until user inputs "bye" to exit Duke.
+     */
+
     public static void main(String[] args) throws IOException {
-        Storage s = new Storage();
-        TaskList m = new TaskList();
-        Parser p = new Parser();
+        Ui Duke = new Ui();
+        TaskList manager = new TaskList();
+        Parser parser = new Parser();
 
-        m.initSchedule();
+        System.out.println(Duke);
 
-        m.printList();
-
-        Ui duke = new Ui();
-        System.out.println(duke);
+        manager.initSchedule();
         Scanner in = new Scanner(System.in);
         System.out.print("Type something: ");
         String line = in.nextLine();
 
 
         while(true) {
-            String command = p.findCommand(line);
-            String content = p.findContent(line);
+            String command = parser.findCommand(line);
+            String content = parser.findContent(line);
             if (command.equalsIgnoreCase("bye")) {
-                m.printBye();
+                manager.printBye();
                 break;
             } else if (command.equalsIgnoreCase("list")) {
-                m.printList();
+                manager.printList();
             } else if (command.equalsIgnoreCase("done")) {
-                m.handleDone(line);
+                manager.handleDone(line);
             } else if (command.equalsIgnoreCase("todo")) {
-                m.addTodo(content);
+                manager.addTodo(content);
             } else if (command.equalsIgnoreCase("deadline")) {
-                m.addDeadline(content);
+                manager.addDeadline(content);
             } else if (command.equalsIgnoreCase("event")) {
-                m.addEvent(content);
+                manager.addEvent(content);
             } else if (command.equalsIgnoreCase("delete")) {
-                m.delete(line);
+                manager.delete(line);
             } else if (command.equalsIgnoreCase("find")) {
-                m.finding(content);
+                manager.finding(content);
             }
             else {
                 System.out.println("Oops, please reenter your command");

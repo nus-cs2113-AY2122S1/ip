@@ -1,7 +1,6 @@
 package task;
 
 public class Task {
-    public int task_number;
     protected String description;
     protected boolean isDone;
 
