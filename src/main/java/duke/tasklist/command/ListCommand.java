@@ -1,11 +1,11 @@
-package duke.TaskList.command;
+package duke.tasklist.command;
 
-import duke.TaskList.TaskManager;
+import duke.tasklist.TaskManager;
 
 /**
  * Class responsible to display the list of all tasks.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     /**
      * Creates a ListCommand object and sets the TaskManager object.

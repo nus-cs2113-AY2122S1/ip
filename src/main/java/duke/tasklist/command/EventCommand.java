@@ -1,12 +1,12 @@
-package duke.TaskList.command;
+package duke.tasklist.command;
 
-import duke.TaskList.TaskManager;
-import duke.Ui.Parser;
+import duke.tasklist.TaskManager;
+import duke.ui.Parser;
 
 /**
  * Class responsible to add 'Event' type task.
  */
-public class EventCommand extends Command{
+public class EventCommand extends Command {
 
     protected Parser parser;
     protected String component;

@@ -1,8 +1,8 @@
-package duke.Storage;
+package duke.storage;
 
-import duke.TaskList.TaskManager;
-import duke.TaskList.task.Task;
-import duke.Ui.Parser;
+import duke.tasklist.TaskManager;
+import duke.tasklist.task.Task;
+import duke.ui.Parser;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -40,7 +40,7 @@ public class FileManager {
      * @param parser Parser object for parsing operations.
      * @throws IOException Error object when doing reading or writing operations in files.
      */
-    public void load(TaskManager taskManager, Parser parser) throws IOException{
+    public void load(TaskManager taskManager, Parser parser) throws IOException {
         File dataDirectory = new File(fileDirectory);
         File dataFile = new File(filePath);
 

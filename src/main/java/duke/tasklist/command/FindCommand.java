@@ -1,8 +1,8 @@
-package duke.TaskList.command;
+package duke.tasklist.command;
 
-import duke.TaskList.TaskManager;
+import duke.tasklist.TaskManager;
 
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
     protected String component;
 

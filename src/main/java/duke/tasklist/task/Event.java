@@ -1,6 +1,6 @@
-package duke.TaskList.task;
+package duke.tasklist.task;
 
-import duke.Ui.DisplayManager;
+import duke.ui.DisplayManager;
 
 /**
  * Class of task with type 'Event'.
@@ -25,7 +25,8 @@ public class Event extends Task {
      * @return String data used for displaying to user.
      */
     public String toString() {
-        return DisplayManager.createListBox(this.taskType, this.getStatusIcon()) + " " + super.toString() + " (at: " + this.dateTime + ")";
+        return DisplayManager.createListBox(this.taskType, this.getStatusIcon()) + " "
+                + super.toString() + " (at: " + this.dateTime + ")";
     }
 
     /**

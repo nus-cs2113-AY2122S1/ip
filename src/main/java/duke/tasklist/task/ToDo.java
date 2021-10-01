@@ -1,7 +1,6 @@
-package duke.TaskList.task;
+package duke.tasklist.task;
 
-import duke.TaskList.task.Task;
-import duke.Ui.DisplayManager;
+import duke.ui.DisplayManager;
 
 /**
  * Class of task with type 'Todo'.

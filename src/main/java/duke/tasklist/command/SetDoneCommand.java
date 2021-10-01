@@ -1,11 +1,11 @@
-package duke.TaskList.command;
+package duke.tasklist.command;
 
-import duke.TaskList.TaskManager;
+import duke.tasklist.TaskManager;
 
 /**
  * Class responsible to set tasks as done.
  */
-public class SetDoneCommand extends Command{
+public class SetDoneCommand extends Command {
 
     protected String component;
 

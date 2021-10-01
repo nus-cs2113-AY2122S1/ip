@@ -1,7 +1,7 @@
-package duke.Ui;
+package duke.ui;
 
-import duke.TaskList.TaskManager;
-import duke.TaskList.task.Task;
+import duke.tasklist.TaskManager;
+import duke.tasklist.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class DisplayManager {
 
-    public static final String DISPLAY_HORIZONTAL_SEPARATOR = "    _________________________" +
-            "___________________________________";
+    public static final String DISPLAY_HORIZONTAL_SEPARATOR = "    _________________________"
+            + "___________________________________";
     public static final String DISPLAY_MESSAGE_INDENT = "        ";
     public static final String DISPLAY_TASK_INDENT = "    ";
     private static final String DISPLAY_LOGO = "    ____        _        \n"
@@ -20,13 +20,12 @@ public class DisplayManager {
             + "   | | | | | | | |/ / _ \\\n"
             + "   | |_| | |_| |   <  __/\n"
             + "   |____/ \\__,_|_|\\_\\___|";
-    private static final String DISPLAY_GREET_START = DISPLAY_HORIZONTAL_SEPARATOR + "\n" +
-            "        Hello! I'm Duke\n" +
-            "        What can I do for you?\n" +
-            DISPLAY_HORIZONTAL_SEPARATOR;
-    private static final String DISPLAY_GREET_END = DISPLAY_HORIZONTAL_SEPARATOR + "\n" +
-            "        Bye. Hope to see you again soon!\n" +
-            DISPLAY_HORIZONTAL_SEPARATOR;
+    private static final String DISPLAY_GREET_START = DISPLAY_HORIZONTAL_SEPARATOR + "\n"
+            + "        Hello! I'm Duke\n" + "        What can I do for you?\n"
+            + DISPLAY_HORIZONTAL_SEPARATOR;
+    private static final String DISPLAY_GREET_END = DISPLAY_HORIZONTAL_SEPARATOR + "\n"
+            + "        Bye. Hope to see you again soon!\n"
+            + DISPLAY_HORIZONTAL_SEPARATOR;
 
     /**
      * Displays the welcome message.
@@ -77,7 +76,8 @@ public class DisplayManager {
         printHorizontalSeparator();
         System.out.println(DISPLAY_MESSAGE_INDENT + "Got it. I've added this task:");
         System.out.println(DISPLAY_MESSAGE_INDENT + DISPLAY_TASK_INDENT + task);
-        System.out.println(DISPLAY_MESSAGE_INDENT + "Now you have " + (TaskManager.getTaskCount()) + " tasks in the list.");
+        System.out.println(DISPLAY_MESSAGE_INDENT + "Now you have " + (TaskManager.getTaskCount())
+                + " tasks in the list.");
         printHorizontalSeparator();
     }
 
@@ -154,7 +154,9 @@ public class DisplayManager {
     public static void printSetAsDoneResult(
             ArrayList<Task> tasks, int[] outOfRangeIndexes, int[] validIndexes, int[] doneIndexes) {
 
-        int outOfRangeCount, validIndexCount, doneIndexCount;
+        int outOfRangeCount;
+        int validIndexCount;
+        int doneIndexCount;
 
         if (outOfRangeIndexes == null) {
             outOfRangeCount = 0;
@@ -279,7 +281,7 @@ public class DisplayManager {
      */
     public void printErrorLoadingData() {
         printHorizontalSeparator();
-        System.out.println( DISPLAY_MESSAGE_INDENT + "Error while trying to load data file");
+        System.out.println(DISPLAY_MESSAGE_INDENT + "Error while trying to load data file");
         printHorizontalSeparator();
     }
 

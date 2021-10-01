@@ -1,6 +1,6 @@
-package duke.TaskList.task;
+package duke.tasklist.task;
 
-import duke.TaskList.TaskManager;
+import duke.tasklist.TaskManager;
 
 /**
  * Base class for all types of tasks.
@@ -13,7 +13,7 @@ public class Task {
 
     /**
      * Creates a new Task object, sets the task name, done status to false, and task type as empty by default.
-     * @param description
+     * @param description String of task name.
      */
     public Task(String description) {
         this.description = description;

@@ -1,16 +1,16 @@
-package duke.Ui;
+package duke.ui;
 
-import duke.Error.DukeException;
-import duke.TaskList.TaskManager;
-import duke.TaskList.command.Command;
-import duke.TaskList.command.DeadlineCommand;
-import duke.TaskList.command.DeleteCommand;
-import duke.TaskList.command.EventCommand;
-import duke.TaskList.command.ExitCommand;
-import duke.TaskList.command.FindCommand;
-import duke.TaskList.command.ListCommand;
-import duke.TaskList.command.SetDoneCommand;
-import duke.TaskList.command.ToDoCommand;
+import duke.error.DukeException;
+import duke.tasklist.TaskManager;
+import duke.tasklist.command.Command;
+import duke.tasklist.command.DeadlineCommand;
+import duke.tasklist.command.DeleteCommand;
+import duke.tasklist.command.EventCommand;
+import duke.tasklist.command.ExitCommand;
+import duke.tasklist.command.FindCommand;
+import duke.tasklist.command.ListCommand;
+import duke.tasklist.command.SetDoneCommand;
+import duke.tasklist.command.ToDoCommand;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -89,7 +89,7 @@ public class Parser {
         String taskInfo;
         String commandType = extractCommand(fullCommand);
 
-        switch(commandType) {
+        switch (commandType) {
         case COMMAND_LIST_TASK:
             command = new ListCommand(taskManager);
             break;

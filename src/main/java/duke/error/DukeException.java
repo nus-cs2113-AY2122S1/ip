@@ -1,11 +1,11 @@
-package duke.Error;
+package duke.error;
 
-import duke.Ui.DisplayManager;
+import duke.ui.DisplayManager;
 
 /**
  * Class responsible for errors related to Duke.
  */
-public class DukeException extends Exception{
+public class DukeException extends Exception {
 
     /**
      * Creates a DukeException object and sets the error message.

@@ -1,10 +1,10 @@
-import duke.Error.DukeException;
-import duke.TaskList.command.Command;
-import duke.TaskList.command.ExitCommand;
-import duke.Ui.DisplayManager;
-import duke.Storage.FileManager;
-import duke.TaskList.TaskManager;
-import duke.Ui.Parser;
+import duke.error.DukeException;
+import duke.tasklist.command.Command;
+import duke.tasklist.command.ExitCommand;
+import duke.ui.DisplayManager;
+import duke.storage.FileManager;
+import duke.tasklist.TaskManager;
+import duke.ui.Parser;
 
 import java.io.IOException;
 import java.util.Scanner;

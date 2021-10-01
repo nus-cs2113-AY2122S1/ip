@@ -1,6 +1,6 @@
-package duke.TaskList.command;
+package duke.tasklist.command;
 
-import duke.TaskList.TaskManager;
+import duke.tasklist.TaskManager;
 
 /**
  * Class responsible to add 'ToDo' type task.

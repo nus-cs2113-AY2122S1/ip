@@ -1,12 +1,12 @@
-package duke.TaskList;
+package duke.tasklist;
 
-import duke.TaskList.task.Deadline;
-import duke.TaskList.task.Event;
-import duke.TaskList.task.Task;
-import duke.TaskList.task.ToDo;
-import duke.Ui.DisplayManager;
-import duke.Storage.FileManager;
-import duke.Ui.Parser;
+import duke.tasklist.task.Deadline;
+import duke.tasklist.task.Event;
+import duke.tasklist.task.Task;
+import duke.tasklist.task.ToDo;
+import duke.ui.DisplayManager;
+import duke.storage.FileManager;
+import duke.ui.Parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,8 +25,8 @@ public class TaskManager {
 
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
-    private final int INDEX_DESCRIPTION = 0;
-    private final int INDEX_DATETIME = 1;
+    private static final int INDEX_DESCRIPTION = 0;
+    private static final int INDEX_DATETIME = 1;
 
     public static int getTaskCount() {
         return tasks.size();
@@ -198,7 +198,7 @@ public class TaskManager {
         int count = 0;
 
         for (int index : indexes) {
-            if (!(index - 1>= tasks.size()) ) {
+            if (!(index - 1 >= tasks.size())) {
                 validIndexes[count] = index;
                 count++;
             }

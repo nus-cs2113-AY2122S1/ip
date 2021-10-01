@@ -1,6 +1,6 @@
-package duke.TaskList.command;
+package duke.tasklist.command;
 
-import duke.TaskList.TaskManager;
+import duke.tasklist.TaskManager;
 
 /**
  * Base parent of all command classes.
@@ -10,11 +10,13 @@ public class Command {
 
     /**
      * Creates a Command object and sets taskManager object.
-     * @param taskManager
+     * @param taskManager TaskManager object used for task operations.
      */
     public Command(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
 
-    public void execute() {}
+    public void execute() {
+
+    }
 }

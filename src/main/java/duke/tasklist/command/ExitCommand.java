@@ -1,9 +1,9 @@
-package duke.TaskList.command;
+package duke.tasklist.command;
 
 /**
  * Class responsible to exit the program.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
 
     /**
      * Creates an ExitCommand object.
