@@ -15,7 +15,7 @@ public class DukeException extends Exception {
             "OOPS!! The task's index should be a number.";
     protected static final String ERROR_INDEX_OUT_OF_BOUND = Ui.INDENT +
             "OOPS!! The task's index should be positive and " +
-            Ui.LINE_SEPARATOR_AND_INDENT + "smaller than the total number of tasks";
+            Ui.LINE_SEPARATOR_AND_INDENT + "smaller or equal to the total number of tasks";
     protected static final String ERROR_NO_EVENT_DATE = Ui.INDENT +
             "OOPS!! The date of event can't be empty." + Ui.LINE_SEPARATOR_AND_INDENT +
             "Or you haven't used /on for date";
