@@ -33,7 +33,8 @@ public class Ui {
 
     /** Prints a farewell message to the standard output. */
     public void sayBye() {
-        Formatter.printFormattedOutput("Farewell, my liege. Happy hunting!");
+        System.out.println("Farewell, my liege. Happy hunting!");
+        Formatter.printOutputSeparator();
     }
 
     /**

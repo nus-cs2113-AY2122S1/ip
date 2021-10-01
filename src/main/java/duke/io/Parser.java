@@ -175,7 +175,7 @@ public class Parser {
      * @throws IllegalArgumentException if there is no ID found
      */
     public int parseDoTask(String line) throws IllegalArgumentException {
-        if (line.length() <= 4) {
+        if (line.length() <= 5) {
             throw new IllegalArgumentException(COMMAND_MISSING_VALUE_ERROR_MESSAGE);
         }
         String inputNumStr = line.toLowerCase().replace("done", "").trim();
@@ -190,7 +190,7 @@ public class Parser {
      * @throws IllegalArgumentException if there is no ID found
      */
     public int parseDeleteTask(String line) throws IllegalArgumentException {
-        if (line.length() <= 6) {
+        if (line.length() <= 7) {
             throw new IllegalArgumentException(COMMAND_MISSING_VALUE_ERROR_MESSAGE);
         }
         String inputNumStr = line.toLowerCase().replace("delete", "").trim();
@@ -205,7 +205,7 @@ public class Parser {
      * @throws IllegalArgumentException if there is no search term found
      */
     public String parseFind(String line) throws IllegalArgumentException {
-        if (line.length() <= 4) {
+        if (line.length() <= 5) {
             throw new IllegalArgumentException(COMMAND_MISSING_VALUE_ERROR_MESSAGE);
         }
         String search = line.toLowerCase().replace("find", "").trim();
