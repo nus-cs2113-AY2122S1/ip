@@ -1,3 +1,4 @@
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import seedu.tojava.Duke.*;
 import java.io.FileWriter;
@@ -131,7 +132,27 @@ public class Duke {
                         System.out.println("Noted I've already delete it");
                         maxcount--;
                     }
-
+                    else if(order.contains("find")){
+                        String keywords = order.substring(5,order.length()).trim();
+                        int flag2 = 0;
+                        for(Todo item: items){
+                            if(item.getDescription().contains(keywords)){
+                                flag2 = 1;
+                                if(item instanceof Deadline){
+                                    System.out.println("[" + item.returnType() + "] " + "[" + item.getStatusIcon() + "] " + item.getDescription() + " (" + ((Deadline) item).getBy().format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
+                                }
+                                else if(item instanceof Event){
+                                    System.out.println("[" + item.returnType() + "] " + "[" + item.getStatusIcon() + "] " + item.getDescription() + " (" + ((Event) item).getDuration().format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
+                                }
+                                else{
+                                    System.out.println("[" + item.returnType() + "] " + "[" + item.getStatusIcon() + "] " + item.getDescription());
+                                }
+                            }
+                            if(flag2 == 0) {
+                                System.out.println("Not Found !!!");
+                            }
+                        }
+                    }
                     order = getMission();
                 }
                 System.out.println("Bye.Hope to see you again soon!\n");
@@ -147,7 +168,7 @@ public class Duke {
         String mission;
         Scanner in = new Scanner(System.in);
         mission = in.nextLine();
-        if(!mission.contains("delete") && !mission.contains("todo") && !mission.contains("list") && !mission.contains("bye") && !mission.contains("deadline") && !mission.contains("event") && !mission.contains("done")){
+        if(!mission.contains("find") && !mission.contains("delete") && !mission.contains("todo") && !mission.contains("list") && !mission.contains("bye") && !mission.contains("deadline") && !mission.contains("event") && !mission.contains("done")){
             throw new IllegalFormatException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         else if(mission.contains("todo")){
