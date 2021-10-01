@@ -1,29 +1,53 @@
 # User Guide
 
-## Features 
+## WELCOME TO DUKE! YOUR EASY-TO-USE TASK MANAGER 
 
-### Feature-ABC
+### Feature: Add a Todo task
+* Description: Adds a Todo Task
+* Format: todo <TASK>
+* Example: todo laundy
 
-Description of the feature.
 
-### Feature-XYZ
+### Feature: Add a task with deadline
 
-Description of the feature.
+* Description: User can add a task with deadline
+* Format: deadline <TASK> /by <DEADLINE>
+* Example: deadline collect laundy /by 6PM
+  
+### Feature: Add an event
 
-## Usage
+* Description: User can add an event
+* Format: event <TASK> /at <VENUE_OR_TIME>
+* Example: event collect laundy /at B1 
 
-### `Keyword` - Describe action
+### Feature: List down all task
 
-Describe the action and its outcome.
+* Description: Displays all the tasks in the list in an orderly manner
+* Format: list
+* Example: list
+  
+### Feature: Mark a task as done
+  
+* Description: Marks a task as done
+* Format: done <TASK_NUMBER>
+* Example: done 3
+  
+### Feature: Delete a Task
 
-Example of usage: 
+* Description: Deletes the particular task
+* Format: delete <TASK_NUMBER>
+* Example: delete 3
+  
+### Feature: Search for a task
 
-`keyword (optional arguments)`
+* Description: Find all the tasks related to a particular keyword
+* Format: find <KEYWORD>
+* Example: find laundry
+  
+### Feature: Exit the program
 
-Expected outcome:
+* Desctiption: Quit the program
+* Format: bye
+* Example: bye
 
-Description of the outcome.
 
-```
-expected output
-```
