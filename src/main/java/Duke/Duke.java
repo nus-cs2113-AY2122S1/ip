@@ -4,8 +4,8 @@ import Duke.Parser.Parser;
 import Duke.DukeException.DukeException;
 import Duke.Command.*;
 import Duke.Storage.Storage;
-import Duke.Ui.Ui;
 import Duke.Tasks.TaskList;
+import Duke.Ui.Ui;
 
 public class Duke {
     private Storage storage;
@@ -22,9 +22,7 @@ public class Duke {
             tasks = new TaskList();
         }
     }
-    /**
-     * Run the program.
-     */
+
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
