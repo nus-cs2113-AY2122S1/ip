@@ -128,7 +128,7 @@ Added to Galactic database:
 ```
 
 ## Mark a task as done: `done` 
-Marks a specified task as done.
+Marks a specified task as completed.
 #### Format: `done {task index in list}`
 Example of usage:
 
