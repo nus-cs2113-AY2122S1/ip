@@ -1,0 +1,30 @@
+hello
+list
+todo hello
+list
+done 0
+done 2
+done abc
+deadline hello
+deadline hello /by 08-02-1999
+deadline hello /by 08021999
+deadline hello /by 08/02/1999
+deadline hello /by 1999-02-08
+deadline hello /at 08021999
+list
+event hello
+event hello /by 08021999
+event hello /at 08021999
+list
+done 1
+list
+done 2
+list
+done       3
+list
+todo       hello
+deadline    hello    /by    08021999
+event    hello    /at     08021999
+list
+bye
+hello
