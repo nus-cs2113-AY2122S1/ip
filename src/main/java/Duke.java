@@ -28,6 +28,8 @@ public class Duke {
         while (!parser.inputIsBye(command.toLowerCase())) {
             try {
                 command = ui.readCommand();
+                //Command command = ui.readCommand(). Use Parser to do it in Ui
+                //
                 Formatter.printFormattedOutput(taskHandler.handleTasks(command));
             } catch (IllegalArgumentException e) {
                 Formatter.printFormattedOutput(e.getMessage());

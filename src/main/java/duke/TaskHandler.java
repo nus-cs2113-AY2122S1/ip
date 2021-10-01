@@ -3,6 +3,18 @@ package duke;
 import java.util.ArrayList;
 
 public class TaskHandler {
+    /* Error types */
+    // enum?
+    private String COMMAND_UNKNOWN;
+    private String COMMAND_MISSING_DESCRIPTION;
+    private String COMMAND_MISSING_BY;
+    private String COMMAND_MISSING_AT;
+
+    /* Error messages */
+    private String COMMAND_UNKNOWN_ERROR_MESSAGE;
+    private String COMMAND_MISSING_DESCRIPTION_ERROR_MESSAGE = "My liege, there is no description!";
+    private String COMMAND_MISSING_BY_ERROR_MESSAGE = "By when, my liege?";
+    private String COMMAND_MISSING_AT_ERROR_MESSAGE = "Where at, my liege?";
 
     private String EMPTY_DESCRIPTION_MSG = "My liege, there is no description!";
 
@@ -16,8 +28,41 @@ public class TaskHandler {
         this.parser = new Parser();
     }
 
+
     public String handleTasks(String line) throws IllegalArgumentException, DukeException {
-        String lc = line.toLowerCase();
+        //what I want is a switch-case thing here
+        Command command = parser.returnCommand(line);
+        String result = "";
+
+        switch (command) {
+        case LIST:
+            result = listTasks();
+            break;
+        case CLEAR:
+            result = clearTasks();
+            break;
+        case ADD_TODO:
+            result = addTodo(line);
+            break;
+        case ADD_DEADLINE:
+            result = addDeadline(line);
+            break;
+        case ADD_EVENT:
+            result = addEvent(line);
+            break;
+        case DO_TASK:
+            result = doTask(line);
+            break;
+        case DELETE:
+            result = deleteTask(line);
+            break;
+        default:
+            result = "Invalid command";
+        }
+
+
+        return result;
+/*
         if (parser.inputIsList(lc)) {
             return listTasks();
         } else if (parser.inputIsClear(lc)) {
@@ -46,6 +91,36 @@ public class TaskHandler {
         } else {
                 return returnInputInvalid();
         }
+        */
+    }
+
+    /*
+    public String returnErrorMessage
+     */
+
+    /*
+    public String returnErrorMessage(String errorType) {
+        String message = "";
+        switch (type) {
+        case (COMMAND_UNKNOWN):
+            message = COMMAND_UNKNOWN_ERROR_MESSAGE;
+            break;
+        case (COMMAND_MISSING_DESCRIPTION):
+            message = COMMAND_MISSING_DESCRIPTION_ERROR_MESSAGE;
+            break;
+        case (COMMAND_MISSING_AT):
+            message = COMMAND_MISSING_AT_ERROR_MESSAGE;
+            break;
+        case (COMMAND_MISSING_BY):
+            message = COMMAND_MISSING_BY_ERROR_MESSAGE;
+            break;
+        }
+        return message;
+    }
+     */
+    private String clearTasks() {
+        this.tasks.clear();
+        return storage.clearFileData();
     }
 
     public String returnDeadlineNoBy() {
@@ -60,7 +135,6 @@ public class TaskHandler {
     public String returnAddTaskSuccess() {
         return "As you command. Added: ";
     }
-
 
 
     public String addTodo(String line) throws IllegalArgumentException {
