@@ -24,11 +24,12 @@ Type Something:
 ------------------------------------  
 ```
 
-## Features 
+## Features
 
-### Feature-ABC
 
-Description of the feature.
+### Add Todo: ```todo```
+This adds a todo task into the tasklist. Please note that the 
+
 
 ### Feature-XYZ
 
