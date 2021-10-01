@@ -44,16 +44,19 @@ and is also remembers them even after shutting down.
 		* Output: `Task added: [D][ ] cry (by: midnight)`.
 	* `deadline User Guide /by 2021-09-25`:
 		* Output: `Task added: [D][ ] User Guide (by: SEP 25 2021)`.
+	* `deadline ip submission /by 2021-10-01 2359`
+		* Output: `Task added: [D][ ] ip submimssion (by: OCT 1 2021 11:59pm)`
 
 ### Feature - Adding an Event task
 
 * Adds a Task of the Event format.
 * Format: `event DESCRIPTION /at DETAILS`.
+	* Similar to deadlines, you can add `DETAILS` as date or date and time.
 * Examples:
 	* `event cry /at work`:
 		* Output: `Task added: [E][ ] cry (at: work)`.
-	* `deadline Finish User Guide /at home`:
-		* Output: `Task added: [E][ ] User Guide (at: home)`.
+	* `deadline celebrate birthday /at 2021-12-23`:
+		* Output: `Task added: [E][ ] celebrate birthday (at: DEC 23 2021)`.
 
 ### Feature - Listing the tasks
 
@@ -220,7 +223,7 @@ Here are the matching tasks in your list:
 Input: `deadline submit ip /by 2021-10-01 2359`
 ```
 Task added: [D][ ] essay (by: OCT 1 2021 11:59pm)`
-For now, you have 3 task on the list
+For now, you have 5 task on the list
 ```
 Input: `bye`
 ```
