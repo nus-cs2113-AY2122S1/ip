@@ -8,6 +8,8 @@ package task;
 public class Task {
     private String description;
     private Boolean isDone;
+    protected static final String DONE_INDICATOR = "X";
+    protected static final String NOT_DONE_INDICATOR = " ";
 
     /**
      * Sole constructor for all task objects
@@ -48,13 +50,11 @@ public class Task {
      * @return String, X if task is marked as complete, blank if it is not
      */
     public String getStatus() {
-        String result;
         if (isDone) {
-            result = "X";
+            return DONE_INDICATOR;
         } else {
-            result = " ";
+            return NOT_DONE_INDICATOR;
         }
-        return result;
     }
 
     /**

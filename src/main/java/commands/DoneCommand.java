@@ -40,14 +40,21 @@ public class DoneCommand extends Command {
     @Override
     public void execute(TextUI ui, TaskList tasks, Storage data) {
         try {
-            taskID = Integer.parseInt(args.split(" ")[1]);
-            tasks.doneTask(taskID);
+            String[] argList = args.split(" ");
+            if (argList.length == 2) {
+                taskID = Integer.parseInt(argList[1]);
+                tasks.doneTask(taskID);
 
-            ui.showMessage(String.format(DONE_TASK, tasks.getTaskInfo(taskID - 1)));
-            data.write(tasks.getTaskList());
+                ui.showMessage(String.format(DONE_TASK, tasks.getTaskInfo(taskID - 1)));
+                data.write(tasks.getTaskList());
+            } else {
+                ui.showMessage(ERROR_INVALID_TASK);
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showMessage(ERROR_FORMAT_DONE);
         } catch (IndexOutOfBoundsException e) {
+            ui.showMessage(ERROR_INVALID_TASK);
+        } catch (NumberFormatException e) {
             ui.showMessage(ERROR_INVALID_TASK);
         }
     }

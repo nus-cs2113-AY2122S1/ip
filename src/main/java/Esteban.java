@@ -22,9 +22,13 @@ public class Esteban {
         TaskList tasks = new TaskList(dataStore.read());
         // Continue to read, parse and execute user commands until exit command is issued
         while(true) {
+            // Gets complete line of user input
             String userInput = ui.getCommand();
+            // Parses line of input and creates relevant command object
             Command userCommand = Parser.parseCommand(userInput);
+            // Executes logic of specific command object
             userCommand.execute(ui, tasks, dataStore);
+            // Exit condition: check if
             if(userCommand.isStop()) {
                 break;
             }

@@ -26,6 +26,7 @@ public class Storage {
     protected static final String PATH_DELIMITER = "/";
     protected static final String TASK_DELIMITER = " | ";
     protected static final String TASK_DELIMITER_REGEX = " \\| ";
+    protected static final String DONE_INDICATOR = "X";
 
     public Storage() {
         this.dataPath = "data/data.txt";
@@ -79,12 +80,17 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             Scanner s = new Scanner(data);
+            // Reads data.txt line by line
             while (s.hasNext()) {
+                // Split line by delimited
                 String[] line = s.nextLine().split(TASK_DELIMITER_REGEX);
+                // Check status of each task
                 Boolean status = false;
                 if (line[1].equals("1")) {
                     status = true;
                 }
+                // Classify tasks into todo, deadline, event, then create corresponding objects
+                // Lastly, add to tasklist
                 switch(line[0]) {
                 case "T":
                     ToDo newToDo = new ToDo(line[2], status);
@@ -101,8 +107,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            //TODO
-            System.out.println("file not found");
+            System.out.println("(!) File not found");
         }
         System.out.println(String.format(SUCCESS_DATA_READ, tasks.size()));
         return tasks;
@@ -153,7 +158,7 @@ public class Storage {
     }
 
     private static int convertStatus(String status) {
-        if (status.equals("X")) {
+        if (status.equals(DONE_INDICATOR)) {
             return 1;
         } else {
             return 0;

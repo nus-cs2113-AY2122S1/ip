@@ -27,6 +27,7 @@ public class Event extends Task {
      */
     public Event(String description, String startString, String endString, Boolean isDone) throws DateTimeParseException {
         super(description, isDone);
+        // Parses time specified in String into LocalDate Time
         LocalDateTime start = LocalDateTime.parse(startString, dtf);
         LocalDateTime end = LocalDateTime.parse(endString, dtf);
         setTime(start, end);
@@ -74,6 +75,6 @@ public class Event extends Task {
      * @return Boolean Whether starting date is same as one specified
      */
     public Boolean compareDate(LocalDate ld) {
-        return ld .equals(start.toLocalDate());
+        return ld.equals(start.toLocalDate());
     }
 }

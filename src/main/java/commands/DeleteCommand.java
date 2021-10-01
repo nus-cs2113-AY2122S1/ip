@@ -8,6 +8,7 @@ import ui.TextUI;
 import static common.Error.ERROR_INVALID_TASK;
 import static common.Message.DELETE_TASK;
 import static common.Error.ERROR_FORMAT_DELETE;
+import static common.Message.DONE_TASK;
 
 /**
  * Represents the /delete command
@@ -41,14 +42,21 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TextUI ui, TaskList tasks, Storage data) {
         try {
-            taskID = Integer.parseInt(args.split(" ")[1]);
-            Task deletedTask = tasks.deleteTask(taskID);
+            String[] argList = args.split(" ");
+            if (argList.length == 2) {
+                taskID = Integer.parseInt(argList[1]);
+                Task deletedTask = tasks.deleteTask(taskID);
 
-            ui.showMessage(String.format(DELETE_TASK, deletedTask, tasks.getSize()));
-            data.write(tasks.getTaskList());
+                ui.showMessage(String.format(DELETE_TASK, deletedTask, tasks.getSize()));
+                data.write(tasks.getTaskList());
+            } else {
+                ui.showMessage(ERROR_INVALID_TASK);
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showMessage(ERROR_FORMAT_DELETE);
         } catch (IndexOutOfBoundsException e) {
+            ui.showMessage(ERROR_INVALID_TASK);
+        } catch (NumberFormatException e) {
             ui.showMessage(ERROR_INVALID_TASK);
         }
     }

@@ -24,6 +24,7 @@ public class Deadline extends Task {
      */
     public Deadline (String description, String timeString, Boolean isDone) throws DateTimeParseException {
         super(description, isDone);
+        // Parses time specified in String into LocalDate Time
         LocalDateTime time = LocalDateTime.parse(timeString, dtf);
         setTime(time);
     }
@@ -52,7 +53,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[d] [" + getStatus() + "] " + getDescription()
-                + " (By: " + getTime() + ")";
+                + " (by: " + getTime() + ")";
     }
 
     /**
