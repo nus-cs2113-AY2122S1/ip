@@ -76,9 +76,11 @@ public class Parser {
             throw new WrongFormatException();
         }
         String description = args[0].trim();
-        String byOrAt = "";
+        String byOrAt;
         if (args[1].length() > 3) {
             byOrAt = args[1].substring(3);
+        } else{
+            throw new WrongFormatException();
         }
         return new String[]{description, byOrAt};
     }
