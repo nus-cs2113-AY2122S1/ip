@@ -21,4 +21,9 @@ public class Event extends Task {
     public String getWhen() {
         return this.at;
     }
+
+    @Override
+    public String toString() {
+        return ("[E]" + "[" + getStatusIcon() + "] " + description + "(at: " + at + ")");
+    }
 }
