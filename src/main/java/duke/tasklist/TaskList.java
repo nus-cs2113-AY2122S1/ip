@@ -40,7 +40,7 @@ public class TaskList {
      * @param input string containing description and date and/or time of Deadline or Event task
      * @param tasks ArrayList of tasks
      * @throws InvalidTaskDescriptionException if no description is provided by the user, or the input by
-     * the user does not contain "/by" for a Deadline task or "/at" for an Event task.
+     *                                         the user does not contain "/by" for a Deadline task or "/at" for an Event task.
      * @see Deadline
      * @see Event
      */

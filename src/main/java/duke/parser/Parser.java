@@ -216,8 +216,14 @@ public class Parser {
      * @param userInput input from user from the command line interface
      * @return string containing keyword to search for tasks
      */
-    public static String getFindDescription(String userInput) {
-        return getTodoDescription(userInput);
+    public static String getFindDescription(String userInput) throws InvalidTaskDescriptionException {
+        String findDescription;
+        try {
+            findDescription = getTodoDescription(userInput);
+            return findDescription;
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new InvalidTaskDescriptionException("Tell me what kind of tasks you would like to find!");
+        }
     }
 
     public static boolean isDeleteAll(String userInput) {
