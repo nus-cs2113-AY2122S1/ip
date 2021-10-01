@@ -10,6 +10,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents a storage space for a <code>TaskList</code> object.
+ */
 public class Storage {
     protected String filePath;
 
@@ -17,6 +20,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Checks the text file set earlier for storage,
+     * loads the tasks into the input <code>TaskList</code> object.
+     *
+     * @param taskList The list of tasks initialized without any content yet.
+     * @throws IOException If an error occurs from reading or writing to the text file.
+     */
     public void loadFromFile(TaskList taskList) {
         int taskNumber = 0;
         try {
@@ -51,6 +61,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the current tasks in a <code>TaskList</code> object
+     * into a text file when the program terminates.
+     *
+     * @param filePath Path of the text file used to store the list of tasks.
+     * @param taskList The list of tasks.
+     * @throws IOException If an error occurs from reading or writing to the text file.
+     */
     public static void saveToFile(String filePath, TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(filePath);

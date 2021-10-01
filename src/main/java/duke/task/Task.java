@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * Represent a general task that might be a "todo", a "deadline", or a "event".
+ * The task has a description attribute, and a status attribute indicating whether it is done.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

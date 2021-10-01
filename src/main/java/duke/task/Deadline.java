@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * Represents an deadline that has a description, a status inherited from Task class,
+ * and an extra at attribute indicating the deadline of the task.
+ */
 public class Deadline extends Task {
 
     protected String by;
