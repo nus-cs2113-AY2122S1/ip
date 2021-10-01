@@ -33,6 +33,9 @@ public class TaskHandler {
         case LIST:
             result = listTasks();
             break;
+        case FIND:
+            result = find(line);
+            break;
         case CLEAR:
             result = clearTasks();
             break;
@@ -133,4 +136,15 @@ public class TaskHandler {
         return out;
     }
 
+    public String find(String line) {
+        String search = parser.parseFind(line);
+        String out = "Here are the marvellously matching tasks in your list:";
+        for (int i = 1; i <= tasks.size(); i++) {
+            Task currentTask = tasks.get(i - 1);
+            if (currentTask.contains(search)) {
+                out += System.lineSeparator() + i + "." + currentTask.toString();
+            }
+        }
+        return out;
+    }
 }
