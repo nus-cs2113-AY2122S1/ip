@@ -152,7 +152,7 @@ public class TaskList {
             int taskNumber = Parser.getTaskNumber(input);
             Ui.printDeleteMessage(tasks.get(taskNumber), tasks);
             tasks.remove(taskNumber);
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             Ui.printHorizontalLine();
             System.out.println("No such task number exists!");
             Ui.printHorizontalLine();
