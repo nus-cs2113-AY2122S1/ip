@@ -4,7 +4,7 @@ JARVIS is your own personalised bot that keeps track of your daily activities. Y
 
 ## Features
 
-###Tracking day-to-day activities
+### Tracking day-to-day activities
 
 A handy list of things that you can classify as an event, deadline or todo. You can even assign dates, times and even the location next to the item to remind you later.
 
