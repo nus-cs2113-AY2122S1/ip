@@ -78,6 +78,14 @@ ____________________________________________________________
 3.[E][X] love (Jun 13 2021)
 ____________________________________________________________
 ```
+
+If the list is empty:
+
+```
+list
+____________________________________________________________
+____________________________________________________________
+```
 <hr>
 
 ### Mark task as done : `done`
@@ -170,6 +178,19 @@ ____________________________________________________________
 No tasks containing 'rovers' found!
 ____________________________________________________________
 ```
+
+If no search term is specified, the entire list will be returned for your convenience.
+
+```
+find 
+____________________________________________________________
+Here are the matching tasks:
+    [T][ ] add
+    [T][ ] adder
+    [T][ ] added
+    [T][ ] wassup
+____________________________________________________________
+```
 <hr>
 
 ### Add a new deadline: `deadline`
@@ -255,7 +276,7 @@ ____________________________________________________________
 <hr>
 
 ### Save all tasks
-All tasks will be saved automatically in `data/storedtasks.txt` after every input from the user. If the program crashes during execution, the data preceding the crash will still be retained.
+All tasks will be saved automatically in `data/storedtasks.txt` in the folder you are running Triss from. If the program crashes during execution, the data preceding the crash will still be retained.
 
 <hr>
 
