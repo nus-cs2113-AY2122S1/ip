@@ -2,6 +2,13 @@
 
 **Duke** is a checklist app for recording tasks, via a Command Line Interfaces.
 
+
+# Quick Start
+  1. Ensure that you install Java 11 in the computer
+  2. Download ip.jar file in latest release V2.0
+  3. Execute the file by cmd
+  4. Type the command in the command box
+
 # Features 
 
 ## Add a new task
