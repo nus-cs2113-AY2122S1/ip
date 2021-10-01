@@ -32,7 +32,7 @@ public class Parser {
      * @param userInput String containing the TaskNumber.
      * @return The TaskNumber to be marked as done
      */
-    public int getTaskNumberFromInput(String userInput) throws IndexOutOfBoundsException{
+    public int getTaskNumberFromInput(String userInput) throws IndexOutOfBoundsException {
         try {
             int taskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER_INDEX]) - 1;
             // If less than 0, throw exception
@@ -41,7 +41,6 @@ public class Parser {
             }
             return taskNumber;
         } catch (NumberFormatException e) {
-            // todo
             ui.printInvalidUserNumberMessage();
             return -1;
         }

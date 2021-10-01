@@ -99,7 +99,7 @@ public class TaskList {
     }
 
     /**
-     * Worker class to create ToDo Tasks.
+     * Workers class to create ToDo Tasks.
      * @param userLine Line that is inputted by the user.
      * @param option FROM_USER or FROM_FILE.
      */
