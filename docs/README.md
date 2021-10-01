@@ -1,20 +1,19 @@
 # User Guide
 
 ##Setting Up
-Place `ip.jar` in an empty folder.
+Place `"Individual Project.jar"` in an empty folder.
 ### Launching Duke
-Launch the Terminal and change the directory to that of the folder 'ip.jar'.
+Launch the terminal and change the directory to that of the folder "Individual Project.jar" is in.
 Enter the command below into the terminal to run the program.
 ```
-java -jar ip.jar
+java -jar "Individual Project.jar"
 ```
 ## Features 
 
 ### Add task
 
-Add a task.
-A task can be the following:
-1. Todo - A simple task
+Add a task. A task can be one of the following:
+1. Todo - A simple task.
 2. Deadline - A task with a date to complete by.
 3. Event - A task with a start and end datetime.
 
@@ -25,22 +24,22 @@ Delete a task.
 
 ### Find task
 
-Find tasks with which includes provided substring.
+Find tasks with which includes the provided substring.
 
 ### Mark done
 
-Mark the task as completed
+Mark the task as complete.
 
 ### List
 
-List all the tasks
+List all the tasks.
 
 
 ## Usage
 
 ### `todo` - Add a todo.
 
-Add a todo for duke to track
+Add a todo for duke to track.
 
 Example of usage: 
 
@@ -86,7 +85,7 @@ Now you have 3 tasks in the list.
 
 ### `done` - Mark a task as done.
 
-Mark a task as completed.
+Mark a task as complete.
 
 Example of usage:
 
@@ -100,8 +99,7 @@ Nice. I've marked this task as done:
 ```
 ### `delete` - Delete a task.
 
-Delete a task
-After delete, task will no longer be tracked by Duke.
+Delete a task. After delete, the task will no longer be tracked by Duke.
 
 Example of usage:
 
@@ -134,7 +132,7 @@ Here are the tasks in your list
 
 ### `find` - Find tasks which contains given substring.
 
-Find, among tasks that are currently tracked by duke, tasks that contain a given substring.
+Find, among tasks that are currently tracked by duke, those that contain a given substring.
 
 Example of usage:
 
@@ -144,7 +142,7 @@ Expected outcome:
 
 ```
 Here are the matching tasks in your list:
-1.[T][X] borrow book
+1.[D][X] return book (by: 11 August)
 ```
 ### `bye` - Close duke.
 
