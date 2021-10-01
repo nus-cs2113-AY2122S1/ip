@@ -1,12 +1,12 @@
 # User Guide
 
 ## Setting Up
-Place `"Individual Project.jar"` in an empty folder.
+Place `"ip.jar"` in an empty folder.
 ### Launching Duke
-Launch the terminal and change the directory to that of the folder "Individual Project.jar" is in.
+Launch the terminal and change the directory to that of the folder "ip.jar" is in.
 Enter the command below into the terminal to run the program.
 ```
-java -jar "Individual Project.jar"
+java -jar ip.jar
 ```
 ## Features 
 
