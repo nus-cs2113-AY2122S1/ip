@@ -10,6 +10,13 @@ import duke.Storage;
 public class TaskList {
     private static ArrayList<Todo> tasks = new ArrayList<Todo>();
 
+    /**
+     * Adds a Todo object to the ArrayList, tasks.
+     * If userInput has less than 5 characters, an InvalidInputException is thrown.
+     * If InvalidInputException is caught, print error message and return.
+     *
+     * @param userInput String which user inputted to add a Todo task, should contain information about the task.
+     */
     public static void addTodo(String userInput) {
         try {
             if (userInput.length() < 5) {
@@ -20,10 +27,18 @@ public class TaskList {
             printTaskAddedConfirmation(newTask);
             updateFile();
         } catch (InvalidInputException e) {
-            System.out.println(e.toString().substring(23));
+            System.out.println(e.toString().substring(38));
         }
     }
 
+    /**
+     * Adds a Deadline object to the ArrayList, tasks.
+     * If userInput has less than 9 characters, an InvalidInputException is thrown.
+     * If userInput has no substring "/by", an InvalidInputException is thrown.
+     * If InvalidInputException is caught, print error message and return.
+     *
+     * @param userInput String which user inputted to add a Deadline task, should contain information about the task.
+     */
     public static void addDeadline(String userInput) {
         try {
             if (userInput.length() < 9) {
@@ -43,10 +58,18 @@ public class TaskList {
             printTaskAddedConfirmation(newTask);
             updateFile();
         } catch (InvalidInputException e) {
-            System.out.println(e.toString().substring(23));
+            System.out.println(e.toString().substring(38));
         }
     }
 
+    /**
+     * Adds an Event object to the ArrayList, tasks.
+     * If userInput has less than 6 characters, an InvalidInputException is thrown.
+     * If userInput has no substring "/at", an InvalidInputException is thrown.
+     * If InvalidInputException is caught, print error message and return.
+     *
+     * @param userInput String which user inputted to add an Event task, should contain information about the task.
+     */
     public static void addEvent(String userInput) {
         try {
             if (userInput.length() < 6) {
@@ -65,24 +88,36 @@ public class TaskList {
             printTaskAddedConfirmation(newTask);
             updateFile();
         } catch (InvalidInputException e) {
-            System.out.println(e.toString().substring(23));
+            System.out.println(e.toString().substring(38));
         }
 
     }
 
+    /**
+     * Prints the elements in the ArrayList, tasks.
+     * If there are no elements in the ArrayList, prints "No tasks added".
+     */
     public static void printTasks() {
         if (tasks.size() == 0) {
             System.out.println("\tNo tasks added");
             return;
         }
         int count = 1;
+        System.out.println("\tHere are the tasks in your list");
         for (Todo task : tasks) {
-            System.out.println("\tHere are the tasks in your list");
             System.out.println("\t" + count + "." + task);
             count++;
         }
     }
 
+    /**
+     * Marks the task specified by userInput as done.
+     * Casts the userInput as integer.
+     * If the integer is larger than the size of the ArrayList, tasks, print "No such task".
+     * First task corresponds to index 1.
+     *
+     * @param userInput Index of the task to be mark as done.
+     */
     public static void markDone(String userInput) {
         int indexOfTaskNumber = userInput.indexOf(' ') + 1;
         int taskNumber = Integer.parseInt(userInput.substring(indexOfTaskNumber));
@@ -97,6 +132,14 @@ public class TaskList {
         updateFile();
     }
 
+    /**
+     * Deletes the task specified by userInput.
+     * Casts the userInput as integer.
+     * If the integer is larger than the size of the ArrayList, tasks, print "No such task".
+     * First task corresponds to index 1.
+     *
+     * @param userInput Index of the task to be deleted.
+     */
     public static void deleteTask(String userInput) {
         int indexOfTaskNumber = userInput.indexOf(' ') + 1;
         int taskNumber = Integer.parseInt(userInput.substring(indexOfTaskNumber));
@@ -112,7 +155,8 @@ public class TaskList {
         updateFile();
     }
 
-    public static void findTaskWithSubstring(String userInput) {
+
+    public static void findTasksWithSubstring(String userInput) {
         int startIndexOfTargetSubstring = userInput.indexOf(' ') + 1;
         String targetSubString = userInput.substring(startIndexOfTargetSubstring);
         ArrayList<Todo> listOfTasksWithSubstring = new ArrayList<Todo>();
@@ -137,12 +181,24 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Prints the task that was added.
+     * Helper method for addDeadline(), addEvent() and addTodo() methods.
+     *
+     * @param task Task that was added into the ArrayList, tasks.
+     */
     private static void printTaskAddedConfirmation(Todo task) {
         System.out.println("\tGot it. I've added this task:");
         System.out.println("\t\t" + task);
         System.out.format("\tNow you have %d tasks in the list.\n", tasks.size());
     }
 
+    /**
+     * Updates the text file to the current situation.
+     * Helper method for addDeadline(), addEvent(), addTodo, deleteTask(), markDone() methods.
+     * In short, helper method for any methods which modifies the ArrayList, tasks or the elements in it.
+     */
     private static void updateFile() {
         try {
             Storage.write(tasks);
@@ -151,6 +207,14 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Converts the strings in the ArrayList to the corresponding objects.
+     * The objects can be of type Todo, Deadline, or Event.
+     * Adds the objects to the ArrayList, tasks.
+     *
+     * @param tasksString ArrayList which contains strings which are descriptions of tasks.
+     */
     public static void convertTaskStringToTasks(ArrayList<String> tasksString) {
         if (tasksString == null) {
             return;
