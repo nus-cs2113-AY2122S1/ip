@@ -148,7 +148,7 @@ Here are the matching tasks in your list:
 
 ```
 
-### Exiting duke: ```bye```
+### Exiting Duke: ```bye```
 Terminate the program.   
 The bye command must be not accompanied by any other arguments .  
 Format: `` find ``
@@ -163,27 +163,9 @@ Bye! Cya next time!
 
 ```
 
+### Save list in a local text file
+Whenever a user exits Duke using ``bye``, the tasklist when he exits is automatically updated into a local text file at the file path ```data/dukedata.txt```.  
+In the case where the directory or file required does not exist, Duke automatically creates the directory and file for the user. Whenever the same user starts up Duke again, Duke will automatically load the tasklist written in the text file. 
 
 
 
-### Feature-XYZ
-
-Description of the feature.
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
