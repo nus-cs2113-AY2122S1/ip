@@ -116,6 +116,24 @@ Example
 
 ```
 
+### Deleting a task: ```delete```
+Deleting the specified task from the tasklist.   
+The delete command must be accompanied by an `index` of the specified task in the tasklist .  
+Format: `` delete <index> ``
+
+Example
+```
+
+% delete 2
+------------------------------------  
+Noted, I've removed this task: 
+[D][X] drink milk (by: 7pm)
+------------------------------------  
+
+```
+
+
+
 
 ### Feature-XYZ
 
