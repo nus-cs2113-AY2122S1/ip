@@ -32,7 +32,6 @@ public class Formatter {
             Formatter.printOutputStart();
             System.out.println(line);
         }
-        Formatter.printOutputSeparator();
     }
 }
 

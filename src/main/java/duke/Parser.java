@@ -18,7 +18,7 @@ public class Parser {
     private String COMMAND_UNKNOWN_ERROR_MESSAGE = "I cannot comprehend, my liege.";
     private String COMMAND_MISSING_DESCRIPTION_ERROR_MESSAGE = "My liege, there is no description!";
     private String COMMAND_MISSING_BY_ERROR_MESSAGE = "By when, my liege?";
-    private String COMMAND_MISSING_AT_ERROR_MESSAGE = "Where at, my liege?";
+    private String COMMAND_MISSING_AT_ERROR_MESSAGE = "When or where is this event, my liege?";
 
     public Command returnCommand(String line) {
         Command command;
@@ -93,8 +93,11 @@ public class Parser {
     }
 
     public String[] parseDeadline(String line) {
-        int dividerPosition = line.toLowerCase().indexOf("/by");
+        if (!deadlineContainsBy(line)) {
+            throw new IllegalArgumentException(COMMAND_MISSING_BY_ERROR_MESSAGE);
+        }
 
+        int dividerPosition = line.toLowerCase().indexOf("/by");
         String description = line.substring(9, dividerPosition).trim();
         if (description.isEmpty()) {
             throw new IllegalArgumentException(COMMAND_MISSING_DESCRIPTION_ERROR_MESSAGE);
@@ -112,8 +115,11 @@ public class Parser {
     }
 
     public String[] parseEvent(String line) {
-        int dividerPosition = line.toLowerCase().indexOf("/at");
+        if (!eventContainsAt(line)) {
+            throw new IllegalArgumentException(COMMAND_MISSING_AT_ERROR_MESSAGE);
+        }
 
+        int dividerPosition = line.toLowerCase().indexOf("/at");
         String description = line.substring(6, dividerPosition).trim();
         if (description.isEmpty()) {
             throw new IllegalArgumentException(COMMAND_MISSING_DESCRIPTION_ERROR_MESSAGE);
