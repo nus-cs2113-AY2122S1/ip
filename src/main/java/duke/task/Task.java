@@ -28,7 +28,7 @@ public class Task {
     }
 
     /**
-     * Set the date and time (dateTime) of the task.
+     * Sets the date and time (dateTime) of the task.
      *
      * @param line String containing timing information.
      */
