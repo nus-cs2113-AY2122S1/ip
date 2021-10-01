@@ -1,4 +1,4 @@
-package duke;
+package duke.io;
 
 /**
  * Formats the input and output of Duke.

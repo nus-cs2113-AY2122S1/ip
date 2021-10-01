@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 /**
  * Implements the abstract class Task, which minimally has a description and

@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 /**
  * Implements the class Deadline, which has a description, a done status

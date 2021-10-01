@@ -1,4 +1,7 @@
-package duke;
+package duke.io;
+
+import duke.TaskHandler;
+import duke.exceptions.InvalidCommandException;
 
 import java.util.Scanner;
 

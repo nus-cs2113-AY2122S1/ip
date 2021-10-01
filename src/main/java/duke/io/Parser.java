@@ -1,4 +1,4 @@
-package duke;
+package duke.io;
 
 /**
  * Parses the user input to recognise commands, statuses and command details.
