@@ -36,6 +36,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    10. `find books`: Search for `books` within the current task list and displays all tasks with `books` to the user.
 
 ### Notes about the command format:
+
 - Words in `UPPER_CASE` are the parameters to be supplied by the user. 
   - e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo homework`.
 - Items in square brackets are optional.
@@ -46,6 +47,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 - Format of `TIME` is `hh:mm`
 
 ### Summary of commands
+
 | **Command**            | **Format**                             | **Example**                                       |
 |------------------------|----------------------------------------|---------------------------------------------------|
 | Add todo               | `todo DESCRIPTION`                     | `todo homework`                                   |
@@ -60,6 +62,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 | Mark task as done | `done INDEX`                           | `done 2`                                          |
 
 ### References
+
 - contacts https://github.com/nus-cs2113-AY2122S1/contacts
 - personBook https://github.com/nus-cs2113-AY2122S1/personbook
 - taskStream https://github.com/nus-cs2113-AY2122S1/TaskStream
