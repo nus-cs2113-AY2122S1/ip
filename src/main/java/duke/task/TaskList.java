@@ -22,7 +22,7 @@ public class TaskList {
             if (userInput.length() < 5) {
                 throw new InvalidInputException("OOPS!!! Description of todo cannot be empty :(");
             }
-            Todo newTask = new Todo(userInput);
+            Todo newTask = new Todo(userInput.substring(5));
             tasks.add(newTask);
             printTaskAddedConfirmation(newTask);
             updateFile();
