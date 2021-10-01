@@ -2,6 +2,7 @@ package duke;
 
 public class Event extends Task {
 
+    private final String taskType = "E";
     protected String at;
 
     public Event(String description, String at) {
@@ -13,6 +14,11 @@ public class Event extends Task {
         super(description);
         this.at = at;
         super.setDone(isDone);
+    }
+
+    @Override
+    public String taskString() {
+        return this.taskType + " | " + super.getStatusIcon() + " | " + super.description + " | " + this.at;
     }
 
     @Override

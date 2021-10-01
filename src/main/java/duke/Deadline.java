@@ -2,6 +2,7 @@ package duke;
 
 public class Deadline extends Task {
 
+    private final String taskType = "D";
     protected String by;
 
     public Deadline(String description, String by) {
@@ -13,6 +14,11 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
         super.setDone(isDone);
+    }
+
+    @Override
+    public String taskString() {
+        return this.taskType + " | " + super.getStatusIcon() + " | " + super.description + " | " + this.by;
     }
 
     @Override

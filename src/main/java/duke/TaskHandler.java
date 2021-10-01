@@ -1,14 +1,6 @@
 package duke;
 
-import duke.Parser;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class TaskHandler {
 
@@ -19,10 +11,9 @@ public class TaskHandler {
     protected ArrayList<Task> tasks;
 
     public TaskHandler(Storage storage) {
-        this.tasks = new ArrayList<Task>();
-        this.parser = new Parser();
         this.storage = storage;
-        convertFileToTask();
+        this.tasks = storage.load();
+        this.parser = new Parser();
     }
 
     public String handleTasks(String line) throws IllegalArgumentException, DukeException {
@@ -30,6 +21,7 @@ public class TaskHandler {
         if (parser.inputIsList(lc)) {
             return listTasks();
         } else if (parser.inputIsClear(lc)) {
+            this.tasks.clear();
             return storage.clearFileData();
         } else if (parser.inputIsDone(lc)) {
             return doTask(lc);
@@ -69,43 +61,7 @@ public class TaskHandler {
         return "As you command. Added: ";
     }
 
-    public void convertFileToTask() {
-        List<String> lines = storage.returnAllFileData();
-        for (String line : lines) {
-            convertFileLineToTask(line);
-        }
-    }
 
-    public Task convertFileLineToTask(String line) {
-        // line is in the format: task type | done | description | additional detail
-        String[] taskComponents = line.split("|");
-        for (String component : taskComponents) {
-            component.strip();
-        }
-        String taskType = taskComponents[0];
-        String done = taskComponents[1];
-        String description = taskComponents[2];
-        String detail = taskComponents[3];
-
-        Task task;
-        boolean isDone = done == "X";
-
-        switch (taskType) {
-        case "T":
-            task = new Todo(description, isDone);
-            break;
-        case "D":
-            task = new Deadline(description, detail, isDone);
-            break;
-        case "E":
-            task = new Event(description, detail, isDone);
-            break;
-        default:
-            task = new Todo(description, isDone);
-        }
-        this.tasks.add(task);
-        return task;
-    }
 
     public String addTodo(String line) throws IllegalArgumentException {
         if (line.length() <= 5) {
@@ -114,7 +70,7 @@ public class TaskHandler {
         String description = line.substring(5).trim();
         Todo newTodo = new Todo(description);
         tasks.add(newTodo);
-        storage.appendLinetoFileData(newTodo.toString());
+        storage.addTaskToFileData(newTodo.taskString());
         return returnAddTaskSuccess() + newTodo.toString();
     }
 
@@ -131,7 +87,7 @@ public class TaskHandler {
         }
         Deadline newDeadline = new Deadline(description, by);
         tasks.add(newDeadline);
-        storage.appendLinetoFileData(newDeadline.toString());
+        storage.addTaskToFileData(newDeadline.taskString());
         return returnAddTaskSuccess() + newDeadline.toString();
     }
 
@@ -148,7 +104,7 @@ public class TaskHandler {
         }
         Event newEvent = new Event(description, at);
         tasks.add(newEvent);
-        storage.appendLinetoFileData(newEvent.toString());
+        storage.addTaskToFileData(newEvent.taskString());
         return returnAddTaskSuccess() + newEvent.toString();
     }
 
@@ -179,7 +135,11 @@ public class TaskHandler {
         }
         int id = inputNum - 1;
         tasks.get(id).setDone();
-        storage.editFileData(id, tasks.get(id).toString());
+        // TODO setDone function in storage
+        String newFileDataLine = storage.getLine(id);
+        char[] newFileDataLineChars = newFileDataLine.toCharArray();
+        newFileDataLineChars[3] = 'X';
+        storage.replaceFileData(id, String.valueOf(newFileDataLineChars));
         return returnTaskCompleted() + System.lineSeparator()
                 + Formatter.returnOutputStart() + tasks.get(id).toString();
     }
@@ -195,14 +155,16 @@ public class TaskHandler {
         }
         int id = inputNum - 1;
         Task deletedTask = tasks.remove(id);
-        storage.deleteLinefromFileData(id);
+        storage.deleteLineFromFileData(id);
         return returnTaskDeleted() + System.lineSeparator()
                 + Formatter.returnOutputStart() + deletedTask.toString();
     }
 
     public String listTasks() {
         String out = "Your magnificent tasks:";
-        out += storage.returnAllFileDataAsList();
+        for (int i = 1; i <= tasks.size(); i++) {
+            out += System.lineSeparator() + i + "." + tasks.get(i - 1).toString();
+        }
         return out;
     }
 
@@ -213,8 +175,5 @@ public class TaskHandler {
     public String returnInputOutOfRange() {
         return "Have mercy, for that is beyond my knowledge.";
     }
-
-
-
 
 }

@@ -1,6 +1,6 @@
 package duke;
 
-public class Task {
+abstract public class Task {
 
     protected String description;
     protected boolean isDone;
@@ -23,6 +23,8 @@ public class Task {
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
+
+    public abstract String taskString();
     
     @Override
     public boolean equals(Object obj) {
