@@ -27,9 +27,22 @@ public class Deadline extends Task {
 
         String[] splittedDueDate = dueDate.split(" ");
         LocalDate date = LocalDate.parse(splittedDueDate[0],DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        String time = splittedDueDate[1];
+        String time = getTime(splittedDueDate);
         //output message
-        return "[D]" + super.getStatusIcon() + super.toString() + " (" + preposition + ": " + date.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + " " + time + ")";
+        return "[D]" + super.getStatusIcon() + super.toString() + " (" + preposition + ": " + date.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + time + ")";
+    }
+
+    /**
+     * Get the time from the due date entered by the user.
+     *
+     * @param splittedDueDate The separated due date string, splitted into an array of strings.
+     * @return Returns the time in a String if a time is entered by the user, else return "".
+     */
+    private String getTime(String[] splittedDueDate) {
+        if (splittedDueDate.length > 1) {
+            return " " + splittedDueDate[1];
+        }
+        return "";
     }
 
     /**
