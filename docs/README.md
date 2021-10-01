@@ -29,7 +29,7 @@ Pepepopo is a desktop app for **managing tasks**, optimized for use via a Comman
 ### Adding a task
 Adds a task to your tasklist.
 
-###Types of task:
+### Types of task:
 
 #### Todo: `todo`
 Adds a todo task.
