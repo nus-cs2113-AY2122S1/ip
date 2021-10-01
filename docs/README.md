@@ -16,7 +16,7 @@ To set up Java Environment: Install the lastest Version of Java 11.
 3. Run `java -jar -ip.jar`
 4. If there is no error, the map should ask you for a Revealing Charm: 
 ![image](https://user-images.githubusercontent.com/69776265/135422052-4c6a9809-99f0-4b9e-a433-80e8059f0ff3.png)
-   The map will brutally insults its nemesis if you are a muggle (i.e. dont know the charm).
+   If you are a muggle(i.e. dont know the charm), you will be forever trapped here and watch the map brutally insults its nemesis. 
 5. Once the correct charm is entered, the map is at your service. 
 ![image](https://user-images.githubusercontent.com/69776265/135422439-767bd5b1-7678-456a-b03e-24357b4a5479.png) 
 
