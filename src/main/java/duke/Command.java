@@ -1,8 +1,5 @@
 package duke;
 
-/**
- * An enum class Command that contains the various commands that Duke recognises.
- */
 public enum Command {
     EXIT,
     LIST,

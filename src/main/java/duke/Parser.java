@@ -1,22 +1,26 @@
 package duke;
 
-/**
- * Parses the user input to recognise commands, statuses and command details.
- */
 public class Parser {
 
-    /** Error messages */
-    public String COMMAND_UNKNOWN_ERROR_MESSAGE = "I cannot comprehend, my liege.";
+    enum InputError {
+        COMMAND_UNKNOWN,
+        COMMAND_MISSING_DESCRIPTION,
+        COMMAND_MISSING_BY,
+        COMMAND_MISSING_AT
+    }
+
+    private String COMMAND_UNKNOWN;
+    private String COMMAND_MISSING_DESCRIPTION;
+    private String COMMAND_MISSING_BY;
+    private String COMMAND_MISSING_AT;
+
+    /* Error messages */
+    private String COMMAND_UNKNOWN_ERROR_MESSAGE = "I cannot comprehend, my liege.";
     private String COMMAND_MISSING_DESCRIPTION_ERROR_MESSAGE = "My liege, there is no description!";
     private String COMMAND_MISSING_BY_ERROR_MESSAGE = "By when, my liege?";
     private String COMMAND_MISSING_AT_ERROR_MESSAGE = "When or where is this event, my liege?";
     private String COMMAND_MISSING_VALUE_ERROR_MESSAGE = "My liege, there is no value!";
 
-    /**
-     * Reads the user input and returns the type of Command it is.
-     * @param line the line of user input
-     * @return the type of Command
-     */
     public Command returnCommand(String line) {
         Command command;
         if (inputIsBye(line)) {
@@ -43,67 +47,50 @@ public class Parser {
         return command;
     }
 
-    /** Returns true if input is the exit command "bye". */
     public boolean inputIsBye(String line) {
         return line.equalsIgnoreCase("bye");
     }
 
-    /** Returns true if command is "todo". */
     public boolean inputIsTodo(String line) {
         return line.toLowerCase().startsWith("todo");
     }
 
-    /** Returns true if command is "find". */
     public boolean inputIsFind(String line) {
         return line.toLowerCase().startsWith("find");
     }
 
-    /** Returns true if command is "delete". */
     public boolean inputIsDelete(String line) {
         return line.toLowerCase().startsWith("delete");
     }
 
-    /** Returns true if command is "deadline". */
     public boolean inputIsDeadline(String line) {
         return line.toLowerCase().startsWith("deadline");
     }
 
-    /** Returns true if the deadline command contains by. */
     public boolean deadlineContainsBy(String line) {
         return line.toLowerCase().contains("/by");
     }
 
-    /** Returns true if command is "event". */
     public boolean inputIsEvent(String line) {
         return line.toLowerCase().startsWith("event");
     }
 
-    /** Returns true if the event command is contains at. */
     public boolean eventContainsAt(String line) {
         return line.toLowerCase().contains("/at");
     }
 
-    /** Returns true if command is "done", or do task. */
     public boolean inputIsDone(String line) {
         return line.toLowerCase().startsWith("done");
     }
 
-    /** Returns true if command is "clear". */
     public boolean inputIsClear(String line) {
         return line.toLowerCase().startsWith("clear");
     }
 
-    /** Returns true if command is "list". */
     public boolean inputIsList(String line) {
         return line.equalsIgnoreCase("list");
     }
 
-    /**
-     * Parses a todo command to extract its description.
-     * @param line the line containing the command
-     * @return the description of the Todo
-     * @throws IllegalArgumentException if there is no description
-     */
     public String parseTodo(String line) throws IllegalArgumentException {
         if (line.length() <= 5) {
             throw new IllegalArgumentException(COMMAND_MISSING_DESCRIPTION_ERROR_MESSAGE);
@@ -112,13 +99,7 @@ public class Parser {
         return description;
     }
 
-    /**
-     * Parses a deadline command to extract its description and by.
-     * @param line the line containing the command
-     * @return a String[] containing the description and by
-     * @throws IllegalArgumentException if there is no description or by
-     */
-    public String[] parseDeadline(String line) throws IllegalArgumentException {
+    public String[] parseDeadline(String line) {
         if (!deadlineContainsBy(line)) {
             throw new IllegalArgumentException(COMMAND_MISSING_BY_ERROR_MESSAGE);
         }
@@ -140,13 +121,7 @@ public class Parser {
         return taskComponents;
     }
 
-    /**
-     * Parses an event command to extract its description and at.
-     * @param line the line containing the command
-     * @return a String[] containing the description and at
-     * @throws IllegalArgumentException if there is no description or at
-     */
-    public String[] parseEvent(String line) throws IllegalArgumentException {
+    public String[] parseEvent(String line) {
         if (!eventContainsAt(line)) {
             throw new IllegalArgumentException(COMMAND_MISSING_AT_ERROR_MESSAGE);
         }
@@ -168,13 +143,7 @@ public class Parser {
         return taskComponents;
     }
 
-    /**
-     * Parses a do task command to extract the ID of the Task.
-     * @param line the line containing the command
-     * @return the Task's ID
-     * @throws IllegalArgumentException if there is no ID found
-     */
-    public int parseDoTask(String line) throws IllegalArgumentException {
+    public int parseDoTask(String line) {
         if (line.length() <= 4) {
             throw new IllegalArgumentException(COMMAND_MISSING_VALUE_ERROR_MESSAGE);
         }
@@ -183,13 +152,7 @@ public class Parser {
         return inputNum;
     }
 
-    /**
-     * Parses a delete task command to extract the ID of the Task.
-     * @param line the line containing the command
-     * @return the Task's ID
-     * @throws IllegalArgumentException if there is no ID found
-     */
-    public int parseDeleteTask(String line) throws IllegalArgumentException {
+    public int parseDeleteTask(String line) {
         if (line.length() <= 6) {
             throw new IllegalArgumentException(COMMAND_MISSING_VALUE_ERROR_MESSAGE);
         }
@@ -198,13 +161,7 @@ public class Parser {
         return inputNum;
     }
 
-    /**
-     * Parses a find command to extract the search term.
-     * @param line the line containing the command
-     * @return the search term
-     * @throws IllegalArgumentException if there is no search term found
-     */
-    public String parseFind(String line) throws IllegalArgumentException {
+    public String parseFind(String line) {
         if (line.length() <= 4) {
             throw new IllegalArgumentException(COMMAND_MISSING_VALUE_ERROR_MESSAGE);
         }
