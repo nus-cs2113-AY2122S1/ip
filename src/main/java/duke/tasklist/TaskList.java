@@ -30,6 +30,7 @@ public class TaskList{
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
 
     public static String number;
     public static String inputCommand;
@@ -73,6 +74,10 @@ public class TaskList{
             inputNum = handleIntConversion(userInput, COMMAND_DELETE);
             performDelete(inputNum);
             Storage.writeToFile();
+            break;
+        case COMMAND_FIND:
+            String keyword = Parser.splitKeyword(userInput);
+            findKeyword(keyword);
             break;
         case COMMAND_BYE:
             Ui.exitProgram();
@@ -135,6 +140,21 @@ public class TaskList{
     private static void updateTaskNum(int deleteTaskNum) {
         for (int i = deleteTaskNum; i < taskArrayList.size(); i++) {
             taskArrayList.get(i).taskNum = taskArrayList.get(i).taskNum - 1;
+        }
+    }
+
+    private static void findKeyword(String keyword){
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Here are the matching tasks in the list:");
+        boolean isThereMatchingTask = false;
+        for (Task t: taskArrayList){
+            if (t.toString().contains(keyword)){
+                System.out.println(INDENT + t.taskNum + "." + t);
+                isThereMatchingTask = true;
+            }
+        }
+        if (!isThereMatchingTask){
+            System.out.println("Search Complete. There are no matching tasks in the list.");
         }
     }
 
