@@ -29,9 +29,9 @@ public class Duke {
         taskList = storage.readFileContents("lines.txt");
 
 
-        Scanner in = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         ui.welcomeMessage();
-        parser = new Parser(in.nextLine());
+        parser = new Parser(input.nextLine());
         int command = parser.command();
         while (command != BYE) {
             switch (command) {
@@ -98,7 +98,7 @@ public class Duke {
                 ui.showTypingError();
                 break;
             }
-            parser = new Parser(in.nextLine());
+            parser = new Parser(input.nextLine());
             command = parser.command();
         }
 

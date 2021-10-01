@@ -23,7 +23,7 @@ public class Deadline extends Task {
         // return format
         String printStatus;
         // return format
-        if(this.isDone == true) {
+        if (this.isDone == true) {
             printStatus = "1";
         } else {
             printStatus = "0";

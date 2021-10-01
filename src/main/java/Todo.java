@@ -24,12 +24,12 @@ public class Todo extends Task {
         // return format
         String printStatus;
         // return format
-        if(this.isDone == true) {
+        if (this.isDone == true) {
             printStatus = "1";
         } else {
             printStatus = "0";
         }
         return "T " + printStatus + " " + description;
     }
-    }
+}
 
