@@ -121,6 +121,24 @@ public class TaskList {
             } else {
                 userInterface.printWithTaskWordString(taskNumberToRemove, DELETE_PADDING, taskWordString, tasks);
             }
-        }   tasks.remove(tasks.get(taskNumberToRemove - DELETE_PADDING));
+        }
+        tasks.remove(tasks.get(taskNumberToRemove - DELETE_PADDING));
+    }
+
+    public void findTasks(String line, ArrayList<Task> tasks) throws DukeMissingParamException, ArrayIndexOutOfBoundsException, DukeMultipleParamException {
+        String input[] = line.split(" ");
+        if (input.length == 1) {
+            throw new DukeMissingParamException();
+        } else if (input.length > 2) {
+            throw new DukeMultipleParamException();
+        }
+
+        ArrayList<Task> matchedKeys = new ArrayList<>();
+        for (Task matchingTasks : tasks) {
+            if (matchingTasks.getDescription().contains(input[1])) {
+                matchedKeys.add(matchingTasks);
+            }
+        }
+        userInterface.printTasksThatMatch(matchedKeys, tasks);
     }
 }

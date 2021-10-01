@@ -27,6 +27,8 @@ public class Parser {
 
     protected String EVENT_COMMAND = "event";
 
+    protected String FIND_COMMAND = "find";
+
 
     public static int filterTaskNumber(String taskThatIsDone) throws DukeMissingParamException, NumberFormatException {
 
@@ -57,18 +59,15 @@ public class Parser {
 
                     taskList.markTaskAsDone(taskNum, tasks);
 
-                }
-                catch (DukeMissingParamException e) {
+                } catch (DukeMissingParamException e) {
 
                     userInterface.printDoneEmptyError();
 
-                }
-                catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
 
                     userInterface.printDoneWordError();
 
-                }
-                catch (IndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException e) {
 
                     userInterface.printDoneInvalidNumberError();
 
@@ -80,18 +79,15 @@ public class Parser {
 
                     taskList.deleteTask(taskNum, tasks);
 
-                }
-                catch (DukeMissingParamException e) {
+                } catch (DukeMissingParamException e) {
 
                     userInterface.printDeleteEmptyError();
 
-                }
-                catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
 
                     userInterface.printDeleteWordError();
 
-                }
-                catch (IndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException e) {
 
                     userInterface.printDeleteInvalidNumError();
 
@@ -101,8 +97,7 @@ public class Parser {
 
                     taskList.addTodo(line, tasks);
 
-                }
-                catch (DukeMissingDescException e) {
+                } catch (DukeMissingDescException e) {
 
                     userInterface.printTodoEmptyError();
 
@@ -112,18 +107,15 @@ public class Parser {
 
                     taskList.addDeadline(line, tasks);
 
-                }
-                catch (DukeMissingDescException e) {
+                } catch (DukeMissingDescException e) {
 
                     userInterface.printDeadlineEmptyError();
 
-                }
-                catch (DukeMissingParamException e) {
+                } catch (DukeMissingParamException e) {
 
                     userInterface.printDeadlineMissingParameterError();
 
-                }
-                catch (DateTimeParseException e) {
+                } catch (DateTimeParseException e) {
 
                     userInterface.printDeadlineEventDateParameterError();
 
@@ -133,18 +125,33 @@ public class Parser {
 
                     taskList.addEvent(line, tasks);
 
-                }
-                catch (DukeMissingDescException e) {
+                } catch (DukeMissingDescException e) {
 
                     userInterface.printEventEmptyError();
 
-                }
-                catch (DukeMissingParamException e) {
+                } catch (DukeMissingParamException e) {
 
-                    userInterface.printEventMissingParamError();
+                    userInterface.printEventMissingParameterError();
+
+                } catch (DateTimeParseException e) {
+
+                    userInterface.printDeadlineEventDateParameterError();
 
                 }
-                catch (DateTimeParseException e) {
+            } else if (line.contains(FIND_COMMAND)) {
+                try {
+
+                    taskList.findTasks(line, tasks);
+
+                } catch (DukeMissingParamException e) {
+
+                    userInterface.printFindMissingParameterError();
+
+                } catch (DukeMultipleParamException e) {
+
+                    userInterface.printFindMultipleParameterError();
+
+                } catch (DateTimeParseException e) {
 
                     userInterface.printDeadlineEventDateParameterError();
 

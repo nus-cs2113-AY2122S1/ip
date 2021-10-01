@@ -65,6 +65,14 @@ public class Ui {
             + "Oops! Please enter a valid date! YYYY-MM-DD (e.g. 2021-12-31)" + System.lineSeparator()
             + DOTTED_LINE;
 
+    protected String FIND_MISSING_PARAMETER = DOTTED_LINE + System.lineSeparator()
+            + "Oops! Please include search keyword!" + System.lineSeparator()
+            + DOTTED_LINE;
+    protected String FIND_MULTIPLE_PARAMETER = DOTTED_LINE + System.lineSeparator()
+            + "Oops! Only one search keyword is allowed!" + System.lineSeparator()
+            + DOTTED_LINE;
+
+
     public void printWelcomeMessage() {
         String welcomeMessage = DOTTED_LINE + System.lineSeparator()
                 + "Hello! Welcome to Task_Tracker!" + System.lineSeparator()
@@ -185,7 +193,7 @@ public class Ui {
         System.out.println(EVENT_EMPTY);
     }
 
-    public void printEventMissingParamError() {
+    public void printEventMissingParameterError() {
         System.out.println(EVENT_MISSING_PARAMETER);
     }
 
@@ -213,6 +221,31 @@ public class Ui {
                 + tasks.get(taskNumberToRemove - DELETE_OFFSET).description + "(" + taskWordString + tasks.get(taskNumberToRemove - DELETE_OFFSET).getWhen() + ")" + System.lineSeparator()
                 + "You now have " + (tasks.size() - DELETE_OFFSET) + " tasks in the list!" + System.lineSeparator()
                 + DOTTED_LINE);
+    }
+
+    public void printTasksThatMatch(ArrayList<Task> matchedKeys, ArrayList<Task> tasks)  {
+        System.out.println(DOTTED_LINE + System.lineSeparator()
+                + "Here are the tasks in your list!");
+        if (tasks.size() == 0) {
+            System.out.println("Oops! No tasks recorded!");
+        } else if (matchedKeys.size() == 0) {
+            System.out.println("Oops! Keyword not found!");
+        } else {
+            int taskCounter = 0;
+            for (Task element : matchedKeys) {
+                System.out.println(taskCounter + ARRAYLIST_PRINT_OFFSET + ". " + element.toString());
+                taskCounter++;
+            }
+        }
+        System.out.println(DOTTED_LINE);
+    }
+
+    public void printFindMissingParameterError() {
+        System.out.println(FIND_MISSING_PARAMETER);
+    }
+
+    public void printFindMultipleParameterError() {
+        System.out.println(FIND_MULTIPLE_PARAMETER);
     }
 
 }
