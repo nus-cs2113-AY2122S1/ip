@@ -136,16 +136,17 @@ Exits from toDoList.
 
 Format: `bye`
 
-## Command Summary
-|Commands    |Format, Examples                                                                          |
-|:---        |:---                                                                                      |
-|**List**    | `list`                                                                                   |
-|**Todo**    | `todo <TASK_NAME>` <br> eg: `todo add book`                                              |
-|**Deadline**| `deadline <TASK_NAME> /by <DATE>` <br> eg: `deadline finish assignment /by 29/09/21 2359`|
-|**Event**   | `event <TASK_NAME> /at <DATE>` <br> eg: `event birthday party /at 30/10/21 1800`         |
-|**Done**    | `done <TASK_INDEX>` <br> eg: `done 3`                                                    |
-|**Delete**  | `delete <TASK_INDEX>` <br> eg: `delete 2`                                                |
-|**Find**    | `find <KEYWORD>` <br> eg: `find book`                                                    |
-|**Bye**     | `bye`                                                                                    |                                                                                
+## Command Summary           
+
+|Commands    |Format, Examples                                                                        |
+| ----       | ----                                                                                   |
+|**List**    | list                                                                                   |
+|**Todo**    | todo <TASK_NAME> <br> eg: todo add book                                                |
+|**Deadline**| deadline <TASK_NAME> /by <DATE> <br> eg: `deadline finish assignment /by 29/09/21 2359`|
+|**Event**   | event <TASK_NAME> /at <DATE> <br> eg: event birthday party /at 30/10/21 1800           |
+|**Done**    | done <TASK_INDEX> <br> eg: done 3                                                      |
+|**Delete**  | delete <TASK_INDEX> <br> eg: delete 2                                                  |
+|**Find**    | find <KEYWORD> <br> eg: find book                                                      |
+|**Bye**     | bye                                                                                    |
 
 
