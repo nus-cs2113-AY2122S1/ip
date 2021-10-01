@@ -297,27 +297,27 @@ public class Duke {
 
 
     public static void writeToSave() throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
-        for (int i = 0; i < tasks.size(); i++) {
+        FileWriter fileWriter = new FileWriter(FILE_PATH);
+        for (int taskIndex = 0; taskIndex < tasks.size(); taskIndex++) {
 
             String doneNumber = "0";
-            if (tasks.get(i).isDone) {
+            if (tasks.get(taskIndex).isDone) {
                 doneNumber = "1";
             }
 
             String textToAdd;
-            if (tasks.get(i).getType().equals("T")) {
-                textToAdd = tasks.get(i).getType() + " | "
+            if (tasks.get(taskIndex).getType().equals("T")) {
+                textToAdd = tasks.get(taskIndex).getType() + " | "
                         + doneNumber + " | "
-                        + tasks.get(i).description + System.lineSeparator();
+                        + tasks.get(taskIndex).description + System.lineSeparator();
             } else {
-                textToAdd = tasks.get(i).getType() + " | "
+                textToAdd = tasks.get(taskIndex).getType() + " | "
                         + doneNumber + " | "
-                        + tasks.get(i).description + "| " + tasks.get(i).getWhen() + System.lineSeparator();
+                        + tasks.get(taskIndex).description + "| " + tasks.get(taskIndex).getWhen() + System.lineSeparator();
             }
-            fw.write(textToAdd);
+            fileWriter.write(textToAdd);
         }
-        fw.close();
+        fileWriter.close();
     }
 
 
@@ -402,7 +402,7 @@ public class Duke {
         try {
             writeToSave();
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println("Something went wrong! " + e.getMessage());
         }
 
         System.out.println(BYE_MESSAGE);
