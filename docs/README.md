@@ -86,6 +86,9 @@ Adds a deadline task with a **specific date and time** to your current list of t
 
 Format: `deadline DESCRIPTION /by DATE TIME`
 
+Note: **DATE** and **TIME** must be entered in either of these formats **`DD/MM/YYYY hhmm`** or **`DD-MM-YYYY hhmm`** <br>
+where **`D: Date, M: Month, Y: Year, h: Hour, m: Minute`** and time must be in **`24-hour notation`**.
+
 Examples:
 * `deadline return book /by 31/10/2021 1800`
 * `deadline submit assignment /by 01/11/2021 2359`
@@ -96,6 +99,9 @@ Examples:
 Adds an event task with a **specific date and time** to your current list of tasks.
 
 Format: `event DESCRIPTION /at DATE TIME`
+
+Note: **DATE** and **TIME** must be entered in either of these formats **`DD/MM/YYYY hhmm`** or **`DD-MM-YYYY hhmm`** <br>
+where **`D: Date, M: Month, Y: Year, h: Hour, m: Minute`** and time must be in **`24-hour notation`**.
 
 Examples:
 * `event lecture quiz /at 30/09/2021 1200`
@@ -162,7 +168,7 @@ Format: `bye`
 <a name="save"></a>
 ### Saving the data
 
-Jarvis' data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Jarvis' data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 <a name="summary"></a>
 ## Command Summary
@@ -177,3 +183,6 @@ Action | Format, Examples
 **Delete Task** | `delete INDEX`<br> e.g. `delete 2`
 **Find** | `find KEYWORD`<br> e.g. `find book`
 **Exit** | `bye`
+
+## References
+[AddressBook Level 3 (AB3) User Guide](https://se-education.org/addressbook-level3/UserGuide.html)
