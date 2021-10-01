@@ -39,6 +39,9 @@ public class Duke {
                 case "list":
                     TaskManager.printList(inputWords);
                     break;
+                case "find" :
+                    TaskManager.findTask(input);
+                    break;
                 case "bye":
                     break;
                 default:
