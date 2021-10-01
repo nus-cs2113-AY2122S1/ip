@@ -33,9 +33,9 @@ public class TaskList {
     protected int DELETE_PADDING = 1;
 
 
-    public void markTaskAsDone(int taskNumberToMark, ArrayList tasks) throws IndexOutOfBoundsException {
+    public void markTaskAsDone(int taskNumberToMark, ArrayList<Task> tasks) throws IndexOutOfBoundsException {
         if ((taskNumberToMark - DONE_PADDING >= 0) && (tasks.get(taskNumberToMark - DONE_PADDING) != null)) {
-            tasks.get(taskNumberToMark - DONE_PADDING);
+            tasks.get(taskNumberToMark - DONE_PADDING).setAsDone();
             userInterface.printTaskAsMarked(taskNumberToMark, tasks, DONE_PADDING);
         } else {
             userInterface.printDoneInvalidNumberError();
