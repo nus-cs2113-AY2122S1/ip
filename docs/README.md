@@ -1,5 +1,5 @@
 # User Guide
-![Craig the Brute, er I mean Tired](img.png)
+![Craig the Brute, er I mean Tired](craig.png)
 <br> _Image Courtesy of [343 Industries](https://www.343industries.com/)_ 
 
 _Tired_ is a **todo** desktop app for **Personal Assistant Chatbot** that helps you to **keep track of various things**.
