@@ -80,8 +80,14 @@ public class Duke {
                 }
             } else if(line.split(" ")[0].equals("event")) {
                 //When the user adds an event
-                try {
-                    List.add(new Event(line.split("event ")[1], line.split("/at")[1]));
+
+                List.add(new Event(line.split("event ")[1], line.split("/at")[1]));
+
+                System.out.println("Got it. I've added this task:");
+                System.out.println(List.get(listSize)); //
+                System.out.println("Now you have " + (listSize + 1)  + " tasks in the list.");
+                listSize++;
+            } else if(line.split(" ")[0].equals("delete")){
 
                     System.out.println("Got it. I've added this task:");
 
