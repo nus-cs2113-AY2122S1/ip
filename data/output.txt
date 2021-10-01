@@ -1,0 +1,3 @@
+T | 0 | add book
+D | 1 | bye | 1040
+T | 0 | see book
