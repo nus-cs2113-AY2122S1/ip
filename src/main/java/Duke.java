@@ -76,6 +76,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Executes method for creating a new todo object
+     * @param command
+     * @throws DukeException
+     */
     private static void createTodo(String command) throws DukeException {
         String taskDescription;
         try {
@@ -93,6 +98,11 @@ public class Duke {
         printListSummary(tasks.get(tasks.indexOf(todo)));
     }
 
+    /**
+     * Executes method for creating a new deadline object
+     * @param command
+     * @throws DukeException
+     */
     private static void createDeadline(String command) throws DukeException{
         // Reads two substrings as param: 1. The task description after keyword "deadline"
         //                                2. The actual deadline after "/by " till end of string
@@ -117,6 +127,11 @@ public class Duke {
         printListSummary(tasks.get(tasks.indexOf(deadline)));
     }
 
+    /**
+     * Executes method for creating a new event object
+     * @param command
+     * @throws DukeException
+     */
     private static void createEvent(String command) throws DukeException {
         String dateOrTime;
         String taskDescription;
@@ -139,6 +154,11 @@ public class Duke {
         printListSummary(tasks.get(tasks.indexOf(event)));
     }
 
+    /**
+     * Returns stored data from previous runs
+     * @throws IOException
+     * @throws DukeException
+     */
     private static void dataStorage() throws IOException, DukeException {
         File dirPath = new File("data");
         File filePath = new File("data/Duke.txt");
@@ -164,6 +184,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Writes data from current run into a txt file
+     * @param tasks
+     * @throws IOException
+     */
     private static void writeData(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter("data/Duke.txt");
         for (Task task : Duke.tasks) {
@@ -172,6 +197,9 @@ public class Duke {
         fw.close();
     }
 
+    /**
+     * Prints welcome message
+     */
     public static void printWelcome() {
         String logo = "        _|       _|_|        _|_|_|      _|      _|    _|_|_|        _|_|_|\n"
                 + "        _|     _|    _|      _|    _|    _|      _|      _|        _|\n"
@@ -187,11 +215,17 @@ public class Duke {
         System.out.println(LINE + System.lineSeparator());
     }
 
+    /**
+     * Prints exit message
+     */
     public static void printBye() {
         System.out.println(LINE + System.lineSeparator() + "Affirmative sir, I'll shut down all operations"
                 + System.lineSeparator() + LINE);
     }
 
+    /**
+     * Prints all items in array list
+     */
     public static void printList() {
         System.out.println(LINE + System.lineSeparator() + "Here are the current tasks in your list:");
         for (Task task : tasks) {
@@ -200,6 +234,10 @@ public class Duke {
         System.out.println(LINE);
     }
 
+    /**
+     * Prints item added along with summary message
+     * @param task
+     */
     public static void printListSummary(Task task) {
         System.out.println(LINE + System.lineSeparator() + "Will do sir, I've added: "
                     + System.lineSeparator() + "  " + task.printTask());
@@ -211,6 +249,10 @@ public class Duke {
         System.out.println(LINE);
     }
 
+    /**
+     * Marks chosen task as done
+     * @param command
+     */
     public static void markAsDone(String command) {
         // When user enters string "done 2", string is split to extract the index 2 only
         int taskDoneIndex = Integer.parseInt(String.valueOf(command.substring(DONE_SIZE))) - 1;
@@ -237,6 +279,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Removes chosen task from list
+     * @param command
+     */
     public static void removeFromList(String command) {
         int taskRemoveIndex = Integer.parseInt(String.valueOf(command.substring(DELETE_SIZE))) - 1;
         if (taskRemoveIndex >= tasks.size() || taskRemoveIndex < 0) {
@@ -251,6 +297,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Echoes user input until command "stop" is given
+     */
     public static void echoMode() {
         // Simply echos given command until user types "stop"
         System.out.println(LINE + System.lineSeparator() + "What would you like me to repeat sir?"
