@@ -10,7 +10,9 @@ import java.util.Scanner;
 import java.io.IOException;
 
 
-
+/**
+ * This class handles the saving and loading of the task list to dukedata.txt
+ */
 public class Storage {
 
     public static final String FILE_PATH = "data/dukedata.txt";
@@ -26,6 +28,13 @@ public class Storage {
 
     public Storage() {}
 
+    /**
+     * Checks whether there is any error in loading dukedata.txt
+     * Returns the new, updated schedule if there is no error.
+     *
+     * @param schedule the empty schedule given in the TaskList class
+     * @return the updated schedule from dukedata.txt
+     */
     public ArrayList<Task> checkFile(ArrayList<Task> schedule) {
 
         ArrayList<Task> newSchedule = null;
@@ -38,6 +47,12 @@ public class Storage {
         return newSchedule;
     }
 
+    /**
+     * Loads the file dukedata.txt that contains the previously saved task list
+     *
+     * @param schedule the empty schedule given in the TaskList class
+     * @return the updated schedule from dukedata.txt
+     */
     public ArrayList<Task> loadFile(ArrayList<Task> schedule) throws IOException {
         File tempFile = new File(FILE_PATH);
         if (!tempFile.exists()) {
@@ -48,6 +63,14 @@ public class Storage {
         }
         return loadContent(tempFile, schedule);
     }
+
+    /**
+     * Loads content from dukedata.txt
+     *
+     * @param datafile dukedata.txt
+     * @param schedule the empty schedule given in the TaskList class
+     * @return the updated schedule from dukedata.txt
+     */
 
     public ArrayList<Task> loadContent(File datafile, ArrayList<Task> schedule) throws FileNotFoundException {
         Scanner s = new Scanner(datafile);
@@ -87,8 +110,13 @@ public class Storage {
 
         }
         return schedule;
-
     }
+
+    /**
+     * Updates dukedata.txt with the current task list.
+     *
+     * @param schedule the current schedule in the TaskList class
+     */
 
     public void saveFile(ArrayList<Task> schedule, int totalTasks) {
         try {

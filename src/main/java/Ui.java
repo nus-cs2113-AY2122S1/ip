@@ -1,3 +1,6 @@
+/**
+ * This class contains the logo for Duke, plus a hello message.
+ */
 public class Ui {
     public Ui() {
     }
