@@ -7,7 +7,8 @@ Duke is a program which can help you to manage the tasks. It will automatically 
 Prerequisites: Latest version of Java 11 on your computer
 1. Download Duke at [here](https://github.com/Vincent6896/ip/releases/download/v1.0/individual.project.jar) 
 2. Move the .jar file to your desired folder.
-3. Open a terminal and move to that folder which containing the .jar file, and execute the following command: java -jar individual\ project.jar
+3. Open a terminal and move to that folder which containing the .jar file, and execute the following command: java -jar individual.project.jar
+   (If you download the jar file from scr/out/artifacts/ip_jar, please execute the following command: java -jar individual\ project.jar)
 4. If the program is successfully running, you should see the following:
 
 ```
