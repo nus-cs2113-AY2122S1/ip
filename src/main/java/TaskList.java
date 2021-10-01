@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.io.IOException;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -137,12 +136,22 @@ public class TaskList {
         s.saveFile(schedule, totalTasks);
     }
 
+    /**
+     * Prints a 'got it' message for the user's benefit.
+     *
+     * @param t the task that accompanies the message
+     */
     public void gotItMessage(Task t) {
         System.out.println("Got it. I've added this task:");
         System.out.println(t);
         System.out.println("Now you have " + this.totalTasks + " tasks in the list.");
     }
 
+    /**
+     * Adds the event task into the task list, but checks its validity first
+     *
+     * @param line input from user
+     */
     public void delete(String line) {
         int number = Character.getNumericValue(line.charAt(7));
         Task t = schedule.get(number - 1);
@@ -154,7 +163,11 @@ public class TaskList {
         System.out.println("Now you have " + this.totalTasks + " tasks in the list.");
     }
 
-
+    /**
+     * Finds and prints the tasks that correspond with the keyword
+     *
+     * @param word keyword from user
+     */
     public void finding(String word) {
         ArrayList<Task> found = new ArrayList<>();
 
