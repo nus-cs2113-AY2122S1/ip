@@ -24,8 +24,10 @@ public class Parser {
     private static final String COMMAND_FIND_WORD = "find";
     private static final String[] COMMAND_WORDS_LIST = {COMMAND_TODO_WORD, COMMAND_DEADLINE_WORD, COMMAND_EVENT_WORD,
             COMMAND_LIST_WORD, COMMAND_DONE_WORD, COMMAND_EXIT_WORD, COMMAND_DELETE_WORD, COMMAND_FIND_WORD};
+    private static final String PATH = "data/duke.txt";
     private static final Scanner INPUT_COMMAND = new Scanner(System.in);
     private static TaskList taskList = new TaskList();
+    private static Storage storage = new Storage();
 
     /**
      * Method to handle various exceptions in the program.
@@ -38,6 +40,7 @@ public class Parser {
         while (!inputLine.equals(COMMAND_EXIT_WORD)) {
             try {
                 executeCommand(tasksArrayList, inputLine.trim());
+                storage.writeToFile(PATH, tasksArrayList);
                 inputLine = INPUT_COMMAND.nextLine();
             } catch (IllegalCommand e) {
                 System.out.println("  OOPS! I'm sorry, but I don't know what that means :(");
@@ -70,9 +73,11 @@ public class Parser {
                 System.out.println("  OOPS! Please put only integer as the task number!");
                 System.out.println("  Example: 'done 1'");
                 inputLine = INPUT_COMMAND.nextLine();
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException e) {
                 System.out.println("  OOPS! You must have typed the wrong number. Please type in again correctly!");
                 inputLine = INPUT_COMMAND.nextLine();
+            } catch (IOException e) {
+                System.out.println("  OOPS! There was an error updating the file in the storage.");
             }
         }
     }

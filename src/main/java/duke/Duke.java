@@ -29,11 +29,6 @@ public class Duke {
         ui.showWelcomeMessage();
         tasksArrayList = storage.loadData();
         parser.executeProgramWithErrorHandlings(tasksArrayList);
-        try {
-            storage.writeToFile(PATH, tasksArrayList);
-        } catch (IOException e) {
-            System.out.println("  OOPS! There was an error updating the file in the storage.");
-        }
         ui.exitProgram();
     }
 

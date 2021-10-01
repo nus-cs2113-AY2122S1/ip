@@ -2,6 +2,3 @@
 [D][X] return book /by Jun 1 2021
 [E][ ] project meeting /at Aug 6 2021
 [T][X] join sports club
-[D][ ] finish iP /by Oct 1 2021
-[T][ ] workout
-[E][ ] attend meeting /at Oct 3 2021
