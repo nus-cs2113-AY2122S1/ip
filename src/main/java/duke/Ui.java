@@ -25,6 +25,13 @@ public class Ui {
      * Prints duke's greeting message
      */
     public void printStartMessage() {
+        System.out.println("Hello from");
+        System.out.println(" ____        _        \n" +
+                "|  _ \\ _   _| | _____ \n" +
+                "| | | | | | | |/ / _ \\\n" +
+                "| |_| | |_| |   <  __/\n" +
+                "|____/ \\__,_|_|\\_\\___");
+
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         printHorizontalLine();
