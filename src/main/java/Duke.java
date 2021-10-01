@@ -31,7 +31,11 @@ public class Duke {
         ArrayList<Integer> taskStatus = new ArrayList<>();
         ArrayList<String> output = new ArrayList<>();
         ArrayList<String> taskType = new ArrayList<>();
+
+        CheckFileExistence checkFileExistence = new CheckFileExistence(file);
+        checkFileExistence.checkExistence(file);
         LoadFromText loadFromText = new LoadFromText(file, output, taskName, taskStatus, taskType);
+
         output = loadFromText.loadOutput(output);
         taskName = loadFromText.loadTaskName(taskName);
         taskStatus = loadFromText.loadTaskStatus(taskStatus);

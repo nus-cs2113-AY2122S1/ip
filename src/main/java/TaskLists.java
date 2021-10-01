@@ -95,7 +95,7 @@ public class TaskLists {
         try {
             parser.checkTodo(userCommand);
         } catch (DukeException e) {
-            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+            System.out.println("OOPS!!! The description of a todo task is invalid.");
             System.out.println(ui.LINE);
             return false;
         }
@@ -107,7 +107,7 @@ public class TaskLists {
         try {
             parser.checkDeadline(userCommand);
         } catch (DukeException e) {
-            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+            System.out.println("OOPS!!! The description of a deadline task is invalid.");
             System.out.println(ui.LINE);
             return false;
         }
@@ -120,7 +120,7 @@ public class TaskLists {
         try {
             parser.checkEvent(userCommand);
         } catch (DukeException e) {
-            System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
+            System.out.println("OOPS!!! The description of a event task is invalid.");
             System.out.println(ui.LINE);
             return false;
         }
@@ -133,14 +133,14 @@ public class TaskLists {
             parser.checkDelete(userCommand);
         } catch (DukeException e) {
             System.out.println(ui.LINE);
-            System.out.println("☹ OOPS!!! The 'delete' command is invalid.");
+            System.out.println("OOPS!!! The 'delete' command is invalid.");
             System.out.println(ui.LINE);
             return false;
         }
 
         if (Integer.parseInt(userCommand.substring(7)) > inputCount) {
             System.out.println(ui.LINE);
-            System.out.println("☹ OOPS!!! The 'delete' command is out of bound.");
+            System.out.println("OOPS!!! The 'delete' command is out of bound.");
             System.out.println(ui.LINE);
             return false;
         }
@@ -153,13 +153,13 @@ public class TaskLists {
             parser.checkDone(userCommand);
         } catch (DukeException e) {
             System.out.println(ui.LINE);
-            System.out.println("☹ OOPS!!! The 'done' command is invalid.");
+            System.out.println("OOPS!!! The 'done' command is invalid.");
             System.out.println(ui.LINE);
             return false;
         }
         if (Integer.parseInt(userCommand.substring(5)) > inputCount) {
             System.out.println(ui.LINE);
-            System.out.println("☹ OOPS!!! The 'done' command is out of bound.");
+            System.out.println("OOPS!!! The 'done' command is out of bound.");
             System.out.println(ui.LINE);
             return false;
         }
@@ -172,7 +172,7 @@ public class TaskLists {
             parser.checkFind(userCommand);
         } catch (DukeException e) {
             System.out.println(ui.LINE);
-            System.out.println("☹ OOPS!!! The 'find' command is invalid.");
+            System.out.println("OOPS!!! The 'find' command is invalid.");
             System.out.println(ui.LINE);
             return false;
         }
@@ -204,7 +204,7 @@ public class TaskLists {
     //print the result of a meaningless input
     public void printInvalid() {
         System.out.println(ui.LINE);
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
     //print the result of adding an 'event' task

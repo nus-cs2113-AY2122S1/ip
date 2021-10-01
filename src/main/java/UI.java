@@ -9,6 +9,9 @@ public class UI {
 
     //print the welcome message at the beginning
     public static void printWelcome() {
+        System.out.println();
+        System.out.println("Your Duke_ChatBot is here!");
+        System.out.println(LINE);
         System.out.println("Hello from\n" + LOGO);
         System.out.println(LINE);
         System.out.println("Hello! I'm Duke");

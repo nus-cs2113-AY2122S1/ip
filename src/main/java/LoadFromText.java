@@ -9,6 +9,7 @@ public class LoadFromText {
     ArrayList<String> taskName;
     ArrayList<Integer> taskStatus;
     ArrayList<String> taskType;
+    UI ui = new UI();
 
     // Constructor of LoadFromText
     public LoadFromText(File file1, ArrayList<String> Output, ArrayList<String> TaskName, ArrayList<Integer> TaskStatus
@@ -32,7 +33,19 @@ public class LoadFromText {
             }
             return output;
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred, please try again!");
+            File directory = new File("./data/");
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + directory.getName() + file.getName());
+                    System.out.println(ui.LINE);
+                }
+            } catch (IOException e1) {
+                System.out.println("An IO Exception error occurred, please try again!");
+                e.printStackTrace();
+            }
             return null;
         }
     }
@@ -48,10 +61,19 @@ public class LoadFromText {
             }
             return taskName;
         } catch (FileNotFoundException e) {
-            System.out.println("A FileNotFound error occurred, please try again!");
-            return null;
-        } catch (IOException e) {
-            System.out.println("An IO Exception error occurred, please try again!");
+            File directory = new File("./data/");
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + directory.getName() + file.getName());
+                    System.out.println(ui.LINE);
+                }
+            } catch (IOException e1) {
+                System.out.println("An IO Exception error occurred, please try again!");
+                e.printStackTrace();
+            }
             return null;
         }
     }
@@ -71,10 +93,19 @@ public class LoadFromText {
             }
             return taskStatus;
         } catch (FileNotFoundException e) {
-            System.out.println("A FileNotFound error occurred, please try again!");
-            return null;
-        } catch (IOException e) {
-            System.out.println("An IO Exception error occurred, please try again!");
+            File directory = new File("./data/");
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + directory.getName() + file.getName());
+                    System.out.println(ui.LINE);
+                }
+            } catch (IOException e1) {
+                System.out.println("An IO Exception error occurred, please try again!");
+                e.printStackTrace();
+            }
             return null;
         }
     }
@@ -90,10 +121,19 @@ public class LoadFromText {
             }
             return taskType;
         } catch (FileNotFoundException e) {
-            System.out.println("A FileNotFound error occurred, please try again!");
-            return null;
-        } catch (IOException e) {
-            System.out.println("An IO Exception error occurred, please try again!");
+            File directory = new File("./data/");
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + directory.getName() + file.getName());
+                    System.out.println(ui.LINE);
+                }
+            } catch (IOException e1) {
+                System.out.println("An IO Exception error occurred, please try again!");
+                e.printStackTrace();
+            }
             return null;
         }
     }

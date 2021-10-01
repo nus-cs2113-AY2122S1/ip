@@ -94,7 +94,12 @@ public class Parser {
                              ArrayList<String> taskName, ArrayList<String> taskType, File file) {
         Scanner userInput = new Scanner(System.in);
         String userCommand = userInput.nextLine();
-        int inputCount = output.size();
+        int inputCount;
+        if(output.isEmpty()) {
+            inputCount =  0;
+        } else {
+            inputCount = output.size();
+        }
 
         TaskLists taskLists = new TaskLists(output, taskStatus,
                 taskName, file, taskType, inputCount, userCommand);
