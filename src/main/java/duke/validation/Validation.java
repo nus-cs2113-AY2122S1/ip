@@ -1,5 +1,9 @@
 package duke.validation;
 
+/**
+ * This Validation class handles all checks is an input is of the proper
+ * format or has all relevant necessary information.
+ */
 public class Validation {
 
     public static boolean isValidTodo(String[] inputWords) {

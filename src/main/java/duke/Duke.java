@@ -6,6 +6,15 @@ import duke.validation.InvalidInputException;
 
 import java.util.Scanner;
 
+/**
+ *  The Duke program implements an application that manages tasks
+ *  that are input from the user.
+ *
+ * @author Gavien Pat
+ * @version 0.2
+ * @since 2021-08-20
+ */
+
 public class Duke {
 
     public static void main(String[] args) {

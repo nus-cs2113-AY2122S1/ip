@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * The Deadline class is a subclass of the Task class.
+ * It is a specific task that also contains a dateline (<code>endDate</code>).
+ */
 public class Deadline extends Task{
     protected String endDate;
 
