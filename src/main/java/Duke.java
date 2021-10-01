@@ -4,6 +4,7 @@ import Ui.UserInterface;
 import DataAnalysis.DataAnalysis;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +19,7 @@ public class Duke {
     /**
      * Initializes User Interface, loads stored task data, and initializes data analysis class
      */
-    public Duke() throws FileNotFoundException {
+    public Duke() throws IOException {
         ui = new UserInterface();
         storage = new Storage();
         taskList = storage.loadTasks();
@@ -37,7 +38,7 @@ public class Duke {
     /**
      * Initializes Duke and runs it
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         new Duke().run();
     }
 }

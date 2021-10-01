@@ -17,17 +17,24 @@ import java.util.Scanner;
  */
 public class Storage {
 
+    private static final String FILE_PATH = "data/duke.txt";
+
     private static ArrayList<Task> taskList = new ArrayList<>();
 
     /**
      * Loads saved data
      * @return List of saved tasks
      */
-    public static ArrayList<Task> loadTasks() throws FileNotFoundException {
-        File f = new File("../data/duke.txt");
-        Scanner scanner = new Scanner(f);
-        if (f.exists() && !f.isDirectory()) {
-            while (scanner.hasNext()) {
+    public static ArrayList<Task> loadTasks() throws FileNotFoundException, IOException {
+        File f = new File(FILE_PATH);
+        if (!f.exists()) {
+            File dir = new File("data");
+            dir.mkdir();
+            f.createNewFile();
+        }
+            try {
+                Scanner scanner = new Scanner(f);
+                while (scanner.hasNext()) {
                 String[] taskDetails = scanner.nextLine().split("\\|", 3);
                 String taskType = taskDetails[0].trim();
                 boolean isDone = taskDetails[1].trim().equals("X");
@@ -48,7 +55,9 @@ public class Storage {
                     break;
                 }
             }
-        }
+        } catch ( IOException e) {
+                System.out.println(e.getMessage());
+            }
         return taskList;
     }
 
@@ -57,7 +66,7 @@ public class Storage {
      * @param taskList list of tasks needed to be saved
      */
     public static void saveTasks(ArrayList<Task> taskList) throws IOException {
-        FileWriter fw = new FileWriter("../data/duke.txt");
+        FileWriter fw = new FileWriter(FILE_PATH);
         for (int i = 0; i < taskList.size(); i++) {
             fw.write(taskList.get(i).getTaskType() + " | " + taskList.get(i).getStatusIcon() + " | " + taskList.get(i).getDescription());
         }
