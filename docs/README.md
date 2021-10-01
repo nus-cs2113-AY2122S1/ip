@@ -16,12 +16,9 @@ To set up Java Environment: Install the lastest Version of Java 11.
 3. Run `java -jar -ip.jar`
 4. If there is no error, the map should ask you for a Revealing Charm: 
 ![image](https://user-images.githubusercontent.com/69776265/135422052-4c6a9809-99f0-4b9e-a433-80e8059f0ff3.png)
+   The map will brutally insults its nemesis if you are a muggle (i.e. dont know the charm).
 5. Once the correct charm is entered, the map is at your service. 
-![image](https://user-images.githubusercontent.com/69776265/135422439-767bd5b1-7678-456a-b03e-24357b4a5479.png)
-   Or it will brutally insults its nemesis if you are a muggle(i.e. dont know the charm) :
-   ![image](https://user-images.githubusercontent.com/69776265/135422175-5089dd3a-3c63-4827-8902-6355d90d26bf.png)
-
-   
+![image](https://user-images.githubusercontent.com/69776265/135422439-767bd5b1-7678-456a-b03e-24357b4a5479.png) 
 
 ## Features 
 ### Command Summary 
@@ -37,15 +34,15 @@ delete | `delete <item id>` | Deletes a task
 
 ### Adding Tasks 
 There are 3 types of tasks you can add: todo, event, deadline.
-1. todo - tasks that you need to do, requires task description
+1. todo - tasks that you need to do, requires task description.
     - Format : `todo <task description>`
     - E.g. `todo collect asphodel, dittany and wiggentree bark`
     ![image](https://user-images.githubusercontent.com/69776265/135445227-f7b2c8f2-699c-46aa-905d-88a940a9e3c0.png)
-2. deadline - tasks that you need to attend, requires description and duration of event
+2. deadline - tasks that you need to finish at certain time, requires description and due time.
     - Format : `deadline <task description> /by <due time> `
     - E.g. : `deadline brew wiggenweld potion /by next Potion lesson`
     ![image](https://user-images.githubusercontent.com/69776265/135445345-6448ddef-df77-4519-8583-4a19763797c8.png)
-3. event - tasks that you need to finish at certain time, requires description and due time
+3. event - tasks that you need to attend, requires description and duration.
     - Format : `event <task description> /at <duration>
     - E.g. : `event sky observation /at wednesday 10 - 12pm`
     ![image](https://user-images.githubusercontent.com/69776265/135445419-7e8d46e8-ffaa-41b4-9694-c0ec77e16c69.png)
