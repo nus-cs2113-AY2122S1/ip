@@ -25,6 +25,9 @@ public class Parser {
             case DELETE:
                 TaskList.deleteTask(userInput);
                 return true;
+            case FIND:
+                TaskList.findTaskWithSubstring(userInput);
+                return true;
             case BYE:
                 return false;
             default:
