@@ -68,10 +68,10 @@ public class Ui {
     protected String FIND_MISSING_PARAMETER = DOTTED_LINE + System.lineSeparator()
             + "Oops! Please include search keyword!" + System.lineSeparator()
             + DOTTED_LINE;
+  
     protected String FIND_MULTIPLE_PARAMETER = DOTTED_LINE + System.lineSeparator()
             + "Oops! Only one search keyword is allowed!" + System.lineSeparator()
             + DOTTED_LINE;
-
 
     public void printWelcomeMessage() {
         String welcomeMessage = DOTTED_LINE + System.lineSeparator()
@@ -194,6 +194,7 @@ public class Ui {
     }
 
     public void printEventMissingParameterError() {
+
         System.out.println(EVENT_MISSING_PARAMETER);
     }
 

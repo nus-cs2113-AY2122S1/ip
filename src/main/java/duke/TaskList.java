@@ -140,5 +140,6 @@ public class TaskList {
             }
         }
         userInterface.printTasksThatMatch(matchedKeys, tasks);
+
     }
 }

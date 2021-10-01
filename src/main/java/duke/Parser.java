@@ -29,7 +29,6 @@ public class Parser {
 
     protected String FIND_COMMAND = "find";
 
-
     public static int filterTaskNumber(String taskThatIsDone) throws DukeMissingParamException, NumberFormatException {
 
         String[] wordsOfTheTask = taskThatIsDone.split(" ");
@@ -90,12 +89,13 @@ public class Parser {
                 } catch (IndexOutOfBoundsException e) {
 
                     userInterface.printDeleteInvalidNumError();
-
+                  
                 }
             } else if (line.contains(TODO_COMMAND)) {
                 try {
 
                     taskList.addTodo(line, tasks);
+
 
                 } catch (DukeMissingDescException e) {
 
