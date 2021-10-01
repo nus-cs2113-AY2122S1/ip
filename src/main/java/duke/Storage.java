@@ -70,21 +70,6 @@ public class Storage {
         return task;
     }
 
-    //TODO make a function in Formatter for lists
-    public String returnAllFileDataAsList() {
-        String output = "";
-        try {
-            List<String> lines = Files.readAllLines(dataPath);
-            for (int i = 0; i < lines.size(); i++) {
-                output += System.lineSeparator() + (i + 1) + "."
-                        + lines.get(i);
-            }
-        } catch (IOException e) {
-            System.err.println("Read failure: " + e.getMessage());
-        }
-        return output;
-    }
-
     public List<String> returnAllFileData() {
         List<String> lines = List.of();
         try {
@@ -101,7 +86,7 @@ public class Storage {
 
     public void appendLineToFileData(String line) {
         try {
-            List<String> lines = Files.readAllLines(dataPath);
+            List<String> lines = getAllLines();
             lines.add(line);
             Files.write(dataPath, lines);
         } catch (IOException e) {
@@ -109,13 +94,12 @@ public class Storage {
         }
     }
 
-    //TODO clean code in Storage class to use this function
     private List<String> getAllLines() {
         List<String> lines = List.of();
         try {
             lines = Files.readAllLines(dataPath);
         } catch (IOException e) {
-            System.err.println("Write failure: " + e.getMessage());
+            System.err.println("Read failure: " + e.getMessage());
         }
         return lines;
     }
@@ -141,7 +125,7 @@ public class Storage {
 
     public void replaceFileData(int index, String line) {
         try {
-            List<String> lines = Files.readAllLines(dataPath);
+            List<String> lines = getAllLines();
             lines.set(index, line);
             Files.write(dataPath, lines);
         } catch (IOException e) {
@@ -151,7 +135,7 @@ public class Storage {
 
     public void deleteLineFromFileData(int index) {
         try {
-            List<String> lines = Files.readAllLines(dataPath);
+            List<String> lines = getAllLines();
             lines.remove(index);
             Files.write(dataPath, lines);
         } catch (IOException e) {
