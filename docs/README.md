@@ -2,7 +2,7 @@
 
 Duke is a desktop app for managing your to-do list, optimized for use via a Command Line Interface (CLI). It has the benefits of a Graphical User Interface(GUI), which is extremely beneficial to people who can type fast.
 
-##Quick start
+## Quick start
 
 1. Ensure you have Java 11 or above installed in your Computer.
 2. Download the latest duke.jar.
@@ -17,7 +17,7 @@ Duke is a desktop app for managing your to-do list, optimized for use via a Comm
 
 ## Features 
 
-###Notes about the command format:
+### Notes about the command format:
 
     1) Words in LOWER_CASE are the commands to be supplied by the user. All COMMANDS are in LOWER_CASE.
         i) E.g. in delete 3, delete is the command that you will like to use.
@@ -106,7 +106,7 @@ The file is saved as a txt file. It is saved under the same folder as where you 
 
 ------
 
-##FAQ
+## FAQ
 
 Q: How do I transfer my data to another Computer?
 
@@ -114,7 +114,7 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 
 ----
 
-##Command Summary
+## Command Summary
 
 |Action|Format/Examples|
 ---|---
