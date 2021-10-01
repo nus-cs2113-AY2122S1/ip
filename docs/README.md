@@ -2,11 +2,25 @@
 
 ## Features 
 
-### Feature-ABC
+### 1. Add tasks
 
-Description of the feature.
+User can add 3 different types of tasks: Todo, Event, Deadline.
 
-### Feature-XYZ
+### 2. Show task list
+
+Duke can show the task list which edited by User
+
+### 3. Delete tasks
+
+User can delete tasks which is added before
+
+### 4. Find tasks
+
+User can find tasks which existed in the task list by searching keywords.
+
+### 5. Mark tasks as Done
+
+User can mark tasks as done, which will display a tick in the box in front of the description of that task.
 
 Description of the feature.
 
