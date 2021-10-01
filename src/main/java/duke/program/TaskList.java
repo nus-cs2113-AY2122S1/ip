@@ -23,11 +23,9 @@ public class TaskList {
     private static final DateTimeFormatter DATE_TIME_FORMAT_INPUT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     private static ArrayList<Task> tasks;
-    private static int taskCount;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
-        this.taskCount = tasks.size();
     }
 
     /**
@@ -35,11 +33,11 @@ public class TaskList {
      * @return the latest task object.
      */
     public Task getLatestTask() {
-        return tasks.get(taskCount-1);
+        return tasks.get(tasks.size()-1);
     }
 
     public int getTaskCount() {
-        return taskCount;
+        return tasks.size();
     }
 
     public ArrayList<Task> getTaskList() {
@@ -58,7 +56,6 @@ public class TaskList {
             throw new EmptyDescriptionException();
         }
         tasks.add(new ToDo(description));
-        taskCount++;
     }
 
     /**
@@ -83,7 +80,6 @@ public class TaskList {
         LocalDateTime byDateTime = LocalDateTime.parse(byDateTimeString, DATE_TIME_FORMAT_INPUT);
 
         tasks.add(new Deadline(description, byDateTime));
-        taskCount++;
     }
 
     /**
@@ -111,7 +107,6 @@ public class TaskList {
         LocalDateTime endTime = LocalDateTime.parse(endTimeString, DATE_TIME_FORMAT_INPUT);
 
         tasks.add(new Event(description, startTime, endTime));
-        taskCount++;
     }
 
     /**
@@ -130,14 +125,14 @@ public class TaskList {
 
         int doneIndex = Integer.parseInt(lineArgs[1]) - 1;
 
-        if (doneIndex >= taskCount || doneIndex < 0) {
+        if (doneIndex >= tasks.size() || doneIndex < 0) {
             throw new TaskIndexOutOfBoundsException();
         } else {
             if (tasks.get(doneIndex).getStatusIcon().equals(ICON_DONE)) {
                 ui.printAlreadyDoneMessage();
             } else {
                 tasks.get(doneIndex).setDone();
-                ui.printMarkAsDoneMessage(tasks.get(doneIndex), taskCount);
+                ui.printMarkAsDoneMessage(tasks.get(doneIndex), tasks.size());
             }
         }
     }
@@ -158,17 +153,16 @@ public class TaskList {
 
         int deleteIndex = Integer.parseInt(lineArgs[1]) - 1;
 
-        if (deleteIndex >= taskCount || deleteIndex < 0) {
+        if (deleteIndex >= tasks.size() || deleteIndex < 0) {
             throw new TaskIndexOutOfBoundsException();
         } else {
 
-            //taskCount - 1 is passed as the taskCount parameter for printDeletedTaskMessage since
+            //tasks.size() - 1 is passed as the taskCount parameter for printDeletedTaskMessage since
             //print method is called first before removing
-            ui.printDeletedTaskMessage(tasks.get(deleteIndex), taskCount - 1);
+            ui.printDeletedTaskMessage(tasks.get(deleteIndex), tasks.size() - 1);
             tasks.remove(deleteIndex);
         }
 
-        taskCount--;
     }
 
     /**
