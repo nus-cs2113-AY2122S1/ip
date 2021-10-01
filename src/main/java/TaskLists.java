@@ -15,7 +15,7 @@ public class TaskLists {
     UI ui = new UI();
     Parser parser = new Parser();
 
-    //Default constructor
+    //Default constructor of the TaskLists object
     public TaskLists() {
     }
 
