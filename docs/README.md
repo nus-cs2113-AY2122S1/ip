@@ -34,8 +34,11 @@ and is also remembers them even after shutting down.
 ### Feature - Adding a Deadline task
 
 * Adds a Task of the Deadline format.
-* Format: `deadline DESCRIPTION /by DATE`.
-  * `DATE` can be input in a `YYYY-MM-DD` format and output as `MON DD YYYY`
+* Format: `deadline DESCRIPTION /by DATE_OR_DATE_AND_TIME`.
+  * `DATE` can be input in a `YYYY-MM-DD` format and output as `MMM DD YYYY`
+  * `DATE_AND_TIME` can be input in a `YYYY-MM-DD HHMM` format, 
+	`HHMM` follows the 24 hour clock. 
+	The output will be as `MMM DD YYYY HH:MM (am/pm)`.
 * Examples:
 	* `deadline cry /by midnight`:
 		* Output: `Task added: [D][ ] cry (by: midnight)`.
@@ -213,6 +216,11 @@ Input: `find undone`
 Here are the matching tasks in your list:
 1. [D][ ] essay (by: OCT 3 2021)
 2. [E][ ] exam (at: LT27 on Monday)
+```
+Input: `deadline submit ip /by 2021-10-01 2359`
+```
+Task added: [D][ ] essay (by: OCT 1 2021 11:59pm)`
+For now, you have 3 task on the list
 ```
 Input: `bye`
 ```

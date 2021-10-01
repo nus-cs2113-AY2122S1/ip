@@ -5,12 +5,15 @@ import herrekt.exceptions.InvalidTaskException;
 import herrekt.taskmanager.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
     private static final String DATE_REGEX = "(\\d+-\\d+-\\d+)";
+    private static final String DATE_AND_TIME_REGEX = "(\\d+-\\d+-\\d+\\s\\d+)";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Returns an integer which is the number of the task to be marked done.
@@ -84,10 +87,16 @@ public class Parser {
      * @return A deadline .
      */
     public static Task dateConverter(String description, String date) {
-        Matcher matcher = Pattern.compile(DATE_REGEX).matcher(date);
+        Matcher dateMatcher = Pattern.compile(DATE_REGEX).matcher(date);
+        Matcher dateAndTimeMatcher = Pattern.compile(DATE_AND_TIME_REGEX).matcher(date);
         String dateAsString;
-        if (matcher.find()) {
-            dateAsString = matcher.group(1);
+        String dateAndTimeAsString;
+        if (dateAndTimeMatcher.find()) {
+            dateAndTimeAsString = dateAndTimeMatcher.group(1);
+            LocalDateTime localDateTime = LocalDateTime.parse(dateAndTimeAsString, formatter);
+            return new Deadline<>(description, localDateTime);
+        } else if (dateMatcher.find()) {
+            dateAsString = dateMatcher.group(1);
             LocalDate localDate = LocalDate.parse(dateAsString, DateTimeFormatter.ISO_LOCAL_DATE);
             return new Deadline<>(description, localDate);
         } else {

@@ -1,6 +1,7 @@
 package herrekt.taskmanager;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Deadline<T> extends Task {
     protected T date;
@@ -19,6 +20,18 @@ public class Deadline<T> extends Task {
     protected String getDate() {
         if (date instanceof String) {
             return (String) date;
+        } else if (date instanceof LocalDateTime) {
+            String month = ((LocalDateTime) date).getMonth().toString().substring(0,3);
+            int day = ((LocalDateTime) date).getDayOfMonth();
+            int year = ((LocalDateTime) date).getYear();
+            int hour = ((LocalDateTime) date).getHour();
+            String amOrPm = "am";
+            if (hour > 12) {
+                hour -= 12;
+                amOrPm = "pm";
+            }
+            int minute = ((LocalDateTime) date).getMinute();
+            return month + " " + day + " " + year + " " + hour + ":" + minute + amOrPm;
         } else {
             String month = ((LocalDate) date).getMonth().toString().substring(0,3);
             int day = ((LocalDate) date).getDayOfMonth();
