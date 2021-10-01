@@ -98,6 +98,21 @@ public class Duke {
                 } catch (Exception e) {
                     throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
                 }
+            } else if(line.split(" ")[0].equals("find")){
+                try {
+                    BufferedReader file = new BufferedReader(new FileReader("data.txt"));
+                    StringBuffer inputBuffer = new StringBuffer();
+                    String newLine;
+
+                    while ((newLine = file.readLine()) != null) {
+                        boolean test = Arrays.asList(newLine.split(" ")).contains(line.split(" ")[1]);
+                        if (test){
+                            System.out.println(newLine);
+                        }
+                    }
+                    file.close();
+
+                } catch (Exception e){}
             }
             else {
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
