@@ -347,7 +347,7 @@ public class Parser {
      * @return Return the time string padded with leading '0' for hour of end time
      */
     private static String padTime(String time, int indexOfColon) {
-        if (Integer.parseInt(time.substring(time.indexOf(":") - 2, time.indexOf(":")).trim()) < 10) {
+        if (time.charAt(time.indexOf(":")- 2) != '0') {
             time = time.substring(0, indexOfColon + 1) + "0" + time.substring(indexOfColon + 1);
         }
         return time;
