@@ -100,7 +100,7 @@ Example
 
 ### Mark task as Done: ```done```
 Mark the specified task in the tasklist with an X, signifying that it's done.   
-The done command must only be accompanied by the index of the task in the tasklist. 
+The done command must only be accompanied by the index of the task in the tasklist . 
 Format: `` done <index> ``
 
 Example
