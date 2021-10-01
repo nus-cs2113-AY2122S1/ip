@@ -4,6 +4,9 @@ import duke.task.*;
 
 import java.util.*;
 
+/**
+ * Contains the welcome message, exit message, and completion message everytime task has been added by the user.
+ */
 public class Ui {
     public static void addedTaskMessage(ArrayList<Task> tasksArrayList) {
         System.out.println("  Ok, I've added this task:");

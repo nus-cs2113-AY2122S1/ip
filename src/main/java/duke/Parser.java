@@ -8,6 +8,10 @@ import java.time.format.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Contains the various actions taken when a user input a command to the program.
+ * Allowed commands are <b>todo, deadline, event, list, done, delete, find, bye</b>.
+ */
 public class Parser {
 
     private static final String COMMAND_EXIT_WORD = "bye";
@@ -23,6 +27,11 @@ public class Parser {
     private static final Scanner INPUT_COMMAND = new Scanner(System.in);
     private static TaskList taskList = new TaskList();
 
+    /**
+     * Method to handle various exceptions in the program.
+     * @param tasksArrayList
+     * @throws IOException
+     */
     public static void executeProgramWithErrorHandlings(ArrayList<Task> tasksArrayList) throws IOException {
         String inputLine = INPUT_COMMAND.nextLine();
         ;
@@ -68,6 +77,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to select which command should be executed based on the user input.
+     * @param tasksArrayList
+     * @param inputLine
+     * @throws IllegalCommand
+     * @throws EmptyDescription
+     * @throws IllegalDeadlineInput
+     * @throws IllegalEventInput
+     * @throws EmptyTaskNumber
+     */
     public static void executeCommand(ArrayList<Task> tasksArrayList, String inputLine) throws IllegalCommand, EmptyDescription, IllegalDeadlineInput, IllegalEventInput, EmptyTaskNumber {
         String firstWord;
         if (inputLine.contains(" ")) {
