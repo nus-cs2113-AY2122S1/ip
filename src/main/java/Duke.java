@@ -1,3 +1,4 @@
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import seedu.tojava.Duke.*;
 import java.io.FileWriter;
@@ -22,6 +23,11 @@ public class Duke {
         greeting();
     }
 
+    /**
+     *
+     * @param items the ArrayList which save the Todo Deadline Event
+     * @param x the num of total amount of items
+     */
     public static void showList(ArrayList<Todo> items, int x) {
         String file1 = "C:\\Users\\Demons\\IdeaProjects\\ip\\out\\duke1.txt";
 
@@ -63,6 +69,11 @@ public class Duke {
             }
         }
 
+    /**
+     *
+     * @param items the ArrayList which save the Todo Deadline Event
+     * @param order the task which marked as done
+     */
 
 
     public static void doneTodo(ArrayList<Todo> items, String order){
@@ -131,7 +142,27 @@ public class Duke {
                         System.out.println("Noted I've already delete it");
                         maxcount--;
                     }
-
+                    else if(order.contains("find")){
+                        String keywords = order.substring(5,order.length()).trim();
+                        int flag2 = 0;
+                        for(Todo item: items){
+                            if(item.getDescription().contains(keywords)){
+                                flag2 = 1;
+                                if(item instanceof Deadline){
+                                    System.out.println("[" + item.returnType() + "] " + "[" + item.getStatusIcon() + "] " + item.getDescription() + " (" + ((Deadline) item).getBy().format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
+                                }
+                                else if(item instanceof Event){
+                                    System.out.println("[" + item.returnType() + "] " + "[" + item.getStatusIcon() + "] " + item.getDescription() + " (" + ((Event) item).getDuration().format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
+                                }
+                                else{
+                                    System.out.println("[" + item.returnType() + "] " + "[" + item.getStatusIcon() + "] " + item.getDescription());
+                                }
+                            }
+                            if(flag2 == 0) {
+                                System.out.println("Not Found !!!");
+                            }
+                        }
+                    }
                     order = getMission();
                 }
                 System.out.println("Bye.Hope to see you again soon!\n");
@@ -143,11 +174,16 @@ public class Duke {
         }
     }
 
+    /**
+     *
+     * @return return the mission get from the user's input
+     * @throws IllegalFormatException if the mission description is illegal
+     */
     public static String getMission() throws IllegalFormatException{
         String mission;
         Scanner in = new Scanner(System.in);
         mission = in.nextLine();
-        if(!mission.contains("delete") && !mission.contains("todo") && !mission.contains("list") && !mission.contains("bye") && !mission.contains("deadline") && !mission.contains("event") && !mission.contains("done")){
+        if(!mission.contains("find") && !mission.contains("delete") && !mission.contains("todo") && !mission.contains("list") && !mission.contains("bye") && !mission.contains("deadline") && !mission.contains("event") && !mission.contains("done")){
             throw new IllegalFormatException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         else if(mission.contains("todo")){
