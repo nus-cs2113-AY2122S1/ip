@@ -1,0 +1,36 @@
+hi
+help
+list
+todo todo
+todo
+deadline deadline /by 2020-12-23
+deadline deadline /by 2020-12-23 0500
+deadline
+deadline deadline
+deadline deadline /at 2020-12-23
+deadline deadline /by 2020-13-24
+deadline deadline /by 2020-12-24 2500
+event event /at 2020-12-23 to 2020-12-12
+event event /at 2020-12-23 0300 to 2020-12-12
+event event /at 2020-12-23 to 0300
+event event /at 2020-12-23 to 2020-12-24 0300
+event event /at 2020-12-23 0200 to 2020-12-24 0300
+event event /at 2020-12-25 0200 to 2020-12-24 0300
+todo todo2
+list
+done 2
+done 3
+list
+done 1
+list
+delete 4
+delete 1
+delete 1
+delete 1
+delete 100
+done 1000
+list
+find dead
+find eve
+sort time
+bye

@@ -1,7 +1,183 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+          (_)     (_) ____        _
+ _ __ ___  _ _ __  _ |  _ \ _   _| | _____
+| '_ ` _ \| | '_ \| || | | | | | | |/ / _ \
+| | | | | | | | | | || |_| | |_| |   <  __/
+|_| |_| |_|_|_| |_|_||____/ \__,_|_|\_\___|
+There are too many students changing this logo away.
+Let's keep it this way to show the contribution Duke has done to
+thousands of students. (No matter positive or negative)
+F
 
+credits to address-book-level2 [https://github.com/se-edu/addressbook-level2]
+    _________________________________________________________________
+     Hello! I'm Duke
+     What can I do for you?
+    _________________________________________________________________
+     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+     Hi user. Great to meet you.
+     Let me show you all the commands we have.
+     1. help -- helps you to list down all the commands available like now
+     2. list -- shows you the list of all the task you have entered
+     3. bye -- exits the program
+     4. done <index> -- marks task with the input index as done
+     5. delete <index> -- delete task with the input index
+     6. sort time -- sort tasks with timeframe by date/time in ascending order
+     7. find <text> -- find all tasks with that contains the input text
+     8. todo <description> -- creates a todo task with description
+     9. deadline <description> /by <time> where <time> is YYYY-MM-DD or YYYY-MM-DD HHMM
+     -- creates a deadline task with description as task name and the date as deadline
+     10. event <description> /at <time1> to <time2> where <time1> could be YYYY-MM-DD
+     or YYYY-MM-DD HHMM while <time2> could be YYYY-MM-DD or YYYY-MM-DD HHMM or even HHMM.
+     If <time2> is HHMM, it will inherit YYYY-MM-DD from <time1>
+     -- creates an event task with the description given and store 2 time given by the input
+
+    _________________________________________________________________
+     You have no tasks in the list at the moment.
+     Please add a new task to begin.
+    _________________________________________________________________
+    _________________________________________________________________
+     [T][ ] todo
+     Now you have 1 tasks in the list.
+    _________________________________________________________________
+     ☹ OOPS!!! The description of a todo cannot be empty.
+    _________________________________________________________________
+     [D][ ] deadline (by: 23-12-2020 0000)
+     Now you have 2 tasks in the list.
+    _________________________________________________________________
+    _________________________________________________________________
+     [D][ ] deadline (by: 23-12-2020 0500)
+     Now you have 3 tasks in the list.
+    _________________________________________________________________
+     ☹ OOPS!!! The description of a deadline cannot be empty.
+     ☹ OOPS!!! I'm sorry, but I don't know what is the timeframe of this task :-(
+     ☹ OOPS!!! I'm sorry, but I don't know what is the timeframe of this task :-(
+     Date keyed in is of invalid format
+     Please input date in the following format: YYYY-MM-DD HHMM
+     or YYYY-MM-DD
+     Date keyed in is of invalid format
+     Please input date in the following format: YYYY-MM-DD HHMM
+     or YYYY-MM-DD
+    _________________________________________________________________
+     [E][ ] event (at: 12-12-2020 0000 to 23-12-2020 0000)
+     Now you have 4 tasks in the list.
+    _________________________________________________________________
+     Date keyed in is of invalid format
+     Please input date in the following format: YYYY-MM-DD HHMM
+     or YYYY-MM-DD
+    _________________________________________________________________
+     [E][ ] event (at: 23-12-2020 0000 to 23-12-2020 0300)
+     Now you have 5 tasks in the list.
+    _________________________________________________________________
+    _________________________________________________________________
+     [E][ ] event (at: 23-12-2020 0000 to 24-12-2020 0300)
+     Now you have 6 tasks in the list.
+    _________________________________________________________________
+    _________________________________________________________________
+     [E][ ] event (at: 23-12-2020 0200 to 24-12-2020 0300)
+     Now you have 7 tasks in the list.
+    _________________________________________________________________
+    _________________________________________________________________
+     [E][ ] event (at: 24-12-2020 0300 to 25-12-2020 0200)
+     Now you have 8 tasks in the list.
+    _________________________________________________________________
+    _________________________________________________________________
+     [T][ ] todo2
+     Now you have 9 tasks in the list.
+    _________________________________________________________________
+    _________________________________________________________________
+     Here are the tasks in your list:
+     1. [T][ ] todo
+     2. [D][ ] deadline (by: 23-12-2020 0000)
+     3. [D][ ] deadline (by: 23-12-2020 0500)
+     4. [E][ ] event (at: 12-12-2020 0000 to 23-12-2020 0000)
+     5. [E][ ] event (at: 23-12-2020 0000 to 23-12-2020 0300)
+     6. [E][ ] event (at: 23-12-2020 0000 to 24-12-2020 0300)
+     7. [E][ ] event (at: 23-12-2020 0200 to 24-12-2020 0300)
+     8. [E][ ] event (at: 24-12-2020 0300 to 25-12-2020 0200)
+     9. [T][ ] todo2
+    _________________________________________________________________
+    _________________________________________________________________
+     Nice! I've marked this task as done:
+     [D][X] deadline
+    _________________________________________________________________
+    _________________________________________________________________
+     Nice! I've marked this task as done:
+     [D][X] deadline
+    _________________________________________________________________
+    _________________________________________________________________
+     Here are the tasks in your list:
+     1. [T][ ] todo
+     2. [D][X] deadline (by: 23-12-2020 0000)
+     3. [D][X] deadline (by: 23-12-2020 0500)
+     4. [E][ ] event (at: 12-12-2020 0000 to 23-12-2020 0000)
+     5. [E][ ] event (at: 23-12-2020 0000 to 23-12-2020 0300)
+     6. [E][ ] event (at: 23-12-2020 0000 to 24-12-2020 0300)
+     7. [E][ ] event (at: 23-12-2020 0200 to 24-12-2020 0300)
+     8. [E][ ] event (at: 24-12-2020 0300 to 25-12-2020 0200)
+     9. [T][ ] todo2
+    _________________________________________________________________
+    _________________________________________________________________
+     Nice! I've marked this task as done:
+     [T][X] todo
+    _________________________________________________________________
+    _________________________________________________________________
+     Here are the tasks in your list:
+     1. [T][X] todo
+     2. [D][X] deadline (by: 23-12-2020 0000)
+     3. [D][X] deadline (by: 23-12-2020 0500)
+     4. [E][ ] event (at: 12-12-2020 0000 to 23-12-2020 0000)
+     5. [E][ ] event (at: 23-12-2020 0000 to 23-12-2020 0300)
+     6. [E][ ] event (at: 23-12-2020 0000 to 24-12-2020 0300)
+     7. [E][ ] event (at: 23-12-2020 0200 to 24-12-2020 0300)
+     8. [E][ ] event (at: 24-12-2020 0300 to 25-12-2020 0200)
+     9. [T][ ] todo2
+    _________________________________________________________________
+    _________________________________________________________________
+     Noted. I've removed this task:
+     [E][ ] event (at: 12-12-2020 0000 to 23-12-2020 0000)
+     Now you have 8 tasks in the list.
+    _________________________________________________________________
+    _________________________________________________________________
+     Noted. I've removed this task:
+     [T][X] todo
+     Now you have 7 tasks in the list.
+    _________________________________________________________________
+    _________________________________________________________________
+     Noted. I've removed this task:
+     [D][X] deadline (by: 23-12-2020 0000)
+     Now you have 6 tasks in the list.
+    _________________________________________________________________
+    _________________________________________________________________
+     Noted. I've removed this task:
+     [D][X] deadline (by: 23-12-2020 0500)
+     Now you have 5 tasks in the list.
+    _________________________________________________________________
+     Please input a positive integer that corresponds to the task in list
+     Please input a positive integer that corresponds to the task in list
+    _________________________________________________________________
+     Here are the tasks in your list:
+     1. [E][ ] event (at: 23-12-2020 0000 to 23-12-2020 0300)
+     2. [E][ ] event (at: 23-12-2020 0000 to 24-12-2020 0300)
+     3. [E][ ] event (at: 23-12-2020 0200 to 24-12-2020 0300)
+     4. [E][ ] event (at: 24-12-2020 0300 to 25-12-2020 0200)
+     5. [T][ ] todo2
+    _________________________________________________________________
+    _________________________________________________________________
+     There are no results with the substring "dead"
+    _________________________________________________________________
+    _________________________________________________________________
+     [E][ ] event (at: 23-12-2020 0000 to 23-12-2020 0300)
+     [E][ ] event (at: 23-12-2020 0000 to 24-12-2020 0300)
+     [E][ ] event (at: 23-12-2020 0200 to 24-12-2020 0300)
+     [E][ ] event (at: 24-12-2020 0300 to 25-12-2020 0200)
+    _________________________________________________________________
+    _________________________________________________________________
+     [E][ ] event (at: 23-12-2020 0000 to 23-12-2020 0300)
+     [E][ ] event (at: 23-12-2020 0000 to 24-12-2020 0300)
+     [E][ ] event (at: 23-12-2020 0200 to 24-12-2020 0300)
+     [E][ ] event (at: 24-12-2020 0300 to 25-12-2020 0200)
+    _________________________________________________________________
+    _________________________________________________________________
+     Bye. Hope to see you again soon!
+    _________________________________________________________________
