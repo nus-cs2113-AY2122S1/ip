@@ -65,7 +65,7 @@ public class Command {
         try {
             String[] splittedDueDate = dueDate.split(" ");
             LocalDate date = LocalDate.parse(splittedDueDate[1], DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             throw new DukeException("☹ OOPS!!! Invalid date format." + System.lineSeparator()
                     + "\tPlease enter your date in the following format: dd-mm-yyyy");
         }
