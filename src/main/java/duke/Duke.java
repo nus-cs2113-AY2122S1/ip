@@ -216,7 +216,7 @@ public class Duke {
     public static void printList(ArrayList<Task> tasks, int size) {
         System.out.println(SEPARATE_LINE);
         for (int i = 0; i < size; i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            System.out.println((i + 1) + "." + (tasks.get(i)).toString());
         }
         System.out.println(SEPARATE_LINE);
     }
@@ -296,7 +296,34 @@ public class Duke {
         }
     }
 
-    public static boolean createFile(String filePath) {
+    public static void handleFind(String command) throws NoDescriptionException, NoSpaceException {
+        if (command.equals("find") || command.equals("find ")) {
+            throw new NoDescriptionException();
+        } else if (!command.startsWith("find ")) {
+            throw new NoSpaceException();
+        }
+    }
+
+    public static void printFind(ArrayList<Task> tasks, String command) {
+        try {
+            handleFind(command);
+            System.out.println("Here are the matching tasks in your list:");
+            String keyword = command.substring(5);
+            int order = 0;
+            for (Task task : tasks) {
+                if (task.getDescription().contains(keyword)) {
+                    order++;
+                    System.out.println(order + "." + task.toString());
+                }
+            }
+        } catch (NoDescriptionException e){
+                System.out.println("What id the keyword you want to find?");
+        } catch (NoSpaceException e){
+                System.out.println("Please use a space to separate command, task, and time (if any)");
+        }
+    }
+
+        public static boolean createFile(String filePath) {
         boolean canCreate = false;
         File newFile = new File(filePath);
         try {
@@ -346,18 +373,17 @@ public class Duke {
             time = taskLine.substring(index + 3);
         }
 
-        switch (taskType) {
-        case "D":
+        if (taskType.equals("D")) {
             task = new Deadline(description, time);
             if (taskDone.equals("√")) {
                 task.markAsDone();
             }
-        case "E":
+        } else if (taskType.equals("E")) {
             task = new Event(description, time);
             if (taskDone.equals("√")) {
                 task.markAsDone();
             }
-        default:
+        } else {
             task = new ToDo(description);
             if (taskDone.equals("√")) {
                 task.markAsDone();
@@ -501,6 +527,10 @@ public class Duke {
             } else if (command.equals("help")) {
                 System.out.println(SEPARATE_LINE);
                 System.out.println(INSTRUCTION);
+                System.out.println(SEPARATE_LINE);
+            } else if (command.startsWith("find")) {
+                System.out.println(SEPARATE_LINE);
+                printFind(tasks, command);
                 System.out.println(SEPARATE_LINE);
             } else {
                 System.out.println(SEPARATE_LINE);
