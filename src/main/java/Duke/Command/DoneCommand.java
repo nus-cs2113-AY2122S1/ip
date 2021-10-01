@@ -2,8 +2,8 @@ package Duke.Command;
 
 import Duke.Storage.Storage;
 import Duke.Ui.Ui;
-import Duke.Tasks.TaskList;
 import Duke.DukeException.DukeException;
+import Duke.Tasks.TaskList;
 
 public class DoneCommand extends Command {
     private final int index;

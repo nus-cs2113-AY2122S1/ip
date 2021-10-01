@@ -15,10 +15,10 @@ public class Parser {
     }
 
     /**
-     * Parse the input and get the command with required variables.
+     * Parses the input and get the command with required variables
      *
-     * @param input Input string from the user.
-     * @return Command Command class parsed from the input.
+     * @param input Input string from the user
+     * @return Command Command class parsed from the input
      */
     public static Command parse(String input) throws DukeException {
         String findCommand = input.split(" ")[0];
@@ -48,10 +48,10 @@ public class Parser {
     }
 
     /**
-     * Prepare the done command by extracting the index.
+     * Prepares the done command by extracting the index
      *
-     * @param input Input string from the user.
-     * @return DoneCommand DoneCommand got from the input.
+     * @param input Input string from the user
+     * @return DoneCommand DoneCommand got from the input
      * @throws DukeException if the input is in an incorrect format
      */
     public static DoneCommand prepareDone(String input) throws DukeException {
@@ -60,16 +60,18 @@ public class Parser {
             index = Integer.parseInt(input.split(" ")[1]) - 1;
         } catch (NumberFormatException n) {
             throw new DukeException("Please give a numerical index for 'done' command :-(");
+        } catch (IndexOutOfBoundsException i) {
+            throw new DukeException("Please give an index for 'done' command :-(");
         }
 
         return new DoneCommand(index);
     }
 
     /**
-     * Prepare the delete command by extracting the index.
+     * Prepares the delete command by extracting the index
      *
-     * @param input Input string from the user.
-     * @return DeleteCommand DeleteCommand got from the input.
+     * @param input Input string from the user
+     * @return DeleteCommand DeleteCommand got from the input
      */
     public static DeleteCommand prepareDelete(String input) throws DukeException {
         int index;
@@ -77,16 +79,18 @@ public class Parser {
             index = Integer.parseInt(input.split(" ")[1]) - 1;
         } catch (NumberFormatException n) {
             throw new DukeException("Please give a numerical index for 'delete' command :-(");
+        } catch (IndexOutOfBoundsException i) {
+            throw new DukeException("Please give an index for 'delete' command :-(");
         }
 
         return new DeleteCommand(index);
     }
 
     /**
-     * Prepare the find command by extracting the description.
+     * Prepares the find command by extracting the description
      *
-     * @param input Input string from the user.
-     * @return FindCommand FindCommand got from the input.
+     * @param input Input string from the user
+     * @return FindCommand FindCommand got from the input
      * @throws DukeException if the input is in an incorrect format
      */
     public static FindCommand prepareFind(String input) throws DukeException {
@@ -95,16 +99,18 @@ public class Parser {
             description = input.substring(FIND_POS);
         } catch (NumberFormatException n) {
             throw new DukeException("Please give a numerical index for 'done' command :-(");
+        } catch (IndexOutOfBoundsException i) {
+            throw new DukeException("Please give a key word for 'find' command :-(");
         }
 
         return new FindCommand(description);
     }
 
     /**
-     * Prepare the add todo command by extracting the description.
+     * Prepares the add todo command by extracting the description
      *
-     * @param input Input string from the user.
-     * @return AddTodoCommand AddTodoCommand got from the input.
+     * @param input Input string from the user
+     * @return AddTodoCommand AddTodoCommand got from the input
      * @throws DukeException if the input is in an incorrect format
      */
     public static AddTodoCommand prepareTodo(String input) throws DukeException {
@@ -112,22 +118,21 @@ public class Parser {
         try {
             description = input.substring(TODO_POS);
         } catch (IndexOutOfBoundsException i) {
-            throw new DukeException("Please give me a description the task :-(");
+            throw new DukeException("Please give me a description for the task :-(");
         }
 
         return new AddTodoCommand(description);
     }
 
     /**
-     * Prepare the add deadline command by extracting the description and by time.
+     * Prepares the add deadline command by extracting the description and by time
      *
-     * @param input Input string from the user.
-     * @return AddDeadlineCommand AddDeadlineCommand got from the input.
+     * @param input Input string from the user
+     * @return AddDeadlineCommand AddDeadlineCommand got from the input
      * @throws DukeException if the input is in an incorrect format
      */
     public static AddDeadlineCommand prepareDeadline(String input) throws DukeException {
         int indexOfBy = input.indexOf("/by");
-
         if (indexOfBy == -1) {
             throw new DukeException("Please tell me when the deadline is by :-(");
         }
@@ -150,15 +155,14 @@ public class Parser {
     }
 
     /**
-     * Prepare the add event command by extracting the description and by time.
+     * Prepares the add event command by extracting the description and by time
      *
-     * @param input Input string from the user.
-     * @return AddEventCommand AddEventCommand got from the input.
+     * @param input Input string from the user
+     * @return AddEventCommand AddEventCommand got from the input
      * @throws DukeException if the input is in an incorrect format
      */
     public static AddEventCommand prepareEvent(String input) throws DukeException {
         int indexOfAt = input.indexOf("/at");
-
         if (indexOfAt == -1) {
             throw new DukeException("Please tell me when the event is at :-(");
         }

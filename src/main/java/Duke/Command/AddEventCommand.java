@@ -2,8 +2,8 @@ package Duke.Command;
 
 import Duke.Ui.Ui;
 import Duke.Storage.Storage;
-import Duke.Tasks.TaskList;
 import Duke.Tasks.Event;
+import Duke.Tasks.TaskList;
 
 public class AddEventCommand extends Command {
     private final String description;

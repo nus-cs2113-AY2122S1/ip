@@ -2,8 +2,8 @@ package Duke.Command;
 
 import Duke.Storage.Storage;
 import Duke.Ui.Ui;
-import Duke.Tasks.TaskList;
 import Duke.DukeException.DukeException;
+import Duke.Tasks.TaskList;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
@@ -28,8 +28,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        tasks.deleteTask(this.index);
-        ui.printDeleteMessage();
+        ui.printDeleteMessage(tasks.deleteTask(this.index));
         ui.printNumOfTasks(tasks);
         storage.save(tasks.getTasks());
     }

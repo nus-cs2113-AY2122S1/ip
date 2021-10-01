@@ -16,7 +16,7 @@ public class FindCommand extends Command {
     private final String target;
 
     /**
-     * Execute the find command by looking for and showing tasks in TaskList that contain the key word
+     * Executes the find command by looking for and showing tasks in TaskList that contain the key word
      *
      * @param tasks TaskList the command to be executed on
      * @param ui Ui used for execution

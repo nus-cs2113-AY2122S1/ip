@@ -9,16 +9,16 @@ public class TaskList {
     private static ArrayList<Task> tasks;
 
     /**
-     * Create a TaskList class with the given list of tasks.
+     * Create a TaskList class with the given list of tasks
      *
-     * @param tasks List of recorded tasks.
+     * @param tasks List of recorded tasks
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
     /**
-     * Create a TaskList class of an empty list.
+     * Create a TaskList class of an empty list
      *
      */
     public TaskList() {
@@ -26,34 +26,34 @@ public class TaskList {
     }
 
     /**
-     * Return the tasks in the TaskList.
+     * Return the tasks in the TaskList
      *
-     * @return tasks Tasks in the TaskList.
+     * @return tasks Tasks in the TaskList
      */
     public final ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
     /**
-     * Tell whether the TaskList is empty.
+     * Tell whether the TaskList is empty
      *
-     * @return isEmpty Status of whether the TaskList is empty.
+     * @return isEmpty Status of whether the TaskList is empty
      */
     public final boolean isEmpty() {
         return this.tasks.size() == 0;
     }
 
     /**
-     * Get the number of tasks in the TaskList.
+     * Get the number of tasks in the TaskList
      *
-     * @return size Size of the TaskList.
+     * @return size Size of the TaskList
      */
     public final int getNumOfSize() {
         return this.tasks.size();
     }
 
     /**
-     * Print the tasks in the TaskList.
+     * Print the tasks in the TaskList
      *
      */
     public final void printTasks() {
@@ -68,36 +68,44 @@ public class TaskList {
     }
 
     /**
-     * Clear the tasks in the Tasklist.
+     * Clears the tasks in the Tasklist
      *
      */
     public final void clearTasks() {
         this.tasks = new ArrayList<Task> ();
     }
 
-    public final void deleteTask(int index) throws DukeException {
-        if (index >= this.tasks.size()) {
-            throw new DukeException("The index is out of range :-(\n");
-        } else {
+    public final Task deleteTask(int index) throws DukeException {
+        Task deletedTask;
+        try {
+            deletedTask = this.tasks.get(index);
             this.tasks.remove(index);
+        } catch (IndexOutOfBoundsException i) {
+            throw new DukeException("The index is out of range, please enter a valid index :-(");
+        }
+        return deletedTask;
+    }
+
+    /**
+     * Sets a task in the TaskList of certain index as done
+     *
+     * @param index Index of the task to be set as done
+     * @throws DukeException If the index is out of range
+     */
+    public final Task setDone(int index) throws DukeException {
+        try {
+            this.tasks.get(index).markedAsDone();
+            return this.tasks.get(index);
+        } catch (IndexOutOfBoundsException i) {
+            throw new DukeException("The index is out of range, please enter a valid index :-(");
         }
     }
 
     /**
-     * Set a task in the TaskList of certain index as done.
+     * Finds a task in the TaskList with key word
      *
-     * @param index Index of the task to be set as done.
-     * @throws DukeException If the index is out of range.
+     * @param target Target key word for the matching task
      */
-    public final Task setDone(int index) throws DukeException {
-        if (index >= this.tasks.size()) {
-            throw new DukeException("The index is out of range :-(\n");
-        } else {
-            this.tasks.get(index).markedAsDone();
-            return this.tasks.get(index);
-        }
-    }
-
     public final ArrayList<Task> find(String target) {
         ArrayList foundTasks = new ArrayList<Task>();
         for (Task task : this.tasks) {

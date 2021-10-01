@@ -31,7 +31,7 @@ public class Ui {
     }
 
     public static final void showLine() {
-        System.out.println("____________________________________________________________");
+        System.out.println(" * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . * . *");
     }
 
     public static final void printSuccessfulLoading() {
@@ -63,8 +63,9 @@ public class Ui {
         System.out.println("There is no matching task in your list :-(");
     }
 
-    public static final void printDeleteMessage() {
-        System.out.println("Got it. I have deleted the task in your list! ");
+    public static final void printDeleteMessage(Task taskDeleted) {
+        System.out.println("Got it. I have deleted the task in your list! \n"
+                + taskDeleted.toString());
     }
 
     public static final void printInvalidCommandMessage() {
@@ -78,11 +79,12 @@ public class Ui {
     }
 
     public static final void printNumOfTasks(TaskList tasks) {
-        System.out.println("Now you have " + tasks.getNumOfSize() + " tasks in your list.");
+        System.out.println("Now you have " + tasks.getNumOfSize() + " task(s) in your list.");
     }
 
     public static final void showHelpMessage() {
-        System.out.println(AddDeadlineCommand.COMMAND_DESCRIPTION
+        System.out.println("Here are the usages of all commands:"
+                + "\n\n" + AddDeadlineCommand.COMMAND_DESCRIPTION
                 + "\n\n" + AddEventCommand.COMMAND_DESCRIPTION
                 + "\n\n" + AddTodoCommand.COMMAND_DESCRIPTION
                 + "\n\n" + ClearCommand.COMMAND_DESCRIPTION

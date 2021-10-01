@@ -4,8 +4,8 @@ import Duke.Parser.Parser;
 import Duke.DukeException.DukeException;
 import Duke.Command.*;
 import Duke.Storage.Storage;
-import Duke.Tasks.TaskList;
 import Duke.Ui.Ui;
+import Duke.Tasks.TaskList;
 
 public class Duke {
     private Storage storage;
