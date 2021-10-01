@@ -29,7 +29,7 @@ Type Something:
 
 ### Add Todo: ```todo```
 Adds a Todo task into the tasklist.  
-The todo command must be accompanied by a task description only.  
+The todo command must be accompanied by a `task description` only.  
 Format: `` todo <description> ``
 
 Example
@@ -44,7 +44,7 @@ Now you have 1 tasks in the list
 
 ### Add Deadline: ```deadline```
 Adds a Deadline task into the tasklist.  
-The deadline command must be accompanied by both `task description` and date .  
+The deadline command must be accompanied by both `task description` and `date` .  
 Format: `` deadline <description> /by <date> ``
 
 Example
