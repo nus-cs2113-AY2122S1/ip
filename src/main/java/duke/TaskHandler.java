@@ -110,12 +110,11 @@ public class TaskHandler {
                 + Formatter.returnOutputStart() + tasks.get(id).toString();
     }
 
-    public String deleteTask(String lc) {
+    public String deleteTask(String line) {
         if (tasks.size() <= 0) {
             throw new IllegalArgumentException(NONZERO_INPUT_IS_ZERO_ERROR_MESSAGE);
         }
-        String inputNumStr = lc.replace("delete", "").trim();
-        int inputNum = Integer.parseInt(inputNumStr);
+        int inputNum = parser.parseDeleteTask(line);
         if (!(inputNum > 0 && inputNum <= tasks.size())) {
             throw new IllegalArgumentException(INPUT_OUT_OF_RANGE_ERROR_MESSAGE);
         }

@@ -141,4 +141,10 @@ public class Parser {
         int inputNum = Integer.parseInt(inputNumStr);
         return inputNum;
     }
+
+    public int parseDeleteTask(String line) {
+        String inputNumStr = line.toLowerCase().replace("delete", "").trim();
+        int inputNum = Integer.parseInt(inputNumStr);
+        return inputNum;
+    }
 }
