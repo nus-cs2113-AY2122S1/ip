@@ -28,10 +28,11 @@ With its bubbly personality and user-friendly commands, _Dude_ will surely becom
 All ready to go! Enjoy using _Dude_! 😃
 
 ## Features
-#### Notes about the command format:
+#### ℹ️ Notes about the command format:
 - `command` words are **case-sensitive** and are to be supplied in **lower case** only
 - Words in `UPPER_CASE` are details to be provided by the user
-- :exclamation: Date and time needs to be specified in `dd/MM/yyyy HHmm` format. E.g: `12/12/2021 2359` 
+- ❗ Date and time needs to be specified in `dd/MM/yyyy HHmm` format. E.g: `12/12/2021 2359` 
+
 
 
 ### Add a Todo task: `todo`
@@ -80,7 +81,9 @@ ________________________________________________________________________________
 ````
 
 ### List all tasks: `list`
-Lists all the tasks you currently have.
+Lists all the tasks you currently have, along with their completion status. 
+
+`[ ]` indicates a task that is yet to be complete and `[X]` indicates a completed task.
 >Format: `list`
 
 Example: `list`
