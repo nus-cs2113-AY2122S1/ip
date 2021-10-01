@@ -22,6 +22,7 @@ public class Duke {
 
         manager.initSchedule();
         Scanner in = new Scanner(System.in);
+        System.out.println("Hello! I'm Duke");
         System.out.print("Type something: ");
         String line = in.nextLine();
 
