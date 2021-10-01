@@ -3,7 +3,7 @@ Duke is a text-based app for people to manage their recent tasks. It works like 
 ***
 ## Quick start
 1. Ensure you have Java `11` installed in your computer.
-2. Download the latest `duke.jar` from [here](https://github.com/LilyDaytoy/ip/releases/tag/A-Jar).
+2. Download the latest `duke.jar` from [here](https://github.com/LilyDaytoy/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as your *home folder* for Duke.
 4. Open your Command Line Terminal in the folder where `duke.jar` is located and run Duke using `java -jar duke.jar`.
 5. Type the command in the Terminal and press Enter to execute it. For example, type `list` and press Enter will show you all the current tasks you have and their corresponding completion statuses.
