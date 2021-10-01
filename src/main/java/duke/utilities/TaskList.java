@@ -1,5 +1,6 @@
 package duke.utilities;
 
+import duke.Duke;
 import duke.task.Task;
 
 import java.util.ArrayList;
@@ -10,9 +11,10 @@ public class TaskList {
     private final String SPACING = " ";
     private final String ERROR_WRONG_FIND_FORMAT = "Find format wrong!"
             + "\nPlease key in only 1 keyword after the command \"find\"";
+    private final String ERROR_TASK_DONE = "The task has already been marked as done!";
 
     private final String MESSAGE_TASK_ADDED = "Added task:\n    ";
-    private final String MESSAGE_USE_INT = "Please key in a number instead pls :(";
+    private final String MESSAGE_USE_INT = "Command is invalid. Try to key in the task number instead!";
     private final String MESSAGE_OUT_OF_RANGE = "No such task found! Try a range of 1 to ";
     private final String MESSAGE_NO_TASKS = "There are no tasks yet. Please add a task first.";
 
@@ -41,11 +43,11 @@ public class TaskList {
      * @param ui Prints the task that has just been added
      * @param type Type of file to be added
      */
-    public void addTask(String input, Ui ui, String type) throws DukeException {
+    public void addTask(String input, String type) throws DukeException {
         Task temp = Parser.getTaskType(input, type);
         tasks.add(temp);
         System.out.println(MESSAGE_TASK_ADDED + temp);
-        ui.printTaskNumber(tasks);
+        Ui.printTaskNumber(tasks);
     }
 
     /**
@@ -70,16 +72,26 @@ public class TaskList {
      * @param input The task index to be deleted
      * @param ui Prints which task is removed
      */
-    public void deleteTask(String input, Ui ui) {
-        int taskIdx = findTaskNumber(input);
+    public void deleteTask(String input) {
         try {
-            Task temp = tasks.get(taskIdx);
-            tasks.remove(taskIdx);
-            ui.print(PRINT_REMOVE_MESSAGE + temp);
-            ui.printTaskNumber(tasks);
+            removeTask(input);
         } catch (IndexOutOfBoundsException e) {
-            ui.print(MESSAGE_OUT_OF_RANGE + tasks.size());
+            handleTaskNotInList();
+        } catch (NumberFormatException e) {
+            handleParseIntError();
         }
+    }
+
+    private void handleParseIntError() {
+        Ui.print(MESSAGE_USE_INT);
+    }
+
+    private void removeTask(String input) {
+        int taskIdx = findTaskNumber(input);
+        Task temp = tasks.get(taskIdx);
+        tasks.remove(taskIdx);
+        Ui.print(PRINT_REMOVE_MESSAGE + temp);
+        Ui.printTaskNumber(tasks);
     }
 
     /**
@@ -88,21 +100,34 @@ public class TaskList {
      * @param input The task index to be set as done
      * @param ui Prints the task set as done
      */
-    public void setTaskAsDone(String input, Ui ui) {
-        int taskIdx = findTaskNumber(input);
+    public void setTaskAsDone(String input) {
         try {
-            Task temp = tasks.get(taskIdx);
-            temp.setDone();
-            tasks.set(taskIdx, temp);
-            System.out.println(PRINT_DONE_MESSAGE_FRONT + temp + PRINT_DONE_MESSAGE_BACK);
+            markTaskAsDone(input);
         } catch (IndexOutOfBoundsException e) {
-            if (tasks.size() == 0) {
-                ui.print(MESSAGE_NO_TASKS);
-            } else {
-                ui.print(MESSAGE_OUT_OF_RANGE + tasks.size());
-            }
+            handleTaskNotInList();
         } catch (NumberFormatException e) {
-            ui.print(MESSAGE_USE_INT);
+            handleParseIntError();
+        } catch (DukeException dukeE) {
+            System.out.println(dukeE.getMessage());
+        }
+    }
+
+    private void markTaskAsDone(String input) throws DukeException {
+        int taskIdx = findTaskNumber(input);
+        Task temp = tasks.get(taskIdx);
+        if (temp.isDone()) {
+            throw new DukeException(ERROR_TASK_DONE);
+        }
+        temp.setDone();
+        tasks.set(taskIdx, temp);
+        System.out.println(PRINT_DONE_MESSAGE_FRONT + temp + PRINT_DONE_MESSAGE_BACK);
+    }
+
+    private void handleTaskNotInList() {
+        if (tasks.size() == 0) {
+            Ui.print(MESSAGE_NO_TASKS);
+        } else {
+            Ui.print(MESSAGE_OUT_OF_RANGE + tasks.size());
         }
     }
 
@@ -119,7 +144,7 @@ public class TaskList {
      * @param input Keyword of the user
      * @param ui Prints the list of matches found in the TaskList
      */
-    public void findTasks(String input, Ui ui) throws DukeException {
+    public void findTasks(String input) throws DukeException {
         String[] words = input.split(" ");
 
         if (words.length != 2) {
@@ -131,6 +156,6 @@ public class TaskList {
                 .filter(t -> t.getDescription().toLowerCase().contains(keyword))
                 .collect(Collectors.toList());
 
-        ui.printMatchingList(matches);
+        Ui.printMatchingList(matches);
     }
 }

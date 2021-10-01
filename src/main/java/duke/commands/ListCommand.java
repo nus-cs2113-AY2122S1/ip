@@ -17,12 +17,11 @@ public class ListCommand extends Command {
      *
      * @param input Input of user
      * @param tasks TaskList of all the tasks
-     * @param ui Ui of the bot
      * @param storage Storage of the bot
      * @throws DukeException If it is unable to display any tasks properly
      */
     @Override
-    public void execute(String input, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        ui.printList(tasks.getTasks());
+    public void execute(String input, TaskList tasks, Storage storage) throws DukeException {
+        Ui.printList(tasks.getTasks());
     }
 }

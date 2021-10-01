@@ -7,8 +7,6 @@ import duke.utilities.Storage;
 import duke.utilities.TaskList;
 import duke.utilities.Ui;
 
-import java.util.Scanner;
-
 public class Duke {
 
     private Storage storage;
@@ -35,19 +33,16 @@ public class Duke {
     }
 
     private void startChat() {
-        Scanner in = new Scanner(System.in);
         boolean isExit = false;
         do {
             try {
-
-                    ui.printDivider();
-                    String input = in.nextLine();
-                    ui.printDivider();
-                    Command command = Parser.getCommand(input);
-                    command.execute(input, tasks, ui, storage);
-                    isExit = command.isExit(command);
-
-            } catch (DukeException dukeE){
+                ui.printDivider();
+                String input = ui.scanUserInput();
+                ui.printDivider();
+                Command command = Parser.getCommand(input);
+                command.execute(input, tasks, storage);
+                isExit = command.isExit(command);
+            } catch (DukeException dukeE) {
                 System.out.println(dukeE.getMessage());
             }
         } while (!isExit);
