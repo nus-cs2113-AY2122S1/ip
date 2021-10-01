@@ -30,17 +30,17 @@ Type Something:
 ### Add Todo: ```todo```
 Adds a Todo task into the tasklist.  
 The todo command must be accompanied by a task description only.  
-Format: `````todo <description>`````
+Format: ``todo <description>``
 
 Example
-`
+```
 % todo eat tempura  
 ------------------------------------  
 Got it! I've added this task:   
 [T][ ] eat tempura  
 Now you have 1 tasks in the list  
 ------------------------------------  
-`
+```
 
 
 ### Feature-XYZ
