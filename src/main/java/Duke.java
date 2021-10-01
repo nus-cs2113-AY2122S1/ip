@@ -29,7 +29,7 @@ public class Duke {
                 if (!isExit) {
                     ui.handleUserInput(taskHandler, userInput);
                 }
-            } catch (IllegalArgumentException | DukeException e) {
+            } catch (IllegalArgumentException | InvalidCommandException e) {
                 ui.show(e.getMessage());
             } finally {
                 ui.showLine();
@@ -39,6 +39,7 @@ public class Duke {
         ui.sayBye();
     }
 
+    /** Entry point to the programme. */
     public static void main(String[] args) {
         new Duke().run();
     }
