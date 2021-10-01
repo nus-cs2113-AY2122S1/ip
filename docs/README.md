@@ -218,7 +218,7 @@ list
 Marks the task with index `<TASK_NUMBER>` on the list as done.
 
 For example, using the [list](#list) above, <br>
-to mark the 4th tasks as done:
+to mark the 4th task as done:
 ````
 done 4
     ┌────────────────────────────────────────────────────────────────────┐
@@ -246,7 +246,7 @@ list
 Deletes the task with index `<TASK_NUMBER>` on the list. (Be careful, it'll be gone forever!)
 
 For example, using the [list](#list) above, <br>
-to delete the 3rd tasks:
+to delete the 3rd task:
 ````
 delete 3
     ┌────────────────────────────────────────────────────────────────────┐
@@ -315,7 +315,7 @@ bye
 ````
 
 ### Command Summary
-````
+```` 
 Do you remember, 21st night of September?
 Love was changing the mind of pretenders
 While chasing the clouds away
@@ -344,7 +344,8 @@ Oops, wrong one. Here's the correct one:
 ### Q1:
 _Tired_ really hurt my feelings. How can I change his attitude?
 
-**A**: “That which does not kill us, makes us stronger.” — Friedrich Nietzsche
+**A:** 
+<br> “That which does not kill us, makes us stronger.” — Friedrich Nietzsche
 <br> Alternatively, you can check out my friends' chatbot assistants (they're friendlier.)
 
 ### Links to More Chatbot Assistants
