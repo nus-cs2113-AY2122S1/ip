@@ -5,7 +5,7 @@ import duke.task.Todo;
 
 import java.util.Scanner;
 
-public class FileIOManager {
+public class Storage {
     public static void write(ArrayList<Todo> tasks) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("tasks.txt"));
         int count = 1;

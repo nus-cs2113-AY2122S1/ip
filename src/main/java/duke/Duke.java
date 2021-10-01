@@ -1,11 +1,10 @@
 package duke;
-import duke.task.TaskManager;
-import duke.userinterface.UserInterface;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.ArrayList;
-import duke.FileIOManager;
+
 public class Duke {
 
     public static void main(String[] args) {
@@ -16,14 +15,14 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
         try {
-            ArrayList<String> tasksString = FileIOManager.read();
-            TaskManager.convertTaskStringToTasks(tasksString);
+            ArrayList<String> tasksString = Storage.read();
+            TaskList.convertTaskStringToTasks(tasksString);
         } catch (IOException e){
-            TaskManager.convertTaskStringToTasks(null);
+            TaskList.convertTaskStringToTasks(null);
         }
 
         Greet.openingGreet();
-        UserInterface.talkToUser();
+        Ui.talkToUser();
         Greet.closingGreet();
     }
 

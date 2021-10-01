@@ -3,9 +3,9 @@ import duke.exception.InvalidInputException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import duke.FileIOManager;
+import duke.Storage;
 
-public class TaskManager {
+public class TaskList {
     private static ArrayList<Todo> tasks = new ArrayList<Todo>();
 
     public static void addTodo(String userInput) {
@@ -118,7 +118,7 @@ public class TaskManager {
 
     private static void updateFile(){
         try {
-            FileIOManager.write(tasks);
+            Storage.write(tasks);
         } catch (IOException e){
             System.out.println(e);
         }
