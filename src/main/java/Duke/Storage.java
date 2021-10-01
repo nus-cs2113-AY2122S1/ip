@@ -20,10 +20,23 @@ public class Storage {
 
     private String filePath;
 
+    /**
+     * Class constructor for Storage
+     *
+     * @param filePath path to file which saves tasks
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks saved in the file and returns the TaskList
+     * Creates a new directory and file if it is not already created and TaskList will be empty
+     *
+     * @return TaskList object containing tasks from the file
+     * @throws DukeException If file is corrupted and not saved according to the format
+     * @throws DateTimeParseException If date and time saved in the file does not follow the format
+     */
     public TaskList load() throws DukeException, DateTimeParseException {
         try {
             return readFile(filePath);
@@ -74,6 +87,11 @@ public class Storage {
         fileTasks.addTask(taskToAdd);
     }
 
+    /**
+     * Saves tasks to file in a formatted manner
+     *
+     * @param tasks TaskList containing Task to be saved to the file
+     */
     public void writeToFile(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -87,7 +105,7 @@ public class Storage {
         }
     }
 
-    public static String[] splitDataString(String input) throws DukeException {
+    private static String[] splitDataString(String input) throws DukeException {
         String[] split = input.trim().split(" \\| ", 4);
         if (split.length < 3) {
             throw new DukeException();

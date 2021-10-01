@@ -13,6 +13,13 @@ public class Parser {
     private static final String DEADLINE_BY_PREFIX = "/by ";
     private static final String EVENT_AT_PREFIX = "/at ";
 
+    /**
+     * Parses user input and creates the corresponding Command object
+     *
+     * @param input User input
+     * @return Command object that corresponds to input
+     * @throws DukeException If command user input is invalid
+     */
     public static Command parse(String input) throws DukeException {
         String[] commandAndParams = splitCommandString(input, " ");
         String command = commandAndParams[0];
