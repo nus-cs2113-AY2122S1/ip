@@ -7,7 +7,7 @@ Duke is a desktop app for **keeping a record for all the tasks you want to note 
 ## Quick Start
 
 1. Ensure you have **Java 11** installed in your Computer.
-2. Download the latest **ip.jar** from [here](https://github.com/Xuefei2001/ip/releases/tag/v0.1).
+2. Download the latest **ip.jar** from [here](https://github.com/Xuefei2001/ip/releases/tag/v2.0).
 3. Copy the file to the folder you want to use as the home folder for Duke.
 4. Use *command prompt* on your computer to navigate to where the **ip.jar** file is stored.
 5. Run `java -jar ip.jar` to start the app. A greeting message with instructions on the commands you can use should be displayed.
