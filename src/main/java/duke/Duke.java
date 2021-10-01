@@ -1,6 +1,5 @@
 package duke;
 
-import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,6 +10,15 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * <h1>Duke Task Manager</h1>
+ * Implements a task manager which can track 3 types of tasks.
+ *
+ * It contains a {@code Ui} class to deal with user interactions,
+ * a {@code TaskList} class to keep track of all tasks,
+ * a {@code Storage} class to save and load the data, and
+ * a {@code Parser} class to interpret user input and carry out instructions.
+ */
 
 public class Duke {
     /*ATTRIBUTES*/
@@ -20,8 +28,11 @@ public class Duke {
     private Storage storage;
 
 
-
-    /*METHODS*/
+    /**
+     * Constructor for {@code Duke} class
+     *
+     * @param filePath Indicates the path to a file in the hard disk where tasks are stored to or loaded from.
+     */
     public Duke (String filePath){
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -30,8 +41,13 @@ public class Duke {
     }
 
 
-    /*MAIN*/
-
+    /**
+     * Main method where programe is run
+     *
+     * @param args Unused
+     * @throws DukeException Errors specific to Duke
+     * @throws IOException Errors regarding external text file
+     */
     public static void main(String[] args) throws DukeException, IOException {
         Duke duke = new Duke ("duke.txt");
 
@@ -62,7 +78,7 @@ public class Duke {
             } else if (input.startsWith("done ")) {
                 int index = duke.parser.getTaskNumber(input);
 
-                duke.tasks.setDoneTask(duke.tasks.getTask(index - 1), index - 1, duke.tasks);
+                duke.tasks.setDoneTask(index - 1, duke.tasks);
 
             } else if (input.startsWith("delete ")){
                 int index = duke.parser.getTaskNumber(input);
