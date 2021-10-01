@@ -16,6 +16,8 @@ It also allows them to mark different tasks as done and search for specific task
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
+--------------------------------------
+
 ## Quick start
 
 1. Ensure you have Java 11 or above installed in your Computer.
@@ -65,6 +67,7 @@ Type something:
 ```
 
 8. Refer to the Features below and enter the associated commands and press Enter to execute them.
+
 --------------------------------------
 
 ## Features
@@ -188,7 +191,9 @@ Generating all the tasks that occur on "2021-10-21"...
 Exits the program.
 #### Format: `bye`
 
+
 --------------------------------------
+
 
 ## FAQ
 Q: Are the commands case-sensitive?

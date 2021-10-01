@@ -1,5 +1,6 @@
 package duke;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /** To deal with interactions with the user such as the user sending commands
@@ -46,6 +47,7 @@ public class Ui {
     public static final String STARTING_MESSAGE = "Accessing archives, loading in data, C3PO systems online!";
     public static final String ENDING_MESSAGE = "Goodbye master! May the force be with you!\n";
     public static final String USER_PROMPT_MESSAGE = "Type something: ";
+    public static final String SORRY = "My apologies!";
     public static final String LINE = "____________________________________________________________\n";
     public static final String LOGO = "       /~\\\n"
                                     + "      |oo )\n"
@@ -65,15 +67,66 @@ public class Ui {
                                   "What can I do for you my master?\n";
     public static final String TASK_ADDED = "Added to Galactic database:";
     public static final String MARKED_DONE = "The following task has been marked as done Master!";
-    public static final String LOADING = "Accessing archives...";
+    public static final String LOADING_ALL_TASKS = "Accessing full task archives...";
+    public static final String LOADING_KEYWORD_MESSAGE_ONE = "Accessing archives...\n" +
+                                                             "Generating all the tasks that contain \"";
+    public static final String LOADING_KEYWORD_MESSAGE_TWO = "...";
+    public static final String LOADING_DATE_MESSAGE_ONE = "Accessing archives...\n" +
+                                                          "Generating all the tasks that occur on \"";
+    public static final String LOADING_DATE_MESSAGE_TWO = "\"...";
     public static final String DELETED_TASK = "Taking one last look Master, at this Task. Removing the following from my memory";
     public static final String TASK_COUNT_MESSAGE_ONE = "Goodbye Task, may the force be with you. You have ";
     public static final String TASK_COUNT_MESSAGE_TWO = " task(s) left Master";
-
+    public static final String NO_TASK_KEYWORD_MESSAGE_ONE = "Unfortunately, there are no tasks that contain \"";
+    public static final String NO_TASK_KEYWORD_MESSAGE_TWO = "\" master. My apologies!";
+    public static final String NO_TASK_DATE_MESSAGE_ONE = "Unfortunately, there are no tasks that occur on \"";
+    public static final String NO_TASK_DATE_MESSAGE_TWO = "\" master. My apologies!";
 
     /** To say goodbye to the user before the program terminates */
     public static void sayBye() {
         System.out.println(ENDING_MESSAGE + LINE);
+    }
+
+    /** To welcome the user when they run the program */
+    public static void greetUser() {
+        System.out.println(GREETINGS);
+    }
+
+    /** To prompt the user to key in a command */
+    public static void promptUser() {
+        System.out.println(LINE);
+        System.out.print(USER_PROMPT_MESSAGE);
+    }
+
+    /** To indicate that all tasks will be shown soon */
+    public static void sayLoading() {
+        System.out.println(LOADING_ALL_TASKS);
+    }
+
+    /**
+     * To indicate that all tasks containing the specified keyword will be shown soon      *
+     * @param keyword the specified keyword
+     */
+    public static void sayLoadingForKeyword(String keyword) {
+        System.out.println(LOADING_KEYWORD_MESSAGE_ONE + keyword + LOADING_KEYWORD_MESSAGE_TWO);
+    }
+
+    /**
+     * To indicate that all tasks occurring on the specified date will be shown soon      *
+     * @param date the specified date
+     */
+    public static void sayLoadingForDate(LocalDate date) {
+        System.out.println(LOADING_DATE_MESSAGE_ONE + date + LOADING_DATE_MESSAGE_TWO);
+    }
+
+    /** To inform that no tasks contain the specified keyword */
+    public static void sayCannotFindKeyword(String keyword) {
+        System.out.println(NO_TASK_KEYWORD_MESSAGE_ONE + keyword + NO_TASK_KEYWORD_MESSAGE_TWO);
+    }
+
+    /** To inform that no tasks occur on the specified date */
+    public static void sayCannotFindDate(String date) {
+        System.out.println(NO_TASK_DATE_MESSAGE_ONE + date + NO_TASK_DATE_MESSAGE_TWO);
     }
 
     /** To indicate to the user that a task has been added to their list */
@@ -96,20 +149,9 @@ public class Ui {
         System.out.println(TASK_COUNT_MESSAGE_ONE + positionCheck + TASK_COUNT_MESSAGE_TWO);
     }
 
-    /** To indicate that their tasks will be shown soon */
-    public static void sayLoadingList() {
-        System.out.println(LOADING);
-    }
-
-    /** To welcome the user when they run the program */
-    public static void greetUser() {
-        System.out.println(GREETINGS);
-    }
-
-    /** To prompt the user to key in a command */
-    public static void promptUser() {
-        System.out.println(LINE);
-        System.out.print(USER_PROMPT_MESSAGE);
+    /** To apologize to the user whenever a DukeException error occurs */
+    public static void saySorry() {
+        System.out.println(SORRY);
     }
 
     /** To print a line to separate commands from the user and those from C3PO */

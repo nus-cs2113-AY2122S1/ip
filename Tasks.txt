@@ -1,0 +1,7 @@
+deadline submit assn /by 2021-12-23 17:00 | 1
+event marathon /at 2022-11-02 03:00 | 1
+deadline go and do homework /by 2022-03-17 13:35 | 1
+deadline sfiwi /by 2021-12-14 03:00 | 1
+deadline r /by 2021-12-03 19:00 | 0
+event d r ew w w /at 1954-12-24 14:00 | 0
+todo yu | 0

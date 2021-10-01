@@ -90,7 +90,7 @@ public class Parser {
             int taskIndex = taskNumber - 1;
             if (tasks.positionCheck <= 0) {
                 throw new DukeException(Ui.EMPTY);
-            } else if ((taskNumber > tasks.positionCheck) || (taskNumber <= 0)) {
+            } else if ((taskNumber > tasks.positionCheck) || (taskNumber <= 0) || input.length != 2) {
                 throw new DukeException(Ui.INVALID);
             } else if (firstWord.equals("done")) {
                 tasks.markDone(taskIndex);
@@ -102,7 +102,7 @@ public class Parser {
         case "find":
             String keyword = secondWord;
             for (int i = 2; i < input.length; i++) {
-                keyword += " " + input[i];
+                keyword = keyword.concat(" " + input[i]);
             }
             tasks.printListForFindingTask(keyword);
             break;

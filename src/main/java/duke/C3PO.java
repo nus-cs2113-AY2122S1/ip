@@ -14,7 +14,7 @@ public class C3PO {
     private Parser parser;
 
     /**
-     * To create new Ui, Storage, Tasklist and Parser object, and load data from the text file.
+     * To create new Ui, Storage, TaskList and Parser object, and load data from the text file.
      *
      * @param filePath the name of the text file
      */
@@ -50,7 +50,7 @@ public class C3PO {
             } catch (NumberFormatException e) {
                 Ui.printNumberFormatExceptionMessage();
             } catch (DukeException e) {
-                // DukeException errors will be printed
+                Ui.saySorry();
             } catch (IOException e) {
                 Ui.printIOExceptionMessage();
             } catch (DateTimeParseException e) {

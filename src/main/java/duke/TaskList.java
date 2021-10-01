@@ -51,7 +51,7 @@ public class TaskList {
             }
             this.loadFlag = 1;
         } catch (DukeException e) {
-            //Catching DukeException errors
+            Ui.saySorry();
         } catch (IOException e) {
             Ui.printIOExceptionMessage();
         } catch (DateTimeParseException e) {
@@ -76,27 +76,33 @@ public class TaskList {
      * @throws DateTimeParseException if the date or time is not written in the proper format
      */
     public void addDeadline(String[] input, int length) throws DukeException, IOException, DateTimeParseException {
-        String description;
-        String by;
+        String description = "";
+        String by = "";
+        int byPosition = 0;
+        int byLength = 2;
         for (int i = 1 ; i < length ; i++) {
-            if ((input[i].equals("/by")) && (i != 1) && (i != (length-1))) {
+            if ((input[i].equals("/by")) && (i != 1) && (i != (length - byLength))) {
                 description = input[1];
-                by = input[i+1];
-                for (int j = 2 ; j < i ; j++) {
-                    description += (" " + input[j]);
-                }
-                for (int k = i+2 ; k < length ; k++) {
-                    by += (" " + input[k]);
-                }
-                commands.add(new Deadline(description,by));
-                if (loadFlag == 1) {
-                    Ui.sayTaskAdded();
-                    System.out.println(commands.get(positionCheck));
-                    storage.saveNewTask(input);
-                }
-                positionCheck += 1;
-                return;
+                by = input[i + 1];
+                byPosition = i;
+                break;
             }
+        }
+        if (byPosition != 0) {
+            for (int j = 2; j < byPosition; j++) {
+                description = description.concat(" " + input[j]);
+            }
+            for (int k = byPosition + 2; k < length; k++) {
+                by = by.concat(" " + input[k]);
+            }
+            commands.add(new Deadline(description, by));
+            if (loadFlag == 1) {
+                Ui.sayTaskAdded();
+                System.out.println(commands.get(positionCheck));
+                storage.saveNewTask(input);
+            }
+            positionCheck += 1;
+            return;
         }
         throw new DukeException(Ui.DEADLINE_ERROR);
     }
@@ -111,27 +117,32 @@ public class TaskList {
      * @throws DateTimeParseException if the date or time is not written in the proper format
      */
     public void addEvent(String[] input, int length) throws DukeException, IOException, DateTimeParseException {
-        String description;
-        String at;
+        String description = "";
+        String at = "";
+        int atPosition = 0;
+        int atLength = 2;
         for (int i = 1 ; i < length ; i++) {
-            if ((input[i].equals("/at")) && (i != 1) && (i != (length-1))) {
+            if ((input[i].equals("/at")) && (i != 1) && (i != (length - atLength))) {
                 description = input[1];
-                at = input[i+1];
-                for (int j = 2 ; j < i ; j++) {
-                    description += (" " + input[j]);
-                }
-                for (int k = i+2 ; k < length ; k++) {
-                    at += (" " + input[k]);
-                }
-                commands.add( new Event(description,at) );
-                if (loadFlag == 1) {
-                    Ui.sayTaskAdded();
-                    System.out.println(commands.get(positionCheck));
-                    storage.saveNewTask(input);
-                }
-                positionCheck += 1;
-                return;
+                at = input[i + 1];
+                atPosition = i;
             }
+        }
+        if (atPosition != 0) {
+            for (int j = 2; j < atPosition; j++) {
+                description = description.concat(" " + input[j]);
+            }
+            for (int k = atPosition + 2; k < length; k++) {
+                at = at.concat(" " + input[k]);
+            }
+            commands.add(new Event(description, at));
+            if (loadFlag == 1) {
+                Ui.sayTaskAdded();
+                System.out.println(commands.get(positionCheck));
+                storage.saveNewTask(input);
+            }
+            positionCheck += 1;
+            return;
         }
         throw new DukeException(Ui.EVENT_ERROR);
     }
@@ -150,7 +161,7 @@ public class TaskList {
         } else {
             String description = input[1];
             for (int i = 2 ; i < length ; i++) {
-                description += (" " + input[i]);
+                description = description.concat(" " + input[i]);
             }
             commands.add( new Todo(description) );
             if (loadFlag == 1) {
@@ -164,7 +175,7 @@ public class TaskList {
 
     /** Prints all tasks in the ArrayList of tasks when the user keys in "list" */
     public void printList() {
-        Ui.sayLoadingList();
+        Ui.sayLoading();
         int i = 1;
         for (Task num : commands) {
             System.out.println(i + ". " + num);
@@ -178,9 +189,8 @@ public class TaskList {
      * @param dateString the specified date
      */
     public void printListForFindingDate(String dateString) {
-        Ui.sayLoadingList();
         LocalDate date = LocalDate.parse(dateString);
-        System.out.println("Generating all the tasks that occur on \"" + date + "\"...");
+        Ui.sayLoadingForDate(date);
         int i = 1;
         for (Task num : commands) {
             if (num instanceof Event) {
@@ -196,7 +206,7 @@ public class TaskList {
             }
         }
         if (i == 1) {
-            System.out.println("There are no tasks that occur on \"" + dateString + "\" master. My apologies!");
+            Ui.sayCannotFindDate(dateString);
         }
     }
 
@@ -206,8 +216,7 @@ public class TaskList {
      * @param keyword the keyword to use filter out tasks
      */
     public void printListForFindingTask(String keyword) {
-        Ui.sayLoadingList();
-        System.out.println("Generating all the tasks that contain \"" + keyword + "\"...");
+        Ui.sayLoadingForKeyword(keyword);
         int i = 1;
         for (Task num : commands) {
             if ((num.description).contains(keyword)) {
@@ -216,7 +225,7 @@ public class TaskList {
             }
         }
         if (i == 1) {
-            System.out.println("Unfortunately, there are no tasks that contain \"" + keyword + "\" master. My apologies!");
+            Ui.sayCannotFindKeyword(keyword);
         }
     }
 

@@ -30,7 +30,7 @@ public class Storage {
         FileWriter fw = new FileWriter(this.filePath, true);
         String fullTaskAsString = "";
         for (String individualString : input) {
-            fullTaskAsString += individualString + " ";
+            fullTaskAsString = fullTaskAsString.concat(individualString + " ");
         }
         fullTaskAsString += "| 0";
         fw.write(fullTaskAsString + "\n");
