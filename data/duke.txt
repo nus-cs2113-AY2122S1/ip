@@ -1,0 +1,2 @@
+E | false | attend tutorial | Aug 6th 2-4pm
+T | false | do geh tutorial
