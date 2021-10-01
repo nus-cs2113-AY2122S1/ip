@@ -1,7 +1,10 @@
 package duke.task;
 
+/**
+ * Represents an event that has a description, a status inherited from Task class,
+ * and an extra at attribute indicating the time of the task.
+ */
 public class Event extends Task {
-
     protected String at;
 
     public Event(String description, String at) {

@@ -1,7 +1,6 @@
 package duke.command;
 import java.util.Scanner;
 
-
 public class Duke {
     private static Parser parser = new Parser();
     private static Ui ui = new Ui();
