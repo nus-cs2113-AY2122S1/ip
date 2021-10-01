@@ -106,7 +106,6 @@ ____________________________________________________________
     [E][ ] project meeting (at: Mon 2-4pm)
     Now you have 2 tasks in the list.
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 ````
 
 #### 5. Find tasks with keyword
