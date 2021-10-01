@@ -19,11 +19,13 @@ import java.io.FileWriter;
 public class Duke {
     public static final String SEPARATE_LINE = "____________________________________________________________";
     public static final String INSTRUCTION = "Here are what I can do:\n"
-            + "echo description: I will repeat your description\n"
-            + "todo description: I will add a task with no time constraint to your task list\n"
-            + "deadline description /by time: I will add a task with deadline to your task list\n"
-            + "event description /at time: I will add a task with its time to your task list\n"
-            + "done taskNumber: I will mark this task as done\n"
+            + "echo DESCRIPTION: I will repeat your description\n"
+            + "todo DESCRIPTION: I will add a task with no time constraint to your task list\n"
+            + "deadline DESCRIPTION /by TIME: I will add a task with deadline to your task list\n"
+            + "event DESCRIPTION /at TIME: I will add a task with its time to your task list\n"
+            + "done TASKNUMBER: I will mark this task as done\n"
+            + "delete TASKNUMBER: I will delete this task\n"
+            + "find KEYWORD: I will search for tasks containing the keyword\n"
             + "list: I will show your task list\n"
             + "help: view the commands you can use\n"
             + "bye: finish using Duke";
