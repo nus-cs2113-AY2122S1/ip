@@ -1,14 +1,18 @@
 package duke;
 
 import duke.task.Task;
-import duke.validation.InvalidFormatException;
-import duke.validation.InvalidIndexException;
 
 import java.util.ArrayList;
 
+/**
+ * The UI class handles all printing of messages to the terminal.
+ */
 public class UI{
     private static final String BUFFER_LINE = "____________________________________________________________\n";
 
+    /**
+     * Prints a welcome message including the logo of Duke.
+     */
     public static void printWelcomeMessage() {
         System.out.println(BUFFER_LINE);
         String LOGO = " ____        _        \n"
@@ -25,6 +29,9 @@ public class UI{
         System.out.println(GREETING);
     }
 
+    /**
+     * Prints a goodbye message before ending the program.
+     */
     public static void printEndMessage() {
         String BYE_MESSAGE = BUFFER_LINE
                 + " Bye. Hope to see you again soon!\n"
@@ -32,6 +39,11 @@ public class UI{
         System.out.println(BYE_MESSAGE);
     }
 
+    /**
+     * Prints an addition message whenever a new task is being added.
+     * @param current The current task being added.
+     * @param taskCount The current number of tasks.
+     */
     public static void printAdditionMessage(Task current, int taskCount) {
         String additionMessage = BUFFER_LINE
                 + " Gotcha! I've added this task: \n"
@@ -41,6 +53,10 @@ public class UI{
         System.out.println(additionMessage);
     }
 
+    /**
+     * Prints a confirmation message whenever a task is set as done.
+     * @param current The current task being set as done.
+     */
     public static void printDoneMessage(Task current) {
         String doneMessage = BUFFER_LINE
                 + " Nice! I've marked this task as done: \n"
@@ -49,6 +65,11 @@ public class UI{
         System.out.println(doneMessage);
     }
 
+    /**
+     * Prints a deletion message whenever a task is being delete.
+     * @param current The current task being deleted.
+     * @param taskCount The current number of tasks.
+     */
     public static void printDeleteMessage(Task current, int taskCount) {
         String doneMessage = BUFFER_LINE
                 + " Alright! I've removed this task from the list: \n"
@@ -58,6 +79,10 @@ public class UI{
         System.out.println(doneMessage);
     }
 
+    /**
+     * Prints the current list of all tasks in chronological order of being added.
+     * @param tasks The existing list of tasks.
+     */
     public static void printList(ArrayList<Task> tasks) {
         System.out.println(BUFFER_LINE);
         System.out.println(" Here are the tasks in your list:");
@@ -85,7 +110,10 @@ public class UI{
         }
         System.out.println(BUFFER_LINE);
     }
-
+  
+    /**
+    * Prints an error message indicating that there are no existing tasks.
+    */
     public static void printEmptyListMessage() {
         String EMPTY_LIST_MESSAGE = BUFFER_LINE
                 + "You have 0 tasks in your list!\n"
@@ -93,10 +121,17 @@ public class UI{
         System.out.println(EMPTY_LIST_MESSAGE);
     }
 
+    /**
+     * Prints an error message indicating what error has occurred.
+     * @param e Exception that has been thrown.
+     */
     public static void printExceptionMessage(Exception e) {
         System.out.println(e);
     }
 
+    /**
+     * Prints a message to indicate that a wrong format was used but is still readable.
+     */
     public static void printWrongButOkayMessage() {
         String WRONG_INPUT_BUT_OKAY_MESSAGE = "This has a wrong format but I think you want this!";
         System.out.println(WRONG_INPUT_BUT_OKAY_MESSAGE);

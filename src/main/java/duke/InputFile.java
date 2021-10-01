@@ -11,6 +11,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ *  The InputFile class implements a save functionality to the Duke program.
+ *  A text file is read/written when the program open/closes.
+ */
 public class InputFile extends TaskManager{
     private static final String FILE_PATH = "input.txt";
     private static final String SEPARATOR = "#";
@@ -19,6 +23,10 @@ public class InputFile extends TaskManager{
     public static final int DESCRIPTION_INDEX = 2;
     public static final int DATE_INDEX = 3;
 
+    /**
+     * Checks if there is a save file and reads it before deleting.
+     * Called at the start of the Duke program.
+     */
     public static void readSave() {
         if (InputFile.hasInput()) {
             try {
@@ -30,6 +38,10 @@ public class InputFile extends TaskManager{
         }
     }
 
+    /**
+     * Creates and writes a save file.
+     * Called at the end of the Duke program.
+     */
     public static void writeSave() {
         try {
             InputFile.createInput();
@@ -39,21 +51,37 @@ public class InputFile extends TaskManager{
         }
     }
 
+    /**
+     * Checks if there is a save file <code>input</code>.
+     * @return boolean This returns whether there exists a save file.
+     */
     public static boolean hasInput() {
         File input = new File(FILE_PATH);
         return input.exists();
     }
 
+    /**
+     * Creates a text file for tasks to be saved in.
+     * @throws IOException
+     */
     public static void createInput() throws IOException {
         File input = new File(FILE_PATH);
         input.createNewFile();
     }
 
+    /**
+     * Deletes the read save file.
+     */
     public static void deleteInput() {
         File input = new File(FILE_PATH);
         input.delete();
     }
 
+    /**
+     * Writes the save file according to current existing tasks in the Duke program.
+     * Tasks are written as TaskType|DoneStatus|Description(|Date).
+     * @throws IOException
+     */
     public static void writeToInput() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         String type;
@@ -86,6 +114,11 @@ public class InputFile extends TaskManager{
         fw.close();
     }
 
+    /**
+     * Reads save file to input existing tasks in the save file.
+     * @throws FileNotFoundException A save file does not exist.
+     * @throws InvalidFileException The save file being read has invalid characters.
+     */
     public static void readInput() throws FileNotFoundException, InvalidFileException {
         File f = new File(FILE_PATH); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
