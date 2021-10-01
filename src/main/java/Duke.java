@@ -3,7 +3,7 @@ import java.util.Scanner;
 import seedu.tojava.Duke.*;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 public class Duke {
 
@@ -31,13 +31,13 @@ public class Duke {
     public static void showList(ArrayList<Todo> items, int x) {
         String file1 = "C:\\Users\\Demons\\IdeaProjects\\ip\\out\\duke1.txt";
 
-        if (x == 0) System.out.println("\n____________________________________________________________");
+        if (x == 0) System.out.println("\n_____________________________________________________________");
         else {
             System.out.println("\n____________________________________________________________");
             for (int i = 0; i < x; i++) {
                 if (items.get(i) instanceof Deadline) {
                     Deadline dummy = (Deadline) items.get(i);
-                    System.out.println("[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription() + " (" + dummy.getBy() + ")");
+                    System.out.println("[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription() + " (" + dummy.getBy().format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
                     try {
                         writeToFile(file1, "[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription() + " (" + dummy.getBy() + ")");
                     } catch (IOException e) {
@@ -46,7 +46,7 @@ public class Duke {
                 }
                 else if (items.get(i) instanceof Event) {
                         Event dummy = (Event) items.get(i);
-                        System.out.println("[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription() + " (" + dummy.getDuration() + ")");
+                        System.out.println("[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription() + " (" + dummy.getDuration().format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
                         try {
                             writeToFile(file1, "[" + items.get(i).returnType() + "] " + "[" + items.get(i).getStatusIcon() + "] " + items.get(i).getDescription() + " (" + dummy.getDuration() + ")");
                         } catch (IOException e) {
