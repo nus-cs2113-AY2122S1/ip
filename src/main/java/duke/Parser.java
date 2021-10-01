@@ -135,4 +135,10 @@ public class Parser {
         taskComponents[1] = at;
         return taskComponents;
     }
+
+    public int parseDoTask(String line) {
+        String inputNumStr = line.toLowerCase().replace("done", "").trim();
+        int inputNum = Integer.parseInt(inputNumStr);
+        return inputNum;
+    }
 }

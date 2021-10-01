@@ -7,16 +7,17 @@ public class Duke {
     private TaskHandler taskHandler;
     private Ui ui;
 
-    public Duke(String filePath) {
-        Storage storage = new Storage();
-        taskHandler = new TaskHandler(storage);
-        ui = new Ui();
+    public Duke() {
+        this.storage = new Storage();
+        this.taskHandler = new TaskHandler(this.storage);
+        this.ui = new Ui();
     }
 
     public void run() {
-        ui.sayHello();
         String userInput = "";
         boolean isExit = false;
+
+        ui.sayHello();
 
         while (!isExit) {
             try {
@@ -36,6 +37,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        new Duke().run();
     }
 }

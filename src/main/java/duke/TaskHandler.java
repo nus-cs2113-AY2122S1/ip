@@ -95,22 +95,17 @@ public class TaskHandler {
         return ADD_TASK_SUCCESS_MESSAGE + newEvent.toString();
     }
 
-    public String doTask(String lc) {
+    public String doTask(String line) {
         if (tasks.size() <= 0) {
             throw new IllegalArgumentException(NONZERO_INPUT_IS_ZERO_ERROR_MESSAGE);
         }
-        String inputNumStr = lc.replace("done", "").trim();
-        int inputNum = Integer.parseInt(inputNumStr);
+        int inputNum = parser.parseDoTask(line);
         if (!(inputNum > 0 && inputNum <= tasks.size())) {
             throw new IllegalArgumentException(INPUT_OUT_OF_RANGE_ERROR_MESSAGE);
         }
         int id = inputNum - 1;
         tasks.get(id).setDone();
-        // TODO setDone function in storage
-        String newFileDataLine = storage.getLine(id);
-        char[] newFileDataLineChars = newFileDataLine.toCharArray();
-        newFileDataLineChars[3] = 'X';
-        storage.replaceFileData(id, String.valueOf(newFileDataLineChars));
+        storage.setDone(id);
         return DO_TASK_SUCCESS_MESSAGE + System.lineSeparator()
                 + Formatter.returnOutputStart() + tasks.get(id).toString();
     }

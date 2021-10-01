@@ -132,6 +132,13 @@ public class Storage {
         return output;
     }
 
+    public void setDone(int id) {
+        String newFileDataLine = getLine(id);
+        char[] newFileDataLineChars = newFileDataLine.toCharArray();
+        newFileDataLineChars[3] = 'X';
+        replaceFileData(id, String.valueOf(newFileDataLineChars));
+    }
+
     public void replaceFileData(int index, String line) {
         try {
             List<String> lines = Files.readAllLines(dataPath);
