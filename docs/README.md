@@ -1,6 +1,6 @@
 # User Guide
 
-Hello There! This is Duke, your own personal Command Line Interface (CLI) bot to help manage your daily schedule!
+Hello There!! This is Duke, your own personal Command Line Interface (CLI) bot to help manage your daily schedule!
 
 ## Quick Start
 
