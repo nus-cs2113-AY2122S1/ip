@@ -83,7 +83,7 @@ Now you have 3 tasks in the list
 
 ### List all tasks: ```list```
 Prints out the tasklist.  
-The list command must not be accompanied by any arguments. 
+The event command must not be accompanied by any arguments .  
 Format: `` list ``
 
 Example
