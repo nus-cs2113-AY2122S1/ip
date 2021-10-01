@@ -1,4 +1,5 @@
 package duke.task;
+
 public class Event extends Todo {
     String time;
 
@@ -8,12 +9,10 @@ public class Event extends Todo {
     }
 
     public String getTime() {
-
         return time;
     }
 
     public void setTime(String time) {
-
         this.time = time;
     }
 

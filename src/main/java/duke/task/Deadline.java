@@ -1,4 +1,5 @@
 package duke.task;
+
 public class Deadline extends Todo {
     String deadline;
 
@@ -9,12 +10,10 @@ public class Deadline extends Todo {
 
 
     public String getDeadline() {
-
         return deadline;
     }
 
     public void setDeadline(String deadline) {
-
         this.deadline = deadline;
     }
 

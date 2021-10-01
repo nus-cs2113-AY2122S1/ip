@@ -1,4 +1,5 @@
 package duke;
+
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -17,7 +18,7 @@ public class Duke {
         try {
             ArrayList<String> tasksString = Storage.read();
             TaskList.convertTaskStringToTasks(tasksString);
-        } catch (IOException e){
+        } catch (IOException e) {
             TaskList.convertTaskStringToTasks(null);
         }
 

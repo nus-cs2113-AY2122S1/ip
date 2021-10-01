@@ -1,4 +1,5 @@
 package duke;
+
 public class Greet {
 
     public static void openingGreet() {

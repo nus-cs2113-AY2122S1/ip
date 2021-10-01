@@ -1,4 +1,5 @@
 package duke.ui;
+
 import duke.command.Command;
 import duke.task.TaskList;
 
@@ -33,7 +34,7 @@ public class Parser {
             default:
                 return true;
             }
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return true;
         }
     }

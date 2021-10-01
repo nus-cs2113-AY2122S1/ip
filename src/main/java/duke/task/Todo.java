@@ -1,4 +1,5 @@
 package duke.task;
+
 public class Todo {
     private String name;
     private boolean isDone = false;
@@ -8,7 +9,6 @@ public class Todo {
     }
 
     public String getName() {
-
         return name;
     }
 
@@ -17,12 +17,10 @@ public class Todo {
     }
 
     public boolean getIsDone() {
-
         return isDone;
     }
 
     public void setIsDone() {
-
         isDone = true;
     }
 

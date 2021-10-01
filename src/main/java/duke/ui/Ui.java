@@ -1,5 +1,7 @@
 package duke.ui;
+
 import java.util.Scanner;
+
 import duke.FormatLines;
 
 public class Ui {
@@ -21,10 +23,9 @@ public class Ui {
     private static void getUserInput() {
         System.out.println();
         userInput = in.nextLine();
-        userInput=userInput.strip();
+        userInput = userInput.strip();
         System.out.println(FormatLines.divider);
     }
-
 
 
 }
