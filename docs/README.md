@@ -16,7 +16,9 @@ Duke is a desktop app for managing your to-do list, optimized for use via a Comm
 7. Refer to the Features below for details of each command.
 
 ## Features 
+
 ###Notes about the command format:
+
     1) Words in LOWER_CASE are the commands to be supplied by the user. All COMMANDS are in LOWER_CASE.
         i) E.g. in delete 3, delete is the command that you will like to use.
     2) For the command deadline and event, the back-slash is compulsory to separate taskname and task dateline.
@@ -103,13 +105,17 @@ The file is saved as a txt file. It is saved under the same folder as where you 
 !CAUTION: If your data is invalid, the program will not accept the data, and it will ignore the data.
 
 ------
+
 ##FAQ
+
 Q: How do I transfer my data to another Computer?
 
 A: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Duke home folder.
 
 ----
+
 ##Command Summary
+
 |Action|Format/Examples|
 ---|---
 |todo| todo `task_name`; E.g. `todo Math Homework`|
