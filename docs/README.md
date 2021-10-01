@@ -38,7 +38,7 @@ Example
 % todo eat tempura  
 ------------------------------------  
 Got it! I've added this task:   
-[T][ ] eat tempura  
+1. [T][ ] eat tempura  
 Now you have 1 tasks in the list  
 ------------------------------------  
 
@@ -55,8 +55,8 @@ Example
 % deadline drink milk /by 7pm
 ------------------------------------  
 Got it! I've added this task:   
-[T][ ] eat tempura  
-[D][ ] drink milk (by: 7pm)
+1. [T][ ] eat tempura  
+2. [D][ ] drink milk (by: 7pm)
 Now you have 2 tasks in the list  
 ------------------------------------  
 
@@ -73,10 +73,45 @@ Example
 % event attend wedding /at 12pm
 ------------------------------------  
 Got it! I've added this task:   
-[T][ ] eat tempura  
-[D][ ] drink milk (by: 7pm)
-[E][ ] attend wedding (at: 12pm)
+1. [T][ ] eat tempura  
+2. [D][ ] drink milk (by: 7pm)
+3. [E][ ] attend wedding (at: 12pm)
 Now you have 3 tasks in the list  
+------------------------------------  
+
+```
+
+### List all tasks: ```list```
+Prints out the tasklist.  
+The list command must not be accompanied by any arguments. 
+Format: `` list ``
+
+Example
+```
+
+% list
+------------------------------------  
+1. [T][ ] eat tempura  
+2. [D][ ] drink milk (by: 7pm)
+3. [E][ ] attend wedding (at: 12pm)
+------------------------------------  
+
+```
+
+### Mark task as Done: ```done```
+Mark the specified task in the tasklist with an X, signifying that it's done.   
+The done command must only be accompanied by the index of the task in the tasklist. 
+Format: `` done <index> ``
+
+Example
+```
+
+% done 2
+% list
+------------------------------------  
+1. [T][ ] eat tempura  
+2. [D][X] drink milk (by: 7pm)
+3. [E][ ] attend wedding (at: 12pm)  
 ------------------------------------  
 
 ```
