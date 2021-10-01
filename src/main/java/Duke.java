@@ -23,6 +23,11 @@ public class Duke {
         greeting();
     }
 
+    /**
+     *
+     * @param items the ArrayList which save the Todo Deadline Event
+     * @param x the num of total amount of items
+     */
     public static void showList(ArrayList<Todo> items, int x) {
         String file1 = "C:\\Users\\Demons\\IdeaProjects\\ip\\out\\duke1.txt";
 
@@ -64,6 +69,11 @@ public class Duke {
             }
         }
 
+    /**
+     *
+     * @param items the ArrayList which save the Todo Deadline Event
+     * @param order the task which marked as done
+     */
 
 
     public static void doneTodo(ArrayList<Todo> items, String order){
@@ -164,6 +174,11 @@ public class Duke {
         }
     }
 
+    /**
+     *
+     * @return return the mission get from the user's input
+     * @throws IllegalFormatException if the mission description is illegal
+     */
     public static String getMission() throws IllegalFormatException{
         String mission;
         Scanner in = new Scanner(System.in);
