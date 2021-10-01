@@ -13,22 +13,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Manages the data storage for tasks. Creates, adds to, edits or deletes
- * from the data in the external file.
- */
 public class Storage {
-    /** Path to the external file */
     private Path dataPath;
 
     public Storage() {
         openFile();
     }
 
-    /**
-     * Attempts to open the external file that is to hold data. Creates such
-     * a file if it does not exist.
-     */
     public void openFile() {
         try {
             String home = System.getProperty("user.dir");
@@ -44,14 +35,8 @@ public class Storage {
         }
     }
 
-    /**
-     * Loads the stored data into an ArrayList of Tasks.
-     *
-     * @return an ArrayList of Tasks if there is data;
-     *         an empty ArrayList otherwise
-     */
     public ArrayList<Task> load() {
-        List<String> lines = this.getAllLines();
+        List<String> lines = this.returnAllFileData();
         ArrayList<Task> tasks = new ArrayList<>();
         if (lines.isEmpty()) {
             return tasks;
@@ -63,13 +48,8 @@ public class Storage {
         return tasks;
     }
 
-    /**
-     * Converts a line of text in the file into a Task.
-     * @param line the line of text in the file to be converted; should be in
-     *             the format `task type | done | description | detail`
-     * @return the converted Task
-     */
     public Task convertFileLineToTask(String line) {
+        // line is in the format: task type | done | description | additional detail
         String[] taskComponents = line.split("\\|");
         for (String component : taskComponents) {
             component.strip();
@@ -80,7 +60,7 @@ public class Storage {
         String detail = taskComponents[3];
 
         Task task;
-        boolean isDone = done.equals("X");
+        boolean isDone = done == "X";
 
         switch (taskType) {
             case "D":
@@ -95,11 +75,7 @@ public class Storage {
         return task;
     }
 
-    /**
-     * Reads all the data in the file and returns it as a List<String>.
-     * @return a List<String> of all the data in the file
-     */
-    private List<String> getAllLines() {
+    public List<String> returnAllFileData() {
         List<String> lines = List.of();
         try {
             lines = Files.readAllLines(dataPath);
@@ -109,18 +85,10 @@ public class Storage {
         return lines;
     }
 
-    /**
-     * Adds the details of a Task to the external file.
-     * @param task the Task whose details are to be added
-     */
-    public void addTaskToFileData(Task task) {
-        appendLineToFileData(task.taskString());
+    public void addTaskToFileData(String taskString) {
+        appendLineToFileData(taskString);
     }
 
-    /**
-     * Appends the given line to the external file.
-     * @param line the line to be appended
-     */
     public void appendLineToFileData(String line) {
         try {
             List<String> lines = getAllLines();
@@ -131,11 +99,16 @@ public class Storage {
         }
     }
 
-    /**
-     * Returns the line at the given index.
-     * @param index the index of the line to be returned
-     * @return the line at the given index
-     */
+    private List<String> getAllLines() {
+        List<String> lines = List.of();
+        try {
+            lines = Files.readAllLines(dataPath);
+        } catch (IOException e) {
+            System.err.println("Read failure: " + e.getMessage());
+        }
+        return lines;
+    }
+
     public String getLine(int index) {
         List<String> lines = getAllLines();
         String output = "";
@@ -148,10 +121,6 @@ public class Storage {
         return output;
     }
 
-    /**
-     * Sets a Task as done.
-     * @param id the (id - 1) of the task, corresponding to the line to edit
-     */
     public void setDone(int id) {
         String newFileDataLine = getLine(id);
         char[] newFileDataLineChars = newFileDataLine.toCharArray();
@@ -159,11 +128,6 @@ public class Storage {
         replaceFileData(id, String.valueOf(newFileDataLineChars));
     }
 
-    /**
-     * Replaces a line in the external file with the given line.
-     * @param index the index of the line to be replaced
-     * @param line the line to replace
-     */
     public void replaceFileData(int index, String line) {
         try {
             List<String> lines = getAllLines();
@@ -174,10 +138,6 @@ public class Storage {
         }
     }
 
-    /**
-     * Deletes a line at the given index from the external file.
-     * @param index the index of the line to be deleted
-     */
     public void deleteLineFromFileData(int index) {
         try {
             List<String> lines = getAllLines();
@@ -188,14 +148,12 @@ public class Storage {
         }
     }
 
-    /**
-     * Deletes all the data in the file.
-     */
-    public void clearFileData() {
+    public String clearFileData() {
         try {
             Files.write(dataPath, Collections.EMPTY_LIST);
         } catch (IOException e) {
             System.err.println("Write failure: " + e.getMessage());
         }
+        return "A clean slate, my liege!";
     }
 }

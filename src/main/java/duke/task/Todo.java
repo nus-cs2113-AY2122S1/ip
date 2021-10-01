@@ -1,8 +1,5 @@
 package duke.task;
 
-/**
- * Implements the class Todo, which has a description and a done status.
- */
 public class Todo extends Task {
 
     private final String taskType = "T";
