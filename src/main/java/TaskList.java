@@ -9,7 +9,7 @@ import task.Todo;
  */
 public class TaskList {
     public ArrayList<Task> schedule = new ArrayList<>();
-    public int totalTasks;
+    public int totalTasks = 0;
     public Storage s = new Storage();
 
     public TaskList() {
@@ -154,6 +154,10 @@ public class TaskList {
      */
     public void delete(String line) {
         int number = Character.getNumericValue(line.charAt(7));
+        if (number > totalTasks) {
+            System.out.println("There aren't enough tasks left to delete!");
+            return;
+        }
         Task t = schedule.get(number - 1);
         schedule.remove(t);
         totalTasks--;
