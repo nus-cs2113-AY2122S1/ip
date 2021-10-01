@@ -49,7 +49,6 @@ public class Storage {
                 String[] descriptionParts = s.nextLine().split("\\|");
                 String typeOfTask = descriptionParts[0].trim();
                 String taskDescription = descriptionParts[2].trim();
-                Boolean isCompleted = Boolean.parseBoolean(descriptionParts[1]);
                 try {
                     Task task;
                     switch (typeOfTask) {
@@ -65,7 +64,7 @@ public class Storage {
                     default:
                         throw new InvalidFile();
                     }
-                    if (isCompleted) {
+                    if (descriptionParts[1].trim().equals("1")) {
                         task.setDone();
                     }
                     tasks.add(task);
