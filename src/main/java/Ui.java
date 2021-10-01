@@ -48,6 +48,7 @@ public class Ui {
     }
 
     /**
+     * @param taskToDelete The task to Delete.
      * We print the delete message when a task is deleted
      * */
     public void deleteTaskMessage(Task taskToDelete) {
@@ -56,6 +57,7 @@ public class Ui {
     }
 
     /**
+     * @param markTask The task to mark as done.
      * We print the message when a task is marked as done
      * */
     public void markTaskDoneMessage(Task markTask) {
@@ -79,6 +81,7 @@ public class Ui {
     }
 
     /**
+     * @param taskList The tasklist we used to get the number of tasks.
      * We print the current number of tasks in the list of tasks
      * */
     public void printNumberOfTasks(TaskList taskList) {

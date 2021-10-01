@@ -30,6 +30,7 @@ public class TaskList {
     /**
      * @param task The task to print.
      * @param taskNumber The task number.
+     * We print the task number together with the task string
      * */
     private void printTaskNumberAndTask(int taskNumber, Task task) {
         System.out.println(taskNumber + "." + task.toString());
@@ -71,6 +72,7 @@ public class TaskList {
      * @param taskType The type of task to add to tasks
      * @param mainTask The task description
      * @param taskDate The date of the task
+     * We add the task to the tasklist based on the task type.
      * */
     public void addTask(String taskType, String mainTask, String taskDate){
         switch (taskType) {
