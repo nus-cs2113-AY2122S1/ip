@@ -5,6 +5,7 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,7 +23,11 @@ public class Duke {
             String command = Parser.getCommand(userInput);
             if (command.equals("bye")) {
                 isBye = true;
-                Ui.printBye();
+                try {
+                    Storage.saveData(tasks);
+                } catch (IOException e) {
+                    System.out.println("cannot save to file");
+                }
             } else {
                 Parser.task(userInput, tasks);
             }

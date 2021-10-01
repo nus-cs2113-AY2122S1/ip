@@ -2,11 +2,9 @@ package duke.parser;
 
 import duke.Ui.Ui;
 import duke.exception.DukeException;
-import duke.storage.Storage;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Parser {
@@ -41,13 +39,6 @@ public class Parser {
             case ("find"):
                 TaskList.findTask(userInput, tasks);
                 break;
-            case ("bye"):
-                try {
-                    Storage.saveData(tasks);
-                } catch (IOException e) {
-                    System.out.println("Invalid file");
-                }
-                break;
             default:
                 throw new DukeException();
             }
@@ -57,4 +48,5 @@ public class Parser {
             Ui.printHorizontalLine();
         }
     }
+
 }

@@ -23,8 +23,8 @@ public class Storage {
      * @throws IOException throws an IO exception
      */
     public static void saveData(ArrayList<Task> tasks) throws IOException {
-        checkDirectory();
-        //FileWriter file = new FileWriter(FILEPATH);
+        //checkDirectory();
+        FileWriter file = new FileWriter(FILEPATH);
         StringBuilder output = new StringBuilder();
         for (Task item : tasks) {
             output.append(item.toSave() + System.lineSeparator());
@@ -36,33 +36,30 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("cannot write to file");
         }
-
-
     }
 
     /**
      * Processes tasks from ArrayList of tasks and store in the save file
      */
     public static void loadData(ArrayList<Task> tasks) {
-        //ArrayList<Task> tasks = new ArrayList<Task>();
         try {
             File file = new File(FILEPATH);
             Scanner s = new Scanner(file);
             while (s.hasNextLine()) {
                 String[] descriptionParts = s.nextLine().split("\\|");
-                String typeOfTask = descriptionParts[0];
-                String taskDescription = descriptionParts[1];
-                Boolean isCompleted = Boolean.parseBoolean(descriptionParts[2]);
+                String typeOfTask = descriptionParts[0].trim();
+                String taskDescription = descriptionParts[2].trim();
+                Boolean isCompleted = Boolean.parseBoolean(descriptionParts[1]);
                 try {
                     Task task;
                     switch (typeOfTask) {
-                    case "todo":
+                    case "T":
                         task = new ToDo(taskDescription);
                         break;
-                    case "deadline":
+                    case "D":
                         task = new Deadline(taskDescription, descriptionParts[3]);
                         break;
-                    case "event":
+                    case "E":
                         task = new Event(taskDescription, descriptionParts[3]);
                         break;
                     default:
@@ -98,4 +95,5 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
+
 }
