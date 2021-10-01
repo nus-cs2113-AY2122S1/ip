@@ -86,8 +86,8 @@ public class Ui {
      */
     public static void printEventExceptionMessage() {
         System.out.println(LINE + System.lineSeparator()
-                + "Apologies Sir, you did not mention the venue." + System.lineSeparator()
-                + "Please include the venue in your command!" + System.lineSeparator()
+                + "Apologies Sir, you did not mention when the event will be held." + System.lineSeparator()
+                + "Please include the date and time in your command!" + System.lineSeparator()
                 + LINE);
     }
 
