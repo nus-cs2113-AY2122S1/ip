@@ -32,8 +32,6 @@ public class Task {
         isDone = true;
     }
 
-
-
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + getDescription();
