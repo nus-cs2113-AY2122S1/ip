@@ -198,6 +198,7 @@ public class Ui {
         System.out.println(EVENT_MISSING_PARAMETER);
     }
 
+    //prints to the user interface that the task has been marked as done
     public void printTaskAsMarked(int taskNumberToMark, ArrayList<Task> tasks, int DONE_OFFSET) {
         System.out.println(DOTTED_LINE + System.lineSeparator()
                 + "Great! This task has been marked as done!!" + System.lineSeparator()
@@ -224,6 +225,7 @@ public class Ui {
                 + DOTTED_LINE);
     }
 
+    //prints out the tasks that matches the user's find keyword
     public void printTasksThatMatch(ArrayList<Task> matchedKeys, ArrayList<Task> tasks)  {
         System.out.println(DOTTED_LINE + System.lineSeparator()
                 + "Here are the tasks in your list!");

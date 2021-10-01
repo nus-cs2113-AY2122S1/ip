@@ -18,6 +18,9 @@ public class Duke {
 
     private static Parser parser;
 
+
+
+    //program flow when running chatbot
     public static void run() throws IOException{
         initialiseDuke();
 
@@ -26,6 +29,7 @@ public class Duke {
         byeDuke();
     }
 
+    //initialise chatbot by setting up ArrayList, userInterface, storage and parser
     public static void initialiseDuke() throws IOException {
         tasks = new ArrayList<>();
 
@@ -46,6 +50,7 @@ public class Duke {
         }
     }
 
+    //run the programme
     public static void runDuke() {
 
         Scanner in = new Scanner(System.in);
@@ -60,6 +65,7 @@ public class Duke {
 
     }
 
+    //print out bye message to the shell
     public static void byeDuke() {
         try {
 
@@ -74,6 +80,7 @@ public class Duke {
         userInterface.printBye();
     }
 
+    //main function of Duke class
     public static void main(String[] args) throws IOException {
 
         new Duke().run();
