@@ -73,7 +73,7 @@ public class TaskList {
         }
 
         if (list.isEmpty()) {
-            System.out.println("Your task list is empty!:");
+            System.out.println("Your task list is empty!");
         } else {
             System.out.println("Here are the tasks in your list:");
             Ui.printTaskList(list);
