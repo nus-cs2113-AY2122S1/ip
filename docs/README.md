@@ -1,7 +1,8 @@
 # User Guide
 
-## Overview
+
 A personal assistant bot that can help you record your tasks
+
 * [Quick Start](#Quick-Start)
 * [Features](#Features)
 * [Command summary](#Command-summary)
@@ -9,11 +10,12 @@ A personal assistant bot that can help you record your tasks
 
 ## Quick Start
 
-1. Download `Java 11` on your computer.
-2. Download the latest Duke release file from [here](https://github.com/jushg/ip/releases).
+1. Download [Java 11](https://www.oracle.com/java/technologies/downloads/#java11) on your computer.
+2. Download the latest Duke release file (`ip.jar`) from [here](https://github.com/jushg/ip/releases).
 3. Move the file into the folder to be used as the root folder for Duke
-4. On the terminal run the command `java -jar [filename].jar`
+4. On the terminal run the command `java -jar ip.jar`
 5. Enjoy your very own personal assistant
+
 ## Features 
 
 ### Add a task 
@@ -21,13 +23,14 @@ Add in a task with a general description and a date-time description (only for `
 
 Format:
 1. Normal task: `todo [description]`
-2. Deadline task: `deadline [description] /by[time][date]`
-3. Event task: `event[description] /at[time][date]`
+2. Deadline task: `deadline [description] /by [yyyy-mm-dd HH:mm]`
+3. Event task: `event[description] /at [yyyy-mm-dd HH:mm]`
 
 Example of usage:
 
 ```
 todo study for CS2113
+deadline ip /by 2021-10-01 23:59
 ```
 
 Expected output:

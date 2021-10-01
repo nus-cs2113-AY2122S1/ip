@@ -3,7 +3,6 @@ package duke;
 import duke.exception.*;
 import duke.task.Task;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 
@@ -133,7 +132,7 @@ public class DukeUI {
             printMissingParameterError();
         } else if (e instanceof TaskNotFoundException) {
             printTaskNotFoundError();
-        }else if (e instanceof DukeDateTimeFormatException) {
+        } else if (e instanceof DukeDateTimeFormatException) {
             printDateTimeFormatError();
         } else {
             drawHorizontalLine();
