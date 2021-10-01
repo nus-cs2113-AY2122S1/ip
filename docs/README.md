@@ -1,6 +1,6 @@
 # User Guide
 
-##Setting Up
+## Setting Up
 Place `"Individual Project.jar"` in an empty folder.
 ### Launching Duke
 Launch the terminal and change the directory to that of the folder "Individual Project.jar" is in.
