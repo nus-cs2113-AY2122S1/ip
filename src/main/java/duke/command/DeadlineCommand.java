@@ -29,10 +29,12 @@ public class DeadlineCommand extends Command {
         try {
             indexToModify = readIndexAndModifyTask(tasks, userInput, formattedInput);
             saveListAndPrintDone(tasks);
-        } catch (IndexOutOfBoundsException e ) {
+        } catch (IndexOutOfBoundsException e) {
             Ui.printNotInRange(indexToModify);
+            Ui.printDeadlineFormat();
         } catch (NumberFormatException e) {
             Ui.printIntegerOnly();
+            Ui.printDeadlineFormat();
         }
     }
 

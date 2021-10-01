@@ -1,5 +1,8 @@
 package duke.ui;
 
+import duke.data.TaskList;
+import duke.type.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -59,12 +62,6 @@ public class Ui {
         return userInput.equalsIgnoreCase("stop");
     }
 
-    public static String cleanUpString(String input) {
-        input = input.trim();
-        input = input.replaceAll(" ", "");
-        return input;
-    }
-
     public static void printNotInRange(int index) {
         System.out.println("... sorry, task " + (index + 1) + " is not in range. Try the command again with a valid index!");
     }
@@ -92,13 +89,23 @@ public class Ui {
         System.out.println("for instance, 1999-11-30!");
     }
 
-    public static String[] readInputToStringArray() {
-        String userInput = Ui.readLine();
-        return userInput.split(" ");
+    public static void printDeadlineFormat() {
+        System.out.println("The format to modify a deadline is [INDEX] [DEADLINE]");
     }
 
+    /**
+     * Trivial function to return deadline on modification
+     * @param original text to be entered
+     * @return splitText[1] sentence without first word
+     */
     public static String stringWithoutFirstWord(String original) {
         String[] splitText= original.split(" ", 2);
         return splitText[1];
+    }
+
+    public static void printTaskNeatly(Task task) {
+        String tick = (task.isDone()) ? "✓" : " ";
+        System.out.println("[" + task.getType() + "] " + "[" + tick + "]" + " "
+                + task.getDescription() + TaskList.getTaskDate(task));
     }
 }

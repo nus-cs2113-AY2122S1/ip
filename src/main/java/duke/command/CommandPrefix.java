@@ -2,6 +2,7 @@ package duke.command;
 
 /**
  * Set of valid prefixes and descriptions associated with Duke commands.
+ * Descriptions are included for an easy-to-read view for <code>Help</code> command
  */
 public enum CommandPrefix {
     ADD("add", "add tasks to list"),

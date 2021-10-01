@@ -35,7 +35,7 @@ public class TaskList {
         return taskList;
     }
 
-    public static String printTask(Task item) {
+    public static String getTaskDate(Task item) {
         if (item instanceof Deadline) {
             return " (by: " + ((Deadline) item).getByWhen() + ") ";
         } else if (item instanceof Event) {
@@ -52,12 +52,16 @@ public class TaskList {
         Ui.printDivider();
         for (Task item : taskList) {
             if (item != null) {
-                String tick = (item.isDone()) ? "✓" : " ";
-                System.out.println(in + ". " + "[" + item.getType() + "] " + "[" + tick + "]" + " " + item.getDescription() + printTask(item));
+                printIndexAndTask(in, item);
                 in++;
             }
         }
         Ui.printDivider();
+    }
+
+    private static void printIndexAndTask(int in, Task item) {
+        String tick = (item.isDone()) ? "✓" : " ";
+        System.out.println(in + ". " + "[" + item.getType() + "] " + "[" + tick + "]" + " " + item.getDescription() + getTaskDate(item));
     }
 
     /**
@@ -66,7 +70,7 @@ public class TaskList {
     public void deleteTasks() {
         Scanner in = new Scanner(System.in);
         int lastIndex = 0;
-        List<Integer> toDeleteList = new ArrayList<Integer>();
+        List<Integer> toDeleteList = new ArrayList<>();
         String input = in.nextLine();
         String[] inputData = input.split(" ");
         try {
@@ -86,22 +90,6 @@ public class TaskList {
         }
     }
 
-    /**
-     *  Delete tasks without user input
-     * @param toDeleteIndex indexes to delete
-     */
-    public void deleteTasks(int... toDeleteIndex) {
-        int lastIndex = 0;
-        try {
-            for (int i : toDeleteIndex) {
-                System.out.println("remove " + (i + 1) + ": " + taskList.get(i).getDescription());
-                lastIndex = i;
-                taskList.remove(i);
-            }
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-            Ui.printNotInRange(lastIndex);
-        }
-    }
     /**
      * Marks a set of tasks as completed
      */

@@ -40,7 +40,7 @@ public class FindCommand extends Command {
         Ui.printMatchingTasksAlert();
         tasks.getTaskList().stream()
             .filter(t -> t.getDescription().contains(keyword))
-                .forEach(System.out::println);
+                .forEach(t -> Ui.printTaskNeatly(t));
         saveListAndPrintDone(tasks);
     }
 }

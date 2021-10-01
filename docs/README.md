@@ -70,13 +70,7 @@ CS2113 Tutorial /by 10am
 Lunch with friends /at Tommorow 6PM
 stop
 ```
-Expected outcome:
 
-List populated with given tasks
-
-```
-finished adding
-```
 ### `todo` - adds a todo to a list
 
 Similar to adding a task, but adds one at a time rather than a list
@@ -141,7 +135,7 @@ as well as status of task
 
 ```
 Here are the matching tasks in your list: 
-T|Read books|true
+[T] [✓] Read books
 finished finding
 ```
 
