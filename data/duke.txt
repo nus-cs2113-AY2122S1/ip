@@ -1,3 +1,4 @@
 1.[T][ ] soemthing
-2.[E][X] [E][X] another thing (at: : somewhere)
-3.[D][ ] [D][ ] soemthing else (by: : today)
+2.[E][X] [E][X] [E][X] [E][X] another thing (at: : : : somewhere)
+3.[D][X] [D][ ] [D][ ] [D][ ] soemthing else (by: : : : today)
+4.[T][ ] eatthing

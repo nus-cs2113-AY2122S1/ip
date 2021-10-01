@@ -45,4 +45,13 @@ public class Parser {
         }
         return eventInfo;
     }
+
+    public static String splitKeyword(String userInput) throws StringIndexOutOfBoundsException {
+        String keyword = userInput.replace("find", "");
+        keyword = keyword.trim();
+        if (keyword.equals("")) {
+            throw new StringIndexOutOfBoundsException();
+        }
+        return keyword;
+    }
 }

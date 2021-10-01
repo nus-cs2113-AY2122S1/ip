@@ -1,5 +1,10 @@
 package duke.ui;
 
+import duke.exception.AtEmptyException;
+import duke.exception.ByEmptyException;
+import duke.exception.NumberOutOfBoundsException;
+import duke.tasklist.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -33,6 +38,23 @@ public class Ui {
             input = SCANNER.nextLine();
         }
         return input;
+    }
+
+    public static void printReply(String userInput) {
+        try {
+            TaskList.processUserInput(userInput);
+        } catch (NumberFormatException e) {
+            System.out.println(SAD_FACE + " OOPS! The character you entered is not a number: " + TaskList.number);
+        } catch (NumberOutOfBoundsException e) {
+            System.out.println(SAD_FACE + e.getMessage() + TaskList.number);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println(SAD_FACE + " The description of " + "\"" + TaskList.inputCommand + "\"" + " is not " +
+                    "complete");
+        } catch (AtEmptyException e) {
+            System.out.println(SAD_FACE + e.getMessage());
+        } catch (ByEmptyException e) {
+            System.out.println(SAD_FACE + e.getMessage());
+        }
     }
 
 
