@@ -47,7 +47,7 @@ public class Ui {
     }
 
     void printInvalidDateError(String phrase) {
-        System.out.println("ERROR! The deadline date appears to be invalid.");
+        System.out.println("ERROR! The deadline/event date appears to be invalid.");
         System.out.println("Please use the YYYY-MM-DD or YYYY-MM-DD HHMM format.");
         System.out.println("Your input: " + phrase);
     }

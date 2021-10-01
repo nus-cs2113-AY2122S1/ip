@@ -54,15 +54,26 @@ public class Deadline<T> extends Task {
     private String dateAsSave() {
         if (this.date instanceof LocalDateTime) {
             LocalDateTime toChangeToString = (LocalDateTime) this.date;
+            String hourAsString = timeInIntToString(toChangeToString.getHour());
+            String minAsString = timeInIntToString(toChangeToString.getMinute());
             String toReturn = toChangeToString.toString().substring(0,10)
                     + SPACER
-                    + toChangeToString.getHour()
-                    + toChangeToString.getMinute();
-            System.out.println(toReturn);
+                    + hourAsString
+                    + minAsString;
             return toReturn;
         } else {
             return this.date.toString();
         }
+    }
+
+    private String timeInIntToString(int time) {
+        String timeAsString;
+        if (time < 10) {
+            timeAsString = "0" + time;
+        } else {
+            timeAsString = String.valueOf(time);
+        }
+        return timeAsString;
     }
 
     /**
