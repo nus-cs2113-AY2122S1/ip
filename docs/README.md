@@ -40,7 +40,7 @@ Format: `todo DESCRIPTION`
 Example:
 * `todo read book`
 
-####Deadline: `deadline`
+#### Deadline: `deadline`
 Adds a task with a due date.
 
 Format: `deadline DESCRIPTION /byDATETIME`
@@ -50,7 +50,7 @@ Format: `deadline DESCRIPTION /byDATETIME`
 Example:
 * `deadline read book /by 8-8-2020 1230`
 
-####Event: `event`
+#### Event: `event`
 Adds a task that happens on a specific date and time.
 
 Format: `event DESCRIPTION /atDATETIME`
@@ -60,7 +60,7 @@ Format: `event DESCRIPTION /atDATETIME`
 Example:
 * `event read book /at 8-8-2020 1230`
 
-###Listing all tasks: `list`
+### Listing all tasks: `list`
 Lists all tasks within tasklist.
 
 Format: `list`
@@ -76,7 +76,7 @@ Format: `done TASK_NUM`
 Example: 
 * `done 1` marks first task in the list as done
 
-###Deleting a task: `delete`
+### Deleting a task: `delete`
 Deletes specified task from the task list.
 
 Format: `delete TASK_NUM`
@@ -86,7 +86,7 @@ Format: `delete TASK_NUM`
 Example:
 * `delete 1` deletes first task in the list
 
-###Finding task by name: `find`
+### Finding task by name: `find`
 Finds task with description matching any of the given keywords.
 
 Format: `find KEYWORD`
@@ -94,7 +94,7 @@ Format: `find KEYWORD`
 Example: 
 * `find book` will return all tasks with book in the description
 
-###Listing deadlines within given date: `date`
+### Listing deadlines within given date: `date`
 Lists all deadlines that are before or on the given date and time
 
 Format: `date DATETIME`
@@ -103,18 +103,18 @@ Format: `date DATETIME`
 Example:
 * `date 8-8-2020` returns all deadlines that ends before 8th August 2020 at 12.30
 
-###Exiting the program: `bye`
+### Exiting the program: `bye`
 Exits the program.
 
-###Saving the data
+### Saving the data
 Pepepopo data will automatically be saved in a file with filepath `/data/tasks.txt`.
 
-###Editing the data file
+### Editing the data file
 Advanced users are welcome to update data directly by editing the data file.
 * However, if the changes to the data file do not follow the formatting of how the tasks are saved, pepepopo will not be able to run.
 Users may have to delete the file and start again.
 
-##Command Summary
+## Command Summary
 Command | Format
 ------------ | -------------
 todo | `todo DESCRIPTION`
