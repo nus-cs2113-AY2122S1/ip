@@ -1,16 +1,22 @@
+
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.IntStream;
+
 
 public class Duke {
+
     public static void main(String[] args) throws DukeException{
         //Starting the bot
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?\n");
         ArrayList<Task> List = new ArrayList<Task>();  //Creating a list of tasks
         WriteFile data = new WriteFile("data.txt", true);
+
         int listSize = 0;
 
         while(true) {
@@ -22,6 +28,7 @@ public class Duke {
             if(line.split(" ")[0].equals("bye")) {
                 break;
             } else if(line.split(" ")[0].equals("list")){
+
                 /*for (int i = 0; i < listSize; i++) {
                     System.out.println(i+1 + "." + List[i]);
                 }*/
@@ -52,6 +59,7 @@ public class Duke {
                     System.out.println(List.get(listSize));
                     System.out.println("Now you have " + (listSize + 1)  + " tasks in the list.");
                     data.writeToFile(List.get(listSize).toString());
+
                     listSize++;
                 } catch (Exception ex){
                     throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -94,4 +102,6 @@ public class Duke {
     }
 
 
+
 }
+
