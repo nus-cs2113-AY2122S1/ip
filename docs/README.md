@@ -131,11 +131,11 @@ All changes to Tasks in the task list are automatically saved to `data/duke.txt`
 | Action       | Format & Examples                                                                                            |
 | :---         | :---                                                                                                         |
 | **Help**     | `help`                                                                                                       |
-| **Todo**     | `todo <TASK_TITLE>`<br/>ex: `todo Prepare for CG2027 finals`                                                     |
-| **Deadline** | `deadline <TASK_TITLE> /by <DATE in yyyy-mm-dd format>`<br/>ex: `deadline CS2113T weekly quiz /by 2021-10-01` |
-| **Event**    | `event <TASK_TITLE> /at <DATE in yyyy-mm-dd format>`<br/>ex: `event CG2027 finals /at 2021-10-02`             |
+| **Todo**     | `todo <TASK_TITLE>`<br>ex: `todo Prepare for CG2027 finals`                                                     |
+| **Deadline** | `deadline <TASK_TITLE> /by <DATE in yyyy-mm-dd format>`<br>ex: `deadline CS2113T weekly quiz /by 2021-10-01` |
+| **Event**    | `event <TASK_TITLE> /at <DATE in yyyy-mm-dd format>`<br>ex: `event CG2027 finals /at 2021-10-02`             |
 | **List**     | `list`                                                                                                       |
-| **Done**     | `done <TASK_NO>`<br/>ex: `done 1`                                                                            |
-| **Find**     | `find <KEYWORD>`<br/>ex: `find finals`                                                                       |
-| **Delete**   | `delete <TASK_NO>`<br/>ex: `delete 1`                                                                        |
+| **Done**     | `done <TASK_NO>`<br>ex: `done 1`                                                                            |
+| **Find**     | `find <KEYWORD>`<br>ex: `find finals`                                                                       |
+| **Delete**   | `delete <TASK_NO>`<br>ex: `delete 1`                                                                        |
 | **Exit**     | `bye`                                                                                                        |
