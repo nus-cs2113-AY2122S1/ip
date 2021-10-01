@@ -17,14 +17,17 @@ public class TaskList {
         taskNumber = 0;
     }
 
+
     /**
      * Prints out all the tasks in a <code>TaskList</code> object.
      */
+
     public void listOut() {
         for (int i = 0; i < taskNumber; i++) {
             System.out.println((i + 1) + "." + tasks[i]);
         }
     }
+
 
     /**
      * Marks a particular task done, from index of the task
@@ -33,6 +36,25 @@ public class TaskList {
      * @param line The whole line of input from the command line.
      * @throws StringIndexOutOfBoundsException If there is no index contained in the line.
      */
+
+    public void find(String line) {
+        Ui ui = new Ui();
+        try {
+            int j = 1;
+            String keyword = line.substring(5);
+            ui.find();
+            for (int i = 0; i < taskNumber; i++) {
+                if (tasks[i].getDescription().contains(keyword)) {
+                    System.out.println(j + "." + tasks[i]);
+                    j++;
+                }
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            ui.findFailed();
+        }
+    }
+
+
     public void markDone(String line) {
         Ui ui = new Ui();
         Parser parser = new Parser();
