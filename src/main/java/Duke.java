@@ -87,15 +87,15 @@ public class Duke {
                 System.out.println(List.get(listSize)); //
                 System.out.println("Now you have " + (listSize + 1)  + " tasks in the list.");
                 listSize++;
-            } else if(line.split(" ")[0].equals("delete")){
-
+            } else if(line.split(" ")[0].equals("delete")) {
+                try {
                     System.out.println("Got it. I've added this task:");
 
                     System.out.println(List.get(listSize));
                     System.out.println("Now you have " + (listSize + 1) + " tasks in the list.");
                     data.writeToFile(List.get(listSize).toString());
                     listSize++;
-                } catch (Exception e){
+                } catch (Exception e) {
                     throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
                 }
             }
