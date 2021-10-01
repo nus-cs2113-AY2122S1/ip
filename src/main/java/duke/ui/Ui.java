@@ -165,9 +165,9 @@ public class Ui {
     }
 
     /**
-     * Depending on which command (deadline or event) the user has
-     * incorrectly used, call the corresponding method to print the
-     * correct command format.
+     * Calls the corresponding method to print the
+     * correct command format depending on which command
+     * (deadline or event) the user has incorrectly used.
      *
      * @param command The command which the user has incorrectly used.
      */
