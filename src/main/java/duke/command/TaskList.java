@@ -5,6 +5,9 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+/**
+ * Represents a list of all tasks added.
+ */
 public class TaskList {
     protected Task[] tasks;
     protected int taskNumber;
@@ -14,13 +17,22 @@ public class TaskList {
         taskNumber = 0;
     }
 
-
+    /**
+     * Prints out all the tasks in a <code>TaskList</code> object.
+     */
     public void listOut() {
         for (int i = 0; i < taskNumber; i++) {
             System.out.println((i + 1) + "." + tasks[i]);
         }
     }
 
+    /**
+     * Marks a particular task done, from index of the task
+     * inputted from the command lind.
+     *
+     * @param line The whole line of input from the command line.
+     * @throws StringIndexOutOfBoundsException If there is no index contained in the line.
+     */
     public void markDone(String line) {
         Ui ui = new Ui();
         Parser parser = new Parser();
@@ -33,6 +45,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Delete a particular task from a <code>TaskList</code> object.
+     * @param index Index of the task to be deleted
+     * @throws StringIndexOutOfBoundsException If there is no index contained in the line.
+     */
     public void deleteTask(int index) {
         Ui ui = new Ui();
         try {
@@ -46,6 +63,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Add a "todo" type of task into a <code>TaskList</code> object.
+     * @param line The whole line of input from the command line.
+     * @throws StringIndexOutOfBoundsException If there is no argument after the "todo" command
+     */
     public void addTodo(String line) {
         Ui ui = new Ui();
         try {
@@ -57,6 +79,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Add a "deadline" type of task into a <code>TaskList</code> object.
+     * @param line The whole line of input from the command line.
+     * @throws StringIndexOutOfBoundsException If there is no argument after the "deadline" command
+     */
     public void addDeadline(String line) {
         Ui ui = new Ui();
         Parser parser = new Parser();
@@ -79,6 +106,12 @@ public class TaskList {
         taskNumber++;
         ui.addTask(tasks, taskNumber);
     }
+
+    /**
+     * Add a "event" type of task into a <code>TaskList</code> object.
+     * @param line The whole line of input from the command line.
+     * @throws StringIndexOutOfBoundsException If there is no argument after the "event" command
+     */
 
     public void addEvent(String line) {
         Ui ui = new Ui();
