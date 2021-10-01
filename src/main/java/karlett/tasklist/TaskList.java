@@ -69,7 +69,7 @@ public class TaskList {
             System.out.println("You have done everything! Time to relax with Karlett meow ʕ♡ﻌ♡ʔ");
         } else {
             for (int i = 0; i < numberOfTasks; i++) {
-                System.out.println("ฅ" + (i + 1) + " " + tasks.get(i));
+                System.out.println("★" + (i + 1) + " " + tasks.get(i));
             }
         }
         TextUi.drawDivider();

@@ -25,11 +25,12 @@ public class TextUi {
                 + "( o.o )\n"
                 + " > ^ <";
         System.out.println(logo);
-        System.out.println("Meow~ I'm Karlett!(◕▿◕✿)\nLoading data from file now");
+        System.out.print("Meow~ I'm Karlett, your personal task list manager!(◕▿◕✿)\n" +
+                "Loading data from file now");
         try {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 6; i++) {
                 System.out.print('.');
-                TimeUnit.SECONDS.sleep(1);
+                TimeUnit.MILLISECONDS.sleep(500);
             }
             System.out.println();
         } catch (InterruptedException e) {
@@ -39,7 +40,7 @@ public class TextUi {
 
     public String readCommand() {
         System.out.println();
-        System.out.println("What can Karlett do for you meow? (●Φ ౪ Φ●)");
+        System.out.println("What can Karlett do for you meow? （=´∇｀=）");
         return s.nextLine();
     }
 
@@ -95,7 +96,7 @@ public class TextUi {
         } else {
             System.out.println("Here are the tasks:");
             for (int i = 0; i < tasks.getNumberOfTasks(); i++) {
-                System.out.println("ฅ" + (i + 1) + " " + tasks.get(i));
+                System.out.println("★" + (i + 1) + " " + tasks.get(i));
             }
             if (tasks.getNumberOfTasks() == 1) {
                 System.out.println("You have 1 task in the list now meow (((;꒪ꈊ꒪;)))");
@@ -139,7 +140,7 @@ public class TextUi {
                     " tasks(๑•́ᆽ•̀๑✿)");
             System.out.println("Here they are meow:");
             for (int i = 0; i < tasks.getNumberOfTasks(); i++) {
-                System.out.println("ฅ" + (i + 1) + " " + tasks.get(i));
+                System.out.println("★" + (i + 1) + " " + tasks.get(i));
             }
         }
         drawDivider();
@@ -158,9 +159,10 @@ public class TextUi {
     }
 
     public static void drawDivider() {
-        int n = 4;
+        int n = 6;
         while (n > 0) {
-            System.out.print("ﾟ･:*｡(ꈍᴗꈍ)ε｀*)~｡*:･ﾟ");
+            //System.out.print("ﾟ･:*｡(ꈍᴗꈍ)ε｀*)~｡*:･ﾟ");
+            System.out.print("=＾• ⋏ •＾=");
             n--;
         }
         System.out.println();
@@ -228,7 +230,7 @@ public class TextUi {
         drawDivider();
         System.out.println("Yayyy! Karlett found these matching tasks in your list:");
         for (int i = 0; i < matchedTasks.getNumberOfTasks(); i++) {
-            System.out.println("ฅ" + (i + 1) + " " + matchedTasks.get(i));
+            System.out.println("★" + (i + 1) + " " + matchedTasks.get(i));
         }
     }
 
@@ -240,7 +242,7 @@ public class TextUi {
             System.out.println("You have done everything! Time to relax with Karlett meow ʕ♡ﻌ♡ʔ");
         } else {
             for (int i = 0; i < tasks.getNumberOfTasks(); i++) {
-                System.out.println("ฅ" + (i + 1) + " " + tasks.get(i));
+                System.out.println("★" + (i + 1) + " " + tasks.get(i));
             }
         }
         drawDivider();
