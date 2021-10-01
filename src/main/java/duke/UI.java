@@ -97,9 +97,23 @@ public class UI{
         System.out.println(BUFFER_LINE);
     }
 
+    public static void printList(ArrayList<Task> tasks, String filterString) {
+        System.out.println(BUFFER_LINE);
+        System.out.println(" Here are the tasks in your list containing '" + filterString + "' :");
+        int i = 1;
+        for (Task task : tasks) {
+            if (task == null) {
+                break;
+            }
+            System.out.println(" " + i + ". " + task.listTask());
+            i = i + 1;
+        }
+        System.out.println(BUFFER_LINE);
+    }
+  
     /**
-     * Prints an error message indicating that there are no existing tasks.
-     */
+    * Prints an error message indicating that there are no existing tasks.
+    */
     public static void printEmptyListMessage() {
         String EMPTY_LIST_MESSAGE = BUFFER_LINE
                 + "You have 0 tasks in your list!\n"

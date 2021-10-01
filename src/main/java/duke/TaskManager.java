@@ -9,6 +9,7 @@ import duke.validation.InvalidIndexException;
 import duke.validation.Validation;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * The TaskManager class handles all aspects regarding tasks.
@@ -142,4 +143,15 @@ public class TaskManager {
         taskCount = taskCount + 1;
         UI.printAdditionMessage(newEvent, taskCount);
     }
+  
+    public static void findTask(String input) {
+        String filterString = input.replaceFirst("find ", ""); //removes 'find' to find keyword
+        ArrayList<Task> specificTasks = (ArrayList<Task>) tasks.stream()
+                .filter((task) -> task.getDescription()
+                .contains(filterString)).collect(Collectors.toList());
+        if (specificTasks.isEmpty()) {
+            UI.printEmptyListMessage(filterString);
+        } else {
+            UI.printList(specificTasks, filterString);
+        }
 }
