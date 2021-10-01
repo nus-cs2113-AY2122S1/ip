@@ -34,12 +34,14 @@ Format: `` todo <description> ``
 
 Example
 ```
+
 % todo eat tempura  
 ------------------------------------  
 Got it! I've added this task:   
 [T][ ] eat tempura  
 Now you have 1 tasks in the list  
 ------------------------------------  
+
 ```
 
 ### Add Deadline: ```deadline```
@@ -49,6 +51,7 @@ Format: `` deadline <description> /by <date> ``
 
 Example
 ```
+
 % deadline drink milk /by 7pm
 ------------------------------------  
 Got it! I've added this task:   
@@ -56,6 +59,26 @@ Got it! I've added this task:
 [D][ ] drink milk (by: 7pm)
 Now you have 2 tasks in the list  
 ------------------------------------  
+
+```
+
+### Add Event: ```event```
+Adds a Event task into the tasklist.  
+The event command must be accompanied by both `task description` and `date` .  
+Format: `` event <description> /at <date> ``
+
+Example
+```
+
+% event attend wedding /at 12pm
+------------------------------------  
+Got it! I've added this task:   
+[T][ ] eat tempura  
+[D][ ] drink milk (by: 7pm)
+[E][ ] attend wedding (at: 12pm)
+Now you have 3 tasks in the list  
+------------------------------------  
+
 ```
 
 
