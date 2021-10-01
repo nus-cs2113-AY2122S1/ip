@@ -89,7 +89,7 @@ done 3
 Expected Output:
 ```
 Nice! I've marked this task as done: 
-  [D][X] Submit CS2113T assignment (by: 1 Oct)
+ [D][X] Submit CS2113T assignment (by: 1 Oct)
 ```
 
 ### <a name="delete"></a>Deleting Tasks: `delete`
