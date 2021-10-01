@@ -60,8 +60,8 @@ public class TaskList {
     }
 
     private static void printIndexAndTask(int in, Task item) {
-        String tick = (item.isDone()) ? "✓" : " ";
-        System.out.println(in + ". " + "[" + item.getType() + "] " + "[" + tick + "]" + " " + item.getDescription() + getTaskDate(item));
+        String doneSymbol = (item.isDone()) ? "x" : " ";
+        System.out.println(in + ". " + "[" + item.getType() + "] " + "[" + doneSymbol + "]" + " " + item.getDescription() + getTaskDate(item));
     }
 
     /**
