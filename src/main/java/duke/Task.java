@@ -24,6 +24,10 @@ abstract public class Task {
         this.isDone = isDone;
     }
 
+    public boolean contains(String search) {
+        return description.toLowerCase().contains(search.toLowerCase());
+    }
+
     public abstract String taskString();
     
     @Override

@@ -17,6 +17,13 @@ public class Event extends Task {
     }
 
     @Override
+    public boolean contains(String search) {
+        boolean descriptionContains = super.contains(search);
+        boolean atContains = at.toLowerCase().contains(search);
+        return descriptionContains || atContains;
+    }
+
+    @Override
     public String taskString() {
         return this.taskType + " | " + super.getStatusIcon() + " | " + super.description + " | " + this.at;
     }

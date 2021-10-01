@@ -17,6 +17,13 @@ public class Deadline extends Task {
     }
 
     @Override
+    public boolean contains(String search) {
+        boolean descriptionContains = super.contains(search);
+        boolean byContains = by.toLowerCase().contains(search);
+        return descriptionContains || byContains;
+    }
+
+    @Override
     public String taskString() {
         return this.taskType + " | " + super.getStatusIcon() + " | " + super.description + " | " + this.by;
     }

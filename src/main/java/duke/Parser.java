@@ -19,6 +19,7 @@ public class Parser {
     private String COMMAND_MISSING_DESCRIPTION_ERROR_MESSAGE = "My liege, there is no description!";
     private String COMMAND_MISSING_BY_ERROR_MESSAGE = "By when, my liege?";
     private String COMMAND_MISSING_AT_ERROR_MESSAGE = "When or where is this event, my liege?";
+    private String COMMAND_MISSING_VALUE_ERROR_MESSAGE = "My liege, there is no value!";
 
     public Command returnCommand(String line) {
         Command command;
@@ -26,6 +27,8 @@ public class Parser {
             command = Command.EXIT;
         } else if (inputIsList(line)) {
             command = Command.LIST;
+        } else if (inputIsFind(line)) {
+            command = Command.FIND;
         } else if (inputIsClear(line)) {
             command = Command.CLEAR;
         } else if (inputIsTodo(line)) {
@@ -50,6 +53,10 @@ public class Parser {
 
     public boolean inputIsTodo(String line) {
         return line.toLowerCase().startsWith("todo");
+    }
+
+    public boolean inputIsFind(String line) {
+        return line.toLowerCase().startsWith("find");
     }
 
     public boolean inputIsDelete(String line) {
@@ -137,14 +144,28 @@ public class Parser {
     }
 
     public int parseDoTask(String line) {
+        if (line.length() <= 4) {
+            throw new IllegalArgumentException(COMMAND_MISSING_VALUE_ERROR_MESSAGE);
+        }
         String inputNumStr = line.toLowerCase().replace("done", "").trim();
         int inputNum = Integer.parseInt(inputNumStr);
         return inputNum;
     }
 
     public int parseDeleteTask(String line) {
+        if (line.length() <= 6) {
+            throw new IllegalArgumentException(COMMAND_MISSING_VALUE_ERROR_MESSAGE);
+        }
         String inputNumStr = line.toLowerCase().replace("delete", "").trim();
         int inputNum = Integer.parseInt(inputNumStr);
         return inputNum;
+    }
+
+    public String parseFind(String line) {
+        if (line.length() <= 4) {
+            throw new IllegalArgumentException(COMMAND_MISSING_VALUE_ERROR_MESSAGE);
+        }
+        String search = line.toLowerCase().replace("find", "").trim();
+        return search;
     }
 }
