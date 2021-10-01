@@ -8,22 +8,14 @@ import java.util.Scanner;
  */
 public class AccountDetail {
     private String username = "John Doe";
-    private String password = "password";
 
     public AccountDetail() {
         Scanner in = new Scanner(System.in);
         setupUsernamePassword(in);
     }
 
-    public void setUsername(String usernameToInput) {
-        if (username.isBlank()) {
-            username = "dukeBot";
-        } else {
-            username = usernameToInput;
-        }
-    }
-
     public void setPassword(String passwordToInput) {
+        String password = "password";
         if (passwordToInput.isBlank()) {
             password = "bukeDot";
         } else {
@@ -40,5 +32,13 @@ public class AccountDetail {
 
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String usernameToInput) {
+        if (username.isBlank()) {
+            username = "dukeBot";
+        } else {
+            username = usernameToInput;
+        }
     }
 }

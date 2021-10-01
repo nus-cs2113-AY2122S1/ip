@@ -33,8 +33,9 @@ public abstract class Task implements Serializable {
 
     /**
      * Sets a valid time of a task, only when the following format is followed: YYYY-MM-DD
-     *  Note that this only returns one valid date, on a first-come-first-serve basis
-     *  e.g  for tasks with a end date (events that last a few days)
+     * Note that this only returns one valid date, on a first-come-first-serve basis
+     * e.g  for tasks with a end date (events that last a few days)
+     *
      * @param fullUserInput full sentence input by user
      */
     public void setTime(String fullUserInput) {
@@ -43,14 +44,13 @@ public abstract class Task implements Serializable {
         List<String> chunksOfText = Arrays.asList(fullUserInput.split(" "));
         List<String> suitableDate = chunksOfText.stream()
                 .filter(validator::isValid)
-                .collect(Collectors.toList())
-                ;
+                .collect(Collectors.toList());
         if (!suitableDate.isEmpty()) {
             this.timeOfTask = LocalDate.parse(suitableDate.get(0)); //1st date by index
             System.out.println("great! i've recorded a date with the task: " + this.getDescription()
-                                + " " + "with the date: "
-                                + timeOfTask.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
-        this.hasValidDate = true;
+                    + " " + "with the date: "
+                    + timeOfTask.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+            this.hasValidDate = true;
         }
     }
 

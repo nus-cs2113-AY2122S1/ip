@@ -4,7 +4,7 @@ import duke.data.TaskList;
 
 /**
  * Command to mark tasks as done from both the task list and save file.
- *  A <code>Done</code> command can be called with the prefix 'done' in Duke.
+ * A <code>Done</code> command can be called with the prefix 'done' in Duke.
  */
 public class DoneCommand extends Command {
     public DoneCommand() {
@@ -19,8 +19,8 @@ public class DoneCommand extends Command {
 
     /**
      * Mark a set of <code>Task</code> as done in both task list and save file.
-     * @param tasks TaskList to mark tasks as done from
      *
+     * @param tasks TaskList to mark tasks as done from
      */
     @Override
     public void execute(TaskList tasks) {

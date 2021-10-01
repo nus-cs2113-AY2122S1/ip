@@ -1,7 +1,8 @@
 package duke.type;
 
 public class Event extends Task {
-    String atWhen;
+    final String atWhen;
+
     public Event(String description, String atWhen) {
         this.description = description;
         this.atWhen = atWhen;

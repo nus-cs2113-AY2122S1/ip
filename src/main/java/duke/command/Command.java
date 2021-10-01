@@ -9,19 +9,14 @@ import java.io.IOException;
  * Command to provide basic functions to be overwritten by other specific commands.
  */
 public abstract class Command {
-    private CommandPrefix commandPrefix;
     private boolean isExit = false;
 
-    public void setExit(boolean exit) {
-        this.isExit = exit;
-    }
-
     public Command(CommandPrefix prefix) {
-        this.commandPrefix = prefix;
     }
 
     /**
      * Saves given TaskList to a save file, with filePath represented in Storage.
+     *
      * @param tasks TaskList to be saved.
      */
     public void saveListAndPrintDone(TaskList tasks) {
@@ -36,14 +31,19 @@ public abstract class Command {
     /**
      * Returns true if user enters <code>stop</code> command.
      * Note that this is only applicable for commands with variable user input,
-     *  rather than commands that only take in the prefix.
-     *
+     * rather than commands that only take in the prefix.
+     * <p>
      * e.g <code>Add</code> command can take in multiple <code>Task</code> input,
-     *  however <code>List</code> command takes in just the prefix 'list'.
+     * however <code>List</code> command takes in just the prefix 'list'.
+     *
      * @return isExit STOP command input by user.
      */
     public boolean isExit() {
         return isExit;
+    }
+
+    public void setExit(boolean exit) {
+        this.isExit = exit;
     }
 
     public abstract void execute(TaskList tasks);

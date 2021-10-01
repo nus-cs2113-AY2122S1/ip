@@ -1,15 +1,12 @@
 package duke.startup;
 
-import duke.type.Deadline;
-import duke.type.Event;
-import duke.type.Task;
-import duke.type.Todo;
-import duke.type.Divider;
 import duke.command.*;
+import duke.type.*;
 
 public class Parser {
     /**
      * Converts string to Task
+     *
      * @param userInput user input as string
      * @return TaskToAdd task object with respective attributes
      */
@@ -51,10 +48,11 @@ public class Parser {
 
     /**
      * Given user input, checks which command to return
-     *  note only the first word is checked for user input,
-     *      and the keyword can be found in the CommandPrefix enum.
-     * @param fullCommand   full sentence given by user, separated by new line
-     * @return  Command command to execute
+     * note only the first word is checked for user input,
+     * and the keyword can be found in the CommandPrefix enum.
+     *
+     * @param fullCommand full sentence given by user, separated by new line
+     * @return Command command to execute
      */
     public static Command parse(String fullCommand) {
         String stringToRead = fullCommand.trim().toLowerCase();

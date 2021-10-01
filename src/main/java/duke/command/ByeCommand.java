@@ -5,7 +5,7 @@ import duke.ui.Ui;
 
 /**
  * Command to wave goodbye to user.
- *  A <code>Bye</code> command can be called with the prefix 'bye' in Duke.
+ * A <code>Bye</code> command can be called with the prefix 'bye' in Duke.
  */
 public class ByeCommand extends Command {
     public ByeCommand() {

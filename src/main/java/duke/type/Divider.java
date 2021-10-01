@@ -6,7 +6,8 @@ package duke.type;
 public enum Divider {
     E("/at"), D("/by"), PRINT_BLOCK("|");
 
-    protected String divisor;
+    protected final String divisor;
+
     Divider(String divisor) {
         this.divisor = divisor;
     }

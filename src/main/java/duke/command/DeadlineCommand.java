@@ -1,10 +1,11 @@
 package duke.command;
 
+import duke.data.TaskList;
 import duke.type.Deadline;
 import duke.ui.Ui;
-import duke.data.TaskList;
 
-/** Command to add a deadline to a todo
+/**
+ * Command to add a deadline to a todo
  */
 public class DeadlineCommand extends Command {
     public DeadlineCommand() {
@@ -19,6 +20,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Adds a deadline to a todo
+     *
      * @param tasks task list
      */
     @Override
@@ -40,8 +42,9 @@ public class DeadlineCommand extends Command {
 
     /**
      * Modifies a <code>todo</code> into a <code>deadline</code> with a byWhen attribute
-     * @param tasks task list to modify
-     * @param userInput user input in the format [INDEX] [DEADLINE]
+     *
+     * @param tasks          task list to modify
+     * @param userInput      user input in the format [INDEX] [DEADLINE]
      * @param formattedInput input separated by index, deadline
      * @return indexToModify to indicate if index input is out of range to user
      */

@@ -13,7 +13,7 @@ public enum CommandPrefix {
     DELETE("delete", "delete tasks from list"),
     DONE("done", "mark task as done"),
     ECHO("echo", "echo input"),
-    EVENT("event" , "adds events to list"),
+    EVENT("event", "adds events to list"),
     FIND("find", "find tasks with matching keyword"),
     HELP("help", "prints feature list"),
     LIST("list", "print current list"),

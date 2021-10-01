@@ -1,9 +1,10 @@
 package duke.type;
 
-public class Todo extends Task{
+public class Todo extends Task {
     public Todo(String description) {
         this.description = description;
     }
+
     public char getType() {
         return 'T';
     }

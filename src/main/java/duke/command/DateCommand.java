@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 
 /**
  * Command to list tasks with a valid date.
- *  * A <code>Date</code> command can be called with the prefix 'date' in Duke.
+ * * A <code>Date</code> command can be called with the prefix 'date' in Duke.
  */
 public class DateCommand extends Command {
     public DateCommand() {
@@ -23,7 +23,8 @@ public class DateCommand extends Command {
 
     /**
      * Prints tasks found that have the same valid date input
-     *  note that this logically applies to events/ deadlines rather than todo
+     * note that this logically applies to events/ deadlines rather than todo
+     *
      * @param tasks TaskList to be read
      */
     @Override
@@ -35,7 +36,7 @@ public class DateCommand extends Command {
             System.out.println("Please enter a valid date!");
             Ui.printDateFormat();
         }
-            tasks.printTasksWithGivenDate(dateGiven);
-            saveListAndPrintDone(tasks);
+        tasks.printTasksWithGivenDate(dateGiven);
+        saveListAndPrintDone(tasks);
     }
 }

@@ -45,13 +45,15 @@ public class Ui {
     public static void printMatchingTasksAlert() {
         System.out.println("Here are the matching tasks in your list: ");
     }
+
     public static String readLine() {
         Scanner in = new Scanner(System.in);
-        return  in.nextLine();
+        return in.nextLine();
     }
 
     /**
      * Formates a single string into a date
+     *
      * @return LocalDate
      * @throws DateTimeParseException if string is not formatted
      */
@@ -97,11 +99,12 @@ public class Ui {
 
     /**
      * Trivial function to return deadline on modification
+     *
      * @param original text to be entered
      * @return splitText[1] sentence without first word
      */
     public static String stringWithoutFirstWord(String original) {
-        String[] splitText= original.split(" ", 2);
+        String[] splitText = original.split(" ", 2);
         return splitText[1];
     }
 

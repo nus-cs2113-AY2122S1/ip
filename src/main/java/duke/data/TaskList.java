@@ -1,10 +1,9 @@
 package duke.data;
 
+import duke.startup.Parser;
 import duke.type.Deadline;
 import duke.type.Event;
 import duke.type.Task;
-
-import duke.startup.Parser;
 import duke.ui.Ui;
 
 import java.time.LocalDate;
@@ -19,20 +18,17 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * Represents a task list. A <code>TaskList</code> object simulates the behaviour of a digital list,
- *  with the ability of data manipulation and reading.
+ * with the ability of data manipulation and reading.
  */
 public class TaskList {
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
+
     public TaskList(ArrayList<Task> loadedTaskList) {
         taskList = loadedTaskList;
     }
 
     public TaskList() {
         taskList = new ArrayList<>();
-    }
-
-    public ArrayList<Task> getTaskList() {
-        return taskList;
     }
 
     public static String getTaskDate(Task item) {
@@ -42,6 +38,15 @@ public class TaskList {
             return " (at: " + ((Event) item).getAtWhen() + ") ";
         }
         return "";
+    }
+
+    private static void printIndexAndTask(int in, Task item) {
+        String doneSymbol = (item.isDone()) ? Ui.DONE_SYMBOL : " ";
+        System.out.println(in + ". " + "[" + item.getType() + "] " + "[" + doneSymbol + "]" + " " + item.getDescription() + getTaskDate(item));
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
     }
 
     /**
@@ -57,11 +62,6 @@ public class TaskList {
             }
         }
         Ui.printDivider();
-    }
-
-    private static void printIndexAndTask(int in, Task item) {
-        String doneSymbol = (item.isDone()) ? Ui.DONE_SYMBOL : " ";
-        System.out.println(in + ". " + "[" + item.getType() + "] " + "[" + doneSymbol + "]" + " " + item.getDescription() + getTaskDate(item));
     }
 
     /**
@@ -130,37 +130,39 @@ public class TaskList {
         while (!Ui.isStop(userInput)) {
             addTaskCheckDate(userInput);
             userInput = Ui.readLine();
-            }
+        }
     }
 
 
     /**
      * Checks if a date is found in user input
-     *  if found, add to timeOfTask variable in task, ignore otherwise.
+     * if found, add to timeOfTask variable in task, ignore otherwise.
+     *
      * @param userInput user input
      */
     public void addTaskCheckDate(String userInput) {
-            Task taskToAdd = Parser.parseInputAsTask(userInput);
-            taskToAdd.setTime(userInput);
-            taskList.add(taskToAdd);
+        Task taskToAdd = Parser.parseInputAsTask(userInput);
+        taskToAdd.setTime(userInput);
+        taskList.add(taskToAdd);
     }
 
     /**
      * Prints valid tasks with date input
+     *
      * @param dateGiven date to search tasks with
      */
     public void printTasksWithGivenDate(LocalDate dateGiven) {
         List<Task> tasksFound =
                 taskList.stream()
-                .filter(t -> t.getTaskDate().equals(dateGiven))
-                .collect(toList());
+                        .filter(t -> t.getTaskDate().equals(dateGiven))
+                        .collect(toList());
         if (tasksFound.isEmpty()) {
             System.out.println("No task with date " + dateGiven + " found!");
         } else {
             System.out.println("I found the following tasks:");
             taskList.stream()
-                    .map(t->t.getDescription())
-                    .forEach(t-> System.out.println(t));
+                    .map(t -> t.getDescription())
+                    .forEach(t -> System.out.println(t));
             System.out.println("with the given date: " + dateGiven.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
         }
     }

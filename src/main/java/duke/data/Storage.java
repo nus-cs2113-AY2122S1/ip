@@ -1,8 +1,8 @@
 package duke.data;
 
-import duke.type.Task;
-import duke.type.Divider;
 import duke.startup.Parser;
+import duke.type.Divider;
+import duke.type.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,13 +16,14 @@ import java.util.Scanner;
 /**
  * Represents storage functionalities to write task list to a save file.
  * A <code>Storage</code> object primarily runs on a save file, given by fileName,
- *  in the directory folderName.
+ * in the directory folderName.
  */
-public class Storage{
+public class Storage {
     private static final String STORAGE_DIVISOR = "\\|";
+    private static final String folderName = "data/";
+    private static final String fileName = "list.txt";
     private static String filePath;
-    private static String folderName = "data/";
-    private static String fileName = "list.txt";
+
     public Storage(String filePathToInput) {
         filePath = filePathToInput;
     }
@@ -30,7 +31,8 @@ public class Storage{
 
     /**
      * Prints a task array list in easy to parse data format
-     *  format: [TYPE] | [DESC] | [DEADLINE IF EXIST] | [DONE]
+     * format: [TYPE] | [DESC] | [DEADLINE IF EXIST] | [DONE]
+     *
      * @param t task to wrangle data from
      * @return
      */
@@ -40,9 +42,10 @@ public class Storage{
 
     /**
      * Saves list to save file
+     *
      * @param taskList task list to save
-     * @throws IOException  if file/ directory not found
-     *                      - handled by creating new directory/ file if necessary
+     * @throws IOException if file/ directory not found
+     *                     - handled by creating new directory/ file if necessary
      */
     public static void saveList(TaskList taskList) throws IOException {
         checkAndAddDirectory();
@@ -57,7 +60,8 @@ public class Storage{
     /**
      * Returns a task list with attributes of every task, given save file
      * format of task per line of save file:
-     *      [TASK_TYPE] | [DEADLINE IF EXISTS] | [DESCRIPTION] | [DONE]
+     * [TASK_TYPE] | [DEADLINE IF EXISTS] | [DESCRIPTION] | [DONE]
+     *
      * @return tasksToRead task list
      */
     public static ArrayList<Task> load() {
@@ -88,8 +92,9 @@ public class Storage{
 
     /**
      * Parses text to a <code>Task</code> with attributes done, type, description etc.
-     * @param readLine line of text to read
-     * @param taskListToSave    task list to add tasks
+     *
+     * @param readLine       line of text to read
+     * @param taskListToSave task list to add tasks
      */
     private static void addTaskToArray(String readLine, ArrayList<Task> taskListToSave) {
         String toCommand = savedDataToCommandFormat(readLine);
@@ -109,16 +114,17 @@ public class Storage{
 
     /**
      * Converts save data into simulated user input for easy convertability
-     *  Note this does not mark the done attribute, which we do in <code>addTaskToArray</code>
+     * Note this does not mark the done attribute, which we do in <code>addTaskToArray</code>
+     *
      * @param readLine line of text to read
      * @return simulated user input to add a single task
      */
     private static String savedDataToCommandFormat(String readLine) {
         String[] separateData = readLine.split(STORAGE_DIVISOR);
         switch (separateData[0]) {
-        case ("D") :
+        case ("D"):
             return separateData[1] + Divider.D.getDivisor() + separateData[2];
-        case ("E") :
+        case ("E"):
             return separateData[1] + Divider.E.getDivisor() + separateData[2];
         default:    //is a todo
             return separateData[1];
@@ -127,6 +133,7 @@ public class Storage{
 
     /**
      * Creates directory if directory folderName is not found.
+     *
      * @throws IOException case where directory not found
      */
     private static void checkAndAddDirectory() throws IOException {

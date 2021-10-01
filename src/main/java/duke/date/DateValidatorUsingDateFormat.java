@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
  * Reference: baeldung.com/java-string-valid-date
  */
 public class DateValidatorUsingDateFormat implements DateValidator {
-    private DateTimeFormatter dateFormatter;
+    private final DateTimeFormatter dateFormatter;
 
     public DateValidatorUsingDateFormat(DateTimeFormatter dateFormatter) {
         this.dateFormatter = dateFormatter;
