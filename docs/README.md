@@ -148,6 +148,21 @@ Here are the matching tasks in your list:
 
 ```
 
+### Exiting duke: ```bye```
+Terminate the program.   
+The bye command must be not accompanied by any other arguments .  
+Format: `` find ``
+
+Example
+```
+
+% bye
+------------------------------------  
+Bye! Cya next time! 
+------------------------------------  
+
+```
+
 
 
 
