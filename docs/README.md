@@ -1,6 +1,21 @@
 # Patchi the Tasks Fairy (ovo)B
 
-Patchi is a cute and helpful **scheduler + todo list** that runs on CLI.
+Patchi is a cute and helpful **scheduler + todo list** that runs on the command line interface (CLI).
+
+## Quick Start 
+
+1. Download the latest release [here](https://github.com/aaapppsss/ip/releases/tag/A-Release) by clicking on `patchi.jar` under Assets.
+2. Move `patchi.jar` into your desired folder.
+3. Open your CLI and `cd` into the folder containing `patchi.jar`.
+4. Run the command `java -jar patchi.jar`.
+5. You should see the Welcome message as follows:
+```
+--- .o * : *. + .* : + o. ---
+Patchi: Hello! I'm Patchi the tasks fairy (owo)B
+ What can I do for you today? (ovo)B
+--- .o * : typing... : + o. ---
+Me:
+```
 
 ## Features 
 
