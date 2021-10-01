@@ -28,8 +28,8 @@ Type Something:
 
 
 ### Add Todo: ```todo```
-Add a Todo task into the task list.  
-Todo tasks should only contain a task description.  
+Adds a Todo task into the tasklist.  
+The todo command must be accompanied by a task description only.  
 Format: ```todo <description>``` 
 
 
