@@ -1,7 +1,363 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ ______________
+|            @ | #####  ####        #####   ####
+|         @@   |   #   #    #       #    # #    #
+|       @@     |   #   #    # ##### #    # #    #
+|  @@  @@      |   #   #    #       #    # #    #
+|   @@@        |   #   #    #       #    # #    #
+|    @         |   #    ####        #####   ####
+ --------------
+____________________________________________________________
+Hi! I'm Duke!
+Your personal bot to make sure you do work.
+Have you started ur tasks? Start by typing "help"
+____________________________________________________________
+
+loading saved files...
+
+____________________________________________________________
+no pre-existing data files yet
+____________________________________________________________
+
+
+Type your command:
+
+
+____________________________________________________________
+
+How to use this bot:
+Type ur command in the following format
+cmd [args] /[delimiter] [additional args]
+
+____________________________________________________________
+
+1. help - Displays help information such as commands available
+
+2. list - Displays list of tasks
+
+3. add [TASK_DESCRIPTION] - Add a normal task
+
+4. todo [TASK_DESCRIPTION] - Add a Todo task
+
+5. deadline [TASK_DESCRIPTION] /by [DATE_TO_BE_COMPLETED] - Add a Deadline task
+Input DateTime format: DD/MM/YYYY HHMM
+
+6. event [TASK_DESCRIPTION] /at [DATE_OF_EVENT] - Add a Event task
+Input DateTime format: DD/MM/YYYY HHMM
+
+7. done [TASK_NUMBER] - Mark a task as done
+
+8. delete [TASK_NUMBER] - Delete a task from the task list
+
+9. find [TASK_KEYWORD] - Find a task by a keyword
+
+10. hist - Displays list of previous user input commands
+
+11. bye - Exit Duke program
+
+____________________________________________________________
+
+
+Type your command:
+
+
+____________________________________________________________
+No tasks, start by adding a task!
+Total Tasks: 0
+____________________________________________________________
+
+
+Type your command:
+
+
+____________________________________________________________
+adding: 2113 sub
+____________________________________________________________
+
+/data directory created
+duke.txt created
+Successfully wrote to the file.
+
+Type your command:
+
+
+____________________________________________________________
+
+1. [T][ ] 2113 sub
+
+Total Tasks: 1
+____________________________________________________________
+
+
+Type your command:
+
+
+************************************************************
+Exception message:deadline task needs details
+
+************************************************************
+
+Type your command:
+
+
+************************************************************
+Exception message:
+Duke: can't find /by
+
+************************************************************
+
+Type your command:
+
+
+************************************************************
+Exception message:
+Duke: can't find details
+
+************************************************************
+
+Type your command:
+
+
+************************************************************
+Exception message:
+Date time wrong format, follow: dd/MM/yyyy HHmm
+
+************************************************************
+
+Type your command:
+
+
+____________________________________________________________
+adding: CS2106 lab /by 04/09/2021 0900
+____________________________________________________________
+
+/data directory exists
+duke.txt exists
+Successfully wrote to the file.
+
+Type your command:
+
+
+____________________________________________________________
+
+1. [T][ ] 2113 sub
+2. [D][ ] CS2106 lab (by: Sep 04 2021 09:00 AM)
+
+Total Tasks: 2
+____________________________________________________________
+
+
+Type your command:
+
+
+************************************************************
+Exception message:event task needs details
+
+************************************************************
+
+Type your command:
+
+
+************************************************************
+Exception message:
+Duke: can't find /at
+
+************************************************************
+
+Type your command:
+
+
+************************************************************
+Exception message:
+Duke: can't find details
+
+************************************************************
+
+Type your command:
+
+
+************************************************************
+Exception message:
+Date time wrong format, follow: dd/MM/yyyy HHmm
+
+************************************************************
+
+Type your command:
+
+
+____________________________________________________________
+adding: cs2113 group meet /at 18/09/2021 2100
+____________________________________________________________
+
+/data directory exists
+duke.txt exists
+Successfully wrote to the file.
+
+Type your command:
+
+
+____________________________________________________________
+
+1. [T][ ] 2113 sub
+2. [D][ ] CS2106 lab (by: Sep 04 2021 09:00 AM)
+3. [E][ ] cs2113 group meet (at: Sep 18 2021 21:00 PM)
+
+Total Tasks: 3
+____________________________________________________________
+
+
+Type your command:
+
+
+____________________________________________________________
+invalid command, please try again
+____________________________________________________________
+
+
+Type your command:
+
+
+************************************************************
+Exception message:IndexOutOfBounds: index start from 1 to 3
+
+************************************************************
+
+Type your command:
+
+
+____________________________________________________________
+
+1. [T][ ] 2113 sub
+2. [D][ ] CS2106 lab (by: Sep 04 2021 09:00 AM)
+3. [E][ ] cs2113 group meet (at: Sep 18 2021 21:00 PM)
+
+Total Tasks: 3
+____________________________________________________________
+
+
+Type your command:
+
+
+************************************************************
+Exception message:IndexOutOfBounds: index start from 1 to 3
+
+************************************************************
+
+Type your command:
+
+
+____________________________________________________________
+
+1. [T][ ] 2113 sub
+2. [D][ ] CS2106 lab (by: Sep 04 2021 09:00 AM)
+3. [E][ ] cs2113 group meet (at: Sep 18 2021 21:00 PM)
+
+Total Tasks: 3
+____________________________________________________________
+
+
+Type your command:
+
+
+____________________________________________________________
+Good Job, u have completed
+task: CS2106 lab
+____________________________________________________________
+
+/data directory exists
+duke.txt exists
+Successfully wrote to the file.
+
+Type your command:
+
+
+____________________________________________________________
+
+1. [T][ ] 2113 sub
+2. [D][X] CS2106 lab (by: Sep 04 2021 09:00 AM)
+3. [E][ ] cs2113 group meet (at: Sep 18 2021 21:00 PM)
+
+Total Tasks: 3
+____________________________________________________________
+
+
+Type your command:
+
+
+************************************************************
+Exception message:IndexOutOfBounds: index start from 1 to 3
+
+************************************************************
+
+Type your command:
+
+
+____________________________________________________________
+
+1. [T][ ] 2113 sub
+2. [D][X] CS2106 lab (by: Sep 04 2021 09:00 AM)
+3. [E][ ] cs2113 group meet (at: Sep 18 2021 21:00 PM)
+
+Total Tasks: 3
+____________________________________________________________
+
+
+Type your command:
+
+
+************************************************************
+Exception message:IndexOutOfBounds: index start from 1 to 3
+
+************************************************************
+
+Type your command:
+
+
+____________________________________________________________
+
+1. [T][ ] 2113 sub
+2. [D][X] CS2106 lab (by: Sep 04 2021 09:00 AM)
+3. [E][ ] cs2113 group meet (at: Sep 18 2021 21:00 PM)
+
+Total Tasks: 3
+____________________________________________________________
+
+
+Type your command:
+
+
+____________________________________________________________
+Removed task:
+[D][X] CS2106 lab (by: Sep 04 2021 09:00 AM)
+____________________________________________________________
+
+/data directory exists
+duke.txt exists
+Successfully wrote to the file.
+
+Type your command:
+
+
+____________________________________________________________
+
+1. [T][ ] 2113 sub
+2. [E][ ] cs2113 group meet (at: Sep 18 2021 21:00 PM)
+
+Total Tasks: 2
+____________________________________________________________
+
+
+Type your command:
+
+
+************************************************************
+Exception message:todo task needs details
+
+************************************************************
+
+Type your command:
+
+
+____________________________________________________________
+Well done for today! Remember to have 8 hrs of sleep!
+____________________________________________________________
 
