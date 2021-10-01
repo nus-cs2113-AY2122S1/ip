@@ -5,7 +5,8 @@ import java.util.stream.IntStream;
 
 
 public class Duke {
-    public static void main(String[] args) throws DukeException {
+
+    public static void main(String[] args) throws DukeException{
         //Starting the bot
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?\n");
         //Task List[] = new Task[100]; //Creating a list of tasks
@@ -27,6 +28,7 @@ public class Duke {
             } else if(line.split(" ")[0].equals("done")) {
                 //When the user keys in done
                 int taskNumber = Integer.valueOf(line.split(" ")[1]);
+
                 List.get(taskNumber-1).setDone("X");
             } else if(line.split(" ")[0].equals("todo")) {
                 //When the user adds a todo
@@ -40,6 +42,7 @@ public class Duke {
                 } catch (Exception ex){
                     throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                 }
+
             } else if(line.split(" ")[0].equals("deadline")) {
                 //When the user adds a deadline
                 List.add(new Deadline(line.split("deadline ")[1], line.split("/by")[1]));
@@ -53,7 +56,9 @@ public class Duke {
                 List.add(new Event(line.split("event ")[1], line.split("/at")[1]));
 
                 System.out.println("Got it. I've added this task:");
+
                 System.out.println(List.get(listSize));
+
                 System.out.println("Now you have " + (listSize + 1)  + " tasks in the list.");
                 listSize++;
             } else if(line.split(" ")[0].equals("delete")){
