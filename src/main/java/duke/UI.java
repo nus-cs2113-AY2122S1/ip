@@ -1,6 +1,8 @@
 package duke;
 
 import duke.task.Task;
+import duke.validation.InvalidFormatException;
+import duke.validation.InvalidIndexException;
 
 import java.util.ArrayList;
 
@@ -9,40 +11,34 @@ public class UI{
 
     public static void printWelcomeMessage() {
         System.out.println(BUFFER_LINE);
-        String logo = " ____        _        \n"
+        String LOGO = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        String greeting = BUFFER_LINE
+        String GREETING = BUFFER_LINE
+                + LOGO
+                + BUFFER_LINE
                 + " Hello! I'm Duke\n"
                 + " What can I do for you?\n"
                 + BUFFER_LINE;
-        System.out.println(greeting);
+        System.out.println(GREETING);
     }
 
     public static void printEndMessage() {
-        String byeMessage = BUFFER_LINE
+        String BYE_MESSAGE = BUFFER_LINE
                 + " Bye. Hope to see you again soon!\n"
                 + BUFFER_LINE;
-        System.out.println(byeMessage);
-    }
-
-    public static void printInvalidMessage() {
-        String invalidInput = BUFFER_LINE
-                + " Oops! Looks like I can't read that! Please input a valid command.\n"
-                + BUFFER_LINE;
-        System.out.println(invalidInput);
+        System.out.println(BYE_MESSAGE);
     }
 
     public static void printAdditionMessage(Task current, int taskCount) {
-        String addition = BUFFER_LINE
+        String additionMessage = BUFFER_LINE
                 + " Gotcha! I've added this task: \n"
                 + "    " + current.listTask() + "\n"
                 + " Now you have " + taskCount + " tasks in the list.\n"
                 + BUFFER_LINE;
-        System.out.println(addition);
+        System.out.println(additionMessage);
     }
 
     public static void printDoneMessage(Task current) {
@@ -91,73 +87,18 @@ public class UI{
     }
 
     public static void printEmptyListMessage() {
-        String emptyListMessage = BUFFER_LINE
+        String EMPTY_LIST_MESSAGE = BUFFER_LINE
                 + "You have 0 tasks in your list!\n"
                 + BUFFER_LINE;
-        System.out.println(emptyListMessage);
+        System.out.println(EMPTY_LIST_MESSAGE);
     }
 
-    public static void printEmptyListMessage(String filterString) {
-        String noMatchingTasksMessage = BUFFER_LINE
-                + "You have 0 tasks containing '" + filterString + "' !\n"
-                + BUFFER_LINE;
-        System.out.println(noMatchingTasksMessage);
+    public static void printExceptionMessage(Exception e) {
+        System.out.println(e);
     }
 
-    public static void printInvalidTodoMessage() {
-        String invalidTodoMessage = BUFFER_LINE
-                + "Invalid Input! Missing task description!\n"
-                + BUFFER_LINE;
-        System.out.println(invalidTodoMessage);
+    public static void printWrongButOkayMessage() {
+        String WRONG_INPUT_BUT_OKAY_MESSAGE = "This has a wrong format but I think you want this!";
+        System.out.println(WRONG_INPUT_BUT_OKAY_MESSAGE);
     }
-
-    public static void printInvalidDeadlineMessage() {
-        String invalidDeadlineMessage = BUFFER_LINE
-                + "Invalid Input! Missing task description or keyword '/by'!\n"
-                + BUFFER_LINE;
-        System.out.println(invalidDeadlineMessage);
-    }
-
-    public static void printInvalidEndDateMessage() {
-        String invalidEndDateMessage = BUFFER_LINE
-                + "Invalid Input! Missing deadline date!\n"
-                + BUFFER_LINE;
-        System.out.println(invalidEndDateMessage);
-    }
-
-    public static void printInvalidEventMessage() {
-        String invalidEventMessage = BUFFER_LINE
-                + "Invalid Input! Missing task description or keyword '/at'!\n"
-                + BUFFER_LINE;
-        System.out.println(invalidEventMessage);
-    }
-
-    public static void printInvalidDurationMessage() {
-        String invalidDurationMessage = BUFFER_LINE
-                + "Invalid Input! Missing event duration!\n"
-                + BUFFER_LINE;
-        System.out.println(invalidDurationMessage);
-    }
-
-    public static void printInvalidCrossOffMessage() {
-        String invalidCrossOffMessage = BUFFER_LINE
-                + "Invalid Input! Missing task number to cross off!\n"
-                + BUFFER_LINE;
-        System.out.println(invalidCrossOffMessage);
-    }
-
-    public static void printInvalidDeleteTaskMessage() {
-        String invalidDeleteTaskMessage = BUFFER_LINE
-                + "Invalid Input! Missing task number to delete!\n"
-                + BUFFER_LINE;
-        System.out.println(invalidDeleteTaskMessage);
-    }
-
-    public static void printInvalidTaskIndexMessage() {
-        String invalidTaskIndexMessage = BUFFER_LINE
-                + "Invalid Input! Task number specified cannot be found!\n"
-                + BUFFER_LINE;
-        System.out.println(invalidTaskIndexMessage);
-    }
-
 }

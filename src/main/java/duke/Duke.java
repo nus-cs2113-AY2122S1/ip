@@ -1,19 +1,16 @@
 package duke;
 
-import duke.validation.DukeException;
+import duke.validation.InvalidFormatException;
+import duke.validation.InvalidIndexException;
+import duke.validation.InvalidInputException;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
 
-    public static void main(String[] args) throws DukeException, IOException {
+    public static void main(String[] args) {
         UI.printWelcomeMessage();
-        if (InputFile.hasInput()) {
-            InputFile.readInput();
-            InputFile.deleteInput();
-        }
+        InputFile.readSave();
         String input;
         String[] inputWords;
         String command;
@@ -22,33 +19,39 @@ public class Duke {
             input = in.nextLine().trim();
             inputWords = TaskManager.decodeInput(input);
             command = inputWords[0];
-            switch (command) {
-            case "todo":
-            case "deadline":
-            case "event":
-                TaskManager.addTask(input, inputWords, command);
-                break;
-            case "done":
-                TaskManager.crossOff(inputWords);
-                break;
-            case "delete":
-                TaskManager.deleteTask(inputWords);
-                break;
-            case "list":
-                TaskManager.printList();
-                break;
-            case "find" :
-                TaskManager.findTask(input);
-                break;
-            case "bye":
-                break;
-            default:
-                DukeException.invalidInputException();
-                break;
+            try {
+                switch (command) {
+                case "todo":
+                    TaskManager.addToDo(input, inputWords);
+                    break;
+                case "deadline":
+                    TaskManager.addDeadline(input, inputWords);
+                    break;
+                case "event":
+                    TaskManager.addEvent(input, inputWords);
+                    break;
+                case "done":
+                    TaskManager.crossOff(inputWords);
+                    break;
+                case "delete":
+                    TaskManager.deleteTask(inputWords);
+                    break;
+                case "list":
+                    TaskManager.printList(inputWords);
+                    break;
+                case "find" :
+                    TaskManager.findTask(input);
+                    break;
+                case "bye":
+                    break;
+                default:
+                    throw new InvalidInputException();
+                }
+            } catch (InvalidFormatException | InvalidIndexException | InvalidInputException e) {
+                UI.printExceptionMessage(e);
             }
         } while (!command.equals("bye"));
-        InputFile.createInput();
-        InputFile.writeToInput();
+        InputFile.writeSave();
         UI.printEndMessage();
     }
 }
