@@ -40,3 +40,53 @@ Got it. I've added this task:
 Now you have 1 tasks in the list
 Description of the outcome.
 ```
+### `list` - Show the current task list
+
+User get the current list.
+
+Example of usage: 
+
+`list`
+
+```
+[D] [ ] return book  (Feb 1 2002)
+
+```
+
+### `delete [order number]` - delete the task
+
+User delete a task in the task list.
+
+Example of usage: 
+
+`delete 1`
+
+```
+Noted I've already delete it
+
+```
+### `find [keywords]` - find tasks which include keywords
+
+User can find tasks by keywords.
+
+Example of usage: 
+
+`find book`
+
+```
+find book
+[T] [ ] return book
+[T] [ ] buy book
+
+```
+### `done [order number]` - mark a task as done
+
+User can mark a task as done
+
+Example of usage: 
+
+`done 2`
+
+```
+Nice Work! I've marked it as done
+```
