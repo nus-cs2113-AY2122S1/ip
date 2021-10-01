@@ -1,4 +1,4 @@
-package duke;
+package duke.io;
 
 public enum Command {
     EXIT,

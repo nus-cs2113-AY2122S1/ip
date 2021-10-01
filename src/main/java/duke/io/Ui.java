@@ -1,4 +1,7 @@
-package duke;
+package duke.io;
+
+import duke.TaskHandler;
+import duke.exceptions.InvalidCommandException;
 
 import java.util.Scanner;
 import duke.Formatter;
@@ -28,7 +31,8 @@ public class Ui {
     }
 
     public void sayBye() {
-        Formatter.printFormattedOutput("Farewell, my liege. Happy hunting!");
+        System.out.println("Farewell, my liege. Happy hunting!");
+        Formatter.printOutputSeparator();
     }
 
     public String readCommand() {

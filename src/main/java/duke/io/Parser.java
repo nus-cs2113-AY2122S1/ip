@@ -1,25 +1,12 @@
-package duke;
+package duke.io;
 
 public class Parser {
-
-    enum InputError {
-        COMMAND_UNKNOWN,
-        COMMAND_MISSING_DESCRIPTION,
-        COMMAND_MISSING_BY,
-        COMMAND_MISSING_AT
-    }
-
-    private String COMMAND_UNKNOWN;
-    private String COMMAND_MISSING_DESCRIPTION;
-    private String COMMAND_MISSING_BY;
-    private String COMMAND_MISSING_AT;
-
-    /* Error messages */
-    private String COMMAND_UNKNOWN_ERROR_MESSAGE = "I cannot comprehend, my liege.";
-    private String COMMAND_MISSING_DESCRIPTION_ERROR_MESSAGE = "My liege, there is no description!";
-    private String COMMAND_MISSING_BY_ERROR_MESSAGE = "By when, my liege?";
-    private String COMMAND_MISSING_AT_ERROR_MESSAGE = "When or where is this event, my liege?";
-    private String COMMAND_MISSING_VALUE_ERROR_MESSAGE = "My liege, there is no value!";
+    /** Error messages */
+    private final String COMMAND_UNKNOWN_ERROR_MESSAGE = "I cannot comprehend, my liege.";
+    private final String COMMAND_MISSING_DESCRIPTION_ERROR_MESSAGE = "My liege, there is no description!";
+    private final String COMMAND_MISSING_BY_ERROR_MESSAGE = "By when, my liege?";
+    private final String COMMAND_MISSING_AT_ERROR_MESSAGE = "When or where is this event, my liege?";
+    private final String COMMAND_MISSING_VALUE_ERROR_MESSAGE = "My liege, there is no value!";
 
     public Command returnCommand(String line) {
         Command command;
@@ -143,8 +130,14 @@ public class Parser {
         return taskComponents;
     }
 
-    public int parseDoTask(String line) {
-        if (line.length() <= 4) {
+    /**
+     * Parses a do task command to extract the ID of the Task.
+     * @param line the line containing the command
+     * @return the Task's ID
+     * @throws IllegalArgumentException if there is no ID found
+     */
+    public int parseDoTask(String line) throws IllegalArgumentException {
+        if (line.length() <= 5) {
             throw new IllegalArgumentException(COMMAND_MISSING_VALUE_ERROR_MESSAGE);
         }
         String inputNumStr = line.toLowerCase().replace("done", "").trim();
@@ -152,8 +145,14 @@ public class Parser {
         return inputNum;
     }
 
-    public int parseDeleteTask(String line) {
-        if (line.length() <= 6) {
+    /**
+     * Parses a delete task command to extract the ID of the Task.
+     * @param line the line containing the command
+     * @return the Task's ID
+     * @throws IllegalArgumentException if there is no ID found
+     */
+    public int parseDeleteTask(String line) throws IllegalArgumentException {
+        if (line.length() <= 7) {
             throw new IllegalArgumentException(COMMAND_MISSING_VALUE_ERROR_MESSAGE);
         }
         String inputNumStr = line.toLowerCase().replace("delete", "").trim();
@@ -161,8 +160,14 @@ public class Parser {
         return inputNum;
     }
 
-    public String parseFind(String line) {
-        if (line.length() <= 4) {
+    /**
+     * Parses a find command to extract the search term.
+     * @param line the line containing the command
+     * @return the search term
+     * @throws IllegalArgumentException if there is no search term found
+     */
+    public String parseFind(String line) throws IllegalArgumentException {
+        if (line.length() <= 5) {
             throw new IllegalArgumentException(COMMAND_MISSING_VALUE_ERROR_MESSAGE);
         }
         String search = line.toLowerCase().replace("find", "").trim();

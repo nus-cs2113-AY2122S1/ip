@@ -1,4 +1,7 @@
-import duke.*;
+import duke.TaskHandler;
+import duke.exceptions.InvalidCommandException;
+import duke.io.Storage;
+import duke.io.Ui;
 
 
 public class Duke {
