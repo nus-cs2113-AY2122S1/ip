@@ -132,6 +132,22 @@ Noted, I've removed this task:
 
 ```
 
+### Finding tasks by keyword: ```find```
+Find tasks in the tasklist using a keyword.   
+The find command must be accompanied by a `keyword` .  
+Format: `` find <keyword> ``
+
+Example
+```
+
+% find wedding
+------------------------------------  
+Here are the matching tasks in your list:   
+1. [E][ ] attend wedding (at: 12pm)  
+------------------------------------  
+
+```
+
 
 
 
