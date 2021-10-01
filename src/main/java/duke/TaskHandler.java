@@ -1,5 +1,7 @@
 package duke;
 
+import duke.Parser;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,74 +14,45 @@ public class TaskHandler {
 
     private String EMPTY_DESCRIPTION_MSG = "My liege, there is no description!";
 
+    private Parser parser;
+    private Storage storage;
     protected ArrayList<Task> tasks;
-    private Path dataPath;
 
-    public TaskHandler() {
+    public TaskHandler(Storage storage) {
         this.tasks = new ArrayList<Task>();
-        openFile();
+        this.parser = new Parser();
+        this.storage = storage;
     }
 
     public String handleTasks(String line) throws IllegalArgumentException, DukeException {
         String lc = line.toLowerCase();
-        if (inputIsList(lc)) {
+        if (parser.inputIsList(lc)) {
             return listTasks();
-        } else if (inputIsClear(lc)) {
-            return clearFileData();
-        } else if (inputIsDone(lc)) {
+        } else if (parser.inputIsClear(lc)) {
+            return storage.clearFileData();
+        } else if (parser.inputIsDone(lc)) {
             return doTask(lc);
-        } else if (inputIsDelete(lc)) {
+        } else if (parser.inputIsDelete(lc)) {
             return deleteTask(lc);
-        } else if (inputIsTodo(lc)) {
+        } else if (parser.inputIsTodo(lc)) {
             return addTodo(line);
-        } else if (inputIsDeadline(lc)) {
-            if (!deadlineContainsBy(lc)) {
+        } else if (parser.inputIsDeadline(lc)) {
+            if (!parser.deadlineContainsBy(lc)) {
                 return returnDeadlineNoBy();
             } else {
                 return addDeadline(line);
             }
-        } else if (inputIsEvent(lc)) {
-            if (!eventContainsAt(lc)) {
+        } else if (parser.inputIsEvent(lc)) {
+            if (!parser.eventContainsAt(lc)) {
                 return returnEventNoAt();
             } else {
                 return addEvent(line);
             }
+        } else if (parser.inputIsBye(lc)) {
+            return "";
         } else {
-            return returnInputInvalid();
+                return returnInputInvalid();
         }
-    }
-
-    private void openFile() {
-        try {
-            String home = System.getProperty("user.dir");
-            Path dataDirPath = Paths.get(home, "/data/");
-            Files.createDirectories(dataDirPath);
-            Path dataPath = Paths.get(home, "/data/duke.txt");
-            if (!Files.exists(dataPath)) {
-                Files.createFile(dataPath);
-            }
-            this.dataPath = dataPath;
-        } catch (IOException e) {
-            System.err.println("Open failure: " + e.getMessage());
-        }
-    }
-
-
-    public boolean inputIsTodo(String lc) {
-        //lc: lowercase line
-        return lc.startsWith("todo");
-    }
-
-    public boolean inputIsDelete(String lc) {
-        return lc.startsWith("delete");
-    }
-
-    public boolean inputIsDeadline(String lc) {
-        return lc.startsWith("deadline");
-    }
-
-    public boolean deadlineContainsBy(String lc) {
-        return lc.contains("/by");
     }
 
     public String returnDeadlineNoBy() {
@@ -87,29 +60,12 @@ public class TaskHandler {
         return "By when, my liege?";
     }
 
-    public boolean inputIsEvent(String lc) {
-        return lc.startsWith("event");
-    }
-
-    public boolean eventContainsAt(String lc) {
-        return lc.contains("/at");
-    }
 
     public String returnEventNoAt() {
         return "Where or when is this event, my liege?";
     }
 
-    public boolean inputIsDone(String lc) {
-        return lc.startsWith("done");
-    }
 
-    public boolean inputIsClear(String lc) {
-        return lc.startsWith("clear");
-    }
-
-    public boolean inputIsBye(String lc) {
-        return lc.equals("bye");
-    }
 
     public String returnAddTaskSuccess() {
         return "As you command. Added: ";
@@ -122,7 +78,7 @@ public class TaskHandler {
         String description = line.substring(5).trim();
         Todo newTodo = new Todo(description);
         tasks.add(newTodo);
-        appendLinetoFileData(newTodo.toString());
+        storage.appendLinetoFileData(newTodo.toString());
         return returnAddTaskSuccess() + newTodo.toString();
     }
 
@@ -139,7 +95,7 @@ public class TaskHandler {
         }
         Deadline newDeadline = new Deadline(description, by);
         tasks.add(newDeadline);
-        appendLinetoFileData(newDeadline.toString());
+        storage.appendLinetoFileData(newDeadline.toString());
         return returnAddTaskSuccess() + newDeadline.toString();
     }
 
@@ -156,7 +112,7 @@ public class TaskHandler {
         }
         Event newEvent = new Event(description, at);
         tasks.add(newEvent);
-        appendLinetoFileData(newEvent.toString());
+        storage.appendLinetoFileData(newEvent.toString());
         return returnAddTaskSuccess() + newEvent.toString();
     }
 
@@ -187,7 +143,7 @@ public class TaskHandler {
         }
         int id = inputNum - 1;
         tasks.get(id).setDone();
-        editFileData(id, tasks.get(id).toString());
+        storage.editFileData(id, tasks.get(id).toString());
         return returnTaskCompleted() + System.lineSeparator()
                 + Formatter.returnOutputStart() + tasks.get(id).toString();
     }
@@ -203,26 +159,14 @@ public class TaskHandler {
         }
         int id = inputNum - 1;
         Task deletedTask = tasks.remove(id);
-        deleteLinefromFileData(id);
+        storage.deleteLinefromFileData(id);
         return returnTaskDeleted() + System.lineSeparator()
                 + Formatter.returnOutputStart() + deletedTask.toString();
     }
 
-    public boolean inputIsList(String lc) {
-        return lc.equals("list");
-    }
-
     public String listTasks() {
         String out = "Your magnificent tasks:";
-        try {
-            List<String> lines = Files.readAllLines(dataPath);
-            for (int i = 0; i < lines.size(); i++) {
-                out += System.lineSeparator() + Formatter.returnOutputStart() + (i + 1) + "."
-                        + lines.get(i);
-            }
-        } catch (IOException e) {
-            System.err.println("Read failure: " + e.getMessage());
-        }
+        out += storage.returnAllFileData();
         return out;
     }
 
@@ -234,42 +178,7 @@ public class TaskHandler {
         return "Have mercy, for that is beyond my knowledge.";
     }
 
-    private void appendLinetoFileData(String line) {
-        try {
-            List<String> lines = Files.readAllLines(dataPath);
-            lines.add(line);
-            Files.write(dataPath, lines);
-        } catch (IOException e) {
-            System.err.println("Write failure: " + e.getMessage());
-        }
-    }
 
-    private void editFileData(int index, String line) {
-        try {
-            List<String> lines = Files.readAllLines(dataPath);
-            lines.set(index, line);
-            Files.write(dataPath, lines);
-        } catch (IOException e) {
-            System.err.println("Write failure: " + e.getMessage());
-        }
-    }
 
-    private void deleteLinefromFileData(int index) {
-        try {
-            List<String> lines = Files.readAllLines(dataPath);
-            lines.remove(index);
-            Files.write(dataPath, lines);
-        } catch (IOException e) {
-            System.err.println("Write failure: " + e.getMessage());
-        }
-    }
 
-    private String clearFileData() {
-        try {
-            Files.write(dataPath, Collections.EMPTY_LIST);
-        } catch (IOException e) {
-            System.err.println("Write failure: " + e.getMessage());
-        }
-        return "A clean slate, my liege!";
-    }
 }
