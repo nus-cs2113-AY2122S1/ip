@@ -1,10 +1,45 @@
+import Storage.Storage;
+import Tasks.Task;
+import Ui.UserInterface;
+import DataAnalysis.DataAnalysis;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+
+/**
+ * Main class, Duke
+ */
 public class Duke {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+    private Storage storage;
+    private UserInterface ui;
+    private DataAnalysis dataAnalysis;
+    ArrayList<Task> taskList;
+
+    /**
+     * Initializes User Interface, loads stored task data, and initializes data analysis class
+     */
+    public Duke() throws IOException {
+        ui = new UserInterface();
+        storage = new Storage();
+        taskList = storage.loadTasks();
+        dataAnalysis = new DataAnalysis();
+    }
+
+    /**
+     * Runs program by listing stored tasks, analyzing input data until program ends
+     */
+    public void run() {
+        dataAnalysis.listTasks(ui, taskList);
+        dataAnalysis.processInput(ui, storage, taskList);
+        ui.printFarewell();
+    }
+
+    /**
+     * Initializes Duke and runs it
+     */
+    public static void main(String[] args) throws IOException {
+        new Duke().run();
     }
 }
+
