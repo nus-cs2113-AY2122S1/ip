@@ -16,7 +16,7 @@ to record your tasks quickly.
     * [Search for a keyword](#Search-for-a-keyword)
     * [Exit the program](#Exit-the-program)
 
-## Quick Start
+## <a name = "Quick-Start"></a> Quick Start
 1. Ensure `Java 11` is installed in your computer.
     * Find the platform you are running on your computer and click on the corresponding
       download link [here](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html).
@@ -26,7 +26,7 @@ to record your tasks quickly.
    For Linux users, `cd` into your *home folder* on your terminal.
 5. Run `java -jar duke.jar` and you should see the start page as shown below
 
-## Command Summary
+## <a name = "Command-Summary"></a> Command Summary
 Command | Parameters
 ------- | ------
 `list` | -
@@ -38,7 +38,7 @@ Command | Parameters
 `find` | `[keyword]`
 `bye`  | -
 
-## Features 
+## <a name = "Features"></a> Features 
 
 ### <a name = "Display-Task-List"></a> Display Task List - `list`
 
