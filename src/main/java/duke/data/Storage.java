@@ -130,7 +130,7 @@ public class Storage{
      * @throws IOException case where directory not found
      */
     private static void checkAndAddDirectory() throws IOException {
-        String home = new File("").getAbsolutePath();
+        String home = new File("").getAbsolutePath() + '/';
         File dirCheck = new File(home + folderName);
         if (dirCheck.isDirectory()) {
             return;

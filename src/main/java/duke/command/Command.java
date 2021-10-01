@@ -12,6 +12,10 @@ public abstract class Command {
     private CommandPrefix commandPrefix;
     private boolean isExit = false;
 
+    public void setExit(boolean exit) {
+        this.isExit = exit;
+    }
+
     public Command(CommandPrefix prefix) {
         this.commandPrefix = prefix;
     }

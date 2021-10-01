@@ -12,6 +12,7 @@ public class ByeCommand extends Command {
         super(CommandPrefix.BYE);
     }
 
+
     @Override
     public void saveListAndPrintDone(TaskList tasks) {
         super.saveListAndPrintDone(tasks);
@@ -21,6 +22,7 @@ public class ByeCommand extends Command {
     @Override
     public void execute(TaskList tasks) {
         Ui.sayGoodbye();
+        this.setExit(true);
         saveListAndPrintDone(tasks);
     }
 }
