@@ -29,6 +29,7 @@ public class Parser {
 
     protected String FIND_COMMAND = "find";
 
+    //function to search for an integer in the user line input
     public static int filterTaskNumber(String taskThatIsDone) throws DukeMissingParamException, NumberFormatException {
 
         String[] wordsOfTheTask = taskThatIsDone.split(" ");
@@ -40,6 +41,7 @@ public class Parser {
         }
     }
 
+    //takes in the user input and processes into numbers, words and dates
     public void parseInputs(Scanner in, String line, ArrayList<Task> tasks) {
 
         while (!line.equals(BYE_COMMAND)) {
@@ -54,9 +56,9 @@ public class Parser {
             } else if (line.contains(DONE_COMMAND)) {
                 try {
 
-                    int taskNum = filterTaskNumber(line);
+                    int taskNumberToMarkAsDone = filterTaskNumber(line);
 
-                    taskList.markTaskAsDone(taskNum, tasks);
+                    taskList.markTaskAsDone(taskNumberToMarkAsDone, tasks);
 
                 } catch (DukeMissingParamException e) {
 
@@ -74,9 +76,9 @@ public class Parser {
             } else if (line.contains(DELETE_COMMAND)) {
                 try {
 
-                    int taskNum = filterTaskNumber(line);
+                    int taskNumberToBeDeleted = filterTaskNumber(line);
 
-                    taskList.deleteTask(taskNum, tasks);
+                    taskList.deleteTask(taskNumberToBeDeleted, tasks);
 
                 } catch (DukeMissingParamException e) {
 

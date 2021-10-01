@@ -26,6 +26,7 @@ public class Storage {
         this.folderInitialise();
     }
 
+    //creates a directory to store data for the chatbot
     public void folderInitialise() {
         File directory = new File(DIRECTORY_NAME);
         if (!directory.exists()) {
@@ -34,6 +35,7 @@ public class Storage {
         }
     }
 
+    //initialises the ssave file of the chatbot
     public void saveFileInitialise(ArrayList<Task> tasks) throws FileNotFoundException {
         File f = new File(FILE_PATH);
 
@@ -70,12 +72,14 @@ public class Storage {
         }
     }
 
+    //creates a file to store data for the chatbot
     public void createSaveFile() throws IOException {
         File f = new File(FILE_PATH);
         f.createNewFile();
         System.out.println("Missing duke.txt! creating new file!");
     }
 
+    //overwrites stored data into the file of chatbot
     public void writeToSave(ArrayList<Task> tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(FILE_PATH);
 
