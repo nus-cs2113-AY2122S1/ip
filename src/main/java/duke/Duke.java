@@ -3,6 +3,7 @@ package duke;
 import duke.task.*;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -39,14 +40,14 @@ public class Duke {
                     try {
                         showTask(listInput, taskNumber);
                     } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
-                        System.out.println("OOPS!!! The index of the task that you entered does not exist:(\n" + BREAKER);
+                        System.out.println("OOPS!!! The index of the task that you entered does not exist:(\n");
                     }
                     break;
                 case "done":
                     try {
                         doneTask(listInput, arrayInput[1]);
                     } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
-                        System.out.println("OOPS!!! The index of the task that you entered does not exist:(\n" + BREAKER);
+                        System.out.println("OOPS!!! The index of the task that you entered does not exist:(\n");
                     }
                     break;
                 case "deadline":
@@ -56,7 +57,7 @@ public class Duke {
                         recordTask(listInput, lineInput, taskNumber, commandInput);
                         taskNumber++;
                     } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("OOPS!!! The name of the task that you entered is invalid:(\n" + BREAKER);
+                        System.out.println("OOPS!!! The name of the task that you entered is invalid:(\n");
                     }
                     break;
                 case "delete":
@@ -64,11 +65,11 @@ public class Duke {
                         deleteTask(listInput, arrayInput, taskNumber);
                         taskNumber--;
                     } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
-                        System.out.println("OOPS!!! The index of the task that you entered does not exist:(\n" + BREAKER);
+                        System.out.println("OOPS!!! The index of the task that you entered does not exist:(\n");
                     }
                     break;
                 default:
-                    throw new DukeException("OOPS!!! Sorry, but I do not understand:(\n" + BREAKER);
+                    throw new DukeException("OOPS!!! Sorry, but I do not understand:(\n");
                 }
                 saveToFile(listInput, taskNumber);
             } catch (IOException | DukeException e) {
@@ -131,7 +132,7 @@ public class Duke {
     private static void recordEvent(ArrayList listInput, String lineInput, int taskNumber) throws DukeException {
         int breakIndex = lineInput.indexOf("/");
         if (lineInput.length() < 9) {
-            throw new DukeException("The description of the event is too short! Please enter again.\n";
+            throw new DukeException("The description of the event is too short! Please enter again.\n");
         }
         String eventName = lineInput.substring(6, breakIndex);
         String eventDate = lineInput.substring(breakIndex + 3);
@@ -191,13 +192,3 @@ public class Duke {
         return taskNumber;
     }
 }
-
-
-
-
-
-
-
-
-
-
