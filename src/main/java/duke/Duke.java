@@ -494,15 +494,15 @@ public class Duke {
                 System.out.println(SEPARATE_LINE);
                 printDone(tasks, taskLines, command);
                 System.out.println(SEPARATE_LINE);
-            } else if (command.startsWith("delete")) {
-                System.out.println(SEPARATE_LINE);
-                printDelete(tasks, taskLines, command);
-                System.out.println(SEPARATE_LINE);
             } else if (command.equals("help")) {
                 System.out.println(SEPARATE_LINE);
                 System.out.println(INSTRUCTION);
                 System.out.println(SEPARATE_LINE);
-            } else {
+            } else if (command.startsWith("delete")) {
+                System.out.println(SEPARATE_LINE);
+                printDelete(tasks, taskLines, command);
+                System.out.println(SEPARATE_LINE);
+            }  else {
                 System.out.println(SEPARATE_LINE);
                 System.out.println("I'm sorry, but I don't know what that means");
                 System.out.println(SEPARATE_LINE);
