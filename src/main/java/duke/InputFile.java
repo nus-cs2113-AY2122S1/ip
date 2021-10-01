@@ -3,6 +3,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
+import duke.validation.InvalidFileException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,6 +18,26 @@ public class InputFile extends TaskManager{
     public static final int IS_DONE_INDEX = 1;
     public static final int DESCRIPTION_INDEX = 2;
     public static final int DATE_INDEX = 3;
+
+    public static void readSave() {
+        if (InputFile.hasInput()) {
+            try {
+                InputFile.readInput();
+            } catch (FileNotFoundException | InvalidFileException e) {
+                UI.printExceptionMessage(e);
+            }
+            InputFile.deleteInput();
+        }
+    }
+
+    public static void writeSave() {
+        try {
+            InputFile.createInput();
+            InputFile.writeToInput();
+        } catch (IOException e) {
+            UI.printExceptionMessage(e);
+        }
+    }
 
     public static boolean hasInput() {
         File input = new File(FILE_PATH);
@@ -65,7 +86,7 @@ public class InputFile extends TaskManager{
         fw.close();
     }
 
-    public static void readInput() throws FileNotFoundException {
+    public static void readInput() throws FileNotFoundException, InvalidFileException {
         File f = new File(FILE_PATH); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         String input;
@@ -92,7 +113,7 @@ public class InputFile extends TaskManager{
                 current = new Event(description, date);
                 break;
             default:
-                break;
+                throw new InvalidFileException();
             }
             tasks.add(current);
             taskCount = taskCount + 1;

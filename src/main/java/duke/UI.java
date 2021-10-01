@@ -1,6 +1,8 @@
 package duke;
 
 import duke.task.Task;
+import duke.validation.InvalidFormatException;
+import duke.validation.InvalidIndexException;
 
 import java.util.ArrayList;
 
@@ -28,13 +30,6 @@ public class UI{
                 + " Bye. Hope to see you again soon!\n"
                 + BUFFER_LINE;
         System.out.println(BYE_MESSAGE);
-    }
-
-    public static void printInvalidMessage() {
-        String INVALID_INPUT_MESSAGE = BUFFER_LINE
-                + " Oops! Looks like I can't read that! Please input a valid command.\n"
-                + BUFFER_LINE;
-        System.out.println(INVALID_INPUT_MESSAGE);
     }
 
     public static void printAdditionMessage(Task current, int taskCount) {
@@ -84,60 +79,12 @@ public class UI{
         System.out.println(EMPTY_LIST_MESSAGE);
     }
 
-    public static void printInvalidTodoMessage() {
-        String INVALID_TODO_MESSAGE = BUFFER_LINE
-                + "Invalid Input! Missing task description!\n"
-                + BUFFER_LINE;
-        System.out.println(INVALID_TODO_MESSAGE);
+    public static void printExceptionMessage(Exception e) {
+        System.out.println(e);
     }
 
-    public static void printInvalidDeadlineMessage() {
-        String INVALID_DEADLINE_MESSAGE = BUFFER_LINE
-                + "Invalid Input! Missing task description or keyword '/by'!\n"
-                + BUFFER_LINE;
-        System.out.println(INVALID_DEADLINE_MESSAGE);
+    public static void printWrongButOkayMessage() {
+        String WRONG_INPUT_BUT_OKAY_MESSAGE = "This has a wrong format but I think you want this!";
+        System.out.println(WRONG_INPUT_BUT_OKAY_MESSAGE);
     }
-
-    public static void printInvalidEndDateMessage() {
-        String INVALID_END_DATE_MESSAGE = BUFFER_LINE
-                + "Invalid Input! Missing deadline date!\n"
-                + BUFFER_LINE;
-        System.out.println(INVALID_END_DATE_MESSAGE);
-    }
-
-    public static void printInvalidEventMessage() {
-        String INVALID_EVENT_MESSAGE = BUFFER_LINE
-                + "Invalid Input! Missing task description or keyword '/at'!\n"
-                + BUFFER_LINE;
-        System.out.println(INVALID_EVENT_MESSAGE);
-    }
-
-    public static void printInvalidDurationMessage() {
-        String INVALID_DURATION_MESSAGE = BUFFER_LINE
-                + "Invalid Input! Missing event duration!\n"
-                + BUFFER_LINE;
-        System.out.println(INVALID_DURATION_MESSAGE);
-    }
-
-    public static void printInvalidCrossOffMessage() {
-        String INVALID_CROSS_OFF_MESSAGE = BUFFER_LINE
-                + "Invalid Input! Missing task number to cross off!\n"
-                + BUFFER_LINE;
-        System.out.println(INVALID_CROSS_OFF_MESSAGE);
-    }
-
-    public static void printInvalidDeleteTaskMessage() {
-        String INVALID_DELETE_TASK_MESSAGE = BUFFER_LINE
-                + "Invalid Input! Missing task number to delete!\n"
-                + BUFFER_LINE;
-        System.out.println(INVALID_DELETE_TASK_MESSAGE);
-    }
-
-    public static void printInvalidTaskIndexMessage() {
-        String INVALID_TASK_INDEX_MESSAGE = BUFFER_LINE
-                + "Invalid Input! Task number specified cannot be found!\n"
-                + BUFFER_LINE;
-        System.out.println(INVALID_TASK_INDEX_MESSAGE);
-    }
-
 }
