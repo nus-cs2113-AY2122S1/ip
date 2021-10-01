@@ -13,7 +13,6 @@ public class AddTodoCommand extends Command {
     public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : Add task X";
     public static final String MESSAGE_INVALID_FORMAT = "Please specify a name for the task!";
 
-
     private Todo toAdd;
 
     public AddTodoCommand(String description) {

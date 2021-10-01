@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * E.g: team meeting at 23/12/2012 2pm
  */
 public class Event extends Task {
-    protected LocalDateTime dateAndTime;
+    private LocalDateTime dateAndTime;
 
     public Event(String description, LocalDateTime dateAndTime) {
         super(description);

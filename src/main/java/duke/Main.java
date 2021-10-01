@@ -10,8 +10,6 @@ import duke.storage.exceptions.CannotReadFromFileException;
 import duke.storage.exceptions.UnableToWriteToFileException;
 import duke.ui.Ui;
 
-import static duke.logic.commands.Command.requiresStorageRewrite;
-
 /**
  * Main class of the Dude bot.
  * Initialises the application and starts user interaction.
@@ -52,7 +50,7 @@ public class Main {
     private CommandResult executeCommand(Command command) {
         command.setTasks(this.tasks);
         CommandResult result = command.execute();
-        if (requiresStorageRewrite(command)) {
+        if (Command.requiresStorageRewrite(command)) {
             try {
                 storage.rewriteTaskListToFile(tasks);
             } catch (UnableToWriteToFileException e) {

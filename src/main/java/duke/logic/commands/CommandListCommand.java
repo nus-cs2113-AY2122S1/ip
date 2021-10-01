@@ -7,7 +7,6 @@ import duke.ui.Ui;
  *  description and format.
  */
 public class CommandListCommand extends Command {
-
     public static final String COMMAND_WORD = "commands";
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
     public static final String MESSAGE_COMMAND_DESCRIPTION = MESSAGE_COMMAND_FORMAT + " : See this list of commands again";

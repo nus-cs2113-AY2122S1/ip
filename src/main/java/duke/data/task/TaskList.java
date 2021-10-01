@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * ArrayList of Tasks
+ * Represents the list of tasks and contains methods for actions that can be done on the list.
  */
 public class TaskList {
     private final ArrayList<Task> internalTasks = new ArrayList<>();
@@ -78,7 +78,6 @@ public class TaskList {
      */
     public void markTaskAsDone(int taskNum) throws TaskListEmptyException, TaskNumOutOfBoundsException,
             TaskAlreadyDoneException {
-
         if (internalTasks.isEmpty()) {
             throw new TaskListEmptyException();
         }
@@ -126,7 +125,6 @@ public class TaskList {
 
     /** Returns all the tasks in string form */
     public String getStringOfAllTasks() {
-
         String stringOfAllTasks = Ui.EMPTY;
         for (Task task : internalTasks) {
             stringOfAllTasks = stringOfAllTasks + getTaskNum(task) + "." + task.toString() + Ui.LS;
@@ -148,7 +146,8 @@ public class TaskList {
 
     /** Returns list of tasks that match search term */
     public List<Task> getListOfTasksWithMatchingTerm(String searchTerm) {
-        return internalTasks.stream().filter(task -> task.description.toLowerCase().contains(searchTerm.toLowerCase())).collect(Collectors.toList());
+        final String lowerCaseSearchTerm = searchTerm.toLowerCase();
+        return internalTasks.stream().filter(task -> task.description.toLowerCase().contains(lowerCaseSearchTerm)).collect(Collectors.toList());
     }
 
     /** Returns list of tasks that match search term in string form */

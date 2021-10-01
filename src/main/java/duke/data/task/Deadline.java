@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * E.g: submit iP by 23/12/2001 2359
  */
 public class Deadline extends Task {
-    protected LocalDateTime dateAndTime;
+    private LocalDateTime dateAndTime;
 
     public Deadline(String description, LocalDateTime dateAndTime) {
         super(description);

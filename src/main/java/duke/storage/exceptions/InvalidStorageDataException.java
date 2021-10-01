@@ -8,7 +8,6 @@ import duke.ui.Ui;
  * Contains a fixed error message.
  */
 public class InvalidStorageDataException extends Exception {
-
     private static String errorMessage =
             "Error restoring data due to invalid syntax! This line of data will not be added:" + Ui.LS
             + "%s";
