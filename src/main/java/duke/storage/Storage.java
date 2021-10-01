@@ -23,7 +23,6 @@ public class Storage {
      * @throws IOException throws an IO exception
      */
     public static void saveData(ArrayList<Task> tasks) throws IOException {
-        //checkDirectory();
         FileWriter file = new FileWriter(FILEPATH);
         StringBuilder output = new StringBuilder();
         for (Task item : tasks) {
@@ -42,6 +41,7 @@ public class Storage {
      * Processes tasks from ArrayList of tasks and store in the save file
      */
     public static void loadData(ArrayList<Task> tasks) {
+        checkDirectory();
         try {
             File file = new File(FILEPATH);
             Scanner s = new Scanner(file);
