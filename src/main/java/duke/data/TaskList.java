@@ -60,7 +60,7 @@ public class TaskList {
     }
 
     private static void printIndexAndTask(int in, Task item) {
-        String doneSymbol = (item.isDone()) ? "x" : " ";
+        String doneSymbol = (item.isDone()) ? Ui.DONE_SYMBOL : " ";
         System.out.println(in + ". " + "[" + item.getType() + "] " + "[" + doneSymbol + "]" + " " + item.getDescription() + getTaskDate(item));
     }
 

@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.data.TaskList;
+import duke.type.Divider;
 import duke.ui.Ui;
 
 /**
@@ -25,6 +26,7 @@ public class EventCommand extends Command {
 
     private void readLineAndAddEvent(TaskList tasks) {
         String userInput = Ui.readLine();
+        Ui.printIfDividerNotFound(userInput, Divider.E);
         tasks.addTaskCheckDate(userInput);
     }
 }

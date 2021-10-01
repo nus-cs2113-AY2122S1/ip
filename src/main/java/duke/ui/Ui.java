@@ -1,6 +1,7 @@
 package duke.ui;
 
 import duke.data.TaskList;
+import duke.type.Divider;
 import duke.type.Task;
 
 import java.time.LocalDate;
@@ -8,6 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Ui {
+    public static final String DONE_SYMBOL = "x";
     public static final String COMMAND_DIVIDER = " /          / ";
 
     public static void printDivider() {
@@ -104,8 +106,14 @@ public class Ui {
     }
 
     public static void printTaskNeatly(Task task) {
-        String tick = (task.isDone()) ? "✓" : " ";
-        System.out.println("[" + task.getType() + "] " + "[" + tick + "]" + " "
+        String doneSymbol = (task.isDone()) ? DONE_SYMBOL : " ";
+        System.out.println("[" + task.getType() + "] " + "[" + doneSymbol + "]" + " "
                 + task.getDescription() + TaskList.getTaskDate(task));
+    }
+
+    public static void printIfDividerNotFound(String userInput, Divider divider) {
+        if (!userInput.contains(divider.getDivisor())) {
+            System.out.println("hey, i didn't find the divider for " + divider.name());
+        }
     }
 }
