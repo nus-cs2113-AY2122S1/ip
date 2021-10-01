@@ -12,16 +12,16 @@ import java.util.Scanner;
 
 /**
  * Class that handles file management, such as loading tasks
- * from file and saving tasks into file
+ * from file and saving tasks into file.
  */
 public class Storage {
 
     /**
-     * Returns the list of tasks after reading and processing the file
-     * Creates a new Duke directory and a new file data.txt if they don't exist
+     * Returns the list of tasks after reading and processing the file.
+     * Creates a new Duke directory and a new file data.txt if they don't exist.
      *
-     * @return ArrayList of tasks from the file
-     * @throws FileNotFoundException if the required file is not found
+     * @return ArrayList of tasks from the file.
+     * @throws FileNotFoundException if the required file is not found.
      */
     public static ArrayList<Task> readFile() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -51,14 +51,13 @@ public class Storage {
     }
 
     /**
-     * Processes the data from the file into an appropriate
-     * format in an ArrayList of tasks
+     * Processes the data from the file into an appropriate format in an ArrayList of tasks.
      *
-     * @param tasks ArrayList of tasks to update
-     * @param nextLine A line from the file corresponding to a task to be inputted
-     * @param currCount The index in the ArrayList at which the current task should be inputted
+     * @param tasks ArrayList of tasks to update.
+     * @param nextLine A line from the file corresponding to a task to be inputted.
+     * @param currCount The index in the ArrayList at which the current task should be inputted.
      */
-    private static void parseDataFromFile(ArrayList<Task> tasks, String nextLine, int currCount) {
+    public static void parseDataFromFile(ArrayList<Task> tasks, String nextLine, int currCount) {
         String[] input = nextLine.split("\\|"); // necessary to escape regex meta character
         String[] trimmedInput = new String[input.length];
         for (int i = 0; i < input.length; i++) {
@@ -87,16 +86,14 @@ public class Storage {
     }
 
     /**
-     * Writes the updated list of tasks to the file
-     * after each command is processed
+     * Writes the updated list of tasks to the file after each command is processed.
      *
-     * @param tasks ArrayList of tasks to write to the file
+     * @param tasks ArrayList of tasks to write to the file.
      */
     public static void writeToFile(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter("Duke/data.txt");
             for (Task t: tasks) {
-                // System.out.println(t.parseDataIntoString());
                 String fileOutput = t.parseDataIntoString() + System.lineSeparator();
                 fw.write(fileOutput);
             }

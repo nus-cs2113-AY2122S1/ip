@@ -1,16 +1,16 @@
 package duke.task;
 
 /**
- * Class that encapsulates a Deadline task
+ * Class that encapsulates a Deadline task.
  */
 public class Deadline extends Task {
     protected String by;
 
     /**
-     * Constructor for a Deadline object
+     * Constructor for a Deadline object.
      *
-     * @param description The name of the deadline task
-     * @param by The deadline of the task
+     * @param description The name of the deadline task.
+     * @param by The deadline of the task.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -18,10 +18,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task for user output
+     * Returns a string representation of the Deadline task for user output.
      *
      * @return A string representation of the Deadline task formatted for user output,
-     * consisting of its description, status and deadline
+     * consisting of its description, status and deadline.
      */
     @Override
     public String toString() {
@@ -29,10 +29,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task to write to file
+     * Returns a string representation of the Deadline task to write to file.
      *
      * @return A string representation of the Deadline task formatted for file writing,
-     * consisting of its description, status and deadline
+     * consisting of its description, status and deadline.
      */
     @Override
     public String parseDataIntoString() {

@@ -1,16 +1,16 @@
 package duke.task;
 
 /**
- * Class that encapsulates an Event task
+ * Class that encapsulates an Event task.
  */
 public class Event extends Task {
     protected String at;
 
     /**
-     * Constructor for an Event object
+     * Constructor for an Event object.
      *
-     * @param description The name of the Event task
-     * @param at Time that the event takes place
+     * @param description The name of the Event task.
+     * @param at Time that the event takes place.
      */
     public Event(String description, String at) {
         super(description);
@@ -18,10 +18,10 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event task for user output
+     * Returns a string representation of the Event task for user output.
      *
      * @return A string representation of the Event task formatted for user output,
-     * consisting of its description, status and time
+     * consisting of its description, status and time.
      */
     @Override
     public String toString() {
@@ -29,10 +29,10 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event task to write to file
+     * Returns a string representation of the Event task to write to file.
      *
      * @return A string representation of the Event task formatted for file writing,
-     * consisting of its description, status and time
+     * consisting of its description, status and time.
      */
     @Override
     public String parseDataIntoString() {

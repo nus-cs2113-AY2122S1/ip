@@ -1,13 +1,13 @@
 package duke;
 
 /**
- * Class that manages the user interface of Duke, namely the printing of messages
+ * Class that manages the user interface of Duke, namely the printing of messages.
  */
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
     /**
-     * Prints welcome message when Duke is first loaded up
+     * Prints welcome message when Duke is first loaded up.
      */
     public static void printWelcomeMessage() {
         String logo = " ____        _        \n"
@@ -23,14 +23,14 @@ public class Ui {
     }
 
     /**
-     * Prints a horizontal line
+     * Prints a horizontal line.
      */
     public static void printHorizontalLine() {
         System.out.println(HORIZONTAL_LINE);
     }
 
     /**
-     * Prints goodbye message before stopping Duke
+     * Prints goodbye message before stopping Duke.
      */
     public static void printGoodBye() {
         printHorizontalLine();

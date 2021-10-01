@@ -6,14 +6,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
- * Main class Duke that contains the main method of the program
+ * Main class Duke that contains the main method of the program.
  */
 public class Duke {
 
     /**
-     * Main method that executes Duke
+     * Main method that executes Duke.
      *
-     * @param args Command line arguments of the main method
+     * @param args Command line arguments of the main method.
      */
     public static void main(String[] args) {
         Ui.printWelcomeMessage();
