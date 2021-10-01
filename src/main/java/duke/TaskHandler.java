@@ -22,6 +22,7 @@ public class TaskHandler {
         this.tasks = new ArrayList<Task>();
         this.parser = new Parser();
         this.storage = storage;
+        convertFileToTask();
     }
 
     public String handleTasks(String line) throws IllegalArgumentException, DukeException {
@@ -60,15 +61,50 @@ public class TaskHandler {
         return "By when, my liege?";
     }
 
-
     public String returnEventNoAt() {
         return "Where or when is this event, my liege?";
     }
 
-
-
     public String returnAddTaskSuccess() {
         return "As you command. Added: ";
+    }
+
+    public void convertFileToTask() {
+        List<String> lines = storage.returnAllFileData();
+        for (String line : lines) {
+            convertFileLineToTask(line);
+        }
+    }
+
+    public Task convertFileLineToTask(String line) {
+        // line is in the format: task type | done | description | additional detail
+        String[] taskComponents = line.split("|");
+        for (String component : taskComponents) {
+            component.strip();
+        }
+        String taskType = taskComponents[0];
+        String done = taskComponents[1];
+        String description = taskComponents[2];
+        String detail = taskComponents[3];
+
+        Task task;
+        boolean isDone = done == "X";
+
+        switch (taskType) {
+        case "T":
+            task = new Todo(description, isDone);
+            break;
+        case "D":
+            task = new Deadline(description, detail, isDone);
+            break;
+        case "E":
+            task = new Event(description, detail, isDone);
+            break;
+        default:
+            task = new Todo(description, isDone);
+        }
+        this.tasks.add(task);
+        return task;
     }
 
     public String addTodo(String line) throws IllegalArgumentException {
@@ -166,7 +202,7 @@ public class TaskHandler {
 
     public String listTasks() {
         String out = "Your magnificent tasks:";
-        out += storage.returnAllFileData();
+        out += storage.returnAllFileDataAsList();
         return out;
     }
 

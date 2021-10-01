@@ -19,6 +19,10 @@ public class Task {
     public void setDone() {
         this.isDone = true;
     }
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
+    }
     
     @Override
     public boolean equals(Object obj) {

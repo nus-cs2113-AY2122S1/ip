@@ -31,7 +31,7 @@ public class Storage {
 
     //TODO make a function in Formatter for lists
     //TODO make a function in TaskHandler to understand the data in storage
-    public String returnAllFileData() {
+    public String returnAllFileDataAsList() {
         String output = "";
         try {
             List<String> lines = Files.readAllLines(dataPath);
@@ -43,6 +43,16 @@ public class Storage {
             System.err.println("Read failure: " + e.getMessage());
         }
         return output;
+    }
+
+    public List<String> returnAllFileData() {
+        List<String> lines = List.of();
+        try {
+            lines = Files.readAllLines(dataPath);
+        } catch (IOException e) {
+            System.err.println("Read failure: " + e.getMessage());
+        }
+        return lines;
     }
 
     public void appendLinetoFileData(String line) {
