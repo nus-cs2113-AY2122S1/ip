@@ -54,11 +54,11 @@ public class Parser {
         } else if (phrase.startsWith("deadline ")) {
             phrase = phrase.substring(9);
             String[] taskAndTime = phrase.split(" /by ");
-            return dateConverter(taskAndTime[0], taskAndTime[1]);
+            return deadlineDateConverter(taskAndTime[0], taskAndTime[1]);
         } else if (phrase.startsWith("event ")) {
             phrase = phrase.substring(6);
             String[] taskAndTime = phrase.split(" /at ");
-            return new Event(taskAndTime[0], taskAndTime[1]);
+            return eventDateConverter(taskAndTime[0], taskAndTime[1]);
         } else {
             throw new InvalidTaskException("Invalid Task Format");
         }
@@ -80,13 +80,13 @@ public class Parser {
     }
 
     /**
-     * Returns a deadline in with the date in LocalDate format if possible.
+     * Returns a deadline in with the date in LocalDate or LocalDateTime format if possible.
      *
      * @param description Description of the deadline.
      * @param date Date the deadline is due.
      * @return A deadline .
      */
-    public static Task dateConverter(String description, String date) {
+    public static Task deadlineDateConverter(String description, String date) {
         Matcher dateMatcher = Pattern.compile(DATE_REGEX).matcher(date);
         Matcher dateAndTimeMatcher = Pattern.compile(DATE_AND_TIME_REGEX).matcher(date);
         String dateAsString;
@@ -101,6 +101,31 @@ public class Parser {
             return new Deadline<>(description, localDate);
         } else {
             return new Deadline<>(description, date);
+        }
+    }
+
+    /**
+     * Returns an event in with the date in LocalDate or LocalDateTime format if possible.
+     *
+     * @param description Description of the event.
+     * @param date Date the event occurs.
+     * @return An event.
+     */
+    public static Task eventDateConverter(String description, String date) {
+        Matcher dateMatcher = Pattern.compile(DATE_REGEX).matcher(date);
+        Matcher dateAndTimeMatcher = Pattern.compile(DATE_AND_TIME_REGEX).matcher(date);
+        String dateAsString;
+        String dateAndTimeAsString;
+        if (dateAndTimeMatcher.find()) {
+            dateAndTimeAsString = dateAndTimeMatcher.group(1);
+            LocalDateTime localDateTime = LocalDateTime.parse(dateAndTimeAsString, formatter);
+            return new Event<>(description, localDateTime);
+        } else if (dateMatcher.find()) {
+            dateAsString = dateMatcher.group(1);
+            LocalDate localDate = LocalDate.parse(dateAsString, DateTimeFormatter.ISO_LOCAL_DATE);
+            return new Event<>(description, localDate);
+        } else {
+            return new Event<>(description, date);
         }
     }
 }

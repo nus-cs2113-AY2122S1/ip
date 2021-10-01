@@ -1,2 +1,4 @@
-D / 0 / essay / 2021-10-03
-E / 0 / exam / LT27 on Monday
+D / 1 / cry / 2021-12-01
+D / 1 / cry / 2021-12-22
+E / 1 / celebrate birthday / 2021-12-23
+E / 1 / jump on bed excitingly / 2021-12-22 2359

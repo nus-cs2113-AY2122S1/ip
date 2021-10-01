@@ -83,10 +83,10 @@ public class Storage {
             task = new Todo(taskInArray[2]);
             break;
         case "D":
-            task = Parser.dateConverter(taskInArray[2], taskInArray[3]);
+            task = Parser.deadlineDateConverter(taskInArray[2], taskInArray[3]);
             break;
         case "E":
-            task = new Event(taskInArray[2], taskInArray[3]);
+            task = Parser.eventDateConverter(taskInArray[2], taskInArray[3]);
             break;
         default:
             throw new IllegalStateException("Unexpected value: " + taskInArray[0]);

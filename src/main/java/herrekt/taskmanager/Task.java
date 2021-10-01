@@ -2,6 +2,7 @@ package herrekt.taskmanager;
 
 public abstract class Task {
     protected final static String SAVE_FILE_SPACER = " / ";
+    protected final static String SPACER = " ";
     protected final String description;
     protected boolean isDone;
 

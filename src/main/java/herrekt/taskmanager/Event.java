@@ -1,7 +1,11 @@
 package herrekt.taskmanager;
 
-public class Event extends Task {
-    private final String date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+public class Event<T> extends Task {
+    private final T date;
+    private static final int TWELVE_HOUR_CLOCK_CONVERTER = 12;
 
     /**
      * Initialise an Event with a description and date.
@@ -9,13 +13,56 @@ public class Event extends Task {
      * @param description Description of the event.
      * @param date Further details of when it occurs.
      */
-    public Event(String description, String date) {
+    public Event(String description, T date) {
         super(description);
         this.date = date;
     }
 
     protected String getDate() {
-        return date;
+        if (date instanceof String) {
+            return (String) date;
+        } else if (date instanceof LocalDateTime) {
+            return convertLocalDateTimeToString();
+        } else {
+            String month = ((LocalDate) date).getMonth().toString().substring(0,3);
+            int day = ((LocalDate) date).getDayOfMonth();
+            int year = ((LocalDate) date).getYear();
+            return month + SPACER + day + SPACER + year;
+        }
+    }
+
+    private String convertLocalDateTimeToString() {
+        String month = ((LocalDateTime) date).getMonth().toString().substring(0,3);
+        int day = ((LocalDateTime) date).getDayOfMonth();
+        int year = ((LocalDateTime) date).getYear();
+        int hour = ((LocalDateTime) date).getHour();
+        String amOrPm = "am";
+        if (hour > TWELVE_HOUR_CLOCK_CONVERTER) {
+            hour -= TWELVE_HOUR_CLOCK_CONVERTER;
+            amOrPm = "pm";
+        } else if (hour == 0) {
+            hour = TWELVE_HOUR_CLOCK_CONVERTER;
+        }
+        int minute = ((LocalDateTime) date).getMinute();
+        if (minute < 10) {
+            return month + SPACER + day + SPACER + year + SPACER + hour + ":" + "0" + minute + amOrPm;
+        } else {
+            return month + SPACER + day + SPACER + year + SPACER + hour + ":" +  minute + amOrPm;
+        }
+    }
+
+    private String dateAsSave() {
+        if (this.date instanceof LocalDateTime) {
+            LocalDateTime toChangeToString = (LocalDateTime) this.date;
+            String toReturn = toChangeToString.toString().substring(0,10)
+                    + SPACER
+                    + toChangeToString.getHour()
+                    + toChangeToString.getMinute();
+            System.out.println(toReturn);
+            return toReturn;
+        } else {
+            return this.date.toString();
+        }
     }
 
     /**
@@ -33,7 +80,7 @@ public class Event extends Task {
         return "E" + SAVE_FILE_SPACER
                 + done + SAVE_FILE_SPACER
                 + this.description + SAVE_FILE_SPACER
-                + this.date;
+                + this.dateAsSave();
     }
 
     protected String getDescription() {

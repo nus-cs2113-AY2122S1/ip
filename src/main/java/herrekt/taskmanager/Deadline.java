@@ -5,12 +5,13 @@ import java.time.LocalDateTime;
 
 public class Deadline<T> extends Task {
     protected T date;
+    private static final int TWELVE_HOUR_CLOCK_CONVERTER = 12;
 
     /**
      * Initialise a Deadline with a description and date.
      *
      * @param description Description of the deadline
-     * @param date The date can be either a String or LocalDate class.
+     * @param date The date can be either a String, LocalDate, LocalDateTime class.
      */
     public Deadline(String description, T date) {
         super(description);
@@ -21,22 +22,46 @@ public class Deadline<T> extends Task {
         if (date instanceof String) {
             return (String) date;
         } else if (date instanceof LocalDateTime) {
-            String month = ((LocalDateTime) date).getMonth().toString().substring(0,3);
-            int day = ((LocalDateTime) date).getDayOfMonth();
-            int year = ((LocalDateTime) date).getYear();
-            int hour = ((LocalDateTime) date).getHour();
-            String amOrPm = "am";
-            if (hour > 12) {
-                hour -= 12;
-                amOrPm = "pm";
-            }
-            int minute = ((LocalDateTime) date).getMinute();
-            return month + " " + day + " " + year + " " + hour + ":" + minute + amOrPm;
+            return convertLocalDateTimeToString();
         } else {
             String month = ((LocalDate) date).getMonth().toString().substring(0,3);
             int day = ((LocalDate) date).getDayOfMonth();
             int year = ((LocalDate) date).getYear();
-            return month + " " + day + " " + year;
+            return month + SPACER + day + SPACER + year;
+        }
+    }
+
+    private String convertLocalDateTimeToString() {
+        String month = ((LocalDateTime) date).getMonth().toString().substring(0,3);
+        int day = ((LocalDateTime) date).getDayOfMonth();
+        int year = ((LocalDateTime) date).getYear();
+        int hour = ((LocalDateTime) date).getHour();
+        String amOrPm = "am";
+        if (hour > TWELVE_HOUR_CLOCK_CONVERTER) {
+            hour -= TWELVE_HOUR_CLOCK_CONVERTER;
+            amOrPm = "pm";
+        } else if (hour == 0) {
+            hour = TWELVE_HOUR_CLOCK_CONVERTER;
+        }
+        int minute = ((LocalDateTime) date).getMinute();
+        if (minute < 10) {
+            return month + SPACER + day + SPACER + year + SPACER + hour + ":" + "0" + minute + amOrPm;
+        } else {
+            return month + SPACER + day + SPACER + year + SPACER + hour + ":" +  minute + amOrPm;
+        }
+    }
+
+    private String dateAsSave() {
+        if (this.date instanceof LocalDateTime) {
+            LocalDateTime toChangeToString = (LocalDateTime) this.date;
+            String toReturn = toChangeToString.toString().substring(0,10)
+                    + SPACER
+                    + toChangeToString.getHour()
+                    + toChangeToString.getMinute();
+            System.out.println(toReturn);
+            return toReturn;
+        } else {
+            return this.date.toString();
         }
     }
 
@@ -55,7 +80,7 @@ public class Deadline<T> extends Task {
         return "D" + SAVE_FILE_SPACER
                 + done + SAVE_FILE_SPACER
                 + this.description + SAVE_FILE_SPACER
-                + this.date.toString();
+                + this.dateAsSave();
     }
 
     protected String getDescription() {
