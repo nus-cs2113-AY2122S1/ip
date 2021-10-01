@@ -1,6 +1,10 @@
 package duke;
 
 import java.util.Scanner;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 public class Duke {
 
@@ -19,6 +23,8 @@ public class Duke {
     public static final int EVENT_DESCRIPTION_OFFSET = 6;
 
     public static final int EVENT_AT_OFFSET = 4;
+
+    public static final int TASK_INITIALISE_OFFSET = 1;
 
     public static final String DOTTED_LINE = "____________________________________________________________";
 
@@ -62,6 +68,10 @@ public class Duke {
     public static final String EVENT_MISSING_PARAMETER = DOTTED_LINE + System.lineSeparator()
             + "Oops! You forgot the /at parameter!" + System.lineSeparator()
             + DOTTED_LINE;
+
+    public static final String DIRECTORY_NAME = "data";
+
+    public static final String FILE_PATH = "data/duke.txt";
 
     public static void printWelcomeMessage() {
         String welcomeMessage = DOTTED_LINE + System.lineSeparator()
@@ -225,6 +235,63 @@ public class Duke {
         printAddEventMessage(eventDescription, eventAt);
     }
 
+
+    public static void folderInitialise() {
+        File directory = new File(DIRECTORY_NAME);
+        if (!directory.exists()) {
+            directory.mkdir();
+            System.out.println("Missing directory! Creating new directory!");
+        }
+    }
+
+
+    public static void saveFileInitialise() throws FileNotFoundException {
+        File f = new File(FILE_PATH);
+        Scanner saveFile = new Scanner(f);
+        int addCounter = 0;
+        while (saveFile.hasNextLine()) {
+            String line = saveFile.nextLine();
+            String[] processWordsArray = line.split(("[|]"));
+            if (line.charAt(0) == 'T') {
+                addTask(new Todo(processWordsArray[2].substring(TASK_INITIALISE_OFFSET)));
+            } else if (line.charAt(0) == 'D') {
+                addTask(new Deadline(processWordsArray[2].substring(TASK_INITIALISE_OFFSET), processWordsArray[3].substring(TASK_INITIALISE_OFFSET)));
+            } else if (line.charAt(0) == 'E') {
+                addTask(new Event(processWordsArray[2].substring(TASK_INITIALISE_OFFSET), processWordsArray[3].substring(TASK_INITIALISE_OFFSET)));
+            }
+            if (processWordsArray[1].charAt(1) == '1') {
+                tasks[addCounter].setAsDone();
+            }
+            addCounter++;
+        }
+    }
+
+
+    public static void writeToSave() throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        for (int i = 0; i < totalTasksCounter; i++) {
+
+            String doneNumber = "0";
+            if (tasks[i].isDone) {
+                doneNumber = "1";
+            }
+
+            String textToAdd;
+            if (tasks[i].getType().equals("T")) {
+                textToAdd = tasks[i].getType() + " | "
+                        + doneNumber + " | "
+                        + tasks[i].description + System.lineSeparator();
+            } else {
+                textToAdd = tasks[i].getType() + " | "
+                        + doneNumber + " | "
+                        + tasks[i].description + "| " + tasks[i].getWhen() + System.lineSeparator();
+            }
+            fw.write(textToAdd);
+        }
+        fw.close();
+    }
+
+
     public static void processInputs(Scanner in, String line) {
         //keep taking inputs unless user types bye
         while (!line.equals("bye")) {
@@ -270,7 +337,16 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        folderInitialise();
+        try {
+            saveFileInitialise();
+        } catch (FileNotFoundException e) {
+            File f = new File(FILE_PATH);
+            f.createNewFile();
+            System.out.println("Missing duke.txt! Creating new file!");
+        }
 
         Scanner in = new Scanner(System.in);
 
@@ -281,6 +357,12 @@ public class Duke {
         line = in.nextLine();
 
         processInputs(in, line);
+
+        try {
+            writeToSave();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
 
         System.out.println(BYE_MESSAGE);
     }
