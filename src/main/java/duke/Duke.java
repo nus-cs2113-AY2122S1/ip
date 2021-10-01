@@ -13,7 +13,7 @@ public class Duke {
     /**
      * Main method that executes Duke
      *
-     * @param args Argument of the main method
+     * @param args Command line arguments of the main method
      */
     public static void main(String[] args) {
         Ui.printWelcomeMessage();

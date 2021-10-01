@@ -51,7 +51,6 @@ public class Storage {
     }
 
     /**
-     *
      * Processes the data from the file into an appropriate
      * format in an ArrayList of tasks
      *
@@ -88,7 +87,7 @@ public class Storage {
     }
 
     /**
-     * Method that writes the updated list of tasks to the file
+     * Writes the updated list of tasks to the file
      * after each command is processed
      *
      * @param tasks ArrayList of tasks to write to the file

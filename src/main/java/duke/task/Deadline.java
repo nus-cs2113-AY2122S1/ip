@@ -18,7 +18,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * To String method that returns a string representation of the Deadline task for user output
+     * Returns a string representation of the Deadline task for user output
      *
      * @return A string representation of the Deadline task formatted for user output,
      * consisting of its description, status and deadline
@@ -29,7 +29,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Method that returns a string representation of the Deadline task to write to file
+     * Returns a string representation of the Deadline task to write to file
      *
      * @return A string representation of the Deadline task formatted for file writing,
      * consisting of its description, status and deadline

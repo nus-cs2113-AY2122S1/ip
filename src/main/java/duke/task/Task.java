@@ -18,7 +18,7 @@ public class Task {
     }
 
     /**
-     * Method that returns a string corresponding to the status of the task
+     * Returns a string corresponding to the status of the task
      *
      * @return an "X" if task is marked as done, else a blank space
      */
@@ -27,14 +27,14 @@ public class Task {
     }
 
     /**
-     * Method to mark the task as done
+     * Marks the task as done
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * To String method that returns the string representation of the task for user output
+     * Returns the string representation of the task for user output
      *
      * @return A string representation of the task formatted for user output,
      * consisting of its status and description
@@ -45,7 +45,7 @@ public class Task {
     }
 
     /**
-     * Method that returns a string representation of the task to write to file
+     * Returns a string representation of the task to write to file
      *
      * @return A string representation of the task formatted for file writing,
      * consisting of its description and status
@@ -55,6 +55,11 @@ public class Task {
         return " | " + isDoneChar + " | " + this.description;
     }
 
+    /**
+     * Obtains and returns the description of the task
+     *
+     * @return The description of the task
+     */
     public String getDescription() {
         return this.description;
     }

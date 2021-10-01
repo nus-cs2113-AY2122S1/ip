@@ -15,7 +15,7 @@ public class Todo extends Task {
     }
 
     /**
-     * To String method that returns a string representation of the Todo task for user output
+     * Returns a string representation of the Todo task for user output
      *
      * @return A string representation of the Todo task formatted for user output,
      * consisting of its description and status
@@ -26,7 +26,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Method that returns a string representation of the Todo task to write to file
+     * Returns a string representation of the Todo task to write to file
      *
      * @return A string representation of the Todo task formatted for file writing,
      * consisting of its description and status

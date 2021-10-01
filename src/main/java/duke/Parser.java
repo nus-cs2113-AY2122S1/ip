@@ -34,7 +34,7 @@ public class Parser {
     private static int currCount;
 
     /**
-     * Initializer of static fields of Parser class
+     * Initializes static fields of Parser class
      *
      * @param tasks The list of tasks stored in Duke
      * @param currCount The current index of the tasks list at which to add the next task
@@ -45,7 +45,7 @@ public class Parser {
     }
 
     /**
-     * Method to process the command to mark a task as completed
+     * Processes the command to mark a task as completed
      *
      * @param line Command inputted by the user as a string
      * @throws DukeException if a task to be marked as done is not inputted,
@@ -69,7 +69,7 @@ public class Parser {
     }
 
     /**
-     * Method to process the command to delete a task from the list
+     * Processes the command to delete a task from the list
      *
      * @param line Command inputted by the user as a string
      * @throws DukeException if a task to be deleted is not inputted,
@@ -96,7 +96,7 @@ public class Parser {
     }
 
     /**
-     * Method to process the command to find a task from the list
+     * Processes the command to find a task from the list
      *
      * @param line Command inputted by the user as a string
      * @throws DukeException if a task to find is not inputted
@@ -125,7 +125,7 @@ public class Parser {
     }
 
     /**
-     * Method to print an ArrayList of tasks
+     * Prints an ArrayList of tasks
      *
      * @param list The list to be printed
      */
@@ -138,7 +138,7 @@ public class Parser {
     }
 
     /**
-     * Method to process the command to print the list of tasks
+     * Processes the command to print the list of tasks
      */
     public static void printTaskList() {
         Ui.printHorizontalLine();
@@ -148,8 +148,8 @@ public class Parser {
     }
 
     /**
-     * Method to complete the adding of tasks to the list,
-     * and output the result to the user
+     * Completes the adding of tasks to the list,
+     * and outputs the result to the user
      */
     public static void completeAddTask() {
         Ui.printHorizontalLine();
@@ -163,7 +163,7 @@ public class Parser {
     }
 
     /**
-     * Method to process the command to add an Event task to the list
+     * Processes the command to add an Event task to the list
      *
      * @param line Command inputted by the user as a string
      * @throws DukeException if the event task description or time is not inputted properly
@@ -180,7 +180,7 @@ public class Parser {
     }
 
     /**
-     * Method to process the command to add a Deadline task to the list
+     * Processes the command to add a Deadline task to the list
      *
      * @param line Command inputted by the user as a string
      * @throws DukeException if the deadline task description or deadline is not inputted properly
@@ -198,7 +198,7 @@ public class Parser {
     }
 
     /**
-     * Method to process the command to add a todo task to the list
+     * Processes the command to add a todo task to the list
      *
      * @param line Command inputted by the user as a string
      * @throws DukeException if the todo task description is not inputted
@@ -212,7 +212,7 @@ public class Parser {
     }
 
     /**
-     * Method that processes and executes the commands for Duke
+     * Processes and executes the commands for Duke
      */
     public static void executeCommands() {
         Scanner in = new Scanner(System.in);

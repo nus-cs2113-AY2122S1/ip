@@ -18,7 +18,7 @@ public class Event extends Task {
     }
 
     /**
-     * To String method that returns a string representation of the Event task for user output
+     * Returns a string representation of the Event task for user output
      *
      * @return A string representation of the Event task formatted for user output,
      * consisting of its description, status and time
@@ -29,7 +29,7 @@ public class Event extends Task {
     }
 
     /**
-     * Method that returns a string representation of the Event task to write to file
+     * Returns a string representation of the Event task to write to file
      *
      * @return A string representation of the Event task formatted for file writing,
      * consisting of its description, status and time
