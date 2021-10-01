@@ -165,7 +165,20 @@ Bye! Cya next time!
 
 ### Save list in a local text file
 Whenever a user exits Duke using ``bye``, the tasklist when he exits is automatically updated into a local text file at the file path ```data/dukedata.txt```.  
-In the case where the directory or file required does not exist, Duke automatically creates the directory and file for the user. Whenever the same user starts up Duke again, Duke will automatically load the tasklist written in the text file. 
+In the case where the directory or file required does not exist, Duke automatically creates the directory and file for the user. Whenever the same user starts up Duke again, Duke will automatically load the tasklist written in the text file.
+
+## Command Summary
+
+| **Command** | **Usage**| 
+| ------- | -----| 
+| Add Todo | `todo <description>`| 
+| Add Deadline | `deadline <description> /by <date>`| 
+| Add Event | `event <description> /at <date>`| 
+| List all tasks | `list`|
+| Mark task as done | `done <index>`|
+| Deleting a task | `delete <index>`| 
+| Finding tasks by keyword | `find <keyword>`|  
+| Exiting Duke | `bye`| 
 
 
 
