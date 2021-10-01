@@ -1,0 +1,11 @@
+package duke.extract;
+
+public class ExtractDueTime extends Extract {
+    public static final int DUE_TIME_INDEX = 1;
+    public static void extract(String userInput, String[] deadlineInfo, int dividerPosition){
+        int charAfterDividerPosition = dividerPosition + 1;
+        deadlineInfo[DUE_TIME_INDEX] = userInput.substring(charAfterDividerPosition);
+        deadlineInfo[DUE_TIME_INDEX] = deadlineInfo[DUE_TIME_INDEX].replace("by", "");
+        deadlineInfo[DUE_TIME_INDEX] = deadlineInfo[DUE_TIME_INDEX].trim();
+    }
+}

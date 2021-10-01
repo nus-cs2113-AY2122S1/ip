@@ -1,10 +1,10 @@
-package duke;
+package duke.task;
 
 public class Task {
     protected String description;
-    protected boolean isDone;
-    protected static int taskCount = 0;
-    protected int taskNum;
+    public boolean isDone;
+    public static int taskCount = 0;
+    public int taskNum;
 
     public Task(String description) {
         this.description = description;
