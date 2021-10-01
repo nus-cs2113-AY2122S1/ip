@@ -14,10 +14,24 @@ import java.util.Scanner;
  * Represents a storage space for a <code>TaskList</code> object.
  */
 public class Storage {
-    protected String filePath;
+    protected File directory;
+    protected File file;
 
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage() {
+
+        directory = new File("data");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        //create txt file if file does not exist
+        file = new File("data/data.txt");
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -30,7 +44,7 @@ public class Storage {
     public void loadFromFile(TaskList taskList) {
         int taskNumber = 0;
         try {
-            File f = new File(filePath);
+            File f = new File("data/data.txt");
             if (!f.createNewFile()) {
                 Scanner s = new Scanner(f);
                 while (s.hasNext()) {
