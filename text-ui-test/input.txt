@@ -1,0 +1,4 @@
+todo borrow book
+event book fair /at Monday 3pm
+deadline sell book /by Monday 2pm
+bye
