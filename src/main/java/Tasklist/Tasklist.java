@@ -65,7 +65,7 @@ public class Tasklist {
         Ui.horizontalLine();
     }
 
-    /**public static void findTask(String inputTask, ArrayList<Task> tasks) {
+    public static void findTask(String inputTask, ArrayList<Task> tasks) {
         System.out.println("I can reach findTask method\n");
         String keywordToFind = inputTask.substring(5);
         System.out.println("I can get the substring\n");
@@ -76,7 +76,7 @@ public class Tasklist {
                 Ui.horizontalLine();
             }
         }
-    }*/
+    }
 
     public static void markAsDone(int number, ArrayList<Task> tasks) {
         tasks.get(number-1).setDone();
