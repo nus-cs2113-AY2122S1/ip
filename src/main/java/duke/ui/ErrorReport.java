@@ -11,6 +11,12 @@ public class ErrorReport {
 
     public static void alarm(Alarm typeOfAlarm) {
         switch(typeOfAlarm) {
+        case INCOMPLETE_TASK:
+            System.out.println("Professor McGonagall says your task description is incomplete");
+            break;
+        case EMPTY_FIND:
+            System.out.println("Professor Dumbledore says be clear what you are looking for.");
+            break;
         case INVALID_COMMAND:
             System.out.println("Invalid charm. What did Professor Flitwick told you?");
             //System.out.println(" OOPS!!! I'm sorry, but I don't know what that means :-(");

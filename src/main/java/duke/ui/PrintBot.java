@@ -31,7 +31,7 @@ public class PrintBot {
         print("\n" +
                 "                REPEAT AFTER ME:            \n" +
                 " (       \"     )  I SOLEMNLY SWEAR THAT   \n" +
-                "  ( _  *            I AM UP TO NO GOOD       \n" +
+                "  ( _  *            I AM UP TO NO GOOD.       \n" +
                 "     * (     /      \\    ___                \n" +
                 "        \"     \"        _/ /                 \n" +
                 "       (   *  )    ___/   |                 \n" +
@@ -46,7 +46,7 @@ public class PrintBot {
                 "   |               |  |  .    _/            \n" +
                 "    \\    (. ) ,   /  /__I_____\\             \n" +
                 "     '._/_)_(\\__.'   (__,(__,_]             \n" +
-                "    @---()_.'---@            ");
+                "    @---()_.'---@           \n ");
     }
 
     public void greet() {
@@ -159,6 +159,7 @@ public class PrintBot {
      * get the activation phrase wrong.
      */
     public void printFalseCharmMsg (int n) {
+        line();
         if (n == 0) {
             System.out.println("Mr Moony presents his compliments to Professor Snape \n" +
                     "and begs him to keep his abnormally large nose \n" +
@@ -173,5 +174,6 @@ public class PrintBot {
             System.out.println("Mr Wormtail bids Professor Snape good day, \n" +
                     "and advises him to wash his hair, the slime-ball.\"");
         }
+        line();
     }
 }

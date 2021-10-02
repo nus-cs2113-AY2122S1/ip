@@ -1,5 +1,6 @@
 package duke.util;
 
+import duke.exception.IncompleteTaskInput;
 import duke.exception.NoKeywordException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -122,6 +123,8 @@ public class Storage {
                 alarm(Alarm.EMPTY_DEADLINE);
             } catch (NoKeywordException e) {
                 alarm(Alarm.NO_DDL_KEYWORD);
+            } catch (IncompleteTaskInput incompleteTaskInput) {
+                alarm(Alarm.INCOMPLETE_TASK);
             }
             break;
         case "E":
@@ -133,6 +136,8 @@ public class Storage {
                 alarm(Alarm.EMPTY_EVENT);
             } catch (NoKeywordException e) {
                 alarm(Alarm.NO_EVENT_KEYWORD);
+            } catch (IncompleteTaskInput incompleteTaskInput) {
+                alarm(Alarm.INCOMPLETE_TASK);
             }
             break;
         default:

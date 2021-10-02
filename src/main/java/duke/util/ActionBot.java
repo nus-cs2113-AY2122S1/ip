@@ -1,6 +1,7 @@
 package duke.util;
 
 import duke.exception.EmptyListException;
+import duke.exception.IncompleteTaskInput;
 import duke.exception.InvalidIndexException;
 import duke.exception.NoKeywordException;
 import duke.task.Deadline;
@@ -11,6 +12,7 @@ import duke.ui.ErrorReport;
 import duke.ui.PrintBot;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -56,7 +58,7 @@ public class ActionBot {
     }
 
     public boolean notActivated(String input) {
-        return !input.equals("I solemnly swear that I am up to no good.");
+        return !input.equalsIgnoreCase("i solemnly swear that i am up to no good.");
     }
 
     /*
@@ -67,7 +69,7 @@ public class ActionBot {
      * @return a string array containing 2 strings: the description
      * and the time of the task.
      */
-    public static String[] getDetails(String taskInput, String keyword) {
+    public static String[] getDetails(String taskInput, String keyword) throws IncompleteTaskInput {
         String[] details = taskInput.split(keyword,2);
 
         details[1] = details[1].replace(keyword, "");
@@ -75,6 +77,9 @@ public class ActionBot {
         String[] cleanDetails = new String[2];
         cleanDetails[0] = details[0].trim();
         cleanDetails[1] = details[1].trim();
+        if (cleanDetails[0].equals("") || cleanDetails[1].equals("")) {
+            throw new IncompleteTaskInput();
+        }
         return cleanDetails;
     }
 
@@ -97,8 +102,12 @@ public class ActionBot {
         ui.line();
         switch (taskType) {
         case "find":
-            ArrayList<String> searchResult = tasks.searchList(userInput[1]);
-            ui.searchList(searchResult);
+            try {
+                ArrayList<String> searchResult = tasks.searchList(userInput[1]);
+                ui.searchList(searchResult);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                alarm(Alarm.EMPTY_FIND);
+            }
             break;
         case "hello":
             ui.hello();
@@ -120,6 +129,8 @@ public class ActionBot {
                 alarm(Alarm.EMPTY_DEADLINE);
             } catch (NoKeywordException e) {
                 alarm(Alarm.NO_DDL_KEYWORD);
+            } catch (IncompleteTaskInput incompleteTaskInput) {
+                alarm(Alarm.INCOMPLETE_TASK);
             }
             break;
         case "event":
@@ -131,6 +142,8 @@ public class ActionBot {
                 alarm(Alarm.EMPTY_EVENT);
             } catch (NoKeywordException e) {
                 alarm(Alarm.NO_DDL_KEYWORD);
+            } catch (IncompleteTaskInput incompleteTaskInput) {
+                alarm(Alarm.INCOMPLETE_TASK);
             }
             break;
         case "list":
