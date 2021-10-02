@@ -10,7 +10,8 @@ public class Output {
     private static final String HELP_MESSAGE = TAB + "Here is a list of commands:" + System.lineSeparator()
             + TAB + TAB + "todo [task name] - adds todo task to task manager" + System.lineSeparator()
             + TAB + TAB + "event [task name] /at [date] - adds event task to task manager" + System.lineSeparator()
-            + TAB + TAB + "deadline [task name] /by [date + time] - adds deadline task to task manager" + System.lineSeparator()
+            + TAB + TAB + "deadline [task name] /by [date + time] - adds deadline task to task manager"
+            + System.lineSeparator()
             + TAB + TAB + "list - lists all tasks" + System.lineSeparator()
             + TAB + TAB + "done [task index] - marks the specified task as completed" + System.lineSeparator()
             + TAB + TAB + "delete [task index] - deletes the specified task" + System.lineSeparator()
@@ -20,14 +21,16 @@ public class Output {
     private static final String ADD_TASK_MESSAGE = TAB + "Ok! I've added this task:" + System.lineSeparator()
             + TAB + TAB + "%s" + System.lineSeparator()
             + TAB + "Now you have " + "%d" + " task" + "%s" + "." + System.lineSeparator();
-    private static final String COMPLETE_TASK_MESSAGE = TAB + "Ok! I've marked this task as done:" + System.lineSeparator()
+    private static final String COMPLETE_TASK_MESSAGE = TAB + "Ok! I've marked this task as done:"
+            + System.lineSeparator()
             + TAB + TAB + "%s" + System.lineSeparator();
     private static final String DELETE_TASK_MESSAGE = TAB + "Ok! I've deleted this task:" + System.lineSeparator()
             + TAB + TAB + "%s" + System.lineSeparator()
             + TAB + "Now you have " + "%d" + " task" + "%s" + "." + System.lineSeparator();
     private static final String LIST_TASK_MESSAGE_HEADER = TAB + "Here are your tasks:" + System.lineSeparator();
     private static final String LIST_TASK_MESSAGE_ENTRY = TAB + TAB + "%d" + "." + "%s" + System.lineSeparator();
-    private static final String FIND_TASK_MESSAGE_HEADER = TAB + "Here are your tasks that contain the keyword \"" + "%s" + "\":" + System.lineSeparator();
+    private static final String FIND_TASK_MESSAGE_HEADER = TAB + "Here are your tasks that contain the keyword \""
+            + "%s" + "\":" + System.lineSeparator();
 
     /**
      * Gets the Duke startup message.
