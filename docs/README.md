@@ -115,6 +115,7 @@ Advanced users are welcome to update data directly by editing the data file.
 Users may have to delete the file and start again.
 
 ## Command Summary
+
 Command | Format
 ------------ | -------------
 todo | `todo DESCRIPTION`
