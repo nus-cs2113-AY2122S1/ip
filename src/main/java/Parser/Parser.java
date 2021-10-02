@@ -39,9 +39,9 @@ public class Parser {
                     Tasklist.addEvent(inputTask, tasks);
                 } else if (inputTask.contains("delete")) {
                     Tasklist.deleteTask(inputTask, tasks);
-                } //else if (inputTask.contains("find")) {
-                    //Tasklist.findTask(inputTask, tasks);
-                //}
+                } else if (inputTask.contains("find")) {
+                    Tasklist.findTask(inputTask, tasks);
+                }
                 else {
                     throw new DukeException();
                 }
@@ -51,13 +51,6 @@ public class Parser {
             }
             inputTask = in.nextLine();
         }
-        /**if (inputTask.equals("bye")) {
-            try {
-                Storage.writeToFile(tasks);
-            } catch (IOException e) {}
-            Ui.horizontalLine();
-            System.out.println("Bye. Hope to see you again soon!\n");
-        }*/
         in.close();
     }
 }
