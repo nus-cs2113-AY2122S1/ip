@@ -33,7 +33,7 @@ ___
    running!
    You should see something similar to below.
 
-```bash
+```
 ____________________________________________________________
 [+] Welcome to Shell RPG
 [+] Searching for Character........
@@ -64,7 +64,7 @@ Format: `todo <Task Description>`
 
 Example usage and outcome:
 
-```bash
+```
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ todo complete daily quest
 ____________________________________________________________
@@ -84,7 +84,7 @@ Format: `deadline <Task Description> /by <Date>`
 
 Example usage and outcome:
 
-```bash
+```
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ deadline CS2113T IP Submission /by 2021-10-01
 ____________________________________________________________
@@ -104,7 +104,7 @@ Format: `event <Task Description> /at <Datetime>`
 
 Example usage and outcome:
 
-```bash
+```
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ event Midterms /at 2021-09-30 1400
 ____________________________________________________________
@@ -122,7 +122,7 @@ Format: `list`
 
 Example usage and outcome:
 
-```bash
+```
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ list
 ____________________________________________________________
@@ -142,7 +142,7 @@ Format: `done <Task Index>`
 
 Example usage and outcome:
 
-```bash
+```
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ done 1
 ____________________________________________________________
@@ -160,7 +160,7 @@ Format: `delete <Task Index>`
 
 Example usage and outcome:
 
-```bash
+```
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ delete 1
 ____________________________________________________________
@@ -178,7 +178,7 @@ Format: `find <Keyword>`
 
 Example usage and outcome:
 
-```bash
+```
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ find 2113T
 ____________________________________________________________
@@ -195,7 +195,7 @@ Format: `bye`
 
 Example usage and outcome:
 
-```bash
+```
 ┌─[ShellRPG@Newbie]-[~]
 └──╼ $ bye
 ____________________________________________________________
