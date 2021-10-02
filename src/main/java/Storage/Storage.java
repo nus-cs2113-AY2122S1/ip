@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Storage {
 
-    public static final String FILEPATH = "data/duke.txt";
+    public static final String FILEPATH = "duke.txt";
 
     public static void writeToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(FILEPATH);
@@ -24,7 +24,7 @@ public class Storage {
         fw.close();
     }
 
-    public static void saveToFile(ArrayList<Task> tasks) throws IOException{
+    public static void saveToFile(ArrayList<Task> tasks) throws IOException {
         try {
             File directory = new File(FILEPATH);
             if (!directory.exists()) {
