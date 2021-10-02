@@ -1,3 +1,5 @@
+*.class
+
 # IDEA files
 /.idea/
 /out/
@@ -13,5 +15,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
+.jekyll-cache/
+
 /text-ui-test/ACTUAL.txt
 text-ui-test/EXPECTED-UNIX.TXT
+/docs/Gemfile.lock
+/docs/_site/

@@ -1,0 +1,9 @@
+todo read book
+deadline return book /by 21/12/2021 1700
+event project meeting /at today 1800
+list
+done 2
+delete 2
+list
+dates
+bye
