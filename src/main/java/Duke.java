@@ -8,6 +8,7 @@ import java.lang.*;
 
 public class Duke {
 
+    //private static ArrayList<Task> tasks = new ArrayList<Task>();
     public static void main(String[] args) {
         Ui.printGreeting();
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -17,6 +18,7 @@ public class Duke {
             Ui.horizontalLine();
             System.out.println("Oops! File not found!\n");
         }
+
         Parser.parse();
         Ui.printBye();
     }

@@ -1,4 +1,2 @@
-package Exception;
-
-public class TaskNotFoundException extends Exception {
+package Exception;public class TaskNotFoundException {
 }
