@@ -1,5 +1,9 @@
 package Task;
 
+/**
+ * inherit Task class as an Event task
+ * contains description of Event task and String event
+ */
 public class Event extends Task {
     protected String description;
     protected String event;

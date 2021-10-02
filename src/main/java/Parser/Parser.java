@@ -14,6 +14,9 @@ public class Parser {
 
     private static ArrayList<Task> tasks = new ArrayList<Task>();
 
+    /**
+     * Parse user inputs to command execution in Tasklist class
+     */
     public static void parse() {
         Scanner in = new Scanner(System.in);
         String inputTask = in.nextLine();

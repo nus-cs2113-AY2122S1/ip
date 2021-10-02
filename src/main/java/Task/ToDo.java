@@ -1,5 +1,9 @@
 package Task;
 
+/**
+ * inherit Task class as a ToDo task
+ * contains description of ToDo task and boolean isDone
+ */
 public class ToDo extends Task {
     protected boolean isDone;
 
