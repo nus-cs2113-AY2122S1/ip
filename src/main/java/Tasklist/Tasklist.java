@@ -5,6 +5,7 @@ import Task.Event;
 import Task.ToDo;
 import Ui.Ui;
 import Task.Task;
+import Exception.TaskNotFoundException;
 
 import java.util.ArrayList;
 
@@ -66,15 +67,25 @@ public class Tasklist {
     }
 
     public static void findTask(String inputTask, ArrayList<Task> tasks) {
-        System.out.println("I can reach findTask method\n");
-        String keywordToFind = inputTask.substring(5);
-        System.out.println("I can get the substring\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.contains(keywordToFind)) {
-                System.out.println("Here are the matching tasks in your list: \n");
-                System.out.println((i + 1) + ". " + tasks.get(i).toString());
-                Ui.horizontalLine();
+        try {
+            String keywordToFind = inputTask.substring(5);
+            ArrayList<String> list = new ArrayList<>();
+            for (int i = 0; i < tasks.size(); i++) {
+                String taskInList = tasks.get(i).toString();
+                if (taskInList.contains(keywordToFind)) {
+                    list.add(tasks.get(i).toString());
+                    System.out.println("\n");
+                }
+                else {
+                    throw new TaskNotFoundException();
+                }
             }
+            System.out.println("Here are the matching tasks in your list: \n");
+            System.out.println(list);
+            Ui.horizontalLine();
+
+        } catch (TaskNotFoundException e) {
+            System.out.println("There are no matching tasks in your list: \n");
         }
     }
 

@@ -4,41 +4,49 @@ import Task.Deadline;
 import Task.Event;
 import Task.Task;
 import Task.ToDo;
+import Ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Storage {
 
-    public static final String FILEPATH = "data/duke.txt";
+    public static final String FILEPATH = "data\\duke.txt";
 
-    public static void writeToFile(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(FILEPATH);
-        for (int i = 0; i < tasks.size(); i++) {
-            fw.write(tasks.get(i).toString() + System.lineSeparator());
+    /**public static void writeToFile(ArrayList<Task> tasks) throws IOException {
+        //FileWriter fw = new FileWriter(FILEPATH);
+        PrintWriter writer = new PrintWriter(FILEPATH);
+        for (Task task : tasks) {
+            //fw.write(task.toString() + System.lineSeparator());
+            writer.println(task.toString() + System.lineSeparator());
         }
-        fw.close();
-    }
+        writer.close();
+    }*/
 
-    public static void saveToFile(ArrayList<Task> tasks) throws IOException{
+    public static void saveToFile(ArrayList<Task> tasks) throws FileNotFoundException {
         try {
             File directory = new File(FILEPATH);
             if (!directory.exists()) {
                 directory.mkdir();
+                directory.createNewFile();
             }
+        } catch (IOException e) {
+            Ui.showLoadingError();
+        }
 
-            Task task;
-            Scanner s = new Scanner(FILEPATH);
+        try {
+            File file = new File(FILEPATH);
+            Scanner s = new Scanner(file);
             while (s.hasNextLine()) {
                 String[] parts = s.nextLine().split("\\|");
                 String taskType = parts[0].trim();
-                Boolean isDone = Boolean.parseBoolean(parts[1].trim());
+                boolean isDone = Boolean.parseBoolean(parts[1].trim());
                 String taskDescription = parts[2].trim();
-
+                Task task;
                 switch (taskType) {
                 case "todo":
                     task = new ToDo(taskDescription);
@@ -60,5 +68,13 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to find file\n");
         }
+
+        PrintWriter writer = new PrintWriter(FILEPATH);
+        for (Task task : tasks) {
+            //fw.write(task.toString() + System.lineSeparator());
+            writer.println(task.toString() + System.lineSeparator());
+        }
+        writer.close();
     }
 }
+
