@@ -3,6 +3,7 @@
 Hi! Austin is a **Command Line Interface(CLI)**, friendly chat-bot
 application which helps the user in keeping track and scheduling todos, 
 events and deadlines.
+
 ## Contents
 * __Quick Start__
 * __Features__
@@ -20,6 +21,7 @@ events and deadlines.
     12. Exiting the program: ```bye```
     13. Saving the tasks
 * __Command Summary__
+
 ## Quick Start
 Ensure that you have Java ```11``` installed in your computer.
 
@@ -148,9 +150,11 @@ Format: ```bye```
 
 All the tasks are stored in the text file. After every operation (add, delete, mark), the file will be 
 automatically updated after updating the task list.
+
 ## Command Summary
+
 | **Command** | **Format**| 
-| ------- | -----| 
+| ------- | ------| 
 | Add todo | `todo {description}`| 
 | Add deadline | <code> deadline {description} &#124; {date_and_time} </code> | 
 | Add event | <code> event {description} &#124; {date_and_time} </code> | 
