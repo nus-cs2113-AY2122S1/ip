@@ -1,5 +1,9 @@
 package Task;
 
+/**
+ * inherit Task class as a Deadline task
+ * contains description of Deadline task and String by
+ */
 public class Deadline extends Task {
     protected String by;
 

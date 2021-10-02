@@ -1,2 +1,7 @@
-package Exception;public class TaskNotFoundException extends Throwable {
+package Exception;
+
+/**
+ * TaskNotFoundException is thrown when task not found in list
+ */
+public class TaskNotFoundException extends Throwable {
 }

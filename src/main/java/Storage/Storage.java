@@ -6,38 +6,40 @@ import Task.Task;
 import Task.ToDo;
 import Ui.Ui;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Storage {
 
-    public static final String FILEPATH = "data\\duke.txt";
+    public static final String FILEPATH = "data/duke.txt";
 
-    /**public static void writeToFile(ArrayList<Task> tasks) throws IOException {
-        //FileWriter fw = new FileWriter(FILEPATH);
-        PrintWriter writer = new PrintWriter(FILEPATH);
-        for (Task task : tasks) {
-            //fw.write(task.toString() + System.lineSeparator());
-            writer.println(task.toString() + System.lineSeparator());
-        }
-        writer.close();
-    }*/
-
-    public static void saveToFile(ArrayList<Task> tasks) throws FileNotFoundException {
+    /**
+     * Checks if directory and file exists, if not, create new
+     * directory and file
+     */
+    public static void checkDirectory () {
         try {
-            File directory = new File(FILEPATH);
+            File directory = new File("data");
+            File file = new File("data.txt");
             if (!directory.exists()) {
-                directory.mkdir();
-                directory.createNewFile();
+                file.mkdirs();
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
             }
         } catch (IOException e) {
             Ui.showLoadingError();
         }
+    }
 
+    /**
+     * Saves the list of tasks to a file duke.txt
+     * @param tasks arraylist of tasks
+     * @throws IOException
+     */
+    public static void saveToFile(ArrayList<Task> tasks) throws IOException {
+        checkDirectory();
         try {
             File file = new File(FILEPATH);
             Scanner s = new Scanner(file);
@@ -69,12 +71,11 @@ public class Storage {
             System.out.println("Unable to find file\n");
         }
 
-        PrintWriter writer = new PrintWriter(FILEPATH);
+        FileWriter fw = new FileWriter(FILEPATH);
         for (Task task : tasks) {
-            //fw.write(task.toString() + System.lineSeparator());
-            writer.println(task.toString() + System.lineSeparator());
+            fw.write(task.toString() + System.lineSeparator());
         }
-        writer.close();
+        fw.close();
     }
 }
 

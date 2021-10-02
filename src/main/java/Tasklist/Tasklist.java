@@ -9,8 +9,17 @@ import Exception.TaskNotFoundException;
 
 import java.util.ArrayList;
 
+/**
+ * Commands to execute user inputs
+ */
+
 public class Tasklist {
 
+    /**
+     * Adds a todo task into task list
+     * @param inputTask "todo" + description of task
+     * @param tasks arraylist of tasks
+     */
     public static void addToDo(String inputTask, ArrayList<Task> tasks) {
         try {
             String taskToDo = inputTask.substring(5);
@@ -24,6 +33,11 @@ public class Tasklist {
         }
     }
 
+    /**
+     * Adds a deadline task into task list
+     * @param inputTask "deadline /by" + description of task
+     * @param tasks arraylist of tasks
+     */
     public static void addDeadline(String inputTask, ArrayList<Task> tasks) {
         try {
             String description = inputTask.substring(9);
@@ -40,6 +54,11 @@ public class Tasklist {
         }
     }
 
+    /**
+     * Adds an event task into task list
+     * @param inputTask "event /at" + description of task
+     * @param tasks arraylist of tasks
+     */
     public static void addEvent(String inputTask, ArrayList<Task> tasks) {
         try {
             String description = inputTask.substring(6);
@@ -56,6 +75,11 @@ public class Tasklist {
         }
     }
 
+    /**
+     * Deletes a task from task list
+     * @param inputTask "delete"
+     * @param tasks arraylist of tasks
+     */
     public static void deleteTask(String inputTask, ArrayList<Task> tasks) {
         int sep = inputTask.indexOf(" ");
         int number = Integer.parseInt(inputTask.substring(7));
@@ -66,6 +90,11 @@ public class Tasklist {
         Ui.horizontalLine();
     }
 
+    /**
+     * Finds a task from task list by keyword input from user
+     * @param inputTask "find" + keyword
+     * @param tasks arraylist of tasks
+     */
     public static void findTask(String inputTask, ArrayList<Task> tasks) {
         try {
             String keywordToFind = inputTask.substring(5);
@@ -89,6 +118,11 @@ public class Tasklist {
         }
     }
 
+    /**
+     * Marks task as done
+     * @param number sequence number of task in list
+     * @param tasks arraylist of tasks
+     */
     public static void markAsDone(int number, ArrayList<Task> tasks) {
         tasks.get(number-1).setDone();
         Ui.horizontalLine();

@@ -1,5 +1,9 @@
 package Task;
 
+/**
+ * superclass Task containing description of tasks and
+ * boolean isDone to check if task is done or not
+ */
 public class Task {
 
     protected String description;
