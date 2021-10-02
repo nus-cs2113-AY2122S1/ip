@@ -1,0 +1,16 @@
+list
+todo
+todo
+todo read book
+deadline
+deadline do homework
+deadline do homework /by Sunday 7pm
+event
+event sis bday 5th Sept
+event sis bday /at 5th Sept
+list
+done
+done a
+done 4
+done 2
+bye
