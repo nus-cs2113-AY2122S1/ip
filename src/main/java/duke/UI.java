@@ -1,7 +1,10 @@
 package duke;
 
-import duke.task.Task;
+import duke.task.*;
+
 import java.util.Scanner;
+
+import java.util.List;
 
 public class UI {
     public static void printBreaker() {
@@ -23,6 +26,17 @@ public class UI {
     public static void printByeMessage() {
         System.out.println("Bye bye! Have a wonderful day!");
         printBreaker();
+    }
+
+    public static void printFindTask(List<Task> taskFind) {
+        if (taskFind.size() == 0) {
+            System.out.println("OPPS!!! No matches found:(");
+        } else {
+            System.out.println("Here is the task that you are looking for:)");
+            for (int i = 0; i < taskFind.size(); i++) {
+                System.out.println((i + 1) + "." + taskFind.get(i).toString());
+            }
+        }
     }
 
     public static void printDoneTask(String taskDone) {

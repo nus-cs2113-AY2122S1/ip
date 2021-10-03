@@ -1,5 +1,7 @@
 package duke;
 
+import duke.task.*;
+
 public class Parser {
     public static void parseInput(String lineInput) {
         String[] arrayInput = lineInput.split(" ");
@@ -8,6 +10,9 @@ public class Parser {
             switch (commandInput) {
             case "list":
                 TaskList.showTask();
+                break;
+            case "find":
+                TaskList.findTask(arrayInput);
                 break;
             case "done":
                 TaskList.doneTask(Integer.parseInt(arrayInput[1]));
