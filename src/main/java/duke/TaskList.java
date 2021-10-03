@@ -4,9 +4,6 @@ import duke.task.*;
 
 import java.util.ArrayList;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class TaskList {
     private static final ArrayList<Task> listInput = new ArrayList<>();
     private static int taskNumber = 0;
@@ -20,11 +17,6 @@ public class TaskList {
                 System.out.println((i + 1) + "." + listInput.get(i).toString());
             }
         }
-        UI.printBreaker();
-    }
-
-    public static void findTask(String[] arrayInput) {
-        UI.printFindTask(listInput.stream().filter(t -> t.getName().contains(arrayInput[1])).collect(Collectors.toList()));
         UI.printBreaker();
     }
 
