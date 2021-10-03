@@ -2,12 +2,12 @@ package duke;
 
 public class Duke {
     public static void main(String[] args) {
-        UI.printWelcomeMessage();
+        duke.UI.printWelcomeMessage();
         String lineInput = "";
-        Storage.getFromFile();
+        duke.Storage.getFromFile();
         while (!lineInput.equals("bye")) {
-            lineInput = UI.getInput();
-            Parser.parseInput(lineInput);
+            lineInput = duke.UI.getInput();
+            duke.Parser.parseInput(lineInput);
         }
     }
 }

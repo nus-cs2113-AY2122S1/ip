@@ -4,6 +4,9 @@ import duke.task.*;
 
 import java.util.ArrayList;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class TaskList {
     private static final ArrayList<Task> listInput = new ArrayList<>();
     private static int taskNumber = 0;
@@ -17,29 +20,34 @@ public class TaskList {
                 System.out.println((i + 1) + "." + listInput.get(i).toString());
             }
         }
-        UI.printBreaker();
+        duke.UI.printBreaker();
+    }
+
+    public static void findTask(String[] arrayInput) {
+        duke.UI.printFindTask(listInput.stream().filter(t -> t.getName().contains(arrayInput[1])).collect(Collectors.toList()));
+        duke.UI.printBreaker();
     }
 
     public static void doneTask(int inputIndex) {
         try {
             listInput.get(inputIndex).markAsDone();
-            UI.printDoneTask(listInput.get(inputIndex - 1).toString());
-            Storage.saveToFile(listInput, taskNumber);
+            duke.UI.printDoneTask(listInput.get(inputIndex - 1).toString());
+            duke.Storage.saveToFile(listInput, taskNumber);
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             System.out.println("OOPS!!! The index of the task that you entered does not exist:(");
-            UI.printBreaker();
+            duke.UI.printBreaker();
         }
     }
 
     public static void deleteTask(int inputIndex) {
         try {
             listInput.remove(inputIndex);
-            UI.printDeleteTask(taskNumber, listInput.get(inputIndex - 1).toString());
+            duke.UI.printDeleteTask(taskNumber, listInput.get(inputIndex - 1).toString());
             taskNumber--;
-            Storage.saveToFile(listInput, taskNumber);
+            duke.Storage.saveToFile(listInput, taskNumber);
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             System.out.println("OOPS!!! The index of the task that you entered does not exist:(");
-            UI.printBreaker();
+            duke.UI.printBreaker();
         }
     }
 
@@ -52,24 +60,24 @@ public class TaskList {
                     throw new DukeException("The description of the deadline is too short! Please enter again.\n");
                 }
                 listInput.add(taskNumber, new Deadline(lineInput.substring(9, breakIndex), lineInput.substring(breakIndex + 3)));
-                UI.printRecordTask(taskNumber, new Deadline(lineInput.substring(6, breakIndex), lineInput.substring(breakIndex + 3)));
+                duke.UI.printRecordTask(taskNumber, new Deadline(lineInput.substring(6, breakIndex), lineInput.substring(breakIndex + 3)));
                 break;
             case "event":
                 if (lineInput.length() < 9) {
                     throw new DukeException("The description of the event is too short! Please enter again.\n");
                 }
                 listInput.add(taskNumber, new Event(lineInput.substring(6, breakIndex), lineInput.substring(breakIndex + 3)));
-                UI.printRecordTask(taskNumber, new Event(lineInput.substring(6, breakIndex), lineInput.substring(breakIndex + 3)));
+                duke.UI.printRecordTask(taskNumber, new Event(lineInput.substring(6, breakIndex), lineInput.substring(breakIndex + 3)));
                 break;
             case "todo":
                 listInput.add(taskNumber, new ToDo(lineInput.substring(5)));
-                UI.printRecordTask(taskNumber, new ToDo(lineInput.substring(5)));
+                duke.UI.printRecordTask(taskNumber, new ToDo(lineInput.substring(5)));
                 break;
             }
-            Storage.saveToFile(listInput, taskNumber);
+            duke.Storage.saveToFile(listInput, taskNumber);
         }catch (DukeException e) {
             System.out.println("OOPS!!! Sorry, but I do not understand:(");
-            UI.printBreaker();
+            duke.UI.printBreaker();
         }
     }
 }

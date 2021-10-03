@@ -18,23 +18,23 @@ public class Storage {
                 String[] lineInput = updateInput.nextLine().split("\\|");
                 switch (lineInput[0]) {
                 case "D ":
-                    TaskList.recordTask("deadline", "deadline" + lineInput[2]);
+                    duke.TaskList.recordTask("deadline", "deadline" + lineInput[2]);
                     break;
                 case "E ":
-                    TaskList.recordTask("deadline", "event" + lineInput[2]);
+                    duke.TaskList.recordTask("deadline", "event" + lineInput[2]);
                     break;
                 case "T ":
-                    TaskList.recordTask("deadline", "todo" + lineInput[2]);
+                    duke.TaskList.recordTask("deadline", "todo" + lineInput[2]);
                     break;
                 }
                 if (lineInput[1].equals(" 1 ")) {
-                    TaskList.doneTask(taskNumber);
+                    duke.TaskList.doneTask(taskNumber);
                 }
                 taskNumber++;
             }
         } catch (IOException | DukeException e) {
             System.out.println("There is no saved file:( but I will create a new one for you:)");
-            UI.printBreaker();
+            duke.UI.printBreaker();
         }
     }
 
