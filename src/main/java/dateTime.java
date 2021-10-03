@@ -13,7 +13,6 @@ public class dateTime {
      * @return String Date
      */
     public String getDate(String date) {
-
         LocalDate Date = LocalDate.parse(date);
         return "" + Date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }

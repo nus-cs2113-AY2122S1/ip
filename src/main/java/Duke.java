@@ -12,9 +12,10 @@ public class Duke {
     public static void main(String[] args) throws FileNotFoundException {
         String date;
         int count = 0; //holds number of Tasks in Task array
-        String fileName = "C:\\data\\duke.txt"; //file path
+        String fileName = "C:\\DukeData\\duke_data.txt"; //file path
+        String directoryName = "C:\\DukeData";
 
-        StorageFile store = new StorageFile(fileName); //creates new StorageFile object to handle functions related to
+        StorageFile store = new StorageFile(); //creates new StorageFile object to handle functions related to
         // the data file
         ui ui = new ui(); //creates new ui object to handle printing of ui messages
 

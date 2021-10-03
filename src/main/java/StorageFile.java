@@ -11,27 +11,42 @@ import java.util.Scanner;
  */
 public class StorageFile {
     protected String fileName;
+    protected String directoryName;
     protected boolean hasData;
     protected int count = 0;
     protected String date = "";
     protected ArrayList<String> Data = new ArrayList<>();
     protected ArrayList<Task> Task = new ArrayList<>();
 
-    public StorageFile(String path) {
-        this.fileName = path;
-    }
+
 
     /**
      * Creates a new file named "duke.txt" in the given file path and prints a creation message. In the case the file
      * already exists, prints a message stating its existence. Also prints an error message in case any error occurs.
      */
     public void create() {
+        System.out.println("Enter the path to create a directory:  [e.g. C:\\DUKE\\]");
+        Scanner sc = new Scanner(System.in);
+        String directoryPath = sc.next();
+        File directory = new File(directoryPath);
+        boolean createdDir = directory.mkdir();
+        if (createdDir) {
+            System.out.println("Directory created successfully: " + directoryPath);
+        } else {
+            System.out.println("Directory already exists: " + directoryPath);
+        }
+
+
+        String name = "duke.txt";
+        fileName = directoryPath + "\\" + name;
+
         try {
             File myFile = new File(fileName);
             if (myFile.createNewFile()) {
                 System.out.println("File created: " + myFile.getName() + "\n");
-            } else {
-                System.out.println("File already exists.\n");
+            }
+            else {
+                System.out.println("File already exists: " + myFile.getName());
             }
         } catch (IOException e) {
             System.out.println("An error occurred.\n");
