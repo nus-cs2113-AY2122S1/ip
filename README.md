@@ -1,6 +1,7 @@
-# Duke project template
+# Duke Individual Project
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Duke is to-do list manager that handle different types of tasks and perform various functions.
+Saving and loading of data has also been implemented.
 
 ## Setting up in Intellij
 
@@ -22,3 +23,58 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
+## Command Format
+* Words in `UPPER_CASE` are parameters to be supplied by the user.
+  > e.g. in `todo TASK` TASK is the description of the task supplied by the user.
+* Extraneous parameters for commands that do not take in parameters is not acceptable.
+  > e.g. if the command specifies `list 123`, there will be an error.
+
+## Features
+
+1. ToDos: Add task without any date attached
+   ```
+   todo TASK
+   ```
+2. Deadlines: Add tasks that need to be done before a specific date/time
+   ```
+   deadline TASK /by DD/MM/YYYY HHMM
+   ```
+3. Events: Add tasks that start at a specific time
+   ```
+   event TASK /at DD/MM/YYYY HHMM
+   ```
+4. Display list
+   ```
+   list
+   ```
+5. Mark task complete
+   ```
+   done TASKNUMBER 
+   ```
+6. Delete task
+   ```
+   delete TASKNUMBER
+   ```
+7. Find tasks that has date before time specified
+   ```
+   before DD/MM/YYYY HHMM
+   ```
+8. Find tasks that has date after time specified
+   ```
+   after DD/MM/YYYY HHMM
+   ```
+9. Find tasks with substring
+   ```
+    find WORD
+    ```
+10. Exit Duke
+    ```
+     bye
+    ```
+
+## Contact
+
+Zeng Jiexiong - jiexiong123@gmail.com
+
+Project Link: [https://github.com/jiexiong-zeng/ip](https://github.com/jiexiong-zeng/ip)
