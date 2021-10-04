@@ -1,7 +1,208 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+    __________________________________________________________________________________
+                    -/ /mmddddmNmh` .:`              
+              `/sdydNNmhmNMMMMMMMMhymMm+`            
+            -sNMMMMMMNNddNMMMNMMMMmmMMMMms.          
+           /NMMMNMMNMMmmdNMNMmMMNMmNMMMMMNyy-        
+         .:oNMMMMNNMmhos+so+/::ohdmMMMMMmmMMm.       
+        /mNMMMNNNdy+.````````````../ydNNNMMMMy       
+        /MMMMNmy/.`  `````````  `````.sdNMMMMm+      
+        sNNNNNy.``  ```.:`` ``` ```````./dmNMMh`     
+       `ommdy:```  ` ``sy`` ```  `````````:mmN:      
+       +dNNh.```` ````:dm+` ````  `````````--:       
+       -dMm.````  `s``hdmm-`````````````````-:       
+        -N+````` `sm`/mmmmh`.-```-.``````````-       
+        .:```````+mh.dmmmmm/`y:-`-d/`````` ```       
+        ````````:md/oymmmmmh/ymh+/mmo-````  ```      
+         `` ````dmmymmmmmmmmmmmmd+`.++-````o. .      
+        ``` `` `mmsssdmmmmmmmmmh-s `.m.```-dy .      
+         .`  ` +h:sy.`/dmmmmmmmdy`./-N-` `+dm`.      
+         .`   `mdsN-```dmmmmmmmmNy+smm-- `hds ``     
+          `   -dmmNd/:+mmmmmmmmmmmmmmmy/ .d+  ``     
+         ``   .hdmmNmddmmmmmmmmmmmmmmyd+ ...  .``    
+         `.`   yddmmmdmmmmmmmmmmmmmmm+mo`  `` `..    
+          ```  `/+hmmmmmmmmmmmmmmmmmm/m:` ``- . .`   
+        `` ` `  ```ymmmmmmmmmmmmmmmmm/: ` `.``-//`   
+       :hho- `  ``  :sdmmmmmmmmmmmmd+`.    .`:dMm-::.
+     `/hmmdN:`` ` `   `:shmmmmmmmdds..``   `/NMMMNMMs
+     +ddddmMy```. ``   odyhhhhhhhdmdy..`   .mNMMMMMMd
+      os//mMm```+o-``-odddhyhhhdmmdMN/:`` oMMMMMMMNm+
 
+     Konnichiwa! I'm your personal maid. Call me Maid-chan!
+     What can I do for you? (//ω//)
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     COMMAND   FORMAT                                  PURPOSE                                 
+     --------  --------------------------------------  ------------------------------          
+     todo      todo DESCRIPTION                        To add a todo                           
+     deadline  deadline DESCRIPTION /by TASK_DEADLINE  To add a deadline                       
+     event     event DESCRIPTION /at TASK_PERIOD       To add an event                         
+     list      list                                    To list all tasks                       
+     done      done TASK_NUMBER                        To mark a task as done                  
+     delete    delete TASK_NUMBER                      To delete a task                        
+     date      date YYYY-MM-DD                         To filter the tasks by date             
+     find      find KEYWORD                            To filter the tasks by keyword          
+     exit      exit                                    To exit the app                         
+
+     Note: Words in UPPER_CASE are parameters
+           For more info, visit https://richwill28.github.io/ip/
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Here are the tasks in your list:
+     1. [T][ ] read book
+     2. [D][ ] return book (by: tomorrow)
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Noted. I've added this task:
+       [T][ ] shopping
+     Now you have 3 tasks in the list.
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Good job! I've marked this task as done:
+       [T][X] read book
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Noted. I've added this task:
+       [E][ ] project meeting (at: Mar 14 2020)
+     Now you have 4 tasks in the list.
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Here are the tasks in your list:
+     1. [T][X] read book
+     2. [D][ ] return book (by: tomorrow)
+     3. [T][ ] shopping
+     4. [E][ ] project meeting (at: Mar 14 2020)
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Noted. I've added this task:
+       [D][ ] do homework (by: Mar 14 2020)
+     Now you have 5 tasks in the list.
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Noted. I've added this task:
+       [E][ ] watch movie (at: Dec 25 2020)
+     Now you have 6 tasks in the list.
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Noted. I've added this task:
+       [E][ ] party (at: Mar 14 2020)
+     Now you have 7 tasks in the list.
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Here are the tasks in your list:
+     1. [T][X] read book
+     2. [D][ ] return book (by: tomorrow)
+     3. [T][ ] shopping
+     4. [E][ ] project meeting (at: Mar 14 2020)
+     5. [D][ ] do homework (by: Mar 14 2020)
+     6. [E][ ] watch movie (at: Dec 25 2020)
+     7. [E][ ] party (at: Mar 14 2020)
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Noted. I've added this task:
+       [D][ ] do project (by: Dec 25 2020)
+     Now you have 8 tasks in the list.
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Good job! I've marked this task as done:
+       [E][X] project meeting (at: Mar 14 2020)
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Good job! I've marked this task as done:
+       [E][X] party (at: Mar 14 2020)
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Here are the tasks in your list:
+     1. [T][X] read book
+     2. [D][ ] return book (by: tomorrow)
+     3. [T][ ] shopping
+     4. [E][X] project meeting (at: Mar 14 2020)
+     5. [D][ ] do homework (by: Mar 14 2020)
+     6. [E][ ] watch movie (at: Dec 25 2020)
+     7. [E][X] party (at: Mar 14 2020)
+     8. [D][ ] do project (by: Dec 25 2020)
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Here are the tasks on Mar 14 2020:
+     1. [E][X] project meeting (at: Mar 14 2020)
+     2. [D][ ] do homework (by: Mar 14 2020)
+     3. [E][X] party (at: Mar 14 2020)
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Here are the tasks on Dec 25 2020:
+     1. [E][ ] watch movie (at: Dec 25 2020)
+     2. [D][ ] do project (by: Dec 25 2020)
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     You have no task on Aug 31 2020.
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Here are the matching tasks in your list:
+     1. [E][X] project meeting (at: Mar 14 2020)
+     2. [D][ ] do project (by: Dec 25 2020)
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Here are the matching tasks in your list:
+     1. [T][X] read book
+     2. [D][ ] return book (by: tomorrow)
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     There is no matching task in your list.
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Here are the tasks in your list:
+     1. [T][X] read book
+     2. [D][ ] return book (by: tomorrow)
+     3. [T][ ] shopping
+     4. [E][X] project meeting (at: Mar 14 2020)
+     5. [D][ ] do homework (by: Mar 14 2020)
+     6. [E][ ] watch movie (at: Dec 25 2020)
+     7. [E][X] party (at: Mar 14 2020)
+     8. [D][ ] do project (by: Dec 25 2020)
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Noted. I've removed this task:
+       [T][X] read book
+     Now you have 7 tasks in the list.
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Noted. I've removed this task:
+       [D][ ] return book (by: tomorrow)
+     Now you have 6 tasks in the list.
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Here are the tasks in your list:
+     1. [T][ ] shopping
+     2. [E][X] project meeting (at: Mar 14 2020)
+     3. [D][ ] do homework (by: Mar 14 2020)
+     4. [E][ ] watch movie (at: Dec 25 2020)
+     5. [E][X] party (at: Mar 14 2020)
+     6. [D][ ] do project (by: Dec 25 2020)
+    __________________________________________________________________________________
+
+    __________________________________________________________________________________
+     Bye ❤ Hope to see you again soon! (≧▽≦)
+    __________________________________________________________________________________

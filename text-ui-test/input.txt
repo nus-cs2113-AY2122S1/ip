@@ -1,0 +1,25 @@
+help
+list
+todo shopping
+done 1
+event project meeting /at 2020-03-14
+list
+deadline do homework /by 2020-03-14
+event watch movie /at 2020-12-25
+event party /at 2020-03-14
+list
+deadline do project /by 2020-12-25
+done 4
+done 7
+list
+date 2020-03-14
+date 2020-12-25
+date 2020-08-31
+find project
+find book
+find sport
+list
+delete 1
+delete 1
+list
+exit
