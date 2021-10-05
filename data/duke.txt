@@ -1,6 +1,0 @@
-D---1---COVID-19 Invasion---31 Dec 2019
-E---0---Java Birthday---23 Jan 1996
-E---0---Christmas meetup---25 Dec 2021 08:15
-T---0---big bonanza
-T---1---the hokey pokey while eating dingleberries
-E---0---The Great Dingleberries Sale---15 Oct 2021
