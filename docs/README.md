@@ -27,9 +27,10 @@
 # Quick Start
 
 1. Ensure that you have Java `11` in your computer
-2. Download `iP.jar` from [here](https://github.com/Poopies99/ip/tree/master/release)
-3. Copy file into any folder
-4. Double-click the file to start the app.
+2. Download `Poopies-iP.jar` from [here](https://github.com/Poopies99/ip/tree/master/release)
+3. Copy file into Desktop
+4. Open Command Prompt(Windows Users) or Terminal (MacOS Users)
+5. Type `cd Desktop` followed by `java -jar Poopies-iP.jar`
 
 Expected Outcome:
 
@@ -290,8 +291,8 @@ ________________________________________________________________
 | `deadline <DESCRIPTION> /by <DATE>`                   | Add a deadline task                                                   |
 | `event <DESCRIPTION> /at <DATE>`                      | Add an event task                                                     |
 | `find <DESCRIPTION>`                                  | Show all task related to search terms                                 |
-| `done <INDEX>`                                         | Mark a task as done                                                   |
-| `uncheck <INDEX>`                                      | Mark a task as undone                                                 |
+| `done <INDEX>`                                        | Mark a task as done                                                   |
+| `uncheck <INDEX>`                                     | Mark a task as undone                                                 |
 | `delete <INDEX>`                                      | Remove a task                                                         |
 | `save`                                                | Save all task into local file                                         |
 | `bye`                                                 | Exits the application                                                 |
