@@ -6,12 +6,16 @@ Welcome to Duke, your very own command line task scheduler! In this user guide, 
 - Add your tasks to our database
 - Check tasks off when you've completed them
 - Never miss another task ever!
+
 ### 3 different types of tasks
 - Todo: Simple description, no deadline/ time
 - Deadlines: Description with deadline to be completed by
 - Events: Description with the date and time of the event
+
 ## List of commands
+
 ### 1. `todo` - Adds a Todo task to the database
+
 - Briefly describe the Todo task after typing `todo`
 
 #### Example of usage:
@@ -27,7 +31,7 @@ Now you have 1 tasks in your list.
 #### Description of the outcome.
 - The first box shows that the task is of the Todo type, represented by a 'T'
 - The next box is empty, showing that the task has not been completed yet
-  - If there is a cross 'X' in it, that would mean that the task has been completed
+  - If there is a cross 'X' in it, the task has been completed
 
 
 
@@ -64,8 +68,8 @@ Now you have 2 tasks in your list.
 #### Expected outcome:
 ```
 Got it. I've added this task:
-    [E][ ] finish assignment by: tonight
-Now you have 2 tasks in your list.
+    [E][ ] CS2113T exam at: 31 Feb 2021
+Now you have 3 tasks in your list.
 ```
 #### Description of the outcome.
 - The first box shows that the task is of the Event type, represented by an 'E'
@@ -86,7 +90,7 @@ Now you have 2 tasks in your list.
 Here are the tasks in your list:
 1. [T][ ] clean kitchen
 2. [D][ ] finish assignment by: tonight
-3. [E][ ] finish assignment by: tonight
+3. [E][ ] CS2113T exam at: 31 Feb 2021
 ```
 ####  Description of the outcome.
 - The tasks that have been added are numbered sequentially
@@ -119,10 +123,9 @@ Nice! I've marked this task as done:
 ```
 Here are the matching tasks in your list:
 1. [D][ ] finish assignment by: tonight
-2. [E][ ] finish assignment by: tonight
 ```
 #### Description of the outcome.
-- Since the word 'finish' appears in the above two tasks, they will be displayed
+- Since the word 'finish' appears in the above task, it will be displayed
 
 
 
