@@ -272,10 +272,6 @@ ________________________________________________________________
 
 ## FAQ - Frequently Asked Questions
 
-**Q:** I would like to unmark a completed task
-
-**A:** Currently unmark is not supported in this version
-
 **Q:** I would like to edit the description of my Task
 
 **A:** Currently editing task is not supported, feel free to delete and add task
