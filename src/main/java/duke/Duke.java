@@ -53,7 +53,7 @@ public class Duke {
      * command and showing the command output to the user.
      * Stops when an ExitCommand is created.
      */
-    //@@se-edu vincentlauhl-reused
+    //@@author vincentlauhl-reused
     //Reused from https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/Main.java
     //with minor modifications
     public void run(){
@@ -66,6 +66,7 @@ public class Duke {
         }
         exitProcess();
     }
+    //@@author
 
     private void exitProcess() {
         try {
