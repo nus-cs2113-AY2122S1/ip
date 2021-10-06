@@ -1,0 +1,28 @@
+todo go home
+event go study /on Whole day
+deadline iP /by Friday not sure what time
+hello??
+list
+todo
+event
+event go to library
+help
+event /on 9am
+event go to library /by 9am
+event go to library/on9am
+event go to school /on 9am
+deadline
+deadline submit assignment
+deadline Monday
+event /on9am
+done -3
+done 1000
+done 2
+find go
+find turtle
+delete 100
+delete 5
+delete 3
+delete 3
+delete 1
+delete 1
