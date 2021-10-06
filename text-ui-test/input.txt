@@ -1,0 +1,19 @@
+deadline CG2027 assignment 3 /by 29-08-2021 2359
+list
+blah
+todo complete iP level-4
+todo add text-ui-testing
+done 3
+list
+event team meeting
+event team meeting /at 27-09-2021 1400
+deadline review PRs
+deadline review PRs /by 30-09-2021 2200
+list
+todo
+done 1
+done 4
+list
+delete 1
+list
+bye
