@@ -1,10 +1,47 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
+import java.io.FileWriter;   // Import the FileWriter class
+import java.io.IOException;  // Import the IOException class to handle errors
+
 public class Duke {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+
+    private UI ui;
+    public String filePath = "./data/duke.txt";
+    File file = new File(filePath);
+
+    //Constructor of Duke object
+    public Duke(String filePath) {
+        UI ui = new UI();
+        File file = new File(filePath);
     }
+
+
+    //Main method
+    public static void main(String[] args) {
+        new Duke("./data/duke.txt").run();
+    }
+
+
+    //The actual run process that user can input and get the corresponding output from Duke
+    public void run() {
+        ui.printWelcome();
+        ArrayList<String> taskName = new ArrayList<>();
+        ArrayList<Integer> taskStatus = new ArrayList<>();
+        ArrayList<String> output = new ArrayList<>();
+        ArrayList<String> taskType = new ArrayList<>();
+
+        CheckFileExistence checkFileExistence = new CheckFileExistence(file);
+        checkFileExistence.checkExistence(file);
+        LoadFromText loadFromText = new LoadFromText(file, output, taskName, taskStatus, taskType);
+
+        output = loadFromText.loadOutput(output);
+        taskName = loadFromText.loadTaskName(taskName);
+        taskStatus = loadFromText.loadTaskStatus(taskStatus);
+        taskType = loadFromText.loadTaskType(taskType);
+        Parser parser = new Parser();
+        parser.checkCommand(output, taskStatus, taskName, taskType, file);
+    }
+
 }
