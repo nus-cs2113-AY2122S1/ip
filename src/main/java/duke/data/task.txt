@@ -1,0 +1,4 @@
+T | 0 | study
+E | 1 | sleep /at 11pm
+D | 1 | play /by 5pm
+E | 1 | 2 /at
