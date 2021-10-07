@@ -2,39 +2,49 @@ package duke;
 
 import duke.task.*;
 
+/**
+ * Formats the inputs to pass to different methods.
+ */
 public class Parser {
-    public static void parseInput(String lineInput) {
+
+    /**
+     * Formats the input sent from the user and pass it to different methods accordingly.
+     *
+     * @param lineInput The line input from the user.
+     */
+    public static void parseInput(String lineInput)  {
+        boolean printMessage = true;
         String[] arrayInput = lineInput.split(" ");
-        String commandInput = arrayInput[0];
+        String userCommand = arrayInput[0];
         try {
-            switch (commandInput) {
+            switch (userCommand) {
             case "list":
-                duke.TaskList.showTask();
-                break;
-            case "find":
-                duke.TaskList.findTask(arrayInput);
+                TaskList.showTask();
                 break;
             case "done":
-                duke.TaskList.doneTask(Integer.parseInt(arrayInput[1]));
+                int doneIndex = Integer.parseInt(arrayInput[1]);
+                TaskList.doneTask(doneIndex, printMessage);
                 break;
-            case "delete":
-                duke.TaskList.deleteTask(Integer.parseInt(arrayInput[1]));
+            case "find":
+                TaskList.searchTask(arrayInput);
                 break;
-            case "deadline":
             case "event":
             case "todo":
-                duke.TaskList.recordTask(commandInput, lineInput);
+            case "deadline":
+                TaskList.recordTask(userCommand, lineInput, printMessage);
+                break;
+            case "delete":
+                String deleteIndex = arrayInput[1];
+                TaskList.deleteTask(deleteIndex);
                 break;
             case "bye":
-                duke.UI.printByeMessage();
                 break;
             default:
                 System.out.println("OOPS!!! Sorry, but I do not understand:(");
                 break;
             }
-        } catch (ArrayIndexOutOfBoundsException | DukeException e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException | StringIndexOutOfBoundsException e) {
             System.out.println("OOPS!!! Please enter a valid input:(");
-            duke.UI.printBreaker();
         }
     }
 }

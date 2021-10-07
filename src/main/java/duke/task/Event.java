@@ -1,21 +1,25 @@
 package duke.task;
 
-public class Event extends Task {
-    public String eventDate;
+/**
+ * Shows the instances and methods of a event task.
+ */
+public class Event extends Task{
 
-    public Event(String name, String eventDate) {
-        super(name);
-        this.eventDate = eventDate;
+    protected String eventTime;
+
+    public Event(String eventName, String eventTime) {
+        super(eventName);
+        this.eventTime = eventTime;
         this.taskType = "E";
     }
 
     @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (at:" + eventDate + ")";
+    public String getTaskDescription() {
+        return this.taskName + "/at" + this.eventTime;
     }
 
     @Override
-    public String getName() {
-        return this.name + " /at " + this.eventDate;
+    public String toString() {
+        return "[E]" + super.toString() + " (at:" + eventTime + ")";
     }
 }

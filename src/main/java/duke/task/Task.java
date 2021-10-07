@@ -1,17 +1,29 @@
 package duke.task;
 
+/**
+ * Shows the instances and methods of a task.
+ */
 public class Task {
-    public String name;
-    public boolean isDone;
-    public String taskType;
 
-    public Task(String name) {
-        this.name = name;
+    protected String taskName;
+    protected boolean isDone;
+    protected String taskType;
+
+    public Task(String taskName) {
+        this.taskName = taskName;
         this.isDone = false;
     }
 
-    public String getStatus() {
+    public String getTaskStatus() {
         return (isDone ? "[X] " : "[ ] ");
+    }
+
+    public String getTaskType(){
+        return taskType;
+    }
+
+    public String getTaskDescription() {
+        return this.taskName;
     }
 
     public void markAsDone() {
@@ -19,14 +31,6 @@ public class Task {
     }
 
     public String toString() {
-        return getStatus() + this.name;
-    }
-
-    public String getType(){
-        return taskType;
-    }
-
-    public String getName() {
-        return this.name;
+        return getTaskStatus() + this.taskName;
     }
 }
