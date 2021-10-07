@@ -1,13 +1,22 @@
 package duke;
 
+import java.util.Scanner;
+
+/**
+ * Shows the main class of Duke.
+ */
 public class Duke {
+
     public static void main(String[] args) {
-        duke.UI.printWelcomeMessage();
-        String lineInput = "";
-        duke.Storage.getFromFile();
-        while (!lineInput.equals("bye")) {
-            lineInput = duke.UI.getInput();
-            duke.Parser.parseInput(lineInput);
-        }
+        UI.printWelcomeMessage();
+        String lineInput;
+        Storage.getFromFile();
+        do {
+            Scanner input = new Scanner(System.in);
+            lineInput = input.nextLine();
+            Parser.parseInput(lineInput);
+            UI.printBreaker();
+        } while (!lineInput.equals("bye"));
+        UI.printByeMessage();
     }
 }
