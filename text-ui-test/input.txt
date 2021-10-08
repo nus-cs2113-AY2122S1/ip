@@ -1,0 +1,20 @@
+no such command
+todo this is a todo item
+deadline no date
+deadline wrong prefix /at boo
+deadline prefix with no date /by
+deadline ip /by thurs night
+event no date
+event wrong prefix /by 5pm
+event prefix with no date /at
+event 2113t /at fri 2pm
+list
+done 5
+done -5
+done 0
+done 1
+done 1
+done 2
+done 3
+commands
+bye
