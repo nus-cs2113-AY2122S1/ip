@@ -107,6 +107,7 @@ ___
 Users can edit the file `data.txt` and `inputFile.txt` to change their TaskList, but note that only the valid change in the correct format can work, otherwise Duke will not run.
 ***
 ## Command Summary
+
 Operation | Format and Example
 --------- | -----------
 Add todo | `todo TASK`  e.g. `todo read book`
