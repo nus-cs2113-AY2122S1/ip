@@ -2,6 +2,7 @@
 Duke is a text-based app for people to manage their recent tasks. It works like a memory keeper to record users' deadlines, events, todos and their completion statuses.
 ***
 ## Quick start
+
 1. Ensure you have Java `11` installed in your computer.
 2. Download the latest `duke.jar` from [here](https://github.com/LilyDaytoy/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as your *home folder* for Duke.
@@ -16,10 +17,13 @@ Duke is a text-based app for people to manage their recent tasks. It works like 
 6. Look at the **Features** below to get more details about each command.
 ***
 ## Features
+
 ### Notes
+
 #### Notes about command format:
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. e.g. the `TASK_INDEX` in `done TASK_INDEX` is a parameter that user should provide, such as `done 1`.
 * If a parameter is expected only once in the command, but you specified it multiple times, only the last occurrence of the parameter will be taken. e.g. if you specified `/by 5pm /by 9pm` then it will be recognized as `/by "5pm /by 9pm"` and display the result as `(by:5pm /by 9pm)`.
+
 #### Notes about the Tasks in Duke:
 * There are 3 types of tasks in Duke: `todo`, `deadline`, `event`.
   * These three types are distinguished by how user inputs the `TIME` parameter.
@@ -33,6 +37,7 @@ Duke is a text-based app for people to manage their recent tasks. It works like 
   * `deadline`: `[D][] myDeadline (by : deadline time)`
   * `event`: `[E][] myEveny (at: event time)`
 ___
+
 ### Adding a todo task `todo`
 Add a task you need to do with no time specified to the TaskList in Duke.
 
@@ -52,6 +57,7 @@ Example:
 * `deadline complete the quiz /by Firday`--->`[D][] complete the quiz (by: Friday)`
 * `deadline submit the project /by Monday 12pm`--->`[D][] submit the project (by: Monday 12pm)`
 ___
+
 ### Adding an event task `event`
 Add an event task you need to do during a certain time to the TaskList in Duke.
 
@@ -61,13 +67,15 @@ Example:
 * `event group meeting /at Monday 6pm`--->`[E][] group meeting (at: Monday 6pm)`
 * `event meet with prof Li /at Tuesday 1pm`--->`[E][] meet with prof Li (at: Tuesday 1pm)`
 ___
-### List all the tasks `list`
+
+## List all the tasks `list`
 List all the tasks in the TaskList in Duke and show their completion statuses.
 
 Format: `list`
 
 ![list screenshot](https://i.postimg.cc/Y9PYmcPW/2021-09-29-5-20-42.png)
 ___
+
 ### Search for a task `find`
 Display all the tasks containing a specific keyword.
 
@@ -77,6 +85,7 @@ Example:
 * `find book` will return `read book`,`book a meeting room`
 * `find work` will return `do homework`,`work woth my groupmates`
 ___
+
 ### Mark a task as done `done`
 Mark a task in the TaskList in Duke as done, change the symbol from `[ ]` to `[x]`
 
@@ -86,6 +95,7 @@ Format: `done TASK_INDEX`
 Example:
 * `done 1` marks the first task in the TaskList as done. e.g. the first task `[T][] read book` will change to `[T][x] read book`
 ___
+
 ### Deleting a task `delete`
 Remove a task from the TaskList, and it will not be displayed in the list anymore
 
@@ -96,16 +106,20 @@ Format: `delete TASK_INDEX`
 Example:
 * `delete 1` deletes the first task in the TaskList. e.g. the first task `[T][] read book` will no longer be in the list anymore.
 ___
+
 ### Exit `bye`
 Exit form Duke app
 Format: `bye`
 ___
+
 ### Saving the data
 Duke will automatically save the data for you in hard disk every time you input a command in order to reload your previous tasks next time when you use it.
 ___
+
 ### Editing your data file
 Users can edit the file `data.txt` and `inputFile.txt` to change their TaskList, but note that only the valid change in the correct format can work, otherwise Duke will not run.
 ***
+
 ## Command Summary
 
 Operation | Format and Example
