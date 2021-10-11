@@ -5,3 +5,29 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+ Hello! I'm Duke, what can I do for you?
+>  (+) Added: [t] [ ] return $$ to jack
+ (!) You have 1 tasks in the list
+>  (+) Added: [d] [ ] assignment (By: sunday)
+ (!) You have 2 tasks in the list
+> ____________________________________________________________
+ 1. [t] [ ] return $$ to jack
+ 2. [d] [ ] assignment (By: sunday)
+____________________________________________________________
+> ____________________________________________________________
+ (+) Marked as Done: [d] [X] assignment (By: sunday)
+____________________________________________________________
+> ____________________________________________________________
+ 1. [t] [ ] return $$ to jack
+ 2. [d] [X] assignment (By: sunday)
+____________________________________________________________
+>  (+) Added: [e] [ ] lecture (monday 2pm to monday 4pm)
+ (!) You have 3 tasks in the list
+> ____________________________________________________________
+ 1. [t] [ ] return $$ to jack
+ 2. [d] [X] assignment (By: sunday)
+ 3. [e] [ ] lecture (monday 2pm to monday 4pm)
+____________________________________________________________
+> ____________________________________________________________
+ Bye, Hope to see you again soon!
+____________________________________________________________
