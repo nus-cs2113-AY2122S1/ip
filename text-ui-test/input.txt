@@ -1,0 +1,48 @@
+hello
+todo some task
+list
+event           something/at8pm
+deadline something/by7pm
+list
+done 4
+done 1
+done 3
+list
+
+done 1
+list
+done
+done A
+done 1099
+done 0
+done -1
+todo
+event something /at
+event /at 9pm
+event something at 9pm
+deadline something /by
+deadline /by 8pm
+deadline something by 8pm
+todo 4
+todo 4
+todo 5
+todo 6
+todo 7
+todo 8
+delete 8
+delete 8
+delete 7
+list
+deadline today /by 20/9/2021 1600
+deadline today2 /by 20/9/2021 1400
+deadline tmr /by 21/9/2021 1800
+event somethin g /at 20/9/2021 1500
+event somethingelse /at 20/9/2021 1100
+event todayactually /at today
+find somet
+find
+find -1
+agenda
+list 
+bye
+

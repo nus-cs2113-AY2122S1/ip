@@ -1,0 +1,27 @@
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+agenda
+event tosa /at 9pm
+event toda /at 20/9/2021 1900
+agenda
+list
+delete
+agenda list
+list 1
+deadline dead /by 20/9/2021
+agend
+agenda
+find to
+list
+bye
