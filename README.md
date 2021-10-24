@@ -1,24 +1,88 @@
-# Duke project template
+# Project Duke
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Project Duke is a educational software project designed to take you through the steps of building a small software incrementally, while applying as many Java and SE techniques as possible along the way.
 
-## Setting up in Intellij
+The project aims to build a product named Duke, a Personal Assistant Chatbot that helps a person to keep track of various things. The name Duke was chosen as a placeholder name, in honor of Duke, the Java Mascot. You may give it any other name and personality you wish.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+Here is a table containing the command words and a brief description:
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+Command | description
+------------ | -------------
+[todo](#todo-command) | adds a task to be completed
+[event](#event-command) | adds an event + location 
+[deadline](#deadline-command) | adds a deadline + date + time
+[list](#list-command) | allows user to see a list of all commitments
+[find](#find-command) | allows user to filter commitments by a keyword
+[delete](#delete-command) | allows user to remove a task from the list
+[done](#done-command) | mark a task as complete
+[bye](#close-duke-command) | close Duke
+
+On startup, the user will be greeted by the following message:
+![Imgur](https://i.imgur.com/tW87ITA.jpg)
+
+Below contains screenshots of the commands Duke can process and the format of the command in the box:
+
+#Load saved tasklist from Duke.txt :
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+  list
    ```
+![Imgur](https://i.imgur.com/vdB5yXK.jpg)
+
+# Todo Command
+
+   ```
+  todo "description"
+   ```
+![Imgur](https://i.imgur.com/3NFVn3U.jpg)
+
+# Event Command
+
+   ```
+  event "description" /at "location"
+   ```
+![Imgur](https://i.imgur.com/fcUClHK.jpg)
+
+# Deadline Command
+
+   ```
+  dealine "description" /by "YYYY-MM-DD" "HH:MM"
+   ```
+![Imgur](https://i.imgur.com/xL42jdE.jpg)
+
+# Done Command
+
+   ```
+  done "index_number"
+   ```
+![Imgur](https://i.imgur.com/Hs0F7Ej.jpg)
+
+# Delete Command
+
+   ```
+ delete "index_number"
+   ```
+![Imgur](https://i.imgur.com/1tfECL4.jpg)
+
+# List Command
+
+   ```
+  list
+   ```
+
+![Imgur](https://i.imgur.com/BOq0AwX.jpg)
+
+# Find Command
+
+   ```
+  find "index_number"
+   ```
+![Imgur](https://i.imgur.com/XcLGGCH.jpg)
+
+# Close DUKE Command
+
+   ```
+ bye
+   ```
+![Imgur](https://i.imgur.com/MJVdEue.jpg)
+
+Have fun trialing!!
