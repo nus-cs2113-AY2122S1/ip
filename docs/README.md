@@ -2,6 +2,14 @@
 # Owl's User Guide
 
 This is a user guide designed to help newer users who are unfamiliar with the commands so do not worry and just follow through!
+<details>
+<summary>How do I dropdown?</summary>
+
+```
+This is how you dropdown.
+```
+</details>
+
 ```
   Hello this is OWL! I help you remember tasks!!
      ______   _        _   _
