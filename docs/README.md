@@ -3,11 +3,32 @@
 
 This is a user guide designed to help newer users who are unfamiliar with the commands so do not worry and just follow through!
 <details>
-<summary>How do I dropdown?</summary>
-
-```
-This is how you dropdown.
-```
+<summary>Example</summary>
+<pre>
+-----------------------------------------------------------------------------------------------------
+This is a list of commands and their format!
+-----------------------------------------------------------------------------------------------------
+List Out All Commands: help
+Adding Expense: add_ex d/DESCRIPTION a/AMOUNT c/CATEGORY
+Deleting Expense: del_ex i/INDEX
+Listing Expense: list_ex
+Show Total Expense: total_ex
+Show Total Expense between 2 dates: btw_ex s/START_DATE e/END_DATE
+Adding Income: add_in d/DESCRIPTION a/AMOUNT c/CATEGORY
+Deleting Income: del_in i/INDEX
+Listing Income: list_in
+Show Total Income: total_in
+To Find Using Date: find YYYY-MM-DD
+To Find Based On Keyword: find KEYWORD
+To Display Total Balance: balance
+Show Total Income between 2 dates: btw_in s/START_DATE e/END_DATE
+To Set Budgets: set_budget c/CATEGORY a/AMOUNT
+To Check Budgets: check_budget c/CATEGORY
+To Set Threshold Value for Reminders: set_threshold t/THRESHOLD
+To View Your Yearly Report: show_graph
+To Terminate The Program: end
+-----------------------------------------------------------------------------------------------------
+</pre>
 </details>
 
 ```
