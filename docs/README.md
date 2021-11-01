@@ -1,7 +1,7 @@
 
 # Owl's User Guide
 
-This is a user guide designed to help newer users who are unfamiliar with the commands so do not worry and just follow through!
+▼This is a user guide designed to help newer users who are unfamiliar with the commands so do not worry and just follow through!
 <details>
 <summary>Example</summary>
 <pre>
