@@ -1,0 +1,15 @@
+add
+todo wash the dishes
+deadline
+deadline homework /by 29 March
+list
+done 1
+list
+event TV /at 9pm
+todo tomato
+list
+delete 1
+list
+todo potato
+list
+bye
