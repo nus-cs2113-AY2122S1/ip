@@ -1,0 +1,17 @@
+list
+say something nice
+todo task 1
+deadline task 2 /byTmr
+todo
+event
+deadline
+hi
+done 3
+event task 3 /atMonday
+todo task 4
+list
+done 2
+done 4
+delete 3
+list
+bye
