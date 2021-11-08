@@ -1,10 +1,12 @@
 # User Guide
 
+Hello! This is my user guide for my CLI Duke Task Tracker.
+
 ## Features 
 
 ### List
 
-Calls a function to list all current tasks, deadlines and events
+Calls a function to list all current tasks, deadlines and events.
 
 
 ### Remove
