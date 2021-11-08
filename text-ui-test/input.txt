@@ -1,0 +1,26 @@
+todo Go To School
+todo watch anime
+todo
+deadline do homework /by no idea :-p
+event project meeting /at Mon 2-4pm
+list
+done 2
+list
+deadline return book /by Sunday
+list
+done 3
+done 4
+done 7
+invalidcommand
+deadline /by
+deadline lightnovel /by
+deadline /by 15Aug
+event /at
+event anime /at
+event /at 6pm
+delete 2
+list
+delete
+delete 10
+delete 0
+bye
