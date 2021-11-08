@@ -1,8 +1,18 @@
-# User Guide
+# Duke User Guide
+Duke is a command line task tracking application that helps you keep track of your daily tasks.
 
-Hello! This is my user guide for my CLI Duke Task Tracker.
+## Getting Started
+1. Download JRE11.
+2. Download the latest release `Duke.jar` file.
+3. In the directory containing the `Duke.jar` file, run `java -jar Duke.jar`.
 
-## Features 
+## Features
+* Add a task
+* Delete a task
+* Mark a task as done
+* Find a task
+* List all tasks
+* Exit Duke
 
 ### List
 
