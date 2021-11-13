@@ -210,6 +210,6 @@ Advanced users are able to update the tasks directly by editing the save file.
 | Exit the program            | `bye` | `bye` |
 
 1. testing
-    1. testing
+    a. testing
 2. testing
-    1. testing
+    b. testing
