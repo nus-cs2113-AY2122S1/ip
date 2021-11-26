@@ -1,0 +1,24 @@
+invalid command
+todo
+todo read project guidelines
+deadline
+deadline random stuff
+deadline return project materials /by 27-9-21
+deadline return project materials /by 2021-09-27
+event
+event random stuff
+event Project Meeting /at Mon 2-4pm
+list
+done 1
+list
+done
+done a
+find
+find dog
+find project
+delete 6
+delete 0
+delete
+delete 1
+list
+bye
