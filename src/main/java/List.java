@@ -1,3 +1,6 @@
+//@@author
+
+
 public class List {
     private static String[] currentList = new String[100];
     public static int listSize = 0;
@@ -40,3 +43,5 @@ public class List {
         }
     }
 }
+
+//@@author
