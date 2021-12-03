@@ -1,3 +1,5 @@
+//@@author
+
 import java.util.Scanner;
 
 public class Ui {
@@ -87,3 +89,5 @@ public class Ui {
         System.out.println();
     }
 }
+
+//@@author
