@@ -1,4 +1,5 @@
-//@@author
+//@@author ZhangErliCarl-reused
+//Wrong submission of others' codes
 
 
 public class List {
