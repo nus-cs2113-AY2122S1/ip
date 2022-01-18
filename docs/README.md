@@ -9,7 +9,7 @@ Graphical User Interface (GUI) applications.
 ## Start Guide
 
 1. Ensure that Java Runtime Environment (JRE) 11 is installed on your system
-2. Download the Duke `ip.jar` file from [here](https://github.com/CrimsonTitan79/ip/releases/download/A-Release/ip.jar) to a directory of your choice on your system.
+2. Download the `ip.jar` file from [here](https://github.com/CrimsonTitan79/ip/releases/download/A-Release/ip.jar) to a directory of your choice on your system.
 3. Execute `java -jar ip.jar` in a terminal in the directory chosen previously. The expected output should be:
 
 ```
@@ -44,7 +44,7 @@ How can I help you?
 ___________________________________________________________________________________________
 ```
 
-4. Start adding your tasks to Duke!
+4. Start adding your tasks to Ricky!
 
 ## Features
 
@@ -221,7 +221,7 @@ Now you have 2 tasks in the list.
 
 ### Exiting the Program
 
-Ends and exits Duke.
+Ends and exits Ricky.
 
 Format: `bye`
 
