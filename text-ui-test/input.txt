@@ -1,0 +1,24 @@
+list
+done -1
+todo Work out
+list
+deadline this should not work
+deadline this should word /by 2021-09-01
+list
+event fake event
+event project meeting /at 2021-09-04 1400
+list
+done 1
+list
+done 2
+list
+todo
+event    /at
+deadline    /by
+delete 1
+list
+deadline word limit is not a requirement /by tomorrow
+deadline word limit is not a requirement /by 2021-09-20
+find word
+find not a word
+bye
