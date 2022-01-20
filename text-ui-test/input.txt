@@ -1,0 +1,22 @@
+list
+done 1
+done a
+todo Hang clothes out to dry
+list
+deadline CS2113T project
+deadline CS2113T project /by 2021-09-23 23:59
+list
+event Google Fireside Chat
+event Google Fireside Chat /at 2021-09-15 16:00-18:45
+list
+test
+done 2
+list
+done 1
+list
+find asdf
+find project
+delete 1
+list
+delete 3
+bye
