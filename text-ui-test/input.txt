@@ -1,0 +1,27 @@
+list
+deadline do assignment /by Tuesday 12am
+todo go sleep
+event go outside /at Friday 7pm
+todo cleanup code
+todo buy groceries
+todo
+event
+deadline
+deadline finish 2027 /by Monday
+deadline /by Sunday
+deadline upload file /by
+event /at UTown
+event go CCA /at Monday 7pm
+list
+done 1
+done 3
+list
+done 6
+done 7
+done 123
+done -12
+done
+done abc
+asdhj
+list
+bye
