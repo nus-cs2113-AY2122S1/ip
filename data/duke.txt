@@ -1,0 +1,4 @@
+[T][X] read book
+[D][X] return book /by Jun 1 2021
+[E][ ] project meeting /at Aug 6 2021
+[T][X] join sports club
