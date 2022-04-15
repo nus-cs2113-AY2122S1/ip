@@ -1,10 +1,25 @@
+import java.util.Scanner;
+
 public class Duke {
+
+    /**
+     * Main function to run Duke chat-bot
+     *
+     * @param args
+     */
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        TaskList list = new TaskList();
+        Storage.SetupFile(list);
+
+        Ui.printGreeting();
+        String line;
+        Scanner in = new Scanner(System.in);
+        boolean dukeRunning = true;
+
+        while (dukeRunning) {
+            line = in.nextLine();
+            dukeRunning = Parser.parse(list, line);
+        }
+        Ui.printBye();
     }
 }
