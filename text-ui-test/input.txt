@@ -1,0 +1,19 @@
+list
+done 0
+help
+blah
+todo
+todo read book
+deadline
+deadline /by
+deadline /by tomorrow
+deadline return book /by tomorrow
+event
+event /at
+event /at tomorrow
+event party /at tomorrow
+done -1
+done 100
+list
+done 1 list
+bye
