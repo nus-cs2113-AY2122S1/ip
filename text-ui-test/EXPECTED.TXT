@@ -5,3 +5,164 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+Folder created: data
+File created: duke.txt
+____________________________________________________________
+Hello! I'm Duke
+What can I do for you?
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+? OOPS! I'm sorry, but I don't know what that means ?
+____________________________________________________________
+Enter command: 
+? OOPS! There is no task with this number: 1
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Here are the tasks in your list:
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Got it. I've added this task:
+    [T][ ] homework
+Now you have 1 tasks in the list
+File "duke.txt" updated
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Got it. I've added this task:
+    [T][ ] english essay
+Now you have 2 tasks in the list
+File "duke.txt" updated
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Here are the tasks in your list:
+    1.[T][ ] homework
+    2.[T][ ] english essay
+____________________________________________________________
+Enter command: 
+? OOPS! There is no task with this number: 3
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Here are the tasks in your list:
+    1.[T][ ] homework
+    2.[T][ ] english essay
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Got it. I've added this task:
+    [D][ ] proposal (by: tomorrow 9pm)
+Now you have 3 tasks in the list
+File "duke.txt" updated
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Got it. I've added this task:
+    [D][ ] coding assignment (by: today midnight)
+Now you have 4 tasks in the list
+File "duke.txt" updated
+____________________________________________________________
+Enter command: 
+? The description of "deadline" is not complete
+____________________________________________________________
+Enter command: 
+? "by:" cannot be empty.
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Nice! I've marked this task as done:
+    4.[D][X] coding assignment (by: today midnight)
+File "duke.txt" updated
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Here are the tasks in your list:
+    1.[T][ ] homework
+    2.[T][ ] english essay
+    3.[D][ ] proposal (by: tomorrow 9pm)
+    4.[D][X] coding assignment (by: today midnight)
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Noted. I've removed this task:
+    3.[D][ ] proposal (by: tomorrow 9pm)
+Now you have 3 tasks in the list
+File "duke.txt" updated
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Got it. I've added this task:
+    [E][ ] business meeting (at: my house)
+Now you have 4 tasks in the list
+File "duke.txt" updated
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Got it. I've added this task:
+    [E][ ] wedding dinner (at: hotel)
+Now you have 5 tasks in the list
+File "duke.txt" updated
+____________________________________________________________
+Enter command: 
+? "at:" cannot be empty.
+____________________________________________________________
+Enter command: 
+? The description of "event" is not complete
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Here are the tasks in your list:
+    1.[T][ ] homework
+    2.[T][ ] english essay
+    3.[D][X] coding assignment (by: today midnight)
+    4.[E][ ] business meeting (at: my house)
+    5.[E][ ] wedding dinner (at: hotel)
+____________________________________________________________
+Enter command: 
+? The description of "find" is not complete
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Here are the matching tasks in the list:
+Search Complete. There are no matching tasks in the list.
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Here are the matching tasks in the list:
+    4.[E][ ] business meeting (at: my house)
+    5.[E][ ] wedding dinner (at: hotel)
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Here are the matching tasks in the list:
+    1.[T][ ] homework
+    2.[T][ ] english essay
+____________________________________________________________
+Enter command: 
+? OOPS! There is no task with this number: 6
+____________________________________________________________
+Enter command: 
+? OOPS! There is no task with this number: 6
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Noted. I've removed this task:
+    5.[E][ ] wedding dinner (at: hotel)
+Now you have 4 tasks in the list
+File "duke.txt" updated
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Here are the tasks in your list:
+    1.[T][ ] homework
+    2.[T][ ] english essay
+    3.[D][X] coding assignment (by: today midnight)
+    4.[E][ ] business meeting (at: my house)
+____________________________________________________________
+Enter command: 
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
