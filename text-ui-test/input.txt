@@ -1,0 +1,8 @@
+todo read book
+deadline return book /by 26 Sept
+event Project meeting /at 6pm today
+list
+done 1
+done 2
+list
+bye
