@@ -1,0 +1,19 @@
+todo borrow book
+DeadLine return book /by Sunday
+Event project meeting /at 4th Sep 2-3pm
+DEADLINE /by Monday
+done
+list
+done 1
+list
+done -
+done 0
+done 5
+delete 1
+delete
+delete 0
+list
+delete 1
+delete 1
+list
+bye
