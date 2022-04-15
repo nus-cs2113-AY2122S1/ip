@@ -1,0 +1,16 @@
+hi
+done
+list
+todo eat cake
+deadline execute peasant
+deadline execute peasant /by noon
+event royal council
+event royal council /at throne room, 12PM
+list
+done 1
+done 2
+done 3
+done 4
+done 0
+done -1
+bye
