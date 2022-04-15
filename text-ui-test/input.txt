@@ -1,0 +1,9 @@
+event project meeting /at 2021-10-09 18:00
+deadline submission /by 2021-09-19 23:00
+todo buy food
+list
+done 1
+find submit
+delete 3
+delete -1
+bye
