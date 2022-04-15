@@ -1,0 +1,24 @@
+list
+todo
+todo homework
+event
+event exam /by 2021-12-12
+event exam /at 2021-12-12
+deadline assignment /by Dec 12
+deadline /by 2021-12-12
+deadline assignment /by 2021-12-12
+done 1
+done -10
+done abc
+list
+find
+find book
+find assignment
+delete
+delete 10
+delete abc
+delete 1
+list
+bye
+
+
