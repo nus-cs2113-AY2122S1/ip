@@ -19,3 +19,8 @@ java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+if ERRORLEVEL 1 (
+    echo different
+) else (
+   echo same
+)
