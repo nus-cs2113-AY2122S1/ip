@@ -1,0 +1,68 @@
+package karen.exception;
+
+
+public abstract class ValidityAndErrorCheck {
+
+    /**
+     * This method checks for errors when parsing Task Commands, ie. Deadline Command, Event Command,
+     * ToDo Command.
+     *
+     * @param taskType String that represents the Task Command
+     * @param separator String used to separate task description and date of task for Deadline and Event Commands
+     * @param rawUserInput raw input given by the user that is trimmed with no leading spaces
+     * @throws NoDescriptionException if user inputs a Task Command with no description
+     * @throws IncorrectDescriptionFormatException if user inputs a Task Command with incorrect formatting of description
+     */
+    public static void checkTaskExceptions(String taskType, String separator, String rawUserInput)
+            throws NoDescriptionException, IncorrectDescriptionFormatException {
+        String[] inputWords = rawUserInput.split(" ");
+        if (inputWords.length == 1) {
+            throw new NoDescriptionException();
+        }
+        if (taskType.equals("todo")) {
+            return;
+        }
+        String[] separatedDescription = rawUserInput.split(separator, 2);
+        // for eg. "event /at"
+        if (separatedDescription.length == 1) {
+            throw new IncorrectDescriptionFormatException();
+        }
+        // for eg. "event 21-03-2020"
+        if (!rawUserInput.contains(separator)) {
+            throw new IncorrectDescriptionFormatException();
+        }
+        // for eg. "event /at 21-03-2020"
+        if (separatedDescription[0].equalsIgnoreCase(taskType)) {
+            throw new IncorrectDescriptionFormatException();
+        }
+    }
+
+    /**
+     * This method checks for errors when parsing the Commands given by user.
+     *
+     * @param command String that represents the user command
+     * @param rawUserInput raw input given by the user that is trimmed with no leading spaces
+     * @throws NoDescriptionException if user inputs a Command with no description
+     * @throws IncorrectDescriptionFormatException if user inputs a Command with incorrect formatting of description
+     */
+    public static void checkCommandDescriptionExceptions(String command, String rawUserInput)
+            throws NoDescriptionException, IncorrectDescriptionFormatException {
+        String[] inputWords = rawUserInput.split(" ");
+        if (command.equals("find")) {
+            inputWords = rawUserInput.split(" ", 2);
+        }
+        if (command.equals("bye")) {
+            if (inputWords.length != 1) {
+                throw new IncorrectDescriptionFormatException();
+            }
+            return;
+        }
+        if (inputWords.length == 1) {
+            throw new NoDescriptionException();
+        }
+        if (inputWords.length > 2) {
+            throw new IncorrectDescriptionFormatException();
+        }
+    }
+
+}
