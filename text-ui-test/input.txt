@@ -1,0 +1,25 @@
+gibberish
+list
+todo
+todo exercise
+deadline
+deadline /by
+deadline assignment /by
+deadline assignment /by today
+event
+event /at
+event cca meeting /at
+event cca meeting /at Monday
+list
+done
+done gibberish
+done 5
+done 1
+done 3
+list
+delete
+delete gibberish
+delete 1
+delete 5
+list
+bye
