@@ -1,0 +1,4 @@
+D | 1 | do homework | Sunday
+D | 1 | meeting | saturday
+E | 1 | meeting  | 2pm 
+D | 0 | application  | friday
