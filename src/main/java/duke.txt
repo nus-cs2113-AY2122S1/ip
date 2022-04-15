@@ -1,0 +1,47 @@
+T | 1 | read book
+D | 0 | return book | June 6th
+E | 0 | project meeting | Aug 6th 2-4pm
+T | 1 | join sports club
+1 | T |   |  cwecwecewcewce
+2 | T |   |  wefwefwfweff
+01T |   |  ff
+12T |   |  dddddd
+01T |   |  rrrr
+0 1T |   |  wrrer
+0 1 | T |   |  rrrrrr
+1 | T |   |  yyy
+1 | T |   |  qw
+1 | T |   |  sdfdsfsff
+1 | T |   |  dadadda
+1 | T |   |  rrr
+1 | T |   |  rrr
+2 | E |   |  asas  (at:  dadadd)
+3 | D |   |  adadad  (by:  adadad)
+1 | T |   |  eeeeee
+2 | D |   |  adadasas  (by:  fsfsfsff)
+3 | E |   |  aadada  (at:  ffsfsfsf)
+1 | T |   |  book book
+1 | T |   |  book 
+2 | T |   |  nana
+1 | T |   |  book
+2 | T |   |  nana
+1 | T |   |  book
+2 | T |   |  nana
+1 | T |   |  book
+2 | T |   |  naan
+1 | T |   |  book
+2 | T |   |  naaaaan
+1 | T |   |  book
+2 | T |   |  naan
+3 | T |   |  bookook
+1 | T |   |  eat bread
+2 | D |   |  complete 2113T code  (by:  Sun 11pm)
+3 | E |   |  meet friends for dinner  (at:  Sat 6pm)
+1 | T |   |  aaaa
+2 | T |   |  ssss
+3 | T |   |  rrrrr
+1 | T |   |  rrr
+1 | E |   |  aaaa  (at:  aaaa)
+2 | E |   |  asdsda  (at:  6pm)
+3 | T |   |  rrr
+4 | D |   |  aaaa  (by:  sssss)
