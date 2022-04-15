@@ -1,0 +1,14 @@
+purge
+delete 0
+delete -1
+delete 1
+todo read book
+event book meeting /at 2021-06-06 06:00
+list
+done 1
+list
+delete 3
+list
+delete 1
+list
+bye
