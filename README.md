@@ -1,24 +1,21 @@
-# Duke project template
+# Duke User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Duke is a CLI-based application with similar functionalities to TodoList apps.
 
-## Setting up in Intellij
+## Setting up and running Duke
+1. Ensure you have java installed on your operating system. You can download Java from https://www.java.com/en/download/manual.jsp.
+2. You can download Duke's jarfile from https://github.com/Rakesh12000/ip/releases/download/v2.0/ip.jar. It is best to keep it in an easily accessible directory. E.g. C:\Users\[UserName]\Desktop\jarfile
+3. Run command prompt and navigate to your jarfile directory using cd. E.g. "cd C:\Users\[UserName]\Desktop\jarfile".
+4. Type command "java -jar ip.jar". This will run Duke.
+5. Duke will prompt you to type in a directory where you can save the data file. Duke will then handle the creation of a text file 'duke.txt' in this folder to save your tasks.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
-
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Duke commands
+1. Adding Tasks
+   1. Adding Todo Task :      **"todo [task description]"**
+   1. Adding Deadline Task :  **"deadline [task description /by yyyy-mm-dd HHMM]"**
+   1. Adding Event Task :     **"event [task description /at date/place]"**
+1. Viewing Tasks :            **"list"**
+1. Finding Certain Tasks :    **"find [keyword]"**
+1. Marking Tasks As Done :    **"done [task number]"**
+1. Removing Tasks :           **"delete [task number]"**
+1. Exiting Program:           **"bye"**
