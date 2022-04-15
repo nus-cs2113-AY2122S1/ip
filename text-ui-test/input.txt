@@ -1,0 +1,21 @@
+todo read book
+deadline return book /by Sunday
+event group meeting /at Thursday 4-5pm
+list
+done 1
+done 2
+list
+done 3
+oh no I forgot to return the book
+I mean, new deadline return book /by ASAP
+deadline return book /by ASAP
+event pay library fine /at ASAP
+done 4
+done 5
+delete 1
+list
+delete 2
+list
+todo borrow new book
+list
+bye

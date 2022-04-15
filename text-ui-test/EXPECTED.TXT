@@ -1,7 +1,63 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hi! I'm Herrick, your task manager.
+What would you like to add to your timetable?
+Alright. I'll put it on the list.
+  [T][ ] read book
+For now, you have 1 task on the list
+Alright. I'll put it on the list.
+  [D][ ] return book (by: Sunday)
+For now, you have 2 tasks on the list
+Alright. I'll put it on the list.
+  [E][ ] group meeting (at: Thursday 4-5pm)
+For now, you have 3 tasks on the list
+Here are the tasks in your list:
+1. [T][ ] read book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] group meeting (at: Thursday 4-5pm)
+Nice! I've marked this task as done:
+  [T][X] read book
+Nice! I've marked this task as done:
+  [D][X] return book (by: Sunday)
+Here are the tasks in your list:
+1. [T][X] read book
+2. [D][X] return book (by: Sunday)
+3. [E][ ] group meeting (at: Thursday 4-5pm)
+Nice! I've marked this task as done:
+  [E][X] group meeting (at: Thursday 4-5pm)
+ERROR! Please follow format in README.md
+Your input: oh no I forgot to return the book
+ERROR! Please follow format in README.md
+Your input: I mean, new deadline return book /by ASAP
+Alright. I'll put it on the list.
+  [D][ ] return book (by: ASAP)
+For now, you have 4 tasks on the list
+Alright. I'll put it on the list.
+  [E][ ] pay library fine (at: ASAP)
+For now, you have 5 tasks on the list
+Nice! I've marked this task as done:
+  [D][X] return book (by: ASAP)
+Nice! I've marked this task as done:
+  [E][X] pay library fine (at: ASAP)
+Aite. I've removed this task:
+  [T][X] read book
+Now you have 4 tasks left to do
+Here are the tasks in your list:
+1. [D][X] return book (by: Sunday)
+2. [E][X] group meeting (at: Thursday 4-5pm)
+3. [D][X] return book (by: ASAP)
+4. [E][X] pay library fine (at: ASAP)
+Aite. I've removed this task:
+  [E][X] group meeting (at: Thursday 4-5pm)
+Now you have 3 tasks left to do
+Here are the tasks in your list:
+1. [D][X] return book (by: Sunday)
+2. [D][X] return book (by: ASAP)
+3. [E][X] pay library fine (at: ASAP)
+Alright. I'll put it on the list.
+  [T][ ] borrow new book
+For now, you have 4 tasks on the list
+Here are the tasks in your list:
+1. [D][X] return book (by: Sunday)
+2. [D][X] return book (by: ASAP)
+3. [E][X] pay library fine (at: ASAP)
+4. [T][ ] borrow new book
+Bye. Hope you will complete everything for today!
