@@ -1,0 +1,23 @@
+help
+to do 1
+to do 2
+to do 3
+to do 4
+list
+event run /at 2pm
+deadline assignment /by 4pm
+deadline assignment /by 02 06 2021 14:02
+event 12km marathon /at 02 04 2021 15:00
+list
+deadline cg2027 /by 03 09 2021 00:00
+event conference /at 09 04 2021 08:00
+delete 1
+delete 2
+done 1 2 3
+list
+find cg2027
+event 24km run /at 09 04 2021 08:00
+deadline 2113T assignment /by 09 12 2021 16:30
+find run
+list
+bye
