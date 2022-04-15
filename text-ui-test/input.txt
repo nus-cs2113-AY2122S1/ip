@@ -1,0 +1,14 @@
+todo borrow book
+deadline read book /by September 4th
+deadline return book /by September 6th
+event basketball training /at Wed 8-11pm
+list
+done 1
+done 2
+done 4
+list
+done 3
+deadline finish individual project /by no idea :-P
+list
+LebronJames
+bye
