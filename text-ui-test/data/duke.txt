@@ -1,0 +1,5 @@
+[T]|1|borrow book
+[D]|1|CS2113T iP final submission|2021-10-01 23:59
+[E]|0|CS2106 Midterm F2F|2021-09-29 14:15
+[E]|0|CS2105 Midterm Luminous|2021-10-04 14:00
+[E]|0|GEH1062 Midterm Luminous|2021-10-05 16:15
