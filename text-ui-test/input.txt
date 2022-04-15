@@ -1,0 +1,28 @@
+todo read book
+deadline return book /by June 6th
+done 1
+event project meeting /at Aug 6th 2-4pm
+to join sports club
+todo join sports club
+done  4
+todo borrow book
+list
+deadlineread book/bySunday
+eventlive lecture/atMon 2-4pm
+done5
+done 5
+done three
+done
+event   live performance    /at  6pm
+event CS2113T lecture /by tomorrow
+deadline    submit assignment  /by   8/9/2021
+deadline hand up homework / by friday
+list
+done 15
+delete 2
+delete  3
+dellete 3
+delete4
+delete two
+delete 20
+bye
