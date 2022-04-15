@@ -1,0 +1,9 @@
+todo a
+TODO b
+todo     c
+DeAdline d /by asdf
+EVENT asdf /at e
+done 1 2 3, 4 and 99
+list
+lmao
+bye

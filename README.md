@@ -1,24 +1,115 @@
-# Duke project template
+# Billy User Guide
+Billy is task management application for managing regular tasks, deadlines and events. Billy interacts with the user using a CLI (Command Line Interface).
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Prerequisites: JDK 11.
 
-## Setting up in Intellij
+---
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## For First-time Users:
+1. Download `Billy.jar` into your desired directory.
+2. Run `java -jar Billy.jar` within the directory where `Billy.jar` is located to launch the program.
+3. When the program runs, a new folder `data` containing `BillyData.txt` will be created.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+## Using Billy:
+Upon startup, the user will be greeted with the following message.
    ```
    Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+ ______    _   __   __            
+|_   _ \  (_) [  | [  |           
+  | |_) | __   | |  | |   _   __  
+  |  __'.[  |  | |  | |  [ \ [  ] 
+ _| |__) || |  | |  | |  \ '/  /  
+|_______/[___][___][___][\_: /   
+                           \__.'    
+____________________________________________________________
+Hello! I'm Billy
+____________________________________________________________
    ```
+Following which, the user can use the CLI to make use of Billy's respective features.
+
+> **Notes about the command format:**
+> - Words in `<UPPER_CASE>` surrounded by angle brackets are **required** parameters to be supplied by the user
+> - Items in square brackets `[ ]` are **optional**.
+
+---
+
+## Summary of Features
+* [Add a to-do task](#todo---add-a-to-do-task)
+* [Add a deadline](#deadline---add-a-deadline)
+* [Add an event](#event---add-an-event)
+* [List current tasks](#list---display-the-current-list-of-tasks-with-their-respective-ids)
+* [Mark tasks as done](#done---mark-tasks-as-done)
+* [Find tasks containing a given description](#find---find-a-task-with-a-given-description)
+* [Delete tasks](#delete---delete-tasks)
+* [Terminate program](#bye--terminate-the-program)
+
+---
+
+### `todo` - Add a to-do task
+Format: `todo <DESCRIPTION>`
+
+Example: `todo Buy an apple`
+
+---
+
+### `deadline` - Add a deadline
+Format: `deadline  <DESCRIPTION> /by <DATE> [TIME]`
+> - Date is to be input in the following format:  `dd/MM/yyyy`
+>
+> - Time is to be input in the following format: `HH:mm`
+
+Example 1: `deadline Finish homework /by 29/12/2021 23:59`
+
+Example 2: `deadline Finish homework /by 29/12/2021`
+
+---
+
+### `event` - Add an event
+Format: `event  <DESCRIPTION> /at <DATE> [TIME]`
+> - Date is to be input in the following format:  `dd/MM/yyyy`
+>
+> - Time is to be input in the following format: `HH:mm`
+
+Example 1: `event Concert /at 29/12/2021 20:00`
+
+Example 2: `event Concert /at 29/12/2021`
+
+---
+
+### `list` - Display the current list of tasks with their respective IDs
+Format: `list`
+
+---
+
+### `done` - Mark tasks as done
+Format: `done <TASK_IDs>`
+> - Multiple tasks can be marked as done with a single command as long as the task IDs are separated by any character.
+
+Example 1: `done 1 2 3`
+
+Example 2: `done 1, 2 and 3`
+
+---
+
+### `find` - Find a task with a given description
+Format: `find <DESCRIPTION>`
+
+Example: `find iP user guide increment`
+
+---
+
+### `delete` - Delete tasks
+Format: `delete <TASK_IDs>`
+> - Multiple tasks can be marked as done with a single command as long as the task IDs are separated by any character.
+
+Example 1: `delete 1 2 3`
+
+Example 2: `delete 1, 2 and 3`
+
+--- 
+
+### `bye`- Terminate the program
+Format: `bye`
+
+---
+[Back to top](#billy-user-guide)
