@@ -1,0 +1,8 @@
+boo
+todo run
+deadline exam /by sunday
+event new game /at december 7th 2021
+list
+done 3
+list
+bye
