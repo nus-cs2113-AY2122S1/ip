@@ -1,0 +1,6 @@
+[E],[ ],Nirmaleshwar attend CS2113T lecture ,Friday 17 Sep 2021 from 4-6 pm
+[T],[ ],stuff
+[T],[ ],return book
+[T],[ ],exercise
+[D],[X],finish homework ,7:30 pm Sunday
+[E],[ ],attend party ,Marina Bay Sands from 1200 hrs
