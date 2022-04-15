@@ -1,0 +1,6 @@
+[T] [X] math homework
+[D] [ ] tryout /2010-03-04
+[E] [X] math quiz /2020-06-07
+[D] [X] math homework /2000-09-10
+[E] [X] where /2020-09-06
+[T] [ ] homework
