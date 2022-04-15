@@ -12,6 +12,12 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+data/
+
+# Ignore .class files
+*.class
+
+src/main/java/META-INF
 
 /text-ui-test/ACTUAL.txt
 text-ui-test/EXPECTED-UNIX.TXT
