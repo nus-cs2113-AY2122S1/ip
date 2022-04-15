@@ -1,0 +1,12 @@
+todo search for cs2113t tp ideas
+event cs2101 meeting /at 9pm Saturday
+deadline finish up ip /by thursday 2359
+list
+done 4
+list
+done 3
+list
+deadline finish up cs2113t /by tonight
+delete 2
+list
+bye
