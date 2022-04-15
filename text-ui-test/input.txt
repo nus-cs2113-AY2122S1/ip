@@ -1,0 +1,12 @@
+todo work
+event watch lecture /at: 12pm today
+deadline submit project /by: 2359 tomorrow
+list
+done 1
+todo even more work
+list
+delete 4
+delete 7
+done 1
+find work
+bye
