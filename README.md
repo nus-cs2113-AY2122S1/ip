@@ -22,3 +22,13 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
+## References and Acknowledgement
+- Converting text for Alfred: <br />
+  https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
+- Inspiration for OOP structure: AddressBook (Level 2) <br />
+  https://github.com/se-edu/addressbook-level2
+- Inspiration for User Guide crafting: AddressBook (Level 3) <br />
+  https://se-education.org/addressbook-level3/UserGuide.html
+- GitHub Markdown Emoji Syntax for User Guide: <br />
+  https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md
