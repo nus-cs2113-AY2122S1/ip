@@ -1,0 +1,19 @@
+todo borrow book
+list
+deadline return book /by 02/12/2021 1830
+event project meeting /at 31/03/2022 1200
+done 2
+list
+done 2
+done 5
+afhnjaqoifrrqo9irthq
+event lunch
+event lunch /at
+deadline assignment
+deadline assignment /by
+delete 3
+deadline assignment /by 06-08-2021 1830
+list
+find borrow
+find book
+bye
