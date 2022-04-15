@@ -1,7 +1,78 @@
-Hello from
- ____        _        
+ ____        _
 |  _ \ _   _| | _____ 
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+_____________________________________________
+Hello! I'm Duke
+What can I do for you?
+_____________________________________________
+_____________________________________________
+Got it!! I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+_____________________________________________
+_____________________________________________
+Got it!! I've added this task:
+[T][ ] work out
+Now you have 2 tasks in the list.
+_____________________________________________
+_____________________________________________
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[T][ ] work out
+_____________________________________________
+_____________________________________________
+Got it!! I've added this task:
+[D][ ] return book (by: Sunday)
+Now you have 3 tasks in the list.
+_____________________________________________
+_____________________________________________
+Nice! I've marked this task as done:
+borrow book
+_____________________________________________
+_____________________________________________
+☹ OOPS!!! The description of a deadline cannot be empty.
+_____________________________________________
+_____________________________________________
+Nice! I've marked this task as done:
+work out
+_____________________________________________
+_____________________________________________
+Got it!! I've added this task:
+[D][ ] do homework (by: no idea :-p)
+Now you have 4 tasks in the list.
+_____________________________________________
+_____________________________________________
+☹ OOPS!!! Please enter a number after done.
+_____________________________________________
+_____________________________________________
+Here are the tasks in your list:
+1.[T][X] borrow book
+2.[T][X] work out
+3.[D][ ] return book (by: Sunday)
+4.[D][ ] do homework (by: no idea :-p)
+_____________________________________________
+_____________________________________________
+Nice! I've marked this task as done:
+return book
+_____________________________________________
+_____________________________________________
+☹ OOPS!!! The description of an event cannot be empty.
+_____________________________________________
+_____________________________________________
+Here are the tasks in your list:
+1.[T][X] borrow book
+2.[T][X] work out
+3.[D][X] return book (by: Sunday)
+4.[D][ ] do homework (by: no idea :-p)
+_____________________________________________
+_____________________________________________
+Got it!! I've added this task:
+[E][ ] project meeting (at: Mon 2-4pm)
+Now you have 5 tasks in the list.
+_____________________________________________
+_____________________________________________
+Bye. Hope to see you again soon!
+_____________________________________________
