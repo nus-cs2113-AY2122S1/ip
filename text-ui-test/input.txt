@@ -1,0 +1,60 @@
+list
+list 1
+
+done
+done 1
+done 1 2
+done cs2113t
+
+todo
+todo cs2113t
+todo cs2113t with cs2101
+
+list
+
+deadline
+deadline cs2113t
+deadline cs2113t with cs2101
+deadline /by
+deadline /by someday
+deadline /by someday oneday
+deadline cs2113t with cs2101 /by
+deadline cs2113t with cs2101 /by someday
+deadline cs2113t with cs2101 /by someday oneday
+deadline cs2113t with cs2101 /by someday /by
+deadline cs2113t with cs2101 /by someday /by oneday
+deadline cs2113t with cs2101 /by 2021-05-05
+deadline cs2113t with cs2101 /by 2021-06-06 1359
+
+list
+
+event
+event cs2113t
+event cs2113t with cs2101
+event /by
+event /by someday
+event /by someday oneday
+event cs2113t with cs2101 /at
+event cs2113t with cs2101 /at someday
+event cs2113t with cs2101 /at someday oneday
+event cs2113t with cs2101 /at someday /by
+event cs2113t with cs2101 /at someday /by oneday
+event cs2113t with cs2101 /at 2021-05-05
+event cs2113t with cs2101 /at 2021-06-06 1359
+
+list
+
+done 0
+done 1
+done 11
+
+list
+
+delete something
+delete 0
+delete 1
+
+find
+find cs2113t
+
+bye

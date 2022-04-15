@@ -1,7 +1,110 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+[X] Error reading save file! Starting from clean slate...
+____________________________________________________________
+[*] Detecting chat-bot version...
+[+] Chat-bot version is *VULNERABLE*!
+[*] Hacking into the chat-bot...
+[*] Escalating privileges...
+[+] Interactive shell spawned. You can now manipulate the chat-bot directly!
+____________________________________________________________
+[root@taskmon ~]$ [*] Here are your list of tasks:
+[X] No tasks found :(
+[root@taskmon ~]$ [X] Usage: list
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [X] Usage: done <Task Index>
+[root@taskmon ~]$ [-] Task not found
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [X] Usage: todo <Task Description>
+[root@taskmon ~]$ [+] Task added:
+   [T][ ] cs2113t
+[=] You now have 1 tasks in the list.
+[root@taskmon ~]$ [+] Task added:
+   [T][ ] cs2113t with cs2101
+[=] You now have 2 tasks in the list.
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [*] Here are your list of tasks:
+   1.[T][ ] cs2113t
+   2.[T][ ] cs2113t with cs2101
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [X] Usage: deadline <Task Description> /by <Timestamp>
+[root@taskmon ~]$ [X] Usage: deadline <Task Description> /by <Timestamp>
+[root@taskmon ~]$ [X] Usage: deadline <Task Description> /by <Timestamp>
+[root@taskmon ~]$ [X] Usage: deadline <Task Description> /by <Timestamp>
+[root@taskmon ~]$ [X] Usage: deadline <Task Description> /by <Timestamp>
+[root@taskmon ~]$ [X] Usage: deadline <Task Description> /by <Timestamp>
+[root@taskmon ~]$ [X] Usage: deadline <Task Description> /by <Timestamp>
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [+] Task added:
+   [D][ ] cs2113t with cs2101 (by: May 5 2021 0000)
+[=] You now have 3 tasks in the list.
+[root@taskmon ~]$ [+] Task added:
+   [D][ ] cs2113t with cs2101 (by: Jun 6 2021 1359)
+[=] You now have 4 tasks in the list.
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [*] Here are your list of tasks:
+   1.[T][ ] cs2113t
+   2.[T][ ] cs2113t with cs2101
+   3.[D][ ] cs2113t with cs2101 (by: May 5 2021 0000)
+   4.[D][ ] cs2113t with cs2101 (by: Jun 6 2021 1359)
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Usage: event <Task Description> /at <Timestamp>
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [+] Task added:
+   [E][ ] cs2113t with cs2101 (at: May 5 2021 0000)
+[=] You now have 5 tasks in the list.
+[root@taskmon ~]$ [+] Task added:
+   [E][ ] cs2113t with cs2101 (at: Jun 6 2021 1359)
+[=] You now have 6 tasks in the list.
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [*] Here are your list of tasks:
+   1.[T][ ] cs2113t
+   2.[T][ ] cs2113t with cs2101
+   3.[D][ ] cs2113t with cs2101 (by: May 5 2021 0000)
+   4.[D][ ] cs2113t with cs2101 (by: Jun 6 2021 1359)
+   5.[E][ ] cs2113t with cs2101 (at: May 5 2021 0000)
+   6.[E][ ] cs2113t with cs2101 (at: Jun 6 2021 1359)
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [-] Task not found
+[root@taskmon ~]$ [+] Task marked as done:
+   [T][X] cs2113t
+[root@taskmon ~]$ [-] Task not found
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [*] Here are your list of tasks:
+   1.[T][X] cs2113t
+   2.[T][ ] cs2113t with cs2101
+   3.[D][ ] cs2113t with cs2101 (by: May 5 2021 0000)
+   4.[D][ ] cs2113t with cs2101 (by: Jun 6 2021 1359)
+   5.[E][ ] cs2113t with cs2101 (at: May 5 2021 0000)
+   6.[E][ ] cs2113t with cs2101 (at: Jun 6 2021 1359)
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [X] Error converting argument!
+[root@taskmon ~]$ [-] Task not found
+[root@taskmon ~]$ [+] Task removed:
+   [T][X] cs2113t
+[=] You now have 5 tasks in the list.
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ [X] Usage: find <Keyword>
+[root@taskmon ~]$ [*] Here are the matching tasks in your list:
+   1.[T][ ] cs2113t with cs2101
+   2.[D][ ] cs2113t with cs2101 (by: May 5 2021 0000)
+   3.[D][ ] cs2113t with cs2101 (by: Jun 6 2021 1359)
+   4.[E][ ] cs2113t with cs2101 (at: May 5 2021 0000)
+   5.[E][ ] cs2113t with cs2101 (at: Jun 6 2021 1359)
+[root@taskmon ~]$ [X] Command not found
+[root@taskmon ~]$ ____________________________________________________________
+[*] Deleting traces of compromise...
+[+] Bye. Hope to see you again soon!
+____________________________________________________________
