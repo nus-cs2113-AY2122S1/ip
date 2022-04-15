@@ -1,0 +1,17 @@
+view -h
+todo play games
+deadline do assignment /by Sunday 6pm
+event attend lecture /by Friday 4-6pm
+list
+false input
+todo
+done 1
+list
+done 2 3
+list
+delete 2
+list
+delete
+delete all
+list
+bye
