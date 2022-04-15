@@ -1,7 +1,99 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+        ___      __    __       _______.___________.__  .__   __.
+       /   \    |  |  |  |     /       |           |  | |  \ |  |
+      /  ^  \   |  |  |  |    |   (----`---|  |----|  | |   \|  |
+     /  /_\  \  |  |  |  |     \   \       |  |    |  | |  . `  |
+    /  _____  \ |  `--'  | .----)   |      |  |    |  | |  |\   |
+   /__/     \__\ \______/  |_______/       |__|    |__| |__| \__|  
+Hello! I'm Austin.
+What can I do for you?
+In case, if you are unsure of any commands, please type "help".
+Currently, you have no tasks in your list.
+___________________COMMAND ACTIVATED__________________
+Below are the list of valid commands:
+todo <task_description>
+event <task_description> | <date(d/m/yyyy)> <time(HHmm)>
+deadline <task_description> | <date(d/m/yyyy)> <time(HHmm)>
+done <task_id>
+undo <task_id>
+list
+delete <task_id>
+clear
+bye
+help
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Sorry. There are no tasks in the list right now.
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Noted. I have successfully added this task:
+[T] [ ] CS2113 A-UserGuide
+Now, you have only 1 task in the list.
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Noted. I have successfully added this task:
+[D] [ ] CS2113 project (by: Oct 01 2021 2359)
+Now, you have 2 tasks in the list.
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Noted. I have successfully added this task:
+[E] [ ] CS2113 finals (at: Nov 30 2021 0900)
+Now, you have 3 tasks in the list.
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Here are the matching tasks in your list:
+1. [D] [ ] CS2113 project (by: Oct 01 2021 2359)
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Below are the list of tasks in your list:
+1. [T] [ ] CS2113 A-UserGuide
+2. [D] [ ] CS2113 project (by: Oct 01 2021 2359)
+3. [E] [ ] CS2113 finals (at: Nov 30 2021 0900)
+Currently, you have 3 tasks in your list.
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Amazing! I have marked this task as done:
+[D] [X] CS2113 project (by: Oct 01 2021 2359)
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Noted. I have deleted the following task:
+[D] [X] CS2113 project (by: Oct 01 2021 2359)
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Amazing! I have marked this task as done:
+[E] [X] CS2113 finals (at: Nov 30 2021 0900)
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Noted. I have marked this task as incomplete:
+[E] [ ] CS2113 finals (at: Nov 30 2021 0900)
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+All the tasks are cleared from the list.
+___________________COMMAND EXECUTED___________________
+Anything else?
+In case, if you are unsure of any commands, please type "help".
+___________________COMMAND ACTIVATED__________________
+Bye. Hope to see you again soon!
+___________________SHUTTING DOWN______________________
