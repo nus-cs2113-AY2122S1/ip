@@ -13,5 +13,16 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.txt
-text-ui-test/EXPECTED-UNIX.TXT
+# Test files
+text-ui-test/actual/
+
+src/main/java/tags
+tags
+
+DukeData/
+DukeData2/
+
+src/main/java/META-INF/
+text-ui-test/inputs/done.txt
+
+temp
