@@ -1,24 +1,38 @@
-# Duke project template
-
+# Duke project
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
-## Setting up in Intellij
+## Functions of Duke
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+1. `Todo <taskname_here>` This creates a simple Todo task.
+2. `Deadline <taskname_here> /by <date_here>` This creates a Deadline task.
+   - Example:
+   - `deadline math assignment /by 12 october, 2019`
+3. `Event <taskname_here> /at <date_here>` This creates an Event task.
+   - Example:
+   - `event Christmas Dinner /at 25 December, 2022`
+    - Example:
+    - `deadline math assignment /by 12 october, 2019`
+3. `Event <taskname_here> /at <date_here>` This creates an Event task.
+    - Example:
+    - `event Christmas Dinner /at 25 December, 2022`
+4. `find <search_query_here>` This prints out any task that contains `<search_query_here>`
+5. `done <task_number>` This marks the task as done.
+6. `delete <task_number>` This deletes the task from the task list.
+7. `list` This lists out the whole list of tasks which have been input by the user.
+8. `bye` This would exit the programme.
+
+First run of the programme should give an output like this:
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+    ___
+ __/_  `.  .-"""-.
+ \_,` | \-'  /   )`-')
+  "") `"`    \  ((`"`
+ ___Y  ,    .'7 /|
+(_,___/...-` (_/_/ 
+Hello! I'm Duke the Dancing Doggo.
+Anything I can help you with, young Padawan?
+_____________________________________________________
+=>
    ```

@@ -1,0 +1,79 @@
+import java.util.ArrayList;
+
+public class Ui {
+
+    private static final String LINE_SEPARATOR = ("_____________________________________________________");
+
+    public static void printSeparator() {
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    /**
+     * Function prints only the list of matching tasks from the user's FIND query.
+     *
+     * @param tasks ArrayList of tasks
+     * @param query user input
+     */
+    public static void printMatchingList(ArrayList<Task> tasks, String query) {
+        int count = 0;
+        if (tasks.size() == 0) {
+            System.out.println("I'm sorry, there is no task containing your word.");
+        } else {
+            System.out.println("Here is your list of tasks containing " + "' " + Parser.getQueryDescription(query) + "'" + ":");
+            for (Task item : tasks) {
+                if (tasks.get(count) != null) {
+                    count++;
+                    System.out.println(count + ". " + item);
+                }
+            }
+        }
+    }
+
+    /**
+     * Return void. Function is responsible for printing out the whole task list of the user.
+     *
+     * @param tasks list of tasks input by user.
+     */
+    public static void printList(ArrayList<Task> tasks) {
+        int count = 0;
+        if (tasks.size() == 0) {
+            System.out.println("Well... your list is looking very scarce...");
+        } else {
+            System.out.println("Here is your list:");
+            for (Task item : tasks) {
+                if (tasks.get(count) != null) {
+                    count++;
+                    System.out.println(count + ". " + item);
+                }
+            }
+        }
+    }
+
+    public static void printDone(Task task) {
+        System.out.println("You have marked item " + task.description + " as done:");
+        System.out.println(task.getStatusIcon() + " " + task.description);
+    }
+
+    public static void printDeletedMessage(Task task) {
+        System.out.println("You have deleted the item: " + "\n" + task);
+    }
+
+    public static void printGreeting() {
+        String FACE = "    ___\n"
+                + " __/_  `.  .-\"\"\"-.\n"
+                + " \\_,` | \\-'  /   )`-')\n"
+                + "  \"\") `\"`    \\  ((`\"`\n"
+                + " ___Y  ,    .'7 /|\n"
+                + "(_,___/...-` (_/_/ ";
+
+        System.out.println(FACE);
+        System.out.println("Hello! I'm Duke the Dancing Doggo.");
+        System.out.println("Anything I can help you with, young Padawan?");
+        printSeparator();
+    }
+
+    public static void printGoodbyeMessage() {
+        System.out.println("It's over Anakin... I can finally eat my lun-");
+        System.out.println(LINE_SEPARATOR);
+    }
+}
