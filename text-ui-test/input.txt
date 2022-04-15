@@ -1,0 +1,14 @@
+list
+abc
+todo borrow book
+deadline return book /by December 1st
+event project meeting /at Mon 2-4pm
+list
+done 1
+done 2
+done 2
+list
+undo 1
+undo 1
+list
+bye
