@@ -1,0 +1,35 @@
+deadline 
+deadline submit report
+deadline submit report /by
+deadline submit report /by tuesday
+deadline submit report /by 21 09 2021 2359
+deadline return book /by 25 0 2021
+deadline return book /by 25 10 2021 0900
+list
+done
+done 1
+todo
+done 2
+todo buy groceries
+eventlunch
+event lunch
+event /at 
+event lunch /at 
+event lunch /at Thursday noon
+list
+done a
+done 4
+event dinner /at Friday 6pm
+done 4
+delete 4
+delete 4
+list
+delete 1
+done 2
+todo read book
+list
+find book
+find
+find re
+invalid
+bye
