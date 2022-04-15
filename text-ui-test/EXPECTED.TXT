@@ -1,7 +1,33 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Username [dukeBot]: Password [bukeDot]:                  ...                 
+Hello Username!
+I'm Duke
+What can I do for you?
+                 ...                 
+ /          / 
+1. [T] [ ] read book
+2. [T] [ ] return book /by 2021-06-06
+3. [T] [ ] project meeting /at 2021-08-06 2-4 PM
+4. [T] [ ] join sports club
+5. [T] [ ] borrow book
+ /          / 
+ /          / 
+1. [T] [ ] read book
+2. [T] [ ] return book /by 2021-06-06
+3. [T] [ ] project meeting /at 2021-08-06 2-4 PM
+4. [T] [ ] join sports club
+5. [T] [ ] borrow book
+ /          / 
+remove read book, project meeting /at 2021-08-06 2-4 PM, borrow book, 
+ / done tasks, good job! / 
+Command not recognized. Please enter a command again!
+Command not recognized. Please enter a command again!
+ /          / 
+1. [T] [✓] read book
+2. [T] [ ] return book /by 2021-06-06
+3. [T] [✓] project meeting /at 2021-08-06 2-4 PM
+4. [T] [ ] join sports club
+5. [T] [✓] borrow book
+ /          / 
+                 ...                 
+Bye. Hope to see you  again soon!
+                 ...                 

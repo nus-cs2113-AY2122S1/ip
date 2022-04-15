@@ -1,0 +1,19 @@
+Username
+Password
+add
+read book
+return book /by 2021-06-06
+project meeting /at 2021-08-06 2-4 PM
+join sports club
+borrow book
+stop
+list
+deadline
+5 Sunday
+list
+done
+1 3 5
+delete
+2
+list
+bye
