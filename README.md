@@ -8,7 +8,7 @@ Project Duke is a educational software project designed to take you through the 
 
 **The project aims to build a product named Duke, a Personal Assistant Chatbot that helps a person to keep track of various things.** The name Duke was chosen as a placeholder name, in honor of [Duke, the Java Mascot](https://www.oracle.com/java/duke.html). You may give it any other name and personality you wish.
 
-> 🥳 [**User Guide**](https://yuxinn-j.github.io/ip/)
+> 🥳 [**User Guide**](https://yuxinn-j.github.io/ip-Personal-Assistant-Chatbot/)
 
 ## Setting up in Intellij
 
